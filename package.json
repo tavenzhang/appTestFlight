@@ -7,10 +7,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "jcore-react-native": "^1.2.5",
+    "jpush-react-native": "^2.1.11",
     "react": "16.2.0",
     "react-native": "0.53.0",
     "react-native-action-button": "^2.8.4",
     "react-native-blur": "^3.2.2",
+    "react-native-code-push": "^5.2.2",
     "react-native-device-info": "^0.15.1",
     "react-native-drawer": "^2.5.0",
     "react-native-fast-image": "^2.2.4",
