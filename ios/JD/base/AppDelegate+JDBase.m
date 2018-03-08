@@ -15,9 +15,14 @@
 #import <Bugly/Bugly.h>
 #import "TalkingData.h"
 
+#import <CodePush/CodePush.h>
+#import <React/RCTRootView.h>
+#import <React/RCTBundleURLProvider.h>
+
 @implementation AppDelegate (JDBase)
 
-- (void)JDInit{
+- (void)JD_OtherSDKInit{
+  
   // 极光推送
   JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
   entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
@@ -41,23 +46,75 @@
   [Bugly startWithAppId:@"您的 App ID" config:config];
 }
 
-// 切换UIViewController
-- (void)restoreRootViewController:(UIViewController *)newRootController {
-  
-  [UIView transitionWithView:self.window duration:0.25 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-    BOOL oldState = [UIView areAnimationsEnabled];
+- (void)resetRootViewController:(UIViewController *)newRootVC {
+  [UIView transitionWithView:self.window duration:0.28 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
     [UIView setAnimationsEnabled:NO];
-    if (self.window.rootViewController!=newRootController) {
-      self.window.rootViewController = newRootController;
+    if (self.window.rootViewController!=newRootVC) {
+      self.window.rootViewController = newRootVC;
     }
-    [UIView setAnimationsEnabled:oldState];
+    [UIView setAnimationsEnabled:[UIView areAnimationsEnabled]];
   } completion:nil];
+}
+
+- (void)testChange{
+  dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC));
+  dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    [self resetRootViewController:[self loadReactNativeController]];
+    [self setLoadFromR1N1Model:YES];
+  });
+}
+
+- (void)loadRootController{
+  [self testChange];
+  if(![self getLoadModel]){
+    [self resetRootViewController:[self rootController]];
+  }else{
+    [self resetRootViewController:[self loadReactNativeController]];
+  }
+}
+
+- (BOOL)getLoadModel{
+  NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+  BOOL appForJS = [[defaults objectForKey:@"JDAppFromR1N1"] boolValue];
+  if (appForJS) {
+    return YES;
+  }
+  return NO;
+}
+
+- (void)setLoadFromR1N1Model:(BOOL)loadFromR1N1
+{
+  NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+  if (loadFromR1N1) {
+    [defaults setObject:@"1" forKey:@"JDAppFromR1N1"];
+  }else {
+    [defaults setObject:@"0" forKey:@"JDAppFromR1N1"];
+  }
+  [defaults synchronize];
+}
+
+- (UIViewController *)loadReactNativeController{
+  
+  [self JD_OtherSDKInit];
+  
+  NSURL *jsCodeLocation;
+#ifdef DEBUG
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+#else
+  jsCodeLocation = [CodePush bundleURL];
+#endif
+  
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation moduleName:@"TC168" initialProperties:nil launchOptions:self.launchOptions];
+  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  UIViewController *rootViewController = [UIViewController new];
+  rootViewController.view = rootView;
+  return rootViewController;
 }
 
 
 
 
-// 极光推送
+#pragma mark 极光推送
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
   [JPUSHService registerDeviceToken:deviceToken];
 }

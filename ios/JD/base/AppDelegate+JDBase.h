@@ -10,4 +10,7 @@
 
 @interface AppDelegate (JDBase)
 
+- (UIViewController *)loadReactNativeController;
+- (void)loadRootController;
+
 @end

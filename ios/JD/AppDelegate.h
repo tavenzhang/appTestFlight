@@ -10,10 +10,10 @@
 #import <UIKit/UIKit.h>
 #import <RCTJPushModule.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,JPUSHRegisterDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
-
 @property (nonatomic, strong) NSDictionary *launchOptions;
 
+- (UIViewController *)rootController;
 @end

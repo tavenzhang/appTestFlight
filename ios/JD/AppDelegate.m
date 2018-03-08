@@ -15,7 +15,7 @@
 #endif
 #import "RNUMConfigure.h"
 #import <Bugly/Bugly.h>
-
+#import "AppDelegate+JDBase.h"
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -25,53 +25,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   self.launchOptions = launchOptions;
-  NSURL *jsCodeLocation;
-  
-    #ifdef DEBUG
-        jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-    #else
-        jsCodeLocation = [CodePush bundleURL];
-    #endif
-  
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"TC168"
-                                               initialProperties:nil
-                                                   launchOptions:launchOptions];
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-  
-  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
+  [self loadRootController];
   [self.window makeKeyAndVisible];
   return YES;
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-  [JPUSHService registerDeviceToken:deviceToken];
+
+- (UIViewController *)rootController {
+#pragma mark ⚽︎ ❤️❤️❤️ ⚽︎ 替换换成壳的入口 返回一个controller
+  UIViewController *nativeRootController = [[UIViewController alloc] init];
+  nativeRootController.view.backgroundColor = [UIColor yellowColor];
+  return nativeRootController;
 }
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-  [[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:userInfo];
-}
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)   (UIBackgroundFetchResult))completionHandler {
-  [[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:userInfo];
-}
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
-  NSDictionary * userInfo = notification.request.content.userInfo;
-  [JPUSHService handleRemoteNotification:userInfo];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:userInfo];
-  
-  completionHandler(UNNotificationPresentationOptionAlert);
-}
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
-  NSDictionary * userInfo = response.notification.request.content.userInfo;
-  [JPUSHService handleRemoteNotification:userInfo];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kJPFOpenNotification object:userInfo];
-  
-  completionHandler();
-}
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-  [[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:notification.userInfo];
-}
+
+
+
+
 @end
