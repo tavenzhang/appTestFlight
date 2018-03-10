@@ -47,6 +47,7 @@
 		22B3BD11204FB4CF00B6B7FF /* UMAnalyticsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B3BD08204FB4CF00B6B7FF /* UMAnalyticsModule.m */; };
 		22B3BD12204FB4CF00B6B7FF /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B3BD0C204FB4CF00B6B7FF /* libTalkingData.a */; };
 		22B3BD17204FB5AA00B6B7FF /* JDTalkingData.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B3BD16204FB5AA00B6B7FF /* JDTalkingData.m */; };
+		22C7774F20537D9E00F8E8C6 /* JDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7774E20537D9E00F8E8C6 /* JDHelper.m */; };
 		3576D6A17B764AED97E496D4 /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDB05AC76D4417EA214E750 /* libRNBlur.a */; };
 		3D6C1CEA06914D12AF722723 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B5EC0E0DB94D17BC79308D /* libRNImagePicker.a */; };
 		40670F5A2596462D957F644A /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 019716F46851417BB3DA657C /* libSplashScreen.a */; };
@@ -318,6 +319,13 @@
 			remoteGlobalIDString = F886647B1F4ADB500036D01B;
 			remoteInfo = "CodePush-tvOS";
 		};
+		22C7762320523DA200F8E8C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22C775E920523DA200F8E8C6 /* RNVectorIcons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
+			remoteInfo = RNVectorIcons;
+		};
 		2D16E6711FA4F8DC00B85C8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -486,7 +494,6 @@
 		13B07F961A680F5B00A75B9A /* JD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = JD/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = JD/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = JD/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = JD/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = JD/main.m; sourceTree = "<group>"; };
@@ -524,6 +531,9 @@
 		22B3BD76204FDB2300B6B7FF /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B3BD78204FDC9600B6B7FF /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B3BD79204FDE4700B6B7FF /* JD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = JD.entitlements; path = JD/JD.entitlements; sourceTree = "<group>"; };
+		22C775E920523DA200F8E8C6 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		22C7774D20537D9E00F8E8C6 /* JDHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDHelper.h; sourceTree = "<group>"; };
+		22C7774E20537D9E00F8E8C6 /* JDHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JDHelper.m; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		32E8375E70194921AF195406 /* libFastImage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libFastImage.a; sourceTree = "<group>"; };
 		34BED4ADF48C4F54B43D2376 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
@@ -690,7 +700,6 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = JD;
@@ -754,6 +763,7 @@
 				34BED4ADF48C4F54B43D2376 /* libRNVectorIcons.a */,
 				6ADC4F27253B4836AB3316E8 /* libRCTJCoreModule.a */,
 				8EA3914555C244DD85E59A89 /* libCodePush.a */,
+				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -857,6 +867,8 @@
 				22B3BD02204FB4CF00B6B7FF /* umeng */,
 				22B3BCF2204EA1A000B6B7FF /* AppDelegate+JDBase.h */,
 				22B3BCF3204EA1A000B6B7FF /* AppDelegate+JDBase.m */,
+				22C7774D20537D9E00F8E8C6 /* JDHelper.h */,
+				22C7774E20537D9E00F8E8C6 /* JDHelper.m */,
 			);
 			name = base;
 			path = JD/base;
@@ -892,6 +904,14 @@
 			children = (
 				22B3BD72204FD3CE00B6B7FF /* libCodePush.a */,
 				22B3BD74204FD3CE00B6B7FF /* libCodePush.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		22C775EA20523DA200F8E8C6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22C7762420523DA200F8E8C6 /* libRNVectorIcons.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -959,6 +979,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22C775E920523DA200F8E8C6 /* RNVectorIcons.xcodeproj */,
 				2259B70A2046B6FC0037370E /* RCTJPushModule.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -1178,6 +1199,10 @@
 				{
 					ProductGroup = 22836210202DA5580075881C /* Products */;
 					ProjectRef = EEEFDB27021B41D3B2386E21 /* RNSVG.xcodeproj */;
+				},
+				{
+					ProductGroup = 22C775EA20523DA200F8E8C6 /* Products */;
+					ProjectRef = 22C775E920523DA200F8E8C6 /* RNVectorIcons.xcodeproj */;
 				},
 				{
 					ProductGroup = 2283624C202DA5590075881C /* Products */;
@@ -1441,6 +1466,13 @@
 			remoteRef = 22B3BD73204FD3CE00B6B7FF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		22C7762420523DA200F8E8C6 /* libRNVectorIcons.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNVectorIcons.a;
+			remoteRef = 22C7762320523DA200F8E8C6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		2D16E6721FA4F8DC00B85C8A /* libRCTBlob-tvOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1639,6 +1671,7 @@
 				22B3BCF4204EA1A000B6B7FF /* AppDelegate+JDBase.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				22B3BD0E204FB4CF00B6B7FF /* RNUMConfigure.m in Sources */,
+				22C7774F20537D9E00F8E8C6 /* JDHelper.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				22B3BD11204FB4CF00B6B7FF /* UMAnalyticsModule.m in Sources */,
 			);
@@ -1650,7 +1683,6 @@
 		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
 			path = JD;
@@ -1663,6 +1695,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = P6E92VM5UU;
@@ -1710,6 +1743,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P6E92VM5UU;
 				FRAMEWORK_SEARCH_PATHS = (

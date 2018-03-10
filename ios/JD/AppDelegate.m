@@ -19,6 +19,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "SplashScreen.h"  // here
 
 @implementation AppDelegate
 
@@ -28,6 +29,7 @@
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   [self loadRootController];
   [self.window makeKeyAndVisible];
+  [SplashScreen show];  // 添加这一句，这一句一定要在最后
   return YES;
 }
 

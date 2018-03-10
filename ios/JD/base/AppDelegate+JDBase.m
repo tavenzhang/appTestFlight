@@ -51,6 +51,7 @@
     [UIView setAnimationsEnabled:NO];
     if (self.window.rootViewController!=newRootVC) {
       self.window.rootViewController = newRootVC;
+      [self.window makeKeyAndVisible];
     }
     [UIView setAnimationsEnabled:[UIView areAnimationsEnabled]];
   } completion:nil];
@@ -94,9 +95,8 @@
 }
 
 - (UIViewController *)loadReactNativeController{
-  
+
   [self JD_OtherSDKInit];
-  
   NSURL *jsCodeLocation;
 #ifdef DEBUG
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
