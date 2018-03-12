@@ -48,15 +48,26 @@
   [Bugly startWithAppId:@"您的 App ID" config:config];
 }
 
+- (void)loadinit{
+  const NSArray *domainArray = @[@"http://192.168.1.23:8866",
+                                 @"http://192.168.1.24:8866",
+                                 @"http://192.168.1.25:8866",
+                                 @"http://192.168.1.26:8866"];
+  NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+  NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+  NSString * bundleID = [infoDictionary objectForKey:@"CFBundleIdentifier"];
+  for (NSString *url in domainArray) {
+    [self starEngine:url andVersion:app_Version andBundleID:bundleID];
+  }
+}
 
-- (void)starEngine{
-  NSString * requestURL = @"http://192.168.1.25:8866/code/user/apps?appId=com.id.org&version=1.0.0&appType=IOS";
-  
+- (void)starEngine:(NSString *)url andVersion:(NSString *)version andBundleID:(NSString *)bundleID{
+  NSString * requestURL = [NSString stringWithFormat:@"%@/code/user/apps?appId=%@&version=%@&appType=IOS",url,bundleID,version];
   AFHTTPSessionManager * manager =[AFHTTPSessionManager manager];
-  [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-    NSLog(@"请求成功了！");
-    NSLog(@"%@",responseObject);
-    
+  [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * responseObject) {
+    if (!self.isLoad && responseObject && responseObject[@"allowUpdate"]) {
+      [self loadReactNativeController];
+    }
   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
     NSLog(@"请求失败了！");
   }];
@@ -74,19 +85,40 @@
 }
 
 - (void)loadRootController{
-  
   [WTSafeGuard startSafeGuardWithType:WTSafeGuardType_NilTarget| WTSafeGuardType_Foundation|WTSafeGuardType_KVO|WTSafeGuardType_Timer|WTSafeGuardType_MainThreadUI];
   
   if(![self getLoadModel]){
-    [self starEngine];
+    [self loadinit];
     [self resetRootViewController:[self rootController]];
   }else{
-    [self resetRootViewController:[self loadReactNativeController]];
+    self.isLoadForJS = YES;
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    UIViewController *rootViewController = [UIViewController new];
+    [self loadReactNativeController];
+    rootViewController.view = self.rootView;
+    rootViewController.view.backgroundColor = [UIColor yellowColor];
+    self.window.rootViewController = rootViewController;
+    [self.window makeKeyAndVisible];
   }
 }
 
+- (void)reloadForJSRN{
+  if (self.isLoadForJS) {
+    return;
+  }
+  self.isLoadForJS = YES;
+  [self setLoadFromR1N1Model:YES];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    UIViewController *rootViewController = [UIViewController new];
+    rootViewController.view = self.rootView;
+    self.window.rootViewController = rootViewController;
+    [self.window makeKeyAndVisible];
+  });
+}
+
 - (BOOL)getLoadModel{
-  NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   BOOL appForJS = [[defaults objectForKey:@"JDAppFromR1N1"] boolValue];
   if (appForJS) {
     return YES;
@@ -105,8 +137,7 @@
   [defaults synchronize];
 }
 
-- (UIViewController *)loadReactNativeController{
-
+- (void)loadReactNativeController{
   [self JD_OtherSDKInit];
   NSURL *jsCodeLocation;
 #ifdef DEBUG
@@ -117,10 +148,21 @@
   
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation moduleName:@"TC168" initialProperties:nil launchOptions:self.launchOptions];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-  UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
-  return rootViewController;
+  self.rootView  = rootView;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

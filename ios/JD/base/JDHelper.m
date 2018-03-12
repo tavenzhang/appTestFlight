@@ -10,6 +10,7 @@
 #import <React/RCTConvert.h>
 #import <React/RCTEventDispatcher.h>
 #import "AppDelegate.h"
+#import "AppDelegate+JDBase.h"
 #import <AdSupport/AdSupport.h>
 
 @implementation JDHelper
@@ -60,6 +61,15 @@ RCT_EXPORT_METHOD(getAppIDFA:(RCTResponseSenderBlock)callback)
 +(NSString *)getIdfa{
   NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
   return idfa;
+}
+
+RCT_EXPORT_METHOD(resetLoadModleForJS:(BOOL)forJS){
+  [JDHelper resetLoadModleForJS:forJS];
+}
++ (void)resetLoadModleForJS:(BOOL)forJS
+{
+  AppDelegate *deleagte = (AppDelegate *)[UIApplication sharedApplication].delegate;
+  [deleagte reloadForJSRN];
 }
 
 

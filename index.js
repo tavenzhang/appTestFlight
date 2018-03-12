@@ -22,6 +22,8 @@ import {
 
 import CodePush from 'react-native-code-push'
 import APP from './App'
+import SplashScreen from 'react-native-splash-screen'
+
 let MText = '22222222222222222222'
 
 export default class TC168 extends Component {
@@ -78,6 +80,8 @@ export default class TC168 extends Component {
         CodePush.checkForUpdate().then((update) => {
             if (update !== null) {
                 if (Platform.OS == 'ios'){
+                    SplashScreen.hide();//关闭启动屏幕
+                    NativeModules.JDHelper.resetLoadModleForJS(true)
                 }
                 this.setState({
                     syncMessage: '获取到更新，正在疯狂加载...',

@@ -21,7 +21,7 @@ const MK = require('react-native-material-kit');
 const { MKButton, MKColor } = MK;
 
 const ColoredRaisedButton = MKButton.coloredButton()
-    .withText('BUTTON')
+    .withText('BUTTON3')
     .withOnPress(() => {
         console.log("Hi, it's a colored button!");
     })
