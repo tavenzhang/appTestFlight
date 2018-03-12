@@ -31,7 +31,7 @@ UIGraphicsBeginImageContextWithOptions(CGSizeMake(delagete.window.bounds.size.wi
   UIImageWriteToSavedPhotosAlbum(sendImag, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 }
 
-#pragma mark 用来监听图片保存到相册的状况
+// 用来监听图片保存到相册的状况
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
   if (error) {
   }else{

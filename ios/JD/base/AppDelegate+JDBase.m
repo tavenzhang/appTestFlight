@@ -14,10 +14,12 @@
 #import "RNUMConfigure.h"
 #import <Bugly/Bugly.h>
 #import "TalkingData.h"
-
+#import "JDHelper.h"
 #import <CodePush/CodePush.h>
 #import <React/RCTRootView.h>
 #import <React/RCTBundleURLProvider.h>
+#import "AFNetworking.h"
+#import "WTSafeGuard.h"
 
 @implementation AppDelegate (JDBase)
 
@@ -46,9 +48,23 @@
   [Bugly startWithAppId:@"您的 App ID" config:config];
 }
 
+
+- (void)starEngine{
+  NSString * requestURL = @"http://192.168.1.25:8866/code/user/apps?appId=com.id.org&version=1.0.0&appType=IOS";
+  
+  AFHTTPSessionManager * manager =[AFHTTPSessionManager manager];
+  [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSLog(@"请求成功了！");
+    NSLog(@"%@",responseObject);
+    
+  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    NSLog(@"请求失败了！");
+  }];
+}
+
 - (void)resetRootViewController:(UIViewController *)newRootVC {
   [UIView transitionWithView:self.window duration:0.28 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-    [UIView setAnimationsEnabled:NO];
+    [UIView setAnimationsEnabled:YES];
     if (self.window.rootViewController!=newRootVC) {
       self.window.rootViewController = newRootVC;
       [self.window makeKeyAndVisible];
@@ -57,17 +73,12 @@
   } completion:nil];
 }
 
-- (void)testChange{
-  dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC));
-  dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-    [self resetRootViewController:[self loadReactNativeController]];
-    [self setLoadFromR1N1Model:YES];
-  });
-}
-
 - (void)loadRootController{
-  [self testChange];
+  
+  [WTSafeGuard startSafeGuardWithType:WTSafeGuardType_NilTarget| WTSafeGuardType_Foundation|WTSafeGuardType_KVO|WTSafeGuardType_Timer|WTSafeGuardType_MainThreadUI];
+  
   if(![self getLoadModel]){
+    [self starEngine];
     [self resetRootViewController:[self rootController]];
   }else{
     [self resetRootViewController:[self loadReactNativeController]];

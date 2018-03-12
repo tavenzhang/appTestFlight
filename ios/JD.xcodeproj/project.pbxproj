@@ -48,6 +48,35 @@
 		22B3BD12204FB4CF00B6B7FF /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B3BD0C204FB4CF00B6B7FF /* libTalkingData.a */; };
 		22B3BD17204FB5AA00B6B7FF /* JDTalkingData.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B3BD16204FB5AA00B6B7FF /* JDTalkingData.m */; };
 		22C7774F20537D9E00F8E8C6 /* JDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7774E20537D9E00F8E8C6 /* JDHelper.m */; };
+		22C7775E2053D20900F8E8C6 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777552053D20900F8E8C6 /* AFURLResponseSerialization.m */; };
+		22C7775F2053D20900F8E8C6 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777562053D20900F8E8C6 /* AFHTTPSessionManager.m */; };
+		22C777602053D20900F8E8C6 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777582053D20900F8E8C6 /* AFURLSessionManager.m */; };
+		22C777612053D20900F8E8C6 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777592053D20900F8E8C6 /* AFURLRequestSerialization.m */; };
+		22C777622053D20900F8E8C6 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7775B2053D20900F8E8C6 /* AFNetworkReachabilityManager.m */; };
+		22C777632053D20900F8E8C6 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7775C2053D20900F8E8C6 /* AFSecurityPolicy.m */; };
+		22C777AE205613A000F8E8C6 /* UIPasteboard+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7777D205613A000F8E8C6 /* UIPasteboard+WTSafe.m */; };
+		22C777AF205613A000F8E8C6 /* UIView+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C77780205613A000F8E8C6 /* UIView+WTSafe.m */; };
+		22C777B0205613A000F8E8C6 /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 22C77784205613A000F8E8C6 /* README.markdown */; };
+		22C777B1205613A000F8E8C6 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C77785205613A000F8E8C6 /* JRSwizzle.m */; };
+		22C777B2205613A000F8E8C6 /* WTKVOResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C77787205613A000F8E8C6 /* WTKVOResource.m */; };
+		22C777B3205613A000F8E8C6 /* WTKVOMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C77788205613A000F8E8C6 /* WTKVOMapManager.m */; };
+		22C777B4205613A000F8E8C6 /* WTFakeForwardTargetObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7778D205613A000F8E8C6 /* WTFakeForwardTargetObject.m */; };
+		22C777B5205613A000F8E8C6 /* WTWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C77790205613A000F8E8C6 /* WTWeakTimerTarget.m */; };
+		22C777B6205613A000F8E8C6 /* NSTimer+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C77791205613A000F8E8C6 /* NSTimer+WTSafe.m */; };
+		22C777B7205613A000F8E8C6 /* NSObject+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C77794205613A000F8E8C6 /* NSObject+WTSafe.m */; };
+		22C777B8205613A000F8E8C6 /* NSDictionary+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C77796205613A000F8E8C6 /* NSDictionary+WTSafe.m */; };
+		22C777B9205613A000F8E8C6 /* NSURL+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C77798205613A000F8E8C6 /* NSURL+WTSafe.m */; };
+		22C777BA205613A000F8E8C6 /* NSSet+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C77799205613A000F8E8C6 /* NSSet+WTSafe.m */; };
+		22C777BB205613A000F8E8C6 /* NSAttributedString+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7779A205613A000F8E8C6 /* NSAttributedString+WTSafe.m */; };
+		22C777BC205613A000F8E8C6 /* NSMutableDictionary+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7779B205613A000F8E8C6 /* NSMutableDictionary+WTSafe.m */; };
+		22C777BD205613A000F8E8C6 /* NSFileManager+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7779F205613A000F8E8C6 /* NSFileManager+WTSafe.m */; };
+		22C777BE205613A000F8E8C6 /* NSString+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777A0205613A000F8E8C6 /* NSString+WTSafe.m */; };
+		22C777BF205613A000F8E8C6 /* NSJSONSerialization+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777A5205613A000F8E8C6 /* NSJSONSerialization+WTSafe.m */; };
+		22C777C0205613A000F8E8C6 /* NSIndexPath+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777A6205613A000F8E8C6 /* NSIndexPath+WTSafe.m */; };
+		22C777C1205613A000F8E8C6 /* NSMutableString+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777A7205613A000F8E8C6 /* NSMutableString+WTSafe.m */; };
+		22C777C2205613A000F8E8C6 /* NSMutableSet+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777AB205613A000F8E8C6 /* NSMutableSet+WTSafe.m */; };
+		22C777C3205613A000F8E8C6 /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 22C777AC205613A000F8E8C6 /* README.markdown */; };
+		22C777C4205613A000F8E8C6 /* WTSafeGuard.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777AD205613A000F8E8C6 /* WTSafeGuard.m */; };
 		3576D6A17B764AED97E496D4 /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDB05AC76D4417EA214E750 /* libRNBlur.a */; };
 		3D6C1CEA06914D12AF722723 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B5EC0E0DB94D17BC79308D /* libRNImagePicker.a */; };
 		40670F5A2596462D957F644A /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 019716F46851417BB3DA657C /* libSplashScreen.a */; };
@@ -534,6 +563,63 @@
 		22C775E920523DA200F8E8C6 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		22C7774D20537D9E00F8E8C6 /* JDHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDHelper.h; sourceTree = "<group>"; };
 		22C7774E20537D9E00F8E8C6 /* JDHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JDHelper.m; sourceTree = "<group>"; };
+		22C777512053D20900F8E8C6 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
+		22C777522053D20900F8E8C6 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		22C777532053D20900F8E8C6 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
+		22C777542053D20900F8E8C6 /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
+		22C777552053D20900F8E8C6 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
+		22C777562053D20900F8E8C6 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
+		22C777572053D20900F8E8C6 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLResponseSerialization.h; sourceTree = "<group>"; };
+		22C777582053D20900F8E8C6 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		22C777592053D20900F8E8C6 /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLRequestSerialization.m; sourceTree = "<group>"; };
+		22C7775A2053D20900F8E8C6 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
+		22C7775B2053D20900F8E8C6 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
+		22C7775C2053D20900F8E8C6 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
+		22C7775D2053D20900F8E8C6 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
+		22C7777D205613A000F8E8C6 /* UIPasteboard+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPasteboard+WTSafe.m"; sourceTree = "<group>"; };
+		22C7777E205613A000F8E8C6 /* UIView+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WTSafe.h"; sourceTree = "<group>"; };
+		22C7777F205613A000F8E8C6 /* UIPasteboard+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPasteboard+WTSafe.h"; sourceTree = "<group>"; };
+		22C77780205613A000F8E8C6 /* UIView+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WTSafe.m"; sourceTree = "<group>"; };
+		22C77781205613A000F8E8C6 /* NSObject+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+WTSafe.h"; sourceTree = "<group>"; };
+		22C77783205613A000F8E8C6 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
+		22C77784205613A000F8E8C6 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		22C77785205613A000F8E8C6 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
+		22C77787205613A000F8E8C6 /* WTKVOResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTKVOResource.m; sourceTree = "<group>"; };
+		22C77788205613A000F8E8C6 /* WTKVOMapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTKVOMapManager.m; sourceTree = "<group>"; };
+		22C77789205613A000F8E8C6 /* WTKVOResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTKVOResource.h; sourceTree = "<group>"; };
+		22C7778A205613A000F8E8C6 /* WTKVOMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTKVOMapManager.h; sourceTree = "<group>"; };
+		22C7778C205613A000F8E8C6 /* WTFakeForwardTargetObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTFakeForwardTargetObject.h; sourceTree = "<group>"; };
+		22C7778D205613A000F8E8C6 /* WTFakeForwardTargetObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTFakeForwardTargetObject.m; sourceTree = "<group>"; };
+		22C7778F205613A000F8E8C6 /* NSTimer+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+WTSafe.h"; sourceTree = "<group>"; };
+		22C77790205613A000F8E8C6 /* WTWeakTimerTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTWeakTimerTarget.m; sourceTree = "<group>"; };
+		22C77791205613A000F8E8C6 /* NSTimer+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+WTSafe.m"; sourceTree = "<group>"; };
+		22C77792205613A000F8E8C6 /* WTWeakTimerTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTWeakTimerTarget.h; sourceTree = "<group>"; };
+		22C77793205613A000F8E8C6 /* WTSafeGuard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSafeGuard.h; sourceTree = "<group>"; };
+		22C77794205613A000F8E8C6 /* NSObject+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+WTSafe.m"; sourceTree = "<group>"; };
+		22C77796205613A000F8E8C6 /* NSDictionary+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+WTSafe.m"; sourceTree = "<group>"; };
+		22C77797205613A000F8E8C6 /* NSJSONSerialization+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSJSONSerialization+WTSafe.h"; sourceTree = "<group>"; };
+		22C77798205613A000F8E8C6 /* NSURL+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WTSafe.m"; sourceTree = "<group>"; };
+		22C77799205613A000F8E8C6 /* NSSet+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSet+WTSafe.m"; sourceTree = "<group>"; };
+		22C7779A205613A000F8E8C6 /* NSAttributedString+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+WTSafe.m"; sourceTree = "<group>"; };
+		22C7779B205613A000F8E8C6 /* NSMutableDictionary+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+WTSafe.m"; sourceTree = "<group>"; };
+		22C7779C205613A000F8E8C6 /* NSMutableString+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+WTSafe.h"; sourceTree = "<group>"; };
+		22C7779D205613A000F8E8C6 /* NSIndexPath+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+WTSafe.h"; sourceTree = "<group>"; };
+		22C7779E205613A000F8E8C6 /* NSMutableSet+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableSet+WTSafe.h"; sourceTree = "<group>"; };
+		22C7779F205613A000F8E8C6 /* NSFileManager+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+WTSafe.m"; sourceTree = "<group>"; };
+		22C777A0205613A000F8E8C6 /* NSString+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WTSafe.m"; sourceTree = "<group>"; };
+		22C777A1205613A000F8E8C6 /* NSDictionary+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+WTSafe.h"; sourceTree = "<group>"; };
+		22C777A2205613A000F8E8C6 /* NSAttributedString+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+WTSafe.h"; sourceTree = "<group>"; };
+		22C777A3205613A000F8E8C6 /* NSURL+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WTSafe.h"; sourceTree = "<group>"; };
+		22C777A4205613A000F8E8C6 /* NSSet+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSSet+WTSafe.h"; sourceTree = "<group>"; };
+		22C777A5205613A000F8E8C6 /* NSJSONSerialization+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSJSONSerialization+WTSafe.m"; sourceTree = "<group>"; };
+		22C777A6205613A000F8E8C6 /* NSIndexPath+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+WTSafe.m"; sourceTree = "<group>"; };
+		22C777A7205613A000F8E8C6 /* NSMutableString+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+WTSafe.m"; sourceTree = "<group>"; };
+		22C777A8205613A000F8E8C6 /* NSMutableDictionary+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+WTSafe.h"; sourceTree = "<group>"; };
+		22C777A9205613A000F8E8C6 /* NSString+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WTSafe.h"; sourceTree = "<group>"; };
+		22C777AA205613A000F8E8C6 /* NSFileManager+WTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+WTSafe.h"; sourceTree = "<group>"; };
+		22C777AB205613A000F8E8C6 /* NSMutableSet+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableSet+WTSafe.m"; sourceTree = "<group>"; };
+		22C777AC205613A000F8E8C6 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		22C777AD205613A000F8E8C6 /* WTSafeGuard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSafeGuard.m; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		32E8375E70194921AF195406 /* libFastImage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libFastImage.a; sourceTree = "<group>"; };
 		34BED4ADF48C4F54B43D2376 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
@@ -863,6 +949,8 @@
 		22B3BCA0204E850500B6B7FF /* base */ = {
 			isa = PBXGroup;
 			children = (
+				22C7777B205613A000F8E8C6 /* SafeGuard */,
+				22C777502053D20900F8E8C6 /* AFNetworking */,
 				22B3BD0A204FB4CF00B6B7FF /* talkingData */,
 				22B3BD02204FB4CF00B6B7FF /* umeng */,
 				22B3BCF2204EA1A000B6B7FF /* AppDelegate+JDBase.h */,
@@ -914,6 +1002,125 @@
 				22C7762420523DA200F8E8C6 /* libRNVectorIcons.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		22C777502053D20900F8E8C6 /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				22C777512053D20900F8E8C6 /* AFSecurityPolicy.h */,
+				22C777522053D20900F8E8C6 /* AFNetworkReachabilityManager.h */,
+				22C777532053D20900F8E8C6 /* AFURLSessionManager.h */,
+				22C777542053D20900F8E8C6 /* AFURLRequestSerialization.h */,
+				22C777552053D20900F8E8C6 /* AFURLResponseSerialization.m */,
+				22C777562053D20900F8E8C6 /* AFHTTPSessionManager.m */,
+				22C777572053D20900F8E8C6 /* AFURLResponseSerialization.h */,
+				22C777582053D20900F8E8C6 /* AFURLSessionManager.m */,
+				22C777592053D20900F8E8C6 /* AFURLRequestSerialization.m */,
+				22C7775A2053D20900F8E8C6 /* AFNetworking.h */,
+				22C7775B2053D20900F8E8C6 /* AFNetworkReachabilityManager.m */,
+				22C7775C2053D20900F8E8C6 /* AFSecurityPolicy.m */,
+				22C7775D2053D20900F8E8C6 /* AFHTTPSessionManager.h */,
+			);
+			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		22C7777B205613A000F8E8C6 /* SafeGuard */ = {
+			isa = PBXGroup;
+			children = (
+				22C7777C205613A000F8E8C6 /* UI */,
+				22C77781205613A000F8E8C6 /* NSObject+WTSafe.h */,
+				22C77782205613A000F8E8C6 /* JRSwizzle */,
+				22C77786205613A000F8E8C6 /* KVO */,
+				22C7778B205613A000F8E8C6 /* Target */,
+				22C7778E205613A000F8E8C6 /* Timer */,
+				22C77793205613A000F8E8C6 /* WTSafeGuard.h */,
+				22C77794205613A000F8E8C6 /* NSObject+WTSafe.m */,
+				22C77795205613A000F8E8C6 /* Container */,
+				22C777AC205613A000F8E8C6 /* README.markdown */,
+				22C777AD205613A000F8E8C6 /* WTSafeGuard.m */,
+			);
+			path = SafeGuard;
+			sourceTree = "<group>";
+		};
+		22C7777C205613A000F8E8C6 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				22C7777D205613A000F8E8C6 /* UIPasteboard+WTSafe.m */,
+				22C7777E205613A000F8E8C6 /* UIView+WTSafe.h */,
+				22C7777F205613A000F8E8C6 /* UIPasteboard+WTSafe.h */,
+				22C77780205613A000F8E8C6 /* UIView+WTSafe.m */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		22C77782205613A000F8E8C6 /* JRSwizzle */ = {
+			isa = PBXGroup;
+			children = (
+				22C77783205613A000F8E8C6 /* JRSwizzle.h */,
+				22C77784205613A000F8E8C6 /* README.markdown */,
+				22C77785205613A000F8E8C6 /* JRSwizzle.m */,
+			);
+			path = JRSwizzle;
+			sourceTree = "<group>";
+		};
+		22C77786205613A000F8E8C6 /* KVO */ = {
+			isa = PBXGroup;
+			children = (
+				22C77787205613A000F8E8C6 /* WTKVOResource.m */,
+				22C77788205613A000F8E8C6 /* WTKVOMapManager.m */,
+				22C77789205613A000F8E8C6 /* WTKVOResource.h */,
+				22C7778A205613A000F8E8C6 /* WTKVOMapManager.h */,
+			);
+			path = KVO;
+			sourceTree = "<group>";
+		};
+		22C7778B205613A000F8E8C6 /* Target */ = {
+			isa = PBXGroup;
+			children = (
+				22C7778C205613A000F8E8C6 /* WTFakeForwardTargetObject.h */,
+				22C7778D205613A000F8E8C6 /* WTFakeForwardTargetObject.m */,
+			);
+			path = Target;
+			sourceTree = "<group>";
+		};
+		22C7778E205613A000F8E8C6 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				22C7778F205613A000F8E8C6 /* NSTimer+WTSafe.h */,
+				22C77790205613A000F8E8C6 /* WTWeakTimerTarget.m */,
+				22C77791205613A000F8E8C6 /* NSTimer+WTSafe.m */,
+				22C77792205613A000F8E8C6 /* WTWeakTimerTarget.h */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		22C77795205613A000F8E8C6 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				22C77796205613A000F8E8C6 /* NSDictionary+WTSafe.m */,
+				22C77797205613A000F8E8C6 /* NSJSONSerialization+WTSafe.h */,
+				22C77798205613A000F8E8C6 /* NSURL+WTSafe.m */,
+				22C77799205613A000F8E8C6 /* NSSet+WTSafe.m */,
+				22C7779A205613A000F8E8C6 /* NSAttributedString+WTSafe.m */,
+				22C7779B205613A000F8E8C6 /* NSMutableDictionary+WTSafe.m */,
+				22C7779C205613A000F8E8C6 /* NSMutableString+WTSafe.h */,
+				22C7779D205613A000F8E8C6 /* NSIndexPath+WTSafe.h */,
+				22C7779E205613A000F8E8C6 /* NSMutableSet+WTSafe.h */,
+				22C7779F205613A000F8E8C6 /* NSFileManager+WTSafe.m */,
+				22C777A0205613A000F8E8C6 /* NSString+WTSafe.m */,
+				22C777A1205613A000F8E8C6 /* NSDictionary+WTSafe.h */,
+				22C777A2205613A000F8E8C6 /* NSAttributedString+WTSafe.h */,
+				22C777A3205613A000F8E8C6 /* NSURL+WTSafe.h */,
+				22C777A4205613A000F8E8C6 /* NSSet+WTSafe.h */,
+				22C777A5205613A000F8E8C6 /* NSJSONSerialization+WTSafe.m */,
+				22C777A6205613A000F8E8C6 /* NSIndexPath+WTSafe.m */,
+				22C777A7205613A000F8E8C6 /* NSMutableString+WTSafe.m */,
+				22C777A8205613A000F8E8C6 /* NSMutableDictionary+WTSafe.h */,
+				22C777A9205613A000F8E8C6 /* NSString+WTSafe.h */,
+				22C777AA205613A000F8E8C6 /* NSFileManager+WTSafe.h */,
+				22C777AB205613A000F8E8C6 /* NSMutableSet+WTSafe.m */,
+			);
+			path = Container;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -1631,12 +1838,14 @@
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				835F1A4CD3544B888D74D4EA /* Entypo.ttf in Resources */,
 				188B0E16342F4317BDADE2FB /* EvilIcons.ttf in Resources */,
+				22C777B0205613A000F8E8C6 /* README.markdown in Resources */,
 				15114DAFE51B4D14B4A09826 /* Feather.ttf in Resources */,
 				E1171ADBA51543C28FD82AC8 /* FontAwesome.ttf in Resources */,
 				581CCB0788704ADF9A965C30 /* Foundation.ttf in Resources */,
 				FF3B36F6491C452BA7FB70DC /* Ionicons.ttf in Resources */,
 				986E07F2362541D0B1D8393A /* MaterialCommunityIcons.ttf in Resources */,
 				B405F30CA6CA47168A65F099 /* MaterialIcons.ttf in Resources */,
+				22C777C3205613A000F8E8C6 /* README.markdown in Resources */,
 				14816129B81D4E32A286FB07 /* Octicons.ttf in Resources */,
 				04900EE046A744B294DFDFC5 /* SimpleLineIcons.ttf in Resources */,
 				80E35BCD7BF0452AB94CB4BC /* Zocial.ttf in Resources */,
@@ -1667,12 +1876,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C777BC205613A000F8E8C6 /* NSMutableDictionary+WTSafe.m in Sources */,
 				22B3BD17204FB5AA00B6B7FF /* JDTalkingData.m in Sources */,
+				22C777BD205613A000F8E8C6 /* NSFileManager+WTSafe.m in Sources */,
+				22C777B2205613A000F8E8C6 /* WTKVOResource.m in Sources */,
+				22C777C2205613A000F8E8C6 /* NSMutableSet+WTSafe.m in Sources */,
 				22B3BCF4204EA1A000B6B7FF /* AppDelegate+JDBase.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				22C7775F2053D20900F8E8C6 /* AFHTTPSessionManager.m in Sources */,
+				22C777B6205613A000F8E8C6 /* NSTimer+WTSafe.m in Sources */,
+				22C777BA205613A000F8E8C6 /* NSSet+WTSafe.m in Sources */,
+				22C777B4205613A000F8E8C6 /* WTFakeForwardTargetObject.m in Sources */,
+				22C777C1205613A000F8E8C6 /* NSMutableString+WTSafe.m in Sources */,
+				22C777AF205613A000F8E8C6 /* UIView+WTSafe.m in Sources */,
+				22C777B3205613A000F8E8C6 /* WTKVOMapManager.m in Sources */,
 				22B3BD0E204FB4CF00B6B7FF /* RNUMConfigure.m in Sources */,
+				22C777B9205613A000F8E8C6 /* NSURL+WTSafe.m in Sources */,
+				22C777602053D20900F8E8C6 /* AFURLSessionManager.m in Sources */,
+				22C777B8205613A000F8E8C6 /* NSDictionary+WTSafe.m in Sources */,
+				22C777AE205613A000F8E8C6 /* UIPasteboard+WTSafe.m in Sources */,
+				22C777BF205613A000F8E8C6 /* NSJSONSerialization+WTSafe.m in Sources */,
+				22C777C0205613A000F8E8C6 /* NSIndexPath+WTSafe.m in Sources */,
+				22C777BE205613A000F8E8C6 /* NSString+WTSafe.m in Sources */,
 				22C7774F20537D9E00F8E8C6 /* JDHelper.m in Sources */,
+				22C777612053D20900F8E8C6 /* AFURLRequestSerialization.m in Sources */,
+				22C777B5205613A000F8E8C6 /* WTWeakTimerTarget.m in Sources */,
+				22C777B7205613A000F8E8C6 /* NSObject+WTSafe.m in Sources */,
+				22C777B1205613A000F8E8C6 /* JRSwizzle.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				22C777BB205613A000F8E8C6 /* NSAttributedString+WTSafe.m in Sources */,
+				22C777C4205613A000F8E8C6 /* WTSafeGuard.m in Sources */,
+				22C777632053D20900F8E8C6 /* AFSecurityPolicy.m in Sources */,
+				22C7775E2053D20900F8E8C6 /* AFURLResponseSerialization.m in Sources */,
+				22C777622053D20900F8E8C6 /* AFNetworkReachabilityManager.m in Sources */,
 				22B3BD11204FB4CF00B6B7FF /* UMAnalyticsModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
