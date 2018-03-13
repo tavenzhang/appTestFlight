@@ -182,6 +182,7 @@ export default class TC168 extends Component {
                     <View>
                         <TouchableOpacity
                             onPress={() => {
+                                this.hotFix()
                             }}
                             style={{
                                 backgroundColor: '#3056b2',

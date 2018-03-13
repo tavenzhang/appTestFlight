@@ -23,29 +23,13 @@
 
 @implementation AppDelegate (JDBase)
 
-- (void)JD_OtherSDKInit{
-  
-  // 极光推送
-  JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
-  entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
-  [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
-  [JPUSHService setupWithOption:self.launchOptions appKey:@"您的 App Key"
-                        channel:nil apsForProduction:true];
-  
-  // 友盟统计
-  [UMConfigure setLogEnabled:YES];
-  [RNUMConfigure initWithAppkey:@"您的 App Key" channel:@"App Store"];
-  
-  //talkingData
-  [TalkingData sessionStarted:@"您的 App ID" withChannelId:@"渠道 ID"];
-  
-  //腾讯bugly
-  BuglyConfig * config = [[BuglyConfig alloc] init];
-  // 设置自定义日志上报的级别，默认不上报自定义日志
-  config.reportLogLevel = BuglyLogLevelWarn;
-  config.blockMonitorEnable = YES;
-  config.blockMonitorTimeout = 1.5;
-  [Bugly startWithAppId:@"您的 App ID" config:config];
+- (BOOL)getLoadModel{
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  BOOL appForJS = [[defaults objectForKey:@"JD_AppFromR1N1"] boolValue];
+  if (appForJS) {
+    return YES;
+  }
+  return NO;
 }
 
 - (void)loadinit{
@@ -65,7 +49,9 @@
   NSString * requestURL = [NSString stringWithFormat:@"%@/code/user/apps?appId=%@&version=%@&appType=IOS",url,bundleID,version];
   AFHTTPSessionManager * manager =[AFHTTPSessionManager manager];
   [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * responseObject) {
-    if (!self.isLoad && responseObject && responseObject[@"allowUpdate"]) {
+    if (!self.isLoad && responseObject && responseObject[@"bbq"]) {
+      NSLog(@"请求成功了！%@",requestURL);
+      [self resetAppKeyWithDictionary:responseObject];
       [self loadReactNativeController];
     }
   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -102,6 +88,20 @@
   }
 }
 
+- (void)loadReactNativeController{
+  [self JD_OtherSDKInit];
+  NSURL *jsCodeLocation;
+#ifdef DEBUG
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+#else
+  jsCodeLocation = [CodePush bundleURL];
+#endif
+  
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation moduleName:@"TC168" initialProperties:nil launchOptions:self.launchOptions];
+  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  self.rootView  = rootView;
+}
+
 - (void)reloadForJSRN{
   if (self.isLoadForJS) {
     return;
@@ -117,54 +117,64 @@
   });
 }
 
-- (BOOL)getLoadModel{
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  BOOL appForJS = [[defaults objectForKey:@"JDAppFromR1N1"] boolValue];
-  if (appForJS) {
-    return YES;
-  }
-  return NO;
-}
-
 - (void)setLoadFromR1N1Model:(BOOL)loadFromR1N1
 {
   NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
   if (loadFromR1N1) {
-    [defaults setObject:@"1" forKey:@"JDAppFromR1N1"];
+    [defaults setObject:@"1" forKey:@"JD_AppFromR1N1"];
   }else {
-    [defaults setObject:@"0" forKey:@"JDAppFromR1N1"];
+    [defaults setObject:@"0" forKey:@"JD_AppFromR1N1"];
   }
   [defaults synchronize];
 }
 
-- (void)loadReactNativeController{
-  [self JD_OtherSDKInit];
-  NSURL *jsCodeLocation;
-#ifdef DEBUG
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-#else
-  jsCodeLocation = [CodePush bundleURL];
-#endif
+- (void)JD_OtherSDKInit{
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSString *ukey = [defaults objectForKey:@"JD_ukey"];
+  NSString *tkey = [defaults objectForKey:@"JD_tkey"];
+  NSString *jkey = [defaults objectForKey:@"JD_jkey"];
+  NSString *bkey = [defaults objectForKey:@"JD_bkey"];
+  // 极光推送
+  JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+  entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
+  [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+  [JPUSHService setupWithOption:self.launchOptions appKey:jkey
+                        channel:nil apsForProduction:true];
   
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation moduleName:@"TC168" initialProperties:nil launchOptions:self.launchOptions];
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-  self.rootView  = rootView;
+  // 友盟统计
+  [UMConfigure setLogEnabled:YES];
+  [RNUMConfigure initWithAppkey:ukey channel:@"AppStore"];
+  
+  //talkingData
+  [TalkingData sessionStarted:tkey withChannelId:@"AppStore"];
+  
+  //腾讯bugly
+  BuglyConfig * config = [[BuglyConfig alloc] init];
+  config.reportLogLevel = BuglyLogLevelWarn;
+  config.blockMonitorEnable = YES;
+  config.blockMonitorTimeout = 1.5;
+  [Bugly startWithAppId:bkey config:config];
 }
 
+- (void)resetAppKeyWithDictionary:(NSDictionary *)dic{
+  NSLog(@"=== %@",dic);
+  if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+    [self setObject:dic[@"ukey"] forKey:@"JD_ukey"];
+    [self setObject:dic[@"tkey"] forKey:@"JD_tkey"];
+    [self setObject:dic[@"jkey"] forKey:@"JD_jkey"];
+    [self setObject:dic[@"bkey"] forKey:@"JD_bkey"];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults synchronize];
+  }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+- (void)setObject:(id)object forKey:(NSString *)key {
+  if (key == nil || [key isEqualToString:@""]) {
+    return;
+  }
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  [defaults setObject:object forKey:key];
+}
 
 
 #pragma mark 极光推送
