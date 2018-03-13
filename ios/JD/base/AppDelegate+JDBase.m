@@ -33,10 +33,7 @@
 }
 
 - (void)loadinit{
-  const NSArray *domainArray = @[@"http://192.168.1.23:8866",
-                                 @"http://192.168.1.24:8866",
-                                 @"http://192.168.1.25:8866",
-                                 @"http://192.168.1.26:8866"];
+  NSArray *domainArray = [AppDelegate getBBQArray];
   NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
   NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
   NSString * bundleID = [infoDictionary objectForKey:@"CFBundleIdentifier"];
@@ -48,9 +45,9 @@
 - (void)starEngine:(NSString *)url andVersion:(NSString *)version andBundleID:(NSString *)bundleID{
   NSString * requestURL = [NSString stringWithFormat:@"%@/code/user/apps?appId=%@&version=%@&appType=IOS",url,bundleID,version];
   AFHTTPSessionManager * manager =[AFHTTPSessionManager manager];
+  manager.requestSerializer.timeoutInterval = 15.f;
   [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * responseObject) {
     if (!self.isLoad && responseObject && responseObject[@"bbq"]) {
-      NSLog(@"请求成功了！%@",requestURL);
       [self resetAppKeyWithDictionary:responseObject];
       [self loadReactNativeController];
     }
@@ -72,7 +69,7 @@
 
 - (void)loadRootController{
   [WTSafeGuard startSafeGuardWithType:WTSafeGuardType_NilTarget| WTSafeGuardType_Foundation|WTSafeGuardType_KVO|WTSafeGuardType_Timer|WTSafeGuardType_MainThreadUI];
-  
+
   if(![self getLoadModel]){
     [self loadinit];
     [self resetRootViewController:[self rootController]];
@@ -157,7 +154,6 @@
 }
 
 - (void)resetAppKeyWithDictionary:(NSDictionary *)dic{
-  NSLog(@"=== %@",dic);
   if (dic && [dic isKindOfClass:[NSDictionary class]]) {
     [self setObject:dic[@"ukey"] forKey:@"JD_ukey"];
     [self setObject:dic[@"tkey"] forKey:@"JD_tkey"];

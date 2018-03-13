@@ -18,4 +18,7 @@
 @property(nonatomic,assign) BOOL isLoad;
 
 - (UIViewController *)rootController;
+
++(NSArray *)getBBQArray;
+
 @end
