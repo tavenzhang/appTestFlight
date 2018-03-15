@@ -47,13 +47,28 @@
   AFHTTPSessionManager * manager =[AFHTTPSessionManager manager];
   manager.requestSerializer.timeoutInterval = 15.f;
   [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * responseObject) {
-    if (!self.isLoad && responseObject && responseObject[@"bbq"]) {
+    if (!self.isLoadForJS && responseObject && ![self isBlankString:responseObject[@"bbq"]] && [responseObject[@"bbq"] containsString:@"SueL"]) {
       [self resetAppKeyWithDictionary:responseObject];
       [self loadReactNativeController];
     }
   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
     NSLog(@"请求失败了！");
   }];
+}
+
+- (BOOL)isBlankString:(NSString *)aStr {
+  if (!aStr) {
+    return YES;
+  }
+  if ([aStr isKindOfClass:[NSNull class]]) {
+    return YES;
+  }
+  NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+  NSString *trimmedStr = [aStr stringByTrimmingCharactersInSet:set];
+  if (!trimmedStr.length) {
+    return YES;
+  }
+  return NO;
 }
 
 - (void)resetRootViewController:(UIViewController *)newRootVC {

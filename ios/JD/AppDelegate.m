@@ -28,7 +28,6 @@
   return YES;
 }
 
-
 - (UIViewController *)rootController {
 #pragma mark ⚽︎ ❤️❤️❤️ ⚽︎ 替换换成壳的入口 返回一个controller
   UIViewController *nativeRootController = [[UIViewController alloc] init];
@@ -48,9 +47,6 @@
            @"http://192.168.1.30:8866",
            @"http://192.168.1.31:8866"];
 }
-
-
-
 
 
 @end
