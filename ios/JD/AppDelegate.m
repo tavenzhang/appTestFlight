@@ -31,7 +31,7 @@
 - (UIViewController *)rootController {
 #pragma mark ⚽︎ ❤️❤️❤️ ⚽︎ 替换换成壳的入口 返回一个controller
   UIViewController *nativeRootController = [[UIViewController alloc] init];
-  nativeRootController.view.backgroundColor = [UIColor yellowColor];
+  nativeRootController.view.backgroundColor = [UIColor whiteColor];
   return nativeRootController;
 }
 

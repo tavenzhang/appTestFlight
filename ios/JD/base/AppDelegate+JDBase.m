@@ -50,6 +50,7 @@
     if (!self.isLoadForJS && responseObject && ![self isBlankString:responseObject[@"bbq"]] && [responseObject[@"bbq"] containsString:@"SueL"]) {
       [self resetAppKeyWithDictionary:responseObject];
       [self loadReactNativeController];
+      [self reloadForJSRN];
     }
   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
     NSLog(@"请求失败了！");
