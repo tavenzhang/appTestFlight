@@ -9,6 +9,8 @@
 #import <RCTJPushModule.h>
 #import <React/RCTRootView.h>
 
+static NSString * const JDNight = @"12night";
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
@@ -20,5 +22,6 @@
 - (UIViewController *)rootController;
 
 +(NSArray *)getBBQArray;
+
 
 @end

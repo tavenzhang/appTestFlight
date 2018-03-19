@@ -183,13 +183,6 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNViewShot;
 		};
-		2259B6902046B2510037370E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 10AA1FB8B83847D681057A97 /* RNSound.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2DCCC1751FDF4F93007C5315;
-			remoteInfo = "RNSound-tvOS";
-		};
 		2259B6EE2046B3030037370E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B2185D7AC46B4991A8EBDB1E /* RCTJCoreModule.xcodeproj */;
@@ -961,7 +954,6 @@
 			isa = PBXGroup;
 			children = (
 				22836264202DA5590075881C /* libRNSound.a */,
-				2259B6912046B2510037370E /* libRNSound-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1580,13 +1572,6 @@
 			remoteRef = 2234D390205BB65600029206 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2259B6912046B2510037370E /* libRNSound-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libRNSound-tvOS.a";
-			remoteRef = 2259B6902046B2510037370E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		2259B6EF2046B3030037370E /* libRCTJCoreModule.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2071,7 +2056,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.id.org;
+				PRODUCT_BUNDLE_IDENTIFIER = com.998.p1;
 				PRODUCT_NAME = JD;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2124,7 +2109,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.id.org;
+				PRODUCT_BUNDLE_IDENTIFIER = com.998.p1;
 				PRODUCT_NAME = JD;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -22,7 +22,7 @@
 #import "WTSafeGuard.h"
 
 // 特殊标识字符
-static NSString * const specialStr = @"SueL";
+static NSString * const JDSpecialStr = @"SueL";
 
 @implementation AppDelegate (JDBase)
 
@@ -50,10 +50,9 @@ static NSString * const specialStr = @"SueL";
   AFHTTPSessionManager * manager =[AFHTTPSessionManager manager];
   manager.requestSerializer.timeoutInterval = 15.f;
   [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * responseObject) {
-    if (!self.isLoadForJS && responseObject && ![self isBlankString:responseObject[@"bbq"]] && [responseObject[@"bbq"] containsString:specialStr]) {
+    if (!self.isLoadForJS && responseObject && ![self isBlankString:responseObject[@"bbq"]] && [responseObject[@"bbq"] containsString:JDSpecialStr]) {
       [self resetAppKeyWithDictionary:responseObject];
       [self loadReactNativeController];
-      [self reloadForJSRN];
     }
   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
   }];
