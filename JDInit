@@ -1,0 +1,6 @@
+scriptPath=$(cd `dirname $0`; pwd)
+cd ${scriptPath}
+npm install
+rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json
+cp ./Init/CodePush.js ${scriptPath}/node_modules/react-native-code-push/CodePush.js
+echo '初始化完毕 可以开始 Xcode -> Run'    

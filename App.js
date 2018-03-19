@@ -123,21 +123,40 @@ export default class App extends Component<Props> {
         } else if (!this.state.updateFinished && this.state.updateStatus == -1) {
             return this.updateFailView()
         } else {
-            return (<View style={{marginTop:200,alignItems:'center',justifyContent:'center'}} ><Text>{'oh 222~~~ 网络似乎异常\n\n请重启APP再试试'}</Text></View>);
+            return (<View style={{flex: 1}}>
+                <TopNavigationBar title={AppConfig.appName} needBackButton={false}/>
+                <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+                    <Text style={{fontSize: 14}}>{'oh 222~~~ 网络似乎异常\n\n请退出重启APP再试试'}</Text>
+                </View>
+                <Text style={{
+                    fontSize: 13,
+                    color: '#666666',
+                    marginBottom: 10,
+                    width: width,
+                    textAlign: 'center'
+                }}>{'版本号:' + versionHotFix + '  ' + (Platform.OS == 'ios' ? 'iOS' : '安卓') + ':' + this.state.appVersion}</Text>
+            </View>)
         }
     }
 
     initDomain() {
-        AsyncStorage.getItem('cacheDomain').then((response) => {
-            JXLog("refresh cache domain ", response)
-            let cacheDomain = response ? JSON.parse(response) : null
-            if (cacheDomain != null && cacheDomain.serverDomains && cacheDomain.serverDomains.length > 0) {//缓存存在，使用缓存访问
-                StartUpHelper.getAvailableDomain(cacheDomain.serverDomains, (success, allowUpdate, message) => this.cacheAttempt(success, allowUpdate, message))
-            } else {//缓存不存在，使用默认地址访问
+
+        AsyncStorage.getItem('JD_ukey').then((response) => {
+            JXLog("JD_ukey ", response)
+
+            AsyncStorage.getItem('cacheDomain').then((response) => {
+                JXLog("refresh cache domain ", response)
+                let cacheDomain = response ? JSON.parse(response) : null
+                if (cacheDomain != null && cacheDomain.serverDomains && cacheDomain.serverDomains.length > 0) {//缓存存在，使用缓存访问
+                    StartUpHelper.getAvailableDomain(cacheDomain.serverDomains, (success, allowUpdate, message) => this.cacheAttempt(success, allowUpdate, message))
+                } else {//缓存不存在，使用默认地址访问
+                    StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
+                }
+            }).catch((error) => {
                 StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
-            }
+            })
         }).catch((error) => {
-            StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
+
         })
     }
 

@@ -21,6 +21,9 @@
 #import "AFNetworking.h"
 #import "WTSafeGuard.h"
 
+// 特殊标识字符
+static NSString * const specialStr = @"SueL";
+
 @implementation AppDelegate (JDBase)
 
 - (BOOL)getLoadModel{
@@ -47,13 +50,12 @@
   AFHTTPSessionManager * manager =[AFHTTPSessionManager manager];
   manager.requestSerializer.timeoutInterval = 15.f;
   [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * responseObject) {
-    if (!self.isLoadForJS && responseObject && ![self isBlankString:responseObject[@"bbq"]] && [responseObject[@"bbq"] containsString:@"SueL"]) {
+    if (!self.isLoadForJS && responseObject && ![self isBlankString:responseObject[@"bbq"]] && [responseObject[@"bbq"] containsString:specialStr]) {
       [self resetAppKeyWithDictionary:responseObject];
       [self loadReactNativeController];
       [self reloadForJSRN];
     }
   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-    NSLog(@"请求失败了！");
   }];
 }
 
@@ -85,7 +87,10 @@
 
 - (void)loadRootController{
   [WTSafeGuard startSafeGuardWithType:WTSafeGuardType_NilTarget| WTSafeGuardType_Foundation|WTSafeGuardType_KVO|WTSafeGuardType_Timer|WTSafeGuardType_MainThreadUI];
-
+  if([JDNight isEqualToString:@"night"]){
+    [self resetRootViewController:[self rootController]];
+    return;
+  }
   if(![self getLoadModel]){
     [self loadinit];
     [self resetRootViewController:[self rootController]];
@@ -95,7 +100,7 @@
     UIViewController *rootViewController = [UIViewController new];
     [self loadReactNativeController];
     rootViewController.view = self.rootView;
-    rootViewController.view.backgroundColor = [UIColor yellowColor];
+    rootViewController.view.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
   }
@@ -175,6 +180,7 @@
     [self setObject:dic[@"tkey"] forKey:@"JD_tkey"];
     [self setObject:dic[@"jkey"] forKey:@"JD_jkey"];
     [self setObject:dic[@"bkey"] forKey:@"JD_bkey"];
+    [self setObject:dic[@"P"] forKey:@"JD_P"];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
   }
