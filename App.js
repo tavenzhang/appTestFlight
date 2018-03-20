@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import AnalyticsUtil from './AnalyticsUtil';
+import AnalyticsUtil from './src/Common/AnalyticsUtil';
 
 import {
     AppRegistry,
