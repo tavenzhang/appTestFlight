@@ -85,6 +85,8 @@ let downloadTime = 0
 let alreadyInCodePush = false
 let CodePushDeploymentKey = null
 
+let JDPlatform = 'SPORT'
+
 export default class App extends Component<Props> {
     constructor() {
         super();
@@ -106,7 +108,7 @@ export default class App extends Component<Props> {
             if (this.state.syncMessage === '检测更新中...' || this.state.syncMessage === '初始化配置中...') {
                 this.skipUpdate()
             }
-        }, 5 * 1000)
+        }, 30 * 1000)
 
         this.getAPPVersion()
         this.hotFix()
@@ -140,20 +142,31 @@ export default class App extends Component<Props> {
     }
 
     initDomain() {
-
-        AsyncStorage.getItem('JD_ukey').then((response) => {
-            JXLog("JD_ukey ", response)
-
+        AsyncStorage.getItem('JD_P').then((response) => {
+            JXLog("JD_P ", response)
+            if (response) {
+                switch (response) {
+                    case 'L':
+                        JDPlatform = 'LOTTERY'
+                        break
+                    case 'G':
+                        JDPlatform = 'GAME'
+                        break
+                    case 'S':
+                        JDPlatform = 'SPORT'
+                        break
+                }
+            }
             AsyncStorage.getItem('cacheDomain').then((response) => {
                 JXLog("refresh cache domain ", response)
                 let cacheDomain = response ? JSON.parse(response) : null
                 if (cacheDomain != null && cacheDomain.serverDomains && cacheDomain.serverDomains.length > 0) {//缓存存在，使用缓存访问
-                    StartUpHelper.getAvailableDomain(cacheDomain.serverDomains, (success, allowUpdate, message) => this.cacheAttempt(success, allowUpdate, message))
+                    StartUpHelper.getAvailableDomain(cacheDomain.serverDomains,JDPlatform, (success, allowUpdate, message) => this.cacheAttempt(success, allowUpdate, message))
                 } else {//缓存不存在，使用默认地址访问
-                    StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
+                    StartUpHelper.getAvailableDomain(AppConfig.domains,JDPlatform, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
                 }
             }).catch((error) => {
-                StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
+                StartUpHelper.getAvailableDomain(AppConfig.domains,JDPlatform, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
             })
         }).catch((error) => {
 
@@ -186,7 +199,7 @@ export default class App extends Component<Props> {
         if (success && allowUpdate) {
             this.gotoUpdate()
         } else if (!success) {//默认地址不可用，使用备份地址
-            StartUpHelper.getAvailableDomain(AppConfig.backupDomains, (success, allowUpdate, message) => this.secondAttempt(success, allowUpdate, message))
+            StartUpHelper.getAvailableDomain(AppConfig.backupDomains,JDPlatform, (success, allowUpdate, message) => this.secondAttempt(success, allowUpdate, message))
         } else {//不允许更新
             this.skipUpdate()
         }
@@ -235,7 +248,7 @@ export default class App extends Component<Props> {
         if (success && allowUpdate) {
             this.gotoUpdate()
         } else if (!success) {//缓存地址不可用,使用默认地址
-            StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
+            StartUpHelper.getAvailableDomain(AppConfig.domains,JDPlatform, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
         } else {
             this.skipUpdate()
         }
@@ -414,7 +427,7 @@ export default class App extends Component<Props> {
                         <TouchableOpacity
                             onPress={() => {
                                 retryTimes++
-                                if (retryTimes >= 3) {
+                                if (retryTimes >= 5 ) {
                                     this.skipUpdate()
                                 } else {
                                     this.initDomain()
