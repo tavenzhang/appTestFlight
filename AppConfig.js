@@ -1,5 +1,5 @@
 export  default {
-  appName: '106彩票',
+  appName: '106娱乐',
   clientId: 7,
   trendChartDomains: 'http://106caipiao.com',
   allowFontScaling: true,

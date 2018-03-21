@@ -111,7 +111,6 @@ export default class App extends Component<Props> {
         }, 30 * 1000)
 
         this.getAPPVersion()
-        this.hotFix()
     }
 
     componentWillUnmount() {
@@ -195,7 +194,7 @@ export default class App extends Component<Props> {
 
     //使用默认地址
     firstAttempt(success, allowUpdate, message) {
-        JXLog(`first attempt ${success}, ${allowUpdate}, ${message}`)
+        JXLog(`first attempt11 ${success}, ${allowUpdate}, ${message}`)
         if (success && allowUpdate) {
             this.gotoUpdate()
         } else if (!success) {//默认地址不可用，使用备份地址
@@ -291,8 +290,6 @@ export default class App extends Component<Props> {
     }
 
     hotFix(hotfixDeploymentKey) {
-        global.JXCodePushServerUrl = 'https://checkupdate.pushservice105.com'
-        hotfixDeploymentKey = 'bXFp4QnhJz0vHvy410sApBySueLm4ksvOXqog'
         this.setState({
             syncMessage: '检测更新中...',
             updateStatus: 0
@@ -497,4 +494,4 @@ App = CodePush({
     installMode: CodePush.InstallMode.IMMEDIATE
 })(App);
 
-AppRegistry.registerComponent('TC168', () => App);
+AppRegistry.registerComponent('JD', () => App);
