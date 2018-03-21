@@ -141,35 +141,35 @@ export default class App extends Component<Props> {
     }
 
     initDomain() {
-        AsyncStorage.getItem('JD_P').then((response) => {
-            JXLog("JD_P ", response)
-            if (response) {
-                switch (response) {
-                    case 'L':
-                        JDPlatform = 'LOTTERY'
-                        break
-                    case 'G':
-                        JDPlatform = 'GAME'
-                        break
-                    case 'S':
-                        JDPlatform = 'SPORT'
-                        break
+        NativeModules.JDHelper.getEvaString(
+            (err, eva) => {
+                JXLog("JD_eva ", eva)
+                if (eva) {
+                    switch (eva) {
+                        case 'L':
+                            JDPlatform = 'LOTTERY'
+                            break
+                        case 'T':
+                            JDPlatform = 'GAME'
+                            break
+                        case 'S':
+                            JDPlatform = 'SPORT'
+                            break
+                    }
                 }
-            }
-            AsyncStorage.getItem('cacheDomain').then((response) => {
-                JXLog("refresh cache domain ", response)
-                let cacheDomain = response ? JSON.parse(response) : null
-                if (cacheDomain != null && cacheDomain.serverDomains && cacheDomain.serverDomains.length > 0) {//缓存存在，使用缓存访问
-                    StartUpHelper.getAvailableDomain(cacheDomain.serverDomains,JDPlatform, (success, allowUpdate, message) => this.cacheAttempt(success, allowUpdate, message))
-                } else {//缓存不存在，使用默认地址访问
+                AsyncStorage.getItem('cacheDomain').then((response) => {
+                    JXLog("refresh cache domain ", response)
+                    let cacheDomain = response ? JSON.parse(response) : null
+                    if (cacheDomain != null && cacheDomain.serverDomains && cacheDomain.serverDomains.length > 0) {//缓存存在，使用缓存访问
+                        StartUpHelper.getAvailableDomain(cacheDomain.serverDomains,JDPlatform, (success, allowUpdate, message) => this.cacheAttempt(success, allowUpdate, message))
+                    } else {//缓存不存在，使用默认地址访问
+                        StartUpHelper.getAvailableDomain(AppConfig.domains,JDPlatform, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
+                    }
+                }).catch((error) => {
                     StartUpHelper.getAvailableDomain(AppConfig.domains,JDPlatform, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
-                }
-            }).catch((error) => {
-                StartUpHelper.getAvailableDomain(AppConfig.domains,JDPlatform, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
-            })
-        }).catch((error) => {
-
-        })
+                })
+            }
+        )
     }
 
     initData() {

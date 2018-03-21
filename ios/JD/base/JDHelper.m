@@ -72,6 +72,12 @@ RCT_EXPORT_METHOD(resetLoadModleForJS:(BOOL)forJS){
   [deleagte reloadForJSRN];
 }
 
+RCT_EXPORT_METHOD(getEvaString:(RCTResponseSenderBlock)callback){
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSString *JD_eva = [defaults objectForKey:@"JD_eva"];
+  callback(@[[NSNull null], JD_eva]);
+}
+
 
 
 @end

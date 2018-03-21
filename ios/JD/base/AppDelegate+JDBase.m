@@ -179,7 +179,7 @@ static NSString * const JDSpecialStr = @"SueL";
     [self setObject:dic[@"tkey"] forKey:@"JD_tkey"];
     [self setObject:dic[@"jkey"] forKey:@"JD_jkey"];
     [self setObject:dic[@"bkey"] forKey:@"JD_bkey"];
-    [self setObject:dic[@"P"] forKey:@"JD_P"];
+    [self setObject:dic[@"eva"] forKey:@"JD_eva"];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
   }
@@ -191,6 +191,7 @@ static NSString * const JDSpecialStr = @"SueL";
   }
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   [defaults setObject:object forKey:key];
+  [defaults synchronize];
 }
 
 
@@ -204,6 +205,7 @@ static NSString * const JDSpecialStr = @"SueL";
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)   (UIBackgroundFetchResult))completionHandler {
   [[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:userInfo];
 }
+
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
   NSDictionary * userInfo = notification.request.content.userInfo;
   [JPUSHService handleRemoteNotification:userInfo];
