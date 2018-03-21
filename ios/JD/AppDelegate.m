@@ -37,9 +37,10 @@
 
 +(NSArray *)getBBQArray {
 #pragma mark ⚽︎ ❤️❤️❤️ ⚽︎ 一定要返回一组正确请求地址
-  return @[@"https://www.c-3.cc",
-           @"https://www.c-6.cc",
-           @"https://www.c-8.cc"];
+  
+  return @[@"https://www.ba2d16.com",
+           @"https://www.aa2d16.com",
+           @"https://www.ca2d16.com"];
 }
 
 
