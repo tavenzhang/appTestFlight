@@ -127,7 +127,7 @@ export default class App extends Component<Props> {
             return (<View style={{flex: 1}}>
                 <TopNavigationBar title={AppConfig.appName} needBackButton={false}/>
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-                    <Text style={{fontSize: 14}}>{'oh 222~~~ 网络似乎异常\n\n请退出重启APP再试试'}</Text>
+                    <Text style={{fontSize: 14}}>{'  更新成功 敬请期待~~~ \n\n'}{AppConfig.appName}即将席卷而来</Text>
                 </View>
                 <Text style={{
                     fontSize: 13,
