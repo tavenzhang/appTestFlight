@@ -470,4 +470,4 @@ TC168 = CodePush({
     installMode: CodePush.InstallMode.IMMEDIATE
 })(TC168);
 
-AppRegistry.registerComponent('TC168', () => TC168);
+AppRegistry.registerComponent('JD', () => TC168);

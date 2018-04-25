@@ -26,7 +26,7 @@ import HotItemView from './View/TCHomeHotItemView';
 import HomeItemBarStyle1 from './View/TCHomeItemBarStyle1_4';
 import Storage from '../../Common/Storage/TCStorage';
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
-import NoticeBar from '../../Common/View/TCNoticeBar';
+// import NoticeBar from '../../Common/View/TCNoticeBar';
 import { config, appId, appVersion, AppName } from '../../Common/Network/TCRequestConfig';
 import NetUitls from '../../Common/Network/TCRequestUitls';
 import TCInitHelperC from '../../Common/JXHelper/TCInitHelper';
@@ -41,7 +41,7 @@ import {observer} from 'mobx-react/native';
 import PageIndicator from '../../Common/View/PageIndicator';
 var LotteryKindItemsDATA = require('../../Data/HomeKindItem.json');
 import { width, indexBgColor, indexTxtColor } from '../resouce/theme';
-var ViewPager = require('react-native-viewpager');
+// var ViewPager = require('react-native-viewpager');
 import NetWorkTool from '../../Common/Network/TCToolNetWork';
 let isFirstLoad = false;
 let listModel = null;
@@ -324,17 +324,17 @@ export default class TCHome extends Component {
     //CELL ROW DATA
     renderRow(rowData, sectionID, rowID) {
         if (sectionID == 'promotionBanners') {
-            return (
-                <View style={{ width: width, height: width * 0.383 }}>
-                    <ViewPager
-                        dataSource={this.state.ViewPagerDataSource}
-                        renderPage={(d, p) => this._renderPage(d, p)}
-                        isLoop={true}
-                        autoPlay={true}
-                        renderPageIndicator={() => <PageIndicator />}
-                    />
-                </View>
-            );
+            // return (
+            //     <View style={{ width: width, height: width * 0.383 }}>
+            //         <ViewPager
+            //             dataSource={this.state.ViewPagerDataSource}
+            //             renderPage={(d, p) => this._renderPage(d, p)}
+            //             isLoop={true}
+            //             autoPlay={true}
+            //             renderPageIndicator={() => <PageIndicator />}
+            //         />
+            //     </View>
+            // );
         } else if (sectionID == 'gameInfosHot') {
             return (
                 <HotItemView
@@ -355,7 +355,7 @@ export default class TCHome extends Component {
         } else if (sectionID == 'menuIcons') {
             return <HomeItemBarStyle1 rowData={rowData} pushToEvent={title => this.pushWithMoneyBarTitle(title)} />;
         } else if (sectionID == 'announcement') {
-            return <NoticeBar announcement={rowData} />;
+            // return <NoticeBar announcement={rowData} />;
         } else if (sectionID == 'topWinnersModel') {
             return <TopWinnerView rowData={rowData} />;
         }

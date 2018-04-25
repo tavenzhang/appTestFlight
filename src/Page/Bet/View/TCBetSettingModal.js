@@ -17,7 +17,7 @@ import {
 
 // （原赔率 - x% * 原赔率）
 var Modal = require('react-native-modalbox');
-var Slider = require('react-native-slider');
+// var Slider = require('react-native-slider');
 var JXHelper = require('../../../Common/JXHelper/JXHelper');
 import {Size, width, height} from '../../resouce/theme';
 import {observer} from 'mobx-react/native';
@@ -74,18 +74,18 @@ export default class MyComponent extends React.Component {
                             返利:{this.d.rebate.toFixed(1)}%
                         </Text>
                     </View>
-                    <Slider
-                        value={0}
-                        onValueChange={e => this.d.resetRebate(e)}
-                        minimumValue={0}
-                        maximumValue={this.d.maxRebate}
-                        step={0.01}
-                        maximumTrackTintColor="#eeeeee"
-                        minimumTrackTintColor="#ff9600"
-                        style={{marginTop: 5, marginLeft: 20, width: width - 60 - 50}}
-                        trackStyle={{height: 10}}
-                        thumbStyle={styles.sliderStyle}
-                    />
+                    {/*<Slider*/}
+                        {/*value={0}*/}
+                        {/*onValueChange={e => this.d.resetRebate(e)}*/}
+                        {/*minimumValue={0}*/}
+                        {/*maximumValue={this.d.maxRebate}*/}
+                        {/*step={0.01}*/}
+                        {/*maximumTrackTintColor="#eeeeee"*/}
+                        {/*minimumTrackTintColor="#ff9600"*/}
+                        {/*style={{marginTop: 5, marginLeft: 20, width: width - 60 - 50}}*/}
+                        {/*trackStyle={{height: 10}}*/}
+                        {/*thumbStyle={styles.sliderStyle}*/}
+                    {/*/>*/}
                     <View style={styles.priceSettingStyle}>
                         <Text style={styles.textStyle}>单注金额:</Text>
                         {this.getInputView()}
