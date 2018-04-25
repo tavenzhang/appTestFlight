@@ -1,0 +1,111 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true
+  },
+  "exclude": {
+    "banks": [
+      {
+        "id": 1,
+        "name": "中国银行",
+        "code": "zgyh"
+      },
+      {
+        "id": 2,
+        "name": "工商银行",
+        "code": "zggs"
+      },
+      {
+        "id": 3,
+        "name": "农业银行",
+        "code": "nyyh"
+      },
+      {
+        "id": 4,
+        "name": "建设银行",
+        "code": "jsyh"
+      },
+      {
+        "id": 5,
+        "name": "交通银行",
+        "code": "jtyh"
+      },
+      {
+        "id": 6,
+        "name": "中国邮政",
+        "code": "zgyz"
+      },
+      {
+        "id": 7,
+        "name": "中信银行",
+        "code": "zxyh"
+      },
+      {
+        "id": 8,
+        "name": "光大银行",
+        "code": "gdyh"
+      },
+      {
+        "id": 9,
+        "name": "华夏银行",
+        "code": "hxyh"
+      },
+      {
+        "id": 10,
+        "name": "民生银行",
+        "code": "msyh"
+      },
+      {
+        "id": 11,
+        "name": "广发银行",
+        "code": "gfyh"
+      },
+      {
+        "id": 12,
+        "name": "平安银行",
+        "code": "zgpa"
+      },
+      {
+        "id": 13,
+        "name": "招商银行",
+        "code": "zsyh"
+      },
+      {
+        "id": 14,
+        "name": "兴业银行",
+        "code": "xyyh"
+      },
+      {
+        "id": 15,
+        "name": "浦发银行",
+        "code": "pfyh"
+      },
+      {
+        "id": 16,
+        "name": "渤海银行",
+        "code": "bhyh"
+      },
+      {
+        "id": 17,
+        "name": "上海银行",
+        "code": "shyh"
+      },
+      {
+        "id": 18,
+        "name": "北京银行",
+        "code": "bjyh"
+      },
+      {
+        "id": 19,
+        "name": "北京农商银行",
+        "code": "bjns"
+      },
+      {
+        "id": 20,
+        "name": "上海农商银行",
+        "code": "shns"
+      }
+    ]
+  }
+}

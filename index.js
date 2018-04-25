@@ -1,1 +1,1 @@
-import APP from './App'
+import APP from './src/Page/Main/Index'

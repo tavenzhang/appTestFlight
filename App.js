@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import AnalyticsUtil from './src/Common/AnalyticsUtil';
+// import AnalyticsUtil from './src/Common/AnalyticsUtil';
 
 import {
     AppRegistry,
@@ -14,13 +14,13 @@ import {
     View,
     Navigator,
     Alert,
-    Image,
+    ImageBackground,
     Platform,
     NativeModules,
     TouchableOpacity,
     AsyncStorage,
     BackAndroid,
-    AppState
+    AppState,
 } from 'react-native';
 
 import Moment from 'moment'

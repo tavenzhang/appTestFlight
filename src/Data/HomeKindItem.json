@@ -1,0 +1,147 @@
+{
+  "banner":[
+    [{
+    "url":"http://pimg1.126.net/caipiao_info/images/headFigure/indexPage/1473309705276_1.png?24677654"
+    },
+    {
+    "url":"http://pimg1.126.net/caipiao_info/images/headFigure/indexPage/1473309705276_1.png?24677654"
+    },
+    {
+    "url":"http://pimg1.126.net/caipiao_info/images/headFigure/indexPage/1473309705276_1.png?24677654"
+    },
+    {
+    "url":"http://pimg1.126.net/caipiao_info/images/headFigure/indexPage/1473309705276_1.png?24677654"
+    }]
+  ],
+
+
+  "notice":{
+    "text":""
+  },
+
+  "money":{
+    "show":true
+  },
+
+  "recommend": [
+    {
+      "title":"重庆时时彩",
+      "data":"11111",
+      "icon":"icon_cp_1",
+      "description":"免费分钱 速来拿",
+      "id":"1",
+      "titleColor":"#4292cd"
+    },
+    {
+      "title":"北京PK10",
+      "data":"11111",
+      "icon":"icon_cp_4",
+      "description":"重庆天津广东快乐10分",
+      "id":"2",
+      "titleColor":"#ef2d0e"
+    },
+    {
+      "title":"六合彩",
+      "data":"11111",
+      "icon":"icon_cp_3",
+      "description":"骨子游戏好玩",
+      "id":"3",
+      "titleColor":"#18a53d"
+    },
+    {
+      "title":"山东11选5",
+      "data":"11111",
+      "icon":"icon_cp_2",
+      "description":"最受欢迎的11选五",
+      "id":"4",
+      "titleColor":"#e79811"
+    },
+    {
+      "title":"福彩3D",
+      "data":"11111",
+      "icon":"icon_cp_5",
+      "description":"免费分钱 速来拿",
+      "id":"5"
+    },
+    {
+      "title":"重庆快乐十分",
+      "data":"11111",
+      "icon":"icon_cp_10",
+      "description":"十分钟一期,快乐10分",
+      "id":"5"
+    }
+  ],
+
+  "exclude": [
+    {
+      "title":"天津时时彩",
+      "data":"11111",
+      "icon":"icon_cp_1",
+      "description":"免费分钱 速来拿",
+      "id":"1"
+    },
+    {
+      "title":"北京PK10",
+      "data":"11111",
+      "icon":"icon_cp_2",
+      "description":"2元可中10000000万",
+      "id":"2"
+    },
+    {
+      "title":"山东11选5",
+      "data":"11111",
+      "icon":"icon_cp_3",
+      "description":"10分钟一开奖",
+      "id":"3"
+    },
+    {
+      "title":"六合彩",
+      "data":"11111",
+      "description":"免费分钱 速来拿",
+      "icon":"icon_cp_7",
+      "id":"8"
+    },
+    {
+      "title":"重庆快乐十分",
+      "data":"11111",
+      "icon":"icon_cp_4",
+      "description":"免费分钱 速来拿",
+      "id":"4"
+    },
+    {
+      "title":"福彩3D",
+      "data":"11111",
+      "icon":"icon_cp_5",
+      "description":"免费分钱 速来拿",
+      "id":"5"
+    },
+    {
+      "title":"上海时时彩",
+      "data":"11111",
+      "icon":"icon_cp_6",
+      "description":"免费分钱 速来拿",
+      "id":"7"
+    },
+    {
+      "title":"大乐透",
+      "data":"11111",
+      "description":"免费分钱 速来拿",
+      "icon":"icon_cp_8",
+      "id":"9"
+    },
+    {
+      "title":"山东11选5",
+      "data":"11111",
+      "icon":"icon_cp_9",
+      "description":"免费分钱 速来拿",
+      "id":"3"
+    },
+    {
+      "title":"更多彩种",
+      "data":"11111",
+      "icon":"icon_cp_17",
+      "description":"免费分钱 速来拿",
+      "id":"3"
+    }
+  ]
+}
