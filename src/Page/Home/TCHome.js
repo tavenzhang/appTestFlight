@@ -16,7 +16,8 @@ import {
     NativeModules,
     BackAndroid,
     AppState,
-    Dimensions
+    Dimensions,
+    SectionList
 } from 'react-native';
 import {Size} from '../../Page/resouce/theme';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
@@ -26,7 +27,7 @@ import HotItemView from './View/TCHomeHotItemView';
 import HomeItemBarStyle1 from './View/TCHomeItemBarStyle1_4';
 import Storage from '../../Common/Storage/TCStorage';
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
-// import NoticeBar from '../../Common/View/TCNoticeBar';
+import NoticeBar from '../../Common/View/notice/TCNoticeBar';
 import {config, appId, appVersion, AppName} from '../../Common/Network/TCRequestConfig';
 import NetUitls from '../../Common/Network/TCRequestUitls';
 import TCInitHelperC from '../../Common/JXHelper/TCInitHelper';
@@ -51,25 +52,24 @@ import RedPacketMenu from '../red_packet/components/RedPacketMenu';
 let TCUserCollectHelpers = new TCUserCollectHelper();
 let RedPacketData = new RedPacket();
 import RedPacket from '../red_packet/RedPacketData';
+// import Swiper from 'react-native-swiper'
+import Swiper from '../../Common/View/swiper/Swiper'
 
 @observer
 export default class TCHome extends Component {
     constructor(state) {
         super(state);
-        let ds = new ListView.DataSource({
-            rowHasChanged: (row1, row2) => row1 !== row2,
-            sectionHeaderHasChanged: (s1, s2) => s1 !== s2
-        });
+
         this.state = {
-            dataSource: ds,
-            ViewPagerDataSource: null,
             isRefreshing: false,
             loaded: 0,
             isLogin: true,
             show: false,
             appUrl: '',
             bannerData: [],
-            updateTip: '请您更新最新版本!'
+            noticeData: [],
+            updateTip: '请您更新最新版本!',
+            content: null
         };
         this.getHomeCacheData();
     }
@@ -157,29 +157,29 @@ export default class TCHome extends Component {
                             ? NavigatorHelper.pushToUserCollect()
                             : NavigatorHelper.pushToUserLogin(true)}
                 />
-                <ListView
-                    ref="ListView"
+                {this.state.content ? <SectionList
+                    refreshing={false}
+                    onRefresh={() => {
+                        this.loadDataFormNet()
+                    }}
                     contentContainerStyle={styles.listViewStyle}
-                    dataSource={this.state.dataSource}
-                    renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID)}
-                    renderSectionHeader={(sectionData, sectionId) => this._renderHeader(sectionData, sectionId)}
-                    initialListSize={15}
-                    stickyHeaderIndices={[0]}
-                    horizontal={false}
-                    removeClippedSubviews={false}
-                    keyboardShouldPersistTaps={true}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={this.state.isRefreshing}
-                            onRefresh={() => this._onRefresh()}
-                            tintColor="#999999"
-                            title="下拉刷新"
-                            titleColor="#999999"
-                            colors={['#ff0000', '#00ff00', '#0000ff']}
-                            progressBackgroundColor="#ffff00"
-                        />
+                    renderSectionHeader={({section}) => this.renderSectionHeader(section)}
+                    keyExtractor={(item, index) => index + item}
+                    ListHeaderComponent={() => this.renderHomeHeaer()}
+                    ListFooterComponent={() => this.renderFooter()}
+                    sections={
+                        [{
+                            data: this.state.content.gameInfosHot,
+                            title: "热门彩票",
+                            renderItem: ({item, index}) => this.renderHotItemView(item, index)
+                        },
+                            {
+                                data: this.state.content.gameInfosRecommend,
+                                title: "更多彩种推荐",
+                                renderItem: ({item}) => this.renderKindItemView(item)
+                            },]
                     }
-                />
+                /> : null}
                 {this.getRedPacketButton()}
                 <Dialog
                     show={this.state.show}
@@ -190,6 +190,48 @@ export default class TCHome extends Component {
                 />
             </View>
         );
+    }
+
+    //渲染顶部
+    renderHomeHeaer() {
+        return (<View>
+            {this.state.content.bannerData.length > 0 ? this.renderBanner() : null}
+            {this.renderNotice()}
+            {this.renderMenu()}
+        </View>)
+    }
+
+    //渲染banner
+    renderBanner() {
+        return (<Swiper
+            width={ width }
+            height={width * 0.383 }
+            autoplay={true}
+            dataSource={ this.state.content.bannerData}
+            renderRow={(item, index) => {
+                return (  <Image
+                    source={{uri: item.bannerImageUrl}}
+                    style={styles.page}/>)
+            }}
+            onPress={(item) => {
+
+            }}
+        />)
+    }
+
+    //渲染公告
+    renderNotice() {
+        return <NoticeBar announcement={this.state.content.noticeData}/>
+    }
+
+    renderMenu() {
+        return <HomeItemBarStyle1 rowData={this.state.content.menuIcons}
+                                  pushToEvent={title => this.pushWithMoneyBarTitle(title)}/>;
+    }
+
+    //渲染底部
+    renderFooter() {
+        return (<TopWinnerView rowData={this.state.topWinnersModel}/>)
     }
 
     getRedPacketButton() {
@@ -276,90 +318,45 @@ export default class TCHome extends Component {
         this.loadDataFormNet();
     }
 
-    _renderPage(data, pageID) {
+    //渲染sectionHeader
+    renderSectionHeader(section) {
         return (
-            <TouchableOpacity
-                onPress={() => {
-                    NavigatorHelper.pushToWebView(data.userClickUrl);
-                }}
-            >
-                <Image source={{uri: data.bannerImageUrl}} style={styles.page}/>
-            </TouchableOpacity>
+            <View style={{height: 46, width: width}}>
+                <View style={{width: width, height: 10, backgroundColor: indexBgColor.mainBg}}/>
+                <View style={{backgroundColor: indexBgColor.itemBg, height: 35}}>
+                    <Text
+                        style={{
+                            marginLeft: 10,
+                            fontSize: Size.font14,
+                            height: 18,
+                            marginTop: 10,
+                            color: section.title == '热门彩票' ? indexTxtColor.hotKind : indexTxtColor.recommendKind
+                        }}
+                    >
+                        {section.title}
+                    </Text>
+                </View>
+            </View>
         );
     }
 
-    _renderHeader(sectionData, sectionId) {
-        if (sectionId == 'gameInfosHot' || sectionId == 'gameInfosRecommend') {
-            return (
-                <View style={{height: 46, width: width}}>
-                    <View style={{width: width, height: 10, backgroundColor: indexBgColor.mainBg}}/>
-                    <View style={{backgroundColor: indexBgColor.itemBg, height: 35}}>
-                        <Text
-                            style={{
-                                marginLeft: 10,
-                                fontSize: Size.font14,
-                                height: 18,
-                                marginTop: 10,
-                                color: sectionId == 'gameInfosHot' ? indexTxtColor.hotKind : indexTxtColor.recommendKind
-                            }}
-                        >
-                            {this.getAreaTitle(sectionId)}
-                        </Text>
-                    </View>
-                </View>
-            );
-        }
-        return <View style={{height: 0, width: width}}/>;
+    //渲染热门彩种
+    renderHotItemView(item, index) {
+        return (  <HotItemView
+            rowData={item}
+            rowID={index}
+            pushToEvent={item => this._pushToBetHomePage(item)}
+        />)
     }
 
-    getAreaTitle(sectionId) {
-        if (sectionId == 'gameInfosRecommend') {
-            return '更多彩种推荐';
-        } else if (sectionId == 'gameInfosHot') {
-            return '热门彩票';
-        }
-    }
-
-    //CELL ROW DATA
-    renderRow(rowData, sectionID, rowID) {
-        if (sectionID == 'promotionBanners') {
-            // return (
-            //     <View style={{ width: width, height: width * 0.383 }}>
-            //         <ViewPager
-            //             dataSource={this.state.ViewPagerDataSource}
-            //             renderPage={(d, p) => this._renderPage(d, p)}
-            //             isLoop={true}
-            //             autoPlay={true}
-            //             renderPageIndicator={() => <PageIndicator />}
-            //         />
-            //     </View>
-            // );
-        } else if (sectionID == 'gameInfosHot') {
-            return (
-                <HotItemView
-                    rowData={rowData}
-                    rowID={rowID}
-                    pushToEvent={rowData => this._pushToBetHomePage(rowData)}
-                />
-            );
-        } else if (sectionID == 'gameInfosRecommend') {
-            return (
-                <KindItemView
-                    rowData={rowData}
-                    mTimer={rowData.mTiter}
-                    title={rowData.gameNameInChinese}
-                    pushToEvent={rowData => this._pushToBetHomePage(rowData)}
-                />
-            );
-        } else if (sectionID == 'menuIcons') {
-            return <HomeItemBarStyle1 rowData={rowData} pushToEvent={title => this.pushWithMoneyBarTitle(title)}/>;
-        } else if (sectionID == 'announcement') {
-            // return <NoticeBar announcement={rowData} />;
-        } else if (sectionID == 'topWinnersModel') {
-            return <TopWinnerView rowData={rowData}/>;
-        }
-
-        return <View />;
+//渲染推荐彩种
+    renderKindItemView(item) {
+        return ( <KindItemView
+            rowData={item}
+            mTimer={item.mTiter}
+            title={item.gameNameInChinese}
+            pushToEvent={item => this._pushToBetHomePage(item)}
+        />)
     }
 
     loadHomeContents() {
@@ -381,7 +378,7 @@ export default class TCHome extends Component {
                     isFirstLoad = true;
                     TCInitHelper._requestGameSetting();
                 } else {
-                    this.refs['ListView'].scrollTo({x: 0, y: 0, animated: true});
+                    // this.refs['ListView'].scrollTo({x: 0, y: 0, animated: true});
                 }
             },
             null,
@@ -396,16 +393,12 @@ export default class TCHome extends Component {
             {clientId: appId},
             data => {
                 if (data && data.content && data.content.length > 0) {
-                    if (listModel) {
-                        if (data.content.length > 20) {
-                            data.content = data.content.slice(0, 20);
-                        }
-                        listModel.topWinnersModel = {topWinnersModel: data.content};
-                        this.setState({
-                            dataSource: this.state.dataSource.cloneWithRowsAndSections(listModel)
-                        });
+                    if (data.content.length > 20) {
+                        data.content = data.content.slice(0, 20);
                     }
-                    topWinnersModel = data.content;
+                    this.setState({
+                        topWinnersModel: data.content
+                    })
                 }
             },
             null,
@@ -445,33 +438,29 @@ export default class TCHome extends Component {
     }
 
     parseData(data) {
-        let model = {};
         TCHomeContents = data;
+        let content = {};
         if (data.content.promotionBanners && data.content.promotionBanners.length > 0) {
-            model.promotionBanners = {promotionBanners: data.content.promotionBanners};
+            content.bannerData = data.content.promotionBanners;
         }
         if (data.content.announcements && data.content.announcements.length > 0) {
-            model.announcement = {announcement: data.content.announcements};
+            content.noticeData = data.content.announcements;
         }
 
         if (data.content.menuIcons && data.content.menuIcons.length > 0) {
-            model.menuIcons = {menuIcons: data.content.menuIcons};
+            content.menuIcons = data.content.menuIcons;
         }
 
         if (data.content.gameInfosHot && data.content.gameInfosHot.length > 0) {
-            model.gameInfosHot = data.content.gameInfosHot;
-            if (model.gameInfosHot.length % 2 != 0) {
-                model.gameInfosHot.push({});
-            }
+            content.gameInfosHot = data.content.gameInfosHot;
         }
 
         if (data.content.gameInfosRecommend && data.content.gameInfosRecommend.length > 0) {
-            model.gameInfosRecommend = data.content.gameInfosRecommend;
-            if (model.gameInfosRecommend.length > 7) {
-                model.gameInfosRecommend = model.gameInfosRecommend.slice(0, 7);
+            if (data.content.gameInfosRecommend.length > 7) {
+                content.gameInfosRecommend = data.content.gameInfosRecommend.slice(0, 7);
             }
-            if (model.gameInfosRecommend.length % 2 != 0) {
-                model.gameInfosRecommend.push({
+            if (content.gameInfosRecommend % 2 != 0) {
+                content.gameInfosRecommend.push({
                     gameIconUrl: 'https://www.jiushouji.net/mobile/gameIcon/more@3x.1.0.png',
                     gameNameInChinese: '更多玩法',
                     gameDescription: '更多好玩游戏等你体验',
@@ -479,16 +468,10 @@ export default class TCHome extends Component {
                 });
             }
         }
-
-        listModel = model;
-        if (topWinnersModel) {
-            model.topWinnersModel = {topWinnersModel: topWinnersModel};
-        }
-
+        JXLog("====================content", content.gameInfosHot)
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRowsAndSections(model),
-            ViewPagerDataSource: this.state.ViewPagerDataSource.cloneWithPages(data.content.promotionBanners),
-            isRefreshing: false
+            isRefreshing: false,
+            content: content
         });
     }
 

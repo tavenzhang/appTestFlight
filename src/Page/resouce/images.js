@@ -60,7 +60,7 @@ export const gameIconKeyValue = {
  * @type {{topBg: *, topPersonal: *, back: *, topBarArrow: *, topBarList: *, topBarSudoku: *, bottomHomeNormal: *}}
  */
 export const common = {
-    // topBg: require('./addon/other/top_bg_750.png'),
+    topBg: require('./addon/other/top_bg_750.png'),
     // topPersonal: require('./addon/other/index_personal.png'),
     // back: require('./addon/other/top_bar_back.png'),
     // topBarList: require('./addon/other/top_bar_list.png'),
