@@ -2,7 +2,7 @@
  * Created by Sam on 2016/11/11.
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
@@ -18,7 +18,7 @@ import {
     AppState,
     Dimensions
 } from 'react-native';
-import { Size } from '../../Page/resouce/theme';
+import {Size} from '../../Page/resouce/theme';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import KindItemView from './View/TCHomeKindItemView';
@@ -27,7 +27,7 @@ import HomeItemBarStyle1 from './View/TCHomeItemBarStyle1_4';
 import Storage from '../../Common/Storage/TCStorage';
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
 // import NoticeBar from '../../Common/View/TCNoticeBar';
-import { config, appId, appVersion, AppName } from '../../Common/Network/TCRequestConfig';
+import {config, appId, appVersion, AppName} from '../../Common/Network/TCRequestConfig';
 import NetUitls from '../../Common/Network/TCRequestUitls';
 import TCInitHelperC from '../../Common/JXHelper/TCInitHelper';
 let TCInitHelper = new TCInitHelperC();
@@ -40,8 +40,7 @@ import {observer} from 'mobx-react/native';
 
 import PageIndicator from '../../Common/View/PageIndicator';
 var LotteryKindItemsDATA = require('../../Data/HomeKindItem.json');
-import { width, indexBgColor, indexTxtColor } from '../resouce/theme';
-// var ViewPager = require('react-native-viewpager');
+import {width, indexBgColor, indexTxtColor} from '../resouce/theme';
 import NetWorkTool from '../../Common/Network/TCToolNetWork';
 let isFirstLoad = false;
 let listModel = null;
@@ -63,7 +62,7 @@ export default class TCHome extends Component {
         });
         this.state = {
             dataSource: ds,
-            ViewPagerDataSource: new ViewPager.DataSource({ pageHasChanged: (p1, p2) => p1 !== p2 }),
+            ViewPagerDataSource: null,
             isRefreshing: false,
             loaded: 0,
             isLogin: true,
@@ -79,9 +78,9 @@ export default class TCHome extends Component {
 
     componentDidMount() {
         this.loadDataFormNet();
-        TCInitHelper.getUserAffCode();
+        // TCInitHelper.getUserAffCode();
 
-        TCInitHelper.autoLoginApp();
+        // TCInitHelper.autoLoginApp();
 
         this.listener = RCTDeviceEventEmitter.addListener('userStateChange', state => {
             this.checkUserWhetherLogin();
@@ -89,7 +88,7 @@ export default class TCHome extends Component {
             RedPacketData.requestRedPacketCurrent();
         });
 
-        this.androidUpdateTip();
+        // this.androidUpdateTip();
         if (TCUSER_DATA.islogin) {
             // TCInitHelper.getMsgStatus()
         }
@@ -126,7 +125,7 @@ export default class TCHome extends Component {
     onBackAndroid() {
         if (TCHome.lastBackPressed && TCHome.lastBackPressed >= Moment().subtract(2, 'seconds')) {
             //最近2秒内按过back键，可以退出应用。
-            isFirstLoad=false;
+            isFirstLoad = false;
             return false;
         }
         AppState.removeEventListener('change', this.handleAppStateChange);
@@ -148,9 +147,9 @@ export default class TCHome extends Component {
                     backButtonCall={
                         this.state.isLogin
                             ? () => {
-                                  RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
-                                  RCTDeviceEventEmitter.emit('balanceChange', true);
-                              }
+                            RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
+                            RCTDeviceEventEmitter.emit('balanceChange', true);
+                        }
                             : () => NavigatorHelper.pushToUserRegister()
                     }
                     rightButtonCall={() =>
@@ -194,7 +193,7 @@ export default class TCHome extends Component {
     }
 
     getRedPacketButton() {
-        if(RedPacketData.hbdisplay){
+        if (RedPacketData.hbdisplay) {
             return <RedPacketMenu />;
         }
     }
@@ -284,7 +283,7 @@ export default class TCHome extends Component {
                     NavigatorHelper.pushToWebView(data.userClickUrl);
                 }}
             >
-                <Image source={{ uri: data.bannerImageUrl }} style={styles.page} />
+                <Image source={{uri: data.bannerImageUrl}} style={styles.page}/>
             </TouchableOpacity>
         );
     }
@@ -292,9 +291,9 @@ export default class TCHome extends Component {
     _renderHeader(sectionData, sectionId) {
         if (sectionId == 'gameInfosHot' || sectionId == 'gameInfosRecommend') {
             return (
-                <View style={{ height: 46, width: width }}>
-                    <View style={{ width: width, height: 10, backgroundColor: indexBgColor.mainBg }} />
-                    <View style={{ backgroundColor: indexBgColor.itemBg, height: 35 }}>
+                <View style={{height: 46, width: width}}>
+                    <View style={{width: width, height: 10, backgroundColor: indexBgColor.mainBg}}/>
+                    <View style={{backgroundColor: indexBgColor.itemBg, height: 35}}>
                         <Text
                             style={{
                                 marginLeft: 10,
@@ -310,7 +309,7 @@ export default class TCHome extends Component {
                 </View>
             );
         }
-        return <View style={{ height: 0, width: width }} />;
+        return <View style={{height: 0, width: width}}/>;
     }
 
     getAreaTitle(sectionId) {
@@ -353,11 +352,11 @@ export default class TCHome extends Component {
                 />
             );
         } else if (sectionID == 'menuIcons') {
-            return <HomeItemBarStyle1 rowData={rowData} pushToEvent={title => this.pushWithMoneyBarTitle(title)} />;
+            return <HomeItemBarStyle1 rowData={rowData} pushToEvent={title => this.pushWithMoneyBarTitle(title)}/>;
         } else if (sectionID == 'announcement') {
             // return <NoticeBar announcement={rowData} />;
         } else if (sectionID == 'topWinnersModel') {
-            return <TopWinnerView rowData={rowData} />;
+            return <TopWinnerView rowData={rowData}/>;
         }
 
         return <View />;
@@ -382,7 +381,7 @@ export default class TCHome extends Component {
                     isFirstLoad = true;
                     TCInitHelper._requestGameSetting();
                 } else {
-                    this.refs['ListView'].scrollTo({ x: 0, y: 0, animated: true });
+                    this.refs['ListView'].scrollTo({x: 0, y: 0, animated: true});
                 }
             },
             null,
@@ -394,14 +393,14 @@ export default class TCHome extends Component {
         this.loadHomeContents();
         NetUitls.getUrlAndParamsAndCallback(
             config.api.findTopWinners,
-            { clientId: appId },
+            {clientId: appId},
             data => {
                 if (data && data.content && data.content.length > 0) {
                     if (listModel) {
                         if (data.content.length > 20) {
                             data.content = data.content.slice(0, 20);
                         }
-                        listModel.topWinnersModel = { topWinnersModel: data.content };
+                        listModel.topWinnersModel = {topWinnersModel: data.content};
                         this.setState({
                             dataSource: this.state.dataSource.cloneWithRowsAndSections(listModel)
                         });
@@ -427,7 +426,8 @@ export default class TCHome extends Component {
                             }
                         });
                     });
-                    listModel.gameInfosRecommend.map(item => {});
+                    listModel.gameInfosRecommend.map(item => {
+                    });
                     this.setState({
                         cpArray: data.content,
                         dataSource: this.state.dataSource.cloneWithRowsAndSections(listModel)
@@ -448,14 +448,14 @@ export default class TCHome extends Component {
         let model = {};
         TCHomeContents = data;
         if (data.content.promotionBanners && data.content.promotionBanners.length > 0) {
-            model.promotionBanners = { promotionBanners: data.content.promotionBanners };
+            model.promotionBanners = {promotionBanners: data.content.promotionBanners};
         }
         if (data.content.announcements && data.content.announcements.length > 0) {
-            model.announcement = { announcement: data.content.announcements };
+            model.announcement = {announcement: data.content.announcements};
         }
 
         if (data.content.menuIcons && data.content.menuIcons.length > 0) {
-            model.menuIcons = { menuIcons: data.content.menuIcons };
+            model.menuIcons = {menuIcons: data.content.menuIcons};
         }
 
         if (data.content.gameInfosHot && data.content.gameInfosHot.length > 0) {
@@ -482,7 +482,7 @@ export default class TCHome extends Component {
 
         listModel = model;
         if (topWinnersModel) {
-            model.topWinnersModel = { topWinnersModel: topWinnersModel };
+            model.topWinnersModel = {topWinnersModel: topWinnersModel};
         }
 
         this.setState({
@@ -556,7 +556,8 @@ export default class TCHome extends Component {
                     this.parseData(res);
                 }
             })
-            .catch(err => {});
+            .catch(err => {
+            });
     }
 
     saveHomeCacheData(json) {
@@ -566,7 +567,8 @@ export default class TCHome extends Component {
         });
     }
 
-    handleMethod(isConnected) {}
+    handleMethod(isConnected) {
+    }
 }
 
 var styles = StyleSheet.create({

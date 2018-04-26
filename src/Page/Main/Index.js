@@ -25,7 +25,7 @@ import CodePush from 'react-native-code-push'
 import * as Progress from 'react-native-progress';
 import UserData from '../../Data/UserData'
 import Storage from '../../Common/Storage/TCStorage'
-import Main from './TCMain';
+import Main from '../Route';
 import {config, AppName, versionHotFix} from '../../Common/Network/TCRequestConfig';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import TCInitHelperC from '../../Common/JXHelper/TCInitHelper'
@@ -118,7 +118,8 @@ export default class TC168 extends Component {
                                          this.handleNeedChangeAnimated()
                                          let Compoment = route.component;
                                          NavigatorHelper.setNavigator(navigator)
-                                         {/*JXLog("navigation", navigator.getCurrentRoutes())*/}
+                                         {/*JXLog("navigation", navigator.getCurrentRoutes())*/
+                                         }
                                          return <Compoment {...route.passProps} navigator={navigator}/>
                                      }
                                  }
@@ -470,4 +471,4 @@ TC168 = CodePush({
     installMode: CodePush.InstallMode.IMMEDIATE
 })(TC168);
 
-AppRegistry.registerComponent('JD', () => TC168);
+AppRegistry.registerComponent('JD', () => Main);

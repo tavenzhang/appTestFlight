@@ -34,22 +34,22 @@ export default class NetUitls extends Component {
         }
         if (timeout > 0) {
             config.mapGet.timeout = timeout
-        }else {
+        } else {
             config.mapGet.timeout = defaultTimeout
         }
         this.fetchAsync(url, config.mapGet, callback, dontAddHeadersAuthorization)
     }
 
-    static PostUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization,dontStringfyBody) {
+    static PostUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody) {
         url = this.getServerUrl(url)
 
         JXLog(JSON.stringify(config.map))
         let map = _.assignIn(config.map, {
-            body: dontStringfyBody?params:JSON.stringify(params),
+            body: dontStringfyBody ? params : JSON.stringify(params),
         });
         if (timeout > 0) {
             map.timeout = timeout
-        }else {
+        } else {
             map.timeout = defaultTimeout
         }
 
@@ -63,7 +63,7 @@ export default class NetUitls extends Component {
         })
         if (timeout > 0) {
             map.timeout = timeout
-        }else {
+        } else {
             map.timeout = defaultTimeout
         }
         this.fetchAsync(url, map, callback)
@@ -76,7 +76,7 @@ export default class NetUitls extends Component {
         })
         if (timeout > 0) {
             map.timeout = timeout
-        }else {
+        } else {
             map.timeout = defaultTimeout
         }
         this.fetchAsync(url, map, callback)
@@ -91,7 +91,7 @@ export default class NetUitls extends Component {
         }
         if (timeout > 0) {
             config.mapDelete.timeout = timeout
-        }else {
+        } else {
             config.mapDelete.timeout = defaultTimeout
         }
         this.fetchAsync(url, config.mapDelete, callback)
@@ -133,21 +133,26 @@ export default class NetUitls extends Component {
         } finally {
             if (response.status >= 200 && response.status < 305) {
                 if (response.status === 204) {
-                    result = {"rs": true,duration:duration}
+                    result = {"rs": true, duration: duration}
                 } else {
-                    result = {"content": responseJson, "rs": true,duration:duration,serverDate:response.headers.map.date}
+                    result = {
+                        "content": responseJson,
+                        "rs": true,
+                        duration: duration,
+                        serverDate: response.headers.map.date
+                    }
                 }
             } else if (response.status >= 400) {
                 if (response.status == 401) {
                     // JXLog('======response=======',response)
                     TCUSER_DATA.islogin = false
-                    result = {"rs": false, "error": '无效token', "status": response.status,duration:duration}
-                    if (!TCPUSH_TO_LOGIN){
+                    result = {"rs": false, "error": '无效token', "status": response.status, duration: duration}
+                    if (!TCPUSH_TO_LOGIN) {
                         Toast.showShortCenter('登录状态过期，请重新登录！')
                         NavigatorHelper.pushToUserLogin()
                         RCTDeviceEventEmitter.emit('userStateChange', 'logout');
                     }
-                    else{
+                    else {
                         return
                     }
                 } else if (response.status === 422) {
@@ -155,16 +160,21 @@ export default class NetUitls extends Component {
                         TCUSER_DATA.islogin = false
                         NavigatorHelper.pushToUserLogin()
                     } else {
-                        result = _.assignIn(responseJson, {"rs": false, "status": response.status,duration:duration})
+                        result = _.assignIn(responseJson, {"rs": false, "status": response.status, duration: duration})
                     }
                 } else if (responseJson) {
                     JXLog('responseJson:', JSON.stringify(responseJson))
-                    result = _.assignIn(responseJson, {"rs": false, "status": response.status,"massage": response.massage,duration:duration})
+                    result = _.assignIn(responseJson, {
+                        "rs": false,
+                        "status": response.status,
+                        "massage": response.massage,
+                        duration: duration
+                    })
                 } else {
-                    result = {"rs": false, "status": response.status,duration:duration}
+                    result = {"rs": false, "status": response.status, duration: duration}
                 }
             } else {
-                result = {"rs": false, "status": response.status, "massage": response.massage,duration:duration}
+                result = {"rs": false, "status": response.status, "massage": response.massage, duration: duration}
             }
         }
         JXLog('\n\n*******   ' + map.method + '请求 url:\n' + url + '\n' + '\nrequestMap = ' + JSON.stringify(map) + '\n\n*******   状态码:' + response.status + '  *******返回结果：  \n' + JSON.stringify(result) + '\n')
@@ -172,15 +182,18 @@ export default class NetUitls extends Component {
     }
 
     static getServerUrl(url) {
-        if (url && (_.startsWith(url, 'http://') || _.startsWith(url, 'https://'))) {
-            return url
-        }
-        return TCDefaultDomain + baseUrl.baseUrl + url
-        if (TCInitHelper.baseDomain) {
-            url = TCInitHelper.baseDomain + baseUrl.baseUrl + url
-        } else {
-            url = TCInitHelper.defaultBaseDomain + baseUrl.baseUrl + url
-        }
+        // if (url && (_.startsWith(url, 'http://') || _.startsWith(url, 'https://'))) {
+        //     return url
+        // }
+        // return TCDefaultDomain + baseUrl.baseUrl + url
+        // if (TCInitHelper.baseDomain) {
+        //     url = TCInitHelper.baseDomain + baseUrl.baseUrl + url
+        // } else {
+        //     // url = TCInitHelper.defaultBaseDomain + baseUrl.baseUrl + url
+        //     url = "http://192.168.1.93:7500" + baseUrl.baseUrl + url
+        // }
+        url = "http://192.168.1.93:7500" + baseUrl.baseUrl + url
+
         return url
     }
 }
