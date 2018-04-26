@@ -23,6 +23,7 @@ import SoundHelper from '../../Common/JXHelper/SoundHelper'
 import {width, indexTxtColor,Size} from '../../Page/resouce/theme'
 import _ from 'lodash';
 import {common} from '../../Page/resouce/images'
+
 export default class TCNavigationBar extends React.Component {
     constructor(state) {
         super(state);
@@ -73,10 +74,10 @@ export default class TCNavigationBar extends React.Component {
             return(this.props.renderCenter())
         }
         if(this.props.centerViewShowStyleImage&&common.topTitleIndex){
-            return(<ImageBackground resizeMode={'contain'} style={{width: width - 180,height:40,marginTop: Platform.OS == 'ios' ? 22 : 2}} source={common.topTitleIndex}/>)
+            return(<Image resizeMode={'contain'} style={{width: width - 180,height:40,marginTop: Platform.OS == 'ios' ? 22 : 2}} source={common.topTitleIndex}/>)
         }
         return (<Text style={styles.titleStyle} ellipsizeMode='tail'
-              numberOfLines={1}> {this.props.title} </Text>)
+                      numberOfLines={1}> {this.props.title} </Text>)
     }
 
     renderGetBackButton() {
@@ -208,8 +209,8 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS == 'ios' ? 20 : 0,
     },
     navRightImgStyle: {
-        width: 60,
-        height: 60,
+        width: 55,
+        height: 55,
         marginTop: Platform.OS == 'ios' ? 20 : 0,
     },
     navBarStyle: {

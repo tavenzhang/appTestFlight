@@ -19,6 +19,7 @@ import {
     View,
     Platform,
     Image,
+    ImageBackground,
     Button,
     TouchableOpacity,
 } from 'react-native';
@@ -50,7 +51,7 @@ export default class TCBetBar extends React.Component {
 
     render() {
         return (
-            <Image style={styles.navBarStyle} source={ common.topBg} resizeMode={'cover'}>
+            <ImageBackground style={styles.navBarStyle} source={ common.topBg} resizeMode={'cover'}>
                 {/*左边*/}
                 {this.renderGetBackButton()}
                 {/*中间*/}
@@ -69,7 +70,7 @@ export default class TCBetBar extends React.Component {
                 </TouchableOpacity>
 
                 {this.renderGetRightButton()}
-            </Image>
+            </ImageBackground>
         );
     }
 

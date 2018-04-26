@@ -6,10 +6,10 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Navigator, Platform, Image, PanResponder, Dimensions } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import Home from '../Home/TCHome';
-// import LotteryLobby from '../LotteryLobby/TCLotteryLobby';
-// import TCUserCenterHome from '../UserCenter/TCUserCenterNew';
-// import Discover from '../Trend/TCTrend';
-// import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
+import LotteryLobby from '../LotteryLobby/TCLotteryLobby';
+import TCUserCenterHome from '../UserCenter/TCUserCenterNew';
+import Discover from '../Trend/TCTrend';
+import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import BackBaseComponent from '../../Page/Base/TCBaseBackComponent';
@@ -57,37 +57,37 @@ export default class TC168 extends BackBaseComponent {
                         'home'
                     )}
                     {/*--开奖大厅--*/}
-                    {/*{this.renderTabBarItem(*/}
-                        {/*<ShopingLobby navigator={this.props.navigator} cpArray={this.state.cpArray} />,*/}
-                        {/*'购彩',*/}
-                        {/*home.indexShoppingNormal,*/}
-                        {/*home.indexShoppingPressed,*/}
-                        {/*'shoping'*/}
-                    {/*)}*/}
+                    {this.renderTabBarItem(
+                        <ShopingLobby navigator={this.props.navigator} cpArray={this.state.cpArray} />,
+                        '购彩',
+                        home.indexShoppingNormal,
+                        home.indexShoppingPressed,
+                        'shoping'
+                    )}
                     {/*/!*--开奖大厅--*!/*/}
-                    {/*{this.renderTabBarItem(*/}
-                        {/*<LotteryLobby navigator={this.props.navigator} />,*/}
-                        {/*'开奖',*/}
-                        {/*home.indexLotteryNormal,*/}
-                        {/*home.indexLotteryPressed,*/}
-                        {/*'lobby'*/}
-                    {/*)}*/}
+                    {this.renderTabBarItem(
+                        <LotteryLobby navigator={this.props.navigator} />,
+                        '开奖',
+                        home.indexLotteryNormal,
+                        home.indexLotteryPressed,
+                        'lobby'
+                    )}
                     {/*/!*--发现--*!/*/}
-                    {/*{this.renderTabBarItem(*/}
-                        {/*<Discover navigator={this.props.navigator} />,*/}
-                        {/*'走势',*/}
-                        {/*home.indexTrendNormal,*/}
-                        {/*home.indexTrendPressed,*/}
-                        {/*'discover'*/}
-                    {/*)}*/}
+                    {this.renderTabBarItem(
+                        <Discover navigator={this.props.navigator} />,
+                        '走势',
+                        home.indexTrendNormal,
+                        home.indexTrendPressed,
+                        'discover'
+                    )}
                     {/*/!*--用户中心--*!/*/}
-                    {/*{this.renderTabBarItem(*/}
-                        {/*<TCUserCenterHome navigator={this.props.navigator} />,*/}
-                        {/*'我的',*/}
-                        {/*home.indexMineNormal,*/}
-                        {/*home.indexMinePressed,*/}
-                        {/*'mine'*/}
-                    {/*)}*/}
+                    {this.renderTabBarItem(
+                        <TCUserCenterHome navigator={this.props.navigator} />,
+                        '我的',
+                        home.indexMineNormal,
+                        home.indexMinePressed,
+                        'mine'
+                    )}
                 </TabNavigator>
             </View>
         );

@@ -19,9 +19,9 @@ const TimerMixin = require('react-timer-mixin');
 const SceneComponent = require('./SceneComponent');
 const DefaultTabBar = require('./DefaultTabBar');
 const ScrollableTabBar = require('./ScrollableTabBar');
+var createReactClass = require('create-react-class');
 
-
-const ScrollableTabView = React.createClass({
+const ScrollableTabView = createReactClass({
     mixins: [TimerMixin,],
     statics: {
         DefaultTabBar,

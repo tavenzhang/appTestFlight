@@ -9,7 +9,8 @@ import {
     Text,
     TouchableOpacity,
     Modal,
-    Image
+    Image,
+    ImageBackground,
 } from 'react-native'
 let BLACK = '1', RED = '2', FLOWER = '3', FK = '4'
 let A = '01', J = '11', Q = '12', K = '13'
@@ -51,7 +52,7 @@ export default class HappyPokerHelper {
 
     getCodeView(icon, num, color, index, isHistory, withBorder, isBetHomeHistory) {
         return (
-            <Image
+            <ImageBackground
                 source={icon}
                 style={[
                     isHistory && styles.imgHistoryPokerStyle,
@@ -72,7 +73,7 @@ export default class HappyPokerHelper {
                 >
                     {num}
                 </Text>
-            </Image>
+            </ImageBackground>
         )
     }
 

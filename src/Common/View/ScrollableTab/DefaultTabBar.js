@@ -8,7 +8,9 @@ const {
 } = ReactNative;
 const Button = require('./Button');
 import {indexBgColor} from '../../../Page/resouce/theme'
-const DefaultTabBar = React.createClass({
+var createReactClass = require('create-react-class');
+
+const DefaultTabBar = createReactClass({
     // propTypes: {
     //     goToPage: React.PropTypes.func,
     //     activeTab: React.PropTypes.number,
