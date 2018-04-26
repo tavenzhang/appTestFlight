@@ -34,18 +34,15 @@ import TCInitHelperC from '../../Common/JXHelper/TCInitHelper';
 let TCInitHelper = new TCInitHelperC();
 import Dialog from '../../Common/View/TipDialog';
 import TopWinnerView from './View/TCTopWinnerScrollView';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../Common/JXHelper/JXToast';
 import Moment from 'moment';
 import {observer} from 'mobx-react/native';
 
 
-import PageIndicator from '../../Common/View/PageIndicator';
-var LotteryKindItemsDATA = require('../../Data/HomeKindItem.json');
 import {width, indexBgColor, indexTxtColor} from '../resouce/theme';
 import NetWorkTool from '../../Common/Network/TCToolNetWork';
 let isFirstLoad = false;
 let listModel = null;
-let topWinnersModel = null;
 let isLoadFinish = false;
 import TCUserCollectHelper from '../../Common/JXHelper/TCUserCollectHelper';
 import RedPacketMenu from '../red_packet/components/RedPacketMenu';
@@ -468,7 +465,6 @@ export default class TCHome extends Component {
                 });
             }
         }
-        JXLog("====================content", content.gameInfosHot)
         this.setState({
             isRefreshing: false,
             content: content
@@ -476,6 +472,8 @@ export default class TCHome extends Component {
     }
 
     _pushToBetHomePage(rowData) {
+        Toast.showShortCenter('该玩法维护中暂停开放');
+
         if (rowData.gameUniqueId == 'more' || rowData.gameUniqueId == '更多玩法') {
             RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
             return;
