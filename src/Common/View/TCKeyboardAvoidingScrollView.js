@@ -1,7 +1,7 @@
-import React, {Component, PropTypes} from 'react';
-// import ReactNativeComponentTree from 'react/lib/ReactNativeComponentTree';
+import React, {Component} from 'react';
+import ReactNativeComponentTree from 'react-native/Libraries/Renderer/shims/ReactNativeComponentTree';
 import {Keyboard, TextInput, ScrollView, Platform, View} from 'react-native';
-
+import PropTypes from 'prop-types'
 /**
  * 解决 React Native 自带 KeyboardAvoidingView 无法在 ScrollView 中使用的问题，用之直接替换 ScrollView 即可。
  *
@@ -16,12 +16,12 @@ import {Keyboard, TextInput, ScrollView, Platform, View} from 'react-native';
  * - 滚动动画与键盘弹出动画不同步
  */
 
-export default class KeyboardAvoidingScrollView extends React.Component {
-    // static propTypes = {
-    //     children: PropTypes.node,
-    //     keyboardTopPadding: PropTypes.number,
-    //     style: View.propTypes.style,
-    // }
+export default class TCKeyboardAvoidingScrollView extends React.Component {
+    static propTypes = {
+        children: PropTypes.node,
+        keyboardTopPadding: PropTypes.number,
+        style: View.propTypes.style,
+    }
 
     static defaultProps = {
         keyboardTopPadding: 0,
@@ -56,21 +56,21 @@ export default class KeyboardAvoidingScrollView extends React.Component {
     _onShowKeyboard = (event) => {
         const focusedTextInputId = TextInput.State.currentlyFocusedField();
         // http://stackoverflow.com/questions/38651770/how-can-i-get-real-elment-by-node-id-react-native
-        // const focusedTextInput = ReactNativeComponentTree.getInstanceFromNode(focusedTextInputId);
+        const focusedTextInput = ReactNativeComponentTree.getInstanceFromNode(focusedTextInputId);
         if (!focusedTextInput) {
             return;
         }
 
         // TODO: 升级 React Native 后，使用 UIManger.viewIsdescendantOf 判断该 TextInput 是否在当前 ScrollView 内
-        focusedTextInput.measure((x, y, width, height, pageX, pageY) => {
-            const keyboardEndCoordinates = event.endCoordinates;
-            const overlapping = (pageY + height) -
-                keyboardEndCoordinates.screenY;
-            if (overlapping + this.props.keyboardTopPadding > 0) {
-                const contentOffset = overlapping + this.props.keyboardTopPadding + this._scrollView.contentOffset.y;
-                this._delayScrollTo(contentOffset);
-            }
-        });
+        // focusedTextInput.measure((x, y, width, height, pageX, pageY) => {
+        //     const keyboardEndCoordinates = event.endCoordinates;
+        //     const overlapping = (pageY + height) -
+        //         keyboardEndCoordinates.screenY;
+        //     if (overlapping + this.props.keyboardTopPadding > 0) {
+        //         const contentOffset = overlapping + this.props.keyboardTopPadding + this._scrollView.contentOffset.y;
+        //         this._delayScrollTo(contentOffset);
+        //     }
+        // });
     }
 
     _onHideKeyBoard = () => {
@@ -96,7 +96,7 @@ export default class KeyboardAvoidingScrollView extends React.Component {
 
     // 如果第一次 scrollTo 没有结束, 第二次 scrollTo 会不起作用
     _delayScrollTo = (contentOffsetY) => {
-        if(Platform.OS==='android'){
+        if (Platform.OS === 'android') {
             return
         }
         if (this._delayScrollTimer) {
@@ -130,7 +130,7 @@ export default class KeyboardAvoidingScrollView extends React.Component {
         } else {
             return (
                 <ScrollView
-                    style= {this.props.style}
+                    style={this.props.style}
                     ref="scrollView"
                     {...this.props}
                     onScroll={this._onScroll}

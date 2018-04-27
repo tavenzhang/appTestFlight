@@ -20,7 +20,7 @@ import {observable, computed, action} from 'mobx'
 
 import {ButtonView} from '../../Common/View';
 
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../Common/JXHelper/JXToast'
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 import dismissKeyboard from 'dismissKeyboard'
@@ -138,26 +138,6 @@ export default class TCUserLogin extends BackBaseComponent {
                                     underlineColorAndroid='transparent'
                                     onChangeText={(text) => this.onChangePassword(text)}/>
                             </View>
-                            {/*<View style={styles.loginInputStyle}>*/}
-                            {/*<Image source={personal.affCode}*/}
-                            {/*style={styles.imgstyle}*/}
-                            {/*resizeMode={'contain'}*/}
-                            {/*/>*/}
-                            {/*<TextInput*/}
-                            {/*ref="l"*/}
-                            {/*placeholder='验证码(必填)'*/}
-                            {/*placeholderTextSize={Size.default}*/}
-                            {/*style={styles.loginInput}*/}
-                            {/*placeholderTextColor={loginAndRegeisterTxtColor.inputPlaceholder}*/}
-                            {/*underlineColorAndroid='transparent'*/}
-                            {/*maxLength={20}*/}
-                            {/*onChangeText={(text) => this.onChangeValidateCode(text)}*/}
-                            {/*/>*/}
-                            {/*<Image source={{uri:TCDefaultDomain+'/api/v1/account/webapi/account/validateCode/getValidatePic?webUniqueCode='+TCUSER_DEVICE_TOKEN}}*/}
-                            {/*style={{width:140,height:60}}*/}
-                            {/*resizeMode={'contain'}*/}
-                            {/*/>*/}
-                            {/*</View>*/}
                             <View style={styles.registerWrap}>
                                 <TouchableOpacity style={{alignItems: 'flex-start', flex: 1}}
                                                   onPress={() => this.onlineService()}>
@@ -168,7 +148,7 @@ export default class TCUserLogin extends BackBaseComponent {
                                         }}>在线客服 ></Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={{alignItems: 'flex-end', flex: 1}}
-                                                  onPress={() => this.forgetPwd()}>
+                                                  onPress={() => NavigatorHelper.pushToForgetPwd()}>
                                     <Text
                                         style={{
                                             color: loginAndRegeisterTxtColor.forgetPwd,
@@ -236,10 +216,6 @@ export default class TCUserLogin extends BackBaseComponent {
         }, 500)
     }
 
-    onBackAndroid() {
-        this.gotoBack();
-    }
-
     /**
      * 获取app版本
      */
@@ -251,20 +227,6 @@ export default class TCUserLogin extends BackBaseComponent {
         let res = JXHelpers.getMenuIconsUrl('CUS_SERVICE')
         if (res) {
             NavigatorHelper.pushToWebView(res, '在线客服')
-        }
-    }
-
-    forgetPwd() {
-        let {navigator} = this.props;
-        if (navigator) {
-            dismissKeyboard()
-            navigator.push({
-                name: 'forgetpwd',
-                component: ForgetPwd,
-                passProps: {
-                    ...this.props,
-                }
-            })
         }
     }
 

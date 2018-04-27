@@ -112,6 +112,10 @@ Helper.pushToUserRegister = (fromLoginToRegister) => {
     }
 }
 
+Helper.pushToForgetPwd = () => {
+    NavigationService.navigate("UserForgotPassword");
+}
+
 Helper.pushToUserFreePlay = () => {
     let registerURL = JXHelper.getWebUserRegister()
     if (registerURL && registerURL.length > 0 && navigator) {

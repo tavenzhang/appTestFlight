@@ -3,7 +3,7 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 var TCServerDomains = null
-var TCDefaultDomain = null
+var TCDefaultDomain = 'http://192.168.1.93:7500'
 var TCDefaultTendDomain = null
 var TCUSER_DATA = {}
 var TCUSER_BALANCE = 0
@@ -19,15 +19,15 @@ var TC_BUTTON_SOUND_STATUS = true
 var TC_NEW_MSG_COUNT = 0
 var TC_DEFAULT_AFFCODE = null
 var TC_FEEDBACK_COUNT = 0
-var TC_ANDROID_DEVICE_IS_ROOT=false;
-var TC_ANDROID_CAN_SHOW_INTELLIGENCE_BET=false;
+var TC_ANDROID_DEVICE_IS_ROOT = false;
+var TC_ANDROID_CAN_SHOW_INTELLIGENCE_BET = false;
 var JXCodePushServerUrl = '';
 var JXAPPVersion = '';
 
 // APP全局状态
 var TC_AppState = {
-  selectedTabName:'home',
-  appRoute:'home',
+    selectedTabName: 'home',
+    appRoute: 'home',
 }
 
 global.TCServerDomains = TCServerDomains;
@@ -46,8 +46,8 @@ global.TC_BUTTON_SOUND_STATUS = TC_BUTTON_SOUND_STATUS;
 global.TC_NEW_MSG_COUNT = TC_NEW_MSG_COUNT;
 global.TC_DEFAULT_AFFCODE = TC_DEFAULT_AFFCODE;
 global.TC_FEEDBACK_COUNT = TC_FEEDBACK_COUNT;
-global.TC_ANDROID_DEVICE_IS_ROOT=TC_ANDROID_DEVICE_IS_ROOT;
-global.TC_ANDROID_CAN_SHOW_INTELLIGENCE_BET=TC_ANDROID_CAN_SHOW_INTELLIGENCE_BET;
+global.TC_ANDROID_DEVICE_IS_ROOT = TC_ANDROID_DEVICE_IS_ROOT;
+global.TC_ANDROID_CAN_SHOW_INTELLIGENCE_BET = TC_ANDROID_CAN_SHOW_INTELLIGENCE_BET;
 global.TC_AppState = TC_AppState;
 global.JXCodePushServerUrl = JXCodePushServerUrl;
 global.JXAPPVersion = JXAPPVersion;

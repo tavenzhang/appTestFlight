@@ -328,7 +328,7 @@ export default class TCUserRegister extends BackBaseComponent {
 
     back() {
         dismissKeyboard();
-        this.props.navigator.pop()
+        Helper.popToBack();
     }
 
     /**
@@ -350,7 +350,7 @@ export default class TCUserRegister extends BackBaseComponent {
             return;
         }
 
-        if(!name.match(/[a-zA-Z]/i)) {
+        if (!name.match(/[a-zA-Z]/i)) {
             Toast.showShortCenter("用户名必须至少包含一位字母");
             return;
         }
@@ -440,7 +440,7 @@ export default class TCUserRegister extends BackBaseComponent {
             };
             NetUtils.PostUrlAndParamsAndCallback(config.api.userEncryptRegister, data, (response) => {
                 this._modalLoadingSpinnerOverLay.hide();
-                UPLogs.addRequestLog(config.api.userEncryptRegister,response.duration)
+                UPLogs.addRequestLog(config.api.userEncryptRegister, response.duration)
                 if (response.rs) {
                     let user = response.content
                     user.password = base64.encode(this.userInfo.password)
