@@ -23,6 +23,7 @@ import {width, height, indexBgColor, listViewTxtColor, indexTxtColor} from '../.
 /** 外部关系组件 如 页面跳转用 */
 import {config, appId} from '../../../Common/Network/TCRequestConfig';
 import NetUitls from '../../../Common/Network/TCRequestUitls'
+import Helper from '../../../Common/JXHelper/TCNavigatorHelper';
 
 export default class MyComponent extends React.Component {
     constructor(state) {
@@ -48,7 +49,7 @@ export default class MyComponent extends React.Component {
             <View style={styles.container}>
                 <View style={styles.container}>
                     <TopNavigationBar title='最新中奖榜' needBackButton={true} backButtonCall={()=> {
-                        this.props.navigator.pop()
+                        Helper.popToBack()
                     }}/>
                     <View
                         style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor:indexBgColor.mainBg, padding: 5}}>

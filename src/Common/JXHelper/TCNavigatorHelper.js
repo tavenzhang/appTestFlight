@@ -36,8 +36,15 @@ Helper.pushToBetBill = (title, gameName, cpInfoData, gameUniqueId) => {
         cpInfoData: cpInfoData,
         gameUniqueId: gameUniqueId
     });
-
 }
+
+Helper.pushToBetSucceed = ((data)=>{
+    NavigationService.navigate("TCBillSucceedPage", {...data});
+})
+
+Helper.pushToIntelligenceBet = ((data)=>{
+    NavigationService.navigate("IntelligenceBet", {...data});
+})
 
 Helper.pushToOrderRecord = (orderType) => {
     NavigationService.navigate("UserOderRecord", {initPage: orderType});
@@ -270,11 +277,11 @@ Helper.popToTop = () => {
 }
 
 Helper.popN = (n) => {
-    NavigationService.pop(n);
+    Helper.popToTop()
 }
 
 Helper.popToN = (n) => {
-    NavigationService.pop(n);
+    Helper.popToTop()
 }
 
 function routInStack(routeName, navigator) {

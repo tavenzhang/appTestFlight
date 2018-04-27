@@ -412,7 +412,7 @@ export default class TCMarkSixBetHome extends React.Component {
                 [{
                     text: '确定', onPress: () => {
                         SingletonDPS.resetAllData()
-                        this.props.navigator.popToTop()
+                        NavigatorHelper.popToBack();
                     }
                 },
                     {

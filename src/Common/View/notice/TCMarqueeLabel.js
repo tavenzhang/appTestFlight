@@ -21,7 +21,7 @@ export default class MarqueeLabel extends Component {
         this.duration = 0;
 
         this.listener = RCTDeviceEventEmitter.addListener('needChangeAnimated', (state) => {
-            this.animationState(state);
+            // this.animationState(state);
         })
         this.animatedTransformX.addListener((obj) => {
             if (obj.value != 0) {

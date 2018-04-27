@@ -46,8 +46,10 @@ import {checkIfAmountCorrect} from "../TCBillCheckHelper";
 let photoHelper = new PhotoHelper();
 /** 外部关系组件 如 页面跳转用 */
 const {width, height} = Dimensions.get('window')
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @observer
+@withMappedNavigationProps()
 export default class IntelligenceBet extends Component {
 
     static defaultProps = {

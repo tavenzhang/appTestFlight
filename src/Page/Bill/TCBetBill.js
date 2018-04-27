@@ -22,7 +22,7 @@ import {
 
 //系统 npm类
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../Common/JXHelper/JXToast'
 import Moment from 'moment';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import _ from 'lodash';
@@ -225,7 +225,7 @@ export default class TCBetBill extends React.Component {
 
                 <ScrollView
                     ref="contentScrollView"
-                    style={{height: height - 64 - 49 - 60}}
+                    style={{height: height - 64 - 49 - 60- 85}}
                     scrollRenderAheadDistance={20}
                     keyboardShouldPersistTaps={Platform.OS !== 'ios' ? 'handle' : false}
                     keyboardDismissMode={'on-drag'}
@@ -642,10 +642,7 @@ export default class TCBetBill extends React.Component {
     }
 
     addNumbersButtonCall() {
-        const {navigator} = this.props;
-        if (navigator) {
-            navigator.pop();
-        }
+        Helper.popToBack()
     }
 
     addRandomNumbersButtonCall(num) {
@@ -776,24 +773,19 @@ export default class TCBetBill extends React.Component {
                 if (data && data.rs) {
                     this.endingProcessing();
                     RCTDeviceEventEmitter.emit('balanceChange');
-                    if (this.props.navigator) {
-                        this.props.navigator.push({
-                            name: 'orderRecord',
-                            component: TCBillSucceedPage,
-                            passProps: {
-                                cpName: this.props.cpInfoData.rightData.gameNameInChinese,
-                                issue: json.drawIdentifier.issueNum,
-                                isIntelligence: json.purchaseInfo.purchaseType !== 'ONCE_ONLY'
-                                    ? json.purchaseInfo.childOrder.eachChildOrders.length > 1
-                                    : false,
-                                lastContinueIssueNumber: json.purchaseInfo.purchaseType !== 'ONCE_ONLY'
-                                    ? json.purchaseInfo.childOrder.eachChildOrders[
-                                    parseInt(this.mobxIntelligenceData.continueIssueNumberOnBet) - 1
-                                        ].issueNum
-                                    : 0
-                            }
-                        });
-                    }
+
+                    Helper.pushToBetSucceed({
+                            cpName: this.props.cpInfoData.rightData.gameNameInChinese,
+                            issue: json.drawIdentifier.issueNum,
+                            isIntelligence: json.purchaseInfo.purchaseType !== 'ONCE_ONLY'
+                                ? json.purchaseInfo.childOrder.eachChildOrders.length > 1
+                                : false,
+                            lastContinueIssueNumber: json.purchaseInfo.purchaseType !== 'ONCE_ONLY'
+                                ? json.purchaseInfo.childOrder.eachChildOrders[
+                            parseInt(this.mobxIntelligenceData.continueIssueNumberOnBet) - 1
+                                ].issueNum
+                                : 0
+                        })
                     this.clearData();
                 } else {
                     this.endingProcessing();
@@ -1001,19 +993,12 @@ export default class TCBetBill extends React.Component {
                 this.mobxIntelligenceData.data.continueIssueNumber = '10'; //如果上一次结果为0 则恢复默认追号10期
             }
         }
-        if (this.props.navigator) {
-            this.props.navigator.push({
-                name: 'IntelligenceBet',
-                component: IntelligenceBet,
-                passProps: {
-                    cpInfoData: this.props.cpInfoData,
-                    singlePrice: DPS.getAddedAllAmount(),
-                    odds: DPS.getSameOdds(),
-                    gameUniqueId: this.props.gameUniqueId,
-                    mobxIntelligenceData: this.mobxIntelligenceData
-                }
-            });
-        }
+
+        Helper.pushToIntelligenceBet({cpInfoData: this.props.cpInfoData,
+            singlePrice: DPS.getAddedAllAmount(),
+            odds: DPS.getSameOdds(),
+            gameUniqueId: this.props.gameUniqueId,
+            mobxIntelligenceData: this.mobxIntelligenceData})
     }
 
     intelligenceBetCheck() {
@@ -1057,7 +1042,7 @@ export default class TCBetBill extends React.Component {
     }
 
     goBack() {
-        this.props.navigator.pop();
+        Helper.popToBack()
         return;
     }
 }
