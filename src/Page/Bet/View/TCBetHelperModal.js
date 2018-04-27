@@ -14,7 +14,8 @@ import {
     TouchableHighlight,
     Modal,
     Image,
-    Platform
+    Platform,
+    ImageBackground
 } from 'react-native';
 import  JXHelperC from '../../../Common/JXHelper/TCInitHelper'
 import  TCUserCollectHelper from '../../../Common/JXHelper/TCUserCollectHelper'
@@ -65,7 +66,7 @@ export default class MyComponent extends React.Component {
                 <TouchableHighlight onPress={() => {
                     this._setModalVisible(false)
                 }} style={styles.modalBackgroundStyle} underlayColor='transparent'>
-                    <Image
+                    <ImageBackground
                         source={betIcon.topBg}
                         resizeMode={'stretch'}
                         style={{
@@ -133,7 +134,7 @@ export default class MyComponent extends React.Component {
                                 color: '#585858'
                             }}>{this.state.isCollect ? '取消收藏' : '收藏彩票'}</Text>
                         </TouchableHighlight>
-                    </Image>
+                    </ImageBackground>
                 </TouchableHighlight>
             </Modal>
         );

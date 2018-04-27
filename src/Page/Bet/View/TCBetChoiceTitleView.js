@@ -14,6 +14,7 @@ import {
     Text,
     View,
     Image,
+    ImageBackground,
     Platform
 } from 'react-native';
 import {betIcon} from '../../resouce/images'
@@ -28,11 +29,11 @@ export default class TCBetChoiceTitleView extends React.Component {
 
     render() {
         return (
-            <Image source={this.props.isGrayBackground ? betIcon.bgPlace02 : betIcon.bgPlace}
+            <ImageBackground source={this.props.isGrayBackground ? betIcon.bgPlace02 : betIcon.bgPlace}
                    style={[{width: 45*1.3, height: 20*1.3,alignItems:'center'}, this.props.style]}>
                 <Text
                     style={[styles.leftTitleStyle, this.props.isGrayBackground ? {color:betHome.betLeftGrayTitle} : {}]}>{this.props.titleName}</Text>
-            </Image>
+            </ImageBackground>
         );
     };
 }

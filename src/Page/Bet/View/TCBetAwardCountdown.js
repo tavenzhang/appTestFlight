@@ -29,7 +29,6 @@ import {getAnimalsWithOpenCodes,getAnimalWithOpenCode} from '../AllPlayingMethod
 import { Mark_SixBallColor } from '../../../Data/JXGameInfo';
 
 @observer
-
 export default class TCBetAwardCountdown extends React.Component {
 
     constructor(state) {
