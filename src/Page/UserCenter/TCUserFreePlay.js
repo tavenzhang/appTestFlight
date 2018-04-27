@@ -25,6 +25,8 @@ import NetUtils from '../../Common/Network/TCRequestUitls'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Base64 from '../../Common/JXHelper/Base64'
 import BackBaseComponent from '../Base/TCBaseBackComponent'
+import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
+
 import SecretUtils from '../../Common/JXHelper/SecretUtils'
 let base64 = new Base64()
 let secretUtils = new SecretUtils()
@@ -122,20 +124,14 @@ export  default  class TCUserFreePlay extends BackBaseComponent {
     };
 
     gotoBack() {
-        let {navigator} = this.props
-        if (navigator) {
-            dismissKeyboard()
-            navigator.pop()
-        }
+        dismissKeyboard();
+        NavigatorHelper.popToBack()
     }
 
     gotoUserCenter() {
-        let {navigator} = this.props;
-        if (navigator) {
-            dismissKeyboard()
-            navigator.popToTop();
-            RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
-        }
+        dismissKeyboard()
+        NavigatorHelper.popToTop();
+        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
     }
 
     /**

@@ -75,9 +75,8 @@ export default class TCHome extends Component {
 
     componentDidMount() {
         this.loadDataFormNet();
-        // TCInitHelper.getUserAffCode();
-
-        // TCInitHelper.autoLoginApp();
+        TCInitHelper.getUserAffCode();
+        TCInitHelper.autoLoginApp();
 
         this.listener = RCTDeviceEventEmitter.addListener('userStateChange', state => {
             this.checkUserWhetherLogin();
@@ -87,7 +86,7 @@ export default class TCHome extends Component {
 
         // this.androidUpdateTip();
         if (TCUSER_DATA.islogin) {
-            // TCInitHelper.getMsgStatus()
+            TCInitHelper.getMsgStatus()
         }
         NetWorkTool.addEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
         BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
