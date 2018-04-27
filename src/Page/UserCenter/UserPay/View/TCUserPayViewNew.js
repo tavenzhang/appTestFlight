@@ -11,11 +11,11 @@ import {
     copyBtnStyle,
     buttonStyle
 } from '../../../resouce/theme'
-import  QRCode from 'react-native-qrcode'
-import Toast from '@remobile/react-native-toast'
+import  QRCode from '../../../../Common/View/qrcode/QRCode'
+import Toast from '../../../../Common/JXHelper/JXToast'
 
 
-export default class TCUserPayView extends Component {
+export default class TCUserPayViewNew extends Component {
 
 
 

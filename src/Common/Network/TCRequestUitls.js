@@ -15,7 +15,7 @@ import NavigatorHelper from '../JXHelper/TCNavigatorHelper'
 import Toast from '@remobile/react-native-toast'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
-let TCInitHelper = new TCInitHelperC();
+// let TCInitHelper = new TCInitHelperC();
 const defaultTimeout = 10000;
 import Moment from 'moment';
 

@@ -33,7 +33,7 @@ import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 // import LoadingSpinnerOverlay from 'react-native-smart-loading-spinner-overlay'
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 
-import DatePicker from 'react-native-datepicker'
+import DatePicker from '../../../Common/View/datepicker';
 import Moment from 'moment'
 var moment = new Moment()
 import dismissKeyboard from 'dismissKeyboard'

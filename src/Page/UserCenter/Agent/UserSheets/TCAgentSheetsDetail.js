@@ -28,7 +28,7 @@ import TopNavigationBar from '../../../../Common/View/TCNavigationBar';
 import Toast from '@remobile/react-native-toast'
 import NoDataView from '../../../../Common/View/TCNoDataView'
 import BaseComponent from '../../../Base/TCBaseComponent'
-import DatePicker from 'react-native-datepicker'
+import DatePicker from '../../../../Common/View/datepicker';
 import ModalDropdown from '../../../../Common/View/ModalDropdown'
 import LoadingSpinnerOverlay from '../../../../Common/View/LoadingSpinnerOverlay'
 import Moment from 'moment'

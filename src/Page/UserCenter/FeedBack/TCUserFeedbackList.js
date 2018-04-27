@@ -10,7 +10,7 @@ import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import Toast from '@remobile/react-native-toast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import Moment from 'moment';
-import DatePicker from 'react-native-datepicker';
+import DatePicker from '../../../Common/View/datepicker';
 
 import {config} from '../../../Common/Network/TCRequestConfig';
 import NetUtils from '../../../Common/Network/TCRequestUitls';

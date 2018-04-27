@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 
 import {View, StyleSheet, Text, TouchableOpacity, Image, Platform, ScrollView, Clipboard,} from 'react-native'
-import  QRCode from 'react-native-qrcode'
-import Toast from '@remobile/react-native-toast'
+import  QRCode from '../../../../Common/View/qrcode/QRCode'
+import Toast from '../../../../Common/JXHelper/JXToast'
 import {
     Size,
     indexBgColor,
@@ -26,65 +26,66 @@ export default class TCUserPayView extends Component {
         this.state = {}
     }
 
-
     render() {
 
         return (
             <View style={styles.container}>
-
-                <View style={this.props.transfer ? styles.topItemStyle1 : styles.topItemStyle}>
-                    <View style={styles.payTitleItemStyle}>
-                        <View style={{flexDirection:'row'}}>
-                        <Text
-                        style={styles.payTitleTxtStyle}>充值金额：
-                            <Text
-                        style={styles.moneyTxtStyle}>{this.props.money} 元</Text></Text>
-                        <TouchableOpacity style={{width:100,height:28}} onPress={()=> {
-                            this.onCopy(this.props.money)
-                        }}>
-                            <View style={{ paddingLeft: width>=360?20:2}}>
-                                <Text style={{  color: copyBtnStyle.txtColor, textAlign: 'center', paddingTop: 4,  paddingBottom: 4,paddingLeft: 8,
-                                    paddingRight: 8,
-                                    borderWidth: 1,
-                                    borderColor: copyBtnStyle.borderColor,
-                                    borderRadius: 5,
-                                    backgroundColor:copyBtnStyle.btnBg,
-                                    fontSize:Size.default}}>复制</Text>
+                <ScrollView>
+                    <View style={this.props.transfer ? styles.topItemStyle1 : styles.topItemStyle}>
+                        <View style={styles.payTitleItemStyle}>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text
+                                    style={styles.payTitleTxtStyle}>充值金额：
+                                    <Text
+                                        style={styles.moneyTxtStyle}>{this.props.money} 元</Text></Text>
+                                <TouchableOpacity style={{width: 100, height: 28}} onPress={() => {
+                                    this.onCopy(this.props.money)
+                                }}>
+                                    <View style={{paddingLeft: width >= 360 ? 20 : 2}}>
+                                        <Text style={{
+                                            color: copyBtnStyle.txtColor,
+                                            textAlign: 'center',
+                                            paddingTop: 3,
+                                            paddingBottom: 3,
+                                            paddingLeft: 8,
+                                            paddingRight: 8,
+                                            borderWidth: 1,
+                                            borderColor: copyBtnStyle.borderColor,
+                                            borderRadius: 5,
+                                            backgroundColor: copyBtnStyle.btnBg,
+                                            fontSize: Size.default
+                                        }}>复制</Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
-                            </TouchableOpacity>
-                            </View>
+                        </View>
+                        <View style={styles.payNoticeItemStyle}><Text
+                            style={styles.moneyTxtStyle}>{'请一定按照以上显示金额付款'}</Text></View>
+                        <View style={styles.ewmImgItemStyle}>
+                            {this.getQRCode()}
+                        </View>
                     </View>
-                    <View style={styles.payNoticeItemStyle}><Text
-                        style={styles.moneyTxtStyle}>{'请一定按照以上显示金额付款'}</Text></View>
-                    <View style={styles.ewmImgItemStyle}>
-                        {this.getQRCode()}
+                    <View
+                        style={[styles.btmBtnItemStyle, {justifyContent: 'center',}]}>
+                        <TouchableOpacity onPress={() => this.props.gotoPay()}
+                                          style={styles.btmBtnStyle}><Text
+                            style={styles.btmBtnTxtStyle}>{this.props.leftBtnTitle}</Text></TouchableOpacity>
+                        {this.props.rightBtnTitle ? (<TouchableOpacity onPress={() => this.props.hadPay()}
+                                                                       style={styles.btmBtnStyle}><Text
+                            style={styles.btmBtnTxtStyle}>{this.props.rightBtnTitle}</Text></TouchableOpacity>) : null}
                     </View>
 
-
-                </View>
-
-
-                <View
-                    style={[styles.btmBtnItemStyle, {justifyContent: 'center',}]}>
-                    <TouchableOpacity onPress={() => this.props.gotoPay()}
-                                      style={styles.btmBtnStyle}><Text
-                        style={styles.btmBtnTxtStyle}>{this.props.leftBtnTitle}</Text></TouchableOpacity>
-                    {this.props.rightBtnTitle ? (<TouchableOpacity onPress={() => this.props.hadPay()}
-                                                                   style={styles.btmBtnStyle}><Text
-                        style={styles.btmBtnTxtStyle}>{this.props.rightBtnTitle}</Text></TouchableOpacity>) : null}
-                </View>
-
-                <View style={{marginBottom: 20}}>
-                    { this.getInfoText()}
-                </View>
-
+                    <View style={{marginBottom: 20}}>
+                        { this.getInfoText()}
+                    </View>
+                </ScrollView>
             </View>
         )
     }
 
 
     onCopy(text) {
-        Clipboard.setString(''+text);
+        Clipboard.setString('' + text);
         Toast.showShortTop("充值金额已复制！")
     }
 
@@ -109,7 +110,6 @@ export default class TCUserPayView extends Component {
     }
 
     getQRCode() {
-
         let codeType = this.props.codeType;
         if (codeType === 'URL') {
             return ( <QRCode
@@ -136,7 +136,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
         backgroundColor: ermaStyle.ermaBg,
         height: height * 0.5,
-        width: width * 0.9
+        width: width * 0.9,
+        marginLeft: width * 0.05
     }, topItemStyle1: {
         marginTop: 20,
         backgroundColor: ermaStyle.ermaBg,
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
         borderBottomColor: ermaStyle.btmBorder,
         height: height * 0.08,
         paddingLeft: 5
-    },payNoticeItemStyle: {
+    }, payNoticeItemStyle: {
         justifyContent: 'center',
         borderBottomWidth: 0.5,
         borderBottomColor: ermaStyle.btmBorder,
@@ -172,7 +173,8 @@ const styles = StyleSheet.create({
         width: width * 0.9,
         marginTop: 20,
         alignItems: 'center',
-        height: height * 0.08
+        height: height * 0.08,
+        marginLeft: width * 0.05
     }, btmBtnTxtStyle: {
         backgroundColor: ermaStyle.btnBg,
         color: ermaStyle.btnTxt,

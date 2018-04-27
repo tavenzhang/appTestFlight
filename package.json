@@ -65,6 +65,7 @@
         "react-native-view-shot": "2.3.0",
         "react-native-viewpager": "0.2.13",
         "react-navigation": "^1.5.11",
+        "react-navigation-props-mapper": "^0.2.0",
         "react-redux": "5.0.4",
         "react-static-container": "1.0.1",
         "react-timer-mixin": "0.13.3",

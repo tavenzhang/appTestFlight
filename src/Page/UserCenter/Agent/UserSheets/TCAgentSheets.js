@@ -24,7 +24,7 @@ import NetUitls from '../../../../Common/Network/TCRequestUitls';
 import { config } from '../../../../Common/Network/TCRequestConfig';
 import JXHelper from '../../../../Common/JXHelper/JXHelper';
 import Toast from '@remobile/react-native-toast';
-import DatePicker from 'react-native-datepicker';
+import DatePicker from '../../../../Common/View/datepicker';
 
 import {
     Size,

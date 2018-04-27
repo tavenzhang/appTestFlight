@@ -35,7 +35,7 @@ import RequestUtils from '../../../Common/Network/TCRequestUitls'
 import {config, appId} from '../../../Common/Network/TCRequestConfig'
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
-import DatePicker from 'react-native-datepicker'
+import DatePicker from '../../../Common/View/datepicker';
 import Moment from 'moment'
 import _ from 'lodash'
 import dismissKeyboard from 'dismissKeyboard'

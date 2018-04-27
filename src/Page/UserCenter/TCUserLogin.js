@@ -35,6 +35,7 @@ import JXHelpers from '../../Common/JXHelper/JXHelper'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import ModalDropdown from '../../Common/View/ModalDropdown'
 import TCUserCollectHelper from '../../Common/JXHelper/TCUserCollectHelper'
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 let UserCollectHelper = new TCUserCollectHelper()
 let base64 = new Base64()
 let secretUtils = new SecretUtils()
@@ -54,6 +55,7 @@ import {
  * 登录界面
  */
 @observer
+@withMappedNavigationProps()
 export default class TCUserLogin extends BackBaseComponent {
 
     password = ''
@@ -223,18 +225,15 @@ export default class TCUserLogin extends BackBaseComponent {
     }
 
     gotoBack() {
-        let {navigator} = this.props
-        if (navigator) {
-            dismissKeyboard()
-            TCPUSH_TO_LOGIN = false
-            setTimeout(() => {
-                if (this.props.userName) {
-                    navigator.popToTop();
-                } else {
-                    navigator.pop();
-                }
-            }, 500)
-        }
+        dismissKeyboard()
+        TCPUSH_TO_LOGIN = false
+        setTimeout(() => {
+            if (this.props.userName) {
+                NavigatorHelper.popToTop();
+            } else {
+                NavigatorHelper.popToBack();
+            }
+        }, 500)
     }
 
     onBackAndroid() {
@@ -270,12 +269,9 @@ export default class TCUserLogin extends BackBaseComponent {
     }
 
     gotoUserCenter() {
-        let {navigator} = this.props;
-        if (navigator) {
-            dismissKeyboard()
-            navigator.popToTop();
-            RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
-        }
+        dismissKeyboard()
+        NavigatorHelper.popToTop();
+        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
     }
 
     loginVal() {

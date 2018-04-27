@@ -28,8 +28,6 @@ import TopNavigationBar from '../../../../Common/View/TCNavigationBar';
 import Toast from '@remobile/react-native-toast'
 import NoDataView from '../../../../Common/View/TCNoDataView'
 import BaseComponent from '../../../Base/TCBaseComponent'
-import DatePicker from 'react-native-datepicker'
-import ModalDropdown from '../../../../Common/View/ModalDropdown'
 import Moment from 'moment'
 var moment = new Moment()
 export default class TCAgentCommissionList extends BaseComponent {

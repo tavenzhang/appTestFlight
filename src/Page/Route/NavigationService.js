@@ -26,6 +26,13 @@ function navigate(routeName, params) {
 }
 
 /**
+ * 获取路由栈
+ */
+function getRoutes() {
+    return _navigator.routes;
+}
+
+/**
  * 返回
  */
 function goBack() {
@@ -200,5 +207,6 @@ export default {
     login,
     tokenIsError,
     loadingWebViewWithUrl,
-    pushToBetHome
+    pushToBetHome,
+    getRoutes
 }
