@@ -20,7 +20,10 @@ import {
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import {betIcon} from '../resouce/images'
 import {Size, indexBgColor, buttonStyle, listViewTxtColor, width, height} from '../resouce/theme'
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+import Helper from '../../Common/JXHelper/TCNavigatorHelper';
 
+@withMappedNavigationProps()
 export default class MyComponent extends React.Component {
     constructor(state) {
         super(state)
@@ -48,9 +51,9 @@ export default class MyComponent extends React.Component {
 
     handleBackAndroid() {
         if (this.props.isIntelligence && this.props.isNeedBack3) {
-            this.props.navigator.popN(3);
+            Helper.popToTop()
         } else {
-            this.props.navigator.popN(2);
+            Helper.popToTop()
         }
         return true;
     }
@@ -60,9 +63,9 @@ export default class MyComponent extends React.Component {
             <View style={styles.container}>
                 <TopNavigationBar title='投注成功' needBackButton={true} backButtonCall={() => {
                     if (this.props.isIntelligence && this.props.isNeedBack3) {
-                        this.props.navigator.popN(3);
+                        Helper.popToTop()
                     } else {
-                        this.props.navigator.popN(2);
+                        Helper.popToTop()
                     }
                 }}/>
 
@@ -85,9 +88,9 @@ export default class MyComponent extends React.Component {
 
                 <TouchableOpacity style={{marginTop: 20}} onPress={() => {
                     if (this.props.isIntelligence && this.props.isNeedBack3) {
-                        this.props.navigator.popN(3);
+                        Helper.popToTop()
                     } else {
-                        this.props.navigator.popN(2);
+                        Helper.popToTop()
                     }
                 }}>
                     <View

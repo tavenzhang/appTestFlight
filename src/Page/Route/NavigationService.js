@@ -50,6 +50,11 @@ function popToTop() {
     )
 }
 
+function popN(n) {
+    _navigator.dispatch(
+        NavigationActions.popN(n)
+    )
+}
 /**
  * 返回指定层级页面
  * @param n
@@ -208,5 +213,6 @@ export default {
     tokenIsError,
     loadingWebViewWithUrl,
     pushToBetHome,
-    getRoutes
+    getRoutes,
+    popN
 }
