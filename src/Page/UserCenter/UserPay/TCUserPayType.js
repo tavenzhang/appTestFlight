@@ -27,8 +27,8 @@ import {
 import TopNavigationBar from "../../../Common/View/TCNavigationBar";
 import Toast from "@remobile/react-native-toast";
 import RequestUtils from "../../../Common/Network/TCRequestUitls";
-import {config,appId} from "../../../Common/Network/TCRequestConfig";
-import LoadingSpinnerOverlay from "react-native-smart-loading-spinner-overlay";
+import {config, appId} from "../../../Common/Network/TCRequestConfig";
+import LoadingSpinnerOverlay from "../../../Common/View/LoadingSpinnerOverlay";
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
@@ -193,7 +193,7 @@ export default class TCUserPayType extends Component {
      */
     goBack() {
         RCTDeviceEventEmitter.emit('balanceChange', true)
-        this.props.navigator.pop()
+        NavigatorHelper.popToBack();
     }
 
     /**
@@ -216,7 +216,7 @@ export default class TCUserPayType extends Component {
      */
     getBankList(code) {
         this.showLoading()
-        RequestUtils.getUrlAndParamsAndCallback(config.api.bankList, {id:appId}, (response) => {
+        RequestUtils.getUrlAndParamsAndCallback(config.api.bankList, {id: appId}, (response) => {
             if (response.rs) {
                 this.parseBankList(response.content)
                 this.loadDataFromNet(code)
@@ -241,7 +241,7 @@ export default class TCUserPayType extends Component {
         if (data.length > 0) {
             for (var i = 0; data[i] != null; i++) {
                 let item = data[i]
-                if (item.bankCode === 'ZHB' || item.bankCode === 'WX'||item.bankCode === 'OTHER') {
+                if (item.bankCode === 'ZHB' || item.bankCode === 'WX' || item.bankCode === 'OTHER') {
                     this.payTansferList.push(item)
                 } else {
                     this.bankList.push(item)
@@ -313,17 +313,10 @@ export default class TCUserPayType extends Component {
      */
     gotoPayPage(code) {
         this.hideLoading()
-        let navigator = this.props.navigator
-        if (navigator) {
-            navigator.push({
-                name: 'userPay',
-                component: UserPay,
-                passProps: {
-                    code: code,
-                    payList: this.getPayList(code)
-                }
-            })
-        }
+        NavigatorHelper.pushToTopUp({
+            code: code,
+            payList: this.getPayList(code)
+        });
     }
 }
 class StateModel {
@@ -376,15 +369,15 @@ const styles = StyleSheet.create({
     }, tipTextStyle: {
         color: listViewTxtColor.redTip,
         fontSize: Size.xsmall,
-        paddingTop:10,
-        paddingBottom:10,
-        paddingLeft:5,
-        width:width-25-15,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 5,
+        width: width - 25 - 15,
     }, tipViewStyle: {
         flexDirection: 'row',
         backgroundColor: indexBgColor.itemBg,
         alignItems: 'center',
-        justifyContent:'center',
+        justifyContent: 'center',
         marginTop: 10,
     }, payTip: {
         color: listViewTxtColor.title,

@@ -14,8 +14,13 @@ import {
     WebView
 } from 'react-native'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
+import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
 var WEBVIEW_REF = 'webview'
 import {Size, indexBgColor} from '../../resouce/theme'
+
+@withMappedNavigationProps()
 export default class TCUserHTMLPay extends React.Component {
     constructor(state) {
         super(state)
@@ -32,8 +37,12 @@ export default class TCUserHTMLPay extends React.Component {
             <View style={styles.container}>
                 <TopNavigationBar title={this.props.title}
                                   ref="topNavigation"
-                                  backButtonCall={()=> {this.backButtonCall()}}
-                                  closeButtonCall={()=>{this.closeButtonCall()}}
+                                  backButtonCall={() => {
+                                      this.backButtonCall()
+                                  }}
+                                  closeButtonCall={() => {
+                                      this.closeButtonCall()
+                                  }}
                 />
                 <WebView
                     ref={WEBVIEW_REF}
@@ -44,7 +53,7 @@ export default class TCUserHTMLPay extends React.Component {
                     domStorageEnabled={true}
                     decelerationRate="normal"
                     onError={this.onError}
-                    renderError = {this.renderError}
+                    renderError={this.renderError}
                     scalesPageToFit={this.state.scalesPageToFit}
                 />
             </View>
@@ -56,8 +65,8 @@ export default class TCUserHTMLPay extends React.Component {
 
     }
 
-    renderError = ()=>{
-        return <View />
+    renderError = () => {
+        return <View/>
     }
     onShouldStartLoadWithRequest = (event) => {
         return true;
@@ -77,12 +86,12 @@ export default class TCUserHTMLPay extends React.Component {
             this.refs['topNavigation']._showCloseButton(true)
             this.refs[WEBVIEW_REF].goBack()
         } else {
-            this.props.navigator.pop()
+            NavigatorHelper.popToBack();
         }
     }
 
     closeButtonCall() {
-        this.props.navigator.pop()
+        NavigatorHelper.popToBack();
     }
 }
 

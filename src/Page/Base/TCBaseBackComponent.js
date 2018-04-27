@@ -25,27 +25,28 @@ export default class TCBaseBackComponent extends React.Component {
     static defaultProps = {};
 
     componentDidMount() {
-        if (Platform.OS === 'android') {
-            BackAndroid.addEventListener('hardwareBackPress', () => {
-                this.onBackAndroid()
-                return !Helper.isTopPage()
-            })
-        }
+        // if (Platform.OS === 'android') {
+        //     BackAndroid.addEventListener('hardwareBackPress', () => {
+        //         // this.onBackAndroid()
+        //         return !Helper.isTopPage()
+        //     })
+        // }
     }
 
     componentWillUnmount() {
-        if (Platform.OS === 'android') {
-            BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
-        }
+        // if (Platform.OS === 'android') {
+        //     BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        // }
     }
 
 
     render() {
     }
 
-    onBackAndroid() {
-        Helper.popToBack()
-    }
+    //
+    // onBackAndroid() {
+    //     Helper.popToBack()
+    // }
 
 }
 

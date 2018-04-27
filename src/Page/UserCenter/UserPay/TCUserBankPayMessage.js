@@ -27,9 +27,9 @@ import {
     inputStyle
 } from '../../resouce/theme'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import  PayProgress from './TCUserPayProgress'
+import PayProgress from './TCUserPayProgress'
 import KeyboardAvoidingScrollView from '../../../Common/View/TCKeyboardAvoidingScrollView';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import Dialog from './Dialog'
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
 import {config, appId} from '../../../Common/Network/TCRequestConfig'
@@ -40,10 +40,13 @@ import Moment from 'moment'
 import _ from 'lodash'
 import dismissKeyboard from 'dismissKeyboard'
 import {common} from '../../resouce/images'
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
 /**
  * 银行充值
  */
 @observer
+@withMappedNavigationProps()
 export default class TCUserBankPayMessage extends Component {
 
     transferToupType = 'BANK_ONLINE'//默认网银转账
@@ -205,7 +208,7 @@ export default class TCUserBankPayMessage extends Component {
                             <TouchableOpacity
                                 style={[styles.bottomBarButtonStyle, {paddingLeft: 25, paddingRight: 25}]}
                                 onPress={() => {
-                                    this.props.navigator.pop()
+                                    NavigatorHelper.popToBack();
                                 }}>
                                 <Text style={{color: buttonStyle.btnTxtColor, fontWeight: 'bold'}}>
                                     上一步
@@ -232,7 +235,7 @@ export default class TCUserBankPayMessage extends Component {
                             leftBtnClick={() => this.submitPay()}
                         />
                         <LoadingSpinnerOverlay
-                            ref={ component => this._modalLoadingSpinnerOverLay = component }/>
+                            ref={component => this._modalLoadingSpinnerOverLay = component}/>
                     </View>
                 </KeyboardAvoidingScrollView>
             </View>
@@ -244,7 +247,7 @@ export default class TCUserBankPayMessage extends Component {
             {
                 text: '确定',
                 onPress: () => {
-                    this.props.navigator.pop()
+                    NavigatorHelper.popToBack();
                 }
             },
             {
@@ -358,17 +361,7 @@ export default class TCUserBankPayMessage extends Component {
     }
 
     gotoProgress() {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'payProgress',
-                component: PayProgress,
-                passProps: {
-                    topupAmount: this.money,
-                    ...this.props,
-                }
-            })
-        }
+        NavigatorHelper.pushToUserPayProgress({topupAmount: this.money});
     }
 
     /**
@@ -403,7 +396,7 @@ class PayTypeView extends Component {
                 <Image
                     source={this.selectTypeId === item.typeId ? common.select : common.unSelect}
                     style={styles.itemImageStyle}/>
-                <View style={{marginLeft: 10, justifyContent: 'center', width: width / 2 - 80} }>
+                <View style={{marginLeft: 10, justifyContent: 'center', width: width / 2 - 80}}>
                     <Text
                         style={{
                             color: listViewTxtColor.title,
@@ -426,6 +419,7 @@ class StateModel {
     @observable
     date = Moment().format('YYYY-MM-DD HH:mm:ss')
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

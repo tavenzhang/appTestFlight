@@ -7,9 +7,12 @@ import UserAccount from '../UserAccount/TCUserPayAndWithdrawRecordsMain'
 import BackBaseComponent from '../../Base/TCBaseBackComponent'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {userPay} from '../../resouce/images'
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
 /**
  * 充值进度界面
  */
+@withMappedNavigationProps()
 export default class TCUserPayProgress extends BackBaseComponent {
 
     // 构造函数
@@ -35,7 +38,7 @@ export default class TCUserPayProgress extends BackBaseComponent {
                     title={'充值进度'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.popToTop()
+                        Helper.popToBack();
                     }}/>
                 <View style={{alignItems: 'center', marginBottom: 20}}>
                     <View style={styles.mainViewStyle}>
@@ -49,8 +52,8 @@ export default class TCUserPayProgress extends BackBaseComponent {
                         <View>
                             <View>
                                 <Text style={styles.itemTitleTxtStyle}>恭喜您，您的充值订单已经提交成功！</Text>
-                                <Text style={{  fontSize:Size.default,color:listViewTxtColor.content}}>充值金额<Text
-                                    style={{color:payTxtColor.payDes}}>{this.props.topupAmount}</Text>元</Text>
+                                <Text style={{fontSize: Size.default, color: listViewTxtColor.content}}>充值金额<Text
+                                    style={{color: payTxtColor.payDes}}>{this.props.topupAmount}</Text>元</Text>
                             </View>
                             <View style={styles.itemViewStyle}>
                                 <Text style={styles.itemTitleTxtStyle}>正在排队，等待客服进行确认。</Text>
@@ -58,16 +61,19 @@ export default class TCUserPayProgress extends BackBaseComponent {
                             <View style={styles.itemViewStyle}>
                                 <Text style={styles.itemTitleTxtStyle}>充值成功</Text>
                                 <Text
-                                    style={{  fontSize:Size.default,color:listViewTxtColor.content}}>充值成功后，您的余额将在1分钟{'\n'}内更新，请稍后查看，若届时未{'\n'}更新，请联系在线客服</Text>
+                                    style={{
+                                        fontSize: Size.default,
+                                        color: listViewTxtColor.content
+                                    }}>充值成功后，您的余额将在1分钟{'\n'}内更新，请稍后查看，若届时未{'\n'}更新，请联系在线客服</Text>
                             </View>
                         </View>
                     </View>
                     <TouchableOpacity
                         style={styles.bottomBarButtonStyle}
-                        onPress={()=> {
+                        onPress={() => {
                             this.gotoPayRecord()
                         }}>
-                        <Text style={{color: buttonStyle.btnTxtColor, fontWeight: 'bold',  fontSize:Size.default}}>
+                        <Text style={{color: buttonStyle.btnTxtColor, fontWeight: 'bold', fontSize: Size.default}}>
                             确定
                         </Text>
                     </TouchableOpacity>
@@ -77,17 +83,9 @@ export default class TCUserPayProgress extends BackBaseComponent {
     }
 
     gotoPayRecord() {
-        let {navigator} = this.props
-        if (navigator) {
-            navigator.push({
-                name: 'userAccount', component: UserAccount, passProps: {accountType: 1, isBackToTop: true}
-            });
-        }
+        Helper.pushToUserPayAndWithDraw(1, true)
     }
 
-    onBackAndroid() {
-        Helper.popToTop()
-    }
 }
 
 

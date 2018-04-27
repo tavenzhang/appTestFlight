@@ -71,14 +71,14 @@ import ModifyPassword from '../../Page/UserCenter/UserInfo/TCModifyPassword'
 import ModifySecurityPwd from '../../Page/UserCenter/UserInfo/TCModifySecurityPwd'
 import UserMessage from '../../Page/UserCenter/UserInfo/TCUserMessage'
 import UserAcountPay from '../../Page/UserCenter/UserAccount/TCUserPayAndWithdrawRecordsMain'
-// import UserPay from  '../../Page/UserCenter/UserPay/TCUserPayType'
-// import UserPayment from  '../../Page/UserCenter/UserPay/TCUserPayNew'
-// import UserAliAndWechatTransfer from  '../../Page/UserCenter/UserPay/TCUserAliAndWechatTransfer'
-// import UserAliAndWechatPay from  '../../Page/UserCenter/UserPay/TCUserAliAndWechatPay'
-// import UserBankPayMessage from  '../../Page/UserCenter/UserPay/TCUserBankPayMessage'
-// import UserHTMLPay from  '../../Page/UserCenter/UserPay/TCUserHTMLPay'
-// import UserPayProgress from  '../../Page/UserCenter/UserPay/TCUserPayProgress'
-// import UserAliPayAndWechatMessage from  '../../Page/UserCenter/UserPay/TCUserAliPayAndWechatMessage'
+import UserPay from  '../../Page/UserCenter/UserPay/TCUserPayType'
+import UserPayment from  '../../Page/UserCenter/UserPay/TCUserPayNew'
+import UserAliAndWechatTransfer from  '../../Page/UserCenter/UserPay/TCUserAliAndWechatTransfer'
+import UserAliAndWechatPay from  '../../Page/UserCenter/UserPay/TCUserAliAndWechatPay'
+import UserBankPayMessage from  '../../Page/UserCenter/UserPay/TCUserBankPayMessage'
+import UserHTMLPay from  '../../Page/UserCenter/UserPay/TCUserHTMLPay'
+import UserPayProgress from  '../../Page/UserCenter/UserPay/TCUserPayProgress'
+import UserAliPayAndWechatMessage from  '../../Page/UserCenter/UserPay/TCUserAliPayAndWechatMessage'
 
 //代理中心
 import AgentCenter from '../../Page/UserCenter/Agent/AgentCenter/TCAgentCenter'
@@ -134,7 +134,7 @@ const Components = {
     FeedbackList: {screen: FeedbackList},
     UserAcount: {screen: UserAcount},
     UserAcountPay: {screen: UserAcountPay},
-    // UserPay: {screen: UserPay},
+    UserPay: {screen: UserPay},
     UserOrderDetail: {screen: UserOrderDetail},
     UserAcountDetail: {screen: UserAcountDetail},
     UserInfo: {screen: UserInfo},
@@ -145,13 +145,13 @@ const Components = {
     ModifyPassword: {screen: ModifyPassword},
     ModifySecurityPwd: {screen: ModifySecurityPwd},
     UserMessage: {screen: UserMessage},
-    // UserPayment: {screen: UserPayment},
-    // UserAliAndWechatTransfer: {screen: UserAliAndWechatTransfer},
-    // UserAliAndWechatPay: {screen: UserAliAndWechatPay},
-    // UserBankPayMessage: {screen: UserBankPayMessage},
-    // UserHTMLPay: {screen: UserHTMLPay},
-    // UserPayProgress: {screen: UserPayProgress},
-    // UserAliPayAndWechatMessage: {screen: UserAliPayAndWechatMessage},
+    UserPayment: {screen: UserPayment},
+    UserAliAndWechatTransfer: {screen: UserAliAndWechatTransfer},
+    UserAliAndWechatPay: {screen: UserAliAndWechatPay},
+    UserBankPayMessage: {screen: UserBankPayMessage},
+    UserHTMLPay: {screen: UserHTMLPay},
+    UserPayProgress: {screen: UserPayProgress},
+    UserAliPayAndWechatMessage: {screen: UserAliPayAndWechatMessage},
     AgentCenter: {screen: AgentCenter},
     AgentAddAccount: {screen: AgentAddAccount},
     AgentTeamList: {screen: AgentTeamList},

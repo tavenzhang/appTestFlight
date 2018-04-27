@@ -40,11 +40,12 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import  BankMsg from './TCUserBankPayMessage'
 import dismissKeyboard from 'dismissKeyboard'
 import _ from 'lodash';
-
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 /**
  * 提示对话框
  */
 @observer
+@withMappedNavigationProps()
 export default class TCUserPayNew extends Component {
 
     payData = {}//支付信息
@@ -92,7 +93,7 @@ export default class TCUserPayNew extends Component {
                 <View style={styles.payTipView}>
                     <Text style={styles.payTip}>请选择充值方式</Text>
                 </View>
-                <ScrollView style={{marginTop: 5, marginBottom: 20}} keyboardDismissMode = 'on-drag'>
+                <ScrollView style={{marginTop: 5, marginBottom: 20}} keyboardDismissMode='on-drag'>
                     {this.props.payList && this.props.payList.length > 0 ? this.getContentView() : this.getEmptyTip()}
                 </ScrollView>
                 <LoadingSpinnerOverlay
@@ -321,7 +322,7 @@ export default class TCUserPayNew extends Component {
      */
     goBack() {
         RCTDeviceEventEmitter.emit('balanceChange', true)
-        this.props.navigator.pop()
+        NavigatorHelper.popToBack();
     }
 
     /**
@@ -527,25 +528,16 @@ export default class TCUserPayNew extends Component {
      * @constructor
      */
     QRpay(res) {
-        let {navigator} = this.props
-        let componets = Pay
         let payType = this.payData.type
-        let qrType = res.paymentJumpTypeEnum
+        let qrType = res.paymentJumpTypeEnum;
         if (res.data && res.data.length !== 0) {
-            if (navigator) {
-                navigator.push({
-                    name: 'userPay',
-                    component: componets,
-                    passProps: {
-                        type: payType,
-                        codeType: qrType ? qrType : 'URL',
-                        money: this.realTopupMoney,
-                        codeValue: res.data,
-                        merchantName: this.payData.merchantName,
-                        ...this.props,
-                    }
-                })
-            }
+            NavigatorHelper.pushToAliAndWechatPay({
+                type: payType,
+                codeType: qrType ? qrType : 'URL',
+                money: this.realTopupMoney,
+                codeValue: res.data,
+                merchantName: this.payData.merchantName,
+            })
         } else {
             Toast.showShortCenter('二维码获取失败,请稍后再试!')
         }
@@ -556,21 +548,12 @@ export default class TCUserPayNew extends Component {
      * @param res
      */
     gotoFormPay(res) {
-        let {navigator} = this.props
-        let componets = HTMLPay
         if (res.data && res.data.length !== 0) {
             let html = `<html><body><div style="text-align:center;margin-top: 50px;">` + res.data + `</div></body></html>`
-            if (navigator) {
-                navigator.push({
-                    name: 'userPay',
-                    component: componets,
-                    passProps: {
-                        title: this.payData.merchantName,
-                        html: html,
-                        ...this.props,
-                    }
-                })
-            }
+            NavigatorHelper.pushToHTMLPay({
+                title: this.payData.merchantName,
+                html: html
+            });
         } else {
             Toast.showShortCenter('支付信息获取失败,请稍后再试!')
         }
@@ -581,21 +564,12 @@ export default class TCUserPayNew extends Component {
      * @param res
      */
     gotoHTMLPay(res) {
-        let {navigator} = this.props
-        let componets = HTMLPay
         let payTitle = this.getPayTypeTitle()
         if (res.data && res.data.length !== 0) {
-            if (navigator) {
-                navigator.push({
-                    name: 'userPay',
-                    component: componets,
-                    passProps: {
-                        title: payTitle,
-                        html: res.data,
-                        ...this.props,
-                    }
-                })
-            }
+            NavigatorHelper.pushToHTMLPay({
+                title: payTitle,
+                html: res.data
+            })
         } else {
             Toast.showShortCenter('支付信息获取失败,请稍后再试!')
         }
@@ -625,7 +599,6 @@ export default class TCUserPayNew extends Component {
             Toast.showShortCenter('支付链接失效，请稍后再试！')
             return
         }
-
         Linking.canOpenURL(url).then(supported => {
             if (supported) {
                 Linking.openURL(url);
@@ -648,19 +621,11 @@ export default class TCUserPayNew extends Component {
      * @param data
      */
     weChatAndAlipayTransfer(data) {
-        let {navigator} = this.props
-        if (navigator) {
-            navigator.push({
-                name: 'alipay',
-                component: AlipayAndWechatTransfer,
-                passProps: {
-                    type: data.bankCode,
-                    money: this.realTopupMoney,
-                    data: data,
-                    ...this.props,
-                }
-            })
-        }
+        NavigatorHelper.pushToUserAliAndWechatTransfer({
+            type: data.bankCode,
+            money: this.realTopupMoney,
+            data: data
+        });
     }
 
     //给充值金额加一位小数的随机数
@@ -674,20 +639,12 @@ export default class TCUserPayNew extends Component {
      * @param code
      */
     gotoBankMsg(bank, code) {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'bankMsg',
-                component: BankMsg,
-                passProps: {
-                    topupCode: code,
-                    bank: bank,
-                    adminBankId: bank.adminBankId,
-                    money: this.money,
-                    ...this.props,
-                }
-            })
-        }
+        NavigatorHelper.pushToUserBankPayMessage({
+            topupCode: code,
+            bank: bank,
+            adminBankId: bank.adminBankId,
+            money: this.money
+        })
     }
 }
 

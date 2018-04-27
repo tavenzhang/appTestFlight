@@ -9,15 +9,17 @@ import {
     View,
 } from 'react-native';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import  ScrollableTabView from '../../../Common/View/ScrollableTab/index'
-import  DefaultTabBar from '../../../Common/View/ScrollableTab/DefaultTabBar'
+import ScrollableTabView from '../../../Common/View/ScrollableTab/index'
+import DefaultTabBar from '../../../Common/View/ScrollableTab/DefaultTabBar'
 import UserAccount from './TCUserPayAndWithdrawRecords'
 import BaseComponent from '../../Base/TCBaseBackComponent'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import {Size, shoppingTxtColor, indexBgColor, listViewTxtColor} from '../../resouce/theme'
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
-export  default  class TCUserPayAndWithdrawRecordsMain extends BaseComponent {
+@withMappedNavigationProps()
+export default class TCUserPayAndWithdrawRecordsMain extends BaseComponent {
 
     constructor(props) {
         super(props)
@@ -66,17 +68,13 @@ export  default  class TCUserPayAndWithdrawRecordsMain extends BaseComponent {
 
     };
 
-    onBackAndroid() {
+    back() {
         if (this.props.isBackToTop) {
             RCTDeviceEventEmitter.emit('balanceChange')
             Helper.popToTop()
         } else {
             Helper.popToBack()
         }
-    }
-
-    back() {
-        this.onBackAndroid()
     }
 }
 

@@ -16,25 +16,28 @@ import {
 } from 'react-native';
 
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
-import  TCRequestUtils from '../../Common/Network/TCRequestUitls'
-import  {config} from  '../../Common/Network/TCRequestConfig'
-import  Toast from '@remobile/react-native-toast'
-import {width,indexBgColor} from '../resouce/theme'
+import TCRequestUtils from '../../Common/Network/TCRequestUitls'
+import {config} from '../../Common/Network/TCRequestConfig'
+import Toast from '@remobile/react-native-toast'
+import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
+import {width, indexBgColor} from '../resouce/theme'
+
 var WEBVIEW_REF = 'webview';
 import BackBaseComponent from '../Base/TCBaseBackComponent'
+
 export default class TCWebView extends BackBaseComponent {
     constructor(state) {
         super(state)
         this.clickCount = 1
         this.state = {
-            url:this.props.url,
-            title:this.props.title
+            url: this.props.url,
+            title: this.props.title
         }
     }
 
     static defaultProps = {
-        url:'',
-        title:''
+        url: '',
+        title: ''
     };
 
     componentDidMount() {
@@ -50,9 +53,15 @@ export default class TCWebView extends BackBaseComponent {
             <View style={styles.container}>
                 <TopNavigationBar title={this.state.title}
                                   ref="topNavigation"
-                                  backButtonCall={()=> {this.backButtonCall()}}
-                                  closeButtonCall={()=>{this.closeButtonCall()}}
-                                  midCall={()=>{this.midCall()}}
+                                  backButtonCall={() => {
+                                      this.backButtonCall()
+                                  }}
+                                  closeButtonCall={() => {
+                                      this.closeButtonCall()
+                                  }}
+                                  midCall={() => {
+                                      this.midCall()
+                                  }}
                 />
                 <WebView
                     ref={WEBVIEW_REF}
@@ -84,20 +93,20 @@ export default class TCWebView extends BackBaseComponent {
         });
     };
 
-    backButtonCall(){
-        if(this.state.backButtonEnabled){
+    backButtonCall() {
+        if (this.state.backButtonEnabled) {
             this.refs['topNavigation']._showCloseButton(true)
             this.refs[WEBVIEW_REF].goBack()
-        }else {
-            this.props.navigator.pop()
+        } else {
+            NavigatorHelper.popToBack();
         }
     }
 
-    closeButtonCall(){
-        this.props.navigator.pop()
+    closeButtonCall() {
+        NavigatorHelper.popToBack();
     }
 
-    midCall(){
+    midCall() {
         if (this.state.title === '关于我们') {
             this.sendRequest();
         } else {
@@ -111,7 +120,7 @@ export default class TCWebView extends BackBaseComponent {
             return
         }
         if (this.clickCount === 10) {
-            TCRequestUtils.PostUrlAndParamsAndCallback(config.api.applyWhite, null, (res)=> {
+            TCRequestUtils.PostUrlAndParamsAndCallback(config.api.applyWhite, null, (res) => {
                     if (res.rs) {
                         Toast.showShortCenter('申请已经提交,请等待管理员审核!')
                     }
@@ -126,11 +135,11 @@ export default class TCWebView extends BackBaseComponent {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
-        backgroundColor:indexBgColor.mainBg,
+        flex: 1,
+        backgroundColor: indexBgColor.mainBg,
     },
-    webView:{
-        marginTop:0,
+    webView: {
+        marginTop: 0,
         width: width,
     }
 

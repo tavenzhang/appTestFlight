@@ -24,25 +24,27 @@ import {
     copyBtnStyle
 } from '../../resouce/theme'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import  PayProgress from './TCUserPayProgress'
-import Toast from '@remobile/react-native-toast';
+import PayProgress from './TCUserPayProgress'
+import Toast from '../../../Common/JXHelper/JXToast';
 import _ from 'lodash';
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
-import {config,appId} from '../../../Common/Network/TCRequestConfig'
+import {config, appId} from '../../../Common/Network/TCRequestConfig'
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
-// import LoadingSpinnerOverlay from 'react-native-smart-loading-spinner-overlay'
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 import DatePicker from '../../../Common/View/datepicker';
 import Moment from 'moment'
+
 var moment = new Moment()
 import dismissKeyboard from 'dismissKeyboard'
+
 
 /**
  * 银行充值
  */
+@withMappedNavigationProps()
 export default class TCUserAliPayAndWechatMessage extends Component {
-
 
 
     // 构造函数
@@ -72,15 +74,15 @@ export default class TCUserAliPayAndWechatMessage extends Component {
                     title={this.props.type === 'ZHB' ? '支付宝充值提单' : '微信充值提单'}
                     needBackButton={true}
                     rightTitle={'充值明细'}
-                    rightButtonCall={()=> {
+                    rightButtonCall={() => {
                         this.gotoPayRecord()
                     }}
                     backButtonCall={() => {
-                        this.props.navigator.pop()
+                        NavigatorHelper.popToBack();
                     }}/>
                 <ScrollView
                     keyboardDismissMode={'on-drag'}
-                    onScroll={()=> {
+                    onScroll={() => {
                         dismissKeyboard()
                     }}
                 >
@@ -117,8 +119,8 @@ export default class TCUserAliPayAndWechatMessage extends Component {
                                             width: width * 0.58 - 2,
                                             height: 29,
                                             padding: 5,
-                                              fontSize:Size.default,
-                                              color:inputStyle.inputTxt
+                                            fontSize: Size.default,
+                                            color: inputStyle.inputTxt
                                         }
                                     }}
                                     onDateChange={(date) => {
@@ -137,7 +139,7 @@ export default class TCUserAliPayAndWechatMessage extends Component {
                                     underlineColorAndroid='transparent'
                                     maxLength={6}
                                     defaultValue={this.props.topupAmount}
-                                    onChangeText={(text)=> {
+                                    onChangeText={(text) => {
                                         this.changeMoney(text)
                                     }}
                                     multiline={false}
@@ -153,7 +155,7 @@ export default class TCUserAliPayAndWechatMessage extends Component {
                                     maxLength={20}
                                     placeholder={this.props.type === 'ZHB' ? '请输入支付宝账号昵称' : '请输入微信账号昵称'}
                                     placeholderTextColor={inputStyle.inputTxt}
-                                    onChangeText={(text)=> {
+                                    onChangeText={(text) => {
                                         this.changeName(text)
                                     }}
                                 /></View>
@@ -161,21 +163,29 @@ export default class TCUserAliPayAndWechatMessage extends Component {
 
                         <View style={styles.itemStyle}>
                             <View><Text style={styles.itemTitleTxtStyle}>{'订 单 号  '}</Text></View>
-                            <View style={[styles.inputStyle,{flexDirection:'row'}]}>
+                            <View style={[styles.inputStyle, {flexDirection: 'row'}]}>
                                 <Text
-                                    style={{color:inputStyle.inputTxt,fontSize:Size.default}}>{this.props.orderNo}</Text>
+                                    style={{
+                                        color: inputStyle.inputTxt,
+                                        fontSize: Size.default
+                                    }}>{this.props.orderNo}</Text>
 
-                                <TouchableOpacity onPress={()=> {
-                                this.onCopy(this.props.orderNo)
-                            }}>
-                                    <View style={{ paddingLeft: width>=360?20:2,paddingTop:5}}>
-                                        <Text style={{  color:copyBtnStyle.txtColor , textAlign: 'center', paddingTop: 4,  paddingBottom: 4,paddingLeft: 8,
+                                <TouchableOpacity onPress={() => {
+                                    this.onCopy(this.props.orderNo)
+                                }}>
+                                    <View style={{paddingLeft: width >= 360 ? 20 : 2, paddingTop: 5}}>
+                                        <Text style={{
+                                            color: copyBtnStyle.txtColor,
+                                            textAlign: 'center',
+                                            paddingTop: 4,
+                                            paddingBottom: 4,
+                                            paddingLeft: 8,
                                             paddingRight: 8,
                                             borderWidth: 1,
                                             borderColor: copyBtnStyle.borderColor,
                                             borderRadius: 5,
-                                            fontSize:Size.default,
-                                            backgroundColor:copyBtnStyle.btnBg
+                                            fontSize: Size.default,
+                                            backgroundColor: copyBtnStyle.btnBg
                                         }}>复制</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -183,7 +193,7 @@ export default class TCUserAliPayAndWechatMessage extends Component {
                         </View>
                     </View>
 
-                    <View style={{alignItems:'center',marginTop:10}}>
+                    <View style={{alignItems: 'center', marginTop: 10}}>
                         <Text style={styles.tiptxtStyle}>** 请将本次充值订单号复制到您的转账备注中**</Text>
                     </View>
 
@@ -198,7 +208,11 @@ export default class TCUserAliPayAndWechatMessage extends Component {
                                 }}
                             >
                                 <Text
-                                    style={{color: buttonStyle.btnTxtColor, fontWeight: 'bold',  fontSize:Size.default}}>
+                                    style={{
+                                        color: buttonStyle.btnTxtColor,
+                                        fontWeight: 'bold',
+                                        fontSize: Size.default
+                                    }}>
                                     上一步
                                 </Text>
                             </TouchableOpacity>
@@ -207,17 +221,21 @@ export default class TCUserAliPayAndWechatMessage extends Component {
                         <View style={{alignItems: 'center', marginBottom: 20, marginLeft: 30}}>
                             <TouchableOpacity
                                 style={styles.bottomBarButtonStyle}
-                                onPress={()=>this.submitPay()}
+                                onPress={() => this.submitPay()}
                             >
                                 <Text
-                                    style={{color: buttonStyle.btnTxtColor, fontWeight: 'bold',  fontSize:Size.default}}>
+                                    style={{
+                                        color: buttonStyle.btnTxtColor,
+                                        fontWeight: 'bold',
+                                        fontSize: Size.default
+                                    }}>
                                     {'提    单'}
                                 </Text>
                             </TouchableOpacity>
 
                         </View>
                         <LoadingSpinnerOverlay
-                            ref={ component => this._modalLoadingSpinnerOverLay = component }/>
+                            ref={component => this._modalLoadingSpinnerOverLay = component}/>
                     </View>
                     <View>
                         {this.getTransferTip()}
@@ -267,7 +285,7 @@ export default class TCUserAliPayAndWechatMessage extends Component {
         }
 
         this._modalLoadingSpinnerOverLay.show()
-        setTimeout(()=> {
+        setTimeout(() => {
             let params = {
                 adminBankId: this.props.data.adminBankId,
                 topupAmount: this.state.topupAmount,
@@ -275,7 +293,7 @@ export default class TCUserAliPayAndWechatMessage extends Component {
                 topupTime: this.state.date,
                 transferToupType: this.props.type === 'ZHB' ? 'ALIPAY' : 'WECHATPAY',
                 paymentPlatformOrderNo: this.props.orderNo,
-                id:appId
+                id: appId
             }
             RequestUtils.PutUrlAndParamsAndCallback(config.api.banktransfersQueryv3, params, (response) => {
                 this._modalLoadingSpinnerOverLay && this._modalLoadingSpinnerOverLay.hide()
@@ -299,16 +317,7 @@ export default class TCUserAliPayAndWechatMessage extends Component {
 
     gotoProgress() {
         let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'payProgress',
-                component: PayProgress,
-                passProps: {
-                    topupAmount: this.state.topupAmount,
-                    ...this.props,
-                }
-            })
-        }
+        NavigatorHelper.pushToUserPayProgress({topupAmount: this.state.topupAmount,});
     }
 
     /**

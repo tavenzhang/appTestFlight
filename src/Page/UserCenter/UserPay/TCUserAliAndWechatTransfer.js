@@ -19,25 +19,24 @@ import {observable, computed, action} from 'mobx'
 import UserPay from './View/TCUserPayViewNew'
 import {Size, indexBgColor, buttonStyle, ermaStyle, width, height} from '../../resouce/theme'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import  PayMessage from './TCUserAliPayAndWechatMessage'
-import  PayProgress from './TCUserPayProgress'
-import  Dialog from './Dialog'
-import {takeSnapshot} from "react-native-view-shot";
+import Dialog from './Dialog'
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import {config, appId} from '../../../Common/Network/TCRequestConfig'
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
-import Toast from '@remobile/react-native-toast';
 import {userPay} from '../../resouce/images'
 import Moment from 'moment'
 import TCUserOpenPayApp from './TCUserOpenPayApp'
 import _ from 'lodash'
+import Toast from "../../../Common/JXHelper/JXToast";
+import { withMappedNavigationProps } from 'react-navigation-props-mapper'
 let userOpenPayApp = new TCUserOpenPayApp()
 
 /**
  * 支付宝支付
  */
 @observer
+@withMappedNavigationProps()
 export default class TCUserAliAndWechatTransfer extends Component {
 
     stateModel = new StateModel()
@@ -108,7 +107,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
                             }}>
                             {this.getOpenButtonView()}
                             <TouchableOpacity onPress={() => this.gotoProgress()}
-                                              style={ styles.btmBtnStyle1}>
+                                              style={styles.btmBtnStyle1}>
                                 <Text
                                     style={styles.btmBtnTxtStyle}>{'支付已完成'}</Text></TouchableOpacity>
                         </View>
@@ -117,7 +116,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
                         </View>
                     </View>
                     <LoadingSpinnerOverlay
-                        ref={ component => this._modalLoadingSpinnerOverLay = component }/>
+                        ref={component => this._modalLoadingSpinnerOverLay = component}/>
                 </ScrollView>
                 <Dialog
                     ref="Dialog"
@@ -166,14 +165,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
     }
 
     snapshot() {
-        if (Platform.OS == 'ios') {
-            NativeModules.TCOpenOtherAppHelper.screenShotSave();
-        } else {
-            takeSnapshot(this.refs['erweimaaa'], this.stateModel.value)
-                .then(res => {
-                    CameraRoll.saveToCameraRoll(res, 'photo');
-                })
-        }
+        NativeModules.TCOpenOtherAppHelper.screenShotSave();
     }
 
     getTransferTip() {
@@ -226,36 +218,18 @@ export default class TCUserAliAndWechatTransfer extends Component {
     }
 
     next() {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'payMessage',
-                component: PayMessage,
-                passProps: {
-                    type: this.props.type,
-                    topupAmount: this.props.money,
-                    orderNo: this.state.orderNo,
-                    ...this.props,
-                }
-            })
-        }
+        NavigatorHelper.pushToUserAliPayAndWechatMessage({
+            type: this.props.type,
+            topupAmount: this.props.money,
+            orderNo: this.state.orderNo
+        })
     }
 
     /**
      * 跳转到支付进度界面
      */
     gotoProgress() {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'payProgress',
-                component: PayProgress,
-                passProps: {
-                    topupAmount: this.props.money,
-                    ...this.props,
-                }
-            })
-        }
+        NavigatorHelper.pushToUserPayProgress({topupAmount: this.props.money});
     }
 
     showBackTip() {
@@ -263,7 +237,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
             {
                 text: '确定',
                 onPress: () => {
-                    this.props.navigator.pop()
+                    NavigatorHelper.popToBack();
                 }
             },
             {

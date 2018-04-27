@@ -3,9 +3,10 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 import Toast from '../JXHelper/JXToast'
-import  InitHelper from './TCInitHelper'
-import JXHelper from  './JXHelper'
+import InitHelper from './TCInitHelper'
+import JXHelper from './JXHelper'
 import NavigationService from '../../Page/Route/NavigationService'
+
 let initHelper = new InitHelper()
 export default class Helper {
 }
@@ -57,8 +58,8 @@ Helper.pushToUserAcountDetail = (params) => {
 }
 
 //用户充值提现
-Helper.pushToUserPayAndWithDraw = (accountType) => {
-    NavigationService.navigate("UserAcountPay", {accountType: accountType});
+Helper.pushToUserPayAndWithDraw = (accountType, isBackToTop) => {
+    NavigationService.navigate("UserAcountPay", {accountType: accountType, isBackToTop: isBackToTop});
 }
 
 Helper.pushToPay = () => {
@@ -72,9 +73,39 @@ Helper.pushToPay = () => {
 Helper.pushtoPromotion = () => {
     NavigationService.navigate("TCPromotionList");
 }
-Helper.pushToTopUp = () => {
-    NavigationService.navigate("UserPay");
+/**
+ * 根据充值类型跳转
+ * @param params
+ */
+Helper.pushToTopUp = (params) => {
+    NavigationService.navigate("UserPayment", params);
 }
+
+Helper.pushToAliAndWechatPay = (params) => {
+    NavigationService.navigate("UserAliAndWechatPay", params);
+}
+
+Helper.pushToUserAliAndWechatTransfer = (params) => {
+    NavigationService.navigate("UserAliAndWechatTransfer", params);
+}
+
+Helper.pushToUserBankPayMessage = (params) => {
+    NavigationService.navigate("UserBankPayMessage", params);
+}
+
+Helper.pushToHTMLPay = (params) => {
+    NavigationService.navigate("UserHTMLPay", params);
+}
+
+Helper.pushToUserPayProgress = (params) => {
+    NavigationService.navigate("UserPayProgress", params);
+}
+
+
+Helper.pushToUserAliPayAndWechatMessage = (params) => {
+    NavigationService.navigate("UserAliPayAndWechatMessage", params);
+}
+
 
 Helper.pushToUserLogin = (gotoCenter, userName, shouldReplace, isFromRegister) => {
     NavigationService.navigate("UserLogin", {

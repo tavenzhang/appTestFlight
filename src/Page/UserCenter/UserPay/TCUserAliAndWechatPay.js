@@ -1,4 +1,4 @@
-import React, {Component, PropTypes,} from 'react'
+import React, {Component,} from 'react'
 
 import {
     View,
@@ -16,23 +16,29 @@ import {observable, computed, action} from 'mobx'
 import UserPay from './View/TCUserPayView'
 import {indexBgColor} from '../../resouce/theme'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
+import NavigationHelper from '../../Route/NavigationService'
 import Help01 from '../UserPayHelp/TCUserHelp01'
 import Help02 from '../UserPayHelp/TCUserHelp02'
 import Help03 from '../UserPayHelp/TCUserHelp03'
 import Help04 from '../UserPayHelp/TCUserHelp04'
-import  Dialog from './Dialog'
-import {takeSnapshot} from "react-native-view-shot";
+import Dialog from './Dialog'
 import UserAccount from '../UserAccount/TCUserPayAndWithdrawRecordsMain'
-import Toast from "@remobile/react-native-toast";
+import Toast from "../../../Common/JXHelper/JXToast";
 import TCUserOpenPayApp from './TCUserOpenPayApp'
+
 let userOpenPayApp = new TCUserOpenPayApp()
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
+
 /**
  * 支付宝支付
  */
 @observer
+@withMappedNavigationProps()
 export default class TCUserAliAndWechatPay extends Component {
 
     stateModel = new StateModel()
+
     // 构造函数
     constructor(props) {
         super(props)
@@ -65,15 +71,15 @@ export default class TCUserAliAndWechatPay extends Component {
                         this.showBackTip();
                     }}
                 />
-                <UserPay ref="erweimaaa"
-                         payType={this.getPayType()}
-                         gotoPay={() => {
-                             this.gotoPay()
-                         }}
-                         codeType={this.props.codeType}
-                         codeValue={this.props.codeValue}
-                         money={this.props.money}
-                         leftBtnTitle={'立即充值'}
+                <UserPay
+                    payType={this.getPayType()}
+                    gotoPay={() => {
+                        this.gotoPay()
+                    }}
+                    codeType={this.props.codeType}
+                    codeValue={this.props.codeValue}
+                    money={this.props.money}
+                    leftBtnTitle={'立即充值'}
                 />
 
                 <Help01 show={this.stateModel.showhelper0} next={() => this.stateModel.next(1)}
@@ -104,7 +110,7 @@ export default class TCUserAliAndWechatPay extends Component {
             {
                 text: '确定',
                 onPress: () => {
-                    this.props.navigator.pop()
+                    NavigationHelper.popToBack();
                 }
             },
             {
@@ -180,14 +186,7 @@ export default class TCUserAliAndWechatPay extends Component {
     }
 
     snapshot() {
-        if (Platform.OS == 'ios') {
-            NativeModules.TCOpenOtherAppHelper.screenShotSave();
-        } else {
-            takeSnapshot(this.refs['erweimaaa'], this.stateModel.value)
-                .then(res => {
-                    CameraRoll.saveToCameraRoll(res, 'photo');
-                })
-        }
+        NativeModules.TCOpenOtherAppHelper.screenShotSave();
     }
 
     // 显示/隐藏 modal
@@ -206,12 +205,7 @@ export default class TCUserAliAndWechatPay extends Component {
     }
 
     hadPay() {
-        let {navigator} = this.props
-        if (navigator) {
-            navigator.push({
-                name: 'userAccount', component: UserAccount, passProps: {accountType: 1, isBackToTop: true}
-            });
-        }
+        NavigationHelper.pushToUserPayAndWithDraw(1, true);
     }
 }
 
@@ -224,13 +218,6 @@ class StateModel {
     showhelper2 = false
     @observable
     showhelper3 = false
-
-    @observable
-    value = {
-        format: "png",
-        quality: 0.9,
-        result: "file",
-    }
 
     @action
     next(index) {

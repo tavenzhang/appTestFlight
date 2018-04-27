@@ -89,7 +89,7 @@ export default class TCHome extends Component {
             TCInitHelper.getMsgStatus()
         }
         NetWorkTool.addEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
-        BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
+        // BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
         AppState.addEventListener('change', this.handleAppStateChange);
 
         setTimeout(() => {
@@ -114,21 +114,21 @@ export default class TCHome extends Component {
         this.timer3 && clearTimeout(this.timer3);
         this.listener && this.listener.remove();
         NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
-        BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        // BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
         AppState.removeEventListener('change', this.handleAppStateChange);
     }
-
-    onBackAndroid() {
-        if (TCHome.lastBackPressed && TCHome.lastBackPressed >= Moment().subtract(2, 'seconds')) {
-            //最近2秒内按过back键，可以退出应用。
-            isFirstLoad = false;
-            return false;
-        }
-        AppState.removeEventListener('change', this.handleAppStateChange);
-        TCHome.lastBackPressed = Moment();
-        Toast.showShortCenter('再按一次退出应用');
-        return true;
-    }
+    //
+    // onBackAndroid() {
+    //     if (TCHome.lastBackPressed && TCHome.lastBackPressed >= Moment().subtract(2, 'seconds')) {
+    //         //最近2秒内按过back键，可以退出应用。
+    //         isFirstLoad = false;
+    //         return false;
+    //     }
+    //     AppState.removeEventListener('change', this.handleAppStateChange);
+    //     TCHome.lastBackPressed = Moment();
+    //     Toast.showShortCenter('再按一次退出应用');
+    //     return true;
+    // }
 
     render() {
         return (
