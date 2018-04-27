@@ -55,6 +55,8 @@ import Toast from '@remobile/react-native-toast'
 // import RedPacketRules from '../../Page/red_packet/Rules'
 // import  FeedbackList from '../../Page/UserCenter/FeedBack/TCUserFeedbackList'
 // let initHelper = new InitHelper()
+import NavigationService from '../../Page/Route/NavigationService'
+
 export default class Helper {
 }
 
@@ -70,6 +72,9 @@ Helper.checkUserWhetherLogin = () => {
 }
 
 Helper.pushToBetHome = (rowData) => {
+
+    NavigationService.pushToBetHome(rowData)
+    return;
     let page = null
     switch (rowData.gameUniqueId) {
         case 'HF_JSMS':
