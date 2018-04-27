@@ -6,6 +6,7 @@ import com.facebook.react.ReactApplication;
 
 import fr.greweb.reactnativeviewshot.RNViewShotPackage;
 
+import com.jd.jxhelper.JXHelperPackage;
 import com.jd.marqueeLabel.RCTMarqueeLabelPackage;
 import com.toast.RCTToastPackage;
 import com.jadsonlourenco.RNShakeEvent.RNShakeEventPackage;
@@ -33,6 +34,11 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
+    private static MainApplication mInstance=null;
+
+    public static MainApplication getInstance(){
+        return mInstance;
+    }
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
 
         @Override
@@ -52,7 +58,7 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNViewShotPackage(),
                     new RCTToastPackage(),
                     new RNShakeEventPackage(),
-                    new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
+                    new CodePush(getResources().getString(R.string.deploymentKey), getApplicationContext(), BuildConfig.DEBUG),
                     new VectorIconsPackage(),
                     new SvgPackage(),
                     new SplashScreenReactPackage(),
@@ -64,7 +70,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNDeviceInfo(),
                     new BlurViewPackage(),
                     new FastImageViewPackage(),
-                    new RCTMarqueeLabelPackage()
+                    new RCTMarqueeLabelPackage(),
+                    new JXHelperPackage()
             );
         }
 
