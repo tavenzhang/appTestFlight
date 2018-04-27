@@ -62,7 +62,7 @@ export default class TCLotteryHistoryList extends BaseComponent {
         return (
             <View style={styles.container}>
                 {this.getTopNavigationBar()}
-                <ListView style={{height: height - 64}}
+                <ListView style={{height: height - 64-50}}
                           ref="ListView1"
                           dataSource={this.dataSource.cloneWithRows(this.lotteryHistoryData.historyData.slice())}
                           renderRow={(rowData, sectionID, rowID)=>this.renderRow(rowData, sectionID, rowID)}
