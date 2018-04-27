@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:test="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="270dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="#f6f6f6">
+
+        <TextView
+            android:id="@+id/notice_dialog_content_tv"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:textSize="16dp"
+            android:gravity="center"
+            android:textColor="#282828" />
+        <View
+            style="@style/HorizontalLine"/>
+        <TextView
+            android:id="@+id/notice_dialog_confirm_tv"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:clickable="true"
+            android:textColor="#151515"
+            android:text="确定"/>
+    </LinearLayout>
+
+
+</FrameLayout>

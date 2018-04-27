@@ -58,6 +58,11 @@ Helper.pushToLotteryHistoryList = (title, gameUniqueId, betBack) => {
 Helper.pushToUserAccount = (accountType) => {
     NavigationService.navigate("UserAcount", {initPage: accountType});
 }
+
+Helper.pushToUserAcountDetail = (params) => {
+    NavigationService.navigate("UserAcountDetail", params);
+}
+
 //用户充值提现
 Helper.pushToUserPayAndWithDraw = (accountType) => {
     NavigationService.navigate("UserAcountPay", {accountType: accountType});

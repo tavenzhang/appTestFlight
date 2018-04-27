@@ -99,11 +99,12 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.jd"
+        applicationId "com.tc168"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.8"
+        resValue "string", "app_name", "106彩票-jd"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -153,10 +154,12 @@ dependencies {
     compile project(':react-native-device-info')
     compile project(':react-native-blur')
     compile project(':react-native-fast-image')
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:23.0.1"
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.facebook.react:react-native:+'
+    // From node_modules
     compile 'com.zhy:okhttputils:2.6.2'
+    compile files('libs/umeng-analytics-7.4.4.jar')
 }
 
 // Run this once to be able to run the application with BUCK

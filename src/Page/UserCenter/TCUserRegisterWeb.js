@@ -109,7 +109,7 @@ export default class TCUserRegister extends BackBaseComponent {
         this.type = jsonData.action;
         switch (this.type) {
             case 'register_success':
-                if (1||jsonData.isGuest) {
+                if (1 || jsonData.isGuest) {
                     let user = jsonData.payload;
                     user.password = jsonData.commId;
                     user.islogin = true
@@ -152,7 +152,7 @@ export default class TCUserRegister extends BackBaseComponent {
             return;
         }
 
-        if (url.indexOf('guest') < 0 && navState.title === '注册'  && this.state.title !== '立即注册') {
+        if (url.indexOf('guest') < 0 && navState.title === '注册' && this.state.title !== '立即注册') {
             this.setState({title: '立即注册'});
             return;
         }
@@ -179,17 +179,17 @@ export default class TCUserRegister extends BackBaseComponent {
         if (this.backButtonEnabled && !_.isEqual(this.state.title, this.originTitle)) {
             this.refs[WEBVIEW_REF].goBack();
         } else {
-            this.props.navigator.pop();
+            Helper.popToBack();
         }
     }
 
-    onBackAndroid() {
-        if (this.refs[WEBVIEW_REF]) {
-            this.back();
-        } else {
-            this.props.navigator.popToTop();
-        }
-    }
+    // onBackAndroid() {
+    //     if (this.refs[WEBVIEW_REF]) {
+    //         this.back();
+    //     } else {
+    //         this.props.navigator.popToTop();
+    //     }
+    // }
 
     registerSuccess(userName, fromRegister) {
         dismissKeyboard();
@@ -214,7 +214,7 @@ export default class TCUserRegister extends BackBaseComponent {
         TCUSER_DATA = user;
         RCTDeviceEventEmitter.emit('balanceChange');
         RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
-        this.props.navigator.popToTop()
+        Helper.popToTop();
     }
 }
 

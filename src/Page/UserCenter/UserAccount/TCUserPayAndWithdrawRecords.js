@@ -17,7 +17,6 @@ import {observable, computed, action} from 'mobx'
 
 import NoDataView from '../../../Common/View/TCNoDataView'
 import  ListRow from './View/TCUserPayAndWithdrawRowView'
-import AccountDetail from './TCUserAccountBillingDetails'
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
 import {config} from '../../../Common/Network/TCRequestConfig'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
@@ -99,18 +98,10 @@ export  default  class TCUserPayAndWithdrawRecords extends Component {
     }
 
     pressRow(rowData) {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'accountDetail',
-                component: AccountDetail,
-                passProps: {
-                    ...this.props,
-                    orderData: rowData,
-                    isPayAndWithdrawRecord: true
-                }
-            })
-        }
+        Helper.pushToUserAcountDetail({
+            orderData: rowData,
+            isPayAndWithdrawRecord: true
+        })
     }
 
     getAccountType() {

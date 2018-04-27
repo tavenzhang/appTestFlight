@@ -16,6 +16,8 @@ import android.view.View;
 
 import com.jd.R;
 import com.jd.numberprogressbar.NumberProgressBar;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.FileCallBack;
 
 import java.io.File;
 
