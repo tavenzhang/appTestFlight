@@ -12,7 +12,7 @@ import queryString from 'query-string';
 import _ from 'lodash';
 import TCInitHelperC from '../JXHelper/TCInitHelper'
 import NavigatorHelper from '../JXHelper/TCNavigatorHelper'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 const defaultTimeout = 10000;

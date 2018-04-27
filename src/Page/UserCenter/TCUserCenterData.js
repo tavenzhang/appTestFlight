@@ -7,7 +7,7 @@ import { observable, action } from 'mobx';
 /** 外部关系组件 */
 import RequestUtils from '../../Common/Network/TCRequestUitls';
 import { config } from '../../Common/Network/TCRequestConfig';
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../Common/JXHelper/JXToast';
 
 export default class TCUserCenterData {
 

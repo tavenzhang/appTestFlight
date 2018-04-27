@@ -27,7 +27,7 @@ import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import NumberOnlyInputText from "../../../Common/View/NumberOnlyInputText";
 import dismissKeyboard from 'dismissKeyboard'
 import NetUitls from "../../../Common/Network/TCRequestUitls";
-import * as Toast from "@remobile/react-native-toast/index";
+import Toast from '../../../Common/JXHelper/JXToast';
 import {config} from "../../../Common/Network/TCRequestConfig";
 import Moment from 'moment'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'

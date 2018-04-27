@@ -6,7 +6,7 @@ import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, TextInput, ScrollView, Platform} from 'react-native';
 import {observer} from 'mobx-react/native';
 import {observable, computed, action} from 'mobx';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import  dismissKeyboard from 'dismissKeyboard';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
@@ -15,6 +15,7 @@ import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import NetUtils from '../../../Common/Network/TCRequestUitls';
 import {config} from '../../../Common/Network/TCRequestConfig';
 import BackBaseComponent from '../../Base/TCBaseBackComponent';
+import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import {
     Size, width, height, indexBgColor, userCenterTxtColor, loginAndRegeisterBgColor, loginAndRegeisterTxtColor,
     loginAndRegeisterBorderColor
@@ -49,7 +50,7 @@ export default class TCUserFeedback extends BackBaseComponent {
     }
 
     goBack() {
-        this.props.navigator.pop()
+      Helper.popToBack()
     }
 
     submitFeedback() {
@@ -106,7 +107,7 @@ export default class TCUserFeedback extends BackBaseComponent {
                 />
                 <ScrollView
                     keyboardShouldPersistTaps={Platform.OS !== 'ios'}
-                    keyboardDismissMode={Platform.OS == 'ios' ? 'on-drag' : 'none'}
+                    keyboardDismissMode={Platform.OS === 'ios' ? 'on-drag' : 'none'}
                 >
                     <View style={styles.totalContent}>
                         <View style={styles.titleContainer}>

@@ -13,13 +13,14 @@ import {
 
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
+import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 
 import TCUserCollectItem from './view/TCUserCollectItemView'
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar'
 import  JXHelperC from '../../../Common/JXHelper/TCUserCollectHelper'
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../../Common/JXHelper/JXToast';
 let JXHelper = new JXHelperC()
 import JXHelpers from '../../../Common/JXHelper/JXHelper'
 import {common} from '../../resouce/images'
@@ -44,7 +45,7 @@ export default class TCUserCollect extends Component {
                     title={'个人收藏'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        NavigatorHelper.popToBack()
+                        this.props.navigator.pop()
                     }}
                     rightTitle={'清空收藏'}
                     rightButtonCall={() => {

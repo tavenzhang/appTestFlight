@@ -17,7 +17,7 @@ import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import {config} from '../../../Common/Network/TCRequestConfig'
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
@@ -27,6 +27,7 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import {common} from '../../resouce/images'
 import {Size, width, height, indexBgColor, buttonStyle, inputStyle, listViewTxtColor} from '../../resouce/theme'
 import SecretUtils from '../../../Common/JXHelper/SecretUtils'
+import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 var secretUtils = new SecretUtils()
 
 @observer
@@ -56,7 +57,7 @@ export default class TCModifySecurityPwd extends BackBaseComponent {
                     title={'修改交易密码'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.pop()
+                      Helper.popToBack()
                     }}/>
                 {this.renderTip()}
                 <View style={{marginTop: 40, flexDirection: 'column'}}>

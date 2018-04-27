@@ -111,10 +111,6 @@ Helper.pushToUserLogin = (gotoCenter, userName, shouldReplace, isFromRegister) =
     // }
 }
 
-Helper.pushToUserCollect = () => {
-    NavigationService.navigate("UserCollect");
-}
-
 Helper.pushToUserRegister = (fromLoginToRegister) => {
     let registerURL = JXHelper.getWebUserRegister();
     if (registerURL && registerURL.length > 0 && navigator) {
@@ -147,10 +143,11 @@ Helper.pushToAgentInroduce = () => {
     }
 }
 
-Helper.pushToUserTeamManager = () => {
-    NavigationService.navigate("AgentTeamList");
+Helper.pushToUserTeamManager = (wantPopToN) => {
+    NavigationService.navigate("AgentTeamList", {wantPopToN});
 }
 
+// 跳转到代理佣金页面
 Helper.pushToAgentCommission = () => {
     NavigationService.navigate("AgentCommissionList");
 }
@@ -161,6 +158,11 @@ Helper.pushToUserSheet = (isUserSheet, username, prizeGroup) => {
         username,
         prizeGroup,
     });
+}
+
+// 跳转到反馈页面
+Helper.pushToFeedback = () => {
+    NavigationService.navigate("Feedback");
 }
 
 // 跳转到代理中心
@@ -190,6 +192,25 @@ Helper.pushToUserSecurityCenter = () => {
 
 Helper.pushToAddBank = () => {
     NavigationService.navigate("UserInfo");
+}
+
+// 跳转到修改用户登录密码页面
+Helper.pushToModifyPassword = () => {
+  NavigationService.navigate("ModifyPassword");
+}
+
+// 跳转到修改取款密码页面
+Helper.pushToModifySecurityPwd = () => {
+  NavigationService.navigate("ModifySecurityPwd");
+}
+
+// 跳转到银行卡管理页面
+Helper.pushToUserBankManager = () => {
+  if (!TCUSER_DATA.realname) {
+    NavigationService.navigate("UserInfo");
+  } else {
+    NavigationService.navigate("UserBankManager");
+  }
 }
 
 // 跳转到取款界面
@@ -243,8 +264,8 @@ Helper.pushToTopWinnerDetail = (target) => {
 }
 
 //代理
-Helper.pushtoAgentAddAccount = () => {
-    NavigationService.navigate("AgentAddAccount");
+Helper.pushToAgentAddAccount = (fromTeamManager) => {
+    NavigationService.navigate("AgentAddAccount", {isFromTeamManager: fromTeamManager});
 }
 
 // 红包相关

@@ -11,7 +11,7 @@ import _ from 'lodash';
 /** 外部关系组件 如 页面跳转用 */
 import {config} from '../Common/Network/TCRequestConfig'
 import NetUitls from '../Common/Network/TCRequestUitls'
-import Toast from '../Common/JXHelper/JXToast'
+import Toast from '../Common/JXHelper/JXToast';
 import TimeOutEvent from '../Common/JXHelper/JXTimeOutEventHelper'
 import Moment from 'moment'
 class HistoryDataEvent {

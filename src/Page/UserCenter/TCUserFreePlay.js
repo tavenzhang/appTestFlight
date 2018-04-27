@@ -15,7 +15,7 @@ import {
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../Common/JXHelper/JXToast';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 import  dismissKeyboard from 'dismissKeyboard'

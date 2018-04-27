@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 
 /**系统 npm类 */
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 
 /**组件内部显示需要引入的类 */
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';

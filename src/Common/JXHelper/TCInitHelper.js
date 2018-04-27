@@ -26,7 +26,7 @@ let secretUtils = new SecretUtils()
 import NavigatorHelper from '../JXHelper/TCNavigatorHelper'
 import Helper from '../JXHelper/JXHelper'
 
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Extension from '../View/Extension'
 import JXDomainsHelper from './JXDomainsHelper'

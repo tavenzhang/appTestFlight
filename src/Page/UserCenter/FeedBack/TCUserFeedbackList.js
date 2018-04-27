@@ -7,7 +7,7 @@ import {View, StyleSheet, Text, TouchableOpacity, ScrollView, Image, ListView} f
 import {observer} from 'mobx-react/native';
 import {observable, computed, action} from 'mobx';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import Moment from 'moment';
 import DatePicker from '../../../Common/View/datepicker';
@@ -22,6 +22,7 @@ import BackBaseComponent from '../../Base/TCBaseBackComponent';
 import RowList from './View/TCUserFeedbackListRow';
 import Feedback from './TCUserFeedback';
 import FeedbackView from './TCUserFeedbackView';
+import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import {
     Size, width, height, indexBgColor, userCenterTxtColor, loginAndRegeisterBorderColor
 } from '../../resouce/theme';
@@ -103,18 +104,11 @@ export default class TCUserFeedbackList extends BackBaseComponent {
      * @param rowData
      */
     goFeedback() {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'feedback',
-                component: Feedback,
-                passProps: {...this.props}
-            })
-        }
+      Helper.pushToFeedback();
     }
 
     goBack() {
-        this.props.navigator.pop();
+      Helper.popToBack()
     }
 
     /**

@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 //系统 npm类
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../../Common/JXHelper/JXToast';
 import LoadingSpinnerOverlay from '../../../../Common/View/LoadingSpinnerOverlay'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import {observer} from 'mobx-react/native';

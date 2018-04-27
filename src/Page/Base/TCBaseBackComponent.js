@@ -4,55 +4,56 @@
  */
 
 import React, {
-    Component
+  Component
 } from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    InteractionManager,
-    BackAndroid,
-    Platform
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  InteractionManager,
+  BackHandler,
+  Platform
 } from 'react-native';
 import Helper from '../../Common/JXHelper/TCNavigatorHelper'
+
 export default class TCBaseBackComponent extends React.Component {
-    constructor(state) {
-        super(state)
-        this.state = {}
+  constructor(state) {
+    super(state)
+    this.state = {}
+  }
+
+  static defaultProps = {};
+
+  componentDidMount() {
+    if (Platform.OS === 'android') {
+      BackHandler.addEventListener('hardwareBackPress', () => {
+        this.onBackAndroid()
+        return !Helper.isTopPage()
+      })
     }
+  }
 
-    static defaultProps = {};
-
-    componentDidMount() {
-        if (Platform.OS === 'android') {
-            BackAndroid.addEventListener('hardwareBackPress', () => {
-                this.onBackAndroid()
-                return !Helper.isTopPage()
-            })
-        }
+  componentWillUnmount() {
+    if (Platform.OS === 'android') {
+      BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
     }
-
-    componentWillUnmount() {
-        if (Platform.OS === 'android') {
-            BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
-        }
-    }
+  }
 
 
-    render() {
-    }
+  render() {
+  }
 
-    onBackAndroid() {
-        Helper.popToBack()
-    }
+  onBackAndroid() {
+    Helper.popToBack()
+  }
 
 }
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F2F2F2',
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#F2F2F2',
+  }
 });

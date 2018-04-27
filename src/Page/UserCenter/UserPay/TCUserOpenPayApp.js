@@ -4,7 +4,7 @@ import {
     Platform
 } from 'react-native'
 
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 /**
  * 打开用户支付App
  */

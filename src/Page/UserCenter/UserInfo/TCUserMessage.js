@@ -5,12 +5,12 @@
  */
 import React, {Component} from 'react';
 import {
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    TextInput,
-    Alert
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  Alert
 } from 'react-native';
 
 import {observer} from 'mobx-react/native'
@@ -18,22 +18,22 @@ import {observable, computed, action} from 'mobx'
 
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
-import  dismissKeyboard from 'dismissKeyboard';
-import Toast from '@remobile/react-native-toast';
+import dismissKeyboard from 'dismissKeyboard';
+import Toast from '../../../Common/JXHelper/JXToast';
 import {config} from '../../../Common/Network/TCRequestConfig'
 import NetUtils from '../../../Common/Network/TCRequestUitls'
 import BackBaseComponent from '../../Base/TCBaseBackComponent'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {
-    indexBgColor,
-    listViewTxtColor,
-    inputStyle,
-    buttonStyle,
-    Size,
-    width,
-    height,
-    baseColor
+  indexBgColor,
+  listViewTxtColor,
+  inputStyle,
+  buttonStyle,
+  Size,
+  width,
+  height,
+  baseColor
 } from '../../resouce/theme'
 
 export  default  class TCUserMessage extends BackBaseComponent {
@@ -131,7 +131,7 @@ export  default  class TCUserMessage extends BackBaseComponent {
             Toast.showShortCenter("您输入的格式错误，请重新输入!")
             return
         }
-        if (TCUSER_DATA.realname && TCUSER_DATA.realname == realName) {
+        if (TCUSER_DATA.realname && TCUSER_DATA.realname === realName) {
             Toast.showShortCenter("目前真实姓名为：" + TCUSER_DATA.realname)
             return
         }

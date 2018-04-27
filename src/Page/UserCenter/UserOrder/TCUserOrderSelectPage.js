@@ -36,7 +36,7 @@ import NetUtils from '../../../Common/Network/TCRequestUitls';
 import {config} from '../../../Common/Network/TCRequestConfig';
 import {Size, listViewTxtColor, indexBgColor} from '../../resouce/theme';
 import TopNavigationBar from '../../../Common/View/TCNavigationBarSelectorStyle';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import _ from 'lodash';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import PopView from '../../../Common/View/TCSelectModal';

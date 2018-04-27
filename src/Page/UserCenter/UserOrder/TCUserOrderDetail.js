@@ -21,7 +21,7 @@ import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import BaseComponent from '../../../Page/Base/TCBaseComponent';
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper';
 import JXHelper from '../../../Common/JXHelper/JXHelper';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import { Size, width, height, indexBgColor, listViewTxtColor, buttonStyle, copyBtnStyle } from '../../resouce/theme';
 import TCUserOrderBetList from './TCUserOrderBetList';

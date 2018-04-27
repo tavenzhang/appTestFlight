@@ -28,7 +28,7 @@ import BaseComponent from '../../../Page/Base/TCBaseComponent';
 import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle, copyBtnStyle} from '../../resouce/theme';
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 
 @observer
 export default class TCUserOrderItemList extends Component {

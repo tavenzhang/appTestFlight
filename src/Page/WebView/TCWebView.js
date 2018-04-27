@@ -18,7 +18,7 @@ import {
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import  TCRequestUtils from '../../Common/Network/TCRequestUitls'
 import  {config} from  '../../Common/Network/TCRequestConfig'
-import Toast from '../../Common/JXHelper/JXToast'
+import Toast from '../../Common/JXHelper/JXToast';
 import {width,indexBgColor} from '../resouce/theme'
 var WEBVIEW_REF = 'webview';
 import BackBaseComponent from '../Base/TCBaseBackComponent'

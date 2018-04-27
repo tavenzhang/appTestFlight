@@ -27,7 +27,7 @@ import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import {config, appId} from '../../../Common/Network/TCRequestConfig'
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import {userPay} from '../../resouce/images'
 import Moment from 'moment'
 import TCUserOpenPayApp from './TCUserOpenPayApp'

@@ -29,7 +29,7 @@ import {userPay} from '../../resouce/images'
 import TopNavigationBar from "../../../Common/View/TCNavigationBar";
 import Pay from "./TCUserAliAndWechatPay";
 import AlipayAndWechatTransfer from "./TCUserAliAndWechatTransfer";
-import Toast from "@remobile/react-native-toast";
+import Toast from '../../../Common/JXHelper/JXToast';
 import TCKeyboardView from "../../../Common/View/TCKeyboardView";
 import RequestUtils from "../../../Common/Network/TCRequestUitls";
 import {config, appId} from "../../../Common/Network/TCRequestConfig";

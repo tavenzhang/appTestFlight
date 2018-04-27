@@ -7,7 +7,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity, Platform} from 'react-native';
 import {observer} from 'mobx-react/native';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../Common/JXHelper/JXToast';
 import Moment from 'moment';
 import momentTimeZone from 'moment-timezone';
 import * as _ from 'lodash';

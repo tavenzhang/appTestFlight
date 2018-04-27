@@ -6,7 +6,7 @@
 /**系统 npm类 */
 import {observable, action} from 'mobx';
 import * as _ from "lodash";
-import * as Toast from "@remobile/react-native-toast/index";
+import Toast from '../../../Common/JXHelper/JXToast';
 
 /** 外部关系组件 如 页面跳转用 */
 

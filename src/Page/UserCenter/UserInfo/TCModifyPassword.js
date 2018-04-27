@@ -15,7 +15,7 @@ import {
 
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import {Size, width, height, indexBgColor, buttonStyle, inputStyle} from '../../resouce/theme'
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import {config} from '../../../Common/Network/TCRequestConfig'
 import  RequestUtils from '../../../Common/Network/TCRequestUitls'
@@ -48,7 +48,7 @@ export default class TCModifyPassword extends Component {
                     title={'修改登录密码'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.pop()
+                      Helper.popToBack()
                     }}/>
                 <View style={{marginTop: 40, flexDirection: 'column'}}>
                     <View style={styles.inputItem}>

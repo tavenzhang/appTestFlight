@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 
 //系统 npm类
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../Common/JXHelper/JXToast';
 
 const {width, height} = Dimensions.get('window')
 

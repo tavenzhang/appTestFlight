@@ -29,7 +29,7 @@ import {
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import  PayProgress from './TCUserPayProgress'
 import KeyboardAvoidingScrollView from '../../../Common/View/TCKeyboardAvoidingScrollView';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import Dialog from './Dialog'
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
 import {config, appId} from '../../../Common/Network/TCRequestConfig'

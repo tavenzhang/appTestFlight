@@ -30,7 +30,7 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Dialog from '../../../Common/View/TipDialog'
 import PercentageCircle from '../../../Common/View/PercentageCircle'
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../../Common/JXHelper/JXToast';
 import dismissKeyboard from 'dismissKeyboard'
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import {common} from '../../resouce/images'

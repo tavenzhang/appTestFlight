@@ -25,7 +25,7 @@ import {
 } from '../../resouce/theme'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import  PayProgress from './TCUserPayProgress'
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import _ from 'lodash';
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
 import {config,appId} from '../../../Common/Network/TCRequestConfig'

@@ -23,7 +23,7 @@ import Help04 from '../UserPayHelp/TCUserHelp04'
 import  Dialog from './Dialog'
 import {takeSnapshot} from "react-native-view-shot";
 import UserAccount from '../UserAccount/TCUserPayAndWithdrawRecordsMain'
-import Toast from "@remobile/react-native-toast";
+import Toast from '../../../Common/JXHelper/JXToast';
 import TCUserOpenPayApp from './TCUserOpenPayApp'
 let userOpenPayApp = new TCUserOpenPayApp()
 /**

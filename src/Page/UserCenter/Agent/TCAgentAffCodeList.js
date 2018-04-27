@@ -8,7 +8,7 @@ import React from 'react';
 import {
     StyleSheet, Text, View, ListView, TouchableOpacity, Alert, Clipboard, Image, Platform, Modal,
 } from 'react-native';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import {observer} from 'mobx-react/native';
 import {observable, computed, action} from 'mobx';
