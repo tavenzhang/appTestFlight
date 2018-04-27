@@ -30,7 +30,7 @@ import Toast from '@remobile/react-native-toast'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Extension from '../View/Extension'
 import JXDomainsHelper from './JXDomainsHelper'
-import { affCodeList } from '../../Page/resouce/appAffCodeList'
+import {affCodeList} from '../../Page/resouce/appAffCodeList'
 
 let domainsHelper = new JXDomainsHelper()
 let instance = null
@@ -69,33 +69,28 @@ export default class TCInitHelper {
     }
 
     // 自动登录app
-    autoLoginApp(){
-        JXLog(' 自动登录app ')
-        if(Platform.OS==='android'){
-            this.isAndroidDevicesRoot(()=>{this.getUserData()});
-            this.checkAndroidCanShowIntelligenceBet();
-        }else{
-            this.getUserData();
-        }
+    autoLoginApp() {
+        JXLog(' =======================自动登录app ')
+        this.getUserData();
     }
 
-    getUserIconBGColor (){
-         storage.load({
+    getUserIconBGColor() {
+        storage.load({
             key: 'JXUserIconBGColor'
-        }).then((res)=>{
-             if(res){
-                 TCUSER_ICON_BGCOLOR = res
-             }else {
-                 this.getRandomColortoSave()
-             }
-         }).catch(()=>{
-             this.getRandomColortoSave()
-         })
+        }).then((res) => {
+            if (res) {
+                TCUSER_ICON_BGCOLOR = res
+            } else {
+                this.getRandomColortoSave()
+            }
+        }).catch(() => {
+            this.getRandomColortoSave()
+        })
     }
 
-    getRandomColortoSave(){
-        let colorArray = ['#44b1f5','#FFB561','#FF6366','#67D06D']
-        let r = Math.floor(Math.random()*4)
+    getRandomColortoSave() {
+        let colorArray = ['#44b1f5', '#FFB561', '#FF6366', '#67D06D']
+        let r = Math.floor(Math.random() * 4)
         let color = colorArray[r]
         storage.save({
             key: 'JXUserIconBGColor',
@@ -308,7 +303,7 @@ export default class TCInitHelper {
         }).catch(err => {
             RCTDeviceEventEmitter.emit('userStateChange', 'logout')
         });
-
+        JXLog("===============USERname", res)
         if (res) {
             TCUSER_DATA = res;
             if (res.username && res.password) {
@@ -335,6 +330,7 @@ export default class TCInitHelper {
                             })
                             TCUSER_BALANCE = user.balance;
                             TCUSER_DATA = user;
+                            JXLog("===============USERname", TCUSER_DATA)
                             this.getMsgStatus();
                             RCTDeviceEventEmitter.emit('userStateChange', 'login')
                         } else {
@@ -346,10 +342,10 @@ export default class TCInitHelper {
                         }
                     }, null, true)
                 })
-            }else {
+            } else {
                 RCTDeviceEventEmitter.emit('userStateChange', 'logout')
             }
-        }else {
+        } else {
             RCTDeviceEventEmitter.emit('userStateChange', 'logout')
         }
 
@@ -398,8 +394,8 @@ export default class TCInitHelper {
     // 获取邀请码
     getUserAffCode() {
         // 优先获取热更新邀请码
-       let hotAffCode =  this.getAppSpecialAffCode()
-        if (hotAffCode){
+        let hotAffCode = this.getAppSpecialAffCode()
+        if (hotAffCode) {
             TC_DEFAULT_AFFCODE = hotAffCode
             return
         }

@@ -104,7 +104,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0.8"
-        resValue "string", "app_name", "106彩票-sit"
+        resValue "string", "app_name", "106彩票-jd"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

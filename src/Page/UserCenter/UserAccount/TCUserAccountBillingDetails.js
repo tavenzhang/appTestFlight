@@ -18,7 +18,9 @@ import BackBaseComponent from '../../Base/TCBaseBackComponent'
 import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle, copyBtnStyle} from '../../resouce/theme'
 import OrderItemList from '../UserOrder/TCUserOrderItemList'
 import Moment from 'moment'
-
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
+@withMappedNavigationProps()
 export  default  class TCUserAccountBillingDetails extends BackBaseComponent {
 
     constructor(props) {
@@ -45,7 +47,7 @@ export  default  class TCUserAccountBillingDetails extends BackBaseComponent {
                     title={'账单详情'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.pop()
+                        Helper.popToBack();
                     }}
                 />
 
