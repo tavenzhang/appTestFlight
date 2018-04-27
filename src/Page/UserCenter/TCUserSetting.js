@@ -30,7 +30,7 @@ import {
 
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../Common/JXHelper/JXToast'
 
 import NetUtils from '../../Common/Network/TCRequestUitls'
 import BackBaseComponent from '../Base/TCBaseBackComponent'
@@ -76,13 +76,13 @@ export  default  class TCUserSetting extends BackBaseComponent {
                         <Image source={personal.imgNext} style={styles.imgNext}/>
                     </View>
                 </TouchableOpacity>
-            {/*    <TouchableOpacity onPress={() => this.gotoFeedback()}>
-                    <View style={styles.setItem}>
-                        <Image source={personal.toolFeedBack} style={styles.img}/>
-                        <Text style={styles.itemTxt}>意见反馈</Text>
-                        {this.getStatusTip('您有新的反馈', TC_FEEDBACK_COUNT)}
-                    </View>
-                </TouchableOpacity>*/}
+                {/*    <TouchableOpacity onPress={() => this.gotoFeedback()}>
+                 <View style={styles.setItem}>
+                 <Image source={personal.toolFeedBack} style={styles.img}/>
+                 <Text style={styles.itemTxt}>意见反馈</Text>
+                 {this.getStatusTip('您有新的反馈', TC_FEEDBACK_COUNT)}
+                 </View>
+                 </TouchableOpacity>*/}
                 <View style={styles.setItem}>
                     <Image source={personal.toolMusic} style={styles.img}/>
                     <Text style={[styles.itemTxt]}> 按钮声音开关</Text>
@@ -135,15 +135,6 @@ export  default  class TCUserSetting extends BackBaseComponent {
     }
 
     getAppVersion() {
-        // if (Platform.OS != 'ios') {
-        //     try {
-        //         NativeModules.JXHelper.getVersionCode((version) => {
-        //             this.stateModel.appVersion = version
-        //         })
-        //     } catch (e) {
-        //         this.stateModel.appVersion = appVersion
-        //     }
-        // }
         this.stateModel.appVersion = JXAPPVersion
     }
 
@@ -206,22 +197,9 @@ export  default  class TCUserSetting extends BackBaseComponent {
         }
     }
 
-    gotoFeedback() {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'List',
-                component: FeedbackList,
-                passProps: {
-                    ...this.props,
-                }
-            })
-        }
-    }
-
     goBack() {
         RCTDeviceEventEmitter.emit('balanceChange')
-        this.props.navigator.pop()
+        NavigatorHelper.popToBack();
     }
 
     /**
@@ -249,12 +227,10 @@ export  default  class TCUserSetting extends BackBaseComponent {
     logout() {
         NetUtils.getUrlAndParamsAndCallback(config.api.logout, null, (response) => {
             this.saveUser()
-            let {navigator} = this.props
-            if (navigator) {
-                navigator.popToTop();
-                RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home')
-                RCTDeviceEventEmitter.emit('userStateChange', 'logout')
-            }
+            NavigatorHelper.popToTop();
+            RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home')
+            RCTDeviceEventEmitter.emit('userStateChange', 'logout')
+
         })
     }
 }

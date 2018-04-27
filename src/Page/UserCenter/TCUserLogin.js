@@ -24,7 +24,6 @@ import Toast from '../../Common/JXHelper/JXToast'
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 import dismissKeyboard from 'dismissKeyboard'
-import ForgetPwd from './UserInfo/TCForgotPassword'
 import {config, appVersion, versionHotFix} from '../../Common/Network/TCRequestConfig'
 import NetUtils from '../../Common/Network/TCRequestUitls'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
