@@ -15,7 +15,7 @@ import {Size, indexBgColor, listViewTxtColor, baseColor} from '../../resouce/the
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import  ListRow from './view/TCUserBankRowView'
 import BaseComponent from '../../Base/TCBaseComponent'
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import NetUtils from '../../../Common/Network/TCRequestUitls'
 import {config} from '../../../Common/Network/TCRequestConfig'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
@@ -83,7 +83,7 @@ export default class TCUserBankManager extends BaseComponent {
 
     goBack() {
         RCTDeviceEventEmitter.emit('balanceChange')
-        this.props.navigator.pop()
+        Helper.popToBack()
     }
 
     /**

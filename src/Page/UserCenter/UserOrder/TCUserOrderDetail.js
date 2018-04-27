@@ -3,7 +3,7 @@
  * 每注订单详情
  * Created by Allen on 2016/12/10.
  */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {
     StyleSheet,
@@ -21,9 +21,9 @@ import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import BaseComponent from '../../../Page/Base/TCBaseComponent';
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper';
 import JXHelper from '../../../Common/JXHelper/JXHelper';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
-import { Size, width, height, indexBgColor, listViewTxtColor, buttonStyle, copyBtnStyle } from '../../resouce/theme';
+import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle, copyBtnStyle} from '../../resouce/theme';
 import TCUserOrderBetList from './TCUserOrderBetList';
 import HappyPokerHelper from '../../../Common/JXHelper/HappyPokerHelper';
 import _ from 'lodash';
@@ -31,7 +31,9 @@ import _ from 'lodash';
 const limitItemCount = 5
 
 let happyPoker = new HappyPokerHelper();
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
+@withMappedNavigationProps()
 export default class TCUserOrderDetail extends BaseComponent {
     constructor(props) {
         super(props);
@@ -42,7 +44,7 @@ export default class TCUserOrderDetail extends BaseComponent {
     componentDidMount() {
         super.componentDidMount();
         this.timer = setTimeout(() => {
-            this.setState({ renderPlaceholderOnly: false });
+            this.setState({renderPlaceholderOnly: false});
         }, 500);
     }
 
@@ -54,7 +56,7 @@ export default class TCUserOrderDetail extends BaseComponent {
     render() {
         let sp = super.render();
         if (sp) return sp;
-        let { orderData, orderInfo } = this.props;
+        let {orderData, orderInfo} = this.props;
 
         return (
             <View style={styles.container}>
@@ -62,7 +64,7 @@ export default class TCUserOrderDetail extends BaseComponent {
                     title={'彩票详情'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.pop();
+                        Helper.popToBack();
                     }}
                 />
 
@@ -75,8 +77,8 @@ export default class TCUserOrderDetail extends BaseComponent {
                         <View style={styles.topTitleItemStyle}>
                             <Text style={styles.titleTxtStyle}>
                                 {orderInfo.gameNameInChinese}(<Text style={styles.openTimeStyle}>
-                                    {orderData.gameMethodInChinese}
-                                </Text>)
+                                {orderData.gameMethodInChinese}
+                            </Text>)
                             </Text>
                         </View>
                         <View>
@@ -88,9 +90,9 @@ export default class TCUserOrderDetail extends BaseComponent {
                         </View>
                     </View>
                 </View>
-                <ScrollView ref={'ScrollView'} style={{ flex: 1 }}>
+                <ScrollView ref={'ScrollView'} style={{flex: 1}}>
                     <View style={styles.orderTitleStyle}>
-                        <View style={styles.titleIconStyle} />
+                        <View style={styles.titleIconStyle}/>
                         <Text style={styles.titleTxtStyle}>订单内容</Text>
                     </View>
                     <View style={styles.orderContentStyle}>
@@ -125,7 +127,7 @@ export default class TCUserOrderDetail extends BaseComponent {
                     </View>
                     <View style={styles.orderBtmTitleStyle}>
                         <View style={styles.topTitleItemStyle}>
-                            <View style={styles.titleIconStyle} />
+                            <View style={styles.titleIconStyle}/>
                             <Text style={styles.titleTxtStyle}>投注号码</Text>
                         </View>
                         <TCUserOrderBetList
@@ -135,7 +137,7 @@ export default class TCUserOrderDetail extends BaseComponent {
                             orderState={orderData.transactionState}
                             {...this.props}
                         />
-                           {/*<Text style={styles.orderLeftTxtStyle}>{orderData.betString }</Text>*/}
+                        {/*<Text style={styles.orderLeftTxtStyle}>{orderData.betString }</Text>*/}
                     </View>
                 </ScrollView>
 
@@ -146,7 +148,7 @@ export default class TCUserOrderDetail extends BaseComponent {
                             this.gotoOrderBet();
                         }}
                     >
-                        <Text style={{ color: buttonStyle.btnTxtColor, fontWeight: 'bold', fontSize: Size.default }}>
+                        <Text style={{color: buttonStyle.btnTxtColor, fontWeight: 'bold', fontSize: Size.default}}>
                             再来一注
                         </Text>
                     </TouchableOpacity>
@@ -158,18 +160,23 @@ export default class TCUserOrderDetail extends BaseComponent {
     getPrizeView(orderData) {
         let data = orderData.prizeSettings;
 
-        if (data.length > limitItemCount && !this.checkIsMarkSixABGame(orderData) ) {
-           return (<TouchableOpacity
+        if (data.length > limitItemCount && !this.checkIsMarkSixABGame(orderData)) {
+            return (<TouchableOpacity
                 onPress={() => {
                     this.refs['ScrollView'].scrollTo({x: 0, y: 0, animated: false})
-                    this.setState({ openPrize: !this.state.openPrize });
+                    this.setState({openPrize: !this.state.openPrize});
                 }}
             >
                 <View style={styles.orderRowStyle}>
                     <Text style={styles.orderLeftTxtStyle}>赔率 </Text>
                     <View>
-                    <Text style={styles.orderRightTxtStyle}>{this.getPrizeSettingsInfo(orderData)}</Text>
-                        <Text style={{color: listViewTxtColor.content,paddingLeft: 10,fontSize: Size.font14, marginTop: 5 }}>{this.state.openPrize ? '⇧收起' : '⇩查看更多'}</Text>
+                        <Text style={styles.orderRightTxtStyle}>{this.getPrizeSettingsInfo(orderData)}</Text>
+                        <Text style={{
+                            color: listViewTxtColor.content,
+                            paddingLeft: 10,
+                            fontSize: Size.font14,
+                            marginTop: 5
+                        }}>{this.state.openPrize ? '⇧收起' : '⇩查看更多'}</Text>
                     </View>
                 </View>
             </TouchableOpacity>);
@@ -183,7 +190,7 @@ export default class TCUserOrderDetail extends BaseComponent {
         );
     }
 
-    checkIsMarkSixABGame(orderData){
+    checkIsMarkSixABGame(orderData) {
         return JXHelper.gameUniqueIDIsMarkSix(this.props.orderInfo.gameUniqueId) && (orderData.gameMethodInChinese === '特码A盘' || orderData.gameMethodInChinese === '特码B盘')
     }
 
@@ -199,24 +206,24 @@ export default class TCUserOrderDetail extends BaseComponent {
         let i = 0;
 
         // 对六合彩特码AB 盘特殊处理
-        if(this.checkIsMarkSixABGame(orderData)){
+        if (this.checkIsMarkSixABGame(orderData)) {
             let newArr = []
             let dic = {}
             data.forEach(item => {
                 let prizeAmount = item.prizeAmount
-                let Arr = _.isEmpty(dic[prizeAmount])?[]:dic[prizeAmount]
+                let Arr = _.isEmpty(dic[prizeAmount]) ? [] : dic[prizeAmount]
                 Arr.push(item.prizeNameForDisplay)
                 dic[prizeAmount] = Arr
             })
 
-            for (let key in dic){
+            for (let key in dic) {
                 let item = dic[key]
-                if(item.length == 1){
-                    newArr.push({'prizeAmount':key,'prizeNameForDisplay':item[0]})
-                }else if(item.length > 1 && item.length <= 4){
-                    newArr.push({'prizeAmount':key,'prizeNameForDisplay':item})
-                }else if(item.length > 4){
-                    newArr.push({'prizeAmount':key,'prizeNameForDisplay':'其他号码'})
+                if (item.length == 1) {
+                    newArr.push({'prizeAmount': key, 'prizeNameForDisplay': item[0]})
+                } else if (item.length > 1 && item.length <= 4) {
+                    newArr.push({'prizeAmount': key, 'prizeNameForDisplay': item})
+                } else if (item.length > 4) {
+                    newArr.push({'prizeAmount': key, 'prizeNameForDisplay': '其他号码'})
                 }
             }
             data = newArr
@@ -225,9 +232,9 @@ export default class TCUserOrderDetail extends BaseComponent {
         data.forEach(item => {
             let prizeAmount = parseFloat(item.prizeAmount)
             if (i < limitItemCount) {
-                label1 += item.prizeNameForDisplay + '：' + (prizeAmount - prizeAmount*ratio).toFixed(2) + '\n';
+                label1 += item.prizeNameForDisplay + '：' + (prizeAmount - prizeAmount * ratio).toFixed(2) + '\n';
             } else {
-                label2 += item.prizeNameForDisplay + '：' + (prizeAmount - prizeAmount*ratio).toFixed(2) + '\n';
+                label2 += item.prizeNameForDisplay + '：' + (prizeAmount - prizeAmount * ratio).toFixed(2) + '\n';
             }
             i++;
         });
@@ -265,7 +272,7 @@ export default class TCUserOrderDetail extends BaseComponent {
             case 'PENDING':
                 return '待开奖';
             case 'WIN':
-                return <Text style={{ color: listViewTxtColor.redTip }}>中{orderData.winningAmount.toFixed(2)}元</Text>;
+                return <Text style={{color: listViewTxtColor.redTip}}>中{orderData.winningAmount.toFixed(2)}元</Text>;
             case 'LOSS':
                 return '未中奖';
             case 'CANCELLED':
@@ -273,7 +280,7 @@ export default class TCUserOrderDetail extends BaseComponent {
             case 'CO_SUB_WIP':
                 return '待开奖';
             case 'CO_SUB_WIN':
-                return <Text style={{ color: listViewTxtColor.redTip }}>中{orderData.winningAmount.toFixed(2)}元</Text>;
+                return <Text style={{color: listViewTxtColor.redTip}}>中{orderData.winningAmount.toFixed(2)}元</Text>;
             case 'CO_SUB_LOSS':
                 return '未中奖';
             case 'CO_COMPLETE':
@@ -287,8 +294,8 @@ export default class TCUserOrderDetail extends BaseComponent {
         Helper.popToTop();
         RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
         return;
-        let { orderInfo } = this.props;
-        let data = { gameUniqueId: orderInfo.gameUniqueId, gameNameInChinese: orderInfo.gameNameInChinese };
+        let {orderInfo} = this.props;
+        let data = {gameUniqueId: orderInfo.gameUniqueId, gameNameInChinese: orderInfo.gameNameInChinese};
         // Helper.pushToBetHome(data)
     }
 
@@ -362,7 +369,7 @@ const styles = StyleSheet.create({
     orderTitleStyle: {
         backgroundColor: indexBgColor.itemBg,
         paddingLeft: 20,
-        paddingTop:5,
+        paddingTop: 5,
         marginTop: 0,
         flexDirection: 'row'
     },

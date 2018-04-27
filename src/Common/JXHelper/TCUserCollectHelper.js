@@ -11,7 +11,7 @@ import {
 import _ from 'lodash';
 import {config} from '../../Common/Network/TCRequestConfig'
 import NetUtils from '../../Common/Network/TCRequestUitls'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../Common/JXHelper/JXToast';
 let instance = null
 export default class TCInitHelper {
     // 构造

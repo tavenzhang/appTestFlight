@@ -22,7 +22,7 @@ import  TCUserCollectHelper from '../../../Common/JXHelper/TCUserCollectHelper'
 import JXHelpers from '../../../Common/JXHelper/JXHelper'
 let JXHelper = new JXHelperC()
 let TCUserCollectHelpers = new TCUserCollectHelper()
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../../Common/JXHelper/JXToast';
 import TCNavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {config, trendServerAddress} from '../../../Common/Network/TCRequestConfig';
 import {betIcon} from '../../resouce/images'

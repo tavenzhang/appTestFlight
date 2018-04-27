@@ -30,15 +30,15 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Dialog from '../../../Common/View/TipDialog'
 import PercentageCircle from '../../../Common/View/PercentageCircle'
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../../Common/JXHelper/JXToast';
 import dismissKeyboard from 'dismissKeyboard'
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
-import {common} from '../../resouce/images'
 import KeyboardAvoidingScrollView from '../../../Common/View/TCKeyboardAvoidingScrollView';
 import TcWithdrawKeyBoard from './TCWithdrawKeyboardView'
 import SecretUtils from '../../../Common/JXHelper/SecretUtils'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
+
 var secretUtils = new SecretUtils();
 /**
  * 用户提现
@@ -145,7 +145,7 @@ export default class TCUserWithdrawNew extends Component {
             return (
                 <Text style={{color: listViewTxtColor.title, marginTop: 10}}>超过提现次数上限，手续费率
                     <Text
-                        style={{color: baseColor.strong}}>{ this.stateModel.withdrawModel.newratioOfChargeExempt }</Text>%</Text>
+                        style={{color: baseColor.strong}}>{this.stateModel.withdrawModel.newratioOfChargeExempt}</Text>%</Text>
             )
         }
         return null;
@@ -207,7 +207,7 @@ export default class TCUserWithdrawNew extends Component {
         if (this.stateModel.canWithdraw) {
             return (
                 <TouchableOpacity
-                    style={ styles.bottomBarButtonStyle}
+                    style={styles.bottomBarButtonStyle}
                     onPress={() => {
                         if (this.stateModel.exempt > 0) {
                             this.showTipDialog();
@@ -275,7 +275,7 @@ export default class TCUserWithdrawNew extends Component {
      */
     back() {
         dismissKeyboard()
-        this.props.navigator.pop()
+        Helper.popToBack();
     }
 
     /**
@@ -418,6 +418,7 @@ export default class TCUserWithdrawNew extends Component {
         return number;
     }
 }
+
 /**
  * 默认显示银行卡子组件
  */
@@ -442,6 +443,7 @@ class DefaultBankView extends Component {
     }
 
 }
+
 @observer
 class InputMoneyView extends Component {
 

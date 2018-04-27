@@ -31,7 +31,7 @@ export default class TCUserAccountCenter extends Component {
                     title={'充提记录'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.popToTop()
+                        NavigatorHelper.popToBack();
                     }}/>
 
                 <View style={styles.mySettingStyle}>

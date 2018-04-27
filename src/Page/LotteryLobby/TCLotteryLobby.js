@@ -21,6 +21,7 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar'
 import LotteryHistoryList from './TCLotteryHistoryList'
 import LotteryResultData from '../../Data/JXLotteryResultData'
 import {indexBgColor} from '../resouce/theme'
+import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
 
 @observer
 export default class TCLotteryLobby extends React.Component {
@@ -90,17 +91,8 @@ export default class TCLotteryLobby extends React.Component {
     }
 
     _pushToBetHome3(rowData) {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'detail',
-                component: LotteryHistoryList,
-                passProps: {
-                    title: rowData.gameNameInChinese,
-                    gameUniqueId: rowData.gameUniqueId
-                }
-            })
-        }
+        NavigatorHelper.pushToLotteryHistoryList({title: rowData.gameNameInChinese,
+            gameUniqueId: rowData.gameUniqueId})
     }
 
     loadDataFormNet(manual) {

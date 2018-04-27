@@ -9,7 +9,7 @@ import {
     StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Dimensions, Image, Platform
 } from 'react-native';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 
 /**组件内部显示需要引入的类 */
@@ -20,6 +20,7 @@ import {agent} from '../../resouce/images';
 import {
     Size, indexBgColor, height, width, agentCenter, buttonStyle, baseColor, statusBarHeight
 } from '../../resouce/theme';
+import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 
 /** 外部关系组件 如 页面跳转用 */
 import SecretUtils from '../../../Common/JXHelper/SecretUtils';
@@ -128,26 +129,24 @@ export default class TCAgentAddAccount extends React.Component {
     }
 
     goBack() {
-        this.props.navigator.pop();
+      Helper.popToBack()
     }
 
     goToTeam() {
-        let {navigator} = this.props;
-        if (navigator) {
-            if (this.props.isFromTeamManager) {
-                navigator.pop();
-                RCTDeviceEventEmitter.emit('agentManagerAddUserRefresh');
-            } else {
-                navigator.push({
-                    name: 'userAgentTeam',
-                    component: AgentTeamList,
-                    passProps: {
-                        wantPopToN: 2,
-                        ...this.props,
-                    }
-                });
-            }
-        }
+      if (this.props.isFromTeamManager) {
+        RCTDeviceEventEmitter.emit('agentManagerAddUserRefresh');
+        Helper.popToBack()
+      } else {
+        Helper.pushToUserTeamManager(2);
+        // navigator.push({
+        //   name: 'userAgentTeam',
+        //   component: AgentTeamList,
+        //   passProps: {
+        //     wantPopToN: 2,
+        //     ...this.props,
+        //   }
+        // });
+      }
     }
 
     getPrizeGroupArray() {
@@ -291,7 +290,7 @@ export default class TCAgentAddAccount extends React.Component {
     renderBottomButton() {
         let title = this.state.accountKind == 0 ? '立即开户' : '生成邀请码';
         return (
-            <TouchableOpacity style={styles.bottomButton} onPress={() => this.submit(this.state.accountKind == 1)}>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => this.submit(this.state.accountKind === 1)}>
                 <Text style={styles.bottomButtonText}>{title}</Text>
             </TouchableOpacity>
         );

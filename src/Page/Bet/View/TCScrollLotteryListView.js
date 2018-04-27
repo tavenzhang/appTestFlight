@@ -19,7 +19,7 @@ import TCListRowView from '../../../Common/View/TCLottertHistoryListRowView'
 import _ from 'lodash';
 import {config,trendServerAddress} from '../../../Common/Network/TCRequestConfig';
 import NetUitls from '../../../Common/Network/TCRequestUitls'
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 
 var {width, height} = Dimensions.get('window');
 

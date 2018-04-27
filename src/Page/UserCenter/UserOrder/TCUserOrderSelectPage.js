@@ -36,14 +36,16 @@ import NetUtils from '../../../Common/Network/TCRequestUitls';
 import {config} from '../../../Common/Network/TCRequestConfig';
 import {Size, listViewTxtColor, indexBgColor} from '../../resouce/theme';
 import TopNavigationBar from '../../../Common/View/TCNavigationBarSelectorStyle';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
 import _ from 'lodash';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import PopView from '../../../Common/View/TCSelectModal';
-import BaseComponent from '../../Base/TCBaseComponent';
 import NoDataView from '../../../Common/View/TCNoDataView';
+import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView';
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
+@withMappedNavigationProps()
 @observer
 export default class TCUserOrderSelectPage extends Component {
     stateModel = new StateModel();
@@ -76,7 +78,7 @@ export default class TCUserOrderSelectPage extends Component {
                     }}
                     backButtonCall={() => {
                         RCTDeviceEventEmitter.emit('balanceChange', true);
-                        this.props.navigator.pop();
+                        NavigatorHelper.popToBack();
                     }}
                 />
                 <PopView
@@ -124,11 +126,9 @@ export default class TCUserOrderSelectPage extends Component {
     }
 
     gotoBuyBet() {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.popToTop();
-            RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
-        }
+        NavigatorHelper.popToTop();
+        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
+
     }
 
     showPopView() {
@@ -210,14 +210,14 @@ export default class TCUserOrderSelectPage extends Component {
 
     getOrderDataFromNet(pageNum, pageSize, callback) {
         let types = {
-            currentPage: pageNum+1,
+            currentPage: pageNum + 1,
             pageSize: pageSize
         };
         if (this.type) {
             types.state = this.type;
         }
         NetUtils.getUrlAndParamsAndCallback(config.api.orderRecord, types, data => {
-            callback(data, data.content?data.content.datas:null);
+            callback(data, data.content ? data.content.datas : null);
         });
     }
 
@@ -232,17 +232,14 @@ export default class TCUserOrderSelectPage extends Component {
             CO_ORDER = true;
         }
 
-        let target = CO_ORDER ? OrderChaseItemList : OrderItemList;
-        if (navigator) {
-            navigator.push({
-                name: 'orderItemList',
-                component: target,
-                passProps: {
-                    transactionTimeuuid: transactionTimeuuid,
-                    orderType: rowData.tag,
-                    ...this.props
-                }
-            });
+        let params = {
+            transactionTimeuuid: transactionTimeuuid,
+            orderType: rowData.tag
+        }
+        if (CO_ORDER) {
+            NavigatorHelper.pushToOrderChaseItemList(params)
+        } else {
+            NavigatorHelper.pushToOrderItemList(params)
         }
     }
 }

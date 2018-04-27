@@ -4,14 +4,17 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, ListView } from 'react-native';
-import { Size, width, height, indexBgColor, listViewTxtColor, baseColor } from '../../resouce/theme';
+import React, {Component} from 'react';
+import {AppRegistry, StyleSheet, Text, View, ListView} from 'react-native';
+import {Size, width, height, indexBgColor, listViewTxtColor, baseColor} from '../../resouce/theme';
 import RowList from './View/TCUserOrderBetListRow';
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
+@withMappedNavigationProps()
 export default class TCUserOrderBetList extends React.Component {
     constructor(state) {
         super(state);
-        var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             dataSource: ds.cloneWithRows(this.props.ordeBetList)
         };
@@ -19,7 +22,8 @@ export default class TCUserOrderBetList extends React.Component {
 
     static defaultProps = {};
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     render() {
         return (
@@ -46,7 +50,7 @@ export default class TCUserOrderBetList extends React.Component {
         if (this.props.isCO_DontOpen) {
             orderMoney = orderMoney * this.props.multiplier;
         }
-        return <RowList rowData={rowData} orderPerMoney={orderMoney} orderState={this.props.orderState} />;
+        return <RowList rowData={rowData} orderPerMoney={orderMoney} orderState={this.props.orderState}/>;
     }
 
 }

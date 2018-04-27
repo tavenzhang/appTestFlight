@@ -6,7 +6,8 @@ import {
     Text,
     TouchableOpacity,
     Image,
-    Platform
+    Platform,
+    ImageBackground
 } from 'react-native'
 
 import {observer} from 'mobx-react/native'
@@ -31,7 +32,7 @@ export default class TCUserBankRowView extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image source={JXHelper.getBankBackground(this.props.bankCode)}
+                <ImageBackground source={JXHelper.getBankBackground(this.props.bankCode)}
                        resizeMode={'stretch'}
                        style={styles.bankBgStyle}>
                     <View style={styles.bankInfo}>
@@ -63,7 +64,7 @@ export default class TCUserBankRowView extends Component {
                             </View>
                         </View>
                     </View>
-                </Image>
+                </ImageBackground>
             </View>
         )
     }

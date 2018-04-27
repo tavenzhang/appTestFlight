@@ -4,7 +4,7 @@
  */
 import React, {Component} from 'react';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../Common/JXHelper/JXToast';
 import {config} from '../../Common/Network/TCRequestConfig'
 import TimerMixin from 'react-timer-mixin'
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'

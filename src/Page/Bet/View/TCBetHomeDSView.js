@@ -14,7 +14,7 @@ import {
 } from 'react-native'
 import {Size, width, height, indexBgColor, listViewTxtColor,loginAndRegeisterBorderColor,loginAndRegeisterBgColor} from '../../resouce/theme'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../../Common/JXHelper/JXToast';
 import {observable, action} from 'mobx';
 import {observer} from 'mobx-react';
 /**

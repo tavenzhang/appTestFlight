@@ -20,7 +20,7 @@ import NoDataView from '../../../Common/View/TCNoDataView'
 import BaseComponent from '../../Base/TCBaseComponent'
 import TopNavigationBar from '../../../Common/View/TCNavigationBarSelectorStyle'
 import MessageListItem from './TCUserMessageItemView'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../../Common/JXHelper/JXToast';
 import NetUitls from '../../../Common/Network/TCRequestUitls'
 import {Size, height, width, indexBgColor, listViewTxtColor} from '../../resouce/theme'
 import {config} from '../../../Common/Network/TCRequestConfig';
@@ -32,6 +32,7 @@ const msgType = {
     promote: 'PROMOTE'
 }
 import  RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
+import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 
 @observer
 export default class TCUserMessagePage extends Component {
@@ -67,7 +68,7 @@ export default class TCUserMessagePage extends Component {
                     }}
                     backButtonCall={() => {
                         RCTDeviceEventEmitter.emit('balanceChange')
-                        this.props.navigator.pop()
+                        Helper.popToBack()
                     }}/>
                 <PopView
                     ref='TCSelectPopupView'

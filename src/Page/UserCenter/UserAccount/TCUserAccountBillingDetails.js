@@ -13,7 +13,7 @@ import {
     Clipboard
 } from 'react-native';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../../Common/JXHelper/JXToast';
 import BackBaseComponent from '../../Base/TCBaseBackComponent'
 import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle, copyBtnStyle} from '../../resouce/theme'
 import OrderItemList from '../UserOrder/TCUserOrderItemList'

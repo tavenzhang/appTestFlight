@@ -26,8 +26,9 @@ function getAvailableDomain (domains, callback) {
   for (let i = 0; i < domains.length; i++) {
     StartUp.setBaseURL(domains[i])
     JXLog('cacheDomain = '+domains[i])
-    StartUp.get(`/api/v1/ip/user/checkIpInfoDomains?clientId=${AppConfig.clientId}`).then((response) => {
+    StartUp.get(`/api/v1/ip/user/checkIpInfoDomains?clientId=${AppConfig.clientId}&platform=LOTTERY`).then((response) => {
       if (response.ok) {
+          JXLog('大王来巡山 '+JSON.stringify(response))
         AsyncStorage.getItem('cacheDomain').then((cacheDomain) => {
           if (!JSON.parse(cacheDomain).updateThisTime) {
             // update cacheDomain

@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import {userPay} from '../../resouce/images'
 import {Size, width, height, listViewTxtColor, indexBgColor} from '../../resouce/theme'
+
 /**
  * 扫一扫帮助页面
  */

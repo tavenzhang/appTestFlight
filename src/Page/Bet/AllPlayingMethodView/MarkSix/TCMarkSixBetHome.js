@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 //系统 npm类
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import LoadingSpinnerOverlay from '../../../../Common/View/LoadingSpinnerOverlay'
 import Moment from 'moment'
@@ -412,7 +412,7 @@ export default class TCMarkSixBetHome extends React.Component {
                 [{
                     text: '确定', onPress: () => {
                         SingletonDPS.resetAllData()
-                        this.props.navigator.popToTop()
+                        NavigatorHelper.popToBack();
                     }
                 },
                     {

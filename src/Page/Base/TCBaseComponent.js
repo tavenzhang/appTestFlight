@@ -18,6 +18,8 @@ import NetWorkTool from '../../Common/Network/TCToolNetWork'
 import TopNavigationBar from '../../Common/View/TCNavigationBar'
 import BackBaseComponent from './TCBaseBackComponent'
 import {Size, indexBgColor, listViewTxtColor} from '../resouce/theme'
+import Helper from '../../Common/JXHelper/TCNavigatorHelper'
+
 export default class TCBaseComponent extends BackBaseComponent {
     constructor(state) {
         super(state)
@@ -71,7 +73,7 @@ export default class TCBaseComponent extends BackBaseComponent {
                     title={this.props.title}
                     needBackButton={true}
                     backButtonCall={()=> {
-                        this.props.navigator.pop()
+                        Helper.popToBack()
                     }}
                 />
                 <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>

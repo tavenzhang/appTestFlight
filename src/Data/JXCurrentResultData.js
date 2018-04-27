@@ -12,7 +12,7 @@ import {AppState,} from 'react-native';
 import JXHelper from '../Common/JXHelper/JXHelper'
 import {config} from '../Common/Network/TCRequestConfig'
 import NetUitls from '../Common/Network/TCRequestUitls'
-import Toast from '@remobile/react-native-toast';
+import Toast from '../Common/JXHelper/JXToast';
 
 class ResultDataEvent {
 

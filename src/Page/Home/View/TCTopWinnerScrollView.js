@@ -14,7 +14,8 @@ import {
     TouchableOpacity,
     Animated,
     Easing,
-    Platform
+    Platform,
+    SectionList
 } from 'react-native';
 
 /**系统 npm类 */

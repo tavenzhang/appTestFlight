@@ -12,10 +12,9 @@ import queryString from 'query-string';
 import _ from 'lodash';
 import TCInitHelperC from '../JXHelper/TCInitHelper'
 import NavigatorHelper from '../JXHelper/TCNavigatorHelper'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
-// let TCInitHelper = new TCInitHelperC();
 const defaultTimeout = 10000;
 import Moment from 'moment';
 
@@ -182,18 +181,15 @@ export default class NetUitls extends Component {
     }
 
     static getServerUrl(url) {
-        // if (url && (_.startsWith(url, 'http://') || _.startsWith(url, 'https://'))) {
-        //     return url
-        // }
-        // return TCDefaultDomain + baseUrl.baseUrl + url
-        // if (TCInitHelper.baseDomain) {
-        //     url = TCInitHelper.baseDomain + baseUrl.baseUrl + url
-        // } else {
-        //     // url = TCInitHelper.defaultBaseDomain + baseUrl.baseUrl + url
-        //     url = "http://192.168.1.93:7500" + baseUrl.baseUrl + url
-        // }
-        url = "http://192.168.1.93:7500" + baseUrl.baseUrl + url
-
+        if (url && (_.startsWith(url, 'http://') || _.startsWith(url, 'https://'))) {
+            return url
+        }
+        return TCDefaultDomain + baseUrl.baseUrl + url
+        if (TCInitHelper.baseDomain) {
+            url = TCInitHelper.baseDomain + baseUrl.baseUrl + url
+        } else {
+            // url = TCInitHelper.defaultBaseDomain + baseUrl.baseUrl + url
+        }
         return url
     }
 }

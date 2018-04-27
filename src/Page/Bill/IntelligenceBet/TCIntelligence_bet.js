@@ -27,7 +27,7 @@ import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import NumberOnlyInputText from "../../../Common/View/NumberOnlyInputText";
 import dismissKeyboard from 'dismissKeyboard'
 import NetUitls from "../../../Common/Network/TCRequestUitls";
-import * as Toast from "@remobile/react-native-toast/index";
+import Toast from '../../../Common/JXHelper/JXToast';
 import {config} from "../../../Common/Network/TCRequestConfig";
 import Moment from 'moment'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
@@ -46,8 +46,10 @@ import {checkIfAmountCorrect} from "../TCBillCheckHelper";
 let photoHelper = new PhotoHelper();
 /** 外部关系组件 如 页面跳转用 */
 const {width, height} = Dimensions.get('window')
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @observer
+@withMappedNavigationProps()
 export default class IntelligenceBet extends Component {
 
     static defaultProps = {

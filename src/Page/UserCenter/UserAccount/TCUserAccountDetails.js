@@ -2,25 +2,30 @@
  * 全部账户记录
  * Created by Allen on 2016/12/10.
  */
-import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 
-import { observer } from 'mobx-react/native';
-import { observable, computed, action } from 'mobx';
+import {observer} from 'mobx-react/native';
+import {observable, computed, action} from 'mobx';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import NoDataView from '../../../Common/View/TCNoDataView';
 import ListRow from './View/TCUserAccountDetailsRowView';
 import AccountDetail from './TCUserAccountBillingDetails';
 import RequestUtils from '../../../Common/Network/TCRequestUitls';
-import { config } from '../../../Common/Network/TCRequestConfig';
-import { Size, indexBgColor, listViewTxtColor, width } from '../../resouce/theme';
+import {config} from '../../../Common/Network/TCRequestConfig';
+import {Size, indexBgColor, listViewTxtColor, width} from '../../resouce/theme';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView';
 import Moment from 'moment';
+import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 /**
  * 账户明细
  */
+
+
+@withMappedNavigationProps()
 @observer
 export default class TCUserAccountAllPage extends Component {
     constructor(props) {
@@ -31,9 +36,11 @@ export default class TCUserAccountAllPage extends Component {
 
     static defaultProps = {};
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
-    componentWillUnmount() {}
+    componentWillUnmount() {
+    }
 
     render() {
         return (
@@ -43,7 +50,7 @@ export default class TCUserAccountAllPage extends Component {
                     needBackButton={true}
                     backButtonCall={() => {
                         RCTDeviceEventEmitter.emit('balanceChange');
-                        this.props.navigator.pop();
+                        NavigatorHelper.popToBack();
                     }}
                 />
                 <RefreshListView
@@ -55,7 +62,7 @@ export default class TCUserAccountAllPage extends Component {
                         this.loadDataFromNet(pageNum, pageSize, callback);
                     }}
                     isNodataView={() => {
-                        return <NoDataView titleTip="暂无账户明细" contentTip="大奖不等待，速去购彩吧~" />;
+                        return <NoDataView titleTip="暂无账户明细" contentTip="大奖不等待，速去购彩吧~"/>;
                     }}
                 />
             </View>
@@ -69,29 +76,19 @@ export default class TCUserAccountAllPage extends Component {
                     this.pressRow(rowData);
                 }}
             >
-                <ListRow rowData={rowData} />
+                <ListRow rowData={rowData}/>
             </TouchableOpacity>
         );
     }
 
     pressRow(rowData) {
-        let { navigator } = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'accountDetail',
-                component: AccountDetail,
-                passProps: {
-                    ...this.props,
-                    orderData: rowData
-                }
-            });
-        }
+        NavigatorHelper.pushToUserAcountDetail({orderData: rowData})
     }
 
     loadDataFromNet(pageNum, pageSize, callback) {
         RequestUtils.PostUrlAndParamsAndCallback(
             config.api.balanceHistoryV2,
-            { start: pageNum * pageSize, pageSize: 20 },
+            {start: pageNum * pageSize, pageSize: 20},
             response => {
                 callback(response, response.content.datas);
             }

@@ -24,12 +24,14 @@ import {config} from '../../../Common/Network/TCRequestConfig';
 import OrderDetail from './TCUserOrderDetail';
 import OrderItem from './View/TCUserOrderChildrenItemRow';
 import NoDataView from '../../../Common/View/TCNoDataView';
-import BaseComponent from '../../../Page/Base/TCBaseComponent';
 import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle, copyBtnStyle} from '../../resouce/theme';
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
+import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
+@withMappedNavigationProps()
 @observer
 export default class TCUserOrderItemList extends Component {
     stateModel = new StateModel();
@@ -55,7 +57,7 @@ export default class TCUserOrderItemList extends Component {
                     title={'彩票订单详情'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.pop();
+                        NavigatorHelper.popToBack();
                     }}
                 />
                 <RefreshListView
@@ -179,26 +181,16 @@ export default class TCUserOrderItemList extends Component {
     }
 
     pressRow(rowData) {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'orderDetail',
-                component: OrderDetail,
-                passProps: {
-                    orderData: rowData,
-                    orderInfo: this.orderInfo,
-                    ...this.props
-                }
-            });
-        }
+        NavigatorHelper.pushToUserOrderDetail({
+            orderData: rowData,
+            orderInfo: this.orderInfo
+        });
     }
 
     gotoBuyBet() {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.popToTop();
-            RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
-        }
+        NavigatorHelper.popToTop();
+        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
+
     }
 }
 

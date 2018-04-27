@@ -29,7 +29,7 @@ import NetUtils from '../../../../Common/Network/TCRequestUitls';
 import {config} from '../../../../Common/Network/TCRequestConfig';
 import TopNavigationBar from '../../../../Common/View/TCNavigationBar';
 import NavigatorHelper from '../../../../Common/JXHelper/TCNavigatorHelper';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../../Common/JXHelper/JXToast';
 import SwipeListView from './View/SwipeListView';
 import ScrollNavigatorBar from './View/ScrollNavigatorBar';
 import BaseComponent from '../../../Base/TCBaseComponent';
@@ -39,6 +39,7 @@ import AddUserAccount from './../TCAgentAddAccount';
 import NoDataView from '../../../../Common/View/TCNoDataView';
 import ModalDropdown from '../../../../Common/View/ModalDropdown';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import Helper from "../../../../Common/JXHelper/TCNavigatorHelper";
 
 export default class TCAgentTeamList extends BaseComponent {
     constructor(state) {
@@ -115,9 +116,10 @@ export default class TCAgentTeamList extends BaseComponent {
                     needBackButton={true}
                     backButtonCall={() => {
                         dismissKeyboard();
-                        this.props.wantPopToN > 0
-                            ? this.props.navigator.popN(this.props.wantPopToN)
-                            : this.props.navigator.pop();
+                        Helper.popToBack()
+                        // this.props.wantPopToN > 0
+                        //     ? Helper.popToN(this.props.wantPopToN)
+                        //     : Helper.popToBack()
                     }}
                     rightTitle={'+添加用户'}
                     rightButtonCall={() => {
@@ -383,15 +385,7 @@ export default class TCAgentTeamList extends BaseComponent {
 
     addUser() {
         dismissKeyboard();
-        this.props.navigator &&
-        this.props.navigator.push({
-            name: 'userRegister',
-            component: AddUserAccount,
-            passProps: {
-                ...this.props,
-                isFromTeamManager: true
-            }
-        });
+        NavigatorHelper.pushToAgentAddAccount(true)
     }
 
     gotoUserDetail(rowData) {

@@ -17,8 +17,10 @@ import  BankManager from './UserBank/TCUserBankManager'
 import ModifyPwd from './UserInfo/TCModifyPassword'
 import ModifySecurityPwd from './UserInfo/TCModifySecurityPwd'
 import  InitHelper from '../../Common/JXHelper/TCInitHelper'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../Common/JXHelper/JXToast';
 import {personal} from '../resouce/images'
+import Helper from "../../Common/JXHelper/TCNavigatorHelper";
+import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 let helper = new InitHelper()
 
 /**
@@ -37,7 +39,7 @@ export default class TCUserSecurityCenter extends Component {
                     title={'安全中心'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.popToTop()
+                      Helper.popToBack()
                     }}/>
                 <View style={styles.mySettingStyle}>
                     <TouchableOpacity onPress={() => {
@@ -85,33 +87,11 @@ export default class TCUserSecurityCenter extends Component {
     }
 
     gotoBankManager() {
-        let {navigator} = this.props;
-        if (navigator) {
-            let page = BankManager
-            if (!TCUSER_DATA.realname) {
-                page = UserInfo
-            }
-            navigator.push({
-                name: 'bankManager',
-                component: page,
-                passProps: {
-                    ...this.props,
-                }
-            })
-        }
+        NavigatorHelper.pushToUserBankManager()
     }
 
     gotoModifyPwd() {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'modifyPwd',
-                component: ModifyPwd,
-                passProps: {
-                    ...this.props,
-                }
-            })
-        }
+        NavigatorHelper.pushToModifyPassword()
     }
 
     /**
@@ -122,16 +102,7 @@ export default class TCUserSecurityCenter extends Component {
             Toast.showShortCenter('对不起，试玩账号不能修改交易密码!')
             return
         }
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'modifySecurity',
-                component: ModifySecurityPwd,
-                passProps: {
-                    ...this.props,
-                }
-            })
-        }
+      NavigatorHelper.pushToModifySecurityPwd()
     }
 }
 

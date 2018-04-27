@@ -2,7 +2,7 @@
  * Created by Sam on 02/10/2017.
  * Copyright © 2017年 JX. All rights reserved.
  */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
@@ -14,21 +14,23 @@ import {
     RefreshControl,
     Alert
 } from 'react-native';
-import { observer } from 'mobx-react/native';
-import { observable, computed, action } from 'mobx';
+import {observer} from 'mobx-react/native';
+import {observable, computed, action} from 'mobx';
 import _ from 'lodash';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import NetUtils from '../../../Common/Network/TCRequestUitls';
-import { config } from '../../../Common/Network/TCRequestConfig';
-import OrderDetail from './TCUserOrderDetail';
+import {config} from '../../../Common/Network/TCRequestConfig';
 import OrderItemList from './TCUserOrderItemList';
 import OrderItem from './View/TCUserChaseBetDetailRow';
 import NoDataView from '../../../Common/View/TCNoDataView';
-import BaseComponent from '../../../Page/Base/TCBaseComponent';
-import { Size, width, height, indexBgColor, listViewTxtColor, buttonStyle, copyBtnStyle } from '../../resouce/theme';
+import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle, copyBtnStyle} from '../../resouce/theme';
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../Common/JXHelper/JXToast';
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
+
+@withMappedNavigationProps()
 @observer
 export default class TCUserOrderItemList extends Component {
     stateModel = new StateModel();
@@ -38,7 +40,8 @@ export default class TCUserOrderItemList extends Component {
         this.orderInfo = {};
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     componentWillUnmount() {
         this.timer && clearTimeout(this.timer);
@@ -51,7 +54,7 @@ export default class TCUserOrderItemList extends Component {
                     title={'追号详情'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.pop();
+                        Helper.popToBack();
                     }}
                 />
                 <RefreshListView
@@ -111,7 +114,8 @@ export default class TCUserOrderItemList extends Component {
             },
             {
                 text: '取消',
-                onPress: () => {}
+                onPress: () => {
+                }
             }
         ]);
     }
@@ -169,7 +173,7 @@ export default class TCUserOrderItemList extends Component {
     }
 
     pressRow(rowData) {
-        let { navigator } = this.props;
+        let {navigator} = this.props;
         let transactionTimeuuid = '';
         let isCO_DontOpen = false;
         let subTransactionTimeuuid = null;
@@ -180,33 +184,26 @@ export default class TCUserOrderItemList extends Component {
         } else {
             transactionTimeuuid = rowData.transactionTimeuuid;
         }
-        if (navigator) {
-            navigator.push({
-                name: 'OrderItemList',
-                component: OrderItemList,
-                passProps: {
-                    transactionTimeuuid: transactionTimeuuid,
-                    isCO_DontOpen: isCO_DontOpen,
-                    issueNumber: rowData.issueNo,
-                    multiplier: rowData.multiplier,
-                    subTransactionTimeuuid: subTransactionTimeuuid
-                }
-            });
-        }
+        Helper.pushToOrderItemList({
+            transactionTimeuuid: transactionTimeuuid,
+            isCO_DontOpen: isCO_DontOpen,
+            issueNumber: rowData.issueNo,
+            multiplier: rowData.multiplier,
+            subTransactionTimeuuid: subTransactionTimeuuid
+        })
+
     }
 
     gotoBuyBet() {
-        let { navigator } = this.props;
-        if (navigator) {
-            navigator.popToTop();
-            RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
-        }
+        Helper.popToTop();
+        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
     }
 }
 
 class StateModel {
     @observable transactionState;
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

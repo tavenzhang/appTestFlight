@@ -105,26 +105,7 @@ export default class TC168 extends Component {
         } else if (!this.state.updateFinished && this.state.updateStatus == -1) {
             return this.updateFailView()
         } else {
-            return ( < Navigator initialRoute={{
-                    name: 'root',
-                    component: Main
-                }}
-                                 configureScene={() => {
-                                     return Navigator.SceneConfigs.PushFromRight;
-                                 }}
-                                 renderScene={
-                                     (route, navigator) => {
-                                         TC_AppState.appRoute = route ? route.name : ''
-                                         this.handleNeedChangeAnimated()
-                                         let Compoment = route.component;
-                                         NavigatorHelper.setNavigator(navigator)
-                                         {/*JXLog("navigation", navigator.getCurrentRoutes())*/
-                                         }
-                                         return <Compoment {...route.passProps} navigator={navigator}/>
-                                     }
-                                 }
-                />
-            );
+            return (<Main />);
         }
     }
 
@@ -471,4 +452,4 @@ TC168 = CodePush({
     installMode: CodePush.InstallMode.IMMEDIATE
 })(TC168);
 
-AppRegistry.registerComponent('JD', () => Main);
+AppRegistry.registerComponent('JD', () => TC168);

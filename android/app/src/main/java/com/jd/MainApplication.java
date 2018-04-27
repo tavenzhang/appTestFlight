@@ -8,6 +8,8 @@ import fr.greweb.reactnativeviewshot.RNViewShotPackage;
 
 import com.jd.jxhelper.JXHelperPackage;
 import com.jd.marqueeLabel.RCTMarqueeLabelPackage;
+import com.jd.openapp.OpenAppPackage;
+import com.jd.openapp.TCOpenOtherAppHelper;
 import com.toast.RCTToastPackage;
 import com.jadsonlourenco.RNShakeEvent.RNShakeEventPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -34,11 +36,12 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
-    private static MainApplication mInstance=null;
+    private static MainApplication mInstance = null;
 
-    public static MainApplication getInstance(){
+    public static MainApplication getInstance() {
         return mInstance;
     }
+
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
 
         @Override
@@ -71,7 +74,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new BlurViewPackage(),
                     new FastImageViewPackage(),
                     new RCTMarqueeLabelPackage(),
-                    new JXHelperPackage()
+                    new JXHelperPackage(),
+                    new OpenAppPackage()
             );
         }
 

@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 
 //系统 npm类
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../../../Common/JXHelper/JXToast';
 import {Size, width} from '../../../../resouce/theme'
 export default class TCBillMultipleBar extends React.Component {
     constructor(state) {

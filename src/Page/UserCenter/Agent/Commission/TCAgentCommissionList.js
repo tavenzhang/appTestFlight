@@ -25,7 +25,7 @@ import _ from 'lodash'
 import NetUtils from '../../../../Common/Network/TCRequestUitls'
 import {config} from '../../../../Common/Network/TCRequestConfig'
 import TopNavigationBar from '../../../../Common/View/TCNavigationBar';
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../../../Common/JXHelper/JXToast';
 import NoDataView from '../../../../Common/View/TCNoDataView'
 import BaseComponent from '../../../Base/TCBaseComponent'
 import DatePicker from '../../../../Common/View/datepicker';
@@ -33,7 +33,9 @@ import ModalDropdown from '../../../../Common/View/ModalDropdown'
 import LoadingSpinnerOverlay from '../../../../Common/View/LoadingSpinnerOverlay'
 import CommissionDetail from './TCAgentCommissionDetail'
 import Moment from 'moment'
+import Helper from "../../../../Common/JXHelper/TCNavigatorHelper";
 var moment = new Moment()
+
 export default class TCAgentCommissionList extends BaseComponent {
     constructor(state) {
         super(state)
@@ -74,7 +76,7 @@ export default class TCAgentCommissionList extends BaseComponent {
                     title={'代理佣金'}
                     needBackButton={true}
                     backButtonCall={()=> {
-                        this.props.navigator.pop()
+                      Helper.popToBack()
                     }}
                     rightTitle={this.state.displayTypeName}
                     rightButtonCall={

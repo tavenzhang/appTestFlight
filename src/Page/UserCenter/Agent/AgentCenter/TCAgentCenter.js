@@ -10,7 +10,8 @@ import {
     TouchableOpacity,
     Modal,
     Image,
-    Platform
+    Platform,
+    ImageBackground
 } from 'react-native'
 import TopNavigationBar from '../../../../Common/View/TCNavigationBar'
 import AgentCommissionList from './../../Agent/Commission/TCAgentCommissionList'
@@ -23,6 +24,7 @@ import NavigatorHelper from '../../../../Common/JXHelper/TCNavigatorHelper'
 import UserIcon from '../../../../Common/View/TCUserIcon'
 import {personal} from '../../../resouce/images'
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../../resouce/theme'
+import Helper from "../../../../Common/JXHelper/TCNavigatorHelper";
 /**
  * 代理中心
  */
@@ -44,12 +46,12 @@ export default class TCAgentCenter extends Component {
                     title={'代理中心'}
                     needBackButton={true}
                     backButtonCall={()=> {
-                    RCTDeviceEventEmitter.emit('balanceChange')
-                        this.props.navigator.pop()
+                        RCTDeviceEventEmitter.emit('balanceChange')
+                        Helper.popToBack()
                     }}
                 />
 
-                    <Image source={personal.userCenterBg} style={styles.imgTop}>
+                    <ImageBackground source={personal.userCenterBg} style={styles.imgTop}>
                 <View style={styles.agentDetail}>
                     <UserIcon  style={styles.imgUser} text={JXHelper.getUserIconShowName(TCUSER_DATA.username)}/>
                         <View style={styles.agentDetailTxt}>
@@ -73,7 +75,7 @@ export default class TCAgentCenter extends Component {
                                 </View>
                             </View>
                         </View>
-                    </Image>
+                    </ImageBackground>
                 <View>
                     <TouchableOpacity onPress={()=> {
                         this.goToAgentInroduce()
@@ -102,7 +104,7 @@ export default class TCAgentCenter extends Component {
                      </TouchableOpacity>*/}
 
                     <TouchableOpacity onPress={()=> {
-                        NavigatorHelper.pushtoAgentAddAccount()
+                        NavigatorHelper.pushToAgentAddAccount(false)
                     }}>
                         <View style={styles.itemStyle}>
                             <View style={styles.itemLeftStyle}>
@@ -156,18 +158,8 @@ export default class TCAgentCenter extends Component {
         )
     }
 
-
     goToCommissionList() {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'agentCommissionList',
-                component: AgentCommissionList,
-                passProps: {
-                    ...this.props,
-                }
-            })
-        }
+      NavigatorHelper.pushToAgentCommission()
     }
 
     goToAgentInroduce() {
@@ -175,29 +167,11 @@ export default class TCAgentCenter extends Component {
     }
 
     goToTeam() {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'userAgentTeam',
-                component: AgentTeamList,
-                passProps: {
-                    ...this.props,
-                }
-            })
-        }
+      NavigatorHelper.pushToUserTeamManager()
     }
 
     goToUserSheets() {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'userAgentSheet',
-                component: AgentSheet,
-                passProps: {
-                    ...this.props,
-                }
-            })
-        }
+      NavigatorHelper.pushToUserSheet(false)
     }
 }
 

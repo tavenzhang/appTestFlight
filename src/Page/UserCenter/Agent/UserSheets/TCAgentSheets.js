@@ -23,8 +23,9 @@ import UserIcon from '../../../../Common/View/TCUserIcon';
 import NetUitls from '../../../../Common/Network/TCRequestUitls';
 import { config } from '../../../../Common/Network/TCRequestConfig';
 import JXHelper from '../../../../Common/JXHelper/JXHelper';
-import Toast from '@remobile/react-native-toast';
+import Toast from '../../../../Common/JXHelper/JXToast';
 import DatePicker from '../../../../Common/View/datepicker';
+import Helper from "../../../../Common/JXHelper/TCNavigatorHelper";
 
 import {
     Size,
@@ -128,7 +129,7 @@ export default class TCAgentSheets extends Component {
                     ref="TopNavigationBar"
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.pop();
+                      Helper.popToBack()
                     }}
                     rightTitle={this.state.rightButtonTitle}
                     rightButtonCall={() => {

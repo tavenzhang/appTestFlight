@@ -25,7 +25,7 @@ import {
     payTxtColor
 } from '../../resouce/theme'
 import TopNavigationBar from "../../../Common/View/TCNavigationBar";
-import Toast from "@remobile/react-native-toast";
+import Toast from '../../../Common/JXHelper/JXToast';
 import RequestUtils from "../../../Common/Network/TCRequestUitls";
 import {config, appId} from "../../../Common/Network/TCRequestConfig";
 import LoadingSpinnerOverlay from "../../../Common/View/LoadingSpinnerOverlay";

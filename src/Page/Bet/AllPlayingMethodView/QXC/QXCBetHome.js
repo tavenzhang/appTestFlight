@@ -30,7 +30,7 @@ import TCSelectPopupView from './View/QXCPlayMethodSelectPopupView'
 import TCBetBill from '../../../Bill/TCBetBill'
 import AwardCoundtdownView from '../../View/TCBetAwardCountdown'
 import TCBetHomeBottomView from '../../View/TCBetHomeBottomView'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../../../Common/JXHelper/JXToast';
 import TCBetSettingModal from '../../View/TCBetSettingModal'
 import TCBetHelperModal from '../../View/TCBetHelperModal'
 import LoadingSpinnerOverlay from '../../../../Common/View/LoadingSpinnerOverlay'

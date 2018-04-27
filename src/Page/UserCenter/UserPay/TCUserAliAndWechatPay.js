@@ -16,13 +16,12 @@ import {observable, computed, action} from 'mobx'
 import UserPay from './View/TCUserPayView'
 import {indexBgColor} from '../../resouce/theme'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import NavigationHelper from '../../Route/NavigationService'
+import NavigationHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import Help01 from '../UserPayHelp/TCUserHelp01'
 import Help02 from '../UserPayHelp/TCUserHelp02'
 import Help03 from '../UserPayHelp/TCUserHelp03'
 import Help04 from '../UserPayHelp/TCUserHelp04'
 import Dialog from './Dialog'
-import UserAccount from '../UserAccount/TCUserPayAndWithdrawRecordsMain'
 import Toast from "../../../Common/JXHelper/JXToast";
 import TCUserOpenPayApp from './TCUserOpenPayApp'
 
@@ -33,8 +32,8 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 /**
  * 支付宝支付
  */
-@observer
 @withMappedNavigationProps()
+@observer
 export default class TCUserAliAndWechatPay extends Component {
 
     stateModel = new StateModel()

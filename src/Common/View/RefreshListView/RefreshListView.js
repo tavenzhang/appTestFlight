@@ -15,7 +15,7 @@ import {
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 import NoDataView from '../TCNoDataView'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../../Common/JXHelper/JXToast';
 import {Size, indexBgColor, listViewTxtColor, width, height} from '../../../Page/resouce/theme'
 import _ from 'lodash'
 
