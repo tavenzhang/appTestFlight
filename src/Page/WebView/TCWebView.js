@@ -18,10 +18,12 @@ import {
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import  TCRequestUtils from '../../Common/Network/TCRequestUitls'
 import  {config} from  '../../Common/Network/TCRequestConfig'
-import  Toast from '@remobile/react-native-toast'
+import Toast from '../../Common/JXHelper/JXToast'
 import {width,indexBgColor} from '../resouce/theme'
 var WEBVIEW_REF = 'webview';
 import BackBaseComponent from '../Base/TCBaseBackComponent'
+import TCNavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
+
 export default class TCWebView extends BackBaseComponent {
     constructor(state) {
         super(state)
@@ -89,12 +91,12 @@ export default class TCWebView extends BackBaseComponent {
             this.refs['topNavigation']._showCloseButton(true)
             this.refs[WEBVIEW_REF].goBack()
         }else {
-            this.props.navigator.pop()
+            TCNavigatorHelper.popToBack()
         }
     }
 
     closeButtonCall(){
-        this.props.navigator.pop()
+        TCNavigatorHelper.popToBack()
     }
 
     midCall(){

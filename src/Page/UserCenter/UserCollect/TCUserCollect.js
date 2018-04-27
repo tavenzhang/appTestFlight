@@ -44,7 +44,7 @@ export default class TCUserCollect extends Component {
                     title={'个人收藏'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.pop()
+                        NavigatorHelper.popToBack()
                     }}
                     rightTitle={'清空收藏'}
                     rightButtonCall={() => {

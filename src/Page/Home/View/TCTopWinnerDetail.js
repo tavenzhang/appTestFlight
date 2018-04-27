@@ -24,7 +24,9 @@ import {width, height, indexBgColor, listViewTxtColor, indexTxtColor} from '../.
 import {config, appId} from '../../../Common/Network/TCRequestConfig';
 import NetUitls from '../../../Common/Network/TCRequestUitls'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper';
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
+@withMappedNavigationProps()
 export default class MyComponent extends React.Component {
     constructor(state) {
         super(state)

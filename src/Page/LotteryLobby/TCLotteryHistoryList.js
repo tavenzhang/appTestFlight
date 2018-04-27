@@ -13,6 +13,7 @@ import {
     TouchableOpacity,
     Dimensions,
     RefreshControl,
+    SectionList
 } from 'react-native';
 import {observer} from 'mobx-react/native';
 
@@ -24,8 +25,10 @@ import TCNavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import JXHelpers from '../../Common/JXHelper/JXHelper'
 import JXLotteryHistoryData from '../../Data/JXLotteryHistoryData'
 import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle} from '../../Page/resouce/theme'
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @observer
+@withMappedNavigationProps()
 export default class TCLotteryHistoryList extends BaseComponent {
 
     constructor(state) {
@@ -97,7 +100,7 @@ export default class TCLotteryHistoryList extends BaseComponent {
                 rightButtonCall={()=>{TCNavigatorHelper.pushToWebView(''+(TCDefaultTendDomain?TCDefaultTendDomain:trendServerAddress)+'/trend?gameUniqueId='+this.props.gameUniqueId+'&navigationBar=0',this.props.title)}}
                 needBackButton={true}
                 backButtonCall={()=> {
-                    this.props.navigator.pop()
+                    TCNavigatorHelper.popToBack()
                 }}
             />)
         } else {
@@ -105,7 +108,7 @@ export default class TCLotteryHistoryList extends BaseComponent {
                 title={this.props.title}
                 needBackButton={true}
                 backButtonCall={()=> {
-                    this.props.navigator.pop()
+                    TCNavigatorHelper.popToBack()
                 }}
             />)
         }
@@ -125,7 +128,7 @@ export default class TCLotteryHistoryList extends BaseComponent {
 
     pushToBetHome = (cpName) => {
         if (this.props.betBack) {
-            this.props.navigator.pop()
+            TCNavigatorHelper.popToBack()
             return
         }
         let rowData = {}

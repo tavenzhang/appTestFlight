@@ -50,8 +50,8 @@ Helper.pushToOrderRecord = (orderType) => {
     NavigationService.navigate("UserOderRecord", {initPage: orderType});
 }
 
-Helper.pushToLotteryHistoryList = (title, gameUniqueId, betBack) => {
-    NavigationService.navigate("TCLotteryHistory", {title: title, gameUniqueId: gameUniqueId, betBack: betBack});
+Helper.pushToLotteryHistoryList = (data) => {
+    NavigationService.navigate("TCLotteryHistory", {...data});
 }
 
 //用户账户明细
