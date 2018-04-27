@@ -472,8 +472,6 @@ export default class TCHome extends Component {
     }
 
     _pushToBetHomePage(rowData) {
-        Toast.showShortCenter('该玩法维护中暂停开放');
-
         if (rowData.gameUniqueId == 'more' || rowData.gameUniqueId == '更多玩法') {
             RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
             return;

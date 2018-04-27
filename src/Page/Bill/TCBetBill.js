@@ -65,8 +65,10 @@ import {checkIfAmountCorrect} from './TCBillCheckHelper';
 import JXUPLogs from '../../Common/JXHelper/JXNetWorkUpLog'
 let UPLogs = new JXUPLogs()
 let photoHelper = new PhotoHelper();
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @observer
+@withMappedNavigationProps()
 export default class TCBetBill extends React.Component {
     constructor(state) {
         super(state);

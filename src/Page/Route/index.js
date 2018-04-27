@@ -15,7 +15,7 @@ import TCPromotionList from  '../Home/View/TCPromotionList'
 import PCDDShopping from '../../Page/ShoppingLobby/TCPCDDShopingLobby'
 
 //彩票下注界面
-// import MarkSixBetHome from '../../Page/Bet/AllPlayingMethodView/MarkSix/TCMarkSixBetHome'
+import MarkSixBetHome from '../../Page/Bet/AllPlayingMethodView/MarkSix/TCMarkSixBetHome'
 // import ChongQingSSCBetHome from '../../Page/Bet/AllPlayingMethodView/ChongQingSSC/TCChongQingSSCBetHome';
 // import TCBJPK10BetHome from '../../Page/Bet/AllPlayingMethodView/BJPK10/TCBJPK10BetHome'
 // import TCKL10FBetHome from '../../Page/Bet/AllPlayingMethodView/KL10F/TCKL10FBetHome'
@@ -97,7 +97,7 @@ const Components = {
     TCTopWinnerDetail: {screen: TCTopWinnerDetail},
     TCPromotionList: {screen: TCPromotionList},
     PCDDShopping: {screen: PCDDShopping},
-    // MarkSixBetHome: {screen: MarkSixBetHome},
+    MarkSixBetHome: {screen: MarkSixBetHome},
     // ChongQingSSCBetHome: {screen: ChongQingSSCBetHome},
     // TCShangDong115BetHome: {screen: TCShangDong115BetHome},
     // TCBJPK10BetHome: {screen: TCBJPK10BetHome},

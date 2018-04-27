@@ -47,10 +47,12 @@ import TCHomeHistoryList from '../../../../Common/View/TCHomeHistoryList'
 import {height, betHome, indexBgColor, statusBarHeight} from '../../../resouce/theme'
 import {MathControllerFactory} from 'lottery-core'
 import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceBetData";
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 let SingletonDPS = null;
 let myPlayMath = ''
 
+@withMappedNavigationProps()
 export default class TCMarkSixBetHome extends React.Component {
 
     constructor(state) {
