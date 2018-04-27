@@ -14,7 +14,8 @@ import {
     ScrollView,
     Platform,
     ListView,
-    NativeModules
+    NativeModules,
+    ImageBackground
 } from 'react-native';
 
 import {observer} from 'mobx-react/native'
@@ -170,7 +171,7 @@ export  default  class TCUserCenterNew extends Component {
             <View style={styles.container}>
                 <ScrollView bounces={false}>
                     <View>
-                        <Image source={personal.userCenterBg} style={styles.imgTop}>
+                        <ImageBackground source={personal.userCenterBg} style={styles.imgTop}>
                             <View style={{flexDirection: 'row'}}>
                                 <View
                                     style={{
@@ -199,7 +200,7 @@ export  default  class TCUserCenterNew extends Component {
                                 </View>
                             </View>
                             {this.getSignInLabel()}
-                        </Image>
+                        </ImageBackground>
                     </View>
                     <View style={{backgroundColor: indexBgColor.itemBg}}>
                         <MoneyLabel stateModel={this.stateModel} freshBalance={(isChangeMoney) => {
