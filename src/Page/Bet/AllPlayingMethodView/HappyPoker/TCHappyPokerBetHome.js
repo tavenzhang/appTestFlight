@@ -48,8 +48,8 @@ import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceB
 
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
-@observer
 @withMappedNavigationProps()
+@observer
 export default class TCHappyPokerBetHome extends React.Component {
     constructor(state) {
         super(state);
@@ -265,7 +265,7 @@ export default class TCHappyPokerBetHome extends React.Component {
         if (index == 0) {
             NavigatorHelper.pushToOrderRecord()
         } else if (index == 1) {
-            NavigatorHelper.pushToLotteryHistoryList({title:this.props.title,gameUniqueId:this.props.gameUniqueId,betBack:true})
+            NavigatorHelper.pushToLotteryHistoryList(this.props.title, this.props.gameUniqueId, true)
         } else if (index == 2) {
             let gameInfo = JXHelper.getGameInfoWithUniqueId(this.props.gameUniqueId)
             if (gameInfo) {
@@ -421,7 +421,7 @@ export default class TCHappyPokerBetHome extends React.Component {
                 [{
                     text: '确定', onPress: () => {
                         SingletonDPS.resetAllData()
-                        NavigatorHelper.popToBack()
+                        this.props.navigator.popToTop()
                     }
                 },
                     {

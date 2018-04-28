@@ -45,7 +45,7 @@ export default class MyComponent extends BackBaseComponent {
                     title="PC蛋蛋"
                     needBackButton={true}
                     backButtonCall={() => {
-                        NavigatorHelper.popToBack()
+                        TCNavigatorHelper.popToBack()
                     }}
                 />
                 {this.getContentView()}

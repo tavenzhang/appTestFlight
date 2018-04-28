@@ -21,6 +21,7 @@ import {
 var px = PixelRatio.get()
 import MarqueeLabel from './MarqueeLabel'
 import MarqueeLabel2 from './TCMarqueeLabel';
+import JXHelper from '../../JXHelper/TCNavigatorHelper'
 
 import {width, indexBgColor, indexTxtColor, Size} from '../../../Page/resouce/theme'
 let noticeText = ''
@@ -45,6 +46,7 @@ export default class MyComponent extends React.Component {
     render() {
         return (
             <TouchableOpacity style={styles.container} onPress={() => {
+                JXHelper.pushToNotice(this.props.announcement)
 
             }}>
                 <Text style={{

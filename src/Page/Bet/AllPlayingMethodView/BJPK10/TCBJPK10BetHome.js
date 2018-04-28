@@ -51,8 +51,8 @@ let SingletonDPS = null;
 let myPlayMath = '';
 let myGameSetting = null
 
-@observer
 @withMappedNavigationProps()
+@observer
 export default class TCMarkSixBetHome extends React.Component {
     constructor(state) {
         super(state);

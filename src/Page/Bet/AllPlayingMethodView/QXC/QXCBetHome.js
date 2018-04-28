@@ -22,6 +22,7 @@ import {
 /**系统 npm类 */
 import {observable, action} from 'mobx';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
+import {observer} from 'mobx-react/native';
 
 /**组件内部显示需要引入的类 */
 import TopNavigationBar from '../../View/TCBetBar'
@@ -59,6 +60,7 @@ let myGameSetting = null
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @withMappedNavigationProps()
+@observer
 export default class TCQXCBetHome extends React.Component {
 
     constructor(state) {

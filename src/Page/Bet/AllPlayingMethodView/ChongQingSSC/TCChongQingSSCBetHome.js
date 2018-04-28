@@ -56,7 +56,10 @@ let myPlayMath = '';
 let myGameSetting = null
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
+import {observer} from 'mobx-react/native';
+
 @withMappedNavigationProps()
+@observer
 export default class TCBetHome extends React.Component {
 
     constructor(state) {

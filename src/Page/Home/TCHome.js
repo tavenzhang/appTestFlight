@@ -49,8 +49,8 @@ import RedPacketMenu from '../red_packet/components/RedPacketMenu';
 let TCUserCollectHelpers = new TCUserCollectHelper();
 let RedPacketData = new RedPacket();
 import RedPacket from '../red_packet/RedPacketData';
-// import Swiper from 'react-native-swiper'
 import Swiper from '../../Common/View/swiper/Swiper'
+import FastImage from 'react-native-fast-image';
 
 @observer
 export default class TCHome extends Component {
@@ -205,12 +205,12 @@ export default class TCHome extends Component {
             autoplay={true}
             dataSource={ this.state.content.bannerData}
             renderRow={(item, index) => {
-                return (  <Image
+                return (  <FastImage
                     source={{uri: item.bannerImageUrl}}
                     style={styles.page}/>)
             }}
             onPress={(item) => {
-
+                NavigatorHelper.pushToWebView(item.userClickUrl);
             }}
         />)
     }

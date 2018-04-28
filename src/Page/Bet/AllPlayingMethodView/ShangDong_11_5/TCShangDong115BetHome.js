@@ -24,6 +24,7 @@ import LoadingSpinnerOverlay from '../../../../Common/View/LoadingSpinnerOverlay
 import Moment from 'moment'
 import TCBetGoBackShoppingCart from '../../View/TCBetGoBackShoppingCart'
 import TCBetShakeButtonView from '../../View/TCBetShakeButtonView'
+import {observer} from 'mobx-react/native';
 
 //组件内部显示需要引入的类
 import TopNavigationBar from '../../View/TCBetBar'
@@ -57,6 +58,7 @@ let myGameSetting = null
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @withMappedNavigationProps()
+@observer
 export default class TCMarkSixBetHome extends React.Component {
 
     constructor(state) {

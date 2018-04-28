@@ -16,6 +16,7 @@ import {
     Image,
     Platform
 } from 'react-native';
+import {observer} from 'mobx-react/native';
 
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import TopNavigationBar from '../../View/TCBetBar'
@@ -54,6 +55,7 @@ import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceB
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @withMappedNavigationProps()
+@observer
 export default class TCBetHome extends React.Component {
 
     constructor(state) {

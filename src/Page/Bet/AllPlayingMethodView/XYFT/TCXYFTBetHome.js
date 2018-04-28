@@ -53,8 +53,8 @@ let myGameSetting = null
 
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
-@observer
 @withMappedNavigationProps()
+@observer
 export default class TCXYFTBetHome extends React.Component {
     constructor(state) {
         super(state);

@@ -46,6 +46,7 @@ import {height, betHome, indexBgColor, statusBarHeight} from '../../../resouce/t
 import TCChongQingSSC_DPS from './data/TCSSL_DPS'
 import {MathControllerFactory} from 'lottery-core'
 import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceBetData";
+import {observer} from 'mobx-react/native';
 
 let SingletonDPS = null
 
@@ -55,6 +56,7 @@ let myGameSetting = null
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @withMappedNavigationProps()
+@observer
 export default class TCBetHome extends React.Component {
 
     constructor(state) {

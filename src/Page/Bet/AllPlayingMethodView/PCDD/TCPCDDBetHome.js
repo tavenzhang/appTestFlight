@@ -21,6 +21,7 @@ import Toast from '../../../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import LoadingSpinnerOverlay from '../../../../Common/View/LoadingSpinnerOverlay'
 import Moment from 'moment'
+import {observer} from 'mobx-react/native';
 
 //组件内部显示需要引入的类
 import TopNavigationBar from '../../View/TCBetBar'
@@ -55,6 +56,7 @@ let myPlayMath = ''
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @withMappedNavigationProps()
+@observer
 export default class TCMarkSixBetHome extends React.Component {
 
     constructor(state) {
