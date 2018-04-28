@@ -15,6 +15,7 @@ import {
 
 import TopNavigationBar from '../../Common/View/TCNavigationBar'
 import {Size} from '../../Page/resouce/theme'
+import TCNavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 
 export default class TCUserProtocol extends Component {
     constructor(state) {
@@ -34,7 +35,7 @@ export default class TCUserProtocol extends Component {
                     title={'服务协议'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.pop()
+                        NavigatorHelper.popToBack()
                     }}/>
                 <View style={styles.contentStyle}>
                     <Text style={{fontSize: Size.large}}>本公司只接受年龄已满18岁的注册用户。

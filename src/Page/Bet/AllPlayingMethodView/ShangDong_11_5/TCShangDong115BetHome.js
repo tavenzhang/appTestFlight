@@ -24,6 +24,7 @@ import LoadingSpinnerOverlay from '../../../../Common/View/LoadingSpinnerOverlay
 import Moment from 'moment'
 import TCBetGoBackShoppingCart from '../../View/TCBetGoBackShoppingCart'
 import TCBetShakeButtonView from '../../View/TCBetShakeButtonView'
+import {observer} from 'mobx-react/native';
 
 //组件内部显示需要引入的类
 import TopNavigationBar from '../../View/TCBetBar'
@@ -54,6 +55,10 @@ let SingletonDPS = null;
 let myPlayMath = '';
 let myGameSetting = null
 
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
+@withMappedNavigationProps()
+@observer
 export default class TCMarkSixBetHome extends React.Component {
 
     constructor(state) {
@@ -268,7 +273,7 @@ export default class TCMarkSixBetHome extends React.Component {
         if (index == 0) {
             NavigatorHelper.pushToOrderRecord()
         } else if (index == 1) {
-            NavigatorHelper.pushToLotteryHistoryList(this.props.title,this.props.gameUniqueId,true)
+            NavigatorHelper.pushToLotteryHistoryList({title:this.props.title,gameUniqueId:this.props.gameUniqueId,betBack:true})
         } else if (index == 2) {
             let gameInfo = JXHelper.getGameInfoWithUniqueId(this.props.gameUniqueId)
             if (gameInfo) {
@@ -428,7 +433,7 @@ export default class TCMarkSixBetHome extends React.Component {
                 [{
                     text: '确定', onPress: () => {
                         SingletonDPS.resetAllData()
-                        this.props.navigator.popToTop()
+                        NavigatorHelper.popToBack()
                     }
                 },
                     {
@@ -437,7 +442,7 @@ export default class TCMarkSixBetHome extends React.Component {
                     },
                 ])
         }else {
-            this.props.navigator.popToTop()
+            NavigatorHelper.popToBack()
         }
     }
 

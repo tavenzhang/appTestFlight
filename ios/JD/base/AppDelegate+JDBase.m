@@ -27,6 +27,7 @@ static NSString * const JDSpecialStr = @"SueL";
 @implementation AppDelegate (JDBase)
 
 - (BOOL)getLoadModel{
+  return YES;
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   BOOL appForJS = [[defaults objectForKey:@"JD_AppFromR1N1"] boolValue];
   if (appForJS) {

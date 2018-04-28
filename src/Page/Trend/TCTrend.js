@@ -26,6 +26,7 @@ const lotteryName = ['重庆时时彩', '二分时时彩', '新疆时时彩', '�
 
 import  RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
+import TCNavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import {trendServer} from '../resouce/appConfig'
 export default class TCTrend extends Component {
 
@@ -68,7 +69,7 @@ export default class TCTrend extends Component {
 
                     backButtonCall={()=> {
                         RCTDeviceEventEmitter.emit('balanceChange')
-                        this.props.navigator.pop()
+                        NavigatorHelper.popToBack()
                     }}
                     rightTitle={'刷新'}
                     rightButtonCall={()=> {
@@ -150,7 +151,7 @@ export default class TCTrend extends Component {
         if (this.state.backButtonEnabled) {
             this.refs['topNavigation']._showCloseButton(true)
         } else {
-            this.props.navigator.pop()
+            NavigatorHelper.popToBack()
         }
     }
 

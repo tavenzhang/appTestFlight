@@ -22,6 +22,8 @@ import {
 import {indexTxtColor, indexBgColor,Size,width,height} from '../../resouce/theme'
 const colorArray = indexTxtColor.midMenuTitle
 import  {homeMenu} from '../../resouce/images'
+import FastImage from 'react-native-fast-image';
+
 export default class MyComponent extends React.Component {
     constructor(state) {
         super(state)
@@ -86,7 +88,7 @@ export class MyComponent2 extends React.Component {
 
     getImage() {
         return (
-            <Image source={homeMenu[this.props.rowData.type]} style={{width: 55, height: 55}} resizeMode={'contain'}/>
+            <FastImage source={homeMenu[this.props.rowData.type]} style={{width: 55, height: 55}} resizeMode={'contain'}/>
         );
     }
 

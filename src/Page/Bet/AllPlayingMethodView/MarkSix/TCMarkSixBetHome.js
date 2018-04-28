@@ -51,8 +51,10 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 let SingletonDPS = null;
 let myPlayMath = ''
+import {observer} from 'mobx-react/native';
 
 @withMappedNavigationProps()
+@observer
 export default class TCMarkSixBetHome extends React.Component {
 
     constructor(state) {

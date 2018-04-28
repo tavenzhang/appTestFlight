@@ -449,7 +449,7 @@ export default class IntelligenceBet extends Component {
     }
 
     goBack() {
-        this.props.navigator.pop()
+        NavigatorHelper.popToBack()
     }
 
 

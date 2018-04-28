@@ -46,6 +46,9 @@ let myGameSetting = null
 import {height, betHome, indexBgColor, statusBarHeight} from '../../../resouce/theme'
 import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceBetData";
 
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
+@withMappedNavigationProps()
 @observer
 export default class TCHappyPokerBetHome extends React.Component {
     constructor(state) {
@@ -427,7 +430,7 @@ export default class TCHappyPokerBetHome extends React.Component {
                     },
                 ])
         }else {
-            this.props.navigator.popToTop()
+            NavigatorHelper.popToBack()
         }
     }
 }
