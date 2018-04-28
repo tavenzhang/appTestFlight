@@ -213,6 +213,10 @@ Helper.pushToFeedback = () => {
     NavigationService.navigate("Feedback");
 }
 
+Helper.pushToFeedbackView = (params) => {
+    NavigationService.navigate("FeedbackView", params);
+}
+
 // 跳转到代理中心
 Helper.pushToAgentCenter = () => {
     NavigationService.navigate("AgentCenter");

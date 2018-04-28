@@ -20,7 +20,7 @@ export default class TCKeyboardAvoidingScrollView extends React.Component {
     static propTypes = {
         children: PropTypes.node,
         keyboardTopPadding: PropTypes.number,
-        style: View.propTypes.style,
+        // style: View.propTypes.style,
     }
 
     static defaultProps = {

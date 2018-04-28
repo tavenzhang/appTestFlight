@@ -66,17 +66,7 @@ export default class TCUserFeedbackList extends BackBaseComponent {
     }
 
     goFeedbackView(rowData) {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'feedbackView',
-                component: FeedbackView,
-                passProps: {
-                    ...this.props,
-                    rowData: rowData,
-                }
-            });
-        }
+        Helper.pushToFeedbackView({rowData: rowData});
     }
 
     /**
@@ -104,11 +94,11 @@ export default class TCUserFeedbackList extends BackBaseComponent {
      * @param rowData
      */
     goFeedback() {
-      Helper.pushToFeedback();
+        Helper.pushToFeedback();
     }
 
     goBack() {
-      Helper.popToBack()
+        Helper.popToBack()
     }
 
     /**
@@ -194,7 +184,7 @@ export default class TCUserFeedbackList extends BackBaseComponent {
     }
 
     renderNoDataView() {
-        return(<NoDataView ref='NoDataView' titleTip={''} contentTip='意见反馈数据为空'/>);
+        return (<NoDataView ref='NoDataView' titleTip={''} contentTip='意见反馈数据为空'/>);
     }
 
     /**
@@ -321,7 +311,7 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         paddingBottom: 5,
         width: width * 0.25,
-        fontWeight:'bold',
+        fontWeight: 'bold',
     },
     title: {
         width: width * 0.4,
@@ -403,14 +393,14 @@ const styles = StyleSheet.create({
         padding: 2,
         color: userCenterTxtColor.feedBackTitle,
         alignItems: 'center',
-        fontWeight:'bold',
+        fontWeight: 'bold',
         fontSize: Size.font14,
     },
     type: {
         marginLeft: 5,
         color: userCenterTxtColor.feedBackTitle,
     },
-    list:{
+    list: {
         backgroundColor: indexBgColor.mainBg
     },
 })

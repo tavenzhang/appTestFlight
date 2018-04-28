@@ -9,7 +9,11 @@ import Moment from 'moment';
 import {Size, width, indexBgColor, userCenterTxtColor, loginAndRegeisterBorderColor} from '../../resouce/theme';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import BackBaseComponent from '../../Base/TCBaseBackComponent';
+import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
+
+@withMappedNavigationProps()
 export default class TCUserFeedbackView extends BackBaseComponent {
     getItemContent(title, rightTxt, content) {
         return (
@@ -26,7 +30,7 @@ export default class TCUserFeedbackView extends BackBaseComponent {
     }
 
     goBack() {
-        this.props.navigator.pop();
+        Helper.popToBack();
     }
 
     render() {

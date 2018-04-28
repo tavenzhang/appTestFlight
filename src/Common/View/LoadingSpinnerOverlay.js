@@ -51,8 +51,8 @@ class LoadingSpinnerOverlay extends Component {
     }
 
     static propTypes = {
-        overlayStyle: View.propTypes.style,
-        style: View.propTypes.style,
+        // overlayStyle: View.propTypes.style,
+        // style: View.propTypes.style,
         duration: PropTypes.number,
         delay: PropTypes.number,
         marginTop: PropTypes.number,

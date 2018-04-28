@@ -18,13 +18,15 @@ import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import TCUserCollectItem from './view/TCUserCollectItemView'
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar'
-import  JXHelperC from '../../../Common/JXHelper/TCUserCollectHelper'
+import JXHelperC from '../../../Common/JXHelper/TCUserCollectHelper'
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView'
 import Toast from '../../../Common/JXHelper/JXToast';
+
 let JXHelper = new JXHelperC()
 import JXHelpers from '../../../Common/JXHelper/JXHelper'
 import {common} from '../../resouce/images'
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../resouce/theme'
+
 /**
  * 收藏
  */
@@ -45,7 +47,7 @@ export default class TCUserCollect extends Component {
                     title={'个人收藏'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.pop()
+                        Helper.popToBack();
                     }}
                     rightTitle={'清空收藏'}
                     rightButtonCall={() => {
@@ -73,7 +75,7 @@ export default class TCUserCollect extends Component {
                     }}
                     isNodataView={() => {
                         return this.getNoDataView()
-                    } }/>
+                    }}/>
 
             </View>
         )
@@ -86,7 +88,7 @@ export default class TCUserCollect extends Component {
                 <TCUserCollectItem
                     rowData={gameInfo}
                     rowID={rowID}
-                    pushToEvent={ (gameInfo) => this._pushToBetHomePage(gameInfo)}
+                    pushToEvent={(gameInfo) => this._pushToBetHomePage(gameInfo)}
                     removeCollect={(gameId) => {
                         this.removeCollect(gameId)
                     }}

@@ -20,8 +20,9 @@ import OrderItemList from '../UserOrder/TCUserOrderItemList'
 import Moment from 'moment'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
+
 @withMappedNavigationProps()
-export  default  class TCUserAccountBillingDetails extends BackBaseComponent {
+export default class TCUserAccountBillingDetails extends BackBaseComponent {
 
     constructor(props) {
         super(props)
@@ -105,7 +106,7 @@ export  default  class TCUserAccountBillingDetails extends BackBaseComponent {
 
     getRemarks(notes, remarks) {
         if (notes || remarks) {
-            return ( <View style={styles.itemStyle}>
+            return (<View style={styles.itemStyle}>
                 <Text style={styles.itemTitleStyle}>备注：</Text>
                 <Text style={styles.itemContentStyle}>{notes || remarks}</Text>
             </View>)
@@ -119,17 +120,8 @@ export  default  class TCUserAccountBillingDetails extends BackBaseComponent {
      * 跳转到订单详情
      */
     pressOrderDetail() {
-        let {navigator} = this.props;
         let transactionTimeuuid = this.props.orderData.crossReferenceId.split(':')[0];
-        if (navigator && transactionTimeuuid) {
-            navigator.push({
-                name: 'orderItemList',
-                component: OrderItemList,
-                passProps: {
-                    transactionTimeuuid: transactionTimeuuid,
-                }
-            })
-        }
+        Helper.pushToOrderItemList({transactionTimeuuid: transactionTimeuuid});
     }
 
     /**
@@ -197,7 +189,7 @@ export  default  class TCUserAccountBillingDetails extends BackBaseComponent {
     getAccountBalance() {
         let balance = this.props.orderData.delta
         if (balance < 0) {
-            return (<Text style={styles.itemGreenTxt}>{ (balance).toFixed(2)}</Text>)
+            return (<Text style={styles.itemGreenTxt}>{(balance).toFixed(2)}</Text>)
         } else {
             return (<Text style={styles.itemRedTxt}>{'+' + (balance).toFixed(2)}</Text>)
         }
