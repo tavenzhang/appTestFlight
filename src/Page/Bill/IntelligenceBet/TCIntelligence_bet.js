@@ -156,7 +156,7 @@ export default class IntelligenceBet extends Component {
                                             style={{height: height - 64 - 49 - 60, backgroundColor: baseColor.mainBg}}
                                             removeClippedSubviews={true}
                                             scrollRenderAheadDistance={20}
-                                            keyboardShouldPersistTaps={true}>
+                                            keyboardShouldPersistTaps={"always"}>
                     {this.getContentScrollView()}
                 </KeyboardAvoidingScrollView>
 

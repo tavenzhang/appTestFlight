@@ -94,7 +94,7 @@ export default class TCUserLogin extends BackBaseComponent {
                         this.gotoBack()
                     }}/>
                 <ScrollView
-                    keyboardShouldPersistTaps={true}
+                    keyboardShouldPersistTaps={"always"}
                     keyboardDismissMode={'on-drag'}>
                     <View style={{alignItems: 'center'}}>
                         < View style={styles.formstyle}>

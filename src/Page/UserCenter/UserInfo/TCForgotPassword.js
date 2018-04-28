@@ -12,6 +12,7 @@ import {
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import {Size, indexBgColor, width, height, listViewTxtColor} from '../../resouce/theme'
 import BackBaseComponent from '../../Base/TCBaseBackComponent'
+import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 
 export default class TCForgotPassword extends BackBaseComponent {
 
@@ -33,11 +34,13 @@ export default class TCForgotPassword extends BackBaseComponent {
                 < TopNavigationBar
                     title={'找回密码'}
                     needBackButton={true}
-                    backButtonCall={() =>{this.props.navigator.pop()}}/>
+                    backButtonCall={() => {
+                        NavigatorHelper.popToBack();
+                    }}/>
                 <View style={styles.tipTextStyle}>
-                    <Text style={{fontSize:Size.default,color:listViewTxtColor.title}}>温馨提示：</Text>
-                    <Text style={{fontSize:Size.default,color:listViewTxtColor.content}}>如您忘记密码或者需要修改密码;</Text>
-                    <Text style={{fontSize:Size.default,color:listViewTxtColor.content}}>请联系在线客服帮您解决，谢谢！</Text>
+                    <Text style={{fontSize: Size.default, color: listViewTxtColor.title}}>温馨提示：</Text>
+                    <Text style={{fontSize: Size.default, color: listViewTxtColor.content}}>如您忘记密码或者需要修改密码;</Text>
+                    <Text style={{fontSize: Size.default, color: listViewTxtColor.content}}>请联系在线客服帮您解决，谢谢！</Text>
                 </View>
             </View>
         );

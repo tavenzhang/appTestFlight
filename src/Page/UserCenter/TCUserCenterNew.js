@@ -22,11 +22,11 @@ import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 import Moment from 'moment'
 import JXHelper from '../../Common/JXHelper/JXHelper'
-import  InitHelper from '../../Common/JXHelper/TCInitHelper'
+import InitHelper from '../../Common/JXHelper/TCInitHelper'
 import SoundHelper from '../../Common/JXHelper/SoundHelper'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
-import RequestUtils  from '../../Common/Network/TCRequestUitls'
+import RequestUtils from '../../Common/Network/TCRequestUitls'
 import {config} from '../../Common/Network/TCRequestConfig'
 import UserIcon from '../../Common/View/TCUserIcon'
 import {personal} from '../resouce/images'
@@ -125,7 +125,7 @@ const USERCENTER_ITEMS =
     ]
 
 @observer
-export  default  class TCUserCenterNew extends Component {
+export default class TCUserCenterNew extends Component {
 
     lastRequestTime = 0
     stateModel = new StateModel()
@@ -195,7 +195,8 @@ export  default  class TCUserCenterNew extends Component {
                                         }
                                         this.gotoOnlineService()
                                     }}>
-                                        <Image source={personal.onlineServicer} style={[styles.img,{marginTop:10,marginRight:5}]}/>
+                                        <Image source={personal.onlineServicer}
+                                               style={[styles.img, {marginTop: 10, marginRight: 5}]}/>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -231,7 +232,7 @@ export  default  class TCUserCenterNew extends Component {
                         contentContainerStyle={styles.listViewStyle}
                         horizontal={false}
                         removeClippedSubviews={false}
-                        keyboardShouldPersistTaps={true}
+                        keyboardShouldPersistTaps={"always"}
                         dataSource={this.ds.cloneWithRowsAndSections(USERCENTER_ITEMS)}
                         renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID)}
                         renderSectionHeader={(sectionData, sectionId) => this._renderHeader(sectionData, sectionId)}
@@ -366,7 +367,7 @@ export  default  class TCUserCenterNew extends Component {
         }
 
         if (rowData.key === "wdxx" || rowData.key === "yjfk") {
-            return ( <TouchableOpacity style={styles.itemContainer} onPress={() => {
+            return (<TouchableOpacity style={styles.itemContainer} onPress={() => {
                 this.gotoPage(rowData.key)
             }}>
                 <View style={styles.itemView}>
@@ -381,7 +382,7 @@ export  default  class TCUserCenterNew extends Component {
                 </View>
             </TouchableOpacity>)
         }
-        return ( <TouchableOpacity style={styles.itemContainer} onPress={() => {
+        return (<TouchableOpacity style={styles.itemContainer} onPress={() => {
             this.gotoPage(rowData.key)
         }}>
 

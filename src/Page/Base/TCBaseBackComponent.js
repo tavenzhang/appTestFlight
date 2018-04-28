@@ -12,10 +12,11 @@ import {
     Text,
     View,
     InteractionManager,
-    BackAndroid,
+    BackHandler,
     Platform
 } from 'react-native';
 import Helper from '../../Common/JXHelper/TCNavigatorHelper'
+
 export default class TCBaseBackComponent extends React.Component {
     constructor(state) {
         super(state)
@@ -26,16 +27,15 @@ export default class TCBaseBackComponent extends React.Component {
 
     componentDidMount() {
         // if (Platform.OS === 'android') {
-        //     BackAndroid.addEventListener('hardwareBackPress', () => {
-        //         // this.onBackAndroid()
-        //         return !Helper.isTopPage()
+        //     BackHandler.addEventListener('hardwareBackPress', () => {
+        //         return this.onBackAndroid();
         //     })
         // }
     }
 
     componentWillUnmount() {
         // if (Platform.OS === 'android') {
-        //     BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        //     BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         // }
     }
 
@@ -43,10 +43,11 @@ export default class TCBaseBackComponent extends React.Component {
     render() {
     }
 
-    //
-    // onBackAndroid() {
-    //     Helper.popToBack()
-    // }
+    onBackAndroid() {
+        JXLog("=============back");
+        Helper.popToBack();
+        return true;
+    }
 
 }
 

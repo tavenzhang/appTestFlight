@@ -36,12 +36,15 @@ import Base64 from '../../Common/JXHelper/Base64'
 import BackBaseComponent from '../Base/TCBaseBackComponent'
 import Helper from '../../Common/JXHelper/TCNavigatorHelper'
 import JXHelpers from '../../Common/JXHelper/JXHelper'
+
 let base64 = new Base64()
 import SecretUtils from '../../Common/JXHelper/SecretUtils'
 import FreePlay from './TCUserFreePlay'
+
 let secretUtils = new SecretUtils()
 import UserInfo from '../UserCenter/UserInfo/TCAddUserInfo'
 import TCInitHelperC from '../../Common/JXHelper/TCInitHelper'
+
 let TCInitHelper = new TCInitHelperC()
 import {common, personal} from '../resouce/images'
 import {
@@ -52,12 +55,13 @@ import {
 } from '../resouce/theme'
 
 import JXUPLogs from '../../Common/JXHelper/JXNetWorkUpLog'
+
 let UPLogs = new JXUPLogs()
 
 let deviceToken = ''
 
 @observer
-export default class TCUserRegister extends BackBaseComponent {
+export default class TCUserRegister extends Component {
 
     stateModel = new StateModel()
     registerItems = []
@@ -79,12 +83,10 @@ export default class TCUserRegister extends BackBaseComponent {
     static defaultProps = {};
 
     componentDidMount() {
-        super.componentDidMount()
         this.getRegisterItems()
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount()
     }
 
     render() {
@@ -95,7 +97,7 @@ export default class TCUserRegister extends BackBaseComponent {
                     needBackButton={true}
                     backButtonCall={() => this.back()}/>
                 <KeyboardAvoidingScrollView
-                    keyboardShouldPersistTaps={Platform.OS !== 'ios' ? 'handle' : false}
+                    keyboardShouldPersistTaps={Platform.OS !== 'ios' ? 'handled' : false}
                     keyboardDismissMode={'on-drag'}>
                     <View style={{alignItems: 'center'}}>
                         < View style={styles.formstyle}>
@@ -172,7 +174,7 @@ export default class TCUserRegister extends BackBaseComponent {
                                         this.stateModel.changeCheck()
                                     }}>
                                         {
-                                            this.stateModel.isChecked ? ( <Image
+                                            this.stateModel.isChecked ? (<Image
                                                 source={personal.check}
                                                 style={styles.agreeStyle}
                                                 resizeMode={'contain'}
@@ -287,17 +289,8 @@ export default class TCUserRegister extends BackBaseComponent {
 
 
     forgetPwd() {
-        let {navigator} = this.props;
-        if (navigator) {
-            dismissKeyboard()
-            navigator.push({
-                name: 'forgetpwd',
-                component: ForgetPwd,
-                passProps: {
-                    ...this.props,
-                }
-            })
-        }
+        dismissKeyboard()
+        Helper.pushToForgetPwd()
     }
 
     gotoProtocol() {
@@ -410,7 +403,7 @@ export default class TCUserRegister extends BackBaseComponent {
         }
         for (let i = 0; i < this.registerItems.length; i++) {
             let item = this.registerItems[i]
-            if (item.required && ( !this.userInfo.options[item.key] || !this.userInfo.options[item.key].length)) {//必填时，为空
+            if (item.required && (!this.userInfo.options[item.key] || !this.userInfo.options[item.key].length)) {//必填时，为空
                 Toast.showShortCenter(item.name + '不能为空！')
                 return false
             }

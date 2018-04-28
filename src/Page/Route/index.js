@@ -2,7 +2,7 @@ import {TabNavigator, StackNavigator, TabBarBottom} from 'react-navigation';
 import React, {Component} from 'react';
 import Helper from "../../Common/JXHelper/JXHelper"
 import {Provider} from 'mobx-react'
-
+import {BackHandler, ToastAndroid, Platform} from 'react-native'
 
 import NavigationService from './NavigationService'
 
@@ -11,7 +11,7 @@ import MainScreen from '../Main/TCMain'
 import WebView from '../WebView/TCWebView'
 import TCNoticeDetail from '../Home/View/TCNoticeDetail'
 import TCTopWinnerDetail from '../Home/View/TCTopWinnerDetail'
-import TCPromotionList from  '../Home/View/TCPromotionList'
+import TCPromotionList from '../Home/View/TCPromotionList'
 import PCDDShopping from '../../Page/ShoppingLobby/TCPCDDShopingLobby'
 
 //彩票下注界面
@@ -55,12 +55,12 @@ import UserFreePlay from '../../Page/UserCenter/TCUserFreePlay'
 import UserSetting from '../../Page/UserCenter/TCUserSetting'
 import UserProtocol from '../../Page/UserCenter/TCUserProtocol'
 import UserSecurityCenter from '../../Page/UserCenter/TCUserSecurityCenter'
-import  UserAccountCenter from '../../Page/UserCenter/UserAccount/TCUserAccountCenter'
+import UserAccountCenter from '../../Page/UserCenter/UserAccount/TCUserAccountCenter'
 import UserDetailMsg from '../../Page/UserCenter/UserInfo/TCUserDetailMsg'
 import UserWithdraw from '../../Page/UserCenter/UserWithdraw/TCUserWithdraw'
-import  MessageList from '../../Page/UserCenter/UserMessage/TCUserMessagePage'
+import MessageList from '../../Page/UserCenter/UserMessage/TCUserMessagePage'
 import UserInfo from '../../Page/UserCenter/UserInfo/TCAddUserInfo'
-import  FeedbackList from '../../Page/UserCenter/FeedBack/TCUserFeedbackList'
+import FeedbackList from '../../Page/UserCenter/FeedBack/TCUserFeedbackList'
 import UserAcount from '../../Page/UserCenter/UserAccount/TCUserAccountDetails'
 import UserAcountDetail from '../../Page/UserCenter/UserAccount/TCUserAccountBillingDetails'
 import Feedback from '../../Page/UserCenter/FeedBack/TCUserFeedback';
@@ -71,14 +71,14 @@ import ModifyPassword from '../../Page/UserCenter/UserInfo/TCModifyPassword'
 import ModifySecurityPwd from '../../Page/UserCenter/UserInfo/TCModifySecurityPwd'
 import UserMessage from '../../Page/UserCenter/UserInfo/TCUserMessage'
 import UserAcountPay from '../../Page/UserCenter/UserAccount/TCUserPayAndWithdrawRecordsMain'
-import UserPay from  '../../Page/UserCenter/UserPay/TCUserPayType'
-import UserPayment from  '../../Page/UserCenter/UserPay/TCUserPayNew'
-import UserAliAndWechatTransfer from  '../../Page/UserCenter/UserPay/TCUserAliAndWechatTransfer'
-import UserAliAndWechatPay from  '../../Page/UserCenter/UserPay/TCUserAliAndWechatPay'
-import UserBankPayMessage from  '../../Page/UserCenter/UserPay/TCUserBankPayMessage'
-import UserHTMLPay from  '../../Page/UserCenter/UserPay/TCUserHTMLPay'
-import UserPayProgress from  '../../Page/UserCenter/UserPay/TCUserPayProgress'
-import UserAliPayAndWechatMessage from  '../../Page/UserCenter/UserPay/TCUserAliPayAndWechatMessage'
+import UserPay from '../../Page/UserCenter/UserPay/TCUserPayType'
+import UserPayment from '../../Page/UserCenter/UserPay/TCUserPayNew'
+import UserAliAndWechatTransfer from '../../Page/UserCenter/UserPay/TCUserAliAndWechatTransfer'
+import UserAliAndWechatPay from '../../Page/UserCenter/UserPay/TCUserAliAndWechatPay'
+import UserBankPayMessage from '../../Page/UserCenter/UserPay/TCUserBankPayMessage'
+import UserHTMLPay from '../../Page/UserCenter/UserPay/TCUserHTMLPay'
+import UserPayProgress from '../../Page/UserCenter/UserPay/TCUserPayProgress'
+import UserAliPayAndWechatMessage from '../../Page/UserCenter/UserPay/TCUserAliPayAndWechatMessage'
 
 //代理中心
 import AgentCenter from '../../Page/UserCenter/Agent/AgentCenter/TCAgentCenter'
@@ -170,6 +170,12 @@ const MainStackNavigator = StackNavigator({
 })
 
 export default class Main extends Component {
+    componentWillMount() {
+    }
+
+    componentWillUnmount() {
+    }
+
     render() {
         return (
             <MainStackNavigator

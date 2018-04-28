@@ -72,7 +72,7 @@ export  default  class TCUserFreePlay extends BackBaseComponent {
                         this.gotoBack()
                     }}/>
                 <ScrollView
-                    keyboardShouldPersistTaps={true}
+                    keyboardShouldPersistTaps={"always"}
                     keyboardDismissMode={'on-drag'}>
                     <View style={{alignItems: 'center', marginTop: 20}}>
                         < View style={styles.formstyle}>

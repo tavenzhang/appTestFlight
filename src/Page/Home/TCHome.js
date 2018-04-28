@@ -14,7 +14,7 @@ import {
     Linking,
     Platform,
     NativeModules,
-    BackAndroid,
+    BackHandler,
     AppState,
     Dimensions,
     SectionList
@@ -31,6 +31,7 @@ import NoticeBar from '../../Common/View/notice/TCNoticeBar';
 import {config, appId, appVersion, AppName} from '../../Common/Network/TCRequestConfig';
 import NetUitls from '../../Common/Network/TCRequestUitls';
 import TCInitHelperC from '../../Common/JXHelper/TCInitHelper';
+
 let TCInitHelper = new TCInitHelperC();
 import Dialog from '../../Common/View/TipDialog';
 import TopWinnerView from './View/TCTopWinnerScrollView';
@@ -41,16 +42,20 @@ import {observer} from 'mobx-react/native';
 
 import {width, indexBgColor, indexTxtColor} from '../resouce/theme';
 import NetWorkTool from '../../Common/Network/TCToolNetWork';
+
 let isFirstLoad = false;
 let listModel = null;
 let isLoadFinish = false;
 import TCUserCollectHelper from '../../Common/JXHelper/TCUserCollectHelper';
 import RedPacketMenu from '../red_packet/components/RedPacketMenu';
+
 let TCUserCollectHelpers = new TCUserCollectHelper();
 let RedPacketData = new RedPacket();
 import RedPacket from '../red_packet/RedPacketData';
 // import Swiper from 'react-native-swiper'
 import Swiper from '../../Common/View/swiper/Swiper'
+import BackBaseComponent from '../../Page/Base/TCBaseBackComponent'
+
 
 @observer
 export default class TCHome extends Component {
@@ -89,7 +94,6 @@ export default class TCHome extends Component {
             TCInitHelper.getMsgStatus()
         }
         NetWorkTool.addEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
-        // BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
         AppState.addEventListener('change', this.handleAppStateChange);
 
         setTimeout(() => {
@@ -114,25 +118,25 @@ export default class TCHome extends Component {
         this.timer3 && clearTimeout(this.timer3);
         this.listener && this.listener.remove();
         NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
-        // BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
         AppState.removeEventListener('change', this.handleAppStateChange);
     }
-    //
-    // onBackAndroid() {
-    //     if (TCHome.lastBackPressed && TCHome.lastBackPressed >= Moment().subtract(2, 'seconds')) {
-    //         //最近2秒内按过back键，可以退出应用。
-    //         isFirstLoad = false;
-    //         return false;
-    //     }
-    //     AppState.removeEventListener('change', this.handleAppStateChange);
-    //     TCHome.lastBackPressed = Moment();
-    //     Toast.showShortCenter('再按一次退出应用');
-    //     return true;
-    // }
+
+    onBackAndroid() {
+        JXLog("============homeback")
+        if (TCHome.lastBackPressed && TCHome.lastBackPressed >= Moment().subtract(2, 'seconds')) {
+            //最近2秒内按过back键，可以退出应用。
+            isFirstLoad = false;
+            return false;
+        }
+        AppState.removeEventListener('change', this.handleAppStateChange);
+        TCHome.lastBackPressed = Moment();
+        Toast.showShortCenter('再按一次退出应用');
+        return true;
+    }
 
     render() {
         return (
-            <View style={styles.container} keyboardShouldPersistTaps={true}>
+            <View style={styles.container} keyboardShouldPersistTaps={"always"}>
                 <TopNavigationBar
                     title={AppName}
                     needBackButton={this.state.isLogin ? true : false}
@@ -143,9 +147,9 @@ export default class TCHome extends Component {
                     backButtonCall={
                         this.state.isLogin
                             ? () => {
-                            RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
-                            RCTDeviceEventEmitter.emit('balanceChange', true);
-                        }
+                                RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
+                                RCTDeviceEventEmitter.emit('balanceChange', true);
+                            }
                             : () => NavigatorHelper.pushToUserRegister()
                     }
                     rightButtonCall={() =>
@@ -200,12 +204,12 @@ export default class TCHome extends Component {
     //渲染banner
     renderBanner() {
         return (<Swiper
-            width={ width }
-            height={width * 0.383 }
+            width={width}
+            height={width * 0.383}
             autoplay={true}
-            dataSource={ this.state.content.bannerData}
+            dataSource={this.state.content.bannerData}
             renderRow={(item, index) => {
-                return (  <Image
+                return (<Image
                     source={{uri: item.bannerImageUrl}}
                     style={styles.page}/>)
             }}
@@ -232,7 +236,7 @@ export default class TCHome extends Component {
 
     getRedPacketButton() {
         if (RedPacketData.hbdisplay) {
-            return <RedPacketMenu />;
+            return <RedPacketMenu/>;
         }
     }
 
@@ -338,7 +342,7 @@ export default class TCHome extends Component {
 
     //渲染热门彩种
     renderHotItemView(item, index) {
-        return (  <HotItemView
+        return (<HotItemView
             rowData={item}
             rowID={index}
             pushToEvent={item => this._pushToBetHomePage(item)}
@@ -347,7 +351,7 @@ export default class TCHome extends Component {
 
 //渲染推荐彩种
     renderKindItemView(item) {
-        return ( <KindItemView
+        return (<KindItemView
             rowData={item}
             mTimer={item.mTiter}
             title={item.gameNameInChinese}

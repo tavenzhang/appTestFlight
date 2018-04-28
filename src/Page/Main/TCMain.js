@@ -2,8 +2,19 @@
  * Created by Sam on 2016/11/10.
  */
 
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Navigator, Platform, Image, PanResponder, Dimensions } from 'react-native';
+import React, {Component} from 'react';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Navigator,
+    Platform,
+    Image,
+    PanResponder,
+    Dimensions,
+    AppState,
+    BackHandler
+} from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import Home from '../Home/TCHome';
 import LotteryLobby from '../LotteryLobby/TCLotteryLobby';
@@ -12,11 +23,14 @@ import Discover from '../Trend/TCTrend';
 import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
-import BackBaseComponent from '../../Page/Base/TCBaseBackComponent';
-import { width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size } from '../resouce/theme';
+import {width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size} from '../resouce/theme';
 import SoundHelper from '../../Common/JXHelper/SoundHelper';
-import { home } from '../resouce/images';
-export default class TC168 extends BackBaseComponent {
+import {home} from '../resouce/images';
+import Toast from "../../Common/JXHelper/JXToast";
+import Moment from "moment/moment";
+
+
+export default class TC168 extends Component {
     constructor(state) {
         super(state);
         this.state = {
@@ -35,22 +49,20 @@ export default class TC168 extends BackBaseComponent {
                 newMsg: TC_NEW_MSG_COUNT
             });
         });
-        super.componentDidMount();
     }
 
     componentWillUnmount() {
         this.listener && this.listener.remove();
         this.timer && clearTimeout(this.timer);
-        super.componentWillUnmount();
     }
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
-                <TabNavigator tabBarStyle={{ backgroundColor: indexBgColor.tabBg }}>
+            <View style={{flex: 1}}>
+                <TabNavigator tabBarStyle={{backgroundColor: indexBgColor.tabBg, height: 56}}>
                     {/*--首页--*/}
                     {this.renderTabBarItem(
-                        <Home navigator={this.props.navigator} cpArray={this.state.cpArray} />,
+                        <Home navigator={this.props.navigator} cpArray={this.state.cpArray}/>,
                         '首页',
                         home.indexHomeNormal,
                         home.indexHomePressed,
@@ -58,7 +70,7 @@ export default class TC168 extends BackBaseComponent {
                     )}
                     {/*--开奖大厅--*/}
                     {this.renderTabBarItem(
-                        <ShopingLobby navigator={this.props.navigator} cpArray={this.state.cpArray} />,
+                        <ShopingLobby navigator={this.props.navigator} cpArray={this.state.cpArray}/>,
                         '购彩',
                         home.indexShoppingNormal,
                         home.indexShoppingPressed,
@@ -66,7 +78,7 @@ export default class TC168 extends BackBaseComponent {
                     )}
                     {/*/!*--开奖大厅--*!/*/}
                     {this.renderTabBarItem(
-                        <LotteryLobby navigator={this.props.navigator} />,
+                        <LotteryLobby navigator={this.props.navigator}/>,
                         '开奖',
                         home.indexLotteryNormal,
                         home.indexLotteryPressed,
@@ -74,7 +86,7 @@ export default class TC168 extends BackBaseComponent {
                     )}
                     {/*/!*--发现--*!/*/}
                     {this.renderTabBarItem(
-                        <Discover navigator={this.props.navigator} />,
+                        <Discover navigator={this.props.navigator}/>,
                         '走势',
                         home.indexTrendNormal,
                         home.indexTrendPressed,
@@ -82,7 +94,7 @@ export default class TC168 extends BackBaseComponent {
                     )}
                     {/*/!*--用户中心--*!/*/}
                     {this.renderTabBarItem(
-                        <TCUserCenterHome navigator={this.props.navigator} />,
+                        <TCUserCenterHome navigator={this.props.navigator}/>,
                         '我的',
                         home.indexMineNormal,
                         home.indexMinePressed,
@@ -106,8 +118,8 @@ export default class TC168 extends BackBaseComponent {
                     this.setSelectedTab(selectedTab, this.state.initPage);
                 }}
                 selected={this.state.selectedTab === selectedTab}
-                selectedTitleStyle={{ color: indexTxtColor.bottomMenuTitlePressed, fontSize: Size.font14 }}
-                titleStyle={{ color: indexTxtColor.bottomMenuTitleNormal, fontSize: Size.font14 }}
+                selectedTitleStyle={{color: indexTxtColor.bottomMenuTitlePressed, fontSize: Size.font14}}
+                titleStyle={{color: indexTxtColor.bottomMenuTitleNormal, fontSize: Size.font14}}
             >
                 {model}
             </TabNavigator.Item>
@@ -136,7 +148,7 @@ export default class TC168 extends BackBaseComponent {
             RCTDeviceEventEmitter.emit('needChangeAnimated', 'stop');
         }
         TC_AppState.selectedTabName = tabName;
-        this.setState({ selectedTab: tabName });
+        this.setState({selectedTab: tabName});
     }
 
     getTab(title, isSelected, iconName, selectedIconName) {
@@ -148,7 +160,7 @@ export default class TC168 extends BackBaseComponent {
                         style={!isSelected ? indexBtmStyle.iconStyle : indexBtmStyle.iconStyleSelected}
                         resizeMode={'contain'}
                     />
-                    {TC_NEW_MSG_COUNT != 0 || TC_FEEDBACK_COUNT != 0 ? <View style={styles.pointStyle} /> : null}
+                    {TC_NEW_MSG_COUNT != 0 || TC_FEEDBACK_COUNT != 0 ? <View style={styles.pointStyle}/> : null}
                 </View>
             );
         } else {
@@ -162,6 +174,17 @@ export default class TC168 extends BackBaseComponent {
                 </View>
             );
         }
+    }
+
+    onBackAndroid() {
+        JXLog("============mainback")
+        if (this.lastBackPressed && this.lastBackPressed >= Moment().subtract(2, 'seconds')) {
+            //最近2秒内按过back键，可以退出应用。
+            return false;
+        }
+        this.lastBackPressed = Moment();
+        Toast.showShortCenter('再按一次退出应用');
+        return true;
     }
 }
 
