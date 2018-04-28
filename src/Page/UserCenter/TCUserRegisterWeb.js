@@ -120,7 +120,7 @@ export default class TCUserRegister extends BackBaseComponent {
                 break;
             case 'to_login':
                 if (this.isGuestValue || this.props.fromLoginToRegister) {
-                    this.props.navigator.pop();
+                    Helper.popToBack()
                 } else {
                     Helper.pushToUserLogin(true, null, true);
                 }

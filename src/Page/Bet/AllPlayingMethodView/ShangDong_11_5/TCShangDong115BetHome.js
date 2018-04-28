@@ -54,6 +54,9 @@ let SingletonDPS = null;
 let myPlayMath = '';
 let myGameSetting = null
 
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
+@withMappedNavigationProps()
 export default class TCMarkSixBetHome extends React.Component {
 
     constructor(state) {
@@ -268,7 +271,7 @@ export default class TCMarkSixBetHome extends React.Component {
         if (index == 0) {
             NavigatorHelper.pushToOrderRecord()
         } else if (index == 1) {
-            NavigatorHelper.pushToLotteryHistoryList(this.props.title,this.props.gameUniqueId,true)
+            NavigatorHelper.pushToLotteryHistoryList({title:this.props.title,gameUniqueId:this.props.gameUniqueId,betBack:true})
         } else if (index == 2) {
             let gameInfo = JXHelper.getGameInfoWithUniqueId(this.props.gameUniqueId)
             if (gameInfo) {
@@ -428,7 +431,7 @@ export default class TCMarkSixBetHome extends React.Component {
                 [{
                     text: '确定', onPress: () => {
                         SingletonDPS.resetAllData()
-                        this.props.navigator.popToTop()
+                        NavigatorHelper.popToBack()
                     }
                 },
                     {
@@ -437,7 +440,7 @@ export default class TCMarkSixBetHome extends React.Component {
                     },
                 ])
         }else {
-            this.props.navigator.popToTop()
+            NavigatorHelper.popToBack()
         }
     }
 

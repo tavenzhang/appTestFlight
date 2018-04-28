@@ -16,16 +16,16 @@ import PCDDShopping from '../../Page/ShoppingLobby/TCPCDDShopingLobby'
 
 //彩票下注界面
 import MarkSixBetHome from '../../Page/Bet/AllPlayingMethodView/MarkSix/TCMarkSixBetHome'
-// import ChongQingSSCBetHome from '../../Page/Bet/AllPlayingMethodView/ChongQingSSC/TCChongQingSSCBetHome';
-// import TCBJPK10BetHome from '../../Page/Bet/AllPlayingMethodView/BJPK10/TCBJPK10BetHome'
-// import TCKL10FBetHome from '../../Page/Bet/AllPlayingMethodView/KL10F/TCKL10FBetHome'
-// import TCShangDong115BetHome from '../../Page/Bet/AllPlayingMethodView/ShangDong_11_5/TCShangDong115BetHome'
-// import TCPCDDBetHome from '../../Page/Bet/AllPlayingMethodView/PCDD/TCPCDDBetHome'
-// import TCSSLBetHome from '../../Page/Bet/AllPlayingMethodView/SSL/TCSSLBetHome'
-// import QXCBetHome from '../../Page/Bet/AllPlayingMethodView/QXC/QXCBetHome'
-// import TCK3BetHome from '../../Page/Bet/AllPlayingMethodView/K3/TCK3BetHome'
-// import TCHappyPokerBetHome from '../../Page/Bet/AllPlayingMethodView/HappyPoker/TCHappyPokerBetHome'
-// import TCXYFTBetHome from '../../Page/Bet/AllPlayingMethodView/XYFT/TCXYFTBetHome'
+import ChongQingSSCBetHome from '../../Page/Bet/AllPlayingMethodView/ChongQingSSC/TCChongQingSSCBetHome';
+import TCBJPK10BetHome from '../../Page/Bet/AllPlayingMethodView/BJPK10/TCBJPK10BetHome'
+import TCKL10FBetHome from '../../Page/Bet/AllPlayingMethodView/KL10F/TCKL10FBetHome'
+import TCShangDong115BetHome from '../../Page/Bet/AllPlayingMethodView/ShangDong_11_5/TCShangDong115BetHome'
+import TCPCDDBetHome from '../../Page/Bet/AllPlayingMethodView/PCDD/TCPCDDBetHome'
+import TCSSLBetHome from '../../Page/Bet/AllPlayingMethodView/SSL/TCSSLBetHome'
+import QXCBetHome from '../../Page/Bet/AllPlayingMethodView/QXC/QXCBetHome'
+import TCK3BetHome from '../../Page/Bet/AllPlayingMethodView/K3/TCK3BetHome'
+import TCHappyPokerBetHome from '../../Page/Bet/AllPlayingMethodView/HappyPoker/TCHappyPokerBetHome'
+import TCXYFTBetHome from '../../Page/Bet/AllPlayingMethodView/XYFT/TCXYFTBetHome'
 
 //购彩
 import TCBetBill from '../../Page/Bill/TCBetBill'
@@ -98,16 +98,16 @@ const Components = {
     TCPromotionList: {screen: TCPromotionList},
     PCDDShopping: {screen: PCDDShopping},
     MarkSixBetHome: {screen: MarkSixBetHome},
-    // ChongQingSSCBetHome: {screen: ChongQingSSCBetHome},
-    // TCShangDong115BetHome: {screen: TCShangDong115BetHome},
-    // TCBJPK10BetHome: {screen: TCBJPK10BetHome},
-    // TCKL10FBetHome: {screen: TCKL10FBetHome},
-    // TCPCDDBetHome: {screen: TCPCDDBetHome},
-    // TCSSLBetHome: {screen: TCSSLBetHome},
-    // QXCBetHome: {screen: QXCBetHome},
-    // TCK3BetHome: {screen: TCK3BetHome},
-    // TCHappyPokerBetHome: {screen: TCHappyPokerBetHome},
-    // TCXYFTBetHome: {screen: TCXYFTBetHome},
+    ChongQingSSCBetHome: {screen: ChongQingSSCBetHome},
+    TCShangDong115BetHome: {screen: TCShangDong115BetHome},
+    TCBJPK10BetHome: {screen: TCBJPK10BetHome},
+    TCKL10FBetHome: {screen: TCKL10FBetHome},
+    TCPCDDBetHome: {screen: TCPCDDBetHome},
+    TCSSLBetHome: {screen: TCSSLBetHome},
+    QXCBetHome: {screen: QXCBetHome},
+    TCK3BetHome: {screen: TCK3BetHome},
+    TCHappyPokerBetHome: {screen: TCHappyPokerBetHome},
+    TCXYFTBetHome: {screen: TCXYFTBetHome},
     TCBetBill: {screen: TCBetBill},
     TCBillSucceedPage: {screen: TCBillSucceedPage},
     IntelligenceBet: {screen: IntelligenceBet},

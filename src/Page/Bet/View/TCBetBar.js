@@ -75,7 +75,7 @@ export default class TCBetBar extends React.Component {
                     onPress={this.backButtonCall.bind(this)}
                     underlayColor='#DEDEDE'
                 >
-                    <Text style={styles.rightViewStyle}>购彩助手</Text>
+                    <Text style={styles.rightViewStyle}></Text>
                 </TouchableOpacity>
 
                 {this.renderGetRightButton()}

@@ -14,6 +14,7 @@ import ListStyle from './View/TCShopingListStyle';
 import BackBaseComponent from '../Base/TCBaseBackComponent';
 import LotteryResultData from '../../Data/JXLotteryResultData';
 import { indexBgColor } from '../resouce/theme';
+import TCNavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 
 @observer
 export default class MyComponent extends BackBaseComponent {
@@ -44,7 +45,7 @@ export default class MyComponent extends BackBaseComponent {
                     title="PC蛋蛋"
                     needBackButton={true}
                     backButtonCall={() => {
-                        this.props.navigator.pop();
+                        NavigatorHelper.popToBack()
                     }}
                 />
                 {this.getContentView()}

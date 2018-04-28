@@ -16,6 +16,7 @@ import {width, height, listViewTxtColor, indexBgColor} from '../../resouce/theme
 
 /**组件内部显示需要引入的类 */
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
+import TCNavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 
 /** 外部关系组件 如 页面跳转用 */
 
@@ -38,7 +39,7 @@ export default class MyComponent extends React.Component {
         return (
             <View style={styles.container}>
                 <TopNavigationBar title='公告' needBackButton={true} backButtonCall={()=> {
-                    this.props.navigator.pop()
+                    NavigatorHelper.popToBack()
                 }}/>
                 <ScrollView>
                     {this.getInnerView()}

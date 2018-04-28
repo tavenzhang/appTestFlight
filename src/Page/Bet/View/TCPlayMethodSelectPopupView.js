@@ -17,8 +17,10 @@ import {
 } from 'react-native';
 import {Size, width, indexBgColor, popuWinStyle} from '../../resouce/theme'
 import * as _ from "lodash";
+var createReactClass = require('create-react-class');
 
-var TCPlayMethodSelectPopupView = React.createClass({
+
+var TCPlayMethodSelectPopupView = createReactClass({
 
     getInitialState(){
         return {
