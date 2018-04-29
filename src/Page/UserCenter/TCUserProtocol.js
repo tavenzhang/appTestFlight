@@ -4,9 +4,8 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
+
 import {
     StyleSheet,
     Text,
@@ -35,7 +34,7 @@ export default class TCUserProtocol extends Component {
                     title={'服务协议'}
                     needBackButton={true}
                     backButtonCall={() => {
-                        NavigatorHelper.popToBack()
+                        TCNavigatorHelper.popToBack()
                     }}/>
                 <View style={styles.contentStyle}>
                     <Text style={{fontSize: Size.large}}>本公司只接受年龄已满18岁的注册用户。

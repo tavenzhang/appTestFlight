@@ -4,7 +4,7 @@
  */
 
 /**系统 npm类 */
-import React from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Dimensions, Image, Platform
 } from 'react-native';
@@ -29,7 +29,7 @@ import {config} from '../../../Common/Network/TCRequestConfig';
 import TCAgentAffCodeList from './TCAgentAffCodeList';
 import AgentTeamList from './Team/TCAgentTeamManager';
 
-export default class TCAgentAddAccount extends React.Component {
+export default class TCAgentAddAccount extends Component {
     secretUtils = new SecretUtils();
 
     constructor(state) {
@@ -56,8 +56,8 @@ export default class TCAgentAddAccount extends React.Component {
         );
     }
 
-    getState(selectedIndex){
-        return({
+    getState(selectedIndex) {
+        return ({
             selectedIndex,
             memberType: 'AGENT',//PLAYER
             accountKind: 0,
@@ -76,14 +76,14 @@ export default class TCAgentAddAccount extends React.Component {
 
         let judgmentValue = shouldAddCode ? this.state.affCode : this.state.username;
         let re = shouldAddCode ? /^[0-9A-Za-z]{1,20}$/ : /^[0-9A-Za-z]{4,12}$/;
-        if(shouldAddCode && (!judgmentValue || judgmentValue.length > 20 || !judgmentValue.match(re))) {
+        if (shouldAddCode && (!judgmentValue || judgmentValue.length > 20 || !judgmentValue.match(re))) {
             Toast.showShortCenter("邀请码格式错误,只能是20位以内的数字与字母的组合");
             return;
-        }else if(!judgmentValue || judgmentValue.length < 4 || judgmentValue.length > 12 || !judgmentValue.match(re)) {
+        } else if (!judgmentValue || judgmentValue.length < 4 || judgmentValue.length > 12 || !judgmentValue.match(re)) {
             Toast.showShortCenter("用户名格式错误");
             return;
         }
-        if(!shouldAddCode&&!judgmentValue.match(/[a-zA-Z]/i)) {
+        if (!shouldAddCode && !judgmentValue.match(/[a-zA-Z]/i)) {
             Toast.showShortCenter("用户名必须至少包含一位字母");
             return;
         }
@@ -106,10 +106,10 @@ export default class TCAgentAddAccount extends React.Component {
             this._modalLoadingSpinnerOverLay.hide();
             if (data && data.rs) {
                 this.timer = setTimeout(() => {
-                    if(shouldAddCode){
+                    if (shouldAddCode) {
                         Toast.showShortCenter(judgmentValue + '\n邀请码创建成功');
                         this.setState(this.getState(1));
-                    }else {
+                    } else {
                         this.goToTeam();
                         Toast.showShortCenter(judgmentValue + '\n注册成功');
                         this.setState(this.getState(0));
@@ -129,24 +129,24 @@ export default class TCAgentAddAccount extends React.Component {
     }
 
     goBack() {
-      Helper.popToBack()
+        Helper.popToBack()
     }
 
     goToTeam() {
-      if (this.props.isFromTeamManager) {
-        RCTDeviceEventEmitter.emit('agentManagerAddUserRefresh');
-        Helper.popToBack()
-      } else {
-        Helper.pushToUserTeamManager(2);
-        // navigator.push({
-        //   name: 'userAgentTeam',
-        //   component: AgentTeamList,
-        //   passProps: {
-        //     wantPopToN: 2,
-        //     ...this.props,
-        //   }
-        // });
-      }
+        if (this.props.isFromTeamManager) {
+            RCTDeviceEventEmitter.emit('agentManagerAddUserRefresh');
+            Helper.popToBack()
+        } else {
+            Helper.pushToUserTeamManager(2);
+            // navigator.push({
+            //   name: 'userAgentTeam',
+            //   component: AgentTeamList,
+            //   passProps: {
+            //     wantPopToN: 2,
+            //     ...this.props,
+            //   }
+            // });
+        }
     }
 
     getPrizeGroupArray() {
@@ -177,9 +177,9 @@ export default class TCAgentAddAccount extends React.Component {
     }
 
     onChangeText(value, isAccurate) {
-        if(isAccurate){
+        if (isAccurate) {
             this.setState({username: value});
-        }else {
+        } else {
             this.setState({affCode: value})
         }
     }
@@ -205,7 +205,7 @@ export default class TCAgentAddAccount extends React.Component {
             <View style={styles.centerContent}>
                 <View style={[styles.switchContentContainer, !isAccurate && styles.invitationCode]}>
                     <Text style={[styles.nameAndCodeText, isAccurate && styles.userNameText]}>
-                        {isAccurate ? '用户名': '邀请码:'}
+                        {isAccurate ? '用户名' : '邀请码:'}
                     </Text>
                     <TextInput underlineColorAndroid={'transparent'}
                                onChangeText={(value) => this.onChangeText(value, isAccurate)}
@@ -215,9 +215,9 @@ export default class TCAgentAddAccount extends React.Component {
                                placeholder={isAccurate ? '请输入用户名' : '字母或数字组合'}
                     />
                     {!isAccurate &&
-                        <TouchableOpacity onPress={() => this.getRandomAffCode()} style={styles.randomAffCode}>
-                            <Text style={styles.randomAffCodeText}>随机选码</Text>
-                        </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.getRandomAffCode()} style={styles.randomAffCode}>
+                        <Text style={styles.randomAffCodeText}>随机选码</Text>
+                    </TouchableOpacity>
                     }
                 </View>
                 <TouchableOpacity onPress={() => this.onPressShowDropDown()}>
@@ -248,9 +248,9 @@ export default class TCAgentAddAccount extends React.Component {
         let fuc = () => {
             this.setState({memberType: 'AGENT'});
         };
-        if(title ==  '玩家帐号'){
+        if (title == '玩家帐号') {
             switchImage = isAgent ? agent.type : agent.typeOn;
-            avatar =  isAgent ? agent.headPlayer : agent.headPlayerOn;
+            avatar = isAgent ? agent.headPlayer : agent.headPlayerOn;
             fuc = () => {
                 this.setState({memberType: 'PLAYER'});
             };
@@ -502,7 +502,7 @@ const styles = StyleSheet.create({
         width: 80,
         marginLeft: 10,
     },
-    accurateRebateText:{
+    accurateRebateText: {
         width: 100,
         marginLeft: null,
     },

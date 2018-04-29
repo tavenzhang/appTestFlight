@@ -1,9 +1,7 @@
 /**
  * Created by Sam on 2016/11/29.
  */
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -18,7 +16,7 @@ var {
 } = Dimensions.get('window');
 import {Size, betHome} from '../resouce/theme'
 
-export default class TCBetHomeBottomView extends React.Component {
+export default class TCBetHomeBottomView extends Component {
     constructor(state) {
         super(state);
         this.state = {};

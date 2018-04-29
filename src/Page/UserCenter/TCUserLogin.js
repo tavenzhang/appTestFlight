@@ -28,17 +28,18 @@ import {config, appVersion, versionHotFix} from '../../Common/Network/TCRequestC
 import NetUtils from '../../Common/Network/TCRequestUitls'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Base64 from '../../Common/JXHelper/Base64'
-import BackBaseComponent from '../Base/TCBaseBackComponent'
 import SecretUtils from '../../Common/JXHelper/SecretUtils'
 import JXHelpers from '../../Common/JXHelper/JXHelper'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import ModalDropdown from '../../Common/View/ModalDropdown'
 import TCUserCollectHelper from '../../Common/JXHelper/TCUserCollectHelper'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
 let UserCollectHelper = new TCUserCollectHelper()
 let base64 = new Base64()
 let secretUtils = new SecretUtils()
 import TCInitHelperC from '../../Common/JXHelper/TCInitHelper'
+
 let TCInitHelper = new TCInitHelperC()
 import {common, personal} from '../resouce/images'
 import {
@@ -53,9 +54,9 @@ import {
 /**
  * 登录界面
  */
-@observer
 @withMappedNavigationProps()
-export default class TCUserLogin extends BackBaseComponent {
+@observer
+export default class TCUserLogin extends Component {
 
     password = ''
     nowVersion = ''
@@ -362,6 +363,7 @@ export default class TCUserLogin extends BackBaseComponent {
             </TouchableOpacity>)
     }
 }
+
 class StateModel {
     @observable
     userName = ''

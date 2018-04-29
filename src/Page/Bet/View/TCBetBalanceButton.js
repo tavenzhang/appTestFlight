@@ -3,9 +3,7 @@
  * Copyright © 2017年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -19,7 +17,7 @@ import {config} from '../../../Common/Network/TCRequestConfig'
 import NetUitls from '../../../Common/Network/TCRequestUitls'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import {Size,betHome} from '../../resouce/theme'
-export default class MyComponent extends React.Component {
+export default class MyComponent extends Component {
 
     static defaultProps = {
 

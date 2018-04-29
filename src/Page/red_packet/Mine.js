@@ -3,13 +3,12 @@
  * Created by Joyce on 2017/01/06.
  */
 
-import React from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {observer} from 'mobx-react/native';
 import {observable, computed, action} from 'mobx';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 import {Size, width, height, statusBarHeight} from '../resouce/theme';
-import BackBaseComponent from '../Base/TCBaseBackComponent';
 import TopNavigationBar from './components/TCNavigationBar';
 import NetUtils from '../../Common/Network/TCRequestUitls';
 import {config} from '../../Common/Network/TCRequestConfig';
@@ -17,7 +16,7 @@ import RefreshListView from '../../Common/View/RefreshListView/RefreshListView';
 import NoDataView from '../../Common/View/TCNoDataView';
 
 @observer
-export  default  class Mine extends BackBaseComponent {
+export default class Mine extends Component {
     constructor(props) {
         super(props);
         this.stateModel = new StateModel();
@@ -59,13 +58,13 @@ export  default  class Mine extends BackBaseComponent {
             (data) => {
                 this._modalLoadingSpinnerOverLay.hide();
                 if (data.rs) {
-                    if(data.content) {
-                        if(pageNum == 0){
+                    if (data.content) {
+                        if (pageNum == 0) {
                             this.stateModel.setValues(data.content.totalAmount, data.content.totalCount);
                         }
 
                         callBack(data, data.content.datas && data.content.datas);
-                    }else {
+                    } else {
                         callBack(data, null);
                     }
                 }
@@ -93,7 +92,7 @@ export  default  class Mine extends BackBaseComponent {
     }
 
     renderRow(rowData) {
-        if(!rowData){
+        if (!rowData) {
             return;
         }
 
@@ -107,7 +106,7 @@ export  default  class Mine extends BackBaseComponent {
     }
 
     renderNoDataView() {
-        return(<NoDataView ref='NoDataView' titleTip={''} contentTip='我的红包数据为空'/>);
+        return (<NoDataView ref='NoDataView' titleTip={''} contentTip='我的红包数据为空'/>);
     }
 }
 

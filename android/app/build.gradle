@@ -192,7 +192,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-view-shot')
     compile project(':react-native-toast-native')
     compile project(':react-native-shake-event')
     compile project(':react-native-code-push')

@@ -370,7 +370,7 @@ export default class TCXYFTBetHome extends React.Component {
 
     pushToBetBill() {
         this.clearSelectedNumbers()
-        NavigatorHelper.pushToBetBill(this.props.title,'XYFT',this.currentResultData.resultsData,this.props.gameUniqueId)
+        NavigatorHelper.pushToBetBill(this.props.title,'XYFT',this.currentResultData.resultsData,this.props.gameUniqueId,this.props.pagePathName)
         this.refs['contentScrollView'].scrollTo({x: 0, y: 0, animated: false})
     }
 

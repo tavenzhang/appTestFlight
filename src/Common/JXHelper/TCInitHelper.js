@@ -303,7 +303,6 @@ export default class TCInitHelper {
         }).catch(err => {
             RCTDeviceEventEmitter.emit('userStateChange', 'logout')
         });
-        JXLog("===============USERname", res)
         if (res) {
             TCUSER_DATA = res;
             if (res.username && res.password) {
@@ -330,7 +329,6 @@ export default class TCInitHelper {
                             })
                             TCUSER_BALANCE = user.balance;
                             TCUSER_DATA = user;
-                            JXLog("===============USERname", TCUSER_DATA)
                             this.getMsgStatus();
                             RCTDeviceEventEmitter.emit('userStateChange', 'login')
                         } else {

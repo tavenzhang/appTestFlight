@@ -49,12 +49,23 @@ export default class TC168 extends Component {
                 newMsg: TC_NEW_MSG_COUNT
             });
         });
+        BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
     }
 
     componentWillUnmount() {
         this.listener && this.listener.remove();
         this.timer && clearTimeout(this.timer);
+        BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
     }
+
+    static Navigation_routers;
+    static navigationOptions = {
+        header: ({navigation}) => {
+            let {state: {routes}} = navigation;
+            Navigation_routers = routes;
+            return null;
+        }
+    };
 
     render() {
         return (
@@ -176,15 +187,21 @@ export default class TC168 extends Component {
         }
     }
 
-    onBackAndroid() {
-        JXLog("============mainback")
-        if (this.lastBackPressed && this.lastBackPressed >= Moment().subtract(2, 'seconds')) {
-            //最近2秒内按过back键，可以退出应用。
-            return false;
+
+    onBackAndroid = () => {
+        let pathLength = Navigation_routers.length;
+        if (pathLength === 1) {
+            if (this.lastBackPressed && this.lastBackPressed >= Moment().subtract(2, 'seconds')) {
+                //最近2秒内按过back键，可以退出应用。
+                return false;
+            }
+            this.lastBackPressed = Moment();
+            Toast.showShortCenter('再按一次退出应用');
+            return true;
+        } else {
+            JXHelper.goBack(Navigation_routers, this.props.navigation);
+            return true;
         }
-        this.lastBackPressed = Moment();
-        Toast.showShortCenter('再按一次退出应用');
-        return true;
     }
 }
 

@@ -3,21 +3,20 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, AppState, Platform } from 'react-native';
+import React, {Component} from 'react';
+import {AppRegistry, StyleSheet, Text, View, AppState, Platform} from 'react-native';
 
-import { observer } from 'mobx-react/native';
+import {observer} from 'mobx-react/native';
 
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 
 import ListStyle from './View/TCShopingListStyle';
-import BackBaseComponent from '../Base/TCBaseBackComponent';
 import LotteryResultData from '../../Data/JXLotteryResultData';
-import { indexBgColor } from '../resouce/theme';
+import {indexBgColor} from '../resouce/theme';
 import TCNavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 
 @observer
-export default class MyComponent extends BackBaseComponent {
+export default class TCPCDDShopingLobby extends Component {
     constructor(state) {
         super(state);
         this.state = {
@@ -34,7 +33,6 @@ export default class MyComponent extends BackBaseComponent {
     }
 
     componentDidMount() {
-        super.componentDidMount();
         this.lotteryResultData.startCountDownTimer();
     }
 
@@ -66,7 +64,7 @@ export default class MyComponent extends BackBaseComponent {
     }
 
     rightButtonCall() {
-        this.setState({ listStyle: !this.state.listStyle });
+        this.setState({listStyle: !this.state.listStyle});
     }
 }
 

@@ -1,4 +1,4 @@
-import React, {Component, PropTypes,} from 'react';
+import React, {Component,} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {Size} from '../../Page/resouce/theme';
 
@@ -10,8 +10,8 @@ export default class TCUserIcon extends Component {
     // }
 
     render() {
-        return(
-            <View style={[styles.container,{backgroundColor: TCUSER_ICON_BGCOLOR}, this.props.style]}>
+        return (
+            <View style={[styles.container, {backgroundColor: TCUSER_ICON_BGCOLOR}, this.props.style]}>
                 <Text style={[styles.text, this.props.textStyle]}>{this.props.text}</Text>
             </View>
         );

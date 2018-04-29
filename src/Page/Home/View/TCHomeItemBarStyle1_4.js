@@ -7,9 +7,8 @@
  *
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
+
 import {
     AppRegistry,
     StyleSheet,
@@ -24,7 +23,7 @@ const colorArray = indexTxtColor.midMenuTitle
 import  {homeMenu} from '../../resouce/images'
 import FastImage from 'react-native-fast-image';
 
-export default class MyComponent extends React.Component {
+export default class MyComponent extends Component {
     constructor(state) {
         super(state)
         this.state = {}

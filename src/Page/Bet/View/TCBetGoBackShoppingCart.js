@@ -5,9 +5,7 @@
  * Created by Sam on 2016/11/11.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -19,7 +17,7 @@ import {
 } from 'react-native';
 import {Size, betHome} from '../../resouce/theme'
 import {betIcon} from '../../resouce/images'
-export default class MyComponent extends React.Component {
+export default class MyComponent extends Component {
 
     static defaultProps = {};
 

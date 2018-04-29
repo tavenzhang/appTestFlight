@@ -11,21 +11,18 @@ import {
 
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import {Size, indexBgColor, width, height, listViewTxtColor} from '../../resouce/theme'
-import BackBaseComponent from '../../Base/TCBaseBackComponent'
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 
-export default class TCForgotPassword extends BackBaseComponent {
+export default class TCForgotPassword extends Component {
 
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-        super.componentDidMount()
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount()
     }
 
     render() {

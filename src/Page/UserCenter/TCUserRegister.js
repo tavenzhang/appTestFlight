@@ -8,11 +8,9 @@ import Toast from '../../Common/JXHelper/JXToast';
 import {config} from '../../Common/Network/TCRequestConfig'
 import TimerMixin from 'react-timer-mixin'
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
-import ForgetPwd from './UserInfo/TCForgotPassword'
 import JXHelper from '../../Common/JXHelper/JXHelper'
 
 import dismissKeyboard from 'dismissKeyboard';
-import UserMessage from './UserInfo/TCUserMessage'
 import {Size, width, height} from '../../Page/resouce/theme'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
@@ -33,7 +31,6 @@ import {observable, computed, action} from 'mobx'
 
 import NetUtils from '../../Common/Network/TCRequestUitls'
 import Base64 from '../../Common/JXHelper/Base64'
-import BackBaseComponent from '../Base/TCBaseBackComponent'
 import Helper from '../../Common/JXHelper/TCNavigatorHelper'
 import JXHelpers from '../../Common/JXHelper/JXHelper'
 

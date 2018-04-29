@@ -2,9 +2,7 @@
  * Created by Sam on 01/09/2017.
  * Copyright © 2017年 JX. All rights reserved.
  */
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -16,7 +14,7 @@ import {
     Platform,
     TouchableOpacity,
     Image,
-    Alert,Keyboard
+    Alert, Keyboard
 } from 'react-native';
 
 /**系统 npm类 */
@@ -33,7 +31,7 @@ import {Size, width, height} from '../../resouce/theme'
 import NumberOnlyInputText from "../../../Common/View/NumberOnlyInputText";
 
 @observer
-export default class MyComponent extends React.Component {
+export default class TCIntelligenceBet_Modal extends Component {
     constructor(state) {
         super(state);
         this.state = {
@@ -79,9 +77,9 @@ export default class MyComponent extends React.Component {
 
 
     render() {
-        if(width<=350) {
+        if (width <= 350) {
             this.modalWidth = width - 35;//因为小屏幕 显示问题，所以-35
-        }else{
+        } else {
             this.modalWidth = width - 60;//因为大一点的屏幕显示问题，所以-60
         }
         return (
@@ -118,8 +116,8 @@ export default class MyComponent extends React.Component {
                 dismissKeyboard()
             }} style={{width: this.modalWidth, height: 348.5}} activeOpacity={1} underlayColor='transparent'>
 
-                <View style={[styles.container,{width:this.modalWidth}]}>
-                    <Text style={[styles.titleStyle,{width:this.modalWidth}]}>修改追号方案</Text>
+                <View style={[styles.container, {width: this.modalWidth}]}>
+                    <Text style={[styles.titleStyle, {width: this.modalWidth}]}>修改追号方案</Text>
                     <View style={{flex: 1, height: 0.5, backgroundColor: '#dcdcdc', marginBottom: 10}}></View>
 
                     {this.getIssue('连续追号:', "期")}
@@ -301,19 +299,19 @@ export default class MyComponent extends React.Component {
 
         switch (str) {
             case '确定': {
-                if(this.props.modalMobxData.data.continueIssueNumber=='' || this.props.modalMobxData.data.continueIssueNumber==0){
+                if (this.props.modalMobxData.data.continueIssueNumber == '' || this.props.modalMobxData.data.continueIssueNumber == 0) {
                     Alert.alert(
                         '温馨提示', '当前所选方案的追号期数为0或者为空,请重新修改',
                         [{text: '确定'}]);
                     return
                 }
-                if(this.props.modalMobxData.data.startMultiple==''||this.props.modalMobxData.data.startMultiple==0){
+                if (this.props.modalMobxData.data.startMultiple == '' || this.props.modalMobxData.data.startMultiple == 0) {
                     Alert.alert(
                         '温馨提示', '当前所选方案的倍数为0或者为空,请重新修改',
                         [{text: '确定'}]);
                     return
                 }
-                if(!this.props.modalMobxData.checkExpectProfitInputIsCorrect()){
+                if (!this.props.modalMobxData.checkExpectProfitInputIsCorrect()) {
                     Alert.alert(
                         '温馨提示', '当前所选方案数值不能为空',
                         [{text: '确定'}]);

@@ -3,9 +3,7 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
@@ -14,7 +12,7 @@ import {
 import Moment from 'moment'
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../resouce/theme'
 
-export default class MyComponent extends React.Component {
+export default class TCUserMessageItemView extends Component {
 
     constructor(state) {
         super(state)

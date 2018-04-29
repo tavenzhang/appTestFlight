@@ -2,26 +2,25 @@
  * Created by allen-jx on 2017/5/11.
  */
 
-import React from 'react';
+import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, TextInput, ScrollView, Platform} from 'react-native';
 import {observer} from 'mobx-react/native';
 import {observable, computed, action} from 'mobx';
 import Toast from '../../../Common/JXHelper/JXToast';
-import  dismissKeyboard from 'dismissKeyboard';
+import dismissKeyboard from 'dismissKeyboard';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import NetUtils from '../../../Common/Network/TCRequestUitls';
 import {config} from '../../../Common/Network/TCRequestConfig';
-import BackBaseComponent from '../../Base/TCBaseBackComponent';
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import {
     Size, width, height, indexBgColor, userCenterTxtColor, loginAndRegeisterBgColor, loginAndRegeisterTxtColor,
     loginAndRegeisterBorderColor
 } from '../../resouce/theme';
 
-export default class TCUserFeedback extends BackBaseComponent {
+export default class TCUserFeedback extends Component {
     title = '';
     content = '';
 
@@ -50,7 +49,7 @@ export default class TCUserFeedback extends BackBaseComponent {
     }
 
     goBack() {
-      Helper.popToBack()
+        Helper.popToBack()
     }
 
     submitFeedback() {
@@ -76,8 +75,8 @@ export default class TCUserFeedback extends BackBaseComponent {
         this.setState({contentNumber: this.content.length});
     }
 
-    renderContent(){
-        return(
+    renderContent() {
+        return (
             <View style={styles.contentContainer}>
                 <Text style={styles.content}>内容</Text>
                 <View style={styles.inputContainer}>
@@ -97,7 +96,7 @@ export default class TCUserFeedback extends BackBaseComponent {
         );
     }
 
-    render () {
+    render() {
         return (
             <View style={styles.container}>
                 <TopNavigationBar

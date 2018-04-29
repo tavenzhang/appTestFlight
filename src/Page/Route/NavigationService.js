@@ -2,10 +2,11 @@
  * Created by allen-jx on 2018/3/29.
  */
 import {NavigationActions} from 'react-navigation'
-import Helper from  '../../Common/JXHelper/JXHelper'
-import Toast from  '../../Common/JXHelper/JXToast'
+import Helper from '../../Common/JXHelper/JXHelper'
+import Toast from '../../Common/JXHelper/JXToast'
 
 let _navigator;
+
 function setTopLevelNavigator(navigatorRef) {
     _navigator = navigatorRef;
 }
@@ -25,12 +26,6 @@ function navigate(routeName, params) {
     )
 }
 
-/**
- * 获取路由栈
- */
-function getRoutes() {
-    return _navigator.routes;
-}
 
 /**
  * 返回
@@ -55,6 +50,7 @@ function popN(n) {
         NavigationActions.popN(n)
     )
 }
+
 /**
  * 返回指定层级页面
  * @param n
@@ -196,7 +192,7 @@ function pushToBetHome(data) {
         return
     }
     if (navigator && page) {
-        navigate(page, {title: data.gameNameInChinese, gameUniqueId: data.gameUniqueId})
+        navigate(page, {title: data.gameNameInChinese, gameUniqueId: data.gameUniqueId, pagePathName: page})
     } else {
         Toast.showShortCenter('该玩法暂未开放')
     }
@@ -213,6 +209,5 @@ export default {
     tokenIsError,
     loadingWebViewWithUrl,
     pushToBetHome,
-    getRoutes,
-    popN
+    popN,
 }

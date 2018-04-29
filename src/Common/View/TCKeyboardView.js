@@ -2,9 +2,8 @@
  * Created by Joyce on 2017/03/25.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
+
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 import {
@@ -26,7 +25,7 @@ import {Size, width, height, statusBarHeight} from '../../Page/resouce/theme'
  * 自定义输入数字键盘
  */
 @observer
-export default class TCKeyboardView extends React.Component {
+export default class TCKeyboardView extends Component {
 
     @observable
     modalVisible = false

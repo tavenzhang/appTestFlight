@@ -3,14 +3,13 @@
  * Created by Joyce on 2017/01/11.
  */
 
-import React from 'react';
+import React ,{Component}from 'react';
 import {StyleSheet, View, WebView} from 'react-native';
 import {height, statusBarHeight} from '../resouce/theme';
-import BackBaseComponent from '../Base/TCBaseBackComponent';
 import TopNavigationBar from './components/TCNavigationBar';
 import RedPacket from './RedPacketData';
 
-export  default  class Rules extends BackBaseComponent {
+export  default  class Rules extends Component {
     RedPacketData = new RedPacket();
 
     constructor(props) {

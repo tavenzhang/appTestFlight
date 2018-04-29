@@ -26,7 +26,7 @@ Helper.pushToBetHome = (rowData) => {
     NavigationService.pushToBetHome(rowData)
 }
 
-Helper.pushToBetBill = (title, gameName, cpInfoData, gameUniqueId) => {
+Helper.pushToBetBill = (title, gameName, cpInfoData, gameUniqueId, pagePathName) => {
     if (cpInfoData.rightData == null) {
         Toast.showShortCenter('网络连接似乎异常,稍后再试试')
         return
@@ -35,7 +35,8 @@ Helper.pushToBetBill = (title, gameName, cpInfoData, gameUniqueId) => {
         title: title,
         gameName: gameName,
         cpInfoData: cpInfoData,
-        gameUniqueId: gameUniqueId
+        gameUniqueId: gameUniqueId,
+        pagePathName: pagePathName
     });
 }
 
@@ -338,7 +339,7 @@ Helper.pushToRedPacketRules = () => {
 }
 
 Helper.isTopPage = () => {
-    return NavigationService.getRoutes().length === 1
+    return false;
 }
 
 Helper.popToBack = () => {
@@ -368,6 +369,35 @@ function routInStack(routeName, navigator) {
         }
     } else {
         return false
+    }
+
+}
+
+/**
+ * 控制页面返回任意指定页面
+ * @param routers
+ * @param navigation
+ */
+Helper.goBack = (routers, navigation) => {
+    if (!routers) {
+        Helper.popToTop();
+        return;
+    }
+    let curentRoute = routers[routers.length - 1];
+    if (curentRoute.routeName === "TCBillSucceedPage") {
+        let backToPathName = curentRoute.params.pagePathName;
+        for (let i = 0; i < routers.length; i++) {
+            if (routers[i].routeName === backToPathName) {
+                // if (i + 1 === routers.length) {
+                //     navigation.goBack(null);
+                //     return;
+                // }
+                navigation.goBack(routers[i + 1].key);
+                return;
+            }
+        }
+    } else {
+        Helper.popToBack();
     }
 
 }

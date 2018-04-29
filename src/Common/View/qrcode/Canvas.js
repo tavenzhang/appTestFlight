@@ -1,9 +1,9 @@
 'use strict';
-import React from 'react'
+import React, {Component} from 'react'
 import {View, WebView} from 'react-native'
 import PropTypes from 'prop-types'
 
-export default class Canvas extends React.Component {
+export default class Canvas extends Component {
     static  propTypes = {
         style: PropTypes.object,
         context: PropTypes.object,

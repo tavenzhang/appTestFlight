@@ -1,10 +1,8 @@
-import React, {Component, PropTypes,} from 'react'
+import React, {Component,} from 'react'
 
 import {View, StyleSheet, Text, TouchableOpacity, Image, Platform} from 'react-native'
 import {Size, indexBgColor, width, height, listViewTxtColor, buttonStyle, payTxtColor} from '../../resouce/theme'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import UserAccount from '../UserAccount/TCUserPayAndWithdrawRecordsMain'
-import BackBaseComponent from '../../Base/TCBaseBackComponent'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {userPay} from '../../resouce/images'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
@@ -13,7 +11,7 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
  * 充值进度界面
  */
 @withMappedNavigationProps()
-export default class TCUserPayProgress extends BackBaseComponent {
+export default class TCUserPayProgress extends Component {
 
     // 构造函数
     constructor(props) {
@@ -23,11 +21,9 @@ export default class TCUserPayProgress extends BackBaseComponent {
     static defaultProps = {};
 
     componentDidMount() {
-        super.componentDidMount()
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount()
     }
 
     render() {

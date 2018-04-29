@@ -2,9 +2,7 @@
  * Created by Joyce on 2017/03/25.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
@@ -24,7 +22,7 @@ import {Size} from '../../../Page/resouce/theme'
 
 
 @observer
-export default class TCKeyboardView extends React.Component {
+export default class TCKeyboardView extends Component {
 
     money = 0
     exempt = 0

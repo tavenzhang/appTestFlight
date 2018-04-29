@@ -85,7 +85,7 @@ export default class TCK3BetHome extends React.Component {
         myPlayMath = this.props.cp_playMath;
         SingletonDPS.setGameUniqueId(this.props.gameUniqueId);
         SingletonDPS.filterPlayType(TCGameSetting.content['allGamesPrizeSettings'][this.props.gameUniqueId]["singleGamePrizeSettings"]);
-        myPlayMath=SingletonDPS.getDefaultPlayNameFromFilterArray(this.props.cp_playMath);
+        myPlayMath = SingletonDPS.getDefaultPlayNameFromFilterArray(this.props.cp_playMath);
         SingletonDPS.resetAllData(myPlayMath);
         this._panResponder = PanResponder.create({
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -285,7 +285,11 @@ export default class TCK3BetHome extends React.Component {
         if (index == 0) {
             NavigatorHelper.pushToOrderRecord()
         } else if (index == 1) {
-            NavigatorHelper.pushToLotteryHistoryList({title:this.props.title,gameUniqueId:this.props.gameUniqueId,betBack:true})
+            NavigatorHelper.pushToLotteryHistoryList({
+                title: this.props.title,
+                gameUniqueId: this.props.gameUniqueId,
+                betBack: true
+            })
         } else if (index == 2) {
             let gameInfo = JXHelper.getGameInfoWithUniqueId(this.props.gameUniqueId)
             if (gameInfo) {
@@ -309,7 +313,8 @@ export default class TCK3BetHome extends React.Component {
     //初始化玩法号码选择
     initialContentView() {
         return <TCK3_MainView ref='TCK3_MainView' gameUniqueId={this.props.gameUniqueId}
-                              shakeEvent={() => this.byShake()} numberEvent={this.userPlayNumberEvent} defaultPlayType={myPlayMath}/>
+                              shakeEvent={() => this.byShake()} numberEvent={this.userPlayNumberEvent}
+                              defaultPlayType={myPlayMath}/>
     }
 
     //初始化玩法选择器
@@ -382,7 +387,7 @@ export default class TCK3BetHome extends React.Component {
 
     pushToBetBill() {
         this.clearSelectedNumbers()
-        NavigatorHelper.pushToBetBill(this.props.title, 'K3', this.currentResultData.resultsData, this.props.gameUniqueId)
+        NavigatorHelper.pushToBetBill(this.props.title, 'K3', this.currentResultData.resultsData, this.props.gameUniqueId, this.props.pagePathName)
         this.refs['contentScrollView'].scrollTo({x: 0, y: 0, animated: false})
     }
 
@@ -446,7 +451,7 @@ export default class TCK3BetHome extends React.Component {
                 },
                     {
                         text: '取消', onPress: () => {
-                    }
+                        }
                     },
                 ])
         } else {

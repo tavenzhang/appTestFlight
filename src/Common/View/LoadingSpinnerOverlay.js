@@ -5,9 +5,8 @@
  * Copyright (c) 2016 react-native-component <moonsunfall@aliyun.com>
  */
 
-import React, {
-    Component,
-} from 'react'
+import React, {Component} from 'react';
+
 import {
     View,
     Modal,

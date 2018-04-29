@@ -48,8 +48,8 @@ let photoHelper = new PhotoHelper();
 const {width, height} = Dimensions.get('window')
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
-@observer
 @withMappedNavigationProps()
+@observer
 export default class IntelligenceBet extends Component {
 
     static defaultProps = {
@@ -519,7 +519,7 @@ export default class IntelligenceBet extends Component {
             },
                 {
                     text: '取消', onPress: () => {
-                }
+                    }
                 },
             ])
     }
@@ -587,7 +587,7 @@ export default class IntelligenceBet extends Component {
 
         postJson.numberOfUnits = DPS.getAddedAllUnits();
 
-        if (postJson.numberOfUnits > 1000|| DPS.getAddedBetArr().length > 100) {
+        if (postJson.numberOfUnits > 1000 || DPS.getAddedBetArr().length > 100) {
             this.processing = false;
             Alert.alert('您要投注的注数过多，\n请分批投注 谢谢！')
             return
@@ -680,19 +680,14 @@ export default class IntelligenceBet extends Component {
             if (data && data.rs) {
                 this.processing = false;
                 RCTDeviceEventEmitter.emit('balanceChange');
-                if (this.props.navigator) {
-                    this.props.navigator.push({
-                        name: 'orderRecord',
-                        component: TCBillSucceedPage,
-                        passProps: {
-                            cpName: this.props.cpInfoData.rightData.gameNameInChinese,
-                            issue: json.drawIdentifier.issueNum,
-                            isIntelligence: true,
-                            isNeedBack3: true,
-                            lastContinueIssueNumber: this.mobxBetData.data.listArray[this.mobxBetData.data.listArray.length - 1].issueNum,
-                        }
-                    });
-                }
+                NavigatorHelper.pushToBetSucceed({
+                    pagePathName: this.props.pagePathName,
+                    cpName: this.props.cpInfoData.rightData.gameNameInChinese,
+                    issue: json.drawIdentifier.issueNum,
+                    isIntelligence: true,
+                    isNeedBack3: true,
+                    lastContinueIssueNumber: this.mobxBetData.data.listArray[this.mobxBetData.data.listArray.length - 1].issueNum
+                });
                 this.clearDPSData();
                 this._partModalLoadingSpinnerOverLay.hide();
             } else {

@@ -1,9 +1,7 @@
 /**
  * Created by Sam on 2016/12/29.
  */
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,

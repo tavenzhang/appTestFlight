@@ -3,9 +3,7 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -14,7 +12,7 @@ import {
     Image,
 } from 'react-native';
 import {agentCenter, listViewTxtColor, Size, width, height, indexBgColor} from './../../../resouce/theme'
-export default class TCAgentCommissionListRow extends React.Component {
+export default class TCAgentCommissionListRow extends Component {
     constructor(state) {
         super(state)
         this.state = {}

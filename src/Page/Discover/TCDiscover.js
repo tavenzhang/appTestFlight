@@ -5,9 +5,7 @@
  * Created by Sam on 2016/11/11.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -18,7 +16,7 @@ import {
 
 import TopNavigationBar from '../../Common/View/TCNavigationBar'
 
-export default class MyComponent extends React.Component {
+export default class MyComponent extends Component {
     constructor(state) {
         super(state);
         this.state = {

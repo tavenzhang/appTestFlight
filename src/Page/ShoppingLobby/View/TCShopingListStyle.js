@@ -3,9 +3,7 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -21,7 +19,7 @@ import {indexBgColor} from '../../resouce/theme'
 import Moment from 'moment'
 
 
-export default class MyComponent extends React.Component {
+export default class TCShopingListStyle extends Component {
     constructor(state) {
         super(state)
         this.state = {}
@@ -47,12 +45,12 @@ export default class MyComponent extends React.Component {
 
     getRenderListView() {
         let itemArr = [];
-        if(this.props.mobData && this.props.mobData.length > 0){
+        if (this.props.mobData && this.props.mobData.length > 0) {
             for (let i = 0; i < this.props.cpArray.length; i++) {
                 let item = this.props.cpArray[i]
                 if (this.props.tabLabel == '全部彩种') {
 
-                }else if(this.props.tabLabel == '时时彩'){
+                } else if (this.props.tabLabel == '时时彩') {
                     if (item.gameUniqueId.indexOf('SSC') < 0) continue
                 }
                 else if (this.props.tabLabel == '高频彩') {
@@ -62,21 +60,21 @@ export default class MyComponent extends React.Component {
                 } else if (this.props.tabLabel == '低频彩') {
 
                     if (item.gameUniqueId.indexOf('HF_') >= 0) continue
-                }else if(this.props.tabLabel == 'PC蛋蛋'){
+                } else if (this.props.tabLabel == 'PC蛋蛋') {
                     if (item.gameUniqueId.indexOf('28') < 0) continue
-                }else if(this.props.tabLabel == 'PK拾'){
+                } else if (this.props.tabLabel == 'PK拾') {
                     if (item.gameUniqueId.indexOf('PK10') < 0) continue
-                }else if(this.props.tabLabel == '11选5'){
+                } else if (this.props.tabLabel == '11选5') {
                     if (item.gameUniqueId.indexOf('D11') < 0) continue
-                }else if(this.props.tabLabel == '快3'){
+                } else if (this.props.tabLabel == '快3') {
                     if (item.gameUniqueId.indexOf('K3') < 0) continue
                 }
 
                 let gameInfo = JXHelper.getGameInfoWithUniqueId(item.gameUniqueId)
                 let myicon = ''
-                if (gameInfo&&gameInfo.status == 'FORBIDDEN'){
+                if (gameInfo && gameInfo.status == 'FORBIDDEN') {
                     myicon = gameInfo.gameIconGrayUrl
-                }else if(gameInfo){
+                } else if (gameInfo) {
                     myicon = gameInfo.gameIconUrl
                 }
 
@@ -84,11 +82,11 @@ export default class MyComponent extends React.Component {
                     <SudokuItemView
                         key={i}
                         gameInfo={gameInfo}
-                        icon={gameInfo&&myicon?myicon:item.icon}
+                        icon={gameInfo && myicon ? myicon : item.icon}
                         title={item.gameNameInChinese}
                         mTimer={item.stopOrderTimeEpoch - item.currentTimeEpoch}
                         rowData={item} moment={Moment().format('X')}
-                        mobData = {this.props.mobData[i]}
+                        mobData={this.props.mobData[i]}
                     />)
             }
 
@@ -107,6 +105,6 @@ const styles = StyleSheet.create({
         backgroundColor: indexBgColor.mainBg,
         flexWrap: 'wrap',
         flexDirection: 'row',
-        marginTop:2
+        marginTop: 2
     }
 });

@@ -2,19 +2,18 @@
  * Created by joyce-jx on 2017/6/17.
  */
 
-import React from 'react';
+import React, {Component} from 'react';
 import {View, StyleSheet, Text, ScrollView, Platform} from 'react-native';
 import Moment from 'moment';
 
 import {Size, width, indexBgColor, userCenterTxtColor, loginAndRegeisterBorderColor} from '../../resouce/theme';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import BackBaseComponent from '../../Base/TCBaseBackComponent';
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 
 @withMappedNavigationProps()
-export default class TCUserFeedbackView extends BackBaseComponent {
+export default class TCUserFeedbackView extends Component {
     getItemContent(title, rightTxt, content) {
         return (
             <View style={styles.contentItemContainer}>

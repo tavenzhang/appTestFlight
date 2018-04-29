@@ -21,17 +21,17 @@ import Toast from '../../../Common/JXHelper/JXToast';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import {config} from '../../../Common/Network/TCRequestConfig'
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
-import BackBaseComponent from '../../Base/TCBaseBackComponent'
-import  dismissKeyboard from 'dismissKeyboard'
+import dismissKeyboard from 'dismissKeyboard'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import {common} from '../../resouce/images'
 import {Size, width, height, indexBgColor, buttonStyle, inputStyle, listViewTxtColor} from '../../resouce/theme'
 import SecretUtils from '../../../Common/JXHelper/SecretUtils'
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
+
 var secretUtils = new SecretUtils()
 
 @observer
-export default class TCModifySecurityPwd extends BackBaseComponent {
+export default class TCModifySecurityPwd extends Component {
 
     oldPwd = ''
     newPwd1 = ''
@@ -43,11 +43,9 @@ export default class TCModifySecurityPwd extends BackBaseComponent {
     }
 
     componentDidMount() {
-        super.componentDidMount()
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount()
     }
 
     render() {
@@ -57,7 +55,7 @@ export default class TCModifySecurityPwd extends BackBaseComponent {
                     title={'修改交易密码'}
                     needBackButton={true}
                     backButtonCall={() => {
-                      Helper.popToBack()
+                        Helper.popToBack()
                     }}/>
                 {this.renderTip()}
                 <View style={{marginTop: 40, flexDirection: 'column'}}>
@@ -105,7 +103,7 @@ export default class TCModifySecurityPwd extends BackBaseComponent {
                     </TouchableOpacity>
                 </View>
                 <LoadingSpinnerOverlay
-                    ref={ component => this._modalLoadingSpinnerOverLay = component }/>
+                    ref={component => this._modalLoadingSpinnerOverLay = component}/>
             </View>
         );
     }

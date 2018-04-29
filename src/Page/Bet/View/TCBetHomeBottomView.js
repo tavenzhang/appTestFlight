@@ -1,9 +1,7 @@
 /**
  * Created by Sam on 2016/11/29.
  */
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -16,7 +14,7 @@ import {Size, width, betHome} from '../../resouce/theme'
 
 import { observer } from 'mobx-react/native';
 @observer
-export default class TCBetHomeBottomView extends React.Component {
+export default class TCBetHomeBottomView extends Component {
     constructor(state) {
         super(state);
         this.state = {};

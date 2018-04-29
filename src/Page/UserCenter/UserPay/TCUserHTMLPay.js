@@ -3,9 +3,8 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
+
 import {
     AppRegistry,
     StyleSheet,
@@ -21,7 +20,7 @@ var WEBVIEW_REF = 'webview'
 import {Size, indexBgColor} from '../../resouce/theme'
 
 @withMappedNavigationProps()
-export default class TCUserHTMLPay extends React.Component {
+export default class TCUserHTMLPay extends Component {
     constructor(state) {
         super(state)
         this.state = {}

@@ -3,9 +3,7 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -17,9 +15,10 @@ import {
     Platform,
     ImageBackground
 } from 'react-native';
-import  JXHelperC from '../../../Common/JXHelper/TCInitHelper'
-import  TCUserCollectHelper from '../../../Common/JXHelper/TCUserCollectHelper'
+import JXHelperC from '../../../Common/JXHelper/TCInitHelper'
+import TCUserCollectHelper from '../../../Common/JXHelper/TCUserCollectHelper'
 import JXHelpers from '../../../Common/JXHelper/JXHelper'
+
 let JXHelper = new JXHelperC()
 let TCUserCollectHelpers = new TCUserCollectHelper()
 import Toast from '../../../Common/JXHelper/JXToast';
@@ -27,7 +26,8 @@ import TCNavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {config, trendServerAddress} from '../../../Common/Network/TCRequestConfig';
 import {betIcon} from '../../resouce/images'
 import {Size,} from '../../resouce/theme'
-export default class MyComponent extends React.Component {
+
+export default class TCBetHelperModal extends Component {
     constructor(state) {
         super(state)
         this.state = {
@@ -61,7 +61,7 @@ export default class MyComponent extends React.Component {
                 visible={this.state.modalVisible}
                 onRequestClose={() => {
                     this._setModalVisible(false)
-                } }
+                }}
             >
                 <TouchableHighlight onPress={() => {
                     this._setModalVisible(false)
@@ -87,9 +87,15 @@ export default class MyComponent extends React.Component {
                                                 borderBottomWidth: 1,
                                                 borderBottomColor: '#f5f5f5'
                                             }}
-                                            onPress={()=>this.buttonCall(0)}>
+                                            onPress={() => this.buttonCall(0)}>
                             <Text
-                                style={{fontSize: Size.font16, fontWeight: 'bold', height: 50, marginTop: 40, color: '#585858'}}>投注记录</Text>
+                                style={{
+                                    fontSize: Size.font16,
+                                    fontWeight: 'bold',
+                                    height: 50,
+                                    marginTop: 40,
+                                    color: '#585858'
+                                }}>投注记录</Text>
                         </TouchableHighlight>
                         <TouchableHighlight underlayColor='transparent'
                                             style={{
@@ -100,9 +106,15 @@ export default class MyComponent extends React.Component {
                                                 borderBottomWidth: 1,
                                                 borderBottomColor: '#f5f5f5'
                                             }}
-                                            onPress={()=>this.buttonCall(1)}>
+                                            onPress={() => this.buttonCall(1)}>
                             <Text
-                                style={{fontSize: Size.font16, fontWeight: 'bold', height: 50, marginTop: 30, color: '#585858'}}>开奖历史</Text>
+                                style={{
+                                    fontSize: Size.font16,
+                                    fontWeight: 'bold',
+                                    height: 50,
+                                    marginTop: 30,
+                                    color: '#585858'
+                                }}>开奖历史</Text>
                         </TouchableHighlight>
                         {this.getZST()}
                         <TouchableHighlight underlayColor='transparent'
@@ -114,9 +126,15 @@ export default class MyComponent extends React.Component {
                                                 borderBottomWidth: 1,
                                                 borderBottomColor: '#f5f5f5'
                                             }}
-                                            onPress={()=>this.buttonCall(2)}>
+                                            onPress={() => this.buttonCall(2)}>
                             <Text
-                                style={{fontSize: Size.font16, fontWeight: 'bold', height: 50, marginTop: 30, color: '#585858'}}>玩法说明</Text>
+                                style={{
+                                    fontSize: Size.font16,
+                                    fontWeight: 'bold',
+                                    height: 50,
+                                    marginTop: 30,
+                                    color: '#585858'
+                                }}>玩法说明</Text>
                         </TouchableHighlight>
                         <TouchableHighlight underlayColor='transparent'
                                             style={{
@@ -125,7 +143,7 @@ export default class MyComponent extends React.Component {
                                                 marginTop: 0,
                                                 height: 50
                                             }}
-                                            onPress={()=>this.buttonCall(3)}>
+                                            onPress={() => this.buttonCall(3)}>
                             <Text style={{
                                 fontSize: Size.font16,
                                 fontWeight: 'bold',
@@ -151,12 +169,18 @@ export default class MyComponent extends React.Component {
                                             borderBottomWidth: 1,
                                             borderBottomColor: '#f5f5f5'
                                         }}
-                                        onPress={()=> {
+                                        onPress={() => {
                                             this._setModalVisible(false)
-                                            TCNavigatorHelper.pushToWebView('' + (TCDefaultTendDomain?TCDefaultTendDomain:trendServerAddress) + '/trend?gameUniqueId=' + this.props.gameUniqueId + '&navigationBar=0', '走势图')
+                                            TCNavigatorHelper.pushToWebView('' + (TCDefaultTendDomain ? TCDefaultTendDomain : trendServerAddress) + '/trend?gameUniqueId=' + this.props.gameUniqueId + '&navigationBar=0', '走势图')
                                         }}>
                 <Text
-                    style={{fontSize: Size.font16, fontWeight: 'bold', height: 50, marginTop: 30, color: '#585858'}}>走势图</Text>
+                    style={{
+                        fontSize: Size.font16,
+                        fontWeight: 'bold',
+                        height: 50,
+                        marginTop: 30,
+                        color: '#585858'
+                    }}>走势图</Text>
             </TouchableHighlight>)
         }
 
@@ -213,7 +237,7 @@ export default class MyComponent extends React.Component {
     collectGameToServer() {
         let gameUniqueId = this.props.gameUniqueId
         if (!this.state.isCollect) {
-            TCUserCollectHelpers.saveUserCollectsToServer(gameUniqueId, (res)=> {
+            TCUserCollectHelpers.saveUserCollectsToServer(gameUniqueId, (res) => {
                 if (res.rs) {
                     this.showShortCenterWithString('已收藏！')
                     this.setState({
@@ -224,7 +248,7 @@ export default class MyComponent extends React.Component {
                 }
             })
         } else {
-            TCUserCollectHelpers.cancelUserCollectsFromServer(gameUniqueId, (res)=> {
+            TCUserCollectHelpers.cancelUserCollectsFromServer(gameUniqueId, (res) => {
                 if (res.rs) {
                     this.setState({
                         isCollect: !this.state.isCollect

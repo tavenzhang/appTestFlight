@@ -82,7 +82,7 @@ export default class TCMarkSixBetHome extends React.Component {
         // myPlayMath=this.props.cp_playMath;
         SingletonDPS.setGameUniqueId(this.props.gameUniqueId);
         SingletonDPS.filterPlayType(TCGameSetting.content['allGamesPrizeSettings'][this.props.gameUniqueId]["singleGamePrizeSettings"]);
-        myPlayMath=SingletonDPS.getDefaultPlayNameFromFilterArray(this.props.cp_playMath);
+        myPlayMath = SingletonDPS.getDefaultPlayNameFromFilterArray(this.props.cp_playMath);
         SingletonDPS.resetAllData(myPlayMath);
         this._panResponder = PanResponder.create({
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -100,22 +100,22 @@ export default class TCMarkSixBetHome extends React.Component {
                 })
             },
             onPanResponderMove: (evt, gestureState) => {
-                if(this.state.topFinal >= 312 && gestureState.vy > 0){
+                if (this.state.topFinal >= 312 && gestureState.vy > 0) {
                     return;
                 }
 
-                if (gestureState.vy > 0 && gestureState.dy >= 312 || this.state.topFinal == 182 && gestureState.dy >= 182){
+                if (gestureState.vy > 0 && gestureState.dy >= 312 || this.state.topFinal == 182 && gestureState.dy >= 182) {
                     this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
-                }else {
+                } else {
                     this.setState({isBegin: false, isMove: true, isEnd: false, gestureCase: gestureState});
                 }
             },
             onPanResponderRelease: (evt, gestureState) => {
                 let topFailHeight = 0;
-                if(gestureState.vy > 0 && gestureState.dy > 0){
+                if (gestureState.vy > 0 && gestureState.dy > 0) {
                     topFailHeight = 312;
-                } else if (gestureState.vy == 0){
-                    if(this.state.topFinal == 0 && gestureState.dy >= 0){
+                } else if (gestureState.vy == 0) {
+                    if (this.state.topFinal == 0 && gestureState.dy >= 0) {
                         topFailHeight = 182;
                     } else {
                         topFailHeight = 0;
@@ -133,16 +133,22 @@ export default class TCMarkSixBetHome extends React.Component {
                 })
             },
             onPanResponderTerminate: (evt, gestureState) => {
-                this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: gestureState.vy >= 0 ? 312 : 0})
+                this.setState({
+                    isBegin: false,
+                    isMove: false,
+                    isEnd: true,
+                    gestureCase: null,
+                    topFinal: gestureState.vy >= 0 ? 312 : 0
+                })
             },
         });
     }
 
     render() {
         let historyHeight = this.state.gestureCase == null ? this.state.topFinal : this.state.gestureCase.dy + this.state.moveTop;
-        if (historyHeight < 0){
+        if (historyHeight < 0) {
             historyHeight = 0;
-        }else if(historyHeight > 312){
+        } else if (historyHeight > 312) {
             historyHeight = 312;
         }
 
@@ -258,7 +264,7 @@ export default class TCMarkSixBetHome extends React.Component {
     componentWillUnmount() {
         this.listener && this.listener.remove()
         this.currentResultData && this.currentResultData.clear();
-        TCIntelligenceBetData.getInstance()&&TCIntelligenceBetData.getInstance().clearInstance();
+        TCIntelligenceBetData.getInstance() && TCIntelligenceBetData.getInstance().clearInstance();
     }
 
     getShoppingCartView() {
@@ -273,7 +279,11 @@ export default class TCMarkSixBetHome extends React.Component {
         if (index == 0) {
             NavigatorHelper.pushToOrderRecord()
         } else if (index == 1) {
-            NavigatorHelper.pushToLotteryHistoryList({title:this.props.title,gameUniqueId:this.props.gameUniqueId,betBack:true})
+            NavigatorHelper.pushToLotteryHistoryList({
+                title: this.props.title,
+                gameUniqueId: this.props.gameUniqueId,
+                betBack: true
+            })
         } else if (index == 2) {
             let gameInfo = JXHelper.getGameInfoWithUniqueId(this.props.gameUniqueId)
             if (gameInfo) {
@@ -297,7 +307,8 @@ export default class TCMarkSixBetHome extends React.Component {
     //初始化玩法号码选择
     initialContentView() {
         return <TCBJPK10_MainView ref='TCBJPK10_MainView' numberEvent={this.userPlayNumberEvent}
-                                  shakeEvent={() => this.byShake()} gameUniqueId={this.props.gameUniqueId} defaultPlayType={myPlayMath}/>
+                                  shakeEvent={() => this.byShake()} gameUniqueId={this.props.gameUniqueId}
+                                  defaultPlayType={myPlayMath}/>
     }
 
     //初始化玩法选择器
@@ -350,7 +361,7 @@ export default class TCMarkSixBetHome extends React.Component {
             Toast.showShortCenter('玩法异常，请切换其他玩法');
             return
         }
-        let odds=prizeSettings['prizeSettings'][0]['prizeAmount'];
+        let odds = prizeSettings['prizeSettings'][0]['prizeAmount'];
         SingletonDPS.addOddsArray(odds);
         let betSettingView = this.refs['betSettingModal']
         betSettingView._setModalVisibleAndOddsAndMaxRebateAndNumberOfUnits(true,
@@ -368,7 +379,7 @@ export default class TCMarkSixBetHome extends React.Component {
     pushToBetBill() {
         // JXLog("hehehe pushToBill");
         this.clearSelectedNumbers()
-        NavigatorHelper.pushToBetBill(this.props.title, 'BJPK10', this.currentResultData.resultsData,this.props.gameUniqueId)
+        NavigatorHelper.pushToBetBill(this.props.title, 'BJPK10', this.currentResultData.resultsData, this.props.gameUniqueId, this.props.pagePathName)
         this.refs['contentScrollView'].scrollTo({x: 0, y: 0, animated: false})
     }
 
@@ -399,7 +410,7 @@ export default class TCMarkSixBetHome extends React.Component {
             if (!prizeSettings) {
                 return
             }
-            let odds=prizeSettings['prizeSettings'][0]['prizeAmount'];
+            let odds = prizeSettings['prizeSettings'][0]['prizeAmount'];
             SingletonDPS.addOddsArray(odds);
         }
         this.pushToBetBill()
@@ -428,7 +439,7 @@ export default class TCMarkSixBetHome extends React.Component {
                 },
                     {
                         text: '取消', onPress: () => {
-                    }
+                        }
                     },
                 ])
         } else {

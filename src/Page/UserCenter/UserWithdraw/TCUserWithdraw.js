@@ -1,4 +1,4 @@
-import React, {Component, PropTypes,} from 'react'
+import React, {Component,} from 'react'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import {
     View,

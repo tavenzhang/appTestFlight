@@ -3,9 +3,7 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -31,7 +29,7 @@ let happyPoker = new HappyPokerHelper()
 import { observer } from 'mobx-react/native';
 
 @observer
-export default class MyComponent extends React.Component {
+export default class TCShopingListItemView extends Component {
 
     constructor(state) {
         super(state);

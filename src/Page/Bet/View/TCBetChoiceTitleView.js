@@ -5,9 +5,7 @@
  * Created by Sam on 2016/11/11.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -19,7 +17,7 @@ import {
 } from 'react-native';
 import {betIcon} from '../../resouce/images'
 import {Size, betHome} from '../../resouce/theme'
-export default class TCBetChoiceTitleView extends React.Component {
+export default class TCBetChoiceTitleView extends Component {
 
     static defaultProps = {
         titleName: '',

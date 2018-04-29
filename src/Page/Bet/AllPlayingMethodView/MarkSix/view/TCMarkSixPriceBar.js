@@ -4,9 +4,7 @@
  */
 
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -20,7 +18,7 @@ import {
 //系统 npm类
 import Toast from '../../../../../Common/JXHelper/JXToast';
 import {Size, width} from '../../../../resouce/theme'
-export default class TCBillMultipleBar extends React.Component {
+export default class TCBillMultipleBar extends Component {
     constructor(state) {
         super(state);
         this.state = {

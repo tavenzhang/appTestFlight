@@ -2,10 +2,7 @@
  * Created by Sam on 16/01/2017.
  * Copyright © 2016年 JX. All rights reserved.
  */
-
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -18,6 +15,7 @@ import {
     Easing,
     WebView
 } from 'react-native';
+
 var px = PixelRatio.get()
 var Marquee = require('@remobile/react-native-marquee');
 import MarqueeLabel from './MarqueeLabel'
@@ -25,8 +23,9 @@ import JXHelper from '../JXHelper/TCNavigatorHelper'
 import MarqueeLabel2 from './TCMarqueeLabel';
 
 import {width, indexBgColor, indexTxtColor, Size} from '../../Page/resouce/theme'
+
 let noticeText = ''
-export default class MyComponent extends React.Component {
+export default class MyComponent extends Component {
     constructor(state) {
         super(state)
         this.state = {}
@@ -57,22 +56,22 @@ export default class MyComponent extends React.Component {
 
     getMarquee() {
         if (Platform.OS === 'ios') {
-        return (
-            <MarqueeLabel2
-                ref="marqueeLabel"
-                speed={30}
-                text={this.getTextWithAnnouncement()}
-                textContainerWidth={3000}
-                textContainerHeight={35}
-                textStyle={{fontSize: Size.font14, color: indexTxtColor.noticeContent}}
-                bgViewStyle={{backgroundColor: indexBgColor.noticeBg}}
-                textContainerStyle={{height: 35}}
-            />
-        )
+            return (
+                <MarqueeLabel2
+                    ref="marqueeLabel"
+                    speed={30}
+                    text={this.getTextWithAnnouncement()}
+                    textContainerWidth={3000}
+                    textContainerHeight={35}
+                    textStyle={{fontSize: Size.font14, color: indexTxtColor.noticeContent}}
+                    bgViewStyle={{backgroundColor: indexBgColor.noticeBg}}
+                    textContainerStyle={{height: 35}}
+                />
+            )
         } else {
-          return (<MarqueeLabel style={styles.marqueeLabel} scrollDuration={2.0}>
-            {this.getTextWithAnnouncement()}
-          </MarqueeLabel>)
+            return (<MarqueeLabel style={styles.marqueeLabel} scrollDuration={2.0}>
+                {this.getTextWithAnnouncement()}
+            </MarqueeLabel>)
         }
     }
 

@@ -4,7 +4,7 @@
  */
 
 /**系统 npm类 */
-import React from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet, Text, View, ListView, TouchableOpacity, Alert, Clipboard, Image, Platform, Modal,
 } from 'react-native';
@@ -24,7 +24,7 @@ import ModalDropdown from '../../../Common/View/ModalDropdown';
 import KeyboardAvoidingScrollView from '../../../Common/View/TCKeyboardAvoidingScrollView';
 
 @observer
-export default class TCAgentAffCodeList extends React.Component {
+export default class TCAgentAffCodeList extends Component {
 
     constructor(props) {
         super(props);

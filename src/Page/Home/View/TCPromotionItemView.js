@@ -3,9 +3,8 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
+
 import {
     StyleSheet,
     Text,
@@ -16,7 +15,7 @@ import {
 import Moment from 'moment'
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../resouce/theme'
-export default class TCPromotionItemView extends React.Component {
+export default class TCPromotionItemView extends Component {
     constructor(state) {
         super(state)
         this.state = {}

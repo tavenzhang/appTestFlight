@@ -4,9 +4,7 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -15,7 +13,8 @@ import {
 } from 'react-native'
 import BaseComponent from '../../../Base/TCBaseComponent'
 import TopNavigationBar from '../../../../Common/View/TCNavigationBar';
-import {Size,width,height,indexBgColor} from '../../../resouce/theme'
+import {Size, width, height, indexBgColor} from '../../../resouce/theme'
+
 export default class TCPersonalCommissionDetail extends BaseComponent {
     constructor(state) {
         super(state)
@@ -34,7 +33,7 @@ export default class TCPersonalCommissionDetail extends BaseComponent {
                     ref='TopNavigationBar'
                     title={'个人佣金详情'}
                     needBackButton={true}
-                    backButtonCall={()=> {
+                    backButtonCall={() => {
                         this.props.navigator.pop()
                     }}
                 />
@@ -72,11 +71,11 @@ export default class TCPersonalCommissionDetail extends BaseComponent {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:indexBgColor.mainBg,
+        backgroundColor: indexBgColor.mainBg,
     },
     contentContainer: {
         flex: 1,
-        backgroundColor:'transparent',
+        backgroundColor: 'transparent',
     },
     itemStyle: {
         flexDirection: 'row',

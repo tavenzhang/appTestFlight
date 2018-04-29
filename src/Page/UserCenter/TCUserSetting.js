@@ -17,7 +17,6 @@ import {
 } from 'react-native'
 import TopNavigationBar from '../../Common/View/TCNavigationBar'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
-import Pay from '../UserCenter/UserPay/TCUserAliAndWechatPay'
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 import {
     Size,
@@ -33,16 +32,14 @@ import {observable, computed, action} from 'mobx'
 import Toast from '../../Common/JXHelper/JXToast'
 
 import NetUtils from '../../Common/Network/TCRequestUitls'
-import BackBaseComponent from '../Base/TCBaseBackComponent'
 import {config, appId, appVersion, versionHotFix} from '../../Common/Network/TCRequestConfig';
 import NetUitls from '../../Common/Network/TCRequestUitls'
 import JXHelpers from '../../Common/JXHelper/JXHelper'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import {personal} from '../resouce/images'
-import  FeedbackList from './FeedBack/TCUserFeedbackList'
 
 @observer
-export  default  class TCUserSetting extends BackBaseComponent {
+export  default  class TCUserSetting extends Component {
 
     stateModel = new StateModel()
 
@@ -51,12 +48,10 @@ export  default  class TCUserSetting extends BackBaseComponent {
     }
 
     componentDidMount() {
-        super.componentDidMount()
         this.getAppVersion()
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount()
     }
 
     render() {

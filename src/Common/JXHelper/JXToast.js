@@ -1,9 +1,10 @@
 /**
  * Created by allen-jx on 2018/3/28.
  */
-import Toast from 'react-native-toast-native'
+import Toast from 'react-native-root-toast'
 import {Platform} from "react-native"
 import {baseColor, Size} from "../../Page/resouce/theme"
+
 const style = Platform.OS === "ios" ? {
     backgroundColor: baseColor.black,
     height: 50,
@@ -22,22 +23,57 @@ const style = Platform.OS === "ios" ? {
 export default class JDToast {
 
     static showShortCenter(message) {
-        Toast.show(message, Toast.SHORT, Toast.CENTER, style);
+        Toast.show(message, {
+            duration: Toast.durations.SHORT,
+            position: Toast.positions.CENTER,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0
+        });
     }
 
     static showShortTop(message) {
-        Toast.show(message, Toast.SHORT, Toast.TOP, style);
+        Toast.show(message, {
+            duration: Toast.durations.SHORT,
+            position: Toast.positions.TOP,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0
+        });
     }
 
     static showLongCenter(message) {
-        Toast.show(message, Toast.LONG, Toast.CENTER, style);
+        Toast.show(message, {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.CENTER,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0
+        });
     }
 
     static showShortBottom(message) {
-        Toast.show(message, Toast.SHORT, Toast.BOTTOM, style);
+        Toast.show(message, {
+            duration: Toast.durations.SHORT,
+            position: Toast.positions.BOTTOM,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0
+        });
     }
 
     static showLongBottom(message) {
-        Toast.show(message, Toast.LONG, Toast.BOTTOM, style);
+        Toast.show(message, {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.BOTTOM,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0
+        });
     }
 }

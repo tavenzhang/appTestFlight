@@ -2,10 +2,9 @@
  * Created by Sam on 18/01/2017.
  * Copyright © 2016年 JX. All rights reserved.
  */
+import React, {Component} from 'react';
 
-import React, {
-    Component
-} from 'react';
+
 import {
     AppRegistry,
     StyleSheet,
@@ -13,7 +12,7 @@ import {
     View,
     Image,
     TouchableOpacity,
-    BackAndroid,
+    BackHandler,
     Platform
 } from 'react-native';
 
@@ -24,11 +23,21 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import Helper from '../../Common/JXHelper/TCNavigatorHelper';
 
 @withMappedNavigationProps()
-export default class MyComponent extends React.Component {
+export default class MyComponent extends Component {
+
+
+    static Navigation_routers;
+    static navigationOptions = {
+        header: ({navigation}) => {
+            let {state: {routes}} = navigation;
+            Navigation_routers = routes;
+            return null;
+        }
+    };
+
     constructor(state) {
         super(state)
         this.state = {}
-        this.handleBackAndroid = this.handleBackAndroid.bind(this);
     }
 
     static defaultProps = {
@@ -38,35 +47,17 @@ export default class MyComponent extends React.Component {
     };
 
     componentDidMount() {
-        if (Platform.OS === "android") {
-            BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
-        }
     }
 
     componentWillUnmount() {
-        if (Platform.OS === "android") {
-            BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
-        }
     }
 
-    handleBackAndroid() {
-        if (this.props.isIntelligence && this.props.isNeedBack3) {
-            Helper.popToTop()
-        } else {
-            Helper.popToTop()
-        }
-        return true;
-    }
 
     render() {
         return (
             <View style={styles.container}>
                 <TopNavigationBar title='投注成功' needBackButton={true} backButtonCall={() => {
-                    if (this.props.isIntelligence && this.props.isNeedBack3) {
-                        Helper.popToTop()
-                    } else {
-                        Helper.popToTop()
-                    }
+                    this.backToBetHome();
                 }}/>
 
                 <View style={styles.innerView}>
@@ -83,15 +74,11 @@ export default class MyComponent extends React.Component {
                             fontSize: Size.font14,
                             marginTop: 10,
                             color: listViewTxtColor.content
-                        }}>{this.props.isIntelligence?'当前投注期数：第 '+this.props.issue+' 至 '+this.props.lastContinueIssueNumber+' 期':'当前投注期数：第'+this.props.issue+'期'}</Text>
+                        }}>{this.props.isIntelligence ? '当前投注期数：第 ' + this.props.issue + ' 至 ' + this.props.lastContinueIssueNumber + ' 期' : '当前投注期数：第' + this.props.issue + '期'}</Text>
                 </View>
 
                 <TouchableOpacity style={{marginTop: 20}} onPress={() => {
-                    if (this.props.isIntelligence && this.props.isNeedBack3) {
-                        Helper.popToTop()
-                    } else {
-                        Helper.popToTop()
-                    }
+                    this.backToBetHome();
                 }}>
                     <View
                         style={{
@@ -108,6 +95,10 @@ export default class MyComponent extends React.Component {
                 </TouchableOpacity>
             </View>
         );
+    }
+
+    backToBetHome() {
+        Helper.goBack(Navigation_routers, this.props.navigation);
     }
 }
 

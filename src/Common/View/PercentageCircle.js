@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { StyleSheet, View, ViewPropTypes } from 'react-native'
+import React, {Component} from 'react'
+import {StyleSheet, View, ViewPropTypes} from 'react-native'
 
 // compatability for react-native versions < 0.44
 const ViewPropTypesStyle = ViewPropTypes
@@ -90,7 +90,7 @@ export default class PercentageCircle extends Component {
     }
 
     renderHalfCircle(rotateDegrees, halfCircleStyles) {
-        const { radius, color } = this.props
+        const {radius, color} = this.props
         return (
             <View
                 style={[
@@ -111,9 +111,9 @@ export default class PercentageCircle extends Component {
                             height: radius * 2,
                             borderRadius: radius,
                             transform: [
-                                { translateX: radius / 2 },
-                                { rotate: `${rotateDegrees}deg` },
-                                { translateX: -radius / 2 },
+                                {translateX: radius / 2},
+                                {rotate: `${rotateDegrees}deg`},
+                                {translateX: -radius / 2},
                             ],
                             backgroundColor: color,
                             ...halfCircleStyles,

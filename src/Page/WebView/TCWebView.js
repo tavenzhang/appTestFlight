@@ -3,9 +3,8 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
+
 import {
     AppRegistry,
     StyleSheet,
@@ -18,14 +17,13 @@ import {
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import TCRequestUtils from '../../Common/Network/TCRequestUitls'
 import {config} from '../../Common/Network/TCRequestConfig'
-import Toast from '@remobile/react-native-toast'
+import Toast from '../../Common/JXHelper/JXToast'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import {width, indexBgColor} from '../resouce/theme'
 
 var WEBVIEW_REF = 'webview';
-import BackBaseComponent from '../Base/TCBaseBackComponent'
 
-export default class TCWebView extends BackBaseComponent {
+export default class TCWebView extends Component {
     constructor(state) {
         super(state)
         this.clickCount = 1
@@ -41,11 +39,9 @@ export default class TCWebView extends BackBaseComponent {
     };
 
     componentDidMount() {
-        super.componentDidMount()
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount()
     }
 
     render() {

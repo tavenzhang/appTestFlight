@@ -1,9 +1,7 @@
 /**
  * Created by Sam on 2016/12/10.
  */
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -20,7 +18,8 @@ import Toast from '../../Common/JXHelper/JXToast';
 const {width, height} = Dimensions.get('window')
 
 import {Size} from '../../Page/resouce/theme'
-export default class TCBillMultipleBar extends React.Component {
+
+export default class TCBillMultipleBar extends Component {
     constructor(state) {
         super(state);
         this.state = {
@@ -30,7 +29,7 @@ export default class TCBillMultipleBar extends React.Component {
 
     static defaultProps = {
         inputEvent: null,
-        multipleNumber:''
+        multipleNumber: ''
     };
 
     componentDidMount() {
@@ -39,13 +38,13 @@ export default class TCBillMultipleBar extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{color:'#999999'}}>投</Text>
-                <TouchableHighlight onPress={()=>this.inPutCall()} style={styles.inputStyle}>
-                    <Text style={{fontSize:Size.font16, textAlign:'center', color:'#333333'}}>
+                <Text style={{color: '#999999'}}>投</Text>
+                <TouchableHighlight onPress={() => this.inPutCall()} style={styles.inputStyle}>
+                    <Text style={{fontSize: Size.font16, textAlign: 'center', color: '#333333'}}>
                         {this.state.multipleNumber}
                     </Text>
                 </TouchableHighlight>
-                <Text style={{color:'#999999'}}>倍</Text>
+                <Text style={{color: '#999999'}}>倍</Text>
             </View>);
     };
 
@@ -61,10 +60,10 @@ export default class TCBillMultipleBar extends React.Component {
             curentStr = curentStr.substring(0, curentStr.length - 1)
         } else {
             curentStr = curentStr + number
-            if (curentStr > 9999){
+            if (curentStr > 9999) {
                 Toast.showShortCenter('倍率最大设置9999倍');
                 return
-            }else if(curentStr == 0){
+            } else if (curentStr == 0) {
                 Toast.showShortCenter('倍率最小为1');
                 return
             }
@@ -74,8 +73,8 @@ export default class TCBillMultipleBar extends React.Component {
         })
     }
 
-    _resetTextWith(number){
-        if (!number){
+    _resetTextWith(number) {
+        if (!number) {
             number = '1'
         }
         this.setState({multipleNumber: number})
@@ -97,8 +96,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
-        borderTopWidth:0.5,
-        borderTopColor:'#F2F2F2',
+        borderTopWidth: 0.5,
+        borderTopColor: '#F2F2F2',
     },
     inputStyle: {
         width: 80,
@@ -109,8 +108,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#EBEBEB',
         paddingLeft: 5,
-        paddingRight:5,
-        justifyContent:'center',
-        alignItems:'center'
+        paddingRight: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });

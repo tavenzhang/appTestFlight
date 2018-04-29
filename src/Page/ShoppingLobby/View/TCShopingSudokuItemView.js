@@ -3,9 +3,7 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -24,7 +22,7 @@ import {indexBgColor, shoppingTxtColor,Size,width} from '../../resouce/theme'
 import { observer } from 'mobx-react/native';
 
 @observer
-export default class MyComponent extends React.Component {
+export default class MyComponent extends Component {
 
     constructor(state) {
         super(state);

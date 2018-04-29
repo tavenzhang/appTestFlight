@@ -2,7 +2,7 @@
  * Created by jason on 17/11/01.
  */
 
-import React, {Component, PropTypes,} from 'react'
+import React, {Component,} from 'react'
 import {View, Dimensions, StyleSheet} from "react-native";
 import {Size} from "../../Page/resouce/theme";
 

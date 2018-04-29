@@ -18,16 +18,16 @@ import {observable, computed, action} from 'mobx'
 import Toast from '../../Common/JXHelper/JXToast';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
-import  dismissKeyboard from 'dismissKeyboard'
+import dismissKeyboard from 'dismissKeyboard'
 import {Size, width, height} from '../../Page/resouce/theme'
 import {config} from '../../Common/Network/TCRequestConfig'
 import NetUtils from '../../Common/Network/TCRequestUitls'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Base64 from '../../Common/JXHelper/Base64'
-import BackBaseComponent from '../Base/TCBaseBackComponent'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 
 import SecretUtils from '../../Common/JXHelper/SecretUtils'
+
 let base64 = new Base64()
 let secretUtils = new SecretUtils()
 import {
@@ -41,7 +41,7 @@ import {
  * 免费试玩
  */
 @observer
-export  default  class TCUserFreePlay extends BackBaseComponent {
+export default class TCUserFreePlay extends Component {
 
     stateModel = new StateModel()
     password = ''
@@ -53,13 +53,11 @@ export  default  class TCUserFreePlay extends BackBaseComponent {
     static defaultProps = {};
 
     componentDidMount() {
-        super.componentDidMount()
         this.getGuestUserName()
     }
 
 
     componentWillUnmount() {
-        super.componentWillUnmount()
     }
 
     render() {
@@ -78,12 +76,18 @@ export  default  class TCUserFreePlay extends BackBaseComponent {
                         < View style={styles.formstyle}>
                             <View style={styles.loginInputStyle}>
                                 <Text
-                                    style={{color: loginAndRegeisterTxtColor.inputPlaceholder, fontSize: Size.default}}>试玩账号</Text>
+                                    style={{
+                                        color: loginAndRegeisterTxtColor.inputPlaceholder,
+                                        fontSize: Size.default
+                                    }}>试玩账号</Text>
                                 <Text style={styles.guestNameStyle}>{this.stateModel.userName}</Text>
                             </View>
                             <View style={styles.loginInputStyle}>
                                 <Text
-                                    style={{color: loginAndRegeisterTxtColor.inputPlaceholder, fontSize: Size.default}}>登录密码</Text>
+                                    style={{
+                                        color: loginAndRegeisterTxtColor.inputPlaceholder,
+                                        fontSize: Size.default
+                                    }}>登录密码</Text>
                                 <TextInput
                                     ref="login_pwd"
                                     placeholder='密码(6-15位字母或数字)'
@@ -105,7 +109,7 @@ export  default  class TCUserFreePlay extends BackBaseComponent {
                                     立即登录
                                 </Text>
                             </TouchableOpacity>
-                        </ View >
+                        </ View>
                         <View style={styles.tipTxt}>
                             <Text style={styles.tipTxtColor}>1、每个试玩账号初始金额为2000RMB，不允许充值；</Text>
                             <Text style={styles.tipTxtColor}>2、每个IP每天仅允许有3个试玩账号；</Text>
@@ -117,7 +121,7 @@ export  default  class TCUserFreePlay extends BackBaseComponent {
                     </View>
                 </ScrollView>
                 <LoadingSpinnerOverlay
-                    ref={ component => this._partModalLoadingSpinnerOverLay = component }
+                    ref={component => this._partModalLoadingSpinnerOverLay = component}
                     modal={true}
                     marginTop={64}/>
             </View>);
@@ -229,6 +233,7 @@ class StateModel {
     @observable
     userName = ''
 }
+
 const
     styles = StyleSheet.create({
         container: {

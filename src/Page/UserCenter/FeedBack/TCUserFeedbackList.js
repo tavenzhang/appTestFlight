@@ -2,7 +2,7 @@
  * Created by joyce-jx on 2017/6/17.
  */
 
-import React from 'react';
+import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, ScrollView, Image, ListView} from 'react-native';
 import {observer} from 'mobx-react/native';
 import {observable, computed, action} from 'mobx';
@@ -18,7 +18,6 @@ import ModalDropdown from '../../../Common/View/ModalDropdown';
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import NoDataView from '../../../Common/View/TCNoDataView';
-import BackBaseComponent from '../../Base/TCBaseBackComponent';
 import RowList from './View/TCUserFeedbackListRow';
 import Feedback from './TCUserFeedback';
 import FeedbackView from './TCUserFeedbackView';
@@ -29,12 +28,11 @@ import {
 import {common} from '../../resouce/images';
 
 @observer
-export default class TCUserFeedbackList extends BackBaseComponent {
+export default class TCUserFeedbackList extends Component {
     status = 'RESOLVED';
     stateModel = new StateModel()
 
     componentDidMount() {
-        super.componentDidMount();
         this.listener = RCTDeviceEventEmitter.addListener('feedbackListRefresh', () => this.updateData());
     }
 

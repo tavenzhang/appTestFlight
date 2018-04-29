@@ -3,7 +3,7 @@
  * Created by Joyce on 2017/01/06.
  */
 
-import React from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, Platform, Text, View, Image} from 'react-native';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 import {Size, width, height, statusBarHeight} from '../resouce/theme';
@@ -11,10 +11,9 @@ import NetUtils from '../../Common/Network/TCRequestUitls';
 import {config} from '../../Common/Network/TCRequestConfig';
 import RefreshListView from '../../Common/View/RefreshListView/RefreshListView';
 import NoDataView from '../../Common/View/TCNoDataView';
-import BackBaseComponent from '../Base/TCBaseBackComponent';
 import TopNavigationBar from './components/TCNavigationBar';
 
-export  default  class List extends BackBaseComponent {
+export default class List extends Component {
     render() {
         return (
             <View style={styles.container}>
@@ -34,13 +33,13 @@ export  default  class List extends BackBaseComponent {
             (data) => {
                 this._modalLoadingSpinnerOverLay.hide();
                 if (data.rs) {
-                    if(data.content) {
+                    if (data.content) {
                         let tempData = {
                             "content": {"totalCount": data.content.length, "datas": data.content},
                             "rs": data.rs
                         };
                         callBack(tempData, tempData.content.datas);
-                    }else {
+                    } else {
                         callBack(data, null);
                     }
                 }
@@ -60,7 +59,7 @@ export  default  class List extends BackBaseComponent {
     }
 
     renderContent() {
-        return(
+        return (
             <RefreshListView
                 ref="refreshListView"
                 renderRow={(rowData) => this.renderRow(rowData)}
@@ -71,28 +70,29 @@ export  default  class List extends BackBaseComponent {
     }
 
     renderRow(rowData) {
-        if(!rowData){
+        if (!rowData) {
             return;
         }
 
         let rank = rowData.rank;
         let rankImage = require('./asset/one.png');
-        if(rank == 2) {
+        if (rank == 2) {
             rankImage = require('./asset/two.png');
-        }else if (rank == 3) {
+        } else if (rank == 3) {
             rankImage = require('./asset/three.png');
         }
 
         return (
             <View style={styles.rowContainer}>
                 {rank > 3 &&
-                    <View style={[styles.rank, styles.rankRoundContainer]}>
-                        <View style={styles.rankRound}>
-                            <Text style={[styles.row, styles.rankText]}>{rowData.rank}</Text>
-                        </View>
+                <View style={[styles.rank, styles.rankRoundContainer]}>
+                    <View style={styles.rankRound}>
+                        <Text style={[styles.row, styles.rankText]}>{rowData.rank}</Text>
                     </View>
+                </View>
                 }
-                {rank <= 3 && <Image style={[styles.rank, styles.rankImage]} source={rankImage} resizeMode={'contain'}/>}
+                {rank <= 3 &&
+                <Image style={[styles.rank, styles.rankImage]} source={rankImage} resizeMode={'contain'}/>}
                 <Text style={[styles.row, styles.account]}>{rowData.usernameMask}</Text>
                 <Text style={[styles.row, styles.type]}>{rowData.hongbaoType}</Text>
                 <Text style={[styles.row, styles.amount]}>{rowData.amount}</Text>
@@ -101,7 +101,7 @@ export  default  class List extends BackBaseComponent {
     }
 
     renderNoDataView() {
-        return(<NoDataView ref='NoDataView' titleTip={''} contentTip='榜单尚未更新，请稍后再试'/>);
+        return (<NoDataView ref='NoDataView' titleTip={''} contentTip='榜单尚未更新，请稍后再试'/>);
     }
 }
 

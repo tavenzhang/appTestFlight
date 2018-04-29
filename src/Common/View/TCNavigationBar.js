@@ -7,7 +7,7 @@
  import TopNavigationBar from '../../Common/View/TCNavigationBar'
  */
 
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -24,7 +24,7 @@ import {width, indexTxtColor,Size} from '../../Page/resouce/theme'
 import _ from 'lodash';
 import {common} from '../../Page/resouce/images'
 
-export default class TCNavigationBar extends React.Component {
+export default class TCNavigationBar extends Component {
     constructor(state) {
         super(state);
         this.state = {

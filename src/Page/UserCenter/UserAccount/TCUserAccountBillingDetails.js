@@ -14,15 +14,13 @@ import {
 } from 'react-native';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import Toast from '../../../Common/JXHelper/JXToast';
-import BackBaseComponent from '../../Base/TCBaseBackComponent'
 import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle, copyBtnStyle} from '../../resouce/theme'
-import OrderItemList from '../UserOrder/TCUserOrderItemList'
 import Moment from 'moment'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 
 @withMappedNavigationProps()
-export default class TCUserAccountBillingDetails extends BackBaseComponent {
+export default class TCUserAccountBillingDetails extends Component {
 
     constructor(props) {
         super(props)
@@ -32,11 +30,9 @@ export default class TCUserAccountBillingDetails extends BackBaseComponent {
 
 
     componentDidMount() {
-        super.componentDidMount()
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount()
     }
 
     render() {

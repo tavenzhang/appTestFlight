@@ -3,9 +3,7 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -16,11 +14,10 @@ import {
 
 import NetWorkTool from '../../Common/Network/TCToolNetWork'
 import TopNavigationBar from '../../Common/View/TCNavigationBar'
-import BackBaseComponent from './TCBaseBackComponent'
 import {Size, indexBgColor, listViewTxtColor} from '../resouce/theme'
 import Helper from '../../Common/JXHelper/TCNavigatorHelper'
 
-export default class TCBaseComponent extends BackBaseComponent {
+export default class TCBaseComponent extends Component {
     constructor(state) {
         super(state)
         this.state = {
@@ -32,7 +29,6 @@ export default class TCBaseComponent extends BackBaseComponent {
     static defaultProps = {};
 
     componentDidMount() {
-        super.componentDidMount()
         // InteractionManager.runAfterInteractions(() => {
         //     this.setState({renderPlaceholderOnly: false});
         // })
@@ -40,7 +36,6 @@ export default class TCBaseComponent extends BackBaseComponent {
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount()
         NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
     }
 
@@ -72,13 +67,13 @@ export default class TCBaseComponent extends BackBaseComponent {
                 <TopNavigationBar
                     title={this.props.title}
                     needBackButton={true}
-                    backButtonCall={()=> {
+                    backButtonCall={() => {
                         Helper.popToBack()
                     }}
                 />
                 <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
                     <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <Text style={{color:listViewTxtColor.title ,fontSize:Size.default}}> 努力加载中... </Text>
+                        <Text style={{color: listViewTxtColor.title, fontSize: Size.default}}> 努力加载中... </Text>
                     </View>
                 </View>
             </View>

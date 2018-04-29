@@ -3,9 +3,7 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -15,7 +13,8 @@ import {
 } from 'react-native';
 import {agentCenter, listViewTxtColor, Size, width, height, indexBgColor} from './../../../../resouce/theme'
 import {common} from '../../../../resouce/images'
-export default class TCAgentCommissionListRow extends React.Component {
+
+export default class TCAgentCommissionListRow extends Component {
     constructor(state) {
         super(state)
         this.state = {}
@@ -29,17 +28,17 @@ export default class TCAgentCommissionListRow extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={[styles.titleTxtStyle,  {width: width * 0.25}]}>{this.props.rowData.issueNo}</Text>
+                <Text style={[styles.titleTxtStyle, {width: width * 0.25}]}>{this.props.rowData.issueNo}</Text>
                 <Text
-                    style={[styles.titleTxtStyle,{color:'red'}]}>{this.props.rowData.betsSum.toFixed(2)}</Text>
+                    style={[styles.titleTxtStyle, {color: 'red'}]}>{this.props.rowData.betsSum.toFixed(2)}</Text>
                 <Text
-                    style={[styles.titleTxtStyle,{color:'red'}]}>{this.props.rowData.commission.toFixed(2)}</Text>
+                    style={[styles.titleTxtStyle, {color: 'red'}]}>{this.props.rowData.commission.toFixed(2)}</Text>
                 <Text
                     style={styles.titleTxtStyle}>{this.props.rowData.userCount}</Text>
 
 
                 <Text
-                    style={[styles.titleTxtStyle,  {width: width * 0.15}]}>{this.getStatus()}</Text>
+                    style={[styles.titleTxtStyle, {width: width * 0.15}]}>{this.getStatus()}</Text>
                 <Image source={common.iconNext} resizeMode='contain' style={styles.imgNext}/>
             </View>
         );

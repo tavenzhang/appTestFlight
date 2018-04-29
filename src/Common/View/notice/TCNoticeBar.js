@@ -3,9 +3,8 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
+
 import {
     AppRegistry,
     StyleSheet,
@@ -25,7 +24,7 @@ import JXHelper from '../../JXHelper/TCNavigatorHelper'
 
 import {width, indexBgColor, indexTxtColor, Size} from '../../../Page/resouce/theme'
 let noticeText = ''
-export default class MyComponent extends React.Component {
+export default class MyComponent extends Component {
     constructor(state) {
         super(state)
         this.state = {}

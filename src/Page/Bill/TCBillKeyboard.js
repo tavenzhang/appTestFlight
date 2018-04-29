@@ -5,9 +5,7 @@
  * Created by Sam on 2016/11/11.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -24,7 +22,7 @@ import {
 
 import TCBillMultipleBar from './TCBillMultipleBar'
 import {Size} from '../../Page/resouce/theme'
-export default class TCBillKeyboard extends React.Component {
+export default class TCBillKeyboard extends Component {
     constructor(state) {
         super(state);
         this.state = {

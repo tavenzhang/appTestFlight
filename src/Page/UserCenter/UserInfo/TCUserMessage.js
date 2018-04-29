@@ -5,12 +5,12 @@
  */
 import React, {Component} from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Alert
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+    TextInput,
+    Alert
 } from 'react-native';
 
 import {observer} from 'mobx-react/native'
@@ -22,21 +22,20 @@ import dismissKeyboard from 'dismissKeyboard';
 import Toast from '../../../Common/JXHelper/JXToast';
 import {config} from '../../../Common/Network/TCRequestConfig'
 import NetUtils from '../../../Common/Network/TCRequestUitls'
-import BackBaseComponent from '../../Base/TCBaseBackComponent'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {
-  indexBgColor,
-  listViewTxtColor,
-  inputStyle,
-  buttonStyle,
-  Size,
-  width,
-  height,
-  baseColor
+    indexBgColor,
+    listViewTxtColor,
+    inputStyle,
+    buttonStyle,
+    Size,
+    width,
+    height,
+    baseColor
 } from '../../resouce/theme'
 
-export  default  class TCUserMessage extends BackBaseComponent {
+export default class TCUserMessage extends Component {
 
     realName = ''
 
@@ -45,11 +44,9 @@ export  default  class TCUserMessage extends BackBaseComponent {
     }
 
     componentDidMount() {
-        super.componentDidMount()
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount()
     }
 
     render() {
@@ -67,7 +64,7 @@ export  default  class TCUserMessage extends BackBaseComponent {
                     </Text>
                 </View>
                 <View style={{flexDirection: 'column'}}>
-                    <View >
+                    <View>
                         <View style={styles.inputItem}>
                             <Text style={styles.userTitleStyle}>
                                 {TCUSER_DATA.realname ? '修改真实姓名' : '真实姓名'}
@@ -84,7 +81,11 @@ export  default  class TCUserMessage extends BackBaseComponent {
                         </View>
                         <View style={{alignItems: 'center'}}>
                             <Text
-                                style={{color: baseColor.strong, marginTop: 10, fontSize: Size.default}}>此姓名可能会影响到您提现，请谨慎填写!</Text>
+                                style={{
+                                    color: baseColor.strong,
+                                    marginTop: 10,
+                                    fontSize: Size.default
+                                }}>此姓名可能会影响到您提现，请谨慎填写!</Text>
                         </View>
                     </View>
                 </View>
@@ -101,7 +102,7 @@ export  default  class TCUserMessage extends BackBaseComponent {
                         }}>提交</Text>
                     </TouchableOpacity>
                     <LoadingSpinnerOverlay
-                        ref={ component => this._modalLoadingSpinnerOverLay = component }/>
+                        ref={component => this._modalLoadingSpinnerOverLay = component}/>
                 </View>
             </View>
 

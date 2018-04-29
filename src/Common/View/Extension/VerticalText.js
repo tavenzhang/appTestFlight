@@ -2,7 +2,7 @@
  * Created by Jason on 09/09/2017.
  * Copyright © 2017年 JX. All rights reserved.
  */
-import React, {Component, PropTypes,} from 'react'
+import React, {Component,} from 'react'
 import { View,Text } from 'react-native';
 
 export const VerticalText = props => (

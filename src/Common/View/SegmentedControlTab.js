@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, {Component} from 'react'
 import {
     View,
     TouchableOpacity,
@@ -17,12 +17,12 @@ const handleTabPress = (index, multiple, selectedIndex, onTabPress) => {
 
 
 const TabOption = ({
-    isTabActive, index, text,
-    firstTabStyle, lastTabStyle,
-    tabStyle, activeTabStyle,
-    tabTextStyle, activeTabTextStyle,
-    onTabPress,
-}) => {
+                       isTabActive, index, text,
+                       firstTabStyle, lastTabStyle,
+                       tabStyle, activeTabStyle,
+                       tabTextStyle, activeTabTextStyle,
+                       onTabPress,
+                   }) => {
     return (
         <TouchableOpacity style={[
             styles.tabStyle,
@@ -30,8 +30,8 @@ const TabOption = ({
             isTabActive ? [styles.activeTabStyle, activeTabStyle] : {},
             firstTabStyle,
             lastTabStyle]}
-            onPress={() => onTabPress(index)}
-            activeOpacity={1}>
+                          onPress={() => onTabPress(index)}
+                          activeOpacity={1}>
             <Text style={[
                 styles.textStyle,
                 tabTextStyle,
@@ -43,14 +43,22 @@ const TabOption = ({
 }
 
 const SegmentedControlTab = ({
-    multiple, selectedIndex, selectedIndices, values,
-    borderRadius, tabsContainerStyle,
-    tabStyle, activeTabStyle,
-    tabTextStyle, activeTabTextStyle,
-    onTabPress,
-}) => {
-    const firstTabStyle = [{borderRightWidth:0, borderTopLeftRadius: borderRadius, borderBottomLeftRadius: borderRadius }];
-    const lastTabStyle = [{borderLeftWidth:0, borderTopRightRadius: borderRadius, borderBottomRightRadius: borderRadius }];
+                                 multiple, selectedIndex, selectedIndices, values,
+                                 borderRadius, tabsContainerStyle,
+                                 tabStyle, activeTabStyle,
+                                 tabTextStyle, activeTabTextStyle,
+                                 onTabPress,
+                             }) => {
+    const firstTabStyle = [{
+        borderRightWidth: 0,
+        borderTopLeftRadius: borderRadius,
+        borderBottomLeftRadius: borderRadius
+    }];
+    const lastTabStyle = [{
+        borderLeftWidth: 0,
+        borderTopRightRadius: borderRadius,
+        borderBottomRightRadius: borderRadius
+    }];
 
     return (
         <View
@@ -67,10 +75,10 @@ const SegmentedControlTab = ({
                             onTabPress={(index) => handleTabPress(index, multiple, selectedIndex, onTabPress)}
                             firstTabStyle={index === 0 ? firstTabStyle : {}}
                             lastTabStyle={index === values.length - 1 ? lastTabStyle : {}}
-                            tabStyle={[tabStyle, index !== 0 && index !== values.length - 1 ? { marginHorizontal: -1 } : {}]}
+                            tabStyle={[tabStyle, index !== 0 && index !== values.length - 1 ? {marginHorizontal: -1} : {}]}
                             activeTabStyle={activeTabStyle}
                             tabTextStyle={tabTextStyle}
-                            activeTabTextStyle={activeTabTextStyle} />
+                            activeTabTextStyle={activeTabTextStyle}/>
                     );
                 })
             }
@@ -97,7 +105,8 @@ SegmentedControlTab.defaultProps = Object.assign({}, Component.propTypes, {
     multiplier: false,
     selectedIndex: 0,
     selectedIndices: [0],
-    onTabPress() { },
+    onTabPress() {
+    },
     tabsContainerStyle: {},
     tabStyle: {},
     activeTabStyle: {},

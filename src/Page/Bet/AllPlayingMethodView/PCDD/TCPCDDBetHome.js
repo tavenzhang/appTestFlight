@@ -344,7 +344,7 @@ export default class TCMarkSixBetHome extends React.Component {
 
     pushToBetBill() {
         this.clearSelectedNumbers()
-        NavigatorHelper.pushToBetBill(this.props.title,'PCDD',this.currentResultData.resultsData,this.props.gameUniqueId);
+        NavigatorHelper.pushToBetBill(this.props.title,'PCDD',this.currentResultData.resultsData,this.props.gameUniqueId,this.props.pagePathName);
         this.refs['contentScrollView'].scrollTo({x:0,y:0,animated:false})
     }
 

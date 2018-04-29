@@ -5,9 +5,7 @@
  * Created by Sam on 2016/11/11.
  */
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -21,7 +19,7 @@ import {
 import  * as PlayMathConfig from '../../../Data/JXPlayMathConfig'
 
 import {betIcon} from '../../resouce/images'
-export default class MyComponent extends React.Component {
+export default class MyComponent extends Component {
 
     constructor(state) {
         super(state);

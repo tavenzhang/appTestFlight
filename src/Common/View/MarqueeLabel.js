@@ -1,8 +1,8 @@
-import React, {Component, PropTypes,} from 'react'
-import {View, Text, Platform, StyleSheet,requireNativeComponent} from "react-native";
+import React, {Component,} from 'react'
+import {View, Text, Platform, StyleSheet, requireNativeComponent} from "react-native";
 
 //安卓平台用的原生库
-var RCTMarqueeLabel = Platform.OS =='android'?requireNativeComponent('RCTMarqueeLabel', MarqueeLabel):null;
+var RCTMarqueeLabel = Platform.OS == 'android' ? requireNativeComponent('RCTMarqueeLabel', MarqueeLabel) : null;
 
 export default class MarqueeLabel extends Component {
     // static propTypes = {
@@ -20,8 +20,8 @@ export default class MarqueeLabel extends Component {
     //     direction: PropTypes.number //android
     // }
     render() {
-        const { children, ...props } = this.props;
-        const nativeProps = Object.assign({}, props, { text: children });
+        const {children, ...props} = this.props;
+        const nativeProps = Object.assign({}, props, {text: children});
         return <RCTMarqueeLabel {...nativeProps} />;
     }
 }

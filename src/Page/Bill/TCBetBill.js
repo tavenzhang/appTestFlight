@@ -63,12 +63,13 @@ import PhotoHelper from '../../Common/JXHelper/PhotoHelper';
 import LineDivider from '../../Common/View/LineDivider';
 import {checkIfAmountCorrect} from './TCBillCheckHelper';
 import JXUPLogs from '../../Common/JXHelper/JXNetWorkUpLog'
+
 let UPLogs = new JXUPLogs()
 let photoHelper = new PhotoHelper();
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
-@observer
 @withMappedNavigationProps()
+@observer
 export default class TCBetBill extends React.Component {
     constructor(state) {
         super(state);
@@ -168,7 +169,7 @@ export default class TCBetBill extends React.Component {
     }
 
     render() {
-        let h = (this.props.cpInfoData.rightData.gameUniqueId.indexOf('28') >= 0)?40:0
+        let h = (this.props.cpInfoData.rightData.gameUniqueId.indexOf('28') >= 0) ? 40 : 0
 
         return (
             <View style={styles.container}>
@@ -226,7 +227,7 @@ export default class TCBetBill extends React.Component {
                 />
                 <ScrollView
                     ref="contentScrollView"
-                    style={{height: height - 64 - 50 - 45 -35 -50-15 -h}}
+                    style={{height: height - 64 - 50 - 45 - 35 - 50 - 15 - h}}
                     scrollRenderAheadDistance={20}
                     keyboardShouldPersistTaps={Platform.OS !== 'ios' ? 'handled' : false}
                     keyboardDismissMode={'on-drag'}
@@ -272,7 +273,7 @@ export default class TCBetBill extends React.Component {
         ) {
             return (
                 <View style={{backgroundColor: '#ffffff'}}>
-                    <LineDivider />
+                    <LineDivider/>
                     <View style={{height: 40, flexDirection: 'row'}}>
                         <View style={styles.chaseTopCenterStyle}>
                             <Text style={styles.chaseTopTextStyle}>连续买</Text>
@@ -323,10 +324,10 @@ export default class TCBetBill extends React.Component {
 
                     {this.getStopBetView()}
 
-                    <LineDivider />
+                    <LineDivider/>
 
                     {this.getMulOrIssueNumberBarView()}
-                    <LineDivider />
+                    <LineDivider/>
                 </View>
             );
         }
@@ -704,7 +705,7 @@ export default class TCBetBill extends React.Component {
         //彩票信息
         postJson.drawIdentifier = {
             gameUniqueId: this.props.cpInfoData.rightData.gameUniqueId,
-            issueNum: nextUniqueIssueNumber?nextUniqueIssueNumber:this.props.cpInfoData.rightData.uniqueIssueNumber
+            issueNum: nextUniqueIssueNumber ? nextUniqueIssueNumber : this.props.cpInfoData.rightData.uniqueIssueNumber
             // "issueNum": addToNextPlaNo ? (this.props.cpInfoData.current.nextUniqueIssueNumber) : this.props.cpInfoData.rightData.uniqueIssueNumber
         };
 
@@ -770,23 +771,24 @@ export default class TCBetBill extends React.Component {
             jsonData,
             data => {
                 this._modalLoadingSpinnerOverLay.hide();
-                UPLogs.addRequestLog(config.api.encryptOrdercap,data.duration)
+                UPLogs.addRequestLog(config.api.encryptOrdercap, data.duration)
                 if (data && data.rs) {
                     this.endingProcessing();
                     RCTDeviceEventEmitter.emit('balanceChange');
 
                     Helper.pushToBetSucceed({
-                            cpName: this.props.cpInfoData.rightData.gameNameInChinese,
-                            issue: json.drawIdentifier.issueNum,
-                            isIntelligence: json.purchaseInfo.purchaseType !== 'ONCE_ONLY'
-                                ? json.purchaseInfo.childOrder.eachChildOrders.length > 1
-                                : false,
-                            lastContinueIssueNumber: json.purchaseInfo.purchaseType !== 'ONCE_ONLY'
-                                ? json.purchaseInfo.childOrder.eachChildOrders[
+                        pagePathName: this.props.pagePathName,
+                        cpName: this.props.cpInfoData.rightData.gameNameInChinese,
+                        issue: json.drawIdentifier.issueNum,
+                        isIntelligence: json.purchaseInfo.purchaseType !== 'ONCE_ONLY'
+                            ? json.purchaseInfo.childOrder.eachChildOrders.length > 1
+                            : false,
+                        lastContinueIssueNumber: json.purchaseInfo.purchaseType !== 'ONCE_ONLY'
+                            ? json.purchaseInfo.childOrder.eachChildOrders[
                             parseInt(this.mobxIntelligenceData.continueIssueNumberOnBet) - 1
                                 ].issueNum
-                                : 0
-                        })
+                            : 0
+                    })
                     this.clearData();
                 } else {
                     this.endingProcessing();
@@ -995,11 +997,14 @@ export default class TCBetBill extends React.Component {
             }
         }
 
-        Helper.pushToIntelligenceBet({cpInfoData: this.props.cpInfoData,
+        Helper.pushToIntelligenceBet({
+            pagePathName: this.props.pagePathName,
+            cpInfoData: this.props.cpInfoData,
             singlePrice: DPS.getAddedAllAmount(),
             odds: DPS.getSameOdds(),
             gameUniqueId: this.props.gameUniqueId,
-            mobxIntelligenceData: this.mobxIntelligenceData})
+            mobxIntelligenceData: this.mobxIntelligenceData
+        })
     }
 
     intelligenceBetCheck() {

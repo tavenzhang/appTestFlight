@@ -12,14 +12,13 @@ import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import ScrollableTabView from '../../../Common/View/ScrollableTab/index'
 import DefaultTabBar from '../../../Common/View/ScrollableTab/DefaultTabBar'
 import UserAccount from './TCUserPayAndWithdrawRecords'
-import BaseComponent from '../../Base/TCBaseBackComponent'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import {Size, shoppingTxtColor, indexBgColor, listViewTxtColor} from '../../resouce/theme'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @withMappedNavigationProps()
-export default class TCUserPayAndWithdrawRecordsMain extends BaseComponent {
+export default class TCUserPayAndWithdrawRecordsMain extends Component {
 
     constructor(props) {
         super(props)

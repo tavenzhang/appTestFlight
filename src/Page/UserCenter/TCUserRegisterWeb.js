@@ -17,7 +17,6 @@ import {
     Text,
     Platform
 } from 'react-native';
-import BackBaseComponent from '../Base/TCBaseBackComponent'
 import Helper from '../../Common/JXHelper/TCNavigatorHelper'
 import JXHelpers from '../../Common/JXHelper/JXHelper'
 
@@ -33,7 +32,7 @@ const TOFREEPLAY = 'to_guest_register';
 const TOREGISTER = 'to_register';
 const TOAGREEMENT = 'to_agreement';
 
-export default class TCUserRegister extends BackBaseComponent {
+export default class TCUserRegister extends Component {
 
     constructor(props) {
         super(props)
@@ -59,11 +58,9 @@ export default class TCUserRegister extends BackBaseComponent {
     static defaultProps = {};
 
     componentDidMount() {
-        super.componentDidMount()
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount()
     }
 
     render() {
