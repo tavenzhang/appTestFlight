@@ -118,7 +118,7 @@ export default class TCAgentTeamList extends BaseComponent {
                         dismissKeyboard();
                         Helper.popToBack()
                         // this.props.wantPopToN > 0
-                        //     ? Helper.popToN(this.props.wantPopToN)
+                        //     ? Helper.popN(this.props.wantPopToN)
                         //     : Helper.popToBack()
                     }}
                     rightTitle={'+添加用户'}
@@ -679,7 +679,7 @@ export default class TCAgentTeamList extends BaseComponent {
                 </View>
             );
         } else if (this.state.foot === 0) {
-            return <View />;
+            return <View/>;
         }
     }
 

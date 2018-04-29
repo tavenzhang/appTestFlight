@@ -350,12 +350,26 @@ Helper.popToTop = () => {
     NavigationService.popToTop();
 }
 
-Helper.popN = (n) => {
-    Helper.popToTop()
+/**
+ * 返回多级页面
+ * @param n
+ * @param routers
+ * @param navigation
+ */
+Helper.popN = (n, routers, navigation) => {
+    let length = routers.length;
+    if (n === length - 1) {
+        Helper.popToTop();
+    } else if (n < length - 1) {
+        let backRouter = routers[length - n - 1];
+        navigation.goBack(backRouter.key);
+    } else {
+        return;
+    }
 }
 
 Helper.popToN = (n) => {
-    Helper.popToTop()
+    Helper.popN(n);
 }
 
 function routInStack(routeName, navigator) {
