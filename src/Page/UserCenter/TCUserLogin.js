@@ -71,7 +71,6 @@ export default class TCUserLogin extends Component {
     static defaultProps = {};
 
     componentDidMount() {
-        super.componentDidMount()
         this.getAppVersion()
         if (TCUSER_DATA.oauthToken && !TCUSER_DATA.islogin) {
             TCUSER_DATA.oauthToken = null
@@ -82,7 +81,6 @@ export default class TCUserLogin extends Component {
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount()
     }
 
     render() {
