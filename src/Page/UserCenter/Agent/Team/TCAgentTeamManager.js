@@ -485,6 +485,14 @@ export default class TCAgentTeamList extends BaseComponent {
 
     onchangeUserName(text) {
         this.state.username = text;
+        // 修复用户删除关键词搜索后数据未加载的情况
+        if (!text && (!this.state.dataSource || this.state.dataSource.getRowCount() === 0)) {
+          this._partModalLoadingSpinnerOverLay.show();
+          setTimeout(() => {
+            this.clearData();
+            this.getDataFromServer(null);
+          }, 1000);
+        }
     }
 
     renderHeader() {
