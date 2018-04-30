@@ -78,7 +78,6 @@
 		22C777C3205613A000F8E8C6 /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 22C777AC205613A000F8E8C6 /* README.markdown */; };
 		22C777C4205613A000F8E8C6 /* WTSafeGuard.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777AD205613A000F8E8C6 /* WTSafeGuard.m */; };
 		3576D6A17B764AED97E496D4 /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDB05AC76D4417EA214E750 /* libRNBlur.a */; };
-		362322F80FF64EBCA15CFBED /* libRNViewShot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B865BAA8F48A48F5A5082F52 /* libRNViewShot.a */; };
 		3D6C1CEA06914D12AF722723 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B5EC0E0DB94D17BC79308D /* libRNImagePicker.a */; };
 		40670F5A2596462D957F644A /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 019716F46851417BB3DA657C /* libSplashScreen.a */; };
 		4CBDC3B7E5C14F3F8733DD36 /* libRNShakeEvent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F4DAF2C9D3A4433870383AC /* libRNShakeEvent.a */; };
@@ -175,13 +174,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNToastNative;
-		};
-		2234D390205BB65600029206 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1C994FEFC58B47A4BFB29E7E /* RNViewShot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNViewShot;
 		};
 		2259B6EE2046B3030037370E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -545,7 +537,6 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = JD/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		17D563AFE623498E96EE9280 /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
-		1C994FEFC58B47A4BFB29E7E /* RNViewShot.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNViewShot.xcodeproj; path = "../node_modules/react-native-view-shot/ios/RNViewShot.xcodeproj"; sourceTree = "<group>"; };
 		203272E76C764DC482235BE1 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		2259B6F02046B34D0037370E /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		2259B6F22046B4530037370E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -733,7 +724,6 @@
 				C3164721FC0749E089E9FCC2 /* libCodePush.a in Frameworks */,
 				4CBDC3B7E5C14F3F8733DD36 /* libRNShakeEvent.a in Frameworks */,
 				EC8B7B52F39E44309A882805 /* libRNToastNative.a in Frameworks */,
-				362322F80FF64EBCA15CFBED /* libRNViewShot.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -852,14 +842,6 @@
 			isa = PBXGroup;
 			children = (
 				2234D332205BB37000029206 /* libRNToastNative.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		2234D38D205BB65600029206 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2234D391205BB65600029206 /* libRNViewShot.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1267,7 +1249,6 @@
 				DA502F45563A4EF9B1618928 /* CodePush.xcodeproj */,
 				F8AF13E2F5D0411AA902D928 /* RNShakeEvent.xcodeproj */,
 				3D3FAF3DC11F488CB5FE8AC3 /* RNToastNative.xcodeproj */,
-				1C994FEFC58B47A4BFB29E7E /* RNViewShot.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1345,7 +1326,7 @@
 				ORGANIZATIONNAME = JD;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = P6E92VM5UU;
+						DevelopmentTeam = JZKTDNCXFV;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 0;
@@ -1479,10 +1460,6 @@
 					ProjectRef = A64BC82211154D06A65315D9 /* RNVectorIcons.xcodeproj */;
 				},
 				{
-					ProductGroup = 2234D38D205BB65600029206 /* Products */;
-					ProjectRef = 1C994FEFC58B47A4BFB29E7E /* RNViewShot.xcodeproj */;
-				},
-				{
 					ProductGroup = 22836250202DA5590075881C /* Products */;
 					ProjectRef = 4652BDA16D72427FB8ABEA9A /* SplashScreen.xcodeproj */;
 				},
@@ -1563,13 +1540,6 @@
 			fileType = archive.ar;
 			path = libRNToastNative.a;
 			remoteRef = 2234D331205BB37000029206 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2234D391205BB65600029206 /* libRNViewShot.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNViewShot.a;
-			remoteRef = 2234D390205BB65600029206 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2259B6EF2046B3030037370E /* libRCTJCoreModule.a */ = {
@@ -2015,7 +1985,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = P6E92VM5UU;
+				DEVELOPMENT_TEAM = JZKTDNCXFV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JD/umeng",
@@ -2068,7 +2038,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P6E92VM5UU;
+				DEVELOPMENT_TEAM = JZKTDNCXFV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JD/umeng",
