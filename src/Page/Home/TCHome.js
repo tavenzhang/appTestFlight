@@ -197,7 +197,8 @@ export default class TCHome extends Component {
             renderRow={(item, index) => {
                 return (<FastImage
                     source={{uri: item.bannerImageUrl}}
-                    style={styles.page}/>)
+                    style={styles.page}
+                    resizeMode={"cover"}/>)
             }}
             onPress={(item) => {
                 NavigatorHelper.pushToWebView(item.userClickUrl);
@@ -483,7 +484,6 @@ export default class TCHome extends Component {
         } else if (title == 'PROMOTION' || title == '优惠活动') {
             NavigatorHelper.pushtoPromotion();
         } else if (title == 'CUS_SERVICE' || title == '在线客服') {
-            NavigatorHelper.pushToWebView(rowData.contentUrl, rowData.nameInChinese)
             if (Platform.OS === 'ios') {
                 NavigatorHelper.pushToWebView(rowData.contentUrl, rowData.nameInChinese);
             } else {
@@ -553,6 +553,5 @@ var styles = StyleSheet.create({
         width: width,
         flex: 1,
         height: width * 0.383,
-        resizeMode: 'cover'
     }
 });

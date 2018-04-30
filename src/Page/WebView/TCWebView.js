@@ -20,9 +20,10 @@ import {config} from '../../Common/Network/TCRequestConfig'
 import Toast from '../../Common/JXHelper/JXToast'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import {width, indexBgColor} from '../resouce/theme'
-
 var WEBVIEW_REF = 'webview';
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
+@withMappedNavigationProps()
 export default class TCWebView extends Component {
     constructor(state) {
         super(state)
