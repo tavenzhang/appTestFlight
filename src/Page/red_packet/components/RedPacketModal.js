@@ -5,7 +5,7 @@
 
 /**系统 npm类 */
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, Modal, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { AppRegistry, StyleSheet, Text, View, Modal, Image, ImageBackground, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { common, personal } from '../../resouce/images';
 import * as Animatable from 'react-native-animatable';
 
@@ -61,7 +61,7 @@ export default class MyComponent extends React.Component {
                     style={styles.modalBackgroundStyle}
                     underlayColor="transparent"
                 >
-                    <Animatable.Image animation="" source={bgImg} style={{ width: width, height: height }}>
+                    <Animatable.View animation="" source={bgImg} style={{ width: width, height: height }}>
                         <Image source={closeImg} style={styles.bgImg} />
                         <Animatable.View
                             style={styles.contentStyle}
@@ -76,7 +76,7 @@ export default class MyComponent extends React.Component {
                             {this.getRulesView()}
                             {this.getRulesLabel()}
                         </Animatable.View>
-                    </Animatable.Image>
+                    </Animatable.View>
                 </TouchableHighlight>
             </Modal>
         );
@@ -140,9 +140,9 @@ export default class MyComponent extends React.Component {
     getRulesView(){
         if(this.state.showRules) {
             return (
-                <Image source={wmzImage} style={styles.wmzImg}>
+                <ImageBackground source={wmzImage} style={styles.wmzImg}>
                     <Text style={ styles.lostLabel3}>{'您还未满足抢红包的条件资\n格,请查看抢红包具体规则,\n方便您早日参加红包活动。'}</Text>
-                </Image>
+                </ImageBackground>
             );
         }
     }
@@ -157,9 +157,9 @@ export default class MyComponent extends React.Component {
                         this.showRulesButtonCall();
                     }}
                 >
-                    <Image source={require('../asset/kai_button.png')} style={styles.continueImg}>
+                    <ImageBackground source={require('../asset/kai_button.png')} style={styles.continueImg}>
                         <Text style={{ fontSize: Size.font22, fontWeight: 'bold', color: 'white' }}>查看规则</Text>
-                    </Image>
+                    </ImageBackground>
                 </TouchableOpacity>
             );
         }
