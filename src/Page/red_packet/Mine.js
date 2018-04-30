@@ -4,7 +4,7 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground} from 'react-native';
 import {observer} from 'mobx-react/native';
 import {observable, computed, action} from 'mobx';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
@@ -26,10 +26,10 @@ export default class Mine extends Component {
         return (
             <View style={styles.container}>
                 <TopNavigationBar title={'我的红包'}/>
-                <Image style={styles.currentStatus} source={require('./asset/wdhb_bg.png')} resizeMode={'contain'}>
+                <ImageBackground style={styles.currentStatus} source={require('./asset/wdhb_bg.png')} resizeMode={'contain'}>
                     {this.renderStatus('红包总额', this.stateModel.totalAmount)}
                     {this.renderStatus('红包个数', this.stateModel.totalCount)}
-                </Image>
+                </ImageBackground>
                 <View style={styles.listContainer}>
                     {this.renderHeader()}
                     <RefreshListView

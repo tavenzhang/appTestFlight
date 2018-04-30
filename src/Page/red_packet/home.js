@@ -5,7 +5,7 @@
 
 /**系统 npm类 */
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity, Platform} from 'react-native';
+import {StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, Platform} from 'react-native';
 import {observer} from 'mobx-react/native';
 import Toast from '../../Common/JXHelper/JXToast';
 import Moment from 'moment';
@@ -42,7 +42,7 @@ export default class MyComponent extends React.Component {
 
     render() {
         return (
-            <Image style={styles.bgViewStyle} source={require('./asset/hb_bg.png')}>
+            <ImageBackground style={styles.bgViewStyle} source={require('./asset/hb_bg.png')}>
                 <TopNavigationBar title={'抢红包'}/>
                 <Image
                     source={require('./asset/hb_title.png')}
@@ -58,7 +58,7 @@ export default class MyComponent extends React.Component {
                     data={this.uCenterData}
                     continueDraw={type => this.drawRedPacket(type)}
                 />
-            </Image>
+            </ImageBackground>
         );
     }
 
@@ -98,12 +98,12 @@ export default class MyComponent extends React.Component {
                     noWay ? this.noMeetDrawRedPacket(type) : this.drawRedPacket(type);
                 }}
             >
-                <Image source={img} style={styles.redPacketStyle} resizeMode="contain">
+                <ImageBackground source={img} style={styles.redPacketStyle} resizeMode="contain">
                     <Text style={styles.redPacketTextStyle}>
                         {text}
                         {type === 'TJ' ? RedPacketData.TJHongbaoCountDown : RedPacketData.FLHongbaoCountDown}
                     </Text>
-                </Image>
+                </ImageBackground>
             </TouchableOpacity>
         );
     }
@@ -116,24 +116,24 @@ export default class MyComponent extends React.Component {
                         this.drawRedPacket('FU');
                     }}
                 >
-                    <Image source={require('./asset/hb_flhb.png')} style={styles.redPacket2Style} resizeMode="contain">
+                    <ImageBackground source={require('./asset/hb_flhb.png')} style={styles.redPacket2Style} resizeMode="contain">
                         <Text style={styles.redPacketTextStyle}>
                             可抢次数: {RedPacketData.FLHongbao.remainderTimes} {'\n'}
                             {RedPacketData.FLHongbaoCountDown}
                         </Text>
-                    </Image>
+                    </ImageBackground>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
                         this.drawRedPacket('TJ');
                     }}
                 >
-                    <Image source={require('./asset/hb_yqhb.png')} style={styles.redPacket2Style} resizeMode="contain">
+                    <ImageBackground source={require('./asset/hb_yqhb.png')} style={styles.redPacket2Style} resizeMode="contain">
                         <Text style={styles.redPacketTextStyle}>
                             可抢次数: {RedPacketData.TJHongbao.remainderTimes} {'\n'}
                             {RedPacketData.TJHongbaoCountDown}
                         </Text>
-                    </Image>
+                    </ImageBackground>
                 </TouchableOpacity>
             </View>
         );
@@ -167,9 +167,9 @@ export default class MyComponent extends React.Component {
     getButtonView(title, event) {
         return (
             <TouchableOpacity onPress={event}>
-                <Image style={styles.bottomButtonImageStyle} source={require('./asset/rpbd_button.png')}>
+                <ImageBackground style={styles.bottomButtonImageStyle} source={require('./asset/rpbd_button.png')}>
                     <Text style={styles.bottomButtonTextStyle}>{title}</Text>
-                </Image>
+                </ImageBackground>
             </TouchableOpacity>
         );
     }
