@@ -29,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".webview.JXWebView"/>
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 
