@@ -172,7 +172,7 @@ export default class TCBetBill extends React.Component {
         let h = (this.props.cpInfoData.rightData.gameUniqueId.indexOf('28') >= 0) ? 40 : 0
 
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, {flex:1}]}>
                 <TopNavigationBar
                     title={this.props.title}
                     needBackButton={true}
@@ -227,7 +227,7 @@ export default class TCBetBill extends React.Component {
                 />
                 <ScrollView
                     ref="contentScrollView"
-                    style={{height: height - 64 - 50 - 45 - 35 - 50 - 15 - h}}
+                    style={{flex:1}}
                     scrollRenderAheadDistance={20}
                     keyboardShouldPersistTaps={Platform.OS !== 'ios' ? 'handled' : false}
                     keyboardDismissMode={'on-drag'}

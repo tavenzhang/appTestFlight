@@ -254,11 +254,8 @@ export default class TCUserWithdrawNew extends Component {
     gotoTop() {
         dismissKeyboard()
         this.stateModel.setWithdrawModalVisible()
-        let {navigator} = this.props
-        if (navigator) {
-            RCTDeviceEventEmitter.emit('balanceChange', true)
-            navigator.popToTop()
-        }
+        RCTDeviceEventEmitter.emit('balanceChange', true)
+        Helper.popToBack()
     }
 
     /**

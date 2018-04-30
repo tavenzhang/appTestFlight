@@ -38,9 +38,13 @@ import {
 } from '../../../resouce/theme';
 import Moment from 'moment';
 
+let isUserSheet = true
+
 export default class TCAgentSheets extends Component {
     constructor(props) {
         super(props);
+        const { params } = this.props.navigation.state;
+        isUserSheet = params ? params.isUserSheet : true;
         var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         this.state = {
             dataPersonal: {
@@ -78,7 +82,7 @@ export default class TCAgentSheets extends Component {
                     ? ['盈利总额', '有效投注总额', '派彩总额', '充值总额', '提款总额']
                     : this.getListTitles(),
             dataSource2: ['盈利总额', '有效投注总额', '派彩总额', '佣金总额', '充值总额', '提款总额'],
-            selectedIndex: this.props.isUserSheet ? 0 : 1,
+            selectedIndex: isUserSheet ? 0 : 1,
             beginTime: '',
             endTime: '',
             rightButtonTitle: '今天',
@@ -278,11 +282,11 @@ export default class TCAgentSheets extends Component {
     }
 
     renderSegmentedControlTab() {
-        if (this.props.isUserSheet) {
+        if (isUserSheet) {
             return (
                 <Text
                     style={{
-                        marginTop: Platform.OS == 'ios' ? 20 : 0,
+                        marginTop: Platform.OS === 'ios' ? 20 : 0,
                         fontSize: Size.font20,
                         color: indexTxtColor.topTitle,
                         fontWeight: 'bold',
@@ -297,7 +301,7 @@ export default class TCAgentSheets extends Component {
             return (
                 <Text
                     style={{
-                        marginTop: Platform.OS == 'ios' ? 20 : 0,
+                        marginTop: Platform.OS === 'ios' ? 20 : 0,
                         fontSize: Size.font20,
                         color: indexTxtColor.topTitle,
                         fontWeight: 'bold',
@@ -311,7 +315,7 @@ export default class TCAgentSheets extends Component {
     }
 
     getListTitles(){
-        if (this.props.isUserSheet){
+        if (isUserSheet){
          return ['盈利总额', '有效投注总额', '派彩总额', '佣金总额', '充值总额', '提款总额'];
         }
         return ['盈利总额', '有效投注总额', '派彩总额', '佣金总额', '充值总额', '提款总额', '返点总额', '优惠总额']
