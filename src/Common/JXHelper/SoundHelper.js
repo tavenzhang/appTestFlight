@@ -1,9 +1,9 @@
 import React from 'react-native';
 const Sound = require('react-native-sound');
-
+var SoundFile = require('../../Page/asset/bet.wav')
 const playSoundBundle = () => {
     try {
-        const s = new Sound('bet.wav', Sound.MAIN_BUNDLE, (e) => {
+        const s = new Sound(SoundFile, (e) => {
             if (e) {
                 // console.log('error', e);
             } else {
