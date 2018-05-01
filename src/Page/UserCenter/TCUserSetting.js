@@ -80,7 +80,7 @@ export  default  class TCUserSetting extends Component {
                  </TouchableOpacity>*/}
                 <View style={styles.setItem}>
                     <Image source={personal.toolMusic} style={styles.img}/>
-                    <Text style={[styles.itemTxt]}> 按钮声音开关</Text>
+                    <Text style={[styles.itemTxt]}>按钮声音开关</Text>
                     <Switch
                         value={this.stateModel.switchStatus}
                         style={{marginLeft: 10}}
