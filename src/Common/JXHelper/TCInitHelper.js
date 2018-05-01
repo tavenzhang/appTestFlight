@@ -70,8 +70,13 @@ export default class TCInitHelper {
 
     // 自动登录app
     autoLoginApp() {
-        JXLog(' =======================自动登录app ')
-        this.getUserData();
+        JXLog(' 自动登录app ')
+        if(Platform.OS==='android'){
+            this.isAndroidDevicesRoot(()=>{this.getUserData()});
+            this.checkAndroidCanShowIntelligenceBet();
+        }else{
+            this.getUserData();
+        }
     }
 
     getUserIconBGColor() {
