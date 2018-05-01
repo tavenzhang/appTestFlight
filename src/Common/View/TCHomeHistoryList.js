@@ -117,7 +117,7 @@ export default class TCHomeHistoryList extends React.Component {
     }
 
     pushToMoreHistory(gameUniqueId) {
-        NavigatorHelper.pushToLotteryHistoryList(this.props.title, gameUniqueId, true);
+        NavigatorHelper.pushToLotteryHistoryList({title:this.props.title,gameUniqueId:this.props.gameUniqueId,betBack:true})
     }
 
     //CELL ROW DATA
