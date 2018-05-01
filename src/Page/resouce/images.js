@@ -52,7 +52,7 @@ export const gameIconKeyValue = {
     'HF_XYFT': require('./gameIcon/xy_ft.png'),
     'HF_XYSM': require('./gameIcon/xy_sm.png'),
     'QXC':require('./gameIcon/qxc.png'),
-    'HF_BJ5FC':require('./gameIcon/bj_5fc.png')
+    // 'HF_BJ5FC':require('./gameIcon/bj_5fc.png')
 }
 
 /**
@@ -149,15 +149,15 @@ export const personal = {
     identityNumber: require('./addon/userRegister/identity_number.png'),
     phoneNumber: require('./addon/userRegister/phone_number.png'),
     QQ: require('./addon/userRegister/qq.png'),
-    validateCode:require('./addon/userRegister/validate_code.png'),
-    tzRecord:require('./addon/userCenterIcon/tz_record.png'),
-    ctRecord:require('./addon/userCenterIcon/ct_record.png'),
-    userSheet:require('./addon/userCenterIcon/user_sheet.png'),
-    userManager:require('./addon/userCenterIcon/user_manager.png'),
-    agentCommission:require('./addon/userCenterIcon/agent_commission.png'),
-    teamSheet:require('./addon/userCenterIcon/team_sheet.png'),
+    validateCode: require('./addon/userRegister/validate_code.png'),
+    tzRecord: require('./addon/userCenterIcon/tz_record.png'),
+    ctRecord: require('./addon/userCenterIcon/ct_record.png'),
+    userSheet: require('./addon/userCenterIcon/user_sheet.png'),
+    userManager: require('./addon/userCenterIcon/user_manager.png'),
+    agentCommission: require('./addon/userCenterIcon/agent_commission.png'),
+    teamSheet: require('./addon/userCenterIcon/team_sheet.png'),
     onlineServicer: require('./addon/userCenterIcon/service.png'),
-    more:require('./addon/userCenterIcon/agent_more.png'),
+    more: require('./addon/userCenterIcon/agent_more.png'),
 }
 
 
@@ -232,7 +232,7 @@ export const betIcon = {
     bgPlace02: require('./addon/other/bg_place02.png'),
     back: require('./addon/other/fanhui2.png'),
     handPointing: require('./addon/other/hand_pointing.png'),
-    topBg: require('./addon/other/top_bg_750.png'),
+    topBg: require('./addon/other/top_bg.png'),
     shake: require('./addon/other/icon_shake.png'),
     explain: require('./addon/other/explain.png'),
     check: personal.check,
