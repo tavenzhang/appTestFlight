@@ -36,10 +36,12 @@ import {
     loginAndRegeisterBgColor,
     indexBgColor
 } from '../../Page/resouce/theme'
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 /**
  * 免费试玩
  */
+@withMappedNavigationProps()
 @observer
 export default class TCUserFreePlay extends Component {
 

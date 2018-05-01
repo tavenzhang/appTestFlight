@@ -205,9 +205,7 @@ export default class TCUserRegister extends Component {
                             <TouchableOpacity
                                 style={styles.bottomBarButtonStyle1}
                                 onPress={() => {
-                                    this.props.navigator.push({
-                                        name: 'freePlay', component: FreePlay, passProps: {gotoCenter: true}
-                                    })
+                                    NavigatorHelper.pushToUserFreePlay()
                                 }}>
                                 <Text style={{
                                     color: loginAndRegeisterTxtColor.freePlay,
