@@ -137,6 +137,10 @@ export default class TCUserCenterNew extends Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
             sectionHeaderHasChanged: (s1, s2) => s1 !== s2
         });
+        this.state = {
+            unreadMessageCnt: TC_NEW_MSG_COUNT > 99 ? 99 : TC_NEW_MSG_COUNT,
+            unreadFeedbackCnt: TC_FEEDBACK_COUNT > 99 ? 99 : TC_FEEDBACK_COUNT
+        }
     }
 
     componentDidMount() {
@@ -158,12 +162,25 @@ export default class TCUserCenterNew extends Component {
                 this.uCenterData.getSignInData()
             }
         })
+
+        this.listener4 = RCTDeviceEventEmitter.addListener('unreadMessage', () => {
+            console.log('UserCenter#unreadMessage() TC_NEW_MSG_COUNT='+TC_NEW_MSG_COUNT+'; TC_FEEDBACK_COUNT='+TC_FEEDBACK_COUNT)
+            if (this.state.unreadMessageCnt !== TC_NEW_MSG_COUNT) {
+                console.log('unread message count update. before count:'+this.state.unreadMessageCnt+', current count:'+TC_NEW_MSG_COUNT)
+                this.setState({unreadMessageCnt:TC_NEW_MSG_COUNT})
+            }
+            if (this.state.unreadFeedbackCnt !== TC_FEEDBACK_COUNT) {
+                console.log('unread feedback count update. before count:'+this.state.unreadFeedbackCnt+', current count:'+TC_FEEDBACK_COUNT)
+                this.setState({unreadFeedbackCnt:TC_FEEDBACK_COUNT})
+            }
+        })
     }
 
     componentWillUnmount() {
         this.listener && this.listener.remove()
         this.listener2 && this.listener2.remove()
         this.listener3 && this.listener3.remove()
+        this.listener4 && this.listener4.remove()
     }
 
     render() {
@@ -303,7 +320,7 @@ export default class TCUserCenterNew extends Component {
 
     // 刷新余额
     freshBalance(isMoneyChange) {
-        if (this.lastRequestTime == 0) {
+        if (this.lastRequestTime === 0) {
             this.lastRequestTime = Moment().format('X')
         } else {
             let temp = Moment().format('X') - this.lastRequestTime
@@ -375,7 +392,7 @@ export default class TCUserCenterNew extends Component {
                     <View style={styles.itemTxtView}>
                         <View style={{flexDirection: 'row'}}>
                             <Text style={styles.mySettingLeftTxtStyle}>{rowData.name}</Text>
-                            {this.getStatusTip(rowData.key === "wdxx" ? TC_NEW_MSG_COUNT : TC_FEEDBACK_COUNT)}
+                            {this.getStatusTip(rowData.key === "wdxx" ? this.state.unreadMessageCnt : this.state.unreadFeedbackCnt)}
                         </View>
                         <Text style={styles.contentTxtStyle}>{rowData.description}</Text>
                     </View>
@@ -408,7 +425,7 @@ export default class TCUserCenterNew extends Component {
     // 获取红点提示
     getStatusTip(count) {
         count = count > 99 ? 99 : count;
-        if (count == 0) {
+        if (count === 0) {
             return null
         } else {
             return (<View style={styles.pointStyle}><Text style={styles.pointTxt}>{count}</Text></View>)
