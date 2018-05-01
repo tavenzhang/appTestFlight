@@ -46,7 +46,7 @@ export default class TC168 extends Component {
         });
         this.listener = RCTDeviceEventEmitter.addListener('newMsgCall', () => {
             this.setState({
-                newMsg: TC_NEW_MSG_COUNT
+                newMsg: TC_NEW_MSG_COUNT + TC_FEEDBACK_COUNT
             });
         });
         BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
@@ -163,7 +163,7 @@ export default class TC168 extends Component {
     }
 
     getTab(title, isSelected, iconName, selectedIconName) {
-        if (title == '我的') {
+        if (title === '我的') {
             return (
                 <View style={styles.tabStyle}>
                     <Image
@@ -171,7 +171,7 @@ export default class TC168 extends Component {
                         style={!isSelected ? indexBtmStyle.iconStyle : indexBtmStyle.iconStyleSelected}
                         resizeMode={'contain'}
                     />
-                    {TC_NEW_MSG_COUNT != 0 || TC_FEEDBACK_COUNT != 0 ? <View style={styles.pointStyle}/> : null}
+                    {this.state.newMsg !== 0 ? <View style={styles.pointStyle}/> : null}
                 </View>
             );
         } else {
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         backgroundColor: 'red',
         position: 'absolute',
-        top: Platform.OS == 'ios' ? width * 0.06 : 30,
+        top: Platform.OS === 'ios' ? width * 0.06 : 30,
         left: 25
     },
     tabStyle: {
