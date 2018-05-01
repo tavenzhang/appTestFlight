@@ -91,9 +91,9 @@ export default class MyComponent extends React.Component {
         let remainderTime = data.hongbaoFinal.chances - data.hongbaoFinal.usedChances;
         let winAmount = data.winAmount;
         return (
-            <Image source={img} style={styles.centerImg}>
+            <ImageBackground source={img} style={styles.centerImg}>
                 {data.hasResult ? this.getWinLabel(remainderTime, winAmount) : this.getLostLabel(remainderTime)}
-            </Image>
+            </ImageBackground>
         );
     }
 
@@ -129,9 +129,9 @@ export default class MyComponent extends React.Component {
                         this.continueBtnCall();
                     }}
                 >
-                    <Image source={require('../asset/kai_button.png')} style={styles.continueImg}>
+                    <ImageBackground source={require('../asset/kai_button.png')} style={styles.continueImg}>
                         <Text style={{ fontSize: Size.font22, fontWeight: 'bold', color: 'white' }}>继续抢红包</Text>
-                    </Image>
+                    </ImageBackground>
                 </TouchableOpacity>
             );
         }
