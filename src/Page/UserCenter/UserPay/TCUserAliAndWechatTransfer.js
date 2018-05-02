@@ -11,7 +11,8 @@ import {
     Image,
     ScrollView,
     Linking,
-    Alert
+    Alert,
+    AppState
 } from 'react-native'
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
@@ -29,7 +30,8 @@ import Moment from 'moment'
 import TCUserOpenPayApp from './TCUserOpenPayApp'
 import _ from 'lodash'
 import Toast from "../../../Common/JXHelper/JXToast";
-import { withMappedNavigationProps } from 'react-navigation-props-mapper'
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
 let userOpenPayApp = new TCUserOpenPayApp()
 
 /**
@@ -61,11 +63,15 @@ export default class TCUserAliAndWechatTransfer extends Component {
             this.title = '其他支付'
             this.payType = 'OTHER'
         }
+        AppState.addEventListener('change', () => this._handleAppStateChange());
         this.getRandomOrderNo()
+        this.startTimer();
     }
 
     componentWillUnmount() {
         this.timer2 && clearTimeout(this.timer2)
+        this.stopTimer();
+        AppState.removeEventListener('change', this._handleAppStateChange);
     }
 
     render() {
@@ -151,6 +157,53 @@ export default class TCUserAliAndWechatTransfer extends Component {
             </TouchableOpacity>
         )
     }
+
+    _handleAppStateChange(currentAppState) {
+        if (currentAppState === "background") {
+            this.stopTimer();
+        } else if (currentAppState === "active") {
+            this.startTimer();
+        }
+    }
+
+    /**
+     * 刷新二维码
+     */
+    refershCode() {
+        RequestUtils.getUrlAndParamsAndCallback(config.api.bankList + "/" + this.props.data.adminBankId, {id: appId}, (res) => {
+            if (res.rs) {
+                if (res.content.bankCardNo) {
+                    this.stateModel.codeValue = res.content.bankCardNo;
+                } else {
+                    this.stopTimer();
+                    if (AppState.currentState === "active") {
+                        Alert.alert('充值二维码失效!', '对不起，当前充值二维码失效，请选择其他支付方式!', [
+                            {
+                                text: '确定',
+                                onPress: () => {
+                                    this.props.navigator.pop()
+                                }
+                            }
+                        ]);
+                    }
+                }
+            }
+        })
+    }
+
+    startTimer() {
+        this.timer = setInterval(
+            () => {
+                this.refershCode();
+            },
+            10 * 1000
+        );
+    }
+
+    stopTimer() {
+        this.timer && clearInterval(this.timer);
+    }
+
 
     onOpen() {
         this.timer2 = setTimeout(() => {
