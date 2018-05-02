@@ -87,7 +87,7 @@ export default class TCBetHome extends React.Component {
         myPlayMath = this.props.cp_playMath;
         SingletonDPS.setGameUniqueId(this.props.gameUniqueId);
         SingletonDPS.filterPlayType(TCGameSetting.content['allGamesPrizeSettings'][this.props.gameUniqueId]["singleGamePrizeSettings"]);
-        myPlayMath=SingletonDPS.getDefaultPlayNameFromFilterArray(this.props.cp_playMath);
+        myPlayMath = SingletonDPS.getDefaultPlayNameFromFilterArray(this.props.cp_playMath);
         SingletonDPS.resetAllData(myPlayMath);
         this._panResponder = PanResponder.create({
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -147,6 +147,9 @@ export default class TCBetHome extends React.Component {
                 })
             },
         });
+        this.listener = RCTDeviceEventEmitter.addListener('heightChange', () => {
+            this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
+        });
     }
 
     componentDidMount() {
@@ -159,15 +162,20 @@ export default class TCBetHome extends React.Component {
     }
 
     componentWillUnmount() {
+        this.listener && this.listener.remove();
         this.currentResultData && this.currentResultData.clear();
-        TCIntelligenceBetData.getInstance()&&TCIntelligenceBetData.getInstance().clearInstance();
+        TCIntelligenceBetData.getInstance() && TCIntelligenceBetData.getInstance().clearInstance();
     }
 
     helperJumpTo = (index) => {
         if (index == 0) {
             NavigatorHelper.pushToOrderRecord()
         } else if (index == 1) {
-            NavigatorHelper.pushToLotteryHistoryList({title:this.props.title,gameUniqueId:this.props.gameUniqueId,betBack:true})
+            NavigatorHelper.pushToLotteryHistoryList({
+                title: this.props.title,
+                gameUniqueId: this.props.gameUniqueId,
+                betBack: true
+            })
         } else if (index == 2) {
             let gameInfo = JXHelper.getGameInfoWithUniqueId(this.props.gameUniqueId)
             if (gameInfo) {
@@ -290,7 +298,8 @@ export default class TCBetHome extends React.Component {
     //初始化玩法号码选择
     initialContentView() {
         return <TCChongQingSSC ref='TCChongQingSSC' numberEvent={this.userPlayNumberEvent}
-                               shakeEvent={() => this.byShake()} gameUniqueId={this.props.gameUniqueId} defaultPlayType={myPlayMath}/>
+                               shakeEvent={() => this.byShake()} gameUniqueId={this.props.gameUniqueId}
+                               defaultPlayType={myPlayMath}/>
     }
 
     //初始化玩法选择器
@@ -369,7 +378,7 @@ export default class TCBetHome extends React.Component {
 
     pushToBetBill() {
         this.clearSelectedNumbers()
-        NavigatorHelper.pushToBetBill(this.props.title, 'KL10F', this.currentResultData.resultsData, this.props.gameUniqueId,this.props.pagePathName)
+        NavigatorHelper.pushToBetBill(this.props.title, 'KL10F', this.currentResultData.resultsData, this.props.gameUniqueId, this.props.pagePathName)
         this.refs['contentScrollView'].scrollTo({x: 0, y: 0, animated: false})
     }
 
@@ -433,7 +442,7 @@ export default class TCBetHome extends React.Component {
                 },
                     {
                         text: '取消', onPress: () => {
-                    }
+                        }
                     },
                 ])
         } else {

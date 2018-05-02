@@ -153,6 +153,9 @@ export default class TCBetHome extends React.Component {
                 })
             },
         });
+        this.listener = RCTDeviceEventEmitter.addListener('heightChange', () => {
+            this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
+        });
     }
 
     componentDidMount() {
@@ -167,7 +170,7 @@ export default class TCBetHome extends React.Component {
     }
 
     componentWillUnmount() {
-        this.listener2 && this.listener2.remove();
+        this.listener && this.listener.remove();
         this.currentResultData && this.currentResultData.clear();
         TCIntelligenceBetData.getInstance() && TCIntelligenceBetData.getInstance().clearInstance();
     }
@@ -185,7 +188,11 @@ export default class TCBetHome extends React.Component {
         if (index == 0) {
             NavigatorHelper.pushToOrderRecord()
         } else if (index == 1) {
-            NavigatorHelper.pushToLotteryHistoryList({title:this.props.title,gameUniqueId:this.props.gameUniqueId,betBack:true})
+            NavigatorHelper.pushToLotteryHistoryList({
+                title: this.props.title,
+                gameUniqueId: this.props.gameUniqueId,
+                betBack: true
+            })
         } else if (index == 2) {
             let gameInfo = JXHelper.getGameInfoWithUniqueId(this.props.gameUniqueId)
             if (gameInfo) {
@@ -420,7 +427,7 @@ export default class TCBetHome extends React.Component {
 
     pushToBetBill() {
         this.clearSelectedNumbers()
-        NavigatorHelper.pushToBetBill(this.props.title, 'SSL', this.currentResultData.resultsData, this.props.gameUniqueId,this.props.pagePathName)
+        NavigatorHelper.pushToBetBill(this.props.title, 'SSL', this.currentResultData.resultsData, this.props.gameUniqueId, this.props.pagePathName)
         this.refs['contentScrollView'].scrollTo({x: 0, y: 0, animated: false})
     }
 
@@ -481,7 +488,7 @@ export default class TCBetHome extends React.Component {
                 },
                     {
                         text: '取消', onPress: () => {
-                    }
+                        }
                     },
                 ])
         } else {

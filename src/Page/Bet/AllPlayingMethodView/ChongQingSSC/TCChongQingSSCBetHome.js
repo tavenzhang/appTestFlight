@@ -51,6 +51,7 @@ import {height, width, betHome, indexBgColor, statusBarHeight} from '../../../re
 import TCChongQingSSC_DPS from './data/TCChongQingSSC_DPS'
 import {MathControllerFactory} from 'lottery-core';
 import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceBetData";
+
 let SingletonDPS = null;
 let myPlayMath = '';
 let myGameSetting = null
@@ -162,10 +163,14 @@ export default class TCBetHome extends React.Component {
                 })
             },
         });
+        this.listener1 = RCTDeviceEventEmitter.addListener('heightChange', () => {
+            this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
+        });
     }
 
     componentWillUnmount() {
         this.listener && this.listener.remove();
+        this.listener1 && this.listener1.remove();
         this.currentResultData && this.currentResultData.clear();
         TCIntelligenceBetData.getInstance() && TCIntelligenceBetData.getInstance().clearInstance();
 
@@ -175,7 +180,11 @@ export default class TCBetHome extends React.Component {
         if (index == 0) {
             NavigatorHelper.pushToOrderRecord()
         } else if (index == 1) {
-            NavigatorHelper.pushToLotteryHistoryList({title:this.props.title,gameUniqueId:this.props.gameUniqueId,betBack:true})
+            NavigatorHelper.pushToLotteryHistoryList({
+                title: this.props.title,
+                gameUniqueId: this.props.gameUniqueId,
+                betBack: true
+            })
         } else if (index == 2) {
             let gameInfo = JXHelper.getGameInfoWithUniqueId(this.props.gameUniqueId)
             if (gameInfo) {
@@ -215,9 +224,9 @@ export default class TCBetHome extends React.Component {
                         this.showPopView()
                     }}
 
-                    rightButtonCall={ () => {
+                    rightButtonCall={() => {
                         this.refs['TCBetHelperModal']._setModalVisible(true)
-                    } }
+                    }}
 
                     title={SingletonDPS.getPlayTypeNameByIndex(0, 0)}
                 />
@@ -250,7 +259,6 @@ export default class TCBetHome extends React.Component {
                         gameUniqueId={this.props.gameUniqueId}
                         title={this.props.title}
                         isHighlightStyle={true}
-                        panResponder={this._panResponder}
                     />
                 </View>
 
@@ -266,7 +274,7 @@ export default class TCBetHome extends React.Component {
                     backgroundColor: betHome.betTopItemBg,
                 }} {...this._panResponder.panHandlers}>
                     <Image
-                        source={ historyHeight >= 26 * 7 ?
+                        source={historyHeight >= 26 * 7 ?
                             require('../../../resouce/addon/other/stdui_arrow_up.png') :
                             require('../../../resouce/addon/other/stdui_arrow_down.png')
                         }
@@ -304,7 +312,7 @@ export default class TCBetHome extends React.Component {
                                      mob={true}
                 />
                 <TCBetSettingModal ref='betSettingModal' settingEndingEvent={(e) => this.betSetEndingEvent(e)}/>
-                <LoadingSpinnerOverlay ref={ component => this._modalLoadingSpinnerOverLay = component }/>
+                <LoadingSpinnerOverlay ref={component => this._modalLoadingSpinnerOverLay = component}/>
             </View>
         )
     }
@@ -418,7 +426,7 @@ export default class TCBetHome extends React.Component {
 
     pushToBetBill() {
         this.clearSelectedNumbers()
-        NavigatorHelper.pushToBetBill(this.props.title, 'SSC', this.currentResultData.resultsData, this.props.gameUniqueId,this.props.pagePathName)
+        NavigatorHelper.pushToBetBill(this.props.title, 'SSC', this.currentResultData.resultsData, this.props.gameUniqueId, this.props.pagePathName)
         this.refs['contentScrollView'].scrollTo({x: 0, y: 0, animated: false})
     }
 
@@ -488,7 +496,7 @@ export default class TCBetHome extends React.Component {
                 },
                     {
                         text: '取消', onPress: () => {
-                    }
+                        }
                     },
                 ])
         } else {

@@ -40,6 +40,7 @@ import JXCurrentResultData from '../../../../Data/JXCurrentResultData'
 import JXUserPlayNumberEvent from '../../../../Data/JXUserPlayNumberEvent'
 import TCHomeHistoryList from '../../../../Common/View/TCHomeHistoryList'
 import {MathControllerFactory} from 'lottery-core'
+
 let SingletonDPS = null;
 let myPlayMath = '';
 let myGameSetting = null
@@ -55,14 +56,13 @@ export default class TCHappyPokerBetHome extends React.Component {
         super(state);
         this.state = {
             cpInfoData: {},
-            gestureCase:null,
-            moveTop:0,
-            topFinal:0,
+            gestureCase: null,
+            moveTop: 0,
+            topFinal: 0,
         };
         this.helperJumpTo = this.helperJumpTo.bind(this);
-        SingletonDPS=MathControllerFactory.getInstance().getMathController(this.props.gameUniqueId);
+        SingletonDPS = MathControllerFactory.getInstance().getMathController(this.props.gameUniqueId);
     }
-
 
 
     static defaultProps = {
@@ -76,15 +76,15 @@ export default class TCHappyPokerBetHome extends React.Component {
     componentWillMount() {
         this.userPlayNumberEvent = new JXUserPlayNumberEvent(SingletonDPS)
         this.currentResultData = new JXCurrentResultData(this.props.gameUniqueId)
-        myPlayMath=this.props.cp_playMath;
+        myPlayMath = this.props.cp_playMath;
         SingletonDPS.setGameUniqueId(this.props.gameUniqueId);
         SingletonDPS.filterPlayType(TCGameSetting.content['allGamesPrizeSettings'][this.props.gameUniqueId]["singleGamePrizeSettings"]);
-        myPlayMath=SingletonDPS.getDefaultPlayNameFromFilterArray(this.props.cp_playMath);
+        myPlayMath = SingletonDPS.getDefaultPlayNameFromFilterArray(this.props.cp_playMath);
         SingletonDPS.resetAllData(myPlayMath);
         this._panResponder = PanResponder.create({
             onStartShouldSetPanResponder: (evt, gestureState) => true,
             onMoveShouldSetPanResponder: (evt, gestureState) => {
-                const { dx } = gestureState;
+                const {dx} = gestureState;
                 return Math.abs(dx) > 0;
             },
             onPanResponderGrant: (evt, gestureState) => {
@@ -97,27 +97,27 @@ export default class TCHappyPokerBetHome extends React.Component {
                 })
             },
             onPanResponderMove: (evt, gestureState) => {
-                if(this.state.topFinal >= 312 && gestureState.vy > 0){
+                if (this.state.topFinal >= 312 && gestureState.vy > 0) {
                     return;
                 }
 
-                if (gestureState.vy > 0 && gestureState.dy >= 312 || this.state.topFinal == 182 && gestureState.dy >= 182){
+                if (gestureState.vy > 0 && gestureState.dy >= 312 || this.state.topFinal == 182 && gestureState.dy >= 182) {
                     this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
-                }else {
+                } else {
                     this.setState({isBegin: false, isMove: true, isEnd: false, gestureCase: gestureState});
                 }
             },
             onPanResponderRelease: (evt, gestureState) => {
                 let topFailHeight = 0;
-                if(gestureState.vy > 0 && gestureState.dy > 0){
+                if (gestureState.vy > 0 && gestureState.dy > 0) {
                     topFailHeight = 312;
-                } else if (gestureState.vy == 0){
-                    if(this.state.topFinal == 0 && gestureState.dy >= 0){
+                } else if (gestureState.vy == 0) {
+                    if (this.state.topFinal == 0 && gestureState.dy >= 0) {
                         topFailHeight = 182;
                     } else {
                         topFailHeight = 0;
                     }
-                } else if (gestureState.vy < 0 ) {
+                } else if (gestureState.vy < 0) {
                     topFailHeight = 0;
                 }
 
@@ -130,16 +130,25 @@ export default class TCHappyPokerBetHome extends React.Component {
                 })
             },
             onPanResponderTerminate: (evt, gestureState) => {
-                this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: gestureState.vy >= 0 ? 312 : 0})
+                this.setState({
+                    isBegin: false,
+                    isMove: false,
+                    isEnd: true,
+                    gestureCase: null,
+                    topFinal: gestureState.vy >= 0 ? 312 : 0
+                })
             },
+        });
+        this.listener1 = RCTDeviceEventEmitter.addListener('heightChange', () => {
+            this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
         });
     }
 
     render() {
         let historyHeight = this.state.gestureCase == null ? this.state.topFinal : this.state.gestureCase.dy + this.state.moveTop;
-        if (historyHeight < 0){
+        if (historyHeight < 0) {
             historyHeight = 0;
-        }else if(historyHeight > 312){
+        } else if (historyHeight > 312) {
             historyHeight = 312;
         }
 
@@ -147,15 +156,15 @@ export default class TCHappyPokerBetHome extends React.Component {
             <View style={styles.container}>
                 <TopNavigationBar
                     ref='TopNavigationBar'
-                    backButtonCall={()=> {
+                    backButtonCall={() => {
                         this.goBack()
                     }}
-                    centerButtonCall={()=> {
+                    centerButtonCall={() => {
                         this.showPopView()
                     }}
-                    rightButtonCall={ () => {
+                    rightButtonCall={() => {
                         this.refs['TCBetHelperModal']._setModalVisible(true)
-                    } }
+                    }}
                     title={myPlayMath}
                 />
                 <TCSelectPopupView
@@ -175,7 +184,7 @@ export default class TCHappyPokerBetHome extends React.Component {
                     isHappyPoker={true}
                 />
 
-                <View style={{width:Dimensions.get('window').width,height:historyHeight,backgroundColor:'green'}}>
+                <View style={{width: Dimensions.get('window').width, height: historyHeight, backgroundColor: 'green'}}>
                     <TCHomeHistoryList
                         height={historyHeight}
                         gameUniqueId={this.props.gameUniqueId}
@@ -186,20 +195,20 @@ export default class TCHappyPokerBetHome extends React.Component {
                 </View>
                 <View
                     style={{
-                        flexDirection:'column',
-                        justifyContent:'flex-start',
-                        height:13,
-                        width:Dimensions.get('window').width,
-                        alignItems:'center',
-                        backgroundColor:betHome.betTopItemBg,
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        height: 13,
+                        width: Dimensions.get('window').width,
+                        alignItems: 'center',
+                        backgroundColor: betHome.betTopItemBg,
                     }}
                     {...this._panResponder.panHandlers}>
                     <Image
-                        source={ historyHeight >= 26 * 7 ?
+                        source={historyHeight >= 26 * 7 ?
                             require('../../../resouce/addon/other/stdui_arrow_up.png') :
                             require('../../../resouce/addon/other/stdui_arrow_down.png')
                         }
-                        resizeMode ={'contain'}
+                        resizeMode={'contain'}
                         style={{height: 13, width: 55, marginTop: 0}}
                     />
                 </View>
@@ -207,11 +216,12 @@ export default class TCHappyPokerBetHome extends React.Component {
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        alignItems:'center',
-                        backgroundColor:betHome.betTopItemBg
+                        alignItems: 'center',
+                        backgroundColor: betHome.betTopItemBg
                     }} {...this._panResponder.panHandlers}>
-                    <TCBetShakeButtonView ref="TCBetShakeButtonView" style={{position: 'absolute', top: 0}} shakeEvent={()=>this.byShake()}/>
-                    <TCBetBalanceButton style={{}} shakeEvent={()=>this.byShake()}/>
+                    <TCBetShakeButtonView ref="TCBetShakeButtonView" style={{position: 'absolute', top: 0}}
+                                          shakeEvent={() => this.byShake()}/>
+                    <TCBetBalanceButton style={{}} shakeEvent={() => this.byShake()}/>
                     {this.getShoppingCartView()}
                 </View>
 
@@ -219,15 +229,15 @@ export default class TCHappyPokerBetHome extends React.Component {
                     <ScrollView ref="contentScrollView">{this.initialContentView()}</ScrollView>
                 </View>
                 <TCBetHomeBottomView ref="TCBetHomeBottomView"
-                                     leftButtonCallEvent={()=>this.randomSelect()}
-                                     rightButtonCallEvent={()=>this.checkNumbers()}
-                                     clearButtonCallEvent={()=>this.clearSelectedNumbers()}
+                                     leftButtonCallEvent={() => this.randomSelect()}
+                                     rightButtonCallEvent={() => this.checkNumbers()}
+                                     clearButtonCallEvent={() => this.clearSelectedNumbers()}
                                      data={this.userPlayNumberEvent.str}
                                      mob={true}
                 />
-                <TCBetSettingModal ref='betSettingModal' settingEndingEvent={(e)=>this.betSetEndingEvent(e)}/>
+                <TCBetSettingModal ref='betSettingModal' settingEndingEvent={(e) => this.betSetEndingEvent(e)}/>
                 <LoadingSpinnerOverlay
-                    ref={ component => this._modalLoadingSpinnerOverLay = component }
+                    ref={component => this._modalLoadingSpinnerOverLay = component}
                 />
             </View>
         )
@@ -248,8 +258,9 @@ export default class TCHappyPokerBetHome extends React.Component {
 
     componentWillUnmount() {
         this.listener && this.listener.remove();
+        this.listener1 && this.listener1.remove();
         this.currentResultData && this.currentResultData.clear();
-        TCIntelligenceBetData.getInstance()&&TCIntelligenceBetData.getInstance().clearInstance();
+        TCIntelligenceBetData.getInstance() && TCIntelligenceBetData.getInstance().clearInstance();
 
     }
 
@@ -257,7 +268,7 @@ export default class TCHappyPokerBetHome extends React.Component {
         if (this.userPlayNumberEvent.str.alreadyAdd > 0) {
             return (<TCBetGoBackShoppingCart style={{position: 'absolute', top: 0}}
                                              cc={this.userPlayNumberEvent.str.alreadyAdd}
-                                             shakeEvent={()=>this.pushToBetBill()}/>)
+                                             shakeEvent={() => this.pushToBetBill()}/>)
         }
     }
 
@@ -288,7 +299,9 @@ export default class TCHappyPokerBetHome extends React.Component {
 
     //初始化玩法号码选择
     initialContentView() {
-        return <TCHappyPoker_MainView ref='TCHappyPoker_MainView' numberEvent={this.userPlayNumberEvent} shakeEvent={()=>this.byShake()} gameUniqueId={this.props.gameUniqueId} defaultPlayType={myPlayMath}/>
+        return <TCHappyPoker_MainView ref='TCHappyPoker_MainView' numberEvent={this.userPlayNumberEvent}
+                                      shakeEvent={() => this.byShake()} gameUniqueId={this.props.gameUniqueId}
+                                      defaultPlayType={myPlayMath}/>
     }
 
     //初始化玩法选择器
@@ -375,7 +388,7 @@ export default class TCHappyPokerBetHome extends React.Component {
 
     pushToBetBill() {
         this.clearSelectedNumbers()
-        NavigatorHelper.pushToBetBill(this.props.title,'KLPK',this.currentResultData.resultsData,this.props.gameUniqueId,this.props.pagePathName)
+        NavigatorHelper.pushToBetBill(this.props.title, 'KLPK', this.currentResultData.resultsData, this.props.gameUniqueId, this.props.pagePathName)
         this.refs['contentScrollView'].scrollTo({x: 0, y: 0, animated: false})
     }
 
@@ -426,10 +439,10 @@ export default class TCHappyPokerBetHome extends React.Component {
                 },
                     {
                         text: '取消', onPress: () => {
-                    }
+                        }
                     },
                 ])
-        }else {
+        } else {
             NavigatorHelper.popToBack()
         }
     }

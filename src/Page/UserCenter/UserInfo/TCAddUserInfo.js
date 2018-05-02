@@ -179,7 +179,7 @@ export default class TCAddUserInfo extends Component {
                 <Dialog show={this.stateModel.showPwd}
                         setModalVisible={() => this.stateModel.setPwdDialogVisible()}
                         dialogTitle={'交易设置提示'}
-                        dialogContent={'交易密码用于余额提现，\n可以在账户安全中修改'}
+                        dialogContent={'交易密码用于余额提现，\n可以在安全中心修改'}
                         btnTxt={'我知道了'}/>
                 <LoadingSpinnerOverlay
                     ref={component => this._modalLoadingSpinnerOverLay = component}/>

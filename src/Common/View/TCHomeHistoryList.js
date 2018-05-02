@@ -12,6 +12,7 @@ import {
     TouchableOpacity,
     Image,
     ActivityIndicator,
+    PanResponder
 } from 'react-native';
 import {observer} from 'mobx-react/native';
 
@@ -20,6 +21,8 @@ import {Size, width, indexBgColor, listViewTxtColor} from '../../Page/resouce/th
 import {betIcon} from '../../Page/resouce/images'
 import NavigatorHelper from '../JXHelper/TCNavigatorHelper'
 import JXLotteryHistoryData from '../../Data/JXLotteryHistoryData'
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
+
 
 @observer
 export default class TCHomeHistoryList extends React.Component {
@@ -28,6 +31,9 @@ export default class TCHomeHistoryList extends React.Component {
         super(state);
         this.loadDataFormNet = this.loadDataFormNet.bind(this);
         this.dataSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
+        this.state = {
+            height: this.props.height
+        }
     }
 
     static defaultProps = {
@@ -44,13 +50,17 @@ export default class TCHomeHistoryList extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.height == 0 && this.props.height < nextProps.height) {
+            this.setState({
+                height: nextProps.height
+            });
             this.loadDataFormNet();
         }
     }
 
     render() {
         return (
-            <View style={[styles.container, {height: this.props.height}]} {...this.props.panResponder.panHandlers}>
+            <View
+                style={[styles.container, {height: this.state.height}]}>
                 {this.getHomeHistoryTopView()}
                 {this.lotteryHistoryData.isRefreshing ? this.renderLoading() : this.renderListView()}
                 {!this.lotteryHistoryData.isRefreshing && this.getHomeHistoryBottomView()}
@@ -60,7 +70,7 @@ export default class TCHomeHistoryList extends React.Component {
 
     renderLoading() {
         return (
-            <ActivityIndicator size='small'/>
+            <ActivityIndicator size='small' style={[styles.centering, {paddingTop: this.props.height * 0.5 - 26}]}/>
         );
     }
 
@@ -74,15 +84,24 @@ export default class TCHomeHistoryList extends React.Component {
         }
 
         return (
-            <ListView style={[{height: this.props.height - 52}]}
+            <ListView style={[{height: this.state.height - 52}]}
                       ref="ListView1"
                       dataSource={this.dataSource.cloneWithRows(this.lotteryHistoryData.historyData.slice())}
                       renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID)}
                       removeClippedSubviews={false}
                       scrollRenderAheadDistance={20}
-                      scrollEnabled={false}
-                      showsVerticalScrollIndicator={false}
+                      scrollEnabled={true}
+                      pageSize={5}
+                      showsVerticalScrollIndicator={true}
                       showsHorizontalScrollIndicator={false}
+                      onScroll={() => {
+                          if (this.state.height < 312) {
+                              this.setState({
+                                  height: 312
+                              });
+                              RCTDeviceEventEmitter.emit('heightChange');
+                          }
+                      }}
             />
         );
     }
@@ -94,8 +113,10 @@ export default class TCHomeHistoryList extends React.Component {
         }
         return (
             <View style={styles.homeHistoryTopView}>
-                <Text allowFontScaling={false} style={[styles.homeHistoryIssueText, gameUniqueIdIsSSC && styles.sscIssueText]}>期次</Text>
-                <Text allowFontScaling={false} style={[styles.homeHistoryOpenCodeText, gameUniqueIdIsSSC && styles.sscOpenCodeText]}>开奖号码</Text>
+                <Text allowFontScaling={false}
+                      style={[styles.homeHistoryIssueText, gameUniqueIdIsSSC && styles.sscIssueText]}>期次</Text>
+                <Text allowFontScaling={false}
+                      style={[styles.homeHistoryOpenCodeText, gameUniqueIdIsSSC && styles.sscOpenCodeText]}>开奖号码</Text>
             </View>
         );
     }
@@ -107,7 +128,8 @@ export default class TCHomeHistoryList extends React.Component {
                     this.pushToMoreHistory(this.props.gameUniqueId)
                 }}>
                     <View style={styles.homeHistoryBottomTouchable}>
-                        <Image style={styles.showMoreHistoryImage} source={betIcon.handPointing} resizeMode={'contain'}/>
+                        <Image style={styles.showMoreHistoryImage} source={betIcon.handPointing}
+                               resizeMode={'contain'}/>
                         <Text allowFontScaling={false} style={styles.showMoreHistoryText}>点击查看更多开奖历史</Text>
                     </View>
                 </TouchableOpacity>
@@ -117,7 +139,7 @@ export default class TCHomeHistoryList extends React.Component {
     }
 
     pushToMoreHistory(gameUniqueId) {
-        NavigatorHelper.pushToLotteryHistoryList({title:this.props.title,gameUniqueId:this.props.gameUniqueId,betBack:true})
+        NavigatorHelper.pushToLotteryHistoryList(this.props.title, gameUniqueId, true);
     }
 
     //CELL ROW DATA
@@ -136,7 +158,7 @@ export default class TCHomeHistoryList extends React.Component {
     }
 
     loadDataFormNet() {
-        let params = {limit: 10};
+        let params = {limit: 50};
         this.lotteryHistoryData.getLotteryHistoryRequest(this.props.gameUniqueId, params, true);
     }
 }
@@ -204,6 +226,11 @@ const styles = StyleSheet.create({
     },
     sscOpenCodeText: {
         width: width * 0.85,
+    },
+    centering: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 8
     },
 });
 

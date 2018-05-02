@@ -142,6 +142,9 @@ export default class TCMarkSixBetHome extends React.Component {
                 })
             },
         });
+        this.listener1 = RCTDeviceEventEmitter.addListener('heightChange', () => {
+            this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
+        });
     }
 
     render() {
@@ -189,7 +192,6 @@ export default class TCMarkSixBetHome extends React.Component {
                         gameUniqueId={this.props.gameUniqueId}
                         title={this.props.title}
                         isHighlightStyle={false}
-                        panResponder={this._panResponder}
                     />
                 </View>
 
@@ -263,6 +265,7 @@ export default class TCMarkSixBetHome extends React.Component {
 
     componentWillUnmount() {
         this.listener && this.listener.remove()
+        this.listener1 && this.listener1.remove();
         this.currentResultData && this.currentResultData.clear();
         TCIntelligenceBetData.getInstance() && TCIntelligenceBetData.getInstance().clearInstance();
     }
