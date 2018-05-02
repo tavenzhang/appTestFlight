@@ -184,10 +184,7 @@ export default class TCModifySecurityPwd extends Component {
     }
 
     finsh() {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.popN(2)
-        }
+        Helper.popToBack()
     }
 
     renderTip() {
