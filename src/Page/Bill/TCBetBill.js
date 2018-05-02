@@ -229,7 +229,7 @@ export default class TCBetBill extends React.Component {
                     ref="contentScrollView"
                     style={{flex:1}}
                     scrollRenderAheadDistance={20}
-                    keyboardShouldPersistTaps={Platform.OS !== 'ios' ? 'handled' : false}
+                    keyboardShouldPersistTaps={Platform.OS !== 'ios' ? 'handled' : 'never'}
                     keyboardDismissMode={'on-drag'}
                     removeClippedSubviews={true}
                 >
