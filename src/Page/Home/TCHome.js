@@ -88,7 +88,7 @@ export default class TCHome extends Component {
             RedPacketData.requestRedPacketCurrent();
         });
 
-        // this.androidUpdateTip();
+        this.androidUpdateTip();
         if (TCUSER_DATA.islogin) {
             TCInitHelper.getMsgStatus()
         }

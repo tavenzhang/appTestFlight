@@ -37,16 +37,22 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import dismissKeyboard from 'dismissKeyboard'
 import _ from 'lodash';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+import ModalList from "./View/ModalList";
+import ButtonView from "../../../Common/View/ButtonView";
+
 /**
  * 提示对话框
  */
-@observer
 @withMappedNavigationProps()
+@observer
 export default class TCUserPayNew extends Component {
 
     payData = {}//支付信息
     money = ''
     realTopupMoney = ''//加上随机数后的金额
+    @observable showList = false;
+    @observable bankList = [];
+
 
     constructor(props) {
         super(props)
@@ -93,11 +99,56 @@ export default class TCUserPayNew extends Component {
                     {this.props.payList && this.props.payList.length > 0 ? this.getContentView() : this.getEmptyTip()}
                 </ScrollView>
                 <LoadingSpinnerOverlay
-                    ref={ component => this._partModalLoadingSpinnerOverLay = component }
+                    ref={component => this._partModalLoadingSpinnerOverLay = component}
                     modal={true}
                     marginTop={64}/>
+                <ModalList
+                    show={this.showList}
+                    dataList={this.bankList}
+                    renderRow={(rowData) => this.renderBankList(rowData)}
+                />
             </View>
         )
+    }
+
+
+    /**
+     * 渲染银行列表
+     * @param rowData
+     * @returns {XML}
+     */
+    renderBankList(rowData) {
+        return (<View style={styles.bankItemView}>
+            <Text>{rowData.bankName}</Text>
+            {this.getBankTypeView(rowData)}
+        </View>)
+    }
+
+    getBankTypeView(rowData) {
+
+        if (rowData.bankType.length === 2) {
+            return (<View style={{flexDirection: 'row'}}>
+                <ButtonView text="储蓄卡" btnStyle={{marginHorizontal: 5}}
+                            onClick={() => this.onPayBankList(rowData.bankValue, 'DC')}/>
+                <ButtonView text="信用卡" btnStyle={{marginHorizontal: 5}}
+                            onClick={() => this.onPayBankList(rowData.bankValue, 'CC')}/>
+            </View>)
+        } else {
+            let type = rowData.bankType[0];
+            if (type === 'DC') {
+                return (<ButtonView text={'储蓄卡'} btnStyle={{marginHorizontal: 5}}
+                                    onClick={() => this.onPayBankList(rowData.bankValue, 'DC')}/>)
+            } else {
+                return (<ButtonView text={'信用卡'} btnStyle={{marginHorizontal: 5}}
+                                    onClick={() => this.onPayBankList(rowData.bankValue, 'CC')}/>)
+            }
+        }
+    }
+
+    onPayBankList(bankValue, bankType) {
+        this.showList = false;
+        this.showLoading();
+        this.applayPay("THIRD", bankValue, bankType);
     }
 
     getContentView() {
@@ -122,7 +173,7 @@ export default class TCUserPayNew extends Component {
                     style={styles.inputTextStyle}
                     maxLength={8}
                     keyboardType={'numeric'}
-                    defaultValue={ this.moneyData.inputMoney.toString()}
+                    defaultValue={this.moneyData.inputMoney.toString()}
                     underlineColorAndroid={'transparent'}
                     onChangeText={(text) => this.setMoneyInputValue(text)}
                     onEndEditing={e => this.textInputOnEndEditing(e)}
@@ -132,7 +183,7 @@ export default class TCUserPayNew extends Component {
                     }}
                 /></View>)
         } else {
-            return (  <TouchableOpacity style={styles.inputContainer} onPress={() => this.showKeyBoard()}>
+            return (<TouchableOpacity style={styles.inputContainer} onPress={() => this.showKeyBoard()}>
                 <InputMoneyView ref="inputMoneyView"/>
             </TouchableOpacity>)
         }
@@ -388,7 +439,7 @@ export default class TCUserPayNew extends Component {
             this.realTopupMoney = parseInt(this.money) + this.addRandomMoney()
         }
         if (this.realTopupMoney > rowData.maxAmount) {
-            Toast.showShortCenter("充值金额不能大于" + ( parseInt(rowData.maxAmount) - 1) + "元!");
+            Toast.showShortCenter("充值金额不能大于" + (parseInt(rowData.maxAmount) - 1) + "元!");
             return false
         }
         return true
@@ -413,7 +464,19 @@ export default class TCUserPayNew extends Component {
                 this.applayPay(paymentTypes)
                 break;
             case 'THIRD_PARTY':
-                this.applayPay('THIRD')
+                RequestUtils.getUrlAndParamsAndCallback(config.api.getPaymentBankList, {paymentSetId: this.payData.platform}, (res) => {
+                    if (res.rs) {
+                        this.hideLoading();
+                        this.bankList = res.content;
+                        if (this.bankList.length > 0) {
+                            this.showList = true;
+                        } else {
+                            this.applayPay('THIRD');
+                        }
+                    } else {
+                        this.applayPay('THIRD');
+                    }
+                });
                 break;
             default:
                 this.hideLoading()
@@ -426,30 +489,36 @@ export default class TCUserPayNew extends Component {
      * 申请支付
      * @param type
      */
-    applayPay(type) {
-        RequestUtils.PostUrlAndParamsAndCallback(config.api.otherPay,
-            {
-                depositor: TCUSER_DATA.realname,
-                paymentId: this.payData.paymentId,
-                paymentType: type,
-                topupAmount: this.realTopupMoney,
-                id: appId
-            }, (response) => {
-                this.hideLoading()
-                if (response.rs) {
-                    this.gotoPayWithPayment(response.content)
-                } else {
-                    if (response.message) {
-                        if (response.message.indexOf('general') >= 0) {
-                            Toast.showShortCenter('请求超时,请稍后再试!')
-                        } else {
-                            Toast.showShortCenter(response.message)
-                        }
+    applayPay(type, bankCode, bankType) {
+
+        let params = {
+            depositor: TCUSER_DATA.realname,
+            paymentId: this.payData.paymentId,
+            paymentType: type,
+            topupAmount: this.realTopupMoney,
+            id: appId,
+        };
+        if (bankCode) {
+            params.bankCode = bankCode;
+            params.cardType = bankType;
+        }
+
+        RequestUtils.PostUrlAndParamsAndCallback(config.api.otherPay, params, (response) => {
+            this.hideLoading()
+            if (response.rs) {
+                this.gotoPayWithPayment(response.content)
+            } else {
+                if (response.message) {
+                    if (response.message.indexOf('general') >= 0) {
+                        Toast.showShortCenter('请求超时,请稍后再试!')
                     } else {
-                        Toast.showShortCenter('服务器异常')
+                        Toast.showShortCenter(response.message)
                     }
+                } else {
+                    Toast.showShortCenter('服务器异常')
                 }
-            })
+            }
+        })
     }
 
     /**
@@ -653,7 +722,7 @@ class InputMoneyView extends Component {
     money = ''
 
     render() {
-        return ( <Text style={styles.inputTextLabelStyle}>{this.money}</Text>)
+        return (<Text style={styles.inputTextLabelStyle}>{this.money}</Text>)
     }
 
     _resetMoney(money) {
@@ -738,6 +807,7 @@ class MoneyData {
         this.inputMoney = money;
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -865,5 +935,13 @@ const styles = StyleSheet.create({
     }, payTypeTitleStyle: {
         fontSize: Size.large,
         color: listViewTxtColor.title
+    }, bankItemView: {
+        paddingVertical: 10,
+        paddingLeft: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: indexBgColor.mainBg,
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 })

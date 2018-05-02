@@ -487,11 +487,11 @@ export default class TCAgentTeamList extends BaseComponent {
         this.state.username = text;
         // 修复用户删除关键词搜索后数据未加载的情况
         if (!text && (!this.state.dataSource || this.state.dataSource.getRowCount() === 0)) {
-          this._partModalLoadingSpinnerOverLay.show();
-          setTimeout(() => {
-            this.clearData();
-            this.getDataFromServer(null);
-          }, 1000);
+            this._partModalLoadingSpinnerOverLay.show();
+            setTimeout(() => {
+                this.clearData();
+                this.getDataFromServer(null);
+            }, 1000);
         }
     }
 
@@ -565,7 +565,7 @@ export default class TCAgentTeamList extends BaseComponent {
         let type = {
             pageSize: this.pageSize,
             start: (this.currentPage - 1) * this.pageSize,
-            username: this.state.username
+            username: this.state.username.toLocaleLowerCase()
         };
 
         if (userId) {

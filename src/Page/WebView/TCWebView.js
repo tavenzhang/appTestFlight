@@ -20,6 +20,7 @@ import {config} from '../../Common/Network/TCRequestConfig'
 import Toast from '../../Common/JXHelper/JXToast'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import {width, indexBgColor} from '../resouce/theme'
+
 var WEBVIEW_REF = 'webview';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
@@ -91,12 +92,7 @@ export default class TCWebView extends Component {
     };
 
     backButtonCall() {
-        if (this.state.backButtonEnabled) {
-            this.refs['topNavigation']._showCloseButton(true)
-            this.refs[WEBVIEW_REF].goBack()
-        } else {
-            NavigatorHelper.popToBack();
-        }
+        NavigatorHelper.popToBack();
     }
 
     closeButtonCall() {
