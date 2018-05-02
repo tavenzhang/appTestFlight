@@ -9,7 +9,7 @@ import React,{
 } from 'react-native';
 
 const NOT_NETWORK = "网络不可用，请稍后再试";
-const TAG_NETWORK_CHANGE = "NetworkChange";
+const TAG_NETWORK_CHANGE = "connectionChange";
 
 /***
  * 检查网络链接状态
