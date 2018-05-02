@@ -11,19 +11,27 @@ function setTopLevelNavigator(navigatorRef) {
     _navigator = navigatorRef;
 }
 
+let debounce = true; // 防止快速点击操作
+
 /**
  * 跳转到指定页面
  * @param routeName 页面名字
  * @param params 参数
  */
 function navigate(routeName, params) {
+  if (debounce) {
+    debounce = false
     _navigator.dispatch(
         NavigationActions.navigate({
-            type: NavigationActions.NAVIGATE,
-            routeName,
-            params
+          type: NavigationActions.NAVIGATE,
+          routeName,
+          params
         })
     )
+    setTimeout(() => {
+      debounce = true
+    }, 1000)
+  }
 }
 
 
