@@ -256,7 +256,7 @@ export default class TC168 extends Component {
             JXLog('==checking update', update)
             if (update !== null) {
                 if (Platform.OS == 'ios') {
-                    // NativeModules.JDHelper.resetLoadModleForJS(true)
+                    NativeModules.JDHelper.resetLoadModleForJS(true)
                 }
                 this.setState({
                     syncMessage: '获取到更新，正在疯狂加载...',
