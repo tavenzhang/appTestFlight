@@ -32,6 +32,7 @@ import LoadingSpinnerOverlay from '../../../../Common/View/LoadingSpinnerOverlay
 import CommissionDetail from './TCAgentCommissionDetail'
 import Moment from 'moment'
 import Helper from "../../../../Common/JXHelper/TCNavigatorHelper";
+
 var moment = new Moment()
 
 export default class TCAgentCommissionList extends BaseComponent {
@@ -73,12 +74,12 @@ export default class TCAgentCommissionList extends BaseComponent {
                     ref='TopNavigationBar'
                     title={'代理佣金'}
                     needBackButton={true}
-                    backButtonCall={()=> {
-                      Helper.popToBack()
+                    backButtonCall={() => {
+                        Helper.popToBack()
                     }}
                     rightTitle={this.state.displayTypeName}
                     rightButtonCall={
-                        ()=>{
+                        () => {
                             this.refs['ModalDropdown'].show()
 
                         }
@@ -90,12 +91,20 @@ export default class TCAgentCommissionList extends BaseComponent {
                     options={this.getData()}
                     style={styles.dropStyle}
                     dropdownStyle={styles.dropDownStyle}
-                    renderRow={(rowData, rowID)=>this.renderModalDropDownRow(rowData, rowID)}
-                    onSelect={(idx, value)=>this.onSelect(idx, value)}
+                    renderRow={(rowData, rowID) => this.renderModalDropDownRow(rowData, rowID)}
+                    onSelect={(idx, value) => this.onSelect(idx, value)}
                     showButton={false}
                 />
                 <View
-                    style={{flexDirection:'row',alignItems:'center',height:50,borderBottomWidth:0.5,borderBottomColor:indexBgColor.itemBg ,justifyContent:'space-around',backgroundColor:indexBgColor.itemBg}}>
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        height: 50,
+                        borderBottomWidth: 0.5,
+                        borderBottomColor: indexBgColor.itemBg,
+                        justifyContent: 'space-around',
+                        backgroundColor: indexBgColor.itemBg
+                    }}>
                     <DatePicker
                         style={{width: width * 0.28}}
                         date={this.state.startDate}
@@ -106,26 +115,31 @@ export default class TCAgentCommissionList extends BaseComponent {
                         showIcon={false}
                         is24Hour={true}
                         customStyles={{
-                                        dateIcon: null,
-                                        dateInput: {
-                                            height: 30,
-                                            borderWidth: 0,
-                                            alignItems: 'center',
-                                        },
-                                        dateText: {
-                                            height: 29,
-                                            padding: 5,
-                                            color:agentCenter.dateTxt
-                                        }
-                                    }}
+                            dateIcon: null,
+                            dateInput: {
+                                height: 30,
+                                borderWidth: 0,
+                                alignItems: 'center',
+                            },
+                            dateText: {
+                                height: 29,
+                                padding: 5,
+                                color: agentCenter.dateTxt
+                            }
+                        }}
                         onDateChange={(date) => {
-                                        this.setState({startDate: date,displayTypeName:'当前'})
-                                            this._partModalLoadingSpinnerOverLay.show()
-                                         this.clearData()
-                                    }}
+                            this.setState({startDate: date, displayTypeName: '当前'})
+                            this._partModalLoadingSpinnerOverLay.show()
+                            this.clearData()
+                        }}
                     />
-                    <View style={{alignItems:'center', height: 50,justifyContent:'center'}}>
-                        <Text style={{textAlign:'center',fontSize:Size.default,color:agentCenter.title,fontWeight:'bold'}}>至</Text>
+                    <View style={{alignItems: 'center', height: 50, justifyContent: 'center'}}>
+                        <Text style={{
+                            textAlign: 'center',
+                            fontSize: Size.default,
+                            color: agentCenter.title,
+                            fontWeight: 'bold'
+                        }}>至</Text>
                     </View>
                     <DatePicker
                         style={{width: width * 0.28}}
@@ -137,62 +151,71 @@ export default class TCAgentCommissionList extends BaseComponent {
                         showIcon={false}
                         is24Hour={true}
                         customStyles={{
-                                        dateIcon: null,
-                                        dateInput: {
-                                            height: 30,
-                                            borderWidth: 0,
-                                            alignItems: 'center',
-                                        },
-                                        dateText: {
-                                            height: 29,
-                                            padding: 5,
-                                              color:agentCenter.dateTxt
-                                        }
-                                    }}
+                            dateIcon: null,
+                            dateInput: {
+                                height: 30,
+                                borderWidth: 0,
+                                alignItems: 'center',
+                            },
+                            dateText: {
+                                height: 29,
+                                padding: 5,
+                                color: agentCenter.dateTxt
+                            }
+                        }}
                         onDateChange={(date) => {
 
-                                this.setState({endDate: date,displayTypeName:'当前'})
-                                         this._partModalLoadingSpinnerOverLay.show()
+                            this.setState({endDate: date, displayTypeName: '当前'})
+                            this._partModalLoadingSpinnerOverLay.show()
 
 
-                                         this.clearData()
-                                       }}
+                            this.clearData()
+                        }}
                     />
                     {/*<TouchableOpacity onPress={()=> {*/}
-                {/*this.refs['ModalDropdown'].show()*/}
-            {/*}}>*/}
-                        {/*<View*/}
-                            {/*style={styles.dropMainStyle}>*/}
+                    {/*this.refs['ModalDropdown'].show()*/}
+                    {/*}}>*/}
+                    {/*<View*/}
+                    {/*style={styles.dropMainStyle}>*/}
 
-                            {/*<Text style={{marginLeft:10,fontSize:Size.default,color:agentCenter.dateTxt}}>*/}
-                                {/*{this.state.typeName}*/}
-                            {/*</Text>*/}
-                            {/*<ModalDropdown*/}
-                                {/*ref="ModalDropdown"*/}
-                                {/*textStyle={styles.dropDownTxtStyle}*/}
-                                {/*options={this.getData()}*/}
-                                {/*style={styles.dropStyle}*/}
-                                {/*dropdownStyle={styles.dropDownStyle}*/}
-                                {/*renderRow={(rowData, rowID)=>this.renderModalDropDownRow(rowData, rowID)}*/}
-                                {/*onSelect={(idx, value)=>this.onSelect(idx, value)}*/}
+                    {/*<Text style={{marginLeft:10,fontSize:Size.default,color:agentCenter.dateTxt}}>*/}
+                    {/*{this.state.typeName}*/}
+                    {/*</Text>*/}
+                    {/*<ModalDropdown*/}
+                    {/*ref="ModalDropdown"*/}
+                    {/*textStyle={styles.dropDownTxtStyle}*/}
+                    {/*options={this.getData()}*/}
+                    {/*style={styles.dropStyle}*/}
+                    {/*dropdownStyle={styles.dropDownStyle}*/}
+                    {/*renderRow={(rowData, rowID)=>this.renderModalDropDownRow(rowData, rowID)}*/}
+                    {/*onSelect={(idx, value)=>this.onSelect(idx, value)}*/}
 
-                            {/*>*/}
-                                {/*<Image source={common.iconNext} style={styles.imgNext} resizeMode='center'/>*/}
-                            {/*</ModalDropdown>*/}
+                    {/*>*/}
+                    {/*<Image source={common.iconNext} style={styles.imgNext} resizeMode='center'/>*/}
+                    {/*</ModalDropdown>*/}
 
-                        {/*</View>*/}
+                    {/*</View>*/}
                     {/*</TouchableOpacity>*/}
                 </View>
                 <Text
-                    style={{marginLeft:20,marginTop:15,color:agentCenter.title,fontSize:Size.default,fontWeight:'bold'}}>{this.state.displayTypeName}统计：</Text>
-                <View style={{flexDirection:'row'}}>
+                    style={{
+                        marginLeft: 20,
+                        marginTop: 15,
+                        color: agentCenter.title,
+                        fontSize: Size.default,
+                        fontWeight: 'bold'
+                    }}>{this.state.displayTypeName}统计：</Text>
+                <View style={{flexDirection: 'row'}}>
 
                     <View style={styles.statisticsItems}>
                         <Image source={agent.agentCommission}
                                style={styles.iconStyle}/>
                         <View style={styles.txtStyle}>
-                            <Text style={{fontSize:Size.default,color:agentCenter.title}}>佣金</Text>
-                            <Text style={{fontSize:Size.default,color:agentCenter.title}}>{this.state.totalCommission ? this.state.totalCommission.toFixed(2) : '0.00'}</Text>
+                            <Text style={{fontSize: Size.default, color: agentCenter.title}}>佣金</Text>
+                            <Text style={{
+                                fontSize: Size.default,
+                                color: agentCenter.title
+                            }}>{this.state.totalCommission ? this.state.totalCommission.toFixed(2) : '0.00'}</Text>
                         </View>
                     </View>
 
@@ -200,8 +223,11 @@ export default class TCAgentCommissionList extends BaseComponent {
                         <Image source={agent.agentBettingMoney}
                                style={styles.iconStyle}/>
                         <View style={styles.txtStyle}>
-                            <Text style={{fontSize:Size.default,color:agentCenter.title}}>投注金额</Text>
-                            <Text style={{fontSize:Size.default,color:agentCenter.title}}>{this.state.totalBetsSum ? this.state.totalBetsSum.toFixed(2) : '0.00'}</Text>
+                            <Text style={{fontSize: Size.default, color: agentCenter.title}}>投注金额</Text>
+                            <Text style={{
+                                fontSize: Size.default,
+                                color: agentCenter.title
+                            }}>{this.state.totalBetsSum ? this.state.totalBetsSum.toFixed(2) : '0.00'}</Text>
                         </View>
                     </View>
 
@@ -209,7 +235,7 @@ export default class TCAgentCommissionList extends BaseComponent {
                 {this._renderHeader()}
                 {this.getContentView()}
                 <LoadingSpinnerOverlay
-                    ref={ component => this._partModalLoadingSpinnerOverLay = component }
+                    ref={component => this._partModalLoadingSpinnerOverLay = component}
                     modal={true}
                     marginTop={64}/>
             </View>
@@ -266,7 +292,7 @@ export default class TCAgentCommissionList extends BaseComponent {
         return (
             <TouchableOpacity>
                 <View style={styles.dropDownItemStyle}>
-                    <Text style={{fontSize: Size.font18,color:agentCenter.title}}>{rowData}</Text>
+                    <Text style={{fontSize: Size.font18, color: agentCenter.title}}>{rowData}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -295,9 +321,9 @@ export default class TCAgentCommissionList extends BaseComponent {
                         initialListSize={50}
                         pageSize={50}
                         scrollRenderAheadDistance={20}
-                        renderFooter={()=>this.renderFooter()}
+                        renderFooter={() => this.renderFooter()}
                         onEndReachedThreshold={20}
-                        onEndReached={()=>this.loadMore()}
+                        onEndReached={() => this.loadMore()}
                     />
                 </ScrollView>
             )
@@ -314,9 +340,9 @@ export default class TCAgentCommissionList extends BaseComponent {
 
     getRenderRow(rowData) {
         return (<TouchableOpacity
-            onPress={()=>{
-         this.gotoCommissionDetail(rowData.issueNo)
-         }}
+            onPress={() => {
+                this.gotoCommissionDetail(rowData.issueNo)
+            }}
         >
             <RowList rowData={rowData}/>
         </TouchableOpacity>)
@@ -325,33 +351,23 @@ export default class TCAgentCommissionList extends BaseComponent {
     _renderHeader() {
         return (
             <View style={styles.titleViewStyle}>
-                <Text style={[styles.titleTxtStyle,  {width: width * 0.25}]}>期数</Text>
+                <Text style={[styles.titleTxtStyle, {width: width * 0.25}]}>期数</Text>
                 <Text style={styles.titleTxtStyle}>投注金额</Text>
                 <Text style={styles.titleTxtStyle}>佣金</Text>
                 <Text style={styles.titleTxtStyle}>投注人数</Text>
-                <Text style={[styles.titleTxtStyle,{ width: width * 0.15}]}>状态</Text>
+                <Text style={[styles.titleTxtStyle, {width: width * 0.15}]}>状态</Text>
             </View>
         )
     }
 
     gotoCommissionDetail(issueNo) {
-        let {navigator} = this.props;
-        if (navigator) {
-            navigator.push({
-                name: 'commissionDetail',
-                component: CommissionDetail,
-                passProps: {
-                    ...this.props,
-                    taskIdentifier: issueNo
-                }
-            })
-        }
+        Helper.pushToAgentCommissionDetail({taskIdentifier: issueNo});
     }
 
     clearData() {
         var listView = this.refs.ListView
         listView && listView.scrollTo({y: 1, animated: true});
-        setTimeout(()=> {
+        setTimeout(() => {
             this.currentPage = 1
             this.data = []
             this.setState({
@@ -420,7 +436,7 @@ export default class TCAgentCommissionList extends BaseComponent {
                 }
 
 
-                setTimeout(()=> {
+                setTimeout(() => {
                     this.setState({
                         renderPlaceholderOnly: false
                     })
@@ -433,16 +449,26 @@ export default class TCAgentCommissionList extends BaseComponent {
         if (this.state.foot === 1) {//加载完毕
             return (
                 <View
-                    style={{height: 40, alignItems: 'center', justifyContent: 'flex-start',backgroundColor:indexBgColor.mainBg}}>
-                    <Text style={{fontSize: Size.font12, marginTop: 10,color:agentCenter.title}}>
+                    style={{
+                        height: 40,
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        backgroundColor: indexBgColor.mainBg
+                    }}>
+                    <Text style={{fontSize: Size.font12, marginTop: 10, color: agentCenter.title}}>
                         {this.state.moreText}
                     </Text>
                 </View>);
         } else if (this.state.foot === 2) {//加载中
             return (
                 <View
-                    style={{height: 40, alignItems: 'center', justifyContent: 'center',backgroundColor:indexBgColor.mainBg}}>
-                    <Text style={{color:agentCenter.title, fontSize: Size.font12, marginTop: 10}}>
+                    style={{
+                        height: 40,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: indexBgColor.mainBg
+                    }}>
+                    <Text style={{color: agentCenter.title, fontSize: Size.font12, marginTop: 10}}>
                         加载中...
                     </Text>
                 </View>)
@@ -529,7 +555,7 @@ const styles = StyleSheet.create({
         height: 30,
         margin: 5
     }, txtStyle: {
-        marginTop:5,
+        marginTop: 5,
         marginLeft: 10,
     }
 });

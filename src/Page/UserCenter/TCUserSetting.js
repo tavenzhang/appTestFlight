@@ -39,7 +39,7 @@ import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import {personal} from '../resouce/images'
 
 @observer
-export  default  class TCUserSetting extends Component {
+export default class TCUserSetting extends Component {
 
     stateModel = new StateModel()
 
@@ -110,7 +110,7 @@ export  default  class TCUserSetting extends Component {
                     }}>version {this.stateModel.appVersion ? this.stateModel.appVersion : appVersion} {' '}
                     build {versionHotFix}</Text>
                 <LoadingSpinnerOverlay
-                    ref={ component => this._modalLoadingSpinnerOverLay = component }/>
+                    ref={component => this._modalLoadingSpinnerOverLay = component}/>
             </View>
 
         );
@@ -201,6 +201,7 @@ export  default  class TCUserSetting extends Component {
      * 退出登录
      */
     exitLogin() {
+        this._modalLoadingSpinnerOverLay.show()
         this.logout()
     }
 
@@ -221,11 +222,12 @@ export  default  class TCUserSetting extends Component {
 
     logout() {
         NetUtils.getUrlAndParamsAndCallback(config.api.logout, null, (response) => {
+            this._modalLoadingSpinnerOverLay.hide()
             this.saveUser()
-            NavigatorHelper.popToTop();
             RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home')
             RCTDeviceEventEmitter.emit('userStateChange', 'logout')
-
+            RCTDeviceEventEmitter.emit("newMsgCall");
+            NavigatorHelper.popToTop();
         })
     }
 }
@@ -250,6 +252,7 @@ class StateModel {
         });
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

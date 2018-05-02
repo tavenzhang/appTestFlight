@@ -4,18 +4,18 @@
  */
 
 
-import React,{
+import React, {
     NetInfo
 } from 'react-native';
 
 const NOT_NETWORK = "网络不可用，请稍后再试";
-const TAG_NETWORK_CHANGE = "NetworkChange";
+const TAG_NETWORK_CHANGE = "connectionChange";
 
 /***
  * 检查网络链接状态
  * @param callback
  */
-const checkNetworkState = (callback) =>{
+const checkNetworkState = (callback) => {
     NetInfo.isConnected.fetch().done(
         (isConnected) => {
             callback(isConnected);
@@ -28,7 +28,7 @@ const checkNetworkState = (callback) =>{
  * @param tag
  * @param handler
  */
-const removeEventListener = (tag,handler) => {
+const removeEventListener = (tag, handler) => {
     NetInfo.isConnected.removeEventListener(tag, handler);
 }
 
@@ -37,11 +37,11 @@ const removeEventListener = (tag,handler) => {
  * @param tag
  * @param handler
  */
-const addEventListener = (tag,handler)=>{
+const addEventListener = (tag, handler) => {
     NetInfo.isConnected.addEventListener(tag, handler);
 }
 
-export default{
+export default {
     checkNetworkState,
     addEventListener,
     removeEventListener,

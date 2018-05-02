@@ -76,7 +76,7 @@ export default class TCAddUserInfo extends Component {
                         this.back()
                     }}/>
                 <ScrollView
-                    keyboardShouldPersistTaps={Platform.OS !== 'ios'}
+                    keyboardShouldPersistTaps={'always'}
                     keyboardDismissMode={Platform.OS !== 'ios' ? 'none' : 'on-drag'}>
                     <View>
                         <Text style={styles.titleTipTxtStyle}>请绑定持卡人本人银行卡</Text>
@@ -193,9 +193,6 @@ export default class TCAddUserInfo extends Component {
         Helper.popToBack()
     }
 
-    onBackAndroid() {
-        this.back()
-    }
 
     getBankNameView() {
         if (TCUSER_DATA.realname) {
@@ -332,6 +329,7 @@ export default class TCAddUserInfo extends Component {
      */
     addUserBankInfo() {
         let bankCardNo = this.bankInfo.accountNum.replace(/\s+/g, "");
+        this._modalLoadingSpinnerOverLay.show()
         let data = {
             realName: this.bankInfo.realName,
             securityPassword: this.bankInfo.password,
@@ -343,7 +341,6 @@ export default class TCAddUserInfo extends Component {
                 bankName: this.bankInfo.bankName,
             }
         };
-        this._modalLoadingSpinnerOverLay.show()
         let encryptSecurityPwd = secretUtil.rsaEncodePWD(data.securityPassword);
         data.securityPassword = encryptSecurityPwd;
         NetUtils.PutUrlAndParamsAndCallback(config.api.encryptRegisterInfo, data, (response) => {
@@ -371,11 +368,9 @@ export default class TCAddUserInfo extends Component {
     closeSuccess() {
         dismissKeyboard()
         this.stateModel.setAddBankModalVisible()
-        let {navigator} = this.props;
-        if (navigator) {
-            RCTDeviceEventEmitter.emit('userBankChange');
-            navigator.pop()
-        }
+        Helper.popToBack();
+        RCTDeviceEventEmitter.emit('userBankChange');
+
     }
 }
 

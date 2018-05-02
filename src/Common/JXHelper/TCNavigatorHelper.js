@@ -201,6 +201,10 @@ Helper.pushToAgentCommission = () => {
     NavigationService.navigate("AgentCommissionList");
 }
 
+Helper.pushToAgentCommissionDetail = (params) => {
+    NavigationService.navigate("CommissionDetail", params);
+}
+
 Helper.pushToUserSheet = (isUserSheet, username, prizeGroup) => {
     NavigationService.navigate("AgentSheet", {
         isUserSheet,

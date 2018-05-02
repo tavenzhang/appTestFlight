@@ -27,7 +27,13 @@ import Toast from '../../../../Common/JXHelper/JXToast';
 import NoDataView from '../../../../Common/View/TCNoDataView'
 import BaseComponent from '../../../Base/TCBaseComponent'
 import Moment from 'moment'
+
 var moment = new Moment()
+import Helper from '../../../../Common/JXHelper/TCNavigatorHelper'
+
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
+@withMappedNavigationProps()
 export default class TCAgentCommissionList extends BaseComponent {
     constructor(state) {
         super(state)
@@ -60,11 +66,11 @@ export default class TCAgentCommissionList extends BaseComponent {
             <View style={styles.container}>
                 <TopNavigationBar
                     ref='TopNavigationBar'
-                    title={this.props.taskIdentifier+'期'}
+                    title={this.props.taskIdentifier + '期'}
                     titleStyle={styles.titleStyle}
                     needBackButton={true}
-                    backButtonCall={()=> {
-                        this.props.navigator.pop()
+                    backButtonCall={() => {
+                        Helper.popToBack();
                     }}
                 />
                 {this._renderHeader()}
@@ -98,9 +104,9 @@ export default class TCAgentCommissionList extends BaseComponent {
                         initialListSize={50}
                         pageSize={50}
                         scrollRenderAheadDistance={20}
-                        renderFooter={()=>this.renderFooter()}
+                        renderFooter={() => this.renderFooter()}
                         onEndReachedThreshold={20}
-                        onEndReached={()=>this.loadMore()}
+                        onEndReached={() => this.loadMore()}
                     />
                 </ScrollView>
             )
@@ -207,7 +213,7 @@ export default class TCAgentCommissionList extends BaseComponent {
                 }
 
 
-                setTimeout(()=> {
+                setTimeout(() => {
                     this.setState({
                         renderPlaceholderOnly: false
                     })
@@ -220,15 +226,25 @@ export default class TCAgentCommissionList extends BaseComponent {
         if (this.state.foot === 1) {//加载完毕
             return (
                 <View
-                    style={{height: 40, alignItems: 'center', justifyContent: 'flex-start',backgroundColor:indexBgColor.mainBg}}>
-                    <Text style={{color:listViewTxtColor.title, fontSize: Size.font12, marginTop: 10,}}>
+                    style={{
+                        height: 40,
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        backgroundColor: indexBgColor.mainBg
+                    }}>
+                    <Text style={{color: listViewTxtColor.title, fontSize: Size.font12, marginTop: 10,}}>
                         {this.state.moreText}
                     </Text>
                 </View>);
         } else if (this.state.foot === 2) {//加载中
             return (
                 <View
-                    style={{height: 40, alignItems: 'center', justifyContent: 'center',backgroundColor:indexBgColor.mainBg}}>
+                    style={{
+                        height: 40,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: indexBgColor.mainBg
+                    }}>
                     <Text style={{color: listViewTxtColor.title, fontSize: Size.font12, marginTop: 10}}>
                         加载中...
                     </Text>

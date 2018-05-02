@@ -434,9 +434,7 @@ export default class TCUserRegister extends Component {
                     user.password = base64.encode(this.userInfo.password)
                     user.islogin = true
                     this.registerStatistics(user.username)
-                    this.timer = setTimeout(() => {
-                        this.saveUser(user)
-                    }, 500)
+                    this.saveUser(user)
                 } else {
                     if (response.status === 400) {
                         if (response.message) {

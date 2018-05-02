@@ -71,7 +71,7 @@ export default class TCInitHelper {
     // 自动登录app
     autoLoginApp() {
         JXLog(' 自动登录app ')
-        if(Platform.OS==='android'){
+        if (Platform.OS === 'android') {
             this.checkAndroidCanShowIntelligenceBet();
         }
         this.getUserData();
@@ -387,7 +387,8 @@ export default class TCInitHelper {
             if (res.rs) {
                 TC_NEW_MSG_COUNT = res.content.messageCount;
                 TC_FEEDBACK_COUNT = res.content.replyNotReadCount;
-                RCTDeviceEventEmitter.emit('newMsgCall')
+                RCTDeviceEventEmitter.emit('newMsgCall');
+                RCTDeviceEventEmitter.emit('unreadMessage');
             }
         })
     }
