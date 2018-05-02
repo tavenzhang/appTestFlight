@@ -105,7 +105,7 @@ const USERCENTER_ITEMS =
             icon: personal.teamSheet
         }, {
             key: "more",
-            name: '更多>>',
+            name: '代理中心',
             description: "代理中心的所有内容",
             icon: personal.more
         }],
