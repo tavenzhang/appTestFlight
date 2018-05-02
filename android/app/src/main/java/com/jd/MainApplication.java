@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 
 
+import com.jd.audio.RNAudioPackage;
 import com.jd.jxhelper.JXHelperPackage;
 import com.jd.marqueeLabel.RCTMarqueeLabelPackage;
 import com.jd.openapp.OpenAppPackage;
@@ -73,7 +74,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new FastImageViewPackage(),
                     new RCTMarqueeLabelPackage(),
                     new JXHelperPackage(),
-                    new OpenAppPackage()
+                    new OpenAppPackage(),
+                    new RNAudioPackage()
             );
         }
 
