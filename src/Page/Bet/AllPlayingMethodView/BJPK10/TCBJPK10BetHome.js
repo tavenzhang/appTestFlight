@@ -154,7 +154,6 @@ export default class TCMarkSixBetHome extends React.Component {
         } else if (historyHeight > 312) {
             historyHeight = 312;
         }
-
         return (
             <View style={styles.container}>
                 <TopNavigationBar
@@ -186,7 +185,7 @@ export default class TCMarkSixBetHome extends React.Component {
                     resultsData={this.currentResultData.resultsData}
                     is10Num={true}
                 />
-                <View style={{width: Dimensions.get('window').width, height: historyHeight, backgroundColor: 'green'}}>
+                <View style={{width: Dimensions.get('window').width, height: historyHeight}}>
                     <TCHomeHistoryList
                         height={historyHeight}
                         gameUniqueId={this.props.gameUniqueId}

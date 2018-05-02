@@ -660,7 +660,7 @@ class StateModel {
     calExempt(money) {
         let tempExempt = money * this.withdrawModel.newratioOfChargeExempt * 0.01
         let exempts = tempExempt >= this.withdrawModel.maxWithdrawCharge ? this.withdrawModel.maxWithdrawCharge : tempExempt
-        let res = this.RoundNum(exempts, 2)
+        let res = this.FloorNum(exempts, 2)
         return res
     }
 

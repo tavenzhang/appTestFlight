@@ -31,6 +31,7 @@ export default class TCHomeHistoryList extends React.Component {
         super(state);
         this.loadDataFormNet = this.loadDataFormNet.bind(this);
         this.dataSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
+        this.isLoading = false;
         this.state = {
             height: this.props.height
         }
@@ -46,15 +47,16 @@ export default class TCHomeHistoryList extends React.Component {
 
     componentWillMount() {
         this.lotteryHistoryData = new JXLotteryHistoryData();
+        this.loadDataFormNet();
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.height == 0 && this.props.height < nextProps.height) {
-            this.setState({
-                height: nextProps.height
-            });
+        if (this.props.height === 0 && this.props.height < nextProps.height) {
             this.loadDataFormNet();
         }
+        this.setState({
+            height: nextProps.height
+        })
     }
 
     render() {
@@ -138,8 +140,12 @@ export default class TCHomeHistoryList extends React.Component {
         );
     }
 
-    pushToMoreHistory(gameUniqueId) {
-        NavigatorHelper.pushToLotteryHistoryList(this.props.title, gameUniqueId, true);
+    pushToMoreHistory() {
+        NavigatorHelper.pushToLotteryHistoryList({
+            title: this.props.title,
+            gameUniqueId: this.props.gameUniqueId,
+            betBack: true
+        })
     }
 
     //CELL ROW DATA
