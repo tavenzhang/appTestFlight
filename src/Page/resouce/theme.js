@@ -2,7 +2,7 @@
  * app主题配置文件
  **/
 import {PixelRatio, Dimensions, Platform, StatusBar} from 'react-native'
-const fontSizeScaler = 1
+const fontSizeScaler = JX_ProjectName === 'JD' ? 1 : PixelRatio.get() / PixelRatio.getFontScale()
 global.TCLineW = (Platform.OS == 'ios' && Dimensions.get('window').width > 375) ? 0.33 : 0.5
 import {StyleSheet} from 'react-native';
 // 全局字体大小
