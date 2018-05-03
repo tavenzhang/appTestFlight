@@ -386,7 +386,8 @@ export default class TCUserWithdrawNew extends Component {
                 amount: this.stateModel.money,
                 userBankId: this.stateModel.bank.id,
                 withDrawCode: encryptDrawCode,
-                charge: this.stateModel.exempt
+                charge: this.stateModel.exempt,
+                chargeV1: true
             },
             (response) => {
                 this._modalLoadingSpinnerOverLay.hide()
