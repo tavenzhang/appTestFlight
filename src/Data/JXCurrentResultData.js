@@ -103,8 +103,8 @@ class ResultDataEvent {
         }
     }
 
-    didBlur() {
-        this.resultsData.didBlur = true
+    didBlur(blur) {
+        this.resultsData.didBlur = blur
     }
 }
 

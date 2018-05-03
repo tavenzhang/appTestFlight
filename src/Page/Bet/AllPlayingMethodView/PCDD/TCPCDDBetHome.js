@@ -150,7 +150,8 @@ export default class TCMarkSixBetHome extends React.Component {
         this.listener1 = RCTDeviceEventEmitter.addListener('heightChange', () => {
             this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
         });
-        this.didBlurListener = this.props.navigation.addListener('didBlur', () => this.currentResultData.didBlur())
+      this.didFocusListener = this.props.navigation.addListener('didFocus', () => this.currentResultData.didBlur(false))
+      this.didBlurListener = this.props.navigation.addListener('didBlur', () => this.currentResultData.didBlur(true))
     }
 
     render() {
@@ -283,6 +284,7 @@ export default class TCMarkSixBetHome extends React.Component {
     componentWillUnmount() {
         this.listener && this.listener.remove();
         this.listener1 && this.listener1.remove();
+        this.didFocusListener && this.didFocusListener.remove()
         this.didBlurListener && this.didBlurListener.remove()
         this.currentResultData && this.currentResultData.clear();
         TCIntelligenceBetData.getInstance() && TCIntelligenceBetData.getInstance().clearInstance();
