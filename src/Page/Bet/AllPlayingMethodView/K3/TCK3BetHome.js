@@ -148,7 +148,6 @@ export default class TCK3BetHome extends React.Component {
         this.listener = RCTDeviceEventEmitter.addListener('heightChange', () => {
             this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
         });
-        this.didBlurListener = this.props.navigation.addListener('didBlur', () => this.currentResultData.didBlur())
     }
 
     render() {
@@ -280,7 +279,6 @@ export default class TCK3BetHome extends React.Component {
     componentWillUnmount() {
         this.listener && this.listener.remove();
         this.listener3 && this.listener3.remove();
-        this.didBlurListener && this.didBlurListener.remove()
         this.currentResultData && this.currentResultData.clear();
         TCIntelligenceBetData.getInstance() && TCIntelligenceBetData.getInstance().clearInstance();
 
