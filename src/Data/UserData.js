@@ -23,7 +23,7 @@ var TC_ANDROID_DEVICE_IS_ROOT = false;
 var TC_ANDROID_CAN_SHOW_INTELLIGENCE_BET = false;
 var JXCodePushServerUrl = '';
 var JXAPPVersion = '';
-
+var JX_ProjectName = 'JD';
 // APP全局状态
 var TC_AppState = {
     selectedTabName: 'home',
@@ -52,3 +52,4 @@ global.TC_AppState = TC_AppState;
 global.JXCodePushServerUrl = JXCodePushServerUrl;
 global.JXAPPVersion = JXAPPVersion;
 global.TCUSER_ICON_BGCOLOR = TCUSER_ICON_BGCOLOR;
+global.JX_ProjectName = JX_ProjectName;

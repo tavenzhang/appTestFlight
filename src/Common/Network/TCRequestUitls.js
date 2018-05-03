@@ -143,7 +143,6 @@ export default class NetUitls extends Component {
                 }
             } else if (response.status >= 400) {
                 if (response.status == 401) {
-                    // JXLog('======response=======',response)
                     TCUSER_DATA.islogin = false
                     result = {"rs": false, "error": '无效token', "status": response.status, duration: duration}
                     if (!TCPUSH_TO_LOGIN) {
