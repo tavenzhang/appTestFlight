@@ -133,31 +133,14 @@ Helper.pushToUserAliPayAndWechatMessage = (params) => {
 
 
 Helper.pushToUserLogin = (gotoCenter, userName, shouldReplace, isFromRegister) => {
-    NavigationService.navigate("UserLogin", {
-        gotoCenter: gotoCenter,
-        userName: userName,
-        isFromRegister: isFromRegister
-    });
-    TCPUSH_TO_LOGIN = true
-    // if (navigator) {
-    //     if (shouldReplace) {
-    //         navigator.replace({
-    //             name: 'userLogin',
-    //             component: page,
-    //             passProps: {gotoCenter: gotoCenter, userName: userName, isFromRegister: isFromRegister}
-    //         });
-    //     } else {
-    //         if (routInStack('userLogin', navigator)) {
-    //             navigator.pop();
-    //         } else {
-    //             navigator.push({
-    //                 name: 'userLogin',
-    //                 component: page,
-    //                 passProps: {gotoCenter: gotoCenter, userName: userName}
-    //             });
-    //         }
-    //     }
-    // }
+    setTimeout(() => {
+        NavigationService.navigate("UserLogin", {
+            gotoCenter: gotoCenter,
+            userName: userName,
+            isFromRegister: isFromRegister
+        });
+        TCPUSH_TO_LOGIN = true
+    }, 1000)
 }
 
 Helper.pushToUserRegister = (fromLoginToRegister) => {
