@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
         height: height * 0.7,
         width: width * 0.8,
         borderRadius: 5,
-        alignItems: 'center'
     }, cancelTxt: {
         padding: 5,
         fontSize: Size.large,

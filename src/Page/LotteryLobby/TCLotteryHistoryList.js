@@ -138,7 +138,7 @@ export default class TCLotteryHistoryList extends BaseComponent {
     }
 
     loadDataFormNet() {
-        let params = {limit: 40};
+        let params = {limit: 100};
         this.lotteryHistoryData.getLotteryHistoryRequest(this.props.gameUniqueId, params, true,()=>{
           this.setState({ renderPlaceholderOnly: false});
           if (this.refs['ListView1']) {

@@ -533,7 +533,7 @@ const styles = StyleSheet.create({
     },
     dropDownStyle: {
         width: width * 0.9,
-        height: height * 0.4,
+        height: height * 0.5,
         borderWidth: 1,
         borderRadius: 3,
         marginTop: 15,
