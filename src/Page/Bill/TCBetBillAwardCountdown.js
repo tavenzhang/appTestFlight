@@ -23,6 +23,7 @@ import {Size} from '../../Page/resouce/theme'
 import JXHelper from '../../Common/JXHelper/JXHelper'
 
 import { observer } from 'mobx-react/native';
+import Toast from "../../Common/JXHelper/JXToast";
 
 @observer
 export default class TCBetAwardCountdown extends React.Component {
@@ -107,6 +108,10 @@ export default class TCBetAwardCountdown extends React.Component {
             time = this.props.data.rightData.remainingTime
         }else if(this.props.data&&this.props.data.rightData&&this.props.data.rightData.nextremainingTime>0){
             time = this.props.data.rightData.nextremainingTime
+        }
+        // console.debug('ResultDataEvent', '_getAwardCountdownTime() time='+time)
+        if (time === 1) {
+            Toast.showLongCenter(this.props.data.rightData.uniqueIssueNumber+'期已截止\n'+this.props.data.rightData.nextUniqueIssueNumber+'期已开售'+'\n  投注时注意期号变化');
         }
         return time
     }
