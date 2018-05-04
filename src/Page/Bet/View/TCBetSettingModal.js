@@ -82,7 +82,7 @@ export default class MyComponent extends React.Component {
                         step={0.01}
                         maximumTrackTintColor="#eeeeee"
                         minimumTrackTintColor="#ff9600"
-                        style={{marginTop: 5, marginLeft: 20, width: width - 60 - 50}}
+                        style={{marginTop: 10, marginLeft: 20, width: width - 60 - 50}}
                         trackStyle={{height: 10}}
                         thumbStyle={styles.sliderStyle}
                     />

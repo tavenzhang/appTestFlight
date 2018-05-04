@@ -140,7 +140,7 @@ var Slider = createReactClass({
 
     var minimumTrackStyle = {
       position: 'absolute',
-        top:5,
+        top:2,
         width: Animated.add(thumbLeft, thumbSize.width/2),
       backgroundColor: minimumTrackTintColor,
       ...valueVisibleStyle
@@ -396,7 +396,7 @@ var defaultStyles = StyleSheet.create({
   },
   track: {
       position: 'absolute',
-      top:5,
+      top:2,
       height: TRACK_SIZE,
     borderRadius: TRACK_SIZE / 2,
   },

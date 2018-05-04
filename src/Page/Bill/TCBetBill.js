@@ -662,6 +662,7 @@ export default class TCBetBill extends React.Component {
 
     // --------支付---------
     payCheck() {
+        Keyboard.dismiss();
         if (this.processing) {
             return;
         }
@@ -742,6 +743,7 @@ export default class TCBetBill extends React.Component {
     }
 
     payRequest(json) {
+        // dismissKeyboard()
         if (_.isEmpty(TCUSER_DATA.sessionId)) {
             //防止用户出现更新后，但是没有拿取到相应的sessionId值
             this.endingProcessing();
