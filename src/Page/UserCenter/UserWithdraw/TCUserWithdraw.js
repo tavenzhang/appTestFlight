@@ -346,7 +346,7 @@ export default class TCUserWithdrawNew extends Component {
 
 
     showTipDialog() {
-        Alert.alert('温馨提示', '由于您打码量不足或提款次数超过今日上限，将收取' + this.stateModel.withdrawModel.newratioOfChargeExempt + '%手续费！', [
+        Alert.alert('温馨提示', '亲，您当前打码量不足，如需提款将收取' + this.stateModel.withdrawModel.newratioOfChargeExempt + '%手续费！', [
             {
                 text: '确定',
                 onPress: () => {

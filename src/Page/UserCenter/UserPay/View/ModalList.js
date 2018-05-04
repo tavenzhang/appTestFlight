@@ -56,13 +56,20 @@ export default class ModalList extends Component {
                                 color: 'black',
                                 fontSize: Size.large,
                                 textAlign: 'center',
-                                marginVertical: 10
+                                padding: 5
                             }}>请选择支付银行</Text></View>
                         <ListView
                             dataSource={this.ds.cloneWithRows(this.state.dataSource.slice(0))}
                             enableEmptySections={true}
                             renderRow={this.props.renderRow}
                             pageSize={10}/>
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.closeModal()
+                            }}
+                        >
+                            <Text style={styles.cancelTxt}>取消</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
@@ -80,8 +87,14 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }, modalMain: {
         backgroundColor: 'white',
-        height: height * 0.6,
+        height: height * 0.7,
         width: width * 0.8,
-        borderRadius: 5
+        borderRadius: 5,
+        alignItems: 'center'
+    }, cancelTxt: {
+        padding: 5,
+        fontSize: Size.large,
+        width: width * 0.8,
+        textAlign: 'center'
     }
 })

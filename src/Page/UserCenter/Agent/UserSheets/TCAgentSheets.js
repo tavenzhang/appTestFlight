@@ -2,7 +2,7 @@
  * Created by jxmac on 2017/7/17.
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
@@ -17,11 +17,11 @@ import {
 } from 'react-native';
 import SegmentedControlTab from '../../../../Common/View/SegmentedControlTab';
 import TopNavigationBar from '../../../../Common/View/TCNavigationBar';
-import { personal, common } from '../../../resouce/images';
+import {personal, common} from '../../../resouce/images';
 import ModalDropdown from '../../../../Common/View/ModalDropdown';
 import UserIcon from '../../../../Common/View/TCUserIcon';
 import NetUitls from '../../../../Common/Network/TCRequestUitls';
-import { config } from '../../../../Common/Network/TCRequestConfig';
+import {config} from '../../../../Common/Network/TCRequestConfig';
 import JXHelper from '../../../../Common/JXHelper/JXHelper';
 import Toast from '../../../../Common/JXHelper/JXToast';
 import DatePicker from '../../../../Common/View/datepicker';
@@ -43,9 +43,9 @@ let isUserSheet = true
 export default class TCAgentSheets extends Component {
     constructor(props) {
         super(props);
-        const { params } = this.props.navigation.state;
+        const {params} = this.props.navigation.state;
         isUserSheet = params ? params.isUserSheet : true;
-        var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             dataPersonal: {
                 count: 0,
@@ -94,10 +94,11 @@ export default class TCAgentSheets extends Component {
         this.getSearchTime(0);
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     loadDataFormNet(index, start, end) {
-        this.setState({ animating: true });
+        this.setState({animating: true});
         NetUitls.PostUrlAndParamsAndCallback(
             index == 0 ? config.api.getUserSheets : config.api.getGroupSheets,
             {
@@ -107,16 +108,16 @@ export default class TCAgentSheets extends Component {
                 username: TCUSER_DATA.username
             },
             data => {
-                this.setState({ animating: false });
+                this.setState({animating: false});
                 if (this.state.selectedIndex == 0) {
                     if (data && data.rs && data.content.userStatementSummaryDto) {
-                        this.setState({ dataPersonal: data.content.userStatementSummaryDto });
+                        this.setState({dataPersonal: data.content.userStatementSummaryDto});
                     } else {
                         Toast.showShortCenter('网络异常');
                     }
                 } else {
                     if (data && data.rs && data.content) {
-                        this.setState({ dataGroup: data.content });
+                        this.setState({dataGroup: data.content});
                     } else {
                         Toast.showShortCenter('网络异常');
                     }
@@ -133,7 +134,7 @@ export default class TCAgentSheets extends Component {
                     ref="TopNavigationBar"
                     needBackButton={true}
                     backButtonCall={() => {
-                      Helper.popToBack()
+                        Helper.popToBack()
                     }}
                     rightTitle={this.state.rightButtonTitle}
                     rightButtonCall={() => {
@@ -153,7 +154,7 @@ export default class TCAgentSheets extends Component {
                 />
                 <View style={styles.timeView}>
                     <DatePicker
-                        style={{ width: width * 0.28 }}
+                        style={{width: width * 0.28}}
                         date={this.state.beginTime}
                         mode="date"
                         format="YYYY-MM-DD"
@@ -176,17 +177,17 @@ export default class TCAgentSheets extends Component {
                             }
                         }}
                         onDateChange={date => {
-                            this.setState({ beginTime: date });
+                            this.setState({beginTime: date});
                             this.loadDataFormNet(this.state.selectedIndex, date, this.state.endTime);
                         }}
                         minDate={Moment()
-                            .subtract(30, 'days')
+                            .subtract(90, 'days')
                             .format('YYYY-MM-DD')}
                         maxDate={new Date()}
                     />
-                    <Text style={{ fontWeight: 'bold' }}>至</Text>
+                    <Text style={{fontWeight: 'bold'}}>至</Text>
                     <DatePicker
-                        style={{ width: width * 0.28 }}
+                        style={{width: width * 0.28}}
                         date={this.state.endTime}
                         mode="date"
                         format="YYYY-MM-DD"
@@ -209,7 +210,7 @@ export default class TCAgentSheets extends Component {
                             }
                         }}
                         onDateChange={date => {
-                            this.setState({ endTime: date });
+                            this.setState({endTime: date});
                             this.loadDataFormNet(this.state.selectedIndex, this.state.beginTime, date);
                         }}
                         minDate={Moment()
@@ -226,8 +227,8 @@ export default class TCAgentSheets extends Component {
                         )}
                     />
                     <View style={styles.agentDetailTxt}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ marginTop: 10, fontSize: Size.font17, color: agentCenter.title }}>用户名 </Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={{marginTop: 10, fontSize: Size.font17, color: agentCenter.title}}>用户名 </Text>
                             <Text
                                 style={{
                                     marginTop: 10,
@@ -239,8 +240,8 @@ export default class TCAgentSheets extends Component {
                             </Text>
                         </View>
                         {!this.props.username && (
-                            <View style={{ flexDirection: 'row' }}>
-                                <Text style={{ marginTop: 10, fontSize: Size.font17, color: agentCenter.title }}>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={{marginTop: 10, fontSize: Size.font17, color: agentCenter.title}}>
                                     余额{' '}
                                 </Text>
                                 <Text
@@ -255,8 +256,8 @@ export default class TCAgentSheets extends Component {
                                 </Text>
                             </View>
                         )}
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ marginTop: 10, fontSize: Size.font17, color: agentCenter.title }}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={{marginTop: 10, fontSize: Size.font17, color: agentCenter.title}}>
                                 彩票返点{' '}
                             </Text>
                             <Text
@@ -274,7 +275,7 @@ export default class TCAgentSheets extends Component {
                 <ScrollView>{this.getContentView()}</ScrollView>
                 <ActivityIndicator
                     animating={this.state.animating}
-                    style={[styles.centering, { height: 80 }]}
+                    style={[styles.centering, {height: 80}]}
                     size="large"
                 />
             </View>
@@ -314,9 +315,9 @@ export default class TCAgentSheets extends Component {
             );
     }
 
-    getListTitles(){
-        if (isUserSheet){
-         return ['盈利总额', '有效投注总额', '派彩总额', '佣金总额', '充值总额', '提款总额'];
+    getListTitles() {
+        if (isUserSheet) {
+            return ['盈利总额', '有效投注总额', '派彩总额', '佣金总额', '充值总额', '提款总额'];
         }
         return ['盈利总额', '有效投注总额', '派彩总额', '佣金总额', '充值总额', '提款总额', '返点总额', '优惠总额']
     }
@@ -359,6 +360,11 @@ export default class TCAgentSheets extends Component {
                     .subtract(30, 'days')
                     .format('YYYY-MM-DD');
                 break;
+            case '5':
+                startTime = Moment()
+                    .subtract(90, 'days')
+                    .format('YYYY-MM-DD');
+                break;
         }
         this.setState({
             beginTime: startTime,
@@ -371,14 +377,14 @@ export default class TCAgentSheets extends Component {
         return (
             <TouchableOpacity>
                 <View style={styles.dropDownItemStyle}>
-                    <Text style={{ fontSize: Size.font18, color: agentCenter.title }}>{rowData}</Text>
+                    <Text style={{fontSize: Size.font18, color: agentCenter.title}}>{rowData}</Text>
                 </View>
             </TouchableOpacity>
         );
     }
 
     getData() {
-        return ['今天', '昨天', '一周', '半月', '一月'];
+        return ['今天', '昨天', '一周', '半月', '一月', '三月'];
     }
 
     getContentView() {
@@ -394,17 +400,17 @@ export default class TCAgentSheets extends Component {
         if (rowData === '盈利总额' || rowData === '有效投注总额') {
             return (
                 <TouchableOpacity key={key} onPress={() => this.pressRow(rowData)} style={styles.rowButton}>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{flexDirection: 'row'}}>
                         <Text style={styles.rowText}>{rowData}</Text>
                         <View style={styles.redNoticeView}>
-                            <Text style={{ fontSize: 11, color: 'red' }}>?</Text>
+                            <Text style={{fontSize: 11, color: 'red'}}>?</Text>
                         </View>
                     </View>
                     <Text
                         style={[
                             styles.rowText,
-                            { marginRight: 10, color: listViewTxtColor.redTip },
-                            assignValue < 0 && { color: listViewTxtColor.greenTip }
+                            {marginRight: 10, color: listViewTxtColor.redTip},
+                            assignValue < 0 && {color: listViewTxtColor.greenTip}
                         ]}
                     >
                         {assignValue}元
@@ -418,8 +424,8 @@ export default class TCAgentSheets extends Component {
                     <Text
                         style={[
                             styles.rowText,
-                            { marginRight: 10, color: listViewTxtColor.redTip },
-                            assignValue < 0 && { color: listViewTxtColor.greenTip }
+                            {marginRight: 10, color: listViewTxtColor.redTip},
+                            assignValue < 0 && {color: listViewTxtColor.greenTip}
                         ]}
                     >
                         {assignValue}元
@@ -431,16 +437,16 @@ export default class TCAgentSheets extends Component {
 
     pressRow(rowData) {
         if (rowData === '盈利总额') {
-            Alert.alert('温馨提示', '盈利总额=投注赢利+优惠+佣金', [{ text: '确定' }]);
+            Alert.alert('温馨提示', '盈利总额=投注赢利+优惠+佣金', [{text: '确定'}]);
         } else if (rowData === '有效投注总额') {
-            Alert.alert('温馨提示', '有效投注总额=总投注-撤单', [{ text: '确定' }]);
+            Alert.alert('温馨提示', '有效投注总额=总投注-撤单', [{text: '确定'}]);
         }
     }
 
     assignValue = key => {
         if (this.state.selectedIndex == 0) {
             if (key === '盈利总额') {
-                return (this.state.dataPersonal.sumPnl+this.state.dataPersonal.sumCommission+this.state.dataPersonal.sumBonus).toFixed(2);
+                return (this.state.dataPersonal.sumPnl + this.state.dataPersonal.sumCommission + this.state.dataPersonal.sumBonus).toFixed(2);
             } else if (key === '有效投注总额') {
                 return this.state.dataPersonal.sumCharge;
             } else if (key === '派彩总额') {
@@ -456,7 +462,7 @@ export default class TCAgentSheets extends Component {
             }
         } else {
             if (key === '盈利总额') {
-                return (this.state.dataGroup.sumPnl+this.state.dataGroup.sumCommission+this.state.dataGroup.sumBonus).toFixed(2);
+                return (this.state.dataGroup.sumPnl + this.state.dataGroup.sumCommission + this.state.dataGroup.sumBonus).toFixed(2);
             } else if (key === '有效投注总额') {
                 return this.state.dataGroup.sumCharge;
             } else if (key === '派彩总额') {
@@ -496,7 +502,7 @@ const styles = StyleSheet.create({
 
     container: {
         backgroundColor: indexBgColor.mainBg,
-        flex:1
+        flex: 1
     },
     tabsContainerStyle: {
         //custom styles

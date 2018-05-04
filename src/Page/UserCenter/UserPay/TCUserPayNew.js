@@ -105,6 +105,9 @@ export default class TCUserPayNew extends Component {
                 <ModalList
                     show={this.showList}
                     dataList={this.bankList}
+                    closeModal={() => {
+                        this.showList = false;
+                    }}
                     renderRow={(rowData) => this.renderBankList(rowData)}
                 />
             </View>
