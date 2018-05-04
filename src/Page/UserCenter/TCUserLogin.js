@@ -340,7 +340,11 @@ export default class TCUserLogin extends Component {
     }
 
     onChangeUserName(text) {
-        this.stateModel.userName = text;
+        if (text.length <2) {
+            this.stateModel.userName = "";
+        } else {
+            this.stateModel.userName = text;
+        }
     }
 
     onChangePassword(text) {

@@ -480,7 +480,11 @@ export default class TCHome extends Component {
         if (title == 'TOPUP' || title == '存/取款') {
             RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
         } else if (title == 'ORDER' || title == '投注记录') {
-            NavigatorHelper.pushToOrderRecord();
+            if (TCUSER_DATA.islogin) {
+                NavigatorHelper.pushToOrderRecord();
+            } else {
+                NavigatorHelper.pushToUserLogin();
+            }
         } else if (title == 'PROMOTION' || title == '优惠活动') {
             NavigatorHelper.pushtoPromotion();
         } else if (title == 'CUS_SERVICE' || title == '在线客服') {
