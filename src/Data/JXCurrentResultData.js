@@ -43,7 +43,7 @@ class ResultDataEvent {
             }
 
             if (d.remainingTime === 0 && d.nextremainingTime && d.nextremainingTime > 0) {
-                console.info('ResultDataEvent gameUniqueId='+this.gameUniqueId+', didBlur='+this.resultsData.didBlur)
+                // console.debug('ResultDataEvent gameUniqueId='+this.gameUniqueId+', didBlur='+this.resultsData.didBlur)
                 if (!this.resultsData.didBlur) {
                     Toast.showLongCenter(d.uniqueIssueNumber+'期已截止\n'+d.nextUniqueIssueNumber+'期已开售'+'\n  投注时注意期号变化');
                 }
