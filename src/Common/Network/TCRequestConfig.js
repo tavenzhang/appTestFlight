@@ -26,7 +26,7 @@ export const trendServerAddress = trendServer;
 
 export const appVersion = '1.0.1';
 
-export const versionHotFix = '180409a';
+export const versionHotFix = 'JD180409a';
 
 export const AppName = MyAppName;
 
