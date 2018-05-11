@@ -85,10 +85,22 @@ class LotteryResultDataEvent {
             null,
             data => {
                 this.isRefreshing = false;
+                let addRcmdCnt = 0; //统计添加推荐彩种的个数，最多7个，和首页推荐彩种保持一致
                 if (data && data.rs && data.content) {
                     this.isLoadFinish = true;
                     try {
-                        this.resultsData = data.content;
+                        // modified by Mason at 2018.05.11
+                        // modified content: 购彩页面（全部彩种）和开奖页面，显示的彩种为首页热门彩种和推荐彩种
+                        for (let item of data.content) {
+                            let gameInfo = JXHelper.getGameInfoWithUniqueId(item.gameUniqueId);
+                            if (gameInfo && gameInfo.recommendType === 'HOT') {
+                                this.resultsData = this.resultsData.concat(item)
+                            } else if (gameInfo && gameInfo.recommendType === 'RECOMMEND' && addRcmdCnt < 7) {
+                                addRcmdCnt++
+                                this.resultsData = this.resultsData.concat(item)
+                            }
+                        }
+                        // this.resultsData = data.content;
                         this.countDownData = JXHelper.currentResultsDataHandle(data.content);
                     } catch (e) {
                     }

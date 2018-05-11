@@ -179,7 +179,7 @@ Helper.getGameInfoWithUniqueId = (gameUniqueId) => {
             array = _.concat(gameInfosHot, gameInfosRecommend)
         }
         for (let item in array) {
-            if (array[item].gameUniqueId == gameUniqueId) {
+            if (array[item].gameUniqueId === gameUniqueId) {
                 return array[item]
             }
         }
