@@ -14,6 +14,8 @@ import {
 import Style from './style';
 import Moment from 'moment';
 import PropTypes from 'prop-types'
+import {userAccount} from '../../../Page/resouce/images'
+
 const FORMATS = {
     'date': 'YYYY-MM-DD',
     'datetime': 'YYYY-MM-DD HH:mm',
@@ -285,12 +287,12 @@ class DatePicker extends Component {
             >
                 <View style={[Style.dateTouchBody, customStyles.dateTouchBody]}>
                     <View style={dateInputStyle}>
+                        {showIcon && <Image
+                            style={[Style.dateIcon, customStyles.dateIcon]}
+                            source={iconSource}
+                        />}
                         {this.getTitleElement()}
                     </View>
-                    {showIcon && <Image
-                        style={[Style.dateIcon, customStyles.dateIcon]}
-                        source={iconSource}
-                    />}
                     {Platform.OS === 'ios' && <Modal
                         transparent={true}
                         animationType="none"
@@ -366,7 +368,7 @@ DatePicker.defaultProps = {
     duration: 300,
     confirmBtnText: '确定',
     cancelBtnText: '取消',
-    iconSource: require('./date_icon.png'),
+    iconSource: userAccount.calendar,
     customStyles: {},
 
     // whether or not show the icon

@@ -51,7 +51,7 @@ export const gameIconKeyValue = {
     'HF_LFKLPK': require('./gameIcon/xy_pk.png'),
     'HF_XYFT': require('./gameIcon/xy_ft.png'),
     'HF_XYSM': require('./gameIcon/xy_sm.png'),
-    'QXC':require('./gameIcon/qxc.png'),
+    'QXC': require('./gameIcon/qxc.png'),
     // 'HF_BJ5FC':require('./gameIcon/bj_5fc.png')
 }
 
@@ -218,7 +218,7 @@ export const agent = {
     agentCommission: require('./addon/agentCenter/commission.png'),
     agentBettingMoney: require('./addon/agentCenter/bettingmoney.png'),
     banner: require('./addon/agentCenter/banner.png'),
-    shut:require('./addon/agentCenter/shut.png'),
+    shut: require('./addon/agentCenter/shut.png'),
     close: require('./addon/other/buttonClose.png'),
     swipe_right: require('./addon/other/swipe_right.png'),
     // userLayer1: require('./addon/agentCenter/daili_cengji_next1.png'),
@@ -348,6 +348,11 @@ export const xypk = {
         'icon11': require('./addon/newLottery/xypk/pk_q.png'),
         'icon12': require('./addon/newLottery/xypk/pk_k.png'),
     }
-
-
+}
+//账变明细
+export const userAccount = {
+    calendar: require('./addon/userAccount/calendar.png'),
+    calendarDropDown: require('./addon/userAccount/calendar_drop_down.png'),
+    dayAfter: require('./addon/userAccount/day_after.png'),
+    dayBefore: require('./addon/userAccount/day_before.png')
 }

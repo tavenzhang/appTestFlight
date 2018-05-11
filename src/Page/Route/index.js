@@ -61,7 +61,7 @@ import UserWithdraw from '../../Page/UserCenter/UserWithdraw/TCUserWithdraw'
 import MessageList from '../../Page/UserCenter/UserMessage/TCUserMessagePage'
 import UserInfo from '../../Page/UserCenter/UserInfo/TCAddUserInfo'
 import FeedbackList from '../../Page/UserCenter/FeedBack/TCUserFeedbackList'
-import UserAcount from '../../Page/UserCenter/UserAccount/TCUserAccountDetails'
+import UserAcount from '../../Page/UserCenter/UserAccount/TCUserAccountDetailsNew'
 import UserAcountDetail from '../../Page/UserCenter/UserAccount/TCUserAccountBillingDetails'
 import Feedback from '../../Page/UserCenter/FeedBack/TCUserFeedback';
 import FeedbackView from '../../Page/UserCenter/FeedBack/TCUserFeedbackView';
