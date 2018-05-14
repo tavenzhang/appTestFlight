@@ -11,7 +11,7 @@ import {
     Image,
     ActivityIndicator,
     ScrollView,
-    TextInput
+    TextInput, Platform, NativeModules
 } from "react-native";
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
@@ -39,6 +39,7 @@ import _ from 'lodash';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import ModalList from "./View/ModalList";
 import ButtonView from "../../../Common/View/ButtonView";
+import JXHelper from "../../../Common/JXHelper/JXHelper";
 
 /**
  * 提示对话框
@@ -92,8 +93,12 @@ export default class TCUserPayNew extends Component {
                     changeMoney={(money) => {
                         this.changeMoney(money)
                     }}/>
-                <View style={styles.payTipView}>
-                    <Text style={styles.payTip}>请选择充值方式</Text>
+                <View style={[styles.payTipView, {flexDirection: 'row'}]}>
+                    <Text style={styles.payTip}>请选择充值方式 (如有问题，请联系</Text>
+                    <TouchableOpacity onPress={() => this.onlineService()}>
+                        <Text style={[styles.payTip, {color:'#4292cd'}]}>在线客服</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.payTip}>)</Text>
                 </View>
                 <ScrollView style={{marginTop: 5, marginBottom: 20}} keyboardDismissMode='on-drag'>
                     {this.props.payList && this.props.payList.length > 0 ? this.getContentView() : this.getEmptyTip()}
@@ -114,6 +119,17 @@ export default class TCUserPayNew extends Component {
         )
     }
 
+    onlineService() {
+        if (Platform.OS === 'ios') {
+            NavigatorHelper.pushToWebView(JXHelper.getMenuIconsUrl('CUS_SERVICE'), '在线客服');
+        } else {
+            try {
+                NativeModules.JXHelper.openWebViewFromJs(JXHelper.getMenuIconsUrl('CUS_SERVICE'));
+            } catch (e) {
+                NavigatorHelper.pushToWebView(JXHelper.getMenuIconsUrl('CUS_SERVICE'), '在线客服');
+            }
+        }
+    }
 
     /**
      * 渲染银行列表

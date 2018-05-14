@@ -10,7 +10,7 @@ import {
     Linking,
     ActivityIndicator,
     Image,
-    ScrollView
+    ScrollView, Platform, NativeModules
 } from "react-native";
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
@@ -111,8 +111,12 @@ export default class TCUserPayType extends Component {
                     <View>
                     </View>
                 </View>
-                <View style={{paddingTop: 10, paddingLeft: 10, paddingBottom: 5}}>
-                    <Text style={styles.payTip}>请选择充值类型</Text>
+                <View style={{paddingTop: 10, paddingLeft: 10, paddingBottom: 5, flexDirection: 'row'}}>
+                    <Text style={styles.payTip}>请选择充值类型 (如有问题，请联系</Text>
+                        <TouchableOpacity onPress={() => this.onlineService()}>
+                            <Text style={[styles.payTip, {color:'#4292cd'}]}>在线客服</Text>
+                        </TouchableOpacity>
+                    <Text style={styles.payTip}>)</Text>
                 </View>
                 <ScrollView style={{flex: 1, marginBottom: 5, marginTop: 5}}>{this.getContentView()}</ScrollView>
                 <LoadingSpinnerOverlay
@@ -121,6 +125,18 @@ export default class TCUserPayType extends Component {
                     marginTop={64}/>
             </View>
         )
+    }
+
+    onlineService() {
+        if (Platform.OS === 'ios') {
+            NavigatorHelper.pushToWebView(JXHelper.getMenuIconsUrl('CUS_SERVICE'), '在线客服');
+        } else {
+            try {
+                NativeModules.JXHelper.openWebViewFromJs(JXHelper.getMenuIconsUrl('CUS_SERVICE'));
+            } catch (e) {
+                NavigatorHelper.pushToWebView(JXHelper.getMenuIconsUrl('CUS_SERVICE'), '在线客服');
+            }
+        }
     }
 
     /**
