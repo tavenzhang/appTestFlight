@@ -88,6 +88,7 @@ import AgentCommissionList from '../../Page/UserCenter/Agent/Commission/TCAgentC
 import AgentSheet from '../../Page/UserCenter/Agent/UserSheets/TCAgentSheets'
 import CommissionDetail from '../../Page/UserCenter/Agent/Commission/TCAgentCommissionDetail'
 import PersonalCommissionDetail from '../../Page/UserCenter/Agent/Commission/TCPersonalCommissionDetail'
+import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
 
 
 const Components = {
@@ -148,7 +149,7 @@ const Components = {
     UserPayment: {screen: UserPayment},
     UserAliAndWechatTransfer: {screen: UserAliAndWechatTransfer},
     UserAliAndWechatPay: {screen: UserAliAndWechatPay},
-    UserBankPayMessage: {screen: UserBankPayMessage},
+    UserBankPayMessage: {screen: TCUserBankPayMessageNew},
     UserHTMLPay: {screen: UserHTMLPay},
     UserPayProgress: {screen: UserPayProgress},
     UserAliPayAndWechatMessage: {screen: UserAliPayAndWechatMessage},
