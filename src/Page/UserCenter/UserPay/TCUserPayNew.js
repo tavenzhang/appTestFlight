@@ -447,13 +447,17 @@ export default class TCUserPayNew extends Component {
             Toast.showShortCenter("充值金额不能小于1元!");
             return false
         }
-        if (rowData.remainQuota && this.money > rowData.remainQuota) {
-            Toast.showShortCenter("充值金额不能大于" + parseInt(rowData.remainQuota) + "元!");
-            return false
-        }
-        if (this.money < rowData.minAmount) {
-            Toast.showShortCenter("充值金额不能小于" + rowData.minAmount + "元!");
-            return false
+        if (isBank) {
+            if (this.money < rowData.minAmount) {
+                Toast.showShortCenter("充值金额不能小于" + rowData.minAmount + "元!");
+                return false
+            }
+        } else {
+            let minTopup = rowData.minAmount > this.props.minmumTopupAmount ? rowData.minAmount : this.props.minmumTopupAmount;
+            if (this.money < minTopup) {
+                Toast.showShortCenter("充值金额不能小于" + minTopup + "元!");
+                return false
+            }
         }
 
         if (rowData.bankCode) {//如果是微信支付宝转账,就不加一位随机数
@@ -463,6 +467,10 @@ export default class TCUserPayNew extends Component {
         }
         if (this.realTopupMoney > rowData.maxAmount) {
             Toast.showShortCenter("充值金额不能大于" + (parseInt(rowData.maxAmount) - 1) + "元!");
+            return false
+        }
+        if (rowData.remainQuota && this.money > rowData.remainQuota) {
+            Toast.showShortCenter("充值金额不能大于" + parseInt(rowData.remainQuota) + "元!");
             return false
         }
         return true
