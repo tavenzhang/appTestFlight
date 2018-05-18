@@ -145,7 +145,7 @@ export default class TCUserAccountAllPage extends Component {
                     source={icon}
                     style={styles.iconView}
                 />
-                <Text>{title}</Text>
+                <Text  style={{color: agentCenter.dateTxt, marginLeft: 5}}>{title}</Text>
             </View></TouchableOpacity>)
     }
 
@@ -421,9 +421,11 @@ const styles = StyleSheet.create({
     },
     tabStyle: {
         borderWidth: 0,
+        backgroundColor: indexBgColor.itemBg
     },
     tabTextStyle: {
-        backgroundColor: indexBgColor.itemBg
+        backgroundColor: indexBgColor.itemBg,
+        color: listViewTxtColor.title
     },
     activeTabStyle: {
         //custom styles
