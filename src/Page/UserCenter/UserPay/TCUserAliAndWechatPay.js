@@ -78,6 +78,7 @@ export default class TCUserAliAndWechatPay extends Component {
                     codeType={this.props.codeType}
                     codeValue={this.props.codeValue}
                     money={this.props.money}
+                    prompt = {this.props.payData.userPrompt}
                     leftBtnTitle={'立即充值'}
                 />
 

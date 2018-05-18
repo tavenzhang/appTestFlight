@@ -60,7 +60,7 @@ export default class TCUserPayView extends Component {
                             </View>
                         </View>
                         <View style={styles.payNoticeItemStyle}><Text
-                            style={styles.moneyTxtStyle}>{'请一定按照以上显示金额付款'}</Text></View>
+                            style={styles.moneyTxtStyle}>{this.props.prompt?this.props.userPrompt:'请一定按照以上显示金额付款'}</Text></View>
                         <View style={styles.ewmImgItemStyle}>
                             {this.getQRCode()}
                         </View>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: height * 0.35,
-        marginTop: 10,
+        marginTop: 1,
     },
     imgewmStyle: {
         height: height * 0.3,
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
         width: width * 0.3,
     }, moneyTxtStyle: {
         color: ermaStyle.moneyContent,
-        fontSize: Size.font18
+        fontSize: Size.font14
     }, btmBtnStyle1: {
         height: height * 0.08,
         width: width * 0.39,

@@ -33,10 +33,11 @@ import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
 import UserPay from './TCUserPayNew'
-import  {userPay, personal} from '../../resouce/images'
+import {userPay, personal} from '../../resouce/images'
 import _ from 'lodash';
 import {Default_PayList} from '../../../Data/DefaultPayTypeList'
 import {common} from '../../resouce/images'
+
 /**
  * 提示对话框
  */
@@ -46,12 +47,14 @@ export default class TCUserPayType extends Component {
     payTansferList = []
     bankList = []
     stateModel = new StateModel()
+    minimumTopupAmount = 1;
 
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
+        this.getOnlineTopup();
         this.getPayTypeList()
     }
 
@@ -115,9 +118,9 @@ export default class TCUserPayType extends Component {
                         </TouchableOpacity>
                     <Text style={styles.payTip}>)</Text>
                 </View>
-                <ScrollView style={{flex: 1, marginBottom: 5, marginTop: 5}}>{ this.getContentView()}</ScrollView>
+                <ScrollView style={{flex: 1, marginBottom: 5, marginTop: 5}}>{this.getContentView()}</ScrollView>
                 <LoadingSpinnerOverlay
-                    ref={ component => this._partModalLoadingSpinnerOverLay = component }
+                    ref={component => this._partModalLoadingSpinnerOverLay = component}
                     modal={true}
                     marginTop={64}/>
             </View>
@@ -148,6 +151,14 @@ export default class TCUserPayType extends Component {
      */
     hideLoading() {
         this._partModalLoadingSpinnerOverLay.hide()
+    }
+
+    getOnlineTopup() {
+        RequestUtils.getUrlAndParamsAndCallback(config.api.onlineTopUp, null, res => {
+            if (res.rs) {
+                this.minimumTopupAmount = res.content.minimumTopupAmount;
+            }
+        })
     }
 
     /**
@@ -331,10 +342,12 @@ export default class TCUserPayType extends Component {
         this.hideLoading()
         NavigatorHelper.pushToTopUp({
             code: code,
-            payList: this.getPayList(code)
+            payList: this.getPayList(code),
+            minimumTopupAmount: this.minimumTopupAmount
         });
     }
 }
+
 class StateModel {
     @observable
     payTypeList = []

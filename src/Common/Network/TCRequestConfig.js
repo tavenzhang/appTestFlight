@@ -84,6 +84,7 @@ export const config = {
         userWithDraw: 'cashmgt/me/transfer/withdrawals', //用户申请取款
         encryptUserWithDraw: 'cashmgt/me/transfer/withdrawalsV2', //用户申请取款 加密接口
         paymentList: 'cashmgt/me/transfer/topups/payment/list', //获取用户的充值方式
+        onlineTopUp:'cashmgt/me/payments/settings/onlineTopup',//线上充值下限
         orderhistory: 'cashmgt/me/transfer/orderhistory', //获取订单历史记录
         otherPay: 'cashmgt/me/transfer/topups', //用户自动充值
         getbankList: 'cashmgt/me/cards/list', //用户绑卡银行卡列表
@@ -98,6 +99,7 @@ export const config = {
         orderDetail: 'orderdata/me/orders/findByTimeuuid', //订单详情
         findTopWinners: 'orderdata/me/orders/findTopWinners',
 
+        balanceByDate:'balance/me/trans/byDate',//获取余额变动历史根据日期
         balanceHistory: 'balance/me/history', //获取余额变动历史
         userBalance: 'balance/me', //获取用户余额
         balanceHistoryV2: '/balance/me/balance/details', //余额变动历史

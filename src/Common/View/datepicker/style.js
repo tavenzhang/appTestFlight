@@ -13,8 +13,6 @@ let style = StyleSheet.create({
     dateIcon: {
         width: 32,
         height: 32,
-        marginLeft: 5,
-        marginRight: 5
     },
     dateInput: {
         flex: 1,
@@ -22,7 +20,8 @@ let style = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#aaa',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'row'
     },
     dateText: {
         color: '#333'

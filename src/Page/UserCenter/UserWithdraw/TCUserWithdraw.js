@@ -38,6 +38,7 @@ import TcWithdrawKeyBoard from './TCWithdrawKeyboardView'
 import SecretUtils from '../../../Common/JXHelper/SecretUtils'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
+import Moment from "moment";
 
 var secretUtils = new SecretUtils();
 /**
@@ -50,6 +51,8 @@ export default class TCUserWithdrawNew extends Component {
     bankList = []
     pwd = ''
     stateModel = new StateModel()
+    lastRequestTime = 0;
+
 
     constructor(props) {
         super(props)
@@ -371,6 +374,16 @@ export default class TCUserWithdrawNew extends Component {
         if (this.pwd.length < 4) {
             this.postponeShowToast('请输入交易密码!');
             return
+        }
+        if (this.lastRequestTime === 0) {
+            this.lastRequestTime = Moment().format(x)
+        } else {
+            let temp = Moment().format('x') - this.lastRequestTime;
+            if (temp < 1) {
+                return;
+            } else {
+                this.lastRequestTime = Moment().format('x');
+            }
         }
         this.applyWithDraw()
     }

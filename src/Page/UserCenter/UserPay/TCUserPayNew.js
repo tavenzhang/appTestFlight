@@ -262,7 +262,7 @@ export default class TCUserPayNew extends Component {
      * 申请转账
      */
     bankApplyFor(bank) {
-        if (!this.validMoney(bank)) {
+        if (!this.validMoney(bank, true)) {
             return;
         }
         this.showLoading()
@@ -432,7 +432,7 @@ export default class TCUserPayNew extends Component {
      * 检查输入金额
      * @returns {boolean}
      */
-    validMoney(rowData) {
+    validMoney(rowData, isBank) {
         let reg = /^[0-9]+([.]{1}[0-9]{1,2})?$/
         let inputMoney = this.money + ''
         if (inputMoney.length < 1) {
@@ -455,6 +455,7 @@ export default class TCUserPayNew extends Component {
             Toast.showShortCenter("充值金额不能小于" + rowData.minAmount + "元!");
             return false
         }
+
         if (rowData.bankCode) {//如果是微信支付宝转账,就不加一位随机数
             this.realTopupMoney = this.money
         } else {
@@ -623,6 +624,7 @@ export default class TCUserPayNew extends Component {
                 codeType: qrType ? qrType : 'URL',
                 money: this.realTopupMoney,
                 codeValue: res.data,
+                payData: this.payData,
                 merchantName: this.payData.merchantName,
             })
         } else {
