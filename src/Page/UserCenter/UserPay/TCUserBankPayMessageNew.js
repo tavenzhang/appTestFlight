@@ -50,7 +50,7 @@ export default class TCUserBankPayMessageNew extends Component {
 
     constructor(props) {
         super(props)
-        this.money = this.props.money
+        this.money = this.props.transInfo.amount
         this.name = ''
     }
 
@@ -78,23 +78,13 @@ export default class TCUserBankPayMessageNew extends Component {
                         <View style={styles.firstItemStyle}>
                             <Text style={styles.firstItemTxtStyle}>入款确认信息</Text>
                         </View>
-                        <View style={styles.itemStyle}>
-                            <Text style={styles.itemTitleTxtStyle}>订  单  号</Text>
-                            <Text style={styles.transferNoTxt}>12018050315386985</Text>
-                            <TouchableOpacity
-                                activeOpacity={0.6}
-                                style={styles.itemRightStyle}
-                                onPress={() => this.onCopy(this.props.bank.bankName)}>
-                                <Text style={styles.itemBtnTxtStyle}>复制</Text>
-                            </TouchableOpacity>
-                        </View>
+                        {this.renderOrderId()}
                         <View style={styles.itemStyle}>
                             <Text style={styles.itemTitleTxtStyle}>存款时间</Text>
                             <View style={{flex:1}}>
                                 <DatePicker
-                                    style={{
-                                        backgroundColor: 'transparent',
-                                    }}
+                                    ref='datePicker'
+                                    style={{backgroundColor: 'transparent'}}
                                     date={this.stateModel.date}
                                     mode="datetime"
                                     format="YYYY-MM-DD HH:mm"
@@ -104,37 +94,26 @@ export default class TCUserBankPayMessageNew extends Component {
                                     is24Hour={true}
                                     customStyles={{
                                         dateIcon: null,
-                                        dateInput: {
-                                            flex: 1,
-                                            alignItems: 'flex-start',
-                                            borderWidth: 0,
-                                        },
-                                        dateText: {
-                                            color: '#000000',
-                                            fontSize: Size.default,
-                                            padding: 10,
-                                            flex: 1
-                                        }
+                                        dateInput: {flex: 1, alignItems: 'flex-start', borderWidth: 0,},
+                                        dateText: {color: '#000000', fontSize: Size.default, padding: 10, flex: 1}
                                     }}
-                                    onDateChange={(date) => {
-                                        this.stateModel.date = date
-                                    }}
+                                    onDateChange={(date) => {this.stateModel.date = date}}
                                 />
                             </View>
                             <TouchableOpacity
                                 activeOpacity={0.6}
-                                onPress={()=>this.resetDepositTime()}
+                                onPress={()=>{this.refs.datePicker.onPressDate()}}
                                 style={{width: 53, height: 26, marginRight:12, marginLeft:12, justifyContent: 'center', alignItems: 'center'}}>
                                 <Image source={betIcon.orderQingChu} style={{height: 20, width: 20}}/>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.itemStyle}>
                             <Text style={styles.itemTitleTxtStyle}>存入金额</Text>
-                            <Text style={[styles.transferNoTxt, {color: '#EC2829', fontSize: Size.font22}]}>{this.props.money}</Text>
+                            <Text style={[styles.transferNoTxt, {color: '#EC2829', fontSize: Size.font22}]}>{this.props.transInfo.amount}</Text>
                             <TouchableOpacity
                                 activeOpacity={0.6}
                                 style={styles.itemRightStyle}
-                                onPress={() => this.onCopy(this.props.money + '')}>
+                                onPress={() => this.onCopy(this.props.transInfo.amount + '')}>
                                 <Text style={styles.itemBtnTxtStyle}>复制</Text>
                             </TouchableOpacity>
                         </View>
@@ -147,41 +126,41 @@ export default class TCUserBankPayMessageNew extends Component {
                         </View>
                         <View style={styles.itemStyle}>
                             <Text style={styles.itemTitleTxtStyle}>收  款  人</Text>
-                            <Text style={styles.transferNoTxt}>{this.props.bank.receiptName}</Text>
+                            <Text style={styles.transferNoTxt}>{this.props.transInfo.receiptName}</Text>
                             <TouchableOpacity
                                 activeOpacity={0.6}
                                 style={styles.itemRightStyle}
-                                onPress={() => this.onCopy(this.props.bank.receiptName)}>
+                                onPress={() => this.onCopy(this.props.transInfo.receiptName)}>
                                 <Text style={styles.itemBtnTxtStyle}>复制</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.itemStyle}>
                             <Text style={styles.itemTitleTxtStyle}>收款账号</Text>
-                            <Text style={styles.transferNoTxt}>{this.props.bank.bankCardNo}</Text>
+                            <Text style={styles.transferNoTxt}>{this.props.transInfo.bankCardNo}</Text>
                             <TouchableOpacity
                                 activeOpacity={0.6}
                                 style={styles.itemRightStyle}
-                                onPress={() => this.onCopy(this.props.bank.bankCardNo)}>
+                                onPress={() => this.onCopy(this.props.transInfo.bankCardNo)}>
                                 <Text style={styles.itemBtnTxtStyle}>复制</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.itemStyle}>
                             <Text style={styles.itemTitleTxtStyle}>开户网点</Text>
-                            <Text style={styles.transferNoTxt}>{this.props.bank.bankAddress}</Text>
+                            <Text style={styles.transferNoTxt}>{this.props.transInfo.bankAddress}</Text>
                             <TouchableOpacity
                                 activeOpacity={0.6}
                                 style={styles.itemRightStyle}
-                                onPress={() => this.onCopy(this.props.bank.bankAddress)}>
+                                onPress={() => this.onCopy(this.props.transInfo.bankAddress)}>
                                 <Text style={styles.itemBtnTxtStyle}>复制</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.itemStyle}>
                             <Text style={styles.itemTitleTxtStyle}>开户银行</Text>
-                            <Text style={styles.transferNoTxt}>{this.props.bank.bankName}</Text>
+                            <Text style={styles.transferNoTxt}>{this.props.transInfo.bankName}</Text>
                             <TouchableOpacity
                                 activeOpacity={0.6}
                                 style={styles.itemRightStyle}
-                                onPress={() => this.onCopy(this.props.bank.bankName)}>
+                                onPress={() => this.onCopy(this.props.transInfo.bankName)}>
                                 <Text style={styles.itemBtnTxtStyle}>复制</Text>
                             </TouchableOpacity>
                         </View>
@@ -195,6 +174,7 @@ export default class TCUserBankPayMessageNew extends Component {
                         <View style={[styles.itemStyle, {marginLeft: 0, paddingRight: 0}]}>
                             <Text style={[styles.itemTitleTxtStyle, {marginLeft:16}]}>存款人姓名</Text>
                             <TextInput style={[styles.inputTxtStyle]}
+                                       ref='textInputRefer'
                                        underlineColorAndroid='transparent'
                                        placeholder={'请输入您的姓名...'}
                                        placeholderTextColor='#BCBBC1'
@@ -208,7 +188,7 @@ export default class TCUserBankPayMessageNew extends Component {
                                        }}/>
                             <TouchableOpacity
                                 activeOpacity={0.6}
-                                onPress={()=>this.resetDepositTime()}
+                                onPress={()=>{this.refs.textInputRefer.clear(); this.changeName('')}}
                                 style={{alignItems: 'center', justifyContent: 'center',width:53, height:40, marginRight:6}}>
                                 <Image source={betIcon.orderQingChu} style={{height: 20, width: 20}}/>
                             </TouchableOpacity>
@@ -253,8 +233,21 @@ export default class TCUserBankPayMessageNew extends Component {
         )
     }
 
-    resetDepositTime() {
-
+    renderOrderId() {
+        if (this.props.transInfo.transactionNo) {
+            return (
+                <View style={styles.itemStyle}>
+                    <Text style={styles.itemTitleTxtStyle}>订  单  号</Text>
+                    <Text style={styles.transferNoTxt}>{this.props.transInfo.transactionNo}</Text>
+                    <TouchableOpacity
+                        activeOpacity={0.6}
+                        style={styles.itemRightStyle}
+                        onPress={() => this.onCopy(this.props.transInfo.bankName)}>
+                        <Text style={styles.itemBtnTxtStyle}>复制</Text>
+                    </TouchableOpacity>
+                </View>
+            )
+        }
     }
 
     showBackTip() {
@@ -304,8 +297,8 @@ export default class TCUserBankPayMessageNew extends Component {
     }
 
     changeMoney(text) {
-        if (text.length == 0) {
-            this.money = this.props.money
+        if (text.length === 0) {
+            this.money = this.props.transInfo.amount
         } else {
             this.money = text
         }
@@ -354,13 +347,14 @@ export default class TCUserBankPayMessageNew extends Component {
             topupCardRealname: this.name,
             topupTime: this.stateModel.date,
             transferToupType: this.transferToupType,
-            paymentPlatformOrderNo: this.getRandomOrderNo(),
+            paymentPlatformOrderNo: this.props.transInfo.transactionNo ? this.props.transInfo.transactionNo : this.getRandomOrderNo(),
+            thirdOrderNo: this.props.transInfo.thirdOrderNo,
             id: appId
         }
         RequestUtils.PutUrlAndParamsAndCallback(config.api.banktransfersQueryv3, params, (response) => {
             this._modalLoadingSpinnerOverLay.hide()
             if (response.rs) {
-                this.gotoProgress()
+                this.gotoProgress(response.content.topupAmount)
             } else {
                 if (response.status === 500) {
                     Toast.showShortCenter('服务器出错啦!')
@@ -375,8 +369,8 @@ export default class TCUserBankPayMessageNew extends Component {
         })
     }
 
-    gotoProgress() {
-        NavigatorHelper.pushToUserPayProgress({topupAmount: this.money});
+    gotoProgress(money) {
+        NavigatorHelper.pushToUserPayProgress({topupAmount: money});
     }
 
     /**

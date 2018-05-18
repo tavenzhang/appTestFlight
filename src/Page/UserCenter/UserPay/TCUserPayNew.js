@@ -266,11 +266,11 @@ export default class TCUserPayNew extends Component {
             return;
         }
         this.showLoading()
-        let params = {adminBankId: bank.adminBankId}
+        let params = {adminBankId: bank.adminBankId, amount: this.money}
         RequestUtils.PostUrlAndParamsAndCallback(config.api.banktransfers, params, (response) => {
             this.hideLoading()
             if (response.rs) {
-                this.gotoBankMsg(bank, response.content.topupCode);
+                this.gotoBankMsg(response.content, bank.adminBankId);
             } else {
                 if (response.status === 400) {
                     if (response.message)
@@ -447,9 +447,12 @@ export default class TCUserPayNew extends Component {
             Toast.showShortCenter("充值金额不能小于1元!");
             return false
         }
+        if (rowData.remainQuota && this.money > rowData.remainQuota) {
+            Toast.showShortCenter("充值金额不能大于" + parseInt(rowData.remainQuota) + "元!");
+            return false
+        }
         if (this.money < rowData.minAmount) {
             Toast.showShortCenter("充值金额不能小于" + rowData.minAmount + "元!");
-
             return false
         }
         if (rowData.bankCode) {//如果是微信支付宝转账,就不加一位随机数
@@ -722,12 +725,10 @@ export default class TCUserPayNew extends Component {
      * 跳转到转账资料信息界面
      * @param code
      */
-    gotoBankMsg(bank, code) {
+    gotoBankMsg(info, adminBankId) {
         NavigatorHelper.pushToUserBankPayMessage({
-            topupCode: code,
-            bank: bank,
-            adminBankId: bank.adminBankId,
-            money: this.money
+            adminBankId: adminBankId,
+            transInfo: info
         })
     }
 }
