@@ -52,6 +52,7 @@ export default class TCUserBankPayMessageNew extends Component {
         super(props)
         this.money = this.props.transInfo.amount
         this.name = ''
+        this.orderId = this.props.transInfo.transactionNo ? this.props.transInfo.transactionNo : this.getRandomOrderNo()
     }
 
     static defaultProps = {};
@@ -78,7 +79,16 @@ export default class TCUserBankPayMessageNew extends Component {
                         <View style={styles.firstItemStyle}>
                             <Text style={styles.firstItemTxtStyle}>入款确认信息</Text>
                         </View>
-                        {this.renderOrderId()}
+                        <View style={styles.itemStyle}>
+                            <Text style={styles.itemTitleTxtStyle}>订  单  号</Text>
+                            <Text style={styles.transferNoTxt}>{this.orderId}</Text>
+                            <TouchableOpacity
+                                activeOpacity={0.6}
+                                style={styles.itemRightStyle}
+                                onPress={() => this.onCopy(this.props.transInfo.bankName)}>
+                                <Text style={styles.itemBtnTxtStyle}>复制</Text>
+                            </TouchableOpacity>
+                        </View>
                         <View style={styles.itemStyle}>
                             <Text style={styles.itemTitleTxtStyle}>存款时间</Text>
                             <View style={{flex:1}}>
@@ -94,8 +104,8 @@ export default class TCUserBankPayMessageNew extends Component {
                                     is24Hour={true}
                                     customStyles={{
                                         dateIcon: null,
-                                        dateInput: {flex: 1, alignItems: 'flex-start', borderWidth: 0,},
-                                        dateText: {color: '#000000', fontSize: Size.default, padding: 10, flex: 1}
+                                        dateInput: {flex: 1, alignItems: 'center', borderWidth: 0},
+                                        dateText: {color: '#000000', fontSize: Size.default, flex: 1, textAlignVertical: 'center'}
                                     }}
                                     onDateChange={(date) => {this.stateModel.date = date}}
                                 />
@@ -109,7 +119,7 @@ export default class TCUserBankPayMessageNew extends Component {
                         </View>
                         <View style={styles.itemStyle}>
                             <Text style={styles.itemTitleTxtStyle}>存入金额</Text>
-                            <Text style={[styles.transferNoTxt, {color: '#EC2829', fontSize: Size.font22}]}>{this.props.transInfo.amount}</Text>
+                            <Text style={styles.transferMoney}>{this.props.transInfo.amount}</Text>
                             <TouchableOpacity
                                 activeOpacity={0.6}
                                 style={styles.itemRightStyle}
@@ -233,23 +243,6 @@ export default class TCUserBankPayMessageNew extends Component {
         )
     }
 
-    renderOrderId() {
-        if (this.props.transInfo.transactionNo) {
-            return (
-                <View style={styles.itemStyle}>
-                    <Text style={styles.itemTitleTxtStyle}>订  单  号</Text>
-                    <Text style={styles.transferNoTxt}>{this.props.transInfo.transactionNo}</Text>
-                    <TouchableOpacity
-                        activeOpacity={0.6}
-                        style={styles.itemRightStyle}
-                        onPress={() => this.onCopy(this.props.transInfo.bankName)}>
-                        <Text style={styles.itemBtnTxtStyle}>复制</Text>
-                    </TouchableOpacity>
-                </View>
-            )
-        }
-    }
-
     showBackTip() {
         Alert.alert('您确定退出充值吗？', '请确保已支付完成再退出!', [
             {
@@ -347,7 +340,7 @@ export default class TCUserBankPayMessageNew extends Component {
             topupCardRealname: this.name,
             topupTime: this.stateModel.date,
             transferToupType: this.transferToupType,
-            paymentPlatformOrderNo: this.props.transInfo.transactionNo ? this.props.transInfo.transactionNo : this.getRandomOrderNo(),
+            paymentPlatformOrderNo: this.orderId,
             thirdOrderNo: this.props.transInfo.thirdOrderNo,
             id: appId
         }
@@ -461,7 +454,7 @@ const styles = StyleSheet.create({
     },
     itemStyle: {
         width: width,
-        height: 40,
+        minHeight: 40,
         flexDirection: 'row',
         backgroundColor: 'white',
         borderBottomWidth: 1,
@@ -485,8 +478,13 @@ const styles = StyleSheet.create({
     transferNoTxt: {
         color: '#000000',
         fontSize: Size.default,
-        padding: 10,
         flex: 1
+    },
+    transferMoney: {
+        flex: 1,
+        color: '#EC2829',
+        fontSize: Size.font22,
+        textAlignVertical: 'center'
     },
     itemBtnStyle: {
         marginRight: 20,
@@ -523,8 +521,6 @@ const styles = StyleSheet.create({
     },
     inputTxtStyle: {
         flex: 1,
-        paddingLeft: 10,
-        paddingRight: 10,
         borderColor: 'transparent',
         fontSize: Size.default,
         color: inputStyle.inputTxt
