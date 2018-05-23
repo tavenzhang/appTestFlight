@@ -321,7 +321,7 @@ export default class TCUserPayType extends Component {
             code = 'THIRD_PARTY'
         }
         if (code === 'BANK') {
-            return this.bankList
+            return this.sortData(this.bankList)
         } else {
             let payList = []
             this.payTansferList.forEach((item) => {
@@ -330,9 +330,19 @@ export default class TCUserPayType extends Component {
                     payList.push(item)
                 }
             })
-            return payList
+
+            return this.sortData(payList);
         }
     }
+
+
+    sortData(datas) {
+        let res = datas.sort((itemA, itemB) => {
+            return itemA.position - itemB.position;
+        })
+        return res;
+    }
+
 
     /**
      * 跳转到支付界面
