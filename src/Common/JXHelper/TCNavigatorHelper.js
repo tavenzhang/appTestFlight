@@ -277,6 +277,9 @@ Helper.pushToWebView = (url, title) => {
     }
 }
 
+Helper.pushToInviteFriends = () => {
+    NavigationService.navigate("InviteFriends");
+}
 
 Helper.gotoSetting = () => {
     NavigationService.navigate("UserSetting");

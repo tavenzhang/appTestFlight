@@ -356,3 +356,14 @@ export const userAccount = {
     dayAfter: require('./addon/userAccount/day_after.png'),
     dayBefore: require('./addon/userAccount/day_before.png')
 }
+
+// 邀请好友
+export const inviteFriends = {
+    inviteLogo: require('./addon/other/ic_invite_logo.png'),
+    inviteLink: require('./addon/other/ic_invite_link.png'),
+    inviteOpenWeChat: require('./addon/other/ic_invite_open_wechat.png'),
+    inviteStep1: require('./addon/other/ic_invite_step_1.png'),
+    inviteStep2: require('./addon/other/ic_invite_step_2.png'),
+    inviteStep3: require('./addon/other/ic_invite_step_3.png'),
+    bgQRCode: require('./addon/other/bg_share_qrcode.png')
+}

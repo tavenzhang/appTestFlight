@@ -89,6 +89,7 @@ import AgentSheet from '../../Page/UserCenter/Agent/UserSheets/TCAgentSheets'
 import CommissionDetail from '../../Page/UserCenter/Agent/Commission/TCAgentCommissionDetail'
 import PersonalCommissionDetail from '../../Page/UserCenter/Agent/Commission/TCPersonalCommissionDetail'
 import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
+import TCInviteFriends from "../UserCenter/share/TCInviteFriends";
 
 
 const Components = {
@@ -160,6 +161,7 @@ const Components = {
     AgentSheet: {screen: AgentSheet},
     CommissionDetail: {screen: CommissionDetail},
     PersonalCommissionDetail: {screen: PersonalCommissionDetail},
+    InviteFriends: {screen: TCInviteFriends},
 }
 
 const MainStackNavigator = StackNavigator({
