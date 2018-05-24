@@ -130,13 +130,13 @@ const USERCENTER_ITEMS = [
             key: "flzx",
             name: '福利中心',
             description: "暂未开放",
-            icon: personal.imgSet
+            icon: personal.promotions
         },
         {
             key: "fxhy",
             name: '分享好友',
             description: "邀请好友，赚取更多收益",
-            icon: personal.toolFeedBack
+            icon: personal.shareFriends
         }
     ],
     [
@@ -150,7 +150,7 @@ const USERCENTER_ITEMS = [
             key: "setting",
             name: '在线客服',
             description: "",
-            icon: personal.imgSet
+            icon: personal.onlineServicer
         }
     ]
 ]

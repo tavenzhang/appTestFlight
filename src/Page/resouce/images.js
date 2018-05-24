@@ -158,6 +158,8 @@ export const personal = {
     teamSheet: require('./addon/userCenterIcon/team_sheet.png'),
     onlineServicer: require('./addon/userCenterIcon/service.png'),
     more: require('./addon/userCenterIcon/agent_more.png'),
+    shareFriends: require('./addon/userCenterIcon/invite_friends.png'),
+    promotions: require('./addon/userCenterIcon/promotions.png'),
 }
 
 
