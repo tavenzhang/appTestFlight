@@ -371,6 +371,33 @@ Helper.getBankCardLogo = () => {
     return null
 }
 
+/** 获取Wap分享链接 */
+Helper.getShareUrl4Wap = () => {
+    let otherSetting = Helper.getotherSettings()
+    if (otherSetting) {
+        return otherSetting.shareUrl4Wap
+    }
+    return null
+}
+
+/** 获取IOS分享链接 */
+Helper.getShareUrl4Ios = () => {
+    let otherSetting = Helper.getotherSettings()
+    if (otherSetting) {
+        return otherSetting.shareUrl4Ios
+    }
+    return null
+}
+
+/** 获取Android分享链接 */
+Helper.getShareUrl4Android = () => {
+    let otherSetting = Helper.getotherSettings()
+    if (otherSetting) {
+        return otherSetting.shareUrl4Android
+    }
+    return null
+}
+
 /** 判断本地或网络获取图片 */
 Helper.determineLocal = (bankCode) => {
     let localBanks = Banks.exclude.banks;
