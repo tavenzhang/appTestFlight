@@ -147,8 +147,8 @@ const USERCENTER_ITEMS = [
             icon: personal.toolFeedBack
         },
         {
-            key: "setting",
-            name: '在线客服',
+            key: "bzzx",
+            name: '帮助中心',
             description: "",
             icon: personal.onlineServicer
         }
@@ -510,7 +510,7 @@ export default class TCUserCenterNew extends Component {
             case 'yjfk':
                 NavigatorHelper.pushToFeedBack();
                 break;
-            case 'setting':
+            case 'bzzx':
                 this.gotoOnlineService()
                 break;
             case 'fxhy':
