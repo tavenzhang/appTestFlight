@@ -281,6 +281,10 @@ Helper.pushToInviteFriends = () => {
     NavigationService.navigate("InviteFriends");
 }
 
+Helper.pushToWelfareCenter = () => {
+    NavigationService.navigate("WelfareCenter");
+}
+
 Helper.gotoSetting = () => {
     NavigationService.navigate("UserSetting");
 }
