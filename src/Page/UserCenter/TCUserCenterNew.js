@@ -129,7 +129,7 @@ const USERCENTER_ITEMS = [
         {
             key: "flzx",
             name: '福利中心',
-            description: "暂未开放",
+            description: "优惠与返利",
             icon: personal.promotions
         },
         {
@@ -517,7 +517,7 @@ export default class TCUserCenterNew extends Component {
                 NavigatorHelper.pushToInviteFriends()
                 break;
             case 'flzx':
-                Toast.showShortCenter("暂未开放，尽请期待");
+                NavigatorHelper.pushToWelfareCenter()
                 break;
         }
     }
