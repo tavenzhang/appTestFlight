@@ -48,6 +48,14 @@ Helper.pushToIntelligenceBet = ((data) => {
     NavigationService.navigate("IntelligenceBet", {...data});
 })
 
+Helper.pushToUserTransfer = (params) => {
+    NavigationService.navigate("UserTransfer", params);
+}
+
+Helper.pushToOrderType = (params) => {
+    NavigationService.navigate("UserOrderType", params);
+}
+
 Helper.pushToOrderRecord = (orderType) => {
     NavigationService.navigate("UserOderRecord", {initPage: orderType});
 }

@@ -138,7 +138,15 @@ export const config = {
         redPacketRank: 'balance/me/hb/rank', //红包排行榜
         redPacketDetails: 'balance/me/balance/hbdetails', //红包详情
 
-
+        //体育相关
+        getPlatform: "dsf/center/player/open/platform",//获取厅主开通的平台
+        getPlatformBalance: "dsf/center/player/getBalance",//根据平台获取余额
+        platformTransfer: "dsf/center/player/balance/transfer",//平台转账
+        startGame: "dsf/center/mobile/player/startGame",//开始游戏
+        userSheet: "dsf/center/player/statements/personal/total",//个人报表
+        getAllBalance: "dsf/center/player/getAllBalance",//获取所有余额
+        allBalanceTransferToCenter: "dsf/center/player/balance/allBalanceTransferToCenter",//一键转账
+        userBets: "dsf/center/player/getBetLog",//用户下注记录
     },
     map: {
         method: 'POST',

@@ -119,6 +119,7 @@ export const personal = {
     imgEye2: require('./addon/userCenterIcon/icon_eye2.png'),
     iconPay: require('./addon/userCenterIcon/icon_pay.png'),
     iconDraw: require('./addon/userCenterIcon/icon_drawings.png'),
+    transfer: require('./addon/userCenterIcon/icon_drawings.png'),
     imgNext: common.iconNext,
     daiKaiJjiangIcon: require('./addon/userCenterIcon/dai.png'),
     jiangliIcon: require('./addon/userCenterIcon/jiangli.png'),
@@ -370,4 +371,14 @@ export const inviteFriends = {
     inviteStep3: require('../asset/share/ic_invite_step_3.png'),
     bgQRCode: require('../asset/share/bg_share_qrcode.png'),
     wechat: require('../asset/share/ic_wechat_white.png')
+}
+
+// 转账
+export const Transfer = {
+    money100: require("./addon/transfer/money_100.png"),
+    money200: require('./addon/transfer/money_200.png'),
+    money300: require('./addon/transfer/money_300.png'),
+    money500: require('./addon/transfer/money_500.png'),
+    money800: require('./addon/transfer/money_800.png'),
+    transfer: require('./addon/transfer/ic_transfer.png'),
 }

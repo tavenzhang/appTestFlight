@@ -10,7 +10,6 @@ import React, {
 import {config, base, baseUrl} from './TCRequestConfig';
 import queryString from 'query-string';
 import _ from 'lodash';
-import TCInitHelperC from '../JXHelper/TCInitHelper'
 import NavigatorHelper from '../JXHelper/TCNavigatorHelper'
 import Toast from '../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
@@ -65,6 +64,28 @@ export default class NetUitls extends Component {
         } else {
             map.timeout = defaultTimeout
         }
+        this.fetchAsync(url, map, callback)
+    }
+
+    /**
+     * put请求
+     * @param url 请求地址
+     * @param platform 平台
+     * @param params 请求参数
+     * @param callback 请求回调
+     * @param timeout 超时设置
+     */
+    static putUrlAndParamsAndAndPlatformAndCallback(url, platform, params, callback, timeout) {
+        url = this.getServerUrl(url)
+        let map = _.assignIn(config.mapPut, {
+            body: JSON.stringify(params)
+        })
+        if (timeout > 0) {
+            map.timeout = timeout
+        } else {
+            map.timeout = defaultTimeout
+        }
+        map.headers.gamePlatform = platform;
         this.fetchAsync(url, map, callback)
     }
 

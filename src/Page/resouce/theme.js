@@ -136,6 +136,22 @@ export const indexBgColor = {
 
 export const borderColor = {}
 
+/**
+ * 转账界面颜色
+ */
+export const transferColor = {
+    title1: "#999999",
+    title2: "#333333",
+    title3: "#666666",
+    title4: "#040404",
+    money1: "#f26921",
+    money2: "#3399ff",
+    buttonBg1: "#e60012",
+    buttonBg2: "#434a64",
+    border1: "#e60012",
+    border2: "#434a64"
+}
+
 //购彩大厅
 export const shoppingTxtColor = {
     tabTitleNormal: fontColor.minorTxt, //tab未选中
