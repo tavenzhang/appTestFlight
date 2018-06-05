@@ -20,7 +20,8 @@ import {
 } from 'react-native';
 import SoundHelper from '../../Common/JXHelper/SoundHelper'
 
-import {width, indexTxtColor,Size} from '../../Page/resouce/theme'
+import {width, indexTxtColor,Size,navbarHight,navbarMarginTop} from '../../Page/resouce/theme'
+
 import _ from 'lodash';
 import {common} from '../../Page/resouce/images'
 
@@ -74,7 +75,7 @@ export default class TCNavigationBar extends Component {
             return(this.props.renderCenter())
         }
         if(this.props.centerViewShowStyleImage&&common.topTitleIndex){
-            return(<Image resizeMode={'contain'} style={{width: width - 180,height:40,marginTop: Platform.OS == 'ios' ? 22 : 2}} source={common.topTitleIndex}/>)
+            return(<Image resizeMode={'contain'} style={{width: width - 180,height:40,marginTop: navbarMarginTop+2}} source={common.topTitleIndex}/>)
         }
         return (<Text style={styles.titleStyle} ellipsizeMode='tail'
                       numberOfLines={1}> {this.props.title} </Text>)
@@ -206,18 +207,18 @@ const styles = StyleSheet.create({
     navLeftImgStyle: {
         width: 45,
         height: 45,
-        marginTop: Platform.OS == 'ios' ? 20 : 0,
+        marginTop: navbarMarginTop,
     },
     navRightImgStyle: {
         width: 55,
         height: 55,
-        marginTop: Platform.OS == 'ios' ? 20 : 0,
+        marginTop: navbarMarginTop,
     },
     navBarStyle: {
         //导航条样式
         width: width,
         flexDirection: 'row',
-        height: Platform.OS == 'ios' ? 64 : 44,
+        height: navbarHight,
         // backgroundColor: '#d91d37',
         //垂
         alignItems: 'center',
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     titleStyle: {
-        marginTop: Platform.OS == 'ios' ? 20 : 0,
+        marginTop: navbarMarginTop,
         fontSize: Size.font20,
         color: indexTxtColor.topTitle,
         fontWeight: 'bold',
@@ -242,7 +243,7 @@ const styles = StyleSheet.create({
         left: 0,
         backgroundColor: 'transparent',
         width: 60,
-        height: Platform.OS == 'ios' ? 64 : 44,
+        height: navbarHight,
     },
     closeViewStyle: {
         backgroundColor: 'transparent'
@@ -252,25 +253,25 @@ const styles = StyleSheet.create({
         right: 0,
         backgroundColor: 'transparent',
         width: 80,
-        height: Platform.OS == 'ios' ? 64 : 44,
+        height: navbarHight,
     },
     rightTitleStyle: {
         fontSize: Size.font16,
         color: indexTxtColor.topTitle,
         alignItems: 'center',
-        marginTop: Platform.OS == 'ios' ? 35 : 10,
+        marginTop: Platform.OS == 'ios' ? navbarMarginTop+15 : navbarMarginTop+10,
     },
     leftTitleStyle: {
         fontSize: Size.font18,
         color: indexTxtColor.topTitle,
         alignItems: 'center',
-        marginTop: Platform.OS == 'ios' ? 35 : 10,
+        marginTop: Platform.OS == 'ios' ? navbarMarginTop+15 : navbarMarginTop+10,
         fontWeight: 'bold'
     }, rightBoldTitleStyle: {
         fontSize: Size.font18,
         color: indexTxtColor.topTitle,
         fontWeight: 'bold',
         alignItems: 'center',
-        marginTop: Platform.OS == 'ios' ? 35 : 10,
+        marginTop: Platform.OS == 'ios' ? navbarMarginTop+15 : navbarMarginTop+10,
     },
 });

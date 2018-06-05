@@ -25,7 +25,7 @@ import {
 } from 'react-native';
 import SoundHelper from '../../../Common/JXHelper/SoundHelper'
 import {common} from '../../resouce/images'
-import {Size, width, indexTxtColor, titleBarStyle} from '../../resouce/theme'
+import {Size, width, indexTxtColor, titleBarStyle,navbarHight,navbarMarginTop} from '../../resouce/theme'
 export default class TCBetBar extends React.Component {
 
     constructor(state) {
@@ -56,7 +56,7 @@ export default class TCBetBar extends React.Component {
                 {this.renderGetBackButton()}
                 {/*中间*/}
                 <Text
-                    style={{width: 16, color: titleBarStyle.titleText, fontSize: Size.font12, marginTop: (Platform.OS == 'ios' ? 20 : 0)}}>玩法</Text>
+                    style={{width: 16, color: titleBarStyle.titleText, fontSize: Size.font12, marginTop:navbarMarginTop}}>玩法</Text>
                 <TouchableOpacity onPress={this.centerButtonCall} style={{
                     borderRadius: 3,
                     borderWidth: 0.8,
@@ -64,7 +64,7 @@ export default class TCBetBar extends React.Component {
                     flexDirection: 'row',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    marginTop: Platform.OS == 'ios' ? 20 : 0,
+                    marginTop: navbarMarginTop,
                     padding: 5
                 }}>
                     <Text style={styles.titleStyle}>{this.state.title}</Text>
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     navLeftImgStyle: {
         width: 45,
         height: 45,
-        marginTop: Platform.OS == 'ios' ? 20 : 0,
+        marginTop: navbarMarginTop,
 
     },
     arrowImgStyle: {
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
         //导航条样式
         width: width,
         flexDirection: 'row',
-        height: Platform.OS == 'ios' ? 64 : 44,
+        height: navbarHight,
         // backgroundColor: '#d91d37',
         //垂
         alignItems: 'center',
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
         width: 100,
     },
     rightViewStyle: {
-        marginTop: Platform.OS == 'ios' ? 25 : 5,
+        top: navbarMarginTop+5,
         position: 'absolute',
         right: 5,
     },

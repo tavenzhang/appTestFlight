@@ -5,7 +5,7 @@
 import React, {PropTypes} from 'react';
 import {StyleSheet, Platform, View, Text, TouchableOpacity, Image} from 'react-native';
 import {common} from '../../resouce/images';
-import {Size, width} from '../../resouce/theme';
+import {Size, width,navbarHight,navbarMarginTop} from '../../resouce/theme';
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper';
 
 export default class TCNavigationBar extends React.Component {
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         width: width,
-        height: Platform.OS == 'ios' ? 64 : 44,
-        paddingTop: Platform.OS == 'ios' ? 20 : 0,
+        height: navbarHight,
+        paddingTop: navbarMarginTop,
         borderBottomWidth: 1,
         borderBottomColor: '#CB202F',
         backgroundColor: '#E92637',
