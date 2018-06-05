@@ -10,7 +10,7 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native';
-import {Size, width, betHome} from '../../resouce/theme'
+import {Size, width, betHome,bottomNavHeight} from '../../resouce/theme'
 
 import { observer } from 'mobx-react/native';
 @observer
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
         backgroundColor: betHome.btmBg,
         justifyContent: 'space-between',
         flexDirection: 'row',
-        height: 49,
+        height: bottomNavHeight,
     },
     leftTitleClearStyle: {
         backgroundColor: betHome.btmClearBtnBg,
@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 5,
         borderRadius: 5,
+        height:40
     },
     leftTitleStyle: {
         backgroundColor: betHome.btmBtnBg,
@@ -150,6 +151,7 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 5,
         borderRadius: 5,
+        height:40
     },
     rightTitleStyle: {
         backgroundColor: betHome.btmBtnBg,
@@ -157,6 +159,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         margin: 5,
         padding: 5,
+        height:40
     },
     container: {
         justifyContent: 'center',

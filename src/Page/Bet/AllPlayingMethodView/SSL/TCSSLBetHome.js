@@ -21,7 +21,7 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import TopNavigationBar from '../../View/TCBetBar'
 import NavigatorHelper from '../../../../Common/JXHelper/TCNavigatorHelper'
 import TCChongQingSSC from './view/TCSSL_MainView'
-import TCSelectPopupView from './view/TCSSLPlayMethodSelectPopupView'
+import TCSelectPopupView from '../../View/TCPlayMethodMultilevelSelectPopupView'
 import TCBetBill from '../../../Bill/TCBetBill'
 import AwardCoundtdownView from '../../View/TCBetAwardCountdown'
 import TCBetHomeBottomView from '../../View/TCBetHomeBottomView'
@@ -305,8 +305,7 @@ export default class TCBetHome extends React.Component {
                     {this.getShoppingCartView()}
                 </View>
 
-                <View
-                    style={{height: (height - statusBarHeight - 44 - 70 - 49 - (this.state.showGSBQW ? 40 : 0) - 20 - 20 - historyHeight)}}>
+                <View style={{flex:1}}>
                     <ScrollView ref="contentScrollView">{this.initialContentView()}</ScrollView>
                 </View>
 

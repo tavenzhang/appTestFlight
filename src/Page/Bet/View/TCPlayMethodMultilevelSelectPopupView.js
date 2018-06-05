@@ -16,7 +16,7 @@ import {
     ScrollView,
     Dimensions
 } from 'react-native';
-import {width,Size} from '../../resouce/theme'
+import {width,Size,navbarHight} from '../../resouce/theme'
 export default class TCCQSSCPlayMethodSelectPopupView extends Component {
     constructor(state) {
         super(state)
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
         marginTop: 0,
     },
     contentStyle: {
-        marginTop: Platform.OS == 'ios' ? 64 : 44,
+        marginTop: navbarHight,
         justifyContent: 'center',
         backgroundColor: '#F2F2F2',
     },

@@ -27,7 +27,7 @@ import {observer} from 'mobx-react/native';
 /**组件内部显示需要引入的类 */
 import TopNavigationBar from '../../View/TCBetBar'
 import QXC_MainView from './View/QXC_MainView'
-import TCSelectPopupView from './View/QXCPlayMethodSelectPopupView'
+import TCSelectPopupView from '../../View/TCPlayMethodMultilevelSelectPopupView'
 import TCBetBill from '../../../Bill/TCBetBill'
 import AwardCoundtdownView from '../../View/TCBetAwardCountdown'
 import TCBetHomeBottomView from '../../View/TCBetHomeBottomView'
@@ -302,9 +302,7 @@ export default class TCQXCBetHome extends React.Component {
                     {this.getShoppingCartView()}
                 </View>
 
-
-                <View
-                    style={{height: (height - statusBarHeight - 44 - 70 - 49 - (this.state.showGSBQW ? 40 : 0) - 20 - 20 - historyHeight)}}>
+                <View style={{flex:1}}>
                     <ScrollView ref="contentScrollView">{this.initialContentView()}</ScrollView>
                 </View>
 

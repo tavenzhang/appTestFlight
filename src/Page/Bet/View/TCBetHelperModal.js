@@ -25,7 +25,7 @@ import Toast from '../../../Common/JXHelper/JXToast';
 import TCNavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {config, trendServerAddress} from '../../../Common/Network/TCRequestConfig';
 import {betIcon} from '../../resouce/images'
-import {Size,} from '../../resouce/theme'
+import {Size,navbarHight} from '../../resouce/theme'
 
 export default class TCBetHelperModal extends Component {
     constructor(state) {
@@ -72,7 +72,7 @@ export default class TCBetHelperModal extends Component {
                         style={{
                             position: 'absolute',
                             right: 10,
-                            top: Platform.OS == 'ios' ? 58 : 38,
+                            top: navbarHight - 6,
                             width: 120,
                             height: JXHelpers.checkHaveTrend(this.props.gameUniqueId) ? 265 : 215,
                             justifyContent: 'center',
