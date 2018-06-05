@@ -255,22 +255,24 @@ export default class TCUserCenterNew extends Component {
                             this.freshBalance(isChangeMoney)
                         }}/>
                         <View style={styles.userPay}>
-                            <TouchableOpacity onPress={() => {
-                                this.gotoPay()
-                            }}>
+                            <TouchableOpacity onPress={() => {this.gotoPay()}}>
                                 <View style={styles.payItem}>
-                                    <Image
-                                        source={personal.iconPay}
-                                        style={styles.imgPay}/>
+                                    <Image source={personal.iconPay} style={styles.imgPay}/>
                                     <Text style={styles.payTxt}>充值</Text>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => {
-                                this.gotoWithdraw()
-                            }}>
+                            <View style={{width: 1, height: 40, backgroundColor: indexBgColor.mainBg}} />
+                            <TouchableOpacity onPress={() => {this.gotoWithdraw()}}>
                                 <View style={styles.payItem}>
                                     <Image source={personal.iconDraw} style={styles.imgOut}/>
                                     <Text style={[styles.payTxt, {color: userCenterTxtColor.withdraw}]}>提款</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <View style={{width: 1, height: 40, backgroundColor: indexBgColor.mainBg}} />
+                            <TouchableOpacity onPress={() => {this.goTransfer()}}>
+                                <View style={styles.payItem}>
+                                    <Image source={personal.transfer} style={styles.imgOut}/>
+                                    <Text style={[styles.payTxt, {color: userCenterTxtColor.withdraw}]}>转账</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -409,40 +411,52 @@ export default class TCUserCenterNew extends Component {
     }
 
     renderRow(rowData, sectionID, rowID) {
+        console.log('UserCenter#sectionID='+sectionID, rowData)
         if (sectionID === '2' && !this.isAgent()) {
             return null;
         }
-
         if (rowData.key === "wdxx" || rowData.key === "yjfk") {
-            return (<TouchableOpacity style={styles.itemContainer} onPress={() => {
-                this.gotoPage(rowData.key)
-            }}>
+            return (
+                <TouchableOpacity style={styles.itemContainer} onPress={() => {
+                    this.gotoPage(rowData.key)
+                }}>
+                    <View style={styles.itemView}>
+                        <Image source={rowData.icon} style={styles.img}/>
+                        <View style={styles.itemTxtView}>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={styles.mySettingLeftTxtStyle}>{rowData.name}</Text>
+                                {this.getStatusTip(rowData.key === "wdxx" ? this.state.unreadMessageCnt : this.state.unreadFeedbackCnt)}
+                            </View>
+                            <Text style={styles.contentTxtStyle}>{rowData.description}</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            )
+        }
+        let tempComponent = []
+        if (rowData.key === 'yhgl') {
+            tempComponent.push(
+                <View style={{width: width, height: 35, backgroundColor:'#FFF7EF', flexDirection: 'row', alignItems:'center', paddingLeft: 15}}>
+                    <View style={styles.emptyCircle}>
+                        <Text style={{fontSize: Size.font10, textAlign:'center', color:'#FF5A3F'}}>!</Text>
+                    </View>
+                    <Text style={{fontSize: Size.font13, color: userCenterTxtColor.menuItemTitle}}>注意：代理仅适用于彩票游戏</Text>
+                </View>
+            )
+        }
+        tempComponent.push(
+            <TouchableOpacity style={styles.itemContainer} onPress={() => {this.gotoPage(rowData.key)}}>
                 <View style={styles.itemView}>
+                    <View style={{width: 1, height: 40, backgroundColor: indexBgColor.mainBg}}/>
                     <Image source={rowData.icon} style={styles.img}/>
                     <View style={styles.itemTxtView}>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={styles.mySettingLeftTxtStyle}>{rowData.name}</Text>
-                            {this.getStatusTip(rowData.key === "wdxx" ? this.state.unreadMessageCnt : this.state.unreadFeedbackCnt)}
-                        </View>
+                        <Text style={styles.mySettingLeftTxtStyle}>{rowData.name}</Text>
                         <Text style={styles.contentTxtStyle}>{rowData.description}</Text>
                     </View>
                 </View>
-            </TouchableOpacity>)
-        }
-        return (<TouchableOpacity style={styles.itemContainer} onPress={() => {
-            this.gotoPage(rowData.key)
-        }}>
-
-            <View style={styles.itemView}>
-                <View style={{width: 1, height: 40, backgroundColor: indexBgColor.mainBg}}></View>
-                <Image source={rowData.icon} style={styles.img}/>
-                <View style={styles.itemTxtView}>
-                    <Text style={styles.mySettingLeftTxtStyle}>{rowData.name}</Text>
-                    <Text style={styles.contentTxtStyle}>{rowData.description}</Text>
-                </View>
-
-            </View>
-        </TouchableOpacity>)
+            </TouchableOpacity>
+        )
+        return tempComponent
     }
 
     _renderHeader(sectionData, sectionId) {
@@ -469,7 +483,7 @@ export default class TCUserCenterNew extends Component {
     gotoPage(key) {
         switch (key) {
             case 'tzjl':
-                NavigatorHelper.pushToOrderRecord(0);
+                NavigatorHelper.pushToOrderType();
                 break;
             case 'ctjl':
                 NavigatorHelper.pushToUserAccountCenter()
@@ -537,6 +551,11 @@ export default class TCUserCenterNew extends Component {
         NavigatorHelper.pushToWithdraw()
     }
 
+    // 跳转到转账页面
+    goTransfer() {
+        NavigatorHelper.pushToUserTransfer()
+    }
+
     gotoOnlineService() {
         if (Platform.OS === 'ios') {
             NavigatorHelper.pushToWebView(JXHelper.getMenuIconsUrl('CUS_SERVICE'), '在线客服');
@@ -554,29 +573,31 @@ export default class TCUserCenterNew extends Component {
 class MoneyLabel extends Component {
 
     render() {
-        return (<View style={styles.account}><View style={styles.accountData}>
-            <Text
-                style={{fontSize: Size.default, color: userCenterTxtColor.balanceTitle}}>余额:</Text>
-            <Text
-                style={styles.accountTxt}>{this.props.stateModel.isSee ? this.props.stateModel.balance : '******'}</Text>
-            <TouchableOpacity onPress={() => {
-                this.props.stateModel.setMoneyVisible()
-            }}>
-                <Image
-                    source={this.props.stateModel.isSee ? personal.imgEye : personal.imgEye2}
-                    style={styles.imgAccount}
-                    resizeMode={'contain'}/>
-            </TouchableOpacity>
-        </View>
-            <TouchableOpacity style={styles.accountDetail} onPress={() => {
-                this.props.freshBalance(true)
-            }}>
-                <View style={styles.freshView}>
-                    <Text
-                        style={styles.accountDetailTxt}>刷新余额</Text>
+        return (
+            <View style={styles.account}>
+                <View style={styles.accountData}>
+                    <Text style={{fontSize: Size.font16, color: userCenterTxtColor.balanceTitle}}>余额:</Text>
+                    <Text style={styles.accountTxt}>{this.props.stateModel.isSee ? this.props.stateModel.balance : '******'}</Text>
+                    <TouchableOpacity onPress={() => {this.props.stateModel.setMoneyVisible()}}>
+                        <Image
+                            source={this.props.stateModel.isSee ? personal.imgEye : personal.imgEye2}
+                            style={styles.imgAccount} resizeMode={'contain'}/>
+                    </TouchableOpacity>
                 </View>
-            </TouchableOpacity>
-        </View>)
+                <View style={{flexDirection:'row', width: width * 0.4, justifyContent:'flex-end', paddingRight:10}}>
+                    <TouchableOpacity style={styles.accountDetail} onPress={() => {this.props.freshBalance(true)}}>
+                        <View style={styles.freshView}>
+                            <Text style={styles.accountDetailTxt}>钱包详情</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.accountDetail} onPress={() => {this.props.freshBalance(true)}}>
+                        <View style={styles.freshView}>
+                            <Text style={styles.accountDetailTxt}>刷新余额</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
     }
 }
 
@@ -649,16 +670,17 @@ const styles = StyleSheet.create({
         height: 30
     },
     account: {
-        height: height * 0.09,
+        height: height * 0.1,
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         borderBottomWidth: 1,
         borderBottomColor: indexBgColor.mainBg
     },
     accountData: {
-        width: width * 0.5,
+        width: width * 0.6,
         alignItems: 'center',
         flexDirection: 'row',
+        paddingLeft: 10,
     },
     accountTxt: {
         fontSize: Size.font20,
@@ -681,7 +703,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-end',
-        marginLeft: 20
+        marginLeft: 10
     },
     userPay: {
         height: height * 0.1,
@@ -700,7 +722,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        width: width * 0.5,
+        flex:1,
     }, img: {
         width: 30,
         height: 30,
@@ -741,5 +763,15 @@ const styles = StyleSheet.create({
         width: width
     }, itemTxtView: {
         marginLeft: 10,
+    },emptyCircle: {
+        marginRight: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 14,
+        height: 14,
+        borderColor: '#FF5A3F',
+        borderStyle: 'solid',
+        borderRadius: 7,
+        borderWidth: 1
     }
 })

@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Helper from "../../Common/JXHelper/JXHelper"
 import {Provider} from 'mobx-react'
 import {BackHandler, ToastAndroid, Platform} from 'react-native'
+import balanceStore from '../store/BalanceStore'
 
 import NavigationService from './NavigationService'
 
@@ -91,6 +92,9 @@ import PersonalCommissionDetail from '../../Page/UserCenter/Agent/Commission/TCP
 import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
 import TCInviteFriends from "../UserCenter/share/TCInviteFriends";
 import TCWelfareCenter from "../UserCenter/welfare/TCWelfareCenter";
+import TCUserOrderType from "../UserCenter/UserOrder/TCUserOrderType";
+import TCUserTransfer from "../UserCenter/transfer/TCUserTransfer";
+import BalanceStore from "../store/BalanceStore";
 
 
 const Components = {
@@ -114,6 +118,8 @@ const Components = {
     TCBetBill: {screen: TCBetBill},
     TCBillSucceedPage: {screen: TCBillSucceedPage},
     IntelligenceBet: {screen: IntelligenceBet},
+    UserTransfer: {screen: TCUserTransfer},
+    UserOrderType: {screen: TCUserOrderType},
     UserOderRecord: {screen: UserOderRecord},
     TCLotteryHistory: {screen: TCLotteryHistory},
     UserCollects: {screen: UserCollects},
@@ -174,6 +180,10 @@ const MainStackNavigator = StackNavigator({
     }
 })
 
+const appStores = {
+    balanceStore
+}
+
 export default class Main extends Component {
     componentWillMount() {
     }
@@ -183,13 +193,11 @@ export default class Main extends Component {
 
     render() {
         return (
-            <MainStackNavigator
-                ref={
-                    navigatiorRef => {
-                        NavigationService.setTopLevelNavigator(navigatiorRef)
-                    }
-                }
-            />
+            <Provider {...appStores}>
+                <MainStackNavigator
+                    ref={navigatorRef => {NavigationService.setTopLevelNavigator(navigatorRef)}}
+                />
+            </Provider>
         )
     }
 }
