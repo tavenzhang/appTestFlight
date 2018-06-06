@@ -377,21 +377,15 @@ class WalletLabelView extends React.Component {
     }
 
     render() {
-        return (<View style={styles.walletViewStyle}>
-            {this.renderWallet('中心钱包', this.balance.toFixed(2), '一键回收', '全部刷新',
-                () => {
-                    this.props.transferStore.recycleMoney((res) => {
-                        res.message && Toast.showShortCenter(res.message);
-                    })
-                },
-                () => {
-                    this.props.balanceStore.getPlatformBalance((res) => {
-                        res.message && Toast.showShortCenter(res.message);
-                    });
-                })
-            }
-            {this.renderPlatform()}
-        </View>)
+        return (
+            <View style={styles.walletViewStyle}>
+                <View style={styles.platformItemContainer}>
+                    <Text style={styles.platformTxt}>{'中心钱包'}</Text>
+                    <Text style={styles.platformBalanceTxt}>{this.balance.toFixed(2)}</Text>
+                </View>
+                {this.renderPlatform()}
+            </View>
+        )
     }
 
     @computed get balance() {

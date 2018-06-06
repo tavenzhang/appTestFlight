@@ -201,7 +201,7 @@ export const userCenterTxtColor = {
     signInBgColor:'#FF8500' //签到后按钮背景颜色
 }
 export const userCenterBorderColor = {
-    freshBorder: fontColor.mainTxt
+    freshBorder: fontColor.minorTxt,
 }
 
 //列表界面样式

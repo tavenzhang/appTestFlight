@@ -94,7 +94,7 @@ const USERCENTER_ITEMS = [
         },
         {
             key: "wdsc",
-            name: '我的收藏',
+            name: '彩票收藏',
             description: "收藏关注的彩种",
             icon: personal.collect
         }
@@ -127,20 +127,6 @@ const USERCENTER_ITEMS = [
     ],
     [
         {
-            key: "flzx",
-            name: '福利中心',
-            description: "优惠与返利",
-            icon: personal.promotions
-        },
-        {
-            key: "fxhy",
-            name: '分享好友',
-            description: "邀请好友，赚取更多收益",
-            icon: personal.shareFriends
-        }
-    ],
-    [
-        {
             key: "yjfk",
             name: '意见反馈',
             description: "意见提出与查看反馈",
@@ -148,9 +134,21 @@ const USERCENTER_ITEMS = [
         },
         {
             key: "bzzx",
-            name: '帮助中心',
-            description: "",
+            name: '在线客服',
+            description: "帮助中心",
             icon: personal.onlineServicer
+        },
+        {
+            key: "fxhy",
+            name: '分享好友',
+            description: "邀请好友，赚取更多收益",
+            icon: personal.shareFriends
+        },
+        {
+            key: "flzx",
+            name: '福利中心',
+            description: "优惠与返利",
+            icon: personal.promotions
         }
     ]
 ]
@@ -243,7 +241,7 @@ export default class TCUserCenterNew extends Component {
                                         }
                                         NavigatorHelper.gotoSetting();
                                     }}>
-                                        <Image source={personal.imgSet} style={[styles.img, {marginTop: 10, marginRight: 5}]}/>
+                                        <Image source={personal.imgSet} style={{width: 24, height: 24, marginTop: 10, marginRight: 10}}/>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -271,7 +269,7 @@ export default class TCUserCenterNew extends Component {
                             <View style={{width: 1, height: 40, backgroundColor: indexBgColor.mainBg}} />
                             <TouchableOpacity onPress={() => {this.goTransfer()}}>
                                 <View style={styles.payItem}>
-                                    <Image source={personal.transfer} style={styles.imgOut}/>
+                                    <Image source={personal.iconTransfer} style={styles.imgOut}/>
                                     <Text style={[styles.payTxt, {color: userCenterTxtColor.withdraw}]}>转账</Text>
                                 </View>
                             </TouchableOpacity>
@@ -689,19 +687,24 @@ const styles = StyleSheet.create({
     },
     accountDetailTxt: {
         fontSize: Size.small,
-        color: userCenterTxtColor.fresh,
-        padding: 5,
+        color: userCenterTxtColor.fresh
     },
     walletDetailView: {
-        borderRadius: 5,
+        width: 75,
+        height: 33,
+        borderRadius: 4,
         backgroundColor:'#FF735D',
-        padding: 2
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     freshView: {
-        borderRadius: 5,
+        width: 75,
+        height: 33,
+        borderRadius: 4,
         borderWidth: 1,
         borderColor: userCenterBorderColor.freshBorder,
-        padding: 2
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     accountDetail: {
         flexDirection: 'column',
