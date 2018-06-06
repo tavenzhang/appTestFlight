@@ -171,7 +171,7 @@ export default class TCBetHelperModal extends Component {
                                         }}
                                         onPress={() => {
                                             this._setModalVisible(false)
-                                            TCNavigatorHelper.pushToWebView('' + (TCDefaultTendDomain ? TCDefaultTendDomain : trendServerAddress) + '/trend?gameUniqueId=' + this.props.gameUniqueId + '&navigationBar=0', '走势图')
+                                            TCNavigatorHelper.pushView(JX_Compones.TCWebTrendView,{game:this.props.gameUniqueId,title:'走势图'})
                                         }}>
                 <Text
                     style={{

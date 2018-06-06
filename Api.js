@@ -1,7 +1,7 @@
 // a library to wrap and simplify api calls
 import apisauce from 'apisauce'
 const URL_PREFIX = 'api/v1'
-import { configAppId } from './AppConfig'
+import { configAppId } from './src/Page/Main/AppConfig'
 
 const create = (baseURL = TCDefaultDomain) => {
   const api = apisauce.create({
