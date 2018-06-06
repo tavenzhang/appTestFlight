@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     button: {
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#2196F3',
         borderRadius: 2,
     },
@@ -72,6 +74,7 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
         textAlign: 'center',
+        textAlignVertical: 'center',
         padding: 8,
         fontWeight: '500',
     },

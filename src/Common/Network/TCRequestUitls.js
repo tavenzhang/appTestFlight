@@ -25,7 +25,7 @@ export default class NetUitls extends Component {
      */
     static getUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization) {
         url = this.getServerUrl(url)
-        if (typeof params == 'string') {
+        if (typeof params === 'string') {
             url += '/' + params
         } else if (params) {
             url += '?' + queryString.stringify(params)
@@ -35,6 +35,30 @@ export default class NetUitls extends Component {
         } else {
             config.mapGet.timeout = defaultTimeout
         }
+        this.fetchAsync(url, config.mapGet, callback, dontAddHeadersAuthorization)
+    }
+
+    /**
+     * 获取平台相关数据
+     * @param url
+     * @param params
+     * @param callback
+     * @param timeout
+     * @param dontAddHeadersAuthorization
+     */
+    static getUrlAndParamsAndPlatformAndCallback(url, platform, params, callback, timeout, dontAddHeadersAuthorization) {
+        url = this.getServerUrl(url)
+        if (typeof params === 'string') {
+            url += '/' + params
+        } else if (params) {
+            url += '?' + queryString.stringify(params)
+        }
+        if (timeout > 0) {
+            config.mapGet.timeout = timeout
+        } else {
+            config.mapGet.timeout = defaultTimeout
+        }
+        config.mapDelete.headers.gamePlatform = platform;
         this.fetchAsync(url, config.mapGet, callback, dontAddHeadersAuthorization)
     }
 
@@ -104,7 +128,7 @@ export default class NetUitls extends Component {
 
     static DeleteHttpUrlAndParamsAndCallback(url, params, callback, timeout) {
         url = this.getServerUrl(url)
-        if (typeof params == 'string') {
+        if (typeof params === 'string') {
             url += '/' + params
         } else if (params) {
             url += '?' + queryString.stringify(params)
@@ -163,7 +187,7 @@ export default class NetUitls extends Component {
                     }
                 }
             } else if (response.status >= 400) {
-                if (response.status == 401) {
+                if (response.status === 401) {
                     TCUSER_DATA.islogin = false
                     result = {"rs": false, "error": '无效token', "status": response.status, duration: duration}
                     if (!TCPUSH_TO_LOGIN) {

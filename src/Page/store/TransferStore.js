@@ -20,8 +20,6 @@ export default class TransferStore {
     selectedIndex = -1;
     moneyData = [100, 200, 300, 500, 800];
 
-    platforms = ["MG", "IMONE"];
-
     @action
     changeSelectIndex() {
         let temp = -1;
@@ -39,9 +37,9 @@ export default class TransferStore {
      */
     transfer(callback) {
         let transferType = this.fromIndex === 0 ? "TopUp" : "Withdraw";
-        let platform = this.fromIndex === 0 ? this.platforms[this.toIndex - 1] : this.platforms[this.fromIndex - 1];
+        let platformIndex =  this.fromIndex === 0 ? this.toIndex - 1 : this.fromIndex - 1
+        let platform = balanceStore.platformBalances[platformIndex].gamePlatform;
         this.platformTransfer(platform, transferType, this.transferMoney, callback);
-
     }
 
     platformTransfer(platform, transferType, money, callback) {
@@ -92,7 +90,7 @@ export default class TransferStore {
      * @param callback
      */
     allTransfer(platform, callback) {
-        this.platformTransfer(platform, "TopUp", balanceStore.balance, (res) => {
+        this.platformTransfer(platform, "TopUp", balanceStore.centerBalance, (res) => {
             if (res.rs) {
                 balanceStore.freshBalance();
             }

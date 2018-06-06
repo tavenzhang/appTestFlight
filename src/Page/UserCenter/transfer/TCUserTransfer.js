@@ -22,17 +22,20 @@ export default class TCUserTransfer extends React.Component {
 
     constructor(props) {
         super(props)
-        this.props.balanceStore.getPlatformBalance()
+        this.state = {
+            loadStatus: 0 // 页面数据加载状态（0：加载中，1：加载成功，2：加载失败）
+        }
         this.transferStore = new TransferStore();
+        this.props.balanceStore.getPlatformBalance((res) => {
+            this.setState({
+                loadStatus: res.message ? 2 : 1,
+            })
+        })
     }
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <TopNavigationBar
-                    title={'转账'}
-                    needBackButton
-                    backButtonCall={() => Helper.popToBack()}/>
+    renderContent() {
+        if (this.state.loadStatus === 1) {
+            return (
                 <ScrollView keyboardDismissMode='on-drag'>
                     <View style={styles.content}>
                         <SelectBarView transferStore={this.transferStore}/>
@@ -49,6 +52,18 @@ export default class TCUserTransfer extends React.Component {
                         <WalletLabelView transferStore={this.transferStore}/>
                     </View>
                 </ScrollView>
+            )
+        }
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <TopNavigationBar
+                    title={'转账'}
+                    needBackButton
+                    backButtonCall={() => Helper.popToBack()}/>
+                {this.renderContent()}
             </View>
         );
     }
@@ -174,6 +189,7 @@ class SelectBarView extends React.Component {
             }
         }
         this.props.transferStore.fromIndex = parseInt(index);
+        console.debug('selectFromAccount()', 'index='+index+', value='+value+', fromIndex='+this.props.transferStore.fromIndex)
     }
 
     selectToAccount(index, value) {
@@ -190,6 +206,7 @@ class SelectBarView extends React.Component {
             }
         }
         this.props.transferStore.toIndex = parseInt(index);
+        console.info('selectToAccount()', 'index='+index+', value='+value+', toIndex='+this.props.transferStore.toIndex)
     }
 
     @computed get toIndex() {
@@ -361,7 +378,7 @@ class WalletLabelView extends React.Component {
 
     render() {
         return (<View style={styles.walletViewStyle}>
-            {this.renderWallet('中心钱包', this.balance, '一键回收', '全部刷新',
+            {this.renderWallet('中心钱包', this.balance.toFixed(2), '一键回收', '全部刷新',
                 () => {
                     this.props.transferStore.recycleMoney((res) => {
                         res.message && Toast.showShortCenter(res.message);
@@ -378,7 +395,7 @@ class WalletLabelView extends React.Component {
     }
 
     @computed get balance() {
-        return this.props.balanceStore.balance;
+        return this.props.balanceStore.centerBalance;
     }
 }
 
