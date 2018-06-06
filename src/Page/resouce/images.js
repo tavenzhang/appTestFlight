@@ -119,6 +119,7 @@ export const personal = {
     imgEye2: require('./addon/userCenterIcon/icon_eye2.png'),
     iconPay: require('./addon/userCenterIcon/icon_pay.png'),
     iconDraw: require('./addon/userCenterIcon/icon_drawings.png'),
+    iconTransfer: require('./addon/userCenterIcon/icon_transfer.png'),
     transfer: require('./addon/userCenterIcon/icon_drawings.png'),
     imgNext: common.iconNext,
     daiKaiJjiangIcon: require('./addon/userCenterIcon/dai.png'),

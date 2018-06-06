@@ -3,6 +3,7 @@ import Moment from 'moment'
 import {action, observable} from "mobx";
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from '../../Common/Network/TCRequestConfig';
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 /**
  *
@@ -36,7 +37,7 @@ class BalanceStore {
                     this.transferAccountName.push(item.gamePlatform+'钱包')
                     this.platformBalances.push(item)
                 })
-                console.debug('BalanceStore()', this.platformBalances)
+                RCTDeviceEventEmitter.emit('balanceChange', true);
             } else {
                 res.message = response.message ? response.message : "刷新数据失败!";
             }
