@@ -1,7 +1,8 @@
 'use-strict';
-import {observable, action, computed, autorun} from "mobx";
+import Moment from 'moment'
+import {action, observable} from "mobx";
 import NetUitls from "../../Common/Network/TCRequestUitls";
-import {config, appId, appVersion, AppName} from '../../Common/Network/TCRequestConfig';
+import {config} from '../../Common/Network/TCRequestConfig';
 
 /**
  *
@@ -13,20 +14,20 @@ class BalanceStore {
 
     }
 
-    //账户钱包
-    transferAccountName = [];
+    @observable centerBalance = 0 // 中心钱包余额
 
-    @observable
-    platformBalances = [];
+    @observable transferAccountName = []; // 账户钱包
+
+    @observable platformBalances = [];
 
     //获取所有平台余额
     @action
     getPlatformBalance(callback) {
-        NetUitls.getUrlAndParamsAndCallback(config.api.getAllBalance, {}, (response) => {
+        NetUitls.getUrlAndParamsAndCallback(config.api.getAllBalance, null, (response) => {
             let res = {};
             if (response.rs) {
                 let result = response.content;
-                this.balance = result.centerBalance;
+                this.centerBalance = result.centerBalance;
                 this.transferAccountName = []
                 this.platformBalances = []
                 this.transferAccountName.push('中心钱包')
@@ -45,7 +46,7 @@ class BalanceStore {
 
     //获取指定平台余额
     getBalanceByPlatform(platform, callback) {
-        getPlatformBalance(platform, (res) => {
+        NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.getPlatformBalance, platform, (res) => {
             if (res.rs) {
                 this.platformBalances.map((item) => {
                     if (item.gamePlatform === res.content.gamePlatform) {
@@ -82,7 +83,7 @@ class BalanceStore {
 
     //获取余额
     getBalance() {
-        getBalance((res) => {
+        NetUitls.getUrlAndParamsAndCallback(config.api.userBalance, null, (res) => {
             if (res.rs) {
                 this.balance = res.content.balance;
             }
@@ -91,7 +92,7 @@ class BalanceStore {
 
     //获取余额和用户信息
     getBalanceAnUserInfo() {
-        getBalaceAndUserInfo((res) => {
+        NetUitls.getUrlAndParamsAndCallback(config.api.users, null, (res) => {
             if (res.rs) {
                 this.balance = res.content.balance;
                 this.realName = res.content.realName;

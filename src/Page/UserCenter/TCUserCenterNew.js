@@ -411,7 +411,6 @@ export default class TCUserCenterNew extends Component {
     }
 
     renderRow(rowData, sectionID, rowID) {
-        console.log('UserCenter#sectionID='+sectionID, rowData)
         if (sectionID === '2' && !this.isAgent()) {
             return null;
         }
@@ -586,8 +585,8 @@ class MoneyLabel extends Component {
                 </View>
                 <View style={{flexDirection:'row', width: width * 0.4, justifyContent:'flex-end', paddingRight:10}}>
                     <TouchableOpacity style={styles.accountDetail} onPress={() => {this.props.freshBalance(true)}}>
-                        <View style={styles.freshView}>
-                            <Text style={styles.accountDetailTxt}>钱包详情</Text>
+                        <View style={styles.walletDetailView}>
+                            <Text style={[styles.accountDetailTxt, {color: 'white'}]}>钱包详情</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.accountDetail} onPress={() => {this.props.freshBalance(true)}}>
@@ -692,6 +691,11 @@ const styles = StyleSheet.create({
         fontSize: Size.small,
         color: userCenterTxtColor.fresh,
         padding: 5,
+    },
+    walletDetailView: {
+        borderRadius: 5,
+        backgroundColor:'#FF735D',
+        padding: 2
     },
     freshView: {
         borderRadius: 5,
