@@ -1,7 +1,7 @@
 /**
  * Created by allen-jx on 2017/10/26.
  */
-import React, {Component,} from 'react'
+import React, {Component} from 'react'
 
 import {
     View,
@@ -11,12 +11,12 @@ import {
     RefreshControl,
     ActivityIndicator
 } from 'react-native'
-
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 import NoDataView from '../TCNoDataView'
 import Toast from '../../../Common/JXHelper/JXToast';
 import {Size, indexBgColor, listViewTxtColor, width, height} from '../../../Page/resouce/theme'
+import PropTypes from 'prop-types'
 import _ from 'lodash'
 
 /**
@@ -34,15 +34,16 @@ export default class RefreshListView extends Component {
      * @type {boolean}
      */
 
-    // static propTypes = {
-    //     isAllowRefresh: PropTypes.bool,//是否允许下拉刷新
-    //     isNodataView: PropTypes.func,//数据为空时显示view
-    //     isRenderFooter: PropTypes.bool,//是否允许上拉加载更多
-    //     loadDataFromNet: PropTypes.func,//获取数据源方法
-    //     renderRow: PropTypes.func,//渲染行
-    //     pageSize: PropTypes.number,//每页加载数据
-    //     footStyle: View.propTypes.style,
-    // }
+    static propTypes : {
+                isAllowRefresh: PropTypes.bool,//是否允许下拉刷新
+                isNodataView: PropTypes.func ,//数据为空时显示view
+                isRenderFooter: PropTypes.bool,//是否允许上拉加载更多
+                loadDataFromNet: PropTypes.func,//获取数据源方法
+                renderRow: PropTypes.func,//渲染行
+                pageSize: PropTypes.number,//每页加载数据
+                footStyle: View.propTypes.style,
+            }
+
 
     static defaultProps = {
         pageSize: 20,

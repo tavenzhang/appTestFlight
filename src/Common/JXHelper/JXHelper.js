@@ -486,37 +486,17 @@ Helper.regularTestUrl = (url) => {
 
 Helper.checkHaveTrend = (gameUniqueId) => {
     if (!gameUniqueId) return
+
     switch (gameUniqueId) {
-        case 'HF_FFSSC':
-        case 'HF_LFSSC':
-        case 'HF_CQSSC':
-        case 'HF_TJSSC':
-        case 'HF_XJSSC':
-        case 'HF_JXSSC':
-        case 'HF_FFPK10':
-        case 'HF_LFPK10':
-        case 'HF_BJPK10':
-        case 'HF_LFD11':
-        case 'HF_GDD11':
-        case 'HF_AHD11':
-        case 'HF_JXD11':
-        case 'HF_SDD11':
-        case 'HF_SHD11':
-        case 'HF_FFK3':
-        case 'HF_JSK3':
-        case 'HF_GXK3':
-        case 'HF_AHK3':
-        case 'X3D':
-        case 'HF_SHSSL':
-        case 'PL3':
-        case 'HF_BJK3':
-        case 'HF_JLK3':
-        case 'HF_XYFT':
-        case 'HF_XYSM': {
-            return true
+        case 'QXC': {
+            return false
         }
+        default:
+            if(gameUniqueId.indexOf("KL10F")>-1){
+                return false
+            }
     }
-    return false
+    return true
 }
 
 module.exports = Helper
