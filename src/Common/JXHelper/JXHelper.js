@@ -409,6 +409,18 @@ Helper.determineLocal = (bankCode) => {
     return false;
 }
 
+/** 获取开通的体育和电子平台链接 */
+Helper.getDSFOpenList = () => {
+    if (TCHomeContents.content) {
+        let dsfEgameInfos = TCHomeContents.content.dsfEgameInfos
+        let dsfSportInfos = TCHomeContents.content.dsfSportInfos
+        let array = []
+        array = _.concat(dsfEgameInfos, dsfSportInfos)
+        return array
+    }
+    return null
+}
+
 Helper.getBankBackground = (bankCode) => {
     return {uri: Helper.getBankCardLogo() + bankCode + '_bg.png'};
 }

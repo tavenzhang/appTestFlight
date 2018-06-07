@@ -160,10 +160,16 @@ export default class TCHome extends Component {
                             renderItem: ({item, index}) => this.renderHotItemView(item, index)
                         },
                             {
-                                data: this.state.content.gameInfosRecommend,
-                                title: "更多彩种推荐",
-                                renderItem: ({item}) => this.renderKindItemView(item)
-                            },]
+                                data: this.state.content.dsfSportInfos,
+                                title: "体育竞技",
+                                renderItem: ({item}) => this.renderDSFView(item)
+                            },
+                            {
+                                data: this.state.content.dsfEgameInfos,
+                                title: "电子游戏",
+                                renderItem: ({item}) => this.renderDSFView(item)
+                            }
+                        ]
                     }
                 /> : null}
                 {this.getRedPacketButton()}
@@ -346,6 +352,16 @@ export default class TCHome extends Component {
         />)
     }
 
+    //渲染体育电子
+    renderDSFView(item) {
+        return (<KindItemView
+            rowData={item}
+            mTimer={item.mTiter}
+            title={item.gameNameInChinese}
+            {/*pushToEvent={item => this._pushToBetHomePage(item)}*/}
+        />)
+    }
+
     loadHomeContents() {
         NetUitls.getUrlAndParamsAndCallback(
             config.api.getHome,
@@ -455,6 +471,15 @@ export default class TCHome extends Component {
                 });
             }
         }
+
+        if (data.content.dsfSportInfos && data.content.dsfSportInfos.length > 0) {
+            content.dsfSportInfos = data.content.dsfSportInfos;
+        }
+
+        if (data.content.dsfEgameInfos && data.content.dsfEgameInfos.length > 0) {
+            content.dsfEgameInfos = data.content.dsfEgameInfos;
+        }
+
         this.setState({
             isRefreshing: false,
             content: content
