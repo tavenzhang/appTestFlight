@@ -78,6 +78,7 @@ export const common = {
     topBarArrow: require('./addon/other/top_bar_arrow.png'),
     search: require('./addon/other/search.png'),
     caiPiao: require('./addon/other/icon_caipiao.png'),
+    transfer: require('./addon/other/ic_transfer.png'),
 }
 
 /**
@@ -374,14 +375,4 @@ export const inviteFriends = {
     inviteStep3: require('../asset/share/ic_invite_step_3.png'),
     bgQRCode: require('../asset/share/bg_share_qrcode.png'),
     wechat: require('../asset/share/ic_wechat_white.png')
-}
-
-// 转账
-export const Transfer = {
-    money100: require("./addon/transfer/money_100.png"),
-    money200: require('./addon/transfer/money_200.png'),
-    money300: require('./addon/transfer/money_300.png'),
-    money500: require('./addon/transfer/money_500.png'),
-    money800: require('./addon/transfer/money_800.png'),
-    transfer: require('./addon/transfer/ic_transfer.png'),
 }
