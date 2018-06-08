@@ -411,14 +411,16 @@ Helper.determineLocal = (bankCode) => {
 
 /** 获取开通的体育和电子平台链接 */
 Helper.getDSFOpenList = () => {
+    let dsfInfos ={}
     if (TCHomeContents.content) {
         let dsfEgameInfos = TCHomeContents.content.dsfEgameInfos
         let dsfSportInfos = TCHomeContents.content.dsfSportInfos
-        let array = []
-        array = _.concat(dsfEgameInfos, dsfSportInfos)
-        return array
+        let array = _.concat(dsfEgameInfos, dsfSportInfos)
+        dsfInfos.dsfAll = array;
+        dsfInfos.dsfEgameInfos = dsfEgameInfos
+        dsfInfos.dsfSportInfos = dsfSportInfos
     }
-    return null
+    return dsfInfos
 }
 
 Helper.getBankBackground = (bankCode) => {
