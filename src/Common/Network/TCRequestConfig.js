@@ -142,11 +142,17 @@ export const config = {
         getPlatform: "dsf/center/player/open/platform",//获取厅主开通的平台
         getPlatformBalance: "dsf/center/player/getBalance",//根据平台获取余额
         platformTransfer: "dsf/center/player/balance/transfer",//平台转账
-        startGame: "dsf/center/mobile/player/startGame",//开始游戏
+        startGame: "dsf/center/player/mobile/startGame",//开始游戏
         userSheet: "dsf/center/player/statements/personal/total",//个人报表
         getAllBalance: "dsf/center/player/getAllBalance",//获取所有余额
         allBalanceTransferToCenter: "dsf/center/player/balance/allBalanceTransferToCenter",//一键转账
         userBets: "dsf/center/player/getBetLog",//用户下注记录
+
+        //第三方电子游戏
+       // gamesDZList: 'dsf/center/player/' + configAppId + '/games',//获取游戏列表
+        gamesDZList: 'dsf/center/player/mobile/' + configAppId + '/games',//获取游戏列表
+        gamesDZ_start: "dsf/center/player/mobile/startGame",//进入游戏
+        //gamesDZ_start: "dsf/center/mobile/player/startGame",//获取游戏列表
     },
     map: {
         method: 'POST',

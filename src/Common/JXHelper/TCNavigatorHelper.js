@@ -353,9 +353,9 @@ Helper.pushToRedPacketRules = () => {
 Helper.isTopPage = () => {
     return false;
 }
-//通用pushView
-Helper.pushView=(component,params)=>{
 
+//通用----路由 pushView  配合JX_Componets, 减少 不断增加 pushToXXX的 需要
+Helper.pushView=(component,params)=>{
     if(typeof component=='string'){
         NavigationService.navigate(component,params)
     }else if(component&&component.routName){

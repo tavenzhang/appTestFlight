@@ -3,8 +3,8 @@
  */
 import {action, observable} from 'mobx'
 import Moment from 'moment'
-import RequestUtils from "../../Common/Network/TCRequestUitls";
-import {config} from "../../Common/Network/TCRequestConfig";
+import RequestUtils from "../../../Common/Network/TCRequestUitls";
+import {config} from "../../../Common/Network/TCRequestConfig";
 
 export default class UserBetsStore {
 

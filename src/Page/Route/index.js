@@ -90,6 +90,11 @@ import TCUserTransfer from "../UserCenter/transfer/TCUserTransfer";
 import TCWebTrendView from "../WebView/TCWebTrendView";
 import rootStore from "../../Data/store/RootStore";
 import TCUserOtherBetRecords from "../UserCenter/UserOrder/TCUserOtherBetRecords";
+//电子游戏列表
+import DZGameListView from "../Home/game/DZGameListView";
+//用于体育与电子游戏的专属webView
+import TCWebGameView from "../WebView/TCWebGameView";
+
 
 //用于增加通用navigator view 属性 特殊 处理
  function viewRoutHelp(component){
@@ -172,6 +177,8 @@ const Components = {
     WelfareCenter:viewRoutHelp(TCWelfareCenter),
     TCWebTrendView:viewRoutHelp(TCWebTrendView),
     Wallet:viewRoutHelp(TCWallet),
+    DZGameListView:viewRoutHelp(DZGameListView),
+    TCWebGameView:viewRoutHelp(TCWebGameView),
 }
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
 for(let key in Components){
@@ -201,7 +208,7 @@ export default class Main extends Component {
 
     render() {
         return (
-            <Provider  rootStore={rootStore}>
+            <Provider  {...rootStore}>
                 <MainStackNavigator
                     ref={navigatorRef => {NavigationService.setTopLevelNavigator(navigatorRef)}}
                 />

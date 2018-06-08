@@ -40,6 +40,7 @@ export default class TCTrend extends Component {
             //url: this.baseUrl + lotteryType[0] +"&showBack=false&clientId=19"+ '&navigationBar=0'
             loadedFail: false
         }
+        this.initUrl=this.state.url;
     }
 
     static propTypes = {
@@ -65,7 +66,7 @@ export default class TCTrend extends Component {
         let contenView = (<View style={containStyle} >
             <WebView
                 bounces={false}
-                automaticallyAdjustContentInsets={false}
+                automaticallyAdjustContentInsets={true}
                 style={styles.webView}
                 source={{uri: this.state.url}}
                 javaScriptEnabled={true}
@@ -79,6 +80,7 @@ export default class TCTrend extends Component {
                 onLoadEnd={this.onLoadEnd}
                 onLoadStart={this.onLoadStart}
                 onError={this.onLoadError}
+
             />
             <LoadingSpinnerOverlay
                 ref={component => this._modalLoadingSpinnerOverLay = component}/>
@@ -176,6 +178,8 @@ const styles = StyleSheet.create({
         backgroundColor: JX_PLAT_INFO.indexBgColor.mainBg
     },
     webView: {
+       //height:JX_PLAT_INFO.screenH -JX_PLAT_INFO.bottomNavHeight,
+        //flex:1,
         width: JX_PLAT_INFO.screenW,
     }
 });

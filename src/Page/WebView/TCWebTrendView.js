@@ -34,12 +34,15 @@ export default class TCWebTrendView extends React.Component {
             title:this.props.navigation.state.params.title,
             url:""
         }
+        this.initUrl=this.state.url;
     }
 
     componentDidMount(){
         let link =`${TCDefaultTendDomain}/trend_v2?gameUniqueId=${this.state.game}&showBack=false&clientId=${configAppId}&height=${JX_PLAT_INFO.MarginBarHeight}`;
         JXLog("TCWebTrendView-----  link==",link)
-        this.setState({url: link});
+        this.setState({url: link},()=>{
+            this.initUrl=this.state.url;
+        });
     }
 
     render() {
@@ -108,7 +111,7 @@ export default class TCWebTrendView extends React.Component {
 
 
     refresh=()=> {
-        this.setState({loadedFail:false,url: this.state.url + '&temp=' + Moment().format('X')}, () => {
+        this.setState({loadedFail:false,url: this.initUrl + '&temp=' + Moment().format('X')}, () => {
 
         })
     }

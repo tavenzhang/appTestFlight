@@ -11,7 +11,7 @@ import Toast from '../../../Common/JXHelper/JXToast';
 import DatePicker from '../../../Common/View/datepicker';
 import {inject, observer} from 'mobx-react/native'
 import Moment from 'moment';
-import UserBetsStore from '../../store/UserBetsStore'
+import UserBetsStore from '../../../Data/store/userCenterStore/UserBetsStore'
 import NoDataView from '../../../Common/View/TCNoDataView'
 import OrderItem from './View/TCUserOtherBetItemRow'
 import PopView from '../../../Common/View/TCSelectModal'
