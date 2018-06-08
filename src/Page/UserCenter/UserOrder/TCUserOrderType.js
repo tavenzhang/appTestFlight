@@ -22,7 +22,8 @@ export default class TCUserOrderType extends React.Component {
             sportPlatforms.map((platform) => {
                 tempComponent.push(
                     <TCListItemBar
-                        text={`${platform.gamePlatform}体育投注记录`}
+                        text={`${platform.gamePlatform}投注记录`}
+                        leftIcon={{uri: platform.gameIconUrl}}
                         rightIcon={Common.iconNext}
                         onClick={() => NavigatorHelper.pushToOtherBetRecord(platform.gamePlatform)}/>
                 )
@@ -34,7 +35,8 @@ export default class TCUserOrderType extends React.Component {
             eGamePlatforms.map((platform) => {
                 tempComponent.push(
                     <TCListItemBar
-                        text={`${platform.gamePlatform}电子投注记录`}
+                        text={`${platform.gamePlatform}投注记录`}
+                        leftIcon={{uri:platform.gameIconUrl}}
                         rightIcon={Common.iconNext}
                         onClick={() => NavigatorHelper.pushToOtherBetRecord(platform.gamePlatform)}/>
                 )
@@ -51,7 +53,9 @@ export default class TCUserOrderType extends React.Component {
                     needBackButton
                     backButtonCall={() => NavigatorHelper.popToBack()}/>
                 <Text style={styles.typeTitle}>彩票游戏</Text>
-                <TCListItemBar text={'彩票游戏投注记录'} rightIcon={Common.iconNext}
+                <TCListItemBar text={'彩票游戏投注记录'} 
+                               leftIcon={Common.caiPiao}
+                               rightIcon={Common.iconNext}
                                onClick={() => NavigatorHelper.pushToOrderRecord(0)}/>
                 {this.renderOtherPlatform()}
             </View>

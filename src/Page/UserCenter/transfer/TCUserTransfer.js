@@ -1,16 +1,25 @@
 'use-strict';
 import React from 'react';
-import {StyleSheet, View, Text, Image, ScrollView, TextInput, ImageBackground, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, Image, ScrollView, TextInput, ActivityIndicator, TouchableOpacity} from 'react-native';
 import {computed} from 'mobx'
 import {inject, observer} from 'mobx-react/native'
 import ModalDropdown from 'react-native-modal-dropdown';
 import {Transfer, common} from '../../resouce/images'
-import {indexBgColor, Size, width, transferColor, baseColor, height} from "../../resouce/theme";
+import {
+    indexBgColor,
+    Size,
+    width,
+    transferColor,
+    baseColor,
+    height,
+    payTxtColor
+} from "../../resouce/theme";
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import Toast from '../../../Common/JXHelper/JXToast';
 import TransferStore from '../../../Data/store/TransferStore'
 import Button from '../../../Common/View/ButtonView'
+import NoDataView from '../../../Common/View/TCNoDataView'
 
 /**
  * 转账
@@ -25,6 +34,10 @@ export default class TCUserTransfer extends React.Component {
             loadStatus: 0 // 页面数据加载状态（0：加载中，1：加载成功，2：加载失败）
         }
         this.transferStore = new TransferStore();
+        this.loadBalance();
+    }
+
+    loadBalance() {
         JX_Store.balanceStore.getPlatformBalance((res) => {
             this.setState({
                 loadStatus: res.message ? 2 : 1,
@@ -51,6 +64,19 @@ export default class TCUserTransfer extends React.Component {
                         <WalletLabelView transferStore={this.transferStore}/>
                     </View>
                 </ScrollView>
+            )
+        } else if (this.state.loadStatus === 0) {
+            return (
+                <View style={[styles.container, {justifyContent: 'center', alignItems: 'center',}]}>
+                    <ActivityIndicator animating={true} size="large" color={baseColor.tabSelectedTxt}/>
+                </View>
+            )
+        } else {
+            return (
+                <NoDataView
+                    titleTip={'数据获取失败'}
+                    btnTxt="重新加载"
+                    gotoDoing={() => {this.loadBalance()}}/>
             )
         }
     }
@@ -242,27 +268,12 @@ class MoneyLabelView extends React.Component {
                 <TouchableOpacity
                     key={index + '00'}
                     onPress={() => {this.checkMoney(item, index)}}>
-                    <ImageBackground source={this.getBgImage(index)} style={styles.moneyImg}>
+                    <View style={styles.moneyStyle}>
                         <Text style={this.getMoneyTxtStyle(index)}>{item}</Text>
-                    </ImageBackground>
+                    </View>
                 </TouchableOpacity>)
         })
         return (<View style={styles.moneyContent}>{views}</View>)
-    }
-
-    getBgImage(index) {
-        switch (index) {
-            case 0:
-                return Transfer.money100;
-            case 1:
-                return Transfer.money200;
-            case 2:
-                return Transfer.money300;
-            case 3:
-                return Transfer.money500;
-            case 4:
-                return Transfer.money800;
-        }
     }
 
     /**
@@ -440,8 +451,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        margin: 10,
+        flexWrap: 'wrap',
+        marginTop: 5,
+        marginBottom: 10,
+        marginLeft: 10,
+        marginRight: 10,
         width: width
+    },
+    moneyStyle: {
+        justifyContent: 'center',
+        height: 40,
+        width: width / 4,
+        alignItems: 'center',
+        marginTop: 5
     },
     moneyImg: {
         width: 60,
@@ -450,10 +472,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     moneyTxtNormal: {
-        color: indexBgColor.white
+        color: payTxtColor.moneyUnChecked,
+        backgroundColor: payTxtColor.moneyChecked,
+        borderRadius: 5,
+        fontSize: Size.default,
+        width: width / 4 - 10,
+        textAlign: 'center',
+        paddingTop: 10,
+        paddingBottom: 10
     },
     moneyTxtSelect: {
-        color: transferColor.money1
+        color: payTxtColor.moneyChecked,
+        backgroundColor: payTxtColor.moneyUnChecked,
+        borderRadius: 5,
+        fontSize: Size.default,
+        width: width / 4 - 10,
+        textAlign: 'center',
+        paddingTop: 10,
+        paddingBottom: 10
     },
     inputViewStyle: {
         flexDirection: 'row',
@@ -463,7 +499,8 @@ const styles = StyleSheet.create({
     },
     inputTextStyle: {
         color: transferColor.money1,
-        fontSize: Size.default,
+        fontSize: Size.font18,
+        fontWeight: 'bold',
         width: width * 0.6,
         height: 45,
         marginLeft: 10
@@ -546,5 +583,13 @@ const styles = StyleSheet.create({
         color: transferColor.border2,
         fontSize: Size.font14,
         fontWeight: '400'
+    },
+    centering: {
+        position: 'absolute',
+        top: (height - 80) / 2,
+        marginHorizontal: width / 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20
     }
 })

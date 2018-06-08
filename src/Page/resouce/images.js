@@ -77,6 +77,7 @@ export const common = {
     backSpace: require('./addon/other/backspace.png'),
     topBarArrow: require('./addon/other/top_bar_arrow.png'),
     search: require('./addon/other/search.png'),
+    caiPiao: require('./addon/other/icon_caipiao.png'),
 }
 
 /**
