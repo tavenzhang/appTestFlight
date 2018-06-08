@@ -18,7 +18,7 @@ export default class TransferStore {
     //筹码Index
     @observable
     selectedIndex = -1;
-    moneyData = [100, 200, 300, 500, 800];
+    moneyData = [50, 100, 300, 500, 1000, 2000, 3000, 5000];
 
     @action
     changeSelectIndex() {

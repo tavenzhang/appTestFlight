@@ -34,7 +34,7 @@ TCListItemBar.propTypes = {
 const styles = StyleSheet.create({
     root: {
         width: width,
-        height: 50,
+        height: 55,
         backgroundColor: indexBgColor.itemBg,
         flexDirection: 'row',
         alignItems: 'center',
@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     leftIcon: {
-        width: 30,
-        height: 30,
+        width: 40,
+        height: 40,
         marginRight: 10
     },
     text: {
