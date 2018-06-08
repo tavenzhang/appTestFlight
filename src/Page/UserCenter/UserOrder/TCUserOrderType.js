@@ -6,6 +6,7 @@ import {common as Common} from "../../resouce/images";
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import TCListItemBar from '../../../Common/View/TCListItemBar'
+import JXHelper from "../../../Common/JXHelper/JXHelper";
 
 /**
  * 投注类型
@@ -13,18 +14,46 @@ import TCListItemBar from '../../../Common/View/TCListItemBar'
  */
 export default class TCUserOrderType extends React.Component {
 
+    renderOtherPlatform() {
+        let tempComponent = [];
+        let sportPlatforms = JXHelper.getDSFOpenList().dsfSportInfos;
+        if (sportPlatforms && sportPlatforms.length > 0) {
+            tempComponent.push(<Text style={styles.typeTitle}>体育竞技</Text>)
+            sportPlatforms.map((platform) => {
+                tempComponent.push(
+                    <TCListItemBar
+                        text={`${platform.gamePlatform}体育投注记录`}
+                        rightIcon={Common.iconNext}
+                        onClick={() => NavigatorHelper.pushToOtherBetRecord(platform.gamePlatform)}/>
+                )
+            })
+        }
+        let eGamePlatforms = JXHelper.getDSFOpenList().dsfEgameInfos;
+        if (eGamePlatforms && eGamePlatforms.length > 0) {
+            tempComponent.push(<Text style={styles.typeTitle}>电子竞技</Text>)
+            eGamePlatforms.map((platform) => {
+                tempComponent.push(
+                    <TCListItemBar
+                        text={`${platform.gamePlatform}电子投注记录`}
+                        rightIcon={Common.iconNext}
+                        onClick={() => NavigatorHelper.pushToOtherBetRecord(platform.gamePlatform)}/>
+                )
+            })
+        }
+        return tempComponent
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <TopNavigationBar
-                    title={'投注记录'}
+                    title={'投注平台'}
                     needBackButton
-                    backButtonCall={() => NavigatorHelper.popToBack()} />
+                    backButtonCall={() => NavigatorHelper.popToBack()}/>
                 <Text style={styles.typeTitle}>彩票游戏</Text>
-                <TCListItemBar text={'彩票游戏投注记录'} rightIcon={Common.iconNext} onClick={() => NavigatorHelper.pushToOrderRecord(0)}/>
-                <Text style={styles.typeTitle}>体育竞技</Text>
-                <TCListItemBar text={'IM体育投注记录'} rightIcon={Common.iconNext}/>
-                <TCListItemBar text={'三昇体育投注记录'} rightIcon={Common.iconNext}/>
+                <TCListItemBar text={'彩票游戏投注记录'} rightIcon={Common.iconNext}
+                               onClick={() => NavigatorHelper.pushToOrderRecord(0)}/>
+                {this.renderOtherPlatform()}
             </View>
         );
     }

@@ -1,12 +1,8 @@
-import {TabNavigator, StackNavigator, TabBarBottom} from 'react-navigation';
+import {StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
-import Helper from "../../Common/JXHelper/JXHelper"
 import {Provider} from 'mobx-react'
-import {BackHandler, ToastAndroid, Platform} from 'react-native'
-import balanceStore from '../../Data/store/BalanceStore'
 
 import NavigationService from './NavigationService'
-
 //首页
 import MainScreen from '../Main/TCMain'
 import WebView from '../WebView/TCWebView'
@@ -14,20 +10,20 @@ import TCNoticeDetail from '../Home/View/TCNoticeDetail'
 import TCTopWinnerDetail from '../Home/View/TCTopWinnerDetail'
 import TCPromotionList from '../Home/View/TCPromotionList'
 import PCDDShopping from '../../Page/ShoppingLobby/TCPCDDShopingLobby'
-
 //彩票下注界面
 import MarkSixBetHome from '../../Page/Bet/AllPlayingMethodView/MarkSix/TCMarkSixBetHome'
-import ChongQingSSCBetHome from '../../Page/Bet/AllPlayingMethodView/ChongQingSSC/TCChongQingSSCBetHome';
+import ChongQingSSCBetHome
+    from '../../Page/Bet/AllPlayingMethodView/ChongQingSSC/TCChongQingSSCBetHome';
 import TCBJPK10BetHome from '../../Page/Bet/AllPlayingMethodView/BJPK10/TCBJPK10BetHome'
 import TCKL10FBetHome from '../../Page/Bet/AllPlayingMethodView/KL10F/TCKL10FBetHome'
-import TCShangDong115BetHome from '../../Page/Bet/AllPlayingMethodView/ShangDong_11_5/TCShangDong115BetHome'
+import TCShangDong115BetHome
+    from '../../Page/Bet/AllPlayingMethodView/ShangDong_11_5/TCShangDong115BetHome'
 import TCPCDDBetHome from '../../Page/Bet/AllPlayingMethodView/PCDD/TCPCDDBetHome'
 import TCSSLBetHome from '../../Page/Bet/AllPlayingMethodView/SSL/TCSSLBetHome'
 import QXCBetHome from '../../Page/Bet/AllPlayingMethodView/QXC/QXCBetHome'
 import TCK3BetHome from '../../Page/Bet/AllPlayingMethodView/K3/TCK3BetHome'
 import TCHappyPokerBetHome from '../../Page/Bet/AllPlayingMethodView/HappyPoker/TCHappyPokerBetHome'
 import TCXYFTBetHome from '../../Page/Bet/AllPlayingMethodView/XYFT/TCXYFTBetHome'
-
 //购彩
 import TCBetBill from '../../Page/Bill/TCBetBill'
 import TCBillSucceedPage from '../../Page/Bill/TCBillSucceedPage';
@@ -37,17 +33,13 @@ import UserOrderDetail from '../../Page/UserCenter/UserOrder/TCUserOrderDetail'
 import TCLotteryHistory from '../../Page/LotteryLobby/TCLotteryHistoryList'
 import OrderChaseItemList from '../../Page/UserCenter/UserOrder/TCUserOrderChaseBetList';
 import OrderItemList from '../../Page/UserCenter/UserOrder/TCUserOrderItemList';
-
 // 红包相关
 import RedPacket from '../../Page/red_packet/home'
 import RedPacketMine from '../../Page/red_packet/Mine'
 import RedPacketWinList from '../../Page/red_packet/List'
 import RedPacketRules from '../../Page/red_packet/Rules'
-
-
 //个人收藏
 import UserCollects from '../../Page/UserCenter/UserCollect/TCUserCollect'
-
 //个人中心
 import UserLogin from '../../Page/UserCenter/TCUserLogin'
 import UserRegisterWeb from '../../Page/UserCenter/TCUserRegisterWeb'
@@ -76,11 +68,9 @@ import UserPay from '../../Page/UserCenter/UserPay/TCUserPayType'
 import UserPayment from '../../Page/UserCenter/UserPay/TCUserPayNew'
 import UserAliAndWechatTransfer from '../../Page/UserCenter/UserPay/TCUserAliAndWechatTransfer'
 import UserAliAndWechatPay from '../../Page/UserCenter/UserPay/TCUserAliAndWechatPay'
-import UserBankPayMessage from '../../Page/UserCenter/UserPay/TCUserBankPayMessage'
 import UserHTMLPay from '../../Page/UserCenter/UserPay/TCUserHTMLPay'
 import UserPayProgress from '../../Page/UserCenter/UserPay/TCUserPayProgress'
 import UserAliPayAndWechatMessage from '../../Page/UserCenter/UserPay/TCUserAliPayAndWechatMessage'
-
 //代理中心
 import AgentCenter from '../../Page/UserCenter/Agent/AgentCenter/TCAgentCenter'
 import AgentAddAccount from '../../Page/UserCenter/Agent/TCAgentAddAccount'
@@ -88,15 +78,18 @@ import AgentTeamList from '../../Page/UserCenter/Agent/Team/TCAgentTeamManager'
 import AgentCommissionList from '../../Page/UserCenter/Agent/Commission/TCAgentCommissionList'
 import AgentSheet from '../../Page/UserCenter/Agent/UserSheets/TCAgentSheets'
 import CommissionDetail from '../../Page/UserCenter/Agent/Commission/TCAgentCommissionDetail'
-import PersonalCommissionDetail from '../../Page/UserCenter/Agent/Commission/TCPersonalCommissionDetail'
+import PersonalCommissionDetail
+    from '../../Page/UserCenter/Agent/Commission/TCPersonalCommissionDetail'
 import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
 import TCInviteFriends from "../UserCenter/share/TCInviteFriends";
 import TCWelfareCenter from "../UserCenter/welfare/TCWelfareCenter";
+import TCWallet from "../UserCenter/wallet";
 import TCUserOrderType from "../UserCenter/UserOrder/TCUserOrderType";
 import TCUserTransfer from "../UserCenter/transfer/TCUserTransfer";
-import rootStore from "../../Data/store/RootStore";
 //趋势图webView
 import TCWebTrendView from "../WebView/TCWebTrendView";
+import rootStore from "../../Data/store/RootStore";
+import TCUserOtherBetRecords from "../UserCenter/UserOrder/TCUserOtherBetRecords";
 
 //用于增加通用navigator view 属性 特殊 处理
  function viewRoutHelp(component){
@@ -127,6 +120,7 @@ const Components = {
     UserTransfer: viewRoutHelp(TCUserTransfer),
     UserOrderType: viewRoutHelp(TCUserOrderType),
     UserOderRecord:viewRoutHelp(UserOderRecord),
+    UserOtherBetRecords:viewRoutHelp(TCUserOtherBetRecords),
     TCLotteryHistory: viewRoutHelp(TCLotteryHistory),
     UserCollects: viewRoutHelp(UserCollects),
     OrderChaseItemList:viewRoutHelp(OrderChaseItemList),
@@ -177,6 +171,7 @@ const Components = {
     InviteFriends: viewRoutHelp(TCInviteFriends),
     WelfareCenter:viewRoutHelp(TCWelfareCenter),
     TCWebTrendView:viewRoutHelp(TCWebTrendView),
+    Wallet:viewRoutHelp(TCWallet),
 }
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
 for(let key in Components){

@@ -162,6 +162,7 @@ export const personal = {
     more: require('./addon/userCenterIcon/agent_more.png'),
     shareFriends: require('./addon/userCenterIcon/invite_friends.png'),
     promotions: require('./addon/userCenterIcon/promotions.png'),
+    refreshMoney: require('./addon/userCenterIcon/ic_refresh_money.png'),
 }
 
 
