@@ -70,10 +70,15 @@ export const JX_PLAT_INFO = {
     IS_IphoneX:JX_IPHON_X
 }
 
+
+
 export const navbarHight = Platform.OS == 'ios'? (isIphoneX()?88:64):44
 export const navbarMarginTop = Platform.OS == 'ios'? (isIphoneX()?44:20):0
 export const bottomNavHeight = Platform.OS == 'ios'? (isIphoneX()?83:50):49
-/**
+
+
+
+    /**
      * app主色调
      * @type {{}}
      */
@@ -459,3 +464,22 @@ export const lotteryNumbStyle = {
         marginBottom: 5,
     }
 }
+//常用容器或者组件样式
+export const themeViewStyle={
+        containTabView:JX_IPHON_X ? {
+            height:height-bottomNavHeight,
+            width:width,
+            backgroundColor: indexBgColor.mainBg
+        }:{
+            flex:1,
+            backgroundColor: indexBgColor.mainBg
+        },
+        containView:JX_IPHON_X ? {
+            height:height-33,
+            width:width,
+            backgroundColor: indexBgColor.mainBg
+        }:{
+            flex:1,
+            backgroundColor: indexBgColor.mainBg
+        },
+    }

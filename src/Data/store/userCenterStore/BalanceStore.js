@@ -1,15 +1,15 @@
 'use-strict';
 import Moment from 'moment'
 import {action, observable} from "mobx";
-import NetUitls from "../../Common/Network/TCRequestUitls";
-import {config} from '../../Common/Network/TCRequestConfig';
+import NetUitls from "../../../Common/Network/TCRequestUitls";
+import {config} from '../../../Common/Network/TCRequestConfig';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 /**
  *
  * @author: Mason
  */
-class BalanceStore {
+export default class BalanceStore {
 
     constructor() {
 
@@ -101,5 +101,4 @@ class BalanceStore {
         })
     }
 }
-const balanceStore = new BalanceStore()
-export default balanceStore
+

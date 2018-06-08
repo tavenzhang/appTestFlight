@@ -34,6 +34,20 @@ export default class TCNavigationBar extends Component {
         };
     }
 
+    static propTypes = {
+        title: JX_PropTypes.any,
+        needBackButton: JX_PropTypes.any,
+        rightTitle: JX_PropTypes.any,
+        rightImage: JX_PropTypes.any,
+        leftTitle: JX_PropTypes.any,
+        leftImage: JX_PropTypes.any,
+        rightButtonCall: JX_PropTypes.any,
+        closeButtonCall: JX_PropTypes.any,
+        titleStyle: JX_PropTypes.object,
+        centerViewShowStyleImage:JX_PropTypes.any,
+        backButtonCall:JX_PropTypes.fun
+    }
+
     static defaultProps = {
         title: '',
         needBackButton: true,

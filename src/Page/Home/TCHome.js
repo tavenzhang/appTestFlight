@@ -165,12 +165,12 @@ export default class TCHome extends Component {
                             {
                                 data: this.state.content.dsfSportInfos,
                                 title: "体育竞技",
-                                renderItem: ({item}) => this.renderDSFView(item)
+                                renderItem: ({item}) => this.renderDSFView(item,true)
                             },
                             {
                                 data: this.state.content.dsfEgameInfos,
                                 title: "电子游戏",
-                                renderItem: ({item}) => this.renderDSFView(item)
+                                renderItem: ({item}) => this.renderDSFView(item,false)
                             }
                         ]
                     }
@@ -356,13 +356,24 @@ export default class TCHome extends Component {
     }
 
     //渲染体育电子
-    renderDSFView(item) {
+    renderDSFView(item,isSport=false) {
         return (
             <SportItemView
                 rowData={item}
                 mTimer={item.mTiter}
                 title={item.gameNameInChinese}
                 pushToEvent={item => {
+                    JXLog("renderDSFView----",item)
+                    if(this.state.isLogin)
+                    {
+                        if(isSport){
+                            JX_NavHelp.pushView(JX_Compones.TCWebGameView,{gameData:item,title:item.gameDescription})
+                        }else{
+                            JX_NavHelp.pushView(JX_Compones.DZGameListView,{gameData:item})
+                        }
+                    }else{
+                        JX_NavHelp.pushToUserLogin(true)
+                    }
                     //体育电子点击
                     //平台 'MG' <= item.gamePlatform
                     //状态 'ON' <= item.status

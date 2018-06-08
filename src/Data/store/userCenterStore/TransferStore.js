@@ -1,11 +1,12 @@
 import {action, observable} from "mobx";
-import balanceStore from './BalanceStore'
-import NetUitls from "../../Common/Network/TCRequestUitls";
-import {config} from '../../Common/Network/TCRequestConfig';
+import NetUitls from "../../../Common/Network/TCRequestUitls";
+import {config} from '../../../Common/Network/TCRequestConfig';
+import rootStore from "../RootStore";
 
 export default class TransferStore {
 
     constructor() {
+
     }
 
     @observable
@@ -38,7 +39,7 @@ export default class TransferStore {
     transfer(callback) {
         let transferType = this.fromIndex === 0 ? "TopUp" : "Withdraw";
         let platformIndex =  this.fromIndex === 0 ? this.toIndex - 1 : this.fromIndex - 1
-        let platform = balanceStore.platformBalances[platformIndex].gamePlatform;
+        let platform = rootStore.balanceStore.platformBalances[platformIndex].gamePlatform;
         this.platformTransfer(platform, transferType, this.transferMoney, callback);
     }
 
@@ -49,7 +50,7 @@ export default class TransferStore {
         }
         NetUitls.putUrlAndParamsAndAndPlatformAndCallback(config.api.platformTransfer, platform, params, (res) => {
             if (res.rs) {
-                balanceStore.getPlatformBalance();
+                rootStore.balanceStore.getPlatformBalance();
             }
             callback(res);
         });
@@ -61,7 +62,7 @@ export default class TransferStore {
      */
     recycleMoney(callback) {
         let params = [];
-        balanceStore.platformBalances.map((item) => {
+        rootStore.balanceStore.platformBalances.map((item) => {
             if (item.balance !== 0) {
                 params.push({platformType: item.platformType, gamePlatform: item.gamePlatform, balance: item.balance});
             }
@@ -76,7 +77,7 @@ export default class TransferStore {
                 if (!result.message) {
                     result.message = "回收成功!";
                 }
-                balanceStore.getPlatformBalance();
+                rootStore.balanceStore.getPlatformBalance();
             } else {
                 result.message = res.message ? res.message : "回收失败，请稍后再试!"
             }
@@ -92,7 +93,7 @@ export default class TransferStore {
     allTransfer(platform, callback) {
         this.platformTransfer(platform, "TopUp", balanceStore.centerBalance, (res) => {
             if (res.rs) {
-                balanceStore.freshBalance();
+                rootStore.balanceStore.freshBalance();
             }
             callback(res);
         });
@@ -104,6 +105,6 @@ export default class TransferStore {
      * @param callback
      */
     refresh(platform, callback) {
-        balanceStore.getBalanceByPlatform(platform, callback)
+        rootStore.balanceStore.getBalanceByPlatform(platform, callback)
     }
 }

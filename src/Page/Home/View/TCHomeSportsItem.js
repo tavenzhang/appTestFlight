@@ -19,7 +19,7 @@ import JXHelper from '../../../Common/JXHelper/JXHelper'
 import SoundHelper from '../../../Common/JXHelper/SoundHelper'
 import FastImage from 'react-native-fast-image';
 
-export default class HomeKindItemView extends React.Component {
+export default class TCHomeSportsItem extends React.Component {
 
     constructor(state) {
         super(state);
@@ -34,22 +34,26 @@ export default class HomeKindItemView extends React.Component {
     };
 
     render() {
-        return (
-            <TouchableOpacity style={styles.container} onPress={()=> {
-                this.buttonCall()
-            }}
-            >
-                {this.getImage()}
-                <View style={{marginLeft: 5, justifyContent: 'center', flex: 1, marginRight: 8} }>
-                    <Text style={{color: indexTxtColor.cpTitle, fontSize: Size.font16}} ellipsizeMode='tail'
-                          numberOfLines={1}> {this.props.rowData.gameNameInChinese} </Text>
-                    <Text
-                        style={{color: indexTxtColor.cpDescription, fontSize: width >= 375 ? Size.font14 : Size.font12, marginTop: 5}}
-                        ellipsizeMode='tail'
-                        numberOfLines={1}> {this.props.rowData.gameDescription} </Text>
-                </View>
-            </TouchableOpacity>
-        );
+        if(this.props.rowData.gamePlatform)
+        {
+            return (<TouchableOpacity style={styles.container} onPress={()=> {
+                    this.buttonCall()
+                    JXLog("this.props.rowData====",this.props.rowData)
+                }}
+                >
+                    {this.getImage()}
+                    <View style={{marginLeft: 5, justifyContent: 'center', flex: 1, marginRight: 8} }>
+                        <Text style={{color: indexTxtColor.cpTitle, fontSize: Size.font16}} ellipsizeMode='tail'
+                              numberOfLines={1}> {this.props.rowData.gameNameInChinese} </Text>
+                        <Text
+                            style={{color: indexTxtColor.cpDescription, fontSize: width >= 375 ? Size.font14 : Size.font12, marginTop: 5}}
+                            ellipsizeMode='tail'
+                            numberOfLines={1}> {this.props.rowData.gameDescription} </Text>
+                    </View>
+                </TouchableOpacity>)
+        }else{
+            return <View style={styles.container}/>
+        }
     };
 
     getImage() {
