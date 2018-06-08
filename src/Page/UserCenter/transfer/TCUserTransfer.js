@@ -1,18 +1,27 @@
 'use-strict';
 import React from 'react';
-import {StyleSheet, View, Text, Image, ScrollView, TextInput, ActivityIndicator, TouchableOpacity} from 'react-native';
-import {computed} from 'mobx'
-import {inject, observer} from 'mobx-react/native'
-import ModalDropdown from 'react-native-modal-dropdown';
-import {Transfer, common} from '../../resouce/images'
 import {
-    indexBgColor,
-    Size,
-    width,
-    transferColor,
+    ActivityIndicator,
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native';
+import {computed} from 'mobx'
+import {observer} from 'mobx-react/native'
+import ModalDropdown from 'react-native-modal-dropdown';
+import {common} from '../../resouce/images'
+import {
     baseColor,
     height,
-    payTxtColor
+    indexBgColor,
+    payTxtColor,
+    Size,
+    transferColor,
+    width
 } from "../../resouce/theme";
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
@@ -139,7 +148,7 @@ class SelectBarView extends React.Component {
             <View style={styles.content}>
                 {this.getWithdrawFromDropDownView()}
                 <TouchableOpacity onPress={() => this.changeSelect()}>
-                    <Image source={Transfer.transfer} style={styles.withdrawIconStyle}/>
+                    <Image source={common.transfer} style={styles.withdrawIconStyle}/>
                 </TouchableOpacity>
                 {this.getWithdrawToDropDownView()}
             </View>
