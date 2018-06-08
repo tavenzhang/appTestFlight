@@ -15,7 +15,7 @@ import {
     Platform,
     Dimensions
 } from 'react-native';
-import {Size, width, indexBgColor, popuWinStyle} from '../../resouce/theme'
+import {Size, width, indexBgColor, popuWinStyle,navbarHight,navbarMarginTop} from '../../resouce/theme'
 import * as _ from "lodash";
 var createReactClass = require('create-react-class');
 
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
         marginTop: 0,
     },
     contentStyle: {
-        marginTop: Platform.OS == 'ios' ? 64 : 44,
+        marginTop: navbarHight,
         justifyContent: 'center',
         backgroundColor: indexBgColor.mainBg,
     },

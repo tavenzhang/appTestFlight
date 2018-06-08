@@ -17,7 +17,7 @@ import ListStyle from './View/TCShopingListStyle';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import LotteryResultData from '../../Data/JXLotteryResultData';
 
-import { Size, shoppingTxtColor, indexBgColor } from '../resouce/theme';
+import { Size,height,width, shoppingTxtColor, indexBgColor,bottomNavHeight,statusBarHeight,JX_PLAT_INFO } from '../resouce/theme';
 import { common } from '../resouce/images';
 
 const tabLabels = ['全部彩种', '时时彩', 'PC蛋蛋', 'PK拾', '11选5', '快3', '高频彩', '低频彩'];
@@ -54,7 +54,7 @@ export default class MyComponent extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={JX_PLAT_INFO.IS_IphoneX?styles.containerIOS:styles.container}>
                 <TopNavigationBar
                     title="购彩大厅"
                     needBackButton={true}
@@ -137,7 +137,12 @@ export default class MyComponent extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex:1,
+        backgroundColor: indexBgColor.mainBg
+    },
+    containerIOS:{
+        height:height-bottomNavHeight,
+        width:width,
         backgroundColor: indexBgColor.mainBg
     },
     firstTabStyle: {

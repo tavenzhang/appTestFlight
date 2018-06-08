@@ -51,8 +51,8 @@ export const gameIconKeyValue = {
     'HF_LFKLPK': require('./gameIcon/xy_pk.png'),
     'HF_XYFT': require('./gameIcon/xy_ft.png'),
     'HF_XYSM': require('./gameIcon/xy_sm.png'),
-    'QXC': require('./gameIcon/qxc.png'),
-    // 'HF_BJ5FC':require('./gameIcon/bj_5fc.png')
+    'QXC':require('./gameIcon/qxc.png'),
+    'HF_BJ5FC':require('./gameIcon/bj_5fc.png')
 }
 
 /**
@@ -222,7 +222,7 @@ export const agent = {
     agentCommission: require('./addon/agentCenter/commission.png'),
     agentBettingMoney: require('./addon/agentCenter/bettingmoney.png'),
     banner: require('./addon/agentCenter/banner.png'),
-    shut: require('./addon/agentCenter/shut.png'),
+    shut:require('./addon/agentCenter/shut.png'),
     close: require('./addon/other/buttonClose.png'),
     swipe_right: require('./addon/other/swipe_right.png'),
     // userLayer1: require('./addon/agentCenter/daili_cengji_next1.png'),
@@ -352,7 +352,10 @@ export const xypk = {
         'icon11': require('./addon/newLottery/xypk/pk_q.png'),
         'icon12': require('./addon/newLottery/xypk/pk_k.png'),
     }
+
+
 }
+
 //账变明细
 export const userAccount = {
     calendar: require('./addon/userAccount/calendar.png'),
@@ -363,13 +366,12 @@ export const userAccount = {
 
 // 邀请好友
 export const inviteFriends = {
-    inviteLogo: require('./addon/other/ic_invite_logo.png'),
-    inviteLink: require('./addon/other/ic_invite_link.png'),
-    inviteOpenWeChat: require('./addon/other/ic_invite_open_wechat.png'),
-    inviteStep1: require('./addon/other/ic_invite_step_1.png'),
-    inviteStep2: require('./addon/other/ic_invite_step_2.png'),
-    inviteStep3: require('./addon/other/ic_invite_step_3.png'),
-    bgQRCode: require('./addon/other/bg_share_qrcode.png')
+    inviteLogo: require('../asset/share/ic_invite_logo.png'),
+    inviteStep1: require('../asset/share/ic_invite_step_1.png'),
+    inviteStep2: require('../asset/share/ic_invite_step_2.png'),
+    inviteStep3: require('../asset/share/ic_invite_step_3.png'),
+    bgQRCode: require('../asset/share/bg_share_qrcode.png'),
+    wechat: require('../asset/share/ic_wechat_white.png')
 }
 
 // 转账

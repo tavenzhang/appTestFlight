@@ -38,7 +38,10 @@ import {
     width,
     height,
     baseColor,
-    listViewTxtColor
+    listViewTxtColor,
+    statusBarHeight,
+    JX_PLAT_INFO,
+    bottomNavHeight
 } from '../resouce/theme'
 import SignInModal from './SignIn/TCSignInModal'
 import userCenterData from './TCUserCenterData'
@@ -214,7 +217,7 @@ export default class TCUserCenterNew extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={JX_PLAT_INFO.IS_IphoneX?styles.containerIOS:styles.container}>
                 <ScrollView bounces={false}>
                     <View>
                         <ImageBackground source={personal.userCenterBg} style={styles.imgTop}>
@@ -616,8 +619,13 @@ class StateModel {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: indexBgColor.mainBg,
+            flex:1,
+            backgroundColor: indexBgColor.mainBg
+    },
+    containerIOS:{
+            height:height-bottomNavHeight,
+            width:width,
+            backgroundColor: indexBgColor.mainBg
     },
     imgTop: {
         width: width,

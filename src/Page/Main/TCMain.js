@@ -23,7 +23,7 @@ import Discover from '../Trend/TCTrend';
 import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
-import {width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size} from '../resouce/theme';
+import {width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size,bottomNavHeight,JX_PLAT_INFO} from '../resouce/theme';
 import SoundHelper from '../../Common/JXHelper/SoundHelper';
 import {home} from '../resouce/images';
 import Toast from "../../Common/JXHelper/JXToast";
@@ -70,7 +70,7 @@ export default class TC168 extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <TabNavigator tabBarStyle={{backgroundColor: indexBgColor.tabBg, height: 56}}>
+                <TabNavigator tabBarStyle={{backgroundColor: indexBgColor.tabBg, height: bottomNavHeight}}>
                     {/*--首页--*/}
                     {this.renderTabBarItem(
                         <Home navigator={this.props.navigator} cpArray={this.state.cpArray}/>,
@@ -117,6 +117,8 @@ export default class TC168 extends Component {
     }
 
     renderTabBarItem(model, title, iconName, selectedIconName, selectedTab) {
+        let xStyle = JX_PLAT_INFO.IS_IphoneX?{marginBottom:30}:{}
+
         return (
             <TabNavigator.Item
                 title={title}
@@ -129,8 +131,8 @@ export default class TC168 extends Component {
                     this.setSelectedTab(selectedTab, this.state.initPage);
                 }}
                 selected={this.state.selectedTab === selectedTab}
-                selectedTitleStyle={{color: indexTxtColor.bottomMenuTitlePressed, fontSize: Size.font14}}
-                titleStyle={{color: indexTxtColor.bottomMenuTitleNormal, fontSize: Size.font14}}
+                selectedTitleStyle={[xStyle,{color: indexTxtColor.bottomMenuTitlePressed, fontSize: Size.font14}]}
+                titleStyle={[xStyle,{ color: indexTxtColor.bottomMenuTitleNormal, fontSize: Size.font14 }]}
             >
                 {model}
             </TabNavigator.Item>

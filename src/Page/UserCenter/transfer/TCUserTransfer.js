@@ -9,14 +9,13 @@ import {indexBgColor, Size, width, transferColor, baseColor, height} from "../..
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import Toast from '../../../Common/JXHelper/JXToast';
-import TransferStore from '../../store/TransferStore'
+import TransferStore from '../../../Data/store/TransferStore'
 import Button from '../../../Common/View/ButtonView'
 
 /**
  * 转账
  * @author: Mason
  */
-@inject('balanceStore')
 @observer
 export default class TCUserTransfer extends React.Component {
 
@@ -26,7 +25,7 @@ export default class TCUserTransfer extends React.Component {
             loadStatus: 0 // 页面数据加载状态（0：加载中，1：加载成功，2：加载失败）
         }
         this.transferStore = new TransferStore();
-        this.props.balanceStore.getPlatformBalance((res) => {
+        JX_Store.balanceStore.getPlatformBalance((res) => {
             this.setState({
                 loadStatus: res.message ? 2 : 1,
             })
@@ -102,7 +101,6 @@ export default class TCUserTransfer extends React.Component {
 /**
  * 转账bar
  */
-@inject("balanceStore")
 @observer
 class SelectBarView extends React.Component {
 
@@ -123,7 +121,7 @@ class SelectBarView extends React.Component {
     }
 
     @computed get transferAccountName() {
-        return this.props.balanceStore.transferAccountName.slice(0);
+        return JX_Store.balanceStore.transferAccountName.slice(0);
     }
 
     /**
@@ -332,7 +330,6 @@ class MoneyInputBarView extends React.Component {
     }
 }
 
-@inject("balanceStore")
 @observer
 class WalletLabelView extends React.Component {
 
@@ -354,7 +351,7 @@ class WalletLabelView extends React.Component {
     }
 
     renderPlatform() {
-        let platforms = this.props.balanceStore.platformBalances;
+        let platforms = JX_Store.balanceStore.platformBalances;
         return (
             platforms.map((item) => {
                 return (
@@ -389,7 +386,7 @@ class WalletLabelView extends React.Component {
     }
 
     @computed get balance() {
-        return this.props.balanceStore.centerBalance;
+        return JX_Store.balanceStore.centerBalance;
     }
 }
 

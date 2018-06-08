@@ -14,7 +14,7 @@ import * as _ from 'lodash';
 
 /**组件内部显示需要引入的类 */
 import TopNavigationBar from './components/TCNavigationBar';
-import {width, height, indexBgColor, indexTxtColor, Size, statusBarHeight} from '../resouce/theme';
+import {width, height, indexBgColor, indexTxtColor, Size, statusBarHeight,JX_PLAT_INFO} from '../resouce/theme';
 import RedPacketModal from './components/RedPacketModal';
 /** 外部关系组件 如 页面跳转用 */
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
@@ -150,7 +150,7 @@ export default class MyComponent extends React.Component {
 
     getBottomButton() {
         return (
-            <View style={{position: 'absolute', bottom: 10}}>
+            <View style={{position: 'absolute', bottom: JX_PLAT_INFO.IS_IphoneX?43:10}}>
                 <View style={{flexDirection: 'row'}}>
                     {this.getButtonView('人品榜单', () => {
                         NavigatorHelper.pushToRedPacketWinList();

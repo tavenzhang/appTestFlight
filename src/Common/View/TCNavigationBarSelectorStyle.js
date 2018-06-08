@@ -25,7 +25,7 @@ import {
 } from 'react-native';
 import SoundHelper from '../JXHelper/SoundHelper'
 import {common} from '../../Page/resouce/images'
-import {Size, width, indexBgColor, indexTxtColor, popuWinStyle} from '../../Page/resouce/theme'
+import {Size, width, indexBgColor, indexTxtColor, popuWinStyle,navbarHight,navbarMarginTop} from '../../Page/resouce/theme'
 export default class TCBetBar extends React.Component {
 
     constructor(state) {
@@ -62,7 +62,7 @@ export default class TCBetBar extends React.Component {
                     flexDirection: 'row',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    marginTop: Platform.OS == 'ios' ? 20 : 0,
+                    marginTop: navbarMarginTop,
                     padding: 5
                 }}>
                     <Text style={styles.titleStyle}>{this.state.title}</Text>
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     navLeftImgStyle: {
         width: 45,
         height: 45,
-        marginTop: Platform.OS == 'ios' ? 20 : 0,
+        marginTop: navbarMarginTop,
 
     },
     arrowImgStyle: {
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
         //导航条样式
         width: width,
         flexDirection: 'row',
-        height: Platform.OS == 'ios' ? 64 : 44,
+        height: navbarHight,
         // backgroundColor: '#d91d37',
         //垂
         alignItems: 'center',
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
         left: 0,
     },
     rightViewStyle: {
-        marginTop: Platform.OS == 'ios' ? 25 : 5,
+        marginTop: navbarMarginTop+5,
         position: 'absolute',
         right: 5,
     },

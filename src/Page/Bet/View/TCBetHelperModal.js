@@ -25,7 +25,7 @@ import Toast from '../../../Common/JXHelper/JXToast';
 import TCNavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {config, trendServerAddress} from '../../../Common/Network/TCRequestConfig';
 import {betIcon} from '../../resouce/images'
-import {Size,} from '../../resouce/theme'
+import {Size,navbarHight} from '../../resouce/theme'
 
 export default class TCBetHelperModal extends Component {
     constructor(state) {
@@ -72,7 +72,7 @@ export default class TCBetHelperModal extends Component {
                         style={{
                             position: 'absolute',
                             right: 10,
-                            top: Platform.OS == 'ios' ? 58 : 38,
+                            top: navbarHight - 6,
                             width: 120,
                             height: JXHelpers.checkHaveTrend(this.props.gameUniqueId) ? 265 : 215,
                             justifyContent: 'center',
@@ -171,7 +171,7 @@ export default class TCBetHelperModal extends Component {
                                         }}
                                         onPress={() => {
                                             this._setModalVisible(false)
-                                            TCNavigatorHelper.pushToWebView('' + (TCDefaultTendDomain ? TCDefaultTendDomain : trendServerAddress) + '/trend?gameUniqueId=' + this.props.gameUniqueId + '&navigationBar=0', '走势图')
+                                            TCNavigatorHelper.pushView(JX_Compones.TCWebTrendView,{game:this.props.gameUniqueId,title:'走势图'})
                                         }}>
                 <Text
                     style={{

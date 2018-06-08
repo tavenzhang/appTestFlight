@@ -42,7 +42,7 @@ import Moment from 'moment';
 import {observer} from 'mobx-react/native';
 
 
-import {width, indexBgColor, indexTxtColor} from '../resouce/theme';
+import {width, indexBgColor, indexTxtColor,height,bottomNavHeight,JX_PLAT_INFO} from '../resouce/theme';
 import NetWorkTool from '../../Common/Network/TCToolNetWork';
 
 let isFirstLoad = false;
@@ -124,7 +124,8 @@ export default class TCHome extends Component {
 
     render() {
         return (
-            <View style={styles.container} keyboardShouldPersistTaps={true}>
+            <View style={JX_PLAT_INFO.IS_IphoneX?styles.containerIOS:styles.container}
+                  keyboardShouldPersistTaps={true}>
                 <TopNavigationBar
                     title={AppName}
                     needBackButton={this.state.isLogin ? true : false}
@@ -583,7 +584,12 @@ export default class TCHome extends Component {
 
 var styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex:1,
+        backgroundColor: indexBgColor.mainBg
+    },
+    containerIOS:{
+        height:height-bottomNavHeight,
+        width:width,
         backgroundColor: indexBgColor.mainBg
     },
     listViewStyle: {

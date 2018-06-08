@@ -30,10 +30,9 @@ import UserData from './src/Data/UserData'
 import Storage from './src/Common/Storage/TCStorage'
 
 import TopNavigationBar from './src/Common/View/TCNavigationBar';
-
 import {width, indexBgColor, Size} from './src/Page/resouce/theme'
-import StartUpHelper from './StartUpHelper'
-import AppConfig from './AppConfig'
+import StartUpHelper from './src/page/Main/StartUpHelper'
+import AppConfig from './src/page/Main/AppConfig'
 import create from './Api'
 let  versionHotFix = '1.0.0'
 
@@ -96,7 +95,6 @@ export default class App extends Component<Props> {
             updateStatus: 0,
             appVersion: ''
         };
-
     }
 
     componentWillMount() {

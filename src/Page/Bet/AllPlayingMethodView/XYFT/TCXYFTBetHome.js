@@ -228,7 +228,7 @@ export default class TCXYFTBetHome extends React.Component {
                     {this.getShoppingCartView()}
                 </View>
 
-                <View style={{height: (height - statusBarHeight - 44 - 70 - 49 - 20 - 20 - historyHeight)}}>
+                <View style={{flex:1}}>
                     <ScrollView ref="contentScrollView">{this.initialContentView()}</ScrollView>
                 </View>
                 <TCBetHomeBottomView ref="TCBetHomeBottomView"

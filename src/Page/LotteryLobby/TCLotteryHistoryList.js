@@ -97,7 +97,7 @@ export default class TCLotteryHistoryList extends BaseComponent {
             return (<TopNavigationBar
                 title={this.props.title}
                 rightTitle={'走势图'}
-                rightButtonCall={()=>{TCNavigatorHelper.pushToWebView(''+(TCDefaultTendDomain?TCDefaultTendDomain:trendServerAddress)+'/trend?gameUniqueId='+this.props.gameUniqueId+'&navigationBar=0',this.props.title)}}
+                rightButtonCall={()=>{TCNavigatorHelper.pushView(JX_Compones.TCWebTrendView,{game:this.props.gameUniqueId,title:this.props.title})}}
                 needBackButton={true}
                 backButtonCall={()=> {
                     TCNavigatorHelper.popToBack()

@@ -14,7 +14,7 @@ import {
 var {
     width
 } = Dimensions.get('window');
-import {Size, betHome} from '../resouce/theme'
+import {Size, betHome,bottomNavHeight} from '../resouce/theme'
 
 export default class TCBetHomeBottomView extends Component {
     constructor(state) {
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         backgroundColor: betHome.betBtmBg,
         justifyContent: 'space-between',
         flexDirection: 'row',
-        height: 49,
+        height: bottomNavHeight,
         width: width
     },
     leftTitleStyle: {
@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 5,
         borderRadius: 5,
+        height:40
     },
     rightTitleStyle: {
         backgroundColor: betHome.btmBtnBg,
@@ -166,11 +167,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         margin: 5,
         padding: 5,
+        height:40
     },
     container: {
         justifyContent: 'center',
         alignItems: 'center',
         height: 45,
-        width: width - 170
+        width: width - 170,
     }
 });

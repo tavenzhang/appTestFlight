@@ -20,7 +20,7 @@ import RowCell from './View/TCLotteryLobbyRowView'
 import TopNavigationBar from '../../Common/View/TCNavigationBar'
 import LotteryHistoryList from './TCLotteryHistoryList'
 import LotteryResultData from '../../Data/JXLotteryResultData'
-import {indexBgColor} from '../resouce/theme'
+import {indexBgColor,height,width,bottomNavHeight,JX_PLAT_INFO} from '../resouce/theme'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
 
 @observer
@@ -49,7 +49,7 @@ export default class TCLotteryLobby extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={JX_PLAT_INFO.IS_IphoneX?styles.containerIOS:styles.container}>
                 <TopNavigationBar title='开奖大厅' needBackButton={true}
                                   backButtonCall={() => {
                                       RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home');
@@ -113,7 +113,12 @@ export default class TCLotteryLobby extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: indexBgColor.mainBg,
-    }
+        flex:1,
+        backgroundColor: indexBgColor.mainBg
+    },
+    containerIOS:{
+        height:height-bottomNavHeight,
+        width:width,
+        backgroundColor: indexBgColor.mainBg
+    },
 });

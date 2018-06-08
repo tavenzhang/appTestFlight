@@ -50,16 +50,21 @@ export default class TCInviteFriends extends React.Component {
                     <Image source={inviteFriends.inviteStep1} style={styles.stepImage} resizeMode={'contain'}/>
                     <View style={styles.stepContent}>
                         <Text style={styles.stepText}>分享好友，访问官方地址下载APP</Text>
-                        <View style={{flexDirection:'row'}}>
-                            <Text style={styles.stepText}>下载地址</Text>
-                            <Text style={styles.stepTextHighlight}>{`【${wapShareUrl}】`}</Text>
+                        <View style={{flexDirection:'row',alignItems:'center',height:60,justifyContent:'center'}}>
+                            <View style={{borderColor:'#ddd',borderRadius:2,borderWidth:0.8}}>
+                                <Text style={styles.stepTextHighlight}>{` ${wapShareUrl} `}</Text>
+                            </View>
                         </View>
-                        <View style={{flexDirection:'row', marginTop: 10}}>
-                            <TouchableOpacity activeOpacity={0.6} onPress={()=>this.copy(wapShareUrl)}>
-                                <Image source={inviteFriends.inviteLink} style={styles.copyLinkImage} resizeMode={'contain'}/>
+                        <View style={{flexDirection:'row', marginTop: 10, flex: 1}}>
+                            <TouchableOpacity style={{height:40,justifyContent:'center',borderRadius:5,backgroundColor:'#F02139',alignItems:'center'}} activeOpacity={0.6}
+                                              onPress={()=>this.copy(wapShareUrl)}>
+                                <Text style={{color:'#FFF715',  fontSize:Size.font13,textAlign:'center', textAlignVertical:'center', paddingLeft: 10, paddingRight: 10 }}>复制下载地址</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={0.6} onPress={()=>this.openUrl(wapShareUrl)}>
-                                <Image source={inviteFriends.inviteOpenWeChat} style={styles.openWeChatImage} resizeMode={'contain'}/>
+                            <TouchableOpacity activeOpacity={0.6} onPress={()=>this.openUrl(wapShareUrl)}
+                                              style={{flexDirection: 'row', backgroundColor:'#59B64C', height:40,
+                                                  borderRadius:5, marginLeft:10, justifyContent:'center', alignItems:'center', paddingLeft: 10, paddingRight: 10}}>
+                                <Image source={inviteFriends.wechat} style={{width: 25, height: 25}} resizeMode={'contain'}/>
+                                <Text style={{color:'#FFFFFF', fontSize:Size.font13, marginLeft: 5}}>复制下载地址{'\n'}并打开微信推送好友</Text>
                             </TouchableOpacity>
                         </View>
                         <Text style={styles.stepTitleText}>使用说明</Text>
@@ -120,7 +125,7 @@ const styles = StyleSheet.create({
         width: 104,
         height: 26,
         marginTop: 30,
-        marginLeft: 15,
+        marginLeft: 12,
         marginBottom: 5
     },
     copyLinkImage: {
@@ -134,8 +139,8 @@ const styles = StyleSheet.create({
     },
     stepContent: {
         flex: 1,
-        marginLeft: 15,
-        marginRight: 15,
+        marginLeft: 12,
+        marginRight: 12,
         borderRadius: 8,
         borderWidth: 1,
         borderColor: '#F5444A',
@@ -147,9 +152,13 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     stepTextHighlight: {
-        fontSize: Size.font13,
+        fontSize: Size.font17,
         color: '#F5444A',
-        marginTop: 5
+        // marginTop: 5,
+        fontWeight:'bold',
+        margin:10,
+        marginLeft:20,
+        marginRight:20
     },
     stepTitleText: {
         fontSize: Size.font16,

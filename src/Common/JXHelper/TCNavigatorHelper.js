@@ -340,8 +340,19 @@ Helper.pushToRedPacketRules = () => {
     NavigationService.navigate("RedPacketRules");
 }
 
+
+
 Helper.isTopPage = () => {
     return false;
+}
+//通用pushView
+Helper.pushView=(component,params)=>{
+
+    if(typeof component=='string'){
+        NavigationService.navigate(component,params)
+    }else if(component&&component.routName){
+        NavigationService.navigate(component.routName,params)
+    }
 }
 
 Helper.popToBack = () => {

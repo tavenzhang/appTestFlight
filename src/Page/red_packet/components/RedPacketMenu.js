@@ -18,12 +18,12 @@ import {
 
 var imgSize = {w: 82, h: 96};
 var edgeW = width - imgSize.w;
-var edgeH = height - imgSize.h - statusBarHeight - (Platform.OS == 'ios' ? 44 : 64);
+var edgeH = height - imgSize.h - (bottomNavHeight) -10;
 
 /**系统 npm类 */
 
 /**组件内部显示需要引入的类 */
-import {width, height, indexBgColor, indexTxtColor, Size, statusBarHeight} from '../../resouce/theme';
+import {width, height, indexBgColor, indexTxtColor, Size, statusBarHeight,bottomNavHeight,navbarHight}from '../../resouce/theme';
 
 /** 外部关系组件 如 页面跳转用 */
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper';
@@ -121,7 +121,7 @@ export default class MyComponent extends React.Component {
         let dy = this.previousTop + gestureState.dy;
 
         dx = dx < 0 ? 0 : dx;
-        dy = dy < 64 ? 64 : dy;
+        dy = dy < navbarHight ? navbarHight : dy;
 
         dx = dx > edgeW ? edgeW : dx;
         dy = dy > edgeH ? edgeH : dy;
