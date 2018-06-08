@@ -24,6 +24,8 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import KindItemView from './View/TCHomeKindItemView';
 import HotItemView from './View/TCHomeHotItemView';
+import SportItemView from './View/TCHomeSportsItem';
+
 import HomeItemBarStyle1 from './View/TCHomeItemBarStyle1_4';
 import Storage from '../../Common/Storage/TCStorage';
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
@@ -355,12 +357,17 @@ export default class TCHome extends Component {
 
     //渲染体育电子
     renderDSFView(item) {
-        return (<KindItemView
+        return (
+            <SportItemView
             rowData={item}
             mTimer={item.mTiter}
             title={item.gameNameInChinese}
-            {/*pushToEvent={item => this._pushToBetHomePage(item)}*/}
-        />)
+            pushToEvent={item => {
+                //体育电子点击
+                //平台 'MG' <= item.gamePlatform
+                //状态 'ON' <= item.status
+            }}
+            />)
     }
 
     loadHomeContents() {
@@ -475,10 +482,16 @@ export default class TCHome extends Component {
 
         if (data.content.dsfSportInfos && data.content.dsfSportInfos.length > 0) {
             content.dsfSportInfos = data.content.dsfSportInfos;
+            if (content.dsfSportInfos % 2 != 0) {
+                content.dsfSportInfos.push({})
+            }
         }
 
         if (data.content.dsfEgameInfos && data.content.dsfEgameInfos.length > 0) {
             content.dsfEgameInfos = data.content.dsfEgameInfos;
+            if (content.dsfEgameInfos % 2 != 0) {
+                content.dsfEgameInfos.push({})
+            }
         }
 
         this.setState({
