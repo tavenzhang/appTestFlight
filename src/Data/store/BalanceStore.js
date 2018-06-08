@@ -47,7 +47,7 @@ class BalanceStore {
 
     //获取指定平台余额
     getBalanceByPlatform(platform, callback) {
-        NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.getPlatformBalance, platform, (res) => {
+        NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.getPlatformBalance, platform, null, (res) => {
             if (res.rs) {
                 this.platformBalances.map((item) => {
                     if (item.gamePlatform === res.content.gamePlatform) {

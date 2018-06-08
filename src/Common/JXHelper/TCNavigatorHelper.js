@@ -60,6 +60,10 @@ Helper.pushToOrderRecord = (orderType) => {
     NavigationService.navigate("UserOderRecord", {initPage: orderType});
 }
 
+Helper.pushToOtherBetRecord = (platform) => {
+    NavigationService.navigate("UserOtherBetRecords", {platform: platform});
+}
+
 Helper.pushToUserOrderDetail = (params) => {
     NavigationService.navigate("UserOrderDetail", params);
 }
@@ -291,6 +295,10 @@ Helper.pushToInviteFriends = () => {
 
 Helper.pushToWelfareCenter = () => {
     NavigationService.navigate("WelfareCenter");
+}
+
+Helper.pushToWallet= () => {
+    NavigationService.navigate("Wallet");
 }
 
 Helper.gotoSetting = () => {

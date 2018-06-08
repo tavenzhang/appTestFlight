@@ -483,7 +483,12 @@ export default class TCUserCenterNew extends Component {
     gotoPage(key) {
         switch (key) {
             case 'tzjl':
-                NavigatorHelper.pushToOrderType();
+                let otherPlatform = JXHelper.getDSFOpenList().dsfAll;
+                if (otherPlatform && otherPlatform.length > 0) {
+                    NavigatorHelper.pushToOrderType()
+                } else {
+                    NavigatorHelper.pushToOrderRecord(0)
+                }
                 break;
             case 'ctjl':
                 NavigatorHelper.pushToUserAccountCenter()
@@ -585,7 +590,7 @@ class MoneyLabel extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{flexDirection:'row', width: width * 0.4, justifyContent:'flex-end', paddingRight:10}}>
-                    <TouchableOpacity style={styles.accountDetail} onPress={() => {this.props.freshBalance(true)}}>
+                    <TouchableOpacity style={styles.accountDetail} onPress={() => {NavigatorHelper.pushToWallet()}}>
                         <View style={styles.walletDetailView}>
                             <Text style={[styles.accountDetailTxt, {color: 'white'}]}>钱包详情</Text>
                         </View>

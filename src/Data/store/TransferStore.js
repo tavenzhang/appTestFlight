@@ -103,7 +103,7 @@ export default class TransferStore {
      * @param platform
      * @param callback
      */
-    refresh(platform) {
-        balanceStore.getBalanceByPlatform(platform);
+    refresh(platform, callback) {
+        balanceStore.getBalanceByPlatform(platform, callback)
     }
 }
