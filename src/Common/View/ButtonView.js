@@ -5,16 +5,16 @@ import {View, StyleSheet, Text, TouchableOpacity, Platform} from 'react-native'
 
 export default class ButtonView extends Component {
 
-    //
-    // static propTypes = {
-    //     disabled: PropTypes.bool,//按钮不可用状态（true不可用，false可用）
-    //     btnStyle: Text.propTypes.style,//按钮样式
-    //     styleDisabled: Text.propTypes.style,//按钮不可用状态样式
-    //     text: PropTypes.string.isRequired,//按钮文本
-    //     txtstyle: Text.propTypes.style,//文本样式
-    //     txtstyleDisabled: Text.propTypes.style,//文本不可用样式
-    //     onClick: PropTypes.func//按钮点击事件
-    // };
+
+    static propTypes = {
+        disabled: JX_PropTypes.bool,//按钮不可用状态（true不可用，false可用）
+        btnStyle: JX_PropTypes.any,//按钮样式
+        styleDisabled: JX_PropTypes.style,//按钮不可用状态样式
+        text: JX_PropTypes.string,//按钮文本
+        txtstyle: JX_PropTypes.style,//文本样式
+        txtstyleDisabled: JX_PropTypes.style,//文本不可用样式
+        onClick: JX_PropTypes.func//按钮点击事件
+    };
 
     static defaultProps = {
         disabled: false,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         textAlignVertical: 'center',
-        padding: 8,
+        // padding: 8,
         fontWeight: '500',
     },
     textDisabled: {

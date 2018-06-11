@@ -475,7 +475,7 @@ export const themeViewStyle={
             backgroundColor: indexBgColor.mainBg
         },
         containView:JX_IPHON_X ? {
-            height:height-33,
+            height:height-25,
             width:width,
             backgroundColor: indexBgColor.mainBg
         }:{

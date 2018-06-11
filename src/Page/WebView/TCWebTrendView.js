@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         backgroundColor:JX_PLAT_INFO.indexBgColor.mainBg
     },
     containerIOS: {
-        height:JX_PLAT_INFO.screenH -33,
+        height:JX_PLAT_INFO.screenH -25,
         width: JX_PLAT_INFO.screenW,
         backgroundColor: JX_PLAT_INFO.indexBgColor.mainBg
     },

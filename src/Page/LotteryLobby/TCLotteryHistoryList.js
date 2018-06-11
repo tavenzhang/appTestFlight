@@ -60,7 +60,7 @@ export default class TCLotteryHistoryList extends BaseComponent {
         if (sp) return sp
 
         return (
-            <View style={styles.container}>
+            <View style={JX_ThemeViewStyle.containView}>
                 {this.getTopNavigationBar()}
                 <ListView style={{height: height - 64-50}}
                           ref="ListView1"
