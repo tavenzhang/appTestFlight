@@ -57,6 +57,8 @@ let RedPacketData = new RedPacket();
 import RedPacket from '../red_packet/RedPacketData';
 import Swiper from '../../Common/View/swiper/Swiper'
 import FastImage from 'react-native-fast-image';
+import JXPopupNotice from './popupAnnouncements/JXPopupAnnouncements';
+import {getPopupAnnouncements} from './popupAnnouncements/JXPopupNoticeHelper';
 
 @observer
 export default class TCHome extends Component {
@@ -177,6 +179,7 @@ export default class TCHome extends Component {
                     }
                 /> : null}
                 {this.getRedPacketButton()}
+                <JXPopupNotice ref="PopupNotice" />
                 <Dialog
                     show={this.state.show}
                     setModalVisible={() => this.gotoUpdate()}
@@ -588,10 +591,24 @@ export default class TCHome extends Component {
             });
     }
 
+
     saveHomeCacheData(json) {
         storage.save({
             key: 'TCHomeList',
             data: json
+        }).then(()=>{
+            this.showPopupAnnouncements();
+        });
+    }
+
+    handleMethod(isConnected) {}
+
+    showPopupAnnouncements() {
+        getPopupAnnouncements((d)=>{
+            if (d && d.length > 0) {
+                JXLog('showPopupAnnouncements')
+                this.refs['PopupNotice'].open(d);
+            }
         });
     }
 
