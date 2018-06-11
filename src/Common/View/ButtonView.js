@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         textAlignVertical: 'center',
-        // padding: 8,
+        padding: 8,
         fontWeight: '500',
     },
     textDisabled: {
