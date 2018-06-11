@@ -17,7 +17,8 @@ import {
     BackHandler,
     AppState,
     Dimensions,
-    SectionList
+    SectionList,
+    Alert
 } from 'react-native';
 import {Size} from '../../Page/resouce/theme';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
@@ -364,19 +365,24 @@ export default class TCHome extends Component {
                 title={item.gameNameInChinese}
                 pushToEvent={item => {
                     JXLog("renderDSFView----",item)
-                    if(this.state.isLogin)
-                    {
-                        if(isSport){
-                            JX_NavHelp.pushView(JX_Compones.TCWebGameView,{gameData:item,title:item.gameDescription})
-                        }else{
-                            JX_NavHelp.pushView(JX_Compones.DZGameListView,{gameData:item})
-                        }
-                    }else{
-                        JX_NavHelp.pushToUserLogin(true)
-                    }
-                    //体育电子点击
-                    //平台 'MG' <= item.gamePlatform
-                    //状态 'ON' <= item.status
+                   if(item.status == "ON"){
+                       if(this.state.isLogin)
+                       {
+                           if(isSport){
+                               JX_NavHelp.pushView(JX_Compones.TCWebGameView,{gameData:item,title:item.gameDescription})
+                           }else{
+                               JX_NavHelp.pushView(JX_Compones.DZGameListView,{gameData:item})
+                           }
+                       }else{
+                           JX_NavHelp.pushToUserLogin(true)
+                       }
+                       //体育电子点击
+                       //平台 'MG' <= item.gamePlatform
+                       //状态 'ON' <= item.status
+                   }else{
+                       Toast.showShortCenter(` ${item.gameNameInChinese} 尚未开启! `)
+                   }
+
                 }}
             />)
     }
