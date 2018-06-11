@@ -6,11 +6,11 @@
 //
 
 #import "AppDelegate.h"
-#import <CodePush/CodePush.h>
 #import <RCTJPushModule.h>
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
 #endif
+#import <CodePush/CodePush.h>
 #import "RNUMConfigure.h"
 #import <Bugly/Bugly.h>
 #import "AppDelegate+JDBase.h"
@@ -44,4 +44,30 @@
 }
 
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+[JPUSHService registerDeviceToken:deviceToken];
+}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+[[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:userInfo];
+}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)   (UIBackgroundFetchResult))completionHandler {
+[[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:userInfo];
+}
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
+ NSDictionary * userInfo = notification.request.content.userInfo;
+  [JPUSHService handleRemoteNotification:userInfo];
+ [[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:userInfo];
+    
+ completionHandler(UNNotificationPresentationOptionAlert);
+}
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+NSDictionary * userInfo = response.notification.request.content.userInfo;
+[JPUSHService handleRemoteNotification:userInfo];
+[[NSNotificationCenter defaultCenter] postNotificationName:kJPFOpenNotification object:userInfo];
+
+completionHandler();
+}
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+[[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:notification.userInfo];
+}
 @end
