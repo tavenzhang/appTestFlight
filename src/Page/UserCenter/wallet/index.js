@@ -10,6 +10,7 @@ import NavigationHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import RequestUtils from "../../../Common/Network/TCRequestUitls";
 import JXHelper from "../../../Common/JXHelper/JXHelper";
 import {config} from "../../../Common/Network/TCRequestConfig";
+import Toast from '../../../Common/JXHelper/JXToast';
 
 class WalletItemComponent extends React.Component {
 
@@ -88,6 +89,8 @@ export default class extends React.Component {
                                     if (res && res.rs && res.content) {
                                         this.refs[platform.gamePlatform].setState({balance: res.content.balance})
                                         // this.refs[platform.gamePlatform].updateBalance(res.content.balance)
+                                    } else {
+                                        Toast.showShortCenter(res.message)
                                     }
                                 })
                             }}/>

@@ -54,8 +54,8 @@ export default class BalanceStore {
                         item.balance = res.content.balance
                     }
                 })
-                callback && callback(res);
             }
+            callback && callback(res);
         });
     }
 
