@@ -494,14 +494,14 @@ export default class TCHome extends Component {
         if (data.content.dsfSportInfos && data.content.dsfSportInfos.length > 0) {
             content.dsfSportInfos = data.content.dsfSportInfos;
             if (content.dsfSportInfos.length % 2 != 0) {
-                content.dsfSportInfos.push({})
+                // content.dsfSportInfos.push({})
             }
         }
 
         if (data.content.dsfEgameInfos && data.content.dsfEgameInfos.length > 0) {
             content.dsfEgameInfos = data.content.dsfEgameInfos;
             if (content.dsfEgameInfos.length % 2 != 0) {
-                content.dsfEgameInfos.push({})
+                // content.dsfEgameInfos.push({})
             }
         }
 
