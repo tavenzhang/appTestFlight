@@ -117,7 +117,7 @@ export default class TC168 extends Component {
     }
 
     renderTabBarItem(model, title, iconName, selectedIconName, selectedTab) {
-        let xStyle = JX_PLAT_INFO.IS_IphoneX?{marginBottom:30}:{}
+        let xStyle = JX_PLAT_INFO.IS_IphoneX ? {marginBottom: 30} : {marginTop: JX_PLAT_INFO.IS_IOS ? 0 : 1}
 
         return (
             <TabNavigator.Item
