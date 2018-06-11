@@ -19,7 +19,7 @@ import TabNavigator from 'react-native-tab-navigator';
 import Home from '../Home/TCHome';
 import LotteryLobby from '../LotteryLobby/TCLotteryLobby';
 import TCUserCenterHome from '../UserCenter/TCUserCenterNew';
-import Discover from '../Trend/TCTrend';
+import WelfareCenter from '../UserCenter/welfare/TCWelfareCenter';
 import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
@@ -95,13 +95,13 @@ export default class TC168 extends Component {
                         home.indexLotteryPressed,
                         'lobby'
                     )}
-                    {/*/!*--发现--*!/*/}
+                    {/*/!*--福利--*!/*/}
                     {this.renderTabBarItem(
-                        <Discover navigator={this.props.navigator}/>,
-                        '走势',
-                        home.indexTrendNormal,
-                        home.indexTrendPressed,
-                        'discover'
+                        <WelfareCenter navigator={this.props.navigator} backHome={true}/>,
+                        '福利',
+                        home.indexPromotionNormal,
+                        home.indexPromotionPressed,
+                        'promotion'
                     )}
                     {/*/!*--用户中心--*!/*/}
                     {this.renderTabBarItem(

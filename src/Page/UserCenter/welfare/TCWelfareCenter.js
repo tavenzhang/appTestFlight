@@ -2,6 +2,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {observer} from "mobx-react/native";
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import {indexBgColor, listViewTxtColor, Size} from "../../resouce/theme";
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
@@ -50,7 +51,7 @@ export default class extends React.Component {
                 <TopNavigationBar
                     title={'福利中心'}
                     needBackButton
-                    backButtonCall={() => Helper.popToBack()}/>
+                    backButtonCall={this.props.backHome ? () => RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home') : () => Helper.popToBack()}/>
                 {this.renderRedWallet()}
                 <View style={styles.moreWelfareContainer}>
                     <Text style={styles.moreWelfareTxt}>更多福利，敬请期待！</Text>

@@ -88,6 +88,8 @@ export const common = {
 export const home = {
     indexHomeNormal: require('./homeIcon/index_home.png'),
     indexHomePressed: require('./homeIcon/index_home_pressed.png'),
+    indexPromotionNormal: require('./homeIcon/index_promotion.png'),
+    indexPromotionPressed: require('./homeIcon/index_promotion_pressed.png'),
     indexShoppingNormal: require('./homeIcon/index_shopping.png'),
     indexShoppingPressed: require('./homeIcon/index_shopping_pressed.png'),
     indexLotteryNormal: require('./homeIcon/index_lottery.png'),
