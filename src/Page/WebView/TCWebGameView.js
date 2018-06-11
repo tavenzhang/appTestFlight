@@ -96,28 +96,28 @@ export default class TCWebGameView extends React.Component {
             </View>
         }
         return (<View style={containStyle}>
-            <TopNavigationBar title={title} backButtonCall={JX_NavHelp.popToBack}/>
+            <TopNavigationBar title={title} needBackButton={this.state.backButtonEnabled ? true:false} backButtonCall={this.onBack}/>
             {conetView}
-            {this.state.backButtonEnabled ? <View style={{
+           <View style={{
                 position: "absolute",
                 justifyContent: "center",
                 alignItems: "center",
                 flexDirection: "row",
                 top: JX_PLAT_INFO.MarginBarHeight + 12,
                 zIndex: 100,
-                left: 50
+                left: 55
             }}>
-                <TouchableOpacity onPress={this.onBack}>
+                <TouchableOpacity onPress={JX_NavHelp.popToBack}>
                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={{
                             color: "white",
                             backgroundColor: "transparent",
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: "bold"
-                        }}>{"返回"}</Text>
+                        }}>{"关闭"}</Text>
                     </View>
                 </TouchableOpacity>
-            </View> : null}
+            </View>
         </View>);
     }
 
@@ -143,13 +143,6 @@ export default class TCWebGameView extends React.Component {
             scalesPageToFit: false
         });
     };
-
-
-    refresh = () => {
-        this.setState({loadedFail: false, url: this.state.url + '&temp=' + Moment().format('X')}, () => {
-
-        })
-    }
 
 
 }
