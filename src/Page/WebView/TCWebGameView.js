@@ -1,6 +1,4 @@
-
-import React, {
-} from 'react';
+import React, {} from 'react';
 import {
     StyleSheet,
     Text,
@@ -12,82 +10,75 @@ import {
 } from 'react-native';
 
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
-var WEBVIEW_REF = 'webview';
 
-import {configAppId} from "../resouce/appConfig";
-import {common} from "../resouce/images";
+var WEBVIEW_REF = 'webview';
 import Moment from "moment/moment";
-import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
+import {common} from "../resouce/images";
+import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
 
-//专门为趋势图准备
+//专门为体育电子准备
 
 export default class TCWebGameView extends React.Component {
 
     constructor(state) {
         super(state)
         this.state = {
-            loadedFail:false,
-            url:"",
+            loadedFail: false,
+            url: "",
+            backButtonEnabled: false,
         }
     }
 
     componentWillMount() {
-        let params=this.props.navigation.state.params;
-        let bodyParam={
-            access_token:TCUSER_DATA.oauthToken.access_token,
+        let params = this.props.navigation.state.params;
+        let bodyParam = {
+            access_token: TCUSER_DATA.oauthToken.access_token,
         }
-        JXLog("export default class TCWebGameView extends React.Component ",params)
-        if(params.isDZ){
+        JXLog("export default class TCWebGameView extends React.Component ", params)
+        if (params.isDZ) {
 
-            let {gameData,gameId}  = params
-                bodyParam.gameId=gameId
-                NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZ_start+"/"+gameId,gameData.gamePlatform,bodyParam,(ret)=>{
-                JXLog("TCWebGameView-------getUrlAndParamsAndPlatformAndCallback--platForm=="+ret.content,ret)
-                if(ret.rs){
+            let {gameData, gameId} = params
+            bodyParam.gameId = gameId
+            NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZ_start + "/" + gameId, gameData.gamePlatform, bodyParam, (ret) => {
+                JXLog("TCWebGameView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
+                if (ret.rs) {
                     this.setState({url: ret.content.gameUrl});
-                }else{
-                    this.setState({loadedFail:true})
+                } else {
+                    this.setState({loadedFail: true})
                 }
             })
-        }else{
-            let {gameData}  = params
-            NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.startGame,gameData.gamePlatform,bodyParam,(ret)=>{
-                JXLog("TCWebGameView-------startGame"+ret.content,ret)
-                if(ret.rs){
-                    this.setState({url: ret.content.gameUrl});
-                }else{
-                    this.setState({loadedFail:true})
+        } else {
+            let {gameData} = params
+            NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.startGame, gameData.gamePlatform, bodyParam, (ret) => {
+                JXLog("TCWebGameView-------startGame" + ret.content, ret)
+                if (ret.rs) {
+                   // this.setState({url: "https://www.google.com.hk"});
+                     this.setState({url: ret.content.gameUrl});
+                } else {
+                    this.setState({loadedFail: true})
                 }
             })
         }
 
     }
 
-    componentDidMount(){
-       // this.setState({url: link});
+    componentDidMount() {
+        // this.setState({url: link});
     }
 
     render() {
-        //JXLog("TCWebTrendView-----  TCWebTrendView",this.props)
-        let {title}  = this.props.navigation.state.params
+        JXLog("TCWebTrendView-----  this.state.backButtonEnabled--", this.props.backButtonEnabled)
+        let {title} = this.props.navigation.state.params
         let containStyle = JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container
-        if(this.state.loadedFail){
-            return (<View style={[containStyle]}>
-                <TopNavigationBar title={title}
-                                  backButtonCall={JX_NavHelp.popToBack}/>
-                <View style={{flex:1, justifyContent:"center", alignItems:"center"}}>
-                    <Text style={{fontSize:14, fontWeight:"bold"}}>页面数据加载失败,请稍后重试!</Text>
-                </View>
-            </View>)
-        }else{
-            return (<View style={JX_ThemeViewStyle.containView}>
-                <TopNavigationBar title={title}
-                                  backButtonCall={JX_NavHelp.popToBack}/>
+        let conetView = <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+            <Text style={{fontSize: 14, fontWeight: "bold"}}>页面数据加载失败,请稍后重试!</Text>
+        </View>
+        if (!this.state.loadedFail) {
+            conetView = <View style={{flex: 1}}>
                 {
-
-                    this.state.url!="" ?  <WebView
+                    this.state.url != "" ? <WebView
                         bounces={false}
                         ref={WEBVIEW_REF}
                         automaticallyAdjustContentInsets={true}
@@ -100,27 +91,43 @@ export default class TCWebGameView extends React.Component {
                         scalesPageToFit={true}
                         onNavigationStateChange={this.onNavigationStateChange}
                         onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                        onError={this.onLoadError}/>:null
+                        onError={this.onLoadError}/> : null
                 }
-                {/*{ this.state.url!="" ? <View style={{position:"absolute", justifyContent: "center", alignItems: "center",flexDirection: "row",top:JX_PLAT_INFO.MarginBarHeight+5, zIndex:100, left:5}}>*/}
-                    {/*<TouchableOpacity onPress={TCNavigatorHelper.popToBack}>*/}
-                        {/*<View style={{justifyContent: 'center', alignItems: 'center', marginRight:8}}>*/}
-                            {/*<Image source={common.back} style={{width:35, height:35}}/>*/}
-                        {/*</View>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<TouchableOpacity onPress={this.refresh}>*/}
-                        {/*<View style={{justifyContent: 'center', alignItems: 'center'}}>*/}
-                            {/*<Text style={{color:"white", backgroundColor: "transparent",fontSize:16, fontWeight:"bold"}}>{"刷新"}</Text>*/}
-                        {/*</View>*/}
-                    {/*</TouchableOpacity>*/}
-                {/*</View>:null}*/}
-            </View>);
+            </View>
         }
+        return (<View style={containStyle}>
+            <TopNavigationBar title={title} backButtonCall={JX_NavHelp.popToBack}/>
+            {conetView}
+            {this.state.backButtonEnabled ? <View style={{
+                position: "absolute",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "row",
+                top: JX_PLAT_INFO.MarginBarHeight + 12,
+                zIndex: 100,
+                left: 50
+            }}>
+                <TouchableOpacity onPress={this.onBack}>
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={{
+                            color: "white",
+                            backgroundColor: "transparent",
+                            fontSize: 18,
+                            fontWeight: "bold"
+                        }}>{"返回"}</Text>
+                    </View>
+                </TouchableOpacity>
+            </View> : null}
+        </View>);
+    }
+
+    onBack = () => {
+        this.refs[WEBVIEW_REF].goBack();
     }
 
     onLoadError = (evt) => {
         JXLog("TCDefaultTendDomain----onLoadError==", evt)
-        this.setState({loadedFail:true})
+        this.setState({loadedFail: true})
     }
 
     onShouldStartLoadWithRequest = (event) => {
@@ -129,7 +136,7 @@ export default class TCWebGameView extends React.Component {
 
 
     onNavigationStateChange = (navState) => {
-        JXLog("TCDefaultTendDomain----onNavigationStateChange==",navState)
+        JXLog("TCDefaultTendDomain----onNavigationStateChange==", navState)
         this.setState({
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,
@@ -138,8 +145,8 @@ export default class TCWebGameView extends React.Component {
     };
 
 
-    refresh=()=> {
-        this.setState({loadedFail:false,url: this.state.url + '&temp=' + Moment().format('X')}, () => {
+    refresh = () => {
+        this.setState({loadedFail: false, url: this.state.url + '&temp=' + Moment().format('X')}, () => {
 
         })
     }
@@ -150,15 +157,15 @@ export default class TCWebGameView extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:JX_PLAT_INFO.indexBgColor.mainBg
+        backgroundColor: JX_PLAT_INFO.indexBgColor.mainBg
     },
     containerIOS: {
-       flex:1,
+        flex: 1,
         width: JX_PLAT_INFO.screenW,
         backgroundColor: JX_PLAT_INFO.indexBgColor.mainBg
     },
     webView: {
-        flex:1,
+        flex: 1,
         width: JX_PLAT_INFO.screenW,
     }
 });
