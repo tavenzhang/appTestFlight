@@ -15,6 +15,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.jd.util.UpdateManager;
+import com.jd.webview.JXGameWebView;
 import com.jd.webview.JXWebView;
 
 import java.util.UUID;
@@ -115,6 +116,20 @@ public class JXHelper extends ReactContextBaseJavaModule {
             Activity currentActivity = getCurrentActivity();
             Intent intent = new Intent(currentActivity, JXWebView.class);
             intent.putExtra("url", url);
+            currentActivity.startActivity(intent);
+        } catch (Exception e) {
+            throw new JSApplicationIllegalArgumentException(
+                    "不能打开Activity : " + e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void openGameWebViewFromJs(String url, String title) {
+        try {
+            Activity currentActivity = getCurrentActivity();
+            Intent intent = new Intent(currentActivity, JXGameWebView.class);
+            intent.putExtra("url", url);
+            intent.putExtra("title", title);
             currentActivity.startActivity(intent);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException(
