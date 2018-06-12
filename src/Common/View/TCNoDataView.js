@@ -3,10 +3,19 @@ import React, {Component,} from 'react'
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native'
 import {common} from '../../Page/resouce/images'
 import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle} from '../../Page/resouce/theme'
+import PropTypes from 'prop-types';
 /**
  * 提示对话框
  */
 export default class TCNoDataView extends Component {
+
+    static propTypes = {
+        titleTip:PropTypes.string,
+        unNetwork:PropTypes.any,
+        contentTip:PropTypes.any,
+        gotoDoing:PropTypes.any,
+        btnTxt:PropTypes.any
+    }
 
     // 构造函数
     constructor(props) {
