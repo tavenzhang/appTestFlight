@@ -19,7 +19,6 @@ import {common} from "../resouce/images";
 import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
 
 //专门为体育电子准备
-
 export default class TCWebGameView extends React.Component {
 
     constructor(state) {
@@ -36,9 +35,9 @@ export default class TCWebGameView extends React.Component {
         let bodyParam = {
             access_token: TCUSER_DATA.oauthToken.access_token,
         }
+
         JXLog("export default class TCWebGameView extends React.Component ", params)
         if (params.isDZ) {
-
             let {gameData, gameId} = params
             bodyParam.gameId = gameId
             NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZ_start + "/" + gameId, gameData.gamePlatform, bodyParam, (ret) => {
@@ -61,17 +60,13 @@ export default class TCWebGameView extends React.Component {
                 }
             })
         }
-
     }
 
-    componentDidMount() {
-        // this.setState({url: link});
-    }
 
     render() {
         JXLog("TCWebTrendView-----  this.state.backButtonEnabled--", this.props.backButtonEnabled)
         let {title} = this.props.navigation.state.params
-        let containStyle = JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container
+
         let conetView = <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
             <Text style={{fontSize: 14, fontWeight: "bold"}}>页面数据加载失败,请稍后重试!</Text>
         </View>
@@ -95,7 +90,7 @@ export default class TCWebGameView extends React.Component {
                 }
             </View>
         }
-        return (<View style={containStyle}>
+        return (<View style={JX_ThemeViewStyle.containView}>
             <TopNavigationBar title={title} needBackButton={this.state.backButtonEnabled ? true:false} backButtonCall={this.onBack}/>
             {conetView}
            <View style={{
@@ -148,15 +143,7 @@ export default class TCWebGameView extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: JX_PLAT_INFO.indexBgColor.mainBg
-    },
-    containerIOS: {
-        flex: 1,
-        width: JX_PLAT_INFO.screenW,
-        backgroundColor: JX_PLAT_INFO.indexBgColor.mainBg
-    },
+
     webView: {
         flex: 1,
         width: JX_PLAT_INFO.screenW,
