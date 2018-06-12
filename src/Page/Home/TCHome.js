@@ -57,6 +57,8 @@ let RedPacketData = new RedPacket();
 import RedPacket from '../red_packet/RedPacketData';
 import Swiper from '../../Common/View/swiper/Swiper'
 import FastImage from 'react-native-fast-image';
+import JXPopupNotice from './popupAnnouncements/JXPopupAnnouncements';
+import {getPopupAnnouncements} from './popupAnnouncements/JXPopupNoticeHelper';
 
 @observer
 export default class TCHome extends Component {
@@ -172,11 +174,17 @@ export default class TCHome extends Component {
                                 data: this.state.content.dsfEgameInfos,
                                 title: "电子游戏",
                                 renderItem: ({item}) => this.renderDSFView(item,false)
+                            },
+                            {
+                                data: this.state.content.dsfCardInfos,
+                                title: "棋牌游戏",
+                                renderItem: ({item}) => this.renderDSFView(item,false)
                             }
                         ]
                     }
                 /> : null}
                 {this.getRedPacketButton()}
+                <JXPopupNotice ref="PopupNotice" />
                 <Dialog
                     show={this.state.show}
                     setModalVisible={() => this.gotoUpdate()}
@@ -487,7 +495,7 @@ export default class TCHome extends Component {
             if (data.content.gameInfosRecommend.length > 7) {
                 content.gameInfosRecommend = data.content.gameInfosRecommend.slice(0, 7);
             }
-            if (content.gameInfosRecommend % 2 != 0) {
+            if (content.gameInfosRecommend % 2 !== 0) {
                 content.gameInfosRecommend.push({
                     gameIconUrl: 'https://www.jiushouji.net/mobile/gameIcon/more@3x.1.0.png',
                     gameNameInChinese: '更多玩法',
@@ -499,14 +507,21 @@ export default class TCHome extends Component {
 
         if (data.content.dsfSportInfos && data.content.dsfSportInfos.length > 0) {
             content.dsfSportInfos = data.content.dsfSportInfos;
-            if (content.dsfSportInfos.length % 2 != 0) {
+            if (content.dsfSportInfos.length % 2 !== 0) {
                 // content.dsfSportInfos.push({})
             }
         }
 
         if (data.content.dsfEgameInfos && data.content.dsfEgameInfos.length > 0) {
             content.dsfEgameInfos = data.content.dsfEgameInfos;
-            if (content.dsfEgameInfos.length % 2 != 0) {
+            if (content.dsfEgameInfos.length % 2 !== 0) {
+                // content.dsfEgameInfos.push({})
+            }
+        }
+
+        if (data.content.dsfCardInfos && data.content.dsfCardInfos.length > 0) {
+            content.dsfCardInfos = data.content.dsfCardInfos;
+            if (content.dsfCardInfos.length % 2 !== 0) {
                 // content.dsfEgameInfos.push({})
             }
         }
@@ -588,10 +603,24 @@ export default class TCHome extends Component {
             });
     }
 
+
     saveHomeCacheData(json) {
         storage.save({
             key: 'TCHomeList',
             data: json
+        }).then(()=>{
+            this.showPopupAnnouncements();
+        });
+    }
+
+    handleMethod(isConnected) {}
+
+    showPopupAnnouncements() {
+        getPopupAnnouncements((d)=>{
+            if (d && d.length > 0) {
+                JXLog('showPopupAnnouncements')
+                this.refs['PopupNotice'].open(d);
+            }
         });
     }
 
