@@ -13,24 +13,13 @@ export default  class GameDZStore {
                 this.gameData = res.content;
             }
             if(callback){
-                callback()
+                callback(res.content)
             }
         });
     }
 
-   @computed get hotGame() {
-        let hotGame = [];
-        if (this.gameData) {
-            this.gameData.slice().map(item => {
-                if (item.categoryName === "热门") {
-                    hotGame = item.games.slice(0, 2);
-                }
-            })
-        }
-        return hotGame;
-    }
 
-    @computed get allGame() {
+ @computed get allGame() {
         let allGame = [];
         if (this.gameData) {
 

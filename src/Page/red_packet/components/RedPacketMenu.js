@@ -39,8 +39,6 @@ export default class MyComponent extends React.Component {
     }
 
     componentDidMount() {
-        this.panResponder = {};
-
         this.redPacketStyls = {
             style: {
                 left: this.previousLeft,
