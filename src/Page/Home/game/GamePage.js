@@ -18,7 +18,12 @@ export default class GamePage extends Component {
 
     static propTypes ={
         datas:PropTypes.any,
-        onClickItem:PropTypes.any
+        onClickItem:PropTypes.any,
+        initNumRender:PropTypes.any
+    }
+
+    static  default={
+        initNumRender:10
     }
 
     constructor(props) {
@@ -26,22 +31,22 @@ export default class GamePage extends Component {
     }
 
     render() {
-        return (
-            <FlatList
+        let {initNumRender} = this.props
+        return (<FlatList
                 ItemSeparatorComponent={() => <View
                     style={{height: 1, backgroundColor: indexBgColor.mainBg, width: width}}/>}
                 data={this.props.datas}
-                ListEmptyComponent={this.getNodataView()}
+                initialNumToRender={initNumRender}
+                ListEmptyComponent={this.getNodataView}
                 numColumns={2}
                 keyExtractor={(item, index) => "list" + index}
                 renderItem={this.renderItemView}
-            />
-        )
+            />)
     }
 
 
 
-    getNodataView() {
+    getNodataView=()=> {
         return (<View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
                     <Text>
                         游戏加载中...
@@ -88,7 +93,6 @@ export default class GamePage extends Component {
                 source={{uri: item.icon}}
             />
             <Text style={{width: width * 0.46, textAlign: 'center', marginTop: 5}}>{item.name}</Text>
-            {/*<Text>{this.state.testText}</Text>*/}
         </View>
         </TouchableOpacity>)
     }
