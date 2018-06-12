@@ -13,7 +13,10 @@ import {inject, observer} from 'mobx-react/native'
 import Moment from 'moment';
 import UserBetsStore from '../../../Data/store/userCenterStore/UserBetsStore'
 import NoDataView from '../../../Common/View/TCNoDataView'
-import OrderItem from './View/TCUserOtherBetItemRow'
+import IMOrderItem from './View/TCUserIMBetItemRow'
+import SSOrderItem from './View/TCUserSSBetItemRow'
+import MGOrderItem from './View/TCUserMGBetItemRow'
+import KYOrderItem from './View/TCUserKYBetItemRow'
 import PopView from '../../../Common/View/TCSelectModal'
 import {withMappedNavigationProps} from "react-navigation-props-mapper";
 
@@ -34,29 +37,18 @@ export default class TCUserOtherBetRecords extends Component {
         return (
             <View style={{flex: 1}}>
                 <TopNavigationBar
-                    needBackButton={true}
                     ref="TopNavigationBar"
+                    needBackButton={true}
                     title={"投注记录"}
-                    backButtonCall={() => {
-                        NavigatorHelper.popToBack();
-                    }}
+                    backButtonCall={() => {NavigatorHelper.popToBack()}}
                     rightTitle={this.userBetsStore.fasterDateTitle}
-                    rightButtonCall={() => {
-                        this.refs['ModalDropdown'].show();
-                    }}
-                    centerButtonCall={() => {
-                        this.showPopView();
-                    }}
-                />
+                    rightButtonCall={() => {this.refs['ModalDropdown'].show()}}
+                    centerButtonCall={() => {this.showPopView()}} />
                 <PopView
                     ref="TCSelectPopupView"
                     SelectorTitleArr={this.userBetsStore.getBetsType()}
-                    selectedFunc={index => {
-                        this.selectMsgType(index);
-                    }}
-                    selectedIndex={-1}
-                />
-
+                    selectedFunc={index => {this.selectMsgType(index)}}
+                    selectedIndex={-1} />
                 <ModalDropdown
                     ref="ModalDropdown"
                     textStyle={styles.dropDownTxtStyle}
@@ -65,8 +57,7 @@ export default class TCUserOtherBetRecords extends Component {
                     dropdownStyle={styles.dropDownStyle}
                     renderRow={(rowData, rowID) => this.renderModalDropDownRow(rowData, rowID)}
                     onSelect={(idx, value) => this.onSelect(idx, value)}
-                    showButton={false}
-                />
+                    showButton={false} />
                 <View style={styles.timeView}>
                     <DatePicker
                         style={{width: width * 0.28}}
@@ -79,26 +70,12 @@ export default class TCUserOtherBetRecords extends Component {
                         is24Hour={true}
                         customStyles={{
                             dateIcon: null,
-                            dateInput: {
-                                height: 30,
-                                borderWidth: 0,
-                                alignItems: 'center'
-                            },
-                            dateText: {
-                                height: 29,
-                                padding: 5,
-                                fontSize: Size.default,
-                                color: agentCenter.dateTxt
-                            }
+                            dateInput: {height: 30, borderWidth: 0, alignItems: 'center'},
+                            dateText: {height: 29, padding: 5, fontSize: Size.default, color: agentCenter.dateTxt}
                         }}
-                        onDateChange={date => {
-                            this.userBetsStore.beginTime = date;
-                        }}
-                        minDate={Moment()
-                            .subtract(90, 'days')
-                            .format('YYYY-MM-DD')}
-                        maxDate={new Date()}
-                    />
+                        onDateChange={date => {this.userBetsStore.beginTime = date}}
+                        minDate={Moment().subtract(90, 'days').format('YYYY-MM-DD')}
+                        maxDate={new Date()} />
                     <Text style={{fontWeight: 'bold'}}>至</Text>
                     <DatePicker
                         style={{width: width * 0.28}}
@@ -111,26 +88,12 @@ export default class TCUserOtherBetRecords extends Component {
                         is24Hour={true}
                         customStyles={{
                             dateIcon: null,
-                            dateInput: {
-                                height: 30,
-                                borderWidth: 0,
-                                alignItems: 'center'
-                            },
-                            dateText: {
-                                height: 29,
-                                padding: 5,
-                                fontSize: Size.default,
-                                color: agentCenter.dateTxt
-                            }
+                            dateInput: {height: 30, borderWidth: 0, alignItems: 'center'},
+                            dateText: {height: 29, padding: 5, fontSize: Size.default, color: agentCenter.dateTxt}
                         }}
-                        onDateChange={date => {
-                            this.userBetsStore.endTime = date;
-                        }}
-                        minDate={Moment()
-                            .subtract(90, 'days')
-                            .format('YYYY-MM-DD')}
-                        maxDate={new Date()}
-                    />
+                        onDateChange={date => {this.userBetsStore.endTime = date}}
+                        minDate={Moment().subtract(90, 'days').format('YYYY-MM-DD')}
+                        maxDate={new Date()} />
                 </View>
                 {this.renderHeader()}
                 <FlatList
@@ -139,32 +102,45 @@ export default class TCUserOtherBetRecords extends Component {
                     keyExtractor={(item, index) => "list" + index}
                     ItemSeparatorComponent={() => this.renderDivider()}
                     ListEmptyComponent={this.renderEmptyView()}
-                    renderItem={({item}) => this.getRenderRow(item)}
-                />
+                    renderItem={({item}) => this.getRenderRow(item)} />
                 <ActivityIndicator
                     animating={this.userBetsStore.loading}
                     style={[styles.centering, {height: 80}]}
-                    size="large"
-                />
+                    size="large" />
             </View>
         );
-    }
-
-    renderHeader() {
-        return (<View style={{backgroundColor: '#434a64', alignItems: 'center', height: 40, flexDirection: 'row'}}>
-            <Text style={[styles.headerTitle, {width: width * 0.15}]}>玩法</Text>
-            <Text style={[styles.headerTitle, {width: width * 0.15}]}>投注</Text>
-            <Text style={[styles.headerTitle, {width: width * 0.15}]}>返点</Text>
-            <Text style={[styles.headerTitle, {width: width * 0.15}]}>派彩</Text>
-            <Text style={[styles.headerTitle, {width: width * 0.15}]}>状态</Text>
-            <Text style={[styles.headerTitle, {width: width * 0.25}]}>时间</Text>
-        </View>)
     }
 
     renderDivider() {
         return (
             <View style={{height: 1, backgroundColor: indexBgColor.mainBg, width: width}}/>
         )
+    }
+
+    renderHeader() {
+        if (this.platform === 'IMONE' || this.platform === 'SS') {
+            return (
+                <View style={styles.header}>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>类别</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>投注</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>返点</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>输赢</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>状态</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.25}]}>时间</Text>
+                </View>
+            )
+        } else if (this.platform === 'MG') {
+            return (
+                <View style={styles.header}>
+                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>游戏</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>投注</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>输赢</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>时间</Text>
+                </View>
+            )
+        } else if (this.platform === 'KY') {
+
+        }
     }
 
     renderEmptyView() {
@@ -174,19 +150,14 @@ export default class TCUserOtherBetRecords extends Component {
                 titleTip={'暂无下注记录'}
                 contentTip="大奖不等待，速去下注吧~"
                 btnTxt="立即下注"
-                gotoDoing={() => {
-                    NavigatorHelper.popToTop();
-                    // NavigatorHelper.goBack();
-                }}/>)
+                gotoDoing={() => {NavigatorHelper.popToTop()}}/>)
             : (<NoDataView
                 ref='NoDataView'
                 unNetwork={true}
                 titleTip={'加载失败'}
                 contentTip="服务器出错啦，请稍后再试~"
                 btnTxt="重新加载"
-                gotoDoing={() => {
-                    this.loadData();
-                }}/>)
+                gotoDoing={() => {this.loadData()}}/>)
     }
 
     onSelect(idx, value) {
@@ -194,7 +165,6 @@ export default class TCUserOtherBetRecords extends Component {
         this.userBetsStore.setDateArrayKey(idx);
         this.loadData();
     }
-
 
     selectMsgType(index) {
         var popView = this.refs.TCSelectPopupView;
@@ -219,9 +189,8 @@ export default class TCUserOtherBetRecords extends Component {
     }
 
     loadData() {
-        let platform = this.props.platform;
-        console.debug('&&&&&platform', platform)
-        this.userBetsStore.loadUserBets(platform, (res) => {
+        this.platform = this.props.platform;
+        this.userBetsStore.loadUserBets(this.platform, (res) => {
             if (!res.status) {
                 Toast.showShortCenter(res.message);
             }
@@ -239,11 +208,31 @@ export default class TCUserOtherBetRecords extends Component {
     }
 
     getRenderRow(item) {
-        return (
-            <TouchableOpacity onPress={() => {NavigatorHelper.navigate("UserBetDetail", {orderData: item})}}>
-                <OrderItem orderData={item}/>
-            </TouchableOpacity>
-        )
+        if (this.platform === 'IMONE') {
+            return (
+                <TouchableOpacity onPress={() => {JX_NavHelp.pushView(JX_Compones.UserIMBetDetail,{orderData: item})}}>
+                    <IMOrderItem orderData={item}/>
+                </TouchableOpacity>
+            )
+        } else if (this.platform === 'SS') {
+            return (
+                <TouchableOpacity onPress={() => {JX_NavHelp.pushView(JX_Compones.UserSSBetDetail,{orderData: item})}}>
+                    <SSOrderItem orderData={item}/>
+                </TouchableOpacity>
+            )
+        } else if (this.platform === 'MG') {
+            return (
+                <TouchableOpacity onPress={() => {JX_NavHelp.pushView(JX_Compones.UserMGBetDetail,{orderData: item})}}>
+                    <MGOrderItem orderData={item}/>
+                </TouchableOpacity>
+            )
+        } else if (this.platform === 'KY') {
+            return (
+                <TouchableOpacity onPress={() => {NavigatorHelper.navigate("UserBetDetail", {orderData: item})}}>
+                    <KYOrderItem orderData={item}/>
+                </TouchableOpacity>
+            )
+        }
     }
 }
 
@@ -256,15 +245,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         marginTop: 20
     },
-    dropDownStyle: {
-        width: width * 0.9,
-        height: height * 0.4,
-        borderWidth: 1,
-        borderRadius: 3,
-        marginTop: 15,
-        left: width * 0.1 / 2,
-        backgroundColor: indexBgColor.itemBg
-    },
     dropDownItemStyle: {
         alignItems: 'center',
         margin: 15
@@ -273,10 +253,6 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         marginRight: 30
-    },
-    dropStyle: {
-        marginLeft: 10,
-        marginRight: 10
     },
     dropDownTxtStyle: {
         color: agentCenter.title
@@ -287,15 +263,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'white',
         height: 40
-    },
-    imgNext: {
-        width: 10,
-        height: 15,
-        marginRight: 10
-    },
-
-    dropDownTxtStyle: {
-        color: agentCenter.title
     },
     dropStyle: {
         marginLeft: width * 0.7,
@@ -314,5 +281,11 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: Size.default,
         textAlign: 'center'
+    },
+    header: {
+        backgroundColor: '#434a64',
+        alignItems: 'center',
+        height: 40,
+        flexDirection: 'row'
     }
-});
+})

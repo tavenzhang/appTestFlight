@@ -94,6 +94,9 @@ import TCUserOtherBetRecords from "../UserCenter/UserOrder/TCUserOtherBetRecords
 import DZGameListView from "../Home/game/DZGameListView";
 //用于体育与电子游戏的专属webView
 import TCWebGameView from "../WebView/TCWebGameView";
+import TCUserIMBetDetail from "../UserCenter/UserOrder/TCUserIMBetDetail";
+import TCUserSSBetDetail from "../UserCenter/UserOrder/TCUserSSBetDetail";
+import TCUserMGBetDetail from "../UserCenter/UserOrder/TCUserMGBetDetail";
 
 
 //用于增加通用navigator view 属性 特殊 处理
@@ -125,6 +128,9 @@ const Components = {
     UserTransfer: viewRoutHelp(TCUserTransfer),
     UserOrderType: viewRoutHelp(TCUserOrderType),
     UserOderRecord:viewRoutHelp(UserOderRecord),
+    UserIMBetDetail:viewRoutHelp(TCUserIMBetDetail),
+    UserSSBetDetail:viewRoutHelp(TCUserSSBetDetail),
+    UserMGBetDetail:viewRoutHelp(TCUserMGBetDetail),
     UserOtherBetRecords:viewRoutHelp(TCUserOtherBetRecords),
     TCLotteryHistory: viewRoutHelp(TCLotteryHistory),
     UserCollects: viewRoutHelp(UserCollects),

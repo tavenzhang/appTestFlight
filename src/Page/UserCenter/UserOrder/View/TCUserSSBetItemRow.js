@@ -17,7 +17,7 @@ export default class TCUserOtherBetItemRow extends Component {
     }
 
     render() {
-        let {totalPayout, wagerCreationDateTime, totalBet, rebateAmount, winLoss, comboType, settled} = this.props.orderData;
+        let {playType, winAmt, dateCreated, wagerStake, finalStake} = this.props.orderData;
         return (
             <View>
                 <View style={{
@@ -27,12 +27,12 @@ export default class TCUserOtherBetItemRow extends Component {
                     alignItems: 'center',
                     backgroundColor: indexBgColor.itemBg,
                 }}>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{comboType}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{totalBet}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{rebateAmount}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{totalPayout}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{!settled ? "未结算" : winLoss}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.25}]}>{wagerCreationDateTime}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{playType}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{wagerStake}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{wagerStake - finalStake}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{winAmt}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{!winAmt ? "未结算" : '已结算'}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.25}]}>{dateCreated.replace('T', '\n')}</Text>
                 </View>
             </View>
         );
