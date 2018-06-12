@@ -6,7 +6,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {indexBgColor, Size, width} from '../../../resouce/theme';
 
-export default class TCUserOtherBetItemRow extends Component {
+export default class TCUserIMBetItemRow extends Component {
     constructor(props) {
         super(props);
     }
@@ -32,7 +32,7 @@ export default class TCUserOtherBetItemRow extends Component {
                     <Text style={[styles.headerTitle, {width: width * 0.15}]}>{rebateAmount}</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.15}]}>{totalPayout}</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.15}]}>{!settled ? "未结算" : winLoss}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.25}]}>{wagerCreationDateTime}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.25}]}>{wagerCreationDateTime.replace('T', '\n')}</Text>
                 </View>
             </View>
         );
