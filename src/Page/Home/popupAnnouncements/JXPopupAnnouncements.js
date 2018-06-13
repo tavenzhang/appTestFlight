@@ -51,6 +51,7 @@ export default class MyComponent extends React.Component {
     render() {
         return (
             <Modal
+                coverScreen={true}
                 swipeToClose={false}
                 ref={"modal"}
                 isOpen={false}
@@ -101,7 +102,7 @@ export default class MyComponent extends React.Component {
                         autoplay={true}
                         dataSource={this.state.ViewPagerDataSource}
                         renderRow={this.renderPage}
-                        onWillChange={this.onDidChange}
+                        onDidChange={this.onDidChange}
                     />
                 </View>
                 <View style={{flexDirection:'row'}}>
