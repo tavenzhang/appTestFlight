@@ -20,6 +20,7 @@ import {
     SectionList,
     Alert
 } from 'react-native';
+import _ from 'lodash';
 import {Size} from '../../Page/resouce/theme';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
@@ -191,15 +192,23 @@ export default class TCHome extends Component {
             })
         }
         if (this.state.content.dsfEgameInfos&&this.state.content.dsfEgameInfos.length>0){
+            let dsfEgameInfos = _.cloneDeep(this.state.content.dsfEgameInfos)
+            if (dsfEgameInfos.length % 2 !== 0) {
+                dsfEgameInfos.push({})
+            }
             data.push({
-                data: this.state.content.dsfEgameInfos,
+                data: dsfEgameInfos,
                 title: "电子游戏",
                 renderItem: ({item}) => this.renderDSFView(item,true)
             })
         }
         if (this.state.content.dsfCardInfos&&this.state.content.dsfCardInfos.length>0){
+            let dsfCardInfos = _.cloneDeep(this.state.content.dsfCardInfos)
+            if (dsfCardInfos.length % 2 !== 0) {
+                dsfCardInfos.push({})
+            }
             data.push({
-                data: this.state.content.dsfCardInfos,
+                data: dsfCardInfos,
                 title: "棋牌游戏",
                 renderItem: ({item}) => this.renderDSFView(item,true)
             })
