@@ -159,29 +159,7 @@ export default class TCHome extends Component {
                     keyExtractor={(item, index) => index + item}
                     ListHeaderComponent={() => this.renderHomeHeaer()}
                     ListFooterComponent={() => this.renderFooter()}
-                    sections={
-                        [{
-                            data: this.state.content.gameInfosHot,
-                            title: "热门彩票",
-                            renderItem: ({item, index}) => this.renderHotItemView(item, index)
-                        },
-                            {
-                                data: this.state.content.dsfSportInfos,
-                                title: "体育竞技",
-                                renderItem: ({item}) => this.renderDSFView(item,true)
-                            },
-                            {
-                                data: this.state.content.dsfEgameInfos,
-                                title: "电子游戏",
-                                renderItem: ({item}) => this.renderDSFView(item,false)
-                            },
-                            {
-                                data: this.state.content.dsfCardInfos,
-                                title: "棋牌游戏",
-                                renderItem: ({item}) => this.renderDSFView(item,false)
-                            }
-                        ]
-                    }
+                    sections={this.getSectionsData()}
                 /> : null}
                 {this.getRedPacketButton()}
                 <JXPopupNotice ref="PopupNotice" />
@@ -194,6 +172,39 @@ export default class TCHome extends Component {
                 />
             </View>
         );
+    }
+
+    getSectionsData(){
+        let data = []
+        if (this.state.content.gameInfosHot&&this.state.content.gameInfosHot.length>0){
+            data.push({
+                data: this.state.content.gameInfosHot,
+                title: "热门彩票",
+                renderItem: ({item, index}) => this.renderHotItemView(item, index)
+            })
+        }
+        if (this.state.content.dsfSportInfos&&this.state.content.dsfSportInfos.length>0){
+            data.push({
+                data: this.state.content.dsfSportInfos,
+                title: "体育竞技",
+                renderItem: ({item}) => this.renderDSFView(item,true)
+            })
+        }
+        if (this.state.content.dsfEgameInfos&&this.state.content.dsfEgameInfos.length>0){
+            data.push({
+                data: this.state.content.dsfEgameInfos,
+                title: "电子游戏",
+                renderItem: ({item}) => this.renderDSFView(item,true)
+            })
+        }
+        if (this.state.content.dsfCardInfos&&this.state.content.dsfCardInfos.length>0){
+            data.push({
+                data: this.state.content.dsfCardInfos,
+                title: "棋牌游戏",
+                renderItem: ({item}) => this.renderDSFView(item,true)
+            })
+        }
+        return data
     }
 
     //渲染顶部

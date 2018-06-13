@@ -17,7 +17,7 @@ import {
 
 import DefaultViewPageIndicator  from"./DefaultViewPageIndicator"
 
-export default class Swiper extends Component<{}> {
+export default class Swiper extends Component {
     /**
      | -------------------------------------------------------
      | EZSwiper component life
