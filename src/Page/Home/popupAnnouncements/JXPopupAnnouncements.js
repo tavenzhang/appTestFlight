@@ -102,7 +102,7 @@ export default class MyComponent extends React.Component {
                         autoplay={true}
                         dataSource={this.state.ViewPagerDataSource}
                         renderRow={this.renderPage}
-                        onDidChange={this.onDidChange}
+                        onWillChange={this.onDidChange}
                     />
                 </View>
                 <View style={{flexDirection:'row'}}>
