@@ -82,7 +82,7 @@ export default class MyComponent extends React.Component {
         return (
             <View style={{width: 300,borderRadius:8,justifyContent:'center',backgroundColor:'white',alignItems:'center',overflow:'hidden'}}>
             <ImageBackground source={Other.announcement_top} style={{width:300,height:80,alignItems:'center',justifyContent:'center'}} >
-                <Text style={{marginBottom:20,fontSize:Size.font18,fontWeight:'bold',color:'white',backgroundColor:'transparent'}}>{this.state.title}</Text>
+               <MyTitleView ref="txtView" title={this.state.title}/>
             </ImageBackground>
                 <View style={{ width: 300, height: h ,backgroundColor:'white',overflow:'hidden'}}>
                     {/*<ViewPager*/}
@@ -100,10 +100,8 @@ export default class MyComponent extends React.Component {
                         width={300}
                         autoplay={true}
                         dataSource={this.state.ViewPagerDataSource}
-                        renderRow={(d, p) => this.renderPage(d, p)}
-                        onDidChange={(d,p)=>{
-                            this.setState({title:this.state.content[p].title})
-                        }}
+                        renderRow={this.renderPage}
+                        onWillChange={this.onDidChange}
                     />
                 </View>
                 <View style={{flexDirection:'row'}}>
@@ -119,8 +117,11 @@ export default class MyComponent extends React.Component {
         )
     }
 
+    onDidChange=(d,b)=>{
+        this.refs.txtView.updateTitle(d.title)
+    }
 
-    renderPage(d,p){
+    renderPage=(d,p)=>{
         return (
                 <View style={styles.page}>
                     <Text style={{margin:10,fontSize:Size.font16,color:'#333'}}>{d.content}</Text>
@@ -135,9 +136,9 @@ export default class MyComponent extends React.Component {
         if(d && d.length > 0 ){
             this.setState({
                 ViewPagerDataSource: d,
-                content:d
+                content:d,
+                  title:d[0].title
             });
-            this.setState({title:d[0].title})
             this.refs.modal.open();
         }
     }
@@ -146,6 +147,28 @@ export default class MyComponent extends React.Component {
         this.refs.modal.close();
     }
 }
+
+//简单的封装title，方便 通过ref 局部刷新 也可以利用MoboxStore间隔实现
+class MyTitleView extends React.Component {
+
+    constructor(props){
+        super(props)
+        this.state={
+            title:props.title ? props.title:""
+        }
+    }
+
+    updateTitle(txt) {
+        this.setState({title: txt})
+    }
+
+
+    render(){
+        return  (<Text style={{marginBottom:20,fontSize:Size.font18,fontWeight:'bold',color:'white',backgroundColor:'transparent'}}>
+            {this.state.title}</Text>)
+    }
+}
+
 
 
 const styles = StyleSheet.create({
