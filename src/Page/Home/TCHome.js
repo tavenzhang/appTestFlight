@@ -59,6 +59,7 @@ import Swiper from '../../Common/View/swiper/Swiper'
 import FastImage from 'react-native-fast-image';
 import JXPopupNotice from './popupAnnouncements/JXPopupAnnouncements';
 import {getPopupAnnouncements} from './popupAnnouncements/JXPopupNoticeHelper';
+import JXHelper from "../../Common/JXHelper/JXHelper";
 
 @observer
 export default class TCHome extends Component {
@@ -563,7 +564,12 @@ export default class TCHome extends Component {
             RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
         } else if (title == 'ORDER' || title == '投注记录') {
             if (TCUSER_DATA.islogin) {
-                NavigatorHelper.pushToOrderRecord();
+                let otherPlatform = JXHelper.getDSFOpenList().dsfAll
+                if (otherPlatform && otherPlatform.length > 0) {
+                    NavigatorHelper.pushToOrderType()
+                } else {
+                    NavigatorHelper.pushToOrderRecord()
+                }
             } else {
                 NavigatorHelper.pushToUserLogin();
             }
