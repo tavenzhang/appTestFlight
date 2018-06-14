@@ -17,7 +17,7 @@ export default class TCUserOtherBetItemRow extends Component {
     }
 
     render() {
-        let {playType, winAmt, dateCreated, wagerStake, finalStake} = this.props.orderData;
+        let {playType, winAmt, dateCreated, wagerStake, finalStake, settled} = this.props.orderData;
         return (
             <View>
                 <View style={{
@@ -29,9 +29,9 @@ export default class TCUserOtherBetItemRow extends Component {
                 }}>
                     <Text style={[styles.headerTitle, {width: width * 0.15}]}>{playType}</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.15}]}>{wagerStake}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{wagerStake - finalStake}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{settled ? (wagerStake - finalStake) : 0}</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.15}]}>{winAmt}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{!winAmt ? "未结算" : '已结算'}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{!settled ? "未结算" : '已结算'}</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.25}]}>{dateCreated.replace('T', '\n')}</Text>
                 </View>
             </View>
