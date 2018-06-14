@@ -26,7 +26,7 @@ export default class TCUserSSBetDetail extends Component {
         )
     }
 
-    renderHeader(betId, oddsType, wagerStake) {
+    renderHeader(betId, oddsType, playTypeIndex, wagerStake) {
         return (
             <View>
                 <View style={styles.itemStyle}>
@@ -36,6 +36,10 @@ export default class TCUserSSBetDetail extends Component {
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>盘口：</Text>
                     <Text style={styles.itemContentStyle}>{oddsType}</Text>
+                </View>
+                <View style={styles.itemStyle}>
+                    <Text style={styles.itemTitleStyle}>类型：</Text>
+                    <Text style={styles.itemContentStyle}>{playTypeIndex}</Text>
                 </View>
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>投注：</Text>
@@ -54,7 +58,7 @@ export default class TCUserSSBetDetail extends Component {
                     <Text style={styles.itemContentStyle}>{item.leagueName+"("+item.betTypeCode+")"}</Text>
                 </View>
                 <View style={styles.itemStyle}>
-                    <Text style={styles.itemTitleStyle}>比赛时间（GMT+8）：</Text>
+                    <Text style={styles.itemTitleStyle}>比赛时间：</Text>
                     <Text style={styles.itemContentStyle}>{item.matchDate.replace('T', ' ')}</Text>
                 </View>
                 <View style={styles.itemStyle}>
@@ -64,6 +68,10 @@ export default class TCUserSSBetDetail extends Component {
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>玩法：</Text>
                     <Text style={styles.itemContentStyle}>{item.betTypeCode}{item.handicap === 0?"":"(主队让球"+item.handicap+")"}</Text>
+                </View>
+                <View style={styles.itemStyle}>
+                    <Text style={styles.itemTitleStyle}>下注：</Text>
+                    <Text style={styles.itemContentStyle}>{item.teamBetCode}</Text>
                 </View>
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>下注赔率：</Text>
@@ -102,7 +110,7 @@ export default class TCUserSSBetDetail extends Component {
                     data={orderData.items}
                     keyExtractor={(item, index) => "list" + index}
                     ItemSeparatorComponent={() => this.renderDivider()}
-                    ListHeaderComponent={() => this.renderHeader(orderData.transactionId, orderData.oddsType, orderData.wagerStake)}
+                    ListHeaderComponent={() => this.renderHeader(orderData.transactionId, orderData.oddsType, orderData.playTypeIndex, orderData.wagerStake)}
                     renderItem={({item}) => this.renderItemView(item)}/>
             </View>
         )
