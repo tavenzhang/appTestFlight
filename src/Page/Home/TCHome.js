@@ -199,14 +199,14 @@ export default class TCHome extends Component {
             data.push({
                 data: this.state.content.dsfEgameInfos,
                 title: "电子游戏",
-                renderItem: ({item}) => this.renderDSFView(item,true)
+                renderItem: ({item}) => this.renderDSFView(item,false)
             })
         }
         if (this.state.content.dsfCardInfos&&this.state.content.dsfCardInfos.length>0){
             data.push({
                 data: this.state.content.dsfCardInfos,
                 title: "棋牌游戏",
-                renderItem: ({item}) => this.renderDSFView(item,true)
+                renderItem: ({item}) => this.renderDSFView(item,false)
             })
         }
         return data
