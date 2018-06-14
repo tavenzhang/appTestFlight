@@ -70,11 +70,11 @@ export default class TCUserSSBetDetail extends Component {
                     <Text style={styles.itemContentStyle}>{item.betTypeCode}{item.handicap === 0?"":"(主队让球"+item.handicap+")"}</Text>
                 </View>
                 <View style={styles.itemStyle}>
-                    <Text style={styles.itemTitleStyle}>下注：</Text>
+                    <Text style={styles.itemTitleStyle}>投注：</Text>
                     <Text style={styles.itemContentStyle}>{item.teamBetCode}</Text>
                 </View>
                 <View style={styles.itemStyle}>
-                    <Text style={styles.itemTitleStyle}>下注赔率：</Text>
+                    <Text style={styles.itemTitleStyle}>投注赔率：</Text>
                     <Text style={styles.itemContentStyle}>{item.wagerOdds}</Text>
                 </View>
                 <View style={styles.itemStyle}>
