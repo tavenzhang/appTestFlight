@@ -20,6 +20,7 @@ import {
     SectionList,
     Alert
 } from 'react-native';
+import _ from 'lodash';
 import {Size} from '../../Page/resouce/theme';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
@@ -59,6 +60,7 @@ import Swiper from '../../Common/View/swiper/Swiper'
 import FastImage from 'react-native-fast-image';
 import JXPopupNotice from './popupAnnouncements/JXPopupAnnouncements';
 import {getPopupAnnouncements} from './popupAnnouncements/JXPopupNoticeHelper';
+import JXHelper from "../../Common/JXHelper/JXHelper";
 
 @observer
 export default class TCHome extends Component {
@@ -196,15 +198,23 @@ export default class TCHome extends Component {
             })
         }
         if (this.state.content.dsfEgameInfos&&this.state.content.dsfEgameInfos.length>0){
+            let dsfEgameInfos = _.cloneDeep(this.state.content.dsfEgameInfos)
+            if (dsfEgameInfos.length % 2 !== 0) {
+                dsfEgameInfos.push({})
+            }
             data.push({
-                data: this.state.content.dsfEgameInfos,
+                data: dsfEgameInfos,
                 title: "电子游戏",
                 renderItem: ({item}) => this.renderDSFView(item,false)
             })
         }
         if (this.state.content.dsfCardInfos&&this.state.content.dsfCardInfos.length>0){
+            let dsfCardInfos = _.cloneDeep(this.state.content.dsfCardInfos)
+            if (dsfCardInfos.length % 2 !== 0) {
+                dsfCardInfos.push({})
+            }
             data.push({
-                data: this.state.content.dsfCardInfos,
+                data: dsfCardInfos,
                 title: "棋牌游戏",
                 renderItem: ({item}) => this.renderDSFView(item,false)
             })
@@ -568,7 +578,12 @@ export default class TCHome extends Component {
             RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
         } else if (title == 'ORDER' || title == '投注记录') {
             if (TCUSER_DATA.islogin) {
-                NavigatorHelper.pushToOrderRecord();
+                let otherPlatform = JXHelper.getDSFOpenList().dsfAll
+                if (otherPlatform && otherPlatform.length > 0) {
+                    NavigatorHelper.pushToOrderType()
+                } else {
+                    NavigatorHelper.pushToOrderRecord()
+                }
             } else {
                 NavigatorHelper.pushToUserLogin();
             }
