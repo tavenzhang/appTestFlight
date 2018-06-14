@@ -9,7 +9,8 @@ import {
     ListView,
     Text,
     RefreshControl,
-    ActivityIndicator
+    ActivityIndicator,
+    FlatList
 } from 'react-native'
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
@@ -42,6 +43,8 @@ export default class RefreshListView extends Component {
                 renderRow: PropTypes.func,//渲染行
                 pageSize: PropTypes.number,//每页加载数据
                 footStyle: View.propTypes.style,
+                initialNumToRender:PropTypes.any, //初始渲染项目数目
+                keyExtractor:PropTypes.any,
             }
 
 
@@ -52,6 +55,9 @@ export default class RefreshListView extends Component {
         isRenderFooter: false,
         loadDataFromNet: null,
         renderRow: null,
+        isHorizon:false,
+        extraData:null,
+        initialNumToRender:10,
     }
 
     constructor(props) {
@@ -73,13 +79,35 @@ export default class RefreshListView extends Component {
         return this.dataSource.isLoading ? this._renderLoading() : this.getContentView()
     }
 
+
     _renderLoading() {
         return (
             <ActivityIndicator size='small' style={{alignItems: 'center', justifyContent: 'center', flex: 1}}/>
         );
     }
+    //item 渲染id key
+    _keyExtractor = (item, index) => index;
 
-    getContentView() {
+    // getItemLayout 对于固定 item 高度 可以提高性能
+    // getItemLayout={(data, index) => (
+    //     // 120 是被渲染 item 的高度 ITEM_HEIGHT。
+    //     {length: 120, offset: 120 * index, index}
+    // )}
+
+    _onRendRow = (data) => {
+        //{item, index}
+        let {renderRow} = this.props;
+        if(renderRow){
+            return renderRow(data.item, data.index, data.index) ;
+        }else{
+            return null
+        }
+
+    }
+
+    getContentView=()=>{
+        let {isHorizon,keyExtractor,extraData,initialNumToRender,getItemLayout,isAllowRefresh}=this.props;
+
         if (this.dataSource.isTimeOut) {
             return (<NoDataView
                 ref='TimeOutView'
@@ -93,38 +121,64 @@ export default class RefreshListView extends Component {
                 }}/>)
         } else {
             return this.dataSource.isNoData ? this.props.isNodataView() : (
-                <ListView
-                    ref="listView"
-                    removeClippedSubviews={false}
-                    enableEmptySections={true}
-                    scrollRenderAheadDistance={20}
+                <FlatList
+                    horizontal={isHorizon}
+                    ref={"listView"}
+                    getItemLayout={getItemLayout}
+                    data={this.dataSource.datas}
+                    extraData={extraData}
+                    renderItem={this._onRendRow}
+                    keyExtractor={keyExtractor ? keyExtractor : this._keyExtractor}
+                    // ListHeaderComponent={renderHeader}
+                    ListFooterComponent={this.renderFooter}
+                    onEndReached={this.endReached}
                     onEndReachedThreshold={20}
-                    dataSource={this.ds.cloneWithRows(this.dataSource.datas.slice(0))}
-                    renderRow={(rowData, sectionID, rowID) => this.props.renderRow(rowData, sectionID, rowID)}
-                    onEndReached={() => this.endReached()}
-                    renderFooter={() => this.renderFooter()}
+                    scrollRenderAheadDistance={20}
+                    // ListEmptyComponent={this._renderEmptyView}
+                    initialNumToRender={initialNumToRender}
                     refreshControl={
-                        this.props.isAllowRefresh ?
-                            <RefreshControl
-                                refreshing={this.dataSource.isRefreshing}
-                                onRefresh={() => this._updateData()}
-                                tintColor="#ff0000"
-                                title="下拉刷新"
-                                titleColor="#999999"
-                                colors={['#ff0000', '#00ff00', '#0000ff']}
-                                progressBackgroundColor="#ffff00"/> : null
-                    }/>)
+                        isAllowRefresh ? <RefreshControl
+                                    refreshing={this.dataSource.isRefreshing}
+                                    onRefresh={this._updateData}
+                                    tintColor="#ff0000"
+                                    title="下拉刷新"
+                                    titleColor="#999999"
+                                    colors={['#ff0000', '#00ff00', '#0000ff']}
+                                    progressBackgroundColor="#ffff00"/>:null
+                        }
+                />)
+                // <ListView
+                //     ref="listView"
+                //     removeClippedSubviews={false}
+                //     enableEmptySections={true}
+                //     scrollRenderAheadDistance={20}
+                //     onEndReachedThreshold={20}
+                //     dataSource={this.ds.cloneWithRows(this.dataSource.datas.slice(0))}
+                //     renderRow={(rowData, sectionID, rowID) => this.props.renderRow(rowData, sectionID, rowID)}
+                //     onEndReached={this.endReached}
+                //     renderFooter={this.renderFooter}
+                //     refreshControl={
+                //         this.props.isAllowRefresh ?
+                //             <RefreshControl
+                //                 refreshing={this.dataSource.isRefreshing}
+                //                 onRefresh={() => this._updateData()}
+                //                 tintColor="#ff0000"
+                //                 title="下拉刷新"
+                //                 titleColor="#999999"
+                //                 colors={['#ff0000', '#00ff00', '#0000ff']}
+                //                 progressBackgroundColor="#ffff00"/> : null
+                //     }/>)
         }
     }
 
     /**
      * 更新数据
      */
-    _updateData() {
-        var listView = this.refs.listView
-        if (listView) {
-            listView.scrollTo({x: 0, y: 0, animated: true});
-        }
+    _updateData=()=> {
+        // var listView = this.refs.listView
+        // if (listView) {
+        //     listView.scrollToIndex({index:0,animated: true});
+        // }
         this.pageNum = 0
         this.dataSource.updateData()
         this.loadDataFromNet()
@@ -167,7 +221,7 @@ export default class RefreshListView extends Component {
         this.dataSource.moreText = '没有更多数据'
     }
 
-    renderFooter() {
+    renderFooter=()=> {
         if (!this.props.isRenderFooter) {
             return null
         }
@@ -202,7 +256,7 @@ export default class RefreshListView extends Component {
         }
     }
 
-    endReached() {
+    endReached=()=>{
         if (!this.props.isRenderFooter) {
             return
         }

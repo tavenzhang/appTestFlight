@@ -202,11 +202,14 @@ const MainStackNavigator = StackNavigator({
         header: null
     }
 })
-
+import {
+    UIManager
+} from 'react-native';
 
 
 export default class Main extends Component {
     componentWillMount() {
+        UIManager.setLayoutAnimationEnabledExperimental &&   UIManager.setLayoutAnimationEnabledExperimental(true);
     }
 
     componentWillUnmount() {

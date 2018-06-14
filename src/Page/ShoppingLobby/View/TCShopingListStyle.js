@@ -5,17 +5,14 @@
 
 import React, {Component} from 'react';
 import {
-    AppRegistry,
     StyleSheet,
-    Text,
-    View,
     ScrollView,
     Dimensions
 } from 'react-native';
 
-import SudokuItemView from './TCShopingListItemView'
+import ListItemView from './TCShopingListItemView'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
-import {indexBgColor} from '../../resouce/theme'
+import {indexBgColor,height} from '../../resouce/theme'
 import Moment from 'moment'
 
 
@@ -30,13 +27,12 @@ export default class TCShopingListStyle extends Component {
         tabLabel: ''
     };
 
-    componentDidMount() {
-    }
+
 
     render() {
         return (
             <ScrollView contentContainerStyle={styles.container} style={{
-                height: Dimensions.get('window').height - 64 - 45 - 50,
+                height: height - 64 - 45 - 50,
             }}>
                 {this.getRenderListView()}
             </ScrollView>
@@ -79,7 +75,7 @@ export default class TCShopingListStyle extends Component {
                 }
 
                 itemArr.push(
-                    <SudokuItemView
+                    <ListItemView
                         key={i}
                         gameInfo={gameInfo}
                         icon={gameInfo && myicon ? myicon : item.icon}

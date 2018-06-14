@@ -1,6 +1,5 @@
 const React = require('react');
 const {
-    PropTypes,
     Component,
 } = React;
 const ReactNative = require('react-native');
@@ -20,6 +19,7 @@ const SceneComponent = require('./SceneComponent');
 const DefaultTabBar = require('./DefaultTabBar');
 const ScrollableTabBar = require('./ScrollableTabBar');
 var createReactClass = require('create-react-class');
+import PropTypes from 'prop-types'
 
 const ScrollableTabView = createReactClass({
     mixins: [TimerMixin,],
@@ -28,19 +28,19 @@ const ScrollableTabView = createReactClass({
         ScrollableTabBar,
     },
 
-    // propTypes: {
-    //     tabBarPosition: PropTypes.oneOf(['top', 'bottom', 'overlayTop', 'overlayBottom',]),
-    //     initialPage: PropTypes.number,
-    //     page: PropTypes.number,
-    //     onChangeTab: PropTypes.func,
-    //     onScroll: PropTypes.func,
-    //     renderTabBar: PropTypes.any,
-    //     style: View.propTypes.style,
-    //     contentProps: PropTypes.object,
-    //     scrollWithoutAnimation: PropTypes.bool,
-    //     locked: PropTypes.bool,
-    //     prerenderingSiblingsNumber: PropTypes.number,
-    // },
+    propTypes: {
+        tabBarPosition: PropTypes.oneOf(['top', 'bottom', 'overlayTop', 'overlayBottom',]),
+        initialPage: PropTypes.number,
+        page: PropTypes.number,
+        onChangeTab: PropTypes.func,
+        onScroll: PropTypes.func,
+        renderTabBar: PropTypes.any,
+        style: View.propTypes.style,
+        contentProps: PropTypes.object,
+        scrollWithoutAnimation: PropTypes.bool,
+        locked: PropTypes.bool,
+        prerenderingSiblingsNumber: PropTypes.number,
+    },
 
     getDefaultProps() {
         return {

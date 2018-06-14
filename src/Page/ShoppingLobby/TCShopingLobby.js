@@ -35,6 +35,10 @@ export default class MyComponent extends React.Component {
 
     static defaultProps = {};
 
+    componentWillUpdate() {
+        JX_LayoutAnimaton.configureNext(JX_LayoutAnimaton.easeNoDelete)
+    }
+
     componentWillMount() {
         this.lotteryResultData = new LotteryResultData();
     }
@@ -62,60 +66,33 @@ export default class MyComponent extends React.Component {
                         RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home');
                     }}
                     rightImage={this.state.listStyle ? common.topBarSudoku : common.topBarList}
-                    rightButtonCall={() => this.rightButtonCall()}
+                    rightButtonCall={this.rightButtonCall}
                 />
-                {this.getContentView()}
+                <ScrollableTabView
+                    ref="ScrollableTabView"
+                    removeClippedSubviews={false}
+                    renderTabBar={() => <ScrollableTabBar />}
+                    tabBarUnderlineStyle={{ backgroundColor: shoppingTxtColor.tabLine, height: 2 }}
+                    tabBackgroundColor={indexBgColor.itemBg}
+                    locked={true}
+                    initialPage={this.state.initPage}
+                    tabBarActiveTextColor={shoppingTxtColor.tabTitlePressed}
+                    tabBarInactiveTextColor={shoppingTxtColor.tabTitleNormal}
+                    tabBarTextStyle={{ fontSize: Size.font15, fontWeight: 'normal' }}
+                >
+                    {
+                        tabLabels.map((item, key) => {
+                            return this.getItemView(this.state.listStyle, item, key);
+                        })
+                    }
+                </ScrollableTabView>
+
             </View>
         );
     }
 
-    getContentView() {
-        if (!this.state.listStyle) {
-            return (
-                <ScrollableTabView
-                    ref="ScrollableTabView"
-                    removeClippedSubviews={false}
-                    renderTabBar={() => <ScrollableTabBar />}
-                    tabBarUnderlineStyle={{ backgroundColor: shoppingTxtColor.tabLine, height: 2 }}
-                    tabBackgroundColor={indexBgColor.itemBg}
-                    locked={true}
-                    initialPage={this.state.initPage}
-                    tabBarActiveTextColor={shoppingTxtColor.tabTitlePressed}
-                    tabBarInactiveTextColor={shoppingTxtColor.tabTitleNormal}
-                    tabBarTextStyle={{ fontSize: Size.font15, fontWeight: 'normal' }}
-                >
-                    {this.getListView(true)}
-                </ScrollableTabView>
-            );
-        } else {
-            return (
-                <ScrollableTabView
-                    ref="ScrollableTabView"
-                    removeClippedSubviews={false}
-                    renderTabBar={() => <ScrollableTabBar />}
-                    tabBarUnderlineStyle={{ backgroundColor: shoppingTxtColor.tabLine, height: 2 }}
-                    tabBackgroundColor={indexBgColor.itemBg}
-                    locked={true}
-                    initialPage={this.state.initPage}
-                    tabBarActiveTextColor={shoppingTxtColor.tabTitlePressed}
-                    tabBarInactiveTextColor={shoppingTxtColor.tabTitleNormal}
-                    tabBarTextStyle={{ fontSize: Size.font15, fontWeight: 'normal' }}
-                >
-                    {this.getListView(false)}
-                </ScrollableTabView>
-            );
-        }
-    }
 
-    getListView(sudoku) {
-        let items = [];
-        tabLabels.map((item, key) => {
-            items.push(this.getItemView(sudoku, item, key));
-        });
-        return items;
-    }
-
-    getItemView(sudoku, title, key) {
+    getItemView(isListStyle, title, key) {
         const params = {
             cpArray: this.lotteryResultData.resultsData ? this.lotteryResultData.resultsData : this.state.cpArray,
             key: key,
@@ -123,15 +100,12 @@ export default class MyComponent extends React.Component {
             tabLabel: title,
             navigator: this.props.navigator
         };
-        if (sudoku) {
-            return <SudokuStyle {...params} />;
-        } else {
-            return <ListStyle {...params} />;
-        }
+        return isListStyle ? <ListStyle {...params} />:<SudokuStyle {...params} />
+
     }
 
-    rightButtonCall() {
-        this.setState({ listStyle: !this.state.listStyle });
+    rightButtonCall=()=> {
+        this.setState({ listStyle: !this.state.listStyle});
     }
 }
 

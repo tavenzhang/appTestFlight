@@ -46,6 +46,8 @@ export default class TCLotteryHistoryList extends BaseComponent {
         gameUniqueId: ''
     };
 
+
+
     componentWillMount() {
         this.lotteryHistoryData = new JXLotteryHistoryData();
     }

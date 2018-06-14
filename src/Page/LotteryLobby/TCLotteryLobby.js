@@ -33,6 +33,10 @@ export default class TCLotteryLobby extends React.Component {
         this.dataSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     }
 
+    componentWillUpdate() {
+        JX_LayoutAnimaton.configureNext(JX_LayoutAnimaton.easeNoDelete)
+    }
+
     componentWillMount() {
         this.lotteryResultData = new LotteryResultData();
     }
@@ -52,7 +56,8 @@ export default class TCLotteryLobby extends React.Component {
             <View style={JX_PLAT_INFO.IS_IphoneX?styles.containerIOS:styles.container}>
                 <TopNavigationBar title='开奖大厅' needBackButton={true}
                                   backButtonCall={() => {
-                                      RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home');
+                                      RCTDeviceEventEmitter.emit('' +
+                                          'setSelectedTabNavigator', 'home');
                                   }}
                 />
                 {/*列表*/}
