@@ -51,6 +51,7 @@ export default class MyComponent extends React.Component {
     render() {
         return (
             <Modal
+                coverScreen={true}
                 swipeToClose={false}
                 ref={"modal"}
                 isOpen={false}

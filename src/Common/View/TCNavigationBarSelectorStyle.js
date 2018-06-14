@@ -101,7 +101,7 @@ export default class TCBetBar extends React.Component {
                     underlayColor='#DEDEDE'
                     style={styles.rightViewStyle}
                 >
-                    <View>
+                    <View style={{justifyContent:"center", alignItems:"center"}}>
                         <Text style={styles.rightTitleStyle}>{this.props.rightTitle}</Text>
                     </View>
                 </TouchableOpacity>
@@ -175,13 +175,16 @@ const styles = StyleSheet.create({
         left: 0,
     },
     rightViewStyle: {
-        marginTop: navbarMarginTop+5,
         position: 'absolute',
+        width: 80,
+
         right: 5,
+
     },
     rightTitleStyle: {
-        marginTop: 10,
-        fontSize: Size.font15,
+        marginTop: navbarMarginTop,
+        alignItems: 'center',
+        fontSize: Size.font18,
         color: indexTxtColor.topTitle,
 
     }

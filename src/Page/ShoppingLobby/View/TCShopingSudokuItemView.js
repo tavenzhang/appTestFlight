@@ -20,7 +20,7 @@ import JXHelper from '../../../Common/JXHelper/JXHelper'
 import SoundHelper from '../../../Common/JXHelper/SoundHelper'
 import {indexBgColor, shoppingTxtColor,Size,width} from '../../resouce/theme'
 import { observer } from 'mobx-react/native';
-
+import PropTypes from 'prop-types'
 @observer
 export default class MyComponent extends Component {
 
@@ -33,6 +33,15 @@ export default class MyComponent extends Component {
         this.timeCount = 0;
 
     }
+    static propTypes = {
+        icon: PropTypes.any,
+        title: PropTypes.any,
+        mTimer: PropTypes.any,
+        describe: PropTypes.any,
+        duration: PropTypes.any,
+        pushToEvent:PropTypes.any,
+        gameInfo:PropTypes.any,
+    };
 
     static defaultProps = {
         icon: 'icon_cp_3',

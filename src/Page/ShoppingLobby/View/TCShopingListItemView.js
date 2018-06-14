@@ -19,8 +19,7 @@ import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
 import SoundHelper from '../../../Common/JXHelper/SoundHelper'
 import HappyPokerHelper from '../../../Common/JXHelper/HappyPokerHelper'
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
-import Moment from 'moment'
+import PropTypes from 'prop-types'
 import _ from 'lodash'
 
 let timeoutTime = 0
@@ -40,6 +39,18 @@ export default class TCShopingListItemView extends Component {
         this.buttonCall = this.buttonCall.bind(this);
         this.timeCount = 0;
     }
+
+    static propTypes = {
+        icon: PropTypes.any,
+        title: PropTypes.any,
+        mTimer: PropTypes.any,
+        describe: PropTypes.any,
+        duration: PropTypes.any,
+        pushToEvent:PropTypes.any,
+        gameInfo:PropTypes.any,
+        rowData:PropTypes.any,
+    };
+
 
     static defaultProps = {
         icon: 'icon_cp_3',

@@ -84,6 +84,11 @@ export default class TCHome extends Component {
 
     static defaultProps = {};
 
+    //布局动画，暂不使用
+    // componentWillUpdate() {
+    //     JX_LayoutAnimaton.configureNext(JX_LayoutAnimaton.easeNoDelete)
+    // }
+
     componentDidMount() {
         this.loadDataFormNet();
         TCInitHelper.getUserAffCode();
@@ -159,8 +164,8 @@ export default class TCHome extends Component {
                     contentContainerStyle={styles.listViewStyle}
                     renderSectionHeader={({section}) => this.renderSectionHeader(section)}
                     keyExtractor={(item, index) => index + item}
-                    ListHeaderComponent={() => this.renderHomeHeaer()}
-                    ListFooterComponent={() => this.renderFooter()}
+                    ListHeaderComponent={this.renderHomeHeaer}
+                    ListFooterComponent={this.renderFooter}
                     sections={this.getSectionsData()}
                 /> : null}
                 {this.getRedPacketButton()}
@@ -200,7 +205,7 @@ export default class TCHome extends Component {
             data.push({
                 data: dsfEgameInfos,
                 title: "电子游戏",
-                renderItem: ({item}) => this.renderDSFView(item,true)
+                renderItem: ({item}) => this.renderDSFView(item,false)
             })
         }
         if (this.state.content.dsfCardInfos&&this.state.content.dsfCardInfos.length>0){
@@ -211,14 +216,14 @@ export default class TCHome extends Component {
             data.push({
                 data: dsfCardInfos,
                 title: "棋牌游戏",
-                renderItem: ({item}) => this.renderDSFView(item,true)
+                renderItem: ({item}) => this.renderDSFView(item,false)
             })
         }
         return data
     }
 
     //渲染顶部
-    renderHomeHeaer() {
+    renderHomeHeaer=()=> {
         return (<View>
             {this.state.content.bannerData.length > 0 ? this.renderBanner() : null}
             {this.renderNotice()}
@@ -227,7 +232,7 @@ export default class TCHome extends Component {
     }
 
     //渲染banner
-    renderBanner() {
+    renderBanner=()=> {
         return (<Swiper
             width={width}
             height={width * 0.383}
@@ -256,7 +261,7 @@ export default class TCHome extends Component {
     }
 
     //渲染底部
-    renderFooter() {
+    renderFooter=()=> {
         return (<TopWinnerView rowData={this.state.topWinnersModel}/>)
     }
 
