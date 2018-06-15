@@ -67,7 +67,7 @@ export default class TCUserSSBetDetail extends Component {
                 </View>
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>玩法：</Text>
-                    <Text style={styles.itemContentStyle}>{item.betTypeCode}{item.handicap === 0?"":"(主队让球"+item.handicap+")"}</Text>
+                    <Text style={styles.itemContentStyle}>{this.getBetTypeString(item.betTypeCode, item.handicap)}</Text>
                 </View>
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>投注：</Text>
@@ -86,8 +86,15 @@ export default class TCUserSSBetDetail extends Component {
         )
     }
 
+    getBetTypeString(betTypeCode, handicap) {
+        if (betTypeCode.indexOf('大小') < 0) {
+            return betTypeCode + (handicap > 0 ? '(主队让球' + handicap + ')' : '');
+        }
+        return betTypeCode + (handicap > 0 ? '(' + handicap + ')' : '');
+    }
+
     renderCancelReason(reason) {
-        if (reason) {
+        if (reason && reason !== '-') {
             return (
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>取消原因：</Text>
