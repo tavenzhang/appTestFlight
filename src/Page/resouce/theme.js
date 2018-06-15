@@ -464,22 +464,3 @@ export const lotteryNumbStyle = {
         marginBottom: 5,
     }
 }
-//常用容器或者组件样式
-export const themeViewStyle={
-        containTabView:JX_IPHON_X ? {
-            height:height-bottomNavHeight,
-            width:width,
-            backgroundColor: indexBgColor.mainBg
-        }:{
-            flex:1,
-            backgroundColor: indexBgColor.mainBg
-        },
-        containView:JX_IPHON_X ? {
-            height:height-25,
-            width:width,
-            backgroundColor: indexBgColor.mainBg
-        }:{
-            flex:1,
-            backgroundColor: indexBgColor.mainBg
-        },
-    }
