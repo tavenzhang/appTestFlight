@@ -33,8 +33,7 @@ export default class GamePage extends Component {
     render() {
         let {initNumRender} = this.props
         return (<FlatList
-                ItemSeparatorComponent={() => <View
-                    style={{height: 1, backgroundColor: indexBgColor.mainBg, width: width}}/>}
+                ItemSeparatorComponent={this.renderSepator}
                 data={this.props.datas}
                 initialNumToRender={initNumRender}
                 ListEmptyComponent={this.getNodataView}
@@ -44,6 +43,10 @@ export default class GamePage extends Component {
             />)
     }
 
+    renderSepator=()=>{
+        return (<View
+            style={{height: 1, backgroundColor: indexBgColor.mainBg, width: width}}/>)
+    }
 
 
     getNodataView=()=> {
