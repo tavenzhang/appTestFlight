@@ -150,10 +150,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('cp106-release-key.keystore')
-            storePassword 'jx123456'
-            keyAlias 'my-key-alias'
-            keyPassword 'jx123456'
+            storeFile file('jdcp.keystore')
+            storePassword 'jd123456'
+            keyAlias 'jdcp-alias'
+            keyPassword 'jd123456'
         }
     }
 
