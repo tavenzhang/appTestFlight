@@ -4,60 +4,59 @@
 import {
     PixelRatio,
     Dimensions,
-    Platform,
     StatusBar
 } from 'react-native'
+
 const fontSizeScaler = JX_ProjectName === 'JD' ? 1 : PixelRatio.get() / PixelRatio.getFontScale()
-global.TCLineW = (Platform.OS == 'ios' && Dimensions.get('window').width > 375) ? 0.33 : 0.5
+global.TCLineW = (IS_IOS && Dimensions.get('window').width > 375) ? 0.33 : 0.5
 import {
     StyleSheet
 } from 'react-native';
 // 全局字体大小
 export const Size = {
-        xxsmall: 10 * fontSizeScaler,
-        xsmall: 12 * fontSizeScaler,
-        small: 14 * fontSizeScaler,
-        default: 15 * fontSizeScaler,
-        large: 18 * fontSizeScaler,
-        xlarge: 20 * fontSizeScaler,
-        xxlarge: 24 * fontSizeScaler,
-        pixel: 1 / PixelRatio.get(), // 最细边框
-        font10: 10 * fontSizeScaler,
-        font11: 11 * fontSizeScaler,
-        font12: 12 * fontSizeScaler,
-        font13: 13 * fontSizeScaler,
-        font14: 14 * fontSizeScaler,
-        font15: 15 * fontSizeScaler,
-        font16: 16 * fontSizeScaler,
-        font17: 17 * fontSizeScaler,
-        font18: 18 * fontSizeScaler,
-        font19: 19 * fontSizeScaler,
-        font20: 20 * fontSizeScaler,
-        font21: 21 * fontSizeScaler,
-        font22: 22 * fontSizeScaler,
-        font23: 23 * fontSizeScaler,
-        font24: 24 * fontSizeScaler,
-        font25: 25 * fontSizeScaler,
-        font26: 26 * fontSizeScaler,
-        font27: 27 * fontSizeScaler,
-        font28: 28 * fontSizeScaler,
-        font29: 29 * fontSizeScaler,
-        font30: 30 * fontSizeScaler,
-    }
-    // 全局Window尺寸
+    xxsmall: 10 * fontSizeScaler,
+    xsmall: 12 * fontSizeScaler,
+    small: 14 * fontSizeScaler,
+    default: 15 * fontSizeScaler,
+    large: 18 * fontSizeScaler,
+    xlarge: 20 * fontSizeScaler,
+    xxlarge: 24 * fontSizeScaler,
+    pixel: 1 / PixelRatio.get(), // 最细边框
+    font10: 10 * fontSizeScaler,
+    font11: 11 * fontSizeScaler,
+    font12: 12 * fontSizeScaler,
+    font13: 13 * fontSizeScaler,
+    font14: 14 * fontSizeScaler,
+    font15: 15 * fontSizeScaler,
+    font16: 16 * fontSizeScaler,
+    font17: 17 * fontSizeScaler,
+    font18: 18 * fontSizeScaler,
+    font19: 19 * fontSizeScaler,
+    font20: 20 * fontSizeScaler,
+    font21: 21 * fontSizeScaler,
+    font22: 22 * fontSizeScaler,
+    font23: 23 * fontSizeScaler,
+    font24: 24 * fontSizeScaler,
+    font25: 25 * fontSizeScaler,
+    font26: 26 * fontSizeScaler,
+    font27: 27 * fontSizeScaler,
+    font28: 28 * fontSizeScaler,
+    font29: 29 * fontSizeScaler,
+    font30: 30 * fontSizeScaler,
+}
+// 全局Window尺寸
 export const width = Dimensions.get('window').width
 export const height = Dimensions.get('window').height
-    //手机状态栏高度
-export const statusBarHeight = Platform.OS == 'ios' ? (isIphoneX()?44:20) : StatusBar.currentHeight
+//手机状态栏高度
+export const statusBarHeight = IS_IOS ? (isIphoneX() ? 44 : 20) : StatusBar.currentHeight
 
 // iPhoneX
 const X_WIDTH = 375;
 const X_HEIGHT = 812;
 
-const JX_IPHON_X = Platform.OS === 'ios' &&
+const JX_IPHON_X = IS_IOS &&
     ((height === X_HEIGHT && width === X_WIDTH) ||
-    (height === X_WIDTH && width === X_HEIGHT))
-
+        (height === X_WIDTH && width === X_HEIGHT))
 
 
 export function isIphoneX() {
@@ -65,23 +64,20 @@ export function isIphoneX() {
 }
 
 export const JX_PLAT_INFO = {
-    IS_IOS:Platform.OS == 'ios',
-    MarginBarHeight:Platform.OS == 'ios' ? (JX_IPHON_X ? 45:20):0,
-    IS_IphoneX:JX_IPHON_X
+    MarginBarHeight: IS_IOS? (JX_IPHON_X ? 45 : 20) : 0,
+    IS_IphoneX: JX_IPHON_X
 }
 
 
-
-export const navbarHight = Platform.OS == 'ios'? (isIphoneX()?88:64):44
-export const navbarMarginTop = Platform.OS == 'ios'? (isIphoneX()?44:20):0
-export const bottomNavHeight = Platform.OS == 'ios'? (isIphoneX()?83:50):49
-
+export const navbarHight = IS_IOS? (isIphoneX() ? 88 : 64) : 44
+export const navbarMarginTop = IS_IOS ? (isIphoneX() ? 44 : 20) : 0
+export const bottomNavHeight = IS_IOS? (isIphoneX() ? 83 : 50) : 49
 
 
-    /**
-     * app主色调
-     * @type {{}}
-     */
+/**
+ * app主色调
+ * @type {{}}
+ */
 
 export const baseColor = {
     white: '#FFFFFF',
@@ -234,7 +230,7 @@ export const userCenterTxtColor = {
     feedBackTitle: fontColor.mainTxt, //意见反馈
     msgPiontTxt: baseColor.white,
     msgPiontBg: baseColor.strong,
-    signInBgColor:'#FF8500', //签到后按钮背景颜色
+    signInBgColor: '#FF8500', //签到后按钮背景颜色
 }
 export const userCenterBorderColor = {
     freshBorder: fontColor.minorTxt,
@@ -263,13 +259,13 @@ export const popuWinStyle = {
 
 //通用按钮样式
 export const buttonStyle = {
-        btnBg: loginAndRegeisterBgColor.loginBtn,
-        btnTxtColor: loginAndRegeisterTxtColor.loginTxt,
-        btnBorder: loginAndRegeisterBorderColor.inputBorder,
-        btnRedBg: baseColor.strong,
-        btnUnableBg: loginAndRegeisterBgColor.loginBtn
-    }
-    //通用输入框样式
+    btnBg: loginAndRegeisterBgColor.loginBtn,
+    btnTxtColor: loginAndRegeisterTxtColor.loginTxt,
+    btnBorder: loginAndRegeisterBorderColor.inputBorder,
+    btnRedBg: baseColor.strong,
+    btnUnableBg: loginAndRegeisterBgColor.loginBtn
+}
+//通用输入框样式
 export const inputStyle = {
     inputBg: loginAndRegeisterBgColor.inputBg,
     inputTxt: loginAndRegeisterTxtColor.inputTxt,
@@ -401,14 +397,14 @@ export const betHome = {
 
 export const indexBtmStyle = {
     iconStyle: {
-        width: Platform.OS === 'ios' ? 25 : 25,
-        height: Platform.OS === 'ios' ? 25 : 25,
-        marginTop: Platform.OS === 'ios' ? 18 : 30
+        width: 25,
+        height:  25,
+        marginTop: IS_IOS? 18 : 30
     },
     iconStyleSelected: {
-        width: Platform.OS === 'ios' ? 25 : 25,
-        height: Platform.OS === 'ios' ? 25 : 25,
-        marginTop: Platform.OS === 'ios' ? 18 : 30
+        width: 25,
+        height: 25,
+        marginTop: IS_IOS ? 18 : 30
     },
 }
 

@@ -97,7 +97,7 @@ export default class DZGameListView extends Component {
                 if (ret.rs) {
                     if (gameData.gamePlatform == "MG") //由于MG平台的游戏 需要横屏 做特殊处理
                     {
-                        if (JX_PLAT_INFO.IS_IOS) {
+                        if (IS_IOS) {
                             Linking.openURL(ret.content.gameUrl);
                         } else {
                             NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name);

@@ -272,7 +272,7 @@ export default class TCHome extends Component {
     }
 
     androidUpdateTip() {
-        if (Platform.OS !== 'ios') {
+        if (!IS_IOS) {
             try {
                 NativeModules.JXHelper.getVersionCode(version => {
                     NetUitls.getUrlAndParamsAndCallback(
@@ -590,7 +590,7 @@ export default class TCHome extends Component {
         } else if (title == 'PROMOTION' || title == '优惠活动') {
             NavigatorHelper.pushtoPromotion();
         } else if (title == 'CUS_SERVICE' || title == '在线客服') {
-            if (Platform.OS === 'ios') {
+            if (IS_IOS) {
                 NavigatorHelper.pushToWebView(rowData.contentUrl, rowData.nameInChinese);
             } else {
                 try {
