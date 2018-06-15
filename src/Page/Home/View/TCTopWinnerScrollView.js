@@ -33,6 +33,10 @@ let listItem = []
 
 export default class MyComponent extends React.Component {
 
+    static defaultProps = {
+        rowData: []
+    }
+
   updateAction = (data) => {
     this.setState({
       rowData: data,
@@ -48,39 +52,21 @@ export default class MyComponent extends React.Component {
     this.stateAnimation = 'start';
     this.lastAnimationDuration = 0;
     this.lastTimeStopValue = 0;
-  }
-
-  static defaultProps = {
-    rowData: []
-  }
-
-  componentDidMount() {
-    if (!this.props.rowData || this.props.rowData.length == 0) {
-      return
-    }
-
-    let array = this.props.rowData.slice(0, 4)
-    let c = this.props.rowData.concat(array)
-
-    listItem = c
-    this.animatedWithValue()
-
-    this.setState({
-      rowData: this.props.rowData
-    })
 
     this.listener = RCTDeviceEventEmitter.addListener('needChangeAnimated', (state) => {
-      this.animationState(state);
-    })
-
-    if (Platform.OS === 'ios') {
-      this.state.y.addListener((obj) => {
-        if (obj.value != 0) {
-          this.lastTimeStopValue = obj.value
-        }
+          this.animationState(state);
       })
-    }
+      if (Platform.OS === 'ios') {
+          this.state.y.addListener((obj) => {
+              if (obj.value != 0) {
+                  this.lastTimeStopValue = obj.value
+              }
+          })
+      }
   }
+
+
+
 
   animationState(state) {
     if (this.stateAnimation == state) return;
@@ -106,6 +92,7 @@ export default class MyComponent extends React.Component {
   }
 
   componentWillUnmount() {
+      JXLog("setSelectedTab----componentWillUnmount",state);
     if (this._autoPlayer) {
       clearInterval(this._autoPlayer);
       this._autoPlayer = null;
@@ -114,14 +101,21 @@ export default class MyComponent extends React.Component {
     this.state.y.removeAllListeners()
   }
 
+
   componentWillReceiveProps(nextprops) {
-    this.setState({
-      rowData: nextprops.rowData
-    })
+      if(this.props.rowData.length!=nextprops.rowData.length){
+          //JXLog("setSelectedTab----componentWillReceiveProps== set", this.props.rowData.length!=nextprops.rowData.length);
+          let array = nextprops.rowData.slice(0, 4)
+          let c = this.props.rowData.concat(array)
+          listItem = c;
+          this.animatedWithValue()
+          this.setState({
+              rowData: nextprops.rowData
+          })
+      }
   }
 
   animatedWithValue(durationLast) {
-
     let value = -listItem.length * 25 + 25 * 4
     let duration = listItem.length * 1500
     this.animatedObj = Animated.timing(this.state.y, {
@@ -142,6 +136,7 @@ export default class MyComponent extends React.Component {
   }
 
   render() {
+        //JXLog("setSelectedTab----reder",this.props);
     return (
         <View style={styles.container}>
           <View style={{backgroundColor: indexBgColor.mainBg, height: 10}}></View>
