@@ -23,7 +23,7 @@ import MarqueeLabel2 from './TCMarqueeLabel';
 import JXHelper from '../../JXHelper/TCNavigatorHelper'
 
 import {width, indexBgColor, indexTxtColor, Size} from '../../../Page/resouce/theme'
-let noticeText = ''
+
 export default class MyComponent extends Component {
     constructor(state) {
         super(state)
@@ -38,9 +38,7 @@ export default class MyComponent extends Component {
     componentWillReceiveProps(nextProps) {
     }
 
-    componentDidMount() {
-        noticeText = this.getTextWithAnnouncement()
-    }
+
 
     render() {
         return (
