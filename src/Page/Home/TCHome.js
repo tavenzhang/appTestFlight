@@ -162,7 +162,7 @@ export default class TCHome extends Component {
                         this.loadDataFormNet()
                     }}
                     contentContainerStyle={styles.listViewStyle}
-                    renderSectionHeader={({section}) => this.renderSectionHeader(section)}
+                    renderSectionHeader={this.renderSectionHeader}
                     keyExtractor={(item, index) => index + item}
                     ListHeaderComponent={this.renderHomeHeaer}
                     ListFooterComponent={this.renderFooter}
@@ -350,7 +350,7 @@ export default class TCHome extends Component {
     }
 
     //渲染sectionHeader
-    renderSectionHeader(section) {
+    renderSectionHeader=({section}) =>{
         return (
             <View style={{height: 46, width: width}}>
                 <View style={{width: width, height: 10, backgroundColor: indexBgColor.mainBg}}/>
