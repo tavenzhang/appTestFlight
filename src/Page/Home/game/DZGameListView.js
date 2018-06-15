@@ -47,7 +47,7 @@ export default class DZGameListView extends Component {
                 />
                 {this.state.isEmpty ? emptView :<ScrollableTabView
                     initialPage={0}
-                    style={{backgroundColor: indexBgColor.itemBg, flex: 1}}
+                    style={{backgroundColor: indexBgColor.itemBg, width:JX_PLAT_INFO.width}}
                     removeClippedSubviews={false}
                     tabBarUnderlineStyle={{backgroundColor: shoppingTxtColor.tabLine, height: 2}}
                     locked={false}
@@ -73,8 +73,10 @@ export default class DZGameListView extends Component {
     componentWillMount() {
         let {gameData} = this.props.navigation.state.params
         JX_Store.gameDZStore.loadGames(gameData.gamePlatform,(dataList)=>{
-            if(dataList.length == 0&&!this.state.isEmpty){
+            if(dataList.length == 0){
                 this.setState({isEmpty:true})
+            }else{
+                this.setState({isEmpty:false})
             }
         })
     }
