@@ -70,6 +70,8 @@ const styles = StyleSheet.create({
         color: listViewTxtColor.title
     },
     itemContentStyle: {
+        flex: 1,
+        textAlign:'right',
         fontSize: Size.font16,
         color: listViewTxtColor.content,
     },
