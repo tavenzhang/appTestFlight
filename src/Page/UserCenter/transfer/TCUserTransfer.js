@@ -41,23 +41,23 @@ export default class TCUserTransfer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            loadStatus: 0 // 页面数据加载状态（0：加载中，1：加载成功，2：加载失败）
+            loadStatus: 1 // 页面数据加载状态（0：加载中，1：加载成功，2：加载失败）
         }
         this.transferStore = new TransferStore();
         this.loadBalance();
     }
 
     loadBalance() {
-        JX_Store.balanceStore.getPlatformBalance((res) => {
-            this.setState({
-                loadStatus: res.message ? 2 : 1,
-            })
-        })
+        JX_Store.balanceStore.getPlatforms()
     }
 
-    renderContent() {
-        if (this.state.loadStatus === 1) {
-            return (
+    render() {
+        return (
+            <View style={styles.container}>
+                <TopNavigationBar
+                    title={'转账'}
+                    needBackButton
+                    backButtonCall={() => Helper.popToBack()}/>
                 <ScrollView keyboardDismissMode='on-drag'>
                     <View style={styles.content}>
                         <SelectBarView transferStore={this.transferStore}/>
@@ -74,31 +74,6 @@ export default class TCUserTransfer extends React.Component {
                         <WalletLabelView transferStore={this.transferStore}/>
                     </View>
                 </ScrollView>
-            )
-        } else if (this.state.loadStatus === 0) {
-            return (
-                <View style={[styles.container, {justifyContent: 'center', alignItems: 'center',}]}>
-                    <ActivityIndicator animating={true} size="large" color={baseColor.tabSelectedTxt}/>
-                </View>
-            )
-        } else {
-            return (
-                <NoDataView
-                    titleTip={'数据获取失败'}
-                    btnTxt="重新加载"
-                    gotoDoing={() => {this.loadBalance()}}/>
-            )
-        }
-    }
-
-    render() {
-        return (
-            <View style={styles.container}>
-                <TopNavigationBar
-                    title={'转账'}
-                    needBackButton
-                    backButtonCall={() => Helper.popToBack()}/>
-                {this.renderContent()}
             </View>
         );
     }
@@ -376,7 +351,7 @@ class WalletLabelView extends React.Component {
         return (
             platforms.map((item) => {
                 return (
-                    this.renderWallet(item.gamePlatform + '钱包', item.balance.toFixed(2), '一键转入', '刷新',
+                    this.renderWallet(item.gameNameInChinese, item.balance.toFixed(2), '一键转入', '刷新',
                         () => {
                             this.props.transferStore.allTransfer(item.gamePlatform, (res) => {
                                 if (res.rs) {
