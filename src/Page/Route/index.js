@@ -177,6 +177,8 @@ const Components = {
     AgentTeamList: viewRoutHelp(AgentTeamList),
     AgentCommissionList:viewRoutHelp(AgentCommissionList),
     AgentSheet: viewRoutHelp(AgentSheet),
+    UserStatementsType: viewRoutHelp(TCUserStatementsType),
+    UserStatements: viewRoutHelp(TCUserStatements),
     CommissionDetail: viewRoutHelp(CommissionDetail),
     PersonalCommissionDetail: viewRoutHelp(PersonalCommissionDetail),
     InviteFriends: viewRoutHelp(TCInviteFriends),
@@ -205,6 +207,8 @@ const MainStackNavigator = StackNavigator({
 import {
     UIManager
 } from 'react-native';
+import TCUserStatementsType from "../UserCenter/Agent/UserSheets/TCUserStatementsType";
+import TCUserStatements from "../UserCenter/Agent/UserSheets/TCUserStatements";
 
 
 export default class Main extends Component {
