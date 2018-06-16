@@ -191,6 +191,10 @@ export default class TCHome extends Component {
             })
         }
         if (this.state.content.dsfSportInfos&&this.state.content.dsfSportInfos.length>0){
+            let dsfSportInfos = _.cloneDeep(this.state.content.dsfSportInfos)
+            if (dsfSportInfos.length % 2 !== 0) {
+                dsfSportInfos.push({})
+            }
             data.push({
                 data: this.state.content.dsfSportInfos,
                 title: "体育竞技",
@@ -199,23 +203,17 @@ export default class TCHome extends Component {
         }
         if (this.state.content.dsfEgameInfos&&this.state.content.dsfEgameInfos.length>0){
             let dsfEgameInfos = _.cloneDeep(this.state.content.dsfEgameInfos)
+
+            if (this.state.content.dsfCardInfos&&this.state.content.dsfCardInfos.length>0) {
+                let dsfCardInfos = _.cloneDeep(this.state.content.dsfCardInfos)
+                dsfEgameInfos = _.concat(dsfEgameInfos,dsfCardInfos)
+            }
             if (dsfEgameInfos.length % 2 !== 0) {
                 dsfEgameInfos.push({})
             }
             data.push({
                 data: dsfEgameInfos,
                 title: "电子游戏",
-                renderItem: ({item}) => this.renderDSFView(item,false)
-            })
-        }
-        if (this.state.content.dsfCardInfos&&this.state.content.dsfCardInfos.length>0){
-            let dsfCardInfos = _.cloneDeep(this.state.content.dsfCardInfos)
-            if (dsfCardInfos.length % 2 !== 0) {
-                dsfCardInfos.push({})
-            }
-            data.push({
-                data: dsfCardInfos,
-                title: "棋牌游戏",
                 renderItem: ({item}) => this.renderDSFView(item,false)
             })
         }
