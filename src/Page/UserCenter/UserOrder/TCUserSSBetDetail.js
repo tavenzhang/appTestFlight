@@ -42,7 +42,7 @@ export default class TCUserSSBetDetail extends Component {
                     <Text style={styles.itemContentStyle}>{playTypeIndex}</Text>
                 </View>
                 <View style={styles.itemStyle}>
-                    <Text style={styles.itemTitleStyle}>投注：</Text>
+                    <Text style={styles.itemTitleStyle}>投注金额：</Text>
                     <Text style={styles.itemContentStyle}>{wagerStake}</Text>
                 </View>
                 {this.renderDivider()}

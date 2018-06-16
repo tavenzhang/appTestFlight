@@ -78,8 +78,8 @@ export default class extends React.Component {
         if (otherPlatform) {
             return (
                 otherPlatform.map((platform) => {
-                    return (
-                        <WalletItemComponent
+                    if (platform.status && platform.status === 'ON') {
+                        return (<WalletItemComponent
                             key={platform.gamePlatform}
                             ref={platform.gamePlatform}
                             walletName={platform.gameNameInChinese}
@@ -94,7 +94,8 @@ export default class extends React.Component {
                                     }
                                 })
                             }}/>
-                    )
+                        )
+                    }
                 })
             )
         }
