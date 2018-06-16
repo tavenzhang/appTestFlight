@@ -1,4 +1,4 @@
-import {bottomNavHeight, height, indexBgColor, width, JX_PLAT_INFO} from "../resouce/theme";
+import {bottomNavHeight, indexBgColor,} from "../resouce/theme";
 
 export const Other = {
     redWallet: require('./other/ic_red_wallet.png'),
@@ -6,21 +6,21 @@ export const Other = {
 }
 
 //常用容器或者组件样式
-export const themeViewStyle={
-    containTabView:JX_PLAT_INFO.IS_IOS ? {
-        height:height-bottomNavHeight,
-        width:width,
+export const themeViewStyle = {
+    containTabView: IS_IOS ? {
+        height: SCREEN_H - bottomNavHeight,
+        width: SCREEN_W,
         backgroundColor: indexBgColor.mainBg
-    }:{
-        flex:1,
+    } : {
+        flex: 1,
         backgroundColor: indexBgColor.mainBg
     },
-    containView:JX_PLAT_INFO.IS_IOS ? {
-        height:height-25,
-        width:width,
+    containView: IS_IOS ? {
+        height: SCREEN_H - 25,
+        width: SCREEN_W,
         backgroundColor: indexBgColor.mainBg
-    }:{
-        flex:1,
+    } : {
+        flex: 1,
         backgroundColor: indexBgColor.mainBg
     },
 }

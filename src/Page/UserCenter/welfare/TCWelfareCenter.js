@@ -7,7 +7,7 @@ import {indexBgColor, listViewTxtColor, Size} from "../../resouce/theme";
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
-import {Other} from "../../asset/drawable";
+import {Other} from "../../asset/index";
 import {personal} from '../../resouce/images'
 import RedPacket from '../../red_packet/RedPacketData';
 let RedPacketData = new RedPacket();

@@ -17,7 +17,8 @@ import ListStyle from './View/TCShopingListStyle';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import LotteryResultData from '../../Data/JXLotteryResultData';
 
-import { Size,height,width, shoppingTxtColor, indexBgColor,bottomNavHeight,statusBarHeight,JX_PLAT_INFO } from '../resouce/theme';
+import { Size,height,width, shoppingTxtColor, indexBgColor,bottomNavHeight} from '../resouce/theme';
+import {JX_PLAT_INFO} from '../../Common/Const/ScreenInfo'
 import { common } from '../resouce/images';
 
 const tabLabels = ['全部彩种', '时时彩', 'PC蛋蛋', 'PK拾', '11选5', '快3', '高频彩', '低频彩'];

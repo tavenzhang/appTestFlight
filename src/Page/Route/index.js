@@ -1,5 +1,9 @@
 import {StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
+import {
+    UIManager
+} from 'react-native';
+
 import {Provider} from 'mobx-react'
 
 import NavigationService from './NavigationService'
@@ -89,6 +93,15 @@ import TCUserTransfer from "../UserCenter/transfer/TCUserTransfer";
 //趋势图webView
 import TCWebTrendView from "../WebView/TCWebTrendView";
 import rootStore from "../../Data/store/RootStore";
+
+import jdAppStore from '../../Page/Store/JDAppStore'
+import mainStore from '../../Page/Store/MainStore'
+
+const appStores = {
+    jdAppStore,
+    mainStore
+}
+
 import TCUserOtherBetRecords from "../UserCenter/UserOrder/TCUserOtherBetRecords";
 //电子游戏列表
 import DZGameListView from "../Home/game/DZGameListView";
@@ -100,45 +113,45 @@ import TCUserMGBetDetail from "../UserCenter/UserOrder/TCUserMGBetDetail";
 
 
 //用于增加通用navigator view 属性 特殊 处理
- function viewRoutHelp(component){
-     return {screen:component}
-    }
+function viewRoutHelp(component) {
+    return {screen: component}
+}
 
 const Components = {
     Main: viewRoutHelp(MainScreen),
     WebView: viewRoutHelp(WebView),
-    TCNoticeDetail:viewRoutHelp(TCNoticeDetail),
+    TCNoticeDetail: viewRoutHelp(TCNoticeDetail),
     TCTopWinnerDetail: viewRoutHelp(TCTopWinnerDetail),
     TCPromotionList: viewRoutHelp(TCPromotionList),
-    PCDDShopping:viewRoutHelp(PCDDShopping),
+    PCDDShopping: viewRoutHelp(PCDDShopping),
     MarkSixBetHome: viewRoutHelp(MarkSixBetHome),
     ChongQingSSCBetHome: viewRoutHelp(ChongQingSSCBetHome),
     TCShangDong115BetHome: viewRoutHelp(TCShangDong115BetHome),
     TCBJPK10BetHome: viewRoutHelp(TCBJPK10BetHome),
     TCKL10FBetHome: viewRoutHelp(TCKL10FBetHome),
-    TCPCDDBetHome:viewRoutHelp(TCPCDDBetHome),
-    TCSSLBetHome:viewRoutHelp(TCSSLBetHome),
+    TCPCDDBetHome: viewRoutHelp(TCPCDDBetHome),
+    TCSSLBetHome: viewRoutHelp(TCSSLBetHome),
     QXCBetHome: viewRoutHelp(QXCBetHome),
     TCK3BetHome: viewRoutHelp(TCK3BetHome),
-    TCHappyPokerBetHome:viewRoutHelp(TCHappyPokerBetHome),
+    TCHappyPokerBetHome: viewRoutHelp(TCHappyPokerBetHome),
     TCXYFTBetHome: viewRoutHelp(TCXYFTBetHome),
     TCBetBill: viewRoutHelp(TCBetBill),
-    TCBillSucceedPage:viewRoutHelp(TCBillSucceedPage),
-    IntelligenceBet:viewRoutHelp(IntelligenceBet),
+    TCBillSucceedPage: viewRoutHelp(TCBillSucceedPage),
+    IntelligenceBet: viewRoutHelp(IntelligenceBet),
     UserTransfer: viewRoutHelp(TCUserTransfer),
     UserOrderType: viewRoutHelp(TCUserOrderType),
-    UserOderRecord:viewRoutHelp(UserOderRecord),
-    UserIMBetDetail:viewRoutHelp(TCUserIMBetDetail),
-    UserSSBetDetail:viewRoutHelp(TCUserSSBetDetail),
-    UserMGBetDetail:viewRoutHelp(TCUserMGBetDetail),
-    UserOtherBetRecords:viewRoutHelp(TCUserOtherBetRecords),
+    UserOderRecord: viewRoutHelp(UserOderRecord),
+    UserIMBetDetail: viewRoutHelp(TCUserIMBetDetail),
+    UserSSBetDetail: viewRoutHelp(TCUserSSBetDetail),
+    UserMGBetDetail: viewRoutHelp(TCUserMGBetDetail),
+    UserOtherBetRecords: viewRoutHelp(TCUserOtherBetRecords),
     TCLotteryHistory: viewRoutHelp(TCLotteryHistory),
     UserCollects: viewRoutHelp(UserCollects),
-    OrderChaseItemList:viewRoutHelp(OrderChaseItemList),
+    OrderChaseItemList: viewRoutHelp(OrderChaseItemList),
     OrderItemList: viewRoutHelp(OrderItemList),
     UserLogin: viewRoutHelp(UserLogin),
     UserRegister: viewRoutHelp(UserRegister),
-    UserRegisterWeb:viewRoutHelp(UserRegisterWeb),
+    UserRegisterWeb: viewRoutHelp(UserRegisterWeb),
     UserFreePlay: viewRoutHelp(UserFreePlay),
     UserSetting: viewRoutHelp(UserSetting),
     UserProtocol: viewRoutHelp(UserProtocol),
@@ -146,13 +159,13 @@ const Components = {
     UserAccountCenter: viewRoutHelp(UserAccountCenter),
     UserDetailMsg: viewRoutHelp(UserDetailMsg),
     UserWithdraw: viewRoutHelp(UserWithdraw),
-    MessageList:viewRoutHelp(MessageList),
+    MessageList: viewRoutHelp(MessageList),
     RedPacket: viewRoutHelp(RedPacket),
     RedPacketMine: viewRoutHelp(RedPacketMine),
-    RedPacketWinList:viewRoutHelp(RedPacketWinList),
+    RedPacketWinList: viewRoutHelp(RedPacketWinList),
     RedPacketRules: viewRoutHelp(RedPacketRules),
     FeedbackList: viewRoutHelp(FeedbackList),
-    UserAcount:viewRoutHelp(UserAcount),
+    UserAcount: viewRoutHelp(UserAcount),
     UserAcountPay: viewRoutHelp(UserAcountPay),
     UserPay: viewRoutHelp(UserPay),
     UserOrderDetail: viewRoutHelp(UserOrderDetail),
@@ -163,34 +176,34 @@ const Components = {
     UserBankManager: viewRoutHelp(UserBankManager),
     UserForgotPassword: viewRoutHelp(UserForgotPassword),
     ModifyPassword: viewRoutHelp(ModifyPassword),
-    ModifySecurityPwd:  viewRoutHelp(ModifySecurityPwd),
-    UserMessage:viewRoutHelp(UserMessage),
+    ModifySecurityPwd: viewRoutHelp(ModifySecurityPwd),
+    UserMessage: viewRoutHelp(UserMessage),
     UserPayment: viewRoutHelp(UserPayment),
-    UserAliAndWechatTransfer:viewRoutHelp(UserAliAndWechatTransfer),
-    UserAliAndWechatPay:viewRoutHelp(UserAliAndWechatPay),
+    UserAliAndWechatTransfer: viewRoutHelp(UserAliAndWechatTransfer),
+    UserAliAndWechatPay: viewRoutHelp(UserAliAndWechatPay),
     UserBankPayMessage: viewRoutHelp(TCUserBankPayMessageNew),
-    UserHTMLPay:viewRoutHelp(UserHTMLPay),
-    UserPayProgress:viewRoutHelp(UserPayProgress),
+    UserHTMLPay: viewRoutHelp(UserHTMLPay),
+    UserPayProgress: viewRoutHelp(UserPayProgress),
     UserAliPayAndWechatMessage: viewRoutHelp(UserAliPayAndWechatMessage),
     AgentCenter: viewRoutHelp(AgentCenter),
     AgentAddAccount: viewRoutHelp(AgentAddAccount),
     AgentTeamList: viewRoutHelp(AgentTeamList),
-    AgentCommissionList:viewRoutHelp(AgentCommissionList),
+    AgentCommissionList: viewRoutHelp(AgentCommissionList),
     AgentSheet: viewRoutHelp(AgentSheet),
     CommissionDetail: viewRoutHelp(CommissionDetail),
     PersonalCommissionDetail: viewRoutHelp(PersonalCommissionDetail),
     InviteFriends: viewRoutHelp(TCInviteFriends),
-    WelfareCenter:viewRoutHelp(TCWelfareCenter),
-    TCWebTrendView:viewRoutHelp(TCWebTrendView),
-    Wallet:viewRoutHelp(TCWallet),
-    DZGameListView:viewRoutHelp(DZGameListView),
-    TCWebGameView:viewRoutHelp(TCWebGameView),
+    WelfareCenter: viewRoutHelp(TCWelfareCenter),
+    TCWebTrendView: viewRoutHelp(TCWebTrendView),
+    Wallet: viewRoutHelp(TCWallet),
+    DZGameListView: viewRoutHelp(DZGameListView),
+    TCWebGameView: viewRoutHelp(TCWebGameView),
 }
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
-for(let key in Components){
-     if(Components[key]){
-         Components[key].routName=key
-     }
+for (let key in Components) {
+    if (Components[key]) {
+        Components[key].routName = key
+    }
 }
 
 global.JX_Compones = Components
@@ -202,14 +215,10 @@ const MainStackNavigator = StackNavigator({
         header: null
     }
 })
-import {
-    UIManager
-} from 'react-native';
-
 
 export default class Main extends Component {
     componentWillMount() {
-        UIManager.setLayoutAnimationEnabledExperimental &&   UIManager.setLayoutAnimationEnabledExperimental(true);
+        UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     }
 
     componentWillUnmount() {
@@ -217,9 +226,11 @@ export default class Main extends Component {
 
     render() {
         return (
-            <Provider  {...rootStore}>
+            <Provider  {...appStores}>
                 <MainStackNavigator
-                    ref={navigatorRef => {NavigationService.setTopLevelNavigator(navigatorRef)}}
+                    ref={navigatorRef => {
+                        NavigationService.setTopLevelNavigator(navigatorRef)
+                    }}
                 />
             </Provider>
         )

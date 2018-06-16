@@ -9,7 +9,6 @@ import {
     Size,
     navbarHight,
     JX_PLAT_INFO,
-    themeViewStyle
 } from "../../Page/resouce/theme";
 import rootStore from "../../Data/store/RootStore";
 import PropTypes from 'prop-types';
@@ -39,7 +38,6 @@ global.JX_PLAT_INFO = {
     ...JX_PLAT_INFO
 }
 
-global.JX_ThemeViewStyle = themeViewStyle;
 
 global.JX_LayoutAnimaton = layoutAnimaton;
 
