@@ -44,7 +44,7 @@ import {MathControllerFactory} from 'lottery-core'
 let SingletonDPS = null;
 let myPlayMath = '';
 let myGameSetting = null
-import {height, betHome, indexBgColor, statusBarHeight} from '../../../resouce/theme'
+import { betHome, indexBgColor} from '../../../resouce/theme'
 import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceBetData";
 
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'

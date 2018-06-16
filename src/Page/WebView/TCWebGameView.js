@@ -17,7 +17,7 @@ import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
 import {common} from "../resouce/images";
 import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
-
+import {JX_PLAT_INFO,bottomNavHeight} from "../../Common/Const/ScreenInfo"
 //专门为体育电子准备
 export default class TCWebGameView extends React.Component {
 
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
 
     webView: {
         flex: 1,
-        width: JX_PLAT_INFO.screenW,
+        width: SCREEN_W,
     }
 });
 

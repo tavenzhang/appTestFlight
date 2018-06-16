@@ -20,7 +20,8 @@ import {
 } from 'react-native';
 
 import {common} from '../../Page/resouce/images'
-import {Size, width, height, statusBarHeight} from '../../Page/resouce/theme'
+import {Size, width, height} from '../../Page/resouce/theme'
+import {statusBarHeight} from '../../Common/Const/ScreenInfo'
 /**
  * 自定义输入数字键盘
  */

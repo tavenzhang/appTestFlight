@@ -8,7 +8,6 @@ import {
     bottomNavHeight,
     Size,
     navbarHight,
-    JX_PLAT_INFO,
 } from "../../Page/resouce/theme";
 import rootStore from "../../Data/store/RootStore";
 import PropTypes from 'prop-types';

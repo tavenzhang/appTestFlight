@@ -20,7 +20,8 @@ import RowCell from './View/TCLotteryLobbyRowView'
 import TopNavigationBar from '../../Common/View/TCNavigationBar'
 import LotteryHistoryList from './TCLotteryHistoryList'
 import LotteryResultData from '../../Data/JXLotteryResultData'
-import {indexBgColor,height,width,bottomNavHeight,JX_PLAT_INFO} from '../resouce/theme'
+import {indexBgColor,height,width,bottomNavHeight} from '../resouce/theme'
+import {JX_PLAT_INFO} from '../../Common/Const/ScreenInfo'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
 
 @observer

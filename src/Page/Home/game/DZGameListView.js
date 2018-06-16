@@ -11,7 +11,7 @@ import {observer} from 'mobx-react/native'
 import GamePage from "./GamePage";
 import {indexBgColor, shoppingTxtColor, baseColor, Size} from "../../resouce/theme";
 import TCNavigationBar from "../../../Common/View/TCNavigationBar";
-
+import {themeViewStyle} from "../../asset"
 import ScrollableTabView, {ScrollableTabBar} from "react-native-scrollable-tab-view";
 import {config} from "../../../Common/Network/TCRequestConfig";
 import NetUitls from "../../../Common/Network/TCRequestUitls";
@@ -39,7 +39,7 @@ export default class DZGameListView extends Component {
         </View>)
 
         return (
-            <View style={JX_ThemeViewStyle.containView}>
+            <View style={themeViewStyle.containView}>
                 <TCNavigationBar
                     title={'游戏列表'}
                     needBackButton={true}
@@ -47,7 +47,7 @@ export default class DZGameListView extends Component {
                 />
                 {this.state.isEmpty ? emptView :<ScrollableTabView
                     initialPage={0}
-                    style={{backgroundColor: indexBgColor.itemBg, width:JX_PLAT_INFO.width}}
+                    style={{backgroundColor: indexBgColor.itemBg, width:SCREEN_W}}
                     removeClippedSubviews={false}
                     tabBarUnderlineStyle={{backgroundColor: shoppingTxtColor.tabLine, height: 2}}
                     locked={false}

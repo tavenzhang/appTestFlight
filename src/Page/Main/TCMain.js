@@ -23,7 +23,8 @@ import WelfareCenter from '../UserCenter/welfare/TCWelfareCenter';
 import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
-import {width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size,bottomNavHeight,JX_PLAT_INFO} from '../resouce/theme';
+import {width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size,bottomNavHeight} from '../resouce/theme';
+import {JX_PLAT_INFO} from '../../Common/Const/ScreenInfo'
 import SoundHelper from '../../Common/JXHelper/SoundHelper';
 import {home} from '../resouce/images';
 import Toast from "../../Common/JXHelper/JXToast";
@@ -117,7 +118,7 @@ export default class TC168 extends Component {
     }
 
     renderTabBarItem(model, title, iconName, selectedIconName, selectedTab) {
-        let xStyle = JX_PLAT_INFO.IS_IphoneX ? {marginBottom: 30} : {marginTop: JX_PLAT_INFO.IS_IOS ? 0 : 1}
+        let xStyle = JX_PLAT_INFO.IS_IphoneX ? {marginBottom: 30} : {marginTop: IS_IOS ? 0 : 1}
 
         return (
             <TabNavigator.Item

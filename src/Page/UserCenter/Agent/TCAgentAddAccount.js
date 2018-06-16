@@ -18,8 +18,9 @@ import SegmentedControlTab from '../../../Common/View/SegmentedControlTab';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import {agent} from '../../resouce/images';
 import {
-    Size, indexBgColor, height, width, agentCenter, buttonStyle, baseColor, statusBarHeight
+    Size, indexBgColor, height, width, agentCenter, buttonStyle, baseColor,
 } from '../../resouce/theme';
+import {statusBarHeight} from '../../../Common/Const/ScreenInfo'
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 
 /** 外部关系组件 如 页面跳转用 */

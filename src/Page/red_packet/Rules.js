@@ -5,7 +5,8 @@
 
 import React ,{Component}from 'react';
 import {StyleSheet, View, WebView} from 'react-native';
-import {height, statusBarHeight} from '../resouce/theme';
+import {height} from '../resouce/theme';
+import {statusBarHeight} from '../../Common/Const/ScreenInfo'
 import TopNavigationBar from './components/TCNavigationBar';
 import RedPacket from './RedPacketData';
 

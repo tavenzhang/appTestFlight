@@ -44,7 +44,8 @@ import Moment from 'moment';
 import {observer} from 'mobx-react/native';
 
 
-import {width, indexBgColor, indexTxtColor,height,bottomNavHeight,JX_PLAT_INFO} from '../resouce/theme';
+import {width, indexBgColor, indexTxtColor,height,bottomNavHeight} from '../resouce/theme';
+import {JX_PLAT_INFO} from '../../Common/Const/ScreenInfo'
 import NetWorkTool from '../../Common/Network/TCToolNetWork';
 
 let isFirstLoad = false;

@@ -47,7 +47,7 @@ import NavigatorHelper from '../../../../Common/JXHelper/TCNavigatorHelper'
 import JXCurrentResultData from '../../../../Data/JXCurrentResultData'
 import JXUserPlayNumberEvent from '../../../../Data/JXUserPlayNumberEvent'
 import JXHelper from '../../../../Common/JXHelper/JXHelper'
-import {height, width, betHome, indexBgColor, statusBarHeight} from '../../../resouce/theme'
+import { width, betHome, indexBgColor} from '../../../resouce/theme'
 import TCChongQingSSC_DPS from './data/TCChongQingSSC_DPS'
 import {MathControllerFactory} from 'lottery-core';
 import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceBetData";

@@ -3,8 +3,7 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {
-} from 'react';
+import React, {} from 'react';
 import {
     StyleSheet,
     Text,
@@ -16,50 +15,55 @@ import {
 } from 'react-native';
 
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
+
 var WEBVIEW_REF = 'webview';
 
 import {configAppId} from "../resouce/appConfig";
 import {common} from "../resouce/images";
 import Moment from "moment/moment";
 import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
+import {JX_PLAT_INFO} from "../../Common/Const/ScreenInfo"
+import {indexBgColor} from "../resouce/theme";
 
 //专门为趋势图准备
 export default class TCWebTrendView extends React.Component {
 
     constructor(state) {
         super(state)
-        this.state ={
-            loadedFail:false,
+        this.state = {
+            loadedFail: false,
             game: this.props.navigation.state.params.game,
-            title:this.props.navigation.state.params.title,
-            url:""
+            title: this.props.navigation.state.params.title,
+            url: ""
         }
-        this.initUrl=this.state.url;
+        this.initUrl = this.state.url;
     }
 
-    componentDidMount(){
-        let link =`${TCDefaultTendDomain}/trend_v2?gameUniqueId=${this.state.game}&showBack=false&clientId=${configAppId}&height=${JX_PLAT_INFO.MarginBarHeight}`;
-        JXLog("TCWebTrendView-----  link==",link)
-        this.setState({url: link},()=>{
-            this.initUrl=this.state.url;
+    componentDidMount() {
+        let link = `${TCDefaultTendDomain}/trend_v2?gameUniqueId=${this.state.game}&showBack=false&clientId=${configAppId}&height=${JX_PLAT_INFO.MarginBarHeight}`;
+        JXLog("TCWebTrendView-----  link==", link)
+        this.setState({url: link}, () => {
+            this.initUrl = this.state.url;
         });
     }
 
     render() {
-         JXLog("TCWebTrendView-----  TCWebTrendView",this.props)
-         let containStyle = JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container
-        if(this.state.loadedFail){
+        JXLog("TCWebTrendView-----  TCWebTrendView", this.props)
+        let containStyle = JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container
+        if (this.state.loadedFail) {
             return (<View style={[containStyle]}>
                 <TopNavigationBar title={this.state.title}
-                backButtonCall={()=> {TCNavigatorHelper.popToBack}}/>
-                <View style={{flex:1, justifyContent:"center", alignItems:"center"}}>
-                    <Text style={{fontSize:14, fontWeight:"bold"}}>页面数据加载失败!</Text>
+                                  backButtonCall={() => {
+                                      TCNavigatorHelper.popToBack
+                                  }}/>
+                <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+                    <Text style={{fontSize: 14, fontWeight: "bold"}}>页面数据加载失败!</Text>
                 </View>
             </View>)
-        }else{
+        } else {
             return (<View style={containStyle}>
                 {
-                    this.state.url!="" ?  <WebView
+                    this.state.url != "" ? <WebView
                         bounces={false}
                         ref={WEBVIEW_REF}
                         automaticallyAdjustContentInsets={true}
@@ -72,27 +76,40 @@ export default class TCWebTrendView extends React.Component {
                         scalesPageToFit={true}
                         onNavigationStateChange={this.onNavigationStateChange}
                         onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                        onError={this.onLoadError}/>:null
+                        onError={this.onLoadError}/> : null
                 }
-                { this.state.url!="" ? <View style={{position:"absolute", justifyContent: "center", alignItems: "center",flexDirection: "row",top:JX_PLAT_INFO.MarginBarHeight+5, zIndex:100, left:5}}>
+                {this.state.url != "" ? <View style={{
+                    position: "absolute",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    top: JX_PLAT_INFO.MarginBarHeight + 5,
+                    zIndex: 100,
+                    left: 5
+                }}>
                     <TouchableOpacity onPress={TCNavigatorHelper.popToBack}>
-                        <View style={{justifyContent: 'center', alignItems: 'center', marginRight:8}}>
-                            <Image source={common.back} style={{width:35, height:35}}/>
+                        <View style={{justifyContent: 'center', alignItems: 'center', marginRight: 8}}>
+                            <Image source={common.back} style={{width: 35, height: 35}}/>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this.refresh}>
                         <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                            <Text style={{color:"white", backgroundColor: "transparent",fontSize:16, fontWeight:"bold"}}>{"刷新"}</Text>
+                            <Text style={{
+                                color: "white",
+                                backgroundColor: "transparent",
+                                fontSize: 16,
+                                fontWeight: "bold"
+                            }}>{"刷新"}</Text>
                         </View>
                     </TouchableOpacity>
-                </View>:null}
+                </View> : null}
             </View>);
         }
     }
 
     onLoadError = (evt) => {
         JXLog("TCDefaultTendDomain----onLoadError==", evt)
-        this.setState({loadedFail:true})
+        this.setState({loadedFail: true})
     }
 
     onShouldStartLoadWithRequest = (event) => {
@@ -101,7 +118,7 @@ export default class TCWebTrendView extends React.Component {
 
 
     onNavigationStateChange = (navState) => {
-        JXLog("TCDefaultTendDomain----onNavigationStateChange==",navState)
+        JXLog("TCDefaultTendDomain----onNavigationStateChange==", navState)
         this.setState({
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,
@@ -110,8 +127,8 @@ export default class TCWebTrendView extends React.Component {
     };
 
 
-    refresh=()=> {
-        this.setState({loadedFail:false,url: this.initUrl + '&temp=' + Moment().format('X')}, () => {
+    refresh = () => {
+        this.setState({loadedFail: false, url: this.initUrl + '&temp=' + Moment().format('X')}, () => {
 
         })
     }
@@ -122,16 +139,16 @@ export default class TCWebTrendView extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:JX_PLAT_INFO.indexBgColor.mainBg
+        backgroundColor: indexBgColor.mainBg
     },
     containerIOS: {
-        height:JX_PLAT_INFO.screenH -33,
-        width: JX_PLAT_INFO.screenW,
-        backgroundColor: JX_PLAT_INFO.indexBgColor.mainBg
+        height: SCREEN_H - 33,
+        width: SCREEN_W,
+        backgroundColor: indexBgColor.mainBg
     },
     webView: {
-         flex:1,
-        width: JX_PLAT_INFO.screenW,
+        flex: 1,
+        width: SCREEN_W,
     }
 });
 

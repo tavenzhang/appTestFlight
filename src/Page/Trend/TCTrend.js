@@ -23,7 +23,8 @@ import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 import {configAppId} from '../resouce/appConfig'
 import {common} from "../resouce/images";
 import PropTypes from 'prop-types'
-import {bottomNavHeight} from "../resouce/theme";
+import {indexBgColor} from "../resouce/theme";
+import {JX_PLAT_INFO,bottomNavHeight} from "../../Common/Const/ScreenInfo"
 
 export default class TCTrend extends Component {
 
@@ -170,17 +171,17 @@ export default class TCTrend extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:JX_PLAT_INFO.indexBgColor.mainBg
+        backgroundColor:indexBgColor.mainBg
     },
     containerIOS: {
-        height:JX_PLAT_INFO.screenH -JX_PLAT_INFO.bottomNavHeight,
-        width: JX_PLAT_INFO.screenW,
-        backgroundColor: JX_PLAT_INFO.indexBgColor.mainBg
+        height:SCREEN_H -bottomNavHeight,
+        width: SCREEN_W,
+        backgroundColor: indexBgColor.mainBg
     },
     webView: {
        //height:JX_PLAT_INFO.screenH -JX_PLAT_INFO.bottomNavHeight,
         //flex:1,
-        width: JX_PLAT_INFO.screenW,
+        width: SCREEN_W,
     }
 });
 
