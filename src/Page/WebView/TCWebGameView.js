@@ -36,7 +36,7 @@ export default class TCWebGameView extends React.Component {
             access_token: TCUSER_DATA.oauthToken.access_token,
         }
 
-        JXLog("export default class TCWebGameView extends React.Component ", params)
+        JXLog("componentWillMount--- params==", params)
         if (params.isDZ) {
             let {gameData, gameId} = params
             bodyParam.gameId = gameId
@@ -91,7 +91,7 @@ export default class TCWebGameView extends React.Component {
             </View>
         }
         return (<View style={JX_ThemeViewStyle.containView}>
-            <TopNavigationBar title={title} needBackButton={this.state.backButtonEnabled ? true:false} backButtonCall={this.onBack}/>
+            <TopNavigationBar title={title} needBackButton={true} backButtonCall={this.onBack}/>
             {conetView}
            <View style={{
                 position: "absolute",
@@ -100,7 +100,7 @@ export default class TCWebGameView extends React.Component {
                 flexDirection: "row",
                 top: JX_PLAT_INFO.MarginBarHeight + 12,
                 zIndex: 100,
-                left: 55
+                right:25
             }}>
                 <TouchableOpacity onPress={JX_NavHelp.popToBack}>
                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -117,7 +117,12 @@ export default class TCWebGameView extends React.Component {
     }
 
     onBack = () => {
-        this.refs[WEBVIEW_REF].goBack();
+        if(this.state.backButtonEnabled){
+            this.refs[WEBVIEW_REF].goBack();
+        }
+        else{
+            JX_NavHelp.popToBack()
+        }
     }
 
     onLoadError = (evt) => {
