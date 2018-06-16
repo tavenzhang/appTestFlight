@@ -14,6 +14,7 @@ import {computed} from 'mobx'
 import {observer} from 'mobx-react/native'
 import ModalDropdown from 'react-native-modal-dropdown';
 import {common} from '../../resouce/images'
+import {Other} from "../../asset/drawable";
 import {
     baseColor,
     height,
@@ -148,7 +149,7 @@ class SelectBarView extends React.Component {
             <View style={styles.content}>
                 {this.getWithdrawFromDropDownView()}
                 <TouchableOpacity onPress={() => this.changeSelect()}>
-                    <Image source={common.transfer} style={styles.withdrawIconStyle}/>
+                    <Image source={Other.transfer} style={styles.withdrawIconStyle}/>
                 </TouchableOpacity>
                 {this.getWithdrawToDropDownView()}
             </View>
