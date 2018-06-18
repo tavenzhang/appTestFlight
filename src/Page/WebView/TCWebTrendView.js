@@ -51,7 +51,7 @@ export default class TCWebTrendView extends React.Component {
         if(this.state.loadedFail){
             return (<View style={[containStyle]}>
                 <TopNavigationBar title={this.state.title}
-                backButtonCall={()=> {TCNavigatorHelper.popToBack}}/>
+                backButtonCall={TCNavigatorHelper.popToBack}/>
                 <View style={{flex:1, justifyContent:"center", alignItems:"center"}}>
                     <Text style={{fontSize:14, fontWeight:"bold"}}>页面数据加载失败!</Text>
                 </View>
