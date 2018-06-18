@@ -24,7 +24,7 @@ var edgeH = height - imgSize.h - (bottomNavHeight) -10;
 
 /**组件内部显示需要引入的类 */
 import {width, height}from '../../resouce/theme';
-import {navbarHight,bottomNavHeight} from '../../../Page/asset/screen'
+import {navbarHight,bottomNavHeight} from '../../asset'
 
 /** 外部关系组件 如 页面跳转用 */
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper';

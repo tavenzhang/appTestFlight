@@ -20,7 +20,7 @@ import {agent} from '../../resouce/images';
 import {
     Size, indexBgColor, height, width, agentCenter, buttonStyle, baseColor,
 } from '../../resouce/theme';
-import {statusBarHeight} from '../../../Page/asset/screen'
+import {statusBarHeight} from '../../asset'
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 
 /** 外部关系组件 如 页面跳转用 */

@@ -21,7 +21,7 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar'
 import LotteryHistoryList from './TCLotteryHistoryList'
 import LotteryResultData from '../../Data/JXLotteryResultData'
 import {indexBgColor, height, width} from '../resouce/theme'
-import {JX_PLAT_INFO, bottomNavHeight} from '../../Page/asset/screen'
+import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import TCFlatList from "../../Common/View/RefreshListView/TCFLatList";
 @observer

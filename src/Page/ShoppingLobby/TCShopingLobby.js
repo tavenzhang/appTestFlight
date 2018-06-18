@@ -18,7 +18,7 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import LotteryResultData from '../../Data/JXLotteryResultData';
 
 import {Size, height, width, shoppingTxtColor, indexBgColor} from '../resouce/theme';
-import {JX_PLAT_INFO, bottomNavHeight} from '../asset/screen'
+import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
 import {common} from '../resouce/images';
 
 

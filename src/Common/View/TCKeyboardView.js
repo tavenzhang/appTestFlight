@@ -21,7 +21,7 @@ import {
 
 import {common} from '../../Page/resouce/images'
 import {Size, width, height} from '../../Page/resouce/theme'
-import {statusBarHeight} from '../../Page/asset/screen'
+import {statusBarHeight} from '../../Page/asset'
 
 /**
  * 自定义输入数字键盘

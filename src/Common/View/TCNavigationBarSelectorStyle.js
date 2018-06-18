@@ -25,7 +25,7 @@ import {
 import SoundHelper from '../JXHelper/SoundHelper'
 import {common} from '../../Page/resouce/images'
 import {Size, width, indexTxtColor, popuWinStyle} from '../../Page/resouce/theme'
-import {navbarHight, navbarMarginTop} from '../../Page/asset/screen'
+import {navbarHight, navbarMarginTop} from '../../Page/asset'
 
 export default class TCBetBar extends React.Component {
 

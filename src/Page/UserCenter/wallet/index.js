@@ -2,7 +2,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
-import {Other} from "../../asset/drawable";
+import {Other} from "../../asset";
 import {indexBgColor, Size} from "../../resouce/theme";
 import TransferStore from "../../../Data/store/userCenterStore/TransferStore";
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';

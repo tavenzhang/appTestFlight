@@ -11,7 +11,7 @@ import {observer} from 'mobx-react/native'
 import GamePage from "./GamePage";
 import {indexBgColor, shoppingTxtColor, baseColor, Size} from "../../resouce/theme";
 import TCNavigationBar from "../../../Common/View/TCNavigationBar";
-import {themeViewStyle} from "../../asset/theme"
+import {themeViewStyle} from "../../asset"
 import ScrollableTabView, {ScrollableTabBar} from "react-native-scrollable-tab-view";
 import {config} from "../../../Common/Network/TCRequestConfig";
 import NetUitls from "../../../Common/Network/TCRequestUitls";

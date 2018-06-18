@@ -1,6 +1,6 @@
 //常用容器或者组件样式
-import {indexBgColor} from "../../resouce/theme";
-import {bottomNavHeight} from '../../asset/screen'
+import {indexBgColor} from "../resouce/theme";
+import {bottomNavHeight} from '../asset/screen'
 
 export const themeViewStyle = {
     containTabView: IS_IOS ? {

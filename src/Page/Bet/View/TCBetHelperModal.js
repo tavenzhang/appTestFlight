@@ -25,7 +25,7 @@ import Toast from '../../../Common/JXHelper/JXToast';
 import TCNavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {betIcon} from '../../resouce/images'
 import {Size} from '../../resouce/theme'
-import {navbarHight} from '../../../Page/asset/screen'
+import {navbarHight} from '../../../Page/asset'
 
 export default class TCBetHelperModal extends Component {
     constructor(state) {

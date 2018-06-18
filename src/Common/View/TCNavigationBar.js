@@ -21,7 +21,7 @@ import {
 import SoundHelper from '../../Common/JXHelper/SoundHelper'
 
 import {width, indexTxtColor, Size} from '../../Page/resouce/theme'
-import {navbarHight, navbarMarginTop} from '../../Page/asset/screen'
+import {navbarHight, navbarMarginTop} from '../../Page/asset'
 
 import _ from 'lodash';
 import {common} from '../../Page/resouce/images'

@@ -24,7 +24,7 @@ import TCNavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import JXHelpers from '../../Common/JXHelper/JXHelper'
 import JXLotteryHistoryData from '../../Data/JXLotteryHistoryData'
 import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle} from '../resouce/theme'
-import {themeViewStyle} from '../asset/theme'
+import {themeViewStyle} from '../asset'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @observer

@@ -17,8 +17,7 @@ import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
 import {common} from "../resouce/images";
 import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
-import {JX_PLAT_INFO} from '../asset/screen'
-import {themeViewStyle} from '../asset/theme'
+import {JX_PLAT_INFO,themeViewStyle} from '../asset'
 //专门为体育电子准备
 export default class TCWebGameView extends React.Component {
 

@@ -45,7 +45,7 @@ import {observer} from 'mobx-react/native';
 
 
 import {width, indexBgColor, indexTxtColor,height} from '../resouce/theme';
-import {JX_PLAT_INFO,bottomNavHeight} from '../../Page/asset/screen'
+import {JX_PLAT_INFO,bottomNavHeight} from '../asset'
 import NetWorkTool from '../../Common/Network/TCToolNetWork';
 
 let isFirstLoad = false;

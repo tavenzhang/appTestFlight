@@ -15,7 +15,7 @@ var {
     width
 } = Dimensions.get('window');
 import {Size, betHome} from '../resouce/theme'
-import {bottomNavHeight} from '../../Page/asset/screen'
+import {bottomNavHeight} from '../asset'
 
 export default class TCBetHomeBottomView extends Component {
     constructor(state) {

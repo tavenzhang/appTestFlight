@@ -9,7 +9,7 @@ import {observer} from 'mobx-react/native';
 import {observable, computed, action} from 'mobx';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 import {Size, width, height} from '../resouce/theme';
-import {statusBarHeight} from '../../Page/asset/screen'
+import {statusBarHeight} from '../asset'
 import TopNavigationBar from './components/TCNavigationBar';
 import NetUtils from '../../Common/Network/TCRequestUitls';
 import {config} from '../../Common/Network/TCRequestConfig';

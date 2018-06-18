@@ -7,7 +7,7 @@ import {StyleSheet, Platform, View, Text, TouchableOpacity, Image} from 'react-n
 import {common} from '../../resouce/images';
 import {Size, width} from '../../resouce/theme';
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper';
-import {navbarHight,navbarMarginTop} from '../../../Page/asset/screen'
+import {navbarHight,navbarMarginTop} from '../../asset'
 
 export default class TCNavigationBar extends React.Component {
     // static propTypes = {

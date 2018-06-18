@@ -3,7 +3,7 @@ import React from 'react';
 import {StyleSheet, SafeAreaView, View, Text, Image} from 'react-native';
 import {width, listViewTxtColor, Size} from "../../resouce/theme";
 import {common as Common} from "../../resouce/images";
-import {Other} from "../../asset/drawable";
+import {Other} from "../../asset";
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import TCListItemBar from '../../../Common/View/TCListItemBar'

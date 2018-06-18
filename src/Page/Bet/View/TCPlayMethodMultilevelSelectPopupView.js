@@ -17,7 +17,7 @@ import {
     Dimensions
 } from 'react-native';
 import {width, Size} from '../../resouce/theme'
-import {navbarHight} from '../../../Page/asset/screen'
+import {navbarHight} from '../../asset'
 
 export default class TCCQSSCPlayMethodSelectPopupView extends Component {
     constructor(state) {

@@ -40,7 +40,7 @@ import {
     listViewTxtColor,
     bottomNavHeight
 } from '../resouce/theme'
-import {JX_PLAT_INFO} from '../../Page/asset/screen'
+import {JX_PLAT_INFO} from '../asset'
 import SignInModal from './SignIn/TCSignInModal'
 import userCenterData from './TCUserCenterData'
 
