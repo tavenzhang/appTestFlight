@@ -23,7 +23,7 @@ import LotteryResultData from '../../Data/JXLotteryResultData'
 import {indexBgColor, height, width} from '../resouce/theme'
 import {JX_PLAT_INFO, bottomNavHeight} from '../../Page/asset/screen'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
-
+import TCFlatList from "../../Common/View/RefreshListView/TCFLatList";
 @observer
 export default class TCLotteryLobby extends React.Component {
     constructor(state) {
@@ -72,7 +72,7 @@ export default class TCLotteryLobby extends React.Component {
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.isRefreshing}
-                            onRefresh={() => this.loadDataFormNet(true)}
+                            onRefresh={this.loadDataFormNet}
                             tintColor="#ff0000"
                             title="下拉刷新"
                             titleColor="#999999"
@@ -86,7 +86,7 @@ export default class TCLotteryLobby extends React.Component {
     }
 
     //CELL ROW DATA
-    renderRow(rowData) {
+    renderRow=(rowData)=> {
         return (
             <RowCell
                 cpName={rowData.gameNameInChinese}
@@ -97,14 +97,14 @@ export default class TCLotteryLobby extends React.Component {
         )
     }
 
-    _pushToBetHome3(rowData) {
+    _pushToBetHome3=(rowData)=>{
         NavigatorHelper.pushToLotteryHistoryList({
             title: rowData.gameNameInChinese,
             gameUniqueId: rowData.gameUniqueId
         })
     }
 
-    loadDataFormNet(manual) {
+    loadDataFormNet=(manual=true)=>  {
         this.lotteryResultData.getLotteryDetailRequest();
         if (manual) {
             this.refs['ListView'].scrollTo({x: 0, y: 0, animated: true})
