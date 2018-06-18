@@ -7,13 +7,15 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     ScrollView,
-    Dimensions
+    Dimensions,
+
 } from 'react-native';
 
 import ListItemView from './TCShopingListItemView'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
 import {indexBgColor,height} from '../../resouce/theme'
 import Moment from 'moment'
+import TCFlatList from "../../../Common/View/RefreshListView/TCFLatList";
 
 
 export default class TCShopingListStyle extends Component {
@@ -34,12 +36,32 @@ export default class TCShopingListStyle extends Component {
             <ScrollView contentContainerStyle={styles.container} style={{
                 height: height - 64 - 45 - 50,
             }}>
-                {this.getRenderListView()}
+                <TCFlatList  dataS={this.getRenderListView()} renderRow={this.renderRow}/>
             </ScrollView>
         );
     }
 
-    getRenderListView() {
+    renderRow=(item,index)=>{
+        let gameInfo = JXHelper.getGameInfoWithUniqueId(item.gameUniqueId)
+        let myicon = ''
+        if (gameInfo && gameInfo.status == 'FORBIDDEN') {
+            myicon = gameInfo.gameIconGrayUrl
+        } else if (gameInfo) {
+            myicon = gameInfo.gameIconUrl
+        }
+
+        return  <ListItemView
+            gameInfo={gameInfo}
+            icon={gameInfo && myicon ? myicon : item.icon}
+            title={item.gameNameInChinese}
+            mTimer={item.stopOrderTimeEpoch - item.currentTimeEpoch}
+            rowData={item} moment={Moment().format('X')}
+            mobData={this.props.mobData[index]}
+        />
+    }
+
+
+    getRenderListView=()=> {
         let itemArr = [];
         if (this.props.mobData && this.props.mobData.length > 0) {
             for (let i = 0; i < this.props.cpArray.length; i++) {
@@ -65,25 +87,26 @@ export default class TCShopingListStyle extends Component {
                 } else if (this.props.tabLabel == '快3') {
                     if (item.gameUniqueId.indexOf('K3') < 0) continue
                 }
+                itemArr.push(item);
 
-                let gameInfo = JXHelper.getGameInfoWithUniqueId(item.gameUniqueId)
-                let myicon = ''
-                if (gameInfo && gameInfo.status == 'FORBIDDEN') {
-                    myicon = gameInfo.gameIconGrayUrl
-                } else if (gameInfo) {
-                    myicon = gameInfo.gameIconUrl
-                }
-
-                itemArr.push(
-                    <ListItemView
-                        key={i}
-                        gameInfo={gameInfo}
-                        icon={gameInfo && myicon ? myicon : item.icon}
-                        title={item.gameNameInChinese}
-                        mTimer={item.stopOrderTimeEpoch - item.currentTimeEpoch}
-                        rowData={item} moment={Moment().format('X')}
-                        mobData={this.props.mobData[i]}
-                    />)
+              //  let gameInfo = JXHelper.getGameInfoWithUniqueId(item.gameUniqueId)
+                // let myicon = ''
+                // if (gameInfo && gameInfo.status == 'FORBIDDEN') {
+                //     myicon = gameInfo.gameIconGrayUrl
+                // } else if (gameInfo) {
+                //     myicon = gameInfo.gameIconUrl
+                // }
+                //
+                // itemArr.push(
+                //     <ListItemView
+                //         key={i}
+                //         gameInfo={gameInfo}
+                //         icon={gameInfo && myicon ? myicon : item.icon}
+                //         title={item.gameNameInChinese}
+                //         mTimer={item.stopOrderTimeEpoch - item.currentTimeEpoch}
+                //         rowData={item} moment={Moment().format('X')}
+                //         mobData={this.props.mobData[i]}
+                //     />)
             }
 
             // let paddinngNum = 3-itemArr.length%3

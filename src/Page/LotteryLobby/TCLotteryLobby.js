@@ -18,10 +18,10 @@ import { observer } from 'mobx-react/native';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import RowCell from './View/TCLotteryLobbyRowView'
 import TopNavigationBar from '../../Common/View/TCNavigationBar'
-import LotteryHistoryList from './TCLotteryHistoryList'
 import LotteryResultData from '../../Data/JXLotteryResultData'
 import {indexBgColor,height,width,bottomNavHeight,JX_PLAT_INFO} from '../resouce/theme'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
+import TCFlatList from "../../Common/View/RefreshListView/TCFLatList";
 
 @observer
 export default class TCLotteryLobby extends React.Component {
@@ -48,7 +48,7 @@ export default class TCLotteryLobby extends React.Component {
     }
 
     componentWillUnmount() {
-        this.lotteryResultData && this.lotteryResultData.clear();;
+        this.lotteryResultData && this.lotteryResultData.clear();
     }
 
     render() {
@@ -61,16 +61,13 @@ export default class TCLotteryLobby extends React.Component {
                                   }}
                 />
                 {/*列表*/}
-                <ListView
-                    ref="ListView"
-                    dataSource={this.dataSource.cloneWithRows(this.lotteryResultData.resultsData.slice())}
-                    renderRow={(rowData) => this.renderRow(rowData)}
-                    removeClippedSubviews={false}
-                    enableEmptySections={true}
+                <TCFlatList
+                    dataS={this.lotteryResultData.resultsData.slice()}
+                    renderRow={this.renderRow}
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.isRefreshing}
-                            onRefresh={()=>this.loadDataFormNet(true)}
+                            onRefresh={this.loadDataFormNet}
                             tintColor="#ff0000"
                             title="下拉刷新"
                             titleColor="#999999"
@@ -84,7 +81,7 @@ export default class TCLotteryLobby extends React.Component {
     }
 
     //CELL ROW DATA
-    renderRow(rowData) {
+    renderRow=(rowData)=> {
         return (
             <RowCell
                 cpName={rowData.gameNameInChinese}
@@ -95,25 +92,18 @@ export default class TCLotteryLobby extends React.Component {
         )
     }
 
-    _pushToBetHome3(rowData) {
+    _pushToBetHome3=(rowData)=> {
         NavigatorHelper.pushToLotteryHistoryList({title: rowData.gameNameInChinese,
             gameUniqueId: rowData.gameUniqueId})
     }
 
-    loadDataFormNet(manual) {
+    loadDataFormNet=(manual=true)=> {
         this.lotteryResultData.getLotteryDetailRequest();
-        if (manual) {
-            this.refs['ListView'].scrollTo({x: 0, y: 0, animated: true})
-        }
-
         if(this.lotteryResultData.resultsData && this.lotteryResultData.resultsData.length > 0){
             this.setState({isRefreshing: false});
         }
     }
 
-    endRefreshing(){
-        this.setState({isRefreshing: false});
-    }
 }
 
 const styles = StyleSheet.create({
