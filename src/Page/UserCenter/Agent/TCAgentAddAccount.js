@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
         height: height,
     },
     tabsContainerStyle: {
-        top: Platform.OS == 'ios' ? 10 : 0,
+        top: Platform.OS == 'ios' ? (10+isIphoneX()?20:0) : 0,
         height: 35,
         width: width - 150,
     },

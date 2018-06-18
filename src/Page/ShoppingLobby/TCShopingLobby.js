@@ -21,6 +21,7 @@ import {Size, height, width, shoppingTxtColor, indexBgColor} from '../resouce/th
 import {JX_PLAT_INFO, bottomNavHeight} from '../asset/screen'
 import {common} from '../resouce/images';
 
+
 const tabLabels = ['全部彩种', '时时彩', 'PC蛋蛋', 'PK拾', '11选5', '快3', '高频彩', '低频彩'];
 
 @observer
@@ -37,6 +38,7 @@ export default class MyComponent extends React.Component {
     static defaultProps = {};
 
     componentWillUpdate() {
+
         JX_LayoutAnimaton.configureNext(JX_LayoutAnimaton.easeNoDelete)
     }
 
