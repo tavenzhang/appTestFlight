@@ -18,7 +18,7 @@ import Modal from 'react-native-modalbox';
 import Button from 'apsl-react-native-button'
 
 /**组件内部显示需要引入的类 */
-import {Other} from "../../asset/index";
+import {Other} from "../../asset/drawable";
 import { Size,width,height } from '../../../Page/resouce/theme';
 // import ViewPager from 'react-native-viewpager';
 // import PageIndicator from '../../../Common/View/PageIndicator';

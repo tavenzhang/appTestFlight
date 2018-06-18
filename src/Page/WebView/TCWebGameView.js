@@ -17,7 +17,8 @@ import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
 import {common} from "../resouce/images";
 import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
-import {JX_PLAT_INFO,bottomNavHeight} from "../../Common/Const/ScreenInfo"
+import {JX_PLAT_INFO} from '../asset/screen'
+import {themeViewStyle} from '../asset/theme'
 //专门为体育电子准备
 export default class TCWebGameView extends React.Component {
 
@@ -90,7 +91,7 @@ export default class TCWebGameView extends React.Component {
                 }
             </View>
         }
-        return (<View style={JX_ThemeViewStyle.containView}>
+        return (<View style={themeViewStyle.containView}>
             <TopNavigationBar title={title} needBackButton={true} backButtonCall={this.onBack}/>
             {conetView}
            <View style={{

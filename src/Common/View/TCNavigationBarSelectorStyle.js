@@ -3,7 +3,6 @@
  */
 
 
-
 /*
 
  ** use for import **
@@ -25,7 +24,9 @@ import {
 } from 'react-native';
 import SoundHelper from '../JXHelper/SoundHelper'
 import {common} from '../../Page/resouce/images'
-import {Size, width, indexBgColor, indexTxtColor, popuWinStyle,navbarHight,navbarMarginTop} from '../../Page/resouce/theme'
+import {Size, width, indexTxtColor, popuWinStyle} from '../../Page/resouce/theme'
+import {navbarHight, navbarMarginTop} from '../../Page/asset/screen'
+
 export default class TCBetBar extends React.Component {
 
     constructor(state) {
@@ -51,7 +52,7 @@ export default class TCBetBar extends React.Component {
 
     render() {
         return (
-            <ImageBackground style={styles.navBarStyle} source={ common.topBg} resizeMode={'cover'}>
+            <ImageBackground style={styles.navBarStyle} source={common.topBg} resizeMode={'cover'}>
                 {/*左边*/}
                 {this.renderGetBackButton()}
                 {/*中间*/}
@@ -83,7 +84,7 @@ export default class TCBetBar extends React.Component {
                     underlayColor='#DEDEDE'
                     style={styles.leftViewStyle}
                 >
-                    <View  >
+                    <View>
                         <Image source={common.back} style={styles.navLeftImgStyle}/>
                     </View>
                 </TouchableOpacity>
@@ -95,13 +96,13 @@ export default class TCBetBar extends React.Component {
         if (this.props.rightTitle) {
             return (
                 <TouchableOpacity
-                    onPress={()=> {
+                    onPress={() => {
                         this.rightButtonCall()
                     }}
                     underlayColor='#DEDEDE'
                     style={styles.rightViewStyle}
                 >
-                    <View style={{justifyContent:"center", alignItems:"center"}}>
+                    <View style={{justifyContent: "center", alignItems: "center"}}>
                         <Text style={styles.rightTitleStyle}>{this.props.rightTitle}</Text>
                     </View>
                 </TouchableOpacity>

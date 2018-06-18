@@ -8,11 +8,8 @@ import {
     configAppId,
     appHotFixUpdataServers,
     deploymentKey,
-    trendServer,
     MyAppName
 } from '../../Page/resouce/appConfig';
-
-import { NativeModules, Platform } from 'react-native';
 
 export const base = appDomainBase;
 
@@ -21,8 +18,6 @@ export const appId = configAppId;
 export const hotfixUpdataBase = appHotFixUpdataServers;
 
 export const hotfixDeploymentKey = deploymentKey;
-
-export const trendServerAddress = trendServer;
 
 export const appVersion = '1.0.1';
 

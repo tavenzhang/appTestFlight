@@ -23,8 +23,8 @@ import WelfareCenter from '../UserCenter/welfare/TCWelfareCenter';
 import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
-import {width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size,bottomNavHeight} from '../resouce/theme';
-import {JX_PLAT_INFO} from '../../Common/Const/ScreenInfo'
+import {width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size} from '../resouce/theme';
+import {JX_PLAT_INFO,bottomNavHeight} from '../../Page/asset/screen'
 import SoundHelper from '../../Common/JXHelper/SoundHelper';
 import {home} from '../resouce/images';
 import Toast from "../../Common/JXHelper/JXToast";

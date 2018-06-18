@@ -1,15 +1,7 @@
-import {bottomNavHeight, indexBgColor,} from "../resouce/theme";
-
-export const Other = {
-    redWallet: require('./other/ic_red_wallet.png'),
-    announcement_top: require('./other/announcement_top.png'),
-    refreshMoney: require('./other/ic_refresh_money.png'),
-    transfer: require('./other/ic_transfer.png'),
-    caiPiao: require('./other/icon_caipiao.png'),
-    mg_holder: require('./other/mg_holder.png'),
-}
-
 //常用容器或者组件样式
+import {indexBgColor} from "../../resouce/theme";
+import {bottomNavHeight} from '../../asset/screen'
+
 export const themeViewStyle = {
     containTabView: IS_IOS ? {
         height: SCREEN_H - bottomNavHeight,

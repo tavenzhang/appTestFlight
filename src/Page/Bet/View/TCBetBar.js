@@ -25,7 +25,9 @@ import {
 } from 'react-native';
 import SoundHelper from '../../../Common/JXHelper/SoundHelper'
 import {common} from '../../resouce/images'
-import {Size, width, indexTxtColor, titleBarStyle,navbarHight,navbarMarginTop} from '../../resouce/theme'
+import {Size, width, indexTxtColor, titleBarStyle} from '../../resouce/theme'
+import {navbarHight,navbarMarginTop} from '../../../Page/asset/screen'
+
 export default class TCBetBar extends React.Component {
 
     constructor(state) {

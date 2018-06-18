@@ -10,7 +10,8 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native';
-import {Size, width, betHome,bottomNavHeight} from '../../resouce/theme'
+import {Size, width, betHome} from '../../resouce/theme'
+import {bottomNavHeight} from '../../../Page/asset/screen'
 
 import { observer } from 'mobx-react/native';
 @observer

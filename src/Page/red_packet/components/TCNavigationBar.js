@@ -5,8 +5,9 @@
 import React, {PropTypes} from 'react';
 import {StyleSheet, Platform, View, Text, TouchableOpacity, Image} from 'react-native';
 import {common} from '../../resouce/images';
-import {Size, width,navbarHight,navbarMarginTop} from '../../resouce/theme';
+import {Size, width} from '../../resouce/theme';
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper';
+import {navbarHight,navbarMarginTop} from '../../../Page/asset/screen'
 
 export default class TCNavigationBar extends React.Component {
     // static propTypes = {

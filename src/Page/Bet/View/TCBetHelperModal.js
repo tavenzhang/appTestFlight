@@ -23,10 +23,9 @@ let JXHelper = new JXHelperC()
 let TCUserCollectHelpers = new TCUserCollectHelper()
 import Toast from '../../../Common/JXHelper/JXToast';
 import TCNavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
-import {config, trendServerAddress} from '../../../Common/Network/TCRequestConfig';
 import {betIcon} from '../../resouce/images'
 import {Size} from '../../resouce/theme'
-import {navbarHight} from '../../../Common/Const/ScreenInfo'
+import {navbarHight} from '../../../Page/asset/screen'
 
 export default class TCBetHelperModal extends Component {
     constructor(state) {
@@ -172,7 +171,10 @@ export default class TCBetHelperModal extends Component {
                                         }}
                                         onPress={() => {
                                             this._setModalVisible(false)
-                                            TCNavigatorHelper.pushView(JX_Compones.TCWebTrendView,{game:this.props.gameUniqueId,title:'走势图'})
+                                            TCNavigatorHelper.pushView(JX_Compones.TCWebTrendView, {
+                                                game: this.props.gameUniqueId,
+                                                title: '走势图'
+                                            })
                                         }}>
                 <Text
                     style={{

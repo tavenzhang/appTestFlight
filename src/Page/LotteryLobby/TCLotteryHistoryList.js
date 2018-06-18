@@ -20,11 +20,11 @@ import {observer} from 'mobx-react/native';
 import BaseComponent from '../Base/TCBaseComponent'
 import TopNavigationBar from '../../Common/View/TCNavigationBar'
 import TCListRowView from '../../Common/View/TCLottertHistoryListRowView'
-import {trendServerAddress} from '../../Common/Network/TCRequestConfig';
 import TCNavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import JXHelpers from '../../Common/JXHelper/JXHelper'
 import JXLotteryHistoryData from '../../Data/JXLotteryHistoryData'
-import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle} from '../../Page/resouce/theme'
+import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle} from '../resouce/theme'
+import {themeViewStyle} from '../asset/theme'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @observer
@@ -47,7 +47,6 @@ export default class TCLotteryHistoryList extends BaseComponent {
     };
 
 
-
     componentWillMount() {
         this.lotteryHistoryData = new JXLotteryHistoryData();
     }
@@ -62,18 +61,18 @@ export default class TCLotteryHistoryList extends BaseComponent {
         if (sp) return sp
 
         return (
-            <View style={JX_ThemeViewStyle.containView}>
+            <View style={themeViewStyle.containView}>
                 {this.getTopNavigationBar()}
-                <ListView style={{height: height - 64-50}}
+                <ListView style={{height: height - 64 - 50}}
                           ref="ListView1"
                           dataSource={this.dataSource.cloneWithRows(this.lotteryHistoryData.historyData.slice())}
-                          renderRow={(rowData, sectionID, rowID)=>this.renderRow(rowData, sectionID, rowID)}
+                          renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID)}
                           removeClippedSubviews={false}
                           scrollRenderAheadDistance={20}
                           refreshControl={
                               <RefreshControl
                                   refreshing={this.lotteryHistoryData.isRefreshing}
-                                  onRefresh={()=>this.loadDataFormNet()}
+                                  onRefresh={() => this.loadDataFormNet()}
                                   tintColor="#ff0000"
                                   title="下拉刷新"
                                   titleColor="#999999"
@@ -82,12 +81,28 @@ export default class TCLotteryHistoryList extends BaseComponent {
                               />
                           }
                 />
-                <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}} onPress={()=> {
+                <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}} onPress={() => {
                     this.pushToBetHome(this.props.gameUniqueId)
                 }}>
                     <View
-                        style={{width:width-40,justifyContent:'center',alignItems:'center',height:40,marginLeft:20,marginRight: 20,marginBottom:5,marginTop:5,backgroundColor:buttonStyle.btnBg,borderRadius:5}}>
-                        <Text style={{width:100,color:buttonStyle.btnTxtColor,fontSize:Size.font20,fontWeight:'bold'}}>立即下注</Text>
+                        style={{
+                            width: width - 40,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: 40,
+                            marginLeft: 20,
+                            marginRight: 20,
+                            marginBottom: 5,
+                            marginTop: 5,
+                            backgroundColor: buttonStyle.btnBg,
+                            borderRadius: 5
+                        }}>
+                        <Text style={{
+                            width: 100,
+                            color: buttonStyle.btnTxtColor,
+                            fontSize: Size.font20,
+                            fontWeight: 'bold'
+                        }}>立即下注</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -99,9 +114,14 @@ export default class TCLotteryHistoryList extends BaseComponent {
             return (<TopNavigationBar
                 title={this.props.title}
                 rightTitle={'走势图'}
-                rightButtonCall={()=>{TCNavigatorHelper.pushView(JX_Compones.TCWebTrendView,{game:this.props.gameUniqueId,title:this.props.title})}}
+                rightButtonCall={() => {
+                    TCNavigatorHelper.pushView(JX_Compones.TCWebTrendView, {
+                        game: this.props.gameUniqueId,
+                        title: this.props.title
+                    })
+                }}
                 needBackButton={true}
-                backButtonCall={()=> {
+                backButtonCall={() => {
                     TCNavigatorHelper.popToBack()
                 }}
             />)
@@ -109,7 +129,7 @@ export default class TCLotteryHistoryList extends BaseComponent {
             return (<TopNavigationBar
                 title={this.props.title}
                 needBackButton={true}
-                backButtonCall={()=> {
+                backButtonCall={() => {
                     TCNavigatorHelper.popToBack()
                 }}
             />)
@@ -141,11 +161,11 @@ export default class TCLotteryHistoryList extends BaseComponent {
 
     loadDataFormNet() {
         let params = {limit: 100};
-        this.lotteryHistoryData.getLotteryHistoryRequest(this.props.gameUniqueId, params, true,()=>{
-          this.setState({ renderPlaceholderOnly: false});
-          if (this.refs['ListView1']) {
-            this.refs['ListView1'].scrollTo({x: 0, y: 0, animated: true})
-          }
+        this.lotteryHistoryData.getLotteryHistoryRequest(this.props.gameUniqueId, params, true, () => {
+            this.setState({renderPlaceholderOnly: false});
+            if (this.refs['ListView1']) {
+                this.refs['ListView1'].scrollTo({x: 0, y: 0, animated: true})
+            }
         });
     }
 }

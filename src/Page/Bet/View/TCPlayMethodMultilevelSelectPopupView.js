@@ -16,7 +16,9 @@ import {
     ScrollView,
     Dimensions
 } from 'react-native';
-import {width,Size,navbarHight} from '../../resouce/theme'
+import {width, Size} from '../../resouce/theme'
+import {navbarHight} from '../../../Page/asset/screen'
+
 export default class TCCQSSCPlayMethodSelectPopupView extends Component {
     constructor(state) {
         super(state)
@@ -58,7 +60,7 @@ export default class TCCQSSCPlayMethodSelectPopupView extends Component {
                 visible={this.state.modalVisible}
                 onRequestClose={() => {
                     this._setModalVisible(false)
-                } }
+                }}
             >
                 <TouchableHighlight onPress={() => {
                     this._setModalVisible(false)
@@ -92,7 +94,12 @@ export default class TCCQSSCPlayMethodSelectPopupView extends Component {
     getTitle() {
         if (this.props.showTopTitle)
             return <Text
-                style={{fontSize: Size.font20, color: '#696969', marginTop: 10, marginBottom: 10}}>{this.props.topTitle}</Text>
+                style={{
+                    fontSize: Size.font20,
+                    color: '#696969',
+                    marginTop: 10,
+                    marginBottom: 10
+                }}>{this.props.topTitle}</Text>
     }
 
     selectedCallBack(parentIndex, itemIndex) {
@@ -127,7 +134,7 @@ export default class TCCQSSCPlayMethodSelectPopupView extends Component {
                           fontSize: Size.font16,
                           color: '#696969',
                           textAlign: 'center'
-                      } }> {selectTitleArr[this.selectedIndex]} </Text>
+                      }}> {selectTitleArr[this.selectedIndex]} </Text>
             )
         }
         for (let i = 0; i < selectTitleArr.length; i++) {
@@ -137,7 +144,7 @@ export default class TCCQSSCPlayMethodSelectPopupView extends Component {
             }
             itemArr.push(
                 <TCSelectView
-                    selectedFunc={(parentIndex)=>this.selectedCallBack(parentIndex, 0)}
+                    selectedFunc={(parentIndex) => this.selectedCallBack(parentIndex, 0)}
                     title={selectTitleArr[i]}
                     key={i}
                     myIndex={i}
@@ -150,7 +157,7 @@ export default class TCCQSSCPlayMethodSelectPopupView extends Component {
     }
 
     getSecondAreaViews() {
-        if (!this.props.secondAreaTitleArr)return
+        if (!this.props.secondAreaTitleArr) return
         let selectTitleArr = this.props.secondAreaTitleArr[this.state.selectedIndex];
         let itemArr = [];
 
@@ -162,7 +169,7 @@ export default class TCCQSSCPlayMethodSelectPopupView extends Component {
                 textAlign: 'center',
                 color: '#696969',
                 marginTop: 5
-            } }> {selectTitleArr[this.selectedItemIndex]} </Text>
+            }}> {selectTitleArr[this.selectedItemIndex]} </Text>
         )
 
 
@@ -173,7 +180,7 @@ export default class TCCQSSCPlayMethodSelectPopupView extends Component {
             }
             itemArr.push(
                 <TCSelectView
-                    selectedFunc={(itemIndex)=>this.selectedCallBack(-1, itemIndex)}
+                    selectedFunc={(itemIndex) => this.selectedCallBack(-1, itemIndex)}
                     title={selectTitleArr[i]}
                     key={i}
                     myIndex={i}
@@ -218,7 +225,7 @@ class TCSelectView extends React.Component {
                               onPress={this.onPressCallback}>
                 <Text style={[this.getTitleStyle(), {
                     fontSize: width >= 375 ? Size.font15 : Size.font13,
-                    fontWeight:'bold',
+                    fontWeight: 'bold',
                     color: '#696969'
                 }]}>{this.props.title}</Text>
             </TouchableOpacity>

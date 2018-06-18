@@ -24,7 +24,7 @@ import {configAppId} from '../resouce/appConfig'
 import {common} from "../resouce/images";
 import PropTypes from 'prop-types'
 import {indexBgColor} from "../resouce/theme";
-import {JX_PLAT_INFO,bottomNavHeight} from "../../Common/Const/ScreenInfo"
+import {JX_PLAT_INFO,bottomNavHeight} from '../../Page/asset/screen'
 
 export default class TCTrend extends Component {
 

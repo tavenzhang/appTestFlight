@@ -9,14 +9,15 @@ import {
     configAppId,
     appHotFixUpdataServers,
     deploymentKey,
-    appName,
-    appHotFixVersion
-} from '../../../Page/resouce/appConfig';
-import {affCodeList} from '../../Page/resource/appAffCodeList'
+    MyAppName
+} from '../resouce/appConfig';
+import {versionHotFix} from '../../Common/Network/TCRequestConfig'
+import {affCodeList} from '../resouce/appAffCodeList'
 
 import {computed, action, observable} from 'mobx'
 
-import {checkAppVersion, getPlatform}  from '../../Common/Network/RequestService'
+import {checkAppVersion, getPlatform} from '../../Common/Network/TCRequestService'
+
 /**
  *app信息管理
  */
@@ -29,6 +30,7 @@ class JDAppStore {
     init() {
         this.initDeviceTokenFromLocalStore();
         this.initAppVersion();
+        this.initAppName();
         this.initLoginUserName();
         this.initAffCode();
         this.initButtonSoundStatus();
@@ -43,7 +45,7 @@ class JDAppStore {
      * 应用名称
      * @type {string}
      */
-    appName = appName;
+    appName = MyAppName;
 
     /**
      * 厅主ID
@@ -71,7 +73,7 @@ class JDAppStore {
      * 热更新版本号
      * @type {string}
      */
-    hotFixVersion = appHotFixVersion;
+    hotFixVersion = versionHotFix;
     /**
      * 设备token
      * @type {string}
@@ -133,14 +135,10 @@ class JDAppStore {
      */
     userAffCode = "";
 
-    initDeviceTokenFromNative() {
-        return new Promise(resolve => {
-            NativeModules.JXHelper.getCFUUID((err, uuid) => {
-                resolve(uuid);
-            })
-        })
-    }
-
+    /**
+     * 从
+     * @returns {Promise<void>}
+     */
     async initDeviceTokenFromLocalStore() {
         storage.loadData()
         await storage.load({key: "USERDEVICETOKEN"}).then(res => {
@@ -158,6 +156,14 @@ class JDAppStore {
         }
     }
 
+    initDeviceTokenFromNative() {
+        return new Promise(resolve => {
+            NativeModules.JXHelper.getCFUUID((err, uuid) => {
+                resolve(uuid);
+            })
+        })
+    }
+
     saveDeviceTokenToLocalStore() {
         storage.save({key: "USERDEVICETOKEN", data: this.deviceToken})
     }
@@ -170,6 +176,16 @@ class JDAppStore {
         let nativeConfig = await CodePush.getConfiguration();
         this.appVersion = nativeConfig.appVersion;
         JXLog("version", this.appVersion);
+    }
+
+    //初始化appName
+    initAppName() {
+        NativeModules.JXHelper.getAppName((appName) => {
+            if (appName.length) {
+                this.appName = appName;
+            }
+            JXLog("APPNAME", this.appName)
+        })
     }
 
     async initLoginUserName() {
@@ -237,7 +253,7 @@ class JDAppStore {
     //获取Js中的邀请码
     getAppSpecialAffCode() {
         let a = affCodeList[Platform.OS][this.appVersion];
-        if (a)return a;
+        if (a) return a;
         return null;
     }
 
@@ -256,4 +272,4 @@ class JDAppStore {
 }
 
 const jdAppstore = new JDAppStore();
-export default  jdAppstore;
+export default jdAppstore;

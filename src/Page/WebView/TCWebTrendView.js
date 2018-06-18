@@ -22,7 +22,7 @@ import {configAppId} from "../resouce/appConfig";
 import {common} from "../resouce/images";
 import Moment from "moment/moment";
 import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
-import {JX_PLAT_INFO} from "../../Common/Const/ScreenInfo"
+import {JX_PLAT_INFO} from '../../Page/asset/screen'
 import {indexBgColor} from "../resouce/theme";
 
 //专门为趋势图准备

@@ -21,7 +21,8 @@ import {
 
 import {common} from '../../Page/resouce/images'
 import {Size, width, height} from '../../Page/resouce/theme'
-import {statusBarHeight} from '../../Common/Const/ScreenInfo'
+import {statusBarHeight} from '../../Page/asset/screen'
+
 /**
  * 自定义输入数字键盘
  */
@@ -56,7 +57,7 @@ export default class TCKeyboardView extends Component {
                 visible={this.modalVisible}
                 onRequestClose={() => {
                     this._setModalVisible(false)
-                } }>
+                }}>
                 <TouchableOpacity
                     style={styles.modalBackgroundStyle}
                     activeOpacity={1}
@@ -65,7 +66,7 @@ export default class TCKeyboardView extends Component {
                         this._setModalVisible(false)
                     }}>
                     <Animated.View style={[styles.contentStyle, {marginTop: this.marginTop,}]}>
-                        <View style={{flexDirection: 'row', flexWrap: 'wrap',width:width+2}}>
+                        <View style={{flexDirection: 'row', flexWrap: 'wrap', width: width + 2}}>
                             {this.getKeyBoardList()}
                         </View>
                     </Animated.View>

@@ -8,7 +8,6 @@ import {
 } from 'react-native'
 
 const fontSizeScaler = JX_ProjectName === 'JD' ? 1 : PixelRatio.get() / PixelRatio.getFontScale()
-global.TCLineW = (IS_IOS && Dimensions.get('window').width > 375) ? 0.33 : 0.5
 import {
     StyleSheet
 } from 'react-native';
@@ -47,24 +46,6 @@ export const Size = {
 // 全局Window尺寸
 export const width = Dimensions.get('window').width
 export const height = Dimensions.get('window').height
-
-// iPhoneX
-const X_WIDTH = 375;
-const X_HEIGHT = 812;
-
-const JX_IPHON_X = IS_IOS &&
-    ((height === X_HEIGHT && width === X_WIDTH) ||
-        (height === X_WIDTH && width === X_HEIGHT))
-
-
-export function isIphoneX() {
-    return JX_IPHON_X
-}
-
-export const navbarHight = IS_IOS? (isIphoneX() ? 88 : 64) : 44
-export const navbarMarginTop = IS_IOS ? (isIphoneX() ? 44 : 20) : 0
-export const bottomNavHeight = IS_IOS? (isIphoneX() ? 83 : 50) : 49
-
 
 /**
  * app主色调
