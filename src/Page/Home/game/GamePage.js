@@ -13,6 +13,7 @@ import PropTypes from 'prop-types'
 import FastImage from 'react-native-fast-image';
 import TCFlatList from "../../../Common/View/RefreshListView/TCFLatList";
 import TCImage from "../../../Common/View/image/TCImage";
+import {Other} from "../../asset/drawable";
 
 
 
@@ -97,7 +98,7 @@ export default class GamePage extends Component {
                 }}
                 resizeMode="contain"
                 source={{uri: item.icon}}
-                imgPlaceHolder={JX_OtherImg.mg_holder}
+                imgPlaceHolder={Other.mg_holder}
             />
             <Text style={{width: width * 0.46, textAlign: 'center', marginTop: 5}}>{item.name}</Text>
         </View>
