@@ -18,7 +18,7 @@ import SegmentedControlTab from '../../../Common/View/SegmentedControlTab';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import {agent} from '../../resouce/images';
 import {
-    Size, indexBgColor, height, width, agentCenter, buttonStyle, baseColor, statusBarHeight
+    Size, indexBgColor, height, width, agentCenter, buttonStyle, baseColor, statusBarHeight,isIphoneX
 } from '../../resouce/theme';
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 
@@ -372,7 +372,7 @@ const styles = StyleSheet.create({
         height: height,
     },
     tabsContainerStyle: {
-        top: Platform.OS == 'ios' ? 10 : 0,
+        top: Platform.OS == 'ios' ? (10+isIphoneX()?20:0) : 0,
         height: 35,
         width: width - 150,
     },

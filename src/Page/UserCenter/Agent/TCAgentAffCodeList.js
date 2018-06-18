@@ -77,7 +77,7 @@ export default class TCAgentAffCodeList extends Component {
         if (!rowData.id || rowData.id.length == 0) {
             return;
         }
-
+        this.setUpdateModalVisible();
         this._modalLoadingSpinnerOverLay2.show();
         NetUitls.DeleteHttpUrlAndParamsAndCallback(config.api.teamAffiliates, '' + rowData.id, (data) => {
             this._modalLoadingSpinnerOverLay2.hide();
@@ -123,6 +123,19 @@ export default class TCAgentAffCodeList extends Component {
                 }
             }
         );
+    }
+
+    async copyAffCode(content){
+        let url = TCDefaultTendDomain + '?pt=' +content
+        Clipboard.setString(url);
+        try {
+            var t = await Clipboard.getString();
+            if (url == t) {
+                Toast.showShortCenter('邀请链接复制成功\n' + url);
+            }
+        } catch (e) {
+            JXLog(e);
+        }
     }
 
     deleteAffCode(rowData) {
@@ -220,9 +233,9 @@ export default class TCAgentAffCodeList extends Component {
                 <TouchableOpacity style={styles.operateButton} onPress={() => this.onPressModifyAffCode(rowData)}>
                     <View style={styles.operateContainer}><Text style={styles.operateText}>修改</Text></View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.operateButton} onPress={() => this.deleteAffCode(rowData)}>
+                <TouchableOpacity style={styles.operateButton} onPress={() => this.copyAffCode(rowData.affCode)}>
                     <View style={styles.operateContainer}>
-                        <Text style={[styles.operateText, styles.deleteText]}>删除</Text>
+                        <Text style={styles.operateText}>复制</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -298,6 +311,16 @@ export default class TCAgentAffCodeList extends Component {
                                 <Text style={styles.submitUpdateText}>确认修改</Text>
                             </TouchableOpacity>
                         </View>
+
+                        <View style={[styles.submitUpdateContainer,{marginTop:30}]}>
+                            <TouchableOpacity
+                                style={[styles.submitUpdateButton,{backgroundColor:'red'}]}
+                                onPress={() => this.deleteAffCode(this.stateModel.user)}
+                            >
+                                <Text style={styles.submitUpdateText}>删除</Text>
+                            </TouchableOpacity>
+                        </View>
+
                     </KeyboardAvoidingScrollView>
                 </View>
             </Modal>
