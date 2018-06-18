@@ -3,6 +3,7 @@ import Moment from 'moment'
 import {action, observable} from "mobx";
 import NetUitls from "../../../Common/Network/TCRequestUitls";
 import {config} from '../../../Common/Network/TCRequestConfig';
+import JXHelper from "../../../Common/JXHelper/JXHelper";
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 /**
@@ -21,27 +22,38 @@ export default class BalanceStore {
 
     @observable platformBalances = [];
 
+    @action
+    getPlatforms() {
+        let otherPlatform = JXHelper.getDSFOpenList().dsfAll;
+
+        this.transferAccountName = []
+        this.platformBalances = []
+        this.centerBalance = TCUSER_BALANCE
+        this.transferAccountName.push('中心钱包')
+        otherPlatform.map((platform) => {
+            if (platform.status && platform.status === 'ON') {
+                this.transferAccountName.push(platform.gameNameInChinese)
+                this.platformBalances.push({'gamePlatform': platform.gamePlatform, 'balance': 0, 'gameNameInChinese': platform.gameNameInChinese})
+            }
+        })
+    }
+
     //获取所有平台余额
     @action
     getPlatformBalance(callback) {
-        NetUitls.getUrlAndParamsAndCallback(config.api.getAllBalance, null, (response) => {
-            let res = {};
-            if (response.rs) {
-                let result = response.content;
-                this.centerBalance = result.centerBalance;
-                this.transferAccountName = []
-                this.platformBalances = []
-                this.transferAccountName.push('中心钱包')
-                let otherBalances = result.platformBalances
-                otherBalances.map((item) => {
-                    this.transferAccountName.push(item.gamePlatform+'钱包')
-                    this.platformBalances.push(item)
-                })
+        NetUitls.getUrlAndParamsAndCallback(config.api.userBalance, null, (res) => {
+            if (res.rs) {
+                this.centerBalance = res.content.balance;
                 RCTDeviceEventEmitter.emit('balanceChange', true);
-            } else {
-                res.message = response.message ? response.message : "刷新数据失败!";
             }
-            callback && callback(res);
+        })
+
+        this.platformBalances.map((platform) => {
+            this.getBalanceByPlatform(platform.gamePlatform, (res) => {
+                if (res.rs) {
+                    platform.balance = res.content.balance
+                }
+            })
         })
     }
 

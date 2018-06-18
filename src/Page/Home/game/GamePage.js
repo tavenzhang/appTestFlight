@@ -10,6 +10,7 @@ import {
 import {observer} from 'mobx-react/native'
 import {indexBgColor,baseColor,width} from "../../resouce/theme";
 import PropTypes from 'prop-types'
+import FastImage from 'react-native-fast-image';
 
 
 
@@ -85,7 +86,7 @@ export default class GamePage extends Component {
             paddingBottom: 20,
             width: width * 0.5,
         }}>
-            <Image
+            <FastImage
                 style={{
                     height: 100,
                     alignItems: 'center',
