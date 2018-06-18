@@ -61,6 +61,7 @@ import FastImage from 'react-native-fast-image';
 import JXPopupNotice from './popupAnnouncements/JXPopupAnnouncements';
 import {getPopupAnnouncements} from './popupAnnouncements/JXPopupNoticeHelper';
 import JXHelper from "../../Common/JXHelper/JXHelper";
+import TCImage from "../../Common/View/image/TCImage";
 
 @observer
 export default class TCHome extends Component {
@@ -237,7 +238,7 @@ export default class TCHome extends Component {
             autoplay={true}
             dataSource={this.state.content.bannerData}
             renderRow={(item, index) => {
-                return (<FastImage
+                return (<TCImage
                     source={{uri: item.bannerImageUrl}}
                     style={styles.page}
                     resizeMode={"cover"}/>)
@@ -648,7 +649,7 @@ export default class TCHome extends Component {
         getPopupAnnouncements((d)=>{
             if (d && d.length > 0) {
                 JXLog('showPopupAnnouncements')
-                this.refs['PopupNotice'].open(d);
+              //  this.refs['PopupNotice'].open(d);
             }
         });
     }
