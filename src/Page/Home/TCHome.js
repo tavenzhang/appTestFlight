@@ -648,8 +648,7 @@ export default class TCHome extends Component {
     showPopupAnnouncements() {
         getPopupAnnouncements((d)=>{
             if (d && d.length > 0) {
-                JXLog('showPopupAnnouncements')
-              //  this.refs['PopupNotice'].open(d);
+                this.refs['PopupNotice'].open(d);
             }
         });
     }
