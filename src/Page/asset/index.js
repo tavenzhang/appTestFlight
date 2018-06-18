@@ -6,6 +6,7 @@ export const Other = {
     refreshMoney: require('./other/ic_refresh_money.png'),
     transfer: require('./other/ic_transfer.png'),
     caiPiao: require('./other/icon_caipiao.png'),
+    mg_holder: require('./other/mg_holder.png'),
 }
 
 //常用容器或者组件样式
