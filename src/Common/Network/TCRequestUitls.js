@@ -24,18 +24,7 @@ export default class NetUitls extends Component {
      *callback:回调函数
      */
     static getUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization) {
-        url = this.getServerUrl(url)
-        if (typeof params === 'string') {
-            url += '/' + params
-        } else if (params) {
-            url += '?' + queryString.stringify(params)
-        }
-        if (timeout > 0) {
-            config.mapGet.timeout = timeout
-        } else {
-            config.mapGet.timeout = defaultTimeout
-        }
-        this.fetchAsync(url, config.mapGet, callback, dontAddHeadersAuthorization)
+        this.getUrlAndParamsAndPlatformAndCallback(url, params, null, callback, timeout, dontAddHeadersAuthorization)
     }
 
     /**
@@ -46,7 +35,7 @@ export default class NetUitls extends Component {
      * @param timeout
      * @param dontAddHeadersAuthorization
      */
-    static getUrlAndParamsAndPlatformAndCallback(url, platform, params, callback, timeout, dontAddHeadersAuthorization) {
+    static getUrlAndParamsAndPlatformAndCallback(url, params, platform, callback, timeout, dontAddHeadersAuthorization) {
         url = this.getServerUrl(url)
         if (typeof params === 'string') {
             url += '/' + params
@@ -58,7 +47,9 @@ export default class NetUitls extends Component {
         } else {
             config.mapGet.timeout = defaultTimeout
         }
-        config.mapDelete.headers.gamePlatform = platform;
+        if (platform) {
+            config.mapGet.headers.gamePlatform = platform;
+        }
         this.fetchAsync(url, config.mapGet, callback, dontAddHeadersAuthorization)
     }
 

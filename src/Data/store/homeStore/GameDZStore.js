@@ -8,7 +8,7 @@ export default  class GameDZStore {
 
     @action
     loadGames(paltFrom="MG",callback) {
-        NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZList,paltFrom, null, (res)=>{
+        NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZList, null, paltFrom, (res)=>{
             if(res.content){
                 this.gameData = res.content;
             }

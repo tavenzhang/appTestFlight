@@ -1,7 +1,3 @@
-/**
- * Created by jxmac on 2017/7/17.
- */
-
 import React, {Component} from 'react';
 import {
     ActivityIndicator,
@@ -34,31 +30,30 @@ import {
 } from '../../../resouce/theme';
 import Moment from 'moment';
 
+/**
+ * 第三方个人报表
+ * Created by jxmac on 2017/7/17.
+ */
 export default class TCUserStatements extends Component {
+
     constructor(props) {
         super(props);
         const {params} = this.props.navigation.state;
-        this.platforms = params.platforms
+        this.platforms = params.platform
         this.state = {
             dataPersonal: {
-                count: 0,
-                sumCommission: 0,
-                sumRebate: 0,
-                sumFee: 0,
-                sumTransferIn: 0,
-                sumTransferOut: 0,
-                sumGrantTotal: 0,
-                sumPnl: 0,
-                sumTopup: 0,
-                sumCharge: 0,
-                sumWin: 0,
-                sumWithdrawal: 0,
-                sumBonus: 0,
+                totalBet: 0, // 总投注
+                actualBet: 0, // 实际投注
+                rebateAmount: 0, // 返水金额
+                totalPayout: 0, // 总指出?
+                playerWinLoss: 0, // 玩家输赢
+                totalTopUp: 0, // 总充值
+                totalWithdraw: 0, // 总提款
+                totalNotSettled: 0, // 未结算
+                betCount: 0, // 下注次数
+                totalDsfWin: 0, // 平台获利
             },
-            dataSource1:
-                TCUSER_DATA.oauthRole === 'USER'
-                    ? ['盈利总额', '有效投注总额', '派彩总额', '充值总额', '提款总额']
-                    : this.getListTitles(),
+            dataSource1: ['投注总额', '实际投注总额', '返水金额', '输赢总额', '充值总额', '提款总额'],
             beginTime: '',
             endTime: '',
             rightButtonTitle: '今天',
@@ -75,15 +70,17 @@ export default class TCUserStatements extends Component {
 
     loadDataFormNet(start, end) {
         this.setState({animating: true});
-        NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.getUserOtherStatements, this.platforms,
-            {
-                startTime: start,
-                endTime: end,
-                username: TCUSER_DATA.username
-            }, (data) => {
+        NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.getUserOtherStatements,
+            {startTime: start, endTime: end}, this.platforms, (data) => {
                 this.setState({animating: false});
-                if (data && data.rs && data.content.userStatementSummaryDto) {
-                    this.setState({dataPersonal: data.content.userStatementSummaryDto});
+                if (data && data.rs && data.content) {
+                    if (this.platforms === 'IMONE' && data.content.IMONE) {
+                        this.setState({dataPersonal: data.content.IMONE});
+                    } else if (this.platforms === 'SS' && data.content.SS) {
+                        this.setState({dataPersonal: data.content.SS});
+                    } else if (this.platforms === 'MG' && data.content.MG) {
+                        this.setState({dataPersonal: data.content.MG});
+                    }
                 } else {
                     Toast.showShortCenter('网络异常');
                 }
@@ -96,15 +93,10 @@ export default class TCUserStatements extends Component {
                 <TopNavigationBar
                     ref="TopNavigationBar"
                     needBackButton={true}
-                    backButtonCall={() => {
-                        Helper.popToBack()
-                    }}
+                    backButtonCall={() => {Helper.popToBack()}}
                     rightTitle={this.state.rightButtonTitle}
-                    rightButtonCall={() => {
-                        this.refs['ModalDropdown'].show();
-                    }}
-                    renderCenter={() => this.renderSegmentedControlTab()}
-                />
+                    rightButtonCall={() => {this.refs['ModalDropdown'].show()}}
+                    renderCenter={() => this.renderSegmentedControlTab()} />
                 <ModalDropdown
                     ref="ModalDropdown"
                     textStyle={styles.dropDownTxtStyle}
@@ -113,8 +105,7 @@ export default class TCUserStatements extends Component {
                     dropdownStyle={styles.dropDownStyle}
                     renderRow={(rowData, rowID) => this.renderModalDropDownRow(rowData, rowID)}
                     onSelect={(idx, value) => this.onSelect(idx, value)}
-                    showButton={false}
-                />
+                    showButton={false} />
                 <View style={styles.timeView}>
                     <DatePicker
                         style={{width: width * 0.28}}
@@ -143,11 +134,8 @@ export default class TCUserStatements extends Component {
                             this.setState({beginTime: date});
                             this.loadDataFormNet(date, this.state.endTime);
                         }}
-                        minDate={Moment()
-                            .subtract(90, 'days')
-                            .format('YYYY-MM-DD')}
-                        maxDate={new Date()}
-                    />
+                        minDate={Moment().subtract(90, 'days').format('YYYY-MM-DD')}
+                        maxDate={new Date()} />
                     <Text style={{fontWeight: 'bold'}}>至</Text>
                     <DatePicker
                         style={{width: width * 0.28}}
@@ -176,64 +164,8 @@ export default class TCUserStatements extends Component {
                             this.setState({endTime: date});
                             this.loadDataFormNet(this.state.beginTime, date);
                         }}
-                        minDate={Moment()
-                            .subtract(30, 'days')
-                            .format('YYYY-MM-DD')}
-                        maxDate={new Date()}
-                    />
-                </View>
-                <View style={styles.agentDetail}>
-                    <UserIcon
-                        style={styles.imgUser}
-                        text={JXHelper.getUserIconShowName(
-                            this.props.username ? this.props.username : TCUSER_DATA.username
-                        )}
-                    />
-                    <View style={styles.agentDetailTxt}>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={{marginTop: 10, fontSize: Size.font17, color: agentCenter.title}}>用户名 </Text>
-                            <Text
-                                style={{
-                                    marginTop: 10,
-                                    fontSize: Size.font17,
-                                    color: agentCenter.title
-                                }}
-                            >
-                                {this.props.username ? this.props.username : TCUSER_DATA.username}
-                            </Text>
-                        </View>
-                        {!this.props.username && (
-                            <View style={{flexDirection: 'row'}}>
-                                <Text style={{marginTop: 10, fontSize: Size.font17, color: agentCenter.title}}>
-                                    余额{' '}
-                                </Text>
-                                <Text
-                                    style={{
-                                        marginTop: 10,
-                                        marginLeft: 10,
-                                        fontSize: Size.font17,
-                                        color: agentCenter.balance
-                                    }}
-                                >
-                                    {TCUSER_BALANCE}
-                                </Text>
-                            </View>
-                        )}
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={{marginTop: 10, fontSize: Size.font17, color: agentCenter.title}}>
-                                彩票返点{' '}
-                            </Text>
-                            <Text
-                                style={{
-                                    marginTop: 10,
-                                    fontSize: Size.font17,
-                                    color: agentCenter.title
-                                }}
-                            >
-                                {this.props.username ? this.props.prizeGroup : TCUSER_DATA.prizeGroup}
-                            </Text>
-                        </View>
-                    </View>
+                        minDate={Moment().subtract(30, 'days').format('YYYY-MM-DD')}
+                        maxDate={new Date()} />
                 </View>
                 <ScrollView>{this.getContentView()}</ScrollView>
                 <ActivityIndicator
@@ -260,10 +192,6 @@ export default class TCUserStatements extends Component {
                 个人报表
             </Text>
         );
-    }
-
-    getListTitles() {
-        return ['盈利总额', '有效投注总额', '派彩总额', '佣金总额', '充值总额', '提款总额'];
     }
 
     onSelect(idx, value) {
@@ -341,65 +269,34 @@ export default class TCUserStatements extends Component {
 
     rowLayout = (rowData, key) => {
         let assignValue = this.assignValue(rowData);
-        if (rowData === '盈利总额' || rowData === '有效投注总额') {
-            return (
-                <TouchableOpacity key={key} onPress={() => this.pressRow(rowData)} style={styles.rowButton}>
-                    <View style={{flexDirection: 'row'}}>
-                        <Text style={styles.rowText}>{rowData}</Text>
-                        <View style={styles.redNoticeView}>
-                            <Text style={{fontSize: 11, color: 'red'}}>?</Text>
-                        </View>
-                    </View>
-                    <Text
-                        style={[
-                            styles.rowText,
-                            {marginRight: 10, color: listViewTxtColor.redTip},
-                            assignValue < 0 && {color: listViewTxtColor.greenTip}
-                        ]}
-                    >
-                        {assignValue}元
-                    </Text>
-                </TouchableOpacity>
-            );
-        } else {
-            return (
-                <TouchableOpacity key={key} onPress={() => this.pressRow(rowData)} style={styles.rowButton}>
-                    <Text style={styles.rowText}>{rowData}</Text>
-                    <Text
-                        style={[
-                            styles.rowText,
-                            {marginRight: 10, color: listViewTxtColor.redTip},
-                            assignValue < 0 && {color: listViewTxtColor.greenTip}
-                        ]}
-                    >
-                        {assignValue}元
-                    </Text>
-                </TouchableOpacity>
-            );
-        }
-    };
-
-    pressRow(rowData) {
-        if (rowData === '盈利总额') {
-            Alert.alert('温馨提示', '盈利总额=投注赢利+优惠+佣金', [{text: '确定'}]);
-        } else if (rowData === '有效投注总额') {
-            Alert.alert('温馨提示', '有效投注总额=总投注-撤单', [{text: '确定'}]);
-        }
+        return (
+            <TouchableOpacity key={key} style={styles.rowButton}>
+                <Text style={styles.rowText}>{rowData}</Text>
+                <Text
+                    style={[styles.rowText,
+                        {marginRight: 10, color: listViewTxtColor.redTip},
+                        assignValue < 0 && {color: listViewTxtColor.greenTip}]}>
+                    {assignValue}元
+                </Text>
+            </TouchableOpacity>
+        )
     }
 
     assignValue = key => {
-        if (key === '盈利总额') {
-            return (this.state.dataPersonal.sumPnl + this.state.dataPersonal.sumCommission + this.state.dataPersonal.sumBonus).toFixed(2);
-        } else if (key === '有效投注总额') {
-            return this.state.dataPersonal.sumCharge;
-        } else if (key === '派彩总额') {
-            return this.state.dataPersonal.sumWin;
-        } else if (key === '佣金总额') {
-            return this.state.dataPersonal.sumCommission;
+        if (key === '投注总额') {
+            return this.state.dataPersonal.totalBet.toFixed(2);
+        } else if (key === '实际投注总额') {
+            return this.state.dataPersonal.actualBet;
+        } else if (key === '返水金额') {
+            return this.state.dataPersonal.rebateAmount;
+        } else if (key === '输赢总额') {
+            return this.state.dataPersonal.playerWinLoss;
         } else if (key === '充值总额') {
-            return this.state.dataPersonal.sumTopup;
+            return this.state.dataPersonal.totalTopUp;
         } else if (key === '提款总额') {
-            return this.state.dataPersonal.sumWithdrawal;
+            return this.state.dataPersonal.totalWithdraw;
+        } else if (key === '未结算总额') {
+            return this.state.dataPersonal.totalNotSettled;
         } else {
             return null;
         }
@@ -415,7 +312,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         marginTop: 20
     },
-
     container: {
         backgroundColor: indexBgColor.mainBg,
         flex: 1
@@ -456,7 +352,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         backgroundColor: 'white',
-        height: 50
+        height: 50,
+        borderBottomWidth: 1,
+        borderBottomColor: indexBgColor.mainBg
     },
     timeButton: {
         width: 100,
