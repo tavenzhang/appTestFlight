@@ -1,7 +1,7 @@
 'use-strict';
 import React from 'react';
 import {StyleSheet, SafeAreaView, View, Text, Image} from 'react-native';
-import {width, listViewTxtColor, Size} from "../../resouce/theme";
+import {width, listViewTxtColor, Size, indexBgColor} from "../../resouce/theme";
 import {common as Common} from "../../resouce/images";
 import {Other} from "../../asset";
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
@@ -78,6 +78,10 @@ export default class TCUserOrderType extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: indexBgColor.mainBg,
+    },
     typeTitle: {
         width: width,
         paddingLeft: 15,
