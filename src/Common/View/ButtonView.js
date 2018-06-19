@@ -1,19 +1,19 @@
 import React, {Component,} from 'react'
 
-import {View, StyleSheet, Text, TouchableOpacity, Platform} from 'react-native'
-
+import { StyleSheet, Text, TouchableOpacity, Platform} from 'react-native'
+import PropTypes from 'prop-types'
 
 export default class ButtonView extends Component {
 
 
     static propTypes = {
-        disabled: JX_PropTypes.bool,//按钮不可用状态（true不可用，false可用）
-        btnStyle: JX_PropTypes.any,//按钮样式
-        styleDisabled: JX_PropTypes.style,//按钮不可用状态样式
-        text: JX_PropTypes.string,//按钮文本
-        txtstyle: JX_PropTypes.style,//文本样式
-        txtstyleDisabled: JX_PropTypes.style,//文本不可用样式
-        onClick: JX_PropTypes.func//按钮点击事件
+        disabled: PropTypes.bool,//按钮不可用状态（true不可用，false可用）
+        btnStyle: PropTypes.any,//按钮样式
+        styleDisabled: PropTypes.style,//按钮不可用状态样式
+        text: PropTypes.string,//按钮文本
+        txtstyle: PropTypes.style,//文本样式
+        txtstyleDisabled: PropTypes.style,//文本不可用样式
+        onClick: PropTypes.func//按钮点击事件
     };
 
     static defaultProps = {
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#2196F3',
         borderRadius: 2,
+        padding:6
     },
     buttonDisabled: {
         backgroundColor: '#dfdfdf',
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         textAlignVertical: 'center',
-        padding: 8,
+      //  padding: 8,
         fontWeight: '500',
     },
     textDisabled: {

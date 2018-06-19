@@ -20,6 +20,7 @@ import LotteryResultData from '../../Data/JXLotteryResultData';
 import {Size, height, width, shoppingTxtColor, indexBgColor} from '../resouce/theme';
 import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
 import {common} from '../resouce/images';
+import {TC_LayoutAnimaton} from "../../Common/View/layoutAnimation/LayoutAnimaton";
 
 
 const tabLabels = ['全部彩种', '时时彩', 'PC蛋蛋', 'PK拾', '11选5', '快3', '高频彩', '低频彩'];
@@ -38,8 +39,7 @@ export default class MyComponent extends React.Component {
     static defaultProps = {};
 
     componentWillUpdate() {
-
-        JX_LayoutAnimaton.configureNext(JX_LayoutAnimaton.easeNoDelete)
+        TC_LayoutAnimaton.configureNext(TC_LayoutAnimaton.easeNoDelete);
     }
 
     componentWillMount() {

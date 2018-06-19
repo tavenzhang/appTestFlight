@@ -25,6 +25,7 @@ import {navbarHight, navbarMarginTop} from '../../Page/asset'
 
 import _ from 'lodash';
 import {common} from '../../Page/resouce/images'
+import PropTypes from 'prop-types'
 
 export default class TCNavigationBar extends Component {
     constructor(state) {
@@ -36,17 +37,17 @@ export default class TCNavigationBar extends Component {
     }
 
     static propTypes = {
-        title: JX_PropTypes.any,
-        needBackButton: JX_PropTypes.any,
-        rightTitle: JX_PropTypes.any,
-        rightImage: JX_PropTypes.any,
-        leftTitle: JX_PropTypes.any,
-        leftImage: JX_PropTypes.any,
-        rightButtonCall: JX_PropTypes.any,
-        closeButtonCall: JX_PropTypes.any,
-        titleStyle: JX_PropTypes.object,
-        centerViewShowStyleImage: JX_PropTypes.any,
-        backButtonCall: JX_PropTypes.fun
+        title: PropTypes.any,
+        needBackButton: PropTypes.any,
+        rightTitle: PropTypes.any,
+        rightImage: PropTypes.any,
+        leftTitle: PropTypes.any,
+        leftImage: PropTypes.any,
+        rightButtonCall: PropTypes.any,
+        closeButtonCall: PropTypes.any,
+        titleStyle: PropTypes.object,
+        centerViewShowStyleImage: PropTypes.any,
+        backButtonCall: PropTypes.fun
     }
 
     static defaultProps = {
