@@ -200,6 +200,14 @@ Helper.pushToAgentCommissionDetail = (params) => {
     NavigationService.navigate("CommissionDetail", params);
 }
 
+Helper.pushToUserStatementsType = () => {
+    NavigationService.navigate("UserStatementsType");
+}
+
+Helper.pushToUserStatements = (platform) => {
+    NavigationService.navigate("UserStatements", {platform});
+}
+
 Helper.pushToUserSheet = (isUserSheet, username, prizeGroup) => {
     NavigationService.navigate("AgentSheet", {
         isUserSheet,

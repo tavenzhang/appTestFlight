@@ -1,9 +1,6 @@
 import {StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
-import {
-    UIManager
-} from 'react-native';
-
+import {UIManager} from 'react-native';
 import {Provider} from 'mobx-react'
 
 import NavigationService from './NavigationService'
@@ -110,6 +107,9 @@ import TCWebGameView from "../WebView/TCWebGameView";
 import TCUserIMBetDetail from "../UserCenter/UserOrder/TCUserIMBetDetail";
 import TCUserSSBetDetail from "../UserCenter/UserOrder/TCUserSSBetDetail";
 import TCUserMGBetDetail from "../UserCenter/UserOrder/TCUserMGBetDetail";
+//个人报表
+import TCUserStatementsType from "../UserCenter/Agent/UserSheets/TCUserStatementsType";
+import TCUserStatements from "../UserCenter/Agent/UserSheets/TCUserStatements";
 
 
 //用于增加通用navigator view 属性 特殊 处理
@@ -190,6 +190,8 @@ const Components = {
     AgentTeamList: viewRoutHelp(AgentTeamList),
     AgentCommissionList: viewRoutHelp(AgentCommissionList),
     AgentSheet: viewRoutHelp(AgentSheet),
+    UserStatementsType: viewRoutHelp(TCUserStatementsType),
+    UserStatements: viewRoutHelp(TCUserStatements),
     CommissionDetail: viewRoutHelp(CommissionDetail),
     PersonalCommissionDetail: viewRoutHelp(PersonalCommissionDetail),
     InviteFriends: viewRoutHelp(TCInviteFriends),
@@ -217,6 +219,7 @@ const MainStackNavigator = StackNavigator({
 })
 
 export default class Main extends Component {
+    
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     }

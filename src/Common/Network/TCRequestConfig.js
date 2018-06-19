@@ -148,6 +148,7 @@ export const config = {
         gamesDZList: 'dsf/center/player/mobile/' + configAppId + '/games',//获取游戏列表
         gamesDZ_start: "dsf/center/player/mobile/startGame",//进入游戏
         //gamesDZ_start: "dsf/center/mobile/player/startGame",//获取游戏列表
+        getUserOtherStatements: "dsf/center/player/statements/personal/total",//获取第三方平台个人报表
     },
     map: {
         method: 'POST',

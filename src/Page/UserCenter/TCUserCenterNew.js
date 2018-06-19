@@ -492,7 +492,12 @@ export default class TCUserCenterNew extends Component {
                 NavigatorHelper.pushToUserAccount(0)
                 break;
             case 'grbb':
-                NavigatorHelper.pushToUserSheet(true)
+                otherPlatform = JXHelper.getDSFOpenList().dsfAll;
+                if (otherPlatform && otherPlatform.length > 0) {
+                    NavigatorHelper.pushToUserStatementsType()
+                } else {
+                    NavigatorHelper.pushToUserSheet(true)
+                }
                 break;
             case 'cwdl':
                 NavigatorHelper.pushToAgentInroduce();
