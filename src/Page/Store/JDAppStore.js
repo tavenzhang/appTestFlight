@@ -28,12 +28,12 @@ class JDAppStore {
     }
 
     init() {
-        this.initDeviceTokenFromLocalStore();
-        this.initAppVersion();
-        this.initAppName();
-        this.initLoginUserName();
-        this.initAffCode();
-        this.initButtonSoundStatus();
+        // this.initDeviceTokenFromLocalStore();
+        // this.initAppVersion();
+        // this.initAppName();
+        // this.initLoginUserName();
+        // this.initAffCode();
+        // this.initButtonSoundStatus();
     }
 
     /**

@@ -24,6 +24,7 @@ import Moment from "moment/moment";
 import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
 import {JX_PLAT_INFO} from '../../Page/asset'
 import {indexBgColor} from "../resouce/theme";
+import {TC_SCREEN} from "../asset";
 
 //专门为趋势图准备
 export default class TCWebTrendView extends React.Component {
@@ -49,6 +50,7 @@ export default class TCWebTrendView extends React.Component {
 
     render() {
         JXLog("TCWebTrendView-----  TCWebTrendView", this.props)
+
         let containStyle = JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container
         if (this.state.loadedFail) {
             return (<View style={[containStyle]}>

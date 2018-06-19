@@ -12,12 +12,9 @@ import {
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 
 var WEBVIEW_REF = 'webview';
-import Moment from "moment/moment";
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
-import {common} from "../resouce/images";
-import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
-import {JX_PLAT_INFO,themeViewStyle} from '../asset'
+import {JX_PLAT_INFO, TC_SCREEN, themeViewStyle} from '../asset'
 //专门为体育电子准备
 export default class TCWebGameView extends React.Component {
 
@@ -40,7 +37,7 @@ export default class TCWebGameView extends React.Component {
         if (params.isDZ) {
             let {gameData, gameId} = params
             bodyParam.gameId = gameId
-            NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZ_start + "/" + gameId, gameData.gamePlatform, bodyParam, (ret) => {
+            NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZ_start + "/" + gameId,  bodyParam,gameData.gamePlatform, (ret) => {
                 JXLog("TCWebGameView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
                 if (ret.rs) {
                     this.setState({url: ret.content.gameUrl});
@@ -50,7 +47,7 @@ export default class TCWebGameView extends React.Component {
             })
         } else {
             let {gameData} = params
-            NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.startGame, gameData.gamePlatform, bodyParam, (ret) => {
+            NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.startGame, bodyParam,gameData.gamePlatform, (ret) => {
                 JXLog("TCWebGameView-------startGame" + ret.content, ret)
                 if (ret.rs) {
                    // this.setState({url: "https://www.google.com.hk"});
@@ -151,7 +148,7 @@ const styles = StyleSheet.create({
 
     webView: {
         flex: 1,
-        width: SCREEN_W,
+        width: TC_SCREEN
     }
 });
 

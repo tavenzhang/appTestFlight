@@ -11,7 +11,7 @@ import {observer} from 'mobx-react/native'
 import GamePage from "./GamePage";
 import {indexBgColor, shoppingTxtColor, baseColor, Size} from "../../resouce/theme";
 import TCNavigationBar from "../../../Common/View/TCNavigationBar";
-import {themeViewStyle} from "../../asset"
+import {ASSET_Theme} from "../../asset"
 import ScrollableTabView, {ScrollableTabBar} from "react-native-scrollable-tab-view";
 import {config} from "../../../Common/Network/TCRequestConfig";
 import NetUitls from "../../../Common/Network/TCRequestUitls";
@@ -39,7 +39,7 @@ export default class DZGameListView extends Component {
         </View>)
 
         return (
-            <View style={themeViewStyle.containView}>
+            <View style={ASSET_Theme.themeViewStyle.containView}>
                 <TCNavigationBar
                     title={'游戏列表'}
                     needBackButton={true}
@@ -91,7 +91,7 @@ export default class DZGameListView extends Component {
         let url = config.api.gamesDZ_start + "/" + dataItem.gameId;
         if (!this.isReuesting) {
             this.isReuesting = true;
-            NetUitls.getUrlAndParamsAndPlatformAndCallback(url, gameData.gamePlatform, bodyParam, (ret) => {
+            NetUitls.getUrlAndParamsAndPlatformAndCallback(url,bodyParam,gameData.gamePlatform , (ret) => {
                 this.isReuesting = false
                 JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
                 if (ret.rs) {

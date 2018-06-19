@@ -24,6 +24,7 @@ import {indexBgColor, height, width} from '../resouce/theme'
 import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import TCFlatList from "../../Common/View/RefreshListView/TCFLatList";
+import {TC_LayoutAnimaton} from "../../Common/View/layoutAnimation/LayoutAnimaton";
 @observer
 export default class TCLotteryLobby extends React.Component {
     constructor(state) {
@@ -35,7 +36,7 @@ export default class TCLotteryLobby extends React.Component {
     }
 
     componentWillUpdate() {
-        JX_LayoutAnimaton.configureNext(JX_LayoutAnimaton.easeNoDelete)
+        TC_LayoutAnimaton.configureNext(TC_LayoutAnimaton.easeNoDelete);
     }
 
     componentWillMount() {
