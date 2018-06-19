@@ -15,7 +15,8 @@ import {
     Platform,
     Dimensions
 } from 'react-native';
-import {Size, width, indexBgColor, popuWinStyle,navbarHight,navbarMarginTop} from '../../resouce/theme'
+import {Size, width, indexBgColor, popuWinStyle} from '../../resouce/theme'
+import {navbarHight} from '../../asset'
 import * as _ from "lodash";
 var createReactClass = require('create-react-class');
 

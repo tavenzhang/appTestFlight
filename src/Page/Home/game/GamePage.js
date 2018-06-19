@@ -10,6 +10,10 @@ import {
 import {observer} from 'mobx-react/native'
 import {indexBgColor,baseColor,width} from "../../resouce/theme";
 import PropTypes from 'prop-types'
+import FastImage from 'react-native-fast-image';
+import TCFlatList from "../../../Common/View/RefreshListView/TCFLatList";
+import TCImage from "../../../Common/View/image/TCImage";
+import {Other} from "../../asset/drawable";
 
 
 
@@ -32,14 +36,14 @@ export default class GamePage extends Component {
 
     render() {
         let {initNumRender} = this.props
-        return (<FlatList
-                ItemSeparatorComponent={this.renderSepator}
-                data={this.props.datas}
+
+        return (<TCFlatList
+                itemSeparatorComponent={this.renderSepator}
+                dataS={this.props.datas}
                 initialNumToRender={initNumRender}
-                ListEmptyComponent={this.getNodataView}
+                listEmptyComponent={this.getNodataView}
                 numColumns={2}
-                keyExtractor={(item, index) => "list" + index}
-                renderItem={this.renderItemView}
+                renderRow={this.renderItemView}
             />)
     }
 
@@ -77,7 +81,7 @@ export default class GamePage extends Component {
 
 
 
-    renderItemView=({item})=> {
+    renderItemView=(item,index)=> {
         return (<TouchableOpacity onPress={()=>this.onItemClick(item)}><View style={{
             backgroundColor: baseColor.itemBg,
             alignItems: 'center',
@@ -85,15 +89,16 @@ export default class GamePage extends Component {
             paddingBottom: 20,
             width: width * 0.5,
         }}>
-            <Image
+            <TCImage
                 style={{
                     height: 100,
                     alignItems: 'center',
                     justifyContent: 'center',
                     width: width * 0.46,
                 }}
-                resizeMode="stretch"
+                resizeMode="contain"
                 source={{uri: item.icon}}
+                imgPlaceHolder={Other.mg_holder}
             />
             <Text style={{width: width * 0.46, textAlign: 'center', marginTop: 5}}>{item.name}</Text>
         </View>

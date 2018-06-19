@@ -44,7 +44,8 @@ import Moment from 'moment';
 import {observer} from 'mobx-react/native';
 
 
-import {width, indexBgColor, indexTxtColor,height,bottomNavHeight,JX_PLAT_INFO} from '../resouce/theme';
+import {width, indexBgColor, indexTxtColor,height} from '../resouce/theme';
+import {JX_PLAT_INFO,bottomNavHeight} from '../asset'
 import NetWorkTool from '../../Common/Network/TCToolNetWork';
 
 let isFirstLoad = false;
@@ -61,6 +62,7 @@ import FastImage from 'react-native-fast-image';
 import JXPopupNotice from './popupAnnouncements/JXPopupAnnouncements';
 import {getPopupAnnouncements} from './popupAnnouncements/JXPopupNoticeHelper';
 import JXHelper from "../../Common/JXHelper/JXHelper";
+import TCImage from "../../Common/View/image/TCImage";
 
 @observer
 export default class TCHome extends Component {
@@ -191,6 +193,10 @@ export default class TCHome extends Component {
             })
         }
         if (this.state.content.dsfSportInfos&&this.state.content.dsfSportInfos.length>0){
+            let dsfSportInfos = _.cloneDeep(this.state.content.dsfSportInfos)
+            if (dsfSportInfos.length % 2 !== 0) {
+                dsfSportInfos.push({})
+            }
             data.push({
                 data: this.state.content.dsfSportInfos,
                 title: "体育竞技",
@@ -199,23 +205,17 @@ export default class TCHome extends Component {
         }
         if (this.state.content.dsfEgameInfos&&this.state.content.dsfEgameInfos.length>0){
             let dsfEgameInfos = _.cloneDeep(this.state.content.dsfEgameInfos)
+
+            if (this.state.content.dsfCardInfos&&this.state.content.dsfCardInfos.length>0) {
+                let dsfCardInfos = _.cloneDeep(this.state.content.dsfCardInfos)
+                dsfEgameInfos = _.concat(dsfEgameInfos,dsfCardInfos)
+            }
             if (dsfEgameInfos.length % 2 !== 0) {
                 dsfEgameInfos.push({})
             }
             data.push({
                 data: dsfEgameInfos,
                 title: "电子游戏",
-                renderItem: ({item}) => this.renderDSFView(item,false)
-            })
-        }
-        if (this.state.content.dsfCardInfos&&this.state.content.dsfCardInfos.length>0){
-            let dsfCardInfos = _.cloneDeep(this.state.content.dsfCardInfos)
-            if (dsfCardInfos.length % 2 !== 0) {
-                dsfCardInfos.push({})
-            }
-            data.push({
-                data: dsfCardInfos,
-                title: "棋牌游戏",
                 renderItem: ({item}) => this.renderDSFView(item,false)
             })
         }
@@ -239,7 +239,7 @@ export default class TCHome extends Component {
             autoplay={true}
             dataSource={this.state.content.bannerData}
             renderRow={(item, index) => {
-                return (<FastImage
+                return (<TCImage
                     source={{uri: item.bannerImageUrl}}
                     style={styles.page}
                     resizeMode={"cover"}/>)
@@ -272,7 +272,7 @@ export default class TCHome extends Component {
     }
 
     androidUpdateTip() {
-        if (Platform.OS !== 'ios') {
+        if (!IS_IOS) {
             try {
                 NativeModules.JXHelper.getVersionCode(version => {
                     NetUitls.getUrlAndParamsAndCallback(
@@ -590,7 +590,7 @@ export default class TCHome extends Component {
         } else if (title == 'PROMOTION' || title == '优惠活动') {
             NavigatorHelper.pushtoPromotion();
         } else if (title == 'CUS_SERVICE' || title == '在线客服') {
-            if (Platform.OS === 'ios') {
+            if (IS_IOS) {
                 NavigatorHelper.pushToWebView(rowData.contentUrl, rowData.nameInChinese);
             } else {
                 try {
@@ -649,7 +649,6 @@ export default class TCHome extends Component {
     showPopupAnnouncements() {
         getPopupAnnouncements((d)=>{
             if (d && d.length > 0) {
-                JXLog('showPopupAnnouncements')
                 this.refs['PopupNotice'].open(d);
             }
         });

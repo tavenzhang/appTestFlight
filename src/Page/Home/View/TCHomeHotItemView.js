@@ -17,6 +17,7 @@ import {width,indexBgColor,indexTxtColor,Size} from '../../resouce/theme'
 const colorArray = indexTxtColor.homePageHotCPTitle
 import JXHelper from '../../../Common/JXHelper/JXHelper'
 import SoundHelper from '../../../Common/JXHelper/SoundHelper'
+import TCImage from "../../../Common/View/image/TCImage";
 
 export default class TCHomeHotItemView extends React.Component {
 
@@ -65,20 +66,20 @@ export default class TCHomeHotItemView extends React.Component {
             </TouchableOpacity>
         )
     }
-
     getImage() {
         if (!this.props.rowData.gameUniqueId) {
             return
         }
         if (this.props.rowData && this.props.rowData.status && this.props.rowData.status == 'FORBIDDEN') {
-           return <Image
+            return <TCImage
                 source={{uri:this.props.rowData.status=='FORBIDDEN'?this.props.rowData.gameIconGrayUrl:this.props.rowData.gameIconUrl}}
-                style={styles.leftImgStyle}/>
+                style={styles.leftImgStyle} />
         } else {
-            return <Image source={JXHelper.getGameIconWithUniqueId(this.props.rowData.gameUniqueId)}
-                          style={styles.leftImgStyle}/>
+            return <TCImage source={JXHelper.getGameIconWithUniqueId(this.props.rowData.gameUniqueId)}
+                            style={styles.leftImgStyle} />
         }
     }
+
 
     buttonCall = () => {
         if (!this.props.rowData.gameUniqueId) {
