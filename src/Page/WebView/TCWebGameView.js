@@ -17,7 +17,7 @@ import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
 import {common} from "../resouce/images";
 import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
-
+import {JX_PLAT_INFO,themeViewStyle} from '../asset'
 //专门为体育电子准备
 export default class TCWebGameView extends React.Component {
 
@@ -36,7 +36,7 @@ export default class TCWebGameView extends React.Component {
             access_token: TCUSER_DATA.oauthToken.access_token,
         }
 
-        JXLog("export default class TCWebGameView extends React.Component ", params)
+        JXLog("componentWillMount--- params==", params)
         if (params.isDZ) {
             let {gameData, gameId} = params
             bodyParam.gameId = gameId
@@ -90,8 +90,8 @@ export default class TCWebGameView extends React.Component {
                 }
             </View>
         }
-        return (<View style={JX_ThemeViewStyle.containView}>
-            <TopNavigationBar title={title} needBackButton={this.state.backButtonEnabled ? true:false} backButtonCall={this.onBack}/>
+        return (<View style={themeViewStyle.containView}>
+            <TopNavigationBar title={title} needBackButton={true} backButtonCall={this.onBack}/>
             {conetView}
            <View style={{
                 position: "absolute",
@@ -100,7 +100,7 @@ export default class TCWebGameView extends React.Component {
                 flexDirection: "row",
                 top: JX_PLAT_INFO.MarginBarHeight + 12,
                 zIndex: 100,
-                left: 55
+                right:25
             }}>
                 <TouchableOpacity onPress={JX_NavHelp.popToBack}>
                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -117,7 +117,12 @@ export default class TCWebGameView extends React.Component {
     }
 
     onBack = () => {
-        this.refs[WEBVIEW_REF].goBack();
+        if(this.state.backButtonEnabled){
+            this.refs[WEBVIEW_REF].goBack();
+        }
+        else{
+            JX_NavHelp.popToBack()
+        }
     }
 
     onLoadError = (evt) => {
@@ -146,7 +151,7 @@ const styles = StyleSheet.create({
 
     webView: {
         flex: 1,
-        width: JX_PLAT_INFO.screenW,
+        width: SCREEN_W,
     }
 });
 

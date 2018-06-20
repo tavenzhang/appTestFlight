@@ -48,7 +48,7 @@ let SingletonDPS = null;
 
 let myPlayMath = '';
 let myGameSetting = null
-import {height, width, betHome, indexBgColor, statusBarHeight} from '../../../resouce/theme'
+import {width, betHome, indexBgColor} from '../../../resouce/theme'
 import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceBetData";
 
 

@@ -6,7 +6,8 @@
 import React, {Component} from 'react';
 import {StyleSheet, Platform, Text, View, Image} from 'react-native';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
-import {Size, width, height, statusBarHeight} from '../resouce/theme';
+import {Size, width, height} from '../resouce/theme';
+import {statusBarHeight} from '../../Page/asset'
 import NetUtils from '../../Common/Network/TCRequestUitls';
 import {config} from '../../Common/Network/TCRequestConfig';
 import RefreshListView from '../../Common/View/RefreshListView/RefreshListView';

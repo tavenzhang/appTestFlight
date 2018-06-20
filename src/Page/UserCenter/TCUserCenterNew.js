@@ -37,17 +37,12 @@ import {
     Size,
     width,
     height,
-    baseColor,
     listViewTxtColor,
-    statusBarHeight,
-    JX_PLAT_INFO,
     bottomNavHeight
 } from '../resouce/theme'
+import {JX_PLAT_INFO} from '../asset'
 import SignInModal from './SignIn/TCSignInModal'
 import userCenterData from './TCUserCenterData'
-import Toast from "../../Common/JXHelper/JXToast"
-
-let helper = new InitHelper()
 
 const USERCENTER_ITEMS = [
     [

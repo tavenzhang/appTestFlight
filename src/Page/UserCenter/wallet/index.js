@@ -2,7 +2,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
-import {Other} from "../../asset/drawable";
+import {Other} from "../../asset";
 import {indexBgColor, Size} from "../../resouce/theme";
 import TransferStore from "../../../Data/store/userCenterStore/TransferStore";
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
@@ -78,8 +78,8 @@ export default class extends React.Component {
         if (otherPlatform) {
             return (
                 otherPlatform.map((platform) => {
-                    return (
-                        <WalletItemComponent
+                    if (platform.status && platform.status === 'ON') {
+                        return (<WalletItemComponent
                             key={platform.gamePlatform}
                             ref={platform.gamePlatform}
                             walletName={platform.gameNameInChinese}
@@ -94,7 +94,8 @@ export default class extends React.Component {
                                     }
                                 })
                             }}/>
-                    )
+                        )
+                    }
                 })
             )
         }

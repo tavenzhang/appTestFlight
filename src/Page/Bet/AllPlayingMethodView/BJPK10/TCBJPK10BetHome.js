@@ -42,7 +42,7 @@ import JXHelper from '../../../../Common/JXHelper/JXHelper'
 import JXCurrentResultData from '../../../../Data/JXCurrentResultData'
 import JXUserPlayNumberEvent from '../../../../Data/JXUserPlayNumberEvent'
 
-import {height, betHome, indexBgColor, statusBarHeight} from '../../../resouce/theme'
+import {betHome, indexBgColor} from '../../../resouce/theme'
 import {MathControllerFactory} from 'lottery-core'
 import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceBetData";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'

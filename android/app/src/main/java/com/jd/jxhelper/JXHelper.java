@@ -65,7 +65,7 @@ public class JXHelper extends ReactContextBaseJavaModule {
     public void getAffCode(Callback resultCallback) {
         try {
             ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
-            Object obj =applicationInfo.metaData.get("TD_CHANNEL_AFFCODE");
+            Object obj = applicationInfo.metaData.get("TD_CHANNEL_AFFCODE");
 
             if (obj != null && !TextUtils.isEmpty(obj.toString())) {
                 resultCallback.invoke(obj.toString());
@@ -108,6 +108,21 @@ public class JXHelper extends ReactContextBaseJavaModule {
         UpdateManager updateManager = new UpdateManager(getCurrentActivity());
         updateManager.setUrl(url);
         updateManager.update();
+    }
+
+    @ReactMethod
+    public void getAppName(Callback callback) {
+        PackageManager packageManager = null;
+        ApplicationInfo applicationInfo = null;
+        try {
+            packageManager = context.getPackageManager();
+            applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            applicationInfo = null;
+        }
+        String applicationName =
+                (String) packageManager.getApplicationLabel(applicationInfo);
+        callback.invoke(applicationName);
     }
 
     @ReactMethod

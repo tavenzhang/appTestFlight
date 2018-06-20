@@ -212,10 +212,12 @@ export default class TCUserWithdrawNew extends Component {
                 <TouchableOpacity
                     style={styles.bottomBarButtonStyle}
                     onPress={() => {
-                        if (this.stateModel.exempt > 0) {
-                            this.showTipDialog();
-                        } else {
-                            this.showWithdrawKeyboard();
+                        if (this.validateWithDraw()) {
+                            if (this.stateModel.exempt > 0) {
+                                this.showTipDialog();
+                            } else {
+                                this.showWithdrawKeyboard();
+                            }
                         }
                     }}>
                     <Text style={{color: buttonStyle.btnTxtColor, fontWeight: 'bold', fontSize: Size.default}}>

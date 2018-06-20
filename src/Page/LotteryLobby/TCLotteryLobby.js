@@ -13,16 +13,17 @@ import {
     TouchableHighlight,
     RefreshControl
 } from 'react-native';
-import { observer } from 'mobx-react/native';
+import {observer} from 'mobx-react/native';
 
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import RowCell from './View/TCLotteryLobbyRowView'
 import TopNavigationBar from '../../Common/View/TCNavigationBar'
 import LotteryHistoryList from './TCLotteryHistoryList'
 import LotteryResultData from '../../Data/JXLotteryResultData'
-import {indexBgColor,height,width,bottomNavHeight,JX_PLAT_INFO} from '../resouce/theme'
+import {indexBgColor, height, width} from '../resouce/theme'
+import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
-
+import TCFlatList from "../../Common/View/RefreshListView/TCFLatList";
 @observer
 export default class TCLotteryLobby extends React.Component {
     constructor(state) {
@@ -42,18 +43,19 @@ export default class TCLotteryLobby extends React.Component {
     }
 
     componentDidMount() {
-        if(this.lotteryResultData.resultsData && this.lotteryResultData.resultsData.length > 0) {
-            this.setState({ isRefreshing: false})
+        if (this.lotteryResultData.resultsData && this.lotteryResultData.resultsData.length > 0) {
+            this.setState({isRefreshing: false})
         }
     }
 
     componentWillUnmount() {
-        this.lotteryResultData && this.lotteryResultData.clear();;
+        this.lotteryResultData && this.lotteryResultData.clear();
+        ;
     }
 
     render() {
         return (
-            <View style={JX_PLAT_INFO.IS_IphoneX?styles.containerIOS:styles.container}>
+            <View style={JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container}>
                 <TopNavigationBar title='开奖大厅' needBackButton={true}
                                   backButtonCall={() => {
                                       RCTDeviceEventEmitter.emit('' +
@@ -70,7 +72,7 @@ export default class TCLotteryLobby extends React.Component {
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.isRefreshing}
-                            onRefresh={()=>this.loadDataFormNet(true)}
+                            onRefresh={this.loadDataFormNet}
                             tintColor="#ff0000"
                             title="下拉刷新"
                             titleColor="#999999"
@@ -84,46 +86,48 @@ export default class TCLotteryLobby extends React.Component {
     }
 
     //CELL ROW DATA
-    renderRow(rowData) {
+    renderRow=(rowData)=> {
         return (
             <RowCell
                 cpName={rowData.gameNameInChinese}
                 cpNumbers={rowData.lastOpenCode}
                 rowData={rowData}
-                pushEvent={(cP)=>this._pushToBetHome3(rowData)}
+                pushEvent={(cP) => this._pushToBetHome3(rowData)}
             />
         )
     }
 
-    _pushToBetHome3(rowData) {
-        NavigatorHelper.pushToLotteryHistoryList({title: rowData.gameNameInChinese,
-            gameUniqueId: rowData.gameUniqueId})
+    _pushToBetHome3=(rowData)=>{
+        NavigatorHelper.pushToLotteryHistoryList({
+            title: rowData.gameNameInChinese,
+            gameUniqueId: rowData.gameUniqueId
+        })
     }
 
-    loadDataFormNet(manual) {
+    loadDataFormNet=(manual=true)=>  {
         this.lotteryResultData.getLotteryDetailRequest();
         if (manual) {
             this.refs['ListView'].scrollTo({x: 0, y: 0, animated: true})
         }
 
-        if(this.lotteryResultData.resultsData && this.lotteryResultData.resultsData.length > 0){
+        if (this.lotteryResultData.resultsData && this.lotteryResultData.resultsData.length > 0) {
             this.setState({isRefreshing: false});
         }
     }
 
-    endRefreshing(){
+    endRefreshing() {
         this.setState({isRefreshing: false});
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         backgroundColor: indexBgColor.mainBg
     },
-    containerIOS:{
-        height:height-bottomNavHeight,
-        width:width,
+    containerIOS: {
+        height: height - bottomNavHeight,
+        width: width,
         backgroundColor: indexBgColor.mainBg
     },
 });

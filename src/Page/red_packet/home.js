@@ -14,7 +14,8 @@ import * as _ from 'lodash';
 
 /**组件内部显示需要引入的类 */
 import TopNavigationBar from './components/TCNavigationBar';
-import {width, height, indexBgColor, indexTxtColor, Size, statusBarHeight,JX_PLAT_INFO} from '../resouce/theme';
+import {width, height, Size} from '../resouce/theme';
+import {JX_PLAT_INFO,statusBarHeight} from '../../Page/asset'
 import RedPacketModal from './components/RedPacketModal';
 /** 外部关系组件 如 页面跳转用 */
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';

@@ -42,7 +42,7 @@ import JXCurrentResultData from '../../../../Data/JXCurrentResultData'
 import JXUserPlayNumberEvent from '../../../../Data/JXUserPlayNumberEvent'
 
 var Dimensions = require('Dimensions');
-import {height, betHome, indexBgColor, statusBarHeight} from '../../../resouce/theme'
+import {betHome, indexBgColor} from '../../../resouce/theme'
 import TCChongQingSSC_DPS from './data/TCSSL_DPS'
 import {MathControllerFactory} from 'lottery-core'
 import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceBetData";

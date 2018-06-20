@@ -3,10 +3,10 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View } from 'react-native';
+import React, {Component} from 'react';
+import {AppRegistry, StyleSheet, Text, View} from 'react-native';
 
-import { observer } from 'mobx-react/native';
+import {observer} from 'mobx-react/native';
 
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import ScrollableTabView from '../../Common/View/ScrollableTab/index';
@@ -17,8 +17,10 @@ import ListStyle from './View/TCShopingListStyle';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import LotteryResultData from '../../Data/JXLotteryResultData';
 
-import { Size,height,width, shoppingTxtColor, indexBgColor,bottomNavHeight,statusBarHeight,JX_PLAT_INFO } from '../resouce/theme';
-import { common } from '../resouce/images';
+import {Size, height, width, shoppingTxtColor, indexBgColor} from '../resouce/theme';
+import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
+import {common} from '../resouce/images';
+
 
 const tabLabels = ['全部彩种', '时时彩', 'PC蛋蛋', 'PK拾', '11选5', '快3', '高频彩', '低频彩'];
 
@@ -36,6 +38,7 @@ export default class MyComponent extends React.Component {
     static defaultProps = {};
 
     componentWillUpdate() {
+
         JX_LayoutAnimaton.configureNext(JX_LayoutAnimaton.easeNoDelete)
     }
 
@@ -58,7 +61,7 @@ export default class MyComponent extends React.Component {
 
     render() {
         return (
-            <View style={JX_PLAT_INFO.IS_IphoneX?styles.containerIOS:styles.container}>
+            <View style={JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container}>
                 <TopNavigationBar
                     title="购彩大厅"
                     needBackButton={true}
@@ -71,14 +74,14 @@ export default class MyComponent extends React.Component {
                 <ScrollableTabView
                     ref="ScrollableTabView"
                     removeClippedSubviews={false}
-                    renderTabBar={() => <ScrollableTabBar />}
-                    tabBarUnderlineStyle={{ backgroundColor: shoppingTxtColor.tabLine, height: 2 }}
+                    renderTabBar={() => <ScrollableTabBar/>}
+                    tabBarUnderlineStyle={{backgroundColor: shoppingTxtColor.tabLine, height: 2}}
                     tabBackgroundColor={indexBgColor.itemBg}
                     locked={true}
                     initialPage={this.state.initPage}
                     tabBarActiveTextColor={shoppingTxtColor.tabTitlePressed}
                     tabBarInactiveTextColor={shoppingTxtColor.tabTitleNormal}
-                    tabBarTextStyle={{ fontSize: Size.font15, fontWeight: 'normal' }}
+                    tabBarTextStyle={{fontSize: Size.font15, fontWeight: 'normal'}}
                 >
                     {
                         tabLabels.map((item, key) => {
@@ -100,23 +103,23 @@ export default class MyComponent extends React.Component {
             tabLabel: title,
             navigator: this.props.navigator
         };
-        return isListStyle ? <ListStyle {...params} />:<SudokuStyle {...params} />
+        return isListStyle ? <ListStyle {...params} /> : <SudokuStyle {...params} />
 
     }
 
-    rightButtonCall=()=> {
-        this.setState({ listStyle: !this.state.listStyle});
+    rightButtonCall = () => {
+        this.setState({listStyle: !this.state.listStyle});
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         backgroundColor: indexBgColor.mainBg
     },
-    containerIOS:{
-        height:height-bottomNavHeight,
-        width:width,
+    containerIOS: {
+        height: height - bottomNavHeight,
+        width: width,
         backgroundColor: indexBgColor.mainBg
     },
     firstTabStyle: {
