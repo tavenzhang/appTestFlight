@@ -8,12 +8,12 @@ import {
 } from 'react-native';
 //import NoDataView from "../../Common/View/NoDataView";
 import {observer} from 'mobx-react/native'
-import {indexBgColor,baseColor,width} from "../../resouce/theme";
+import {indexBgColor,baseColor,width} from "../resouce/theme";
 import PropTypes from 'prop-types'
 import FastImage from 'react-native-fast-image';
-import TCFlatList from "../../../Common/View/RefreshListView/TCFLatList";
-import TCImage from "../../../Common/View/image/TCImage";
-import {Other} from "../../asset/drawable";
+import TCFlatList from "../../Common/View/RefreshListView/TCFLatList";
+import TCImage from "../../Common/View/image/TCImage";
+import {Other} from "../asset/drawable";
 
 
 

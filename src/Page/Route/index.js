@@ -101,7 +101,7 @@ const appStores = {
 
 import TCUserOtherBetRecords from "../UserCenter/UserOrder/TCUserOtherBetRecords";
 //电子游戏列表
-import DZGameListView from "../Home/game/DZGameListView";
+import DZGameListView from "../game/DZGameListView";
 //用于体育与电子游戏的专属webView
 import TCWebGameView from "../WebView/TCWebGameView";
 import TCUserIMBetDetail from "../UserCenter/UserOrder/TCUserIMBetDetail";
