@@ -35,7 +35,7 @@ export default class TCUserOtherBetRecords extends Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: indexBgColor.mainBg}}>
                 <TopNavigationBar
                     ref="TopNavigationBar"
                     needBackButton={true}
