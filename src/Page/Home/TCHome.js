@@ -398,7 +398,6 @@ export default class TCHome extends Component {
                 mTimer={item.mTiter}
                 title={item.gameNameInChinese}
                 pushToEvent={item => {
-                    JXLog("renderDSFView----",item)
                    if(item.status == "ON"){
                        if(this.state.isLogin)
                        {
@@ -577,6 +576,11 @@ export default class TCHome extends Component {
         if (title == 'TOPUP' || title == '存/取款') {
             RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
         } else if (title == 'ORDER' || title == '投注记录') {
+            let otherPlatform = JXHelper.getDSFOpenList().dsfAll;
+            if (otherPlatform && otherPlatform.length > 0) {
+                NavigatorHelper.pushToWorldCup()
+                return
+            }
             if (TCUSER_DATA.islogin) {
                 let otherPlatform = JXHelper.getDSFOpenList().dsfAll
                 if (otherPlatform && otherPlatform.length > 0) {
@@ -652,9 +656,6 @@ export default class TCHome extends Component {
                 this.refs['PopupNotice'].open(d);
             }
         });
-    }
-
-    handleMethod(isConnected) {
     }
 }
 
