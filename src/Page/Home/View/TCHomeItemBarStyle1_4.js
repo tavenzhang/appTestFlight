@@ -105,7 +105,7 @@ export class MyComponent2 extends React.Component {
     }
 
     checkDSFOpen() {
-        let otherPlatform = JXHelper.getDSFOpenList().dsfAll;
+        let otherPlatform = JXHelper.getDSFOpenList().dsfSportInfos;
         if (otherPlatform && otherPlatform.length > 0) {
             return true;
         }
