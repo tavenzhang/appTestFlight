@@ -20,10 +20,12 @@ import {
 } from 'react-native';
 import SoundHelper from '../../Common/JXHelper/SoundHelper'
 
-import {width, indexTxtColor,Size,navbarHight,navbarMarginTop} from '../../Page/resouce/theme'
+import {width, indexTxtColor, Size} from '../../Page/resouce/theme'
+import {navbarHight, navbarMarginTop} from '../../Page/asset'
 
 import _ from 'lodash';
 import {common} from '../../Page/resouce/images'
+import PropTypes from 'prop-types'
 
 export default class TCNavigationBar extends Component {
     constructor(state) {
@@ -35,17 +37,17 @@ export default class TCNavigationBar extends Component {
     }
 
     static propTypes = {
-        title: JX_PropTypes.any,
-        needBackButton: JX_PropTypes.any,
-        rightTitle: JX_PropTypes.any,
-        rightImage: JX_PropTypes.any,
-        leftTitle: JX_PropTypes.any,
-        leftImage: JX_PropTypes.any,
-        rightButtonCall: JX_PropTypes.any,
-        closeButtonCall: JX_PropTypes.any,
-        titleStyle: JX_PropTypes.object,
-        centerViewShowStyleImage:JX_PropTypes.any,
-        backButtonCall:JX_PropTypes.fun
+        title: PropTypes.any,
+        needBackButton: PropTypes.any,
+        rightTitle: PropTypes.any,
+        rightImage: PropTypes.any,
+        leftTitle: PropTypes.any,
+        leftImage: PropTypes.any,
+        rightButtonCall: PropTypes.any,
+        closeButtonCall: PropTypes.any,
+        titleStyle: PropTypes.object,
+        centerViewShowStyleImage: PropTypes.any,
+        backButtonCall: PropTypes.fun
     }
 
     static defaultProps = {
@@ -58,7 +60,7 @@ export default class TCNavigationBar extends Component {
         rightButtonCall: null,
         closeButtonCall: null,
         titleStyle: null,
-        centerViewShowStyleImage:false
+        centerViewShowStyleImage: false
     }
 
     componentDidMount() {
@@ -67,13 +69,17 @@ export default class TCNavigationBar extends Component {
 
     render() {
         return (
-            <ImageBackground style={styles.navBarStyle} source={ common.topBg }
-                   resizeMode={'cover'}>
+            <ImageBackground style={styles.navBarStyle} source={common.topBg}
+                             resizeMode={'cover'}>
                 {/*左边*/}
                 {this.renderGetBackButton()}
                 {/*中间*/}
-                <TouchableOpacity disabled={this.props.midCall ? false : true} onPress={()=>this.props.midCall()}>
-                    <View style={[{width: width - 150, justifyContent: 'center', alignItems: 'center'}, this.props.titleStyle]}>
+                <TouchableOpacity disabled={this.props.midCall ? false : true} onPress={() => this.props.midCall()}>
+                    <View style={[{
+                        width: width - 150,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }, this.props.titleStyle]}>
                         {this.getCenterView()}
                     </View>
                 </TouchableOpacity>
@@ -84,12 +90,14 @@ export default class TCNavigationBar extends Component {
         );
     }
 
-    getCenterView(){
-        if(this.props.renderCenter){
-            return(this.props.renderCenter())
+    getCenterView() {
+        if (this.props.renderCenter) {
+            return (this.props.renderCenter())
         }
-        if(this.props.centerViewShowStyleImage&&common.topTitleIndex){
-            return(<Image resizeMode={'contain'} style={{width: width - 180,height:40,marginTop: navbarMarginTop+2}} source={common.topTitleIndex}/>)
+        if (this.props.centerViewShowStyleImage && common.topTitleIndex) {
+            return (
+                <Image resizeMode={'contain'} style={{width: width - 180, height: 40, marginTop: navbarMarginTop + 2}}
+                       source={common.topTitleIndex}/>)
         }
         return (<Text style={styles.titleStyle} ellipsizeMode='tail'
                       numberOfLines={1}> {this.props.title} </Text>)
@@ -101,7 +109,7 @@ export default class TCNavigationBar extends Component {
             return (
                 <View style={{flexDirection: 'row', position: 'absolute', left: -5}}>
                     <TouchableOpacity
-                        onPress={()=>this.backButtonCall()}
+                        onPress={() => this.backButtonCall()}
                         underlayColor='#DEDEDE'
                         style={styles.leftImageViewStyle}
                     >
@@ -133,7 +141,7 @@ export default class TCNavigationBar extends Component {
 
         if (this.props.leftTitle) {
             return <TouchableOpacity
-                onPress={()=> {
+                onPress={() => {
                     this.backButtonCall()
                 }}
                 underlayColor='#DEDEDE'
@@ -170,7 +178,7 @@ export default class TCNavigationBar extends Component {
         if (this.props.rightTitle) {
             return (
                 <TouchableOpacity
-                    onPress={()=> {
+                    onPress={() => {
                         this.rightButtonCall()
                     }}
                     underlayColor='#DEDEDE'
@@ -184,7 +192,7 @@ export default class TCNavigationBar extends Component {
             )
         } else if (this.props.rightImage) {
             return (<TouchableOpacity
-                onPress={()=> {
+                onPress={() => {
                     this.rightButtonCall()
                 }}
                 underlayColor='#DEDEDE'
@@ -273,19 +281,19 @@ const styles = StyleSheet.create({
         fontSize: Size.font16,
         color: indexTxtColor.topTitle,
         alignItems: 'center',
-        marginTop: Platform.OS == 'ios' ? navbarMarginTop+15 : navbarMarginTop+10,
+        marginTop: Platform.OS == 'ios' ? navbarMarginTop + 15 : navbarMarginTop + 10,
     },
     leftTitleStyle: {
         fontSize: Size.font18,
         color: indexTxtColor.topTitle,
         alignItems: 'center',
-        marginTop: Platform.OS == 'ios' ? navbarMarginTop+15 : navbarMarginTop+10,
+        marginTop: Platform.OS == 'ios' ? navbarMarginTop + 15 : navbarMarginTop + 10,
         fontWeight: 'bold'
     }, rightBoldTitleStyle: {
         fontSize: Size.font18,
         color: indexTxtColor.topTitle,
         fontWeight: 'bold',
         alignItems: 'center',
-        marginTop: Platform.OS == 'ios' ? navbarMarginTop+15 : navbarMarginTop+10,
+        marginTop: Platform.OS == 'ios' ? navbarMarginTop + 15 : navbarMarginTop + 10,
     },
 });

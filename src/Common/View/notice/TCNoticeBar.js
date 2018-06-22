@@ -36,8 +36,8 @@ export default class MyComponent extends Component {
 
 
     componentWillReceiveProps(nextProps) {
-    }
 
+    }
 
 
     render() {

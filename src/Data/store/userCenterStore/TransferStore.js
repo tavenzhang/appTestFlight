@@ -91,7 +91,7 @@ export default class TransferStore {
      * @param callback
      */
     allTransfer(platform, callback) {
-        this.platformTransfer(platform, "TopUp", balanceStore.centerBalance, (res) => {
+        this.platformTransfer(platform, "TopUp", rootStore.balanceStore.centerBalance, (res) => {
             if (res.rs) {
                 rootStore.balanceStore.freshBalance();
             }

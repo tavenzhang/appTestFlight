@@ -105,7 +105,7 @@ export default class TC168 extends Component {
         } else if (!this.state.updateFinished && this.state.updateStatus == -1) {
             return this.updateFailView()
         } else {
-            return (<Main />);
+            return (<Main/>);
         }
     }
 
@@ -333,7 +333,7 @@ export default class TC168 extends Component {
         if (this.state.progress) {
             progressView = (
                 <Text>
-                    正在下载({parseFloat(this.state.progress.receivedBytes / 1024 / 1024).toFixed(2)}M/{parseFloat(this.state.progress.totalBytes / 1024 / 1024).toFixed(2)}M) { (parseFloat(this.state.progress.receivedBytes / this.state.progress.totalBytes).toFixed(2) * 100).toFixed(1)}%</Text>
+                    正在下载({parseFloat(this.state.progress.receivedBytes / 1024 / 1024).toFixed(2)}M/{parseFloat(this.state.progress.totalBytes / 1024 / 1024).toFixed(2)}M) {(parseFloat(this.state.progress.receivedBytes / this.state.progress.totalBytes).toFixed(2) * 100).toFixed(1)}%</Text>
             )
         } else {
             return (<View style={{flex: 1}}>

@@ -17,7 +17,7 @@ import {
 
 import TCListRowView from '../../../Common/View/TCLottertHistoryListRowView'
 import _ from 'lodash';
-import {config,trendServerAddress} from '../../../Common/Network/TCRequestConfig';
+import {config} from '../../../Common/Network/TCRequestConfig';
 import NetUitls from '../../../Common/Network/TCRequestUitls'
 import Toast from '../../../Common/JXHelper/JXToast';
 

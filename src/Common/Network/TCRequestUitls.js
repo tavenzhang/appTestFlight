@@ -24,18 +24,7 @@ export default class NetUitls extends Component {
      *callback:回调函数
      */
     static getUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization) {
-        url = this.getServerUrl(url)
-        if (typeof params === 'string') {
-            url += '/' + params
-        } else if (params) {
-            url += '?' + queryString.stringify(params)
-        }
-        if (timeout > 0) {
-            config.mapGet.timeout = timeout
-        } else {
-            config.mapGet.timeout = defaultTimeout
-        }
-        this.fetchAsync(url, config.mapGet, callback, dontAddHeadersAuthorization)
+        this.getUrlAndParamsAndPlatformAndCallback(url, params, null, callback, timeout, dontAddHeadersAuthorization)
     }
 
     /**
@@ -46,7 +35,7 @@ export default class NetUitls extends Component {
      * @param timeout
      * @param dontAddHeadersAuthorization
      */
-    static getUrlAndParamsAndPlatformAndCallback(url, platform, params, callback, timeout, dontAddHeadersAuthorization) {
+    static getUrlAndParamsAndPlatformAndCallback(url, params, platform, callback, timeout, dontAddHeadersAuthorization) {
         url = this.getServerUrl(url)
         if (typeof params === 'string') {
             url += '/' + params
@@ -58,7 +47,9 @@ export default class NetUitls extends Component {
         } else {
             config.mapGet.timeout = defaultTimeout
         }
-        config.mapDelete.headers.gamePlatform = platform;
+        if (platform) {
+            config.mapGet.headers.gamePlatform = platform;
+        }
         this.fetchAsync(url, config.mapGet, callback, dontAddHeadersAuthorization)
     }
 
@@ -78,7 +69,36 @@ export default class NetUitls extends Component {
         this.fetchAsync(url, map, callback, dontAddHeadersAuthorization)
     }
 
+    static postUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody) {
+        url = this.getServerUrl(url)
+
+        JXLog(JSON.stringify(config.map))
+        let map = _.assignIn(config.map, {
+            body: dontStringfyBody ? params : JSON.stringify(params),
+        });
+        if (timeout > 0) {
+            map.timeout = timeout
+        } else {
+            map.timeout = defaultTimeout
+        }
+
+        this.fetchAsync(url, map, callback, dontAddHeadersAuthorization)
+    }
+
     static PutUrlAndParamsAndCallback(url, params, callback, timeout) {
+        url = this.getServerUrl(url)
+        let map = _.assignIn(config.mapPut, {
+            body: JSON.stringify(params)
+        })
+        if (timeout > 0) {
+            map.timeout = timeout
+        } else {
+            map.timeout = defaultTimeout
+        }
+        this.fetchAsync(url, map, callback)
+    }
+
+    static putUrlAndParamsAndCallback(url, params, callback, timeout) {
         url = this.getServerUrl(url)
         let map = _.assignIn(config.mapPut, {
             body: JSON.stringify(params)
@@ -126,7 +146,35 @@ export default class NetUitls extends Component {
         this.fetchAsync(url, map, callback)
     }
 
+    static deleteUrlAndParamsAndCallback(url, params, callback, timeout) {
+        url = this.getServerUrl(url)
+        let map = _.assignIn(config.mapDelete, {
+            body: JSON.stringify(params)
+        })
+        if (timeout > 0) {
+            map.timeout = timeout
+        } else {
+            map.timeout = defaultTimeout
+        }
+        this.fetchAsync(url, map, callback)
+    }
+
     static DeleteHttpUrlAndParamsAndCallback(url, params, callback, timeout) {
+        url = this.getServerUrl(url)
+        if (typeof params === 'string') {
+            url += '/' + params
+        } else if (params) {
+            url += '?' + queryString.stringify(params)
+        }
+        if (timeout > 0) {
+            config.mapDelete.timeout = timeout
+        } else {
+            config.mapDelete.timeout = defaultTimeout
+        }
+        this.fetchAsync(url, config.mapDelete, callback)
+    }
+
+    static deleteHttpUrlAndParamsAndCallback(url, params, callback, timeout) {
         url = this.getServerUrl(url)
         if (typeof params === 'string') {
             url += '/' + params

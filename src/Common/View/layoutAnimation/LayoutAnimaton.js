@@ -1,8 +1,7 @@
 import {LayoutAnimation} from 'react-native'
-import {JX_PLAT_INFO} from "../../Page/resouce/theme";
 
 //android 某些机器在使用 create 动画 回出现 白屏问题
-export  const layoutAnimaton={
+export  const TC_LayoutAnimaton={
     defaultSpring:LayoutAnimation.Presets.spring,
     springNoDelete : {
         duration: 300,

@@ -49,7 +49,7 @@ import JXUserPlayNumberEvent from '../../../../Data/JXUserPlayNumberEvent'
 import TCHomeHistoryList from '../../../../Common/View/TCHomeHistoryList'
 import {MathControllerFactory} from 'lottery-core'
 
-import {height, betHome, indexBgColor, statusBarHeight} from '../../../resouce/theme'
+import {betHome, indexBgColor} from '../../../resouce/theme'
 import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceBetData";
 
 let SingletonDPS = null;

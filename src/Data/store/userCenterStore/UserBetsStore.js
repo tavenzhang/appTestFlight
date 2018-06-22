@@ -103,7 +103,7 @@ export default class UserBetsStore {
             winLossStatus: this.getBetsSelectTypeStr(),
             access_token: TCUSER_DATA.oauthToken.access_token
         }
-        RequestUtils.getUrlAndParamsAndPlatformAndCallback(config.api.userBets, platform, params, (res) => {
+        RequestUtils.getUrlAndParamsAndPlatformAndCallback(config.api.userBets, params, platform, (res) => {
             this.loading = false;
             if (res.rs) {
                 this.betData = res.content;

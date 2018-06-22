@@ -9,13 +9,13 @@ import {
 
 import {observer} from 'mobx-react/native'
 import GamePage from "./GamePage";
-import {indexBgColor, shoppingTxtColor, baseColor, Size} from "../../resouce/theme";
-import TCNavigationBar from "../../../Common/View/TCNavigationBar";
-
+import {indexBgColor, shoppingTxtColor, baseColor, Size} from "../resouce/theme";
+import TCNavigationBar from "../../Common/View/TCNavigationBar";
+import {ASSET_Theme} from "../asset/index"
 import ScrollableTabView, {ScrollableTabBar} from "react-native-scrollable-tab-view";
-import {config} from "../../../Common/Network/TCRequestConfig";
-import NetUitls from "../../../Common/Network/TCRequestUitls";
-import JDToast from "../../../Common/JXHelper/JXToast";
+import {config} from "../../Common/Network/TCRequestConfig";
+import NetUitls from "../../Common/Network/TCRequestUitls";
+import JDToast from "../../Common/JXHelper/JXToast";
 
 /**
  *电子游戏
@@ -32,22 +32,25 @@ export default class DZGameListView extends Component {
     }
 
     render() {
-        let emptView = (<View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-            <Text style={{fontSize:16, fontWeight:"bold"}}>
-              游戏暂未开放！
-            </Text>
-        </View>)
+        let emptView = null;
+        if(this.state.isEmpty){
+            emptView= (<View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
+                <Text style={{fontSize:16, fontWeight:"bold"}}>
+                    游戏暂未开放！
+                </Text>
+            </View>)
+        }
 
         return (
-            <View style={JX_ThemeViewStyle.containView}>
+            <View style={ASSET_Theme.themeViewStyle.containView}>
                 <TCNavigationBar
                     title={'游戏列表'}
                     needBackButton={true}
                     backButtonCall={JX_NavHelp.popToBack}
                 />
-                {this.state.isEmpty ? emptView :<ScrollableTabView
+                {JX_Store.gameDZStore.gameData.length<=0 ? emptView :<ScrollableTabView
                     initialPage={0}
-                    style={{backgroundColor: indexBgColor.itemBg, width:JX_PLAT_INFO.width}}
+                    style={{backgroundColor: indexBgColor.itemBg, width:SCREEN_W}}
                     removeClippedSubviews={false}
                     tabBarUnderlineStyle={{backgroundColor: shoppingTxtColor.tabLine, height: 2}}
                     locked={false}
@@ -91,13 +94,13 @@ export default class DZGameListView extends Component {
         let url = config.api.gamesDZ_start + "/" + dataItem.gameId;
         if (!this.isReuesting) {
             this.isReuesting = true;
-            NetUitls.getUrlAndParamsAndPlatformAndCallback(url, gameData.gamePlatform, bodyParam, (ret) => {
+            NetUitls.getUrlAndParamsAndPlatformAndCallback(url,bodyParam,gameData.gamePlatform , (ret) => {
                 this.isReuesting = false
                 JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
                 if (ret.rs) {
                     if (gameData.gamePlatform == "MG") //由于MG平台的游戏 需要横屏 做特殊处理
                     {
-                        if (JX_PLAT_INFO.IS_IOS) {
+                        if (IS_IOS) {
                             Linking.openURL(ret.content.gameUrl);
                         } else {
                             if(NativeModules.JXHelper.openGameWebViewFromJs) {

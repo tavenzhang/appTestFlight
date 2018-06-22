@@ -8,11 +8,8 @@ import {
     configAppId,
     appHotFixUpdataServers,
     deploymentKey,
-    trendServer,
     MyAppName
 } from '../../Page/resouce/appConfig';
-
-import { NativeModules, Platform } from 'react-native';
 
 export const base = appDomainBase;
 
@@ -21,8 +18,6 @@ export const appId = configAppId;
 export const hotfixUpdataBase = appHotFixUpdataServers;
 
 export const hotfixDeploymentKey = deploymentKey;
-
-export const trendServerAddress = trendServer;
 
 export const appVersion = '1.0.1';
 
@@ -37,7 +32,7 @@ export const baseUrl = {
 let headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'User-Agent': Platform.OS == 'ios' ? 'iphone' : 'android',
+    'User-Agent': IS_IOS ? 'iphone' : 'android',
     ClientId: appId,
     AppVersion: appVersion,
     'Version-hotFix': versionHotFix
@@ -153,6 +148,7 @@ export const config = {
         gamesDZList: 'dsf/center/player/mobile/' + configAppId + '/games',//获取游戏列表
         gamesDZ_start: "dsf/center/player/mobile/startGame",//进入游戏
         //gamesDZ_start: "dsf/center/mobile/player/startGame",//获取游戏列表
+        getUserOtherStatements: "dsf/center/player/statements/personal/total",//获取第三方平台个人报表
     },
     map: {
         method: 'POST',

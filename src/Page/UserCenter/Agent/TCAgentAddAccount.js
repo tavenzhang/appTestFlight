@@ -18,8 +18,9 @@ import SegmentedControlTab from '../../../Common/View/SegmentedControlTab';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import {agent} from '../../resouce/images';
 import {
-    Size, indexBgColor, height, width, agentCenter, buttonStyle, baseColor, statusBarHeight
+    Size, indexBgColor, height, width, agentCenter, buttonStyle, baseColor,
 } from '../../resouce/theme';
+import {JX_PLAT_INFO, statusBarHeight, TC_SCREEN} from '../../asset'
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 
 /** 外部关系组件 如 页面跳转用 */
@@ -372,7 +373,7 @@ const styles = StyleSheet.create({
         height: height,
     },
     tabsContainerStyle: {
-        top: Platform.OS == 'ios' ? 10 : 0,
+        top: Platform.OS == 'ios' ? (10+JX_PLAT_INFO.IS_IphoneX ? 20:0) : 0,
         height: 35,
         width: width - 150,
     },

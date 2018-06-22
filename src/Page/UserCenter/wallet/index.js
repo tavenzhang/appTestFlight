@@ -2,7 +2,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
-import {personal} from '../../resouce/images'
+import {Other} from "../../asset";
 import {indexBgColor, Size} from "../../resouce/theme";
 import TransferStore from "../../../Data/store/userCenterStore/TransferStore";
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
@@ -32,7 +32,7 @@ class WalletItemComponent extends React.Component {
                 <View style={{flexDirection: 'row'}}>
                     <Text style={styles.walletMoney}>{this.state.balance.toFixed(2)}{' 元'}</Text>
                     <TouchableOpacity activeOpacity={0.7} onPress={this.props.onClick}>
-                        <Image source={personal.refreshMoney} style={styles.refreshIcon}
+                        <Image source={Other.refreshMoney} style={styles.refreshIcon}
                                resizeMode={'contain'}/>
                     </TouchableOpacity>
                 </View>
@@ -78,8 +78,8 @@ export default class extends React.Component {
         if (otherPlatform) {
             return (
                 otherPlatform.map((platform) => {
-                    return (
-                        <WalletItemComponent
+                    if (platform.status && platform.status === 'ON') {
+                        return (<WalletItemComponent
                             key={platform.gamePlatform}
                             ref={platform.gamePlatform}
                             walletName={platform.gameNameInChinese}
@@ -94,7 +94,8 @@ export default class extends React.Component {
                                     }
                                 })
                             }}/>
-                    )
+                        )
+                    }
                 })
             )
         }
