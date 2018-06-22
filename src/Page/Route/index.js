@@ -39,6 +39,8 @@ import RedPacket from '../../Page/red_packet/home'
 import RedPacketMine from '../../Page/red_packet/Mine'
 import RedPacketWinList from '../../Page/red_packet/List'
 import RedPacketRules from '../../Page/red_packet/Rules'
+import WorldCup from '../../Page/WorldCup/JXWorldCup'
+
 //个人收藏
 import UserCollects from '../../Page/UserCenter/UserCollect/TCUserCollect'
 //个人中心
@@ -200,6 +202,7 @@ const Components = {
     Wallet: viewRoutHelp(TCWallet),
     DZGameListView: viewRoutHelp(DZGameListView),
     TCWebGameView: viewRoutHelp(TCWebGameView),
+    WorldCup:viewRoutHelp(WorldCup)
 }
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
 for (let key in Components) {

@@ -19,41 +19,53 @@ export default class TCUserStatementsType extends React.Component {
         let tempComponent = [];
         let sportPlatforms = JXHelper.getDSFOpenList().dsfSportInfos;
         if (sportPlatforms && sportPlatforms.length > 0) {
-            tempComponent.push(<Text style={styles.typeTitle}>体育竞技</Text>)
+            if (sportPlatforms.find((platform) => platform.status === 'ON')) {
+                tempComponent.push(<Text style={styles.typeTitle}>体育竞技</Text>)
+            }
             sportPlatforms.map((platform) => {
-                tempComponent.push(
-                    <TCListItemBar
-                        text={`${platform.gameNameInChinese}个人报表`}
-                        leftIcon={{uri: platform.gameIconUrl}}
-                        rightIcon={Common.iconNext}
-                        onClick={() => NavigatorHelper.pushToUserStatements(platform.gamePlatform)}/>
-                )
+                if (platform.status === 'ON') {
+                    tempComponent.push(
+                        <TCListItemBar
+                            text={`${platform.gameNameInChinese}个人报表`}
+                            leftIcon={{uri: platform.gameIconUrl}}
+                            rightIcon={Common.iconNext}
+                            onClick={() => NavigatorHelper.pushToUserStatements(platform.gamePlatform)}/>
+                    )
+                }
             })
         }
         let eGamePlatforms = JXHelper.getDSFOpenList().dsfEgameInfos;
         if (eGamePlatforms && eGamePlatforms.length > 0) {
-            tempComponent.push(<Text style={styles.typeTitle}>电子竞技</Text>)
+            if (eGamePlatforms.find((platform) => platform.status === 'ON')) {
+                tempComponent.push(<Text style={styles.typeTitle}>电子竞技</Text>)
+            }
             eGamePlatforms.map((platform) => {
-                tempComponent.push(
-                    <TCListItemBar
-                        text={`${platform.gameNameInChinese}个人报表`}
-                        leftIcon={{uri:platform.gameIconUrl}}
-                        rightIcon={Common.iconNext}
-                        onClick={() => NavigatorHelper.pushToUserStatements(platform.gamePlatform)}/>
-                )
+                if (platform.status === 'ON') {
+                    tempComponent.push(
+                        <TCListItemBar
+                            text={`${platform.gameNameInChinese}个人报表`}
+                            leftIcon={{uri: platform.gameIconUrl}}
+                            rightIcon={Common.iconNext}
+                            onClick={() => NavigatorHelper.pushToUserStatements(platform.gamePlatform)}/>
+                    )
+                }
             })
         }
         let cardPlatforms = JXHelper.getDSFOpenList().dsfCardInfos;
         if (cardPlatforms && cardPlatforms.length > 0) {
-            tempComponent.push(<Text style={styles.typeTitle}>棋牌竞技</Text>)
+            if (cardPlatforms.find((platform) => platform.status === 'ON')) {
+                tempComponent.push(<Text style={styles.typeTitle}>棋牌竞技</Text>)
+            }
             cardPlatforms.map((platform) => {
-                tempComponent.push(
-                    <TCListItemBar
-                        text={`${platform.gameNameInChinese}个人报表`}
-                        leftIcon={{uri:platform.gameIconUrl}}
-                        rightIcon={Common.iconNext}
-                        onClick={() => NavigatorHelper.pushToUserStatements(platform.gamePlatform)}/>
-                )
+                if (platform.status === 'ON') {
+                    tempComponent.push(
+                        <TCListItemBar
+                            text={`${platform.gameNameInChinese}个人报表`}
+                            leftIcon={{uri: platform.gameIconUrl}}
+                            rightIcon={Common.iconNext}
+                            onClick={() => NavigatorHelper.pushToUserStatements(platform.gamePlatform)}/>
+                    )
+                }
             })
         }
         return tempComponent
