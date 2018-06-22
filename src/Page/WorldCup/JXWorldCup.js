@@ -24,9 +24,11 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import JXHelper from '../../Common/JXHelper/JXHelper';
 import Toast from '../../Common/JXHelper/JXToast';
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
+import InitHelper from "../../Common/JXHelper/TCInitHelper";
 
 /** 外部关系组件 如 页面跳转用 */
 
+let TCInitHelper = new InitHelper();
 export default class MyComponent extends React.Component {
     render() {
         return (
@@ -122,8 +124,12 @@ export class MyComponent2 extends React.Component {
 
     goToSports(data) {
         if (data.status == 'ON') {
-            if (!NavigatorHelper.checkUserWhetherLogin()) {
-                JX_NavHelp.pushView(JX_Compones.TCWebGameView, { gameData: item, title: item.gameDescription });
+            if (NavigatorHelper.checkUserWhetherLogin()) {
+                if(TCInitHelper.isGuestUser()){
+                    Toast.showShortCenter(`你当前是: 试玩账号 暂时无法体验,请尽快注册正式账号参与体验吧！`);
+                }else {
+                    JX_NavHelp.pushView(JX_Compones.TCWebGameView, { gameData: item, title: item.gameDescription });
+                }
             } else {
                 JX_NavHelp.pushToUserLogin(true);
             }
