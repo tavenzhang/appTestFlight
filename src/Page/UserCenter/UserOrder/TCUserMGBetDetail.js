@@ -21,11 +21,11 @@ export default class TCUserMGBetDetail extends Component {
                     backButtonCall={() => NavigatorHelper.popToBack()}/>
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>游戏名称：</Text>
-                    <Text style={styles.itemContentStyle}>{orderData.displayName}</Text>
+                    <Text style={styles.itemContentStyle}>{orderData.gameName}</Text>
                 </View>
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>游戏类目名称：</Text>
-                    <Text style={styles.itemContentStyle}>{orderData.displayGameCategory}</Text>
+                    <Text style={styles.itemContentStyle}>{orderData.categoryName}</Text>
                 </View>
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>游戏结束时间：</Text>
