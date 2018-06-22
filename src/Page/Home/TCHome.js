@@ -402,10 +402,14 @@ export default class TCHome extends Component {
                    if(item.status == "ON"){
                        if(this.state.isLogin)
                        {
-                           if(isSport){
-                               JX_NavHelp.pushView(JX_Compones.TCWebGameView,{gameData:item,title:item.gameDescription})
+                           if(TCInitHelper.isGuestUser()){
+                               Toast.showShortCenter(`你当前是: 试玩账号 暂时无法体验,请尽快注册正式账号参与体验吧！`);
                            }else{
-                               JX_NavHelp.pushView(JX_Compones.DZGameListView,{gameData:item})
+                               if(isSport){
+                                   JX_NavHelp.pushView(JX_Compones.TCWebGameView,{gameData:item,title:item.gameDescription})
+                               }else{
+                                   JX_NavHelp.pushView(JX_Compones.DZGameListView,{gameData:item})
+                               }
                            }
                        }else{
                            JX_NavHelp.pushToUserLogin(true)

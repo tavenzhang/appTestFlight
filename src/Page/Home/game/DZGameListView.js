@@ -100,7 +100,11 @@ export default class DZGameListView extends Component {
                         if (JX_PLAT_INFO.IS_IOS) {
                             Linking.openURL(ret.content.gameUrl);
                         } else {
-                            NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name);
+                            if(NativeModules.JXHelper.openGameWebViewFromJs) {
+                                NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name);
+                            }else{
+                                Linking.openURL(ret.content.gameUrl);
+                            }
                         }
                     } else {
                         JX_NavHelp.pushView(JX_Compones.TCWebGameView, {
