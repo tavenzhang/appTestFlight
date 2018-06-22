@@ -17,7 +17,7 @@ export default class TCUserMGBetItemRow extends Component {
     }
 
     render() {
-        let {displayName, totalWager, totalPayout, gameEndTime} = this.props.orderData;
+        let {gameName, totalWager, totalPayout, gameEndTime} = this.props.orderData;
         return (
             <View>
                 <View style={{
@@ -27,7 +27,7 @@ export default class TCUserMGBetItemRow extends Component {
                     alignItems: 'center',
                     backgroundColor: indexBgColor.itemBg,
                 }}>
-                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>{displayName}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>{gameName}</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.2}]}>{totalWager}</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.2}]}>{totalPayout}</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.3}]}>{gameEndTime.replace('T', '\n')}</Text>
