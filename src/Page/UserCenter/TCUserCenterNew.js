@@ -18,11 +18,10 @@ import {
     ImageBackground
 } from 'react-native';
 
-import {observer} from 'mobx-react/native'
+import {observer, inject} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 import Moment from 'moment'
 import JXHelper from '../../Common/JXHelper/JXHelper'
-import InitHelper from '../../Common/JXHelper/TCInitHelper'
 import SoundHelper from '../../Common/JXHelper/SoundHelper'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
@@ -38,11 +37,10 @@ import {
     width,
     height,
     listViewTxtColor,
-    bottomNavHeight
 } from '../resouce/theme'
-import {JX_PLAT_INFO} from '../asset'
+import {JX_PLAT_INFO, ASSET_Screen} from '../asset'
 import SignInModal from './SignIn/TCSignInModal'
-import userCenterData from './TCUserCenterData'
+import Toast from "../../Common/JXHelper/JXToast";
 
 const USERCENTER_ITEMS = [
     [
@@ -150,13 +148,11 @@ const USERCENTER_ITEMS = [
         }
     ]
 ]
-
+@inject("mainStore", "userStore")
 @observer
 export default class TCUserCenterNew extends Component {
 
     lastRequestTime = 0
-    stateModel = new StateModel()
-    uCenterData = new userCenterData()
 
     constructor(props) {
         super(props)
@@ -171,40 +167,34 @@ export default class TCUserCenterNew extends Component {
     }
 
     componentDidMount() {
-        this.freshBalance()
-        this.uCenterData.getSignInData()
-
-        this.listener = RCTDeviceEventEmitter.addListener('balanceChange', (isMoneyChange) => {
-            this.freshBalance(isMoneyChange)
-        })
+        this.props.userStore.getSignInData()
 
         this.listener2 = RCTDeviceEventEmitter.addListener('userStateChange', (state) => {
             if (state === 'login') {
-                this.uCenterData.getSignInData()
+                this.props.userStore.getSignInData()
             }
         })
 
         this.listener3 = RCTDeviceEventEmitter.addListener('jx_app_active', () => {
-            if (TCUSER_DATA.islogin) {
-                this.uCenterData.getSignInData()
+            if (this.props.userStore.isLogin) {
+                this.props.userStore.getSignInData()
             }
         })
 
         this.listener4 = RCTDeviceEventEmitter.addListener('unreadMessage', () => {
-            console.log('UserCenter#unreadMessage() TC_NEW_MSG_COUNT='+TC_NEW_MSG_COUNT+'; TC_FEEDBACK_COUNT='+TC_FEEDBACK_COUNT)
+            console.log('UserCenter#unreadMessage() TC_NEW_MSG_COUNT=' + TC_NEW_MSG_COUNT + '; TC_FEEDBACK_COUNT=' + TC_FEEDBACK_COUNT)
             if (this.state.unreadMessageCnt !== TC_NEW_MSG_COUNT) {
-                console.log('unread message count update. before count:'+this.state.unreadMessageCnt+', current count:'+TC_NEW_MSG_COUNT)
-                this.setState({unreadMessageCnt:TC_NEW_MSG_COUNT})
+                console.log('unread message count update. before count:' + this.state.unreadMessageCnt + ', current count:' + TC_NEW_MSG_COUNT)
+                this.setState({unreadMessageCnt: TC_NEW_MSG_COUNT})
             }
             if (this.state.unreadFeedbackCnt !== TC_FEEDBACK_COUNT) {
-                console.log('unread feedback count update. before count:'+this.state.unreadFeedbackCnt+', current count:'+TC_FEEDBACK_COUNT)
-                this.setState({unreadFeedbackCnt:TC_FEEDBACK_COUNT})
+                console.log('unread feedback count update. before count:' + this.state.unreadFeedbackCnt + ', current count:' + TC_FEEDBACK_COUNT)
+                this.setState({unreadFeedbackCnt: TC_FEEDBACK_COUNT})
             }
         })
     }
 
     componentWillUnmount() {
-        this.listener && this.listener.remove()
         this.listener2 && this.listener2.remove()
         this.listener3 && this.listener3.remove()
         this.listener4 && this.listener4.remove()
@@ -212,7 +202,7 @@ export default class TCUserCenterNew extends Component {
 
     render() {
         return (
-            <View style={JX_PLAT_INFO.IS_IphoneX?styles.containerIOS:styles.container}>
+            <View style={JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container}>
                 <ScrollView bounces={false}>
                     <View>
                         <ImageBackground source={personal.userCenterBg} style={styles.imgTop}>
@@ -224,10 +214,11 @@ export default class TCUserCenterNew extends Component {
                                         alignItems: 'center'
                                     }}>
                                     <TouchableOpacity onPress={() => this.gotoUserDetail()}>
-                                        <UserIcon text={JXHelper.getUserIconShowName(TCUSER_DATA.username)}/>
+                                        <UserIcon text={JXHelper.getUserIconShowName(this.userName)}
+                                                  bgColor={this.props.userStore.userLogoColor}/>
                                     </TouchableOpacity>
                                     <View style={styles.userTitle}>
-                                        <Text style={styles.userName}>{TCUSER_DATA.username}</Text>
+                                        <Text style={styles.userName}>{this.userName}</Text>
                                         {this.getSignButton()}
                                     </View>
                                     {this.showSignInModal()}
@@ -239,7 +230,8 @@ export default class TCUserCenterNew extends Component {
                                         }
                                         NavigatorHelper.gotoSetting();
                                     }}>
-                                        <Image source={personal.imgSet} style={{width: 24, height: 24, marginTop: 10, marginRight: 10}}/>
+                                        <Image source={personal.imgSet}
+                                               style={{width: 24, height: 24, marginTop: 10, marginRight: 10}}/>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -247,25 +239,29 @@ export default class TCUserCenterNew extends Component {
                         </ImageBackground>
                     </View>
                     <View style={{backgroundColor: indexBgColor.itemBg}}>
-                        <MoneyLabel stateModel={this.stateModel} freshBalance={(isChangeMoney) => {
-                            this.freshBalance(isChangeMoney)
-                        }}/>
+                        <MoneyLabel/>
                         <View style={styles.userPay}>
-                            <TouchableOpacity onPress={() => {this.gotoPay()}}>
+                            <TouchableOpacity onPress={() => {
+                                this.gotoPay()
+                            }}>
                                 <View style={styles.payItem}>
                                     <Image source={personal.iconPay} style={styles.imgPay}/>
                                     <Text style={styles.payTxt}>充值</Text>
                                 </View>
                             </TouchableOpacity>
-                            <View style={{width: 1, height: 40, backgroundColor: indexBgColor.mainBg}} />
-                            <TouchableOpacity onPress={() => {this.gotoWithdraw()}}>
+                            <View style={{width: 1, height: 40, backgroundColor: indexBgColor.mainBg}}/>
+                            <TouchableOpacity onPress={() => {
+                                this.gotoWithdraw()
+                            }}>
                                 <View style={styles.payItem}>
                                     <Image source={personal.iconDraw} style={styles.imgOut}/>
                                     <Text style={[styles.payTxt, {color: userCenterTxtColor.withdraw}]}>提款</Text>
                                 </View>
                             </TouchableOpacity>
-                            <View style={{width: 1, height: 40, backgroundColor: indexBgColor.mainBg}} />
-                            <TouchableOpacity onPress={() => {this.goTransfer()}}>
+                            <View style={{width: 1, height: 40, backgroundColor: indexBgColor.mainBg}}/>
+                            <TouchableOpacity onPress={() => {
+                                this.goTransfer()
+                            }}>
                                 <View style={styles.payItem}>
                                     <Image source={personal.iconTransfer} style={styles.imgOut}/>
                                     <Text style={[styles.payTxt, {color: userCenterTxtColor.withdraw}]}>转账</Text>
@@ -288,9 +284,34 @@ export default class TCUserCenterNew extends Component {
         );
     };
 
+    @computed get userName() {
+        return this.props.userStore.userName;
+    }
+
+    @computed get keepSignInDays() {
+        return this.props.userStore.keepSignInDays;
+    }
+
+    @computed get isSigned() {
+        return this.props.userStore.isSigned;
+    }
+
+    @computed get isAgent() {
+        return this.props.userStore.isAgent;
+    }
+
+    @computed get newMsgCount() {
+        return this.props.userStore.newMsgCount;
+    }
+
+    @computed get newFeedbackCount() {
+        return this.props.userStore.newFeedBackCount;
+    }
+
+
     // 签到按钮
     getSignButton() {
-        if (this.uCenterData.signInData.isSigned) {
+        if (this.isSigned) {
             return (
                 <View style={{
                     backgroundColor: userCenterTxtColor.signInBgColor,
@@ -309,8 +330,12 @@ export default class TCUserCenterNew extends Component {
             )
         } else {
             return (<TouchableOpacity onPress={() => {
-                this.uCenterData.userSignIn((rs) => {
-                    this.refs['SignInModal']._setModalVisible(rs)
+                this.props.userStore.singIn((res) => {
+                    if (res.status) {
+                        this.refs['SignInModal']._setModalVisible(true)
+                    } else {
+                        Toast.showShortCenter(res.message);
+                    }
                 })
             }}>
                 <View style={{
@@ -338,76 +363,17 @@ export default class TCUserCenterNew extends Component {
             color: 'white',
             marginTop: 20,
             fontSize: Size.font14
-        }}>您已连续签到{this.uCenterData.signInData.keepSignInDays}天 小投注大梦想</Text>)
+        }}>您已连续签到{this.keepSignInDays}天 小投注大梦想</Text>)
     }
 
     // 签到modal
     showSignInModal() {
-        return <SignInModal ref={'SignInModal'} data={this.uCenterData}/>
+        return <SignInModal ref={'SignInModal'} data={this.props.userStore}/>
     }
 
-    // 刷新余额
-    freshBalance(isMoneyChange) {
-        if (this.lastRequestTime === 0) {
-            this.lastRequestTime = Moment().format('X')
-        } else {
-            let temp = Moment().format('X') - this.lastRequestTime
-            if (temp < 1) {
-                return
-            } else {
-                this.lastRequestTime = Moment().format('X')
-            }
-        }
-        if (isMoneyChange) {
-            this.getBalance()
-        } else {
-            this.getUserinfoAndBalance()
-        }
-    }
-
-    // 获取用户信息和余额
-    getUserinfoAndBalance() {
-        RequestUtils.getUrlAndParamsAndCallback(config.api.users, null, (response) => {
-            if (response.rs) {
-                storage.save({
-                    key: 'balance',
-                    data: response.content.userBalance.balance
-                })
-                TCUSER_BALANCE = response.content.userBalance.balance
-                TCUSER_DATA.realname = response.content.realName
-                this.stateModel.balance = TCUSER_BALANCE
-            }
-        })
-    }
-
-    // 资金改变后获取余额
-    getBalance() {
-        RequestUtils.getUrlAndParamsAndCallback(config.api.userBalance, null, (response) => {
-            if (response.rs) {
-                storage.save({
-                    key: 'balance',
-                    data: response.content.balance
-                })
-                TCUSER_BALANCE = response.content.balance
-                this.stateModel.balance = TCUSER_BALANCE
-            }
-        })
-    }
-
-    // 判断是否为代理
-    isAgent() {
-        if (!TCUSER_DATA.oauthRole) {
-            return false
-        }
-        if (TCUSER_DATA.oauthRole == 'AGENT' || TCUSER_DATA.oauthRole == 'GENERAL_AGENT') {
-            return true
-        } else {
-            return false
-        }
-    }
 
     renderRow(rowData, sectionID, rowID) {
-        if (sectionID === '2' && !this.isAgent()) {
+        if (sectionID === '2' && !this.isAgent) {
             return null;
         }
         if (rowData.key === "wdxx" || rowData.key === "yjfk") {
@@ -420,7 +386,7 @@ export default class TCUserCenterNew extends Component {
                         <View style={styles.itemTxtView}>
                             <View style={{flexDirection: 'row'}}>
                                 <Text style={styles.mySettingLeftTxtStyle}>{rowData.name}</Text>
-                                {this.getStatusTip(rowData.key === "wdxx" ? this.state.unreadMessageCnt : this.state.unreadFeedbackCnt)}
+                                {this.getStatusTip(rowData.key === "wdxx" ? this.newMsgCount : this.newFeedbackCount)}
                             </View>
                             <Text style={styles.contentTxtStyle}>{rowData.description}</Text>
                         </View>
@@ -431,16 +397,25 @@ export default class TCUserCenterNew extends Component {
         let tempComponent = []
         if (rowData.key === 'yhgl') {
             tempComponent.push(
-                <View style={{width: width, height: 35, backgroundColor:'#FFF7EF', flexDirection: 'row', alignItems:'center', paddingLeft: 15}}>
+                <View style={{
+                    width: width,
+                    height: 35,
+                    backgroundColor: '#FFF7EF',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    paddingLeft: 15
+                }}>
                     <View style={styles.emptyCircle}>
-                        <Text style={{fontSize: Size.font10, textAlign:'center', color:'#FF5A3F'}}>!</Text>
+                        <Text style={{fontSize: Size.font10, textAlign: 'center', color: '#FF5A3F'}}>!</Text>
                     </View>
                     <Text style={{fontSize: Size.font13, color: userCenterTxtColor.menuItemTitle}}>注意：代理仅适用于彩票游戏</Text>
                 </View>
             )
         }
         tempComponent.push(
-            <TouchableOpacity style={styles.itemContainer} onPress={() => {this.gotoPage(rowData.key)}}>
+            <TouchableOpacity style={styles.itemContainer} onPress={() => {
+                this.gotoPage(rowData.key)
+            }}>
                 <View style={styles.itemView}>
                     <View style={{width: 1, height: 40, backgroundColor: indexBgColor.mainBg}}/>
                     <Image source={rowData.icon} style={styles.img}/>
@@ -455,7 +430,7 @@ export default class TCUserCenterNew extends Component {
     }
 
     _renderHeader(sectionData, sectionId) {
-        if (sectionId === '2' && !this.isAgent()) {
+        if (sectionId === '2' && !this.isAgent) {
             return null;
         }
         return (<View style={{height: 5, width: width}}></View>)
@@ -574,6 +549,7 @@ export default class TCUserCenterNew extends Component {
     }
 }
 
+@inject("userStore")
 @observer
 class MoneyLabel extends Component {
 
@@ -582,20 +558,27 @@ class MoneyLabel extends Component {
             <View style={styles.account}>
                 <View style={styles.accountData}>
                     <Text style={{fontSize: Size.font16, color: userCenterTxtColor.balanceTitle}}>余额:</Text>
-                    <Text style={styles.accountTxt}>{this.props.stateModel.isSee ? this.props.stateModel.balance : '******'}</Text>
-                    <TouchableOpacity onPress={() => {this.props.stateModel.setMoneyVisible()}}>
+                    <Text
+                        style={styles.accountTxt}>{this.props.userStore.moneyIsVisable ? this.props.userStore.balance : '******'}</Text>
+                    <TouchableOpacity onPress={() => {
+                        this.props.userStore.changeMoneyIsVisable()
+                    }}>
                         <Image
-                            source={this.props.stateModel.isSee ? personal.imgEye : personal.imgEye2}
+                            source={this.props.userStore.moneyIsVisable ? personal.imgEye : personal.imgEye2}
                             style={styles.imgAccount} resizeMode={'contain'}/>
                     </TouchableOpacity>
                 </View>
-                <View style={{flexDirection:'row', width: width * 0.4, justifyContent:'flex-end', paddingRight:10}}>
-                    <TouchableOpacity style={styles.accountDetail} onPress={() => {NavigatorHelper.pushToWallet()}}>
+                <View style={{flexDirection: 'row', width: width * 0.4, justifyContent: 'flex-end', paddingRight: 10}}>
+                    <TouchableOpacity style={styles.accountDetail} onPress={() => {
+                        NavigatorHelper.pushToWallet()
+                    }}>
                         <View style={styles.walletDetailView}>
                             <Text style={[styles.accountDetailTxt, {color: 'white'}]}>钱包详情</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.accountDetail} onPress={() => {this.props.freshBalance(true)}}>
+                    <TouchableOpacity style={styles.accountDetail} onPress={() => {
+                        this.props.userStore.freshBalance(true)
+                    }}>
                         <View style={styles.freshView}>
                             <Text style={styles.accountDetailTxt}>刷新余额</Text>
                         </View>
@@ -624,13 +607,13 @@ class StateModel {
 
 const styles = StyleSheet.create({
     container: {
-            flex:1,
-            backgroundColor: indexBgColor.mainBg
+        flex: 1,
+        backgroundColor: indexBgColor.mainBg
     },
-    containerIOS:{
-            height:height-bottomNavHeight,
-            width:width,
-            backgroundColor: indexBgColor.mainBg
+    containerIOS: {
+        height: height - ASSET_Screen.bottomNavHeight,
+        width: width,
+        backgroundColor: indexBgColor.mainBg
     },
     imgTop: {
         width: width,
@@ -706,7 +689,7 @@ const styles = StyleSheet.create({
         width: 75,
         height: 33,
         borderRadius: 4,
-        backgroundColor:'#FF735D',
+        backgroundColor: '#FF735D',
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -742,7 +725,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        flex:1,
+        flex: 1,
     }, img: {
         width: 30,
         height: 30,
@@ -783,7 +766,7 @@ const styles = StyleSheet.create({
         width: width
     }, itemTxtView: {
         marginLeft: 10,
-    },emptyCircle: {
+    }, emptyCircle: {
         marginRight: 8,
         alignItems: 'center',
         justifyContent: 'center',

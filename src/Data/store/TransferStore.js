@@ -1,7 +1,7 @@
 import {action, observable} from "mobx";
-import NetUitls from "../../../Common/Network/TCRequestUitls";
-import {config} from '../../../Common/Network/TCRequestConfig';
-import rootStore from "../RootStore";
+import NetUitls from "../../Common/Network/TCRequestUitls";
+import {config} from '../../Common/Network/TCRequestConfig';
+import rootStore from "./RootStore";
 
 export default class TransferStore {
 

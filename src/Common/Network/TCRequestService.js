@@ -2,14 +2,32 @@
  * Created by allen-jx on 2018/3/30.
  */
 import RequestUtils from './TCRequestUitls'
-import {config} from './TCRequestConfig'
+import {appId, config} from './TCRequestConfig'
 
 /**
  * 获取首页接口
  * @param callback
  */
 export function getContent(callback) {
-    RequestUtils.getUrlAndParamsAndCallback(config.api.main, null, callback)
+    RequestUtils.getUrlAndParamsAndCallback(config.api.getHome, null, callback)
+}
+
+/**
+ * 获取游戏设置
+ * @param params
+ * @param callback
+ */
+export function getGameSetting(params, callback) {
+    RequestUtils.getUrlAndParamsAndCallback(config.api.gameSetting, params, callback);
+}
+
+/**
+ * 获取排行榜单
+ * @param params
+ * @param callback
+ */
+export function getTopWinners(params, callback) {
+    RequestUtils.getUrlAndParamsAndCallback(config.api.findTopWinners, params, callback);
 }
 
 /**
@@ -199,6 +217,14 @@ export function getPaymentTypeList(callback) {
 }
 
 /**
+ * 获取在线充值额度
+ * @param callback
+ */
+export function getOnlineTopUp(callback) {
+    RequestUtils.getUrlAndParamsAndCallback(config.api.onlineTopUp, null, callback);
+}
+
+/**
  * 获取银行转账的银行卡列表
  * @param params
  * @param callback
@@ -213,6 +239,15 @@ export function getPayBankList(params, callback) {
  */
 export function getPaymentList(callback) {
     RequestUtils.getUrlAndParamsAndCallback(config.api.paymentList, null, callback);
+}
+
+/**
+ * 获取第三方支付银行卡列表
+ * @param params
+ * @param callback
+ */
+export function getPaymentBankList(params, callback) {
+    RequestUtils.getUrlAndParamsAndCallback(config.api.getPaymentBankList, params, callback);
 }
 
 /**
@@ -240,6 +275,16 @@ export function applayOtherPay(params, callback) {
  */
 export function banktransfersQuery(params, callback) {
     RequestUtils.putUrlAndParamsAndCallback(config.api.banktransfersQueryv3, params, callback);
+}
+
+/**
+ * 刷新二维码
+ * @param bankId
+ * @param params
+ * @param callback
+ */
+export function refreshCode(bankId, callback) {
+    RequestUtils.getUrlAndParamsAndCallback(config.api.bankList + "/" + bankId, {id: appId}, callback);
 }
 
 /**

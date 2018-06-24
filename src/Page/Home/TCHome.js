@@ -41,16 +41,12 @@ import Dialog from '../../Common/View/TipDialog';
 import TopWinnerView from './View/TCTopWinnerScrollView';
 import Toast from '../../Common/JXHelper/JXToast';
 import Moment from 'moment';
-import {observer} from 'mobx-react/native';
+import {observer, inject} from 'mobx-react/native';
+import {computed} from 'mobx'
 
-
-import {width, indexBgColor, indexTxtColor,height} from '../resouce/theme';
-import {JX_PLAT_INFO,bottomNavHeight} from '../asset'
+import {width, indexBgColor, indexTxtColor, height} from '../resouce/theme';
+import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
 import NetWorkTool from '../../Common/Network/TCToolNetWork';
-
-let isFirstLoad = false;
-let listModel = null;
-let isLoadFinish = false;
 import TCUserCollectHelper from '../../Common/JXHelper/TCUserCollectHelper';
 import RedPacketMenu from '../red_packet/components/RedPacketMenu';
 
@@ -63,24 +59,22 @@ import JXPopupNotice from './popupAnnouncements/JXPopupAnnouncements';
 import {getPopupAnnouncements} from './popupAnnouncements/JXPopupNoticeHelper';
 import JXHelper from "../../Common/JXHelper/JXHelper";
 import TCImage from "../../Common/View/image/TCImage";
+import HomeStore from '../../Data/store/HomeStore';
 
+@inject("jdAppStore", "initAppStore", "mainStore", "userStore")
 @observer
 export default class TCHome extends Component {
+
+
+    homeStore = new HomeStore();
+
     constructor(state) {
         super(state);
 
         this.state = {
-            isRefreshing: false,
-            loaded: 0,
             isLogin: true,
-            show: false,
-            appUrl: '',
-            bannerData: [],
-            noticeData: [],
-            updateTip: '请您更新最新版本!',
-            content: null
         };
-        this.getHomeCacheData();
+        this.homeStore.getHomeCacheData();
     }
 
 
@@ -93,19 +87,12 @@ export default class TCHome extends Component {
 
     componentDidMount() {
         this.loadDataFormNet();
-        TCInitHelper.getUserAffCode();
-        TCInitHelper.autoLoginApp();
-
+        this.checkAppUpdate();
         this.listener = RCTDeviceEventEmitter.addListener('userStateChange', state => {
-            this.checkUserWhetherLogin();
             TCInitHelper._requestGameSetting();
             RedPacketData.requestRedPacketCurrent();
         });
 
-        this.androidUpdateTip();
-        if (TCUSER_DATA.islogin) {
-            TCInitHelper.getMsgStatus()
-        }
         NetWorkTool.addEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
         AppState.addEventListener('change', this.handleAppStateChange);
 
@@ -116,7 +103,7 @@ export default class TCHome extends Component {
 
     handleAppStateChange = (nextAppState) => {
         if (nextAppState === 'active') {
-            this.loadHomeContents();
+            this.homeStore.loadHomeContents();
             this.timer3 && clearTimeout(this.timer3);
             this.timer3 = setTimeout(() => {
                 RCTDeviceEventEmitter.emit('jx_app_active');
@@ -126,8 +113,6 @@ export default class TCHome extends Component {
     }
 
     componentWillUnmount() {
-        this.timer && clearTimeout(this.timer);
-        this.timer2 && clearTimeout(this.timer2);
         this.timer3 && clearTimeout(this.timer3);
         this.listener && this.listener.remove();
         NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
@@ -136,29 +121,28 @@ export default class TCHome extends Component {
 
     render() {
         return (
-            <View style={JX_PLAT_INFO.IS_IphoneX?styles.containerIOS:styles.container}
+            <View style={JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container}
                   keyboardShouldPersistTaps={true}>
                 <TopNavigationBar
-                    title={AppName}
-                    needBackButton={this.state.isLogin ? true : false}
-                    leftTitle={this.state.isLogin ? null : '注册'}
-                    rightTitle={this.state.isLogin ? '我的收藏' : '登录'}
-                    leftImage={this.state.isLogin ? 'index_personal' : null}
+                    title={this.appName}
+                    needBackButton={this.isLogin}
+                    leftTitle={this.isLogin ? null : '注册'}
+                    rightTitle={this.isLogin ? '我的收藏' : '登录'}
+                    leftImage={this.isLogin ? 'index_personal' : null}
                     centerViewShowStyleImage={true}
                     backButtonCall={
-                        this.state.isLogin
+                        this.isLogin
                             ? () => {
-                            RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
-                            RCTDeviceEventEmitter.emit('balanceChange', true);
-                        }
+                                this.props.mainStore.changeTab("mine");
+                            }
                             : () => NavigatorHelper.pushToUserRegister()
                     }
                     rightButtonCall={() =>
-                        this.state.isLogin
+                        this.isLogin
                             ? NavigatorHelper.pushToUserCollect()
                             : NavigatorHelper.pushToUserLogin(true)}
                 />
-                {this.state.content ? <SectionList
+                {this.homeStore.content ? <SectionList
                     refreshing={false}
                     onRefresh={() => {
                         this.loadDataFormNet()
@@ -171,44 +155,83 @@ export default class TCHome extends Component {
                     sections={this.getSectionsData()}
                 /> : null}
                 {this.getRedPacketButton()}
-                <JXPopupNotice ref="PopupNotice" />
+                <JXPopupNotice ref="PopupNotice"/>
                 <Dialog
-                    show={this.state.show}
+                    show={this.showUpdateDialog}
                     setModalVisible={() => this.gotoUpdate()}
                     dialogTitle={'版本更新'}
-                    dialogContent={this.state.updateTip}
+                    dialogContent={"请您更新最新版本!"}
                     btnTxt={'确定'}
                 />
             </View>
         );
     }
 
-    getSectionsData(){
+    @computed get isLogin() {
+        return this.props.userStore.isLogin;
+    }
+
+    @computed get appName() {
+        return this.props.initAppStore.appName;
+    }
+
+    @computed get appVersion() {
+        return this.props.initAppStore.appVersion
+    }
+
+    @computed get showUpdateDialog() {
+        return this.props.jdAppStore.showUpdateDialog;
+    }
+
+    set showUpdateDialog(show) {
+        this.props.jdAppStore.showUpdateDialog = show;
+    }
+
+    @computed get appDownloadUrl() {
+        return this.props.jdAppStore.appDownloadUrl;
+    }
+
+    set appDownloadUrl(url) {
+        this.props.jdAppStore.appDownloadUrl = url;
+    }
+
+    checkAppUpdate() {
+        !IS_IOS && this.props.jdAppStore.checkAppVersionUpdate((res) => {
+            if (res.rs) {
+                if (res.content && res.content.version > this.appVersion) {
+                    this.appDownloadUrl = res.content.downPath;
+                    this.showUpdateDialog = true;
+                }
+            }
+        })
+    }
+
+    getSectionsData() {
         let data = []
-        if (this.state.content.gameInfosHot&&this.state.content.gameInfosHot.length>0){
+        if (this.homeStore.content.gameInfosHot && this.homeStore.content.gameInfosHot.length > 0) {
             data.push({
-                data: this.state.content.gameInfosHot,
+                data: this.homeStore.content.gameInfosHot.slice(),
                 title: "热门彩票",
                 renderItem: ({item, index}) => this.renderHotItemView(item, index)
             })
         }
-        if (this.state.content.dsfSportInfos&&this.state.content.dsfSportInfos.length>0){
-            let dsfSportInfos = _.cloneDeep(this.state.content.dsfSportInfos)
+        if (this.homeStore.content.dsfSportInfos && this.homeStore.content.dsfSportInfos.length > 0) {
+            let dsfSportInfos = _.cloneDeep(this.homeStore.content.dsfSportInfos.slice())
             if (dsfSportInfos.length % 2 !== 0) {
                 dsfSportInfos.push({})
             }
             data.push({
-                data: this.state.content.dsfSportInfos,
+                data: this.homeStore.content.dsfSportInfos.slice(),
                 title: "体育竞技",
-                renderItem: ({item}) => this.renderDSFView(item,true)
+                renderItem: ({item}) => this.renderDSFView(item, true)
             })
         }
-        if (this.state.content.dsfEgameInfos&&this.state.content.dsfEgameInfos.length>0){
-            let dsfEgameInfos = _.cloneDeep(this.state.content.dsfEgameInfos)
+        if (this.homeStore.content.dsfEgameInfos && this.homeStore.content.dsfEgameInfos.length > 0) {
+            let dsfEgameInfos = _.cloneDeep(this.homeStore.content.dsfEgameInfos.slice())
 
-            if (this.state.content.dsfCardInfos&&this.state.content.dsfCardInfos.length>0) {
-                let dsfCardInfos = _.cloneDeep(this.state.content.dsfCardInfos)
-                dsfEgameInfos = _.concat(dsfEgameInfos,dsfCardInfos)
+            if (this.homeStore.content.dsfCardInfos && this.homeStore.content.dsfCardInfos.length > 0) {
+                let dsfCardInfos = _.cloneDeep(this.homeStore.content.dsfCardInfos.slice())
+                dsfEgameInfos = _.concat(dsfEgameInfos, dsfCardInfos)
             }
             if (dsfEgameInfos.length % 2 !== 0) {
                 dsfEgameInfos.push({})
@@ -216,28 +239,28 @@ export default class TCHome extends Component {
             data.push({
                 data: dsfEgameInfos,
                 title: "电子游戏",
-                renderItem: ({item}) => this.renderDSFView(item,false)
+                renderItem: ({item}) => this.renderDSFView(item, false)
             })
         }
         return data
     }
 
     //渲染顶部
-    renderHomeHeaer=()=> {
+    renderHomeHeaer = () => {
         return (<View>
-            {this.state.content.bannerData.length > 0 ? this.renderBanner() : null}
+            {this.homeStore.content.bannerData.length > 0 ? this.renderBanner() : null}
             {this.renderNotice()}
             {this.renderMenu()}
         </View>)
     }
 
     //渲染banner
-    renderBanner=()=> {
+    renderBanner = () => {
         return (<Swiper
             width={width}
             height={width * 0.383}
             autoplay={true}
-            dataSource={this.state.content.bannerData}
+            dataSource={this.homeStore.content.bannerData}
             renderRow={(item, index) => {
                 return (<TCImage
                     source={{uri: item.bannerImageUrl}}
@@ -252,17 +275,17 @@ export default class TCHome extends Component {
 
     //渲染公告
     renderNotice() {
-        return <NoticeBar announcement={this.state.content.noticeData}/>
+        return <NoticeBar announcement={this.homeStore.content.noticeData}/>
     }
 
     renderMenu() {
-        return <HomeItemBarStyle1 rowData={this.state.content.menuIcons}
+        return <HomeItemBarStyle1 rowData={this.homeStore.content.menuIcons}
                                   pushToEvent={title => this.pushWithMoneyBarTitle(title)}/>;
     }
 
     //渲染底部
-    renderFooter=()=> {
-        return (<TopWinnerView rowData={this.state.topWinnersModel}/>)
+    renderFooter = () => {
+        return (<TopWinnerView rowData={this.homeStore.topWinnersModel}/>)
     }
 
     getRedPacketButton() {
@@ -271,86 +294,25 @@ export default class TCHome extends Component {
         }
     }
 
-    androidUpdateTip() {
-        if (!IS_IOS) {
-            try {
-                NativeModules.JXHelper.getVersionCode(version => {
-                    NetUitls.getUrlAndParamsAndCallback(
-                        config.api.updateVersion + appId,
-                        null,
-                        response => {
-                            if (response.rs) {
-                                if (response.content !== null && response.content.version > version) {
-                                    this.setState({
-                                        appUrl: response.content.downPath
-                                    });
-                                    if (response.content.tips) {
-                                        this.setState({
-                                            updateTip: response.content.tips
-                                        });
-                                    }
-                                    this.setModalVisible();
-                                }
-                            }
-                        },
-                        0,
-                        true
-                    );
-                });
-            } catch (e) {
-                NetUitls.getUrlAndParamsAndCallback(
-                    config.api.updateVersion + appId,
-                    null,
-                    response => {
-                        if (response.rs) {
-                            if (response.content !== null && response.content.version > appVersion) {
-                                this.setState({
-                                    appUrl: response.content.downPath
-                                });
-                                if (response.content.tips) {
-                                    this.setState({
-                                        updateTip: response.content.tips
-                                    });
-                                }
-                                this.setModalVisible();
-                            }
-                        }
-                    },
-                    0,
-                    true
-                );
-            }
-        }
-    }
-
-    setModalVisible() {
-        this.setState({
-            show: !this.state.show
-        });
-    }
 
     gotoUpdate() {
         try {
-            NativeModules.JXHelper.updateApp(this.state.appUrl);
-            this.setModalVisible();
+            this.props.jdAppStore.showUpdateDialog = false;
+            NativeModules.JXHelper.updateApp(this.appDownloadUrl);
         } catch (e) {
-            Linking.canOpenURL(this.state.appUrl).then(supported => {
+            Linking.canOpenURL(this.appDownloadUrl).then(supported => {
                 if (supported) {
-                    Linking.openURL(this.state.appUrl);
+                    Linking.openURL(this.appDownloadUrl);
                 } else {
                     JXLog('无法打开该URL:' + url);
                 }
-                this.setModalVisible();
             });
         }
     }
 
-    _onRefresh() {
-        this.loadDataFormNet();
-    }
 
     //渲染sectionHeader
-    renderSectionHeader=({section}) =>{
+    renderSectionHeader = ({section}) => {
         return (
             <View style={{height: 46, width: width}}>
                 <View style={{width: width, height: 10, backgroundColor: indexBgColor.mainBg}}/>
@@ -391,171 +353,57 @@ export default class TCHome extends Component {
     }
 
     //渲染体育电子
-    renderDSFView(item,isSport=false) {
+    renderDSFView(item, isSport = false) {
         return (
             <SportItemView
                 rowData={item}
                 mTimer={item.mTiter}
                 title={item.gameNameInChinese}
                 pushToEvent={item => {
-                    JXLog("renderDSFView----",item)
-                   if(item.status == "ON"){
-                       if(this.state.isLogin)
-                       {
-                           if(isSport){
-                               JX_NavHelp.pushView(JX_Compones.TCWebGameView,{gameData:item,title:item.gameDescription})
-                           }else{
-                               JX_NavHelp.pushView(JX_Compones.DZGameListView,{gameData:item})
-                           }
-                       }else{
-                           JX_NavHelp.pushToUserLogin(true)
-                       }
-                       //体育电子点击
-                       //平台 'MG' <= item.gamePlatform
-                       //状态 'ON' <= item.status
-                   }else{
-                       Toast.showShortCenter(` ${item.gameNameInChinese} 尚未开启! `)
-                   }
+                    JXLog("renderDSFView----", item)
+                    if (item.status == "ON") {
+                        if (this.state.isLogin) {
+                            if (isSport) {
+                                JX_NavHelp.pushView(JX_Compones.TCWebGameView, {
+                                    gameData: item,
+                                    title: item.gameDescription
+                                })
+                            } else {
+                                JX_NavHelp.pushView(JX_Compones.DZGameListView, {gameData: item})
+                            }
+                        } else {
+                            JX_NavHelp.pushToUserLogin(true)
+                        }
+                        //体育电子点击
+                        //平台 'MG' <= item.gamePlatform
+                        //状态 'ON' <= item.status
+                    } else {
+                        Toast.showShortCenter(` ${item.gameNameInChinese} 尚未开启! `)
+                    }
 
                 }}
             />)
     }
 
-    loadHomeContents() {
-        NetUitls.getUrlAndParamsAndCallback(
-            config.api.getHome,
-            appId + '/contents',
-            data => {
-                if (data && data.rs && data.content) {
-                    this.parseData(data);
-                    this.saveHomeCacheData(data);
-                } else {
-                    NetWorkTool.checkNetworkState(isConnection => {
-                        if (isConnection && !isFirstLoad) {
-                            Toast.showLongCenter('服务器维护中...');
-                        }
-                    });
-                }
-                if (!isFirstLoad) {
-                    isFirstLoad = true;
-                    TCInitHelper._requestGameSetting();
-                } else {
-                    // this.refs['ListView'].scrollTo({x: 0, y: 0, animated: true});
-                }
-            },
-            null,
-            true
-        );
-    }
-
     loadDataFormNet() {
-        this.loadHomeContents();
-        NetUitls.getUrlAndParamsAndCallback(
-            config.api.findTopWinners,
-            {clientId: appId},
-            data => {
-                if (data && data.content && data.content.length > 0) {
-                    if (data.content.length > 20) {
-                        data.content = data.content.slice(0, 20);
-                    }
-                    this.setState({
-                        topWinnersModel: data.content
-                    })
-                }
-            },
-            null,
-            true
-        );
-    }
-
-    loadCPData() {
-        NetUitls.getUrlAndParamsAndCallback(config.api.getCurrentResults, null, data => {
-            if (data && data.rs && data.content.length > 0) {
-                isLoadFinish = true;
-                if (listModel) {
-                    listModel.gameInfosRecommend = listModel.gameInfosRecommend.concat();
-                    listModel.gameInfosRecommend.map(item => {
-                        data.content.map(item2 => {
-                            if (item2.gameUniqueId == item.gameUniqueId) {
-                                item.mTiter = item2.stopOrderTimeEpoch;
-                            }
-                        });
-                    });
-                    listModel.gameInfosRecommend.map(item => {
-                    });
-                    this.setState({
-                        cpArray: data.content,
-                        dataSource: this.state.dataSource.cloneWithRowsAndSections(listModel)
-                    });
-                    this.refs['ListView'].forceUpdate();
-                }
+        this.homeStore.loadHomeContents((res) => {
+            if (res) {
+                this.showPopupAnnouncements();
             } else {
-                if (!isLoadFinish) {
-                    this.timer2 = setTimeout(() => {
-                        this.loadCPData();
-                    }, 5000);
-                }
-            }
-        });
-    }
-
-    parseData(data) {
-        TCHomeContents = data;
-        let content = {};
-        if (data.content.promotionBanners && data.content.promotionBanners.length > 0) {
-            content.bannerData = data.content.promotionBanners;
-        }
-        if (data.content.announcements && data.content.announcements.length > 0) {
-            content.noticeData = data.content.announcements;
-        }
-
-        if (data.content.menuIcons && data.content.menuIcons.length > 0) {
-            content.menuIcons = data.content.menuIcons;
-        }
-
-        if (data.content.gameInfosHot && data.content.gameInfosHot.length > 0) {
-            content.gameInfosHot = data.content.gameInfosHot;
-        }
-
-        if (data.content.gameInfosRecommend && data.content.gameInfosRecommend.length > 0) {
-            if (data.content.gameInfosRecommend.length > 7) {
-                content.gameInfosRecommend = data.content.gameInfosRecommend.slice(0, 7);
-            }
-            if (content.gameInfosRecommend % 2 !== 0) {
-                content.gameInfosRecommend.push({
-                    gameIconUrl: 'https://www.jiushouji.net/mobile/gameIcon/more@3x.1.0.png',
-                    gameNameInChinese: '更多玩法',
-                    gameDescription: '更多好玩游戏等你体验',
-                    gameUniqueId: 'more'
+                NetWorkTool.checkNetworkState(isConnection => {
+                    if (isConnection && !this.homeStore.isFirstLoad) {
+                        Toast.showLongCenter('服务器维护中...');
+                    }
                 });
             }
-        }
-
-        if (data.content.dsfSportInfos && data.content.dsfSportInfos.length > 0) {
-            content.dsfSportInfos = data.content.dsfSportInfos;
-            if (content.dsfSportInfos.length % 2 !== 0) {
-                // content.dsfSportInfos.push({})
+            if (!this.homeStore.isFirstLoad) {
+                this.homeStore.isFirstLoad = true;
+                this.homeStore.requestGameSetting();
+            } else {
+                // this.refs['ListView'].scrollTo({x: 0, y: 0, animated: true});
             }
-        }
-
-        if (data.content.dsfEgameInfos && data.content.dsfEgameInfos.length > 0) {
-            content.dsfEgameInfos = data.content.dsfEgameInfos;
-            if (content.dsfEgameInfos.length % 2 !== 0) {
-                // content.dsfEgameInfos.push({})
-            }
-        }
-
-        if (data.content.dsfCardInfos && data.content.dsfCardInfos.length > 0) {
-            content.dsfCardInfos = data.content.dsfCardInfos;
-            if (content.dsfCardInfos.length % 2 !== 0) {
-                // content.dsfEgameInfos.push({})
-            }
-        }
-
-        this.setState({
-            isRefreshing: false,
-            content: content
         });
+        this.homeStore.getTopWinners();
     }
 
     _pushToBetHomePage(rowData) {
@@ -619,53 +467,27 @@ export default class TCHome extends Component {
             });
     }
 
-    async getHomeCacheData() {
-        await storage
-            .load({
-                key: 'TCHomeList'
-            })
-            .then(res => {
-                if (!isFirstLoad) {
-                    JXLog('首页加载缓存获取结束');
-                    this.parseData(res);
-                }
-            })
-            .catch(err => {
-            });
+    handleMethod(isConnected) {
     }
-
-
-    saveHomeCacheData(json) {
-        storage.save({
-            key: 'TCHomeList',
-            data: json
-        }).then(()=>{
-            this.showPopupAnnouncements();
-        });
-    }
-
-    handleMethod(isConnected) {}
 
     showPopupAnnouncements() {
-        getPopupAnnouncements((d)=>{
+        getPopupAnnouncements((d) => {
             if (d && d.length > 0) {
                 this.refs['PopupNotice'].open(d);
             }
         });
     }
 
-    handleMethod(isConnected) {
-    }
 }
 
 var styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         backgroundColor: indexBgColor.mainBg
     },
-    containerIOS:{
-        height:height-bottomNavHeight,
-        width:width,
+    containerIOS: {
+        height: height - bottomNavHeight,
+        width: width,
         backgroundColor: indexBgColor.mainBg
     },
     listViewStyle: {

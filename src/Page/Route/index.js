@@ -89,14 +89,19 @@ import TCUserOrderType from "../UserCenter/UserOrder/TCUserOrderType";
 import TCUserTransfer from "../UserCenter/transfer/TCUserTransfer";
 //趋势图webView
 import TCWebTrendView from "../WebView/TCWebTrendView";
-import rootStore from "../../Data/store/RootStore";
 
-import jdAppStore from '../../Page/Store/JDAppStore'
-import mainStore from '../../Page/Store/MainStore'
+
+import jdAppStore from '../../Data/store/JDAppStore'
+import mainStore from '../../Data/store/MainStore'
+import initAppStore from '../../Data/store/InitAppStore'
+import userStore from '../../Data/store/UserStore'
+
 
 const appStores = {
     jdAppStore,
-    mainStore
+    mainStore,
+    initAppStore,
+    userStore
 }
 
 import TCUserOtherBetRecords from "../UserCenter/UserOrder/TCUserOtherBetRecords";
@@ -219,7 +224,7 @@ const MainStackNavigator = StackNavigator({
 })
 
 export default class Main extends Component {
-    
+
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     }

@@ -27,7 +27,7 @@ import {
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import Toast from '../../../Common/JXHelper/JXToast';
-import TransferStore from '../../../Data/store/userCenterStore/TransferStore'
+import TransferStore from '../../../Data/store/TransferStore'
 import Button from '../../../Common/View/ButtonView'
 import NoDataView from '../../../Common/View/TCNoDataView'
 

@@ -1,9 +1,9 @@
 'use-strict';
 import Moment from 'moment'
 import {action, observable} from "mobx";
-import NetUitls from "../../../Common/Network/TCRequestUitls";
-import {config} from '../../../Common/Network/TCRequestConfig';
-import JXHelper from "../../../Common/JXHelper/JXHelper";
+import NetUitls from "../../Common/Network/TCRequestUitls";
+import {config} from '../../Common/Network/TCRequestConfig';
+import JXHelper from "../../Common/JXHelper/JXHelper";
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 /**

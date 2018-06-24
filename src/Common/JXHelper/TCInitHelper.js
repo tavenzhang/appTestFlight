@@ -393,45 +393,6 @@ export default class TCInitHelper {
         })
     }
 
-    // 获取邀请码
-    getUserAffCode() {
-        // 优先获取热更新邀请码
-        let hotAffCode = this.getAppSpecialAffCode()
-        if (hotAffCode) {
-            TC_DEFAULT_AFFCODE = hotAffCode
-            return
-        }
-        try {
-            NativeModules.JXHelper.getAffCode((affcode) => {
-                TC_DEFAULT_AFFCODE = affcode
-            })
-        } catch (e) {
-
-        }
-    }
-
-    // 获取热更新包中的邀请码
-    getAppSpecialAffCode() {
-        let a = affCodeList[Platform.OS][JXAPPVersion]
-        if (a) {
-            return a;
-        }
-        return null
-    }
-
-    isAndroidDevicesRoot(getUserData) {
-        try {
-            NativeModules.JXHelper.isAndroidRootDevice((result) => {
-                TC_ANDROID_DEVICE_IS_ROOT = result;
-                if (null !== getUserData && !result) {
-                    getUserData();
-                }
-            })
-        } catch (e) {
-            getUserData();
-        }
-    }
-
     /**
      * 新版本android才能有智能追号功能
      */

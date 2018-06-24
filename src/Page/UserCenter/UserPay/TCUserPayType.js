@@ -12,7 +12,7 @@ import {
     Image,
     ScrollView, Platform, NativeModules
 } from "react-native";
-import {observer} from 'mobx-react/native'
+import {observer, inject} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 import {
     Size,
@@ -37,29 +37,27 @@ import {userPay, personal} from '../../resouce/images'
 import _ from 'lodash';
 import {Default_PayList} from '../../../Data/DefaultPayTypeList'
 import {common} from '../../resouce/images'
+import UserPayTypeStore from "../../../Data/store/UserPayTypeStore";
 
 /**
- * 提示对话框
+ * 用戶充值类型界面
  */
+@inject("jdAppStore", "userStore")
 @observer
 export default class TCUserPayType extends Component {
 
-    payTansferList = []
-    bankList = []
-    stateModel = new StateModel()
-    minimumTopupAmount = 1;
+    userPayStore = new UserPayTypeStore();
 
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
-        this.getOnlineTopup();
         this.getPayTypeList()
     }
 
     componentWillUnmount() {
-        this.timer && clearTimeout(this.timer);
+
     }
 
     render() {
@@ -83,7 +81,7 @@ export default class TCUserPayType extends Component {
                         borderRadius: 30,
                         borderWidth: TCLineW,
                         borderColor: 'rgba(0,0,0,0.3)',
-                        backgroundColor: TCUSER_ICON_BGCOLOR,
+                        backgroundColor: this.userLogoColor,
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
@@ -91,18 +89,18 @@ export default class TCUserPayType extends Component {
                             fontSize: 25,
                             fontWeight: 'bold',
                             color: 'white'
-                        }}>{JXHelper.getUserIconShowName(TCUSER_DATA.username)}</Text>
+                        }}>{JXHelper.getUserIconShowName(this.userName)}</Text>
                     </View>
                     <View style={{justifyContent: 'center', marginLeft: 15}}>
                         <Text style={{
                             color: listViewTxtColor.content,
                             fontSize: Size.font14
-                        }}>{TCUSER_DATA.username}</Text>
+                        }}>{this.userName}</Text>
                         <Text style={{fontSize: Size.font14, color: listViewTxtColor.content}}>余额: <Text
                             style={{
                                 fontSize: Size.font14,
                                 color: listViewTxtColor.redTip
-                            }}>{TCUSER_BALANCE}</Text></Text>
+                            }}>{this.balance}</Text></Text>
                     </View>
                 </View>
                 <View style={styles.tipViewStyle}>
@@ -113,9 +111,9 @@ export default class TCUserPayType extends Component {
                 </View>
                 <View style={{paddingTop: 10, paddingLeft: 10, paddingBottom: 5, flexDirection: 'row'}}>
                     <Text style={styles.payTip}>请选择充值类型 (如有问题，请联系</Text>
-                        <TouchableOpacity onPress={() => this.onlineService()}>
-                            <Text style={[styles.payTip, {color:'#4292cd'}]}>在线客服</Text>
-                        </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.onlineService()}>
+                        <Text style={[styles.payTip, {color: '#4292cd'}]}>在线客服</Text>
+                    </TouchableOpacity>
                     <Text style={styles.payTip}>)</Text>
                 </View>
                 <ScrollView style={{flex: 1, marginBottom: 5, marginTop: 5}}>{this.getContentView()}</ScrollView>
@@ -125,6 +123,18 @@ export default class TCUserPayType extends Component {
                     marginTop={64}/>
             </View>
         )
+    }
+
+    @computed get userLogoColor() {
+        return this.props.userStore.userLogoColor;
+    }
+
+    @computed get userName() {
+        return this.props.userStore.userName;
+    }
+
+    @computed get balance() {
+        return this.props.userStore.balance;
     }
 
     onlineService() {
@@ -153,21 +163,13 @@ export default class TCUserPayType extends Component {
         this._partModalLoadingSpinnerOverLay.hide()
     }
 
-    getOnlineTopup() {
-        RequestUtils.getUrlAndParamsAndCallback(config.api.onlineTopUp, null, res => {
-            if (res.rs) {
-                this.minimumTopupAmount = res.content.minimumTopupAmount;
-            }
-        })
-    }
-
     /**
      * 获取内容组件
      * @returns {Array}
      */
     getContentView() {
         let payTypeView = []
-        this.stateModel.payTypeList.map((item) => {
+        this.userPayStore.payTypeList.map((item) => {
             payTypeView.push(
                 <TouchableOpacity
                     key={'00' + item.code}
@@ -184,6 +186,7 @@ export default class TCUserPayType extends Component {
         })
         return payTypeView
     }
+
 
     /**
      * 获取支付图标
@@ -219,7 +222,6 @@ export default class TCUserPayType extends Component {
      * 返回上一级
      */
     goBack() {
-        RCTDeviceEventEmitter.emit('balanceChange', true)
         NavigatorHelper.popToBack();
     }
 
@@ -227,120 +229,27 @@ export default class TCUserPayType extends Component {
      * 获取支付类型列表
      */
     getPayTypeList() {
-        this.showLoading()
-        RequestUtils.getUrlAndParamsAndCallback(config.api.paymentTypeList, null, (response) => {
-            this.hideLoading()
-            if (response.rs) {
-                this.stateModel.payTypeList = response.content && response.content.length > 0 ? response.content : Default_PayList
-            } else {
-                this.stateModel.payTypeList = Default_PayList
-            }
-        })
+        this.showLoading();
+        this.userPayStore.initPayTypeList(() => {
+            this.hideLoading();
+        });
     }
 
-    /**
-     * 获取厅主银行卡列表
-     */
-    getBankList(code) {
-        this.showLoading()
-        RequestUtils.getUrlAndParamsAndCallback(config.api.bankList, {id: appId}, (response) => {
-            if (response.rs) {
-                this.parseBankList(response.content)
-                this.loadDataFromNet(code)
-            } else {
-                this.hideLoading()
-                if (response.status === 500) {
-                    Toast.showShortCenter('服务器出错啦!')
-                } else {
-                    if (response.message) {
-                        Toast.showShortCenter(response.message)
-                    }
-                }
-            }
-        })
-    }
-
-    /**
-     * 将银行卡列表中支付宝和微信转账信息合并到支付宝和微信
-     * @param data
-     */
-    parseBankList(data) {
-        if (data.length > 0) {
-            for (var i = 0; data[i] != null; i++) {
-                let item = data[i]
-                if (item.bankCode === 'ZHB' || item.bankCode === 'WX' || item.bankCode === 'OTHER') {
-                    this.payTansferList.push(item)
-                } else {
-                    this.bankList.push(item)
-                }
-            }
-        }
-    }
-
-    /**
-     * 加载微信和支付宝的支付方式
-     */
-    loadDataFromNet(code) {
-        RequestUtils.getUrlAndParamsAndCallback(config.api.paymentList, null, (response) => {
-            if (response.rs) {
-                if (response.content && response.content.length > 0) {
-                    this.payTansferList = _.concat(this.payTansferList, response.content)
-                }
-                this.gotoPayPage(code)
-            } else {
-                this.hideLoading()
-                if (response.status === 401) {
-                    Toast.showShortCenter('登录状态过期，请重新登录!')
-                } else {
-                    if (response.status == 500) {
-                        Toast.showShortCenter('服务器出错啦!')
-                    } else {
-                        Toast.showShortCenter(response.message)
-                    }
-                }
-            }
-        })
-    }
 
     /**
      * 选择支付类型
      * @param item
      */
     selectPayType(item) {
-        this.bankList = []
-        this.payTansferList = []
-        this.getBankList(item.code)
-    }
-
-    /**
-     * 获取支付方式列表
-     * @param code
-     */
-    getPayList(code) {
-        if (code === 'ONLINEBANK') {
-            code = 'THIRD_PARTY'
-        }
-        if (code === 'BANK') {
-            return this.sortData(this.bankList)
-        } else {
-            let payList = []
-            this.payTansferList.forEach((item) => {
-                let payType = item.type ? item.type : item.bankCode
-                if (payType === code) {
-                    payList.push(item)
-                }
-            })
-
-            return this.sortData(payList);
-        }
-    }
-
-
-    sortData(datas) {
-        let res = datas.sort((itemA, itemB) => {
-            return itemA.position - itemB.position;
+        this.showLoading();
+        this.userPayStore.selectPayType((res) => {
+            if (res.status) {
+                this.gotoPayPage(item.code);
+            } else {
+                this.hideLoading();
+                Toast.showShortCenter(res.message);
+            }
         })
-        return res;
     }
 
 
@@ -349,18 +258,14 @@ export default class TCUserPayType extends Component {
      * @param code
      */
     gotoPayPage(code) {
-        this.hideLoading()
+        this.hideLoading();
+        let payList = this.userPayStore.getPayList(code);
         NavigatorHelper.pushToTopUp({
             code: code,
-            payList: this.getPayList(code),
-            minimumTopupAmount: this.minimumTopupAmount
+            payList: payList,
+            minimumTopupAmount: this.userPayStore.minimumTopupAmount
         });
     }
-}
-
-class StateModel {
-    @observable
-    payTypeList = []
 }
 
 const styles = StyleSheet.create({

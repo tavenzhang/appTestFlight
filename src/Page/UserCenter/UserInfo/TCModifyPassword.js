@@ -17,14 +17,11 @@ import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import {Size, width, height, indexBgColor, buttonStyle, inputStyle} from '../../resouce/theme'
 import Toast from '../../../Common/JXHelper/JXToast';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
-import {config} from '../../../Common/Network/TCRequestConfig'
-import  RequestUtils from '../../../Common/Network/TCRequestUitls'
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
-import  dismissKeyboard from 'dismissKeyboard'
-import SecretUtils from '../../../Common/JXHelper/SecretUtils'
-var secretUtils = new SecretUtils()
+import dismissKeyboard from 'dismissKeyboard'
+import {inject} from 'mobx-react'
 
+@inject("userStore")
 export default class TCModifyPassword extends Component {
 
     oldPwd = ''
@@ -48,7 +45,7 @@ export default class TCModifyPassword extends Component {
                     title={'修改登录密码'}
                     needBackButton={true}
                     backButtonCall={() => {
-                      Helper.popToBack()
+                        Helper.popToBack()
                     }}/>
                 <View style={{marginTop: 40, flexDirection: 'column'}}>
                     <View style={styles.inputItem}>
@@ -96,7 +93,7 @@ export default class TCModifyPassword extends Component {
                     </TouchableOpacity>
                 </View>
                 <LoadingSpinnerOverlay
-                    ref={ component => this._modalLoadingSpinnerOverLay = component }/>
+                    ref={component => this._modalLoadingSpinnerOverLay = component}/>
             </View>
         );
     }
@@ -143,13 +140,10 @@ export default class TCModifyPassword extends Component {
      * @param newPwd
      */
     modifyPwd(oldPwd, newPwd) {
-        this._modalLoadingSpinnerOverLay.show()
-        let oldEncryptPwd = secretUtils.rsaEncodePWD(oldPwd);
-        let newEncryptPwd = secretUtils.rsaEncodePWD(newPwd);
-        let data = {'password': oldEncryptPwd, 'newPassword': newEncryptPwd, 'mode': 'PASSWORD'};
-        RequestUtils.PostUrlAndParamsAndCallback(config.api.encryptChangePwd, data, (response) => {
-            this._modalLoadingSpinnerOverLay.hide()
-            if (response.rs) {
+        this._modalLoadingSpinnerOverLay.show();
+        this.props.userStore.modifyUserPwd(oldPwd, newPwd, 'PASSWORD', (res) => {
+            this._modalLoadingSpinnerOverLay.hide();
+            if (res.status) {
                 this.timer = setTimeout(() => {
                     Alert.alert(
                         '温馨提示',
@@ -160,17 +154,9 @@ export default class TCModifyPassword extends Component {
                     )
                 }, 500)
             } else {
-                if (response.status === 500) {
-                    Toast.showShortCenter("服务器出错啦")
-                } else {
-                    if (response.message) {
-                        Toast.showShortCenter(response.message)
-                    } else {
-                        Toast.showShortCenter("修改失败，请输入正确密码!")
-                    }
-                }
+                Toast.showShortCenter(res.message);
             }
-        })
+        });
 
     }
 
@@ -178,12 +164,6 @@ export default class TCModifyPassword extends Component {
      * 修改成功
      */
     modifySuccess() {
-        storage.remove({
-            key: 'user',
-        });
-        TCUSER_DATA = {}
-        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home');
-        RCTDeviceEventEmitter.emit('userStateChange', 'logout');
         Helper.pushToUserLogin(true)
     }
 }

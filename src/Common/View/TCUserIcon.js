@@ -11,7 +11,7 @@ export default class TCUserIcon extends Component {
 
     render() {
         return (
-            <View style={[styles.container, {backgroundColor: TCUSER_ICON_BGCOLOR}, this.props.style]}>
+            <View style={[styles.container, {backgroundColor: this.props.bgColor}, this.props.style]}>
                 <Text style={[styles.text, this.props.textStyle]}>{this.props.text}</Text>
             </View>
         );

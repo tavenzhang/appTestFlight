@@ -1,6 +1,6 @@
 import {computed, action, observable} from 'mobx'
-import NetUitls from "../../../Common/Network/TCRequestUitls";
-import {config} from '../../../Common/Network/TCRequestConfig'
+import NetUitls from "../../Common/Network/TCRequestUitls";
+import {config} from '../../Common/Network/TCRequestConfig'
 export default  class GameDZStore {
 
     @observable gameData=[];

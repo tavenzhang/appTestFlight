@@ -13,17 +13,13 @@ import {
     Alert
 } from 'react-native';
 
-import {observer} from 'mobx-react/native'
+import {observer, inject} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import dismissKeyboard from 'dismissKeyboard';
 import Toast from '../../../Common/JXHelper/JXToast';
-import {config} from '../../../Common/Network/TCRequestConfig'
-import NetUtils from '../../../Common/Network/TCRequestUitls'
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
-import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {
     indexBgColor,
     listViewTxtColor,
@@ -34,7 +30,10 @@ import {
     height,
     baseColor
 } from '../../resouce/theme'
+import NavigationService from "../../Route/NavigationService";
 
+@inject("userStore")
+@observer
 export default class TCUserMessage extends Component {
 
     realName = ''
@@ -67,7 +66,7 @@ export default class TCUserMessage extends Component {
                     <View>
                         <View style={styles.inputItem}>
                             <Text style={styles.userTitleStyle}>
-                                {TCUSER_DATA.realname ? '修改真实姓名' : '真实姓名'}
+                                {this.userRealName ? '修改真实姓名' : '真实姓名'}
                             </Text>
                             <TextInput
                                 style={styles.inputStyle}
@@ -115,13 +114,13 @@ export default class TCUserMessage extends Component {
     }
 
 
-    back() {
-        this.onBackAndroid()
+    @computed get userRealName() {
+        return this.props.userStore.realName;
     }
 
-    onBackAndroid() {
+    back() {
         dismissKeyboard()
-        Helper.popToBack()
+        NavigationService.goBack();
     }
 
     updateRealName() {
@@ -132,45 +131,27 @@ export default class TCUserMessage extends Component {
             Toast.showShortCenter("您输入的格式错误，请重新输入!")
             return
         }
-        if (TCUSER_DATA.realname && TCUSER_DATA.realname === realName) {
-            Toast.showShortCenter("目前真实姓名为：" + TCUSER_DATA.realname)
+        if (this.userRealName && this.userRealName == realName) {
+            Toast.showShortCenter("目前真实姓名为：" + this.userRealName)
             return
         }
-        if (realName) {
-            this._modalLoadingSpinnerOverLay.show();
-            NetUtils.PutUrlAndParamsAndCallback(config.api.updateRealName + "?realName=" + encodeURI(realName), null, (response) => {
-                    this._modalLoadingSpinnerOverLay.hide();
-                    if (response.rs) {
-                        this.timer = setTimeout(() => {
-                            Alert.alert(
-                                '温馨提示',
-                                '修改已提交，请等待管理员审核!',
-                                [
-                                    {text: '确定', onPress: () => this.updateSuccess()},
-                                ]
-                            )
-                        }, 500)
-                    } else {
-                        if (response.status === 500) {
-                            Toast.showShortCenter('服务器出错啦!')
-                        } else {
-                            if (response.message) {
-                                Toast.showShortCenter(response.message)
-                            } else {
-                                Toast.showShortCenter('修改失败，请稍后再试！')
-                            }
-                        }
-                    }
-                }
-            )
-        } else {
-            Toast.showShortCenter("真实姓名不能为空!")
-        }
-    }
-
-    updateSuccess() {
-        RCTDeviceEventEmitter.emit('realNameChange', this.realName)
-        Helper.popToBack()
+        this._modalLoadingSpinnerOverLay.show();
+        this.props.userStore.changeRealName(this.realName, (res) => {
+            this._modalLoadingSpinnerOverLay.hide();
+            if (res.status) {
+                this.timer = setTimeout(() => {
+                    Alert.alert(
+                        '温馨提示',
+                        '修改已提交，请等待管理员审核!',
+                        [
+                            {text: '确定', onPress: () => NavigationService.goBack()},
+                        ]
+                    )
+                }, 500)
+            } else {
+                Toast.showShortCenter(res.message);
+            }
+        })
     }
 }
 

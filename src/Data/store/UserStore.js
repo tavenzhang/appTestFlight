@@ -3,8 +3,8 @@ import {
 } from 'react-native';
 
 import {observable, action, computed, autorun} from "mobx";
-import Base64 from '../../Common/JDHelper/Base64'
-import SecretUtils from '../../Common/JDHelper/SecretUtils'
+import Base64 from '../../Common/JXHelper/Base64'
+import SecretUtils from '../../Common/JXHelper/SecretUtils'
 import Moment from 'moment'
 import {
     userLogin,
@@ -20,9 +20,11 @@ import {
     modifyPwd,
     getPlatformBalance,
     getAllBalance
-} from '../../Common/Network/RequestService'
-import JDAppStore from '../subStore/JDAppStore'
-import UserMessageStore from './UserMessageStore'
+} from '../../Common/Network/TCRequestService'
+import JDAppStore from './JDAppStore'
+import InitAppStore from './InitAppStore'
+import messageStore from './UserMessageStore'
+
 
 let base64 = new Base64()
 let secretUtils = new SecretUtils()
@@ -81,24 +83,10 @@ class UserStore {
 
     //APP版本
     @observable
-    loginAppVersion = Platform.OS + '-' + JDAppStore.appVersion + '-' + JDAppStore.hotFixVersion;
-
-    //账户钱包
-    transferAccountName = ["中心钱包", "MG钱包", "IM钱包"];
-
-    @observable
-    mgBalance = 0;
-    @observable
-    imBalance = 0;
-
-    MGTYPE = "MG";
-
-    IMTYPE = "IMONE";
-
-    userMessageStore;
+    loginAppVersion = Platform.OS + '-' + InitAppStore.appVersion + '-' + JDAppStore.hotFixVersion;
 
     constructor() {
-        this.userMessageStore = new UserMessageStore();
+
     }
 
     //是否是试玩账号
@@ -122,7 +110,6 @@ class UserStore {
         await storage.load({
             key: 'USERINFO',
         }).then(res => {
-
             if (res) {
                 if (res.username) {
                     this.userName = res.username;
@@ -137,7 +124,7 @@ class UserStore {
                 this.isLogin = false;
             }
         }).catch(err => {
-            JDLog("get userinfo false")
+            JXLog("get userinfo false")
             this.isLogin = false;
         });
     }
@@ -226,7 +213,7 @@ class UserStore {
             JXLog("data", data);
             userLogin(data, (res) => {
                 if (res.rs) {
-                    JDLog("Login success")
+                    JXLog("Login success")
                     let user = res.content;
                     if (user) {
                         this.saveUserInfo(user);
@@ -262,7 +249,6 @@ class UserStore {
             data: user
         });
         this.updateUserOtherInfo();
-        this.getPlatformBalance();
     }
 
     /**
@@ -282,7 +268,7 @@ class UserStore {
                 'hash': hash,
                 affCode: affCode,
                 validateCode: validateCode,
-                webUniqueCode: JDAppStore.deviceToken,
+                webUniqueCode: InitAppStore.deviceToken,
                 options: options
             };
             userRegister(data, (res) => {
@@ -315,17 +301,17 @@ class UserStore {
     guestRegister(callback) {
         secretUtils.encode(this.userName, this.password, (hash) => {
             let encryptPWD = secretUtils.rsaEncodePWD(this.password);
-            JDLog("encryptPWD", encryptPWD)
+            JXLog("encryptPWD", encryptPWD)
             let data = {
                 'username': this.userName,
                 'password': encryptPWD,
                 'hash': hash,
                 appVersion: this.loginAppVersion
             };
-            JDLog("data", data);
+            JXLog("data", data);
             guestRegister(data, (res) => {
                 if (res.rs) {
-                    JDLog("Login success")
+                    JXLog("Login success")
                     let user = res.content;
                     if (user) {
                         user.password = base64.encode(this.password);
@@ -392,22 +378,24 @@ class UserStore {
     }
 
     //清楚登录数据
+    @action
     clearLoginData() {
         this.isLogin = false;
-        this.mgBalance = 0;
-        this.imBalance = 0;
         this.balance = 0;
+        this.resetMsgCount();
+        this.resetFeedBackCount();
         storage.save({
             key: 'USERINFO',
             data: {}
         });
     }
 
-
+    @action
     resetMsgCount() {
         this.newMsgCount = 0;
     }
 
+    @action
     resetFeedBackCount() {
         this.newFeedBackCount = 0;
     }
@@ -494,6 +482,7 @@ class UserStore {
         modifyUserRealName(name, (res) => {
             if (res.rs) {
                 response.status = true;
+                this.realName = name;
                 callback(response);
                 return;
             } else {
@@ -501,7 +490,7 @@ class UserStore {
                 if (res.status === 500) {
                     response.message = "服务器出错啦!";
                 } else {
-                    response.message = response.message ? response.message : "修改失败，请稍后再试!";
+                    response.message = res.message ? res.message : "修改失败，请稍后再试!";
                 }
                 callback(response);
                 return;
@@ -509,56 +498,14 @@ class UserStore {
         })
     }
 
-    //获取所有平台余额
-    @action
-    getPlatformBalance(callback) {
-        getAllBalance({access_token: this.access_token}, (response) => {
-            let res = {};
-            if (response.rs) {
-                let result = response.content;
-                this.balance = result.allBalance;
-                let platformBalances = result.platformBalances;
-                platformBalances.map((item) => {
-                    if (item.gamePlatform === "IMONE") {
-                        if (item.balance !== -1) {
-                            this.imBalance = item.balance;
-                        } else {
-                            res.message = "IM钱包刷新失败，请单独刷新!"
-                        }
-                    } else if (item.gamePlatform === "MG") {
-                        if (item.balance !== -1) {
-                            this.mgBalance = item.balance;
-                        } else {
-                            res.message = "MG钱包刷新失败，请单独刷新!"
-                        }
-                    }
-                })
-            } else {
-                res.message = response.message ? response.message : "刷新数据失败!";
-            }
-            callback && callback(res);
-        })
-    }
-
-    //获取指定平台余额
-    getBalanceByPlatform(platform, callback) {
-        getPlatformBalance(platform, (res) => {
-            if (res.rs) {
-                if (platform === this.MGTYPE) {
-                    this.mgBalance = res.content.balance;
-                } else {
-                    this.imBalance = res.content.balance;
-                }
-                callback && callback(res);
-            }
-        });
-    }
-
     getMessageStatus() {
-        this.userMessageStore.getMessageStatus(res => {
+        messageStore.getMessageStatus(res => {
             if (res.rs) {
-                this.newMsgCount = res.content.messageCount;
-                this.newFeedBackCount = res.content.replyNotReadCount;
+                // this.newMsgCount = res.content.messageCount;
+                this.newMsgCount = 11;
+                this.newFeedBackCount = 1;
+                // this.newFeedBackCount = res.content.replyNotReadCount;
+                JXLog("==================", this.newMsgCount)
             }
         })
     }
