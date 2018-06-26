@@ -66,7 +66,7 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
     getState() {
         let state = this.props.rowData.state
         if (state === 'INITIALIZED' || state === 'IN_PROGRESS' || state === 'LOCK') {
-            return '待审核'
+            return '处理中'
         } else if (state === 'COMPLETED') {
             return '已完成'
         } else if (state === 'AUTO_TOPUP_FAILED') {
