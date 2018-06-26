@@ -1,5 +1,3 @@
-import JXText from "../../widget/JXText";
-
 'use-strict';
 import React from 'react';
 import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
@@ -21,6 +19,7 @@ import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import Toast from '../../../Common/JXHelper/JXToast';
 import Button from '../../../Common/View/ButtonView'
 import walletStore from '../../../Data/store/WalletStore';
+import JXText from "../../widget/JXText";
 
 /**
  * 转账
@@ -56,7 +55,7 @@ class OneTouchTransferView extends React.Component {
 
     renderWallet(platform, balance, leftBtnTxt, rightBtnTxt, leftBtnCallback, rightBtnCallback) {
         return (
-            <View style={styles.platformItemContainer}>
+            <View style={styles.platformItemContainer} key={platform}>
                 <Text style={styles.platformTxt}>{platform}</Text>
                 <Text style={styles.platformBalanceTxt}>{balance}</Text>
                 {leftBtnTxt
