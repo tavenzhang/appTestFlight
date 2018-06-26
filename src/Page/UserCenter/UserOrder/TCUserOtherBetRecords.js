@@ -77,7 +77,7 @@ export default class TCUserOtherBetRecords extends Component {
                             dateInput: {height: 30, borderWidth: 0, alignItems: 'center'},
                             dateText: {height: 29, padding: 5, fontSize: Size.default, color: agentCenter.dateTxt}
                         }}
-                        onDateChange={date => {this.userBetsStore.beginTime = date}}
+                        onDateChange={date => {this.userBetsStore.beginTime = date; this.loadData()}}
                         minDate={Moment().subtract(90, 'days').format('YYYY-MM-DD')}
                         maxDate={new Date()} />
                     <Text style={{fontWeight: 'bold'}}>至</Text>
@@ -95,7 +95,7 @@ export default class TCUserOtherBetRecords extends Component {
                             dateInput: {height: 30, borderWidth: 0, alignItems: 'center'},
                             dateText: {height: 29, padding: 5, fontSize: Size.default, color: agentCenter.dateTxt}
                         }}
-                        onDateChange={date => {this.userBetsStore.endTime = date}}
+                        onDateChange={date => {this.userBetsStore.endTime = date; this.loadData()}}
                         minDate={Moment().subtract(90, 'days').format('YYYY-MM-DD')}
                         maxDate={new Date()} />
                 </View>
