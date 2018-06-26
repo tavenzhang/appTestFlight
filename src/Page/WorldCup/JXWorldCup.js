@@ -128,7 +128,7 @@ export class MyComponent2 extends React.Component {
                 if(TCInitHelper.isGuestUser()){
                     Toast.showShortCenter(`你当前是: 试玩账号 暂时无法体验,请尽快注册正式账号参与体验吧！`);
                 }else {
-                    JX_NavHelp.pushView(JX_Compones.TCWebGameView, { gameData: item, title: item.gameDescription });
+                    JX_NavHelp.pushView(JX_Compones.TCWebGameView, { gameData: data, title: data.gameDescription });
                 }
             } else {
                 JX_NavHelp.pushToUserLogin(true);
