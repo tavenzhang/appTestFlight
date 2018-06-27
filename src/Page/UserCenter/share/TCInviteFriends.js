@@ -120,7 +120,11 @@ export default class TCInviteFriends extends React.Component {
             title: MyAppName
         }, {
             excludedActivityTypes: [
-                'com.apple.UIKit.activity.PostToTwitter','com.apple.UIKit.activity.Mail','com.apple.UIKit.activity.AddToReadingList'
+                'com.apple.UIKit.activity.PostToTwitter',
+                'com.apple.UIKit.activity.Mail',
+                'com.apple.UIKit.activity.AddToReadingList',
+                'com.apple.mobilenotes.SharingExtension',
+                'com.apple.reminders.RemindersEditorExtension'
             ]
         })
             .then(this._showResult)
