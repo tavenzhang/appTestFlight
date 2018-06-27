@@ -17,7 +17,7 @@ import {config} from '../../../Common/Network/TCRequestConfig'
 import NetUitls from '../../../Common/Network/TCRequestUitls'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import {Size,betHome} from '../../resouce/theme'
-export default class MyComponent extends Component {
+export default class MyComponent extends React.PureComponent {
 
     static defaultProps = {
 
@@ -44,6 +44,7 @@ export default class MyComponent extends Component {
     }
 
     render() {
+        JXLog("TCSSC------------TCBetBalance-------------")
         return (
             <View style={{flexDirection: 'row'}}>
                 <TouchableHighlight onPress={()=> {

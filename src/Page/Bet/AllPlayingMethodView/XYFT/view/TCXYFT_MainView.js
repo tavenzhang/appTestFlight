@@ -22,6 +22,8 @@ import {MathControllerFactory} from 'lottery-core'
 
 let SingletonDPS = null;
 import {betHome} from '../../../../resouce/theme'
+import TCFlatList from "../../../../../Common/View/RefreshListView/TCFLatList";
+import {TC_LayoutAnimaton} from "../../../../../Common/View/layoutAnimation/LayoutAnimaton";
 export default class TCXYFT_MainView extends React.Component {
     constructor(props) {
         super(props);
@@ -45,6 +47,11 @@ export default class TCXYFT_MainView extends React.Component {
         }
     }
 
+
+    componentWillUpdate() {
+        TC_LayoutAnimaton.configureNext(TC_LayoutAnimaton.easeNoDelete);
+    }
+
     componentWillUnmount() {
         if(!__DEV__&&Platform.OS == 'ios'){
             RNShakeEvent.removeEventListener('shake')
@@ -52,15 +59,41 @@ export default class TCXYFT_MainView extends React.Component {
     }
 
     render() {
+
         return (
             <View style={styles.container}>
                 <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                     {/*<ShakeButton shakeEvent={()=>this.byShake()}/>*/}
                 </View>
-                {this.renderNumberView()}
+                <TCFlatList initialNumToRender={1} dataS={this.renderNumberView()} renderRow={this.renderRow} />
+                {/*{this.renderNumberView()}*/}
             </View>
         );
     };
+
+    renderRow=(data,index)=>{
+        let {titleName,odds,areaIndex,numberEvent,numberArray, prizeSettings,isNoNeedQDXDSQ} = data
+        if(isNoNeedQDXDSQ){
+            return (<TCXYFTSpecialKindSelectView
+                titleName={titleName}
+                odds={odds}
+                areaIndex={areaIndex ? areaIndex:0}
+                numberEvent ={numberEvent}
+                numberArray={numberArray}
+                prizeSettings={prizeSettings}
+                isNoNeedQDXDSQ={true}
+            />)
+        }else{
+            return (<TCXYFTNumberSelectView numberEvent={numberEvent}
+                                            titleName={titleName}
+                                            areaIndex={areaIndex}
+                                            ref={"ref" + areaIndex}
+                                            numberArray={numberArray}/>
+            )
+        }
+
+    }
+
 
     renderNumberView() {
         let itemArray = []
@@ -110,46 +143,59 @@ export default class TCXYFT_MainView extends React.Component {
             case '第八名':
             case '第九名':
             case '第十名':
-                {
-                  playGameSetting  = this.getSingleGamePrizeSettings(type)
-                    if (!playGameSetting)return
-                    itemArray.push(<TCXYFTSpecialKindSelectView
-                                                titleName={this.state.type}
-                                                key={1} odds={' '}
-                                                areaIndex={0}
-                                                numberEvent ={this.props.numberEvent}
-                                                numberArray={SingletonDPS.getPlayTypeArray()}
-                                                prizeSettings={playGameSetting['prizeSettings']}
-                                                isNoNeedQDXDSQ={true}
-                    />)
+            {
+                playGameSetting  = this.getSingleGamePrizeSettings(type)
+                if (!playGameSetting)return
+                itemArray.push({titleName:this.state.type,odds:' ',areaIndex:0,numberEvent:this.props.numberEvent,numberArray:SingletonDPS.getPlayTypeArray(),
+                    prizeSettings:playGameSetting['prizeSettings'],isNoNeedQDXDSQ:true
+                })
+                // itemArray.push(<TCXYFTSpecialKindSelectView
+                //                             titleName={this.state.type}
+                //                             key={1} odds={' '}
+                //                             areaIndex={0}
+                //                             numberEvent ={this.props.numberEvent}
+                //                             numberArray={SingletonDPS.getPlayTypeArray()}
+                //                             prizeSettings={playGameSetting['prizeSettings']}
+                //                             isNoNeedQDXDSQ={true}
+                // />)
                 return itemArray
             }
             case '冠亚和值':{
                 playGameSetting  = this.getSingleGamePrizeSettings(type)
                 if (!playGameSetting)return
-                itemArray.push(<TCXYFTSpecialKindSelectView
-                    titleName={'和值'}
-                    key={1} odds={' '}
-                    numberEvent ={this.props.numberEvent}
 
-                    numberArray={SingletonDPS.getPlayTypeArray()}
-                    prizeSettings={playGameSetting['prizeSettings']}
-                    isNoNeedQDXDSQ={true}
-                />)
+                itemArray.push({titleName:'和值',odds:' ',numberEvent:this.props.numberEvent,numberArray:SingletonDPS.getPlayTypeArray(),
+                    prizeSettings:playGameSetting['prizeSettings'],isNoNeedQDXDSQ:true
+                })
+
+                // itemArray.push(<TCXYFTSpecialKindSelectView
+                //     titleName={'和值'}
+                //     key={1} odds={' '}
+                //     numberEvent ={this.props.numberEvent}
+                //
+                //     numberArray={SingletonDPS.getPlayTypeArray()}
+                //     prizeSettings={playGameSetting['prizeSettings']}
+                //     isNoNeedQDXDSQ={true}
+                // />)
                 return itemArray
             }
             case '冠亚和':{
                 playGameSetting  = this.getSingleGamePrizeSettings(type)
                 if (!playGameSetting)return
-                itemArray.push(<TCXYFTSpecialKindSelectView
-                    titleName={'和值'}
-                    key={1} odds={' '}
-                    numberEvent ={this.props.numberEvent}
 
-                    numberArray={SingletonDPS.getPlayTypeArray()}
-                    prizeSettings={playGameSetting['prizeSettings']}
-                    isNoNeedQDXDSQ={true}
-                />)
+                itemArray.push({titleName:'和值',odds:' ',numberEvent:this.props.numberEvent,numberArray:SingletonDPS.getPlayTypeArray(),
+                    prizeSettings:playGameSetting['prizeSettings'],isNoNeedQDXDSQ:true
+                })
+
+                // itemArray.push(<TCXYFTSpecialKindSelectView
+                //     titleName={'和值'}
+                //     key={1} odds={' '}
+                //     numberEvent ={this.props.numberEvent}
+                //
+                //     numberArray={SingletonDPS.getPlayTypeArray()}
+                //     prizeSettings={playGameSetting['prizeSettings']}
+                //     isNoNeedQDXDSQ={true}
+                // />)
                 return itemArray
             }
         }
@@ -167,8 +213,15 @@ export default class TCXYFT_MainView extends React.Component {
     }
     getDuplexItemArray(itemArray, duplexMaxCount,offset) {
         for (let i = 0; i < duplexMaxCount; i++) {
-            itemArray.push(<TCXYFTNumberSelectView numberEvent={this.props.numberEvent} titleName={SingletonDPS.gameConfig.typeTitles[i+offset]} key={i} areaIndex={i} ref={"ref" + i}
-                                                     numberArray={SingletonDPS.getPlayTypeArray()}/>)
+
+            itemArray.push({titleName:SingletonDPS.gameConfig.typeTitles[i+offset],odds:' ',
+                numberEvent:this.props.numberEvent,
+                numberArray:SingletonDPS.getPlayTypeArray(),
+                areaIndex:i
+            })
+
+            // itemArray.push(<TCXYFTNumberSelectView numberEvent={this.props.numberEvent} titleName={SingletonDPS.gameConfig.typeTitles[i+offset]} key={i} areaIndex={i} ref={"ref" + i}
+            //       numberArray={SingletonDPS.getPlayTypeArray()}/>)
         }
     }
 

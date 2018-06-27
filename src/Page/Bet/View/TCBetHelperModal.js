@@ -26,7 +26,9 @@ import TCNavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {betIcon} from '../../resouce/images'
 import {Size} from '../../resouce/theme'
 import {navbarHight} from '../../../Page/asset'
+import {observer} from "mobx-react/native";
 
+@observer
 export default class TCBetHelperModal extends Component {
     constructor(state) {
         super(state)
@@ -53,7 +55,9 @@ export default class TCBetHelperModal extends Component {
         this.timer && clearTimeout(this.timer)
     }
 
+
     render() {
+        JXLog("TCSSC------------TCBetHelperModal-------------")
         return (
             <Modal
                 animationType={this.state.animationType}

@@ -257,8 +257,7 @@ export default class TCK3BetHome extends React.Component {
         this.clearSelectedNumbers();
         // myPlayMath = this.props.cp_playMath
         SingletonDPS.resetPlayType(myPlayMath);
-        this.refs['TCBetShakeButtonView'].resetPlayMath(myPlayMath, this.props.gameUniqueId)
-
+        this.refs['TCBetShakeButtonView'].resetPlayMath(myPlayMath, this.props.gameUniqueId);
         // this.listener = RCTDeviceEventEmitter.addListener('K3NumberCall', (areaIndex, number, isAdd) => {
         //     if (isAdd) {
         //         SingletonDPS.addToUnAddedNumbersByIndex(areaIndex, number);

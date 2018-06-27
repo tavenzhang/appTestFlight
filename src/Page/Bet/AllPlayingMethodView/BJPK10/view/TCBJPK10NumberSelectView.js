@@ -23,7 +23,7 @@ let areaIndex = ''
 import TCBetChoiceTitleView from '../../../View/TCBetChoiceTitleView'
 import {observer} from 'mobx-react/native';
 import TCQDXDSQBarView from "../../../View/TCQDXDSQBarView";
-
+@observer
 export default class TCShangDong115NumberSelectView extends React.Component {
 
     constructor(state) {
@@ -47,14 +47,16 @@ export default class TCShangDong115NumberSelectView extends React.Component {
         //对齐全大小单双清  因为是wrap
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (this.state != nextState) {
-            return false
-        }
-        return true
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (this.state != nextState) {
+    //         return false
+    //     }
+    //     return true
+    // }
 
     render() {
+      //  return null
+        JXLog("TCJPK-----ball--render")
         this.numberCount= parseInt((width - 31-6)/60);
         return (
             <View style={styles.container}>

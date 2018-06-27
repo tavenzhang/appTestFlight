@@ -27,8 +27,10 @@ import SoundHelper from '../../../Common/JXHelper/SoundHelper'
 import {common} from '../../resouce/images'
 import {Size, width, indexTxtColor, titleBarStyle} from '../../resouce/theme'
 import {navbarHight,navbarMarginTop} from '../../asset'
+import {observer} from 'mobx-react/native';
 
-export default class TCBetBar extends React.Component {
+
+export default class TCBetBar extends React.PureComponent {
 
     constructor(state) {
         super(state);
@@ -46,19 +48,17 @@ export default class TCBetBar extends React.Component {
         rightButtonCall: null,
         rightTitle: '购彩助手',
     }
+    
 
-    componentDidMount() {
-
-    }
-
+   
     render() {
+        JXLog("TCSSC--------------TCBetBar----------------")
         return (
             <ImageBackground style={styles.navBarStyle} source={common.topBg} resizeMode={'cover'}>
                 {/*左边*/}
                 {this.renderGetBackButton()}
                 {/*中间*/}
-                <Text
-                    style={{width: 16, color: titleBarStyle.titleText, fontSize: Size.font12, marginTop:navbarMarginTop}}>玩法</Text>
+                <Text style={{width: 16, color: titleBarStyle.titleText, fontSize: Size.font12, marginTop:navbarMarginTop}}>玩法</Text>
                 <TouchableOpacity onPress={this.centerButtonCall} style={{
                     borderRadius: 3,
                     borderWidth: 0.8,

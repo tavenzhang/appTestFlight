@@ -19,7 +19,11 @@ import {
 import  * as PlayMathConfig from '../../../Data/JXPlayMathConfig'
 
 import {betIcon} from '../../resouce/images'
-export default class MyComponent extends Component {
+
+import {observer} from 'mobx-react/native';
+
+@observer
+export default class MyComponent extends React.Component {
 
     constructor(state) {
         super(state);
@@ -31,14 +35,13 @@ export default class MyComponent extends Component {
 
     static defaultProps = {};
 
+
+
     render() {
+        JXLog("TCSSC------------TCBetShake--333-----------");
         return (
             <View style={{flexDirection: 'row'}}>
-                <TouchableHighlight onPress={()=> {
-                    if (this.props.shakeEvent == null) return
-                    this.props.shakeEvent()
-
-                }} style={{width: 60}} activeOpacity={0.5}
+                <TouchableHighlight onPress={null} style={{width: 60}} activeOpacity={0.5}
                                     underlayColor='transparent'>
                     <View style={{flexDirection: 'row', marginTop: 7, alignItems: 'center'}}>
                         <Image source={betIcon.shake} style={{width: 25, height: 25, marginLeft: 10}}/>
@@ -50,6 +53,7 @@ export default class MyComponent extends Component {
     };
 
     resetPlayMath(playMath, gameUniqueId) {
+        JXLog("TCSSC------------TCBetShake--------resetPlayMath-----")
         this.setState({
             gameUniqueId: gameUniqueId,
             playMath: playMath

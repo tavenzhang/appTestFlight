@@ -52,6 +52,7 @@ export default class TCBetAwardCountdown extends React.Component {
     }
 
     render() {
+       // JXLog("TCSSC------------TCBetAwardCountdown-------------")
         let lastOpenCode = ''
         if (this.props.resultsData&&this.props.resultsData.lastOpen&&this.props.resultsData.lastOpen.lastOpenCode){
             lastOpenCode = this.props.resultsData.lastOpen.lastOpenCode

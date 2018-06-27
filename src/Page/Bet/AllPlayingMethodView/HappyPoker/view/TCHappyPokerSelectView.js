@@ -13,7 +13,7 @@ import {Size, betHome, width, height} from '../../../../resouce/theme'
 import { observer } from 'mobx-react/native';
 
 @observer
-export default class TCHappyPokerSelectView extends React.Component {
+export default class TCHappyPokerSelectView extends React.PureComponent {
 
     constructor(state) {
         super(state);

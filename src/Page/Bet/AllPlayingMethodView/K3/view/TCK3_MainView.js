@@ -31,7 +31,6 @@ export default class TCK3_MainView extends React.Component {
             type: this.props.defaultPlayType,
         };
         SingletonDPS = MathControllerFactory.getInstance().getMathController(this.props.gameUniqueId);
-
     }
 
     static defaultProps = {

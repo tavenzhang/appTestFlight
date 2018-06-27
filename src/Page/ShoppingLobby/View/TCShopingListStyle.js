@@ -8,7 +8,7 @@ import {
     StyleSheet,
     ScrollView,
     Dimensions,
-
+    View
 } from 'react-native';
 
 import ListItemView from './TCShopingListItemView'
@@ -36,7 +36,7 @@ export default class TCShopingListStyle extends Component {
             <ScrollView contentContainerStyle={styles.container} style={{
                 height: height - 64 - 45 - 50,
             }}>
-                <TCFlatList  dataS={this.getRenderListView()} renderRow={this.renderRow}/>
+               <TCFlatList  dataS={this.getRenderListView()} renderRow={this.renderRow}/>
             </ScrollView>
         );
     }
@@ -49,7 +49,6 @@ export default class TCShopingListStyle extends Component {
         } else if (gameInfo) {
             myicon = gameInfo.gameIconUrl
         }
-
         return  <ListItemView
             gameInfo={gameInfo}
             icon={gameInfo && myicon ? myicon : item.icon}
@@ -63,6 +62,7 @@ export default class TCShopingListStyle extends Component {
 
     getRenderListView=()=> {
         let itemArr = [];
+
         if (this.props.mobData && this.props.mobData.length > 0) {
             for (let i = 0; i < this.props.cpArray.length; i++) {
                 let item = this.props.cpArray[i]
@@ -108,14 +108,13 @@ export default class TCShopingListStyle extends Component {
                 //         mobData={this.props.mobData[i]}
                 //     />)
             }
-
             // let paddinngNum = 3-itemArr.length%3
             // paddinngNum = paddinngNum==3?0:paddinngNum
             // for (let i = 0; i < paddinngNum; i++) {
             //     itemArr.push(<SudokuItemView key={i+100} icon={'123'} title={''} mTimer={''}/>)
             // }
-            return itemArr
         }
+        return itemArr
     }
 }
 

@@ -18,7 +18,9 @@ import {
 } from 'react-native';
 import {width, Size} from '../../resouce/theme'
 import {navbarHight} from '../../asset'
+import {observer} from 'mobx-react/native';
 
+@observer
 export default class TCCQSSCPlayMethodSelectPopupView extends Component {
     constructor(state) {
         super(state)
@@ -53,6 +55,7 @@ export default class TCCQSSCPlayMethodSelectPopupView extends Component {
     }
 
     render() {
+        JXLog("TCSSC------------TCCQSSCPlayMethodSelectPopupView-------------")
         return (
             <Modal
                 animationType={this.state.animationType}

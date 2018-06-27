@@ -53,7 +53,7 @@ export  const TC_LayoutAnimaton={
         },
         update: {
             type: LayoutAnimation.Types.spring,
-            property: LayoutAnimation.Properties.scaleXY,
+            property: LayoutAnimation.Properties.opacity,
             springDamping: 0.8,
         },
     },

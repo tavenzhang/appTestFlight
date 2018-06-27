@@ -30,6 +30,7 @@ import RNShakeEvent from 'react-native-shake-event';
 
 import ShakeButton from '../../../View/TCBetShakeButtonView'
 import {betHome} from '../../../../resouce/theme'
+import TCFlatList from "../../../../../Common/View/RefreshListView/TCFLatList";
 
 export default class TCChongQing_WXZX extends React.Component {
 
@@ -63,13 +64,28 @@ export default class TCChongQing_WXZX extends React.Component {
 
     render() {
         /* <Text style={{marginLeft: 10, marginTop: 10, color: '#666666'}}>{this.getPlayInfo()}</Text> */
-        return (
-            <View style={styles.container}>
-                {/*{this.getShakeView()}*/}
-                {this.renderNumberView()}
-            </View>
-        );
+        let firstList= this.getFirstRender(this.state.type);
+        if(firstList.length>0){
+            return (
+                <View style={styles.container}>
+                    <TCFlatList dataS={firstList} initialNumToRender={1} renderRow={this.onRenderRow}/>
+                </View>
+            );
+        }
+        else{
+            return (
+                <View style={styles.container}>
+                    {/*{this.getShakeView()}*/}
+                    {this.renderNumberView()}
+                </View>
+            );
+        }
     };
+
+    onRenderRow=(data,index)=>{
+        let {numberEvent, titleName, areaIndex, ref}=data;
+         return (<NumberW numberEvent={numberEvent} titleName={titleName} areaIndex={areaIndex} ref={ref}/>)
+    }
 
     getShakeView() {
         return (
@@ -92,7 +108,31 @@ export default class TCChongQing_WXZX extends React.Component {
         }
         return ''
     };
+    
+    // 对默认玩法定位胆采用 flatList 方便限定 局部优先渲染,减少过渡的时候卡顿
+    getFirstRender=(type)=> {
+        let dataList = [];
+        switch (this.state.type) {
+            case '任选二-直选复式':
+            case '任选三-直选复式':
+            case '任选四-直选复式':
+            case '五星-五星通选':
+            case '五星-五星直选':
+            case '定位胆-定位胆': {
+                dataList.push({numberEvent: this.props.numberEvent, titleName: '万位', areaIndex: 0, ref: "ref1"});
 
+                dataList.push({numberEvent: this.props.numberEvent, titleName: '千位', areaIndex: 1, ref: "ref2"});
+
+                dataList.push({numberEvent: this.props.numberEvent, titleName: '百位', areaIndex: 2, ref: "ref3"});
+
+                dataList.push({numberEvent: this.props.numberEvent, titleName: '个位', areaIndex: 3, ref: "ref4"});
+                break;
+            }
+        }
+        return dataList;
+    }
+
+    
     renderNumberView() {
         let itemArr = [];
         let type = this.state.type;

@@ -19,7 +19,7 @@ import TCBetChoiceTitleView from '../../../View/TCBetChoiceTitleView'
 import { observer } from 'mobx-react/native';
 import {Size, width, indexBgColor, commonNumBallStyles, betHome} from '../../../../resouce/theme'
 //特码种类
-export default class TCXYFTSpecialKindSelectView extends React.Component {
+export default class TCXYFTSpecialKindSelectView extends React.PureComponent {
 
     constructor(state) {
         super(state);
@@ -93,7 +93,7 @@ export default class TCXYFTSpecialKindSelectView extends React.Component {
 }
 
 @observer
-class NumberView extends React.Component {
+class NumberView extends React.PureComponent {
 
     constructor(state) {
         super(state);

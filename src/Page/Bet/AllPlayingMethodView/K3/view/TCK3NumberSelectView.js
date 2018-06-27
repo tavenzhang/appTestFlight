@@ -20,7 +20,7 @@ import {Size, width, indexBgColor, commonNumBallStyles, betHome} from '../../../
 import TCBetChoiceTitleView from '../../../View/TCBetChoiceTitleView'
 import TCQDXDSQBarView from "../../../View/TCQDXDSQBarView";
 
-export default class TCK3NumberSelectView extends React.Component {
+export default class TCK3NumberSelectView extends React.PureComponent {
 
     constructor(state) {
         super(state);
@@ -122,7 +122,7 @@ export default class TCK3NumberSelectView extends React.Component {
 }
 
 
-class NumberView extends React.Component {
+class NumberView extends React.PureComponent {
 
     constructor(state) {
         super(state);
