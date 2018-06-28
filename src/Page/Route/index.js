@@ -59,6 +59,7 @@ import UserInfo from '../../Page/UserCenter/UserInfo/TCAddUserInfo'
 import FeedbackList from '../../Page/UserCenter/FeedBack/TCUserFeedbackList'
 import UserAcount from '../../Page/UserCenter/UserAccount/TCUserAccountDetailsNew'
 import UserAcountDetail from '../../Page/UserCenter/UserAccount/TCUserAccountBillingDetails'
+import UserTransferDetails from '../../Page/UserCenter/UserAccount/TCUserTransferDetails'
 import Feedback from '../../Page/UserCenter/FeedBack/TCUserFeedback';
 import FeedbackView from '../../Page/UserCenter/FeedBack/TCUserFeedbackView';
 import UserBankManager from '../../Page/UserCenter/UserBank/TCUserBankManager'
@@ -172,6 +173,7 @@ const Components = {
     UserPay: viewRoutHelp(UserPay),
     UserOrderDetail: viewRoutHelp(UserOrderDetail),
     UserAcountDetail: viewRoutHelp(UserAcountDetail),
+    UserTransferDetails: viewRoutHelp(UserTransferDetails),
     UserInfo: viewRoutHelp(UserInfo),
     Feedback: viewRoutHelp(Feedback),
     FeedbackView: viewRoutHelp(FeedbackView),
@@ -222,7 +224,7 @@ const MainStackNavigator = StackNavigator({
 })
 
 export default class Main extends Component {
-    
+
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     }
