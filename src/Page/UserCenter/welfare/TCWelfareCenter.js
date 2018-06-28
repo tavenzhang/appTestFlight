@@ -51,7 +51,7 @@ export default class extends React.Component {
                 <TopNavigationBar
                     title={'福利中心'}
                     needBackButton
-                    backButtonCall={this.props.backHome ? () => this.props.navigation.navigate('Home') : () => Helper.popToBack()}/>
+                    backButtonCall={this.props.backHome ? () => RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home') : () => Helper.popToBack()}/>
                 {this.renderRedWallet()}
                 <View style={styles.moreWelfareContainer}>
                     <Text style={styles.moreWelfareTxt}>更多福利，敬请期待！</Text>

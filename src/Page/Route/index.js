@@ -1,4 +1,4 @@
-import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
+import {TabNavigator , StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
 import {UIManager, StatusBar, View} from 'react-native';
 import {Provider} from 'mobx-react'
@@ -129,8 +129,7 @@ function viewRoutHelp(component) {
 }
 
 const Components = {
-    // Main: viewRoutHelp(MainScreen),
-    ShopingLobby: viewRoutHelp(ShopingLobby),
+    Main: viewRoutHelp(MainScreen),
     WebView: viewRoutHelp(WebView),
     TCNoticeDetail: viewRoutHelp(TCNoticeDetail),
     TCTopWinnerDetail: viewRoutHelp(TCTopWinnerDetail),
@@ -223,7 +222,7 @@ for (let key in Components) {
 
 global.JX_Compones = Components
 
-const MainTabNavigator = createBottomTabNavigator({
+const MainTabNavigator = TabNavigator({
     Home: {
         screen: Home,
         navigationOptions: {
@@ -318,8 +317,7 @@ const MainTabNavigator = createBottomTabNavigator({
     }
 })
 
-const MainStackNavigator = createStackNavigator({
-    Main: {screen: MainTabNavigator},
+const MainStackNavigator = StackNavigator({
     ...Components
 }, {
     navigationOptions: {

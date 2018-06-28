@@ -250,8 +250,7 @@ export default class TCUserCenterNew extends Component {
                                         if (TC_BUTTON_SOUND_STATUS) {
                                             SoundHelper.playSoundBundle();
                                         }
-                                        // NavigatorHelper.gotoSetting();
-                                        NavigationService.navigate('ShopingLobby')
+                                        NavigatorHelper.gotoSetting();
                                     }}>
                                         <Image source={personal.imgSet} style={{width: 24, height: 24, marginTop: 10, marginRight: 10}}/>
                                     </TouchableOpacity>

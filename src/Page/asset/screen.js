@@ -29,15 +29,15 @@ export const NavBarHeaderHeight = 44
 export const NavBarHeight = StatusBarHeight + NavBarHeaderHeight
 
 //手机状态栏高度
-export const statusBarHeight = IS_IOS ? (JX_PLAT_INFO.IS_IphoneX ? 44 : 20) : StatusBar.currentHeight
+export const statusBarHeight = IS_IOS ? (JX_IPHON_X ? 44 : 20) : StatusBar.currentHeight
 
-export const navBarHeaderHeight = IS_IOS ? (JX_PLAT_INFO.IS_IphoneX  ? 88 : 64) : 44
+export const navBarHeaderHeight = IS_IOS ? (JX_IPHON_X  ? 88 : 64) : 44
 
 export const navbarHight = IS_IOS ? navBarHeaderHeight : navBarHeaderHeight + statusBarHeight
 
-export const navbarMarginTop = IS_IOS ? (JX_PLAT_INFO.IS_IphoneX  ? 44 : 20) : 0
+export const navbarMarginTop = IS_IOS ? (JX_IPHON_X  ? 44 : 20) : 0
 
-export const bottomNavHeight = IS_IOS ? (JX_PLAT_INFO.IS_IphoneX  ? 83 : 50) : 49
+export const bottomNavHeight = IS_IOS ? (JX_IPHON_X  ? 83 : 50) : 49
 
 export const JX_PLAT_INFO = {
     MarginBarHeight: StatusBarHeight,

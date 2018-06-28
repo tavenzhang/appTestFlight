@@ -58,7 +58,7 @@ export default class TCLotteryLobby extends React.Component {
         return (
             <View style={JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container}>
                 <TopNavigationBar title='开奖大厅' needBackButton={true}
-                                  backButtonCall={() => this.props.navigation.navigate('Home')}
+                                  backButtonCall={() => RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home')}
                 />
                 {/*列表*/}
                 <ListView
