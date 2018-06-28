@@ -5,20 +5,16 @@
 
 import React, {Component} from 'react';
 import {
-    AppRegistry,
+    Modal,
+    ScrollView,
     StyleSheet,
     Text,
-    View,
-    Modal,
-    TouchableOpacity,
     TouchableHighlight,
-    Platform,
-    ScrollView,
-    Dimensions
+    TouchableOpacity,
+    View
 } from 'react-native';
-import {width, Size} from '../../resouce/theme'
-import {navbarHight} from '../../asset'
-import {NavBarHeaderHeight, StatusBarHeight} from "../../asset/screen";
+import {Size, width} from '../../resouce/theme'
+import {NavBarHeaderHeight} from "../../asset/screen";
 
 export default class TCCQSSCPlayMethodSelectPopupView extends Component {
     constructor(state) {

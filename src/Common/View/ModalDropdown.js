@@ -208,9 +208,10 @@ export default class ModalDropdown extends Component {
         let showInBottom = bottomSpace >= dropdownHeight || bottomSpace >= this._buttonFrame.y;
         let showInLeft = rightSpace >= this._buttonFrame.x;
 
+        let top = this._buttonFrame.y + this._buttonFrame.h - (IS_IOS ? 0 : StatusBarHeight);
         var style = {
             height: dropdownHeight,
-            top: showInBottom ? this._buttonFrame.y + this._buttonFrame.h - StatusBarHeight : Math.max(0, this._buttonFrame.y - dropdownHeight),
+            top: showInBottom ? top : Math.max(0, this._buttonFrame.y - dropdownHeight),
         }
 
         if (showInLeft) {

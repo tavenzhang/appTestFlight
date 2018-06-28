@@ -7,10 +7,6 @@ const JX_IPHON_X = IS_IOS &&
     ((SCREEN_H === X_HEIGHT && SCREEN_W === X_WIDTH) ||
         (SCREEN_H === X_WIDTH && SCREEN_W === X_HEIGHT));
 
-
-
-
-
 /**
  * 手机状态栏高度
  * for ios:     iPhoneX is 44, other is 20
@@ -28,14 +24,10 @@ export const NavBarHeaderHeight = 44
  */
 export const NavBarHeight = StatusBarHeight + NavBarHeaderHeight
 
-//手机状态栏高度
-export const statusBarHeight = IS_IOS ? (JX_IPHON_X ? 44 : 20) : StatusBar.currentHeight
-
-export const navBarHeaderHeight = IS_IOS ? (JX_IPHON_X  ? 88 : 64) : 44
-
-export const navbarHight = IS_IOS ? navBarHeaderHeight : navBarHeaderHeight + statusBarHeight
-
-export const navbarMarginTop = IS_IOS ? (JX_IPHON_X  ? 44 : 20) : 0
+/**
+ * 导航栏按钮下拉框距离顶部位置
+ */
+export const NavBarModalTop = IS_IOS ? NavBarHeight : NavBarHeaderHeight
 
 export const bottomNavHeight = IS_IOS ? (JX_IPHON_X  ? 83 : 50) : 49
 

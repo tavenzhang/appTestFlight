@@ -4,24 +4,24 @@
  */
 
 /**系统 npm类 */
-import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, Platform} from 'react-native';
+import React from 'react';
+import {Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {observer} from 'mobx-react/native';
 import Toast from '../../Common/JXHelper/JXToast';
 import Moment from 'moment';
 import momentTimeZone from 'moment-timezone';
 import * as _ from 'lodash';
-
 /**组件内部显示需要引入的类 */
 import TopNavigationBar from './components/TCNavigationBar';
-import {width, height, Size} from '../resouce/theme';
-import {JX_PLAT_INFO,statusBarHeight} from '../../Page/asset'
+import {height, Size, width} from '../resouce/theme';
+import {JX_PLAT_INFO} from '../../Page/asset'
 import RedPacketModal from './components/RedPacketModal';
 /** 外部关系组件 如 页面跳转用 */
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import JXHelper from '../../Common/JXHelper/JXHelper';
 
 import RedPacket from './RedPacketData';
+
 let RedPacketData = new RedPacket();
 
 @observer
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     },
     bgViewStyle: {
         width: width,
-        height: Platform.OS == 'ios' ? height : height - statusBarHeight,
+        height: height,
         alignItems: 'center',
         backgroundColor: '#F2F2F2'
     },

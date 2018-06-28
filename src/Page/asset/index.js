@@ -1,5 +1,5 @@
 export {Other} from './drawable'
-export {JX_PLAT_INFO, bottomNavHeight, statusBarHeight, navbarMarginTop, navbarHight} from './screen'
+export {JX_PLAT_INFO, bottomNavHeight} from './screen'
 export {themeViewStyle} from './theme'
 
 
