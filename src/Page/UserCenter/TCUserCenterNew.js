@@ -233,7 +233,7 @@ export default class TCUserCenterNew extends Component {
                                 <View
                                     style={{
                                         flexDirection: 'row',
-                                        marginTop: Platform.OS === 'ios' ? 40 : 20,
+                                        marginTop: 20,
                                         alignItems: 'center'
                                     }}>
                                     <TouchableOpacity onPress={() => this.gotoUserDetail()}>
