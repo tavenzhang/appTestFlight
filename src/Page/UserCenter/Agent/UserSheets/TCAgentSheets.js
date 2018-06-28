@@ -37,6 +37,7 @@ import {
     indexTxtColor
 } from '../../../resouce/theme';
 import Moment from 'moment';
+import userStore from '../../../../Data/store/UserStore'
 
 let isUserSheet = true
 
@@ -78,7 +79,7 @@ export default class TCAgentSheets extends Component {
                 sumBonus: 0,
             },
             dataSource1:
-                TCUSER_DATA.oauthRole === 'USER'
+                userStore.oauthRole === 'USER'
                     ? ['盈利总额', '有效投注总额', '派彩总额', '充值总额', '提款总额']
                     : this.getListTitles(),
             dataSource2: ['盈利总额', '有效投注总额', '派彩总额', '佣金总额', '充值总额', '提款总额'],
@@ -105,7 +106,7 @@ export default class TCAgentSheets extends Component {
                 endDateInclusive: end,
                 startDateInclusive: start,
                 agentUsername: this.props.username ? this.props.username : null,
-                username: TCUSER_DATA.username
+                username: userStore.userName
             },
             data => {
                 this.setState({animating: false});
@@ -223,7 +224,7 @@ export default class TCAgentSheets extends Component {
                     <UserIcon
                         style={styles.imgUser}
                         text={JXHelper.getUserIconShowName(
-                            this.props.username ? this.props.username : TCUSER_DATA.username
+                            this.props.username ? this.props.username : userStore.userName
                         )}
                     />
                     <View style={styles.agentDetailTxt}>
@@ -236,7 +237,7 @@ export default class TCAgentSheets extends Component {
                                     color: agentCenter.title
                                 }}
                             >
-                                {this.props.username ? this.props.username : TCUSER_DATA.username}
+                                {this.props.username ? this.props.username : userStore.userName}
                             </Text>
                         </View>
                         {!this.props.username && (
@@ -252,7 +253,7 @@ export default class TCAgentSheets extends Component {
                                         color: agentCenter.balance
                                     }}
                                 >
-                                    {TCUSER_BALANCE}
+                                    {userStore.balance}
                                 </Text>
                             </View>
                         )}
@@ -267,7 +268,7 @@ export default class TCAgentSheets extends Component {
                                     color: agentCenter.title
                                 }}
                             >
-                                {this.props.username ? this.props.prizeGroup : TCUSER_DATA.prizeGroup}
+                                {this.props.username ? this.props.prizeGroup : userStore.prizeGroup}
                             </Text>
                         </View>
                     </View>

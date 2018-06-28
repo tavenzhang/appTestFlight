@@ -18,8 +18,7 @@ import {
     ImageBackground,
     TouchableOpacity
 } from 'react-native';
-import SoundHelper from '../../Common/JXHelper/SoundHelper'
-
+import jdAppStore from '../../Data/store/JDAppStore'
 import {width, indexTxtColor, Size} from '../../Page/resouce/theme'
 import {navbarHight, navbarMarginTop} from '../../Page/asset'
 
@@ -166,11 +165,7 @@ export default class TCNavigationBar extends Component {
 
     backButtonCall = () => {
         if (this.props.backButtonCall == null) return;
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.backButtonCall();
     }
 
@@ -212,11 +207,7 @@ export default class TCNavigationBar extends Component {
 
     rightButtonCall() {
         if (this.props.rightButtonCall == null) return;
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.rightButtonCall();
     }
 

@@ -47,10 +47,9 @@ import {computed} from 'mobx'
 import {width, indexBgColor, indexTxtColor, height} from '../resouce/theme';
 import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
 import NetWorkTool from '../../Common/Network/TCToolNetWork';
-import TCUserCollectHelper from '../../Common/JXHelper/TCUserCollectHelper';
+
 import RedPacketMenu from '../red_packet/components/RedPacketMenu';
 
-let TCUserCollectHelpers = new TCUserCollectHelper();
 let RedPacketData = new RedPacket();
 import RedPacket from '../red_packet/RedPacketData';
 import Swiper from '../../Common/View/swiper/Swiper'
@@ -411,7 +410,6 @@ export default class TCHome extends Component {
             RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
             return;
         }
-        TCUserCollectHelpers.getUserCollectsFromServer(null);
         //跳转到PCDD
         if (rowData.gameUniqueId == 'PCDD' || rowData.gameNameInChinese == 'PC蛋蛋') {
             NavigatorHelper.gotoPCDD(this.props.cpArray);
@@ -425,7 +423,7 @@ export default class TCHome extends Component {
         if (title == 'TOPUP' || title == '存/取款') {
             RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
         } else if (title == 'ORDER' || title == '投注记录') {
-            if (TCUSER_DATA.islogin) {
+            if (this.isLogin) {
                 let otherPlatform = JXHelper.getDSFOpenList().dsfAll
                 if (otherPlatform && otherPlatform.length > 0) {
                     NavigatorHelper.pushToOrderType()

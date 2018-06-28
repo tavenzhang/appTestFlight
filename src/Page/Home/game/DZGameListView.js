@@ -7,7 +7,7 @@ import {
     Text
 } from 'react-native'
 
-import {observer} from 'mobx-react/native'
+import {observer, inject} from 'mobx-react/native'
 import GamePage from "./GamePage";
 import {indexBgColor, shoppingTxtColor, baseColor, Size} from "../../resouce/theme";
 import TCNavigationBar from "../../../Common/View/TCNavigationBar";
@@ -20,21 +20,22 @@ import JDToast from "../../../Common/JXHelper/JXToast";
 /**
  *电子游戏
  */
+@inject("userStore")
 @observer
 export default class DZGameListView extends Component {
 
     constructor(props) {
         super(props);
         this.isReuesting = false; //防止快速点击 产生多次请求
-        this.state={
-            isEmpty:false
+        this.state = {
+            isEmpty: false
         }
     }
 
     render() {
         let emptView = (<View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-            <Text style={{fontSize:16, fontWeight:"bold"}}>
-              游戏暂未开放！
+            <Text style={{fontSize: 16, fontWeight: "bold"}}>
+                游戏暂未开放！
             </Text>
         </View>)
 
@@ -45,9 +46,9 @@ export default class DZGameListView extends Component {
                     needBackButton={true}
                     backButtonCall={JX_NavHelp.popToBack}
                 />
-                {this.state.isEmpty ? emptView :<ScrollableTabView
+                {this.state.isEmpty ? emptView : <ScrollableTabView
                     initialPage={0}
-                    style={{backgroundColor: indexBgColor.itemBg, width:SCREEN_W}}
+                    style={{backgroundColor: indexBgColor.itemBg, width: SCREEN_W}}
                     removeClippedSubviews={false}
                     tabBarUnderlineStyle={{backgroundColor: shoppingTxtColor.tabLine, height: 2}}
                     locked={false}
@@ -72,11 +73,11 @@ export default class DZGameListView extends Component {
 
     componentWillMount() {
         let {gameData} = this.props.navigation.state.params
-        JX_Store.gameDZStore.loadGames(gameData.gamePlatform,(dataList)=>{
-            if(dataList.length == 0){
-                this.setState({isEmpty:true})
-            }else{
-                this.setState({isEmpty:false})
+        JX_Store.gameDZStore.loadGames(gameData.gamePlatform, (dataList) => {
+            if (dataList.length == 0) {
+                this.setState({isEmpty: true})
+            } else {
+                this.setState({isEmpty: false})
             }
         })
     }
@@ -86,12 +87,12 @@ export default class DZGameListView extends Component {
         let {gameData} = this.props.navigation.state.params
         let bodyParam = {
             gameId: dataItem.gameId,
-            access_token: TCUSER_DATA.oauthToken.access_token,
+            access_token: this.props.userStore.access_token,
         }
         let url = config.api.gamesDZ_start + "/" + dataItem.gameId;
         if (!this.isReuesting) {
             this.isReuesting = true;
-            NetUitls.getUrlAndParamsAndPlatformAndCallback(url,bodyParam,gameData.gamePlatform , (ret) => {
+            NetUitls.getUrlAndParamsAndPlatformAndCallback(url, bodyParam, gameData.gamePlatform, (ret) => {
                 this.isReuesting = false
                 JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
                 if (ret.rs) {

@@ -11,11 +11,10 @@ import {
     deploymentKey
 } from '../../Page/resouce/appConfig';
 import {versionHotFix} from '../../Common/Network/TCRequestConfig'
-import {affCodeList} from '../../Page/resouce/appAffCodeList'
-
 import {computed, action, observable} from 'mobx'
 
 import {checkAppVersion, getPlatform} from '../../Common/Network/TCRequestService'
+import SoundHelper from "../../Common/JXHelper/SoundHelper";
 
 /**
  *app信息管理
@@ -138,6 +137,13 @@ class JDAppStore {
     switchButtonSoundStatus(value) {
         this.buttonSoundStatus = value;
         storage.save({key: "BUTTONSOUNDSTATUS", data: this.buttonSoundStatus})
+    }
+
+    @action
+    playSound() {
+        if (this.buttonSoundStatus) {
+            SoundHelper.playSoundBundle();
+        }
     }
 
     @action

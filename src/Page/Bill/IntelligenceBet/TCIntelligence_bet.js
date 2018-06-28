@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 /**系统 npm类 */
-import {observer} from 'mobx-react/native';
+import {observer, inject} from 'mobx-react/native';
 import {baseColor, betHome, Size} from '../../resouce/theme'
 
 /**组件内部显示需要引入的类 */
@@ -49,6 +49,7 @@ const {width, height} = Dimensions.get('window')
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @withMappedNavigationProps()
+@inject("userStore")
 @observer
 export default class IntelligenceBet extends Component {
 
@@ -614,7 +615,7 @@ export default class IntelligenceBet extends Component {
             return;
         }
         postJson.purchaseInfo = {'childOrder': childOrder, "purchaseType": "ICO"};
-        postJson.username = TCUSER_DATA.username ? TCUSER_DATA.username : '';
+        postJson.username = this.props.userStore.userName ? this.props.userStore.userName : '';
         this.freshBalance(postJson)
     }
 
@@ -652,7 +653,7 @@ export default class IntelligenceBet extends Component {
     }
 
     payRequest(json) {
-        if (_.isEmpty(TCUSER_DATA.sessionId)) {
+        if (_.isEmpty(this.props.userStore.sessionId)) {
             //防止用户出现更新后，但是没有拿取到相应的sessionId值
             this.endingProcessing();
             this._partModalLoadingSpinnerOverLay.hide();
@@ -711,7 +712,7 @@ export default class IntelligenceBet extends Component {
     }
 
     checkAnProcessJson(json) {
-        let encryptJson = photoHelper.cropPhoto(TCUSER_DATA.sessionId, JSON.stringify(json));
+        let encryptJson = photoHelper.cropPhoto(this.props.userStore.sessionId, JSON.stringify(json));
         //加密异常
         if (!encryptJson) {
             return false;

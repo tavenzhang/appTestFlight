@@ -194,7 +194,6 @@ export default class TCUserRegister extends Component {
     }
 
     freePlayRegisterSuccess(user) {
-        TCPUSH_TO_LOGIN = false;
         RCTDeviceEventEmitter.emit('userBankChange');
         RCTDeviceEventEmitter.emit('userStateChange');
         RCTDeviceEventEmitter.emit('userStateChange', 'login');
@@ -207,8 +206,6 @@ export default class TCUserRegister extends Component {
             key: 'balance',
             data: user.balance
         });
-        TCUSER_BALANCE = user.balance;
-        TCUSER_DATA = user;
         RCTDeviceEventEmitter.emit('balanceChange');
         RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
         Helper.popToTop();

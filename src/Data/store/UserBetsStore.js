@@ -5,6 +5,7 @@ import {action, observable} from 'mobx'
 import Moment from 'moment'
 import RequestUtils from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
+import userStore from "./UserStore";
 
 export default class UserBetsStore {
 
@@ -101,7 +102,7 @@ export default class UserBetsStore {
             startTime: this.beginTime,
             endTime: this.endTime,
             winLossStatus: this.getBetsSelectTypeStr(),
-            access_token: TCUSER_DATA.oauthToken.access_token
+            access_token: userStore.oauthToken.access_token
         }
         RequestUtils.getUrlAndParamsAndPlatformAndCallback(config.api.userBets, params, platform, (res) => {
             this.loading = false;

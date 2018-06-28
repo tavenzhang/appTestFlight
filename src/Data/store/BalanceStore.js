@@ -28,7 +28,7 @@ export default class BalanceStore {
 
         this.transferAccountName = []
         this.platformBalances = []
-        this.centerBalance = TCUSER_BALANCE
+        this.centerBalance = 0
         this.transferAccountName.push('中心钱包')
         otherPlatform.map((platform) => {
             if (platform.status && platform.status === 'ON') {

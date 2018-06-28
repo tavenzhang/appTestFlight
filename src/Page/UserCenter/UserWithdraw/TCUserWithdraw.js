@@ -378,7 +378,7 @@ export default class TCUserWithdrawNew extends Component {
             return
         }
         if (this.lastRequestTime === 0) {
-            this.lastRequestTime = Moment().format(x)
+            this.lastRequestTime = Moment().format('x')
         } else {
             let temp = Moment().format('x') - this.lastRequestTime;
             if (temp < 1) {

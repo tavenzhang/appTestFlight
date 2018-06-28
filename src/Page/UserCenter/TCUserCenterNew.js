@@ -20,13 +20,9 @@ import {
 
 import {observer, inject} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
-import Moment from 'moment'
 import JXHelper from '../../Common/JXHelper/JXHelper'
-import SoundHelper from '../../Common/JXHelper/SoundHelper'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
-import RequestUtils from '../../Common/Network/TCRequestUitls'
-import {config} from '../../Common/Network/TCRequestConfig'
 import UserIcon from '../../Common/View/TCUserIcon'
 import {personal} from '../resouce/images'
 import {
@@ -41,6 +37,7 @@ import {
 import {JX_PLAT_INFO, ASSET_Screen} from '../asset'
 import SignInModal from './SignIn/TCSignInModal'
 import Toast from "../../Common/JXHelper/JXToast";
+import NavigationService from "../Route/NavigationService";
 
 const USERCENTER_ITEMS = [
     [
@@ -148,11 +145,9 @@ const USERCENTER_ITEMS = [
         }
     ]
 ]
-@inject("mainStore", "userStore")
+@inject("mainStore", "userStore", "jdAppStore")
 @observer
 export default class TCUserCenterNew extends Component {
-
-    lastRequestTime = 0
 
     constructor(props) {
         super(props)
@@ -160,44 +155,14 @@ export default class TCUserCenterNew extends Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
             sectionHeaderHasChanged: (s1, s2) => s1 !== s2
         });
-        this.state = {
-            unreadMessageCnt: TC_NEW_MSG_COUNT > 99 ? 99 : TC_NEW_MSG_COUNT,
-            unreadFeedbackCnt: TC_FEEDBACK_COUNT > 99 ? 99 : TC_FEEDBACK_COUNT
-        }
     }
 
     componentDidMount() {
         this.props.userStore.getSignInData()
 
-        this.listener2 = RCTDeviceEventEmitter.addListener('userStateChange', (state) => {
-            if (state === 'login') {
-                this.props.userStore.getSignInData()
-            }
-        })
-
-        this.listener3 = RCTDeviceEventEmitter.addListener('jx_app_active', () => {
-            if (this.props.userStore.isLogin) {
-                this.props.userStore.getSignInData()
-            }
-        })
-
-        this.listener4 = RCTDeviceEventEmitter.addListener('unreadMessage', () => {
-            console.log('UserCenter#unreadMessage() TC_NEW_MSG_COUNT=' + TC_NEW_MSG_COUNT + '; TC_FEEDBACK_COUNT=' + TC_FEEDBACK_COUNT)
-            if (this.state.unreadMessageCnt !== TC_NEW_MSG_COUNT) {
-                console.log('unread message count update. before count:' + this.state.unreadMessageCnt + ', current count:' + TC_NEW_MSG_COUNT)
-                this.setState({unreadMessageCnt: TC_NEW_MSG_COUNT})
-            }
-            if (this.state.unreadFeedbackCnt !== TC_FEEDBACK_COUNT) {
-                console.log('unread feedback count update. before count:' + this.state.unreadFeedbackCnt + ', current count:' + TC_FEEDBACK_COUNT)
-                this.setState({unreadFeedbackCnt: TC_FEEDBACK_COUNT})
-            }
-        })
     }
 
     componentWillUnmount() {
-        this.listener2 && this.listener2.remove()
-        this.listener3 && this.listener3.remove()
-        this.listener4 && this.listener4.remove()
     }
 
     render() {
@@ -225,9 +190,7 @@ export default class TCUserCenterNew extends Component {
                                 </View>
                                 <View style={{position: 'absolute', top: Platform.OS === 'ios' ? 25 : 5, right: 5}}>
                                     <TouchableOpacity onPress={() => {
-                                        if (TC_BUTTON_SOUND_STATUS) {
-                                            SoundHelper.playSoundBundle();
-                                        }
+                                        this.props.jdAppStore.playSound();
                                         NavigatorHelper.gotoSetting();
                                     }}>
                                         <Image source={personal.imgSet}
@@ -299,15 +262,6 @@ export default class TCUserCenterNew extends Component {
     @computed get isAgent() {
         return this.props.userStore.isAgent;
     }
-
-    @computed get newMsgCount() {
-        return this.props.userStore.newMsgCount;
-    }
-
-    @computed get newFeedbackCount() {
-        return this.props.userStore.newFeedBackCount;
-    }
-
 
     // 签到按钮
     getSignButton() {
@@ -386,7 +340,7 @@ export default class TCUserCenterNew extends Component {
                         <View style={styles.itemTxtView}>
                             <View style={{flexDirection: 'row'}}>
                                 <Text style={styles.mySettingLeftTxtStyle}>{rowData.name}</Text>
-                                {this.getStatusTip(rowData.key === "wdxx" ? this.newMsgCount : this.newFeedbackCount)}
+                                <TipView key={rowData.key}/>
                             </View>
                             <Text style={styles.contentTxtStyle}>{rowData.description}</Text>
                         </View>
@@ -440,7 +394,7 @@ export default class TCUserCenterNew extends Component {
     getStatusTip(count) {
         count = count > 99 ? 99 : count;
         if (count === 0) {
-            return null
+            return <View></View>
         } else {
             return (<View style={styles.pointStyle}><Text style={styles.pointTxt}>{count}</Text></View>)
         }
@@ -589,21 +543,26 @@ class MoneyLabel extends Component {
     }
 }
 
-class StateModel {
-    @observable
-    isSee = true
-    @observable
-    balance = TCUSER_BALANCE
+@inject("userStore")
+@observer
+class TipView extends Component {
 
-    /**
-     * 显示或隐藏金额
-     */
-    @action
-    setMoneyVisible() {
-        this.isSee = !this.isSee
+    @computed get newMsgCount() {
+
+        return this.props.userStore.newMsgCount > 99 ? 99 : this.props.userStore.newMsgCount;
+    }
+
+    @computed get newFeedbackCount() {
+        return this.props.userStore.newFeedBackCount > 99 ? 99 : this.props.userStore.newFeedBackCount;
+    }
+
+    render() {
+        JXLog("===========newMsgCount===============", this.props.userStore.newMsgCount)
+        let count = this.props.key === "wdxx" ? this.newMsgCount : this.newFeedbackCount;
+        return (<View style={count !== 0 ? styles.pointStyle : null}>{count !== 0 ?
+            <Text style={styles.pointTxt}>{count}</Text> : null}</View>)
     }
 }
-
 
 const styles = StyleSheet.create({
     container: {

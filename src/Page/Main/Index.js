@@ -31,7 +31,6 @@ import Main from '../Route';
 import {config, AppName, versionHotFix} from '../../Common/Network/TCRequestConfig';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import TCInitHelperC from '../../Common/JXHelper/TCInitHelper'
-import TCUserCollectHelper from '../../Common/JXHelper/TCUserCollectHelper'
 
 import {width, indexBgColor, Size} from '../resouce/theme'
 import StartUpHelper from './StartUpHelper'
@@ -43,7 +42,6 @@ import initAppStore from '../../Data/store/InitAppStore'
 let retryTimes = 0
 let downloadTime = 0
 let TCInitHelper = new TCInitHelperC()
-let UserCollectHelper = new TCUserCollectHelper()
 let alreadyInCodePush = false
 let CodePushDeploymentKey = null
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'

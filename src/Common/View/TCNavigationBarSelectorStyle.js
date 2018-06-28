@@ -22,10 +22,10 @@ import {
     Button,
     TouchableOpacity,
 } from 'react-native';
-import SoundHelper from '../JXHelper/SoundHelper'
 import {common} from '../../Page/resouce/images'
 import {Size, width, indexTxtColor, popuWinStyle} from '../../Page/resouce/theme'
 import {navbarHight, navbarMarginTop} from '../../Page/asset'
+import jdAppStore from '../../Data/store/JDAppStore'
 
 export default class TCBetBar extends React.Component {
 
@@ -112,11 +112,7 @@ export default class TCBetBar extends React.Component {
 
     backButtonCall() {
         if (this.props.backButtonCall == null) return;
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.backButtonCall();
     }
 

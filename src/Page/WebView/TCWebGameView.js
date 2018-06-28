@@ -15,6 +15,8 @@ var WEBVIEW_REF = 'webview';
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
 import {JX_PLAT_INFO, TC_SCREEN, themeViewStyle} from '../asset'
+import userStore from '../../Data/store/UserStore'
+
 //专门为体育电子准备
 export default class TCWebGameView extends React.Component {
 
@@ -30,14 +32,14 @@ export default class TCWebGameView extends React.Component {
     componentWillMount() {
         let params = this.props.navigation.state.params;
         let bodyParam = {
-            access_token: TCUSER_DATA.oauthToken.access_token,
+            access_token: userStore.access_token,
         }
 
         JXLog("componentWillMount--- params==", params)
         if (params.isDZ) {
             let {gameData, gameId} = params
             bodyParam.gameId = gameId
-            NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZ_start + "/" + gameId,  bodyParam,gameData.gamePlatform, (ret) => {
+            NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZ_start + "/" + gameId, bodyParam, gameData.gamePlatform, (ret) => {
                 JXLog("TCWebGameView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
                 if (ret.rs) {
                     this.setState({url: ret.content.gameUrl});
@@ -47,11 +49,11 @@ export default class TCWebGameView extends React.Component {
             })
         } else {
             let {gameData} = params
-            NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.startGame, bodyParam,gameData.gamePlatform, (ret) => {
+            NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.startGame, bodyParam, gameData.gamePlatform, (ret) => {
                 JXLog("TCWebGameView-------startGame" + ret.content, ret)
                 if (ret.rs) {
-                   // this.setState({url: "https://www.google.com.hk"});
-                     this.setState({url: ret.content.gameUrl});
+                    // this.setState({url: "https://www.google.com.hk"});
+                    this.setState({url: ret.content.gameUrl});
                 } else {
                     this.setState({loadedFail: true})
                 }
@@ -90,14 +92,14 @@ export default class TCWebGameView extends React.Component {
         return (<View style={themeViewStyle.containView}>
             <TopNavigationBar title={title} needBackButton={true} backButtonCall={this.onBack}/>
             {conetView}
-           <View style={{
+            <View style={{
                 position: "absolute",
                 justifyContent: "center",
                 alignItems: "center",
                 flexDirection: "row",
                 top: JX_PLAT_INFO.MarginBarHeight + 12,
                 zIndex: 100,
-                right:25
+                right: 25
             }}>
                 <TouchableOpacity onPress={JX_NavHelp.popToBack}>
                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -114,10 +116,10 @@ export default class TCWebGameView extends React.Component {
     }
 
     onBack = () => {
-        if(this.state.backButtonEnabled){
+        if (this.state.backButtonEnabled) {
             this.refs[WEBVIEW_REF].goBack();
         }
-        else{
+        else {
             JX_NavHelp.popToBack()
         }
     }

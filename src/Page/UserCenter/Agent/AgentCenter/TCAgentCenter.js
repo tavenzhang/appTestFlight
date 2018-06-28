@@ -14,10 +14,6 @@ import {
     ImageBackground
 } from 'react-native'
 import TopNavigationBar from '../../../../Common/View/TCNavigationBar'
-import AgentCommissionList from './../../Agent/Commission/TCAgentCommissionList'
-import AgentIntroduce from './TCAgentIntroduce'
-import AgentTeamList from './../Team/TCAgentTeamManager'
-import AgentSheet from './../UserSheets/TCAgentSheets'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import JXHelper from '../../../../Common/JXHelper/JXHelper'
 import NavigatorHelper from '../../../../Common/JXHelper/TCNavigatorHelper'
@@ -25,6 +21,9 @@ import UserIcon from '../../../../Common/View/TCUserIcon'
 import {personal} from '../../../resouce/images'
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../../resouce/theme'
 import Helper from "../../../../Common/JXHelper/TCNavigatorHelper";
+import userStore from '../../../../Data/store/UserStore'
+
+
 /**
  * 代理中心
  */
@@ -45,39 +44,61 @@ export default class TCAgentCenter extends Component {
                     ref='TopNavigationBar'
                     title={'代理中心'}
                     needBackButton={true}
-                    backButtonCall={()=> {
+                    backButtonCall={() => {
                         RCTDeviceEventEmitter.emit('balanceChange')
                         Helper.popToBack()
                     }}
                 />
 
-                    <ImageBackground source={personal.userCenterBg} style={styles.imgTop}>
-                <View style={styles.agentDetail}>
-                    <UserIcon  style={styles.imgUser} text={JXHelper.getUserIconShowName(TCUSER_DATA.username)}/>
+                <ImageBackground source={personal.userCenterBg} style={styles.imgTop}>
+                    <View style={styles.agentDetail}>
+                        <UserIcon style={styles.imgUser} text={JXHelper.getUserIconShowName(userStore.userName)}/>
                         <View style={styles.agentDetailTxt}>
-                            <View style={{flexDirection:'row'}}>
+                            <View style={{flexDirection: 'row'}}>
                                 <Text
-                                    style={{marginTop:10,fontSize:Size.font17, color: listViewTxtColor.bankTitle}}>用户名 </Text>
+                                    style={{
+                                        marginTop: 10,
+                                        fontSize: Size.font17,
+                                        color: listViewTxtColor.bankTitle
+                                    }}>用户名 </Text>
                                 <Text
-                                    style={{marginTop:10,fontSize:Size.font17, color: listViewTxtColor.bankTitle}}>{TCUSER_DATA.username}</Text>
-                                </View>
-                                <View style={{flexDirection:'row'}}>
+                                    style={{
+                                        marginTop: 10,
+                                        fontSize: Size.font17,
+                                        color: listViewTxtColor.bankTitle
+                                    }}>{userStore.userName}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row'}}>
                                 <Text
-                                    style={{marginTop:10,fontSize:Size.font17, color: listViewTxtColor.bankTitle}}>余 额 </Text>
-                                 <Text
-                                    style={{marginTop:10, marginLeft:10, fontSize:Size.font17, color: listViewTxtColor.bankTitle}}>{TCUSER_BALANCE}</Text>
-                                </View>
-                                <View style={{flexDirection:'row'}}>
+                                    style={{marginTop: 10, fontSize: Size.font17, color: listViewTxtColor.bankTitle}}>余
+                                    额 </Text>
                                 <Text
-                                    style={{marginTop:10,fontSize:Size.font17, color: listViewTxtColor.bankTitle}}>彩票返点 </Text>
-                                 <Text
-                                    style={{marginTop:10, fontSize:Size.font17, color: listViewTxtColor.bankTitle}}>{TCUSER_DATA.prizeGroup}</Text>
-                                </View>
+                                    style={{
+                                        marginTop: 10,
+                                        marginLeft: 10,
+                                        fontSize: Size.font17,
+                                        color: listViewTxtColor.bankTitle
+                                    }}>{userStore.balance}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text
+                                    style={{
+                                        marginTop: 10,
+                                        fontSize: Size.font17,
+                                        color: listViewTxtColor.bankTitle
+                                    }}>彩票返点 </Text>
+                                <Text
+                                    style={{
+                                        marginTop: 10,
+                                        fontSize: Size.font17,
+                                        color: listViewTxtColor.bankTitle
+                                    }}>{userStore.prizeGroup}</Text>
                             </View>
                         </View>
-                    </ImageBackground>
+                    </View>
+                </ImageBackground>
                 <View>
-                    <TouchableOpacity onPress={()=> {
+                    <TouchableOpacity onPress={() => {
                         this.goToAgentInroduce()
                     }}>
                         <View style={styles.itemStyle}>
@@ -103,7 +124,7 @@ export default class TCAgentCenter extends Component {
                      </View>
                      </TouchableOpacity>*/}
 
-                    <TouchableOpacity onPress={()=> {
+                    <TouchableOpacity onPress={() => {
                         NavigatorHelper.pushToAgentAddAccount(false)
                     }}>
                         <View style={styles.itemStyle}>
@@ -116,7 +137,7 @@ export default class TCAgentCenter extends Component {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={()=> {
+                    <TouchableOpacity onPress={() => {
                         this.goToTeam()
                     }}>
                         <View style={styles.itemStyle}>
@@ -128,7 +149,7 @@ export default class TCAgentCenter extends Component {
                             </View>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=> {
+                    <TouchableOpacity onPress={() => {
                         this.goToCommissionList()
                     }}>
                         <View style={styles.itemStyle}>
@@ -141,7 +162,7 @@ export default class TCAgentCenter extends Component {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={()=> {
+                    <TouchableOpacity onPress={() => {
                         this.goToUserSheets()
                     }}>
                         <View style={styles.itemStyle}>
@@ -159,7 +180,7 @@ export default class TCAgentCenter extends Component {
     }
 
     goToCommissionList() {
-      NavigatorHelper.pushToAgentCommission()
+        NavigatorHelper.pushToAgentCommission()
     }
 
     goToAgentInroduce() {
@@ -167,11 +188,11 @@ export default class TCAgentCenter extends Component {
     }
 
     goToTeam() {
-      NavigatorHelper.pushToUserTeamManager()
+        NavigatorHelper.pushToUserTeamManager()
     }
 
     goToUserSheets() {
-      NavigatorHelper.pushToUserSheet(false)
+        NavigatorHelper.pushToUserSheet(false)
     }
 }
 
@@ -206,12 +227,12 @@ const styles = StyleSheet.create({
     }, itemTxtLeftStyle: {
         marginLeft: 20,
         fontSize: Size.large,
-        color:listViewTxtColor.title
+        color: listViewTxtColor.title
     }, imgNext: {
         width: 10,
         height: 15,
-    },imgTop: {
-        backgroundColor:'transparent',
+    }, imgTop: {
+        backgroundColor: 'transparent',
         width: width,
         height: height * 0.20
     },

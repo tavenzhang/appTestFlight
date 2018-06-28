@@ -3,7 +3,6 @@
  */
 
 
-
 /*
 
  ** use for import **
@@ -23,10 +22,11 @@ import {
     TouchableOpacity,
     ImageBackground
 } from 'react-native';
-import SoundHelper from '../../../Common/JXHelper/SoundHelper'
 import {common} from '../../resouce/images'
 import {Size, width, indexTxtColor, titleBarStyle} from '../../resouce/theme'
-import {navbarHight,navbarMarginTop} from '../../asset'
+import {navbarHight, navbarMarginTop} from '../../asset'
+import jdAppStore from '../../../Data/store/JDAppStore'
+
 
 export default class TCBetBar extends React.Component {
 
@@ -58,7 +58,12 @@ export default class TCBetBar extends React.Component {
                 {this.renderGetBackButton()}
                 {/*中间*/}
                 <Text
-                    style={{width: 16, color: titleBarStyle.titleText, fontSize: Size.font12, marginTop:navbarMarginTop}}>玩法</Text>
+                    style={{
+                        width: 16,
+                        color: titleBarStyle.titleText,
+                        fontSize: Size.font12,
+                        marginTop: navbarMarginTop
+                    }}>玩法</Text>
                 <TouchableOpacity onPress={this.centerButtonCall} style={{
                     borderRadius: 3,
                     borderWidth: 0.8,
@@ -94,7 +99,7 @@ export default class TCBetBar extends React.Component {
                     underlayColor='#DEDEDE'
                     style={styles.leftViewStyle}
                 >
-                    <View  >
+                    <View>
                         <Image source={common.back} style={styles.navLeftImgStyle}/>
                     </View>
                 </TouchableOpacity>
@@ -106,7 +111,7 @@ export default class TCBetBar extends React.Component {
         if (this.props.rightTitle) {
             return (
                 <TouchableOpacity
-                    onPress={()=> {
+                    onPress={() => {
                         this.rightButtonCall()
                     }}
                     underlayColor='#DEDEDE'
@@ -122,31 +127,19 @@ export default class TCBetBar extends React.Component {
 
     backButtonCall() {
         if (this.props.backButtonCall == null) return;
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.backButtonCall();
     }
 
     rightButtonCall() {
         if (this.props.rightButtonCall == null) return;
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.rightButtonCall();
     }
 
     centerButtonCall = () => {
         if (this.props.centerButtonCall == null) return;
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.centerButtonCall();
     };
 
@@ -197,7 +190,7 @@ const styles = StyleSheet.create({
         width: 100,
     },
     rightViewStyle: {
-        top: navbarMarginTop+5,
+        top: navbarMarginTop + 5,
         position: 'absolute',
         right: 5,
     },

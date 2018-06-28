@@ -19,7 +19,7 @@ Helper.setNavigator = (args) => {
 }
 
 Helper.checkUserWhetherLogin = () => {
-    if (TCUSER_DATA.username && TCUSER_DATA.islogin) return true
+    if (userStore.userName && userStore.isLogin) return true
     return false
 }
 
@@ -152,7 +152,6 @@ Helper.pushToUserLogin = (gotoCenter, userName, shouldReplace, isFromRegister) =
             userName: userName,
             isFromRegister: isFromRegister
         });
-        TCPUSH_TO_LOGIN = true
     }, 1000)
 }
 

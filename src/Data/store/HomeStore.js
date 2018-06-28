@@ -4,7 +4,7 @@
 import {computed, action, observable} from 'mobx'
 import {getContent, getGameSetting, getTopWinners} from '../../Common/Network/TCRequestService'
 import {appId, config} from "../../Common/Network/TCRequestConfig";
-
+import userStore from './UserStore'
 
 export default class HomeStore {
 
@@ -17,7 +17,7 @@ export default class HomeStore {
     @observable isLoading = true;
     @observable isRefreshing = true;
     @observable topWinnersModel;
-    isFirstLoad =false;
+    isFirstLoad = false;
 
     @action
     loadHomeContents(callback) {
@@ -121,8 +121,8 @@ export default class HomeStore {
 
     @action
     requestGameSetting() {
-        let prizeGroup = TCUSER_DATA.prizeGroup ? TCUSER_DATA.prizeGroup : ''
-        if (!TCUSER_DATA.username || !TCUSER_DATA.islogin) {
+        let prizeGroup = userStore.prizeGroup ? userStore.prizeGroup : ''
+        if (!userStore.userName || !userStore.isLogin) {
             prizeGroup = this.getVisitorPrizeGroup()
         }
         getGameSetting({

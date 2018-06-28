@@ -91,5 +91,8 @@ public class TCOpenOtherAppHelper extends ReactContextBaseJavaModule {
             } catch (Exception e) {
             }
         }
+
     }
+
+
 }

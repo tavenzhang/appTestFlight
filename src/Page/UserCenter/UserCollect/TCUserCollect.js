@@ -18,14 +18,13 @@ import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import TCUserCollectItem from './view/TCUserCollectItemView'
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar'
-import JXHelperC from '../../../Common/JXHelper/TCUserCollectHelper'
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView'
 import Toast from '../../../Common/JXHelper/JXToast';
 
-let JXHelper = new JXHelperC()
 import JXHelpers from '../../../Common/JXHelper/JXHelper'
 import {common} from '../../resouce/images'
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../resouce/theme'
+import userCollectStore from '../../../Data/store/UserCollectStore'
 
 /**
  * 收藏
@@ -51,7 +50,7 @@ export default class TCUserCollect extends Component {
                     }}
                     rightTitle={'清空收藏'}
                     rightButtonCall={() => {
-                        if (TCUSER_COLLECT && TCUSER_COLLECT.length > 0) {
+                        if (userCollectStore.hasCollected) {
                             Alert.alert(
                                 '您是否要清空所有收藏？', null, [{
                                     text: '确定',
@@ -108,8 +107,8 @@ export default class TCUserCollect extends Component {
      * @param callback
      */
     loadData(pageNum, pageSize, callback) {
-        JXHelper.getUserCollectsFromServer((res) => {
-            callback && callback(res, TCUSER_COLLECT)
+        userCollectStore.getCollects(res => {
+            callback && callback(res, userCollectStore.collects.slice());
         })
     }
 
@@ -118,17 +117,15 @@ export default class TCUserCollect extends Component {
      * @param gameId
      */
     removeCollect(gameId) {
-        JXHelper.cancelUserCollectsFromServer(gameId, (res) => {
+        userCollectStore.cancelUserCollects(gameId, res => {
             if (res.rs) {
                 var refreshListView = this.refs.refreshListView
                 refreshListView._updateData()
-                if (!gameId) {
-                    JXHelper.removeAllCollect()
-                }
             } else {
                 Toast.showShortCenter("服务器异常，请稍后再试！")
             }
         })
+
     }
 
     getNoDataView() {

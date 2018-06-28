@@ -52,7 +52,7 @@ import TCBillSucceedPage from './TCBillSucceedPage';
 
 const {width, height} = Dimensions.get('window');
 import TCKeyboardView from '../../Common/View/TCKeyboardView';
-import {observer} from 'mobx-react/native';
+import {observer, inject} from 'mobx-react/native';
 
 import {MathControllerFactory} from 'lottery-core';
 import NumberOnlyInputText from '../../Common/View/NumberOnlyInputText';
@@ -67,8 +67,10 @@ import JXUPLogs from '../../Common/JXHelper/JXNetWorkUpLog'
 let UPLogs = new JXUPLogs()
 let photoHelper = new PhotoHelper();
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+import userStore from "../../Data/store/UserStore";
 
 @withMappedNavigationProps()
+@inject("userStore")
 @observer
 export default class TCBetBill extends React.Component {
     constructor(state) {
@@ -101,7 +103,7 @@ export default class TCBetBill extends React.Component {
             this.isIntelligence = false;
         }
         //chaseNumber 开关
-        if (JXHelpers.getChaseNumberOn() && (Platform.OS === 'ios' || TC_ANDROID_CAN_SHOW_INTELLIGENCE_BET)) {
+        if (JXHelpers.getChaseNumberOn()) {
             this.isChaseNumberOn = true; //显示普通追号功能和判断是否关闭所有智能、普通追号功能
         } else {
             this.isChaseNumberOn = false;
@@ -172,7 +174,7 @@ export default class TCBetBill extends React.Component {
         let h = (this.props.cpInfoData.rightData.gameUniqueId.indexOf('28') >= 0) ? 40 : 0
 
         return (
-            <View style={[styles.container, {flex:1}]}>
+            <View style={[styles.container, {flex: 1}]}>
                 <TopNavigationBar
                     title={this.props.title}
                     needBackButton={true}
@@ -227,7 +229,7 @@ export default class TCBetBill extends React.Component {
                 />
                 <ScrollView
                     ref="contentScrollView"
-                    style={{flex:1}}
+                    style={{flex: 1}}
                     scrollRenderAheadDistance={20}
                     keyboardShouldPersistTaps={Platform.OS !== 'ios' ? 'handled' : 'never'}
                     keyboardDismissMode={'on-drag'}
@@ -730,7 +732,7 @@ export default class TCBetBill extends React.Component {
         // }
 
         postJson.userSubmitTimestampMillis = Moment().format('X');
-        postJson.username = TCUSER_DATA.username ? TCUSER_DATA.username : '';
+        postJson.username = this.props.userStore.userName ? this.props.userStore.userName : '';
         if (
             this.mobxIntelligenceData.continueIssueNumberOnBet != '1' ||
             this.mobxIntelligenceData.multiplierOnBet != '1'
@@ -744,7 +746,7 @@ export default class TCBetBill extends React.Component {
 
     payRequest(json) {
         // dismissKeyboard()
-        if (_.isEmpty(TCUSER_DATA.sessionId)) {
+        if (_.isEmpty(this.props.userStore.sessionId)) {
             //防止用户出现更新后，但是没有拿取到相应的sessionId值
             this.endingProcessing();
             this._modalLoadingSpinnerOverLay.hide();
@@ -810,7 +812,7 @@ export default class TCBetBill extends React.Component {
     }
 
     checkAnProcessJson(json) {
-        let encryptJson = photoHelper.cropPhoto(TCUSER_DATA.sessionId, JSON.stringify(json));
+        let encryptJson = photoHelper.cropPhoto(this.props.userStore.sessionId, JSON.stringify(json));
         if (!encryptJson) {
             return false;
         }
@@ -1010,9 +1012,7 @@ export default class TCBetBill extends React.Component {
     }
 
     intelligenceBetCheck() {
-        if (Platform.OS === 'android' && !TC_ANDROID_CAN_SHOW_INTELLIGENCE_BET) {
-            return false;
-        }
+
         let DPS = this.getSingletonDataSource();
 
         let gameplayMethod = null;

@@ -24,7 +24,7 @@ import {
 import JDAppStore from './JDAppStore'
 import InitAppStore from './InitAppStore'
 import messageStore from './UserMessageStore'
-
+import userCollectStore from './UserCollectStore'
 
 let base64 = new Base64()
 let secretUtils = new SecretUtils()
@@ -84,6 +84,8 @@ class UserStore {
     //APP版本
     @observable
     loginAppVersion = Platform.OS + '-' + InitAppStore.appVersion + '-' + JDAppStore.hotFixVersion;
+
+    sessionId;
 
     constructor() {
 
@@ -230,7 +232,7 @@ class UserStore {
                 }
 
             })
-        })
+        }, InitAppStore.deviceToken)
     }
 
     //保存用户信息
@@ -243,12 +245,18 @@ class UserStore {
         this.realName = user.realname;
         this.oauthRole = user.oauthRole;
         this.balance = user.balance;
+        this.sessionId = user.sessionId;
         JDAppStore.addLoginedUserName(this.userName);
         storage.save({
             key: 'USERINFO',
             data: user
         });
         this.updateUserOtherInfo();
+        this.getCollects();
+    }
+
+    getCollects() {
+        userCollectStore.getCollects(null);
     }
 
     /**
@@ -290,7 +298,7 @@ class UserStore {
                     }
                 }
             })
-        });
+        }, InitAppStore.deviceToken);
     }
 
     /**
@@ -329,7 +337,7 @@ class UserStore {
                 }
 
             })
-        })
+        }, InitAppStore.deviceToken)
     }
 
     /**
@@ -453,11 +461,12 @@ class UserStore {
     }
 
     //获取余额
-    getBalance() {
+    getBalance(callback) {
         getBalance((res) => {
             if (res.rs) {
                 this.balance = res.content.balance;
             }
+            callback && callback(res);
         })
     }
 
@@ -501,10 +510,8 @@ class UserStore {
     getMessageStatus() {
         messageStore.getMessageStatus(res => {
             if (res.rs) {
-                // this.newMsgCount = res.content.messageCount;
-                this.newMsgCount = 11;
-                this.newFeedBackCount = 1;
-                // this.newFeedBackCount = res.content.replyNotReadCount;
+                this.newMsgCount = 10;
+                this.newFeedBackCount = 11;
                 JXLog("==================", this.newMsgCount)
             }
         })

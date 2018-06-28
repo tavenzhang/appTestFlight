@@ -18,6 +18,7 @@ import userStore from '../../Data/store/UserStore'
 
 const defaultTimeout = 10000;
 import Moment from 'moment';
+import NavigationService from "../../Page/Route/NavigationService";
 
 export default class NetUitls extends Component {
     /**
@@ -241,18 +242,14 @@ export default class NetUitls extends Component {
                 if (response.status === 401) {
                     userStore.isLogin = false
                     result = {"rs": false, "error": '无效token', "status": response.status, duration: duration}
-                    if (!TCPUSH_TO_LOGIN) {
-                        Toast.showShortCenter('登录状态过期，请重新登录！')
-                        NavigatorHelper.pushToUserLogin()
-                        RCTDeviceEventEmitter.emit('userStateChange', 'logout');
-                    }
-                    else {
-                        return
-                    }
+                    Toast.showShortCenter('登录状态过期，请重新登录！')
+                    NavigationService.tokenIsError();
+                    result.rs = false;
+                    callback(result);
                 } else if (response.status === 422) {
                     if (url.match(/refreshToken/)) {
                         userStore.isLogin = false
-                        NavigatorHelper.pushToUserLogin()
+                        NavigationService.tokenIsError();
                     } else {
                         result = _.assignIn(responseJson, {"rs": false, "status": response.status, duration: duration})
                     }

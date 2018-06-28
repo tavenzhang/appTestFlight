@@ -28,12 +28,13 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import {width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size, baseColor} from '../resouce/theme';
 import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
-import SoundHelper from '../../Common/JXHelper/SoundHelper';
 import {home} from '../resouce/images';
 import Toast from "../../Common/JXHelper/JXToast";
 import Moment from "moment/moment";
+import userStore from "../../Data/store/UserStore";
+import NavigationService from "../Route/NavigationService";
 
-@inject("mainStore", "userStore")
+@inject("mainStore", "userStore", "jdAppStore")
 @observer
 export default class TC168 extends Component {
 
@@ -129,68 +130,44 @@ export default class TC168 extends Component {
         );
     }
 
-    @computed get newMsgCount() {
-        return this.props.userStore.newMsgCount + this.props.userStore.newFeedBackCount;
-    }
 
     renderTabBarItem(title, iconName, selectedIconName, selectedTab, content) {
         return (<TabNavigator.Item
             title={title}
-            renderIcon={() => this.getTabIcon(iconName)}
-            renderSelectedIcon={() => this.getTabIcon(selectedIconName)}
+            renderIcon={() => <TabView
+                title={title}
+                isSelected={false}
+                iconName={iconName}
+                selectedIconName={null}
+            />
+            }
+            renderSelectedIcon={() => <TabView
+                title={title}
+                isSelected={true}
+                iconName={null}
+                selectedIconName={selectedIconName}
+            />}
             selected={this.props.mainStore.selectedTab === selectedTab}
             selectedTitleStyle={{color: baseColor.tabSelectedTxt, fontSize: Size.font12}}
             titleStyle={{color: baseColor.tabUnSelectTxt, fontSize: Size.font12}}
-            renderBadge={() => this.renderBadge(title)}
             onPress={() => {
-                this.props.mainStore.changeTab(selectedTab)
+                this.setSelectedTab(selectedTab);
             }}
         >
             {content}
         </TabNavigator.Item>)
     }
 
-
-    getTabIcon(iconName) {
-        return (<Image
-            source={iconName}
-            style={indexBtmStyle.iconStyle}
-            resizeMode={'contain'}
-        />)
-    }
-
-    renderBadge(title) {
-        if (title === "我的" && this.newMsgCount !== 0) {
-            return <View style={styles.pointStyle}/>
-        } else {
-            return null;
+    setSelectedTab(tabName) {
+        this.props.jdAppStore.playSound();
+        if (tabName === 'mine') {
+            if (!this.props.userStore.isLogin) {
+                NavigationService.login(true);
+                return;
+            }
         }
+        this.props.mainStore.changeTab(tabName)
     }
-
-    // setSelectedTab(tabName, page) {
-    //     if (tabName === 'mine') {
-    //         if (!JXHelper.checkUserWhetherLogin()) {
-    //             JXHelper.pushToUserLogin(true);
-    //             return;
-    //         }
-    //         if (TCUSER_DATA.username) {
-    //             RCTDeviceEventEmitter.emit('balanceChange', true);
-    //         }
-    //     }
-    //
-    //     if (page > 0) {
-    //         this.setState({
-    //             initPage: page
-    //         });
-    //     }
-    //     if (tabName === 'home') {
-    //         RCTDeviceEventEmitter.emit('needChangeAnimated', 'start');
-    //     } else {
-    //         RCTDeviceEventEmitter.emit('needChangeAnimated', 'stop');
-    //     }
-    //     TC_AppState.selectedTabName = tabName;
-    //     this.setState({selectedTab: tabName});
-    // }
 
     onBackAndroid = () => {
         let pathLength = Navigation_routers.length;
@@ -206,6 +183,28 @@ export default class TC168 extends Component {
             JXHelper.goBack(Navigation_routers, this.props.navigation);
             return true;
         }
+    }
+}
+
+@inject("userStore")
+@observer
+class TabView extends Component {
+
+    @computed get newMsgCount() {
+        return this.props.userStore.newMsgCount + this.props.userStore.newFeedBackCount;
+    }
+
+    render() {
+        return (
+            <View style={styles.tabStyle}>
+                <Image
+                    source={!this.props.isSelected ? this.props.iconName : this.props.selectedIconName}
+                    style={!this.props.isSelected ? indexBtmStyle.iconStyle : indexBtmStyle.iconStyleSelected}
+                    resizeMode={'contain'}
+                />
+                {this.props.title === "我的" && this.newMsgCount !== 0 ? <View style={styles.pointStyle}/> : null}
+            </View>
+        )
     }
 }
 

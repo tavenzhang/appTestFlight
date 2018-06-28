@@ -407,3 +407,31 @@ export function allBalanceTransferToCenter(params, callback) {
 export function userBetsRecords(platform, params, callback) {
     RequestUtils.getUrlAndParamsAndPlatformAndCallback(config.api.userBets, platform, params, callback);
 }
+
+/////////////////////////////////收藏//////////////////////////////////////////////////////
+
+/**
+ * 获取收藏列表
+ * @param callback
+ */
+export function getUserCollects(callback) {
+    RequestUtils.getUrlAndParamsAndCallback(config.api.getBookmarks, null, callback);
+}
+
+/**
+ * 收藏彩票
+ * @param params
+ * @param callback
+ */
+export function saveUserCollects(params, callback) {
+    RequestUtils.postUrlAndParamsAndCallback(config.api.saveBookmarks, params, callback);
+}
+
+/**
+ * 取消收藏
+ * @param params
+ * @param callback
+ */
+export function cancelUserCollects(params, callback) {
+    RequestUtils.deleteUrlAndParamsAndCallback(config.api.delBookmarks, params, callback);
+}

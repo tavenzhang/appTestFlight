@@ -15,18 +15,18 @@ import {
     Platform,
     ImageBackground
 } from 'react-native';
-import JXHelperC from '../../../Common/JXHelper/TCInitHelper'
-import TCUserCollectHelper from '../../../Common/JXHelper/TCUserCollectHelper'
 import JXHelpers from '../../../Common/JXHelper/JXHelper'
 
-let JXHelper = new JXHelperC()
-let TCUserCollectHelpers = new TCUserCollectHelper()
 import Toast from '../../../Common/JXHelper/JXToast';
 import TCNavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {betIcon} from '../../resouce/images'
 import {Size} from '../../resouce/theme'
 import {navbarHight} from '../../../Page/asset'
+import userCollectStore from '../../../Data/store/UserCollectStore'
+import {observer, inject} from 'mobx-react'
+import userStore from '../../../Data/store/UserStore'
 
+@observer
 export default class TCBetHelperModal extends Component {
     constructor(state) {
         super(state)
@@ -44,7 +44,7 @@ export default class TCBetHelperModal extends Component {
     };
 
     componentDidMount() {
-        if (TCUSER_DATA.islogin) {
+        if (userStore.isLogin) {
             this.isCollectFromGameId()
         }
     }
@@ -194,11 +194,9 @@ export default class TCBetHelperModal extends Component {
         if (this.props.selectedFunc == null) return
         this.props.selectedFunc(index);
         if (index === 3) {
-            if (TCUSER_DATA.islogin) {
-                if (!JXHelper.isGuestUser()) {
-                    // this.collectGame()
+            if (userStore.isLogin) {
+                if (!userStore.isGuest) {
                     this.collectGameToServer()
-
                 } else {
                     this.showShortCenterWithString('您是试玩账号不能收藏哦！')
                 }
@@ -214,33 +212,17 @@ export default class TCBetHelperModal extends Component {
 
     isCollectFromGameId() {
         let gameUniqueId = this.props.gameUniqueId
-        let isCollect = TCUserCollectHelpers.isCollected(gameUniqueId)
+        let isCollect = userCollectStore.isCollected(gameUniqueId)
         this.setState({
             isCollect: isCollect
         })
     }
 
-    collectGame() {
-        let gameUniqueId = this.props.gameUniqueId
-        if (this.state.isCollect) {
-            TCUserCollectHelpers.removeCollect(gameUniqueId)
-            this.showShortCenterWithString('已取消！')
-        } else {
-            let gameInfo = JXHelpers.getGameInfoWithUniqueId(gameUniqueId)
-            if (gameInfo) {
-                TCUserCollectHelpers.addCollect(gameInfo)
-                this.showShortCenterWithString('已收藏！')
-            } else {
-                this.showShortCenterWithString('收藏失败！')
-            }
-
-        }
-    }
 
     collectGameToServer() {
         let gameUniqueId = this.props.gameUniqueId
         if (!this.state.isCollect) {
-            TCUserCollectHelpers.saveUserCollectsToServer(gameUniqueId, (res) => {
+            userCollectStore.saveUserCollects(gameUniqueId, (res) => {
                 if (res.rs) {
                     this.showShortCenterWithString('已收藏！')
                     this.setState({
@@ -251,7 +233,7 @@ export default class TCBetHelperModal extends Component {
                 }
             })
         } else {
-            TCUserCollectHelpers.cancelUserCollectsFromServer(gameUniqueId, (res) => {
+            userCollectStore.cancelUserCollects(gameUniqueId, (res) => {
                 if (res.rs) {
                     this.setState({
                         isCollect: !this.state.isCollect

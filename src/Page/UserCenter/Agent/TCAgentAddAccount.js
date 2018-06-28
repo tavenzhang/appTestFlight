@@ -29,6 +29,8 @@ import NetUitls from '../../../Common/Network/TCRequestUitls';
 import {config} from '../../../Common/Network/TCRequestConfig';
 import TCAgentAffCodeList from './TCAgentAffCodeList';
 import AgentTeamList from './Team/TCAgentTeamManager';
+import userStore from '../../../Data/store/UserStore'
+
 
 export default class TCAgentAddAccount extends Component {
     secretUtils = new SecretUtils();
@@ -152,9 +154,9 @@ export default class TCAgentAddAccount extends Component {
 
     getPrizeGroupArray() {
         let arr = [];
-        if (TCUSER_DATA.prizeGroup) {
+        if (userStore.prizeGroup) {
             let p = 98;
-            for (let a = TCUSER_DATA.prizeGroup; a >= 1800; a -= 2) {
+            for (let a = userStore.prizeGroup; a >= 1800; a -= 2) {
                 let str = '' + a + ' - ' + ((a / 2000) * 100).toFixed(2) + '% (赔率)';
                 arr.push({prize: a, str: str});
                 p -= 0.1;
@@ -196,7 +198,7 @@ export default class TCAgentAddAccount extends Component {
     }
 
     renderTip() {
-        if (this.state.prizeGroup == TCUSER_DATA.prizeGroup) {
+        if (this.state.prizeGroup == userStore.prizeGroup) {
             return (<Text style={styles.tip}>您的赔率和下级相同，您将没有佣金。</Text>);
         }
     }
@@ -373,7 +375,7 @@ const styles = StyleSheet.create({
         height: height,
     },
     tabsContainerStyle: {
-        top: Platform.OS == 'ios' ? (10+JX_PLAT_INFO.IS_IphoneX ? 20:0) : 0,
+        top: Platform.OS == 'ios' ? (10 + JX_PLAT_INFO.IS_IphoneX ? 20 : 0) : 0,
         height: 35,
         width: width - 150,
     },

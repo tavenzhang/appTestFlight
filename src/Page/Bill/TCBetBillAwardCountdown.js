@@ -15,6 +15,7 @@ import {
     TouchableHighlight
 } from 'react-native';
 import {width, betHome} from '../resouce/theme'
+
 let timeoutTime = 0
 import Moment from 'moment'
 import {config} from '../../Common/Network/TCRequestConfig'
@@ -22,9 +23,10 @@ import NetUitls from '../../Common/Network/TCRequestUitls'
 import {Size} from '../../Page/resouce/theme'
 import JXHelper from '../../Common/JXHelper/JXHelper'
 
-import { observer } from 'mobx-react/native';
+import {observer, inject} from 'mobx-react/native';
 import Toast from "../../Common/JXHelper/JXToast";
 
+@inject("userStore")
 @observer
 export default class TCBetAwardCountdown extends React.Component {
 
@@ -56,38 +58,52 @@ export default class TCBetAwardCountdown extends React.Component {
             <View style={styles.container}>
                 <View style={{}}>
                     <Text
-                        style={{fontSize: Size.font17, color: betHome.issueTxt,marginLeft: 10}}>距{this.getIssueNumber()}截止 </Text>
+                        style={{
+                            fontSize: Size.font17,
+                            color: betHome.issueTxt,
+                            marginLeft: 10
+                        }}>距{this.getIssueNumber()}截止 </Text>
                     <Text
-                        style={{fontSize: Size.font18, fontWeight: 'bold', color:betHome.timeTxt, width: 120, marginLeft: 10}}>{this.getSurplusTime()}</Text>
+                        style={{
+                            fontSize: Size.font18,
+                            fontWeight: 'bold',
+                            color: betHome.timeTxt,
+                            width: 120,
+                            marginLeft: 10
+                        }}>{this.getSurplusTime()}</Text>
                 </View>
                 {this.getBalanceView()}
             </View>
         )
     }
 
-    getBalanceView(){
-       return (<TouchableHighlight onPress={()=> {
+    getBalanceView() {
+        return (<TouchableHighlight onPress={() => {
             this.freshBalance()
-        }} style={{marginRight:5}} activeOpacity={0.3}
-                            underlayColor='transparent'>
-            <View style={{ alignItems: 'center'}}>
+        }} style={{marginRight: 5}} activeOpacity={0.3}
+                                    underlayColor='transparent'>
+            <View style={{alignItems: 'center'}}>
                 <Text style={{color: betHome.issueTxt, marginLeft: 5, fontSize: Size.font17}}>您的余额</Text>
                 <Text
-                    style={{color:betHome.balanceTxt, marginLeft: 5, fontSize: Size.font15}}>{this.state.balance == null ? TCUSER_BALANCE : this.state.balance}元</Text>
+                    style={{
+                        color: betHome.balanceTxt,
+                        marginLeft: 5,
+                        fontSize: Size.font15
+                    }}>{this.state.balance == null ? this.props.userStore.balance : this.state.balance}元</Text>
                 {/*<Image source={require('image!icon_shake')} style={{width: 16, height: 16, marginLeft: 5}}/>*/}
             </View>
         </TouchableHighlight>)
     }
 
-    getIssueNumber(){
-        if (this.props.data == null||this.props.data.rightData == null){
+    getIssueNumber() {
+        if (this.props.data == null || this.props.data.rightData == null) {
             return ''
         }
-        if (this.props.data.rightData.remainingTime>0) {
+        if (this.props.data.rightData.remainingTime > 0) {
             let planNo = this.props.data.rightData.planNo
             planNo = ((planNo < 100) ? ('0' + planNo) : planNo) + '期'
             return planNo
-        }else if(this.props.data.rightData.nextremainingTime>0){
+        } else if (this.props.data.rightData.nextremainingTime > 0) {
             let planNo = this.props.data.rightData.nextPlanNo
             planNo = ((planNo < 100) ? ('0' + planNo) : planNo) + '期'
             return planNo
@@ -100,18 +116,18 @@ export default class TCBetAwardCountdown extends React.Component {
 
     _getAwardCountdownTime() {
         let time = 0
-        if (this.props.data == null||this.props.data.rightData == null){
+        if (this.props.data == null || this.props.data.rightData == null) {
             return time
         }
 
-        if (this.props.data&&this.props.data.rightData&&this.props.data.rightData.remainingTime>0) {
+        if (this.props.data && this.props.data.rightData && this.props.data.rightData.remainingTime > 0) {
             time = this.props.data.rightData.remainingTime
-        }else if(this.props.data&&this.props.data.rightData&&this.props.data.rightData.nextremainingTime>0){
+        } else if (this.props.data && this.props.data.rightData && this.props.data.rightData.nextremainingTime > 0) {
             time = this.props.data.rightData.nextremainingTime
         }
         // console.debug('ResultDataEvent', '_getAwardCountdownTime() time='+time)
         if (time === 1) {
-            Toast.showLongCenter(this.props.data.rightData.uniqueIssueNumber+'期已截止\n'+this.props.data.rightData.nextUniqueIssueNumber+'期已开售'+'\n  投注时注意期号变化');
+            Toast.showLongCenter(this.props.data.rightData.uniqueIssueNumber + '期已截止\n' + this.props.data.rightData.nextUniqueIssueNumber + '期已开售' + '\n  投注时注意期号变化');
         }
         return time
     }
@@ -121,7 +137,7 @@ export default class TCBetAwardCountdown extends React.Component {
         this.setState({
             isLoading: true
         })
-        NetUitls.getUrlAndParamsAndCallback(config.api.userBalance, null, (response) => {
+        this.props.userStore.getBalance(response => {
             if (response.rs) {
                 let balance = parseFloat(response.content.balance)
                 this.timer2 = setTimeout(() => {
@@ -129,7 +145,6 @@ export default class TCBetAwardCountdown extends React.Component {
                         balance: balance,
                         isLoading: false
                     })
-                    TCUSER_BALANCE = balance
                 }, 1000)
 
             } else {

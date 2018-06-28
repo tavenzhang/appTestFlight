@@ -22,9 +22,13 @@ import {config} from '../../../Common/Network/TCRequestConfig'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {Size, indexBgColor, listViewTxtColor} from '../../resouce/theme'
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView'
+import UserAccountStore from "../../../Data/store/UserAccountStore";
 
 @observer
 export  default  class TCUserPayAndWithdrawRecords extends Component {
+
+    userAccountStore = new UserAccountStore();
+
 
     constructor(props) {
         super(props)
@@ -118,18 +122,10 @@ export  default  class TCUserPayAndWithdrawRecords extends Component {
                 return 'FAILED'
         }
     }
-
     loadDataFromNet(pageNum, pageSize, callback) {
-        RequestUtils.getUrlAndParamsAndCallback(config.api.orderhistory,
-            {
-                type: this.getAccountType(),
-                start: pageNum * pageSize,
-                pageSize: pageSize,
-                state: this.getState()
-            },
-            (response) => {
-                callback(response, response.content)
-            })
+        this.userAccountStore.getPayAndWithdrawHistory(this.getAccountType(), pageNum, pageSize, this.getState(), (res) => {
+            callback(res, res.content);
+        })
     }
 }
 
