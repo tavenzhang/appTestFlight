@@ -20,13 +20,17 @@ import {
 } from 'react-native';
 import jdAppStore from '../../Data/store/JDAppStore'
 import {width, indexTxtColor, Size} from '../../Page/resouce/theme'
-import {navbarHight, navbarMarginTop} from '../../Page/asset'
 
 import _ from 'lodash';
 import {common} from '../../Page/resouce/images'
+import {NavBarHeaderHeight} from "../../Page/asset/screen";
+import {themeViewStyle} from "../../Page/asset/theme";
 import PropTypes from 'prop-types'
 
+const NavIconSize = NavBarHeaderHeight
+
 export default class TCNavigationBar extends Component {
+
     constructor(state) {
         super(state);
         this.state = {
@@ -62,104 +66,77 @@ export default class TCNavigationBar extends Component {
         centerViewShowStyleImage: false
     }
 
-    componentDidMount() {
-
-    }
-
     render() {
         return (
-            <ImageBackground style={styles.navBarStyle} source={common.topBg}
-                             resizeMode={'cover'}>
-                {/*左边*/}
-                {this.renderGetBackButton()}
-                {/*中间*/}
-                <TouchableOpacity disabled={this.props.midCall ? false : true} onPress={() => this.props.midCall()}>
-                    <View style={[{
-                        width: width - 150,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }, this.props.titleStyle]}>
-                        {this.getCenterView()}
+            <ImageBackground style={themeViewStyle.navBar} source={common.topBg} resizeMode={'cover'}>
+                <View style={themeViewStyle.navBarLeftItem}>{this.renderLeftItem()}</View>
+                <TouchableOpacity disabled={!this.props.midCall} onPress={() => this.props.midCall()}>
+                    <View style={themeViewStyle.navBarCenterItem}>
+                        {this.renderCenterItem()}
                     </View>
                 </TouchableOpacity>
-                {this.renderGetRightButton()}
-                {/*<View style={styles.rightViewStyle}>*/}
-                {/*</View>*/}
+                <View style={themeViewStyle.navBarRightItem}>{this.renderRightItem()}</View>
             </ImageBackground>
         );
     }
 
-    getCenterView() {
+    renderCenterItem() {
         if (this.props.renderCenter) {
             return (this.props.renderCenter())
         }
         if (this.props.centerViewShowStyleImage && common.topTitleIndex) {
             return (
-                <Image resizeMode={'contain'} style={{width: width - 180, height: 40, marginTop: navbarMarginTop + 2}}
-                       source={common.topTitleIndex}/>)
+                <Image source={common.topTitleIndex} resizeMode={'contain'}
+                       style={{width: width - 180, height: NavIconSize,}}/>
+            )
         }
-        return (<Text style={styles.titleStyle} ellipsizeMode='tail'
-                      numberOfLines={1}> {this.props.title} </Text>)
+        return (<Text style={styles.titleStyle} ellipsizeMode='tail' numberOfLines={1}> {this.props.title} </Text>)
     }
 
-    renderGetBackButton() {
-
+    renderLeftItem() {
         if (this.state.showCloseButton) {
             return (
-                <View style={{flexDirection: 'row', position: 'absolute', left: -5}}>
-                    <TouchableOpacity
-                        onPress={() => this.backButtonCall()}
-                        underlayColor='#DEDEDE'
-                        style={styles.leftImageViewStyle}
-                    >
-                        <Image source={common.back} style={styles.navLeftImgStyle}/>
-                    </TouchableOpacity>
-
-                    {/*<TouchableOpacity*/}
-                    {/*onPress={()=> {this.closeButtonCall()}}*/}
-                    {/*underlayColor='#DEDEDE'*/}
-                    {/*style={{marginLeft: 5, backgroundColor: 'transparent'}}*/}
-                    {/*>*/}
-                    {/*<Text style={styles.leftTitleStyle}>关闭</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                </View>
+                <TouchableOpacity
+                    onPress={() => this.backButtonCall()}
+                    underlayColor='#DEDEDE'>
+                    <Image source={common.back} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
+                </TouchableOpacity>
             )
         }
 
-        if (this.props.needBackButton == true) {
+        if (this.props.needBackButton) {
             return (
                 <TouchableOpacity
                     onPress={this.backButtonCall}
-                    underlayColor='#DEDEDE'
-                    style={styles.leftImageViewStyle}
-                >
+                    underlayColor='#DEDEDE'>
                     {this.getBackImage()}
                 </TouchableOpacity>
             )
         }
 
         if (this.props.leftTitle) {
-            return <TouchableOpacity
-                onPress={() => {
-                    this.backButtonCall()
-                }}
-                underlayColor='#DEDEDE'
-                style={styles.leftViewStyle}
-            >
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={styles.leftTitleStyle}>{this.props.leftTitle}</Text>
-                </View>
-            </TouchableOpacity>
+            return (
+                <TouchableOpacity
+                    onPress={() => {
+                        this.backButtonCall()
+                    }}
+                    underlayColor='#DEDEDE'>
+                    <View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 10}}>
+                        <Text style={styles.leftTitleStyle}>{this.props.leftTitle}</Text>
+                    </View>
+                </TouchableOpacity>
+            )
         }
     }
 
     getBackImage() {
         if (_.startsWith(this.props.leftImage, 'index_personal')) {
-            return <Image source={common.topPersonal} style={styles.navLeftImgStyle}/>
+            return <Image source={common.topPersonal} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
         } else if (this.props.leftImage) {
-            return <Image source={{uri: this.props.leftImage}} style={styles.navLeftImgStyle}/>
+            return <Image source={{uri: this.props.leftImage}} style={styles.navIcon}
+                          resizeMode={Image.resizeMode.contain}/>
         } else {
-            return <Image source={common.back} style={styles.navLeftImgStyle}/>
+            return <Image source={common.back} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
         }
     }
 
@@ -169,34 +146,30 @@ export default class TCNavigationBar extends Component {
         this.props.backButtonCall();
     }
 
-    renderGetRightButton() {
+    renderRightItem() {
         if (this.props.rightTitle) {
             return (
-                <TouchableOpacity
-                    onPress={() => {
-                        this.rightButtonCall()
-                    }}
-                    underlayColor='#DEDEDE'
-                    style={styles.rightViewStyle}
-                >
-                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                <TouchableOpacity underlayColor='#DEDEDE' onPress={() => {
+                    this.rightButtonCall()
+                }}>
+                    <View style={{justifyContent: 'center', alignItems: 'center', paddingRight: 10}}>
                         <Text
-                            style={this.props.rightTitle.length === 2 ? styles.rightBoldTitleStyle : styles.rightTitleStyle}>{this.props.rightTitle}</Text>
+                            style={this.props.rightTitle.length === 2 ? styles.rightBoldTitleStyle : styles.rightTitleStyle}>
+                            {this.props.rightTitle}
+                        </Text>
                     </View>
                 </TouchableOpacity>
             )
         } else if (this.props.rightImage) {
-            return (<TouchableOpacity
-                onPress={() => {
+            return (
+                <TouchableOpacity underlayColor='#DEDEDE' onPress={() => {
                     this.rightButtonCall()
-                }}
-                underlayColor='#DEDEDE'
-                style={styles.rightViewStyle}
-            >
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Image source={this.props.rightImage} style={styles.navRightImgStyle}/>
-                </View>
-            </TouchableOpacity>)
+                }}>
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        <Image source={this.props.rightImage} style={styles.navIcon}/>
+                    </View>
+                </TouchableOpacity>
+            )
         }
     }
 
@@ -217,74 +190,35 @@ export default class TCNavigationBar extends Component {
 }
 
 const styles = StyleSheet.create({
-    navLeftImgStyle: {
-        width: 45,
-        height: 45,
-        marginTop: navbarMarginTop,
-    },
-    navRightImgStyle: {
-        width: 55,
-        height: 55,
-        marginTop: navbarMarginTop,
-    },
-    navBarStyle: {
-        //导航条样式
-        width: width,
-        flexDirection: 'row',
-        height: navbarHight,
-        // backgroundColor: '#d91d37',
-        //垂
-        alignItems: 'center',
-        //设置主轴对齐方式
-        justifyContent: 'center'
+    navIcon: {
+        width: NavIconSize,
+        height: NavIconSize,
     },
     titleStyle: {
-        marginTop: navbarMarginTop,
         fontSize: Size.font20,
         color: indexTxtColor.topTitle,
         fontWeight: 'bold',
-        alignItems: 'center',
-        backgroundColor: 'transparent'
-    },
-    leftImageViewStyle: {
-        position: 'absolute',
-        left: 0,
-        width: 100,
-    },
-    leftViewStyle: {
-        position: 'absolute',
-        left: 0,
-        backgroundColor: 'transparent',
-        width: 60,
-        height: navbarHight,
-    },
-    closeViewStyle: {
-        backgroundColor: 'transparent'
-    },
-    rightViewStyle: {
-        position: 'absolute',
-        right: 0,
-        backgroundColor: 'transparent',
-        width: 80,
-        height: navbarHight,
-    },
-    rightTitleStyle: {
-        fontSize: Size.font16,
-        color: indexTxtColor.topTitle,
-        alignItems: 'center',
-        marginTop: Platform.OS == 'ios' ? navbarMarginTop + 15 : navbarMarginTop + 10,
+        textAlign: 'center',
+        textAlignVertical: 'center',
     },
     leftTitleStyle: {
         fontSize: Size.font18,
         color: indexTxtColor.topTitle,
-        alignItems: 'center',
-        marginTop: Platform.OS == 'ios' ? navbarMarginTop + 15 : navbarMarginTop + 10,
-        fontWeight: 'bold'
-    }, rightBoldTitleStyle: {
+        fontWeight: 'bold',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+    },
+    rightTitleStyle: {
+        fontSize: Size.font16,
+        color: indexTxtColor.topTitle,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+    },
+    rightBoldTitleStyle: {
         fontSize: Size.font18,
         color: indexTxtColor.topTitle,
         fontWeight: 'bold',
-        alignItems: 'center',
-        marginTop: Platform.OS == 'ios' ? navbarMarginTop + 15 : navbarMarginTop + 10,
+        textAlign: 'center',
+        textAlignVertical: 'center',
     },
 });

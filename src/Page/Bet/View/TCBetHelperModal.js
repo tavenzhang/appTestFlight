@@ -25,6 +25,8 @@ import {navbarHight} from '../../../Page/asset'
 import userCollectStore from '../../../Data/store/UserCollectStore'
 import {observer, inject} from 'mobx-react'
 import userStore from '../../../Data/store/UserStore'
+import {NavBarModalTop} from "../../asset/screen";
+
 
 @observer
 export default class TCBetHelperModal extends Component {
@@ -72,7 +74,7 @@ export default class TCBetHelperModal extends Component {
                         style={{
                             position: 'absolute',
                             right: 10,
-                            top: navbarHight - 6,
+                            top: NavBarModalTop,
                             width: 120,
                             height: JXHelpers.checkHaveTrend(this.props.gameUniqueId) ? 265 : 215,
                             justifyContent: 'center',
@@ -217,7 +219,6 @@ export default class TCBetHelperModal extends Component {
             isCollect: isCollect
         })
     }
-
 
     collectGameToServer() {
         let gameUniqueId = this.props.gameUniqueId

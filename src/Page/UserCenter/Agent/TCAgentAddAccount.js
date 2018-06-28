@@ -6,31 +6,41 @@
 /**系统 npm类 */
 import React, {Component} from 'react';
 import {
-    StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Dimensions, Image, Platform
+    Dimensions,
+    Image,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import Toast from '../../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
-
 /**组件内部显示需要引入的类 */
 import ModalDropdown from '../../../Common/View/ModalDropdown';
 import SegmentedControlTab from '../../../Common/View/SegmentedControlTab';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import {agent} from '../../resouce/images';
 import {
-    Size, indexBgColor, height, width, agentCenter, buttonStyle, baseColor,
+    agentCenter,
+    baseColor,
+    buttonStyle,
+    height,
+    indexBgColor,
+    Size,
+    width,
 } from '../../resouce/theme';
-import {JX_PLAT_INFO, statusBarHeight, TC_SCREEN} from '../../asset'
+import {JX_PLAT_INFO, TC_SCREEN} from '../../asset'
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
-
 /** 外部关系组件 如 页面跳转用 */
 import SecretUtils from '../../../Common/JXHelper/SecretUtils';
 import NetUitls from '../../../Common/Network/TCRequestUitls';
 import {config} from '../../../Common/Network/TCRequestConfig';
 import TCAgentAffCodeList from './TCAgentAffCodeList';
-import AgentTeamList from './Team/TCAgentTeamManager';
-import userStore from '../../../Data/store/UserStore'
-
+import {StatusBarHeight} from "../../asset/screen";
 
 export default class TCAgentAddAccount extends Component {
     secretUtils = new SecretUtils();
@@ -154,9 +164,9 @@ export default class TCAgentAddAccount extends Component {
 
     getPrizeGroupArray() {
         let arr = [];
-        if (userStore.prizeGroup) {
+        if (TCUSER_DATA.prizeGroup) {
             let p = 98;
-            for (let a = userStore.prizeGroup; a >= 1800; a -= 2) {
+            for (let a = TCUSER_DATA.prizeGroup; a >= 1800; a -= 2) {
                 let str = '' + a + ' - ' + ((a / 2000) * 100).toFixed(2) + '% (赔率)';
                 arr.push({prize: a, str: str});
                 p -= 0.1;
@@ -198,7 +208,7 @@ export default class TCAgentAddAccount extends Component {
     }
 
     renderTip() {
-        if (this.state.prizeGroup == userStore.prizeGroup) {
+        if (this.state.prizeGroup == TCUSER_DATA.prizeGroup) {
             return (<Text style={styles.tip}>您的赔率和下级相同，您将没有佣金。</Text>);
         }
     }
@@ -375,7 +385,6 @@ const styles = StyleSheet.create({
         height: height,
     },
     tabsContainerStyle: {
-        top: Platform.OS == 'ios' ? (10 + JX_PLAT_INFO.IS_IphoneX ? 20 : 0) : 0,
         height: 35,
         width: width - 150,
     },
@@ -542,7 +551,7 @@ const styles = StyleSheet.create({
         width: width * 0.9,
         // 44：TopNavigationBar高度， 140：AccountTypeButton view高度， 80：开户类型view高度
         // 50：邀请码或者用户名view高度， 50：彩票返点view高度
-        height: height - statusBarHeight - 44 - 140 - 80 - 50 - 50,
+        height: height - StatusBarHeight - 44 - 140 - 80 - 50 - 50,
         borderWidth: 1,
         borderRadius: 3,
         marginTop: 15,

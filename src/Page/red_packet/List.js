@@ -2,12 +2,10 @@
 /**
  * Created by Joyce on 2017/01/06.
  */
-
 import React, {Component} from 'react';
-import {StyleSheet, Platform, Text, View, Image} from 'react-native';
+import {Image, Platform, StyleSheet, Text, View} from 'react-native';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
-import {Size, width, height} from '../resouce/theme';
-import {statusBarHeight} from '../../Page/asset'
+import {Size, width} from '../resouce/theme';
 import NetUtils from '../../Common/Network/TCRequestUitls';
 import {config} from '../../Common/Network/TCRequestConfig';
 import RefreshListView from '../../Common/View/RefreshListView/RefreshListView';
@@ -109,7 +107,6 @@ export default class List extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: height - statusBarHeight,
         backgroundColor: '#C02218',
     },
     headImage: {

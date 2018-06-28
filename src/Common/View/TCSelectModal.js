@@ -16,6 +16,7 @@ import {
     Dimensions
 } from 'react-native';
 import {Size, width, indexBgColor, popuWinStyle} from '../../Page/resouce/theme'
+import {NavBarModalTop} from "../../Page/asset/screen";
 
 export default class TCSelectModal extends React.Component {
 
@@ -227,7 +228,7 @@ const styles = StyleSheet.create({
         marginTop: 0,
     },
     contentStyle: {
-        marginTop: Platform.OS == 'ios' ? 64 : 44,
+        marginTop: NavBarModalTop,
         justifyContent: 'center',
         backgroundColor: indexBgColor.itemBg,
     },

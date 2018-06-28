@@ -13,7 +13,7 @@ import {
     TouchableHighlight,
     RefreshControl
 } from 'react-native';
-import {observer} from 'mobx-react/native';
+import {observer, inject} from 'mobx-react/native';
 
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import RowCell from './View/TCLotteryLobbyRowView'
@@ -25,6 +25,8 @@ import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import TCFlatList from "../../Common/View/RefreshListView/TCFLatList";
 import {TC_LayoutAnimaton} from "../../Common/View/layoutAnimation/LayoutAnimaton";
+
+@inject("mainStore")
 @observer
 export default class TCLotteryLobby extends React.Component {
     constructor(state) {
@@ -58,10 +60,7 @@ export default class TCLotteryLobby extends React.Component {
         return (
             <View style={JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container}>
                 <TopNavigationBar title='开奖大厅' needBackButton={true}
-                                  backButtonCall={() => {
-                                      RCTDeviceEventEmitter.emit('' +
-                                          'setSelectedTabNavigator', 'home');
-                                  }}
+                                  backButtonCall={() => this.props.mainStore.changeTab('home')}
                 />
                 {/*列表*/}
                 <ListView
@@ -87,7 +86,7 @@ export default class TCLotteryLobby extends React.Component {
     }
 
     //CELL ROW DATA
-    renderRow=(rowData)=> {
+    renderRow = (rowData) => {
         return (
             <RowCell
                 cpName={rowData.gameNameInChinese}
@@ -98,14 +97,14 @@ export default class TCLotteryLobby extends React.Component {
         )
     }
 
-    _pushToBetHome3=(rowData)=>{
+    _pushToBetHome3 = (rowData) => {
         NavigatorHelper.pushToLotteryHistoryList({
             title: rowData.gameNameInChinese,
             gameUniqueId: rowData.gameUniqueId
         })
     }
 
-    loadDataFormNet=(manual=true)=>  {
+    loadDataFormNet = (manual = true) => {
         this.lotteryResultData.getLotteryDetailRequest();
         if (manual) {
             this.refs['ListView'].scrollTo({x: 0, y: 0, animated: true})
