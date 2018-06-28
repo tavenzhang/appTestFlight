@@ -70,8 +70,6 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import userStore from "../../Data/store/UserStore";
 
 @withMappedNavigationProps()
-@inject("userStore")
-@observer
 export default class TCBetBill extends React.Component {
     constructor(state) {
         super(state);
@@ -732,7 +730,7 @@ export default class TCBetBill extends React.Component {
         // }
 
         postJson.userSubmitTimestampMillis = Moment().format('X');
-        postJson.username = this.props.userStore.userName ? this.props.userStore.userName : '';
+        postJson.username = userStore.userName ? userStore.userName : '';
         if (
             this.mobxIntelligenceData.continueIssueNumberOnBet != '1' ||
             this.mobxIntelligenceData.multiplierOnBet != '1'
@@ -746,7 +744,7 @@ export default class TCBetBill extends React.Component {
 
     payRequest(json) {
         // dismissKeyboard()
-        if (_.isEmpty(this.props.userStore.sessionId)) {
+        if (_.isEmpty(userStore.sessionId)) {
             //防止用户出现更新后，但是没有拿取到相应的sessionId值
             this.endingProcessing();
             this._modalLoadingSpinnerOverLay.hide();
@@ -812,7 +810,7 @@ export default class TCBetBill extends React.Component {
     }
 
     checkAnProcessJson(json) {
-        let encryptJson = photoHelper.cropPhoto(this.props.userStore.sessionId, JSON.stringify(json));
+        let encryptJson = photoHelper.cropPhoto(userStore.sessionId, JSON.stringify(json));
         if (!encryptJson) {
             return false;
         }

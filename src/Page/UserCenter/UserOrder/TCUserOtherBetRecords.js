@@ -27,7 +27,11 @@ import {withMappedNavigationProps} from "react-navigation-props-mapper";
 @observer
 export default class TCUserOtherBetRecords extends Component {
 
-    userBetsStore = new UserBetsStore();
+    constructor(props) {
+        super(props)
+        this.platform = this.props.platform;
+        this.userBetsStore = new UserBetsStore();
+    }
 
     componentDidMount() {
         this.loadData();
@@ -35,7 +39,7 @@ export default class TCUserOtherBetRecords extends Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: indexBgColor.mainBg}}>
                 <TopNavigationBar
                     ref="TopNavigationBar"
                     needBackButton={true}
@@ -46,7 +50,7 @@ export default class TCUserOtherBetRecords extends Component {
                     centerButtonCall={() => {this.showPopView()}} />
                 <PopView
                     ref="TCSelectPopupView"
-                    SelectorTitleArr={this.userBetsStore.getBetsType()}
+                    SelectorTitleArr={this.userBetsStore.getBetsType(this.platform)}
                     selectedFunc={index => {this.selectMsgType(index)}}
                     selectedIndex={-1} />
                 <ModalDropdown
@@ -73,7 +77,7 @@ export default class TCUserOtherBetRecords extends Component {
                             dateInput: {height: 30, borderWidth: 0, alignItems: 'center'},
                             dateText: {height: 29, padding: 5, fontSize: Size.default, color: agentCenter.dateTxt}
                         }}
-                        onDateChange={date => {this.userBetsStore.beginTime = date}}
+                        onDateChange={date => {this.userBetsStore.beginTime = date; this.loadData()}}
                         minDate={Moment().subtract(90, 'days').format('YYYY-MM-DD')}
                         maxDate={new Date()} />
                     <Text style={{fontWeight: 'bold'}}>至</Text>
@@ -91,7 +95,7 @@ export default class TCUserOtherBetRecords extends Component {
                             dateInput: {height: 30, borderWidth: 0, alignItems: 'center'},
                             dateText: {height: 29, padding: 5, fontSize: Size.default, color: agentCenter.dateTxt}
                         }}
-                        onDateChange={date => {this.userBetsStore.endTime = date}}
+                        onDateChange={date => {this.userBetsStore.endTime = date; this.loadData()}}
                         minDate={Moment().subtract(90, 'days').format('YYYY-MM-DD')}
                         maxDate={new Date()} />
                 </View>
@@ -170,7 +174,7 @@ export default class TCUserOtherBetRecords extends Component {
         var popView = this.refs.TCSelectPopupView;
         popView._setModalSelectedIndex(index, 0);
         let navBar = this.refs.TopNavigationBar;
-        navBar.setTitle(this.userBetsStore.getBetsType()[index]);
+        navBar.setTitle(this.userBetsStore.getBetsType(this.platform)[index]);
         this.userBetsStore.selectBetTypeIndex = index;
         this.loadData();
     }

@@ -416,7 +416,16 @@ Helper.getDSFOpenList = () => {
         let dsfEgameInfos = TCHomeContents.content.dsfEgameInfos
         let dsfSportInfos = TCHomeContents.content.dsfSportInfos
         let dsfCardInfos = TCHomeContents.content.dsfCardInfos
-        let array = _.concat(dsfEgameInfos, dsfSportInfos, dsfCardInfos)
+        let array = []
+        if(!_.isEmpty(dsfSportInfos)){
+            array =[...array, ...dsfSportInfos]
+        }
+        if(!_.isEmpty(dsfEgameInfos)){
+            array =[...array, ...dsfEgameInfos]
+        }
+        if(!_.isEmpty(dsfCardInfos)){
+            array =[...array, ...dsfCardInfos]
+        }
         dsfInfos.dsfAll = array;
         dsfInfos.dsfEgameInfos = dsfEgameInfos
         dsfInfos.dsfSportInfos = dsfSportInfos

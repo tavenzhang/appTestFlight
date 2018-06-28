@@ -53,7 +53,7 @@ export default class TCUserStatements extends Component {
                 betCount: 0, // 下注次数
                 totalDsfWin: 0, // 平台获利
             },
-            dataSource1: ['投注总额', '实际投注总额', '返水金额', '输赢总额', '充值总额', '提款总额'],
+            dataSource1: ['投注总额', '实际投注总额', '总支出', '返水金额', '输赢总额', '充值总额', '提款总额'],
             beginTime: '',
             endTime: '',
             rightButtonTitle: '今天',
@@ -287,6 +287,8 @@ export default class TCUserStatements extends Component {
             return this.state.dataPersonal.totalBet.toFixed(2);
         } else if (key === '实际投注总额') {
             return this.state.dataPersonal.actualBet;
+        } else if (key === '总支出') {
+            return this.state.dataPersonal.totalPayout;
         } else if (key === '返水金额') {
             return this.state.dataPersonal.rebateAmount;
         } else if (key === '输赢总额') {

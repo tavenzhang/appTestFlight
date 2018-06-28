@@ -2,7 +2,7 @@ import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 
 'use-strict';
 import React from 'react';
-import {Image, ImageBackground, ScrollView, StyleSheet, Text, View, TouchableOpacity, Clipboard, Linking} from 'react-native';
+import {Image, ImageBackground, ScrollView, StyleSheet, Text, View, TouchableOpacity, Clipboard, Linking, Share} from 'react-native';
 import {Size, width} from "../../resouce/theme";
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import JXHelper from '../../../Common/JXHelper/JXHelper';
@@ -11,6 +11,7 @@ import {observer} from "mobx-react/native";
 import {inviteFriends} from '../../resouce/images';
 import QRCode from 'react-native-qrcode';
 import Toast from "../../../Common/JXHelper/JXToast";
+import { MyAppName } from '../../resouce/appConfig';
 
 let userOpenPayApp = new TCUserOpenPayApp()
 
@@ -42,6 +43,10 @@ export default class TCInviteFriends extends React.Component {
             <View style={styles.container}>
                 <TopNavigationBar
                     title={'分享好友'}
+                    rightTitle="分享"
+                    rightButtonCall={()=>{
+                        this._shareText()
+                    }}
                     needBackButton
                     backButtonCall={() => Helper.popToBack()}/>
                 <ScrollView style={{flex: 1}}>
@@ -106,6 +111,28 @@ export default class TCInviteFriends extends React.Component {
                 </ScrollView>
             </View>
         );
+    }
+    _shareText() {
+        const wapShareUrl = JXHelper.getShareUrl4Wap()
+        Share.share({
+            message: `欢迎访问${MyAppName}官方网站`,
+            url: wapShareUrl,
+            title: MyAppName
+        }, {
+            excludedActivityTypes: [
+                'com.apple.UIKit.activity.PostToTwitter',
+                'com.apple.UIKit.activity.Mail',
+                'com.apple.UIKit.activity.AddToReadingList',
+                'com.apple.mobilenotes.SharingExtension',
+                'com.apple.reminders.RemindersEditorExtension'
+            ]
+        })
+            .then(this._showResult)
+            .catch((error) => this.setState({result: 'error: ' + error.message}));
+    }
+
+    _showResult(result) {
+
     }
 }
 

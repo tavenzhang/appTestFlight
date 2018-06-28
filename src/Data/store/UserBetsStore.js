@@ -39,12 +39,14 @@ export default class UserBetsStore {
 
     /**
      * 获取投注类型
-     * @returns {[string,string,string,string,string]}
      */
-    getBetsType() {
-        return ['全部', '赢', '输', '平局', '未结算'];
+    getBetsType(platform) {
+        if (platform === 'IMONE' || platform === 'SS' || platform === 'KY') {
+            return ['全部', '赢', '输', '平局', '未结算'];
+        } else if (platform === 'MG') {
+            return ['全部', '赢', '输', '平局'];
+        }
     }
-
 
     getBetsSelectTypeStr() {
         let temp = ['', 'WIN', 'LOSS', 'DRAW', 'NOTSETTLED'];

@@ -10,7 +10,8 @@ import {
     Text,
     View,
     Image,
-    ImageBackground
+    ImageBackground,
+    ScrollView
 } from 'react-native';
 
 /**系统 npm类 */
@@ -27,7 +28,7 @@ import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper';
 
 import {setReadPopupAnnouncements} from './JXPopupNoticeHelper';
 
-const h = 170;
+const h = 270;
 
 /** 外部关系组件 如 页面跳转用 */
 
@@ -125,8 +126,10 @@ export default class MyComponent extends React.Component {
     renderPage=(d,p)=>{
         return (
                 <View style={styles.page}>
-                    <Text style={{margin:10,fontSize:Size.font16,color:'#333'}}>{d.content}</Text>
-                    <View style={{alignSelf:'flex-end',marginRight:10}}>
+                    <ScrollView  style={{width: 300, height: h}}>
+                        <Text style={{margin:10,fontSize:Size.font16,color:'#333'}}>{d.content}</Text>
+                    </ScrollView>
+                    <View style={{alignSelf:'flex-end',marginRight:10,marginBottom:20,marginTop:5}}>
                     <Text style={{fontSize:Size.font14,color:'#333'}}>{d.createTime}</Text>
                     </View>
                 </View>

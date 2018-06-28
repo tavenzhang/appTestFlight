@@ -23,6 +23,9 @@ const colorArray = indexTxtColor.midMenuTitle
 import  {homeMenu} from '../../resouce/images'
 import FastImage from 'react-native-fast-image';
 
+import { Other } from '../../asset/';
+import JXHelper from '../../../Common/JXHelper/JXHelper'
+
 export default class MyComponent extends Component {
     constructor(state) {
         super(state)
@@ -77,21 +80,37 @@ export class MyComponent2 extends React.Component {
                     this.props.pushToEvent(this.props.rowData)
                 }}>
                     {this.getImage()}
-                    <Text
-                        style={{fontSize: Size.font14, marginTop: 2, color: this.props.color}}>{this.props.title}
-                    </Text>
+                    {this.getTitle()}
                 </TouchableOpacity>
             </View>
         );
     }
 
     getImage() {
+        let img = homeMenu[this.props.rowData.type];
+        if (this.checkDSFOpen() && this.props.rowData.type == 'ORDER') {
+            img = Other.worldCup.homeEntrance;
+        }
         return (
-            <FastImage source={homeMenu[this.props.rowData.type]} style={{width: 55, height: 55}} resizeMode={'contain'}/>
+            <FastImage source={img} style={{width: 55, height: 55}} resizeMode={'contain'}/>
         );
     }
 
+    getTitle() {
+        let title = this.props.title;
+        if (this.checkDSFOpen() && this.props.rowData.type == 'ORDER') {
+            title = '2018世界杯';
+        }
+        return <Text style={{ fontSize: Size.font14, marginTop: 2, color: this.props.color }}>{title}</Text>;
+    }
 
+    checkDSFOpen() {
+        let otherPlatform = JXHelper.getDSFOpenList().dsfSportInfos;
+        if (otherPlatform && otherPlatform.length > 0) {
+            return true;
+        }
+        return false;
+    }
 }
 
 

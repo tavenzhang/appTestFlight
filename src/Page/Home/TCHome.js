@@ -170,6 +170,10 @@ export default class TCHome extends Component {
         return this.props.userStore.isLogin;
     }
 
+    @computed get isGuest() {
+        return this.props.userStore.isGuest;
+    }
+
     @computed get appName() {
         return this.props.initAppStore.appName;
     }
@@ -361,14 +365,18 @@ export default class TCHome extends Component {
                 pushToEvent={item => {
                     JXLog("renderDSFView----", item)
                     if (item.status == "ON") {
-                        if (this.state.isLogin) {
-                            if (isSport) {
-                                JX_NavHelp.pushView(JX_Compones.TCWebGameView, {
-                                    gameData: item,
-                                    title: item.gameDescription
-                                })
+                        if (this.isLogin) {
+                            if (this.isGuest) {
+                                Toast.showShortCenter(`你当前是: 试玩账号 暂时无法体验,请尽快注册正式账号参与体验吧！`);
                             } else {
-                                JX_NavHelp.pushView(JX_Compones.DZGameListView, {gameData: item})
+                                if (isSport) {
+                                    JX_NavHelp.pushView(JX_Compones.TCWebGameView, {
+                                        gameData: item,
+                                        title: item.gameDescription
+                                    })
+                                } else {
+                                    JX_NavHelp.pushView(JX_Compones.DZGameListView, {gameData: item})
+                                }
                             }
                         } else {
                             JX_NavHelp.pushToUserLogin(true)
@@ -379,7 +387,6 @@ export default class TCHome extends Component {
                     } else {
                         Toast.showShortCenter(` ${item.gameNameInChinese} 尚未开启! `)
                     }
-
                 }}
             />)
     }
@@ -426,7 +433,7 @@ export default class TCHome extends Component {
             if (this.isLogin) {
                 let otherPlatform = JXHelper.getDSFOpenList().dsfAll
                 if (otherPlatform && otherPlatform.length > 0) {
-                    NavigatorHelper.pushToOrderType()
+                    NavigatorHelper.pushToWorldCup()
                 } else {
                     NavigatorHelper.pushToOrderRecord()
                 }
@@ -448,22 +455,6 @@ export default class TCHome extends Component {
         }
     }
 
-    async checkUserWhetherLogin() {
-        await storage
-            .load({
-                key: 'user'
-            })
-            .then(res => {
-                this.setState({
-                    isLogin: NavigatorHelper.checkUserWhetherLogin()
-                });
-            })
-            .catch(err => {
-                this.setState({
-                    isLogin: NavigatorHelper.checkUserWhetherLogin()
-                });
-            });
-    }
 
     handleMethod(isConnected) {
     }
@@ -475,7 +466,6 @@ export default class TCHome extends Component {
             }
         });
     }
-
 }
 
 var styles = StyleSheet.create({

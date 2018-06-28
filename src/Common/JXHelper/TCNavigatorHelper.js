@@ -356,6 +356,10 @@ Helper.pushToRedPacketRules = () => {
     NavigationService.navigate("RedPacketRules");
 }
 
+// 世界杯
+Helper.pushToWorldCup = ()=>{
+    NavigationService.navigate("WorldCup");
+}
 
 Helper.isTopPage = () => {
     return false;

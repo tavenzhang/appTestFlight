@@ -32,7 +32,7 @@ export default class Wallet extends React.Component {
         let component = []
         walletStore.allBalances.map((platform) => {
             component.push (
-                <View style={styles.walletContainer}>
+                <View style={styles.walletContainer} key={platform.gamePlatform}>
                     <Text style={styles.walletName}>{platform.gameNameInChinese}</Text>
                     <View style={{flexDirection: 'row'}}>
                         <Text style={styles.walletMoney}>{platform.balance.toFixed(2)}{' 元'}</Text>

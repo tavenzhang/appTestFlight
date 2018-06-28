@@ -1,10 +1,11 @@
 'use-strict';
+import Moment from 'moment'
 import {action, computed, observable} from "mobx";
-import NetUtils from "../../Common/Network/TCRequestUitls";
+import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from '../../Common/Network/TCRequestConfig';
 import JXHelper from "../../Common/JXHelper/JXHelper";
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import TimeOutEvent from '../../Common/JXHelper/JXTimeOutEventHelper';
-import userStore from './UserStore'
 
 const lotteryPlatform = 'LOTTERY' // 中心钱包平台名
 /**
@@ -17,7 +18,11 @@ class WalletStore {
         this.TimeOutEvent = new TimeOutEvent();
     }
 
-    @observable lotteryBalance = 0 // 中心钱包（彩票）余额
+    @observable centerBalance = 0 // 中心钱包余额
+
+    @observable transferAccountName = []; // 账户钱包
+
+    @observable platformBalances = [];
 
     @observable allBalance = [] // 全部平台余额
 
@@ -84,14 +89,13 @@ class WalletStore {
     // 获取中心钱包余额
     @action
     getLotteryWalletBalance() {
-        userStore.getBalance(res => {
+        NetUitls.getUrlAndParamsAndCallback(config.api.userBalance, null, (res) => {
             if (res.rs && res.content) {
-                this.lotteryBalance = res.content.balance
                 let lp = this.findPlatform(lotteryPlatform)
                 if (lp) {
-                    lp.balance = this.lotteryBalance
+                    lp.balance = res.content.balance
                 }
-                JXLog('BalanceStore#getLotteryWalletBalance()', lp)
+                JXLog('WalletStore#getLotteryWalletBalance()', lp)
             }
         })
     }
@@ -99,13 +103,13 @@ class WalletStore {
     // 获取第三方平台钱包余额
     @action
     getOtherWalletBalance(gamePlatform) {
-        NetUtils.getUrlAndParamsAndPlatformAndCallback(config.api.getPlatformBalance, null, gamePlatform, (res) => {
+        NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.getPlatformBalance, null, gamePlatform, (res) => {
             if (res.rs && res.content) {
                 let op = this.findPlatform(gamePlatform)
                 if (op) {
                     op.balance = res.content.balance
                 }
-                JXLog('BalanceStore#getOtherWalletBalance() ' + gamePlatform, op)
+                JXLog('WalletStore#getOtherWalletBalance() '+gamePlatform, op)
             }
         })
     }
@@ -123,7 +127,7 @@ class WalletStore {
             transferType: transferType,
             amount: money
         }
-        NetUtils.putUrlAndParamsAndAndPlatformAndCallback(config.api.platformTransfer, platform, params, (res) => {
+        NetUitls.putUrlAndParamsAndAndPlatformAndCallback(config.api.platformTransfer, platform, params, (res) => {
             if (res.rs) {
                 // 刷新中心钱包和第三方钱包余额
                 this.getLotteryWalletBalance()
@@ -131,6 +135,108 @@ class WalletStore {
             }
             callback && callback(res);
         });
+    }
+
+    //----------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
+
+    @action
+    getPlatforms() {
+        let otherPlatform = JXHelper.getDSFOpenList().dsfAll;
+
+        this.transferAccountName = []
+        this.platformBalances = []
+        this.centerBalance = TCUSER_BALANCE
+        this.transferAccountName.push('中心钱包')
+        otherPlatform.map((platform) => {
+
+            if (platform.status && platform.status === 'ON') {
+                this.transferAccountName.push(platform.gameNameInChinese)
+                this.platformBalances.push({
+                    'gamePlatform': platform.gamePlatform,
+                    'balance': 0,
+                    'gameNameInChinese': platform.gameNameInChinese
+                })
+            }
+        })
+        this.getPlatformBalance();
+    }
+
+    //获取所有平台余额
+    @action
+    getPlatformBalance(callback) {
+        NetUitls.getUrlAndParamsAndCallback(config.api.userBalance, null, (res) => {
+            if (res.rs) {
+                this.centerBalance = res.content.balance;
+                RCTDeviceEventEmitter.emit('balanceChange', true);
+            }
+        })
+
+        this.platformBalances.map((platform) => {
+            this.getBalanceByPlatform(platform.gamePlatform, (res) => {
+                if (res.rs) {
+                    platform.balance = res.content.balance
+                }
+            })
+        })
+    }
+
+    //获取指定平台余额
+    getBalanceByPlatform(platform, callback) {
+        NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.getPlatformBalance, null, platform, (res) => {
+            if (res.rs) {
+                this.platformBalances.map((item) => {
+                    if (item.gamePlatform === res.content.gamePlatform) {
+                        item.balance = res.content.balance
+                    }
+                })
+            }
+            callback && callback(res);
+        });
+    }
+
+    /**
+     * 刷新余额
+     * @param isMoneyChange
+     */
+    @action
+    freshBalance(isMoneyChange = true) {
+        if (this.lastRequestTime === 0) {
+            this.lastRequestTime = Moment().format("X");
+        } else {
+            let temp = Moment().format('X') - this.lastRequestTime;
+            if (temp < 1) {
+                return;
+            } else {
+                this.lastRequestTime = Moment().format('X');
+            }
+        }
+        if (isMoneyChange) {
+            this.getBalance();
+        } else {
+            this.getBalanceAnUserInfo();
+        }
+    }
+
+    //获取余额
+    getBalance() {
+        NetUitls.getUrlAndParamsAndCallback(config.api.userBalance, null, (res) => {
+            if (res.rs) {
+                this.balance = res.content.balance;
+                this.centerBalance = this.balance;
+            }
+        })
+    }
+
+    //获取余额和用户信息
+    getBalanceAnUserInfo() {
+        NetUitls.getUrlAndParamsAndCallback(config.api.users, null, (res) => {
+            if (res.rs) {
+                this.balance = res.content.balance;
+                this.centerBalance = this.balance;
+                this.realName = res.content.realName;
+            }
+        })
     }
 }
 
