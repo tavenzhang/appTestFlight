@@ -647,7 +647,7 @@ const styles = StyleSheet.create({
     },
     imgTop: {
         width: width,
-        height: Platform.OS == 'ios' ? 145 : 135 + StatusBarHeight,
+        height: 145 + StatusBarHeight,
         paddingTop: StatusBarHeight,
     },
     imgSet: {
