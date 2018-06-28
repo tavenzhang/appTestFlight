@@ -1,39 +1,38 @@
 /**
  * Created by Joyce on 2017/01/07.
  */
-
-import React, {PropTypes} from 'react';
-import {StyleSheet, Platform, View, Text, TouchableOpacity, Image} from 'react-native';
+import React from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {common} from '../../resouce/images';
-import {Size, width} from '../../resouce/theme';
+import {indexTxtColor, Size} from '../../resouce/theme';
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper';
-import {navbarHight,navbarMarginTop} from '../../asset'
+import {NavBarHeaderHeight} from "../../asset/screen";
+import {themeViewStyle} from "../../asset/theme";
+
+const NavIconSize = NavBarHeaderHeight
 
 export default class TCNavigationBar extends React.Component {
-    // static propTypes = {
-    //     title: PropTypes.string.isRequired,
-    //     hiddenRightButton: PropTypes.bool,
-    // }
 
     render() {
         return (
-            <View style={styles.container}>
-                <TouchableOpacity underlayColor='#DEDEDE' onPress={() => this.goBack()}>
-                    <View style={styles.leftContainer}>
-                        <Image source={common.back} style={styles.leftImage}/>
+            <View style={[themeViewStyle.navBar, styles.container]}>
+                <TouchableOpacity style={themeViewStyle.navBarLeftItem} underlayColor='#DEDEDE' onPress={() => this.goBack()}>
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        <Image source={common.back} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
                     </View>
                 </TouchableOpacity>
-                <Text style={styles.title} ellipsizeMode='tail' numberOfLines={1}>{this.props.title}</Text>
-                <TouchableOpacity
-                    style={styles.rightContainer}
-                    underlayColor='#DEDEDE'
-                    disabled={this.props.hiddenRightButton ? true : false}
-                    onPress={() => this.goRules()}
-                >
-                        <Text style={styles.title}>{this.props.hiddenRightButton ? '' : '规则'}</Text>
+
+                <View style={themeViewStyle.navBarCenterItem}>
+                    <Text style={styles.titleStyle} ellipsizeMode='tail' numberOfLines={1}>{this.props.title}</Text>
+                </View>
+
+                <TouchableOpacity style={themeViewStyle.navBarRightItem} underlayColor='#DEDEDE' disabled={this.props.hiddenRightButton} onPress={() => this.goRules()}>
+                    <View style={{justifyContent: 'center', alignItems: 'center', paddingRight: 10}}>
+                        <Text style={styles.rightBoldTitleStyle}>{this.props.hiddenRightButton ? '' : '规则'}</Text>
+                    </View>
                 </TouchableOpacity>
             </View>
-        );
+        )
     }
 
     goBack() {
@@ -47,34 +46,26 @@ export default class TCNavigationBar extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: width,
-        height: navbarHight,
-        paddingTop: navbarMarginTop,
         borderBottomWidth: 1,
         borderBottomColor: '#CB202F',
         backgroundColor: '#E92637',
     },
-    leftContainer: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        width: 60,
+    navIcon: {
+        width: NavIconSize,
+        height: NavIconSize,
     },
-    leftImage: {
-        width: 45,
-        height: 45,
+    titleStyle: {
+        fontSize: Size.font20,
+        color: indexTxtColor.topTitle,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        textAlignVertical: 'center',
     },
-    title: {
-        color: '#FFFFFF',
-        fontSize: Size.font17,
-    },
-    rightContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 50,
-        height: 45,
+    rightBoldTitleStyle: {
+        fontSize: Size.font18,
+        color: indexTxtColor.topTitle,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        textAlignVertical: 'center',
     },
 });
