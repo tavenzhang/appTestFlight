@@ -340,7 +340,7 @@ export default class TCUserCenterNew extends Component {
                         <View style={styles.itemTxtView}>
                             <View style={{flexDirection: 'row'}}>
                                 <Text style={styles.mySettingLeftTxtStyle}>{rowData.name}</Text>
-                                <TipView key={rowData.key}/>
+                                <TipView dataKey={rowData.key}/>
                             </View>
                             <Text style={styles.contentTxtStyle}>{rowData.description}</Text>
                         </View>
@@ -388,16 +388,6 @@ export default class TCUserCenterNew extends Component {
             return null;
         }
         return (<View style={{height: 5, width: width}}></View>)
-    }
-
-    // 获取红点提示
-    getStatusTip(count) {
-        count = count > 99 ? 99 : count;
-        if (count === 0) {
-            return <View></View>
-        } else {
-            return (<View style={styles.pointStyle}><Text style={styles.pointTxt}>{count}</Text></View>)
-        }
     }
 
     /**
@@ -558,7 +548,7 @@ class TipView extends Component {
 
     render() {
         JXLog("===========newMsgCount===============", this.props.userStore.newMsgCount)
-        let count = this.props.key === "wdxx" ? this.newMsgCount : this.newFeedbackCount;
+        let count = this.props.dataKey === "wdxx" ? this.newMsgCount : this.newFeedbackCount;
         return (<View style={count !== 0 ? styles.pointStyle : null}>{count !== 0 ?
             <Text style={styles.pointTxt}>{count}</Text> : null}</View>)
     }

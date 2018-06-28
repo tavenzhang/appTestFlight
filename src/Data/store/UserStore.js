@@ -507,12 +507,12 @@ class UserStore {
         })
     }
 
+    @action
     getMessageStatus() {
         messageStore.getMessageStatus(res => {
             if (res.rs) {
-                this.newMsgCount = 10;
-                this.newFeedBackCount = 11;
-                JXLog("==================", this.newMsgCount)
+                this.newMsgCount = res.content.messageCount;
+                this.newFeedBackCount = res.content.replyNotReadCount;
             }
         })
     }
