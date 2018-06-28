@@ -14,7 +14,7 @@ import {
     View
 } from 'react-native';
 import {Size, width} from '../../resouce/theme'
-import {NavBarHeaderHeight} from "../../asset/screen";
+import {NavBarHeaderHeight, NavBarModalTop} from "../../asset/screen";
 
 export default class TCCQSSCPlayMethodSelectPopupView extends Component {
     constructor(state) {
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
         marginTop: 0,
     },
     contentStyle: {
-        marginTop: NavBarHeaderHeight,
+        marginTop: NavBarModalTop,
         justifyContent: 'center',
         backgroundColor: '#F2F2F2',
     },

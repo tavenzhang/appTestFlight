@@ -287,12 +287,13 @@ export default class TCAgentSheets extends Component {
             return (
                 <Text
                     style={{
-                        marginTop: Platform.OS === 'ios' ? 20 : 0,
                         fontSize: Size.font20,
                         color: indexTxtColor.topTitle,
                         fontWeight: 'bold',
                         alignItems: 'center',
-                        backgroundColor: 'transparent'
+                        backgroundColor: 'transparent',
+                        textAlign: 'center',
+                        textAlignVertical: 'center',
                     }}
                 >
                     个人报表
@@ -307,7 +308,9 @@ export default class TCAgentSheets extends Component {
                         color: indexTxtColor.topTitle,
                         fontWeight: 'bold',
                         alignItems: 'center',
-                        backgroundColor: 'transparent'
+                        backgroundColor: 'transparent',
+                        textAlign: 'center',
+                        textAlignVertical: 'center',
                     }}
                 >
                     团队报表
