@@ -428,7 +428,7 @@ export default class TCHome extends Component {
     pushWithMoneyBarTitle(rowData) {
         let title = rowData.type;
         if (title == 'TOPUP' || title == '存/取款') {
-            RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
+            this.props.mainStore.changeTab("mine");
         } else if (title == 'ORDER' || title == '投注记录') {
             if (this.isLogin) {
                 let otherPlatform = JXHelper.getDSFOpenList().dsfAll
