@@ -23,10 +23,10 @@ import NetUitls from '../../Common/Network/TCRequestUitls'
 import {Size} from '../../Page/resouce/theme'
 import JXHelper from '../../Common/JXHelper/JXHelper'
 
-import {observer, inject} from 'mobx-react/native';
+import {observer} from 'mobx-react/native';
 import Toast from "../../Common/JXHelper/JXToast";
+import userStore from "../../Data/store/UserStore"
 
-@inject("userStore")
 @observer
 export default class TCBetAwardCountdown extends React.Component {
 
@@ -89,7 +89,7 @@ export default class TCBetAwardCountdown extends React.Component {
                         color: betHome.balanceTxt,
                         marginLeft: 5,
                         fontSize: Size.font15
-                    }}>{this.state.balance == null ? this.props.userStore.balance : this.state.balance}元</Text>
+                    }}>{this.state.balance == null ? userStore.balance : this.state.balance}元</Text>
                 {/*<Image source={require('image!icon_shake')} style={{width: 16, height: 16, marginLeft: 5}}/>*/}
             </View>
         </TouchableHighlight>)
@@ -137,7 +137,7 @@ export default class TCBetAwardCountdown extends React.Component {
         this.setState({
             isLoading: true
         })
-        this.props.userStore.getBalance(response => {
+        userStore.getBalance(response => {
             if (response.rs) {
                 let balance = parseFloat(response.content.balance)
                 this.timer2 = setTimeout(() => {

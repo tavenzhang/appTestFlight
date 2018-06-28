@@ -241,7 +241,7 @@ export default class TCAddUserInfo extends Component {
             <TouchableOpacity>
                 <View style={styles.dropDownItemStyle}>
                     <Image
-                        source={{uri: this.props.jdAppStore.getBankCardLogo(this.bankStore.bankList.bankCodes[rowId])}}
+                        source={ this.props.jdAppStore.getBankCardLogo(this.bankStore.bankList.bankCodes[rowId])}
                         resizeMode={'contain'}
                         style={styles.bankIcon}/>
                     <Text style={{fontSize: Size.font16, color: listViewTxtColor.title}}>{rowData}</Text>

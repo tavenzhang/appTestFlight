@@ -226,6 +226,7 @@ export default class TCAgentSheets extends Component {
                         text={JXHelper.getUserIconShowName(
                             this.props.username ? this.props.username : userStore.userName
                         )}
+                        bgColor={userStore.userLogoColor}
                     />
                     <View style={styles.agentDetailTxt}>
                         <View style={{flexDirection: 'row'}}>

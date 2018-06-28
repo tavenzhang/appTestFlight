@@ -547,7 +547,6 @@ class TipView extends Component {
     }
 
     render() {
-        JXLog("===========newMsgCount===============", this.props.userStore.newMsgCount)
         let count = this.props.dataKey === "wdxx" ? this.newMsgCount : this.newFeedbackCount;
         return (<View style={count !== 0 ? styles.pointStyle : null}>{count !== 0 ?
             <Text style={styles.pointTxt}>{count}</Text> : null}</View>)

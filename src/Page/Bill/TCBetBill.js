@@ -70,6 +70,7 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import userStore from "../../Data/store/UserStore";
 
 @withMappedNavigationProps()
+@observer
 export default class TCBetBill extends React.Component {
     constructor(state) {
         super(state);

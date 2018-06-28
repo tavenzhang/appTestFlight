@@ -82,11 +82,11 @@ class JDAppStore {
 
 
     getBankCardLogo(bankCode) {
-        return TCHomeContents.content.otherSettings.bankCardLogoUrlPrefix + bankCode + ".png";
+        return {uri: TCHomeContents.content.otherSettings.bankCardLogoUrlPrefix + bankCode + ".png"};
     }
 
     getBankBackground(bankCode) {
-        return TCHomeContents.content.otherSettings.bankCardLogoUrlPrefix + bankCode + "_bg.png";
+        return {uri: TCHomeContents.content.otherSettings.bankCardLogoUrlPrefix + bankCode + "_bg.png"};
     }
 
     /**

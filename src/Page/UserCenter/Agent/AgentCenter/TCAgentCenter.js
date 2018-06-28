@@ -52,7 +52,9 @@ export default class TCAgentCenter extends Component {
 
                 <ImageBackground source={personal.userCenterBg} style={styles.imgTop}>
                     <View style={styles.agentDetail}>
-                        <UserIcon style={styles.imgUser} text={JXHelper.getUserIconShowName(userStore.userName)}/>
+                        <UserIcon style={styles.imgUser}
+                                  text={JXHelper.getUserIconShowName(userStore.userName)}
+                                  bgColor={userStore.userLogoColor}/>
                         <View style={styles.agentDetailTxt}>
                             <View style={{flexDirection: 'row'}}>
                                 <Text
