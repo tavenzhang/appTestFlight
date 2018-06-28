@@ -26,6 +26,7 @@ import TCNavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {betIcon} from '../../resouce/images'
 import {Size} from '../../resouce/theme'
 import {navbarHight} from '../../../Page/asset'
+import {NavBarHeaderHeight, NavBarHeight} from "../../asset/screen";
 
 export default class TCBetHelperModal extends Component {
     constructor(state) {
@@ -72,7 +73,7 @@ export default class TCBetHelperModal extends Component {
                         style={{
                             position: 'absolute',
                             right: 10,
-                            top: navbarHight - 6,
+                            top: NavBarHeaderHeight,
                             width: 120,
                             height: JXHelpers.checkHaveTrend(this.props.gameUniqueId) ? 265 : 215,
                             justifyContent: 'center',
