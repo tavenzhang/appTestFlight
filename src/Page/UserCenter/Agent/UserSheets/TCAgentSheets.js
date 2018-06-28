@@ -303,7 +303,6 @@ export default class TCAgentSheets extends Component {
             return (
                 <Text
                     style={{
-                        marginTop: Platform.OS === 'ios' ? 20 : 0,
                         fontSize: Size.font20,
                         color: indexTxtColor.topTitle,
                         fontWeight: 'bold',
