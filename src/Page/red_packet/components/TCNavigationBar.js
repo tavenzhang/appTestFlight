@@ -3,7 +3,7 @@
  */
 
 import React, {PropTypes} from 'react';
-import {StyleSheet, Platform, View, Text, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, Platform, View, Text, TouchableOpacity, Image, StatusBar} from 'react-native';
 import {common} from '../../resouce/images';
 import {Size, width} from '../../resouce/theme';
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper';
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: width,
         height: navbarHight,
-        paddingTop: navbarMarginTop,
+        paddingTop: StatusBar.currentHeight,
         borderBottomWidth: 1,
         borderBottomColor: '#CB202F',
         backgroundColor: '#E92637',

@@ -5,6 +5,7 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
+    StatusBar,
     Text,
     View,
     Dimensions,
@@ -43,6 +44,8 @@ import {
 import {JX_PLAT_INFO} from '../asset'
 import SignInModal from './SignIn/TCSignInModal'
 import userCenterData from './TCUserCenterData'
+import {StatusBarHeight} from "../asset/screen";
+import NavigationService from "../Route/NavigationService";
 
 const USERCENTER_ITEMS = [
     [
@@ -160,6 +163,14 @@ export default class TCUserCenterNew extends Component {
 
     constructor(props) {
         super(props)
+        // this.didFoucsListener = this.props.navigation.addListener('didFocus', () => {
+        //     StatusBar.setTranslucent(true)
+        //     StatusBar.setBackgroundColor('transparent')
+        // })
+        // this.willBlurListener = this.props.navigation.addListener('willBlur', () => {
+        //     StatusBar.setTranslucent(false)
+        //     StatusBar.setBackgroundColor(Color.statusBar)
+        // })
         this.ds = new ListView.DataSource({
             rowHasChanged: (row1, row2) => row1 !== row2,
             sectionHeaderHasChanged: (s1, s2) => s1 !== s2
@@ -204,6 +215,8 @@ export default class TCUserCenterNew extends Component {
     }
 
     componentWillUnmount() {
+        this.didFoucsListener && this.didFoucsListener.remove()
+        this.willBlurListener && this.willBlurListener.remove()
         this.listener && this.listener.remove()
         this.listener2 && this.listener2.remove()
         this.listener3 && this.listener3.remove()
@@ -237,7 +250,8 @@ export default class TCUserCenterNew extends Component {
                                         if (TC_BUTTON_SOUND_STATUS) {
                                             SoundHelper.playSoundBundle();
                                         }
-                                        NavigatorHelper.gotoSetting();
+                                        // NavigatorHelper.gotoSetting();
+                                        NavigationService.navigate('ShopingLobby')
                                     }}>
                                         <Image source={personal.imgSet} style={{width: 24, height: 24, marginTop: 10, marginRight: 10}}/>
                                     </TouchableOpacity>
@@ -634,7 +648,8 @@ const styles = StyleSheet.create({
     },
     imgTop: {
         width: width,
-        height: Platform.OS == 'ios' ? 145 : 135
+        height: Platform.OS == 'ios' ? 145 : 135 + StatusBarHeight,
+        paddingTop: StatusBarHeight,
     },
     imgSet: {
         width: 50,

@@ -65,14 +65,13 @@ export default class MyComponent extends React.Component {
                 <TopNavigationBar
                     title="购彩大厅"
                     needBackButton={true}
-                    backButtonCall={() => {
-                        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home');
-                    }}
+                    backButtonCall={() => this.props.navigation.navigate('Home')}
                     rightImage={this.state.listStyle ? common.topBarSudoku : common.topBarList}
                     rightButtonCall={this.rightButtonCall}
                 />
                 <ScrollableTabView
                     ref="ScrollableTabView"
+                    style={{flex: 1}}
                     removeClippedSubviews={false}
                     renderTabBar={() => <ScrollableTabBar/>}
                     tabBarUnderlineStyle={{backgroundColor: shoppingTxtColor.tabLine, height: 2}}
