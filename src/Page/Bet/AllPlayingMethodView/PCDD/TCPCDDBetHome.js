@@ -279,11 +279,16 @@ export default class TCMarkSixBetHome extends React.Component {
             }
 
         });
+        this.listener2 = RCTDeviceEventEmitter.addListener('upDataUI_forBillDataChange', () => {
+            this.userPlayNumberEvent.userNumberCallBackRefresh();
+        });
+
     }
 
     componentWillUnmount() {
         this.listener && this.listener.remove();
         this.listener1 && this.listener1.remove();
+        this.listener2 && this.listener2.remove();
         this.didFocusListener && this.didFocusListener.remove()
         this.didBlurListener && this.didBlurListener.remove()
         this.currentResultData && this.currentResultData.clear();
@@ -439,9 +444,9 @@ export default class TCMarkSixBetHome extends React.Component {
     }
 
     getShoppingCartView() {
-        if (SingletonDPS.getAddedBetArr().length > 0) {
+        if (this.userPlayNumberEvent.str.alreadyAdd> 0) {
             return (<TCBetGoBackShoppingCart style={{position: 'absolute', top: 0}}
-                                             cc={SingletonDPS.getAddedBetArr().length}
+                                             cc={this.userPlayNumberEvent.str.alreadyAdd}
                                              shakeEvent={() => this.pushToBetBill()}/>)
         }
     }
