@@ -90,11 +90,14 @@ Helper.pushToUserAccount = (accountType) => {
     NavigationService.navigate("UserAcount", {initPage: accountType});
 }
 
-Helper.pushToUserAcountDetail = (params) => {
-    NavigationService.navigate("UserAcountDetail", params);
+Helper.pushToUserTransferDetails = (params) => {
+    NavigationService.navigate("UserTransferDetails", params);
 }
 
-//用户充值提现
+/**
+ * 用户充值提现转账
+ * @param accountType：0-提现， 1-充值， 2-转账
+ */
 Helper.pushToUserPayAndWithDraw = (accountType, isBackToTop) => {
     NavigationService.navigate("UserAcountPay", {accountType: accountType, isBackToTop: isBackToTop});
 }
