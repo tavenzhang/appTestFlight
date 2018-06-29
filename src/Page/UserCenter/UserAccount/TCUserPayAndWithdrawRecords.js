@@ -145,7 +145,7 @@ export  default  class TCUserPayAndWithdrawRecords extends Component {
             let endTime = Moment().format('YYYY-MM-DD');
             let startTime = Moment().subtract(90, 'days').format('YYYY-MM-DD');
             let params = {startTime: startTime, endTime: endTime, transferStateType: this.getState(), start: pageNum * pageSize, pageSize: pageSize};
-            RequestUtils.getUrlAndParamsAndPlatformAndCallback(config.api.transferRecords, params, null, (res) => {
+            RequestUtils.getUrlAndParamsAndCallback(config.api.transferRecords, params, (res) => {
                 callback(res, res.content)
             })
         }
