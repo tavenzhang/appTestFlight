@@ -18,6 +18,7 @@ import {
 } from '../../resouce/theme'
 import Moment from "moment/moment";
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
+import JXHelper from "../../../Common/JXHelper/JXHelper";
 
 @withMappedNavigationProps()
 export default class TCUserTransferDetails extends React.Component {
@@ -44,7 +45,7 @@ export default class TCUserTransferDetails extends React.Component {
                     </View>
                     <View style={styles.itemStyle}>
                         <Text style={styles.itemTitleStyle}>类型：</Text>
-                        <Text style={styles.itemContentStyle}>{type === 'TopUp' ? '转出' : '转入'}</Text>
+                        <Text style={styles.itemContentStyle}>{this.getType(type)}</Text>
                     </View>
                     <View style={styles.itemStyle}>
                         <Text style={styles.itemTitleStyle}>金额：</Text>
@@ -58,6 +59,20 @@ export default class TCUserTransferDetails extends React.Component {
             </View>
         )
     };
+
+    getType(type) {
+        let platforms = JXHelper.getDSFOpenList().dsfAll
+        let platform = this.props.orderData.gamePlatform
+        let platformInChinese = ''
+        let pf = platforms.find(p => p.gamePlatform === platform)
+        if (pf) {
+            platformInChinese = pf.gameNameInChinese
+        }
+        if (type === 'TopUp') {
+            return '从中心钱包转出到' + platformInChinese
+        }
+        return '从' + platformInChinese + '转入到中心钱包'
+    }
 
     getTime(completeTime) {
         return Moment(completeTime).format("YYYY-MM-DD HH:mm:ss")
