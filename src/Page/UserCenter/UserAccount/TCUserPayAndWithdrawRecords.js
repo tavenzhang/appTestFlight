@@ -48,7 +48,19 @@ export  default  class TCUserPayAndWithdrawRecords extends Component {
     };
 
     getNodataTip() {
-        var titleStr = this.props.accountType === 1 ? '暂无充值' : '暂无提现'
+        let titleStr = ''
+        switch (this.props.accountType) {
+            case 0:
+                titleStr =  '暂无提现'
+                break
+            case 1:
+                titleStr =  '暂无充值'
+                break
+            case 2:
+                titleStr =  '暂无转账'
+                break
+        }
+
         switch (this.props.type) {
             case 1:
                 return titleStr + '记录'
@@ -57,7 +69,6 @@ export  default  class TCUserPayAndWithdrawRecords extends Component {
             case 3:
                 return titleStr + '失败记录'
         }
-
     }
 
     getNodataView() {
@@ -133,7 +144,7 @@ export  default  class TCUserPayAndWithdrawRecords extends Component {
         } else if (this.props.accountType === 2) {
             let endTime = Moment().format('YYYY-MM-DD');
             let startTime = Moment().subtract(90, 'days').format('YYYY-MM-DD');
-            let params = {startTime: startTime, endTime: endTime, transferStateType: this.getState()};
+            let params = {startTime: startTime, endTime: endTime, transferStateType: this.getState(), start: pageNum * pageSize, pageSize: pageSize};
             RequestUtils.getUrlAndParamsAndPlatformAndCallback(config.api.transferRecords, params, null, (res) => {
                 callback(res, res.content)
             })

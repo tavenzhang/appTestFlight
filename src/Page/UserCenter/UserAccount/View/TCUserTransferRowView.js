@@ -35,11 +35,11 @@ export default class TCUserTransferRowView extends Component {
 
     getState() {
         let state = this.props.rowData.state
-        if (state === 'Successful') {
+        if (state === 'COMPLETED') {
             return '已完成'
-        } else if (state === 'Failed') {
+        } else if (state === 'FAILED') {
             return '失败'
-        } else if (state === 'Handling') {
+        } else if (state === 'HANDLING') {
             return '处理中'
         }
     }
