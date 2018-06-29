@@ -27,7 +27,7 @@ import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import {width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size, baseColor} from '../resouce/theme';
-import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
+import {JX_PLAT_INFO, bottomNavHeight, ASSET_Screen} from '../asset'
 import {home} from '../resouce/images';
 import Toast from "../../Common/JXHelper/JXToast";
 import Moment from "moment/moment";
@@ -80,9 +80,11 @@ export default class TC168 extends Component {
     };
 
     render() {
+
         return (
             <View style={{flex: 1}}>
-                <TabNavigator tabBarStyle={{backgroundColor: indexBgColor.tabBg, height: bottomNavHeight}}>
+                <TabNavigator tabBarStyle={{backgroundColor: indexBgColor.tabBg, height: bottomNavHeight,
+                    paddingBottom:JX_PLAT_INFO.IS_IphoneX ? 30:0}}>
                     {/*--首页--*/}
                     {this.renderTabBarItem("首页",
                         home.indexHomeNormal,
