@@ -16,7 +16,7 @@ export default class TCUserTransferRowView extends Component {
             <View style={styles.container}>
                 <View style={styles.itemStyle}>
                     <View style={styles.itemLeftStyle}>
-                        <Text style={styles.itemTitle}>{'转账'}
+                        <Text style={styles.itemTitle}>{this.getTitle()}
                             <Text style={styles.orderState}>(<Text style={styles.orderStateTxt}>{this.getState()}</Text>)</Text>
                         </Text>
                     </View>
@@ -34,7 +34,7 @@ export default class TCUserTransferRowView extends Component {
         return Moment(this.props.rowData.completeTime).format("YYYY-MM-DD HH:mm:ss")
     }
 
-    getState() {
+    getTitle() {
         let platforms = JXHelper.getDSFOpenList().dsfAll
         let platform = this.props.rowData.gamePlatform
         let platformInChinese = ''
@@ -46,6 +46,16 @@ export default class TCUserTransferRowView extends Component {
             return '转出到' + platformInChinese
         }
         return '从' + platformInChinese + '转入'
+    }
+
+    getState() {
+        if (this.props.rowData.state === 'COMPLETED') {
+            return '成功'
+        } else if (this.props.rowData.state === 'FAILED') {
+            return '失败'
+        } else if (this.props.rowData.state === 'HANDLING') {
+            return '处理中'
+        }
     }
 }
 
