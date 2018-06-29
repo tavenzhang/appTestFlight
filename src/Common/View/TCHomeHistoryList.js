@@ -50,7 +50,7 @@ export default class TCHomeHistoryList extends React.Component {
         this.lotteryHistoryData = new JXLotteryHistoryData();
         setTimeout(()=>{
             this.loadDataFormNet();
-        },1000)
+        },1300)
     }
 
 

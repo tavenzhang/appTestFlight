@@ -13,8 +13,7 @@ import {
     ScrollView,
     PanResponder,
     Image,
-    Alert,
-    InteractionManager, TouchableWithoutFeedback
+    Alert
 } from 'react-native';
 
 //系统 npm类
@@ -34,7 +33,7 @@ import TCBetHelperModal from '../../View/TCBetHelperModal'
 import TCBetGoBackShoppingCart from '../../View/TCBetGoBackShoppingCart'
 import TCBetShakeButtonView from '../../View/TCBetShakeButtonView'
 import TCBetBalanceButton from '../../View/TCBetBalanceButton'
-import TCHomeHistoryListNew from '../../../../Common/View/TCHomeHistoryListNew'
+import TCHomeHistoryList from '../../../../Common/View/TCHomeHistoryList'
 
 // 外部关系组件 如 页面跳转用
 import TCBetBill from '../../../Bill/TCBetBill'
@@ -47,8 +46,6 @@ import {betHome, indexBgColor} from '../../../resouce/theme'
 import {MathControllerFactory} from 'lottery-core'
 import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceBetData";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
-import {betIcon} from "../../../resouce/images";
-import {TC_LayoutAnimaton} from "../../../../Common/View/layoutAnimation/LayoutAnimaton";
 
 let SingletonDPS = null;
 let myPlayMath = '';
@@ -59,15 +56,15 @@ let myGameSetting = null
 export default class TCMarkSixBetHome extends React.Component {
     constructor(state) {
         super(state);
+
         this.state = {
             gestureCase: null,
             moveTop: 0,
             topFinal: 0,
-            isAnimation:true,
-            enableGesture:false
         };
         this.helperJumpTo = this.helperJumpTo.bind(this);
         SingletonDPS = MathControllerFactory.getInstance().getMathController(this.props.gameUniqueId);
+
     };
 
 
@@ -76,8 +73,6 @@ export default class TCMarkSixBetHome extends React.Component {
         unit_price: 2,
         gameUniqueId: ''
     }
-
-
 
     _panResponder = {}
 
@@ -88,46 +83,70 @@ export default class TCMarkSixBetHome extends React.Component {
         SingletonDPS.setGameUniqueId(this.props.gameUniqueId);
         SingletonDPS.filterPlayType(TCGameSetting.content['allGamesPrizeSettings'][this.props.gameUniqueId]["singleGamePrizeSettings"]);
         myPlayMath = SingletonDPS.getDefaultPlayNameFromFilterArray(this.props.cp_playMath);
-         SingletonDPS.resetAllData(myPlayMath);
+        SingletonDPS.resetAllData(myPlayMath);
         this._panResponder = PanResponder.create({
-            onStartShouldSetPanResponder: () => true,
-            onMoveShouldSetPanResponder: ()=> true,
-            onPanResponderGrant: (evt,gs)=>{
-                //滑动开始时，获取矩形的左上坐标，并设置背景为红色
-             //  JXLog("TCJPK------global-onPanResponderGrant==");zz
+            onStartShouldSetPanResponder: (evt, gestureState) => true,
+            onMoveShouldSetPanResponder: (evt, gestureState) => {
+                const {dx} = gestureState;
+                return Math.abs(dx) > 0;
             },
-            onPanResponderMove: (evt,gs)=>{
-             //   JXLog("TCJPK-----global-onPanResponderMove==");
-                if(gs.dy<0) {
-                    this.refs.historyView.onHideListView();
-                }else if(gs.dy>0){
-                    this.refs.historyView.onShowListView();
+            onPanResponderGrant: (evt, gestureState) => {
+                this.setState({
+                    isBegin: true,
+                    isMove: false,
+                    isEnd: false,
+                    gestureCase: gestureState,
+                    moveTop: this.state.topFinal
+                })
+            },
+            onPanResponderMove: (evt, gestureState) => {
+                if (this.state.topFinal >= 312 && gestureState.vy > 0) {
+                    return;
+                }
+
+                if (gestureState.vy > 0 && gestureState.dy >= 312 || this.state.topFinal == 182 && gestureState.dy >= 182) {
+                    this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
+                } else {
+                    this.setState({isBegin: false, isMove: true, isEnd: false, gestureCase: gestureState});
                 }
             },
-        })
+            onPanResponderRelease: (evt, gestureState) => {
+                let topFailHeight = 0;
+                if (gestureState.vy > 0 && gestureState.dy > 0) {
+                    topFailHeight = 312;
+                } else if (gestureState.vy == 0) {
+                    if (this.state.topFinal == 0 && gestureState.dy >= 0) {
+                        topFailHeight = 182;
+                    } else {
+                        topFailHeight = 0;
+                    }
+                } else if (gestureState.vy < 0) {
+                    topFailHeight = 0;
+                }
 
-        this.didFocusListener = this.props.navigation.addListener('willFocus', () => {
-            JXLog("TCJPK------willFocus");
-        })
-
-      this.didFocusListener = this.props.navigation.addListener('didFocus', () => {
-          JXLog("TCJPK------didFocus")
-          this.currentResultData.didBlur(false)}
-          )
-        this.didBlurListener = this.props.navigation.addListener('willBlur', () =>{
-            JXLog("TCJPK------willBlur")
-
-            this.currentResultData.didBlur(true)})
-      this.didBlurListener = this.props.navigation.addListener('didBlur', () =>{
-          JXLog("TCJPK------didBlur")
-
-          this.currentResultData.didBlur(true)})
-       // JXLog("TCJPK-----runAfterInteractions-begin")
-       //  InteractionManager.runAfterInteractions(() => {
-       //      this.setState({isAnimation:false})
-       //      JXLog("TCJPK-----runAfterInteractions-fish");
-       //      // ...耗时较长的同步的任务...
-       //  });
+                this.setState({
+                    isBegin: false,
+                    isMove: false,
+                    isEnd: true,
+                    gestureCase: null,
+                    topFinal: topFailHeight,
+                })
+            },
+            onPanResponderTerminate: (evt, gestureState) => {
+                this.setState({
+                    isBegin: false,
+                    isMove: false,
+                    isEnd: true,
+                    gestureCase: null,
+                    topFinal: gestureState.vy >= 0 ? 312 : 0
+                })
+            },
+        });
+        this.listener1 = RCTDeviceEventEmitter.addListener('heightChange', () => {
+            this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
+        });
+      this.didFocusListener = this.props.navigation.addListener('didFocus', () => this.currentResultData.didBlur(false))
+      this.didBlurListener = this.props.navigation.addListener('didBlur', () => this.currentResultData.didBlur(true))
     }
 
     render() {
@@ -137,7 +156,6 @@ export default class TCMarkSixBetHome extends React.Component {
         } else if (historyHeight > 312) {
             historyHeight = 312;
         }
-        let globalGuest= this.state.enableGesture ? this._panResponder.panHandlers:{}
         return (
             <View style={styles.container}>
                 <TopNavigationBar
@@ -169,17 +187,14 @@ export default class TCMarkSixBetHome extends React.Component {
                     resultsData={this.currentResultData.resultsData}
                     is10Num={true}
                 />
-                <View style={{flex:1}} {...globalGuest}>
-                <TCHomeHistoryListNew
-                        ref="historyView"
-                        onGuestureChange={(enable)=>{
-                            this.setState({enableGesture:enable})
-                        }}
+                <View style={{width: Dimensions.get('window').width, height: historyHeight}}>
+                    <TCHomeHistoryList
                         height={historyHeight}
                         gameUniqueId={this.props.gameUniqueId}
                         title={this.props.title}
                         isHighlightStyle={false}
                     />
+                </View>
 
                 <View style={{
                     flexDirection: 'column',
@@ -188,54 +203,31 @@ export default class TCMarkSixBetHome extends React.Component {
                     width: Dimensions.get('window').width,
                     alignItems: 'center',
                     backgroundColor: betHome.betTopItemBg,
-                }} >
+                }} {...this._panResponder.panHandlers}>
                     <Image
-                        source={this.state.enableGesture ? betIcon.stdui_arrow_up:betIcon.stdui_arrow_down}
+                        source={historyHeight >= 26 * 7 ?
+                            require('../../../resouce/addon/other/stdui_arrow_up.png') :
+                            require('../../../resouce/addon/other/stdui_arrow_down.png')
+                        }
                         resizeMode={'contain'}
                         style={{height: 13, width: 55, marginTop: 0}}
                     />
                 </View>
-                <TouchableWithoutFeedback onPress={()=>{
-                    if(!this.state.enableGesture){
-                        this.refs.historyView.onShowListView();
-                    }else{
-                        this.refs.historyView.onHideListView();
-
-                    }
-                }}>
                 <View style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     backgroundColor: betHome.betTopItemBg,
-                }}>
+                }} {...this._panResponder.panHandlers}>
                     <TCBetShakeButtonView ref="TCBetShakeButtonView" style={{position: 'absolute', top: 0}}
                                           shakeEvent={() => this.byShake()}/>
                     <TCBetBalanceButton style={{}} shakeEvent={() => this.byShake()}/>
                     {this.getShoppingCartView()}
                 </View>
-                </TouchableWithoutFeedback>
-                    <ScrollView ref="contentScrollView"
-                                scrollEventThrottle={6}
-                                onTouchStart={(data) => {
-                                   // JXLog( 'TCJPK------touch start')
-                                    this.startY = parseFloat(data.nativeEvent.pageY)
-                                }}
-                                onTouchMove={(data) => {
 
-                                    let dim = data.nativeEvent.pageY - this.startY;
-                                   // JXLog( 'TCJPK------onTouchMove'+dim+" this.scrollOffY== ",this.scrollOffY)
-                                    // TLog("onTouchMove---" + dim + "  this.scrollOffY==" + this.scrollOffY, this.startY) //增加10 垂直的距离
-                                    if (dim > 6 && this.scrollOffY <= 0 ) {
-                                        this.refs.historyView.onShowListView();
-                                       JXLog("TCJPK----------contentScrollView"+dim,this.scrollOffY)
-                                    }
-                                }}
-                                onScroll={(data) => {
-                                    this.scrollOffY = data.nativeEvent.contentOffset.y
-                                }}
-                    >{this.initialContentView()}</ScrollView>
-
+                <View style={{flex:1}}>
+                    <ScrollView ref="contentScrollView">{this.initialContentView()}</ScrollView>
+                </View>
                 <TCBetHomeBottomView ref="TCBetHomeBottomView"
                                      leftButtonCallEvent={() => this.randomSelect()}
                                      rightButtonCallEvent={() => this.checkNumbers()}
@@ -244,8 +236,8 @@ export default class TCMarkSixBetHome extends React.Component {
                                      mob={true}
                 />
                 <TCBetSettingModal ref='betSettingModal' settingEndingEvent={(e) => this.betSetEndingEvent(e)}/>
-                </View>
-                <LoadingSpinnerOverlay ref={component => this._modalLoadingSpinnerOverLay = component}
+                <LoadingSpinnerOverlay
+                    ref={component => this._modalLoadingSpinnerOverLay = component}
                 />
             </View>
         )
@@ -319,13 +311,9 @@ export default class TCMarkSixBetHome extends React.Component {
     }
 
     //初始化玩法号码选择
-    initialContentView=()=> {
-        // if(this.state.isAnimation){
-        //     return null
-        // }
-       // return null
+    initialContentView() {
         return <TCBJPK10_MainView ref='TCBJPK10_MainView' numberEvent={this.userPlayNumberEvent}
-                                  shakeEvent={this.byShake} gameUniqueId={this.props.gameUniqueId}
+                                  shakeEvent={() => this.byShake()} gameUniqueId={this.props.gameUniqueId}
                                   defaultPlayType={myPlayMath}/>
     }
 
@@ -434,7 +422,7 @@ export default class TCMarkSixBetHome extends React.Component {
         this.pushToBetBill()
     }
 
-    byShake=()=> {
+    byShake() {
         this.clearSelectedNumbers()
         let tempDic = SingletonDPS.addRandomToUnAddedArr();
         for (let ite in tempDic) {
