@@ -38,7 +38,7 @@ import dismissKeyboard from 'dismissKeyboard'
 import _ from 'lodash';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import ModalList from "./View/ModalList";
-import ButtonView from "../../../Common/View/ButtonView";
+import TCButtonView from "../../../Common/View/button/TCButtonView";
 import JXHelper from "../../../Common/JXHelper/JXHelper";
 import UserPayStore from "../../../Data/store/UserPayStore";
 import NavigationService from "../../Route/NavigationService";
@@ -143,19 +143,19 @@ export default class TCUserPayNew extends Component {
     getBankTypeView(rowData) {
         if (rowData.bankType.length === 2) {
             return (<View style={{flexDirection: 'row'}}>
-                <ButtonView text="储蓄卡" btnStyle={{marginHorizontal: 5}}
-                            onClick={() => this.onPayBankList(rowData.bankValue, 'DC')}/>
-                <ButtonView text="信用卡" btnStyle={{marginHorizontal: 5}}
-                            onClick={() => this.onPayBankList(rowData.bankValue, 'CC')}/>
+                <TCButtonView text="储蓄卡" btnStyle={{marginHorizontal: 5}}
+                              onClick={() => this.onPayBankList(rowData.bankValue, 'DC')}/>
+                <TCButtonView text="信用卡" btnStyle={{marginHorizontal: 5}}
+                              onClick={() => this.onPayBankList(rowData.bankValue, 'CC')}/>
             </View>)
         } else {
             let type = rowData.bankType[0];
             if (type === 'DC') {
-                return (<ButtonView text={'储蓄卡'} btnStyle={{marginHorizontal: 5}}
-                                    onClick={() => this.onPayBankList(rowData.bankValue, 'DC')}/>)
+                return (<TCButtonView text={'储蓄卡'} btnStyle={{marginHorizontal: 5}}
+                                      onClick={() => this.onPayBankList(rowData.bankValue, 'DC')}/>)
             } else {
-                return (<ButtonView text={'信用卡'} btnStyle={{marginHorizontal: 5}}
-                                    onClick={() => this.onPayBankList(rowData.bankValue, 'CC')}/>)
+                return (<TCButtonView text={'信用卡'} btnStyle={{marginHorizontal: 5}}
+                                      onClick={() => this.onPayBankList(rowData.bankValue, 'CC')}/>)
             }
         }
     }
