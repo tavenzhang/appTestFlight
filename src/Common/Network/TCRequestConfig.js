@@ -142,6 +142,7 @@ export const config = {
         getAllBalance: "dsf/center/player/getAllBalance",//获取所有余额
         allBalanceTransferToCenter: "dsf/center/player/balance/allBalanceTransferToCenter",//一键转账
         userBets: "dsf/center/player/getBetLog",//用户下注记录
+        transferRecords: "dsf/center/player/getTransfer",//转账记录
 
         //第三方电子游戏
        // gamesDZList: 'dsf/center/player/' + configAppId + '/games',//获取游戏列表

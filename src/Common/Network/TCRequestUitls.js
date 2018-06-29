@@ -47,9 +47,7 @@ export default class NetUitls extends Component {
         } else {
             config.mapGet.timeout = defaultTimeout
         }
-        if (platform) {
-            config.mapGet.headers.gamePlatform = platform;
-        }
+        config.mapGet.headers.gamePlatform = platform ? platform : '';
         this.fetchAsync(url, config.mapGet, callback, dontAddHeadersAuthorization)
     }
 
@@ -129,7 +127,7 @@ export default class NetUitls extends Component {
         } else {
             map.timeout = defaultTimeout
         }
-        map.headers.gamePlatform = platform;
+        map.headers.gamePlatform = platform ? platform : '';
         this.fetchAsync(url, map, callback)
     }
 
