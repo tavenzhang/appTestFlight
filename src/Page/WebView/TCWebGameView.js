@@ -15,6 +15,8 @@ var WEBVIEW_REF = 'webview';
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
 import {JX_PLAT_INFO, TC_SCREEN, themeViewStyle} from '../asset'
+import userStore from '../../Data/store/UserStore'
+
 //专门为体育电子准备
 export default class TCWebGameView extends React.Component {
 
@@ -30,7 +32,7 @@ export default class TCWebGameView extends React.Component {
     componentWillMount() {
         let params = this.props.navigation.state.params;
         let bodyParam = {
-            access_token: TCUSER_DATA.oauthToken.access_token,
+            access_token: userStore.access_token,
         }
 
         JXLog("componentWillMount--- params==", params)

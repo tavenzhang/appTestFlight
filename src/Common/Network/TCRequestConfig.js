@@ -44,8 +44,8 @@ export const config = {
 
         gameSetting: 'adminsettings/user/prizeSettings', //获取游戏设定
 
-        getHome: 'cms/internal/mobile', //首页接口
-        updateVersion: 'cms/internal/lastVersion/', //获取新版本
+        getHome: 'cms/internal/mobile/'+configAppId+"/contents", //首页接口
+        updateVersion: 'cms/internal/lastVersion/'+configAppId, //获取新版本
         getMessageList: 'cms/Message/playerMessages', //获取系统消息
         getMessageStatus: 'cms/Message/playerMessagesStatus', //获取是否有新消息状态
         getPromotionList: 'cms/internal/mobile/' + configAppId + '/promotionList', //获取优惠活动列表
@@ -60,6 +60,7 @@ export const config = {
         encryptChangePwd: 'account/webapi/account/users/change/encryptPassword', //修改用户密码或取款密码加密接口
         updateRealName: 'account/webapi/account/users/updateRealName', //更新真实姓名
         register: 'account/webapi/account/users/userWebRegister', //用户注册
+        validateCode:'api/v1/account/webapi/account/validateCode/getValidatePic',//验证码
         userEncryptRegister: 'account/webapi/account/users/userWebEncryptRegister', // 用户注册加密接口
         login: 'account/webapi/account/users/login', //用户登录
         encryptLogin: 'account//webapi/account/users/encryptLogin', //加密用户登录

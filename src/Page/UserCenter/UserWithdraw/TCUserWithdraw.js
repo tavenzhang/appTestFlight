@@ -11,7 +11,7 @@ import {
     ActivityIndicator,
     Alert
 } from 'react-native'
-import {observer} from 'mobx-react/native'
+import {observer, inject} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 import {
     Size,
@@ -378,7 +378,7 @@ export default class TCUserWithdrawNew extends Component {
             return
         }
         if (this.lastRequestTime === 0) {
-            this.lastRequestTime = Moment().format(x)
+            this.lastRequestTime = Moment().format('x')
         } else {
             let temp = Moment().format('x') - this.lastRequestTime;
             if (temp < 1) {
@@ -435,17 +435,16 @@ export default class TCUserWithdrawNew extends Component {
 /**
  * 默认显示银行卡子组件
  */
+@inject("jdAppStore")
 @observer
 class DefaultBankView extends Component {
     constructor(props) {
         super(props)
-
-        this.bankCardLogoUrl = JXHelper.getBankCardLogo();
     }
 
     render() {
         return (<View style={styles.bankItemStyle}>
-            <Image source={JXHelper.getBankIcon(this.props.bank.bankCode)}
+            <Image source={this.props.jdAppStore.getBankCardLogo(this.props.bank.bankCode)}
                    style={styles.img}/>
             <View>
                 <Text style={styles.itemTxt}>{this.props.bank ? this.props.bank.bankName : ''}</Text>

@@ -6,6 +6,7 @@ import {config} from '../../Common/Network/TCRequestConfig';
 import JXHelper from "../../Common/JXHelper/JXHelper";
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import TimeOutEvent from '../../Common/JXHelper/JXTimeOutEventHelper';
+import userStore from './UserStore'
 
 const lotteryPlatform = 'LOTTERY' // 中心钱包平台名
 /**
@@ -89,7 +90,8 @@ class WalletStore {
     // 获取中心钱包余额
     @action
     getLotteryWalletBalance() {
-        NetUitls.getUrlAndParamsAndCallback(config.api.userBalance, null, (res) => {
+
+        userStore.getBalance((res) => {
             if (res.rs && res.content) {
                 let lp = this.findPlatform(lotteryPlatform)
                 if (lp) {
@@ -109,7 +111,7 @@ class WalletStore {
                 if (op) {
                     op.balance = res.content.balance
                 }
-                JXLog('WalletStore#getOtherWalletBalance() '+gamePlatform, op)
+                JXLog('WalletStore#getOtherWalletBalance() ' + gamePlatform, op)
             }
         })
     }
@@ -193,50 +195,6 @@ class WalletStore {
             }
             callback && callback(res);
         });
-    }
-
-    /**
-     * 刷新余额
-     * @param isMoneyChange
-     */
-    @action
-    freshBalance(isMoneyChange = true) {
-        if (this.lastRequestTime === 0) {
-            this.lastRequestTime = Moment().format("X");
-        } else {
-            let temp = Moment().format('X') - this.lastRequestTime;
-            if (temp < 1) {
-                return;
-            } else {
-                this.lastRequestTime = Moment().format('X');
-            }
-        }
-        if (isMoneyChange) {
-            this.getBalance();
-        } else {
-            this.getBalanceAnUserInfo();
-        }
-    }
-
-    //获取余额
-    getBalance() {
-        NetUitls.getUrlAndParamsAndCallback(config.api.userBalance, null, (res) => {
-            if (res.rs) {
-                this.balance = res.content.balance;
-                this.centerBalance = this.balance;
-            }
-        })
-    }
-
-    //获取余额和用户信息
-    getBalanceAnUserInfo() {
-        NetUitls.getUrlAndParamsAndCallback(config.api.users, null, (res) => {
-            if (res.rs) {
-                this.balance = res.content.balance;
-                this.centerBalance = this.balance;
-                this.realName = res.content.realName;
-            }
-        })
     }
 }
 

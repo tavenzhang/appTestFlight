@@ -12,7 +12,7 @@ import {
     ScrollView,
 } from 'react-native';
 
-import {observer} from 'mobx-react/native'
+import {observer,inject} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 
 import Toast from '../../Common/JXHelper/JXToast';
@@ -20,16 +20,8 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 import dismissKeyboard from 'dismissKeyboard'
 import {Size, width, height} from '../../Page/resouce/theme'
-import {config} from '../../Common/Network/TCRequestConfig'
-import NetUtils from '../../Common/Network/TCRequestUitls'
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
-import Base64 from '../../Common/JXHelper/Base64'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
-
-import SecretUtils from '../../Common/JXHelper/SecretUtils'
-
-let base64 = new Base64()
-let secretUtils = new SecretUtils()
+import UserFreePlayStore from '../../Data/store/UserFreePlayStore'
 import {
     loginAndRegeisterTxtColor,
     loginAndRegeisterBorderColor,
@@ -42,11 +34,11 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
  * 免费试玩
  */
 @withMappedNavigationProps()
+@inject("userStore")
 @observer
 export default class TCUserFreePlay extends Component {
 
-    stateModel = new StateModel()
-    password = ''
+    userFreePlayStore = new UserFreePlayStore();
 
     constructor(props) {
         super(props)
@@ -55,7 +47,7 @@ export default class TCUserFreePlay extends Component {
     static defaultProps = {};
 
     componentDidMount() {
-        this.getGuestUserName()
+        this.initGuestUserName()
     }
 
 
@@ -82,7 +74,7 @@ export default class TCUserFreePlay extends Component {
                                         color: loginAndRegeisterTxtColor.inputPlaceholder,
                                         fontSize: Size.default
                                     }}>试玩账号</Text>
-                                <Text style={styles.guestNameStyle}>{this.stateModel.userName}</Text>
+                                <Text style={styles.guestNameStyle}>{this.userName}</Text>
                             </View>
                             <View style={styles.loginInputStyle}>
                                 <Text
@@ -129,111 +121,49 @@ export default class TCUserFreePlay extends Component {
             </View>);
     };
 
-    gotoBack() {
-        dismissKeyboard();
-        NavigatorHelper.popToBack()
+    @computed get userName() {
+        return this.props.userStore.userName;
     }
 
-    gotoUserCenter() {
-        dismissKeyboard()
-        NavigatorHelper.popToTop();
-        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
+    set password(password) {
+        this.props.userStore.password = password;
     }
+
+    gotoBack() {
+        dismissKeyboard();
+        NavigatorHelper.goBack();
+    }
+
 
     /**
      * 获取试玩账号
      */
-    getGuestUserName() {
+    initGuestUserName() {
         this._partModalLoadingSpinnerOverLay.show()
-        NetUtils.PostUrlAndParamsAndCallback(config.api.getGuestId, null, (res) => {
-            this._partModalLoadingSpinnerOverLay.hide()
-            if (res.rs) {
-                if (res.content && res.content.username) {
-                    this.stateModel.userName = res.content.username.toLocaleLowerCase()
-                } else {
-                    Toast.showLongCenter('服务器出错，请稍后再试!')
-                    this.gotoBack()
-                }
-            } else {
-                Toast.showLongCenter('服务器出错，请稍后再试!')
+        this.userFreePlayStore.getGuestUserName((res) => {
+            this._partModalLoadingSpinnerOverLay && this._partModalLoadingSpinnerOverLay.hide()
+            if (!res.status) {
+                Toast.showShortCenter(res.message);
                 this.gotoBack()
             }
-
         })
     }
 
     loginVal() {
-        if (!this.password.length) {
-            Toast.showShortCenter("请输入密码");
-            return;
-        }
-        let rep = /^[0-9A-Za-z]{6,15}$/
-        if (!this.password.match(rep)) {
-            Toast.showShortCenter("密码格式错误(6-15位数字或字母)");
-            return;
-        }
         dismissKeyboard();
         this._partModalLoadingSpinnerOverLay.show()
-        this.login(this.stateModel.userName.toLocaleLowerCase(), this.password);
-    }
-
-    login(userName, password) {
-        secretUtils.encode(userName, password, (hash) => {
-            let encryptedPWD = secretUtils.rsaEncodePWD(password);
-            let data = {'username': userName, 'password': encryptedPWD, 'hash': hash};
-            NetUtils.PostUrlAndParamsAndCallback(config.api.encryptRegisterGuest, data, (res) => {
-                this._partModalLoadingSpinnerOverLay.hide()
-                if (res.rs) {
-                    let user = res.content
-                    if (user !== null) {
-                        user.password = base64.encode(this.password)
-                        user.islogin = true
-                        this.saveUser(user)
-                        TCPUSH_TO_LOGIN = false
-                        RCTDeviceEventEmitter.emit('userBankChange')
-                        RCTDeviceEventEmitter.emit('userStateChange')
-                        RCTDeviceEventEmitter.emit('userStateChange', 'login')
-                    } else {
-                        Toast.showShortCenter('服务器错误，登录失败!')
-                    }
-                } else {
-                    if (res.message) {
-                        Toast.showShortCenter(res.message)
-                    } else {
-                        Toast.showShortCenter('服务器错误，登录失败!')
-                    }
-                }
-            }, null, true);
-        })
-    }
-
-    saveUser(user) {
-        storage.save({
-            key: 'user',
-            data: user
-        })
-        storage.save({
-            key: 'balance',
-            data: user.balance
-        })
-        TCUSER_BALANCE = user.balance
-        TCUSER_DATA = user
-        RCTDeviceEventEmitter.emit('balanceChange')
-        if (this.props.gotoCenter) {
-            this.gotoUserCenter()
-        } else {
-            this.gotoBack()
-        }
+        this.userFreePlayStore.loginVal((res) => {
+            this._partModalLoadingSpinnerOverLay && this._partModalLoadingSpinnerOverLay.hide()
+            Toast.showShortCenter(res.message);
+            if (res.status) {
+                NavigatorHelper.popToTop();
+            }
+        });
     }
 
     onChangePassword(text) {
         this.password = text;
     }
-}
-
-class StateModel {
-    @observable
-    userName = ''
 }
 
 const

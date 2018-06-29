@@ -9,43 +9,32 @@ import {observable, computed, action} from 'mobx';
 import Toast from '../../../Common/JXHelper/JXToast';
 import dismissKeyboard from 'dismissKeyboard';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import NetUtils from '../../../Common/Network/TCRequestUitls';
-import {config} from '../../../Common/Network/TCRequestConfig';
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import {
     Size, width, height, indexBgColor, userCenterTxtColor, loginAndRegeisterBgColor, loginAndRegeisterTxtColor,
     loginAndRegeisterBorderColor
 } from '../../resouce/theme';
+import FeedBackStore from "../../../Data/store/FeedBackStore";
 
+
+@observer
 export default class TCUserFeedback extends Component {
     title = '';
     content = '';
+    feedBackStore = new FeedBackStore();
 
     constructor(state) {
         super(state);
-        this.state = {contentNumber: 0};
     }
 
     requestServer() {
-        let data = {title: this.title, content: this.content};
-        NetUtils.PostUrlAndParamsAndCallback(config.api.userFeedback, data, (res) => {
+        this.feedBackStore.addFeedBack(this.title, this.content, (res) => {
             this._partModalLoadingSpinnerOverLay.hide();
-            if (res.rs) {
-                this.timer = setTimeout(() => {
-                    RCTDeviceEventEmitter.emit('feedbackListRefresh');
-                    this.goBack();
-                }, 500)
-            } else {
-                if (res.message) {
-                    Toast.showShortCenter(res.message);
-                } else {
-                    Toast.showShortCenter('服务器错误，登录失败!');
-                }
-            }
-        }, null, false);
+            Toast.showShortCenter(res.message);
+            Helper.popToBack();
+        })
     }
 
     goBack() {
@@ -72,7 +61,7 @@ export default class TCUserFeedback extends Component {
 
     onChangeContent(text) {
         this.content = text;
-        this.setState({contentNumber: this.content.length});
+        this.feedBackStore.contentNumber = text.length;
     }
 
     renderContent() {
@@ -90,7 +79,7 @@ export default class TCUserFeedback extends Component {
                         maxLength={100}
                         onChangeText={(text) => this.onChangeContent(text)}
                     />
-                    <Text style={styles.lastContentTip}>{this.state.contentNumber}/100</Text>
+                    <Text style={styles.lastContentTip}>{this.feedBackStore.contentNumber}/100</Text>
                 </View>
             </View>
         );

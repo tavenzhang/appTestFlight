@@ -13,19 +13,19 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import {width, indexBgColor, shoppingTxtColor,Size} from '../../resouce/theme'
+import {width, indexBgColor, shoppingTxtColor, Size} from '../../resouce/theme'
 
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
-import SoundHelper from '../../../Common/JXHelper/SoundHelper'
 import HappyPokerHelper from '../../../Common/JXHelper/HappyPokerHelper'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
+import jdAppStore from '../../../Data/store/JDAppStore'
 
 let timeoutTime = 0
 let lastMoment = 0
 let happyPoker = new HappyPokerHelper()
-import { observer } from 'mobx-react/native';
+import {observer} from 'mobx-react/native';
 
 @observer
 export default class TCShopingListItemView extends Component {
@@ -46,9 +46,9 @@ export default class TCShopingListItemView extends Component {
         mTimer: PropTypes.any,
         describe: PropTypes.any,
         duration: PropTypes.any,
-        pushToEvent:PropTypes.any,
-        gameInfo:PropTypes.any,
-        rowData:PropTypes.any,
+        pushToEvent: PropTypes.any,
+        gameInfo: PropTypes.any,
+        rowData: PropTypes.any,
     };
 
 
@@ -90,17 +90,18 @@ export default class TCShopingListItemView extends Component {
                 {
                     this.getImage()
                 }
-                <View style={{justifyContent: 'space-around', flex: 1, marginTop: 5, marginBottom: 10, height: 100} }>
+                <View style={{justifyContent: 'space-around', flex: 1, marginTop: 5, marginBottom: 10, height: 100}}>
                     <View style={{flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between'}}>
-                        <Text style={{color: shoppingTxtColor.cpTitle, fontSize: Size.font17, marginTop: 5}} ellipsizeMode='tail'
+                        <Text style={{color: shoppingTxtColor.cpTitle, fontSize: Size.font17, marginTop: 5}}
+                              ellipsizeMode='tail'
                               numberOfLines={1}> {this.props.title} </Text>
                         <Text style={{
-                            color:shoppingTxtColor.cpLastIssueNumber,
+                            color: shoppingTxtColor.cpLastIssueNumber,
                             marginTop: 5,
                             marginRight: 10
                         }}>第{this.props.mobData ?
-                            (this.props.mobData.remainingTime>0?
-                                this.props.rowData.lastIssueNumber:this.props.mobData.uniqueIssueNumber):
+                            (this.props.mobData.remainingTime > 0 ?
+                                this.props.rowData.lastIssueNumber : this.props.mobData.uniqueIssueNumber) :
                             ''}期
                         </Text>
                     </View>
@@ -112,18 +113,23 @@ export default class TCShopingListItemView extends Component {
                             color: shoppingTxtColor.cpTipTxt,
                             fontSize: width >= 375 ? Size.font14 : Size.font12
                         }}>距第{this.props.mobData ?
-                            (this.props.mobData.remainingTime>0?
-                                this.props.mobData.uniqueIssueNumber:(this.props.mobData.nextUniqueIssueNumber)) :
+                            (this.props.mobData.remainingTime > 0 ?
+                                this.props.mobData.uniqueIssueNumber : (this.props.mobData.nextUniqueIssueNumber)) :
                             ''}期截止还有
                         </Text>
-                        <Text style={{color: shoppingTxtColor.cpTime, fontSize: Size.font14, width: 80, textAlign: "center"}}
+                        <Text style={{
+                            color: shoppingTxtColor.cpTime,
+                            fontSize: Size.font14,
+                            width: 80,
+                            textAlign: "center"
+                        }}
                               ellipsizeMode='tail'
                               numberOfLines={1}>
                             {this.props.mobData ?
-                                (this.getShowTime(this.props.mobData.remainingTime>0?
-                                    this.props.mobData.remainingTime:this.props.mobData.nextremainingTime)):
+                                (this.getShowTime(this.props.mobData.remainingTime > 0 ?
+                                    this.props.mobData.remainingTime : this.props.mobData.nextremainingTime)) :
                                 ''}
-                                </Text>
+                        </Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -145,7 +151,7 @@ export default class TCShopingListItemView extends Component {
             let numArray = this.props.rowData.lastOpenCode.split(",")
             let num = 0
 
-            numArray.map((item)=> {
+            numArray.map((item) => {
                 num += parseInt(item)
                 str += (item + '+')
             })
@@ -176,15 +182,12 @@ export default class TCShopingListItemView extends Component {
 
     buttonCall = () => {
         if (this.props.title) {
-            if (TC_BUTTON_SOUND_STATUS) {
-                SoundHelper.playSoundBundle();
-            }
-
+            jdAppStore.playSound();
             NavigatorHelper.pushToBetHome(this.props.rowData)
         }
     }
 
-    getShowTime(time){
+    getShowTime(time) {
         return JXHelper.getTimeHHMMSSWithSecond(time)
     }
 

@@ -40,6 +40,7 @@ import NoDataView from '../../../../Common/View/TCNoDataView';
 import ModalDropdown from '../../../../Common/View/ModalDropdown';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import Helper from "../../../../Common/JXHelper/TCNavigatorHelper";
+import userStore from '../../../../Data/store/UserStore'
 
 export default class TCAgentTeamList extends BaseComponent {
     constructor(state) {
@@ -63,7 +64,7 @@ export default class TCAgentTeamList extends BaseComponent {
             moreText: '加载更多',
             isRefreshing: false,
             username: '',
-            tabs: [{userId: 0, username: TCUSER_DATA.username}],
+            tabs: [{userId: 0, username: userStore.userName}],
             withDrawShow: false,
             renderPlaceholderOnly: true,
             isNoData: false,
@@ -744,7 +745,7 @@ export default class TCAgentTeamList extends BaseComponent {
                         </View>
                         <View style={styles.withdrawMoney}>
                             <Text>当前余额：</Text>
-                            <Text>{TCUSER_DATA.balance}</Text>
+                            <Text>{userStore.balance}</Text>
                         </View>
                         <View style={styles.withdrawMoney}>
                             <Text>转账金额：</Text>
@@ -968,9 +969,9 @@ export default class TCAgentTeamList extends BaseComponent {
 
     getPrizeGroupArray() {
         let arr = [];
-        if (TCUSER_DATA.prizeGroup) {
+        if (userStore.prizeGroup) {
             let p = 98;
-            for (let a = TCUSER_DATA.prizeGroup; a >= this.state.minPriceGroup; a -= 2) {
+            for (let a = userStore.prizeGroup; a >= this.state.minPriceGroup; a -= 2) {
                 let str = '' + a + ' - ' + (a / 2000 * 100).toFixed(2) + '% (赔率)';
                 arr.push({prize: a, str: str});
                 p -= 0.1;

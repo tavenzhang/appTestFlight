@@ -13,9 +13,12 @@ import _ from 'lodash';
 import NavigatorHelper from '../JXHelper/TCNavigatorHelper'
 import Toast from '../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
+import initAppStore from '../../Data/store/InitAppStore'
+import userStore from '../../Data/store/UserStore'
 
 const defaultTimeout = 10000;
 import Moment from 'moment';
+import NavigationService from "../../Page/Route/NavigationService";
 
 export default class NetUitls extends Component {
     /**
@@ -195,8 +198,9 @@ export default class NetUitls extends Component {
         } else {
             delete map.headers.Authorization
         }
-        if (TCUSER_DEVICE_TOKEN && TCUSER_DEVICE_TOKEN.length > 0)
-            map.headers.device_token = TCUSER_DEVICE_TOKEN
+        if (initAppStore.deviceToken.length) {
+            map.headers.device_token = initAppStore.deviceToken;
+        }
 
         //记录请求开始时间
         let startTime = Moment();
@@ -234,20 +238,16 @@ export default class NetUitls extends Component {
                 }
             } else if (response.status >= 400) {
                 if (response.status === 401) {
-                    TCUSER_DATA.islogin = false
+                    userStore.isLogin = false
                     result = {"rs": false, "error": '无效token', "status": response.status, duration: duration}
-                    if (!TCPUSH_TO_LOGIN) {
-                        Toast.showShortCenter('登录状态过期，请重新登录！')
-                        NavigatorHelper.pushToUserLogin()
-                        RCTDeviceEventEmitter.emit('userStateChange', 'logout');
-                    }
-                    else {
-                        return
-                    }
+                    Toast.showShortCenter('登录状态过期，请重新登录！')
+                    NavigationService.tokenIsError();
+                    result.rs = false;
+                    callback(result);
                 } else if (response.status === 422) {
                     if (url.match(/refreshToken/)) {
-                        TCUSER_DATA.islogin = false
-                        NavigatorHelper.pushToUserLogin()
+                        userStore.isLogin = false
+                        NavigationService.tokenIsError();
                     } else {
                         result = _.assignIn(responseJson, {"rs": false, "status": response.status, duration: duration})
                     }
@@ -285,12 +285,12 @@ export default class NetUitls extends Component {
 }
 
 function addHeadersAuthorization(map) {
-    if (TCUSER_DATA.oauthToken && TCUSER_DATA.islogin) {
-        map.headers.Authorization = 'bearer ' + TCUSER_DATA.oauthToken.access_token;
-    } else {
+    if (userStore.access_token && userStore.isLogin) {
+        map.headers.Authorization = 'bearer ' + userStore.access_token;
+    }
+    else {
         map.headers.Authorization = '';
     }
-
 
     return map
 }

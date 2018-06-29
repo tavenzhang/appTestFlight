@@ -12,12 +12,13 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
-import {width,indexBgColor,indexTxtColor,Size} from '../../resouce/theme'
+import {width, indexBgColor, indexTxtColor, Size} from '../../resouce/theme'
 
 const colorArray = indexTxtColor.homePageHotCPTitle
 import JXHelper from '../../../Common/JXHelper/JXHelper'
-import SoundHelper from '../../../Common/JXHelper/SoundHelper'
 import TCImage from "../../../Common/View/image/TCImage";
+import jdAppStore from '../../../Data/store/JDAppStore'
+
 
 export default class TCHomeHotItemView extends React.Component {
 
@@ -53,30 +54,35 @@ export default class TCHomeHotItemView extends React.Component {
     render() {
         let index = (7 + this.props.rowID) % 7
         return (
-            <TouchableOpacity style={styles.container} onPress={()=> {
+            <TouchableOpacity style={styles.container} onPress={() => {
                 this.buttonCall()
             }}>
-                <View style={{marginLeft: 10, justifyContent: 'center', width: width / 2 - 80} }>
+                <View style={{marginLeft: 10, justifyContent: 'center', width: width / 2 - 80}}>
                     <Text style={{color: colorArray[index], fontSize: Size.font16}} ellipsizeMode='tail'
                           numberOfLines={1}> {this.props.rowData.gameNameInChinese} </Text>
-                    <Text style={{color: indexTxtColor.cpDescription, fontSize:width>=375?Size.font14:Size.font12, marginTop: 8}}
+                    <Text style={{
+                        color: indexTxtColor.cpDescription,
+                        fontSize: width >= 375 ? Size.font14 : Size.font12,
+                        marginTop: 8
+                    }}
                           ellipsizeMode='tail' numberOfLines={1}> {this.props.rowData.gameDescription} </Text>
                 </View>
                 {this.getImage()}
             </TouchableOpacity>
         )
     }
+
     getImage() {
         if (!this.props.rowData.gameUniqueId) {
             return
         }
         if (this.props.rowData && this.props.rowData.status && this.props.rowData.status == 'FORBIDDEN') {
             return <TCImage
-                source={{uri:this.props.rowData.status=='FORBIDDEN'?this.props.rowData.gameIconGrayUrl:this.props.rowData.gameIconUrl}}
-                style={styles.leftImgStyle} />
+                source={{uri: this.props.rowData.status == 'FORBIDDEN' ? this.props.rowData.gameIconGrayUrl : this.props.rowData.gameIconUrl}}
+                style={styles.leftImgStyle}/>
         } else {
             return <TCImage source={JXHelper.getGameIconWithUniqueId(this.props.rowData.gameUniqueId)}
-                            style={styles.leftImgStyle} />
+                            style={styles.leftImgStyle}/>
         }
     }
 
@@ -86,11 +92,7 @@ export default class TCHomeHotItemView extends React.Component {
             return
         }
         if (this.props.pushToEvent == null) return
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.pushToEvent(this.props.rowData);
     }
 

@@ -1,9 +1,5 @@
 /**
  * Created by Sam on 2016/11/14.
- *
- *  ** use for import **
- *  import TopNavigationBar from '../../Common/View/TCNavigationBar'
- *
  */
 import React from 'react';
 import {
@@ -15,11 +11,11 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import SoundHelper from '../../../Common/JXHelper/SoundHelper'
 import {common} from '../../resouce/images'
 import {indexTxtColor, popuWinStyle, Size, titleBarStyle} from '../../resouce/theme'
 import {NavBarHeaderHeight} from "../../asset/screen";
 import {themeViewStyle} from "../../asset/theme";
+import jdAppStore from '../../../Data/store/JDAppStore'
 
 const NavIconSize = NavBarHeaderHeight
 
@@ -78,9 +74,12 @@ export default class TCBetBar extends React.Component {
     renderRightItem() {
         if (this.props.rightTitle) {
             return (
-                <TouchableOpacity onPress={() => {this.rightButtonCall()}} underlayColor='#DEDEDE'>
+                <TouchableOpacity onPress={() => {
+                    this.rightButtonCall()
+                }} underlayColor='#DEDEDE'>
                     <View style={{justifyContent: 'center', alignItems: 'center', paddingRight: 10}}>
-                        <Text style={this.props.rightTitle.length === 2 ? styles.rightBoldTitleStyle : styles.rightTitleStyle}>
+                        <Text
+                            style={this.props.rightTitle.length === 2 ? styles.rightBoldTitleStyle : styles.rightTitleStyle}>
                             {this.props.rightTitle}
                         </Text>
                     </View>
@@ -91,31 +90,19 @@ export default class TCBetBar extends React.Component {
 
     backButtonCall() {
         if (this.props.backButtonCall == null) return;
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.backButtonCall();
     }
 
     rightButtonCall() {
         if (this.props.rightButtonCall == null) return;
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.rightButtonCall();
     }
 
     centerButtonCall = () => {
         if (this.props.centerButtonCall == null) return;
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.centerButtonCall();
     };
 
@@ -131,8 +118,8 @@ const styles = StyleSheet.create({
         width: NavIconSize,
         height: NavIconSize,
     },
-    centerItemBorder:{
-        flexDirection:'row',
+    centerItemBorder: {
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 3,
@@ -141,7 +128,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         marginTop: 5,
-        marginBottom:5,
+        marginBottom: 5,
         height: 35
     },
     arrowImgStyle: {

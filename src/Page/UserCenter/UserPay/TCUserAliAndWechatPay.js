@@ -27,6 +27,7 @@ import TCUserOpenPayApp from './TCUserOpenPayApp'
 
 let userOpenPayApp = new TCUserOpenPayApp()
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+import UserPayStore from "../../../Data/store/UserPayStore";
 
 
 /**
@@ -36,7 +37,7 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 @observer
 export default class TCUserAliAndWechatPay extends Component {
 
-    stateModel = new StateModel()
+    userPayStore = new UserPayStore();
 
     // 构造函数
     constructor(props) {
@@ -63,7 +64,7 @@ export default class TCUserAliAndWechatPay extends Component {
                     rightTitle={'帮助'}
                     rightButtonCall={() => {
                         if (this.props.type === 'WX' || this.props.type === 'ZHB') {
-                            this.stateModel.next(0)
+                            this.userPayStore.next(0)
                         }
                     }}
                     backButtonCall={() => {
@@ -78,17 +79,17 @@ export default class TCUserAliAndWechatPay extends Component {
                     codeType={this.props.codeType}
                     codeValue={this.props.codeValue}
                     money={this.props.money}
-                    prompt = {this.props.payData.userPrompt}
+                    prompt={this.props.payData.userPrompt}
                     leftBtnTitle={'立即充值'}
                 />
 
-                <Help01 show={this.stateModel.showhelper0} next={() => this.stateModel.next(1)}
+                <Help01 show={this.userPayStore.showhelper0} next={() => this.userPayStore.next(1)}
                         isWeChat={this.props.type !== 1}/>
-                <Help02 show={this.stateModel.showhelper1} next={() => this.stateModel.next(2)}
+                <Help02 show={this.userPayStore.showhelper1} next={() => this.userPayStore.next(2)}
                         isWeChat={this.props.type !== 1}/>
-                <Help03 show={this.stateModel.showhelper2} next={() => this.stateModel.next(3)}
+                <Help03 show={this.userPayStore.showhelper2} next={() => this.userPayStore.next(3)}
                         isWeChat={this.props.type !== 1}/>
-                <Help04 show={this.stateModel.showhelper3} next={() => this.stateModel.next(4)}
+                <Help04 show={this.userPayStore.showhelper3} next={() => this.userPayStore.next(4)}
                         isWeChat={this.props.type !== 1}/>
 
                 <Dialog
@@ -208,43 +209,6 @@ export default class TCUserAliAndWechatPay extends Component {
         NavigationHelper.pushToUserPayAndWithDraw(1, true);
     }
 }
-
-class StateModel {
-    @observable
-    showhelper0 = false
-    @observable
-    showhelper1 = false
-    @observable
-    showhelper2 = false
-    @observable
-    showhelper3 = false
-
-    @action
-    next(index) {
-        switch (index) {
-            case 0:
-                this.showhelper0 = !this.showhelper0
-                break;
-            case 1:
-                this.showhelper0 = !this.showhelper0
-                this.showhelper1 = !this.showhelper1
-                break;
-            case 2:
-                this.showhelper1 = !this.showhelper1
-                this.showhelper2 = !this.showhelper2
-                break
-            case 3:
-                this.showhelper2 = !this.showhelper2
-                this.showhelper3 = !this.showhelper3
-                break;
-            case 4:
-                this.showhelper3 = !this.showhelper3
-                break;
-        }
-    }
-
-}
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

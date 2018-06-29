@@ -15,13 +15,13 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import SoundHelper from '../JXHelper/SoundHelper'
 import {common} from '../../Page/resouce/images'
-import {indexTxtColor, popuWinStyle, Size} from '../../Page/resouce/theme'
 import {NavBarHeaderHeight} from "../../Page/asset/screen";
 import {themeViewStyle} from "../../Page/asset/theme";
 
 const NavIconSize = NavBarHeaderHeight
+import {Size, width, indexTxtColor, popuWinStyle} from '../../Page/resouce/theme'
+import jdAppStore from '../../Data/store/JDAppStore'
 
 export default class TCBetBar extends React.Component {
 
@@ -83,11 +83,7 @@ export default class TCBetBar extends React.Component {
 
     backButtonCall() {
         if (this.props.backButtonCall == null) return;
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.backButtonCall();
     }
 

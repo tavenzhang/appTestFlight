@@ -13,7 +13,7 @@ import {
     Image
 } from 'react-native';
 
-import {observer} from 'mobx-react/native'
+import {observer, inject} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
@@ -30,6 +30,8 @@ import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 
 var secretUtils = new SecretUtils()
 
+
+@inject("userStore")
 @observer
 export default class TCModifySecurityPwd extends Component {
 
@@ -161,30 +163,15 @@ export default class TCModifySecurityPwd extends Component {
      */
     modifyPwd(oldPwd, newPwd) {
         this._modalLoadingSpinnerOverLay.show()
-        let oldEncryptPwd = secretUtils.rsaEncodePWD(oldPwd);
-        let newEncryptPwd = secretUtils.rsaEncodePWD(newPwd);
-        let data = {'password': oldEncryptPwd, 'newPassword': newEncryptPwd, 'mode': 'SECURITY_PASSWORD'};
-        RequestUtils.PostUrlAndParamsAndCallback(config.api.encryptChangePwd, data, (response) => {
+        this.props.userStore.modifyUserPwd(oldPwd, newPwd, 'SECURITY_PASSWORD', (res) => {
             this._modalLoadingSpinnerOverLay.hide();
-            if (response.rs) {
-                Toast.showShortCenter("密码修改成功！");
-                this.timer = setTimeout(() => {
-                    this.finsh();
-                }, 1000)
+            if (res.status) {
+                Toast.showShortCenter("密码修改成功!");
+                Helper.popToTop();
             } else {
-                if (response.status === 500) {
-                    Toast.showShortCenter('服务器出错啦!')
-                } else {
-                    if (response.message) {
-                        Toast.showShortCenter(response.message)
-                    }
-                }
+                Toast.showShortCenter(res.message);
             }
         })
-    }
-
-    finsh() {
-        Helper.popToBack()
     }
 
     renderTip() {

@@ -4,6 +4,8 @@
  */
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
+import {observer, inject} from 'mobx-react'
+
 
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
@@ -13,9 +15,14 @@ import JXHelper from '../../../Common/JXHelper/JXHelper'
 import {personal} from '../../resouce/images'
 import {indexBgColor, Size, userCenterTxtColor} from '../../resouce/theme'
 import Toast from '../../../Common/JXHelper/JXToast';
+import {computed} from "mobx/lib/mobx";
+import NavigationService from "../../Route/NavigationService";
 
 let helper = new InitHelper()
 
+
+@inject("userStore")
+@observer
 export default class TCUserDetailMsg extends Component {
 
     constructor(props) {
@@ -47,7 +54,7 @@ export default class TCUserDetailMsg extends Component {
                         borderRadius: 20,
                         borderWidth: TCLineW,
                         borderColor: 'rgba(0,0,0,0.3)',
-                        backgroundColor: TCUSER_ICON_BGCOLOR,
+                        backgroundColor: this.props.userStore.userLogoColor,
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
@@ -55,12 +62,12 @@ export default class TCUserDetailMsg extends Component {
                             fontSize: 15,
                             fontWeight: 'bold',
                             color: 'white'
-                        }}>{JXHelper.getUserIconShowName(TCUSER_DATA.username)}</Text>
+                        }}>{JXHelper.getUserIconShowName(this.userName)}</Text>
                     </View>
                 </View>
                 <View style={styles.setItem}>
                     <Text style={styles.itemTxt}>用户名</Text>
-                    <Text style={styles.itemRightTxt}>{TCUSER_DATA.username}</Text>
+                    <Text style={styles.itemRightTxt}>{this.userName}</Text>
                 </View>
                 <TouchableOpacity onPress={() => {
                     this.gotoChangeRealName()
@@ -73,42 +80,31 @@ export default class TCUserDetailMsg extends Component {
                 <View style={{marginTop: 10}}>
                     <View style={styles.setItem}>
                         <Text style={styles.itemTxt}>余额</Text>
-                        <Text style={styles.itemRightTxt}>{TCUSER_BALANCE}</Text>
+                        <Text style={styles.itemRightTxt}>{this.props.userStore.balance}</Text>
                     </View>
                     {this.getPrizeGroup()}
                 </View>
             </View>);
     };
 
+    @computed get userName() {
+        return this.props.userStore.userName;
+    }
+
     back() {
-        RCTDeviceEventEmitter.emit('balanceChange')
-        this.props.navigation.goBack()
+        NavigationService.goBack()
     }
 
     /**
      * 跳转到修改真实姓名
      */
     gotoChangeRealName() {
-        if (helper.isGuestUser()) {
+        if (this.props.userStore.isGuest) {
             Toast.showShortCenter('试玩账号不能修改身份信息！')
             return
         }
-        let page = TCUSER_DATA.realname ? 'UserMessage' : 'UserInfo'
-        this.props.navigation.navigate(page)
-        // let {navigator} = this.props;
-        // if (navigator) {
-        //     var page = UserRealName
-        //     if (!TCUSER_DATA.realname) {
-        //         page = UserInfo
-        //     }
-        //     navigator.push({
-        //         name: 'userRealName',
-        //         component: page,
-        //         passProps: {
-        //             ...this.props,
-        //         }
-        //     })
-        // }
+        let page = this.props.userStore.realName ? 'UserMessage' : 'UserInfo'
+        NavigationService.navigate(page)
     }
 
     /**
@@ -116,10 +112,10 @@ export default class TCUserDetailMsg extends Component {
      * @returns {XML}
      */
     getPrizeGroup() {
-        if (TCUSER_DATA.prizeGroup) {
+        if (this.props.userStore.prizeGroup) {
             return (<View style={styles.setItem}>
                 <Text style={styles.itemTxt}>彩票返点</Text>
-                <Text style={styles.itemRightTxt}>{TCUSER_DATA.prizeGroup}</Text>
+                <Text style={styles.itemRightTxt}>{this.props.userStore.prizeGroup}</Text>
             </View>)
         }
     }
@@ -129,9 +125,9 @@ export default class TCUserDetailMsg extends Component {
      * @returns {XML}
      */
     getUserInfo() {
-        if (TCUSER_DATA.realname) {
+        if (this.props.userStore.realName) {
             return (<View style={styles.itemRight}>
-                <Text style={styles.itemRightTxt}>{TCUSER_DATA.realname}</Text>
+                <Text style={styles.itemRightTxt}>{this.props.userStore.realName}</Text>
                 <Image source={personal.imgNext} style={styles.imgNext}/>
             </View>)
         } else {

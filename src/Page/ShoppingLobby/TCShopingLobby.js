@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View} from 'react-native';
 
-import {observer} from 'mobx-react/native';
+import {observer, inject} from 'mobx-react/native';
 
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import ScrollableTabView from '../../Common/View/ScrollableTab/index';
@@ -25,6 +25,7 @@ import {TC_LayoutAnimaton} from "../../Common/View/layoutAnimation/LayoutAnimato
 
 const tabLabels = ['全部彩种', '时时彩', 'PC蛋蛋', 'PK拾', '11选5', '快3', '高频彩', '低频彩'];
 
+@inject("mainStore")
 @observer
 export default class MyComponent extends React.Component {
     constructor(state) {
@@ -65,7 +66,7 @@ export default class MyComponent extends React.Component {
                 <TopNavigationBar
                     title="购彩大厅"
                     needBackButton={true}
-                    backButtonCall={() => RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home')}
+                    backButtonCall={() => this.props.mainStore.changeTab('home')}
                     rightImage={this.state.listStyle ? common.topBarSudoku : common.topBarList}
                     rightButtonCall={this.rightButtonCall}
                 />

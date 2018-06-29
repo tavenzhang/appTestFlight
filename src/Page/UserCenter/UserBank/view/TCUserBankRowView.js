@@ -10,12 +10,12 @@ import {
     ImageBackground
 } from 'react-native'
 
-import {observer} from 'mobx-react/native'
+import {observer, inject} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 
 import {Size, indexBgColor, listViewTxtColor, width, height} from '../../../resouce/theme'
-import JXHelper from '../../../../Common/JXHelper/JXHelper'
 
+@inject("jdAppStore")
 @observer
 export default class TCUserBankRowView extends Component {
 
@@ -32,12 +32,12 @@ export default class TCUserBankRowView extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ImageBackground source={JXHelper.getBankBackground(this.props.bankCode)}
-                       resizeMode={'stretch'}
-                       style={styles.bankBgStyle}>
+                <ImageBackground source={this.props.jdAppStore.getBankBackground(this.props.bankCode)}
+                                 resizeMode={'stretch'}
+                                 style={styles.bankBgStyle}>
                     <View style={styles.bankInfo}>
                         <View style={styles.bankIcon}>
-                            <Image source={JXHelper.getBankIcon(this.props.bankCode)}
+                            <Image source={this.props.jdAppStore.getBankCardLogo(this.props.bankCode)}
                                    resizeMode={'contain'}
                                    style={styles.bankImgIcon}/>
                         </View>

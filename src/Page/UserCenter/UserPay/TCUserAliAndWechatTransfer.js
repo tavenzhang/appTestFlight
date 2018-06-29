@@ -14,7 +14,7 @@ import {
     Alert,
     AppState
 } from 'react-native'
-import {observer} from 'mobx-react/native'
+import {observer, inject} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 
 import UserPay from './View/TCUserPayViewNew'
@@ -31,17 +31,19 @@ import TCUserOpenPayApp from './TCUserOpenPayApp'
 import _ from 'lodash'
 import Toast from "../../../Common/JXHelper/JXToast";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+import UserPayStore from "../../../Data/store/UserPayStore";
 
 let userOpenPayApp = new TCUserOpenPayApp()
 
 /**
  * 支付宝支付
  */
-@observer
+@inject("userStore")
 @withMappedNavigationProps()
+@observer
 export default class TCUserAliAndWechatTransfer extends Component {
 
-    stateModel = new StateModel()
+    userPayStore = new UserPayStore();
 
     // 构造函数
     constructor(props) {
@@ -56,13 +58,14 @@ export default class TCUserAliAndWechatTransfer extends Component {
         if (this.props.type === 'ZHB') {
             this.title = '支付宝充值'
             this.payType = 'ALIPAY'
-        } else if (this.props.type == 'WX') {
+        } else if (this.props.type === 'WX') {
             this.title = '微信充值'
             this.payType = 'WECHATPAY'
-        } else if (this.props.type == 'OTHER') {
+        } else if (this.props.type === 'OTHER') {
             this.title = '其他支付'
             this.payType = 'OTHER'
         }
+        this.userPayStore.codeValue = this.props.data.bankCardNo;
         AppState.addEventListener('change', () => this._handleAppStateChange());
         this.getRandomOrderNo()
         this.startTimer();
@@ -91,14 +94,14 @@ export default class TCUserAliAndWechatTransfer extends Component {
                 <ScrollView>
                     <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
                         <UserPay ref="erweimaaa"
-                                 payType={this.props.type == 'ZHB' ? '支付宝' : '微信'}
-                                 orderNo={this.stateModel.orderNum}
+                                 payType={this.props.type === 'ZHB' ? '支付宝' : '微信'}
+                                 orderNo={this.userPayStore.orderNum}
                                  gotoPay={() => {
                                      this.gotoPay()
                                  }}
                                  hadPay={() => this.next()}
                                  codeType={'IMG'}
-                                 codeValue={this.props.data.bankCardNo}
+                                 codeValue={this.userPayStore.codeValue}
                                  money={this.props.money}
                                  transfer={true}/>
                         <View style={{width: width * 0.9, alignItems: 'center'}}>
@@ -130,7 +133,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
                     rightBtnClick={() => this.onOpen()}
                     leftBtnClick={() => this.setModalVisible()}
                     dialogTitle={'温馨提示'}
-                    dialogContent={Platform.OS == 'ios111' ? '请先手动截屏后 再打开' : '将为您截屏并打开' + (this.props.type == 'ZHB' ? '支付宝' : '微信') + '， 是否立即打开？'}
+                    dialogContent={Platform.OS === 'ios111' ? '请先手动截屏后 再打开' : '将为您截屏并打开' + (this.props.type === 'ZHB' ? '支付宝' : '微信') + '， 是否立即打开？'}
                     btnTxt={'打开'}
                     leftTxt={'取消'}
                     tipTxt={'(请将本次充值订单号复制到您的转账备注中)'}/>
@@ -139,7 +142,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
     }
 
     getTextInfo() {
-        if (this.props.type == 'OTHER') {
+        if (this.props.type === 'OTHER') {
             return
         }
         return (
@@ -148,12 +151,12 @@ export default class TCUserAliAndWechatTransfer extends Component {
     }
 
     getOpenButtonView() {
-        if (this.props.type == 'OTHER') {
+        if (this.props.type === 'OTHER') {
             return
         }
         return (
             <TouchableOpacity onPress={() => this.gotoPay()} style={styles.btmBtnStyle1}>
-                <Text style={styles.btmBtnTxtStyle}>{this.props.type == 'ZHB' ? '打开支付宝' : '打开微信'}</Text>
+                <Text style={styles.btmBtnTxtStyle}>{this.props.type === 'ZHB' ? '打开支付宝' : '打开微信'}</Text>
             </TouchableOpacity>
         )
     }
@@ -170,10 +173,10 @@ export default class TCUserAliAndWechatTransfer extends Component {
      * 刷新二维码
      */
     refershCode() {
-        RequestUtils.getUrlAndParamsAndCallback(config.api.bankList + "/" + this.props.data.adminBankId, {id: appId}, (res) => {
+        this.userPayStore.refreshCode(this.props.data.adminBankId, (res) => {
             if (res.rs) {
                 if (res.content.bankCardNo) {
-                    this.stateModel.codeValue = res.content.bankCardNo;
+                    this.userPayStore.codeValue = res.content.bankCardNo;
                 } else {
                     this.stopTimer();
                     if (AppState.currentState === "active") {
@@ -222,7 +225,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
     }
 
     getTransferTip() {
-        if (this.props.type == 'OTHER') {
+        if (this.props.type === 'OTHER') {
             return
         }
         return (
@@ -231,7 +234,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
                     <Text style={{color: ermaStyle.tipTxtColor, fontSize: Size.large, marginLeft: 5}}>充值步骤：</Text>
                 </View>
                 {this.getItemView('1.点击复制按钮，复制订单号', userPay.step1)}
-                {this.getItemView(this.props.type == 'ZHB' ? '2.打开支付宝' : '2.打开微信', this.props.type == 'ZHB' ? userPay.step3 : userPay.stepWx3)}
+                {this.getItemView(this.props.type === 'ZHB' ? '2.打开支付宝' : '2.打开微信', this.props.type === 'ZHB' ? userPay.step3 : userPay.stepWx3)}
                 {this.getItemView('3.点击添加备注', userPay.step7)}
                 {this.getItemView('4.在充值界面备注栏粘贴订单号', userPay.step8)}
             </View>
@@ -253,7 +256,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
     getRandomOrderNo() {
         let nowTime = Moment().format('x')
         let res = nowTime + _.random(99999, 1000000);
-        this.stateModel.orderNum = res
+        this.userPayStore.orderNum = res
         this.submitPay(res)
     }
 
@@ -311,39 +314,18 @@ export default class TCUserAliAndWechatTransfer extends Component {
         let params = {
             adminBankId: this.props.data.adminBankId,
             topupAmount: this.props.money,
-            topupCardRealname: TCUSER_DATA.username,
+            topupCardRealname: this.props.userStore.userName,
             topupTime: Moment().format('YYYY-MM-DD HH:mm:ss'),
             transferToupType: this.payType,
             paymentPlatformOrderNo: orderNo,
             id: appId
         }
-        RequestUtils.PutUrlAndParamsAndCallback(config.api.banktransfersQueryv3, params, (response) => {
-            this._modalLoadingSpinnerOverLay.hide()
-            if (response.rs) {
-
-            } else {
-                if (response.status === 500) {
-                    Toast.showShortCenter('服务器出错啦!')
-                } else {
-                    if (response.message) {
-                        Toast.showShortCenter(response.message)
-                    } else {
-                        Toast.showShortCenter('转账订单申请失败,请您稍后再试!')
-                    }
-                }
+        this.userPayStore.bankTransferQuery(params, (res) => {
+            this._modalLoadingSpinnerOverLay.hide();
+            if (!res.status) {
+                Toast.showShortCenter(res.message);
             }
-        })
-    }
-}
-
-class StateModel {
-    @observable
-    orderNum = ''
-    @observable
-    value = {
-        format: "png",
-        quality: 0.9,
-        result: "file"
+        });
     }
 }
 

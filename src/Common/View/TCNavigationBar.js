@@ -1,19 +1,31 @@
 /**
  * Created by Sam on 2016/11/11.
- *
- *  ** use for import **
- *  import TopNavigationBar from '../../Common/View/TCNavigationBar'
- *
  */
+
+/*
+ ** use for import **
+ import TopNavigationBar from '../../Common/View/TCNavigationBar'
+ */
+
 import React, {Component} from 'react';
-import {Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+    AppRegistry,
+    StyleSheet,
+    Text,
+    View,
+    Platform,
+    Image,
+    ImageBackground,
+    TouchableOpacity
+} from 'react-native';
+import jdAppStore from '../../Data/store/JDAppStore'
+import {width, indexTxtColor, Size} from '../../Page/resouce/theme'
+
 import _ from 'lodash';
-import PropTypes from 'prop-types'
-import SoundHelper from '../../Common/JXHelper/SoundHelper'
-import {indexTxtColor, Size, width} from '../../Page/resouce/theme'
 import {common} from '../../Page/resouce/images'
 import {NavBarHeaderHeight} from "../../Page/asset/screen";
 import {themeViewStyle} from "../../Page/asset/theme";
+import PropTypes from 'prop-types'
 
 const NavIconSize = NavBarHeaderHeight
 
@@ -105,7 +117,9 @@ export default class TCNavigationBar extends Component {
         if (this.props.leftTitle) {
             return (
                 <TouchableOpacity
-                    onPress={() => {this.backButtonCall()}}
+                    onPress={() => {
+                        this.backButtonCall()
+                    }}
                     underlayColor='#DEDEDE'>
                     <View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 10}}>
                         <Text style={styles.leftTitleStyle}>{this.props.leftTitle}</Text>
@@ -119,7 +133,8 @@ export default class TCNavigationBar extends Component {
         if (_.startsWith(this.props.leftImage, 'index_personal')) {
             return <Image source={common.topPersonal} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
         } else if (this.props.leftImage) {
-            return <Image source={{uri: this.props.leftImage}} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
+            return <Image source={{uri: this.props.leftImage}} style={styles.navIcon}
+                          resizeMode={Image.resizeMode.contain}/>
         } else {
             return <Image source={common.back} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
         }
@@ -127,20 +142,19 @@ export default class TCNavigationBar extends Component {
 
     backButtonCall = () => {
         if (this.props.backButtonCall == null) return;
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.backButtonCall();
     }
 
     renderRightItem() {
         if (this.props.rightTitle) {
             return (
-                <TouchableOpacity underlayColor='#DEDEDE' onPress={() => {this.rightButtonCall()}}>
+                <TouchableOpacity underlayColor='#DEDEDE' onPress={() => {
+                    this.rightButtonCall()
+                }}>
                     <View style={{justifyContent: 'center', alignItems: 'center', paddingRight: 10}}>
-                        <Text style={this.props.rightTitle.length === 2 ? styles.rightBoldTitleStyle : styles.rightTitleStyle}>
+                        <Text
+                            style={this.props.rightTitle.length === 2 ? styles.rightBoldTitleStyle : styles.rightTitleStyle}>
                             {this.props.rightTitle}
                         </Text>
                     </View>
@@ -148,7 +162,9 @@ export default class TCNavigationBar extends Component {
             )
         } else if (this.props.rightImage) {
             return (
-                <TouchableOpacity underlayColor='#DEDEDE' onPress={() => {this.rightButtonCall()}}>
+                <TouchableOpacity underlayColor='#DEDEDE' onPress={() => {
+                    this.rightButtonCall()
+                }}>
                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
                         <Image source={this.props.rightImage} style={styles.navIcon}/>
                     </View>
@@ -164,11 +180,7 @@ export default class TCNavigationBar extends Component {
 
     rightButtonCall() {
         if (this.props.rightButtonCall == null) return;
-
-        if (TC_BUTTON_SOUND_STATUS) {
-            SoundHelper.playSoundBundle();
-        }
-
+        jdAppStore.playSound();
         this.props.rightButtonCall();
     }
 

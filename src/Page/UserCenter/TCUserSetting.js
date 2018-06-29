@@ -27,28 +27,26 @@ import {
     width, height
 } from '../resouce/theme'
 
-import {observer} from 'mobx-react/native'
+import {observer, inject} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 import Toast from '../../Common/JXHelper/JXToast'
 
 import NetUtils from '../../Common/Network/TCRequestUitls'
-import {config, appId, appVersion, versionHotFix} from '../../Common/Network/TCRequestConfig';
-import NetUitls from '../../Common/Network/TCRequestUitls'
+import {config, versionHotFix} from '../../Common/Network/TCRequestConfig';
 import JXHelpers from '../../Common/JXHelper/JXHelper'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import {personal} from '../resouce/images'
 
+@inject("initAppStore", "jdAppStore", "userStore", "mainStore")
 @observer
 export default class TCUserSetting extends Component {
-
-    stateModel = new StateModel()
 
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
-        this.getAppVersion()
+
     }
 
     componentWillUnmount() {
@@ -71,21 +69,14 @@ export default class TCUserSetting extends Component {
                         <Image source={personal.imgNext} style={styles.imgNext}/>
                     </View>
                 </TouchableOpacity>
-                {/*    <TouchableOpacity onPress={() => this.gotoFeedback()}>
-                 <View style={styles.setItem}>
-                 <Image source={personal.toolFeedBack} style={styles.img}/>
-                 <Text style={styles.itemTxt}>意见反馈</Text>
-                 {this.getStatusTip('您有新的反馈', TC_FEEDBACK_COUNT)}
-                 </View>
-                 </TouchableOpacity>*/}
                 <View style={styles.setItem}>
                     <Image source={personal.toolMusic} style={styles.img}/>
                     <Text style={[styles.itemTxt]}>按钮声音开关</Text>
                     <Switch
-                        value={this.stateModel.switchStatus}
+                        value={this.buttonSoundStatus}
                         style={{marginLeft: 10}}
                         onValueChange={(value) => {
-                            this.stateModel.changeSwitchValue(value)
+                            this.props.jdAppStore.switchButtonSoundStatus(value);
                         }}/>
                 </View>
                 <View style={{alignItems: 'center'}}>
@@ -107,7 +98,7 @@ export default class TCUserSetting extends Component {
                         textAlign: 'center',
                         color: userCenterTxtColor.version,
                         fontSize: Size.font14
-                    }}>version {this.stateModel.appVersion ? this.stateModel.appVersion : appVersion} {' '}
+                    }}>version {this.appVersion} {' '}
                     build {versionHotFix}</Text>
                 <LoadingSpinnerOverlay
                     ref={component => this._modalLoadingSpinnerOverLay = component}/>
@@ -117,24 +108,17 @@ export default class TCUserSetting extends Component {
 
     };
 
-    getStatusTip(msgTip, count) {
-        if (count == 0) {
-            return (<Image source={personal.imgNext} style={styles.imgNext}/>);
-        } else {
-            return (<View style={styles.itemRight}>
-                <Text style={styles.itemRightTxt}>{msgTip}</Text>
-                <View style={styles.pointStyle}><Text style={styles.pointTxt}>{count}</Text></View>
-                <Image source={personal.imgNext} style={styles.imgNextFeedback}/>
-            </View>)
-        }
+
+    @computed get appVersion() {
+        return this.props.initAppStore.appVersion;
     }
 
-    getAppVersion() {
-        this.stateModel.appVersion = JXAPPVersion
+    @computed get buttonSoundStatus() {
+        return this.props.jdAppStore.buttonSoundStatus;
     }
 
     getUpdate() {
-        if (Platform.OS === 'ios') {
+        if (IS_IOS) {
             return
         } else {
             return (<TouchableOpacity onPress={() => {
@@ -148,7 +132,7 @@ export default class TCUserSetting extends Component {
                             marginLeft: 10,
                             color: userCenterTxtColor.version,
                             fontSize: Size.default
-                        }}>当前版本:{this.stateModel.appVersion}</Text>
+                        }}>当前版本:{this.appVersion}</Text>
                     <Image source={personal.imgNext} style={styles.imgNext}/>
                 </View>
             </TouchableOpacity>)
@@ -157,16 +141,16 @@ export default class TCUserSetting extends Component {
 
     update() {
         this._modalLoadingSpinnerOverLay.show()
-        NetUitls.getUrlAndParamsAndCallback(config.api.updateVersion + appId, null, (response => {
+        this.props.jdAppStore.checkAppVersionUpdate((response) => {
             if (response.rs) {
-                if (response.content && response.content.version > this.stateModel.appVersion) {
+                if (response.content && response.content.version > this.appVersion) {
                     this.openDownUrl(response.content.downPath)
                 } else {
                     Toast.showShortCenter('已经是最新版本了!')
                 }
             }
             this._modalLoadingSpinnerOverLay.hide()
-        }))
+        })
     }
 
     openDownUrl(url) {
@@ -202,55 +186,17 @@ export default class TCUserSetting extends Component {
      */
     exitLogin() {
         this._modalLoadingSpinnerOverLay.show()
-        this.logout()
-    }
-
-    saveUser() {
-        let user = {}
-        user.username = TCUSER_DATA.username
-        user.islogin = false
-        TCUSER_BALANCE = 0
-        TC_NEW_MSG_COUNT = 0
-        TC_FEEDBACK_COUNT = 0
-        TCUSER_DATA = user
-        TCUSER_COLLECT = []
-        storage.save({
-            key: 'user',
-            data: user
+        this.props.userStore.exitAppToLoginPage(res => {
+            this._modalLoadingSpinnerOverLay.hide();
+            if (res.rs) {
+                NavigatorHelper.popToTop();
+                this.props.mainStore.changeTab("home");
+            } else {
+                Toast.showShortCenter(res.message ? res.message : "服务器异常，退出失败！")
+            }
         })
     }
 
-    logout() {
-        NetUtils.getUrlAndParamsAndCallback(config.api.logout, null, (response) => {
-            this._modalLoadingSpinnerOverLay.hide()
-            this.saveUser()
-            RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home')
-            RCTDeviceEventEmitter.emit('userStateChange', 'logout')
-            RCTDeviceEventEmitter.emit("newMsgCall");
-            NavigatorHelper.popToTop();
-        })
-    }
-}
-
-class StateModel {
-    @observable
-    appVersion = '1.0.0'
-    @observable
-    switchStatus = TC_BUTTON_SOUND_STATUS
-
-    @action
-    changeSwitchValue(switchStatus) {
-        this.switchStatus = switchStatus
-        TC_BUTTON_SOUND_STATUS = switchStatus;
-        this.saveButtonSoundStatus(switchStatus);
-    }
-
-    saveButtonSoundStatus(status) {
-        storage.save({
-            key: 'ButtonSoundStatus',
-            data: status
-        });
-    }
 }
 
 const styles = StyleSheet.create({

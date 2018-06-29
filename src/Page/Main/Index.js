@@ -21,6 +21,8 @@ import {
 import Moment from 'moment'
 import CodePush from 'react-native-code-push'
 import * as Progress from 'react-native-progress';
+import {observer} from 'mobx-react'
+
 import UserData from '../../Data/UserData'
 import Storage from '../../Common/Storage/TCStorage'
 import G_Config from '../../Common/Global/G_Config'
@@ -29,33 +31,28 @@ import Main from '../Route';
 import {config, AppName, versionHotFix} from '../../Common/Network/TCRequestConfig';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import TCInitHelperC from '../../Common/JXHelper/TCInitHelper'
-import TCUserCollectHelper from '../../Common/JXHelper/TCUserCollectHelper'
 
 import {width, indexBgColor, Size} from '../resouce/theme'
 import StartUpHelper from './StartUpHelper'
 import AppConfig from './AppConfig'
 import create from './Api'
+import HotFixStore from '../../Data/store/HotFixStore'
+import initAppStore from '../../Data/store/InitAppStore'
 
 let retryTimes = 0
 let downloadTime = 0
 let TCInitHelper = new TCInitHelperC()
-let UserCollectHelper = new TCUserCollectHelper()
-let NavigatorHelper = require('../../Common/JXHelper/TCNavigatorHelper')
 let alreadyInCodePush = false
 let CodePushDeploymentKey = null
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
-
+@observer
 export default class TC168 extends Component {
+
+    hotFixStore = new HotFixStore();
 
     constructor() {
         super();
-        this.state = {
-            updateFinished: false,
-            syncMessage: "初始化配置中...",
-            updateStatus: 0,
-            appVersion: ''
-        };
         this.handleAppStateChange = this.handleAppStateChange.bind(this);
     }
 
@@ -64,25 +61,22 @@ export default class TC168 extends Component {
         this.uploadLog()
         this.initDomain()
 
-        if (TC_LOGINED_USER_NAME && TC_LOGINED_USER_NAME.length == 0) {
-            TCInitHelper.getLoginUserNames()
-        }
-
-        if (TCUSER_COLLECT) {
-            UserCollectHelper.getUserCollects()
-        }
-
-        TCInitHelper.getButtonSoundStatus()
+        // if (TC_LOGINED_USER_NAME && TC_LOGINED_USER_NAME.length == 0) {
+        //     TCInitHelper.getLoginUserNames()
+        // }
+        //
+        // if (TCUSER_COLLECT) {
+        //     UserCollectHelper.getUserCollects()
+        // }
+        //
+        // TCInitHelper.getButtonSoundStatus()
 
         AppState.addEventListener('change', this.handleAppStateChange);
-
         this.timer2 = setTimeout(() => {
-            if (this.state.syncMessage === '检测更新中...' || this.state.syncMessage === '初始化配置中...') {
-                this.skipUpdate()
+            if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
+                this.hotFixStore.skipUpdate();
             }
         }, 5 * 1000)
-
-        this.getAPPVersion()
     }
 
     handleAppStateChange(nextAppState) {
@@ -100,9 +94,9 @@ export default class TC168 extends Component {
     }
 
     render() {
-        if (!this.state.updateFinished && this.state.updateStatus == 0) {
+        if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === 0) {
             return this.getLoadingView();
-        } else if (!this.state.updateFinished && this.state.updateStatus == -1) {
+        } else if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === -1) {
             return this.updateFailView()
         } else {
             return (<Main/>);
@@ -136,21 +130,6 @@ export default class TC168 extends Component {
         TCDefaultTendDomain = AppConfig.trendChartDomains
     }
 
-    async getAPPVersion() {
-        let nativeConfig = await CodePush.getConfiguration()
-        let version = nativeConfig.appVersion
-        this.setState({appVersion: version})
-        JXAPPVersion = version
-    }
-
-    skipUpdate() {
-        this.setState({
-            progress: false,
-            updateFinished: true,
-            updateStatus: 0
-        })
-    }
-
     //使用默认地址
     firstAttempt(success, allowUpdate, message) {
         JXLog(`first attempt ${success}, ${allowUpdate}, ${message}`)
@@ -159,7 +138,7 @@ export default class TC168 extends Component {
         } else if (!success) {//默认地址不可用，使用备份地址
             StartUpHelper.getAvailableDomain(AppConfig.backupDomains, (success, allowUpdate, message) => this.secondAttempt(success, allowUpdate, message))
         } else {//不允许更新
-            this.skipUpdate()
+            this.hotFixStore.skipUpdate()
         }
     }
 
@@ -187,16 +166,12 @@ export default class TC168 extends Component {
                     break
             }
             this.storeLog({faileMessage: customerMessage})
-            this.setState({
-                syncMessage: customerMessage,
-                updateFinished: false,
-                updateStatus: -1
-            })
+            this.hotFixStore.updateFailMsg(customerMessage)
         } else {
             // TODO 审核通过之后 放开如下，告知ip不在更新范围内的用户
             // alert('您当前的区域无法更新')
 
-            this.skipUpdate()
+            this.hotFixStore.skipUpdate()
         }
     }
 
@@ -208,7 +183,7 @@ export default class TC168 extends Component {
         } else if (!success) {//缓存地址不可用,使用默认地址
             StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
         } else {
-            this.skipUpdate()
+            this.hotFixStore.skipUpdate()
         }
     }
 
@@ -217,7 +192,7 @@ export default class TC168 extends Component {
         AsyncStorage.getItem('cacheDomain').then((response) => {
             let cacheDomain = JSON.parse(response)
             global.JXCodePushServerUrl = cacheDomain.hotfixDomains[0].domain
-            let hotfixDeploymentKey = Platform.OS == 'ios' ? cacheDomain.hotfixDomains[0].iosDeploymentKey : cacheDomain.hotfixDomains[0].androidDeploymentKey
+            let hotfixDeploymentKey = IS_IOS ? cacheDomain.hotfixDomains[0].iosDeploymentKey : cacheDomain.hotfixDomains[0].androidDeploymentKey
             CodePushDeploymentKey = hotfixDeploymentKey
             this.hotFix(hotfixDeploymentKey)
         })
@@ -243,9 +218,7 @@ export default class TC168 extends Component {
         if (downloadTime === 0) {
             downloadTime = Moment().format('X')
         }
-        this.setState({
-            progress
-        })
+        this.hotFixStore.progress = progress;
     }
 
     hotFix(hotfixDeploymentKey) {
@@ -257,13 +230,11 @@ export default class TC168 extends Component {
         CodePush.checkForUpdate(hotfixDeploymentKey).then((update) => {
             JXLog('==checking update', update)
             if (update !== null) {
-                if (Platform.OS == 'ios') {
+                if (IS_IOS) {
                     NativeModules.JDHelper.resetLoadModleForJS(true)
                 }
-                this.setState({
-                    syncMessage: '获取到更新，正在疯狂加载...',
-                    updateFinished: false,
-                })
+                this.hotFixStore.syncMessage = '获取到更新，正在疯狂加载...';
+                this.hotFixStore.updateFinished = false;
                 this.storeLog({hotfixDomainAccess: true})
 
                 if (alreadyInCodePush) return
@@ -272,10 +243,8 @@ export default class TC168 extends Component {
                 update.download(this.codePushDownloadDidProgress.bind(this)).then((localPackage) => {
                     alreadyInCodePush = false
                     if (localPackage) {
-                        this.setState({
-                            syncMessage: '下载完成,开始安装',
-                            progress: false,
-                        })
+                        this.hotFixStore.syncMessage = '下载完成,开始安装';
+                        this.hotFixStore.progress = false;
                         downloadTime = Moment().format('X') - downloadTime
                         this.storeLog({downloadStatus: true, downloadTime: downloadTime})
                         localPackage.install(CodePush.InstallMode.IMMEDIATE).then(() => {
@@ -298,7 +267,7 @@ export default class TC168 extends Component {
                 })
             }
             else {
-                this.skipUpdate()
+                this.hotFixStore.skipUpdate()
             }
         }).then(() => {
             setTimeout(() => {
@@ -308,7 +277,7 @@ export default class TC168 extends Component {
             }, 3000)
         }).then(() => { // here stop
             this.timer = setTimeout(() => {
-                if (!this.state.progress && !this.state.updateFinished) {
+                if (!this.hotFixStore.progress && !this.hotFixStore.updateFinished) {
                     this.storeLog({downloadStatus: false, message: '下载失败,请重试...'})
                     this.updateFail('下载失败,请重试...')
                 }
@@ -324,22 +293,23 @@ export default class TC168 extends Component {
             syncMessage: message,
             updateStatus: -1
         })
-
+        this.hotFixStore.syncMessage = message;
+        this.hotFixStore.updateStatus = -1;
         this.uploadLog()
     }
 
     getLoadingView() {
         let progressView
-        if (this.state.progress) {
+        if (this.hotFixStore.progress) {
             progressView = (
                 <Text>
-                    正在下载({parseFloat(this.state.progress.receivedBytes / 1024 / 1024).toFixed(2)}M/{parseFloat(this.state.progress.totalBytes / 1024 / 1024).toFixed(2)}M) {(parseFloat(this.state.progress.receivedBytes / this.state.progress.totalBytes).toFixed(2) * 100).toFixed(1)}%</Text>
+                    正在下载({parseFloat(this.hotFixStore.progress.receivedBytes / 1024 / 1024).toFixed(2)}M/{parseFloat(this.hotFixStore.progress.totalBytes / 1024 / 1024).toFixed(2)}M) {(parseFloat(this.hotFixStore.progress.receivedBytes / this.hotFixStore.progress.totalBytes).toFixed(2) * 100).toFixed(1)}%</Text>
             )
         } else {
             return (<View style={{flex: 1}}>
-                <TopNavigationBar title={AppConfig.appName} needBackButton={false}/>
+                <TopNavigationBar title={initAppStore.appName} needBackButton={false}/>
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-                    <Text style={{fontSize: Size.font16}}>{this.state.syncMessage}</Text>
+                    <Text style={{fontSize: Size.font16}}>{this.hotFixStore.syncMessage}</Text>
                 </View>
                 <Text style={{
                     fontSize: Size.font13,
@@ -347,16 +317,16 @@ export default class TC168 extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'版本号:' + versionHotFix + '  ' + (Platform.OS == 'ios' ? 'iOS' : '安卓') + ':' + this.state.appVersion}</Text>
+                }}>{'版本号:' + versionHotFix + '  ' + (IS_IOS? 'iOS' : '安卓') + ':' + initAppStore.appVersion}</Text>
             </View>)
         }
         return (
             <View style={{flex: 1}}>
-                <TopNavigationBar title={AppConfig.appName} needBackButton={false}/>
+                <TopNavigationBar title={initAppStore.appName} needBackButton={false}/>
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
                     {progressView}
                     <Progress.Bar
-                        progress={(this.state.progress.receivedBytes / this.state.progress.totalBytes).toFixed(2)}
+                        progress={(this.hotFixStore.progress.receivedBytes / this.hotFixStore.progress.totalBytes).toFixed(2)}
                         width={200}/>
                 </View>
                 <Text style={{
@@ -373,18 +343,18 @@ export default class TC168 extends Component {
     updateFailView() {
         return (
             <View style={{flex: 1}}>
-                <TopNavigationBar title={AppConfig.appName} needBackButton={false}/>
+                <TopNavigationBar title={initAppStore.appName} needBackButton={false}/>
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
                     <Text style={{
                         fontWeight: 'bold',
                         fontSize: Size.font16
-                    }}> {this.state.syncMessage}</Text>
+                    }}> {this.hotFixStore.syncMessage}</Text>
                     <View>
                         <TouchableOpacity
                             onPress={() => {
                                 retryTimes++
                                 if (retryTimes >= 3) {
-                                    this.skipUpdate()
+                                    this.hotFixStore.skipUpdate()
                                 } else {
                                     this.initDomain()
                                 }
