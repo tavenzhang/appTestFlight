@@ -314,6 +314,15 @@ export function payAndWithdrawHistory(params, callback) {
 }
 
 /**
+ * 转账记录
+ * @param params
+ * @param callback
+ */
+export function transferRecords(params, callback) {
+    RequestUtils.getUrlAndParamsAndCallback(config.api.transferRecords, params, callback);
+}
+
+/**
  * 获取银行卡信息和取款信息
  * @param callback
  */

@@ -24,7 +24,7 @@ import LoadingSpinnerOverlay from '../../../../Common/View/LoadingSpinnerOverlay
 import Moment from 'moment'
 import TCBetGoBackShoppingCart from '../../View/TCBetGoBackShoppingCart'
 import TCBetShakeButtonView from '../../View/TCBetShakeButtonView'
-import {observer} from 'mobx-react/native';
+import {observer} from 'mobx-react';
 
 //组件内部显示需要引入的类
 import TopNavigationBar from '../../View/TCBetBar'
@@ -153,8 +153,8 @@ export default class TCMarkSixBetHome extends React.Component {
         this.listener = RCTDeviceEventEmitter.addListener('heightChange', () => {
             this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
         });
-      this.didFocusListener = this.props.navigation.addListener('didFocus', () => this.currentResultData.didBlur(false))
-      this.didBlurListener = this.props.navigation.addListener('didBlur', () => this.currentResultData.didBlur(true))
+        this.didFocusListener = this.props.navigation.addListener('didFocus', () => this.currentResultData.didBlur(false))
+        this.didBlurListener = this.props.navigation.addListener('didBlur', () => this.currentResultData.didBlur(true))
     }
 
     render() {
@@ -164,7 +164,6 @@ export default class TCMarkSixBetHome extends React.Component {
         } else if (historyHeight > 312) {
             historyHeight = 312;
         }
-
         return (
             <View style={styles.container}>
                 <TopNavigationBar
@@ -243,7 +242,7 @@ export default class TCMarkSixBetHome extends React.Component {
                     {this.getShoppingCartView()}
                 </View>
 
-                <View style={{flex:1}}>
+                <View style={{flex: 1}}>
                     <ScrollView ref="contentScrollView">{this.initialContentView()}</ScrollView>
                 </View>
 
@@ -269,6 +268,9 @@ export default class TCMarkSixBetHome extends React.Component {
         SingletonDPS.setGameUniqueId(this.props.gameUniqueId)
         SingletonDPS.resetPlayType(myPlayMath)
         this.refs['TCBetShakeButtonView'].resetPlayMath(myPlayMath, this.props.gameUniqueId)
+        this.listener3 = RCTDeviceEventEmitter.addListener('upDataUI_forBillDataChange', () => {
+            this.userPlayNumberEvent.userNumberCallBackRefresh();
+        });
 
         this.checkGameSetting()
     }
@@ -276,6 +278,7 @@ export default class TCMarkSixBetHome extends React.Component {
     componentWillUnmount() {
         this.listener && this.listener.remove();
         this.listener2 && this.listener2.remove();
+        this.listener3 && this.listener3.remove();
         this.didFocusListener && this.didFocusListener.remove()
         this.didBlurListener && this.didBlurListener.remove()
         this.currentResultData && this.currentResultData.clear();
@@ -467,9 +470,9 @@ export default class TCMarkSixBetHome extends React.Component {
     }
 
     getShoppingCartView() {
-        if (SingletonDPS.getAddedBetArr().length > 0) {
+        if (this.userPlayNumberEvent.str.alreadyAdd > 0) {
             return (<TCBetGoBackShoppingCart style={{position: 'absolute', top: 0}}
-                                             cc={SingletonDPS.getAddedBetArr().length}
+                                             cc={this.userPlayNumberEvent.str.alreadyAdd}
                                              shakeEvent={() => this.pushToBetBill()}/>)
         }
     }

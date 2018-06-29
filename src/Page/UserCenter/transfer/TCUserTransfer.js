@@ -34,10 +34,12 @@ export default class TCUserTransfer extends React.Component {
     }
 
     render() {
+        const keyboardDismissMode = IS_IOS ? 'on-drag' : 'none'
         return (
             <View style={styles.container}>
-                <TopNavigationBar title={'转账'} needBackButton backButtonCall={() => Helper.popToBack()} />
-                <ScrollView keyboardDismissMode="on-drag" contentContainerStyle={styles.content}>
+                <TopNavigationBar title={'转账'} needBackButton backButtonCall={() => Helper.popToBack()}
+                                  rightTitle={'转账记录'} rightButtonCall={() => Helper.pushToUserPayAndWithDraw(2)}/>
+                <ScrollView keyboardDismissMode={keyboardDismissMode} contentContainerStyle={styles.content}>
                     <OneTouchTransferView />
                     <View style={{backgroundColor: 'transparent', height:10}} />
                     <ManualTransferView />

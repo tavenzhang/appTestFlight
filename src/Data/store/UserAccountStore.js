@@ -4,7 +4,8 @@ import Moment from "moment";
 import _ from "lodash";
 import {
     balanceHistory,
-    payAndWithdrawHistory
+    payAndWithdrawHistory,
+    transferRecords
 } from '../../Common/Network/TCRequestService'
 
 export default class UserAccountStore {
@@ -60,6 +61,7 @@ export default class UserAccountStore {
      * @param state
      * @param callback
      */
+    @action
     getPayAndWithdrawHistory(type, pageNum, pageSize, state, callback) {
         payAndWithdrawHistory({
             type: type,
@@ -69,6 +71,16 @@ export default class UserAccountStore {
         }, callback);
     }
 
+
+    /**
+     * 获取转账记录
+     * @param params
+     * @param callback
+     */
+    @action
+    getTransferRecords(params, callback) {
+        transferRecords(params, callback);
+    }
 
     @action
     before() {
@@ -161,7 +173,7 @@ export default class UserAccountStore {
 
         balanceHistory(params, (res) => {
             this.isRefreshing = false;
-            JXLog("==================balance"+this.isRefreshing);
+            JXLog("==================balance" + this.isRefreshing);
             if (res.rs) {
                 this.datas = _.concat(this.datas.slice(0), res.content.datas);
                 this.pagingState = res.content.pagingState;
