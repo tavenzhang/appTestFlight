@@ -150,8 +150,8 @@ export default class TCBetHome extends React.Component {
         this.listener = RCTDeviceEventEmitter.addListener('heightChange', () => {
             this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
         });
-      this.didFocusListener = this.props.navigation.addListener('didFocus', () => this.currentResultData.didBlur(false))
-      this.didBlurListener = this.props.navigation.addListener('didBlur', () => this.currentResultData.didBlur(true))
+        this.didFocusListener = this.props.navigation.addListener('didFocus', () => this.currentResultData.didBlur(false))
+        this.didBlurListener = this.props.navigation.addListener('didBlur', () => this.currentResultData.didBlur(true))
     }
 
     componentDidMount() {
@@ -160,11 +160,15 @@ export default class TCBetHome extends React.Component {
         SingletonDPS.setGameUniqueId(this.props.gameUniqueId);
         SingletonDPS.resetPlayType(myPlayMath);
         this.refs['TCBetShakeButtonView'].resetPlayMath(myPlayMath, this.props.gameUniqueId);
+        this.listener1 = RCTDeviceEventEmitter.addListener('upDataUI_forBillDataChange', () => {
+            this.userPlayNumberEvent.userNumberCallBackRefresh();
+        });
         this.checkGameSetting();
     }
 
     componentWillUnmount() {
         this.listener && this.listener.remove();
+        this.listener1 && this.listener1.remove();
         this.didFocusListener && this.didFocusListener.remove()
         this.didBlurListener && this.didBlurListener.remove()
         this.currentResultData && this.currentResultData.clear();
@@ -281,7 +285,7 @@ export default class TCBetHome extends React.Component {
                     <TCBetBalanceButton style={{}} shakeEvent={() => this.byShake()}/>
                     {this.getShoppingCartView()}
                 </View>
-                <View style={{flex:1}}>
+                <View style={{flex: 1}}>
                     <ScrollView ref="contentScrollView">{this.initialContentView()}</ScrollView>
                 </View>
 
@@ -455,9 +459,9 @@ export default class TCBetHome extends React.Component {
     }
 
     getShoppingCartView() {
-        if (SingletonDPS.getAddedBetArr().length > 0) {
+        if (this.userPlayNumberEvent.str.alreadyAdd > 0) {
             return (<TCBetGoBackShoppingCart style={{position: 'absolute', top: 0}}
-                                             cc={SingletonDPS.getAddedBetArr().length}
+                                             cc={this.userPlayNumberEvent.str.alreadyAdd}
                                              shakeEvent={() => this.pushToBetBill()}/>)
         }
     }
