@@ -7,6 +7,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import Moment from 'moment'
 import {common} from '../../../resouce/images'
 import {indexBgColor, listViewTxtColor, Size, width} from '../../../resouce/theme'
+import JXHelper from "../../../../Common/JXHelper/JXHelper";
 
 export default class TCUserTransferRowView extends Component {
 
@@ -34,14 +35,17 @@ export default class TCUserTransferRowView extends Component {
     }
 
     getState() {
-        let state = this.props.rowData.state
-        if (state === 'COMPLETED') {
-            return '已完成'
-        } else if (state === 'FAILED') {
-            return '失败'
-        } else if (state === 'HANDLING') {
-            return '处理中'
+        let platforms = JXHelper.getDSFOpenList().dsfAll
+        let platform = this.props.rowData.gamePlatform
+        let platformInChinese = ''
+        let pf = platforms.find(p => p.gamePlatform === platform)
+        if (pf) {
+            platformInChinese = pf.gameNameInChinese
         }
+        if (this.props.rowData.type === 'TopUp') {
+            return '转出到' + platformInChinese
+        }
+        return '从' + platformInChinese + '转入'
     }
 }
 
