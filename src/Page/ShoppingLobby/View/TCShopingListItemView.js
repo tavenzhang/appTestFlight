@@ -94,37 +94,12 @@ export default class TCShopingListItemView extends Component {
                     <View style={{flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between'}}>
                         <Text style={{color: shoppingTxtColor.cpTitle, fontSize: Size.font17, marginTop: 5}} ellipsizeMode='tail'
                               numberOfLines={1}> {this.props.title} </Text>
-                        <Text style={{
-                            color:shoppingTxtColor.cpLastIssueNumber,
-                            marginTop: 5,
-                            marginRight: 10
-                        }}>第{this.props.mobData ?
-                            (this.props.mobData.remainingTime>0?
-                                this.props.rowData.lastIssueNumber:this.props.mobData.uniqueIssueNumber):
-                            ''}期
-                        </Text>
+                        <TextIssueView rowData={this.props.rowData} mobData={this.props.mobData}/>
                     </View>
 
                     {this.getOpenCode()}
 
-                    <View style={{flexDirection: 'row', marginLeft: 15}}>
-                        <Text style={{
-                            color: shoppingTxtColor.cpTipTxt,
-                            fontSize: width >= 375 ? Size.font14 : Size.font12
-                        }}>距第{this.props.mobData ?
-                            (this.props.mobData.remainingTime>0?
-                                this.props.mobData.uniqueIssueNumber:(this.props.mobData.nextUniqueIssueNumber)) :
-                            ''}期截止还有
-                        </Text>
-                        <Text style={{color: shoppingTxtColor.cpTime, fontSize: Size.font14, width: 80, textAlign: "center"}}
-                              ellipsizeMode='tail'
-                              numberOfLines={1}>
-                            {this.props.mobData ?
-                                (this.getShowTime(this.props.mobData.remainingTime>0?
-                                    this.props.mobData.remainingTime:this.props.mobData.nextremainingTime)):
-                                ''}
-                                </Text>
-                    </View>
+                    {<TextTimeView mobData={this.props.mobData}/>}
                 </View>
             </TouchableOpacity>
         );
@@ -176,19 +151,60 @@ export default class TCShopingListItemView extends Component {
 
     buttonCall = () => {
         if (this.props.title) {
-            if (TC_BUTTON_SOUND_STATUS) {
+            if (JX_Store.jdAppstore.buttonSoundStatus) {
                 SoundHelper.playSoundBundle();
             }
 
             NavigatorHelper.pushToBetHome(this.props.rowData)
         }
     }
-
-    getShowTime(time){
-        return JXHelper.getTimeHHMMSSWithSecond(time)
-    }
-
 }
+
+
+@observer
+class TextIssueView extends React.Component {
+
+    render(){
+        return (<Text style={{
+            color:shoppingTxtColor.cpLastIssueNumber,
+            marginTop: 5,
+            marginRight: 10
+        }}>第{this.props.mobData ?
+            (this.props.mobData.remainingTime>0?
+                this.props.rowData.lastIssueNumber:this.props.mobData.uniqueIssueNumber):
+            ''}期
+        </Text>)
+    }
+}
+
+@observer
+class TextTimeView extends React.Component {
+
+    render(){
+        JXLog("TextTimeView- shopList--render");
+
+        return ( <View style={{flexDirection: 'row', marginLeft: 15}}>
+            <Text style={{
+                color: shoppingTxtColor.cpTipTxt,
+                fontSize: width >= 375 ? Size.font14 : Size.font12
+            }}>距第{this.props.mobData ?
+                (this.props.mobData.remainingTime>0?
+                    this.props.mobData.uniqueIssueNumber:(this.props.mobData.nextUniqueIssueNumber)) :
+                ''}期截止还有
+            </Text>
+            <Text style={{color: shoppingTxtColor.cpTime, fontSize: Size.font14, width: 80, textAlign: "center"}}
+                  ellipsizeMode='tail'
+                  numberOfLines={1}>
+                {this.props.mobData ?
+                    (JXHelper.getTimeHHMMSSWithSecond(
+                        this.props.mobData.remainingTime>0?
+                            this.props.mobData.remainingTime:this.props.mobData.nextremainingTime)):
+                    ''}
+            </Text>
+        </View>)
+    }
+}
+
 
 const styles = StyleSheet.create({
     container: {

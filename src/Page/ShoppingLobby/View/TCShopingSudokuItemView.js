@@ -84,9 +84,7 @@ export default class MyComponent extends Component {
                     <Text style={{color: shoppingTxtColor.cpTitle, fontSize: Size.font16,marginTop:5}}
                           ellipsizeMode='tail'
                           numberOfLines={1}> {this.props.title} </Text>
-                    <Text
-                        style={{color:shoppingTxtColor.cpTime, fontSize: Size.font16, marginTop:3,marginBottom:5,width:80,textAlign:"center"}}
-                        ellipsizeMode='tail' numberOfLines={1}> {this.props.mobData?this.getShowTime(this.props.mobData.remainingTime>0?this.props.mobData.remainingTime:this.props.mobData.nextremainingTime):''} </Text>
+                    <TextTimeView mobData={this.props.mobData}/>
                 </View>
             </TouchableOpacity>
         );
@@ -105,7 +103,7 @@ export default class MyComponent extends Component {
 
     buttonCall = () => {
         if (this.props.title) {
-            if (TC_BUTTON_SOUND_STATUS) {
+            if (JX_Store.jdAppstore.buttonSoundStatus) {
                 SoundHelper.playSoundBundle();
             }
 
@@ -113,8 +111,16 @@ export default class MyComponent extends Component {
         }
     }
 
-    getShowTime(time){
-        return JXHelper.getTimeHHMMSSWithSecond(time)
+}
+
+@observer
+class TextTimeView extends React.Component {
+
+    render(){
+        return (<Text
+            style={{color:shoppingTxtColor.cpTime, fontSize: Size.font16, marginTop:3,marginBottom:5,width:80,textAlign:"center"}}
+            ellipsizeMode='tail' numberOfLines={1}> {this.props.mobData ? JXHelper.getTimeHHMMSSWithSecond(this.props.mobData.remainingTime>0?this.props.mobData.remainingTime:this.props.mobData.nextremainingTime):''}
+            </Text>)
     }
 }
 

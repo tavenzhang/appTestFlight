@@ -1,3 +1,5 @@
+import jdAppstore from "./JDAppStore";
+
 'use-strict';
 import GameDZStore from "./GameDZStore";
 
@@ -5,10 +7,11 @@ import GameDZStore from "./GameDZStore";
 class RootStore {
     constructor() {
         this.gameDZStore =new GameDZStore();
+        this.jdAppstore=jdAppstore;
     }
 }
 
-const rootStore = new RootStore()
+const rootStore = new RootStore();
 
 export default rootStore
 
