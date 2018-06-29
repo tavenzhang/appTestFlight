@@ -37,10 +37,11 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
     }
 
     render() {
+        const navTitle = ['提款记录', '充值记录', '转账记录']
         return (
             <View style={styles.container}>
                 < TopNavigationBar
-                    title={this.props.accountType === 1 ? '充值记录' : '提款记录'}
+                    title={navTitle[this.props.accountType]}
                     needBackButton={true}
                     backButtonCall={() => {
                         this.back()

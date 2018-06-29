@@ -13,7 +13,7 @@ import {
     TouchableHighlight,
     RefreshControl
 } from 'react-native';
-import {observer} from 'mobx-react/native';
+import {observer, inject} from 'mobx-react/native';
 
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import RowCell from './View/TCLotteryLobbyRowView'
@@ -26,6 +26,7 @@ import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import TCFlatList from "../../Common/View/RefreshListView/TCFLatList";
 import {TC_LayoutAnimaton} from "../../Common/View/layoutAnimation/LayoutAnimaton";
 
+@inject("mainStore")
 @observer
 export default class TCLotteryLobby extends React.Component {
     constructor(state) {
@@ -33,7 +34,7 @@ export default class TCLotteryLobby extends React.Component {
         this.state = {
             isRefreshing: false
         }
-
+        this.dataSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     }
 
     componentWillUpdate() {
@@ -52,21 +53,22 @@ export default class TCLotteryLobby extends React.Component {
 
     componentWillUnmount() {
         this.lotteryResultData && this.lotteryResultData.clear();
+        ;
     }
 
     render() {
         return (
             <View style={JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container}>
                 <TopNavigationBar title='开奖大厅' needBackButton={true}
-                                  backButtonCall={() => {
-                                      RCTDeviceEventEmitter.emit('' +
-                                          'setSelectedTabNavigator', 'home');
-                                  }}
+                                  backButtonCall={() => this.props.mainStore.changeTab('home')}
                 />
                 {/*列表*/}
-                <TCFlatList
-                    dataS={this.lotteryResultData.resultsData.slice()}
-                    renderRow={this.renderRow}
+                <ListView
+                    ref="ListView"
+                    dataSource={this.dataSource.cloneWithRows(this.lotteryResultData.resultsData.slice())}
+                    renderRow={(rowData) => this.renderRow(rowData)}
+                    removeClippedSubviews={false}
+                    enableEmptySections={true}
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.isRefreshing}
@@ -84,7 +86,7 @@ export default class TCLotteryLobby extends React.Component {
     }
 
     //CELL ROW DATA
-    renderRow=(rowData)=> {
+    renderRow = (rowData) => {
         return (
             <RowCell
                 cpName={rowData.gameNameInChinese}
@@ -95,21 +97,27 @@ export default class TCLotteryLobby extends React.Component {
         )
     }
 
-    _pushToBetHome3=(rowData)=>{
+    _pushToBetHome3 = (rowData) => {
         NavigatorHelper.pushToLotteryHistoryList({
             title: rowData.gameNameInChinese,
             gameUniqueId: rowData.gameUniqueId
         })
     }
 
-    loadDataFormNet=()=>  {
+    loadDataFormNet = (manual = true) => {
         this.lotteryResultData.getLotteryDetailRequest();
+        if (manual) {
+            this.refs['ListView'].scrollTo({x: 0, y: 0, animated: true})
+        }
 
         if (this.lotteryResultData.resultsData && this.lotteryResultData.resultsData.length > 0) {
             this.setState({isRefreshing: false});
         }
     }
 
+    endRefreshing() {
+        this.setState({isRefreshing: false});
+    }
 }
 
 const styles = StyleSheet.create({

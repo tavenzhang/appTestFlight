@@ -38,8 +38,10 @@ import dismissKeyboard from 'dismissKeyboard'
 import _ from 'lodash';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import ModalList from "./View/ModalList";
-import ButtonView from "../../../Common/View/ButtonView";
+import TCButtonView from "../../../Common/View/button/TCButtonView";
 import JXHelper from "../../../Common/JXHelper/JXHelper";
+import UserPayStore from "../../../Data/store/UserPayStore";
+import NavigationService from "../../Route/NavigationService";
 
 /**
  * 提示对话框
@@ -48,12 +50,7 @@ import JXHelper from "../../../Common/JXHelper/JXHelper";
 @observer
 export default class TCUserPayNew extends Component {
 
-    payData = {}//支付信息
-    money = ''
-    realTopupMoney = ''//加上随机数后的金额
-    @observable showList = false;
-    @observable bankList = [];
-
+    userPayStore = new UserPayStore();
 
     constructor(props) {
         super(props)
@@ -64,7 +61,7 @@ export default class TCUserPayNew extends Component {
     }
 
     componentWillUnmount() {
-        this.timer && clearTimeout(this.timer);
+
     }
 
     render() {
@@ -96,7 +93,7 @@ export default class TCUserPayNew extends Component {
                 <View style={[styles.payTipView, {flexDirection: 'row'}]}>
                     <Text style={styles.payTip}>请选择充值方式 (如有问题，请联系</Text>
                     <TouchableOpacity onPress={() => this.onlineService()}>
-                        <Text style={[styles.payTip, {color:'#4292cd'}]}>在线客服</Text>
+                        <Text style={[styles.payTip, {color: '#4292cd'}]}>在线客服</Text>
                     </TouchableOpacity>
                     <Text style={styles.payTip}>)</Text>
                 </View>
@@ -108,10 +105,10 @@ export default class TCUserPayNew extends Component {
                     modal={true}
                     marginTop={64}/>
                 <ModalList
-                    show={this.showList}
-                    dataList={this.bankList}
+                    show={this.userPayStore.showList}
+                    dataList={this.userPayStore.bankList}
                     closeModal={() => {
-                        this.showList = false;
+                        this.userPayStore.showList = false;
                     }}
                     renderRow={(rowData) => this.renderBankList(rowData)}
                 />
@@ -144,28 +141,27 @@ export default class TCUserPayNew extends Component {
     }
 
     getBankTypeView(rowData) {
-
         if (rowData.bankType.length === 2) {
             return (<View style={{flexDirection: 'row'}}>
-                <ButtonView text="储蓄卡" btnStyle={{marginHorizontal: 5}}
-                            onClick={() => this.onPayBankList(rowData.bankValue, 'DC')}/>
-                <ButtonView text="信用卡" btnStyle={{marginHorizontal: 5}}
-                            onClick={() => this.onPayBankList(rowData.bankValue, 'CC')}/>
+                <TCButtonView text="储蓄卡" btnStyle={{marginHorizontal: 5}}
+                              onClick={() => this.onPayBankList(rowData.bankValue, 'DC')}/>
+                <TCButtonView text="信用卡" btnStyle={{marginHorizontal: 5}}
+                              onClick={() => this.onPayBankList(rowData.bankValue, 'CC')}/>
             </View>)
         } else {
             let type = rowData.bankType[0];
             if (type === 'DC') {
-                return (<ButtonView text={'储蓄卡'} btnStyle={{marginHorizontal: 5}}
-                                    onClick={() => this.onPayBankList(rowData.bankValue, 'DC')}/>)
+                return (<TCButtonView text={'储蓄卡'} btnStyle={{marginHorizontal: 5}}
+                                      onClick={() => this.onPayBankList(rowData.bankValue, 'DC')}/>)
             } else {
-                return (<ButtonView text={'信用卡'} btnStyle={{marginHorizontal: 5}}
-                                    onClick={() => this.onPayBankList(rowData.bankValue, 'CC')}/>)
+                return (<TCButtonView text={'信用卡'} btnStyle={{marginHorizontal: 5}}
+                                      onClick={() => this.onPayBankList(rowData.bankValue, 'CC')}/>)
             }
         }
     }
 
     onPayBankList(bankValue, bankType) {
-        this.showList = false;
+        this.userPayStore.showList = false;
         this.showLoading();
         this.applayPay("THIRD", bankValue, bankType);
     }
@@ -192,7 +188,7 @@ export default class TCUserPayNew extends Component {
                     style={styles.inputTextStyle}
                     maxLength={8}
                     keyboardType={'numeric'}
-                    defaultValue={this.moneyData.inputMoney.toString()}
+                    defaultValue={this.userPayStore.inputMoney.toString()}
                     underlineColorAndroid={'transparent'}
                     onChangeText={(text) => this.setMoneyInputValue(text)}
                     onEndEditing={e => this.textInputOnEndEditing(e)}
@@ -203,7 +199,7 @@ export default class TCUserPayNew extends Component {
                 /></View>)
         } else {
             return (<TouchableOpacity style={styles.inputContainer} onPress={() => this.showKeyBoard()}>
-                <InputMoneyView ref="inputMoneyView"/>
+                <Text style={styles.inputTextLabelStyle}>{this.userPayStore.inputMoney}</Text>
             </TouchableOpacity>)
         }
     }
@@ -266,21 +262,15 @@ export default class TCUserPayNew extends Component {
             return;
         }
         this.showLoading()
-        let params = {adminBankId: bank.adminBankId, amount: this.money}
-        RequestUtils.PostUrlAndParamsAndCallback(config.api.banktransfers, params, (response) => {
-            this.hideLoading()
-            if (response.rs) {
-                this.gotoBankMsg(response.content, bank.adminBankId);
+        let params = {adminBankId: bank.adminBankId, amount: this.userPayStore.realTopupMoney};
+        this.userPayStore.applyfForBankPay(params, (res) => {
+            this.hideLoading();
+            if (res.status) {
+                this.gotoBankMsg(res.content, bank.adminBankId);
             } else {
-                if (response.status === 400) {
-                    if (response.message)
-                        Toast.showShortCenter(response.message)
-                } else {
-                    Toast.showShortCenter("服务器异常!")
-                }
-                this.goBack()
+                Toast.showShortCenter(res.message);
             }
-        })
+        });
     }
 
     /**
@@ -339,7 +329,7 @@ export default class TCUserPayNew extends Component {
      */
 
     setTextInputValue(number) {
-        let currentStr = this.money + ''
+        let currentStr = this.userPayStore.inputMoney + ''
         if (number == '确认') {
         } else if (number == '删除') {
             currentStr = currentStr.substr(0, currentStr.length - 1)
@@ -349,22 +339,19 @@ export default class TCUserPayNew extends Component {
                 return
             }
         }
-        if (this.money !== currentStr) {
+        if (this.userPayStore.inputMoney !== currentStr) {
             let moneyLabel = this.refs.moneyLabelView
             moneyLabel._resetMoney(currentStr)
         }
-        this.money = currentStr
-        let moneyView = this.refs.inputMoneyView
-        moneyView._resetMoney(this.money)
+        this.userPayStore.inputMoney = currentStr
     }
 
     setMoneyInputValue(money) {
-        if (this.money !== money) {
+        if (this.userPayStore.inputMoney !== money) {
             let moneyLabel = this.refs.moneyLabelView
             moneyLabel._resetMoney(money)
         }
-        this.moneyData.resetInputMoney(money);
-        this.money = money
+        this.userPayStore.inputMoney = money;
     }
 
     textInputOnEndEditing() {
@@ -372,8 +359,7 @@ export default class TCUserPayNew extends Component {
     }
 
     endingEditing() {
-        //输入完毕后校验金额
-        this.moneyData.resetInputMoney(this.moneyData.inputMoney)
+
     }
 
     /**
@@ -387,7 +373,6 @@ export default class TCUserPayNew extends Component {
      * 返回上一级
      */
     goBack() {
-        RCTDeviceEventEmitter.emit('balanceChange', true)
         NavigatorHelper.popToBack();
     }
 
@@ -408,10 +393,7 @@ export default class TCUserPayNew extends Component {
      * @param money
      */
     changeMoney(money) {
-        this.money = money
-        this.moneyData.resetInputMoney(money)
-        let moneyView = this.refs.inputMoneyView
-        moneyView && moneyView._resetMoney(this.money)
+        this.userPayStore.inputMoney = money;
     }
 
     /**
@@ -434,7 +416,7 @@ export default class TCUserPayNew extends Component {
      */
     validMoney(rowData, isBank) {
         let reg = /^[0-9]+([.]{1}[0-9]{1,2})?$/
-        let inputMoney = this.money + ''
+        let inputMoney = this.userPayStore.inputMoney + ''
         if (inputMoney.length < 1) {
             Toast.showShortCenter('请输入充值金额!')
             return false
@@ -443,33 +425,29 @@ export default class TCUserPayNew extends Component {
             Toast.showShortCenter('您输入的金额格式不正确!')
             return false
         }
-        if (this.money === '' || this.money < 1) {
+        if (inputMoney === '' || inputMoney < 1) {
             Toast.showShortCenter("充值金额不能小于1元!");
             return false
         }
         if (isBank) {
-            if (this.money < rowData.minAmount) {
+            if (inputMoney < rowData.minAmount) {
                 Toast.showShortCenter("充值金额不能小于" + rowData.minAmount + "元!");
                 return false
             }
         } else {
             let minTopup = rowData.minAmount > this.props.minmumTopupAmount ? rowData.minAmount : this.props.minmumTopupAmount;
-            if (this.money < minTopup) {
+            if (inputMoney < minTopup) {
                 Toast.showShortCenter("充值金额不能小于" + minTopup + "元!");
                 return false
             }
         }
 
-        if (rowData.bankCode) {//如果是微信支付宝转账,就不加一位随机数
-            this.realTopupMoney = this.money
-        } else {
-            this.realTopupMoney = parseInt(this.money) + this.addRandomMoney()
-        }
-        if (this.realTopupMoney > rowData.maxAmount) {
+        this.userPayStore.realTopupMoney = inputMoney
+        if (inputMoney > rowData.maxAmount) {
             Toast.showShortCenter("充值金额不能大于" + (parseInt(rowData.maxAmount) - 1) + "元!");
             return false
         }
-        if (rowData.remainQuota && this.money > rowData.remainQuota) {
+        if (rowData.remainQuota && inputMoney > rowData.remainQuota) {
             Toast.showShortCenter("充值金额不能大于" + parseInt(rowData.remainQuota) + "元!");
             return false
         }
@@ -485,7 +463,7 @@ export default class TCUserPayNew extends Component {
             return
         }
         this.showLoading()
-        this.payData = rowData
+        this.userPayStore.payData = rowData
         let paymentTypes = rowData.paymentType
         switch (rowData.type) {
             case 'WX':
@@ -495,19 +473,12 @@ export default class TCUserPayNew extends Component {
                 this.applayPay(paymentTypes)
                 break;
             case 'THIRD_PARTY':
-                RequestUtils.getUrlAndParamsAndCallback(config.api.getPaymentBankList, {paymentSetId: this.payData.platform}, (res) => {
-                    if (res.rs) {
-                        this.hideLoading();
-                        this.bankList = res.content;
-                        if (this.bankList.length > 0) {
-                            this.showList = true;
-                        } else {
-                            this.applayPay('THIRD');
-                        }
-                    } else {
+                this.userPayStore.getPaymentBankList(res => {
+                    this.hideLoading();
+                    if (!res) {
                         this.applayPay('THIRD');
                     }
-                });
+                })
                 break;
             default:
                 this.hideLoading()
@@ -522,34 +493,14 @@ export default class TCUserPayNew extends Component {
      */
     applayPay(type, bankCode, bankType) {
 
-        let params = {
-            depositor: TCUSER_DATA.realname,
-            paymentId: this.payData.paymentId,
-            paymentType: type,
-            topupAmount: this.realTopupMoney,
-            id: appId,
-        };
-        if (bankCode) {
-            params.bankCode = bankCode;
-            params.cardType = bankType;
-        }
-
-        RequestUtils.PostUrlAndParamsAndCallback(config.api.otherPay, params, (response) => {
-            this.hideLoading()
-            if (response.rs) {
-                this.gotoPayWithPayment(response.content)
+        this.userPayStore.applyForOtherPay(type, bankCode, bankType, res => {
+            this.hideLoading();
+            if (res.status) {
+                this.gotoPayWithPayment(res.content);
             } else {
-                if (response.message) {
-                    if (response.message.indexOf('general') >= 0) {
-                        Toast.showShortCenter('请求超时,请稍后再试!')
-                    } else {
-                        Toast.showShortCenter(response.message)
-                    }
-                } else {
-                    Toast.showShortCenter('服务器异常')
-                }
+                Toast.showShortCenter(res.message);
             }
-        })
+        });
     }
 
     /**
@@ -557,7 +508,7 @@ export default class TCUserPayNew extends Component {
      * @param res
      */
     gotoPayWithPayment(res) {
-        this.realTopupMoney = res.amount && res.amount === 0 ? this.realTopupMoney : res.amount
+        this.userPayStore.realTopupMoney = res.amount && res.amount === 0 ? this.userPayStore.realTopupMoney : res.amount;
         switch (res.paymentMethod) {
             case 'WECHAT_QR'://微信支付宝扫码
             case 'ALIPAY_QR':
@@ -624,17 +575,16 @@ export default class TCUserPayNew extends Component {
      * @constructor
      */
     QRpay(res) {
-        let payType = this.payData.type
+        let payType = this.userPayStore.payData.type;
         let qrType = res.paymentJumpTypeEnum;
         if (res.data && res.data.length !== 0) {
-            NavigatorHelper.pushToAliAndWechatPay({
+            NavigationService.navigate("UserAliAndWechatPay", {
                 type: payType,
                 codeType: qrType ? qrType : 'URL',
-                money: this.realTopupMoney,
+                money: this.userPayStore.realTopupMoney,
                 codeValue: res.data,
-                payData: this.payData,
-                merchantName: this.payData.merchantName,
-            })
+                merchantName: this.userPayStore.payData.merchantName,
+            });
         } else {
             Toast.showShortCenter('二维码获取失败,请稍后再试!')
         }
@@ -648,7 +598,7 @@ export default class TCUserPayNew extends Component {
         if (res.data && res.data.length !== 0) {
             let html = `<html><body><div style="text-align:center;margin-top: 50px;">` + res.data + `</div></body></html>`
             NavigatorHelper.pushToHTMLPay({
-                title: this.payData.merchantName,
+                title: this.userPayStore.payData.merchantName,
                 html: html
             });
         } else {
@@ -673,7 +623,7 @@ export default class TCUserPayNew extends Component {
     }
 
     getPayTypeTitle() {
-        switch (this.payData.type) {
+        switch (this.userPayStore.payData.type) {
             case 'ZHB':
                 return '支付宝充值'
             case 'WX':
@@ -720,15 +670,9 @@ export default class TCUserPayNew extends Component {
     weChatAndAlipayTransfer(data) {
         NavigatorHelper.pushToUserAliAndWechatTransfer({
             type: data.bankCode,
-            money: this.realTopupMoney,
+            money: this.userPayStore.realTopupMoney,
             data: data
         });
-    }
-
-    //给充值金额加一位小数的随机数
-    addRandomMoney() {
-        let money = _.random(1, 9) * 0.1
-        return money
     }
 
     /**
@@ -740,23 +684,6 @@ export default class TCUserPayNew extends Component {
             adminBankId: adminBankId,
             transInfo: info
         })
-    }
-}
-
-/**
- * 输入金额组件
- */
-@observer
-class InputMoneyView extends Component {
-    @observable
-    money = ''
-
-    render() {
-        return (<Text style={styles.inputTextLabelStyle}>{this.money}</Text>)
-    }
-
-    _resetMoney(money) {
-        this.money = money
     }
 }
 

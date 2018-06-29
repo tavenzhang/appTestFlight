@@ -15,32 +15,18 @@ import {
     Platform
 } from 'react-native';
 
-import {observer} from 'mobx-react/native'
+import {observer, inject} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
-
 import {ButtonView} from '../../Common/View';
-
 import Toast from '../../Common/JXHelper/JXToast'
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 import dismissKeyboard from 'dismissKeyboard'
-import {config, appVersion, versionHotFix} from '../../Common/Network/TCRequestConfig'
-import NetUtils from '../../Common/Network/TCRequestUitls'
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
-import Base64 from '../../Common/JXHelper/Base64'
-import SecretUtils from '../../Common/JXHelper/SecretUtils'
 import JXHelpers from '../../Common/JXHelper/JXHelper'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import ModalDropdown from '../../Common/View/ModalDropdown'
-import TCUserCollectHelper from '../../Common/JXHelper/TCUserCollectHelper'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
-let UserCollectHelper = new TCUserCollectHelper()
-let base64 = new Base64()
-let secretUtils = new SecretUtils()
-import TCInitHelperC from '../../Common/JXHelper/TCInitHelper'
-
-let TCInitHelper = new TCInitHelperC()
 import {common, personal} from '../resouce/images'
 import {
     Size, width, height,
@@ -54,27 +40,21 @@ import {
 /**
  * 登录界面
  */
+@inject("jdAppStore", "mainStore", "userStore")
 @withMappedNavigationProps()
 @observer
 export default class TCUserLogin extends Component {
 
-    password = ''
-    nowVersion = ''
-    stateModel = new StateModel()
 
     constructor(props) {
         super(props)
-        this.stateModel.userName = props.userName ? props.userName : (TCUSER_DATA.username ? TCUSER_DATA.username : '')
-        this.password = TCUSER_DATA.password ? base64.decode(TCUSER_DATA.password) : ''
+        this.userName = this.defaultUserName ? this.defaultUserName : "";
     }
 
     static defaultProps = {};
 
     componentDidMount() {
-        this.getAppVersion()
-        if (TCUSER_DATA.oauthToken && !TCUSER_DATA.islogin) {
-            TCUSER_DATA.oauthToken = null
-        }
+
         if (this.props.isFromRegister) {
             Toast.showShortCenter('注册成功，请用刚才注册信息登录');
         }
@@ -109,11 +89,11 @@ export default class TCUserLogin extends Component {
                                     placeholderTextColor={loginAndRegeisterTxtColor.inputPlaceholder}
                                     placeholderTextSize={Size.default}
                                     underlineColorAndroid='transparent'
-                                    defaultValue={this.stateModel.userName}
+                                    defaultValue={this.userName}
                                     onChangeText={(text) => this.onChangeUserName(text)}/>
                                 <ModalDropdown
                                     textStyle={styles.dropDownTxtStyle}
-                                    options={TC_LOGINED_USER_NAME}
+                                    options={this.loginNames}
                                     style={styles.dropStyle}
                                     dropdownStyle={styles.dropdownStyle}
                                     renderRow={(rowData, rowID) => this.renderDropDownRow(rowData, rowID)}
@@ -197,6 +177,31 @@ export default class TCUserLogin extends Component {
             </View>);
     };
 
+
+    @computed get loginNames() {
+        return this.props.jdAppStore.loginedUserNames
+    }
+
+    @computed get defaultUserName() {
+        return this.props.jdAppStore.getDefaultUserName();
+    }
+
+    @computed get userName() {
+        return this.props.userStore.userName;
+    }
+
+    set userName(userName) {
+        this.props.userStore.userName = userName.toLocaleLowerCase();
+    }
+
+    @computed get password() {
+        return this.props.userStore.password;
+    }
+
+    set password(password) {
+        this.props.userStore.password = password;
+    }
+
     register() {
         dismissKeyboard()
         NavigatorHelper.pushToUserRegister(true);
@@ -204,21 +209,12 @@ export default class TCUserLogin extends Component {
 
     gotoBack() {
         dismissKeyboard()
-        TCPUSH_TO_LOGIN = false
-        setTimeout(() => {
-            if (this.props.userName) {
-                NavigatorHelper.popToTop();
-            } else {
-                NavigatorHelper.popToBack();
-            }
-        }, 500)
-    }
-
-    /**
-     * 获取app版本
-     */
-    getAppVersion() {
-        this.nowVersion = Platform.OS + '-' + JXAPPVersion + '-' + versionHotFix
+        if (this.props.isBackToTop) {
+            NavigatorHelper.popToTop();
+            this.props.mainStore.changeTab("home")
+        } else {
+            NavigatorHelper.goBack()
+        }
     }
 
     onlineService() {
@@ -228,123 +224,26 @@ export default class TCUserLogin extends Component {
         }
     }
 
-    gotoUserCenter() {
-        dismissKeyboard()
-        NavigatorHelper.popToTop();
-        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
-    }
-
     loginVal() {
-        let name = this.stateModel.userName + '';
-        name = name.replace(/^\s+|\s+$/g, "")
-        if (!name.length) {
-            Toast.showShortCenter("请输入用户名");
-            return;
-        }
-        let re = /^[0-9A-Za-z]{4,12}$/
-        if (name.length < 4 || name.length > 12 || !name.match(re)) {
-            Toast.showShortCenter("用户名格式错误");
-            return;
-        }
-        if (!this.password.length) {
-            Toast.showShortCenter("请输入密码");
-            return;
-        }
-        if (Platform.OS === 'android' && TC_ANDROID_DEVICE_IS_ROOT) {
-            Toast.showShortCenter("您的手机已经被root了，存在安全隐患，不能登录");
-            return;
-        }
         dismissKeyboard();
-        this._partModalLoadingSpinnerOverLay.show()
-        this.login(name.toLocaleLowerCase(), this.password);
-    }
-
-    login(userName, password) {
-        secretUtils.encode(userName, password, (hash) => {
-            let encryptPWD = secretUtils.rsaEncodePWD(password);
-            let data = {'username': userName, 'password': encryptPWD, 'hash': hash, appVersion: this.nowVersion};
-            NetUtils.PostUrlAndParamsAndCallback(config.api.encryptLogin, data, (res) => {
-                this._partModalLoadingSpinnerOverLay.hide()
-                if (res.rs) {
-                    let user = res.content
-                    if (user !== null) {
-                        user.password = base64.encode(this.password)
-                        user.islogin = true
-                        TCPUSH_TO_LOGIN = false
-                        this.loginStatistics(user.username)
-                        this.saveUser(user)
-                        RCTDeviceEventEmitter.emit('userBankChange')
-                        RCTDeviceEventEmitter.emit('userStateChange')
-                        RCTDeviceEventEmitter.emit('userStateChange', 'login')
-                    } else {
-                        Toast.showShortCenter('服务器错误，登录失败!')
-                    }
+        this._partModalLoadingSpinnerOverLay.show();
+        this.props.userStore.loginVal((res) => {
+            this._partModalLoadingSpinnerOverLay.hide()
+            Toast.showShortCenter(res.message);
+            this.props.userStore.getMessageStatus();
+            if (res.status) {
+                if (this.props.isBackToTop) {
+                    NavigatorHelper.popToTop();
                 } else {
-                    if (res.message) {
-                        Toast.showShortCenter(res.message)
-                    } else {
-                        Toast.showShortCenter('服务器错误，登录失败!')
-                    }
-                }
-            }, null, true);
-        })
-    }
-
-    getUserCollects() {
-        UserCollectHelper.getUserCollectsFromServer((res) => {
-        })
-    }
-
-    loginStatistics(username) {
-        try {
-            NativeModules.DataStatistics.onLogin(username)
-        } catch (e) {
-        }
-    }
-
-    saveUser(user) {
-        TCUSER_BALANCE = user.balance
-        TCUSER_DATA = user
-        storage.save({
-            key: 'user',
-            data: user
-        })
-        storage.save({
-            key: 'balance',
-            data: user.balance
-        })
-        this.getUserCollects()
-        TCInitHelper.getMsgStatus()
-        this.saveUserName(user.username)
-        RCTDeviceEventEmitter.emit('balanceChange')
-        if (this.props.gotoCenter) {
-            this.gotoUserCenter()
-        } else {
-            this.gotoBack()
-        }
-    }
-
-    saveUserName(userName) {
-        if (TC_LOGINED_USER_NAME && TC_LOGINED_USER_NAME.length > 0) {
-            for (var i = 0; i < TC_LOGINED_USER_NAME.length; i++) {
-                if (TC_LOGINED_USER_NAME[i] == userName) {
-                    return
+                    this.props.mainStore.changeTab("mine")
+                    NavigatorHelper.goBack();
                 }
             }
-        }
-        TC_LOGINED_USER_NAME.push(userName)
-        storage.save({
-            key: 'loginUserNames',
-            data: TC_LOGINED_USER_NAME
         })
     }
 
     onChangeUserName(text) {
-        if (text.length <2) {
-            this.stateModel.userName = "";
-        } else {
-            this.stateModel.userName = text;
-        }
+        this.userName = text;
     }
 
     onChangePassword(text) {
@@ -352,7 +251,7 @@ export default class TCUserLogin extends Component {
     }
 
     onSelect(idx, value) {
-        this.stateModel.userName = value
+        this.userName = value
     }
 
     renderDropDownRow(rowData, rowId) {

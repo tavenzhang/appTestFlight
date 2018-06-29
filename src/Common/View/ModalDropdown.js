@@ -3,10 +3,7 @@
  */
 
 'use strict';
-
 import React, {Component} from 'react';
-
-
 import {
     NativeModules,
     StyleSheet,
@@ -20,9 +17,11 @@ import {
     Modal,
     ActivityIndicator,
 } from 'react-native';
+import {Size} from '../../Page/resouce/theme'
+import {StatusBarHeight} from "../../Page/asset/screen";
 
 const TOUCHABLE_ELEMENTS = ['TouchableHighlight', 'TouchableOpacity', 'TouchableWithoutFeedback', 'TouchableWithNativeFeedback'];
-import {Size} from '../../Page/resouce/theme'
+
 export default class ModalDropdown extends Component {
     static defaultProps = {
         disabled: false,
@@ -209,9 +208,10 @@ export default class ModalDropdown extends Component {
         let showInBottom = bottomSpace >= dropdownHeight || bottomSpace >= this._buttonFrame.y;
         let showInLeft = rightSpace >= this._buttonFrame.x;
 
+        let top = this._buttonFrame.y + this._buttonFrame.h - (IS_IOS ? 0 : StatusBarHeight);
         var style = {
             height: dropdownHeight,
-            top: showInBottom ? this._buttonFrame.y + this._buttonFrame.h : Math.max(0, this._buttonFrame.y - dropdownHeight),
+            top: showInBottom ? top : Math.max(0, this._buttonFrame.y - dropdownHeight),
         }
 
         if (showInLeft) {

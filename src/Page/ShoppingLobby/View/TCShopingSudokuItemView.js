@@ -84,10 +84,9 @@ export default class MyComponent extends Component {
                     <Text style={{color: shoppingTxtColor.cpTitle, fontSize: Size.font16,marginTop:5}}
                           ellipsizeMode='tail'
                           numberOfLines={1}> {this.props.title} </Text>
-                    <TextTimeView mobDat={this.props.mobData}/>
-                    {/*<Text*/}
-                        {/*style={{color:shoppingTxtColor.cpTime, fontSize: Size.font16, marginTop:3,marginBottom:5,width:80,textAlign:"center"}}*/}
-                        {/*ellipsizeMode='tail' numberOfLines={1}> {this.props.mobData?this.getShowTime(this.props.mobData.remainingTime>0?this.props.mobData.remainingTime:this.props.mobData.nextremainingTime):''} </Text>*/}
+                    <Text
+                        style={{color:shoppingTxtColor.cpTime, fontSize: Size.font16, marginTop:3,marginBottom:5,width:80,textAlign:"center"}}
+                        ellipsizeMode='tail' numberOfLines={1}> {this.props.mobData?this.getShowTime(this.props.mobData.remainingTime>0?this.props.mobData.remainingTime:this.props.mobData.nextremainingTime):''} </Text>
                 </View>
             </TouchableOpacity>
         );
@@ -116,16 +115,6 @@ export default class MyComponent extends Component {
 
     getShowTime(time){
         return JXHelper.getTimeHHMMSSWithSecond(time)
-    }
-}
-
-@observer
-class TextTimeView extends React.PureComponent {
-
-    render(){
-        return (<Text
-            style={{color:shoppingTxtColor.cpTime, fontSize: Size.font16, marginTop:3,marginBottom:5,width:80,textAlign:"center"}}
-            ellipsizeMode='tail' numberOfLines={1}> {this.props.mobData?this.getShowTime(this.props.mobData.remainingTime>0?this.props.mobData.remainingTime:this.props.mobData.nextremainingTime):''} </Text>)
     }
 }
 

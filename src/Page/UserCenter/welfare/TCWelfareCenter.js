@@ -1,8 +1,7 @@
 'use-strict';
 import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
-import {observer} from "mobx-react/native";
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
+import {observer, inject} from "mobx-react/native";
 import {indexBgColor, listViewTxtColor, Size} from "../../resouce/theme";
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
@@ -10,11 +9,13 @@ import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import {Other} from "../../asset";
 import {personal} from '../../resouce/images'
 import RedPacket from '../../red_packet/RedPacketData';
+
 let RedPacketData = new RedPacket();
 
 /**
  * 福利中心
  */
+@inject("mainStore")
 @observer
 export default class extends React.Component {
 
@@ -30,7 +31,9 @@ export default class extends React.Component {
     renderRedWallet() {
         if (RedPacketData.hbdisplay) {
             return (
-                <TouchableOpacity onPress={() => {this.toRedWallet()}}>
+                <TouchableOpacity onPress={() => {
+                    this.toRedWallet()
+                }}>
                     <View style={styles.welfareItemContainer}>
                         <View style={styles.welfareLeftItem}>
                             <Image source={Other.redWallet} style={styles.welfareLeftIcon}/>
@@ -51,7 +54,7 @@ export default class extends React.Component {
                 <TopNavigationBar
                     title={'福利中心'}
                     needBackButton
-                    backButtonCall={this.props.backHome ? () => RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home') : () => Helper.popToBack()}/>
+                    backButtonCall={this.props.backHome ? () => this.props.mainStore.changeTab('home') : () => Helper.popToBack()}/>
                 {this.renderRedWallet()}
                 <View style={styles.moreWelfareContainer}>
                     <Text style={styles.moreWelfareTxt}>更多福利，敬请期待！</Text>

@@ -37,14 +37,6 @@ storage.load({
 //     JXLog(err)
 // });
 //
-storage.load({
-    key: 'balance'
-}).then(res => {
-    TCUSER_BALANCE = res
-}).catch(err => {
-    JXLog(err)
-});
-
 
 storage.load({
     key: 'TCGameSetting'

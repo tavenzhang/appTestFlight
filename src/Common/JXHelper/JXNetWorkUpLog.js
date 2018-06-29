@@ -4,8 +4,9 @@
  */
 
 import _ from 'lodash';
-import { config, appId } from '../Network/TCRequestConfig';
+import {config, appId} from '../Network/TCRequestConfig';
 import JXHelper from './JXHelper';
+import userStore from '../../Data/UserData'
 
 let instance = null;
 
@@ -19,7 +20,7 @@ export default class MyComponent {
     }
 
     addRequestLog(path, timeout) {
-        this.log = { path: TCDefaultDomain + '/' + path, timeout: timeout, id: appId, username: TCUSER_DATA.username };
+        this.log = {path: TCDefaultDomain + '/' + path, timeout: timeout, id: appId, username: userStore.userName};
         this.upload();
     }
 
@@ -30,7 +31,7 @@ export default class MyComponent {
     async fetchAsync(params) {
         let url = JXHelper.getotherSettings().apiAnalysis;
         // url = 'https:  log.fengxianxinxigang.com/api'; //error url
-        if(!url) return
+        if (!url) return
         if (!JXHelper.regularTestUrl(url)) {
             return;
         }
@@ -42,6 +43,7 @@ export default class MyComponent {
             if (response.status >= 200) {
                 JXLog('上传成功');
             }
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 }

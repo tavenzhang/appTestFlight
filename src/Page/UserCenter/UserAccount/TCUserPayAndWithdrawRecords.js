@@ -4,27 +4,22 @@
  * Created by Allen on 2016/12/10.
  */
 import React, {Component} from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    ListView
-} from 'react-native';
-
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {observer} from 'mobx-react/native'
-import {observable, computed, action} from 'mobx'
-
+import Moment from "moment/moment";
 import NoDataView from '../../../Common/View/TCNoDataView'
-import  ListRow from './View/TCUserPayAndWithdrawRowView'
-import RequestUtils from '../../../Common/Network/TCRequestUitls'
-import {config} from '../../../Common/Network/TCRequestConfig'
+import ListRow from './View/TCUserPayAndWithdrawRowView'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
-import {Size, indexBgColor, listViewTxtColor} from '../../resouce/theme'
+import {indexBgColor} from '../../resouce/theme'
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView'
+import TransferRow from './View/TCUserTransferRowView'
+import UserAccountStore from '../../../Data/store/UserAccountStore'
+
 
 @observer
-export  default  class TCUserPayAndWithdrawRecords extends Component {
+export default class TCUserPayAndWithdrawRecords extends Component {
+
+    userAccountStore = new UserAccountStore();
 
     constructor(props) {
         super(props)
@@ -40,7 +35,7 @@ export  default  class TCUserPayAndWithdrawRecords extends Component {
         return (
             <View style={styles.container}>
                 <RefreshListView
-                    isRenderFooter={this.props.accountType != 1}
+                    isRenderFooter={this.props.accountType !== 1}
                     renderRow={(rowData, sectionID, rowID) => {
                         return this.getRenderRow(rowData, sectionID, rowID)
                     }}
@@ -55,7 +50,19 @@ export  default  class TCUserPayAndWithdrawRecords extends Component {
     };
 
     getNodataTip() {
-        var titleStr = this.props.accountType === 1 ? '暂无充值' : '暂无提现'
+        let titleStr = ''
+        switch (this.props.accountType) {
+            case 0:
+                titleStr = '暂无提现'
+                break
+            case 1:
+                titleStr = '暂无充值'
+                break
+            case 2:
+                titleStr = '暂无转账'
+                break
+        }
+
         switch (this.props.type) {
             case 1:
                 return titleStr + '记录'
@@ -64,7 +71,6 @@ export  default  class TCUserPayAndWithdrawRecords extends Component {
             case 3:
                 return titleStr + '失败记录'
         }
-
     }
 
     getNodataView() {
@@ -90,18 +96,26 @@ export  default  class TCUserPayAndWithdrawRecords extends Component {
     }
 
     getRenderRow(rowData, sectionID, rowID) {
-        return <TouchableOpacity onPress={() => {
-            this.pressRow(rowData)
-        }}>
-            <ListRow rowData={rowData}/>
-        </TouchableOpacity>
+        return (
+            <TouchableOpacity onPress={() => {
+                this.pressRow(rowData)
+            }}>
+                {this.props.accountType === 2 ? <TransferRow rowData={rowData}/> : <ListRow rowData={rowData}/>}
+            </TouchableOpacity>
+        )
     }
 
     pressRow(rowData) {
-        Helper.pushToUserAcountDetail({
-            orderData: rowData,
-            isPayAndWithdrawRecord: true
-        })
+        if (this.props.accountType === 2) {
+            Helper.pushToUserTransferDetails({
+                orderData: rowData,
+            })
+        } else {
+            Helper.pushToUserAcountDetail({
+                orderData: rowData,
+                isPayAndWithdrawRecord: true
+            })
+        }
     }
 
     getAccountType() {
@@ -120,16 +134,25 @@ export  default  class TCUserPayAndWithdrawRecords extends Component {
     }
 
     loadDataFromNet(pageNum, pageSize, callback) {
-        RequestUtils.getUrlAndParamsAndCallback(config.api.orderhistory,
-            {
-                type: this.getAccountType(),
+        if (this.props.accountType === 0 || this.props.accountType === 1) {
+            this.userAccountStore.getPayAndWithdrawHistory(this.getAccountType(), pageNum, pageSize, this.getState(), (res) => {
+                callback(res, res.content);
+            });
+        } else if (this.props.accountType === 2) {
+            let endTime = Moment().format('YYYY-MM-DD');
+            let startTime = Moment().subtract(90, 'days').format('YYYY-MM-DD');
+            let params = {
+                startTime: startTime,
+                endTime: endTime,
+                transferStateType: this.getState(),
                 start: pageNum * pageSize,
-                pageSize: pageSize,
-                state: this.getState()
-            },
-            (response) => {
-                callback(response, response.content)
+                pageSize: pageSize
+            };
+            this.userAccountStore.getTransferRecords(params, (res) => {
+                callback(res, res.content)
             })
+        }
+
     }
 }
 

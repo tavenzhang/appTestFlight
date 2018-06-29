@@ -27,24 +27,20 @@ import {
     width
 } from '../../resouce/theme';
 import {common} from '../../resouce/images';
+import FeedBackStore from '../../../Data/store/FeedBackStore'
+
 
 @observer
 export default class TCUserFeedbackList extends Component {
     status = 'RESOLVED';
-    stateModel = new StateModel()
+    feedBackStore = new FeedBackStore();
 
     componentDidMount() {
-        this.listener = RCTDeviceEventEmitter.addListener('feedbackListRefresh', () => this.updateData());
-        if (Platform.OS === 'android') {
-            BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
-        }
+
     }
 
     componentWillUnmount() {
-        this.listener && this.listener.remove();
-        if (Platform.OS === 'android') {
-            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
-        }
+
     }
 
     onBackAndroid() {
@@ -61,24 +57,10 @@ export default class TCUserFeedbackList extends Component {
      * @param callBack
      */
     getDataFromServer(pageNum, pageSize, callBack) {
-        let type = {
-            pageSize: pageSize,
-            start: pageNum * pageSize,
-            createTimeFrom: this.stateModel.startDate + ' 00:00:00',
-            createTimeTo: this.stateModel.endDate + ' 23:59:59',
-            status: this.status,
-        };
-        NetUtils.getUrlAndParamsAndCallback(config.api.getUserFeedbackList, type,
-            (data) => {
-                this._partModalLoadingSpinnerOverLay.hide();
-                if (data.rs) {
-                    if (TC_FEEDBACK_COUNT !== 0) {
-                        TC_FEEDBACK_COUNT = 0;
-                    }
-                    callBack(data, data.content && data.content.datas);
-                }
-            }
-        );
+        this.feedBackStore.initFeedBackList(this.status, pageNum, pageSize, (data) => {
+            this._partModalLoadingSpinnerOverLay.hide();
+            callBack(data, data.content && data.content.datas);
+        })
     }
 
     goFeedbackView(rowData) {
@@ -126,19 +108,18 @@ export default class TCUserFeedbackList extends Component {
     }
 
     onSelect(idx, value) {
-        this.stateModel.setTypeName(value);
+        this.feedBackStore.typeName = value;
         this.getSearchStatus(idx);
     }
 
     onEndDateChange(date) {
-        this.endDate = date;
-        this.stateModel.setEndDate(date)
+        this.feedBackStore.endDate = date;
         this._partModalLoadingSpinnerOverLay.show();
         this.updateData();
     }
 
     onStartDateChange(date) {
-        this.stateModel.setStartData(date)
+        this.feedBackStore.startDate = date;
         this._partModalLoadingSpinnerOverLay.show();
         this.updateData();
     }
@@ -147,13 +128,14 @@ export default class TCUserFeedbackList extends Component {
         return (
             <DatePicker
                 style={styles.date}
-                date={isStartDate ? this.stateModel.startDate : this.stateModel.endDate}
+                date={isStartDate ? this.feedBackStore.startDate : this.feedBackStore.endDate}
                 mode="date"
                 format="YYYY-MM-DD"
                 confirmBtnText="确认"
                 cancelBtnText="取消"
                 showIcon={false}
                 is24Hour
+                maxDate={new Date()}
                 customStyles={{
                     dateIcon: null,
                     dateInput: styles.dateInput,
@@ -248,7 +230,7 @@ export default class TCUserFeedbackList extends Component {
                         {this.renderDatePicker(false)}
                         <TouchableOpacity onPress={() => this.onPressType()}>
                             <View style={styles.dropContainer}>
-                                <Text style={styles.type}>{this.stateModel.typeName}</Text>
+                                <Text style={styles.type}>{this.feedBackStore.typeName}</Text>
                                 <ModalDropdown
                                     ref="modalDropDown"
                                     textStyle={styles.dropDownTxt}
@@ -275,29 +257,6 @@ export default class TCUserFeedbackList extends Component {
     }
 }
 
-class StateModel {
-    @observable
-    startDate = Moment().add(-90, 'd').format('YYYY-MM-DD');
-    @observable
-    endDate = Moment().format('YYYY-MM-DD');
-    @observable
-    typeName = '已回复';
-
-    @action
-    setStartData(date) {
-        this.startDate = date
-    }
-
-    @action
-    setEndDate(date) {
-        this.endDate = date
-    }
-
-    @action
-    setTypeName(name) {
-        this.typeName = name
-    }
-}
 
 const styles = StyleSheet.create({
     container: {

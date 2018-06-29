@@ -10,7 +10,8 @@ import {
     View,
     TouchableOpacity,
     WebView,
-    Image
+    Image,
+    StatusBar
 } from 'react-native';
 import TopNavigationBar from '../../Common/View/TCNavigationBar'
 import Moment from 'moment'
@@ -23,7 +24,7 @@ import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 import {configAppId} from '../resouce/appConfig'
 import {common} from "../resouce/images";
 import PropTypes from 'prop-types'
-import {indexBgColor} from "../resouce/theme";
+import {indexBgColor, width} from "../resouce/theme";
 import {JX_PLAT_INFO,bottomNavHeight} from '../asset'
 
 export default class TCTrend extends Component {
@@ -64,40 +65,43 @@ export default class TCTrend extends Component {
 
     render() {
         let containStyle = JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container
-        let contenView = (<View style={containStyle} >
-            <WebView
-                bounces={false}
-                automaticallyAdjustContentInsets={true}
-                style={styles.webView}
-                source={{uri: this.state.url}}
-                javaScriptEnabled={true}
-                domStorageEnabled={true}
-                decelerationRate="normal"
-                startInLoadingState={false}
-                scalesPageToFit={false}
-                onNavigationStateChange={this.onNavigationStateChange}
-                onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                // onMessage={e => this._listener(e.nativeEvent)}
-                onLoadEnd={this.onLoadEnd}
-                onLoadStart={this.onLoadStart}
-                onError={this.onLoadError}
+        let contenView = (
+            <View style={containStyle} >
+                <View style={{width:width, height:50, backgroundColor:'red'}}/>
+                <WebView
+                    bounces={false}
+                    automaticallyAdjustContentInsets={true}
+                    style={styles.webView}
+                    source={{uri: this.state.url}}
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}
+                    decelerationRate="normal"
+                    startInLoadingState={false}
+                    scalesPageToFit={false}
+                    onNavigationStateChange={this.onNavigationStateChange}
+                    onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+                    // onMessage={e => this._listener(e.nativeEvent)}
+                    onLoadEnd={this.onLoadEnd}
+                    onLoadStart={this.onLoadStart}
+                    onError={this.onLoadError}
 
-            />
-            <LoadingSpinnerOverlay
-                ref={component => this._modalLoadingSpinnerOverLay = component}/>
-            <View style={{position:"absolute", justifyContent: "center", alignItems: "center",flexDirection: "row",top:JX_PLAT_INFO.MarginBarHeight+5, zIndex:100, left:5}}>
-                <TouchableOpacity onPress={this.onBack}>
-                    <View style={{justifyContent: 'center', alignItems: 'center', marginRight:8}}>
-                        <Image source={common.back} style={{width:35, height:35}}/>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.refresh}>
-                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={{color:"white", backgroundColor: "transparent",fontSize:16, fontWeight:"bold"}}>{"刷新"}</Text>
-                    </View>
-                </TouchableOpacity>
+                />
+                <LoadingSpinnerOverlay
+                    ref={component => this._modalLoadingSpinnerOverLay = component}/>
+                <View style={{position:"absolute", justifyContent: "center", alignItems: "center",flexDirection: "row",top:JX_PLAT_INFO.MarginBarHeight+5, zIndex:100, left:5}}>
+                    <TouchableOpacity onPress={this.onBack}>
+                        <View style={{justifyContent: 'center', alignItems: 'center', marginRight:8}}>
+                            <Image source={common.back} style={{width:35, height:35}}/>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this.refresh}>
+                        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={{color:"white", backgroundColor: "transparent",fontSize:16, fontWeight:"bold"}}>{"刷新"}</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>)
+        )
         if(this.state.loadedFail){
             contenView =<View style={[containStyle]}>
                 <TopNavigationBar
@@ -171,7 +175,8 @@ export default class TCTrend extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:indexBgColor.mainBg
+        backgroundColor:indexBgColor.mainBg,
+        marginTop: StatusBar.currentHeight,
     },
     containerIOS: {
         height:SCREEN_H -bottomNavHeight,
@@ -182,6 +187,7 @@ const styles = StyleSheet.create({
        //height:JX_PLAT_INFO.screenH -JX_PLAT_INFO.bottomNavHeight,
         //flex:1,
         width: SCREEN_W,
+        marginTop: StatusBar.currentHeight,
     }
 });
 

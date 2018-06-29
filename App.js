@@ -36,10 +36,6 @@ import AppConfig from './src/page/Main/AppConfig'
 import create from './Api'
 let  versionHotFix = '1.0.0'
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu'
-});
 
 type Props = {};
 
@@ -179,7 +175,6 @@ export default class App extends Component<Props> {
         let nativeConfig = await CodePush.getConfiguration()
         let version = nativeConfig.appVersion
         this.setState({appVersion: version})
-        JXAPPVersion = version
     }
 
     skipUpdate() {

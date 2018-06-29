@@ -12,20 +12,20 @@ import {
 } from 'react-native'
 import {Size, indexBgColor, listViewTxtColor} from '../resouce/theme'
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
-import UserInfo from '../UserCenter/UserInfo/TCAddUserInfo'
-import  BankManager from './UserBank/TCUserBankManager'
-import ModifyPwd from './UserInfo/TCModifyPassword'
-import ModifySecurityPwd from './UserInfo/TCModifySecurityPwd'
-import  InitHelper from '../../Common/JXHelper/TCInitHelper'
+import InitHelper from '../../Common/JXHelper/TCInitHelper'
 import Toast from '../../Common/JXHelper/JXToast';
 import {personal} from '../resouce/images'
 import Helper from "../../Common/JXHelper/TCNavigatorHelper";
+import {observer, inject} from 'mobx-react'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
+
 let helper = new InitHelper()
 
 /**
  * 安全中心
  */
+inject("userStore")
+@observer
 export default class TCUserSecurityCenter extends Component {
 
     constructor(props) {
@@ -39,7 +39,7 @@ export default class TCUserSecurityCenter extends Component {
                     title={'安全中心'}
                     needBackButton={true}
                     backButtonCall={() => {
-                      Helper.popToBack()
+                        Helper.popToBack()
                     }}/>
                 <View style={styles.mySettingStyle}>
                     <TouchableOpacity onPress={() => {
@@ -94,15 +94,16 @@ export default class TCUserSecurityCenter extends Component {
         NavigatorHelper.pushToModifyPassword()
     }
 
+
     /**
      * 修改取款密码
      */
     goModifySecurityPwd() {
-        if (helper.isGuestUser()) {
+        if (this.props.userStore.isGuest) {
             Toast.showShortCenter('对不起，试玩账号不能修改交易密码!')
             return
         }
-      NavigatorHelper.pushToModifySecurityPwd()
+        NavigatorHelper.pushToModifySecurityPwd()
     }
 }
 

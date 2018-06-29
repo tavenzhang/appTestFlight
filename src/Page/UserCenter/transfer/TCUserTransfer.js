@@ -1,3 +1,5 @@
+import TCKeyboardAvoidingScrollView from "../../../Common/View/TCKeyboardAvoidingScrollView";
+
 'use-strict';
 import React from 'react';
 import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
@@ -17,9 +19,9 @@ import {
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import Toast from '../../../Common/JXHelper/JXToast';
-import Button from '../../../Common/View/ButtonView'
+import Button from '../../../Common/View/button/TCButtonView'
 import walletStore from '../../../Data/store/WalletStore';
-import JXText from "../../widget/JXText";
+import TCText from "../../../Common/View/widget/TCText";
 
 /**
  * 转账
@@ -34,14 +36,16 @@ export default class TCUserTransfer extends React.Component {
     }
 
     render() {
+
         return (
             <View style={styles.container}>
-                <TopNavigationBar title={'转账'} needBackButton backButtonCall={() => Helper.popToBack()} />
-                <ScrollView keyboardDismissMode="on-drag" contentContainerStyle={styles.content}>
+                <TopNavigationBar title={'转账'} needBackButton backButtonCall={() => Helper.popToBack()}
+                                  rightTitle={'转账记录'} rightButtonCall={() => Helper.pushToUserPayAndWithDraw(2)}/>
+                <TCKeyboardAvoidingScrollView contentContainerStyle={styles.content}>
                     <OneTouchTransferView />
                     <View style={{backgroundColor: 'transparent', height:10}} />
                     <ManualTransferView />
-                </ScrollView>
+                </TCKeyboardAvoidingScrollView>
             </View>
         )
     }
@@ -187,7 +191,7 @@ class ManualTransferView extends React.Component {
         let views = [];
         this.moneyLabels.map((item, index) => {
             views.push(
-                <JXText
+                <TCText
                     key={index + '00'}
                     text={item}
                     borderRadius={5}

@@ -37,16 +37,17 @@ import _ from 'lodash'
 import dismissKeyboard from 'dismissKeyboard'
 import {betIcon, common} from '../../resouce/images'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+import UserPayStore from "../../../Data/store/UserPayStore";
 
 /**
  * 银行充值
  */
-@observer
 @withMappedNavigationProps()
+@observer
 export default class TCUserBankPayMessageNew extends Component {
 
     transferToupType = 'BANK_ONLINE'//默认网银转账
-    stateModel = new StateModel()
+    userPayStore = new UserPayStore();
 
     constructor(props) {
         super(props)
@@ -95,7 +96,7 @@ export default class TCUserBankPayMessageNew extends Component {
                                 <DatePicker
                                     ref='datePicker'
                                     style={{backgroundColor: 'transparent'}}
-                                    date={this.stateModel.date}
+                                    date={this.userPayStore.date}
                                     mode="datetime"
                                     format="YYYY-MM-DD HH:mm"
                                     confirmBtnText="确认"
@@ -107,7 +108,7 @@ export default class TCUserBankPayMessageNew extends Component {
                                         dateInput: {flex: 1, alignItems: 'center', borderWidth: 0},
                                         dateText: {color: '#000000', fontSize: Size.default, flex: 1, textAlignVertical: 'center'}
                                     }}
-                                    onDateChange={(date) => {this.stateModel.date = date}}
+                                    onDateChange={(date) => {this.userPayStore.date = date}}
                                 />
                             </View>
                             <TouchableOpacity
@@ -338,32 +339,22 @@ export default class TCUserBankPayMessageNew extends Component {
             adminBankId: this.props.adminBankId,
             topupAmount: this.money,
             topupCardRealname: this.name,
-            topupTime: this.stateModel.date,
+            topupTime: this.userPayStore.date,
             transferToupType: this.transferToupType,
             paymentPlatformOrderNo: this.orderId,
             thirdOrderNo: this.props.transInfo.thirdOrderNo,
             id: appId
         }
-        RequestUtils.PutUrlAndParamsAndCallback(config.api.banktransfersQueryv3, params, (response) => {
-            this._modalLoadingSpinnerOverLay.hide()
-            if (response.rs) {
-                this.gotoProgress(response.content.topupAmount)
-            } else {
-                if (response.status === 500) {
-                    Toast.showShortCenter('服务器出错啦!')
-                } else {
-                    if (response.message) {
-                        Toast.showShortCenter(response.message)
-                    } else {
-                        Toast.showShortCenter('转账确认失败,请您联系客服!')
-                    }
-                }
-            }
-        })
-    }
 
-    gotoProgress(money) {
-        NavigatorHelper.pushToUserPayProgress({topupAmount: money});
+        this.userPayStore.bankTransferQuery(params, (res) => {
+            this._modalLoadingSpinnerOverLay.hide();
+            if (res.status) {
+                NavigatorHelper.pushToUserPayProgress({topupAmount: res.topupAmount});
+            } else {
+                Toast.showShortCenter(res.message);
+            }
+        });
+
     }
 
     /**

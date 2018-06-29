@@ -13,49 +13,36 @@ import {observable, computed, action} from 'mobx'
 import Dialog from '../../../Common/View/TipDialog'
 import {Size, indexBgColor, listViewTxtColor, baseColor} from '../../resouce/theme'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import  ListRow from './view/TCUserBankRowView'
+import ListRow from './view/TCUserBankRowView'
 import BaseComponent from '../../Base/TCBaseComponent'
 import Toast from '../../../Common/JXHelper/JXToast';
 import NetUtils from '../../../Common/Network/TCRequestUitls'
 import {config} from '../../../Common/Network/TCRequestConfig'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
+import BankStore from "../../../Data/store/BankStore";
+
 /**
  * 银行卡管理
  */
 @observer
-export default class TCUserBankManager extends BaseComponent {
+export default class TCUserBankManager extends Component {
 
     ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    stateModel = new StateModel()
+    bankStore = new BankStore();
 
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
-        super.componentDidMount();
-        this.setState({
-            renderPlaceholderOnly: true,
-        });
         this.getBankListFromNet();
-        this.timer = setTimeout(() => {
-            this.setState({renderPlaceholderOnly: false});
-        }, 500)
-        this.listener = RCTDeviceEventEmitter.addListener('userBankChange', () => {
-            this.getBankListFromNet();
-        })
     }
 
     componentWillUnmount() {
-        this.listener && this.listener.remove()
-        super.componentWillUnmount()
-        this.timer && clearTimeout(this.timer);
     }
 
     render() {
-        let sp = super.render()
-        if (sp) return sp;
         return (
             <View style={styles.container}>
                 < TopNavigationBar
@@ -67,12 +54,12 @@ export default class TCUserBankManager extends BaseComponent {
                 <ScrollView>
                     <View style={{backgroundColor: indexBgColor.itemBg}}>
                         <ListView
-                            dataSource={this.ds.cloneWithRows(this.stateModel.bankList.slice(0))}
+                            dataSource={this.ds.cloneWithRows(this.bankStore.personBank.slice(0))}
                             renderRow={this.getRenderRow}
                             enableEmptySections={true}/>
                     </View>
                 </ScrollView>
-                <Dialog show={this.stateModel.tipShow}
+                <Dialog show={this.bankStore.showAddBankTip}
                         setModalVisible={() => this.gotoAddBank()}
                         dialogTitle={'温馨提示'}
                         dialogContent={'您没有添加银行卡还不能提现哦！'}
@@ -82,7 +69,6 @@ export default class TCUserBankManager extends BaseComponent {
     }
 
     goBack() {
-        RCTDeviceEventEmitter.emit('balanceChange')
         Helper.popToBack()
     }
 
@@ -90,7 +76,7 @@ export default class TCUserBankManager extends BaseComponent {
      * 跳转到添加银行界面
      */
     gotoAddBank() {
-        this.stateModel.setDialogVisible();
+        this.bankStore.showAddBankTip = false;
         Helper.pushToAddBank()
     }
 
@@ -106,45 +92,18 @@ export default class TCUserBankManager extends BaseComponent {
      * 获取用户银行卡列表
      */
     getBankListFromNet() {
-        NetUtils.getUrlAndParamsAndCallback(config.api.userCards, null, (res) => {
-            if (res.rs) {
-                this.stateModel.bankList = res.content
-                JXLog('bank:' + res.content)
-                if (this.stateModel.bankList && this.stateModel.bankList.length === 0) {
-                    this.stateModel.setDialogVisible();
+        this.bankStore.initUserBank((res) => {
+            if (res.status) {
+                if (!this.bankStore.personBank || this.bankStore.personBank.length === 0) {
+                    this.bankStore.showAddBankTip = true;
                 }
             } else {
-                if (res.status === 401) {
-                    Toast.showShortCenter('登录状态过期，请重新登录!')
-                } else {
-                    if (res.status === 500) {
-                        Toast.showShortCenter("服务器出错啦!")
-                    } else {
-                        if (res.message) {
-                            Toast.showShortCenter(res.message)
-                        }
-                    }
-                    this.goBack()
-                }
+                Toast.showShortCenter(res.message);
             }
         })
     }
 }
 
-class StateModel {
-    @observable
-    bankList = []
-    @observable
-    tipShow = false
-
-    /**
-     * 显示/隐藏提示对话框
-     */
-    @action
-    setDialogVisible() {
-        this.tipShow = !this.tipShow
-    }
-}
 const styles = StyleSheet.create({
     container: {
         flex: 1,

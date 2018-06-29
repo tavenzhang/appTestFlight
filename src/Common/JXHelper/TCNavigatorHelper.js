@@ -6,6 +6,7 @@ import Toast from '../JXHelper/JXToast'
 import InitHelper from './TCInitHelper'
 import JXHelper from './JXHelper'
 import NavigationService from '../../Page/Route/NavigationService'
+import userStore from '../../Data/store/UserStore'
 
 let initHelper = new InitHelper()
 export default class Helper {
@@ -18,7 +19,7 @@ Helper.setNavigator = (args) => {
 }
 
 Helper.checkUserWhetherLogin = () => {
-    if (TCUSER_DATA.username && TCUSER_DATA.islogin) return true
+    if (userStore.userName && userStore.isLogin) return true
     return false
 }
 
@@ -90,17 +91,20 @@ Helper.pushToUserAccount = (accountType) => {
     NavigationService.navigate("UserAcount", {initPage: accountType});
 }
 
-Helper.pushToUserAcountDetail = (params) => {
-    NavigationService.navigate("UserAcountDetail", params);
+Helper.pushToUserTransferDetails = (params) => {
+    NavigationService.navigate("UserTransferDetails", params);
 }
 
-//用户充值提现
+/**
+ * 用户充值提现转账
+ * @param accountType：0-提现， 1-充值， 2-转账
+ */
 Helper.pushToUserPayAndWithDraw = (accountType, isBackToTop) => {
     NavigationService.navigate("UserAcountPay", {accountType: accountType, isBackToTop: isBackToTop});
 }
 
 Helper.pushToPay = () => {
-    if (initHelper.isGuestUser()) {
+    if (userStore.isGuest) {
         Toast.showShortCenter('对不起，试玩账号不能进行存取款操作!')
         return
     }
@@ -151,7 +155,6 @@ Helper.pushToUserLogin = (gotoCenter, userName, shouldReplace, isFromRegister) =
             userName: userName,
             isFromRegister: isFromRegister
         });
-        TCPUSH_TO_LOGIN = true
     }, 1000)
 }
 
@@ -266,7 +269,7 @@ Helper.pushToModifySecurityPwd = () => {
 
 // 跳转到银行卡管理页面
 Helper.pushToUserBankManager = () => {
-    if (!TCUSER_DATA.realname) {
+    if (!userStore.realName) {
         NavigationService.navigate("UserInfo");
     } else {
         NavigationService.navigate("UserBankManager");
@@ -275,11 +278,11 @@ Helper.pushToUserBankManager = () => {
 
 // 跳转到取款界面
 Helper.pushToWithdraw = () => {
-    if (initHelper.isGuestUser()) {
+    if (userStore.isGuest) {
         Toast.showShortCenter('对不起，试玩账号不能进行存取款操作!')
         return
     }
-    if (!TCUSER_DATA.realname) {
+    if (!userStore.realName) {
         NavigationService.navigate("UserInfo");
     } else {
         NavigationService.navigate("UserWithdraw");
@@ -305,7 +308,7 @@ Helper.pushToWelfareCenter = () => {
     NavigationService.navigate("WelfareCenter");
 }
 
-Helper.pushToWallet= () => {
+Helper.pushToWallet = () => {
     NavigationService.navigate("Wallet");
 }
 
@@ -361,17 +364,16 @@ Helper.pushToWorldCup = ()=>{
     NavigationService.navigate("WorldCup");
 }
 
-
 Helper.isTopPage = () => {
     return false;
 }
 
 //通用----路由 pushView  配合JX_Componets, 减少 不断增加 pushToXXX的 需要
-Helper.pushView=(component,params)=>{
-    if(typeof component=='string'){
-        NavigationService.navigate(component,params)
-    }else if(component&&component.routName){
-        NavigationService.navigate(component.routName,params)
+Helper.pushView = (component, params) => {
+    if (typeof component == 'string') {
+        NavigationService.navigate(component, params)
+    } else if (component && component.routName) {
+        NavigationService.navigate(component.routName, params)
     }
 }
 

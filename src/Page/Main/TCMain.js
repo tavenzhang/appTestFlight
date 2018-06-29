@@ -16,6 +16,9 @@ import {
     BackHandler
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
+import {observer, inject} from 'mobx-react'
+import {computed} from 'mobx'
+
 import Home from '../Home/TCHome';
 import LotteryLobby from '../LotteryLobby/TCLotteryLobby';
 import TCUserCenterHome from '../UserCenter/TCUserCenterNew';
@@ -23,33 +26,41 @@ import WelfareCenter from '../UserCenter/welfare/TCWelfareCenter';
 import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
-import {width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size} from '../resouce/theme';
-import {JX_PLAT_INFO,bottomNavHeight} from '../asset'
-import SoundHelper from '../../Common/JXHelper/SoundHelper';
+import {width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size, baseColor} from '../resouce/theme';
+import {JX_PLAT_INFO, bottomNavHeight, ASSET_Screen} from '../asset'
 import {home} from '../resouce/images';
 import Toast from "../../Common/JXHelper/JXToast";
 import Moment from "moment/moment";
+import userStore from "../../Data/store/UserStore";
+import NavigationService from "../Route/NavigationService";
 
-
+@inject("mainStore", "userStore", "jdAppStore")
+@observer
 export default class TC168 extends Component {
+
     constructor(state) {
         super(state);
         this.state = {
-            selectedTab: 'home',
             cpArray: [],
             newMsg: 0
         };
     }
 
     componentDidMount() {
-        this.listener = RCTDeviceEventEmitter.addListener('setSelectedTabNavigator', (tabName, page) => {
-            this.setSelectedTab(tabName, page);
-        });
-        this.listener = RCTDeviceEventEmitter.addListener('newMsgCall', () => {
-            this.setState({
-                newMsg: TC_NEW_MSG_COUNT + TC_FEEDBACK_COUNT
-            });
-        });
+        // this.listener = RCTDeviceEventEmitter.addListener('setSelectedTabNavigator', (tabName, page) => {
+        //     this.setSelectedTab(tabName, page);
+        // });
+        // this.listener = RCTDeviceEventEmitter.addListener('newMsgCall', () => {
+        //     this.setState({
+        //         newMsg: TC_NEW_MSG_COUNT + TC_FEEDBACK_COUNT
+        //     });
+        // });
+        //自动登录
+        this.props.userStore.initData((res) => {
+            if (res.status) {
+                this.props.userStore.getMessageStatus();
+            }
+        })
         BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
     }
 
@@ -69,127 +80,96 @@ export default class TC168 extends Component {
     };
 
     render() {
+
         return (
             <View style={{flex: 1}}>
-                <TabNavigator tabBarStyle={{backgroundColor: indexBgColor.tabBg, height: bottomNavHeight}}>
+                <TabNavigator tabBarStyle={{backgroundColor: indexBgColor.tabBg, height: bottomNavHeight,
+                    paddingBottom:JX_PLAT_INFO.IS_IphoneX ? 30:0}}>
                     {/*--首页--*/}
-                    {this.renderTabBarItem(
-                        <Home navigator={this.props.navigator} cpArray={this.state.cpArray}/>,
-                        '首页',
+                    {this.renderTabBarItem("首页",
                         home.indexHomeNormal,
                         home.indexHomePressed,
-                        'home'
-                    )}
-                    {/*--开奖大厅--*/}
-                    {this.renderTabBarItem(
-                        <ShopingLobby navigator={this.props.navigator} cpArray={this.state.cpArray}/>,
-                        '购彩',
-                        home.indexShoppingNormal,
-                        home.indexShoppingPressed,
-                        'shoping'
-                    )}
+                        "home",
+                        <Home navigator={this.props.navigator} cpArray={this.state.cpArray}/>)}
+                    {/*--购彩大厅--*/}
+                    {
+                        this.renderTabBarItem("购彩",
+                            home.indexShoppingNormal,
+                            home.indexShoppingPressed,
+                            'shoping',
+                            <ShopingLobby navigator={this.props.navigator} cpArray={this.state.cpArray}/>)
+                    }
                     {/*/!*--开奖大厅--*!/*/}
-                    {this.renderTabBarItem(
-                        <LotteryLobby navigator={this.props.navigator}/>,
-                        '开奖',
-                        home.indexLotteryNormal,
-                        home.indexLotteryPressed,
-                        'lobby'
-                    )}
+                    {
+                        this.renderTabBarItem("开奖",
+                            home.indexLotteryNormal,
+                            home.indexLotteryPressed,
+                            'lobby',
+                            <LotteryLobby navigator={this.props.navigator}/>
+                        )
+                    }
                     {/*/!*--福利--*!/*/}
-                    {this.renderTabBarItem(
-                        <WelfareCenter navigator={this.props.navigator} backHome={true}/>,
-                        '福利',
-                        home.indexPromotionNormal,
-                        home.indexPromotionPressed,
-                        'promotion'
-                    )}
+                    {
+                        this.renderTabBarItem("福利",
+                            home.indexPromotionNormal,
+                            home.indexPromotionPressed,
+                            'promotion',
+                            <WelfareCenter navigator={this.props.navigator} backHome={true}/>
+                        )
+                    }
+
                     {/*/!*--用户中心--*!/*/}
-                    {this.renderTabBarItem(
-                        <TCUserCenterHome navigator={this.props.navigator}/>,
-                        '我的',
-                        home.indexMineNormal,
-                        home.indexMinePressed,
-                        'mine'
-                    )}
+                    {
+                        this.renderTabBarItem("我的",
+                            home.indexMineNormal,
+                            home.indexMinePressed,
+                            'mine',
+                            <TCUserCenterHome navigator={this.props.navigator}/>
+                        )
+                    }
                 </TabNavigator>
             </View>
         );
     }
 
-    renderTabBarItem(model, title, iconName, selectedIconName, selectedTab) {
-        let xStyle = JX_PLAT_INFO.IS_IphoneX ? {marginBottom: 30} : {marginTop: IS_IOS ? 0 : 1}
 
-        return (
-            <TabNavigator.Item
+    renderTabBarItem(title, iconName, selectedIconName, selectedTab, content) {
+        return (<TabNavigator.Item
+            title={title}
+            renderIcon={() => <TabView
                 title={title}
-                renderIcon={() => this.getTab(title, false, iconName, null)}
-                renderSelectedIcon={() => this.getTab(title, true, null, selectedIconName)} //选中
-                onPress={() => {
-                    if (TC_BUTTON_SOUND_STATUS) {
-                        SoundHelper.playSoundBundle();
-                    }
-                    this.setSelectedTab(selectedTab, this.state.initPage);
-                }}
-                selected={this.state.selectedTab === selectedTab}
-                selectedTitleStyle={[xStyle,{color: indexTxtColor.bottomMenuTitlePressed, fontSize: Size.font14}]}
-                titleStyle={[xStyle,{ color: indexTxtColor.bottomMenuTitleNormal, fontSize: Size.font14 }]}
-            >
-                {model}
-            </TabNavigator.Item>
-        );
+                isSelected={false}
+                iconName={iconName}
+                selectedIconName={null}
+            />
+            }
+            renderSelectedIcon={() => <TabView
+                title={title}
+                isSelected={true}
+                iconName={null}
+                selectedIconName={selectedIconName}
+            />}
+            selected={this.props.mainStore.selectedTab === selectedTab}
+            selectedTitleStyle={{color: baseColor.tabSelectedTxt, fontSize: Size.font12}}
+            titleStyle={{color: baseColor.tabUnSelectTxt, fontSize: Size.font12}}
+            onPress={() => {
+                this.setSelectedTab(selectedTab);
+            }}
+        >
+            {content}
+        </TabNavigator.Item>)
     }
 
-    setSelectedTab(tabName, page) {
+    setSelectedTab(tabName) {
+        this.props.jdAppStore.playSound();
         if (tabName === 'mine') {
-            if (!JXHelper.checkUserWhetherLogin()) {
-                JXHelper.pushToUserLogin(true);
+            if (!this.props.userStore.isLogin) {
+                NavigationService.login(true);
                 return;
             }
-            if (TCUSER_DATA.username) {
-                RCTDeviceEventEmitter.emit('balanceChange', true);
-            }
         }
-
-        if (page > 0) {
-            this.setState({
-                initPage: page
-            });
-        }
-        if (tabName === 'home') {
-            RCTDeviceEventEmitter.emit('needChangeAnimated', 'start');
-        } else {
-            RCTDeviceEventEmitter.emit('needChangeAnimated', 'stop');
-        }
-        TC_AppState.selectedTabName = tabName;
-        this.setState({selectedTab: tabName});
+        this.props.mainStore.changeTab(tabName)
     }
-
-    getTab(title, isSelected, iconName, selectedIconName) {
-        if (title === '我的') {
-            return (
-                <View style={styles.tabStyle}>
-                    <Image
-                        source={!isSelected ? iconName : selectedIconName}
-                        style={!isSelected ? indexBtmStyle.iconStyle : indexBtmStyle.iconStyleSelected}
-                        resizeMode={'contain'}
-                    />
-                    {this.state.newMsg !== 0 ? <View style={styles.pointStyle}/> : null}
-                </View>
-            );
-        } else {
-            return (
-                <View>
-                    <Image
-                        source={!isSelected ? iconName : selectedIconName}
-                        style={!isSelected ? indexBtmStyle.iconStyle : indexBtmStyle.iconStyleSelected}
-                        resizeMode={'contain'}
-                    />
-                </View>
-            );
-        }
-    }
-
 
     onBackAndroid = () => {
         let pathLength = Navigation_routers.length;
@@ -205,6 +185,28 @@ export default class TC168 extends Component {
             JXHelper.goBack(Navigation_routers, this.props.navigation);
             return true;
         }
+    }
+}
+
+@inject("userStore")
+@observer
+class TabView extends Component {
+
+    @computed get newMsgCount() {
+        return this.props.userStore.newMsgCount + this.props.userStore.newFeedBackCount;
+    }
+
+    render() {
+        return (
+            <View style={styles.tabStyle}>
+                <Image
+                    source={!this.props.isSelected ? this.props.iconName : this.props.selectedIconName}
+                    style={!this.props.isSelected ? indexBtmStyle.iconStyle : indexBtmStyle.iconStyleSelected}
+                    resizeMode={'contain'}
+                />
+                {this.props.title === "我的" && this.newMsgCount !== 0 ? <View style={styles.pointStyle}/> : null}
+            </View>
+        )
     }
 }
 

@@ -3,28 +3,26 @@
  * Copyright © 2017年 JX. All rights reserved.
  */
 
-import React, { Component } from 'react';
+import React from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
     Image,
     ImageBackground,
+    ScrollView,
+    StyleSheet,
+    Text,
     TouchableOpacity,
-    ScrollView
+    View
 } from 'react-native';
-
-/**系统 npm类 */
-
 /**组件内部显示需要引入的类 */
-import { betHome, indexBgColor, Size, width, height, navbarHight } from '../resouce/theme';
-import { Other } from '../asset';
+import {height, indexBgColor, Size, width} from '../resouce/theme';
+import {Other} from '../asset';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import JXHelper from '../../Common/JXHelper/JXHelper';
 import Toast from '../../Common/JXHelper/JXToast';
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import InitHelper from "../../Common/JXHelper/TCInitHelper";
+
+/**系统 npm类 */
 
 /** 外部关系组件 如 页面跳转用 */
 

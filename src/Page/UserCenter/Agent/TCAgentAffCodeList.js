@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Toast from '../../../Common/JXHelper/JXToast';
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
-import {observer} from 'mobx-react/native';
+import {observer, inject} from 'mobx-react/native';
 import {observable, computed, action} from 'mobx';
 
 /**组件内部显示需要引入的类 */
@@ -23,6 +23,7 @@ import {config} from '../../../Common/Network/TCRequestConfig';
 import ModalDropdown from '../../../Common/View/ModalDropdown';
 import KeyboardAvoidingScrollView from '../../../Common/View/TCKeyboardAvoidingScrollView';
 
+@inject("userStore")
 @observer
 export default class TCAgentAffCodeList extends Component {
 
@@ -125,8 +126,8 @@ export default class TCAgentAffCodeList extends Component {
         );
     }
 
-    async copyAffCode(content){
-        let url = TCDefaultTendDomain + '?pt=' +content
+    async copyAffCode(content) {
+        let url = TCDefaultTendDomain + '?pt=' + content
         Clipboard.setString(url);
         try {
             var t = await Clipboard.getString();
@@ -150,9 +151,9 @@ export default class TCAgentAffCodeList extends Component {
 
     getPrizeGroupArray() {
         let arr = [];
-        if (TCUSER_DATA.prizeGroup) {
+        if (this.props.userStore.prizeGroup) {
             let p = 98;
-            for (let a = TCUSER_DATA.prizeGroup; a >= 1800; a -= 2) {
+            for (let a = this.props.userStore.prizeGroup; a >= 1800; a -= 2) {
                 let str = '' + a + ' - ' + ((a / 2000) * 100).toFixed(2) + '% (赔率)';
                 arr.push({prize: a, str: str});
                 p -= 0.1;
@@ -312,9 +313,9 @@ export default class TCAgentAffCodeList extends Component {
                             </TouchableOpacity>
                         </View>
 
-                        <View style={[styles.submitUpdateContainer,{marginTop:30}]}>
+                        <View style={[styles.submitUpdateContainer, {marginTop: 30}]}>
                             <TouchableOpacity
-                                style={[styles.submitUpdateButton,{backgroundColor:'red'}]}
+                                style={[styles.submitUpdateButton, {backgroundColor: 'red'}]}
                                 onPress={() => this.deleteAffCode(this.stateModel.user)}
                             >
                                 <Text style={styles.submitUpdateText}>删除</Text>

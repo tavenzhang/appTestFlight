@@ -16,17 +16,20 @@ import {
 import {config} from '../../../Common/Network/TCRequestConfig'
 import NetUitls from '../../../Common/Network/TCRequestUitls'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
-import {Size,betHome} from '../../resouce/theme'
-export default class MyComponent extends React.PureComponent {
+import {Size, betHome} from '../../resouce/theme'
+import userStore from '../../../Data/store/UserStore'
+import {observer} from 'mobx-react'
 
-    static defaultProps = {
 
-    };
+@observer
+export default class TCBetBalanceButton extends Component {
+
+    static defaultProps = {};
 
     constructor(state) {
         super(state);
         this.state = {
-            balance:null
+            balance: null
         };
     }
 
@@ -44,15 +47,18 @@ export default class MyComponent extends React.PureComponent {
     }
 
     render() {
-        JXLog("TCSSC------------TCBetBalance-------------")
         return (
             <View style={{flexDirection: 'row'}}>
-                <TouchableHighlight onPress={()=> {
+                <TouchableHighlight onPress={() => {
                     this.freshBalance()
-                }} style={{marginRight:5, padding:2}} activeOpacity={0.3}
+                }} style={{marginRight: 5, padding: 2}} activeOpacity={0.3}
                                     underlayColor='transparent'>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <Text style={{color: betHome.balanceTxt, marginLeft: 5, fontSize: Size.font15}}>余额:{this.state.balance == null? (TCUSER_DATA.username && TCUSER_DATA.islogin?TCUSER_BALANCE:0):this.state.balance}元</Text>
+                        <Text style={{
+                            color: betHome.balanceTxt,
+                            marginLeft: 5,
+                            fontSize: Size.font15
+                        }}>余额:{this.state.balance == null ? (userStore.userName && userStore.isLogin ? userStore.balance : 0) : this.state.balance}元</Text>
                     </View>
                 </TouchableHighlight>
             </View>
@@ -62,18 +68,18 @@ export default class MyComponent extends React.PureComponent {
     freshBalance() {
         if (this.state.isLoading) return
         this.setState({
-            isLoading:true
+            isLoading: true
         })
-        if (TCUSER_DATA.username && TCUSER_DATA.islogin){
+        if (userStore.userName && userStore.isLogin) {
             NetUitls.getUrlAndParamsAndCallback(config.api.userBalance, null, (response) => {
                 if (response.rs) {
                     let balance = parseFloat(response.content.balance)
                     this.timer = setTimeout(() => {
                         this.setState({
-                            balance:balance,
-                            isLoading:false
+                            balance: balance,
+                            isLoading: false
                         })
-                        TCUSER_BALANCE = balance
+                        userStore.balance = balance
                     }, 1000)
 
                 } else {

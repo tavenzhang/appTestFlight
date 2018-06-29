@@ -2,11 +2,8 @@
 /**
  * Created by Joyce on 2017/01/11.
  */
-
-import React ,{Component}from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, View, WebView} from 'react-native';
-import {height} from '../resouce/theme';
-import {statusBarHeight} from '../../Page/asset'
 import TopNavigationBar from './components/TCNavigationBar';
 import RedPacket from './RedPacketData';
 
@@ -43,7 +40,6 @@ export  default  class Rules extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: height - statusBarHeight,
         backgroundColor: '#C02218',
     },
     webViewContainer: {
