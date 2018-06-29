@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactNativeComponentTree from 'react-native/Libraries/Renderer/shims/ReactNativeComponentTree';
-import {Keyboard, TextInput, ScrollView, Platform, View} from 'react-native';
+import {Keyboard, TextInput, ScrollView, Platform,UIManager, View} from 'react-native';
 import PropTypes from 'prop-types'
 /**
  * 解决 React Native 自带 KeyboardAvoidingView 无法在 ScrollView 中使用的问题，用之直接替换 ScrollView 即可。
@@ -20,11 +20,15 @@ export default class TCKeyboardAvoidingScrollView extends React.Component {
     static propTypes = {
         children: PropTypes.node,
         keyboardTopPadding: PropTypes.number,
-        // style: View.propTypes.style,
+        keyboardDismissMode:PropTypes.any,
+        keyboardShouldPersistTaps:PropTypes.any,
+        contentContainerStyle:PropTypes.any,
+        style: View.propTypes.style,
     }
 
     static defaultProps = {
         keyboardTopPadding: 0,
+        keyboardDismissMode:"none"
     }
 
     constructor(props) {
@@ -62,15 +66,17 @@ export default class TCKeyboardAvoidingScrollView extends React.Component {
         }
 
         // TODO: 升级 React Native 后，使用 UIManger.viewIsdescendantOf 判断该 TextInput 是否在当前 ScrollView 内
-        // focusedTextInput.measure((x, y, width, height, pageX, pageY) => {
-        //     const keyboardEndCoordinates = event.endCoordinates;
-        //     const overlapping = (pageY + height) -
-        //         keyboardEndCoordinates.screenY;
-        //     if (overlapping + this.props.keyboardTopPadding > 0) {
-        //         const contentOffset = overlapping + this.props.keyboardTopPadding + this._scrollView.contentOffset.y;
-        //         this._delayScrollTo(contentOffset);
-        //     }
-        // });
+        //使用  UIManager.measure
+        UIManager.measure(focusedTextInputId, (originX, originY, width, height, pageX, pageY) => {
+           // JXLog("_onShowKeyboard----event",event)
+                const keyboardEndCoordinates = event.endCoordinates;
+                const overlapping = (pageY + height) -
+                    keyboardEndCoordinates.screenY;
+                if (overlapping + this.props.keyboardTopPadding > 0) {
+                    const contentOffset = overlapping + this.props.keyboardTopPadding + this._scrollView.contentOffset.y;
+                    this._delayScrollTo(contentOffset);
+                }
+        });
     }
 
     _onHideKeyBoard = () => {
@@ -122,21 +128,25 @@ export default class TCKeyboardAvoidingScrollView extends React.Component {
 
 
     render = () => {
+        let {style,keyboardShouldPersistTaps,keyboardDismissMode,contentContainerStyle}=this.props
         if (Platform.OS === 'android') {
-            return (<ScrollView style={this.props.style}
+            return (<ScrollView style={style}
                                 ref="scrollView"
-                                keyboardShouldPersistTaps={this.props.keyboardShouldPersistTaps}
+                                contentContainerStyle={contentContainerStyle}
+                                keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+                                keyboardDismissMode={keyboardDismissMode}
             >{this.props.children}</ScrollView>);
         } else {
             return (
                 <ScrollView
-                    style={this.props.style}
+                    style={style}
                     ref="scrollView"
                     {...this.props}
                     onScroll={this._onScroll}
                     onLayout={this._onLayout}
                     onContentSizeChange={this._onContentSizeChange}
                     scrollEventThrottle={16}
+                    contentContainerStyle={contentContainerStyle}
                 >
                     {this.props.children}
                 </ScrollView>

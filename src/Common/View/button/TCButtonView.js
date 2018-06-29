@@ -1,19 +1,19 @@
-import React, {Component,} from 'react'
+import React, {Component,PureComponent} from 'react'
 
 import { StyleSheet, Text, TouchableOpacity, Platform} from 'react-native'
 import PropTypes from 'prop-types'
 
-export default class ButtonView extends Component {
 
+export default class TCButtonView extends PureComponent {
 
     static propTypes = {
         disabled: PropTypes.bool,//按钮不可用状态（true不可用，false可用）
         btnStyle: PropTypes.any,//按钮样式
-        styleDisabled: PropTypes.style,//按钮不可用状态样式
-        text: PropTypes.string,//按钮文本
-        txtstyle: PropTypes.style,//文本样式
-        txtstyleDisabled: PropTypes.style,//文本不可用样式
-        onClick: PropTypes.func//按钮点击事件
+        styleDisabled: PropTypes.any,//按钮不可用状态样式
+        text: PropTypes.any,//按钮文本
+        txtstyle: PropTypes.any,//文本样式
+        txtstyleDisabled: PropTypes.any,//文本不可用样式
+        onClick: PropTypes.any//按钮点击事件
     };
 
     static defaultProps = {
@@ -57,6 +57,10 @@ export default class ButtonView extends Component {
         )
     }
 }
+
+
+
+
 
 const styles = StyleSheet.create({
     container: {

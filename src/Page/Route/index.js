@@ -124,7 +124,7 @@ import TCUserMGBetDetail from "../UserCenter/UserOrder/TCUserMGBetDetail";
 //个人报表
 import TCUserStatementsType from "../UserCenter/Agent/UserSheets/TCUserStatementsType";
 import TCUserStatements from "../UserCenter/Agent/UserSheets/TCUserStatements";
-import TabBarIcon from "../widget/TabBarIcon";
+import TabBarIcon from "../../Common/View/widget/TabBarIcon";
 import {home} from "../resouce/images";
 import {indexBgColor, indexTxtColor} from "../resouce/theme";
 
