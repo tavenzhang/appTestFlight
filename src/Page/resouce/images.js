@@ -247,8 +247,9 @@ export const betIcon = {
     orderBottom: require('./addon/other/order_bottom.png'),
     orderQingChu: require('./addon/other/icon_qingchu.png'),
     success: common.select,
-    redCheck: require('./addon/other/red_check.png')
-
+    redCheck: require('./addon/other/red_check.png'),
+    stdui_arrow_up:require('./addon/other/stdui_arrow_up.png'),
+    stdui_arrow_down:require('./addon/other/stdui_arrow_down.png')
 }
 
 export const IntelligenceBet = {

@@ -19,14 +19,16 @@ export default class TCFlatList extends React.Component {
         keyExtractor: PropTypes.any,
         pageSize: PropTypes.any,
         initialNumToRender: PropTypes.number,
-        styleView: PropTypes.any,
+        style: PropTypes.any,
+        styleContain: PropTypes.any,
         dataS: PropTypes.any,
         extraData: PropTypes.any,
         isHorizon:PropTypes.bool,
         refreshControl:PropTypes.any,
         numColumns:PropTypes.any,
         listEmptyComponent:PropTypes.any,
-        itemSeparatorComponent:PropTypes.any
+        itemSeparatorComponent:PropTypes.any,
+        onScroll:PropTypes.any,
     }
 
     static defaultProps = {
@@ -63,11 +65,14 @@ export default class TCFlatList extends React.Component {
     // )}
 
     render() {
-        let {dataS,isHorizon,listEmptyComponent,itemSeparatorComponent,numColumns,renderHeader,refreshControl, onFootFlush,renderFooter,extraData, getItemLayout, keyExtractor, initialNumToRender, styleView} = this.props;
+        let {dataS,isHorizon,listEmptyComponent,itemSeparatorComponent,numColumns,
+            renderHeader,refreshControl, onFootFlush,renderFooter,extraData,
+            getItemLayout, keyExtractor, initialNumToRender,style, styleContain,onScroll} = this.props;
 
         return (
                 <FlatList
-                    style={[{backgroundColor: 'white'}, styleView]}
+                    style={[style]}
+                    contentContainerStyle={styleContain}
                     horizontal={isHorizon}
                     ref={"list"}
                     getItemLayout={getItemLayout}
@@ -84,6 +89,7 @@ export default class TCFlatList extends React.Component {
                     ListEmptyComponent={listEmptyComponent}
                     initialNumToRender={initialNumToRender}
                     refreshControl={refreshControl}
+                    onScroll={onScroll}
                 />
         );
     }

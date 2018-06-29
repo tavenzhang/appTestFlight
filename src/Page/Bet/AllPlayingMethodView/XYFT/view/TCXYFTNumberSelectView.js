@@ -23,7 +23,7 @@ import TCBetChoiceTitleView from '../../../View/TCBetChoiceTitleView'
 import { observer } from 'mobx-react/native';
 import TCQDXDSQBarView from "../../../View/TCQDXDSQBarView";
 
-export default class TCXYFTNumberSelectView extends React.Component {
+export default class TCXYFTNumberSelectView extends React.PureComponent {
 
     constructor(state) {
         super(state);
@@ -45,12 +45,12 @@ export default class TCXYFTNumberSelectView extends React.Component {
 
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (this.state != nextState) {
-            return false
-        }
-        return true
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (this.state != nextState) {
+    //         return false
+    //     }
+    //     return true
+    // }
 
     render() {
         //对齐全大小单双清  因为是wrap
@@ -105,7 +105,7 @@ export default class TCXYFTNumberSelectView extends React.Component {
 
 
 @observer
-class NumberView extends React.Component {
+class NumberView extends React.PureComponent {
 
     constructor(state) {
         super(state);

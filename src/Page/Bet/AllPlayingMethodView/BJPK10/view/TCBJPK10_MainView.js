@@ -3,18 +3,21 @@
  */
 
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, Platform } from 'react-native';
+import { AppRegistry, StyleSheet, InteractionManager,Text, View, Platform } from 'react-native';
 import TCBJPK10SpecialKindSelectView from './TCBJPK10SpecialKindSelectView';
 import TCBJPK10NumberSelectView from './TCBJPK10NumberSelectView';
 import RNShakeEvent from 'react-native-shake-event';
 import { MathControllerFactory } from 'lottery-core';
 let SingletonDPS = null;
 import { betHome } from '../../../../resouce/theme';
+import {TC_LayoutAnimaton} from "../../../../../Common/View/layoutAnimation/LayoutAnimaton";
+import TCFlatList from "../../../../../Common/View/RefreshListView/TCFLatList";
 export default class TCMarkSix_MainView extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-          type:this.props.defaultPlayType,
+             type:this.props.defaultPlayType,
+            isAnimation:true
         };
         SingletonDPS = MathControllerFactory.getInstance().getMathController(this.props.gameUniqueId);
     }
@@ -23,7 +26,19 @@ export default class TCMarkSix_MainView extends React.Component {
         //一开始默认的玩法
         defaultPlayType:"定位胆",
     };
-    componentWillMount() {}
+    componentWillMount() {
+        // setTimeout(()=>{
+        //     this.onPrepareWell()
+        // },50)
+    }
+
+
+
+    componentWillUpdate() {
+        TC_LayoutAnimaton.configureNext(TC_LayoutAnimaton.easeNoDelete);
+    }
+
+
     componentDidMount() {
         if (!__DEV__ && Platform.OS == 'ios') {
             RNShakeEvent.addEventListener('shake', () => {
@@ -39,16 +54,41 @@ export default class TCMarkSix_MainView extends React.Component {
     }
 
     render() {
+        JXLog("TCJPK------render")
         return (
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 </View>
-                {this.renderNumberView()}
+                <TCFlatList initialNumToRender={1} dataS={this.renderNumberView()} renderRow={this.onRenderRow}/>
+                {/*{this.renderNumberView()}*/}
             </View>
         );
     }
 
-    renderNumberView() {
+    onRenderRow=(data,index)=>{
+        let {titleName,odds,areaIndex, numberEvent,numberArray,prizeSettings} = data;
+         if(prizeSettings){
+             return (<TCBJPK10SpecialKindSelectView
+                     titleName={titleName}
+                     odds={odds}
+                     areaIndex={areaIndex ? areaIndex:0}
+                     numberEvent={numberEvent}
+                     numberArray={numberArray}
+                     prizeSettings={prizeSettings}
+                 />)
+         }else{
+             return (<TCBJPK10NumberSelectView
+                 titleName={titleName}
+                 odds={odds}
+                 areaIndex={areaIndex ? areaIndex:0}
+                 numberEvent={numberEvent}
+                 numberArray={numberArray}
+                 prizeSettings={prizeSettings}
+             />)
+         }
+    }
+
+    renderNumberView=()=> {
         let itemArray = [];
         let duplexMaxCount = 10;
         let type = this.state.type;
@@ -100,47 +140,56 @@ export default class TCMarkSix_MainView extends React.Component {
             case '第五名':{
                 playGameSetting = this.getSingleGamePrizeSettings(type);
                 if (!playGameSetting) return;
-                itemArray.push(
-                    <TCBJPK10SpecialKindSelectView
-                        titleName={this.state.type}
-                        key={1}
-                        odds={' '}
-                        areaIndex={0}
-                        numberEvent={this.props.numberEvent}
-                        numberArray={SingletonDPS.getPlayTypeArray()}
-                        prizeSettings={playGameSetting['prizeSettings']}
-                    />
-                );
+                 itemArray.push({titleName:this.state.type,odd:' ',areaIndex:0,
+                     numberEvent:this.props.numberEvent,numberArray:SingletonDPS.getPlayTypeArray(),prizeSettings:playGameSetting['prizeSettings']})
+
+                // itemArray.push(
+                //     <TCBJPK10SpecialKindSelectView
+                //         titleName={this.state.type}
+                //         key={1}
+                //         odds={' '}
+                //         areaIndex={0}
+                //         numberEvent={this.props.numberEvent}
+                //         numberArray={SingletonDPS.getPlayTypeArray()}
+                //         prizeSettings={playGameSetting['prizeSettings']}
+                //     />
+              //  );
                 return itemArray;
             }
             case '冠亚和值': {
                 playGameSetting = this.getSingleGamePrizeSettings(type);
                 if (!playGameSetting) return;
-                itemArray.push(
-                    <TCBJPK10SpecialKindSelectView
-                        titleName={'和值'}
-                        key={1}
-                        odds={' '}
-                        numberEvent={this.props.numberEvent}
-                        numberArray={SingletonDPS.getPlayTypeArray()}
-                        prizeSettings={playGameSetting['prizeSettings']}
-                    />
-                );
+                itemArray.push({titleName:'和值',odds:' ',areaIndex:0,
+                    numberEvent:this.props.numberEvent,numberArray:SingletonDPS.getPlayTypeArray(),prizeSettings:playGameSetting['prizeSettings']})
+                // itemArray.push(
+                //     <TCBJPK10SpecialKindSelectView
+                //         titleName={'和值'}
+                //         key={1}
+                //         odds={' '}
+                //         numberEvent={this.props.numberEvent}
+                //         numberArray={SingletonDPS.getPlayTypeArray()}
+                //         prizeSettings={playGameSetting['prizeSettings']}
+                //     />
+               // );
                 return itemArray;
             }
             case '冠亚和': {
                 playGameSetting = this.getSingleGamePrizeSettings(type);
                 if (!playGameSetting) return;
-                itemArray.push(
-                    <TCBJPK10SpecialKindSelectView
-                        titleName={'和值'}
-                        key={1}
-                        odds={' '}
-                        numberEvent={this.props.numberEvent}
-                        numberArray={SingletonDPS.getPlayTypeArray()}
-                        prizeSettings={playGameSetting['prizeSettings']}
-                    />
-                );
+
+                itemArray.push({titleName:'和值',odds:' ',areaIndex:0,
+                    numberEvent:this.props.numberEvent,numberArray:SingletonDPS.getPlayTypeArray(),prizeSettings:playGameSetting['prizeSettings']})
+
+                // itemArray.push(
+                //     <TCBJPK10SpecialKindSelectView
+                //         titleName={'和值'}
+                //         key={1}
+                //         odds={' '}
+                //         numberEvent={this.props.numberEvent}
+                //         numberArray={SingletonDPS.getPlayTypeArray()}
+                //         prizeSettings={playGameSetting['prizeSettings']}
+                //     />
+                // );
                 return itemArray;
             }
         }
@@ -159,16 +208,21 @@ export default class TCMarkSix_MainView extends React.Component {
     }
     getDuplexItemArray(itemArray, duplexMaxCount, offset) {
         for (let i = 0; i < duplexMaxCount; i++) {
-            itemArray.push(
-                <TCBJPK10NumberSelectView
-                    numberEvent={this.props.numberEvent}
-                    titleName={SingletonDPS.gameConfig.typeTitles[i + offset]}
-                    key={i}
-                    areaIndex={i}
-                    ref={'ref' + i}
-                    numberArray={SingletonDPS.getPlayTypeArray()}
-                />
-            );
+
+            itemArray.push({titleName:SingletonDPS.gameConfig.typeTitles[i + offset],odds:' ',areaIndex:i,
+                numberEvent:this.props.numberEvent,numberArray:SingletonDPS.getPlayTypeArray()})
+
+
+            // itemArray.push(
+            //     <TCBJPK10NumberSelectView
+            //         numberEvent={this.props.numberEvent}
+            //         titleName={SingletonDPS.gameConfig.typeTitles[i + offset]}
+            //         key={i}
+            //         areaIndex={i}
+            //         ref={'ref' + i}
+            //         numberArray={SingletonDPS.getPlayTypeArray()}
+            //     />
+            // );
         }
     }
 

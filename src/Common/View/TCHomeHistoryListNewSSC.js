@@ -14,27 +14,26 @@ import {
     ActivityIndicator,
     PanResponder
 } from 'react-native';
-import {observer} from 'mobx-react/native';
+
 
 import TCListRowView from './TCLottertHistoryListRowView'
 import {Size, width, indexBgColor, listViewTxtColor} from '../../Page/resouce/theme'
 import {betIcon} from '../../Page/resouce/images'
 import NavigatorHelper from '../JXHelper/TCNavigatorHelper'
 import JXLotteryHistoryData from '../../Data/JXLotteryHistoryData'
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
-
-
+import TCFlatList from "./RefreshListView/TCFLatList";
+import {TC_LayoutAnimaton} from "./layoutAnimation/LayoutAnimaton";
+import {observer} from 'mobx-react/native';
 @observer
 export default class TCHomeHistoryList extends React.Component {
 
     constructor(state) {
         super(state);
-        this.loadDataFormNet = this.loadDataFormNet.bind(this);
-        this.dataSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
         this.isLoading = false;
         this.state = {
             height: this.props.height
         }
+        this.hightViewNum=0;
     }
 
     static defaultProps = {
@@ -42,34 +41,61 @@ export default class TCHomeHistoryList extends React.Component {
         gameUniqueId: '',
         isHighlightStyle: true,
         height: 0,
-        panResponder: null,
     };
 
+    componentWillUpdate() {
+        TC_LayoutAnimaton.configureNext(TC_LayoutAnimaton.easeNoDelete);
+    }
 
     componentWillMount() {
         this.lotteryHistoryData = new JXLotteryHistoryData();
         setTimeout(()=>{
             this.loadDataFormNet();
-        },1300)
+        },2000)
     }
 
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.height === 0 && this.props.height < nextProps.height) {
+    updateHistoryHight=(gustrueState)=>{
+      //  JXLog("TCSSC------------TCHomeHistoryList----gustrueState---------top==="+gustrueState.topFinal+"--gustrueState.gestureCase == null=="
+      //       +(gustrueState.gestureCase == null)
+      //       ,(gustrueState.gestureCase ? gustrueState.gestureCase.dy:0  + gustrueState.moveTop))
+        let historyHeight = gustrueState.gestureCase == null ? gustrueState.topFinal : gustrueState.gestureCase.dy + gustrueState.moveTop;
+        if (historyHeight < 0) {
+            historyHeight = 0;
+        } else if (historyHeight > 312) {
+            historyHeight = 312;
+        }
+
+        this.refs.historyView.setNativeProps({height:historyHeight});
+        //用户从0开始下拉 获取新数据
+        if(this.hightViewNum ==0 &&historyHeight>0){
             this.loadDataFormNet();
         }
-        this.setState({
-            height: nextProps.height
-        })
+        this.hightViewNum = historyHeight;
+    }
+
+   getHightState=(hightView=null)=>{
+        let testHight = hightView ? hightView : this.hightViewNum;
+        let hightState = 0
+        if(testHight==0){
+            hightState=0
+        }
+        else if(testHight<=182){
+            hightState =1
+        }else{
+            hightState =2
+        }
+        return hightState;
     }
 
     render() {
+        JXLog("TCSSC------------TCHomeHistoryList----render---------",this.state);
+        let dataList=this.lotteryHistoryData.historyData.slice();
         return (
-            <View
-                style={[styles.container, {height: this.state.height}]}>
+            <View ref="historyView" style={[styles.container,{height:this.state.height}]}>
                 {this.getHomeHistoryTopView()}
-                {this.lotteryHistoryData.isRefreshing ? this.renderLoading() : this.renderListView()}
-                {!this.lotteryHistoryData.isRefreshing && this.getHomeHistoryBottomView()}
+                {dataList.length<=0 ? null: this.renderListView()}
+                {dataList.length>0 && this.getHomeHistoryBottomView()}
             </View>
         );
     }
@@ -89,28 +115,14 @@ export default class TCHomeHistoryList extends React.Component {
             );
         }
 
-        return (
-            <ListView style={[{height: this.state.height - 52}]}
-                      ref="ListView1"
-                      dataSource={this.dataSource.cloneWithRows(this.lotteryHistoryData.historyData.slice())}
-                      renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID)}
-                      removeClippedSubviews={false}
-                      scrollRenderAheadDistance={20}
-                      scrollEnabled={true}
-                      pageSize={5}
-                      showsVerticalScrollIndicator={true}
-                      showsHorizontalScrollIndicator={false}
-                      onScroll={() => {
-                          if (this.state.height < 312) {
-                              this.setState({
-                                  height: 312
-                              });
-                              RCTDeviceEventEmitter.emit('heightChange');
-                          }
-                      }}
-            />
-        );
+
+        return ( <TCFlatList
+            dataS={this.lotteryHistoryData.historyData.slice()}
+            pageSize={5}
+            renderRow={this.renderRow}
+        />)
     }
+
 
     getHomeHistoryTopView() {
         let gameUniqueIdIsSSC = false;
@@ -153,7 +165,7 @@ export default class TCHomeHistoryList extends React.Component {
     }
 
     //CELL ROW DATA
-    renderRow(rowData, sectionID, rowID) {
+    renderRow=(rowData, sectionID, rowID)=> {
         return (
             <TCListRowView
                 issue={rowData.uniqueIssueNumber}
@@ -167,9 +179,11 @@ export default class TCHomeHistoryList extends React.Component {
         )
     }
 
-    loadDataFormNet() {
+    loadDataFormNet=()=> {
         let params = {limit: 50};
-        this.lotteryHistoryData.getLotteryHistoryRequest(this.props.gameUniqueId, params, true);
+        if(!this.lotteryHistoryData.isRefreshing){
+            this.lotteryHistoryData.getLotteryHistoryRequest(this.props.gameUniqueId, params);
+        }
     }
 }
 

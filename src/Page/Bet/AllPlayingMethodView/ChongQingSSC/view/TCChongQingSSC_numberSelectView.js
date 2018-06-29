@@ -24,7 +24,7 @@ import TCBetChoiceTitleView from '../../../View/TCBetChoiceTitleView'
 import {width, indexBgColor, commonNumBallStyles, betHome, Size} from '../../../../resouce/theme'
 import TCQDXDSQBarView from "../../../View/TCQDXDSQBarView";
 
-export default class TCChongQing_numberSelectView extends React.Component {
+export default class TCChongQing_numberSelectView extends React.PureComponent {
 
     constructor(state) {
         super(state);
@@ -53,6 +53,7 @@ export default class TCChongQing_numberSelectView extends React.Component {
     }
 
     render() {
+        JXLog("TCSSC------------ball---render-----")
         if (!this.props.isNoNeedQDXDSQ) {
             this.numberCount = parseInt((width - 31 - 6) / 60);
         }
@@ -88,6 +89,7 @@ export default class TCChongQing_numberSelectView extends React.Component {
 
     getAllNumbers() {
         var itemArr = [];
+        //return itemArr;
         let numberArray = this.props.numberArray
         if (this.props.dsStyle) {
             numberArray = ['大', '小', '单', '双']
@@ -127,7 +129,7 @@ export default class TCChongQing_numberSelectView extends React.Component {
 }
 
 
-class NumberView extends React.Component {
+class NumberView extends React.PureComponent {
 
     constructor(state) {
         super(state);

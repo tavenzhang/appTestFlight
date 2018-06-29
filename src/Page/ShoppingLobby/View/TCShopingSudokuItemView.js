@@ -17,11 +17,10 @@ import {
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import Moment from 'moment'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
-import jdAppStore from '../../../Data/store/JDAppStore'
-import {indexBgColor, shoppingTxtColor, Size, width} from '../../resouce/theme'
-import {observer} from 'mobx-react/native';
+import SoundHelper from '../../../Common/JXHelper/SoundHelper'
+import {indexBgColor, shoppingTxtColor,Size,width} from '../../resouce/theme'
+import { observer } from 'mobx-react/native';
 import PropTypes from 'prop-types'
-
 @observer
 export default class MyComponent extends Component {
 
@@ -34,15 +33,14 @@ export default class MyComponent extends Component {
         this.timeCount = 0;
 
     }
-
     static propTypes = {
         icon: PropTypes.any,
         title: PropTypes.any,
         mTimer: PropTypes.any,
         describe: PropTypes.any,
         duration: PropTypes.any,
-        pushToEvent: PropTypes.any,
-        gameInfo: PropTypes.any,
+        pushToEvent:PropTypes.any,
+        gameInfo:PropTypes.any,
     };
 
     static defaultProps = {
@@ -65,7 +63,6 @@ export default class MyComponent extends Component {
     componentWillReceiveProps() {
         // this.startTimer()
     }
-
     //
     // startTimer = () => {
     //     this.timer && clearInterval(this.timer);
@@ -83,21 +80,11 @@ export default class MyComponent extends Component {
             <TouchableOpacity style={styles.container} onPress={this.buttonCall}>
                 {this.getImage()}
                 <View
-                    style={{justifyContent: 'center', alignItems: 'center', flex: 1, marginTop: 5, marginBottom: 10}}>
-                    <Text style={{color: shoppingTxtColor.cpTitle, fontSize: Size.font16, marginTop: 5}}
+                    style={{justifyContent: 'center', alignItems: 'center', flex: 1, marginTop: 5, marginBottom: 10} }>
+                    <Text style={{color: shoppingTxtColor.cpTitle, fontSize: Size.font16,marginTop:5}}
                           ellipsizeMode='tail'
                           numberOfLines={1}> {this.props.title} </Text>
-                    <Text
-                        style={{
-                            color: shoppingTxtColor.cpTime,
-                            fontSize: Size.font16,
-                            marginTop: 3,
-                            marginBottom: 5,
-                            width: 80,
-                            textAlign: "center"
-                        }}
-                        ellipsizeMode='tail'
-                        numberOfLines={1}> {this.props.mobData ? this.getShowTime(this.props.mobData.remainingTime > 0 ? this.props.mobData.remainingTime : this.props.mobData.nextremainingTime) : ''} </Text>
+                    <TextTimeView mobData={this.props.mobData}/>
                 </View>
             </TouchableOpacity>
         );
@@ -116,13 +103,24 @@ export default class MyComponent extends Component {
 
     buttonCall = () => {
         if (this.props.title) {
-            jdAppStore.playSound();
+            if (JX_Store.jdAppstore.buttonSoundStatus) {
+                SoundHelper.playSoundBundle();
+            }
+
             NavigatorHelper.pushToBetHome(this.props.rowData)
         }
     }
 
-    getShowTime(time) {
-        return JXHelper.getTimeHHMMSSWithSecond(time)
+}
+
+@observer
+class TextTimeView extends React.Component {
+
+    render(){
+        return (<Text
+            style={{color:shoppingTxtColor.cpTime, fontSize: Size.font16, marginTop:3,marginBottom:5,width:80,textAlign:"center"}}
+            ellipsizeMode='tail' numberOfLines={1}> {this.props.mobData ? JXHelper.getTimeHHMMSSWithSecond(this.props.mobData.remainingTime>0?this.props.mobData.remainingTime:this.props.mobData.nextremainingTime):''}
+            </Text>)
     }
 }
 

@@ -20,12 +20,14 @@ import TCListRowView from './TCLottertHistoryListRowView'
 import {Size, width, indexBgColor, listViewTxtColor} from '../../Page/resouce/theme'
 import {betIcon} from '../../Page/resouce/images'
 import NavigatorHelper from '../JXHelper/TCNavigatorHelper'
-import JXLotteryHistoryData from '../../Data/JXLotteryHistoryData'
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
+import JXLotteryHistoryData from '../../Data/JXLotteryHistoryData';
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import TCFlatList from "./RefreshListView/TCFLatList";
+import {TC_LayoutAnimaton} from "./layoutAnimation/LayoutAnimaton";
 
 
 @observer
-export default class TCHomeHistoryList extends React.Component {
+export default class TCHomeHistoryListNew extends React.Component {
 
     constructor(state) {
         super(state);
@@ -33,15 +35,17 @@ export default class TCHomeHistoryList extends React.Component {
         this.dataSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
         this.isLoading = false;
         this.state = {
-            height: this.props.height
+            height: this.props.height,
+            listHightState:0
         }
+        this.isChanging=false
     }
 
     static defaultProps = {
         title: '',
         gameUniqueId: '',
         isHighlightStyle: true,
-        height: 0,
+        height: 1,
         panResponder: null,
     };
 
@@ -50,9 +54,47 @@ export default class TCHomeHistoryList extends React.Component {
         this.lotteryHistoryData = new JXLotteryHistoryData();
         setTimeout(()=>{
             this.loadDataFormNet();
-        },1300)
+        },1500)
     }
 
+    onShowListView=()=>{
+        let {onGuestureChange}=this.props
+        JXLog("TCJPK----------onShowListView--pre",this.state.listHightState)
+        if(this.state.listHightState<2){
+            if(!this.isChanging){
+                this.isChanging=true;
+                JXLog("TCJPK----------onShowListView--start",this.state.listHightState)
+                this.setState({listHightState:this.state.listHightState+1},()=>{
+                    setTimeout(()=>{
+                        this.isChanging=false;
+                    },300)
+
+                    onGuestureChange(true);
+                })
+            }
+
+        }
+    }
+
+    onHideListView=()=>{
+        let {onGuestureChange}=this.props
+        JXLog("TCJPK----------onHideListView--pre",this.state.listHightState)
+        if(this.state.listHightState>0){
+            if(!this.isChanging) {
+                this.isChanging = true;
+                JXLog("TCJPK----------onHideListView--start",this.state.listHightState)
+                this.setState({listHightState: this.state.listHightState - 1}, () => {
+                    setTimeout(()=>{
+                        this.isChanging=false;
+                    },300)
+                    if(this.state.listHightState==0){
+                        onGuestureChange(false);
+                    }
+                })
+            }
+        }
+
+    }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.height === 0 && this.props.height < nextProps.height) {
@@ -64,12 +106,15 @@ export default class TCHomeHistoryList extends React.Component {
     }
 
     render() {
+        if(this.state.listHightState==0){
+            return null
+        }
         return (
             <View
-                style={[styles.container, {height: this.state.height}]}>
+                style={[styles.container]} >
                 {this.getHomeHistoryTopView()}
-                {this.lotteryHistoryData.isRefreshing ? this.renderLoading() : this.renderListView()}
-                {!this.lotteryHistoryData.isRefreshing && this.getHomeHistoryBottomView()}
+                {this.renderListView()}
+                {this.getHomeHistoryBottomView()}
             </View>
         );
     }
@@ -81,35 +126,38 @@ export default class TCHomeHistoryList extends React.Component {
     }
 
     renderListView() {
-        if (!this.lotteryHistoryData.historyData || this.lotteryHistoryData.historyData.length <= 0) {
-            return (
-                <View style={styles.dataFailView}>
-                    <Text>未加载出数据</Text>
-                </View>
-            );
+        // if (!this.lotteryHistoryData.historyData || this.lotteryHistoryData.historyData.length <= 0) {
+        //     return (
+        //         <View style={styles.dataFailView}>
+        //             <Text>未加载出数据</Text>
+        //         </View>
+        //     );
+        // }
+        let h=0;
+        if(this.state.listHightState==1){
+            h=128;
+        }else if(this.state.listHightState==2){
+            h=256
         }
-
+      JXLog("TCJPK-------renderListView--this.state.listHightState=="+this.state.listHightState,h)
+       // style={[{height: this.state.height - 52}]}
         return (
-            <ListView style={[{height: this.state.height - 52}]}
-                      ref="ListView1"
-                      dataSource={this.dataSource.cloneWithRows(this.lotteryHistoryData.historyData.slice())}
-                      renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID)}
-                      removeClippedSubviews={false}
-                      scrollRenderAheadDistance={20}
-                      scrollEnabled={true}
+            <View pointerEvents={"none"}>
+            <TCFlatList  style={[{height: h}]}
+                      dataS={this.lotteryHistoryData.historyData.slice()}
+                      renderRow={this.renderRow}
                       pageSize={5}
-                      showsVerticalScrollIndicator={true}
-                      showsHorizontalScrollIndicator={false}
-                      onScroll={() => {
-                          if (this.state.height < 312) {
-                              this.setState({
-                                  height: 312
-                              });
-                              RCTDeviceEventEmitter.emit('heightChange');
-                          }
-                      }}
+                      // onScroll={this.onScrollList}
             />
+            </View>
         );
+    }
+
+    onScrollList=()=> {
+        if (this.state.height < 312) {
+            this.setState({height: 312});
+            RCTDeviceEventEmitter.emit('heightChange')
+        }
     }
 
     getHomeHistoryTopView() {
@@ -117,6 +165,7 @@ export default class TCHomeHistoryList extends React.Component {
         if (this.props.gameUniqueId.indexOf('SSC') >= 0) {
             gameUniqueIdIsSSC = true;
         }
+
         return (
             <View style={styles.homeHistoryTopView}>
                 <Text allowFontScaling={false}
@@ -144,7 +193,7 @@ export default class TCHomeHistoryList extends React.Component {
         );
     }
 
-    pushToMoreHistory() {
+    pushToMoreHistory=()=> {
         NavigatorHelper.pushToLotteryHistoryList({
             title: this.props.title,
             gameUniqueId: this.props.gameUniqueId,
@@ -153,7 +202,7 @@ export default class TCHomeHistoryList extends React.Component {
     }
 
     //CELL ROW DATA
-    renderRow(rowData, sectionID, rowID) {
+    renderRow=(rowData, sectionID, rowID)=> {
         return (
             <TCListRowView
                 issue={rowData.uniqueIssueNumber}
@@ -167,7 +216,7 @@ export default class TCHomeHistoryList extends React.Component {
         )
     }
 
-    loadDataFormNet() {
+    loadDataFormNet=()=> {
         let params = {limit: 50};
         this.lotteryHistoryData.getLotteryHistoryRequest(this.props.gameUniqueId, params, true);
     }

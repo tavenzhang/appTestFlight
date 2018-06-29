@@ -35,7 +35,7 @@ import TCBetHelperModal from '../../View/TCBetHelperModal'
 import LoadingSpinnerOverlay from '../../../../Common/View/LoadingSpinnerOverlay'
 import JXGSBQWView from './view/TCcqsscPositionView'
 
-import TCHomeHistoryList from '../../../../Common/View/TCHomeHistoryList'
+import TCHomeHistoryListNewSSC from '../../../../Common/View/TCHomeHistoryListNewSSC'
 
 import TCBetGoBackShoppingCart from '../../View/TCBetGoBackShoppingCart'
 import TCBetShakeButtonView from '../../View/TCBetShakeButtonView'
@@ -58,6 +58,7 @@ let myGameSetting = null
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 import {observer} from 'mobx-react/native';
+import {betIcon} from "../../../resouce/images";
 
 @withMappedNavigationProps()
 @observer
@@ -69,13 +70,15 @@ export default class TCBetHome extends React.Component {
             selectedType: null,
             showGSBQW: false,
             showGSBQWArr: [],
+            isHistoryShow:false
+        }
+        SingletonDPS = MathControllerFactory.getInstance().getMathController(this.props.gameUniqueId);
+        this.gestureState={
             scrollToPoint: 0,
             gestureCase: null,
             moveTop: 0,
             topFinal: 0,
         }
-        this.helperJumpTo = this.helperJumpTo.bind(this);
-        SingletonDPS = MathControllerFactory.getInstance().getMathController(this.props.gameUniqueId);
     }
 
 
@@ -112,62 +115,86 @@ export default class TCBetHome extends React.Component {
                 return Math.abs(dx) > 0;
             },
             onPanResponderGrant: (evt, gestureState) => {
-                this.setState({
-                    isBegin: true,
-                    isMove: false,
-                    isEnd: false,
+               // JXLog("TCSSC-------------onPanResponderGrant",gestureState)
+                this.updateHistoryViewHigh({
                     gestureCase: gestureState,
-                    moveTop: this.state.topFinal
+                    moveTop: this.gestureState.topFinal
                 })
             },
             onPanResponderMove: (evt, gestureState) => {
-                if (this.state.topFinal >= 312 && gestureState.vy > 0) {
+               // JXLog("TCSSC-------------onPanResponderMove--dy=="+gestureState.dy+"--vy==",gestureState.vy)
+                if (this.gestureState.topFinal >= 312 && gestureState.vy > 0) {
                     return;
                 }
 
-                if (gestureState.vy > 0 && gestureState.dy >= 312 || this.state.topFinal == 182 && gestureState.dy >= 182) {
-                    this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
+                if (gestureState.vy > 0 && gestureState.dy >= 312 || this.gestureState.topFinal == 182 && gestureState.dy >= 182) {
+                  //  JXLog("TCSSC-----isend==true--------onPanResponderMove----dy=="+gestureState.dy+"--vy==",gestureState.vy)
+                    this.updateHistoryViewHigh({gestureCase: null, topFinal: 312});
+                   // this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
                 } else {
-                    this.setState({isBegin: false, isMove: true, isEnd: false, gestureCase: gestureState});
+                  //  JXLog("TCSSC-----isend==false--------onPanResponderMove----dy=="+gestureState.dy+"--vy==",gestureState.vy)
+                  //  JXLog("TCSSC-----isend==false--------onPanResponderMove----dy=="+gestureState.dy+"--vy==",gestureState.vy)
+                    this.updateHistoryViewHigh({ gestureCase: gestureState});
+                   // this.setState({isBegin: false, isMove: true, isEnd: false, gestureCase: gestureState});
                 }
             },
             onPanResponderRelease: (evt, gestureState) => {
+                JXLog("TCSSC-------------onPanResponderRelease",gestureState)
                 let topFailHeight = 0;
                 if (gestureState.vy > 0 && gestureState.dy > 0) {
-                    topFailHeight = 312;
+                    topFailHeight = this.refs.TCHomeHistoryList.getHightState() ==1 ? 182 :312
                 } else if (gestureState.vy == 0) {
-                    if (this.state.topFinal == 0 && gestureState.dy >= 0) {
-                        topFailHeight = 182;
+                    if (gestureState.dy >= 0) {
+                        if(this.gestureState.topFinal==0){
+                            topFailHeight = 182;
+                        }
                     } else {
                         topFailHeight = 0;
                     }
                 } else if (gestureState.vy < 0) {
                     topFailHeight = 0;
                 }
+                let isShowHistory=topFailHeight >0;
+                JXLog("TCSSC-------------isShowHistory--"+isShowHistory,this.state.isHistoryShow)
+                if(this.state.isHistoryShow!=isShowHistory){
+                    this.setState({isHistoryShow:isShowHistory})
+                }
 
-                this.setState({
+                this.updateHistoryViewHigh({
                     isBegin: false,
                     isMove: false,
                     isEnd: true,
                     gestureCase: null,
                     topFinal: topFailHeight,
-                })
-            },
-            onPanResponderTerminate: (evt, gestureState) => {
-                this.setState({
-                    isBegin: false,
-                    isMove: false,
-                    isEnd: true,
-                    gestureCase: null,
-                    topFinal: gestureState.vy >= 0 ? 312 : 0
-                })
+                });
+                // this.setState({
+                //     isBegin: false,
+                //     isMove: false,
+                //     isEnd: true,
+                //     gestureCase: null,
+                //     topFinal: topFailHeight,
+                // })
             },
         });
-        this.listener1 = RCTDeviceEventEmitter.addListener('heightChange', () => {
-            this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
-        });
-        this.didFocusListener = this.props.navigation.addListener('didFocus', () => this.currentResultData.didBlur(false))
-        this.didBlurListener = this.props.navigation.addListener('didBlur', () => this.currentResultData.didBlur(true))
+        this.didFocusListener = this.props.navigation.addListener('didFocus', () => {
+            JXLog("TCSSC---------------------------didFocus---")
+            this.currentResultData.didBlur(false)
+        })
+        this.WillBlurListener = this.props.navigation.addListener('willBlur', () => {
+            JXLog("TCSSC---------------------------WillBlur---")
+        })
+        this.didBlurListener = this.props.navigation.addListener('didBlur', () => {
+            JXLog("TCSSC---------------------------didBlur---")
+            this.currentResultData.didBlur(true)})
+    }
+
+    updateHistoryViewHigh=(newState)=>{
+        this.gestureState={...this.gestureState,...newState};
+        this.refs.TCHomeHistoryList.updateHistoryHight(this.gestureState);
+    }
+
+    onHistoryViewChanged=()=>{
+
     }
 
     componentWillUnmount() {
@@ -176,6 +203,7 @@ export default class TCBetHome extends React.Component {
         this.didFocusListener && this.didFocusListener.remove()
         this.didBlurListener && this.didBlurListener.remove()
         this.currentResultData && this.currentResultData.clear();
+        this.WillBlurListener.remove()
         TCIntelligenceBetData.getInstance() && TCIntelligenceBetData.getInstance().clearInstance();
     }
 
@@ -208,41 +236,32 @@ export default class TCBetHome extends React.Component {
         })
     }
 
-    render() {
-        let historyHeight = this.state.gestureCase == null ? this.state.topFinal : this.state.gestureCase.dy + this.state.moveTop;
-        if (historyHeight < 0) {
-            historyHeight = 0;
-        } else if (historyHeight > 312) {
-            historyHeight = 312;
-        }
+    setModalVisible=()=>{
+        this.refs['TCBetHelperModal']._setModalVisible(true);
+    }
 
+    onHistoHeightChange=()=>{
+
+    }
+
+    render() {
+        JXLog("TCSSC-----------------BetHome-------------render");
         return (
             <View style={styles.container}>
                 <TopNavigationBar
                     ref='TopNavigationBar'
-                    backButtonCall={() => {
-                        this.goBack()
-                    }}
-                    centerButtonCall={() => {
-                        this.showPopView()
-                    }}
-
-                    rightButtonCall={() => {
-                        this.refs['TCBetHelperModal']._setModalVisible(true)
-                    }}
-
+                    backButtonCall={this.goBack}
+                    centerButtonCall={this.showPopView}
+                    rightButtonCall={this.setModalVisible}
                     title={SingletonDPS.getPlayTypeNameByIndex(0, 0)}
                 />
-
 
                 <TCSelectPopupView
                     ref='TCSelectPopupView'
                     selectTitleArr={this.initialPlayMath()}
                     secondAreaTitleArr={this.initialPlayMatnItem()}
                     selectTitle={true}
-                    selectedFunc={(parentIndex, itemIndex) => {
-                        this.choosePlayType(parentIndex, itemIndex)
-                    }}
+                    selectedFunc={this.choosePlayType}
                 />
 
                 <TCBetHelperModal
@@ -255,19 +274,15 @@ export default class TCBetHome extends React.Component {
                     resultsData={this.currentResultData.resultsData}
                 />
 
-                <View
-                    style={{width: width, height: historyHeight, backgroundColor: 'green'}}>
-                    <TCHomeHistoryList
-                        height={historyHeight}
+
+                <TCHomeHistoryListNewSSC
+                        ref="TCHomeHistoryList"
+                          // height={historyHeight}
+                        onHistoryViewChanged={this.onHistoryViewChanged}
                         gameUniqueId={this.props.gameUniqueId}
                         title={this.props.title}
                         isHighlightStyle={true}
                     />
-                </View>
-
-                {/*<TCScrollLotteryListView ref="TCScrollLotteryListView" style={{position:'absolute',top:130,height:this.state.scrollToPoint>0?height/3:0,width:this.state.scrollToPoint>0?width:0}}>*/}
-                {/*</TCScrollLotteryListView>*/}
-
                 <View style={{
                     flexDirection: 'column',
                     justifyContent: 'flex-start',
@@ -277,10 +292,8 @@ export default class TCBetHome extends React.Component {
                     backgroundColor: betHome.betTopItemBg,
                 }} {...this._panResponder.panHandlers}>
                     <Image
-                        source={historyHeight >= 26 * 7 ?
-                            require('../../../resouce/addon/other/stdui_arrow_up.png') :
-                            require('../../../resouce/addon/other/stdui_arrow_down.png')
-                        }
+                        source={this.state.isHistoryShow ?
+                            betIcon.stdui_arrow_up:betIcon.stdui_arrow_down}
                         resizeMode={'contain'}
                         style={{height: 13, width: 55, marginTop: 0}}
                     />
@@ -293,15 +306,14 @@ export default class TCBetHome extends React.Component {
                         alignItems: 'center',
                         backgroundColor: betHome.betTopItemBg,
                     }} {...this._panResponder.panHandlers}>
-                    <TCBetShakeButtonView ref="TCBetShakeButtonView" style={{position: 'absolute', top: 0}}
-                                          shakeEvent={() => this.byShake()}/>
-                    <TCBetBalanceButton style={{}}/>
+                    <TCBetShakeButtonView ref="TCBetShakeButtonView" style={styles.shadowStyle}
+                                          shakeEvent={this.byShake}/>
+                    <TCBetBalanceButton />
                     {this.getShoppingCartView()}
                 </View>
 
 
-                <View
-                    style={{flex:1}}>
+                <View style={{flex:1}}>
                     <ScrollView ref="contentScrollView">{this.initialContentView()}</ScrollView>
                 </View>
 
@@ -333,10 +345,9 @@ export default class TCBetHome extends React.Component {
         }
     }
 
-    initialContentView() {
-
+    initialContentView=()=> {
         return <TCChongQingSSC ref='TCChongQingSSC' numberEvent={this.userPlayNumberEvent}
-                               shakeEvent={() => this.byShake()} gameUniqueId={this.props.gameUniqueId}
+                               shakeEvent={this.byShake} gameUniqueId={this.props.gameUniqueId}
                                defaultPlayType={myPlayMath}/>
     }
 
@@ -349,7 +360,7 @@ export default class TCBetHome extends React.Component {
         return SingletonDPS.getFilterPlayTypeArray()[0];
     }
 
-    choosePlayType(parentIndex, itemIndex) {
+    choosePlayType=(parentIndex, itemIndex)=> {
         let platMath = SingletonDPS.getPlayTypeNameByIndex(parentIndex, itemIndex);
         if (myPlayMath === platMath) return;
 
@@ -369,7 +380,7 @@ export default class TCBetHome extends React.Component {
         var popView = this.refs['TCSelectPopupView']
         popView._setModalSelectedIndex(parentIndex, itemIndex)
 
-        this.refs['TCBetShakeButtonView'].resetPlayMath(platMath, this.props.gameUniqueId)
+        this.refs['TCBetShakeButtonView'].resetPlayMath(platMath, this.props.gameUniqueId);
 
         this.clearSelectedNumbers()
     }
@@ -427,13 +438,13 @@ export default class TCBetHome extends React.Component {
         this.pushToBetBill();
     }
 
-    pushToBetBill() {
+    pushToBetBill=()=> {
         this.clearSelectedNumbers()
         NavigatorHelper.pushToBetBill(this.props.title, 'SSC', this.currentResultData.resultsData, this.props.gameUniqueId, this.props.pagePathName)
         this.refs['contentScrollView'].scrollTo({x: 0, y: 0, animated: false})
     }
 
-    byShake() {
+    byShake=()=> {
         this.clearSelectedNumbers()
         let tempDic = SingletonDPS.addRandomToUnAddedArr()
         JXLog('shake = ' + JSON.stringify(tempDic))
@@ -460,7 +471,7 @@ export default class TCBetHome extends React.Component {
 
     }
 
-    showPopView() {
+    showPopView=()=> {
         var popView = this.refs.TCSelectPopupView
         if (popView.state.modalVisible) {
             popView._setModalVisible(false)
@@ -487,7 +498,7 @@ export default class TCBetHome extends React.Component {
         this.pushToBetBill()
     }
 
-    goBack() {
+    goBack=()=> {
         if (SingletonDPS.getAddedBetArr().length > 0) {
             Alert.alert(
                 '退出页面会清空已选注单，\n是否退出？', null,
@@ -507,11 +518,11 @@ export default class TCBetHome extends React.Component {
         }
     }
 
-    getShoppingCartView() {
+    getShoppingCartView=()=> {
         if (this.userPlayNumberEvent.str.alreadyAdd > 0) {
-            return (<TCBetGoBackShoppingCart style={{position: 'absolute', top: 0}}
+            return (<TCBetGoBackShoppingCart style={styles.shakeButton}
                                              cc={this.userPlayNumberEvent.str.alreadyAdd}
-                                             shakeEvent={() => this.pushToBetBill()}/>)
+                                             shakeEvent={this.pushToBetBill}/>)
         }
     }
 }
@@ -521,4 +532,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: indexBgColor.mainBg
     },
+    shakeButton:{
+        position: 'absolute',
+        top: 0
+    }
 });

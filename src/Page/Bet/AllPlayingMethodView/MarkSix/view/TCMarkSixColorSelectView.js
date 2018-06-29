@@ -18,7 +18,7 @@ import TCBetChoiceTitleView from '../../../View/TCBetChoiceTitleView'
 import {Size, width, commonNumBallStyles, betHome, indexBgColor} from '../../../../resouce/theme'
 
 //特码种类
-export default class TCMarkSixColorSelectView extends React.Component {
+export default class TCMarkSixColorSelectView extends React.PureComponent {
 
     constructor(state) {
         super(state);

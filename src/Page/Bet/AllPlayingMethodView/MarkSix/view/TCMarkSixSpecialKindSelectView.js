@@ -20,7 +20,7 @@ import TCBetChoiceTitleView from '../../../View/TCBetChoiceTitleView'
 import {Size, width, commonNumBallStyles, betHome, indexBgColor} from '../../../../resouce/theme'
 
 //特码种类
-export default class TCMarkSixSpecialKind extends React.Component {
+export default class TCMarkSixSpecialKind extends React.PureComponent {
 
     constructor(state) {
         super(state);
@@ -95,7 +95,7 @@ export default class TCMarkSixSpecialKind extends React.Component {
 }
 
 
-class NumberView extends React.Component {
+class NumberView extends React.PureComponent {
 
     constructor(state) {
         super(state);

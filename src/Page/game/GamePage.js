@@ -1,20 +1,15 @@
 import React, {Component} from 'react';
 import {
-    StyleSheet,
     Text,
     View,
     TouchableOpacity,
-    FlatList, Image
 } from 'react-native';
-//import NoDataView from "../../Common/View/NoDataView";
 import {observer} from 'mobx-react/native'
 import {indexBgColor,baseColor,width} from "../resouce/theme";
 import PropTypes from 'prop-types'
-import FastImage from 'react-native-fast-image';
 import TCFlatList from "../../Common/View/RefreshListView/TCFLatList";
 import TCImage from "../../Common/View/image/TCImage";
 import {Other} from "../asset/drawable";
-
 
 
 @observer
@@ -85,15 +80,14 @@ export default class GamePage extends Component {
         return (<TouchableOpacity onPress={()=>this.onItemClick(item)}><View style={{
             backgroundColor: baseColor.itemBg,
             alignItems: 'center',
+            justifyContent: 'center',
             paddingHorizontal: width * 0.2,
-            paddingBottom: 20,
             width: width * 0.5,
+            height:130
         }}>
             <TCImage
                 style={{
                     height: 100,
-                    alignItems: 'center',
-                    justifyContent: 'center',
                     width: width * 0.46,
                 }}
                 resizeMode="contain"

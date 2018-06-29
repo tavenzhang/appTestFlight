@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import {Size, betHome} from '../../resouce/theme'
 import {betIcon} from '../../resouce/images'
-export default class MyComponent extends Component {
+export default class MyComponent extends React.PureComponent {
 
     static defaultProps = {};
 
@@ -28,13 +28,14 @@ export default class MyComponent extends Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            cc: nextProps.cc
-        })
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     this.setState({
+    //         cc: nextProps.cc
+    //     })
+    // }
 
     render() {
+        JXLog("TCSSC------------TCShoppingCart-------------")
         return (
             <TouchableHighlight onPress={()=> {
                 if (this.props.shakeEvent == null) return
@@ -52,7 +53,7 @@ export default class MyComponent extends Component {
                     <View
                         style={{borderRadius: 16, width: 16, height: 16,backgroundColor:betHome.shoppingTipBallBg,position: 'absolute',overflow:'visible',right:Platform.OS =='ios'?-8:0,top:Platform.OS =='ios'?-8:0,justifyContent:'center',alignItems:'center'}}>
                         <Text
-                            style={{color:betHome.shoppingTipBallTxt,fontSize:Size.font10}}>{this.state.cc > 99 ? 99 : this.state.cc}</Text>
+                            style={{color:betHome.shoppingTipBallTxt,fontSize:Size.font10}}>{this.props.cc > 99 ? 99 : this.props.cc}</Text>
                     </View>
                 </View>
             </TouchableHighlight>
