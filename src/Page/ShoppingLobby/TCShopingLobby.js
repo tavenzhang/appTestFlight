@@ -65,9 +65,7 @@ export default class MyComponent extends React.Component {
                 <TopNavigationBar
                     title="购彩大厅"
                     needBackButton={true}
-                    backButtonCall={() => {
-                        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home');
-                    }}
+                    backButtonCall={() => RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home')}
                     rightImage={this.state.listStyle ? common.topBarSudoku : common.topBarList}
                     rightButtonCall={this.rightButtonCall}
                 />

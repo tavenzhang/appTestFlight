@@ -2,30 +2,19 @@
  * Created by Sam on 2016/12/31.
  * Copyright © 2016年 JX. All rights reserved.
  */
-
 import React, {Component} from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    TouchableHighlight,
-    Modal,
-    Image,
-    Platform,
-    ImageBackground
-} from 'react-native';
+import {ImageBackground, Modal, StyleSheet, Text, TouchableHighlight} from 'react-native';
 import JXHelperC from '../../../Common/JXHelper/TCInitHelper'
 import TCUserCollectHelper from '../../../Common/JXHelper/TCUserCollectHelper'
 import JXHelpers from '../../../Common/JXHelper/JXHelper'
-
-let JXHelper = new JXHelperC()
-let TCUserCollectHelpers = new TCUserCollectHelper()
 import Toast from '../../../Common/JXHelper/JXToast';
 import TCNavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {betIcon} from '../../resouce/images'
 import {Size} from '../../resouce/theme'
-import {navbarHight} from '../../../Page/asset'
+import {NavBarModalTop} from "../../asset/screen";
+
+let JXHelper = new JXHelperC()
+let TCUserCollectHelpers = new TCUserCollectHelper()
 
 export default class TCBetHelperModal extends Component {
     constructor(state) {
@@ -72,7 +61,7 @@ export default class TCBetHelperModal extends Component {
                         style={{
                             position: 'absolute',
                             right: 10,
-                            top: navbarHight - 6,
+                            top: NavBarModalTop,
                             width: 120,
                             height: JXHelpers.checkHaveTrend(this.props.gameUniqueId) ? 265 : 215,
                             justifyContent: 'center',

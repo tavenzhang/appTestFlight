@@ -3,31 +3,20 @@
  * Copyright © 2017年 JX. All rights reserved.
  */
 
-import React, {Component} from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    PanResponder,
-    Dimensions,
-    Platform,
-    TouchableOpacity
-} from 'react-native';
+import React from 'react';
+import {Image, PanResponder, StyleSheet, TouchableOpacity, View} from 'react-native';
+/**组件内部显示需要引入的类 */
+import {height, width} from '../../resouce/theme';
+import {bottomNavHeight} from '../../asset'
+/** 外部关系组件 如 页面跳转用 */
+import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper';
+import {NavBarHeight} from "../../asset/screen";
 
 var imgSize = {w: 82, h: 96};
 var edgeW = width - imgSize.w;
 var edgeH = height - imgSize.h - (bottomNavHeight) -10;
 
 /**系统 npm类 */
-
-/**组件内部显示需要引入的类 */
-import {width, height}from '../../resouce/theme';
-import {navbarHight,bottomNavHeight} from '../../asset'
-
-/** 外部关系组件 如 页面跳转用 */
-import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper';
 
 export default class MyComponent extends React.Component {
     constructor(state) {
@@ -120,7 +109,7 @@ export default class MyComponent extends React.Component {
         let dy = this.previousTop + gestureState.dy;
 
         dx = dx < 0 ? 0 : dx;
-        dy = dy < navbarHight ? navbarHight : dy;
+        dy = dy < NavBarHeight ? NavBarHeight : dy;
 
         dx = dx > edgeW ? edgeW : dx;
         dy = dy > edgeH ? edgeH : dy;

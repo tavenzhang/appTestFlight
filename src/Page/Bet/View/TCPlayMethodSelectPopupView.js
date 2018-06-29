@@ -3,21 +3,12 @@
  */
 
 
-import React, {Component} from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    Modal,
-    TouchableOpacity,
-    TouchableHighlight,
-    Platform,
-    Dimensions
-} from 'react-native';
-import {Size, width, indexBgColor, popuWinStyle} from '../../resouce/theme'
-import {navbarHight} from '../../asset'
+import React from 'react';
+import {Modal, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View} from 'react-native';
+import {indexBgColor, popuWinStyle, Size, width} from '../../resouce/theme'
 import * as _ from "lodash";
+import {NavBarModalTop} from "../../asset/screen";
+
 var createReactClass = require('create-react-class');
 
 
@@ -241,7 +232,7 @@ const styles = StyleSheet.create({
         marginTop: 0,
     },
     contentStyle: {
-        marginTop: navbarHight,
+        marginTop: NavBarModalTop,
         justifyContent: 'center',
         backgroundColor: indexBgColor.mainBg,
     },

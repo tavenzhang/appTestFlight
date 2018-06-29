@@ -2,14 +2,12 @@
 /**
  * Created by Joyce on 2017/01/06.
  */
-
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ImageBackground} from 'react-native';
+import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {observer} from 'mobx-react/native';
-import {observable, computed, action} from 'mobx';
+import {action, observable} from 'mobx';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
-import {Size, width, height} from '../resouce/theme';
-import {statusBarHeight} from '../asset'
+import {Size, width} from '../resouce/theme';
 import TopNavigationBar from './components/TCNavigationBar';
 import NetUtils from '../../Common/Network/TCRequestUitls';
 import {config} from '../../Common/Network/TCRequestConfig';
@@ -127,7 +125,6 @@ class StateModel {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: height - statusBarHeight,
         backgroundColor: '#C02218',
     },
     currentStatus: {

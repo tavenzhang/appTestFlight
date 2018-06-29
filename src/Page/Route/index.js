@@ -1,9 +1,15 @@
-import {StackNavigator} from 'react-navigation';
+import {TabNavigator , StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
-import {UIManager} from 'react-native';
+import {UIManager, StatusBar, View} from 'react-native';
 import {Provider} from 'mobx-react'
 
 import NavigationService from './NavigationService'
+// 主页
+import Home from '../Home/TCHome';
+import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
+import LotteryLobby from '../LotteryLobby/TCLotteryLobby';
+import WelfareCenter from '../UserCenter/welfare/TCWelfareCenter';
+import UserCenter from '../UserCenter/TCUserCenterNew';
 //首页
 import MainScreen from '../Main/TCMain'
 import WebView from '../WebView/TCWebView'
@@ -113,6 +119,9 @@ import TCUserMGBetDetail from "../UserCenter/UserOrder/TCUserMGBetDetail";
 //个人报表
 import TCUserStatementsType from "../UserCenter/Agent/UserSheets/TCUserStatementsType";
 import TCUserStatements from "../UserCenter/Agent/UserSheets/TCUserStatements";
+import TabBarIcon from "../widget/TabBarIcon";
+import {home} from "../resouce/images";
+import {indexBgColor, indexTxtColor} from "../resouce/theme";
 
 
 //用于增加通用navigator view 属性 特殊 处理
@@ -215,6 +224,101 @@ for (let key in Components) {
 
 global.JX_Compones = Components
 
+const MainTabNavigator = TabNavigator({
+    Home: {
+        screen: Home,
+        navigationOptions: {
+            tabBarLabel: '首页',
+            tabBarIcon: ({focused, tintColor}) => (
+                <TabBarIcon tintColor={tintColor} focused={focused}
+                            normalIcon={home.indexHomeNormal}
+                            pressedIcon={home.indexHomePressed}/>
+            ),
+            tabBarOnPress: ({navigation}) => {
+                navigation.navigate('Home')
+            }
+        }
+    },
+    ShopingLobby: {
+        screen: ShopingLobby,
+        navigationOptions: {
+            tabBarLabel: '购彩',
+            tabBarIcon: ({focused, tintColor}) => (
+                <TabBarIcon tintColor={tintColor} focused={focused}
+                            normalIcon={home.indexShoppingNormal}
+                            pressedIcon={home.indexShoppingPressed}/>
+            ),
+            tabBarOnPress: ({navigation}) => {
+                navigation.navigate('ShopingLobby')
+            }
+        }
+    },
+    LotteryLobby: {
+        screen: LotteryLobby,
+        navigationOptions: {
+            tabBarLabel: '开奖',
+            tabBarIcon: ({focused, tintColor}) => (
+                <TabBarIcon tintColor={tintColor} focused={focused}
+                            normalIcon={home.indexLotteryNormal}
+                            pressedIcon={home.indexLotteryPressed}/>
+            ),
+            tabBarOnPress: ({navigation}) => {
+                navigation.navigate('LotteryLobby')
+            }
+        }
+    },
+    WelfareCenter: {
+        screen: WelfareCenter,
+        navigationOptions: {
+            tabBarLabel: '福利',
+            tabBarIcon: ({focused, tintColor}) => (
+                <TabBarIcon tintColor={tintColor} focused={focused}
+                            normalIcon={home.indexPromotionNormal}
+                            pressedIcon={home.indexPromotionPressed}/>
+            ),
+            tabBarOnPress: ({navigation}) => {
+                navigation.navigate('WelfareCenter')
+            }
+        }
+    },
+    UserCenter: {
+        screen: UserCenter,
+        navigationOptions: {
+            tabBarLabel: '我的',
+            tabBarIcon: ({focused, tintColor}) => (
+                <TabBarIcon tintColor={tintColor} focused={focused}
+                            normalIcon={home.indexMineNormal}
+                            pressedIcon={home.indexMinePressed}/>
+            ),
+            tabBarOnPress: ({navigation}) => {
+                navigation.navigate('UserCenter')
+            }
+        }
+    },
+}, {
+    navigationOptions: {
+        gesturesEnabled: false,
+        animationEnabled: false,
+        swipeEnabled: false,
+        backBehavior: 'none', // 按back键是否跳转到第一个Tab，none为不跳转
+        tabBarOptions: {
+            activeTintColor: indexTxtColor.bottomMenuTitlePressed,
+            inactiveTintColor: indexTxtColor.bottomMenuTitleNormal,
+            showIcon: true,
+            style: {
+                backgroundColor: indexBgColor.tabBg, // TabBar背景色
+                paddingBottom: 0,
+            },
+            labelStyle: {
+                fontSize: 14 // label字体大小
+            },
+            indicatorStyle: {
+                height: 0
+            }
+        },
+    }
+})
+
 const MainStackNavigator = StackNavigator({
     ...Components
 }, {
@@ -235,11 +339,19 @@ export default class Main extends Component {
     render() {
         return (
             <Provider  {...appStores}>
-                <MainStackNavigator
-                    ref={navigatorRef => {
-                        NavigationService.setTopLevelNavigator(navigatorRef)
-                    }}
-                />
+                <View style={{flex: 1}}>
+                    <StatusBar
+                        hidden={false}
+                        animated={true}
+                        translucent={true}
+                        backgroundColor={'transparent'}
+                        barStyle="light-content"/>
+                    <MainStackNavigator
+                        ref={navigatorRef => {
+                            NavigationService.setTopLevelNavigator(navigatorRef)
+                        }}
+                    />
+                </View>
             </Provider>
         )
     }

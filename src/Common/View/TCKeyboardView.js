@@ -3,25 +3,20 @@
  */
 
 import React, {Component} from 'react';
-
 import {observer} from 'mobx-react/native'
-import {observable, computed, action} from 'mobx'
+import {observable} from 'mobx'
 import {
-    StyleSheet,
-    Text,
-    View,
-    Platform,
-    Modal,
-    TouchableOpacity,
-    Dimensions,
     Animated,
     Easing,
     Image,
+    Modal,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-
 import {common} from '../../Page/resouce/images'
-import {Size, width, height} from '../../Page/resouce/theme'
-import {statusBarHeight} from '../../Page/asset'
+import {height, Size, width} from '../../Page/resouce/theme'
 
 /**
  * 自定义输入数字键盘
@@ -39,7 +34,7 @@ export default class TCKeyboardView extends Component {
     }
 
     static defaultProps = {
-        showMarginTop: height - height / 2.6 - (Platform.OS == 'ios' ? 0 : statusBarHeight),
+        showMarginTop: height - height / 2.6,
         hiddenMarginTop: height,
         setInputValue: null,
         backdropPressToClose: true,
