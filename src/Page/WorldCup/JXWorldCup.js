@@ -20,13 +20,13 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import JXHelper from '../../Common/JXHelper/JXHelper';
 import Toast from '../../Common/JXHelper/JXToast';
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
-import InitHelper from "../../Common/JXHelper/TCInitHelper";
+import {inject, observer} from "mobx-react/native";
 
 /**系统 npm类 */
 
 /** 外部关系组件 如 页面跳转用 */
 
-let TCInitHelper = new InitHelper();
+
 export default class MyComponent extends React.Component {
     render() {
         return (
@@ -63,6 +63,8 @@ export default class MyComponent extends React.Component {
     }
 }
 
+@inject("userStore")
+@observer
 export class MyComponent2 extends React.Component {
     render() {
         return (
@@ -120,10 +122,10 @@ export class MyComponent2 extends React.Component {
         );
     }
 
-    goToSports(data) {
+    goToSports=(data)=> {
         if (data.status == 'ON') {
             if (NavigatorHelper.checkUserWhetherLogin()) {
-                if(TCInitHelper.isGuestUser()){
+                if(this.props.userStore.isGuest){
                     Toast.showShortCenter(`你当前是: 试玩账号 暂时无法体验,请尽快注册正式账号参与体验吧！`);
                 }else {
                     JX_NavHelp.pushView(JX_Compones.TCWebGameView, { gameData: data, title: data.gameDescription });
