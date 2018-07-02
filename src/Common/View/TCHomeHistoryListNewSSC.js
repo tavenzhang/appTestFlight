@@ -8,11 +8,9 @@ import {
     StyleSheet,
     Text,
     View,
-    ListView,
     TouchableOpacity,
     Image,
     ActivityIndicator,
-    PanResponder
 } from 'react-native';
 
 
@@ -24,6 +22,7 @@ import JXLotteryHistoryData from '../../Data/JXLotteryHistoryData'
 import TCFlatList from "./RefreshListView/TCFLatList";
 import {TC_LayoutAnimaton} from "./layoutAnimation/LayoutAnimaton";
 import {observer} from 'mobx-react/native';
+import PropTypes from 'prop-types'
 @observer
 export default class TCHomeHistoryList extends React.Component {
 
@@ -34,6 +33,12 @@ export default class TCHomeHistoryList extends React.Component {
             height: this.props.height
         }
         this.hightViewNum=0;
+    }
+    static  propTypes={
+        title: PropTypes.text,
+        gameUniqueId: PropTypes.any,
+        isHighlightStyle: PropTypes.any,
+        height: PropTypes.any,
     }
 
     static defaultProps = {
@@ -51,7 +56,7 @@ export default class TCHomeHistoryList extends React.Component {
         this.lotteryHistoryData = new JXLotteryHistoryData();
         setTimeout(()=>{
             this.loadDataFormNet();
-        },2000)
+        },1500)
     }
 
 

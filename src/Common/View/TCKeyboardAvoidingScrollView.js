@@ -23,7 +23,7 @@ export default class TCKeyboardAvoidingScrollView extends React.Component {
         keyboardDismissMode:PropTypes.any,
         keyboardShouldPersistTaps:PropTypes.any,
         contentContainerStyle:PropTypes.any,
-        style: View.propTypes.style,
+        style: PropTypes.style,
     }
 
     static defaultProps = {

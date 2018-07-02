@@ -2,10 +2,7 @@ import React, {Component} from 'react'
 import {StyleSheet, View, ViewPropTypes} from 'react-native'
 
 // compatability for react-native versions < 0.44
-const ViewPropTypesStyle = ViewPropTypes
-    ? ViewPropTypes.style
-    : View.propTypes.style
-
+//const ViewPropTypesStyle = ViewPropTypes ? ViewPropTypes.style: View.propTypes.styl
 const styles = StyleSheet.create({
     outerCircle: {
         justifyContent: 'center',

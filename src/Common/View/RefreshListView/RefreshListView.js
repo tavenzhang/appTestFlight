@@ -42,7 +42,7 @@ export default class RefreshListView extends Component {
                 loadDataFromNet: PropTypes.func,//获取数据源方法
                 renderRow: PropTypes.func,//渲染行
                 pageSize: PropTypes.number,//每页加载数据
-                footStyle: View.propTypes.style,
+                footStyle:PropTypes.style,
                 initialNumToRender:PropTypes.any, //初始渲染项目数目
                 keyExtractor:PropTypes.any,
             }
