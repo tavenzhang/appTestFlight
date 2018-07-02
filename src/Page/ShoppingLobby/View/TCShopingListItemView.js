@@ -85,7 +85,7 @@ export default class TCShopingListItemView extends Component {
     // }
 
     render() {
-        JXLog("observer----TCShopingListItemView-----");
+        JXLog("TCShop---------TCShopingListItemView-----");
         return (
             <TouchableOpacity style={styles.container} onPress={this.buttonCall}>
                 {
@@ -166,7 +166,6 @@ export default class TCShopingListItemView extends Component {
 class TextIssueView extends React.Component {
 
     render(){
-        JXLog("observer----TextIssueView-----");
         return (<Text style={{
             color:shoppingTxtColor.cpLastIssueNumber,
             marginTop: 5,

@@ -27,7 +27,8 @@ export default class MyComponent extends Component {
 
     static defaultProps = {
         cpArray: [],
-        tabLabel: ''
+        tabLabel: '',
+        isNow:true
     };
 
     componentDidMount() {

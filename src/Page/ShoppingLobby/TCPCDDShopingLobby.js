@@ -52,6 +52,7 @@ export default class TCPCDDShopingLobby extends Component {
     }
 
     getContentView() {
+
         return (
             <ListStyle
                 cpArray={this.lotteryResultData.resultsData ? this.lotteryResultData.resultsData : this.state.cpArray}
