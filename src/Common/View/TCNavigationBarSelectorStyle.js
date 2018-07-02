@@ -46,12 +46,12 @@ export default class TCBetBar extends React.Component {
         return (
             <ImageBackground style={themeViewStyle.navBar} source={common.topBg} resizeMode={'cover'}>
                 <View style={themeViewStyle.navBarLeftItem}>{this.renderLeftItem()}</View>
-                <TouchableOpacity onPress={this.centerButtonCall}>
-                    <View style={[themeViewStyle.navBarCenterItem, styles.centerItemBorder]}>
+                <View style={themeViewStyle.navBarCenterItem}>
+                    <TouchableOpacity onPress={this.centerButtonCall} style={styles.centerItemBorder}>
                         <Text style={styles.titleStyle}>{this.state.title}</Text>
                         <Image source={common.topBarArrow} style={styles.arrowImgStyle}/>
-                    </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                </View>
                 <View style={themeViewStyle.navBarRightItem}>{this.renderRightItem()}</View>
             </ImageBackground>
         );
@@ -110,6 +110,9 @@ const styles = StyleSheet.create({
         height: NavIconSize,
     },
     centerItemBorder:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: 3,
         borderWidth: 1,
         borderColor: popuWinStyle.titleBorder,
