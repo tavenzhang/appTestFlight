@@ -40,7 +40,6 @@ import TCHomeHistoryListNewSSC from '../../../../Common/View/TCHomeHistoryListNe
 import TCBetGoBackShoppingCart from '../../View/TCBetGoBackShoppingCart'
 import TCBetShakeButtonView from '../../View/TCBetShakeButtonView'
 import TCBetBalanceButton from '../../View/TCBetBalanceButton'
-import TCSpringScrollView from '../../View/TCSpringScrollView'
 
 /** 外部关系组件 如 页面跳转用 */
 import NavigatorHelper from '../../../../Common/JXHelper/TCNavigatorHelper'
@@ -132,8 +131,6 @@ export default class TCBetHome extends React.Component {
                     this.updateHistoryViewHigh({gestureCase: null, topFinal: 312});
                    // this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
                 } else {
-                  //  JXLog("TCSSC-----isend==false--------onPanResponderMove----dy=="+gestureState.dy+"--vy==",gestureState.vy)
-                  //  JXLog("TCSSC-----isend==false--------onPanResponderMove----dy=="+gestureState.dy+"--vy==",gestureState.vy)
                     this.updateHistoryViewHigh({ gestureCase: gestureState});
                    // this.setState({isBegin: false, isMove: true, isEnd: false, gestureCase: gestureState});
                 }
@@ -167,13 +164,6 @@ export default class TCBetHome extends React.Component {
                     gestureCase: null,
                     topFinal: topFailHeight,
                 });
-                // this.setState({
-                //     isBegin: false,
-                //     isMove: false,
-                //     isEnd: true,
-                //     gestureCase: null,
-                //     topFinal: topFailHeight,
-                // })
             },
         });
         this.didFocusListener = this.props.navigation.addListener('didFocus', () => {
@@ -190,9 +180,6 @@ export default class TCBetHome extends React.Component {
         this.refs.TCHomeHistoryList.updateHistoryHight(this.gestureState);
     }
 
-    onHistoryViewChanged=()=>{
-
-    }
 
     componentWillUnmount() {
         this.listener && this.listener.remove();
@@ -236,9 +223,6 @@ export default class TCBetHome extends React.Component {
         this.refs['TCBetHelperModal']._setModalVisible(true);
     }
 
-    onHistoHeightChange=()=>{
-
-    }
 
     render() {
         JXLog("TCSSC-----------------BetHome-------------render");
@@ -273,8 +257,6 @@ export default class TCBetHome extends React.Component {
 
                 <TCHomeHistoryListNewSSC
                         ref="TCHomeHistoryList"
-                          // height={historyHeight}
-                        onHistoryViewChanged={this.onHistoryViewChanged}
                         gameUniqueId={this.props.gameUniqueId}
                         title={this.props.title}
                         isHighlightStyle={true}
