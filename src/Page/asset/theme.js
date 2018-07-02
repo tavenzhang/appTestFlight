@@ -37,20 +37,20 @@ export const themeViewStyle = {
         marginTop: StatusBarHeight
     },
     navBarLeftItem: {
-        flex: 2,
+        flex: 1,
         alignItems: 'flex-start',
         justifyContent: 'center',
         height: NavBarHeaderHeight,
     },
     navBarCenterItem: {
-        flex: 3,
+        flex: 2,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         height: NavBarHeaderHeight,
     },
     navBarRightItem: {
-        flex: 2,
+        flex: 1,
         alignItems: 'flex-end',
         justifyContent: 'center',
         height: NavBarHeaderHeight,

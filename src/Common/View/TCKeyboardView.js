@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import {common} from '../../Page/resouce/images'
 import {height, Size, width} from '../../Page/resouce/theme'
+import {StatusBarHeight} from "../../Page/asset/screen";
 
 /**
  * 自定义输入数字键盘
@@ -34,7 +35,7 @@ export default class TCKeyboardView extends Component {
     }
 
     static defaultProps = {
-        showMarginTop: height - height / 2.6,
+        showMarginTop: height - height / 2.6 - (IS_IOS ? 0 : StatusBarHeight),
         hiddenMarginTop: height,
         setInputValue: null,
         backdropPressToClose: true,

@@ -386,7 +386,7 @@ const styles = StyleSheet.create({
     },
     tabsContainerStyle: {
         height: 35,
-        width: width - 150,
+        width: width / 2,
     },
     tabStyle: {
         backgroundColor: agentCenter.addAccountTopNormalBg,

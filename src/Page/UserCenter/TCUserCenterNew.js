@@ -34,11 +34,12 @@ import {
     height,
     listViewTxtColor,
 } from '../resouce/theme'
-import {JX_PLAT_INFO, ASSET_Screen, ASSET_Other} from '../asset'
+import {JX_PLAT_INFO, ASSET_Screen, ASSET_Other, bottomNavHeight} from '../asset'
 import SignInModal from './SignIn/TCSignInModal'
 import Toast from "../../Common/JXHelper/JXToast";
 import NavigationService from "../Route/NavigationService";
 import {TCButtonImg} from "../../Common/View/button/TCButtonView";
+import {StatusBarHeight} from "../asset/screen";
 
 const USERCENTER_ITEMS = [
     [
@@ -569,13 +570,14 @@ const styles = StyleSheet.create({
         backgroundColor: indexBgColor.mainBg
     },
     containerIOS: {
-        height: height - ASSET_Screen.bottomNavHeight,
+        height: height - bottomNavHeight,
         width: width,
         backgroundColor: indexBgColor.mainBg
     },
     imgTop: {
         width: width,
-        height: Platform.OS == 'ios' ? 145 : 135
+        height: 145 + StatusBarHeight,
+        paddingTop: StatusBarHeight,
     },
     imgSet: {
         width: 50,
