@@ -34,10 +34,11 @@ import {
     height,
     listViewTxtColor,
 } from '../resouce/theme'
-import {JX_PLAT_INFO, ASSET_Screen} from '../asset'
+import {JX_PLAT_INFO, ASSET_Screen, ASSET_Other} from '../asset'
 import SignInModal from './SignIn/TCSignInModal'
 import Toast from "../../Common/JXHelper/JXToast";
 import NavigationService from "../Route/NavigationService";
+import {TCButtonImg} from "../../Common/View/button/TCButtonView";
 
 const USERCENTER_ITEMS = [
     [
@@ -184,7 +185,16 @@ export default class TCUserCenterNew extends Component {
                                     </TouchableOpacity>
                                     <View style={styles.userTitle}>
                                         <Text style={styles.userName}>{this.userName}</Text>
-                                        {this.getSignButton()}
+                                        <View style={{flexDirection:"row", alignItems:"center"}}>
+                                            {this.getSignButton()}
+                                            {/*<TCButtonImg onClick={()=>{*/}
+                                                {/*JX_NavHelp.pushView(JX_Compones.TCVipAwardView);*/}
+                                            {/*}} text={"vip "+this.props.userStore.vipLv} imgSource={ASSET_Other.Other.mg_holder}*/}
+                                                         {/*imgStyle={{width:30, height:20}}/>*/}
+
+                                            {/*<Text style={{color:"yellow",size:Size.font14, alignSelf:"center",*/}
+                                                {/*marginTop:6}}>{"vip "+this.props.userStore.vipLv}</Text>*/}
+                                        </View>
                                     </View>
                                     {this.showSignInModal()}
                                 </View>

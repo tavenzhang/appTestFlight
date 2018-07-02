@@ -32,11 +32,15 @@ export default class TCShopingListStyle extends Component {
 
 
     render() {
+        let {isNow}=this.props
+        if(!isNow){
+            return null
+        }
         return (
             <ScrollView contentContainerStyle={styles.container} style={{
                 height: height - 64 - 45 - 50,
             }}>
-               <TCFlatList  dataS={this.getRenderListView()} renderRow={this.renderRow}/>
+               <TCFlatList initialNumToRender={6}  dataS={this.getRenderListView()} renderRow={this.renderRow}/>
             </ScrollView>
         );
     }

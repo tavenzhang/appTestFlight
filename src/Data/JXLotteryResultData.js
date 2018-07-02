@@ -29,6 +29,7 @@ class LotteryResultDataEvent {
             this.timer = null;
             this.isRefreshing = false;
             this.isLoadFinish = false;
+            this.focus=true
             instance = this;
         }
         return instance;
@@ -36,6 +37,7 @@ class LotteryResultDataEvent {
 
     @observable resultsData = [];
     @observable countDownData = [];
+
 
     @action
     currentDataIntervalEvent = () => {
@@ -122,6 +124,7 @@ class LotteryResultDataEvent {
             this.getLotteryDetailRequest();
         }
     }
+
 }
 
 export default LotteryResultDataEvent;

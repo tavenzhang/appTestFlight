@@ -124,9 +124,12 @@ import TCUserMGBetDetail from "../UserCenter/UserOrder/TCUserMGBetDetail";
 //个人报表
 import TCUserStatementsType from "../UserCenter/Agent/UserSheets/TCUserStatementsType";
 import TCUserStatements from "../UserCenter/Agent/UserSheets/TCUserStatements";
+
 import TabBarIcon from "../../Common/View/widget/TabBarIcon";
 import {home} from "../resouce/images";
 import {indexBgColor, indexTxtColor} from "../resouce/theme";
+//vip 奖励
+import TCVipAwardView from "../UserCenter/vip/TCVipAwardView";
 
 
 //用于增加通用navigator view 属性 特殊 处理
@@ -218,7 +221,8 @@ const Components = {
     Wallet: viewRoutHelp(TCWallet),
     DZGameListView: viewRoutHelp(DZGameListView),
     TCWebGameView: viewRoutHelp(TCWebGameView),
-    WorldCup:viewRoutHelp(WorldCup)
+    WorldCup:viewRoutHelp(WorldCup),
+    TCVipAwardView:viewRoutHelp(TCVipAwardView)
 }
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
 for (let key in Components) {

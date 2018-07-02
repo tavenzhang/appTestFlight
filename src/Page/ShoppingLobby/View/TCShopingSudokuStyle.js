@@ -34,7 +34,10 @@ export default class MyComponent extends Component {
     }
 
     render() {
-
+        let {isNow}=this.props
+        if(!isNow){
+            return null
+        }
         return (
             <ScrollView contentContainerStyle={styles.container} style={{
                 height: Dimensions.get('window').height - 64 - 45 - 50,

@@ -80,7 +80,6 @@ export default class TC168 extends Component {
     };
 
     render() {
-
         return (
             <View style={{flex: 1}}>
                 <TabNavigator tabBarStyle={{backgroundColor: indexBgColor.tabBg, height: bottomNavHeight,
@@ -90,14 +89,14 @@ export default class TC168 extends Component {
                         home.indexHomeNormal,
                         home.indexHomePressed,
                         "home",
-                        <Home navigator={this.props.navigator} cpArray={this.state.cpArray}/>)}
+                        <Home navigator={this.props.navigation} cpArray={this.state.cpArray}/>)}
                     {/*--购彩大厅--*/}
                     {
                         this.renderTabBarItem("购彩",
                             home.indexShoppingNormal,
                             home.indexShoppingPressed,
                             'shoping',
-                            <ShopingLobby navigator={this.props.navigator} cpArray={this.state.cpArray}/>)
+                            <ShopingLobby navigator={this.props.navigation} cpArray={this.state.cpArray}/>)
                     }
                     {/*/!*--开奖大厅--*!/*/}
                     {
@@ -105,7 +104,7 @@ export default class TC168 extends Component {
                             home.indexLotteryNormal,
                             home.indexLotteryPressed,
                             'lobby',
-                            <LotteryLobby navigator={this.props.navigator}/>
+                            <LotteryLobby navigator={this.props.navigation}/>
                         )
                     }
                     {/*/!*--福利--*!/*/}
@@ -114,7 +113,7 @@ export default class TC168 extends Component {
                             home.indexPromotionNormal,
                             home.indexPromotionPressed,
                             'promotion',
-                            <WelfareCenter navigator={this.props.navigator} backHome={true}/>
+                            <WelfareCenter navigator={this.props.navigation} backHome={true}/>
                         )
                     }
 

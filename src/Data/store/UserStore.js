@@ -85,7 +85,11 @@ class UserStore {
     @observable
     loginAppVersion = Platform.OS + '-' + InitAppStore.appVersion + '-' + JDAppStore.hotFixVersion;
 
+
     sessionId;
+
+    //vip等级
+    @observable vipLv = 0;
 
     constructor() {
 

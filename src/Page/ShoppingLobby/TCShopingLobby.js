@@ -33,29 +33,46 @@ export default class MyComponent extends React.Component {
         this.state = {
             listStyle: true,
             cpArray: this.props.cpArray,
-            initPage: 0
+            initPage: 0,
+            isRenderNow:this.isCurrentView()
         };
     }
 
     static defaultProps = {};
 
-    componentWillUpdate() {
-        TC_LayoutAnimaton.configureNext(TC_LayoutAnimaton.easeNoDelete);
+     // componentWillUpdate(nexProps) {
+     //     TC_LayoutAnimaton.configureNext(TC_LayoutAnimaton.easeNoDelete);
+     // }
+
+    isCurrentView=()=>{
+        return this.props.mainStore.selectedTab == 'shoping'
     }
 
     componentWillMount() {
+        this.didFocusListener = this.props.navigator.addListener('willFocus', (data) => {
+            JXLog("TCShop---------------------------willFocus---",data)
+                if(!this.state.isRenderNow){
+                    this.setState({isRenderNow:true});
+                }
+        })
+        this.WillBlurListener = this.props.navigator.addListener('willBlur', (data) => {
+            if(this.state.isRenderNow){
+                this.setState({isRenderNow:false})
+            }
+            JXLog("TCShop---------------------------WillBlur---",data)
+        })
         this.lotteryResultData = new LotteryResultData();
     }
 
     componentDidMount() {
-        this.listener = RCTDeviceEventEmitter.addListener('TCShopingLobbyChangeType', selectIndex => {
-            if (this.refs['ScrollableTabView']) {
-                this.refs['ScrollableTabView'].goToPage(selectIndex);
-                this.setState({
-                    initPage: selectIndex
-                });
-            }
-        });
+        // this.listener = RCTDeviceEventEmitter.addListener('TCShopingLobbyChangeType', selectIndex => {
+        //     if (this.refs['ScrollableTabView']) {
+        //         this.refs['ScrollableTabView'].goToPage(selectIndex);
+        //         this.setState({
+        //             initPage: selectIndex
+        //         });
+        //     }
+        // });
 
         this.lotteryResultData.startCountDownTimer();
     }
@@ -88,13 +105,12 @@ export default class MyComponent extends React.Component {
                         })
                     }
                 </ScrollableTabView>
-
             </View>
         );
     }
 
 
-    getItemView(isListStyle, title, key) {
+    getItemView=(isListStyle, title, key)=> {
         const params = {
             cpArray: this.lotteryResultData.resultsData ? this.lotteryResultData.resultsData : this.state.cpArray,
             key: key,
@@ -102,7 +118,7 @@ export default class MyComponent extends React.Component {
             tabLabel: title,
             navigator: this.props.navigator
         };
-        return isListStyle ? <ListStyle {...params} /> : <SudokuStyle {...params} />
+        return isListStyle ? <ListStyle {...params} isNow={this.isCurrentView()&&this.state.isRenderNow}/> : <SudokuStyle {...params}  isNow={this.isCurrentView()&&this.state.isRenderNow}/>
 
     }
 
