@@ -180,9 +180,6 @@ export default class TCBetHome extends React.Component {
             JXLog("TCSSC---------------------------didFocus---")
             this.currentResultData.didBlur(false)
         })
-        this.WillBlurListener = this.props.navigation.addListener('willBlur', () => {
-            JXLog("TCSSC---------------------------WillBlur---")
-        })
         this.didBlurListener = this.props.navigation.addListener('didBlur', () => {
             JXLog("TCSSC---------------------------didBlur---")
             this.currentResultData.didBlur(true)})
@@ -203,7 +200,6 @@ export default class TCBetHome extends React.Component {
         this.didFocusListener && this.didFocusListener.remove()
         this.didBlurListener && this.didBlurListener.remove()
         this.currentResultData && this.currentResultData.clear();
-        this.WillBlurListener.remove()
         TCIntelligenceBetData.getInstance() && TCIntelligenceBetData.getInstance().clearInstance();
     }
 

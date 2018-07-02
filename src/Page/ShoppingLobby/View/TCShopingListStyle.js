@@ -26,7 +26,8 @@ export default class TCShopingListStyle extends Component {
 
     static defaultProps = {
         cpArray: [],
-        tabLabel: ''
+        tabLabel: '',
+        isNow:true
     };
 
 
