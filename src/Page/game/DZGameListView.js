@@ -7,7 +7,7 @@ import {
     Text
 } from 'react-native'
 
-import {observer} from 'mobx-react/native'
+import {inject, observer} from 'mobx-react/native'
 import GamePage from "./GamePage";
 import {indexBgColor, shoppingTxtColor, baseColor, Size} from "../resouce/theme";
 import TCNavigationBar from "../../Common/View/TCNavigationBar";
@@ -20,6 +20,7 @@ import JDToast from "../../Common/JXHelper/JXToast";
 /**
  *电子游戏
  */
+@inject("userStore")
 @observer
 export default class DZGameListView extends Component {
 
@@ -89,7 +90,7 @@ export default class DZGameListView extends Component {
         let {gameData} = this.props.navigation.state.params
         let bodyParam = {
             gameId: dataItem.gameId,
-            access_token: TCUSER_DATA.oauthToken.access_token,
+            access_token: this.props.userStore.access_token,
         }
         let url = config.api.gamesDZ_start + "/" + dataItem.gameId;
         if (!this.isReuesting) {
