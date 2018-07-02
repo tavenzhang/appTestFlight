@@ -57,6 +57,7 @@ let myPlayMath = '';
 let myGameSetting = null
 
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+import TCHomeHistoryListNewSSC from "../../../../Common/View/TCHomeHistoryListNewSSC";
 
 @withMappedNavigationProps()
 @observer
@@ -65,12 +66,15 @@ export default class TCMarkSixBetHome extends React.Component {
     constructor(state) {
         super(state);
         this.state = {
-            gestureCase: null,
-            moveTop: 0,
-            topFinal: 0,
+            isHistoryShow:false
         };
         this.helperJumpTo = this.helperJumpTo.bind(this);
         SingletonDPS = MathControllerFactory.getInstance().getMathController(this.props.gameUniqueId);
+        this.gestureState={
+            gestureCase: null,
+            moveTop: 0,
+            topFinal: 0,
+        }
     }
 
 
@@ -99,71 +103,64 @@ export default class TCMarkSixBetHome extends React.Component {
                 return Math.abs(dx) > 0;
             },
             onPanResponderGrant: (evt, gestureState) => {
-                this.setState({
-                    isBegin: true,
-                    isMove: false,
-                    isEnd: false,
+                this.updateHistoryViewHigh({
                     gestureCase: gestureState,
-                    moveTop: this.state.topFinal
+                    moveTop: this.gestureState.topFinal
                 })
             },
             onPanResponderMove: (evt, gestureState) => {
-                if (this.state.topFinal >= 312 && gestureState.vy > 0) {
+                if (this.gestureState.topFinal >= 312 && gestureState.vy > 0) {
                     return;
                 }
-
-                if (gestureState.vy > 0 && gestureState.dy >= 312 || this.state.topFinal == 182 && gestureState.dy >= 182) {
-                    this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
+                if (gestureState.vy > 0 && gestureState.dy >= 312 || this.gestureState.topFinal == 182 && gestureState.dy >= 182) {
+                    this.updateHistoryViewHigh({gestureCase: null, topFinal: 312});
                 } else {
-                    this.setState({isBegin: false, isMove: true, isEnd: false, gestureCase: gestureState});
+                    this.updateHistoryViewHigh({ gestureCase: gestureState});
                 }
             },
             onPanResponderRelease: (evt, gestureState) => {
                 let topFailHeight = 0;
                 if (gestureState.vy > 0 && gestureState.dy > 0) {
-                    topFailHeight = 312;
+                    topFailHeight = this.refs.TCHomeHistoryList.getHightState() ==1 ? 182 :312
                 } else if (gestureState.vy == 0) {
-                    if (this.state.topFinal == 0 && gestureState.dy >= 0) {
-                        topFailHeight = 182;
+                    if (gestureState.dy >= 0) {
+                        if(this.gestureState.topFinal==0){
+                            topFailHeight = 182;
+                        }
                     } else {
                         topFailHeight = 0;
                     }
                 } else if (gestureState.vy < 0) {
                     topFailHeight = 0;
                 }
+                let isShowHistory=topFailHeight >0;
+                if(this.state.isHistoryShow!=isShowHistory){
+                    clearTimeout(this.timerShow);
+                    this.timerShow=setTimeout(()=>this.setState({isHistoryShow:isShowHistory}),150);//错开render 时机
+                }
 
-                this.setState({
+                this.updateHistoryViewHigh({
                     isBegin: false,
                     isMove: false,
                     isEnd: true,
                     gestureCase: null,
                     topFinal: topFailHeight,
-                })
+                });
             },
-            onPanResponderTerminate: (evt, gestureState) => {
-                this.setState({
-                    isBegin: false,
-                    isMove: false,
-                    isEnd: true,
-                    gestureCase: null,
-                    topFinal: gestureState.vy >= 0 ? 312 : 0
-                })
-            },
-        });
-        this.listener = RCTDeviceEventEmitter.addListener('heightChange', () => {
-            this.setState({isBegin: false, isMove: false, isEnd: true, gestureCase: null, topFinal: 312,})
         });
         this.didFocusListener = this.props.navigation.addListener('didFocus', () => this.currentResultData.didBlur(false))
         this.didBlurListener = this.props.navigation.addListener('didBlur', () => this.currentResultData.didBlur(true))
     }
 
+
+    updateHistoryViewHigh=(newState)=>{
+        this.gestureState={...this.gestureState,...newState};
+        this.refs.TCHomeHistoryList.updateHistoryHight(this.gestureState);
+    }
+
+
     render() {
-        let historyHeight = this.state.gestureCase == null ? this.state.topFinal : this.state.gestureCase.dy + this.state.moveTop;
-        if (historyHeight < 0) {
-            historyHeight = 0;
-        } else if (historyHeight > 312) {
-            historyHeight = 312;
-        }
+
         return (
             <View style={styles.container}>
                 <TopNavigationBar
@@ -201,14 +198,12 @@ export default class TCMarkSixBetHome extends React.Component {
                     resultsData={this.currentResultData.resultsData}
                 />
 
-                <View style={{width: Dimensions.get('window').width, height: historyHeight, backgroundColor: 'green'}}>
-                    <TCHomeHistoryList
-                        height={historyHeight}
+                <TCHomeHistoryListNewSSC
+                    ref="TCHomeHistoryList"
                         gameUniqueId={this.props.gameUniqueId}
                         title={this.props.title}
                         isHighlightStyle={true}
                     />
-                </View>
                 <View
                     style={{
                         flexDirection: 'column',
@@ -221,7 +216,7 @@ export default class TCMarkSixBetHome extends React.Component {
                     {...this._panResponder.panHandlers}
                 >
                     <Image
-                        source={historyHeight >= 26 * 7 ?
+                        source={this.state.isHistoryShow ?
                             require('../../../resouce/addon/other/stdui_arrow_up.png') :
                             require('../../../resouce/addon/other/stdui_arrow_down.png')
                         }

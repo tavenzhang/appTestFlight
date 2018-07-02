@@ -57,7 +57,7 @@ let myGameSetting = null
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 import {observer} from 'mobx-react/native';
-import {betIcon} from "../../../resouce/images";
+
 
 @withMappedNavigationProps()
 @observer
@@ -73,7 +73,6 @@ export default class TCBetHome extends React.Component {
         }
         SingletonDPS = MathControllerFactory.getInstance().getMathController(this.props.gameUniqueId);
         this.gestureState={
-            scrollToPoint: 0,
             gestureCase: null,
             moveTop: 0,
             topFinal: 0,
@@ -154,7 +153,8 @@ export default class TCBetHome extends React.Component {
                 let isShowHistory=topFailHeight >0;
                 JXLog("TCSSC-------------isShowHistory--"+isShowHistory,this.state.isHistoryShow)
                 if(this.state.isHistoryShow!=isShowHistory){
-                    this.setState({isHistoryShow:isShowHistory})
+                    clearTimeout(this.timerShow);
+                    this.timerShow=setTimeout(()=>this.setState({isHistoryShow:isShowHistory}),150);//错开render 时机
                 }
 
                 this.updateHistoryViewHigh({
@@ -271,7 +271,9 @@ export default class TCBetHome extends React.Component {
                 }} {...this._panResponder.panHandlers}>
                     <Image
                         source={this.state.isHistoryShow ?
-                            betIcon.stdui_arrow_up:betIcon.stdui_arrow_down}
+                            require('../../../resouce/addon/other/stdui_arrow_up.png') :
+                            require('../../../resouce/addon/other/stdui_arrow_down.png')
+                        }
                         resizeMode={'contain'}
                         style={{height: 13, width: 55, marginTop: 0}}
                     />

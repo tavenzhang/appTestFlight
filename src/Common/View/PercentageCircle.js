@@ -38,7 +38,7 @@ export default class PercentageCircle extends Component {
     //     borderWidth: PropTypes.number,
     //     percent: PropTypes.number.isRequired, // eslint-disable-line react/no-unused-prop-types
     //     children: PropTypes.node,
-    //     containerStyle: ViewPropTypesStyle,
+    //     containerStyle: PropTypes.any,
     // };
 
     static defaultProps = {
