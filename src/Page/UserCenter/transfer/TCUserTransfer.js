@@ -1,8 +1,14 @@
-import TCKeyboardAvoidingScrollView from "../../../Common/View/TCKeyboardAvoidingScrollView";
-
 'use-strict';
 import React from 'react';
-import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+    ActivityIndicator,
+    Image,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import {observer} from 'mobx-react/native'
 import ModalDropdown from 'react-native-modal-dropdown';
 import {userAccount} from '../../resouce/images';
@@ -22,6 +28,7 @@ import Toast from '../../../Common/JXHelper/JXToast';
 import Button from '../../../Common/View/button/TCButtonView'
 import walletStore from '../../../Data/store/WalletStore';
 import TCText from "../../../Common/View/widget/TCText";
+import TCKeyboardAvoidingScrollView from "../../../Common/View/TCKeyboardAvoidingScrollView";
 
 /**
  * 转账
@@ -32,6 +39,7 @@ export default class TCUserTransfer extends React.Component {
 
     constructor(props) {
         super(props)
+        this.state={show: false}
         walletStore.getAllPlatforms()
     }
 
@@ -42,10 +50,19 @@ export default class TCUserTransfer extends React.Component {
                 <TopNavigationBar title={'转账'} needBackButton backButtonCall={() => Helper.popToBack()}
                                   rightTitle={'转账记录'} rightButtonCall={() => Helper.pushToUserPayAndWithDraw(2)}/>
                 <TCKeyboardAvoidingScrollView contentContainerStyle={styles.content}>
-                    <OneTouchTransferView />
+                    <OneTouchTransferView showIndicator={(show) => this.setState({show: show})}/>
                     <View style={{backgroundColor: 'transparent', height:10}} />
-                    <ManualTransferView />
+                    <ManualTransferView showIndicator={(show) => this.setState({show: show})}/>
                 </TCKeyboardAvoidingScrollView>
+                {
+                    this.state.show
+                        ? <ActivityIndicator
+                            size="large"
+                            color={baseColor.tabSelectedTxt}
+                            style={styles.loadingCenter}
+                            animating={this.state.show} />
+                        : null
+                }
             </View>
         )
     }
@@ -90,7 +107,9 @@ class OneTouchTransferView extends React.Component {
                 item.gamePlatform === 'LOTTERY' ? null : '一键转入',
                 item.gamePlatform === 'LOTTERY' ? null : '刷新',
                 item.gamePlatform === 'LOTTERY' ? null : () => {
+                    this.props.showIndicator(true)
                     walletStore.transfer(item.gamePlatform, 'TopUp', walletStore.allBalances[0].balance, (res) => {
+                        this.props.showIndicator(false)
                         if (res.rs) {
                             Toast.showShortCenter('转入成功!');
                         } else {
@@ -301,12 +320,14 @@ class ManualTransferView extends React.Component {
             Toast.showShortCenter('充值金额不能小于1元!');
             return;
         }
+        this.props.showIndicator(true)
 
         let transferType = this.state.fromIndex === 0 ? "TopUp" : "Withdraw"
         let platformIndex = this.state.fromIndex === 0 ? this.state.toIndex : this.state.fromIndex
         let platform = walletStore.allBalance[platformIndex].gamePlatform;
 
         walletStore.transfer(platform, transferType, inputMoney, (res) => {
+            this.props.showIndicator(false)
             if (res.rs) {
                 Toast.showShortCenter('转账成功!');
             } else {
@@ -503,5 +524,15 @@ const styles = StyleSheet.create({
         color: transferColor.border2,
         fontSize: Size.font14,
         fontWeight: '400'
+    },
+    loadingCenter: {
+        width: width,
+        height: height,
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#00000051'
     },
 });
