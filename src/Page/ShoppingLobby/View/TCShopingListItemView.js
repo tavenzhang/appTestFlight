@@ -85,6 +85,7 @@ export default class TCShopingListItemView extends Component {
     // }
 
     render() {
+        JXLog("observer----TCShopingListItemView-----");
         return (
             <TouchableOpacity style={styles.container} onPress={this.buttonCall}>
                 {
@@ -165,6 +166,7 @@ export default class TCShopingListItemView extends Component {
 class TextIssueView extends React.Component {
 
     render(){
+        JXLog("observer----TextIssueView-----");
         return (<Text style={{
             color:shoppingTxtColor.cpLastIssueNumber,
             marginTop: 5,
@@ -180,8 +182,9 @@ class TextIssueView extends React.Component {
 @observer
 class TextTimeView extends React.Component {
 
+
     render(){
-        JXLog("TextTimeView- shopList--render");
+        JXLog("TCShop------------TextTimeView- shopList--render");
 
         return ( <View style={{flexDirection: 'row', marginLeft: 15}}>
             <Text style={{
