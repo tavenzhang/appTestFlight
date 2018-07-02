@@ -7,7 +7,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/header_height"
+        android:paddingTop="@dimen/header_padding_top"
         android:background="@drawable/top_bg_750">
 
         <ImageView
@@ -19,8 +20,9 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:gravity="center"
             android:text="在线客服"
             android:textColor="#ffffff"
             android:textSize="16sp" />
@@ -30,7 +32,7 @@
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layerType="software"></WebView>
+        android:layerType="software"/>
 
     <!--<ProgressBar-->
     <!--android:id="@+id/progress_bar"-->

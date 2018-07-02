@@ -3,7 +3,7 @@
  * Created by Joyce on 2017/01/06.
  */
 import React, {Component} from 'react';
-import {Image, Platform, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 import {Size, width} from '../resouce/theme';
 import NetUtils from '../../Common/Network/TCRequestUitls';
@@ -11,6 +11,7 @@ import {config} from '../../Common/Network/TCRequestConfig';
 import RefreshListView from '../../Common/View/RefreshListView/RefreshListView';
 import NoDataView from '../../Common/View/TCNoDataView';
 import TopNavigationBar from './components/TCNavigationBar';
+import {NavBarHeight} from "../asset/screen";
 
 export default class List extends Component {
     render() {
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
         height: 100,
         width: width,
         position: 'absolute',
-        top: (Platform.OS == 'ios' ? 64 : 44) + 10,
+        top: NavBarHeight + 10,
     },
     listContainer: {
         flex: 1,

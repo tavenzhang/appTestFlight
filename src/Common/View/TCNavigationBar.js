@@ -70,11 +70,11 @@ export default class TCNavigationBar extends Component {
         return (
             <ImageBackground style={themeViewStyle.navBar} source={common.topBg} resizeMode={'cover'}>
                 <View style={themeViewStyle.navBarLeftItem}>{this.renderLeftItem()}</View>
-                <TouchableOpacity disabled={!this.props.midCall} onPress={() => this.props.midCall()}>
-                    <View style={themeViewStyle.navBarCenterItem}>
+                <View style={themeViewStyle.navBarCenterItem}>
+                    <TouchableOpacity disabled={!this.props.midCall} onPress={()=>this.props.midCall()}>
                         {this.renderCenterItem()}
-                    </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                </View>
                 <View style={themeViewStyle.navBarRightItem}>{this.renderRightItem()}</View>
             </ImageBackground>
         );

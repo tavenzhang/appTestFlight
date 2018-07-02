@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jd.R;
+import com.jd.util.StatusBarUtils;
 
 
 /**
@@ -65,6 +66,7 @@ public class JXGameWebView extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.jx_game_webview_layout);
+        StatusBarUtils.translucentStatusBar(this);
         mWebView = (WebView) findViewById(R.id.webview);
         mIvBack = (ImageView) findViewById(R.id.img_back);
         mTvTitle = (TextView) findViewById(R.id.tv_title);

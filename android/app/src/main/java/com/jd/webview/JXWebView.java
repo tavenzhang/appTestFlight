@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.jd.R;
+import com.jd.util.StatusBarUtils;
 
 
 /**
@@ -64,6 +65,7 @@ public class JXWebView extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.jxwebview_layout);
+        StatusBarUtils.translucentStatusBar(this);
         imageView = (ImageView) findViewById(R.id.img_back);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
