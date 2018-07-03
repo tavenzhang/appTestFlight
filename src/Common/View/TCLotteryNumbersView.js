@@ -23,8 +23,9 @@ import {
 import {k3} from '../../Page/resouce/images';
 import JXHelper from '../JXHelper/JXHelper'
 import {pk10Ball} from '../../Page/asset/pk10_ball/index'
+import TCImage from "./image/TCImage";
 
-export default class TCLotteryNumbersView extends React.Component {
+export default class TCLotteryNumbersView extends React.PureComponent {
     constructor(state) {
         super(state);
         this.state = {};
@@ -298,7 +299,7 @@ export default class TCLotteryNumbersView extends React.Component {
         for (let i = 0; i < this.props.cpNumbers.length; i++) {
             let numStr = this.props.cpNumbers[i] ? 'dice' + this.props.cpNumbers[i].toString() : '';
             imagesArr.push(
-                <Image
+                <TCImage
                     key={i}
                     source={k3[numStr]}
                     style={[styles.imgDiceStyle, this.props.isBetHomeHistory && styles.homeHistoryImgDice]}
@@ -314,7 +315,7 @@ export default class TCLotteryNumbersView extends React.Component {
         for (let i = 0; i < this.props.cpNumbers.length; i++) {
             let numStr = this.props.cpNumbers[i] ? 'pk10_' + parseInt(this.props.cpNumbers[i].toString()) : '';
             itemArr.push(
-                <Image
+                <TCImage
                     key={i + 100}
                     source={pk10Ball[numStr]}
                     style={[styles.imgPk10BallStyle, this.props.isBetHomeHistory && styles.homeHistoryImgDice, this.props.isBetHomeHistory && width < 350 && styles.pk10BallSmall]}
