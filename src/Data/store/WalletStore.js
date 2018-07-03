@@ -90,13 +90,13 @@ class WalletStore {
     // 获取中心钱包余额
     @action
     getLotteryWalletBalance() {
-
         userStore.getBalance((res) => {
             if (res.rs && res.content) {
                 let lp = this.findPlatform(lotteryPlatform)
                 if (lp) {
                     lp.balance = res.content.balance
                 }
+                this.centerBalance = res.content.balance;
                 JXLog('WalletStore#getLotteryWalletBalance()', lp)
             }
         })
@@ -148,7 +148,7 @@ class WalletStore {
 
         this.transferAccountName = []
         this.platformBalances = []
-        this.centerBalance = TCUSER_BALANCE
+        this.centerBalance = userStore.balance;
         this.transferAccountName.push('中心钱包')
         otherPlatform.map((platform) => {
 
@@ -167,13 +167,7 @@ class WalletStore {
     //获取所有平台余额
     @action
     getPlatformBalance(callback) {
-        NetUitls.getUrlAndParamsAndCallback(config.api.userBalance, null, (res) => {
-            if (res.rs) {
-                this.centerBalance = res.content.balance;
-                RCTDeviceEventEmitter.emit('balanceChange', true);
-            }
-        })
-
+        this.getLotteryWalletBalance();
         this.platformBalances.map((platform) => {
             this.getBalanceByPlatform(platform.gamePlatform, (res) => {
                 if (res.rs) {
