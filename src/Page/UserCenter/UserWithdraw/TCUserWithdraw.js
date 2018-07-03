@@ -25,22 +25,17 @@ import {
     userCenterBorderColor,
     userCenterTxtColor
 } from '../../resouce/theme'
-import {config} from '../../../Common/Network/TCRequestConfig'
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Dialog from '../../../Common/View/TipDialog'
 import PercentageCircle from '../../../Common/View/PercentageCircle'
-import RequestUtils from '../../../Common/Network/TCRequestUitls'
 import Toast from '../../../Common/JXHelper/JXToast';
 import dismissKeyboard from 'dismissKeyboard'
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import KeyboardAvoidingScrollView from '../../../Common/View/TCKeyboardAvoidingScrollView';
 import TcWithdrawKeyBoard from './TCWithdrawKeyboardView'
-import SecretUtils from '../../../Common/JXHelper/SecretUtils'
-import JXHelper from '../../../Common/JXHelper/JXHelper'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import Moment from "moment";
+import UserWithdrawStore from "../../../Data/store/UserWithdrawStore";
 
-var secretUtils = new SecretUtils();
 /**
  * 用户提现
  */
@@ -48,9 +43,8 @@ var secretUtils = new SecretUtils();
 export default class TCUserWithdrawNew extends Component {
 
 
-    bankList = []
     pwd = ''
-    stateModel = new StateModel()
+    userWithdrawStore = new UserWithdrawStore()
     lastRequestTime = 0;
 
 
@@ -60,13 +54,9 @@ export default class TCUserWithdrawNew extends Component {
 
     componentDidMount() {
         this.getDefaultBank();
-        this.listener = RCTDeviceEventEmitter.addListener('userBankChange', () => {
-            this.getDefaultBank();
-        })
     }
 
     componentWillUnmount() {
-        this.timer && clearTimeout(this.timer)
     }
 
     render() {
@@ -79,22 +69,22 @@ export default class TCUserWithdrawNew extends Component {
                         this.back()
                     }}
                 />
-                {this.stateModel.isLoading ? this.renderLoading() : this.getContentView()}
+                {this.userWithdrawStore.isLoading ? this.renderLoading() : this.getContentView()}
                 <TcWithdrawKeyBoard
                     ref="KeyBoard"
                     callBack={(res) => {
                         this.callback(res)
                     }}/>
-                <Dialog show={this.stateModel.tipShow}
+                <Dialog show={this.userWithdrawStore.tipShow}
                         setModalVisible={() => this.gotoAddBank()}
                         dialogTitle={'温馨提示'}
                         dialogContent={'您没有添加银行卡还不能提现哦！'}
                         btnTxt={'现在就去'}/>
 
-                <Dialog show={this.stateModel.tipWithdraw}
+                <Dialog show={this.userWithdrawStore.tipWithdraw}
                         setModalVisible={() => this.gotoTop()}
                         dialogTitle={'温馨提示'}
-                        dialogContent={this.stateModel.tipMsg}
+                        dialogContent={this.userWithdrawStore.tipMsg}
                         btnTxt={'好 的'}/>
                 <LoadingSpinnerOverlay
                     ref={component => this._modalLoadingSpinnerOverLay = component}/>
@@ -115,7 +105,7 @@ export default class TCUserWithdrawNew extends Component {
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
                 <PercentageCircle
                     radius={80}
-                    percent={this.stateModel.aggregateBetPercent}
+                    percent={this.userWithdrawStore.aggregateBetPercent}
                     color={buttonStyle.btnBg}
                     borderWidth={10}
                     shadowColor={'#e4e4e4'}
@@ -127,15 +117,15 @@ export default class TCUserWithdrawNew extends Component {
                 {this.getTipView()}
             </View>
             {/* <TouchableOpacity onPress={() => this.gotoBankList()}>*/}
-            <DefaultBankView bank={this.stateModel.bank}/>
+            <DefaultBankView bank={this.userWithdrawStore.bank}/>
             {/* </TouchableOpacity>*/}
             <InputMoneyView
                 changeMoney={(text) => this.changeMoney(text)}
-                exempt={this.stateModel.exempt}
-                allWithdrawMoney={this.stateModel.withdrawModel.maxWithdrawMoney.toFixed(1)}
-                money={this.stateModel.money}
+                exempt={this.userWithdrawStore.exempt}
+                allWithdrawMoney={this.userWithdrawStore.withdrawModel.maxWithdrawMoney.toFixed(1)}
+                money={this.userWithdrawStore.money}
                 allWithdraw={() => {
-                    this.changeMoney(this.stateModel.withdrawModel.maxWithdrawMoney.toFixed(1))
+                    this.changeMoney(this.userWithdrawStore.withdrawModel.maxWithdrawMoney.toFixed(1))
                 }}/>
             <View style={styles.itemStyle}>
                 {this.getConfirmButton()}
@@ -144,11 +134,11 @@ export default class TCUserWithdrawNew extends Component {
     }
 
     getTipView() {
-        if (this.stateModel.withdrawModel.surplusWithdrawCount <= 0) {
+        if (this.userWithdrawStore.withdrawModel.surplusWithdrawCount <= 0) {
             return (
                 <Text style={{color: listViewTxtColor.title, marginTop: 10}}>超过提现次数上限，手续费率
                     <Text
-                        style={{color: baseColor.strong}}>{this.stateModel.withdrawModel.newratioOfChargeExempt}</Text>%</Text>
+                        style={{color: baseColor.strong}}>{this.userWithdrawStore.withdrawModel.newratioOfChargeExempt}</Text>%</Text>
             )
         }
         return null;
@@ -159,36 +149,9 @@ export default class TCUserWithdrawNew extends Component {
      * 获取默认银行卡
      */
     getDefaultBank() {
-        RequestUtils.getUrlAndParamsAndCallback(config.api.getuserCardsAndWithdrawInfo, null, (response) => {
-            this.stateModel.freshLoading()
-            if (response.rs) {
-                if (response.content && response.content.bankAccounts.length > 0) {
-                    this.bankList = response.content.bankAccounts
-                    response.content.bankAccounts.forEach((b) => {
-                        if (b.isDefault) {
-                            this.stateModel.bank = b
-                            this.stateModel.parseWithdrawSetting(response.content.dailyWithdrawWithAdminSettingsResult)
-                            return;
-                        }
-                    })
-                } else {
-                    this.stateModel.setDialogVisible();
-                }
-            } else {
-                if (response.status === 401) {
-                    Toast.showShortCenter('登录状态过期，请重新登录!')
-                } else if (response.status === 500) {
-                    Toast.showShortCenter("服务器出错啦")
-                } else {
-                    if (response.message) {
-                        Toast.showShortCenter(response.message)
-                    }
-                    let {navigator} = this.props
-                    if (navigator) {
-                        RCTDeviceEventEmitter.emit('balanceChange')
-                        navigator.popToTop()
-                    }
-                }
+        this.userWithdrawStore.initDefaultBank((res) => {
+            if (!res.status) {
+                Toast.showShortCenter(res.message);
             }
         })
     }
@@ -199,7 +162,7 @@ export default class TCUserWithdrawNew extends Component {
      * @param text
      */
     changeMoney(text) {
-        this.stateModel.money = text;
+        this.userWithdrawStore.money = text;
     }
 
     /**
@@ -207,13 +170,13 @@ export default class TCUserWithdrawNew extends Component {
      * @returns {XML}
      */
     getConfirmButton() {
-        if (this.stateModel.canWithdraw) {
+        if (this.userWithdrawStore.canWithdraw) {
             return (
                 <TouchableOpacity
                     style={styles.bottomBarButtonStyle}
                     onPress={() => {
                         if (this.validateWithDraw()) {
-                            if (this.stateModel.exempt > 0) {
+                            if (this.userWithdrawStore.exempt > 0) {
                                 this.showTipDialog();
                             } else {
                                 this.showWithdrawKeyboard();
@@ -238,8 +201,8 @@ export default class TCUserWithdrawNew extends Component {
      * @returns {XML}
      */
     getInfoTextView() {
-        let num = this.stateModel.withdrawModel.aggregateBetRequirements - this.stateModel.withdrawModel.aggregateBets
-        if (num <= 0 || (this.stateModel.withdrawModel.surplusFeeWithdrawCount > 0 && !this.stateModel.withdrawModel.withdrawSwitch)) {
+        let num = this.userWithdrawStore.withdrawModel.aggregateBetRequirements - this.userWithdrawStore.withdrawModel.aggregateBets
+        if (num <= 0 || (this.userWithdrawStore.withdrawModel.surplusFeeWithdrawCount > 0 && !this.userWithdrawStore.withdrawModel.withdrawSwitch)) {
             //满足大码量 或者剩余免费取款次数大于0
             return (<Text style={{marginTop: 15, color: '#333333'}}>免费提现</Text>)
         } else {
@@ -258,8 +221,8 @@ export default class TCUserWithdrawNew extends Component {
      */
     gotoTop() {
         dismissKeyboard()
-        this.stateModel.setWithdrawModalVisible()
-        RCTDeviceEventEmitter.emit('balanceChange', true)
+        this.userWithdrawStore.setWithdrawModalVisible()
+
         Helper.popToBack()
     }
 
@@ -267,7 +230,7 @@ export default class TCUserWithdrawNew extends Component {
      * 跳转到添加银行界面
      */
     gotoAddBank() {
-        this.stateModel.setDialogVisible();
+        this.userWithdrawStore.setDialogVisible();
         Helper.pushToAddBank()
     }
 
@@ -284,43 +247,43 @@ export default class TCUserWithdrawNew extends Component {
      * 验证提款
      */
     validateWithDraw() {
-        if (this.stateModel.withdrawModel.surplusSeconds < 0) {
-            this.postponeShowToast('您的操作过于频繁，请' + Math.abs(this.stateModel.withdrawModel.surplusSeconds) + '秒后再试!');
+        if (this.userWithdrawStore.withdrawModel.surplusSeconds < 0) {
+            this.postponeShowToast('您的操作过于频繁，请' + Math.abs(this.userWithdrawStore.withdrawModel.surplusSeconds) + '秒后再试!');
             return false;
         }
-        if (this.stateModel.withdrawModel.surplusMaxWithdraw < 0) {
+        if (this.userWithdrawStore.withdrawModel.surplusMaxWithdraw < 0) {
             this.postponeShowToast('您的当天最大取款额度不足，不能提款!');
             return false;
         }
-        if (!this.stateModel.money || this.stateModel.money.length == 0) {
+        if (!this.userWithdrawStore.money || this.userWithdrawStore.money.length == 0) {
             this.postponeShowToast('请输入取款金额!!');
             return false
         }
-        if (this.stateModel.withdrawModel.withdrawSwitch && !this.stateModel.withdrawModel.sufficeAggregateBetRequirements) {
+        if (this.userWithdrawStore.withdrawModel.withdrawSwitch && !this.userWithdrawStore.withdrawModel.sufficeAggregateBetRequirements) {
             this.postponeShowToast('打码量不足,不允许提现!!');
             return false;
         }
         let regExp = new RegExp("^\\d+(\\.\\d{1})?$");
-        if (!regExp.test(this.stateModel.money)) {
+        if (!regExp.test(this.userWithdrawStore.money)) {
             this.postponeShowToast('您输入的金额格式不正确(例:100.1)!');
             return false
         }
-        if (this.stateModel.money < this.stateModel.withdrawModel.minimumWithdrawAmount) {
-            this.postponeShowToast('提款金额不能小于' + this.stateModel.withdrawModel.minimumWithdrawAmount + '元!');
+        if (this.userWithdrawStore.money < this.userWithdrawStore.withdrawModel.minimumWithdrawAmount) {
+            this.postponeShowToast('提款金额不能小于' + this.userWithdrawStore.withdrawModel.minimumWithdrawAmount + '元!');
             return false
         }
-        if (this.stateModel.withdrawModel.maximumWithdrawAmount !== 0 && this.stateModel.money > this.stateModel.withdrawModel.maximumWithdrawAmount) {
-            this.postponeShowToast('提款金额不能大于' + this.stateModel.withdrawModel.maximumWithdrawAmount + '元!');
+        if (this.userWithdrawStore.withdrawModel.maximumWithdrawAmount !== 0 && this.userWithdrawStore.money > this.userWithdrawStore.withdrawModel.maximumWithdrawAmount) {
+            this.postponeShowToast('提款金额不能大于' + this.userWithdrawStore.withdrawModel.maximumWithdrawAmount + '元!');
             return false
         }
-        let m = parseFloat(this.stateModel.money)
-        let e = this.stateModel.exempt
+        let m = parseFloat(this.userWithdrawStore.money)
+        let e = this.userWithdrawStore.exempt
         let money = m - e
-        if (money > this.stateModel.withdrawModel.totalMoney && e > 0) {
+        if (money > this.userWithdrawStore.withdrawModel.totalMoney && e > 0) {
             this.postponeShowToast('您的余额不足,请保留手续费 ' + e + ' 元 谢谢');
             return false
         }
-        if (money > this.stateModel.withdrawModel.totalMoney) {
+        if (money > this.userWithdrawStore.withdrawModel.totalMoney) {
             this.postponeShowToast('您的余额不足,请重新输入!');
             return false
         }
@@ -345,13 +308,13 @@ export default class TCUserWithdrawNew extends Component {
             popView._setModalVisible(false)
         } else {
             popView._setModalVisible(true)
-            popView._setMoney(this.stateModel.money, this.stateModel.exempt.toFixed(2))
+            popView._setMoney(this.userWithdrawStore.money, this.userWithdrawStore.exempt.toFixed(2))
         }
     }
 
 
     showTipDialog() {
-        Alert.alert('温馨提示', '亲，您当前打码量不足，如需提款将收取' + this.stateModel.withdrawModel.newratioOfChargeExempt + '%手续费！', [
+        Alert.alert('温馨提示', '亲，您当前打码量不足，如需提款将收取' + this.userWithdrawStore.withdrawModel.newratioOfChargeExempt + '%手续费！', [
             {
                 text: '确定',
                 onPress: () => {
@@ -395,35 +358,12 @@ export default class TCUserWithdrawNew extends Component {
      */
     applyWithDraw() {
         this._modalLoadingSpinnerOverLay.show()
-        let encryptDrawCode = secretUtils.rsaEncodePWD(this.pwd);
-        RequestUtils.PostUrlAndParamsAndCallback(config.api.encryptUserWithDraw,
-            {
-                amount: this.stateModel.money,
-                userBankId: this.stateModel.bank.id,
-                withDrawCode: encryptDrawCode,
-                charge: this.stateModel.exempt,
-                chargeV1: true
-            },
-            (response) => {
-                this._modalLoadingSpinnerOverLay.hide()
-                if (response.rs) {
-                    this.timer && clearTimeout(this.timer)
-                    this.timer = setTimeout(() => {
-                        this.stateModel.tipMsg = '您的提款申请已提交，请耐心等待！'
-                        this.stateModel.setWithdrawModalVisible()
-                    }, 500)
-                } else {
-                    this.timer && clearTimeout(this.timer)
-                    this.timer = setTimeout(() => {
-                        if (response.message) {
-                            Toast.showShortCenter(response.message)
-                        } else {
-                            Toast.showShortCenter('提款申请失败，请稍候再试!')
-                        }
-                    }, 500)
-                }
-            })
-
+        this.userWithdrawStore.applyWithdraw(this.pwd, (res) => {
+            this._modalLoadingSpinnerOverLay.hide();
+            if (!res.status) {
+                Toast.showShortCenter(res.message);
+            }
+        })
     }
 
     RoundNum(num, length) {
@@ -498,195 +438,6 @@ class InputMoneyView extends Component {
                         <Text style={{color: 'red'}}>{this.props.exempt}</Text>元 </Text>
                 </View>
             </View>)
-    }
-}
-
-class StateModel {
-    @observable
-    withdrawModel = {
-        totalMoney: 0,//余额
-        surplusMaxWithdraw: 0,//剩余最大出款额度
-        surplusSeconds: 0,//多少秒之后才能取款
-        surplusWithdrawCount: 0,//当天取款次数
-        withdrawFeeRateBeyondLimit: 0,//超出取款次数后手续费费率
-        maximumWithdrawAmount: 0,//最大出款额度
-        maxWithdrawCharge: 0,//最大出款手续费
-        minimumWithdrawAmount: 0, //最小出款额度
-        ratioOfChargeExempt: 0,//出款手续费比例
-        surplusFeeWithdrawCount: 0,//剩余免费出款次数
-        sufficeAggregateBetRequirements: false,//打码量是否满足需求
-        aggregateBetRequirements: 0,//需要满足的打码量
-        aggregateBets: 0,//已完成打码量
-        withdrawSwitch: false,//取款是否需要满足打码量要求开关
-        maxWithdrawMoney: 0, //最多可提现金额
-        newratioOfChargeExempt: 0//新的手续费计算
-    }
-
-    @observable
-    tipShow = false
-    @observable
-    bank = {}
-    @observable
-    money = 0
-    @observable
-    tipWithdraw = false
-    @observable
-    tipMsg = ''
-    @observable
-    isLoading = true
-
-    @action
-    freshLoading() {
-        this.isLoading = false
-    }
-
-    /**
-     * 能否取款
-     * @returns {boolean}
-     */
-    @computed
-    get canWithdraw() {
-        if (this.withdrawModel.totalMoney < 0 || this.withdrawModel.surplusMaxWithdraw < 0 || this.withdrawModel.surplusSeconds < 0) {
-            return false
-        }
-        return true
-    }
-
-    /**
-     * 计算打码量百分比
-     * @returns {number}
-     */
-    @computed
-    get aggregateBetPercent() {
-        let num = this.withdrawModel.aggregateBetRequirements - this.withdrawModel.aggregateBets
-        if (num <= 0 || (this.withdrawModel.surplusFeeWithdrawCount > 0 && !this.withdrawModel.withdrawSwitch)) {
-            return 100
-        }
-        let res = (this.withdrawModel.aggregateBets / this.withdrawModel.aggregateBetRequirements).toFixed(2) * 100
-        if (res < 1) {
-            res = 1
-        } else if (res > 100) {
-            res = 100
-        }
-        return res
-    }
-
-    /**
-     * 计算其他提款手续费
-     * @returns {*}
-     */
-    @computed
-    get exempt() {
-        if ((this.withdrawModel.surplusFeeWithdrawCount > 0 || this.withdrawModel.sufficeAggregateBetRequirements || parseInt(this.money) === 0)
-            && this.withdrawModel.surplusWithdrawCount > 0) {
-            return 0;
-        }
-        let regExp = new RegExp("^\\+?[1-9][0-9]*$");
-        if (regExp.test(parseInt(this.money))) {
-            return this.calExempt(this.money)
-        } else {
-            return 0
-        }
-    }
-
-    /**
-     * 提现成功提示对话框
-     */
-    @action
-    setWithdrawModalVisible() {
-        this.tipWithdraw = !this.tipWithdraw
-    }
-
-    /**
-     * 解析取款配置
-     * @param withdrawSetting
-     */
-    @action
-    parseWithdrawSetting(withdrawSetting) {
-        //剩余最大出款金额
-        this.withdrawModel.surplusMaxWithdraw = withdrawSetting.surplusMaxWithdraw
-        // 多少秒之后才能取款
-        this.withdrawModel.surplusSeconds = withdrawSetting.surplusSeconds
-        //当天剩余提款次数
-        this.withdrawModel.surplusWithdrawCount = withdrawSetting.surplusWithdrawCount
-
-
-        //厅主出款设定
-        let setting = withdrawSetting.withdrawalSettings
-        this.withdrawModel.withdrawFeeRateBeyondLimit = setting.chargeRatioBeyondLimit
-        this.withdrawModel.totalMoney = withdrawSetting.balance
-        this.withdrawModel.maximumWithdrawAmount = setting.maximumWithdrawAmount
-        this.withdrawModel.maxWithdrawCharge = setting.maxWithdrawCharge
-        this.withdrawModel.ratioOfChargeExempt = setting.ratioOfChargeExempt
-        this.withdrawModel.surplusFeeWithdrawCount = withdrawSetting.surplusFeeWithdrawCount
-        this.withdrawModel.sufficeAggregateBetRequirements = withdrawSetting.sufficeAggregateBetRequirements
-        this.withdrawModel.aggregateBetRequirements = withdrawSetting.aggregateBetRequirements
-        this.withdrawModel.aggregateBets = withdrawSetting.aggregateBets
-        this.withdrawModel.withdrawSwitch = withdrawSetting.withdrawalSettings.withdrawSwitch
-        this.ratioOfChargeExempt();
-        this.getMaxWithdrawMoney(withdrawSetting, setting)
-    }
-
-    /**
-     * 计算全部提款最大额度
-     * @param withdrawSetting
-     * @param setting
-     */
-    getMaxWithdrawMoney(withdrawSetting, setting) {
-        if ((withdrawSetting.surplusFeeWithdrawCount > 0 || withdrawSetting.sufficeAggregateBetRequirements || parseInt(withdrawSetting.balance) === 0)
-            && withdrawSetting.surplusWithdrawCount > 0) {
-            this.withdrawModel.maxWithdrawMoney = withdrawSetting.balance < 1 ? 0 : this.FloorNum(withdrawSetting.balance, 1)
-        } else {
-            let tempExempt = withdrawSetting.balance * this.withdrawModel.newratioOfChargeExempt * 0.01
-            if (tempExempt >= setting.maxWithdrawCharge) {
-                this.withdrawModel.maxWithdrawMoney = this.FloorNum(withdrawSetting.balance - setting.maxWithdrawCharge, 1)
-            } else {
-                this.withdrawModel.maxWithdrawMoney = this.FloorNum(withdrawSetting.balance / (setting.ratioOfChargeExempt * 0.01 + 1), 1)
-            }
-        }
-    }
-
-
-    /**
-     * 显示/隐藏提示对话框
-     */
-    @action
-    setDialogVisible() {
-        this.tipShow = !this.tipShow
-    }
-
-
-    ratioOfChargeExempt() {
-        if (this.withdrawModel.surplusWithdrawCount > 0) {
-            this.withdrawModel.newratioOfChargeExempt = this.withdrawModel.ratioOfChargeExempt;
-        } else {
-            if (!this.withdrawModel.sufficeAggregateBetRequirements) {
-                this.withdrawModel.newratioOfChargeExempt = this.withdrawModel.ratioOfChargeExempt + this.withdrawModel.withdrawFeeRateBeyondLimit;
-            } else {
-                this.withdrawModel.newratioOfChargeExempt = this.withdrawModel.withdrawFeeRateBeyondLimit;
-            }
-        }
-    }
-
-    /**
-     * 计算手续费
-     * @returns {*}
-     */
-    calExempt(money) {
-        let tempExempt = money * this.withdrawModel.newratioOfChargeExempt * 0.01
-        let exempts = tempExempt >= this.withdrawModel.maxWithdrawCharge ? this.withdrawModel.maxWithdrawCharge : tempExempt
-        let res = this.FloorNum(exempts, 2)
-        return res
-    }
-
-    RoundNum(num, length) {
-        var number = Math.round(num * Math.pow(10, length)) / Math.pow(10, length);
-        return number;
-    }
-
-    FloorNum(num, length) {
-        var number = Math.floor(num * Math.pow(10, length)) / Math.pow(10, length);
-        return number;
     }
 }
 

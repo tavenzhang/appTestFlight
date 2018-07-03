@@ -47,14 +47,6 @@ export default class TC168 extends Component {
     }
 
     componentDidMount() {
-        // this.listener = RCTDeviceEventEmitter.addListener('setSelectedTabNavigator', (tabName, page) => {
-        //     this.setSelectedTab(tabName, page);
-        // });
-        // this.listener = RCTDeviceEventEmitter.addListener('newMsgCall', () => {
-        //     this.setState({
-        //         newMsg: TC_NEW_MSG_COUNT + TC_FEEDBACK_COUNT
-        //     });
-        // });
         //自动登录
         this.props.userStore.initData((res) => {
             if (res.status) {
@@ -165,6 +157,7 @@ export default class TC168 extends Component {
                 NavigationService.login(true);
                 return;
             }
+            this.props.userStore.freshBalance(true);
         }
         this.props.mainStore.changeTab(tabName)
     }
