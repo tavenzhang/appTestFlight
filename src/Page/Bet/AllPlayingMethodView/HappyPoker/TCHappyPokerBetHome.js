@@ -49,6 +49,7 @@ import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceB
 
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import TCHomeHistoryListNewSSC from "../../../../Common/View/TCHomeHistoryListNewSSC";
+import {betIcon} from "../../../resouce/images";
 
 @withMappedNavigationProps()
 @observer
@@ -199,10 +200,8 @@ export default class TCHappyPokerBetHome extends React.Component {
                     }}
                     {...this._panResponder.panHandlers}>
                     <Image
-                        source={this.state.isHistoryShow  ?
-                            require('../../../resouce/addon/other/stdui_arrow_up.png') :
-                            require('../../../resouce/addon/other/stdui_arrow_down.png')
-                        }
+                        source={this.state.isHistoryShow ?
+                            betIcon.stdui_arrow_up:betIcon.stdui_arrow_down}
                         resizeMode={'contain'}
                         style={{height: 13, width: 55, marginTop: 0}}
                     />

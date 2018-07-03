@@ -47,6 +47,7 @@ import {MathControllerFactory} from 'lottery-core'
 import TCIntelligenceBetData from "../../../Bill/IntelligenceBet/TCIntelligenceBetData";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import TCHomeHistoryListNewSSC from "../../../../Common/View/TCHomeHistoryListNewSSC";
+import {betIcon} from "../../../resouce/images";
 
 let SingletonDPS = null;
 let myPlayMath = '';
@@ -197,9 +198,7 @@ export default class TCBJPK10BetHome extends React.Component {
                 }} {...this._panResponder.panHandlers}>
                     <Image
                         source={this.state.isHistoryShow ?
-                            require('../../../resouce/addon/other/stdui_arrow_up.png') :
-                            require('../../../resouce/addon/other/stdui_arrow_down.png')
-                        }
+                            betIcon.stdui_arrow_up:betIcon.stdui_arrow_down}
                         resizeMode={'contain'}
                         style={{height: 13, width: 55, marginTop: 0}}
                     />

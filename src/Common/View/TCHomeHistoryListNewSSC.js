@@ -74,7 +74,9 @@ export default class TCHomeHistoryList extends React.Component {
         this.refs.historyView.setNativeProps({height:historyHeight});
         //用户从0开始下拉 获取新数据
         if(this.hightViewNum ==0 &&historyHeight>0){
-            this.loadDataFormNet();
+            clearTimeout(this.timeOut);
+            this.timeOut=setTimeout(()=>{this.loadDataFormNet()},200);
+
         }
         this.hightViewNum = historyHeight;
     }
@@ -123,7 +125,7 @@ export default class TCHomeHistoryList extends React.Component {
 
         return ( <TCFlatList
             dataS={this.lotteryHistoryData.historyData.slice()}
-            pageSize={5}
+            initialNumToRender={6}
             renderRow={this.renderRow}
         />)
     }

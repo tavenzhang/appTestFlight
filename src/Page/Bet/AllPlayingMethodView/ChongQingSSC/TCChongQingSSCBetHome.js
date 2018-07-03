@@ -57,7 +57,7 @@ let myGameSetting = null
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 import {observer} from 'mobx-react/native';
-
+import {betIcon} from "../../../resouce/images";
 
 @withMappedNavigationProps()
 @observer
@@ -271,9 +271,7 @@ export default class TCBetHome extends React.Component {
                 }} {...this._panResponder.panHandlers}>
                     <Image
                         source={this.state.isHistoryShow ?
-                            require('../../../resouce/addon/other/stdui_arrow_up.png') :
-                            require('../../../resouce/addon/other/stdui_arrow_down.png')
-                        }
+                            betIcon.stdui_arrow_up:betIcon.stdui_arrow_down}
                         resizeMode={'contain'}
                         style={{height: 13, width: 55, marginTop: 0}}
                     />

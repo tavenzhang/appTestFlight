@@ -42,7 +42,8 @@ export default class TCImage extends Component {
 
     static defaultProps = {
         announcement: [],
-        imgPlaceHolder: null
+        imgPlaceHolder: null,
+        style:{}
     };
 
 
@@ -51,6 +52,7 @@ export default class TCImage extends Component {
         let myHolderStyle = styleHolder ? styleHolder : style;
         let myResizeMode = resizeModeHolder ? resizeModeHolder : resizeMode
         let imgStyle = this.state.onPreFinish ? style : {width: 0, height: 0}  //通过设置宽高 达到隐藏的效果
+
         if(!this.state.onPreFinish){
             return (<View style={this.state.onPreFinish ? style:myHolderStyle} pointerEvents={"none"}>
               <FastImage style={myHolderStyle}
