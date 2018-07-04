@@ -41,7 +41,8 @@ export default class UserWithdrawStore {
         aggregateBets: 0,//已完成打码量
         withdrawSwitch: false,//取款是否需要满足打码量要求开关
         maxWithdrawMoney: 0, //最多可提现金额
-        newratioOfChargeExempt: 0//新的手续费计算
+        newratioOfChargeExempt: 0,//新的手续费计算
+        integerWithdrawalAmount:false,//取款是否规定取整数
     }
 
     @observable
@@ -129,6 +130,8 @@ export default class UserWithdrawStore {
         this.withdrawModel.aggregateBetRequirements = withdrawSetting.aggregateBetRequirements
         this.withdrawModel.aggregateBets = withdrawSetting.aggregateBets
         this.withdrawModel.withdrawSwitch = withdrawSetting.withdrawalSettings.withdrawSwitch
+        this.withdrawModel.integerWithdrawalAmount = withdrawSetting.withdrawalSettings.integerWithdrawalAmount ? withdrawSetting.withdrawalSettings.integerWithdrawalAmount : false;
+
         this.ratioOfChargeExempt();
         this.getMaxWithdrawMoney(withdrawSetting, setting)
     }
@@ -201,17 +204,19 @@ export default class UserWithdrawStore {
      * @param setting
      */
     getMaxWithdrawMoney(withdrawSetting, setting) {
+        let maxMoney = 0;
         if ((withdrawSetting.surplusFeeWithdrawCount > 0 || withdrawSetting.sufficeAggregateBetRequirements || parseInt(withdrawSetting.balance) === 0)
             && withdrawSetting.surplusWithdrawCount > 0) {
-            this.withdrawModel.maxWithdrawMoney = withdrawSetting.balance < 1 ? 0 : this.FloorNum(withdrawSetting.balance, 1)
+            maxMoney = withdrawSetting.balance < 1 ? 0 : this.FloorNum(withdrawSetting.balance, 1)
         } else {
             let tempExempt = withdrawSetting.balance * this.withdrawModel.newratioOfChargeExempt * 0.01
             if (tempExempt >= setting.maxWithdrawCharge) {
-                this.withdrawModel.maxWithdrawMoney = this.FloorNum(withdrawSetting.balance - setting.maxWithdrawCharge, 1)
+                maxMoney = this.FloorNum(withdrawSetting.balance - setting.maxWithdrawCharge, 1)
             } else {
-                this.withdrawModel.maxWithdrawMoney = this.FloorNum(withdrawSetting.balance / (setting.ratioOfChargeExempt * 0.01 + 1), 1)
+                maxMoney = this.FloorNum(withdrawSetting.balance / (setting.ratioOfChargeExempt * 0.01 + 1), 1)
             }
         }
+        this.withdrawModel.maxWithdrawMoney = this.withdrawModel.integerWithdrawalAmount ? this.FloorNum(maxMoney, 0) : maxMoney;
     }
 
 

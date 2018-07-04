@@ -230,8 +230,9 @@ export default class TCUserLogin extends Component {
         this.props.userStore.loginVal((res) => {
             this._partModalLoadingSpinnerOverLay.hide()
             Toast.showShortCenter(res.message);
-            this.props.userStore.getMessageStatus();
+
             if (res.status) {
+                this.props.userStore.getMessageStatus();
                 if (this.props.isBackToTop) {
                     NavigatorHelper.popToTop();
                 } else {
