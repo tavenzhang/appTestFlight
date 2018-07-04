@@ -264,9 +264,17 @@ export default class TCUserWithdrawNew extends Component {
             return false;
         }
         let regExp = new RegExp("^\\d+(\\.\\d{1})?$");
-        if (!regExp.test(this.userWithdrawStore.money)) {
-            this.postponeShowToast('您输入的金额格式不正确(例:100.1)!');
-            return false
+        if (this.userWithdrawStore.withdrawModel.integerWithdrawalAmount) {
+            regExp = new RegExp("^[1-9]\\d*$");
+            if (!regExp.test(this.userWithdrawStore.money)) {
+                this.postponeShowToast('取款金额只能为整数!');
+                return false
+            }
+        } else {
+            if (!regExp.test(this.userWithdrawStore.money)) {
+                this.postponeShowToast('您输入的金额格式不正确(例:100.1)!');
+                return false
+            }
         }
         if (this.userWithdrawStore.money < this.userWithdrawStore.withdrawModel.minimumWithdrawAmount) {
             this.postponeShowToast('提款金额不能小于' + this.userWithdrawStore.withdrawModel.minimumWithdrawAmount + '元!');
