@@ -100,17 +100,14 @@ import TCUserTransfer from "../UserCenter/transfer/TCUserTransfer";
 import TCWebTrendView from "../WebView/TCWebTrendView";
 
 
-import jdAppStore from '../../Data/store/JDAppStore'
-import mainStore from '../../Data/store/MainStore'
-import initAppStore from '../../Data/store/InitAppStore'
-import userStore from '../../Data/store/UserStore'
-
+import rootStore from "../../Data/store/RootStore";
 
 const appStores = {
-    jdAppStore,
-    mainStore,
-    initAppStore,
-    userStore
+    jdAppStore:rootStore.jdAppstore,
+    mainStore:rootStore.mainStore,
+    initAppStore:rootStore.initAppStore,
+    userStore:rootStore.userStore,
+    commonBoxStore:rootStore.commonBoxStore,
 }
 
 import TCUserOtherBetRecords from "../UserCenter/UserOrder/TCUserOtherBetRecords";
@@ -130,6 +127,8 @@ import {home} from "../resouce/images";
 import {indexBgColor, indexTxtColor} from "../resouce/theme";
 //vip 奖励
 import TCVipAwardView from "../UserCenter/vip/TCVipAwardView";
+import CommonBoxLayer from "../Main/CommonBoxLayer";
+
 
 
 //用于增加通用navigator view 属性 特殊 处理
@@ -346,8 +345,9 @@ export default class Main extends Component {
     }
 
     render() {
+
         return (
-            <Provider  {...appStores}>
+            <Provider  {...appStores} >
                 <View style={{flex: 1}}>
                     <StatusBar
                         hidden={false}
@@ -360,6 +360,7 @@ export default class Main extends Component {
                             NavigationService.setTopLevelNavigator(navigatorRef)
                         }}
                     />
+                    <CommonBoxLayer/>
                 </View>
             </Provider>
         )

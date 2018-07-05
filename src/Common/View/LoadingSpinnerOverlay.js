@@ -47,21 +47,23 @@ class LoadingSpinnerOverlay extends Component {
         delay: 0,
         marginTop: 0,
         modal: true,
+        visible:false
     }
 
     static propTypes = {
-        // overlayStyle: View.propTypes.style,
-        // style: View.propTypes.style,
         duration: PropTypes.number,
         delay: PropTypes.number,
         marginTop: PropTypes.number,
         modal: PropTypes.bool,
+        visible: PropTypes.bool,
+        overlayStyle:PropTypes.any,
+        style:PropTypes.any
     }
 
     constructor(props) {
         super(props)
         this.state = {
-            visible: false,
+            visible: props.visible,
             opacity: new Animated.Value(0),
             children: props.children,
             modal: props.modal,
@@ -218,6 +220,11 @@ class LoadingSpinnerOverlay extends Component {
         )
     }
 
+    componentDidMount(){
+        if(this.state.visible){
+            this.show()
+        }
+    }
 }
 
 export default TimerEnhance(LoadingSpinnerOverlay)

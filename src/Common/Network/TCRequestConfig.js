@@ -149,8 +149,11 @@ export const config = {
        // gamesDZList: 'dsf/center/player/' + configAppId + '/games',//获取游戏列表
         gamesDZList: 'dsf/center/player/mobile/' + configAppId + '/games',//获取游戏列表
         gamesDZ_start: "dsf/center/player/mobile/startGame",//进入游戏
-        //gamesDZ_start: "dsf/center/mobile/player/startGame",//获取游戏列表
         getUserOtherStatements: "dsf/center/player/statements/personal/total",//获取第三方平台个人报表
+        //vip 相关
+        vipAward:"/rewards/vip/user/award",//单个奖励
+        vipAllAward:"/rewards/vip/user/awards",//所有奖励
+        vipLvInfo: "/rewards/vip/user/level", //vip信息
     },
     map: {
         method: 'POST',

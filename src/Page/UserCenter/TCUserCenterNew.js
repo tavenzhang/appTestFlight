@@ -188,13 +188,12 @@ export default class TCUserCenterNew extends Component {
                                         <Text style={styles.userName}>{this.userName}</Text>
                                         <View style={{flexDirection:"row", alignItems:"center"}}>
                                             {this.getSignButton()}
-                                            {/*<TCButtonImg onClick={()=>{*/}
-                                                {/*JX_NavHelp.pushView(JX_Compones.TCVipAwardView);*/}
-                                            {/*}} text={"vip "+this.props.userStore.vipLv} imgSource={ASSET_Other.Other.mg_holder}*/}
-                                                         {/*imgStyle={{width:30, height:20}}/>*/}
-
-                                            {/*<Text style={{color:"yellow",size:Size.font14, alignSelf:"center",*/}
-                                                {/*marginTop:6}}>{"vip "+this.props.userStore.vipLv}</Text>*/}
+                                            {
+                                                this.props.userStore.vipLevelName !="" ? <TCButtonImg onClick={()=>{
+                                                    JX_NavHelp.pushView(JX_Compones.TCVipAwardView);
+                                                }} text={this.props.userStore.vipLevelName} imgSource={ASSET_Other.Other.mg_holder}
+                                                                                                      imgStyle={{width:30, height:20}}/>:null
+                                            }
                                         </View>
                                     </View>
                                     {this.showSignInModal()}

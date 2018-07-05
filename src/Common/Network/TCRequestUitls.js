@@ -19,6 +19,7 @@ import userStore from '../../Data/store/UserStore'
 const defaultTimeout = 10000;
 import Moment from 'moment';
 import NavigationService from "../../Page/Route/NavigationService";
+import rootStore from "../../Data/store/RootStore";
 
 export default class NetUitls extends Component {
     /**
@@ -26,8 +27,8 @@ export default class NetUitls extends Component {
      *params:参数(Json对象)
      *callback:回调函数
      */
-    static getUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization) {
-        this.getUrlAndParamsAndPlatformAndCallback(url, params, null, callback, timeout, dontAddHeadersAuthorization)
+    static getUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization,loadingState) {
+        this.getUrlAndParamsAndPlatformAndCallback(url, params, null, callback, timeout, dontAddHeadersAuthorization,loadingState)
     }
 
     /**
@@ -38,7 +39,7 @@ export default class NetUitls extends Component {
      * @param timeout
      * @param dontAddHeadersAuthorization
      */
-    static getUrlAndParamsAndPlatformAndCallback(url, params, platform, callback, timeout, dontAddHeadersAuthorization) {
+    static getUrlAndParamsAndPlatformAndCallback(url, params, platform, callback, timeout, dontAddHeadersAuthorization,loadingState) {
         url = this.getServerUrl(url)
         if (typeof params === 'string') {
             url += '/' + params
@@ -51,10 +52,10 @@ export default class NetUitls extends Component {
             config.mapGet.timeout = defaultTimeout
         }
         config.mapGet.headers.gamePlatform = platform ? platform : '';
-        this.fetchAsync(url, config.mapGet, callback, dontAddHeadersAuthorization)
+        this.fetchAsync(url, config.mapGet, callback, dontAddHeadersAuthorization,loadingState)
     }
 
-    static PostUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody) {
+    static PostUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState) {
         url = this.getServerUrl(url)
 
         JXLog(JSON.stringify(config.map))
@@ -67,10 +68,10 @@ export default class NetUitls extends Component {
             map.timeout = defaultTimeout
         }
 
-        this.fetchAsync(url, map, callback, dontAddHeadersAuthorization)
+        this.fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState)
     }
 
-    static postUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody) {
+    static postUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState) {
         url = this.getServerUrl(url)
 
         JXLog(JSON.stringify(config.map))
@@ -83,10 +84,10 @@ export default class NetUitls extends Component {
             map.timeout = defaultTimeout
         }
 
-        this.fetchAsync(url, map, callback, dontAddHeadersAuthorization)
+        this.fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState)
     }
 
-    static PutUrlAndParamsAndCallback(url, params, callback, timeout) {
+    static PutUrlAndParamsAndCallback(url, params, callback, timeout,loadingState) {
         url = this.getServerUrl(url)
         let map = _.assignIn(config.mapPut, {
             body: JSON.stringify(params)
@@ -96,10 +97,10 @@ export default class NetUitls extends Component {
         } else {
             map.timeout = defaultTimeout
         }
-        this.fetchAsync(url, map, callback)
+        this.fetchAsync(url, map, callback,loadingState)
     }
 
-    static putUrlAndParamsAndCallback(url, params, callback, timeout) {
+    static putUrlAndParamsAndCallback(url, params, callback, timeout,loadingState) {
         url = this.getServerUrl(url)
         let map = _.assignIn(config.mapPut, {
             body: JSON.stringify(params)
@@ -109,7 +110,7 @@ export default class NetUitls extends Component {
         } else {
             map.timeout = defaultTimeout
         }
-        this.fetchAsync(url, map, callback)
+        this.fetchAsync(url, map, callback,loadingState)
     }
 
     /**
@@ -120,7 +121,7 @@ export default class NetUitls extends Component {
      * @param callback 请求回调
      * @param timeout 超时设置
      */
-    static putUrlAndParamsAndAndPlatformAndCallback(url, platform, params, callback, timeout) {
+    static putUrlAndParamsAndAndPlatformAndCallback(url, platform, params, callback, timeout,loadingState) {
         url = this.getServerUrl(url)
         let map = _.assignIn(config.mapPut, {
             body: JSON.stringify(params)
@@ -131,10 +132,10 @@ export default class NetUitls extends Component {
             map.timeout = defaultTimeout
         }
         map.headers.gamePlatform = platform ? platform : '';
-        this.fetchAsync(url, map, callback)
+        this.fetchAsync(url, map, callback,loadingState)
     }
 
-    static DeleteUrlAndParamsAndCallback(url, params, callback, timeout) {
+    static DeleteUrlAndParamsAndCallback(url, params, callback, timeout,loadingState) {
         url = this.getServerUrl(url)
         let map = _.assignIn(config.mapDelete, {
             body: JSON.stringify(params)
@@ -144,10 +145,10 @@ export default class NetUitls extends Component {
         } else {
             map.timeout = defaultTimeout
         }
-        this.fetchAsync(url, map, callback)
+        this.fetchAsync(url, map, callback,loadingState)
     }
 
-    static deleteUrlAndParamsAndCallback(url, params, callback, timeout) {
+    static deleteUrlAndParamsAndCallback(url, params, callback, timeout,loadingState) {
         url = this.getServerUrl(url)
         let map = _.assignIn(config.mapDelete, {
             body: JSON.stringify(params)
@@ -157,10 +158,10 @@ export default class NetUitls extends Component {
         } else {
             map.timeout = defaultTimeout
         }
-        this.fetchAsync(url, map, callback)
+        this.fetchAsync(url, map, callback,loadingState)
     }
 
-    static DeleteHttpUrlAndParamsAndCallback(url, params, callback, timeout) {
+    static DeleteHttpUrlAndParamsAndCallback(url, params, callback, timeout,loadingState) {
         url = this.getServerUrl(url)
         if (typeof params === 'string') {
             url += '/' + params
@@ -172,10 +173,10 @@ export default class NetUitls extends Component {
         } else {
             config.mapDelete.timeout = defaultTimeout
         }
-        this.fetchAsync(url, config.mapDelete, callback)
+        this.fetchAsync(url, config.mapDelete, callback,loadingState)
     }
 
-    static deleteHttpUrlAndParamsAndCallback(url, params, callback, timeout) {
+    static deleteHttpUrlAndParamsAndCallback(url, params, callback, timeout,loadingState) {
         url = this.getServerUrl(url)
         if (typeof params === 'string') {
             url += '/' + params
@@ -187,11 +188,11 @@ export default class NetUitls extends Component {
         } else {
             config.mapDelete.timeout = defaultTimeout
         }
-        this.fetchAsync(url, config.mapDelete, callback)
+        this.fetchAsync(url, config.mapDelete, callback,loadingState)
     }
 
-
-    static async fetchAsync(url, map, callback, dontAddHeadersAuthorization) {
+    //loadingState = {isModal: false, overStyle: {}, style: {}, margeTop: 0}
+    static async fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState) {
         // JXLog('URL:' + url)
         if (!dontAddHeadersAuthorization) {
             map = addHeadersAuthorization(map)
@@ -207,10 +208,17 @@ export default class NetUitls extends Component {
 
         let response = {}
         try {
+            //如果需要全局 londing 提示 进行显示 通过 loadingState 可以设置具体样式
+            if(loadingState!=null){
+                rootStore.commonBoxStore.showSpinWithState(loadingState)
+            }
             response = await fetch(url, map)
         } catch (e) {
             response = {}
         } finally {
+            if(loadingState!=null){
+                rootStore.commonBoxStore.hideSpin()
+            }
             // JXLog('response:', response.headers.map.date)
         }
 

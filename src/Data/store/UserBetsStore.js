@@ -104,7 +104,7 @@ export default class UserBetsStore {
             startTime: this.beginTime,
             endTime: this.endTime,
             winLossStatus: this.getBetsSelectTypeStr(),
-            access_token: userStore.oauthToken.access_token
+            access_token: userStore.access_token
         }
         RequestUtils.getUrlAndParamsAndPlatformAndCallback(config.api.userBets, params, platform, (res) => {
             this.loading = false;

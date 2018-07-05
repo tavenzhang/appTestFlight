@@ -1,3 +1,5 @@
+import TCImage from "./image/TCImage";
+
 'use-strict';
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View, Text, Image} from 'react-native';
@@ -15,10 +17,10 @@ export default class TCListItemBar extends React.Component {
         return (
             <TouchableOpacity style={styles.root} activeOpacity={0.7} onPress={onClick}>
                 <View style={styles.leftContainer}>
-                    <Image style={styles.leftIcon} resizeMode={'contain'} source={leftIcon}/>
+                    <TCImage style={styles.leftIcon} resizeMode={'contain'} source={leftIcon}/>
                     <Text style={styles.text}>{text}</Text>
                 </View>
-                <Image style={styles.rightIcon} resizeMode={'contain'} source={rightIcon}/>
+                <TCImage style={styles.rightIcon} resizeMode={'contain'} source={rightIcon}/>
             </TouchableOpacity>
         );
     }
