@@ -128,7 +128,7 @@ export  class TCButtonImg extends PureComponent {
         let myImgSourceDisabled = imgSourceDisabled ? imgSourceDisabled:imgSource;
         return (
             <TCButtonCommon  {...this.props}>
-                <View style={{flexDirection:isHorizon ? "row":"column"}}>
+                <View style={{flexDirection:isHorizon ? "row":"column", justifyContent:"center",alignItems:"center"}}>
                 <FastImage style={disabled ? imgStyleDisable:imgStyle}
                            source={disabled ? myImgSourceDisabled:imgSource}
                            resizeMode={"contain"}/>

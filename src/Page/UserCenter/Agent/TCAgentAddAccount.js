@@ -135,7 +135,6 @@ export default class TCAgentAddAccount extends Component {
                 if (data.message) {
                     toastString = data.message;
                 }
-
                 this.timer = setTimeout(() => {
                     Toast.showShortCenter(toastString);
                 }, 500);

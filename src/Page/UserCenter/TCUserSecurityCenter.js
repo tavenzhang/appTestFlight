@@ -12,19 +12,16 @@ import {
 } from 'react-native'
 import {Size, indexBgColor, listViewTxtColor} from '../resouce/theme'
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
-import InitHelper from '../../Common/JXHelper/TCInitHelper'
 import Toast from '../../Common/JXHelper/JXToast';
 import {personal} from '../resouce/images'
 import Helper from "../../Common/JXHelper/TCNavigatorHelper";
 import {observer, inject} from 'mobx-react'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 
-let helper = new InitHelper()
-
 /**
  * 安全中心
  */
-inject("userStore")
+@inject("userStore")
 @observer
 export default class TCUserSecurityCenter extends Component {
 

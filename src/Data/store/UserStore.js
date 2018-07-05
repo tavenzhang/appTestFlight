@@ -89,7 +89,7 @@ class UserStore {
     sessionId;
 
     //vip等级
-    @observable vipLv = 0;
+    @observable vipLevelName = "";
 
     constructor() {
 
@@ -124,6 +124,7 @@ class UserStore {
                     this.oauthRole = res.oauthRole;
                     this.prizeGroup = res.prizeGroup;
                     this.password = base64.decode(res.password);
+                    this.vipLevelName =res.vipLevelName ? res.vipLevelName:""
                     this.login(callback);
                 }
             } else {
@@ -250,6 +251,7 @@ class UserStore {
         this.oauthRole = user.oauthRole;
         this.balance = user.balance;
         this.sessionId = user.sessionId;
+        this.vipLevelName =user.vipLevelName ? user.vipLevelName:""
         JDAppStore.addLoginedUserName(this.userName);
         storage.save({
             key: 'USERINFO',
