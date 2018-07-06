@@ -84,7 +84,7 @@ class WalletStore {
                     this.getOtherWalletBalance(platform.gamePlatform)
                 }
             })
-        }, 120000)
+        }, 300000)
     }
 
     // 获取中心钱包余额

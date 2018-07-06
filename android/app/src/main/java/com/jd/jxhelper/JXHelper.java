@@ -14,6 +14,7 @@ import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.jd.util.AppUtil;
 import com.jd.util.UpdateManager;
 import com.jd.webview.JXGameWebView;
 import com.jd.webview.JXWebView;
@@ -63,18 +64,10 @@ public class JXHelper extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void getAffCode(Callback resultCallback) {
-        try {
-            ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
-            Object obj = applicationInfo.metaData.get("TD_CHANNEL_AFFCODE");
-
-            if (obj != null && !TextUtils.isEmpty(obj.toString())) {
-                resultCallback.invoke(obj.toString());
-            }
-
-        } catch (Exception e) {
-
+        String affCode = AppUtil.getAFFCode(context);
+        if (!TextUtils.isEmpty(affCode)) {
+            resultCallback.invoke(affCode);
         }
-
     }
 
     @ReactMethod

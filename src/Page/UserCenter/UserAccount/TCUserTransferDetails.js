@@ -55,6 +55,10 @@ export default class TCUserTransferDetails extends React.Component {
                         <Text style={styles.itemTitleStyle}>时间：</Text>
                         <Text style={styles.itemContentStyle}>{this.getTime(completeTime)}</Text>
                     </View>
+                    <View style={styles.itemStyle}>
+                        <Text style={styles.itemTitleStyle}>状态：</Text>
+                        <Text style={styles.itemContentStyle}>{this.props.orderData.stateExplain}</Text>
+                    </View>
                 </View>
             </View>
         )
