@@ -110,7 +110,7 @@ export default class TCChongQing_WXZX extends React.Component {
     };
     
     // 对默认玩法定位胆采用 flatList 方便限定 局部优先渲染,减少过渡的时候卡顿
-    getFirstRender=(type)=> {
+    getFirstRender=()=> {
         let dataList = [];
         switch (this.state.type) {
             case '任选二-直选复式':
@@ -125,7 +125,9 @@ export default class TCChongQing_WXZX extends React.Component {
 
                 dataList.push({numberEvent: this.props.numberEvent, titleName: '百位', areaIndex: 2, ref: "ref3"});
 
-                dataList.push({numberEvent: this.props.numberEvent, titleName: '个位', areaIndex: 3, ref: "ref4"});
+                dataList.push({numberEvent: this.props.numberEvent, titleName: '十位', areaIndex: 3, ref: "ref4"});
+
+                dataList.push({numberEvent: this.props.numberEvent, titleName: '个位', areaIndex: 4, ref: "ref5"});
                 break;
             }
         }
