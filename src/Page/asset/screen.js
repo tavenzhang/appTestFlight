@@ -31,6 +31,11 @@ export const NavBarModalTop = IS_IOS ? NavBarHeight : NavBarHeaderHeight
 
 export const bottomNavHeight = IS_IOS ? (JX_IPHON_X  ? 83 : 50) : 49
 
+/**
+ * 屏幕占比
+ */
+export const ScreenRatio = SCREEN_H / SCREEN_W
+
 export const JX_PLAT_INFO = {
     MarginBarHeight: StatusBarHeight,
     IS_IphoneX: JX_IPHON_X,
