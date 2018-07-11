@@ -65,7 +65,7 @@ export default class TCBetBar extends React.Component {
         if (this.state.showBackButton) {
             return (
                 <TouchableOpacity onPress={this.backButtonCall.bind(this)} underlayColor='#DEDEDE'>
-                    <Image source={common.back} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
+                    <Image source={common.back} style={styles.navIcon}/>
                 </TouchableOpacity>
             )
         }
