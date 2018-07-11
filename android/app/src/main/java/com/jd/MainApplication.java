@@ -10,6 +10,7 @@ import com.jd.jxhelper.JXHelperPackage;
 import com.jd.marqueeLabel.RCTMarqueeLabelPackage;
 import com.jd.openapp.OpenAppPackage;
 import com.jd.openapp.TCOpenOtherAppHelper;
+import com.jd.util.AppUtil;
 import com.toast.RCTToastPackage;
 import com.jadsonlourenco.RNShakeEvent.RNShakeEventPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -94,5 +95,6 @@ public class MainApplication extends Application implements ReactApplication {
     public void onCreate() {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
+        AppUtil.updateLocalAFFCode(this);
     }
 }
