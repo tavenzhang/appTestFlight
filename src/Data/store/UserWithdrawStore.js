@@ -207,13 +207,13 @@ export default class UserWithdrawStore {
         let maxMoney = 0;
         if ((withdrawSetting.surplusFeeWithdrawCount > 0 || withdrawSetting.sufficeAggregateBetRequirements || parseInt(withdrawSetting.balance) === 0)
             && withdrawSetting.surplusWithdrawCount > 0) {
-            maxMoney = withdrawSetting.balance < 1 ? 0 : this.FloorNum(withdrawSetting.balance, 1)
+            maxMoney = withdrawSetting.balance < 1 ? 0 : this.FloorNum(withdrawSetting.balance, 1);
         } else {
-            let tempExempt = withdrawSetting.balance * this.withdrawModel.newratioOfChargeExempt * 0.01
-            if (tempExempt >= setting.maxWithdrawCharge) {
-                maxMoney = this.FloorNum(withdrawSetting.balance - setting.maxWithdrawCharge, 1)
+            let maxWithdraw = withdrawSetting.balance * (1 - this.withdrawModel.newratioOfChargeExempt * 0.01);
+            if (maxWithdraw >= setting.maxWithdrawCharge) {
+                maxMoney = this.FloorNum(setting.maxWithdrawCharge * (1 - this.withdrawModel.newratioOfChargeExempt * 0.01), 1);
             } else {
-                maxMoney = this.FloorNum(withdrawSetting.balance / (setting.ratioOfChargeExempt * 0.01 + 1), 1)
+                maxMoney = this.FloorNum(withdrawSetting.balance / (this.withdrawModel.newratioOfChargeExempt * 0.01 + 1), 1)
             }
         }
         this.withdrawModel.maxWithdrawMoney = this.withdrawModel.integerWithdrawalAmount ? this.FloorNum(maxMoney, 0) : maxMoney;
