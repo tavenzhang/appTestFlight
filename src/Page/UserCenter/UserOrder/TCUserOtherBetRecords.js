@@ -128,7 +128,7 @@ export default class TCUserOtherBetRecords extends Component {
                     <Text style={[styles.headerTitle, {width: width * 0.15}]}>类别</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.15}]}>投注</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.15}]}>返点</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>输赢</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>盈亏</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.15}]}>状态</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.25}]}>时间</Text>
                 </View>
@@ -138,7 +138,7 @@ export default class TCUserOtherBetRecords extends Component {
                 <View style={styles.header}>
                     <Text style={[styles.headerTitle, {width: width * 0.3}]}>游戏</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.2}]}>投注</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>输赢</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>盈亏</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.3}]}>时间</Text>
                 </View>
             )

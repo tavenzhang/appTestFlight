@@ -37,7 +37,7 @@ export default class TCUserMGBetDetail extends Component {
                 </View>
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>输赢：</Text>
-                    <Text style={styles.itemContentStyle}>{orderData.totalPayout}</Text>
+                    <Text style={styles.itemContentStyle}>{orderData.playerWinLoss}</Text>
                 </View>
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>交易ID：</Text>

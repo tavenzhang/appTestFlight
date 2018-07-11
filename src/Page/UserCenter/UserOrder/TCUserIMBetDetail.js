@@ -26,20 +26,24 @@ export default class TCUserIMBetDetail extends Component {
         )
     }
 
-    renderHeader(betId, oddsType, totalBet) {
+    renderHeader(orderData) {
         return (
             <View>
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>订单编号：</Text>
-                    <Text style={styles.itemContentStyle}>{betId}</Text>
+                    <Text style={styles.itemContentStyle}>{orderData.betId}</Text>
                 </View>
                 <View style={styles.itemStyle}>
                     <Text style={styles.itemTitleStyle}>盘口：</Text>
-                    <Text style={styles.itemContentStyle}>{oddsType}</Text>
+                    <Text style={styles.itemContentStyle}>{orderData.oddsType}</Text>
                 </View>
                 <View style={styles.itemStyle}>
-                    <Text style={styles.itemTitleStyle}>投注：</Text>
-                    <Text style={styles.itemContentStyle}>{totalBet}</Text>
+                    <Text style={styles.itemTitleStyle}>投注金额：</Text>
+                    <Text style={styles.itemContentStyle}>{orderData.totalBet}</Text>
+                </View>
+                <View style={styles.itemStyle}>
+                    <Text style={styles.itemTitleStyle}>盈亏：</Text>
+                    <Text style={styles.itemContentStyle}>{orderData.settled ? orderData.winLoss : '-'}</Text>
                 </View>
                 {this.renderDivider()}
             </View>
@@ -102,7 +106,7 @@ export default class TCUserIMBetDetail extends Component {
                     data={orderData.items}
                     keyExtractor={(item, index) => "list" + index}
                     ItemSeparatorComponent={() => this.renderDivider()}
-                    ListHeaderComponent={() => this.renderHeader(orderData.betId, orderData.oddsType, orderData.totalBet)}
+                    ListHeaderComponent={() => this.renderHeader(orderData)}
                     renderItem={({item}) => this.renderItemView(item)}/>
             </View>
         )
