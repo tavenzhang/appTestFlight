@@ -19,7 +19,8 @@ import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 import {common} from '../../../Page/resouce/images'
 import {Size} from '../../../Page/resouce/theme'
-
+import {ScreenRatio} from "../../asset";
+import {height} from "../../resouce/theme";
 
 @observer
 export default class TCKeyboardView extends Component {
@@ -45,8 +46,8 @@ export default class TCKeyboardView extends Component {
     }
 
     static defaultProps = {
-        showMarginTop: Dimensions.get('window').height - Dimensions.get('window').height / 1.6 - (Platform.OS == 'ios' ? 0 : 15),
-        hiddenMarginTop: Dimensions.get('window').height,
+        showMarginTop: height - height / 1.6 - (IS_IOS ? 0 : ScreenRatio < 1.8 ? 15 : 55),
+        hiddenMarginTop: height,
         setInputValue: null,
     };
 

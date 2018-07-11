@@ -168,6 +168,8 @@ export default class TCUserCenterNew extends Component {
     }
 
     render() {
+        let otherPlatform = JXHelper.getDSFOpenList().dsfAll;
+        let openOtherPlatform = otherPlatform && otherPlatform.length > 0 // 是否开启第三方平台
         return (
             <View style={JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container}>
                 <ScrollView bounces={false}>
@@ -231,15 +233,16 @@ export default class TCUserCenterNew extends Component {
                                     <Text style={[styles.payTxt, {color: userCenterTxtColor.withdraw}]}>提款</Text>
                                 </View>
                             </TouchableOpacity>
-                            <View style={{width: 1, height: 40, backgroundColor: indexBgColor.mainBg}}/>
-                            <TouchableOpacity onPress={() => {
-                                this.goTransfer()
-                            }}>
-                                <View style={styles.payItem}>
-                                    <Image source={personal.iconTransfer} style={styles.imgOut}/>
-                                    <Text style={[styles.payTxt, {color: userCenterTxtColor.withdraw}]}>转账</Text>
-                                </View>
-                            </TouchableOpacity>
+                            {openOtherPlatform ? <View style={{width: 1, height: 40, backgroundColor: indexBgColor.mainBg}}/> : null}
+                            {openOtherPlatform
+                                ?   <TouchableOpacity onPress={() => {this.goTransfer()}}>
+                                    <View style={styles.payItem}>
+                                        <Image source={personal.iconTransfer} style={styles.imgOut}/>
+                                        <Text style={[styles.payTxt, {color: userCenterTxtColor.withdraw}]}>转账</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                :   null
+                            }
                         </View>
                     </View>
                     <ListView
@@ -248,7 +251,7 @@ export default class TCUserCenterNew extends Component {
                         removeClippedSubviews={false}
                         keyboardShouldPersistTaps={"always"}
                         dataSource={this.ds.cloneWithRowsAndSections(USERCENTER_ITEMS)}
-                        renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID)}
+                        renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID, openOtherPlatform)}
                         renderSectionHeader={(sectionData, sectionId) => this._renderHeader(sectionData, sectionId)}
                         initialListSize={15}
                     />
@@ -336,7 +339,7 @@ export default class TCUserCenterNew extends Component {
     }
 
 
-    renderRow(rowData, sectionID, rowID) {
+    renderRow(rowData, sectionID, rowID, openOtherPlatform) {
         if (sectionID === '2' && !this.isAgent) {
             return null;
         }
@@ -359,7 +362,7 @@ export default class TCUserCenterNew extends Component {
             )
         }
         let tempComponent = []
-        if (rowData.key === 'yhgl') {
+        if (rowData.key === 'yhgl' && openOtherPlatform) {
             tempComponent.push(
                 <View style={{
                     width: width,
@@ -397,6 +400,7 @@ export default class TCUserCenterNew extends Component {
         if (sectionId === '2' && !this.isAgent) {
             return null;
         }
+
         return (<View style={{height: 5, width: width}}></View>)
     }
 
