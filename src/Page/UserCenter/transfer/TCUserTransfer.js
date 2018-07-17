@@ -1,3 +1,4 @@
+
 'use-strict';
 import React from 'react';
 import {
@@ -29,11 +30,12 @@ import Button from '../../../Common/View/button/TCButtonView'
 import walletStore from '../../../Data/store/WalletStore';
 import TCText from "../../../Common/View/widget/TCText";
 import TCKeyboardAvoidingScrollView from "../../../Common/View/TCKeyboardAvoidingScrollView";
-
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 /**
  * 转账
  * @author: Mason
  */
+@withMappedNavigationProps()
 @observer
 export default class TCUserTransfer extends React.Component {
 
@@ -52,7 +54,7 @@ export default class TCUserTransfer extends React.Component {
                 <TCKeyboardAvoidingScrollView contentContainerStyle={styles.content}>
                     <OneTouchTransferView showIndicator={(show) => this.setState({show: show})}/>
                     <View style={{backgroundColor: 'transparent', height:10}} />
-                    <ManualTransferView showIndicator={(show) => this.setState({show: show})}/>
+                    <ManualTransferView platName={this.props.platName} showIndicator={(show) => this.setState({show: show})}/>
                 </TCKeyboardAvoidingScrollView>
                 {
                     this.state.show
@@ -147,10 +149,24 @@ class ManualTransferView extends React.Component {
             toIndex: 1,                     // 右侧label选中index
             moneyLabelSelectedIndex: -1,    // 快捷转账/充值金额选中index
             transferMoney: '',              // 转账金额
+            platName:this.props.platName  //默认转出货币
         }
     }
 
+
+
     renderTransferPlatform() {
+        let defaultDroutOutValue = 1;
+        JXLog("renderTransferPlatform---platName==="+this.props.platName,this.props.platName)
+        if(this.props.platName){
+            for (let key in walletStore.allWalletsName){
+                if(walletStore.allWalletsName[key].indexOf(this.props.platName)>-1) {
+                    defaultDroutOutValue = key;
+                    break;
+                }
+              }
+        }
+
         return (
             <View style={styles.dropDownContainer}>
                 <View style={styles.dropDownView}>
@@ -185,7 +201,7 @@ class ManualTransferView extends React.Component {
                         ref="toDropDown"
                         options={walletStore.allWalletsName}
                         defaultIndex={this.state.toIndex}
-                        defaultValue={walletStore.allWalletsName[1]}
+                        defaultValue={walletStore.allWalletsName[defaultDroutOutValue]}
                         style={styles.dropDownBtnStyle}
                         textStyle={styles.dropDownText}
                         dropdownStyle={styles.dropdownStyle}
