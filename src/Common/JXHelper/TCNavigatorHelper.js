@@ -368,7 +368,13 @@ Helper.isTopPage = () => {
     return false;
 }
 
-//通用----路由 pushView  配合JX_Componets, 减少 不断增加 pushToXXX的 需要
+
+
+/**
+ * 通用----路由 pushView  配合JX_Componets, 减少 不断增加 pushToXXX的 需要
+ * @param component
+ * @param params
+ */
 Helper.pushView = (component, params) => {
     if (typeof component == 'string') {
         NavigationService.navigate(component, params)

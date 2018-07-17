@@ -28,7 +28,7 @@ export default class DZGameListView extends Component {
         super(props);
         this.isReuesting = false; //防止快速点击 产生多次请求
         this.state={
-            isEmpty:false
+            isEmpty:false,
         }
     }
 
@@ -48,6 +48,8 @@ export default class DZGameListView extends Component {
                     title={'游戏列表'}
                     needBackButton={true}
                     backButtonCall={JX_NavHelp.popToBack}
+                    rightTitle={"额度转化"}
+                    rightButtonCall={this.onTransMoney}
                 />
                 {JX_Store.gameDZStore.gameData.length<=0 ? emptView :<ScrollableTabView
                     initialPage={0}
@@ -76,6 +78,7 @@ export default class DZGameListView extends Component {
 
     componentWillMount() {
         let {gameData} = this.props.navigation.state.params
+        JXLog("gameData-----",gameData)
         JX_Store.gameDZStore.loadGames(gameData.gamePlatform,(dataList)=>{
             if(dataList.length == 0){
                 this.setState({isEmpty:true})
@@ -84,6 +87,12 @@ export default class DZGameListView extends Component {
             }
         })
     }
+
+    onTransMoney=()=>{
+        let {gameData} = this.props.navigation.state.params;
+        JX_NavHelp.pushView(JX_Compones.UserTransfer,{platName:gameData.gameNameInChinese ? gameData.gameNameInChinese.substr(0,2):null});
+    }
+
 
     onClickItem = (dataItem) => {
         //JX_NavHelp.pushView(JX_Compones.TCWebGameView,{gameId:dataItem.gameId,gameData,isDZ:true,title:dataItem.name})
@@ -120,17 +129,10 @@ export default class DZGameListView extends Component {
                     }
 
                 } else {
-                    JDToast.showLongCenter("游戏参数错误，请稍后再尝试!")
+                    JDToast.showLongCenter(ret.message)
                 }
             })
         }
     }
 }
 
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: baseColor.mainBg
-    },
-})
