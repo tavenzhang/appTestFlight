@@ -189,7 +189,7 @@ export default class TCUserOrderItemList extends Component {
 
     gotoBuyBet() {
         NavigatorHelper.popToTop();
-        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
+        JX_Store.mainStore.changeTab('shoping')
 
     }
 }

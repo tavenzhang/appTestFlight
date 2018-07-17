@@ -412,9 +412,9 @@ export default class TCHome extends Component {
         this.homeStore.getTopWinners();
     }
 
-    _pushToBetHomePage(rowData) {
+    _pushToBetHomePage=(rowData)=> {
         if (rowData.gameUniqueId == 'more' || rowData.gameUniqueId == '更多玩法') {
-            RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
+            this.props.mainStore.changeTab('shoping')
             return;
         }
         //跳转到PCDD
