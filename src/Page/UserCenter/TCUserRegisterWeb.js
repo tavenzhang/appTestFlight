@@ -207,7 +207,7 @@ export default class TCUserRegister extends Component {
             data: user.balance
         });
         RCTDeviceEventEmitter.emit('balanceChange');
-        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
+        JX_Store.mainStore.changeTab('mine')
         Helper.popToTop();
     }
 }
