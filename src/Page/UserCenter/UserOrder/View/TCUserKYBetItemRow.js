@@ -7,17 +7,9 @@ import {StyleSheet, Text, View} from 'react-native';
 import {indexBgColor, Size, width} from '../../../resouce/theme';
 
 export default class TCUserKYBetItemRow extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    static defaultProps = {};
-
-    componentDidMount() {
-    }
 
     render() {
-        let {displayName, totalWager, } = this.props.orderData;
+        let {gameName, serverName, profit, gameEndTime} = this.props.orderData;
         return (
             <View>
                 <View style={{
@@ -27,12 +19,10 @@ export default class TCUserKYBetItemRow extends Component {
                     alignItems: 'center',
                     backgroundColor: indexBgColor.itemBg,
                 }}>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{displayName}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{totalWager}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{rebateAmount}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{winAmt}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{!settled ? "未结算" : winLoss}</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.25}]}>{dateCreated.replace('T', '\n')}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>{gameName}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>{serverName}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>{profit}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>{gameEndTime.replace('T', '\n')}</Text>
                 </View>
             </View>
         );
@@ -40,9 +30,6 @@ export default class TCUserKYBetItemRow extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
     headerTitle: {
         fontSize: Size.font14,
         textAlign: 'center'

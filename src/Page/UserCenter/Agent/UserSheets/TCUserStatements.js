@@ -80,6 +80,8 @@ export default class TCUserStatements extends Component {
                         this.setState({dataPersonal: data.content.SS});
                     } else if (this.platforms === 'MG' && data.content.MG) {
                         this.setState({dataPersonal: data.content.MG});
+                    } else if (this.platforms === 'KY' && data.content.KY) {
+                        this.setState({dataPersonal: data.content.KY});
                     }
                 } else {
                     Toast.showShortCenter('网络异常');

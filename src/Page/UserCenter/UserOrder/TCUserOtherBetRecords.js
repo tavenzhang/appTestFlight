@@ -143,7 +143,14 @@ export default class TCUserOtherBetRecords extends Component {
                 </View>
             )
         } else if (this.platform === 'KY') {
-
+            return (
+                <View style={styles.header}>
+                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>游戏</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>房间</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>盈亏</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>时间</Text>
+                </View>
+            )
         }
     }
 
@@ -232,7 +239,7 @@ export default class TCUserOtherBetRecords extends Component {
             )
         } else if (this.platform === 'KY') {
             return (
-                <TouchableOpacity onPress={() => {NavigatorHelper.navigate("UserBetDetail", {orderData: item})}}>
+                <TouchableOpacity onPress={() => {JX_NavHelp.pushView(JX_Compones.UserKYBetDetail,{orderData: item})}}>
                     <KYOrderItem orderData={item}/>
                 </TouchableOpacity>
             )
