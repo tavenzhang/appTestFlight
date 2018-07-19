@@ -292,7 +292,7 @@ export default class TCUserOrderDetail extends BaseComponent {
 
     gotoOrderBet() {
         Helper.popToTop();
-        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'shoping');
+        JX_Store.mainStore.changeTab('shoping')
         return;
         let {orderInfo} = this.props;
         let data = {gameUniqueId: orderInfo.gameUniqueId, gameNameInChinese: orderInfo.gameNameInChinese};

@@ -130,11 +130,8 @@ export default class TCWebTrendView extends React.Component {
 
 
     refresh = () => {
-        this.setState({loadedFail: false, url: this.initUrl + '&temp=' + Moment().format('X')}, () => {
-
-        })
+        this.setState({loadedFail: false, url: this.initUrl + '&temp=' + Moment().format('x')})
     }
-
 
 }
 

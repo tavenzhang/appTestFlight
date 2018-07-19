@@ -16,6 +16,9 @@ import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
 import {JX_PLAT_INFO, TC_SCREEN, themeViewStyle} from '../asset'
 import userStore from '../../Data/store/UserStore'
+import {common} from "../resouce/images";
+import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
+import {Size} from "../resouce/theme";
 
 //专门为体育电子准备
 export default class TCWebGameView extends React.Component {
@@ -34,7 +37,6 @@ export default class TCWebGameView extends React.Component {
         let bodyParam = {
             access_token: userStore.access_token,
         }
-
         JXLog("componentWillMount--- params==", params)
         if (params.isDZ) {
             let {gameData, gameId} = params
@@ -91,11 +93,31 @@ export default class TCWebGameView extends React.Component {
         }
         return (
             <View style={themeViewStyle.containView}>
-                <TopNavigationBar title={title} needBackButton={true} backButtonCall={this.onBack}
-                                  rightTitle={'关闭'} rightButtonCall={() => JX_NavHelp.popToTop()}/>
+                <TopNavigationBar  title={title} needBackButton={true} backButtonCall={this.onBack}
+                                  rightTitle={'额度转换'} rightButtonCall={this.onTransMoney}/>
                 {conetView}
+                {this.state.backButtonEnabled ? <TouchableOpacity onPress={JX_NavHelp.popToBack} style={{position: "absolute",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        top: JX_PLAT_INFO.MarginBarHeight + 12,
+                        zIndex: 100,
+                        left: 45}}>
+                        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={{
+                                color: "white",
+                                backgroundColor: "transparent",
+                                fontSize: Size.font18,
+                                fontWeight: "bold"
+                            }}>{"关闭"}</Text>
+                        </View>
+                    </TouchableOpacity>:null}
             </View>
         )
+    }
+
+    onTransMoney=()=>{
+        let {title} = this.props.navigation.state.params
+        JX_NavHelp.pushView(JX_Compones.UserTransfer,{platName:title.substr(0,2)});
     }
 
     onBack = () => {

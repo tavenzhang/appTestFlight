@@ -16,5 +16,9 @@ export const Other = {
         KY:require('./DSF/kaiyuan.png'),
         IMONE:require('./DSF/IMSport.png'),
         MG:require('./DSF/MG.png')
+    },
+    betIco:{
+        stdui_arrow_up:require('./../resouce/addon/other/stdui_arrow_up.png'),
+        stdui_arrow_down:require('./../resouce/addon/other/stdui_arrow_down.png')
     }
 }

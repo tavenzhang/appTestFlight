@@ -5,9 +5,17 @@ export default  class GameDZStore {
 
     @observable gameData=[];
 
+    constructor(){
+        this.lastPlatForm =null;
+    }
+
 
     @action
     loadGames(paltFrom="MG",callback) {
+        if(this.lastPlatForm!=paltFrom){
+            this.lastPlatForm =paltFrom;
+            this.gameData=[];
+        }
         NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZList, null, paltFrom, (res)=>{
             if(res.content){
                 this.gameData = res.content;

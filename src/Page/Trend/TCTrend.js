@@ -168,7 +168,7 @@ export default class TCTrend extends Component {
     };
 
     onBack=()=>{
-        RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'home');
+        JX_Store.mainStore.changeTab('home')
     }
 }
 
