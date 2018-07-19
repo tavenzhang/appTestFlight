@@ -18,7 +18,7 @@ export default class TCNavigationBar extends React.Component {
             <View style={[themeViewStyle.navBar, styles.container]}>
                 <TouchableOpacity style={themeViewStyle.navBarLeftItem} underlayColor='#DEDEDE' onPress={() => this.goBack()}>
                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                        <Image source={common.back} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
+                        <Image source={common.back} style={styles.navIcon}/>
                     </View>
                 </TouchableOpacity>
 

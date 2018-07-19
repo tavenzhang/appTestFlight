@@ -61,7 +61,7 @@ export default class TCBetBar extends React.Component {
         if (this.state.showBackButton) {
             return (
                 <TouchableOpacity onPress={this.backButtonCall.bind(this)} underlayColor='#DEDEDE'>
-                    <Image source={common.back} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
+                    <Image source={common.back} style={styles.navIcon}/>
                 </TouchableOpacity>
             )
         }
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         marginTop: 5,
         marginBottom:5,
+        height: 34
     },
     arrowImgStyle: {
         width: Platform.OS === 'ios' ? 12 : 16,
