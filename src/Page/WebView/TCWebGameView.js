@@ -116,8 +116,8 @@ export default class TCWebGameView extends React.Component {
     }
 
     onTransMoney=()=>{
-        let {title} = this.props.navigation.state.params
-        JX_NavHelp.pushView(JX_Compones.UserTransfer,{platName:title.substr(0,2)});
+        let {title,platName,isDZ} = this.props.navigation.state.params;
+        JX_NavHelp.pushView(JX_Compones.UserTransfer,{platName:isDZ ? platName: title.substr(0,2)});
     }
 
     onBack = () => {
