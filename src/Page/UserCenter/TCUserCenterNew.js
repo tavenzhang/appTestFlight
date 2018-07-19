@@ -454,7 +454,7 @@ export default class TCUserCenterNew extends Component {
                 NavigatorHelper.pushToAgentCommission();
                 break;
             case 'tdbb':
-                NavigatorHelper.pushToUserSheet();
+                NavigatorHelper.pushToUserSheet(false);
                 break;
             case 'more':
                 NavigatorHelper.pushToAgentCenter();
