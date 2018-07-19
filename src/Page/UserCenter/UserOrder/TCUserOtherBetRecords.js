@@ -148,7 +148,7 @@ export default class TCUserOtherBetRecords extends Component {
                     <Text style={[styles.headerTitle, {width: width * 0.3}]}>游戏</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.2}]}>房间</Text>
                     <Text style={[styles.headerTitle, {width: width * 0.2}]}>盈亏</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>时间</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>结束时间</Text>
                 </View>
             )
         }
