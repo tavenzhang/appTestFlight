@@ -36,9 +36,10 @@ class  TCButtonCommon extends PureComponent {
     }
 
     render() {
-        let {containStyles} = this.props;
-
-        return (
+        let {containStyles,disabled} = this.props;
+        return ( disabled ?  <View style={containStyles} onPress={this.onClick}>
+                {this.props.children}
+            </View>:
             <TouchableOpacity style={containStyles} onPress={this.onClick}>
                 {this.props.children}
             </TouchableOpacity>
@@ -78,8 +79,11 @@ export default class TCButtonView extends PureComponent {
         const textStyles = [styles.text];
         const buttonStyles = [styles.button];
         if (disabled) {
+            buttonStyles.push(styles.buttonDisabled);
             buttonStyles.push(styleDisabled);
+            textStyles.push(styles.textDisabled);
             textStyles.push(txtstyleDisabled);
+            buttonStyles.push(btnStyle);
         } else {
             buttonStyles.push(btnStyle);
             textStyles.push(txtstyle);
