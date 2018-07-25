@@ -8,31 +8,29 @@ import {
 } from 'react-native';
 
 
-import {indexBgColor, shoppingTxtColor, Size} from "../../resouce/theme";
+import {Size} from "../../resouce/theme";
 import TCNavigationBar from "../../../Common/View/TCNavigationBar";
 import TCImage from "../../../Common/View/image/TCImage";
 import {ASSET_Other, ASSET_Screen, ASSET_Theme, JX_PLAT_INFO} from "../../asset";
 import NetUitls from "../../../Common/Network/TCRequestUitls";
 import {config} from "../../../Common/Network/TCRequestConfig";
 import Toast from "../../../Common/JXHelper/JXToast";
-import ScrollableTabView, {ScrollableTabBar} from "react-native-scrollable-tab-view";
 import TCFlatList from "../../../Common/View/RefreshListView/TCFLatList";
 import TCButtonView from "../../../Common/View/button/TCButtonView";
 import {Bar} from "react-native-progress";
 
 import VipLvView from "./VipLvView";
 import VipNameView from "./VipNameView";
-import {inject} from "mobx-react/native";
 
-@inject("userStore",)
+
+
 export default class TCVipAwardView extends Component {
     constructor(state) {
         super(state)
-        let {vipContent} =this.props.userStore
         this.state = {
-            vipLevels:vipContent&&vipContent.vipLevels ? vipContent.vipLevels:[],
+            vipLevels:[],
             taskList: [],
-            content: vipContent,
+            content: null,
         }
     }
 
