@@ -154,6 +154,7 @@ export const config = {
         vipAward:"/rewards/vip/user/award",//单个奖励
         vipAllAward:"/rewards/vip/user/awards",//所有奖励
         vipLvInfo: "/rewards/vip/user/level", //vip信息
+        vipAwardHistory:"rewards/vip/reward/rewardhiss",//领奖历史
     },
     map: {
         method: 'POST',

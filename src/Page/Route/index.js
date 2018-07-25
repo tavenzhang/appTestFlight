@@ -127,7 +127,10 @@ import {home} from "../resouce/images";
 import {indexBgColor, indexTxtColor} from "../resouce/theme";
 //vip 奖励
 import TCVipAwardView from "../UserCenter/vip/TCVipAwardView";
+import TCVipHistoryView from "../UserCenter/vip/TCVipHistoryView";
+
 import CommonBoxLayer from "../Main/CommonBoxLayer";
+
 
 
 
@@ -221,7 +224,8 @@ const Components = {
     DZGameListView: viewRoutHelp(DZGameListView),
     TCWebGameView: viewRoutHelp(TCWebGameView),
     WorldCup:viewRoutHelp(WorldCup),
-    TCVipAwardView:viewRoutHelp(TCVipAwardView)
+    TCVipAwardView:viewRoutHelp(TCVipAwardView),
+    TCVipHistoryView:viewRoutHelp(TCVipHistoryView)
 }
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
 for (let key in Components) {
