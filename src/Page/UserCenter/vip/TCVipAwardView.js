@@ -11,7 +11,7 @@ import {
 import {indexBgColor, shoppingTxtColor, Size} from "../../resouce/theme";
 import TCNavigationBar from "../../../Common/View/TCNavigationBar";
 import TCImage from "../../../Common/View/image/TCImage";
-import {ASSET_Other, ASSET_Screen, ASSET_Theme} from "../../asset";
+import {ASSET_Other, ASSET_Screen, ASSET_Theme, JX_PLAT_INFO} from "../../asset";
 import NetUitls from "../../../Common/Network/TCRequestUitls";
 import {config} from "../../../Common/Network/TCRequestConfig";
 import Toast from "../../../Common/JXHelper/JXToast";
@@ -19,8 +19,7 @@ import ScrollableTabView, {ScrollableTabBar} from "react-native-scrollable-tab-v
 import TCFlatList from "../../../Common/View/RefreshListView/TCFLatList";
 import TCButtonView from "../../../Common/View/button/TCButtonView";
 import {Bar} from "react-native-progress";
-import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
-import JXHelper from "../../../Common/JXHelper/JXHelper";
+
 import VipLvView from "./VipLvView";
 import VipNameView from "./VipNameView";
 import {inject} from "mobx-react/native";
@@ -100,7 +99,7 @@ export default class TCVipAwardView extends Component {
                                 fontWeight: "bold",
                                 marginBottom:3
                             }}>{this.state.content.userName}</Text>
-                            <VipNameView vip={this.state.content.levelIdCurrent} name={this.state.content.levelNameCurrent}/>
+                            <VipNameView   isDisplayBg={!JX_PLAT_INFO.IS_IOS} vip={this.state.content.levelIdCurrent} name={this.state.content.levelNameCurrent}/>
                             <View style={{alignItems: "center", marginTop:10}}>
                                 <View style={{flexDirection: "row", alignItems: "center"}}>
                                     <VipLvView style={{marginRight:-2}} vip={this.getVipLvById(this.state.content.levelIdCurrent)}

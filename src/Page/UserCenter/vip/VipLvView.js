@@ -1,10 +1,9 @@
-import {observer} from "mobx-react";
 import React from "react";
 import TCImage from "../../../Common/View/image/TCImage";
 import {ASSET_Other} from "../../asset";
 import {View,Text} from "react-native";
 import {Size} from "../../resouce/theme";
-
+import PropTypes from 'prop-types'
 
 export default class VipLvView extends React.Component {
 
