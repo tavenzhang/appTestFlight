@@ -524,6 +524,7 @@ class UserStore {
 
     @action
     getHttpVipInfo() {
+        this.vipContent=null;
         NetUitls.getUrlAndParamsAndCallback(config.api.vipLvUser, {access_token: this.access_token}, (ret) => {
             if (ret.rs) {
                 this.vipContent=ret.content;
