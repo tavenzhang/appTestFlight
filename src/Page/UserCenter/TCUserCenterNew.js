@@ -538,7 +538,8 @@ class MoneyLabel extends Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.accountDetail} onPress={() => {
-                        this.props.userStore.freshBalance(true)
+                        this.props.userStore.freshBalance(true);
+                        this.props.userStore.getHttpVipInfo()
                     }}>
                         <View style={styles.freshView}>
                             <Text style={styles.accountDetailTxt}>刷新余额</Text>
