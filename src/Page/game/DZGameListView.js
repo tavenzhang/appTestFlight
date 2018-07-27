@@ -41,6 +41,7 @@ export default class DZGameListView extends Component {
                 </Text>
             </View>)
         }
+        let {gameData} = this.props.navigation.state.params
 
         return (
             <View style={ASSET_Theme.themeViewStyle.containView}>
@@ -63,7 +64,7 @@ export default class DZGameListView extends Component {
                     renderTabBar={this.onTabBar}>
                     {
                         JX_Store.gameDZStore.gameData.map(item => {
-                            return <GamePage tabLabel={item.name} onClickItem={this.onClickItem}
+                            return <GamePage  gameData={gameData} tabLabel={item.name} onClickItem={this.onClickItem}
                                              datas={item.games}/>
                         })
                     }
@@ -78,7 +79,6 @@ export default class DZGameListView extends Component {
 
     componentWillMount() {
         let {gameData} = this.props.navigation.state.params
-        JXLog("gameData-----",gameData)
         JX_Store.gameDZStore.loadGames(gameData.gamePlatform,(dataList)=>{
             if(dataList.length == 0){
                 this.setState({isEmpty:true})

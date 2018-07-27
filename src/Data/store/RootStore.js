@@ -15,7 +15,6 @@ class RootStore {
         this.userStore=userStore;
         this.gameDZStore =new GameDZStore();
         this.commonBoxStore=new CommonBoxStore();
-
     }
 }
 

@@ -40,6 +40,7 @@ import Toast from "../../Common/JXHelper/JXToast";
 import NavigationService from "../Route/NavigationService";
 import {TCButtonImg} from "../../Common/View/button/TCButtonView";
 import {StatusBarHeight} from "../asset/screen";
+import VipNameView from "./vip/VipNameView";
 
 const USERCENTER_ITEMS = [
     [
@@ -170,6 +171,7 @@ export default class TCUserCenterNew extends Component {
     render() {
         let otherPlatform = JXHelper.getDSFOpenList().dsfAll;
         let openOtherPlatform = otherPlatform && otherPlatform.length > 0 // 是否开启第三方平台
+        let {vipContent}=this.props.userStore;
         return (
             <View style={JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container}>
                 <ScrollView bounces={false}>
@@ -188,26 +190,26 @@ export default class TCUserCenterNew extends Component {
                                     </TouchableOpacity>
                                     <View style={styles.userTitle}>
                                         <Text style={styles.userName}>{this.userName}</Text>
-                                        <View style={{flexDirection:"row", alignItems:"center"}}>
-                                            {this.getSignButton()}
+                                        <View style={{flexDirection:"row", alignItems:"center",marginTop:15}}>
                                             {
-                                                this.props.userStore.vipLevelName !="" ? <TCButtonImg onClick={()=>{
-                                                    JX_NavHelp.pushView(JX_Compones.TCVipAwardView);
-                                                }} text={this.props.userStore.vipLevelName} imgSource={ASSET_Other.Other.mg_holder}
-                                                                                                      imgStyle={{width:30, height:20}}/>:null
+                                                vipContent ?  <TouchableOpacity onPress={()=>{JX_NavHelp.pushView(JX_Compones.TCVipAwardView)}}>
+                                                    <VipNameView name={vipContent.levelNameCurrent} vip={vipContent.levelIdCurrent}/>
+                                                </TouchableOpacity>:null
                                             }
                                         </View>
                                     </View>
                                     {this.showSignInModal()}
                                 </View>
-                                <View style={{position: 'absolute', top: Platform.OS === 'ios' ? 25 : 5, right: 5}}>
+                                <View style={{position: 'absolute', alignItems: "flex-end",top: Platform.OS === 'ios' ? 25 : 5, right: 5}}>
                                     <TouchableOpacity onPress={() => {
                                         this.props.jdAppStore.playSound();
                                         NavigatorHelper.gotoSetting();
                                     }}>
                                         <Image source={personal.imgSet}
                                                style={{width: 24, height: 24, marginTop: 10, marginRight: 10}}/>
+
                                     </TouchableOpacity>
+                                    {this.getSignButton()}
                                 </View>
                             </View>
                             {this.getSignInLabel()}
@@ -284,16 +286,16 @@ export default class TCUserCenterNew extends Component {
                     backgroundColor: userCenterTxtColor.signInBgColor,
                     borderColor: 'rgba(0, 0, 0, 0.5)',
                     borderWidth: TCLineW,
-                    width: 120,
+                    width: 80,
                     padding: 5,
                     borderRadius: 8,
-                    marginTop: 10,
+                    marginTop: 15,
+                    marginRight:10,
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
                     <Text style={{color: 'white', fontSize: Size.font15}}>{'已签到'}</Text>
                 </View>
-
             )
         } else {
             return (<TouchableOpacity onPress={() => {
@@ -309,10 +311,11 @@ export default class TCUserCenterNew extends Component {
                     backgroundColor: 'transparent',
                     borderColor: 'white',
                     borderWidth: TCLineW,
-                    width: 120,
+                    width: 80,
                     padding: 5,
-                    borderRadius: 8,
-                    marginTop: 10,
+                    borderRadius: 2,
+                    marginTop: 15,
+                    marginRight:10,
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
@@ -535,7 +538,8 @@ class MoneyLabel extends Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.accountDetail} onPress={() => {
-                        this.props.userStore.freshBalance(true)
+                        this.props.userStore.freshBalance(true);
+                        this.props.userStore.getHttpVipInfo()
                     }}>
                         <View style={styles.freshView}>
                             <Text style={styles.accountDetailTxt}>刷新余额</Text>
