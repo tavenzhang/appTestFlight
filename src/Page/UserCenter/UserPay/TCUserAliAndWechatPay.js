@@ -55,7 +55,7 @@ export default class TCUserAliAndWechatPay extends Component {
     }
 
     render() {
-
+        JXLog("TCUserAliAndWechatPay---",this.props)
         return (
             <View style={styles.container}>
                 < TopNavigationBar
@@ -79,7 +79,7 @@ export default class TCUserAliAndWechatPay extends Component {
                     codeType={this.props.codeType}
                     codeValue={this.props.codeValue}
                     money={this.props.money}
-                    prompt={this.props.payData.userPrompt}
+                    prompt={this.props.payData ? this.props.payData.userPrompt:0}
                     leftBtnTitle={'立即充值'}
                 />
 

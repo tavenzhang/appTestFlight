@@ -77,6 +77,14 @@ export default class GamePage extends Component {
 
 
     renderItemView=(item,index)=> {
+        let {gamePlatform}=this.props.gameData
+        let myImgHold=Other.DSF[`${gamePlatform}`];
+        if(!myImgHold){
+            if(gamePlatform=="KY"){
+                myImgHold =Other.DSF.KY
+            }
+        }
+
         return (<TouchableOpacity onPress={()=>this.onItemClick(item)}><View style={{
             backgroundColor: baseColor.itemBg,
             alignItems: 'center',
@@ -92,7 +100,7 @@ export default class GamePage extends Component {
                 }}
                 resizeMode="contain"
                 source={{uri: item.icon}}
-                imgPlaceHolder={Other.mg_holder}
+                imgPlaceHolder={myImgHold}
             />
             <Text style={{width: width * 0.46, textAlign: 'center', marginTop: 5}}>{item.name}</Text>
         </View>
