@@ -104,7 +104,7 @@ export default class UserPayTypeStore {
         if (data.length > 0) {
             for (var i = 0; data[i] != null; i++) {
                 let item = data[i]
-                if (item.bankCode === 'ZHB' || item.bankCode === 'WX' || item.bankCode === 'OTHER') {
+                if (item.bankCode === 'ZHB' || item.bankCode === 'WX' || item.bankCode === 'OTHER'|| item.bankCode === "JD") {
                     this.payTansferList.push(item)
                 } else {
                     this.bankList.push(item)

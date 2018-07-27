@@ -85,7 +85,7 @@ export default class TCUserPayNew extends Component {
                     {this.getInputView()}
                     <Text style={{color: payTxtColor.payMoneyTip}}>元</Text>
                 </View>
-                <MoneyLabelView
+                <MoneyLabelViewL
                     ref="moneyLabelView"
                     changeMoney={(money) => {
                         this.changeMoney(money)
@@ -298,7 +298,7 @@ export default class TCUserPayNew extends Component {
      */
     getPayImage(rowData) {
         let payType = rowData.type ? rowData.type : rowData.bankCode
-        let perchantName = rowData.merchantName
+        let perchantName = rowData.type ? rowData.merchantName : rowData.bankName
         if (payType === 'WX' && perchantName && (perchantName.indexOf('Q') != -1 || perchantName.indexOf('q') != -1)) {
             return <Image source={userPay.qqPay} style={styles.payTypeImg}/>
         }
