@@ -207,7 +207,14 @@ export default class TCVipAwardView extends Component {
 
 
     onClickTabRight = () => {
-        JX_NavHelp.pushView(JX_Compones.WebView, {url: "www.baidu.com", title: "vip规则"});
+        if(this.state.content){
+            let url=""
+            if(this.state.content.vipPlan){
+                url =this.state.content.vipPlan.explainUrlApp;
+            }
+
+            JX_NavHelp.pushView(JX_Compones.WebView, {url: url, title: "vip规则"});
+        }
     }
 
     getVipLvById = (vipId) => {
