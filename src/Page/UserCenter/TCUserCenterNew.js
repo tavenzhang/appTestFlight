@@ -192,8 +192,8 @@ export default class TCUserCenterNew extends Component {
                                         <Text style={styles.userName}>{this.userName}</Text>
                                         <View style={{flexDirection:"row", alignItems:"center",marginTop:15}}>
                                             {
-                                                vipContent ?  <TouchableOpacity onPress={()=>{JX_NavHelp.pushView(JX_Compones.TCVipAwardView)}}>
-                                                    <VipNameView name={vipContent.levelNameCurrent} vip={vipContent.levelIdCurrent}/>
+                                                vipContent&&vipContent.displayOrderCurrent ?  <TouchableOpacity onPress={()=>{JX_NavHelp.pushView(JX_Compones.TCVipAwardView)}}>
+                                                    <VipNameView name={vipContent.levelNameCurrent} vip={vipContent.displayOrderCurrent}/>
                                                 </TouchableOpacity>:null
                                             }
                                         </View>

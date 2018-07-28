@@ -40,13 +40,23 @@ export default class VipNameView extends React.Component {
     }
 
     getImgByNum=(vipLv)=>{
-        vipLv = parseInt(vipLv) ;
-        vipLv = vipLv!=null ? vipLv:0;
+        vipLv = vipLv!=null ? vipLv:"0";
+        let vipLvStr = String(vipLv);
+        let numList =vipLvStr.split("");
+
         return (<View style={{flexDirection:"row",alignItems:"flex-end", justifyContent:"center"}}>
             <TCImage resizeMode={"contain"}  source={ASSET_Other.Other.vip.vipV}/>
-            <TCImage resizeMode={"contain"} style={{width:7, height: 10}}  source={ASSET_Other.Other.vip[`vip${vipLv}`]}/>
+            {
+                numList.map((item)=>{
+                    return (this.getNumVip(item))
+                })
+            }
         </View>)
     }
 
+    getNumVip=(num)=> {
+        return (<TCImage resizeMode={"contain"} style={{width: 7, height: 10}}
+                         source={ASSET_Other.Other.vip[`vip${num}`]}/>)
+    }
 
 }

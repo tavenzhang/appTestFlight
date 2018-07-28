@@ -24,10 +24,10 @@ export default class TCVipHistoryView extends React.Component {
         NetUitls.getUrlAndParamsAndCallback(config.api.vipAwardHistory, {access_token: JX_Store.userStore.access_token}, (ret) => {
             if (ret.rs) {
                 this.setState({
-                    inited:true,
                     taskHistoryList: ret.content,
                 })
             }
+            this.setState({inited:true})
         },)
     }
 
