@@ -62,7 +62,7 @@ export default class TCVipHistoryView extends React.Component {
                     <VipLvView vip={VipLv} bgImg={VipLvView.Blue} textStyle={{color:"white", fontSize:16, fontWeight:"bold"}}/>
                     <View style={{left:40}}>
                         <Text style={{}}> {timStr} </Text>
-                        <Text> VIP{VipLv} 领取奖励 <Text  style={{  color: "rgb(0,175,244)"}}>{data.amountGive}元</Text></Text>
+                        <Text> VIP{data.levelNameLast} 领取奖励 <Text  style={{  color: "rgb(0,175,244)"}}>{data.amountGive}元</Text></Text>
                     </View>
                 </View>
             </View>)
