@@ -8,6 +8,7 @@ import NetUitls from "../../../Common/Network/TCRequestUitls";
 import {config} from "../../../Common/Network/TCRequestConfig";
 import VipLvView from "./VipLvView";
 import TCImage from "../../../Common/View/image/TCImage";
+import {Size} from "../../resouce/theme";
 
 @withMappedNavigationProps()
 export default class TCVipHistoryView extends React.Component {
@@ -59,10 +60,10 @@ export default class TCVipHistoryView extends React.Component {
             <View style={{marginHorizontal:20}}>
                 {index!=0 ?<TCImage resizeMode={"contain"} style={{left:23}} source={ASSET_Other.Other.vip.blueBar}/>:null}
                 <View style={{flexDirection: "row",  alignItems:"center"}}>
-                    <VipLvView vip={VipLv} bgImg={VipLvView.Blue} textStyle={{color:"white", fontSize:16, fontWeight:"bold"}}/>
+                    <VipLvView vip={VipLv} bgImg={VipLvView.Blue} textStyle={{color:"white", fontSize:Size.font16, fontWeight:"bold"}}/>
                     <View style={{left:40}}>
                         <Text style={{}}> {timStr} </Text>
-                        <Text> VIP{data.levelNameLast} 领取奖励 <Text  style={{  color: "rgb(0,175,244)"}}>{data.amountGive}元</Text></Text>
+                        <Text> {data.levelNameLast} 领取奖励 <Text  style={{  color: "rgb(0,175,244)"}}>{data.amountGive}元</Text></Text>
                     </View>
                 </View>
             </View>)

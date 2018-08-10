@@ -41,7 +41,7 @@ export default class DZGameListView extends Component {
                 </Text>
             </View>)
         }
-
+        let {gameData} = this.props.navigation.state.params
         return (
             <View style={ASSET_Theme.themeViewStyle.containView}>
                 <TCNavigationBar
@@ -64,7 +64,7 @@ export default class DZGameListView extends Component {
                     {
                         JX_Store.gameDZStore.gameData.map(item => {
                             return <GamePage tabLabel={item.name} onClickItem={this.onClickItem}
-                                             datas={item.games}/>
+                                             datas={item.games}  gameData={gameData}/>
                         })
                     }
                 </ScrollableTabView>}
@@ -78,7 +78,6 @@ export default class DZGameListView extends Component {
 
     componentWillMount() {
         let {gameData} = this.props.navigation.state.params
-        JXLog("gameData-----",gameData)
         JX_Store.gameDZStore.loadGames(gameData.gamePlatform,(dataList)=>{
             if(dataList.length == 0){
                 this.setState({isEmpty:true})
@@ -124,7 +123,7 @@ export default class DZGameListView extends Component {
                 })
             }
         }else{
-            JX_NavHelp.pushView(JX_Compones.TCWebGameView, {
+            JX_NavHelp.pushView(JX_Compones.TCWebGameFullView, {
                 gameId: dataItem.gameId,
                 gameData,
                 isDZ: true,
