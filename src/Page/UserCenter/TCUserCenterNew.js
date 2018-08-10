@@ -172,6 +172,7 @@ export default class TCUserCenterNew extends Component {
         let otherPlatform = JXHelper.getDSFOpenList().dsfAll;
         let openOtherPlatform = otherPlatform && otherPlatform.length > 0 // 是否开启第三方平台
         let {vipContent}=this.props.userStore;
+        let isShowVip = vipContent&&vipContent.displayOrderCurrent;
         return (
             <View style={JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container}>
                 <ScrollView bounces={false}>
@@ -192,10 +193,15 @@ export default class TCUserCenterNew extends Component {
                                         <Text style={styles.userName}>{this.userName}</Text>
                                         <View style={{flexDirection:"row", alignItems:"center",marginTop:15}}>
                                             {
-                                                vipContent&&vipContent.displayOrderCurrent ?  <TouchableOpacity onPress={()=>{JX_NavHelp.pushView(JX_Compones.TCVipAwardView)}}>
-                                                    <VipNameView name={vipContent.levelNameCurrent} vip={vipContent.displayOrderCurrent}/>
-                                                </TouchableOpacity>:null
+                                                isShowVip ?  <TouchableOpacity style={{marginRight:10}} onPress={()=>{
+                                                    JX_NavHelp.pushView(JX_Compones.TCVipAwardView);
+                                                    clearTimeout(this.timeVipId);
+                                                    this.timeVipId=setTimeout(this.props.userStore.getHttpVipInfo,2000);
+                                                }}>
+                                                    <VipNameView name={vipContent.levelNameCurrent} vip={vipContent.displayOrderCurrent -1}/>
+                                                </TouchableOpacity>:this.getSignButton()
                                             }
+                                            {isShowVip ? this.getSignButton():null}
                                         </View>
                                     </View>
                                     {this.showSignInModal()}
@@ -209,7 +215,7 @@ export default class TCUserCenterNew extends Component {
                                                style={{width: 24, height: 24, marginTop: 10, marginRight: 10}}/>
 
                                     </TouchableOpacity>
-                                    {this.getSignButton()}
+
                                 </View>
                             </View>
                             {this.getSignInLabel()}
@@ -286,11 +292,9 @@ export default class TCUserCenterNew extends Component {
                     backgroundColor: userCenterTxtColor.signInBgColor,
                     borderColor: 'rgba(0, 0, 0, 0.5)',
                     borderWidth: TCLineW,
-                    width: 80,
+                    width: 90,
                     padding: 5,
                     borderRadius: 8,
-                    marginTop: 15,
-                    marginRight:10,
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
@@ -311,11 +315,9 @@ export default class TCUserCenterNew extends Component {
                     backgroundColor: 'transparent',
                     borderColor: 'white',
                     borderWidth: TCLineW,
-                    width: 80,
+                    width: 90,
                     padding: 5,
-                    borderRadius: 2,
-                    marginTop: 15,
-                    marginRight:10,
+                    borderRadius: 8,
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
@@ -538,8 +540,8 @@ class MoneyLabel extends Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.accountDetail} onPress={() => {
-                        this.props.userStore.freshBalance(true);
-                        this.props.userStore.getHttpVipInfo()
+                        this.props.userStore.getHttpVipInfo();
+                        this.props.userStore.freshBalance(true)
                     }}>
                         <View style={styles.freshView}>
                             <Text style={styles.accountDetailTxt}>刷新余额</Text>

@@ -118,6 +118,7 @@ import TCWebGameView from "../WebView/TCWebGameView";
 import TCUserIMBetDetail from "../UserCenter/UserOrder/TCUserIMBetDetail";
 import TCUserSSBetDetail from "../UserCenter/UserOrder/TCUserSSBetDetail";
 import TCUserMGBetDetail from "../UserCenter/UserOrder/TCUserMGBetDetail";
+import TCWebGameFullView from "../WebView/TCWebGameFullView";
 //个人报表
 import TCUserStatementsType from "../UserCenter/Agent/UserSheets/TCUserStatementsType";
 import TCUserStatements from "../UserCenter/Agent/UserSheets/TCUserStatements";
@@ -130,6 +131,8 @@ import TCVipAwardView from "../UserCenter/vip/TCVipAwardView";
 import TCVipHistoryView from "../UserCenter/vip/TCVipHistoryView";
 
 import CommonBoxLayer from "../Main/CommonBoxLayer";
+
+
 
 
 
@@ -225,7 +228,8 @@ const Components = {
     TCWebGameView: viewRoutHelp(TCWebGameView),
     WorldCup:viewRoutHelp(WorldCup),
     TCVipAwardView:viewRoutHelp(TCVipAwardView),
-    TCVipHistoryView:viewRoutHelp(TCVipHistoryView)
+    TCVipHistoryView:viewRoutHelp(TCVipHistoryView),
+    TCWebGameFullView:viewRoutHelp(TCWebGameFullView),
 }
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
 for (let key in Components) {

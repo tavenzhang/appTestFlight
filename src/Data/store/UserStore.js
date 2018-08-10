@@ -527,7 +527,7 @@ class UserStore {
         this.vipContent=null;
         NetUitls.getUrlAndParamsAndCallback(config.api.vipLvUser, {access_token: this.access_token}, (ret) => {
             if (ret.rs) {
-                this.vipContent=ret.content;
+                 this.vipContent=ret.content;
                 }
            })
     }

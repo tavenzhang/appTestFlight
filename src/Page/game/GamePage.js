@@ -18,11 +18,13 @@ export default class GamePage extends Component {
     static propTypes ={
         datas:PropTypes.any,
         onClickItem:PropTypes.any,
-        initNumRender:PropTypes.any
+        initNumRender:PropTypes.any,
+        gameData:PropTypes.any
     }
 
     static  default={
-        initNumRender:10
+        initNumRender:10,
+        gameData:{}
     }
 
     constructor(props) {
@@ -77,14 +79,11 @@ export default class GamePage extends Component {
 
 
     renderItemView=(item,index)=> {
-        let {gamePlatform}=this.props.gameData
-        let myImgHold=Other.DSF[`${gamePlatform}`];
-        if(!myImgHold){
-            if(gamePlatform=="KY"){
-                myImgHold =Other.DSF.KY
-            }
+        let {gamePlatform} = this.props.gameData;
+        let imgHolde = Other.mg_holder;
+        if(gamePlatform=="KY"){
+            imgHolde=Other.DSF.KY
         }
-
         return (<TouchableOpacity onPress={()=>this.onItemClick(item)}><View style={{
             backgroundColor: baseColor.itemBg,
             alignItems: 'center',
@@ -100,7 +99,7 @@ export default class GamePage extends Component {
                 }}
                 resizeMode="contain"
                 source={{uri: item.icon}}
-                imgPlaceHolder={myImgHold}
+                imgPlaceHolder={imgHolde}
             />
             <Text style={{width: width * 0.46, textAlign: 'center', marginTop: 5}}>{item.name}</Text>
         </View>
