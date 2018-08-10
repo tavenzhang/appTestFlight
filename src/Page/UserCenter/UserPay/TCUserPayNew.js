@@ -85,7 +85,7 @@ export default class TCUserPayNew extends Component {
                     {this.getInputView()}
                     <Text style={{color: payTxtColor.payMoneyTip}}>元</Text>
                 </View>
-                <MoneyLabelView
+                <MoneyLabelViewL
                     ref="moneyLabelView"
                     changeMoney={(money) => {
                         this.changeMoney(money)
@@ -298,7 +298,7 @@ export default class TCUserPayNew extends Component {
      */
     getPayImage(rowData) {
         let payType = rowData.type ? rowData.type : rowData.bankCode
-        let perchantName = rowData.merchantName
+        let perchantName = rowData.type ? rowData.merchantName : rowData.bankName
         if (payType === 'WX' && perchantName && (perchantName.indexOf('Q') != -1 || perchantName.indexOf('q') != -1)) {
             return <Image source={userPay.qqPay} style={styles.payTypeImg}/>
         }
@@ -509,6 +509,7 @@ export default class TCUserPayNew extends Component {
      */
     gotoPayWithPayment(res) {
         this.userPayStore.realTopupMoney = res.amount && res.amount === 0 ? this.userPayStore.realTopupMoney : res.amount;
+        JXLog("TCUserAliAndWechatPay-----gotoPayWithPayment",res)
         switch (res.paymentMethod) {
             case 'WECHAT_QR'://微信支付宝扫码
             case 'ALIPAY_QR':
@@ -584,6 +585,8 @@ export default class TCUserPayNew extends Component {
                 money: this.userPayStore.realTopupMoney,
                 codeValue: res.data,
                 merchantName: this.userPayStore.payData.merchantName,
+                payData: this.payData,
+                ...this.props,
             });
         } else {
             Toast.showShortCenter('二维码获取失败,请稍后再试!')

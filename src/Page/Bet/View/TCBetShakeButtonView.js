@@ -38,8 +38,6 @@ export default class MyComponent extends React.Component {
 
 
     render() {
-        JXLog("TCSSC------------TCBetShake--333-----------");
-
         return (
             <View style={{flexDirection: 'row'}}>
                 <TouchableHighlight onPress={this.onClickShake} style={{width: 60}} activeOpacity={0.5}
@@ -61,7 +59,6 @@ export default class MyComponent extends React.Component {
     }
 
     resetPlayMath(playMath, gameUniqueId) {
-        JXLog("TCSSC------------TCBetShake--------resetPlayMath-----")
         this.setState({
             gameUniqueId: gameUniqueId,
             playMath: playMath
