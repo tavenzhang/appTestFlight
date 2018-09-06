@@ -131,6 +131,7 @@ import TCVipAwardView from "../UserCenter/vip/TCVipAwardView";
 import TCVipHistoryView from "../UserCenter/vip/TCVipHistoryView";
 
 import CommonBoxLayer from "../Main/CommonBoxLayer";
+import TCUserKYBetDetail from "../UserCenter/UserOrder/TCUserKYBetDetail";
 
 
 
@@ -169,6 +170,7 @@ const Components = {
     UserIMBetDetail: viewRoutHelp(TCUserIMBetDetail),
     UserSSBetDetail: viewRoutHelp(TCUserSSBetDetail),
     UserMGBetDetail: viewRoutHelp(TCUserMGBetDetail),
+    UserKYBetDetail: viewRoutHelp(TCUserKYBetDetail),
     UserOtherBetRecords: viewRoutHelp(TCUserOtherBetRecords),
     TCLotteryHistory: viewRoutHelp(TCLotteryHistory),
     UserCollects: viewRoutHelp(UserCollects),
@@ -357,12 +359,7 @@ export default class Main extends Component {
         return (
             <Provider  {...appStores} >
                 <View style={{flex: 1}}>
-                    <StatusBar
-                        hidden={false}
-                        animated={true}
-                        translucent={true}
-                        backgroundColor={'transparent'}
-                        barStyle="light-content"/>
+                    {this.addStatusBar()}
                     <MainStackNavigator
                         ref={navigatorRef => {
                             NavigationService.setTopLevelNavigator(navigatorRef)
@@ -372,5 +369,18 @@ export default class Main extends Component {
                 </View>
             </Provider>
         )
+    }
+
+    addStatusBar() {
+        if (!IS_IOS) {
+            return (
+                <StatusBar
+                    hidden={false}
+                    animated={true}
+                    translucent={true}
+                    backgroundColor={'transparent'}
+                    barStyle="light-content"/>
+            )
+        }
     }
 }

@@ -20,12 +20,13 @@ export default class TCUserOrderType extends React.Component {
         let sportPlatforms = JXHelper.getDSFOpenList().dsfSportInfos;
         if (sportPlatforms && sportPlatforms.length > 0) {
             if (sportPlatforms.find((platform) => platform.status === 'ON')) {
-                tempComponent.push(<Text style={styles.typeTitle}>体育竞技</Text>)
+                tempComponent.push(<Text style={styles.typeTitle} key={'sport'}>体育竞技</Text>)
             }
             sportPlatforms.map((platform) => {
                 if (platform.status === 'ON') {
                     tempComponent.push(
                         <TCListItemBar
+                            key={platform.gamePlatform}
                             text={`${platform.gameNameInChinese}投注记录`}
                             leftIcon={{uri: platform.gameIconUrl}}
                             rightIcon={Common.iconNext}
@@ -37,12 +38,13 @@ export default class TCUserOrderType extends React.Component {
         let eGamePlatforms = JXHelper.getDSFOpenList().dsfEgameInfos;
         if (eGamePlatforms && eGamePlatforms.length > 0) {
             if (eGamePlatforms.find((platform) => platform.status === 'ON')) {
-                tempComponent.push(<Text style={styles.typeTitle}>电子竞技</Text>)
+                tempComponent.push(<Text style={styles.typeTitle} key={'egame'}>电子竞技</Text>)
             }
             eGamePlatforms.map((platform) => {
                 if (platform.status === 'ON') {
                     tempComponent.push(
                         <TCListItemBar
+                            key={platform.gamePlatform}
                             text={`${platform.gameNameInChinese}投注记录`}
                             leftIcon={{uri: platform.gameIconUrl}}
                             rightIcon={Common.iconNext}
@@ -54,12 +56,13 @@ export default class TCUserOrderType extends React.Component {
         let cardPlatforms = JXHelper.getDSFOpenList().dsfCardInfos;
         if (cardPlatforms && cardPlatforms.length > 0) {
             if (cardPlatforms.find((platform) => platform.status === 'ON')) {
-                tempComponent.push(<Text style={styles.typeTitle}>棋牌竞技</Text>)
+                tempComponent.push(<Text style={styles.typeTitle} key={'chess'}>棋牌竞技</Text>)
             }
             cardPlatforms.map((platform) => {
                 if (platform.status === 'ON') {
                     tempComponent.push(
                         <TCListItemBar
+                            key={platform.gamePlatform}
                             text={`${platform.gameNameInChinese}投注记录`}
                             leftIcon={{uri: platform.gameIconUrl}}
                             rightIcon={Common.iconNext}

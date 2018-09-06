@@ -24,7 +24,7 @@ import JXHelper from "../../../Common/JXHelper/JXHelper";
 export default class TCUserTransferDetails extends React.Component {
 
     render() {
-        let {transactionId, type, amount, completeTime} = this.props.orderData
+        let {transactionId, type, amount, completeTime, state, stateExplain} = this.props.orderData
         return (
             <View style={styles.container}>
                 <TopNavigationBar
@@ -57,7 +57,11 @@ export default class TCUserTransferDetails extends React.Component {
                     </View>
                     <View style={styles.itemStyle}>
                         <Text style={styles.itemTitleStyle}>状态：</Text>
-                        <Text style={styles.itemContentStyle}>{this.props.orderData.stateExplain}</Text>
+                        <Text style={styles.itemContentStyle}>{this.getState(state)}</Text>
+                    </View>
+                    <View style={styles.itemStyle}>
+                        <Text style={styles.itemTitleStyle}>备注：</Text>
+                        <Text style={styles.itemContentStyle}>{stateExplain}</Text>
                     </View>
                 </View>
             </View>
@@ -80,6 +84,17 @@ export default class TCUserTransferDetails extends React.Component {
 
     getTime(completeTime) {
         return Moment(completeTime).format("YYYY-MM-DD HH:mm:ss")
+    }
+
+    getState(state) {
+        if (state === 'COMPLETED') {
+            return '成功'
+        } else if (state === 'FAILED') {
+            return '失败'
+        } else if (state === 'HANDLING') {
+            return '处理中'
+        }
+        return ''
     }
 
     /**

@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         marginTop: 5,
         marginBottom:5,
+        height: 34
     },
     arrowImgStyle: {
         width: Platform.OS === 'ios' ? 12 : 16,
