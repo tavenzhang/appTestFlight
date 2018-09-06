@@ -99,7 +99,7 @@ export default class TCNavigationBar extends Component {
                 <TouchableOpacity
                     onPress={() => this.backButtonCall()}
                     underlayColor='#DEDEDE'>
-                    <Image source={common.back} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
+                    <Image source={common.back} style={styles.navIcon}/>
                 </TouchableOpacity>
             )
         }
@@ -136,7 +136,7 @@ export default class TCNavigationBar extends Component {
             return <Image source={{uri: this.props.leftImage}} style={styles.navIcon}
                           resizeMode={Image.resizeMode.contain}/>
         } else {
-            return <Image source={common.back} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
+            return <Image source={common.back} style={styles.navIcon}/>
         }
     }
 
