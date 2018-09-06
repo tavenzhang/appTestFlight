@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".webview.JXWebView" android:screenOrientation="portrait"/>
-        <activity android:name=".webview.JXGameWebView"/>
+        <activity android:name=".webview.JXGameWebView" android:process=":game"/>
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 

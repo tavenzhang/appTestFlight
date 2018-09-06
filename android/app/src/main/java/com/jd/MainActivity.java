@@ -1,5 +1,8 @@
 package com.jd;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
+
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
@@ -11,5 +14,16 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "JD";
+    }
+
+    @Override
+    public Resources getResources() {
+        Resources resources = super.getResources();
+        Configuration configuration = resources.getConfiguration();
+        if (configuration.fontScale != 1.0f) {
+            configuration.fontScale = 1.0f;
+            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+        }
+        return resources;
     }
 }

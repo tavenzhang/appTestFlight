@@ -31,14 +31,9 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/webview_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <WebView
-            android:id="@+id/webview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layerType="software" />
 
         <ProgressBar
             android:id="@+id/loading"
