@@ -392,10 +392,6 @@ export default class TCAgentTeamList extends BaseComponent {
 
     addUser() {
         dismissKeyboard();
-        if (this.props.userStore.prizeGroup < this.props.userStore.minMemberPrizeGroup) {
-            Toast.showShortCenter('平台最低返点为1900!');
-            return
-        }
         NavigatorHelper.pushToAgentAddAccount(true)
     }
 

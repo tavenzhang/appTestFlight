@@ -170,6 +170,10 @@ export default class TCAgentAddAccount extends Component {
                 let str = '' + a + ' - ' + ((a / 2000) * 100).toFixed(2) + '% (赔率)';
                 arr.push({prize: a, str: str});
             }
+        } else {
+            let minPrize = this.props.userStore.prizeGroup
+            let minStr = '' + minPrize + ' - ' + (minPrize / 2000 * 100).toFixed(2) + '% (赔率)';
+            arr.push({prize: minPrize, str: minStr});
         }
         return arr;
     }
