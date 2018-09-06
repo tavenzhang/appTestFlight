@@ -75,7 +75,7 @@ export default class TCUserSSBetDetail extends Component {
                     data={orderData.items}
                     keyExtractor={(item, index) => "list" + index}
                     ItemSeparatorComponent={() => this.renderDivider()}
-                    ListHeaderComponent={() => this.renderHeader(orderData.transactionId, orderData.oddsType, orderData.playTypeIndex, orderData.wagerStake)}
+                    ListHeaderComponent={() => this.renderHeader(orderData)}
                     renderItem={({item}) => this.renderItemView(item)}/>
             </View>
         )

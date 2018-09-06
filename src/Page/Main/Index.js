@@ -15,7 +15,7 @@ import {
     TouchableOpacity,
     AsyncStorage,
     BackAndroid,
-    AppState
+    AppState, StatusBar
 } from 'react-native';
 
 import Moment from 'moment'
@@ -307,6 +307,12 @@ export default class TC168 extends Component {
             )
         } else {
             return (<View style={{flex: 1}}>
+                <StatusBar
+                    hidden={false}
+                    animated={true}
+                    translucent={true}
+                    backgroundColor={'transparent'}
+                    barStyle="light-content"/>
                 <TopNavigationBar title={initAppStore.appName} needBackButton={false}/>
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
                     <Text style={{fontSize: Size.font16}}>{this.hotFixStore.syncMessage}</Text>
@@ -322,6 +328,12 @@ export default class TC168 extends Component {
         }
         return (
             <View style={{flex: 1}}>
+                <StatusBar
+                    hidden={false}
+                    animated={true}
+                    translucent={true}
+                    backgroundColor={'transparent'}
+                    barStyle="light-content"/>
                 <TopNavigationBar title={initAppStore.appName} needBackButton={false}/>
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
                     {progressView}
@@ -343,6 +355,12 @@ export default class TC168 extends Component {
     updateFailView() {
         return (
             <View style={{flex: 1}}>
+                <StatusBar
+                    hidden={false}
+                    animated={true}
+                    translucent={true}
+                    backgroundColor={'transparent'}
+                    barStyle="light-content"/>
                 <TopNavigationBar title={initAppStore.appName} needBackButton={false}/>
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
                     <Text style={{

@@ -151,9 +151,12 @@ export const config = {
         gamesDZ_start: "dsf/center/player/mobile/startGame",//进入游戏
         getUserOtherStatements: "dsf/center/player/statements/personal/total",//获取第三方平台个人报表
         //vip 相关
-        vipAward:"/rewards/vip/user/award",//单个奖励
-        vipAllAward:"/rewards/vip/user/awards",//所有奖励
-        vipLvInfo: "/rewards/vip/user/level", //vip信息
+        vipAward:"rewards/vip/user/award",//单个奖励
+        vipAllAward:"rewards/vip/user/awards",//所有奖励
+        vipLvInfo: "rewards/vip/user/level", //vip信息
+        vipLvUser: "rewards/vip/user/levelUser", //vip用户信息
+        vipAwardHistory:"rewards/vip/reward/rewardhiss",//领奖历史
+        vipUpdate:"rewards/vip/user/upgrade",//客户端触发vip升级
     },
     map: {
         method: 'POST',

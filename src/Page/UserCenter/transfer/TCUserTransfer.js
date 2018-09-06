@@ -159,12 +159,13 @@ class ManualTransferView extends React.Component {
         let defaultDroutOutValue = 1;
         JXLog("renderTransferPlatform---platName==="+this.props.platName,this.props.platName)
         if(this.props.platName){
-            for (let key in walletStore.allWalletsName){
-                if(walletStore.allWalletsName[key].indexOf(this.props.platName)>-1) {
+            for (let key=0;key<walletStore.allWalletsName.length;key++){
+                let data = walletStore.allWalletsName[key] ? walletStore.allWalletsName[key]:"";
+                if(data.indexOf&&data.indexOf(this.props.platName)>-1) {
                     defaultDroutOutValue = key;
                     break;
                 }
-              }
+            }
         }
 
         return (

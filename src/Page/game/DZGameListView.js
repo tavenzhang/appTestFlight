@@ -41,7 +41,7 @@ export default class DZGameListView extends Component {
                 </Text>
             </View>)
         }
-
+        let {gameData} = this.props.navigation.state.params
         return (
             <View style={ASSET_Theme.themeViewStyle.containView}>
                 <TCNavigationBar
@@ -64,7 +64,7 @@ export default class DZGameListView extends Component {
                     {
                         JX_Store.gameDZStore.gameData.map(item => {
                             return <GamePage tabLabel={item.name} onClickItem={this.onClickItem}
-                                             datas={item.games}/>
+                                             datas={item.games}  gameData={gameData}/>
                         })
                     }
                 </ScrollableTabView>}
@@ -78,7 +78,6 @@ export default class DZGameListView extends Component {
 
     componentWillMount() {
         let {gameData} = this.props.navigation.state.params
-        JXLog("gameData-----",gameData)
         JX_Store.gameDZStore.loadGames(gameData.gamePlatform,(dataList)=>{
             if(dataList.length == 0){
                 this.setState({isEmpty:true})
@@ -102,37 +101,37 @@ export default class DZGameListView extends Component {
             access_token: this.props.userStore.access_token,
         }
         let url = config.api.gamesDZ_start + "/" + dataItem.gameId;
-        if (!this.isReuesting) {
-            this.isReuesting = true;
-            NetUitls.getUrlAndParamsAndPlatformAndCallback(url,bodyParam,gameData.gamePlatform , (ret) => {
-                this.isReuesting = false
-                JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
-                if (ret.rs) {
-                    if (gameData.gamePlatform == "MG") //由于MG平台的游戏 需要横屏 做特殊处理
-                    {
-                        if (IS_IOS) {
-                            Linking.openURL(ret.content.gameUrl);
-                        } else {
-                            if(NativeModules.JXHelper.openGameWebViewFromJs) {
-                                NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name);
-                            }else{
+        if(gameData.gamePlatform == "MG"){ //由于MG平台的游戏 需要横屏 做特殊处理
+            if (!this.isReuesting) {
+                this.isReuesting = true;
+                NetUitls.getUrlAndParamsAndPlatformAndCallback(url,bodyParam,gameData.gamePlatform , (ret) => {
+                    this.isReuesting = false
+                    JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
+                    if (ret.rs) {
+                            if (IS_IOS) {
                                 Linking.openURL(ret.content.gameUrl);
+                            } else {
+                                if(NativeModules.JXHelper.openGameWebViewFromJs) {
+                                    NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name);
+                                }else{
+                                    Linking.openURL(ret.content.gameUrl);
+                                }
                             }
-                        }
                     } else {
-                        JX_NavHelp.pushView(JX_Compones.TCWebGameView, {
-                            gameId: dataItem.gameId,
-                            gameData,
-                            isDZ: true,
-                            title: dataItem.name
-                        })
+                        JDToast.showLongCenter(ret.message)
                     }
-
-                } else {
-                    JDToast.showLongCenter(ret.message)
-                }
+                })
+            }
+        }else{
+            JX_NavHelp.pushView(JX_Compones.TCWebGameFullView, {
+                gameId: dataItem.gameId,
+                gameData,
+                isDZ: true,
+                title: dataItem.name,
+                platName:gameData.gameNameInChinese ? gameData.gameNameInChinese.substr(0,2):null
             })
         }
+
     }
 }
 

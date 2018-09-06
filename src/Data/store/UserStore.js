@@ -25,6 +25,8 @@ import JDAppStore from './JDAppStore'
 import InitAppStore from './InitAppStore'
 import messageStore from './UserMessageStore'
 import userCollectStore from './UserCollectStore'
+import NetUitls from "../../Common/Network/TCRequestUitls";
+import {config} from "../../Common/Network/TCRequestConfig";
 
 let base64 = new Base64()
 let secretUtils = new SecretUtils()
@@ -88,8 +90,8 @@ class UserStore {
 
     sessionId;
 
-    //vip等级
-    @observable vipLevelName = "";
+    //vip信息
+    @observable vipContent = null;
 
     constructor() {
 
@@ -124,7 +126,6 @@ class UserStore {
                     this.oauthRole = res.oauthRole;
                     this.prizeGroup = res.prizeGroup;
                     this.password = base64.decode(res.password);
-                    this.vipLevelName =res.vipLevelName ? res.vipLevelName:""
                     this.login(callback);
                 }
             } else {
@@ -235,7 +236,6 @@ class UserStore {
                         callback({status: false, message: "服务器错误，登录失败!"})
                     }
                 }
-
             })
         }, InitAppStore.deviceToken)
     }
@@ -251,14 +251,13 @@ class UserStore {
         this.oauthRole = user.oauthRole;
         this.balance = user.balance;
         this.sessionId = user.sessionId;
-        this.vipLevelName =user.vipLevelName ? user.vipLevelName:""
-        JDAppStore.addLoginedUserName(this.userName);
         storage.save({
             key: 'USERINFO',
             data: user
         });
         this.updateUserOtherInfo();
         this.getCollects();
+        this.getHttpVipInfo();
     }
 
     getCollects() {
@@ -521,6 +520,16 @@ class UserStore {
                 this.newFeedBackCount = res.content.replyNotReadCount;
             }
         })
+    }
+
+    @action
+    getHttpVipInfo() {
+        this.vipContent=null;
+        NetUitls.getUrlAndParamsAndCallback(config.api.vipLvUser, {access_token: this.access_token}, (ret) => {
+            if (ret.rs) {
+                 this.vipContent=ret.content;
+                }
+           })
     }
 
 }

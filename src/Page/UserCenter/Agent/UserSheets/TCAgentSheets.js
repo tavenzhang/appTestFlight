@@ -15,9 +15,7 @@ import {
     ScrollView,
     Alert
 } from 'react-native';
-import SegmentedControlTab from '../../../../Common/View/SegmentedControlTab';
 import TopNavigationBar from '../../../../Common/View/TCNavigationBar';
-import {personal, common} from '../../../resouce/images';
 import ModalDropdown from '../../../../Common/View/ModalDropdown';
 import UserIcon from '../../../../Common/View/TCUserIcon';
 import NetUitls from '../../../../Common/Network/TCRequestUitls';
@@ -37,98 +35,29 @@ import {
     indexTxtColor
 } from '../../../resouce/theme';
 import Moment from 'moment';
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+import {observer} from 'mobx-react'
 import userStore from '../../../../Data/store/UserStore'
+import UserSheetsStore from '../../../../Data/store/UserSheetsStore'
 
-let isUserSheet = true
-
+@withMappedNavigationProps()
+@observer
 export default class TCAgentSheets extends Component {
+
+
     constructor(props) {
         super(props);
-        const {params} = this.props.navigation.state;
-        isUserSheet = params ? params.isUserSheet : true;
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.state = {
-            dataPersonal: {
-                count: 0,
-                sumCommission: 0,
-                sumRebate: 0,
-                sumFee: 0,
-                sumTransferIn: 0,
-                sumTransferOut: 0,
-                sumGrantTotal: 0,
-                sumPnl: 0,
-                sumTopup: 0,
-                sumCharge: 0,
-                sumWin: 0,
-                sumWithdrawal: 0,
-                sumBonus: 0,
-            },
-            dataGroup: {
-                count: 0,
-                sumCommission: 0,
-                sumRebate: 0,
-                sumFee: 0,
-                sumTransferIn: 0,
-                sumTransferOut: 0,
-                sumGrantTotal: 0,
-                sumPnl: 0,
-                sumTopup: 0,
-                sumCharge: 0,
-                sumWin: 0,
-                sumWithdrawal: 0,
-                sumBonus: 0,
-            },
-            dataSource1:
-                userStore.oauthRole === 'USER'
-                    ? ['盈利总额', '有效投注总额', '派彩总额', '充值总额', '提款总额']
-                    : this.getListTitles(),
-            dataSource2: ['盈利总额', '有效投注总额', '派彩总额', '佣金总额', '充值总额', '提款总额'],
-            selectedIndex: isUserSheet ? 0 : 1,
-            beginTime: '',
-            endTime: '',
-            rightButtonTitle: '今天',
-            animating: false
-        };
+        this.userSheetsStore = new UserSheetsStore(this.props.isUserSheet, this.props.username);
     }
 
     componentWillMount() {
-        this.getSearchTime(0);
+        this.userSheetsStore.getSearchTime(0)
     }
 
     componentDidMount() {
     }
 
-    loadDataFormNet(index, start, end) {
-        this.setState({animating: true});
-        NetUitls.PostUrlAndParamsAndCallback(
-            index == 0 ? config.api.getUserSheets : config.api.getGroupSheets,
-            {
-                endDateInclusive: end,
-                startDateInclusive: start,
-                agentUsername: this.props.username ? this.props.username : null,
-                username: userStore.userName
-            },
-            data => {
-                this.setState({animating: false});
-                if (this.state.selectedIndex == 0) {
-                    if (data && data.rs && data.content.userStatementSummaryDto) {
-                        this.setState({dataPersonal: data.content.userStatementSummaryDto});
-                    } else {
-                        Toast.showShortCenter('网络异常');
-                    }
-                } else {
-                    if (data && data.rs && data.content) {
-                        this.setState({dataGroup: data.content});
-                    } else {
-                        Toast.showShortCenter('网络异常');
-                    }
-                }
-            }
-        );
-    }
-
     render() {
-        let s = this.state.selectedIndex == 0 ? this.state.dataSource1 : this.state.dataSource2;
         return (
             <View style={styles.container}>
                 <TopNavigationBar
@@ -137,11 +66,11 @@ export default class TCAgentSheets extends Component {
                     backButtonCall={() => {
                         Helper.popToBack()
                     }}
-                    rightTitle={this.state.rightButtonTitle}
+                    rightTitle={this.userSheetsStore.rightButtonTitle}
                     rightButtonCall={() => {
                         this.refs['ModalDropdown'].show();
                     }}
-                    renderCenter={() => this.renderSegmentedControlTab()}
+                    renderCenter={() => this.getTitle()}
                 />
                 <ModalDropdown
                     ref="ModalDropdown"
@@ -154,71 +83,9 @@ export default class TCAgentSheets extends Component {
                     showButton={false}
                 />
                 <View style={styles.timeView}>
-                    <DatePicker
-                        style={{width: width * 0.28}}
-                        date={this.state.beginTime}
-                        mode="date"
-                        format="YYYY-MM-DD"
-                        confirmBtnText="确认"
-                        cancelBtnText="取消"
-                        showIcon={false}
-                        is24Hour={true}
-                        customStyles={{
-                            dateIcon: null,
-                            dateInput: {
-                                height: 30,
-                                borderWidth: 0,
-                                alignItems: 'center'
-                            },
-                            dateText: {
-                                height: 29,
-                                padding: 5,
-                                fontSize: Size.default,
-                                color: agentCenter.dateTxt
-                            }
-                        }}
-                        onDateChange={date => {
-                            this.setState({beginTime: date});
-                            this.loadDataFormNet(this.state.selectedIndex, date, this.state.endTime);
-                        }}
-                        minDate={Moment()
-                            .subtract(90, 'days')
-                            .format('YYYY-MM-DD')}
-                        maxDate={new Date()}
-                    />
+                    {this.getDateView(true)}
                     <Text style={{fontWeight: 'bold'}}>至</Text>
-                    <DatePicker
-                        style={{width: width * 0.28}}
-                        date={this.state.endTime}
-                        mode="date"
-                        format="YYYY-MM-DD"
-                        confirmBtnText="确认"
-                        cancelBtnText="取消"
-                        showIcon={false}
-                        is24Hour={true}
-                        customStyles={{
-                            dateIcon: null,
-                            dateInput: {
-                                height: 30,
-                                borderWidth: 0,
-                                alignItems: 'center'
-                            },
-                            dateText: {
-                                height: 29,
-                                padding: 5,
-                                fontSize: Size.default,
-                                color: agentCenter.dateTxt
-                            }
-                        }}
-                        onDateChange={date => {
-                            this.setState({endTime: date});
-                            this.loadDataFormNet(this.state.selectedIndex, this.state.beginTime, date);
-                        }}
-                        minDate={Moment()
-                            .subtract(30, 'days')
-                            .format('YYYY-MM-DD')}
-                        maxDate={new Date()}
-                    />
+                    {this.getDateView(false)}
                 </View>
                 <View style={styles.agentDetail}>
                     <UserIcon
@@ -276,7 +143,7 @@ export default class TCAgentSheets extends Component {
                 </View>
                 <ScrollView>{this.getContentView()}</ScrollView>
                 <ActivityIndicator
-                    animating={this.state.animating}
+                    animating={this.userSheetsStore.loading}
                     style={[styles.centering, {height: 80}]}
                     size="large"
                 />
@@ -284,97 +151,68 @@ export default class TCAgentSheets extends Component {
         );
     }
 
-    renderSegmentedControlTab() {
-        if (isUserSheet) {
-            return (
-                <Text
-                    style={{
-                        fontSize: Size.font20,
-                        color: indexTxtColor.topTitle,
-                        fontWeight: 'bold',
-                        alignItems: 'center',
-                        backgroundColor: 'transparent',
-                        textAlign: 'center',
-                        textAlignVertical: 'center',
-                    }}
-                >
-                    个人报表
-                </Text>
-            );
-        } else
-            return (
-                <Text
-                    style={{
-                        fontSize: Size.font20,
-                        color: indexTxtColor.topTitle,
-                        fontWeight: 'bold',
-                        alignItems: 'center',
-                        backgroundColor: 'transparent',
-                        textAlign: 'center',
-                        textAlignVertical: 'center',
-                    }}
-                >
-                    团队报表
-                </Text>
-            );
+    getTitle() {
+        return (
+            <Text
+                style={{
+                    fontSize: Size.font20,
+                    color: indexTxtColor.topTitle,
+                    fontWeight: 'bold',
+                    alignItems: 'center',
+                    backgroundColor: 'transparent',
+                    textAlign: 'center',
+                    textAlignVertical: 'center',
+                }}
+            >
+                {this.userSheetsStore.getTitle()}
+            </Text>
+        );
     }
 
-    getListTitles() {
-        if (isUserSheet) {
-            return ['盈利总额', '有效投注总额', '派彩总额', '佣金总额', '充值总额', '提款总额'];
-        }
-        return ['盈利总额', '有效投注总额', '派彩总额', '佣金总额', '充值总额', '提款总额', '返点总额', '优惠总额']
+    getDateView(isStart) {
+        return (
+            <DatePicker
+                style={{width: width * 0.28}}
+                date={isStart ? this.userSheetsStore.beginTime : this.userSheetsStore.endTime}
+                mode="date"
+                format="YYYY-MM-DD"
+                confirmBtnText="确认"
+                cancelBtnText="取消"
+                showIcon={false}
+                is24Hour={true}
+                customStyles={{
+                    dateIcon: null,
+                    dateInput: {
+                        height: 30,
+                        borderWidth: 0,
+                        alignItems: 'center'
+                    },
+                    dateText: {
+                        height: 29,
+                        padding: 5,
+                        fontSize: Size.default,
+                        color: agentCenter.dateTxt
+                    }
+                }}
+                onDateChange={date => {
+                    if (isStart) {
+                        this.userSheetsStore.beginTime = date;
+                    } else {
+                        this.userSheetsStore.endTime = date;
+                    }
+                    this.userSheetsStore.loadDataFormNet();
+                }}
+                minDate={Moment()
+                    .subtract(90, 'days')
+                    .format('YYYY-MM-DD')}
+                maxDate={new Date()}
+            />
+        )
     }
 
     onSelect(idx, value) {
-        this.setState({
-            rightButtonTitle: value
-        });
-        this.getSearchTime(idx);
-    }
-
-    getSearchTime(type) {
-        let endTime = Moment().format('YYYY-MM-DD');
-        let startTime = Moment().format('YYYY-MM-DD');
-        switch (type) {
-            case '0':
-                startTime = Moment().format('YYYY-MM-DD');
-                endTime = Moment().format('YYYY-MM-DD');
-                break;
-            case '1':
-                startTime = Moment()
-                    .subtract(1, 'days')
-                    .format('YYYY-MM-DD');
-                endTime = Moment()
-                    .subtract(1, 'days')
-                    .format('YYYY-MM-DD');
-                break;
-            case '2':
-                startTime = Moment()
-                    .subtract(7, 'days')
-                    .format('YYYY-MM-DD');
-                break;
-            case '3':
-                startTime = Moment()
-                    .subtract(15, 'days')
-                    .format('YYYY-MM-DD');
-                break;
-            case '4':
-                startTime = Moment()
-                    .subtract(30, 'days')
-                    .format('YYYY-MM-DD');
-                break;
-            case '5':
-                startTime = Moment()
-                    .subtract(90, 'days')
-                    .format('YYYY-MM-DD');
-                break;
-        }
-        this.setState({
-            beginTime: startTime,
-            endTime: endTime
-        });
-        this.loadDataFormNet(this.state.selectedIndex, startTime, endTime);
+        this.userSheetsStore.rightButtonTitle = value;
+        this.userSheetsStore.getSearchTime(idx);
     }
 
     renderModalDropDownRow(rowData, rowID) {
@@ -393,15 +231,15 @@ export default class TCAgentSheets extends Component {
 
     getContentView() {
         let arr = [];
-        for (let i = 0; i < this.state.dataSource1.length; i++) {
-            arr.push(this.rowLayout(this.state.dataSource1[i], i));
+        for (let i = 0; i < this.userSheetsStore.getContentTitle().length; i++) {
+            arr.push(this.rowLayout(this.userSheetsStore.getContentTitle()[i], i));
         }
         return arr;
     }
 
     rowLayout = (rowData, key) => {
-        let assignValue = this.assignValue(rowData);
-        if (rowData === '盈利总额' || rowData === '有效投注总额') {
+        let assignValue = this.userSheetsStore.assignValue(rowData);
+        if (rowData === '盈利总额') {
             return (
                 <TouchableOpacity key={key} onPress={() => this.pressRow(rowData)} style={styles.rowButton}>
                     <View style={{flexDirection: 'row'}}>
@@ -442,56 +280,8 @@ export default class TCAgentSheets extends Component {
     pressRow(rowData) {
         if (rowData === '盈利总额') {
             Alert.alert('温馨提示', '盈利总额=投注赢利+优惠+佣金', [{text: '确定'}]);
-        } else if (rowData === '有效投注总额') {
-            Alert.alert('温馨提示', '有效投注总额=总投注-撤单', [{text: '确定'}]);
         }
     }
-
-    assignValue = key => {
-        if (this.state.selectedIndex == 0) {
-            if (key === '盈利总额') {
-                return (this.state.dataPersonal.sumPnl + this.state.dataPersonal.sumCommission + this.state.dataPersonal.sumBonus).toFixed(2);
-            } else if (key === '有效投注总额') {
-                return this.state.dataPersonal.sumCharge;
-            } else if (key === '派彩总额') {
-                return this.state.dataPersonal.sumWin;
-            } else if (key === '佣金总额') {
-                return this.state.dataPersonal.sumCommission;
-            } else if (key === '充值总额') {
-                return this.state.dataPersonal.sumTopup;
-            } else if (key === '提款总额') {
-                return this.state.dataPersonal.sumWithdrawal;
-            } else {
-                return null;
-            }
-        } else {
-            if (key === '盈利总额') {
-                return (this.state.dataGroup.sumPnl + this.state.dataGroup.sumCommission + this.state.dataGroup.sumBonus).toFixed(2);
-            } else if (key === '有效投注总额') {
-                return this.state.dataGroup.sumCharge;
-            } else if (key === '派彩总额') {
-                return this.state.dataGroup.sumWin;
-            } else if (key === '佣金总额') {
-                return this.state.dataGroup.sumCommission;
-            } else if (key === '充值总额') {
-                return this.state.dataGroup.sumTopup;
-            } else if (key === '提款总额') {
-                return this.state.dataGroup.sumWithdrawal;
-            } else if (key === '返点总额') {
-                return this.state.dataGroup.sumRebate;
-            } else if (key === '优惠总额') {
-                return this.state.dataGroup.sumBonus;
-            }
-            return '';
-        }
-    };
-
-    handleIndexChange = index => {
-        this.setState({
-            selectedIndex: index
-        });
-        this.loadDataFormNet(index, this.state.beginTime, this.state.endTime);
-    };
 }
 
 const styles = StyleSheet.create({

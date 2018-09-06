@@ -38,10 +38,9 @@ export default class MyComponent extends React.Component {
 
 
     render() {
-        JXLog("TCSSC------------TCBetShake--333-----------");
         return (
             <View style={{flexDirection: 'row'}}>
-                <TouchableHighlight onPress={null} style={{width: 60}} activeOpacity={0.5}
+                <TouchableHighlight onPress={this.onClickShake} style={{width: 60}} activeOpacity={0.5}
                                     underlayColor='transparent'>
                     <View style={{flexDirection: 'row', marginTop: 7, alignItems: 'center'}}>
                         <Image source={betIcon.shake} style={{width: 25, height: 25, marginLeft: 10}}/>
@@ -52,8 +51,14 @@ export default class MyComponent extends React.Component {
         );
     };
 
+    onClickShake=()=>{
+        let {shakeEvent}=this.props;
+        if(shakeEvent){
+            shakeEvent();
+        }
+    }
+
     resetPlayMath(playMath, gameUniqueId) {
-        JXLog("TCSSC------------TCBetShake--------resetPlayMath-----")
         this.setState({
             gameUniqueId: gameUniqueId,
             playMath: playMath
