@@ -91,16 +91,21 @@ export default class TCAgentAddAccount extends Component {
 
         let judgmentValue = shouldAddCode ? this.state.affCode : this.state.username;
         let re = shouldAddCode ? /^[0-9A-Za-z]{1,20}$/ : /^[0-9A-Za-z]{4,12}$/;
+        // 邀请码校验
         if (shouldAddCode && (!judgmentValue || judgmentValue.length > 20 || !judgmentValue.match(re))) {
-            Toast.showShortCenter("邀请码格式错误,只能是20位以内的数字与字母的组合");
-            return;
-        } else if (!judgmentValue || judgmentValue.length < 4 || judgmentValue.length > 12 || !judgmentValue.match(re)) {
-            Toast.showShortCenter("用户名格式错误");
+            Toast.showShortCenter("邀请码为3-20位数字与字母的组合");
             return;
         }
-        if (!shouldAddCode && !judgmentValue.match(/[a-zA-Z]/i)) {
-            Toast.showShortCenter("用户名必须至少包含一位字母");
-            return;
+        // 用户名校验
+        if(!shouldAddCode) {
+            if (!judgmentValue || judgmentValue.length < 4 || judgmentValue.length > 12 || !judgmentValue.match(re)) {
+                Toast.showShortCenter("用户名为4-12位数字与字母的组合");
+                return;
+            }
+            if(!judgmentValue.match(/[a-zA-Z]/i)) {
+                Toast.showShortCenter("用户名必须至少包含一位字母");
+                return;
+            }
         }
 
         this._modalLoadingSpinnerOverLay.show();
