@@ -113,7 +113,7 @@ class OneTouchTransferView extends React.Component {
                     walletStore.transfer(item.gamePlatform, 'TopUp', walletStore.allBalances[0].balance, (res) => {
                         this.props.showIndicator(false)
                         if (res.rs) {
-                            Toast.showShortCenter('转入成功!');
+                            Toast.showShortCenter('转入已发起!');
                         } else {
                             Toast.showShortCenter(res.message ? res.message : '转入失败!');
                         }
@@ -346,7 +346,7 @@ class ManualTransferView extends React.Component {
         walletStore.transfer(platform, transferType, inputMoney, (res) => {
             this.props.showIndicator(false)
             if (res.rs) {
-                Toast.showShortCenter('转账成功!');
+                Toast.showShortCenter('转入已发起!');
             } else {
                 let message = res.message ? res.message : '转账失败，请稍后再试!';
                 Toast.showShortCenter(message);
