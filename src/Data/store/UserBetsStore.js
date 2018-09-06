@@ -41,9 +41,9 @@ export default class UserBetsStore {
      * 获取投注类型
      */
     getBetsType(platform) {
-        if (platform === 'IMONE' || platform === 'SS' || platform === 'KY') {
+        if (platform === 'IMONE' || platform === 'SS' || platform === 'KY' || platform === 'CP') {
             return ['全部', '赢', '输', '平局', '未结算'];
-        } else if (platform === 'MG') {
+        } else if (platform === 'MG' || platform === 'FG') {
             return ['全部', '赢', '输', '平局'];
         }
     }

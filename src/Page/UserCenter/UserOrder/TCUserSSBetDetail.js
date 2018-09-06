@@ -27,6 +27,7 @@ export default class TCUserSSBetDetail extends Component {
                 <BetOrderItemComponent title={'类型'} content={orderData.playTypeIndex} />
                 <BetOrderItemComponent title={'投注金额'} content={orderData.wagerStake} />
                 <BetOrderItemComponent title={'盈亏'} content={orderData.settled ? orderData.winAmt : '-'} />
+                {this.orderData.bettingStatus ? <BetOrderItemComponent title={'备注'} content={this.orderData.bettingStatus} /> : null}
                 {this.renderDivider()}
             </View>
         )

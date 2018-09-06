@@ -132,11 +132,7 @@ import TCVipHistoryView from "../UserCenter/vip/TCVipHistoryView";
 
 import CommonBoxLayer from "../Main/CommonBoxLayer";
 import TCUserKYBetDetail from "../UserCenter/UserOrder/TCUserKYBetDetail";
-
-
-
-
-
+import TCUserFGBetDetail from "../UserCenter/UserOrder/TCUserFGBetDetail";
 
 //用于增加通用navigator view 属性 特殊 处理
 function viewRoutHelp(component) {
@@ -171,6 +167,7 @@ const Components = {
     UserSSBetDetail: viewRoutHelp(TCUserSSBetDetail),
     UserMGBetDetail: viewRoutHelp(TCUserMGBetDetail),
     UserKYBetDetail: viewRoutHelp(TCUserKYBetDetail),
+    UserFGBetDetail: viewRoutHelp(TCUserFGBetDetail),
     UserOtherBetRecords: viewRoutHelp(TCUserOtherBetRecords),
     TCLotteryHistory: viewRoutHelp(TCLotteryHistory),
     UserCollects: viewRoutHelp(UserCollects),

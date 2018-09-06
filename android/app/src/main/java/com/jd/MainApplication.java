@@ -1,6 +1,8 @@
 package com.jd;
 
 import android.app.Application;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 
 import com.facebook.react.ReactApplication;
 
@@ -96,5 +98,16 @@ public class MainApplication extends Application implements ReactApplication {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
         AppUtil.updateLocalAFFCode(this);
+    }
+
+    @Override
+    public Resources getResources() {
+        Resources resources = super.getResources();
+        Configuration configuration = resources.getConfiguration();
+        if (configuration.fontScale != 1.0f) {
+            configuration.fontScale = 1.0f;
+            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+        }
+        return resources;
     }
 }

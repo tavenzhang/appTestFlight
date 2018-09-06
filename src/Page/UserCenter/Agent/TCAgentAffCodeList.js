@@ -151,15 +151,12 @@ export default class TCAgentAffCodeList extends Component {
 
     getPrizeGroupArray() {
         let arr = [];
-        if (this.props.userStore.prizeGroup) {
-            let p = 98;
-            for (let a = this.props.userStore.prizeGroup; a >= 1800; a -= 2) {
+        if (this.props.userStore.prizeGroup >= this.props.userStore.minMemberPrizeGroup) {
+            for (let a = this.props.userStore.prizeGroup; a >= this.props.userStore.minMemberPrizeGroup; a -= 2) {
                 let str = '' + a + ' - ' + ((a / 2000) * 100).toFixed(2) + '% (赔率)';
                 arr.push({prize: a, str: str});
-                p -= 0.1;
             }
         }
-
         return arr;
     }
 

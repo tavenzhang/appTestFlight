@@ -51,6 +51,8 @@ class UserStore {
     //用户奖金组
     @observable prizeGroup = 1960;
 
+    @observable minMemberPrizeGroup = 0;
+
     //当前用户状态 正式用户，试玩用户
     @observable currentState = "";
 
@@ -245,6 +247,7 @@ class UserStore {
         this.isLogin = true;
         this.userName = user.username.toLocaleLowerCase();
         this.prizeGroup = user.prizeGroup;
+        this.minMemberPrizeGroup = user.minMemberPrizeGroup;
         this.access_token = user["oauthToken"]["access_token"];
         user.password = base64.encode(this.password);
         this.realName = user.realname;

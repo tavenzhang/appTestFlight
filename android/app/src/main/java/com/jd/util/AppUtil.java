@@ -28,7 +28,8 @@ public class AppUtil {
             ApplicationInfo applicationInfo = context.getPackageManager()
                     .getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             Bundle bundle = applicationInfo.metaData;
-            value = bundle.getString(key);
+            Object obj = bundle.get(key);
+            value = String.valueOf(obj);
         } catch (PackageManager.NameNotFoundException e) {
             Log.d("AppUtil", "Failed to load meta-data, NameNotFound: " + e.getMessage());
         } catch (NullPointerException e) {
