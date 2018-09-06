@@ -90,7 +90,7 @@ export default class TCAgentAddAccount extends Component {
         }
 
         let judgmentValue = shouldAddCode ? this.state.affCode : this.state.username;
-        let re = shouldAddCode ? /^[0-9A-Za-z]{1,20}$/ : /^[0-9A-Za-z]{4,12}$/;
+        let re = shouldAddCode ? /^[0-9A-Za-z]{3,20}$/ : /^[0-9A-Za-z]{4,12}$/;
         // 邀请码校验
         if (shouldAddCode && (!judgmentValue || judgmentValue.length > 20 || !judgmentValue.match(re))) {
             Toast.showShortCenter("邀请码为3-20位数字与字母的组合");
