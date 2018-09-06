@@ -4,24 +4,29 @@
  * Copyright © 2016年 JX. All rights reserved.
  */
 
-import React, {Component} from 'react';
+import React from 'react';
 import {
-    AppRegistry,
+    Alert,
+    Image,
+    ListView,
+    Modal,
+    Platform,
+    ScrollView,
     StyleSheet,
     Text,
-    View,
-    ListView,
-    RefreshControl,
     TextInput,
-    Image,
-    ScrollView,
     TouchableOpacity,
-    Platform,
-    Modal,
-    TouchableHighlight,
-    Alert
+    View
 } from 'react-native';
-import {Size, indexBgColor, width, height, agentCenter, listViewTxtColor, buttonStyle} from '../../../resouce/theme';
+import {
+    agentCenter,
+    buttonStyle,
+    height,
+    indexBgColor,
+    listViewTxtColor,
+    Size,
+    width
+} from '../../../resouce/theme';
 import {agent, common} from '../../../resouce/images';
 import RowList from './View/TCAgentTeamListRow';
 import _ from 'lodash';
@@ -29,19 +34,20 @@ import NetUtils from '../../../../Common/Network/TCRequestUitls';
 import {config} from '../../../../Common/Network/TCRequestConfig';
 import TopNavigationBar from '../../../../Common/View/TCNavigationBar';
 import NavigatorHelper from '../../../../Common/JXHelper/TCNavigatorHelper';
+import Helper from '../../../../Common/JXHelper/TCNavigatorHelper';
 import Toast from '../../../../Common/JXHelper/JXToast';
-import SwipeListView from './View/SwipeListView';
 import ScrollNavigatorBar from './View/ScrollNavigatorBar';
 import BaseComponent from '../../../Base/TCBaseComponent';
 import LoadingSpinnerOverlay from '../../../../Common/View/LoadingSpinnerOverlay'
 import dismissKeyboard from 'dismissKeyboard';
-import AddUserAccount from './../TCAgentAddAccount';
 import NoDataView from '../../../../Common/View/TCNoDataView';
 import ModalDropdown from '../../../../Common/View/ModalDropdown';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
-import Helper from "../../../../Common/JXHelper/TCNavigatorHelper";
 import userStore from '../../../../Data/store/UserStore'
+import {inject, observer} from "mobx-react/native";
 
+@inject("userStore")
+@observer
 export default class TCAgentTeamList extends BaseComponent {
     constructor(state) {
         super(state);
@@ -386,6 +392,10 @@ export default class TCAgentTeamList extends BaseComponent {
 
     addUser() {
         dismissKeyboard();
+        if (this.props.userStore.prizeGroup < this.props.userStore.minMemberPrizeGroup) {
+            Toast.showShortCenter('平台最低返点为1900!');
+            return
+        }
         NavigatorHelper.pushToAgentAddAccount(true)
     }
 
@@ -969,12 +979,11 @@ export default class TCAgentTeamList extends BaseComponent {
 
     getPrizeGroupArray() {
         let arr = [];
-        if (userStore.prizeGroup) {
-            let p = 98;
-            for (let a = userStore.prizeGroup; a >= this.state.minPriceGroup; a -= 2) {
+        if (this.props.userStore.prizeGroup > this.props.userStore.minMemberPrizeGroup) {
+            let minPrize = this.state.prizeGroup < this.props.userStore.minMemberPrizeGroup ? this.props.userStore.minMemberPrizeGroup : this.state.prizeGroup
+            for (let a = this.props.userStore.prizeGroup; a >= minPrize; a -= 2) {
                 let str = '' + a + ' - ' + (a / 2000 * 100).toFixed(2) + '% (赔率)';
                 arr.push({prize: a, str: str});
-                p -= 0.1;
             }
         }
         return arr;
