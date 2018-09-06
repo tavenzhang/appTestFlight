@@ -804,6 +804,8 @@ export default class TCAgentTeamList extends BaseComponent {
     }
 
     updateUserPriceGroup() {
+        const groupPrize = this.getPrizeGroupArray()
+        const groupPrizeModalDisabled = !(groupPrize && groupPrize.length > 0)
         return (
             <Modal
                 animationType="fade"
@@ -857,6 +859,7 @@ export default class TCAgentTeamList extends BaseComponent {
                         </View>
 
                         <TouchableOpacity
+                            disabled={groupPrizeModalDisabled}
                             onPress={() => {
                                 this.refs['GroupModalDropdown'].show();
                             }}
@@ -892,8 +895,9 @@ export default class TCAgentTeamList extends BaseComponent {
                                 </Text>
                                 <ModalDropdown
                                     ref="GroupModalDropdown"
+                                    disabled={groupPrizeModalDisabled}
                                     textStyle={styles.dropDownTxtStyle}
-                                    options={this.getPrizeGroupArray()}
+                                    options={groupPrize}
                                     style={styles.groupDropStyle}
                                     dropdownStyle={styles.groupDropDownStyle}
                                     renderRow={(rowData, rowID) => this.renderDropDownRow(rowData, rowID)}
