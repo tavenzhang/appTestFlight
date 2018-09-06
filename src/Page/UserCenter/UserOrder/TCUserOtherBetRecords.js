@@ -17,8 +17,11 @@ import IMOrderItem from './View/TCUserIMBetItemRow'
 import SSOrderItem from './View/TCUserSSBetItemRow'
 import MGOrderItem from './View/TCUserMGBetItemRow'
 import KYOrderItem from './View/TCUserKYBetItemRow'
+import CPOrderItem from './View/TCUserCPBetItemRow'
 import PopView from '../../../Common/View/TCSelectModal'
 import {withMappedNavigationProps} from "react-navigation-props-mapper";
+
+let titleArray = []
 
 /**
  * 用户投注记录
@@ -31,6 +34,15 @@ export default class TCUserOtherBetRecords extends Component {
         super(props)
         this.platform = this.props.platform;
         this.userBetsStore = new UserBetsStore();
+        if (this.platform === 'IMONE' || this.platform === 'SS') {
+            titleArray = ['类别', '投注', '返点', '盈亏', '状态', '时间']
+        } else if (this.platform === 'MG' || this.platform === 'FG') {
+            titleArray = ['游戏', '投注', '盈亏', '时间']
+        } else if (this.platform === 'KY') {
+            titleArray = ['游戏', '房间', '盈亏', '结束时间']
+        } else if (this.platform === 'CP') {
+            titleArray = ['彩种', '投注', '盈亏', '结束时间']
+        }
     }
 
     componentDidMount() {
@@ -122,33 +134,24 @@ export default class TCUserOtherBetRecords extends Component {
     }
 
     renderHeader() {
-        if (this.platform === 'IMONE' || this.platform === 'SS') {
+        if (titleArray && titleArray.length === 6) {
             return (
                 <View style={styles.header}>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>类别</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>投注</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>返点</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>盈亏</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>状态</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.25}]}>时间</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{titleArray[0]}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{titleArray[1]}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{titleArray[2]}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{titleArray[3]}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.15}]}>{titleArray[4]}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.25}]}>{titleArray[5]}</Text>
                 </View>
             )
-        } else if (this.platform === 'MG') {
+        } else if (titleArray && titleArray.length === 4) {
             return (
                 <View style={styles.header}>
-                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>游戏</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>投注</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>盈亏</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>时间</Text>
-                </View>
-            )
-        } else if (this.platform === 'KY') {
-            return (
-                <View style={styles.header}>
-                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>游戏</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>房间</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>盈亏</Text>
-                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>结束时间</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>{titleArray[0]}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>{titleArray[1]}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.2}]}>{titleArray[2]}</Text>
+                    <Text style={[styles.headerTitle, {width: width * 0.3}]}>{titleArray[3]}</Text>
                 </View>
             )
         }
@@ -231,9 +234,9 @@ export default class TCUserOtherBetRecords extends Component {
                     <SSOrderItem orderData={item}/>
                 </TouchableOpacity>
             )
-        } else if (this.platform === 'MG') {
+        } else if (this.platform === 'MG' || this.platform === 'FG') {
             return (
-                <TouchableOpacity onPress={() => {JX_NavHelp.pushView(JX_Compones.UserMGBetDetail,{orderData: item})}}>
+                <TouchableOpacity onPress={() => {JX_NavHelp.pushView(this.platform === 'MG' ? JX_Compones.UserMGBetDetail : JX_Compones.UserFGBetDetail,{orderData: item})}}>
                     <MGOrderItem orderData={item}/>
                 </TouchableOpacity>
             )
@@ -242,6 +245,10 @@ export default class TCUserOtherBetRecords extends Component {
                 <TouchableOpacity onPress={() => {JX_NavHelp.pushView(JX_Compones.UserKYBetDetail,{orderData: item})}}>
                     <KYOrderItem orderData={item}/>
                 </TouchableOpacity>
+            )
+        } else if (this.platform === 'CP') {
+            return (
+                <CPOrderItem orderData={item}/>
             )
         }
     }

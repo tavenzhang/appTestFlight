@@ -481,7 +481,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
-        marginTop: 15
+        marginTop: 15,
+        marginBottom: 15,
     },
     queryTxt: {
         fontSize: Size.large,
