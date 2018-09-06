@@ -144,12 +144,20 @@ class ManualTransferView extends React.Component {
     constructor(props) {
         super(props);
         this.moneyLabels = ['50', '100', '300', '500', '1000', '2000', '3000', '5000'] // 快捷转账/充值金额
+        if(this.props.platName){
+            for (let key=0;key<walletStore.allWalletsName.length;key++){
+                let data = walletStore.allWalletsName[key] ? walletStore.allWalletsName[key]:"";
+                if(data.indexOf&&data.indexOf(this.props.platName)>-1) {
+                    this.defaultDroutOutValue = key;
+                    break;
+                }
+            }
+        }
         this.state = {
             fromIndex: 0,                   // 左侧label选中index
-            toIndex: 1,                     // 右侧label选中index
+            toIndex: this.defaultDroutOutValue ? this.defaultDroutOutValue : 1, // 右侧label选中index
             moneyLabelSelectedIndex: -1,    // 快捷转账/充值金额选中index
             transferMoney: '',              // 转账金额
-            platName:this.props.platName  //默认转出货币
         }
     }
 
@@ -202,7 +210,7 @@ class ManualTransferView extends React.Component {
                         ref="toDropDown"
                         options={walletStore.allWalletsName}
                         defaultIndex={this.state.toIndex}
-                        defaultValue={walletStore.allWalletsName[defaultDroutOutValue]}
+                        defaultValue={walletStore.allWalletsName[this.state.toIndex]}
                         style={styles.dropDownBtnStyle}
                         textStyle={styles.dropDownText}
                         dropdownStyle={styles.dropdownStyle}
