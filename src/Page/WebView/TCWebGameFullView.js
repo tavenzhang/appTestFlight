@@ -40,7 +40,7 @@ export default class TCWebGameFullView extends React.Component {
     componentWillMount() {
         let {isDZ,gameData,gameId}= this.props
         let bodyParam = {
-            access_token: JX_Store.userStore.access_token
+            //access_token: JX_Store.userStore.access_token
         }
 
         if (isDZ) {
@@ -70,11 +70,16 @@ export default class TCWebGameFullView extends React.Component {
 
 
     render() {
+
+        let {touchLeft,touchTop,isDZ,isRotate}= this.props;
+        let stateBarH =JX_PLAT_INFO.IS_IphoneX ? 45:20;
+
         let conetView = <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
             <Text style={{fontSize: Size.font13, fontWeight: "bold"}}>页面数据加载失败,请稍后重试!</Text>
         </View>
+
         if (!this.state.loadedFail) {
-            conetView = <View style={{height: SCREEN_H }}>
+            conetView = <View style={{height: SCREEN_H - (isDZ ? 0:stateBarH+(JX_PLAT_INFO.IS_IphoneX ? 10 :0)) }}>
                 {
                     this.state.url != "" ? <WebView
                         bounces={false}
@@ -93,14 +98,17 @@ export default class TCWebGameFullView extends React.Component {
                 }
             </View>
         }
+        let touchInitX = touchLeft==null ? JX_PLAT_INFO.SCREEN_W-100:touchLeft;
+        let touchInitY = touchTop==null ? stateBarH:touchTop;
 
         return (
             <View style={styles.containView}>
-                <View style={{height:JX_PLAT_INFO.IS_IphoneX ? 45:20, backgroundColor:"black"}}/>
+                <View style={{height:stateBarH, backgroundColor:"black"}}/>
                 {conetView}
-                <TCTouchMoveButton bottomMargin={JX_PLAT_INFO.IS_IphoneX ? 100:20}  rightMargin={50} topMargin={30} initX={JX_PLAT_INFO.SCREEN_W-100}  initY={40} onClick={this.onBack} contentView={<View style={{
-                     transform:[{rotate: '90deg'}]}}>
-                    <TCImage resizeMode={"contain"} style={{width:50, height:50}} source={ASSET_Other.Other.DSF.CLOSE_GAME}/>
+                <TCTouchMoveButton bottomMargin={JX_PLAT_INFO.IS_IphoneX ? 100:20}  rightMargin={50} topMargin={stateBarH} initX={touchInitX}
+                                   initY={touchInitY} onClick={this.onBack} contentView={<View style={{
+                    transform:[{rotate: isRotate ? '90deg':'0deg'}]}}>
+                    <TCImage resizeMode={"contain"} style={{width: 50, height:50}} source={ASSET_Other.Other.DSF.CLOSE_GAME}/>
                 </View>}/>
             </View>
         )

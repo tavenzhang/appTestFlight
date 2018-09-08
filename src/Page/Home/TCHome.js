@@ -356,26 +356,34 @@ export default class TCHome extends Component {
     }
 
     //渲染体育电子
-    renderDSFView(item, isSport = false) {
+    renderDSFView=(item, isSport = false)=> {
         return (
             <SportItemView
                 rowData={item}
                 mTimer={item.mTiter}
                 title={item.gameNameInChinese}
                 pushToEvent={item => {
-                    JXLog("renderDSFView----", item)
                     if (item.status == "ON") {
                         if (this.isLogin) {
                             if (this.isGuest) {
                                 Toast.showShortCenter(`你当前是: 试玩账号 暂时无法体验,请尽快注册正式账号参与体验吧！`);
                             } else {
-                                if (isSport) {
-                                    JX_NavHelp.pushView(JX_Compones.TCWebGameView, {
-                                        gameData: item,
-                                        title: item.gameDescription
-                                    })
-                                } else {
-                                    JX_NavHelp.pushView(JX_Compones.DZGameListView, {gameData: item})
+                                if(item.gamePlatform=="CP"){
+                                    JX_NavHelp.pushView(JX_Compones.TCWebGameFullView,{
+                                        touchLeft:20,
+                                        touchTop:JX_PLAT_INFO.SCREEN_H-150 ,
+                                        gameData:item,
+                                        title: item.gameDescription,
+                                    });
+                                }else{
+                                    if (isSport) {
+                                        JX_NavHelp.pushView(JX_Compones.TCWebGameView, {
+                                            gameData: item,
+                                            title: item.gameDescription
+                                        })
+                                    } else {
+                                        JX_NavHelp.pushView(JX_Compones.DZGameListView, {gameData: item})
+                                    }
                                 }
                             }
                         } else {

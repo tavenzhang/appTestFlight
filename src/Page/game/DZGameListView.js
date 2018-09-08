@@ -26,17 +26,17 @@ export default class DZGameListView extends Component {
 
     constructor(props) {
         super(props);
-        this.isReuesting = false; //防止快速点击 产生多次请求
-        this.state={
-            isEmpty:false,
+        //this.isReuesting = false; //防止快速点击 产生多次请求
+        this.state = {
+            isEmpty: false,
         }
     }
 
     render() {
         let emptView = null;
-        if(this.state.isEmpty){
-            emptView= (<View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-                <Text style={{fontSize:16, fontWeight:"bold"}}>
+        if (this.state.isEmpty) {
+            emptView = (<View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
+                <Text style={{fontSize: 16, fontWeight: "bold"}}>
                     游戏暂未开放！
                 </Text>
             </View>)
@@ -51,9 +51,9 @@ export default class DZGameListView extends Component {
                     rightTitle={"额度转化"}
                     rightButtonCall={this.onTransMoney}
                 />
-                {JX_Store.gameDZStore.gameData.length<=0 ? emptView :<ScrollableTabView
+                {JX_Store.gameDZStore.gameData.length <= 0 ? emptView : <ScrollableTabView
                     initialPage={0}
-                    style={{backgroundColor: indexBgColor.itemBg, width:SCREEN_W}}
+                    style={{backgroundColor: indexBgColor.itemBg, width: SCREEN_W}}
                     removeClippedSubviews={false}
                     tabBarUnderlineStyle={{backgroundColor: shoppingTxtColor.tabLine, height: 2}}
                     locked={false}
@@ -64,7 +64,7 @@ export default class DZGameListView extends Component {
                     {
                         JX_Store.gameDZStore.gameData.map(item => {
                             return <GamePage tabLabel={item.name} onClickItem={this.onClickItem}
-                                             datas={item.games}  gameData={gameData}/>
+                                             datas={item.games} gameData={gameData}/>
                         })
                     }
                 </ScrollableTabView>}
@@ -78,18 +78,18 @@ export default class DZGameListView extends Component {
 
     componentWillMount() {
         let {gameData} = this.props.navigation.state.params
-        JX_Store.gameDZStore.loadGames(gameData.gamePlatform,(dataList)=>{
-            if(dataList.length == 0){
-                this.setState({isEmpty:true})
-            }else{
-                this.setState({isEmpty:false})
+        JX_Store.gameDZStore.loadGames(gameData.gamePlatform, (dataList) => {
+            if (dataList.length == 0) {
+                this.setState({isEmpty: true})
+            } else {
+                this.setState({isEmpty: false})
             }
         })
     }
 
-    onTransMoney=()=>{
+    onTransMoney = () => {
         let {gameData} = this.props.navigation.state.params;
-        JX_NavHelp.pushView(JX_Compones.UserTransfer,{platName:gameData.gameNameInChinese ? gameData.gameNameInChinese.substr(0,2):null});
+        JX_NavHelp.pushView(JX_Compones.UserTransfer, {platName: gameData.gameNameInChinese ? gameData.gameNameInChinese.substr(0, 2) : null});
     }
 
 
@@ -98,40 +98,46 @@ export default class DZGameListView extends Component {
         let {gameData} = this.props.navigation.state.params
         let bodyParam = {
             gameId: dataItem.gameId,
-            access_token: this.props.userStore.access_token,
         }
         let url = config.api.gamesDZ_start + "/" + dataItem.gameId;
-        if(gameData.gamePlatform == "MG"){ //由于MG平台的游戏 需要横屏 做特殊处理
-            if (!this.isReuesting) {
-                this.isReuesting = true;
-                NetUitls.getUrlAndParamsAndPlatformAndCallback(url,bodyParam,gameData.gamePlatform , (ret) => {
-                    this.isReuesting = false
-                    JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
-                    if (ret.rs) {
-                            if (IS_IOS) {
-                                Linking.openURL(ret.content.gameUrl);
-                            } else {
-                                if(NativeModules.JXHelper.openGameWebViewFromJs) {
-                                    NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name);
-                                }else{
-                                    Linking.openURL(ret.content.gameUrl);
-                                }
-                            }
+        if (gameData.gamePlatform == "MG" || gameData.gamePlatform == "FG") { //由于MG平台的游戏 需要横屏 做特殊处理 "FG" 需要修改原生agent
+            NetUitls.getUrlAndParamsAndPlatformAndCallback(url, bodyParam, gameData.gamePlatform, (ret) => {
+                JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
+                if (ret.rs) {
+                    if (IS_IOS) {
+                        Linking.openURL(ret.content.gameUrl);
                     } else {
-                        JDToast.showLongCenter(ret.message)
+                        if(gameData.gamePlatform == "MG")
+                        {
+                            if (NativeModules.JXHelper.openGameWebViewFromJs) {
+                                NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name);
+                            } else {
+                                Linking.openURL(ret.content.gameUrl);
+                            }
+                        }else{
+                            this.onPushGameFullView(dataItem,gameData);
+                        }
                     }
-                })
-            }
-        }else{
-            JX_NavHelp.pushView(JX_Compones.TCWebGameFullView, {
-                gameId: dataItem.gameId,
-                gameData,
-                isDZ: true,
-                title: dataItem.name,
-                platName:gameData.gameNameInChinese ? gameData.gameNameInChinese.substr(0,2):null
-            })
+                } else {
+                    JDToast.showLongCenter(ret.message)
+                }
+            },null,null,{})
+        } else {
+            this.onPushGameFullView(dataItem, gameData);
         }
-
     }
+
+    onPushGameFullView = (dataItem, gameData) => {
+        JX_NavHelp.pushView(JX_Compones.TCWebGameFullView, {
+            gameId: dataItem.gameId,
+            gameData,
+            isDZ: true,
+            title: dataItem.name,
+            platName: gameData.gameNameInChinese ? gameData.gameNameInChinese.substr(0, 2) : null,
+            isRotate: true
+        })
+    }
+
+
 }
 
