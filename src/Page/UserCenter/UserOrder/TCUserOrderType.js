@@ -1,6 +1,6 @@
 'use-strict';
 import React from 'react';
-import {StyleSheet, SafeAreaView, View, Text, Image} from 'react-native';
+import {StyleSheet, SafeAreaView, View, Text, Image, ScrollView} from 'react-native';
 import {width, listViewTxtColor, Size, indexBgColor} from "../../resouce/theme";
 import {common as Common} from "../../resouce/images";
 import {Other} from "../../asset";
@@ -81,12 +81,14 @@ export default class TCUserOrderType extends React.Component {
                     title={'投注平台'}
                     needBackButton
                     backButtonCall={() => NavigatorHelper.popToBack()}/>
-                <Text style={styles.typeTitle}>彩票游戏</Text>
-                <TCListItemBar text={'彩票游戏投注记录'}
-                               leftIcon={Other.caiPiao}
-                               rightIcon={Common.iconNext}
-                               onClick={() => NavigatorHelper.pushToOrderRecord(0)}/>
-                {this.renderOtherPlatform()}
+                <ScrollView contentContainerStyle={styles.contentContainer}>
+                    <Text style={styles.typeTitle}>彩票游戏</Text>
+                    <TCListItemBar text={'彩票游戏投注记录'}
+                                   leftIcon={Other.caiPiao}
+                                   rightIcon={Common.iconNext}
+                                   onClick={() => NavigatorHelper.pushToOrderRecord(0)}/>
+                    {this.renderOtherPlatform()}
+                </ScrollView>
             </View>
         );
     }
@@ -96,6 +98,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: indexBgColor.mainBg,
+    },
+    contentContainer: {
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     typeTitle: {
         width: width,
