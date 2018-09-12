@@ -20,7 +20,7 @@ import RowCell from './View/TCLotteryLobbyRowView'
 import TopNavigationBar from '../../Common/View/TCNavigationBar'
 import LotteryHistoryList from './TCLotteryHistoryList'
 import LotteryResultData from '../../Data/JXLotteryResultData'
-import {indexBgColor, height, width} from '../resouce/theme'
+import {indexBgColor, height, width, refreshColor} from '../resouce/theme'
 import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import TCFlatList from "../../Common/View/RefreshListView/TCFLatList";
@@ -72,8 +72,8 @@ export default class TCLotteryLobby extends React.Component {
                             tintColor="#ff0000"
                             title="下拉刷新"
                             titleColor="#999999"
-                            colors={['#ff0000', '#00ff00', '#0000ff']}
-                            progressBackgroundColor="#ffff00"
+                            colors={refreshColor.progress}
+                            progressBackgroundColor={refreshColor.progressBackground}
                         />
                     }
                 />

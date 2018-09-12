@@ -10,7 +10,15 @@ import {observable, computed, action} from 'mobx';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import NoDataView from '../../../Common/View/TCNoDataView';
 import ListRow from './View/TCUserAccountDetailsRowView';
-import {Size, indexBgColor, listViewTxtColor, width, shoppingTxtColor, agentCenter} from '../../resouce/theme';
+import {
+    Size,
+    indexBgColor,
+    listViewTxtColor,
+    width,
+    shoppingTxtColor,
+    agentCenter,
+    refreshColor
+} from '../../resouce/theme';
 import Moment from 'moment';
 import DatePicker from "../../../Common/View/datepicker";
 import {userAccount} from '../../resouce/images'
@@ -89,8 +97,8 @@ export default class TCUserAccountDetailsNew extends Component {
                                 tintColor="#ff0000"
                                 title="下拉刷新"
                                 titleColor="#999999"
-                                colors={['#ff0000', '#00ff00', '#0000ff']}
-                                progressBackgroundColor="#ffff00"/>
+                                colors={refreshColor.progress}
+                                progressBackgroundColor={refreshColor.progressBackground}/>
                         }/>}
             </View>
         );

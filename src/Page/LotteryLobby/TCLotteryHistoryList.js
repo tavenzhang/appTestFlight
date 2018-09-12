@@ -23,7 +23,15 @@ import TCListRowView from '../../Common/View/TCLottertHistoryListRowView'
 import TCNavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import JXHelpers from '../../Common/JXHelper/JXHelper'
 import JXLotteryHistoryData from '../../Data/JXLotteryHistoryData'
-import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle} from '../resouce/theme'
+import {
+    Size,
+    width,
+    height,
+    indexBgColor,
+    listViewTxtColor,
+    buttonStyle,
+    refreshColor
+} from '../resouce/theme'
 import {themeViewStyle} from '../asset'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
@@ -76,8 +84,8 @@ export default class TCLotteryHistoryList extends BaseComponent {
                                   tintColor="#ff0000"
                                   title="下拉刷新"
                                   titleColor="#999999"
-                                  colors={['#ff0000', '#00ff00', '#0000ff']}
-                                  progressBackgroundColor="#ffff00"
+                                  colors={refreshColor.progress}
+                                  progressBackgroundColor={refreshColor.progressBackground}
                               />
                           }
                 />

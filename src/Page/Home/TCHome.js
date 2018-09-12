@@ -44,7 +44,7 @@ import Moment from 'moment';
 import {observer, inject} from 'mobx-react/native';
 import {computed} from 'mobx'
 
-import {width, indexBgColor, indexTxtColor, height} from '../resouce/theme';
+import {width, indexBgColor, indexTxtColor, height, refreshColor} from '../resouce/theme';
 import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
 import NetWorkTool from '../../Common/Network/TCToolNetWork';
 
@@ -126,7 +126,7 @@ export default class TCHome extends Component {
                     title={this.appName}
                     needBackButton={this.isLogin}
                     leftTitle={this.isLogin ? null : '注册'}
-                    rightTitle={this.isLogin ? '我的收藏' : '登录'}
+                    rightTitle={this.isLogin ? '余额\n￥'+this.props.userStore.balance : '登录'}
                     leftImage={this.isLogin ? 'index_personal' : null}
                     centerViewShowStyleImage={true}
                     backButtonCall={
@@ -138,20 +138,27 @@ export default class TCHome extends Component {
                     }
                     rightButtonCall={() =>
                         this.isLogin
-                            ? NavigatorHelper.pushToUserCollect()
+                            ? this.props.userStore.freshBalance(true)
                             : NavigatorHelper.pushToUserLogin(true)}
                 />
                 {this.homeStore.content ? <SectionList
-                    refreshing={false}
-                    onRefresh={() => {
-                        this.loadDataFormNet()
-                    }}
                     contentContainerStyle={styles.listViewStyle}
                     renderSectionHeader={this.renderSectionHeader}
                     keyExtractor={(item, index) => index + item}
                     ListHeaderComponent={this.renderHomeHeaer}
                     ListFooterComponent={this.renderFooter}
                     sections={this.getSectionsData()}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={false}
+                            onRefresh={() => this.loadDataFormNet()}
+                            tintColor="#ff0000"
+                            title="下拉刷新"
+                            titleColor="#999999"
+                            colors={refreshColor.progress}
+                            progressBackgroundColor={refreshColor.progressBackground}
+                        />
+                    }
                 /> : null}
                 {this.getRedPacketButton()}
                 <JXPopupNotice ref="PopupNotice"/>

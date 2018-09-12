@@ -19,7 +19,14 @@ import Toast from '../../../Common/JXHelper/JXToast';
 
 /**组件内部显示需要引入的类 */
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import {width, height, indexBgColor, listViewTxtColor, indexTxtColor} from '../../resouce/theme'
+import {
+    width,
+    height,
+    indexBgColor,
+    listViewTxtColor,
+    indexTxtColor,
+    refreshColor
+} from '../../resouce/theme'
 /** 外部关系组件 如 页面跳转用 */
 import {config, appId} from '../../../Common/Network/TCRequestConfig';
 import NetUitls from '../../../Common/Network/TCRequestUitls'
@@ -72,8 +79,8 @@ export default class MyComponent extends React.Component {
                                 tintColor="#ff0000"
                                 title="下拉刷新"
                                 titleColor="#999999"
-                                colors={['#ff0000', '#00ff00', '#0000ff']}
-                                progressBackgroundColor="#ffff00"
+                                colors={refreshColor.progress}
+                                progressBackgroundColor={refreshColor.progressBackground}
                             />
                         }
                     />

@@ -21,7 +21,14 @@ import TopNavigationBar from '../../../Common/View/TCNavigationBar'
 import MessageListItem from './TCPromotionItemView'
 import Toast from '../../../Common/JXHelper/JXToast';
 import NetUitls from '../../../Common/Network/TCRequestUitls'
-import {Size,height,width,indexBgColor,listViewTxtColor} from '../../resouce/theme'
+import {
+    Size,
+    height,
+    width,
+    indexBgColor,
+    listViewTxtColor,
+    refreshColor
+} from '../../resouce/theme'
 import {config} from '../../../Common/Network/TCRequestConfig';
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 
@@ -120,8 +127,8 @@ export default class TCPromotionList extends BaseComponent {
                             tintColor="#ff0000"
                             title="下拉刷新"
                             titleColor="#999999"
-                            colors={['#ff0000', '#00ff00', '#0000ff']}
-                            progressBackgroundColor="#ffff00"
+                            colors={refreshColor.progress}
+                            progressBackgroundColor={refreshColor.progressBackground}
                         />
                     }
 

@@ -108,6 +108,12 @@ export const indexBgColor = {
     homeHistoryEvenBg: baseColor.mainBg, //投注页面历史偶数行背景
 }
 
+// 下拉刷新控件progress主题样式
+export const refreshColor = {
+    progress: ['#e4dc5f', '#e4dc5f', '#ede99d', '#f4f2c4'],
+    progressBackground: '#2e4fa3'
+}
+
 export const borderColor = {}
 
 /**

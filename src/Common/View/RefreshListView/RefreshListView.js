@@ -16,7 +16,14 @@ import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 import NoDataView from '../TCNoDataView'
 import Toast from '../../../Common/JXHelper/JXToast';
-import {Size, indexBgColor, listViewTxtColor, width, height} from '../../../Page/resouce/theme'
+import {
+    Size,
+    indexBgColor,
+    listViewTxtColor,
+    width,
+    height,
+    refreshColor
+} from '../../../Page/resouce/theme'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
@@ -143,8 +150,8 @@ export default class RefreshListView extends Component {
                                     tintColor="#ff0000"
                                     title="下拉刷新"
                                     titleColor="#999999"
-                                    colors={['#ff0000', '#00ff00', '#0000ff']}
-                                    progressBackgroundColor="#ffff00"/>:null
+                                    colors={refreshColor.progress}
+                                    progressBackgroundColor={refreshColor.progressBackground}/>:null
                         }
                 />)
                 // <ListView
