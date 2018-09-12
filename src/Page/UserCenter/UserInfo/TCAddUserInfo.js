@@ -179,7 +179,11 @@ export default class TCAddUserInfo extends Component {
 
     back() {
         dismissKeyboard()
-        NavigationService.goBack();
+        if (this.props.backToTop) {
+            NavigationService.popToTop()
+        } else {
+            NavigationService.goBack();
+        }
     }
 
     @computed get realName() {

@@ -253,8 +253,8 @@ Helper.pushToUserSecurityCenter = () => {
     NavigationService.navigate("UserSecurityCenter");
 }
 
-Helper.pushToAddBank = () => {
-    NavigationService.navigate("UserInfo");
+Helper.pushToAddBank = (backToTop) => {
+    NavigationService.navigate("UserInfo", {backToTop});
 }
 
 // 跳转到修改用户登录密码页面

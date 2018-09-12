@@ -12,6 +12,7 @@ import {Size, width, height} from '../../Page/resouce/theme'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import KeyboardAvoidingScrollView from '../../Common/View/TCKeyboardAvoidingScrollView';
 import {
+    Alert,
     StyleSheet,
     Text,
     View,
@@ -265,7 +266,23 @@ export default class TCUserRegister extends Component {
             if (res.status) {
                 this.props.userStore.getMessageStatus();
                 this.props.mainStore.changeTab("mine")
-                Helper.popToTop();
+                Alert.alert(
+                    '绑定银行卡',
+                    '绑定银行卡能更加方便提款哦~',
+                    [
+                        {
+                            text: '取消', onPress: () => {
+                                Helper.popToTop()
+                            }
+                        },
+                        {
+                            text: '绑定', onPress: () => {
+                                Helper.pushToAddBank(true)
+                            }
+                        }
+                    ],
+                    {cancelable: false}
+                )
             }
         });
     }
