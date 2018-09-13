@@ -26,7 +26,6 @@ import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.microsoft.codepush.react.CodePush;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.toast.RCTToastPackage;
-import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.wix.interactable.Interactable;
 import com.zmxv.RNSound.RNSoundPackage;
