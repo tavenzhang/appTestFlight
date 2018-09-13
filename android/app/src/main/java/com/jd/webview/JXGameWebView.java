@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.jd.R;
 import com.jd.util.StatusBarUtils;
+import com.umeng.analytics.MobclickAgent;
 
 
 /**
@@ -66,6 +67,18 @@ public class JXGameWebView extends Activity {
         webView.setWebChromeClient(new JXWebChromeClient());
         webView.setWebViewClient(new JXWebViewClient());
         webView.loadUrl(url);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     // 捕捉"回退"按键，让WebView能回退到上一页，而不是直接关闭Activity。

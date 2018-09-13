@@ -4,6 +4,8 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 
 import com.facebook.react.ReactActivity;
+import com.jd.crash.ErrorManager;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends ReactActivity {
 
@@ -25,5 +27,19 @@ public class MainActivity extends ReactActivity {
             resources.updateConfiguration(configuration, resources.getDisplayMetrics());
         }
         return resources;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+        ErrorManager.getInstance().checkAndUpdateErrorLogIfNeed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ErrorManager.getInstance().checkAndUpdateErrorLogIfNeed();
+        MobclickAgent.onPause(this);
     }
 }

@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 
 import com.jd.R;
 import com.jd.util.StatusBarUtils;
+import com.umeng.analytics.MobclickAgent;
 
 
 /**
@@ -224,5 +225,17 @@ public class JXWebView extends Activity {
             resources.updateConfiguration(configuration, resources.getDisplayMetrics());
         }
         return resources;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

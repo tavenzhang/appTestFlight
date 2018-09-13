@@ -96,7 +96,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "com.tc168"
@@ -116,12 +116,13 @@ android {
             versionName APP_VERSION
             resValue "string", "app_name", "JD综合-sit"
             manifestPlaceholders = [
-                    CHANNEL_AFFCODE: AFF_CODE,
-                    UMENG_KEY      : UMENG_KEY,
                     APP_VERSION    : APP_VERSION,
+                    CHANNEL_AFFCODE: AFF_CODE,
                     JPUSH_PKGNAME  : APP_ID,
                     JPUSH_APPKEY   : JPUSH_KEY,
-                    JPUSH_CHANNEL  : "developer-default" // 暂时填写默认值即可.
+                    JPUSH_CHANNEL  : JPUSH_CHANNEL,
+                    UMENG_KEY      : UMENG_KEY,
+                    UMENG_CHANNEL  : UMENG_CHANNEL
             ]
         }
     }
@@ -170,6 +171,14 @@ android {
 }
 
 dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'cn.jiguang.sdk:jpush:3.1.6'
+    compile 'cn.jiguang.sdk:jcore:1.2.5'
+    compile 'com.umeng.sdk:common:latest.integration'
+    compile 'com.umeng.sdk:analytics:latest.integration'
+    compile 'com.facebook.react:react-native:+'
+    compile 'com.zhy:okhttputils:2.6.2'
     compile project(':react-native-toast-native')
     compile project(':react-native-shake-event')
     compile project(':react-native-code-push')
@@ -184,14 +193,6 @@ dependencies {
     compile project(':react-native-device-info')
     compile project(':react-native-blur')
     compile project(':react-native-fast-image')
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.facebook.react:react-native:+'
-    // From node_modules
-    compile 'com.zhy:okhttputils:2.6.2'
-    compile files('libs/umeng-analytics-7.4.4.jar')
-    compile 'cn.jiguang.sdk:jpush:3.1.6'
-    compile 'cn.jiguang.sdk:jcore:1.2.5'
 }
 
 // Run this once to be able to run the application with BUCK

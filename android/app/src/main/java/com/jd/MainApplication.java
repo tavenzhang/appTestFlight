@@ -4,38 +4,39 @@ import android.app.Application;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
-import com.facebook.react.ReactApplication;
-
-
-import com.jd.audio.RNAudioPackage;
-import com.jd.jxhelper.JXHelperPackage;
-import com.jd.marqueeLabel.RCTMarqueeLabelPackage;
-import com.jd.openapp.OpenAppPackage;
-import com.jd.openapp.TCOpenOtherAppHelper;
-import com.jd.util.AppUtil;
-import com.toast.RCTToastPackage;
-import com.jadsonlourenco.RNShakeEvent.RNShakeEventPackage;
-import com.microsoft.codepush.react.CodePush;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.horcrux.svg.SvgPackage;
-
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
-
-import com.zmxv.RNSound.RNSoundPackage;
-import com.github.xinthink.rnmk.ReactMaterialKitPackage;
-import com.wix.interactable.Interactable;
-import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
+import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.github.xinthink.rnmk.ReactMaterialKitPackage;
+import com.horcrux.svg.SvgPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.jadsonlourenco.RNShakeEvent.RNShakeEventPackage;
+import com.jd.audio.RNAudioPackage;
+import com.jd.crash.CrashHandler;
+import com.jd.jxhelper.JXHelperPackage;
+import com.jd.marqueeLabel.RCTMarqueeLabelPackage;
+import com.jd.openapp.OpenAppPackage;
+import com.jd.util.AppUtil;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.microsoft.codepush.react.CodePush;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.toast.RCTToastPackage;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
+import com.wix.interactable.Interactable;
+import com.zmxv.RNSound.RNSoundPackage;
+
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import java.util.Arrays;
 import java.util.List;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -98,6 +99,14 @@ public class MainApplication extends Application implements ReactApplication {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
         AppUtil.updateLocalAFFCode(this);
+        CrashHandler.getInstance().init(this);
+        // 极光配置
+        JPushInterface.setDebugMode(BuildConfig.DEBUG);
+        JPushInterface.init(this);
+        // 友盟配置
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
+        UMConfigure.setLogEnabled(BuildConfig.DEBUG);
+        UMConfigure.setEncryptEnabled(true);
     }
 
     @Override
