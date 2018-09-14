@@ -3,35 +3,25 @@
  */
 
 import React, {Component} from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    Navigator,
-    Platform,
-    Image,
-    PanResponder,
-    Dimensions,
-    AppState,
-    BackHandler
-} from 'react-native';
+import {BackHandler, Image, Platform, StyleSheet, View} from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
-import {observer, inject} from 'mobx-react'
+import {inject, observer} from 'mobx-react'
 import {computed} from 'mobx'
 
 import Home from '../Home/TCHome';
 import LotteryLobby from '../LotteryLobby/TCLotteryLobby';
+import Trend from '../Trend/TCTrend';
 import TCUserCenterHome from '../UserCenter/TCUserCenterNew';
-import WelfareCenter from '../UserCenter/welfare/TCWelfareCenter';
 import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
-import {width, height, indexBgColor, indexTxtColor, indexBtmStyle, Size, baseColor} from '../resouce/theme';
-import {JX_PLAT_INFO, bottomNavHeight,} from '../asset'
+import {baseColor, indexBgColor, indexBtmStyle, Size, width} from '../resouce/theme';
+import {bottomNavHeight, JX_PLAT_INFO,} from '../asset'
 import {home} from '../resouce/images';
 import Toast from "../../Common/JXHelper/JXToast";
 import Moment from "moment/moment";
 import userStore from "../../Data/store/UserStore";
 import NavigationService from "../Route/NavigationService";
+import TCTrend from "../Trend/TCTrend";
 
 @inject("mainStore", "userStore", "jdAppStore")
 @observer
@@ -73,8 +63,10 @@ export default class TC168 extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <TabNavigator tabBarStyle={{backgroundColor: indexBgColor.tabBg, height: bottomNavHeight,
-                    paddingBottom:JX_PLAT_INFO.IS_IphoneX ? 30:0}}>
+                <TabNavigator tabBarStyle={{
+                    backgroundColor: indexBgColor.tabBg, height: bottomNavHeight,
+                    paddingBottom: JX_PLAT_INFO.IS_IphoneX ? 30 : 0
+                }}>
                     {/*--首页--*/}
                     {this.renderTabBarItem("首页",
                         home.indexHomeNormal,
@@ -87,7 +79,8 @@ export default class TC168 extends Component {
                             home.indexShoppingNormal,
                             home.indexShoppingPressed,
                             'shoping',
-                            <ShopingLobby navigator={this.props.navigation} cpArray={this.state.cpArray}/>)
+                            <ShopingLobby navigator={this.props.navigation}
+                                          cpArray={this.state.cpArray}/>)
                     }
                     {/*/!*--开奖大厅--*!/*/}
                     {
@@ -100,11 +93,11 @@ export default class TC168 extends Component {
                     }
                     {/*/!*--福利--*!/*/}
                     {
-                        this.renderTabBarItem("福利",
-                            home.indexPromotionNormal,
-                            home.indexPromotionPressed,
-                            'promotion',
-                            <WelfareCenter navigator={this.props.navigation} backHome={true}/>
+                        this.renderTabBarItem("走势",
+                            home.indexTrendNormal,
+                            home.indexTrendPressed,
+                            'discover',
+                            <Trend navigator={this.props.navigation}/>
                         )
                     }
 
@@ -195,7 +188,8 @@ class TabView extends Component {
                     style={!this.props.isSelected ? indexBtmStyle.iconStyle : indexBtmStyle.iconStyleSelected}
                     resizeMode={'contain'}
                 />
-                {this.props.title === "我的" && this.newMsgCount !== 0 ? <View style={styles.pointStyle}/> : null}
+                {this.props.title === "我的" && this.newMsgCount !== 0 ?
+                    <View style={styles.pointStyle}/> : null}
             </View>
         )
     }

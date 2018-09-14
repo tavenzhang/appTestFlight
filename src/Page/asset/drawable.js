@@ -12,10 +12,12 @@ export const Other = {
         homeEntrance:require('./worldCup/Bitmap2.png')
     },
     DSF:{
+        CP:require('./DSF/CP.png'),
         SS:require('./DSF/SS.png'),
         KY:require('./DSF/kaiyuan.png'),
         IMONE:require('./DSF/IMSport.png'),
         MG:require('./DSF/MG.png'),
+        FG:require('./DSF/FG.png'),
         CLOSE_GAME:require('./DSF/kaiyuan_gengduo.png')
     },
     betIco:{
