@@ -1,4 +1,3 @@
-
 'use-strict';
 import React from 'react';
 import {
@@ -35,7 +34,6 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
  * 转账
  * @author: Mason
  */
-@withMappedNavigationProps()
 @observer
 export default class TCUserTransfer extends React.Component {
 
