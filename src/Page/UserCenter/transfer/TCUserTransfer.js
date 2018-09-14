@@ -1,3 +1,5 @@
+import {inject} from "mobx-react/index";
+
 'use-strict';
 import React from 'react';
 import {
@@ -34,6 +36,7 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
  * 转账
  * @author: Mason
  */
+@inject("mainStore")
 @observer
 export default class TCUserTransfer extends React.Component {
 
@@ -47,7 +50,7 @@ export default class TCUserTransfer extends React.Component {
 
         return (
             <View style={styles.container}>
-                <TopNavigationBar title={'转账'} needBackButton backButtonCall={() => Helper.popToBack()}
+                <TopNavigationBar title={'转账'} needBackButton backButtonCall={() => this.props.mainStore.changeTab('home')}
                                   rightTitle={'转账记录'} rightButtonCall={() => Helper.pushToUserPayAndWithDraw(2)}/>
                 <TCKeyboardAvoidingScrollView contentContainerStyle={styles.content}>
                     <OneTouchTransferView showIndicator={(show) => this.setState({show: show})}/>

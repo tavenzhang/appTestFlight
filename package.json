@@ -24,6 +24,7 @@
         "prop-types": "^15.6.1",
         "query-string": "4.2.3",
         "react": "16.2.0",
+        "react-dom": "16.5.1",
         "react-native": "0.53.0",
         "react-native-action-button": "2.8.4",
         "react-native-animatable": "1.2.4",

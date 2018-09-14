@@ -104,7 +104,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0.8"
-        resValue "string", "app_name", "106彩票-jd"
+        resValue "string", "app_name", "JD棋牌-sit"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -114,7 +114,7 @@ android {
         JD_sit {
             applicationId APP_ID
             versionName APP_VERSION
-            resValue "string", "app_name", "JD综合-sit"
+            resValue "string", "app_name", "易盈棋牌-sit"
             manifestPlaceholders = [
                     APP_VERSION    : APP_VERSION,
                     CHANNEL_AFFCODE: AFF_CODE,
