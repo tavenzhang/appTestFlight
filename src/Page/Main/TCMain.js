@@ -32,6 +32,7 @@ import Toast from "../../Common/JXHelper/JXToast";
 import Moment from "moment/moment";
 import userStore from "../../Data/store/UserStore";
 import NavigationService from "../Route/NavigationService";
+import
 
 @inject("mainStore", "userStore", "jdAppStore")
 @observer
@@ -83,30 +84,22 @@ export default class TC168 extends Component {
                         <Home navigator={this.props.navigation} cpArray={this.state.cpArray}/>)}
                     {/*--购彩大厅--*/}
                     {
-                        this.renderTabBarItem("购彩",
-                            home.indexShoppingNormal,
-                            home.indexShoppingPressed,
+                        this.renderTabBarItem("充值",
+                            home.indexPay,
+                            home.indexPayPressed,
                             'shoping',
                             <ShopingLobby navigator={this.props.navigation} cpArray={this.state.cpArray}/>)
                     }
                     {/*/!*--开奖大厅--*!/*/}
                     {
-                        this.renderTabBarItem("开奖",
-                            home.indexLotteryNormal,
-                            home.indexLotteryPressed,
+                        this.renderTabBarItem("转账",
+                            home.indexTransferNormal,
+                            home.indexTransferPressed,
                             'lobby',
                             <LotteryLobby navigator={this.props.navigation}/>
                         )
                     }
                     {/*/!*--福利--*!/*/}
-                    {
-                        this.renderTabBarItem("福利",
-                            home.indexPromotionNormal,
-                            home.indexPromotionPressed,
-                            'promotion',
-                            <WelfareCenter navigator={this.props.navigation} backHome={true}/>
-                        )
-                    }
 
                     {/*/!*--用户中心--*!/*/}
                     {

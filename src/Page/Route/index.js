@@ -257,7 +257,7 @@ const MainTabNavigator = TabNavigator({
     ShopingLobby: {
         screen: ShopingLobby,
         navigationOptions: {
-            tabBarLabel: '购彩',
+            tabBarLabel: '充值',
             tabBarIcon: ({focused, tintColor}) => (
                 <TabBarIcon tintColor={tintColor} focused={focused}
                             normalIcon={home.indexShoppingNormal}
@@ -271,7 +271,7 @@ const MainTabNavigator = TabNavigator({
     LotteryLobby: {
         screen: LotteryLobby,
         navigationOptions: {
-            tabBarLabel: '开奖',
+            tabBarLabel: '转账',
             tabBarIcon: ({focused, tintColor}) => (
                 <TabBarIcon tintColor={tintColor} focused={focused}
                             normalIcon={home.indexLotteryNormal}
@@ -279,20 +279,6 @@ const MainTabNavigator = TabNavigator({
             ),
             tabBarOnPress: ({navigation}) => {
                 navigation.navigate('LotteryLobby')
-            }
-        }
-    },
-    WelfareCenter: {
-        screen: WelfareCenter,
-        navigationOptions: {
-            tabBarLabel: '福利',
-            tabBarIcon: ({focused, tintColor}) => (
-                <TabBarIcon tintColor={tintColor} focused={focused}
-                            normalIcon={home.indexPromotionNormal}
-                            pressedIcon={home.indexPromotionPressed}/>
-            ),
-            tabBarOnPress: ({navigation}) => {
-                navigation.navigate('WelfareCenter')
             }
         }
     },
