@@ -90,15 +90,11 @@ export default class TCHome extends Component {
         this.checkAppUpdate();
         this.listener = RCTDeviceEventEmitter.addListener('userStateChange', state => {
             TCInitHelper._requestGameSetting();
-            RedPacketData.requestRedPacketCurrent();
         });
 
         NetWorkTool.addEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
         AppState.addEventListener('change', this.handleAppStateChange);
 
-        setTimeout(() => {
-            RedPacketData.requestRedPacketCurrent()
-        }, 1500);
     }
 
     handleAppStateChange = (nextAppState) => {
