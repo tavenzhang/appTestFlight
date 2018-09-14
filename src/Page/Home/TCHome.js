@@ -27,6 +27,7 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import KindItemView from './View/TCHomeKindItemView';
 import HotItemView from './View/TCHomeHotItemView';
 import SportItemView from './View/TCHomeSportsItem';
+import TCCardGameItem from './View/TCCardGameItem';
 
 import HomeItemBarStyle1 from './View/TCHomeItemBarStyle1_4';
 import Storage from '../../Common/Storage/TCStorage';
@@ -146,7 +147,7 @@ export default class TCHome extends Component {
                     renderSectionHeader={this.renderSectionHeader}
                     keyExtractor={(item, index) => index + item}
                     ListHeaderComponent={this.renderHomeHeaer}
-                    ListFooterComponent={this.renderFooter}
+                    // ListFooterComponent={this.renderFooter}
                     sections={this.getSectionsData()}
                     refreshControl={
                         <RefreshControl
@@ -218,10 +219,10 @@ export default class TCHome extends Component {
 
     getSectionsData() {
         let data = []
-        if (this.homeStore.content.gameInfosHot && this.homeStore.content.gameInfosHot.length > 0) {
+        if (this.homeStore.content.KY && this.homeStore.content.KY.length > 0) {
             data.push({
-                data: this.homeStore.content.gameInfosHot.slice(),
-                title: "热门彩票",
+                data: this.homeStore.content.KY.slice(),
+                title: "开源棋牌",
                 renderItem: ({item, index}) => this.renderHotItemView(item, index)
             })
         }
@@ -234,22 +235,6 @@ export default class TCHome extends Component {
                 data: this.homeStore.content.dsfSportInfos.slice(),
                 title: "体育竞技",
                 renderItem: ({item}) => this.renderDSFView(item, true)
-            })
-        }
-        if (this.homeStore.content.dsfEgameInfos && this.homeStore.content.dsfEgameInfos.length > 0) {
-            let dsfEgameInfos = _.cloneDeep(this.homeStore.content.dsfEgameInfos.slice())
-
-            if (this.homeStore.content.dsfCardInfos && this.homeStore.content.dsfCardInfos.length > 0) {
-                let dsfCardInfos = _.cloneDeep(this.homeStore.content.dsfCardInfos.slice())
-                dsfEgameInfos = _.concat(dsfEgameInfos, dsfCardInfos)
-            }
-            if (dsfEgameInfos.length % 2 !== 0) {
-                dsfEgameInfos.push({})
-            }
-            data.push({
-                data: dsfEgameInfos,
-                title: "电子游戏",
-                renderItem: ({item}) => this.renderDSFView(item, false)
             })
         }
         return data
@@ -345,7 +330,7 @@ export default class TCHome extends Component {
 
     //渲染热门彩种
     renderHotItemView(item, index) {
-        return (<HotItemView
+        return (<TCCardGameItem
             rowData={item}
             rowID={index}
             pushToEvent={item => this._pushToBetHomePage(item)}

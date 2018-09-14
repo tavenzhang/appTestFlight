@@ -30,6 +30,8 @@ export default class HomeStore {
                 callback(false);
             }
         })
+
+        this.getCardGameList()
     }
 
     parseData(data) {
@@ -44,42 +46,42 @@ export default class HomeStore {
         if (data.content.menuIcons && data.content.menuIcons.length > 0) {
             content.menuIcons = data.content.menuIcons;
         }
-        if (data.content.gameInfosHot && data.content.gameInfosHot.length > 0) {
-            content.gameInfosHot = data.content.gameInfosHot;
-        }
-        if (data.content.gameInfosRecommend && data.content.gameInfosRecommend.length > 0) {
-            if (data.content.gameInfosRecommend.length > 7) {
-                content.gameInfosRecommend = data.content.gameInfosRecommend.slice(0, 7);
-            }
-            if (content.gameInfosRecommend % 2 !== 0) {
-                content.gameInfosRecommend.push({
-                    gameIconUrl: 'https://www.jiushouji.net/mobile/gameIcon/more@3x.1.0.png',
-                    gameNameInChinese: '更多玩法',
-                    gameDescription: '更多好玩游戏等你体验',
-                    gameUniqueId: 'more'
-                });
-            }
-        }
-        if (data.content.dsfSportInfos && data.content.dsfSportInfos.length > 0) {
-            content.dsfSportInfos = data.content.dsfSportInfos;
-            if (content.dsfSportInfos.length % 2 !== 0) {
-                // content.dsfSportInfos.push({})
-            }
-        }
-
-        if (data.content.dsfEgameInfos && data.content.dsfEgameInfos.length > 0) {
-            content.dsfEgameInfos = data.content.dsfEgameInfos;
-            if (content.dsfEgameInfos.length % 2 !== 0) {
-                // content.dsfEgameInfos.push({})
-            }
-        }
-
-        if (data.content.dsfCardInfos && data.content.dsfCardInfos.length > 0) {
-            content.dsfCardInfos = data.content.dsfCardInfos;
-            if (content.dsfCardInfos.length % 2 !== 0) {
-                // content.dsfEgameInfos.push({})
-            }
-        }
+        // if (data.content.gameInfosHot && data.content.gameInfosHot.length > 0) {
+        //     content.gameInfosHot = data.content.gameInfosHot;
+        // }
+        // if (data.content.gameInfosRecommend && data.content.gameInfosRecommend.length > 0) {
+        //     if (data.content.gameInfosRecommend.length > 7) {
+        //         content.gameInfosRecommend = data.content.gameInfosRecommend.slice(0, 7);
+        //     }
+        //     if (content.gameInfosRecommend % 2 !== 0) {
+        //         content.gameInfosRecommend.push({
+        //             gameIconUrl: 'https://www.jiushouji.net/mobile/gameIcon/more@3x.1.0.png',
+        //             gameNameInChinese: '更多玩法',
+        //             gameDescription: '更多好玩游戏等你体验',
+        //             gameUniqueId: 'more'
+        //         });
+        //     }
+        // }
+        // if (data.content.dsfSportInfos && data.content.dsfSportInfos.length > 0) {
+        //     content.dsfSportInfos = data.content.dsfSportInfos;
+        //     if (content.dsfSportInfos.length % 2 !== 0) {
+        //         // content.dsfSportInfos.push({})
+        //     }
+        // }
+        //
+        // if (data.content.dsfEgameInfos && data.content.dsfEgameInfos.length > 0) {
+        //     content.dsfEgameInfos = data.content.dsfEgameInfos;
+        //     if (content.dsfEgameInfos.length % 2 !== 0) {
+        //         // content.dsfEgameInfos.push({})
+        //     }
+        // }
+        //
+        // if (data.content.dsfCardInfos && data.content.dsfCardInfos.length > 0) {
+        //     content.dsfCardInfos = data.content.dsfCardInfos;
+        //     if (content.dsfCardInfos.length % 2 !== 0) {
+        //         // content.dsfEgameInfos.push({})
+        //     }
+        // }
         this.isRefreshing = false;
         this.content = content;
     }
@@ -117,6 +119,25 @@ export default class HomeStore {
                     this.topWinnersModel = data.content
                 }
             });
+    }
+
+    @action
+    getCardGameList(){
+        JX_Store.gameDZStore.loadGames("KY", (dataList) => {
+            if (dataList) {
+                for( let obj of dataList){
+                    JXLog('======  999 '+obj.categoryName)
+                    if(obj.categoryName === '手机棋牌'){
+                        this.content.KY = obj.games
+                    }
+                }
+            }
+        })
+
+        JX_Store.gameDZStore.loadGames("FG", (dataList) => {
+            if (dataList && dataList.rs && dataList.content) {
+            }
+        })
     }
 
     @action

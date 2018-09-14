@@ -32,7 +32,6 @@ import Toast from "../../Common/JXHelper/JXToast";
 import Moment from "moment/moment";
 import userStore from "../../Data/store/UserStore";
 import NavigationService from "../Route/NavigationService";
-import
 
 @inject("mainStore", "userStore", "jdAppStore")
 @observer
