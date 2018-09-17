@@ -49,4 +49,4 @@ export const appHotFixUpdataServers = {
     base6: 'https://5checkupdate1.zzlhjfls.com',
 }
 
-export const deploymentKey = Platform.OS === 'ios' ? 'mPO4OMsMob8tY5UHCcpnPjXaRqQe4ksvOXqog' : 'P8LQBw8uxmVPRrAbswO2Xyr9Dhpg4ksvOXqog';
+export const deploymentKey = Platform.OS === 'ios' ? 'MeZTcIzJkuYr0ija96txpzCB6es44ksvOXqog' : 'kEieUPC2LEPHqwa4I88f3nWY1ZK74ksvOXqog';
