@@ -107,7 +107,7 @@ export default class DZGameListView extends Component {
                     if (IS_IOS) {
                         Linking.openURL(ret.content.gameUrl);
                     } else {
-                        if(gameData.gamePlatform == "MG")
+                        if(gameData.gamePlatform === "MG" || gameData.gamePlatform === "FG")
                         {
                             if (NativeModules.JXHelper.openGameWebViewFromJs) {
                                 NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name);

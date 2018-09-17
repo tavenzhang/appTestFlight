@@ -82,7 +82,6 @@ export default class TCUserDetailMsg extends Component {
                         <Text style={styles.itemTxt}>余额</Text>
                         <Text style={styles.itemRightTxt}>{this.props.userStore.balance}</Text>
                     </View>
-                    {this.getPrizeGroup()}
                 </View>
             </View>);
     };
