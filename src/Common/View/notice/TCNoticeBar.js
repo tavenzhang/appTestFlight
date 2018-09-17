@@ -15,7 +15,8 @@ import {
     PixelRatio,
     Animated,
     Easing,
-    WebView
+    WebView,
+    Image
 } from 'react-native';
 var px = PixelRatio.get()
 import MarqueeLabel from './MarqueeLabel'
@@ -23,6 +24,7 @@ import MarqueeLabel2 from './TCMarqueeLabel';
 import JXHelper from '../../JXHelper/TCNavigatorHelper'
 
 import {width, indexBgColor, indexTxtColor, Size} from '../../../Page/resouce/theme'
+import {Other} from "../../../Page/asset";
 
 export default class MyComponent extends Component {
     constructor(state) {
@@ -46,19 +48,7 @@ export default class MyComponent extends Component {
                 JXHelper.pushToNotice(this.props.announcement)
 
             }}>
-                <Text style={{
-                    marginLeft: 8,
-                    color: indexTxtColor.noticeTitle,
-                    fontSize: Size.font12,
-                    borderWidth: 1,
-                    borderColor: indexTxtColor.noticeTitle,
-                    borderRadius: 5,
-                    paddingLeft: 6,
-                    paddingRight: 6,
-                    marginRight: 5,
-                    paddingTop: 2,
-                    paddingBottom: 2
-                }}>公告</Text>
+                <Image source={Other.cardGame.homeNotice} style={{marginLeft:10,width:25, height:15}}/>
                 {this.getMarquee()}
             </TouchableOpacity>
         );
@@ -73,8 +63,8 @@ export default class MyComponent extends Component {
                     text={this.getTextWithAnnouncement()}
                     textContainerWidth={3000}
                     textContainerHeight={35}
-                    textStyle={{fontSize: Size.font14, color: indexTxtColor.noticeContent}}
-                    bgViewStyle={{backgroundColor: indexBgColor.noticeBg}}
+                    textStyle={{fontSize: Size.font14, color: 'white'}}
+                    bgViewStyle={{        backgroundColor:'transparent'}}
                     textContainerStyle={{height: 35}}
                 />
             )
@@ -103,10 +93,10 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: indexBgColor.noticeBg,
+        backgroundColor:'transparent',
         height: 35,
         width: width,
-        borderBottomColor: indexBgColor.mainBg,
+        borderBottomColor: 'transparent',
         borderBottomWidth: TCLineW
     },
     label: {
@@ -116,14 +106,14 @@ const styles = StyleSheet.create({
         marginTop: 5,
         fontSize: Size.font14,
         width: width,
-        backgroundColor: 'white',
+        backgroundColor:'transparent',
         overflow: 'hidden',
     }, marqueeLabel: {
         flex: 1,
         marginLeft: 3,
         marginRight: 5,
         marginTop: 10,
-        backgroundColor: indexBgColor.noticeBg,
+        backgroundColor:'transparent',
         width: width - 50,
         height: 40,
         fontSize: 15 * px,

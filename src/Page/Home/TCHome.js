@@ -18,7 +18,8 @@ import {
     AppState,
     Dimensions,
     SectionList,
-    Alert
+    Alert,
+    ImageBackground
 } from 'react-native';
 import _ from 'lodash';
 import {Size} from '../../Page/resouce/theme';
@@ -46,7 +47,7 @@ import {observer, inject} from 'mobx-react/native';
 import {computed} from 'mobx'
 
 import {width, indexBgColor, indexTxtColor, height, refreshColor} from '../resouce/theme';
-import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
+import {JX_PLAT_INFO, bottomNavHeight,Other} from '../asset'
 import NetWorkTool from '../../Common/Network/TCToolNetWork';
 
 import RedPacketMenu from '../red_packet/components/RedPacketMenu';
@@ -60,6 +61,8 @@ import {getPopupAnnouncements} from './popupAnnouncements/JXPopupNoticeHelper';
 import JXHelper from "../../Common/JXHelper/JXHelper";
 import TCImage from "../../Common/View/image/TCImage";
 import HomeStore from '../../Data/store/HomeStore';
+import {personal} from "../resouce/images";
+import JDToast from "../../Common/JXHelper/JXToast";
 
 @inject("jdAppStore", "initAppStore", "mainStore", "userStore")
 @observer
@@ -94,7 +97,6 @@ export default class TCHome extends Component {
 
         NetWorkTool.addEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
         AppState.addEventListener('change', this.handleAppStateChange);
-
     }
 
     handleAppStateChange = (nextAppState) => {
@@ -117,8 +119,8 @@ export default class TCHome extends Component {
 
     render() {
         return (
-            <View style={JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container}
-                  keyboardShouldPersistTaps={true}>
+            <ImageBackground style={JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container}
+                  keyboardShouldPersistTaps={true} source={Other.cardGame.homebg} >
                 <TopNavigationBar
                     title={this.appName}
                     needBackButton={this.isLogin}
@@ -157,7 +159,6 @@ export default class TCHome extends Component {
                         />
                     }
                 /> : null}
-                {this.getRedPacketButton()}
                 <JXPopupNotice ref="PopupNotice"/>
                 <Dialog
                     show={this.showUpdateDialog}
@@ -166,7 +167,7 @@ export default class TCHome extends Component {
                     dialogContent={"请您更新最新版本!"}
                     btnTxt={'确定'}
                 />
-            </View>
+            </ImageBackground>
         );
     }
 
@@ -215,22 +216,18 @@ export default class TCHome extends Component {
 
     getSectionsData() {
         let data = []
+        if (this.homeStore.content.FG && this.homeStore.content.FG.length > 0) {
+            data.push({
+                data: this.homeStore.content.FG.slice(),
+                title: "FG 电子",
+                renderItem: ({item, index}) => this.renderHotItemView(item, index,'FG')
+            })
+        }
         if (this.homeStore.content.KY && this.homeStore.content.KY.length > 0) {
             data.push({
                 data: this.homeStore.content.KY.slice(),
-                title: "开源棋牌",
-                renderItem: ({item, index}) => this.renderHotItemView(item, index)
-            })
-        }
-        if (this.homeStore.content.dsfSportInfos && this.homeStore.content.dsfSportInfos.length > 0) {
-            let dsfSportInfos = _.cloneDeep(this.homeStore.content.dsfSportInfos.slice())
-            if (dsfSportInfos.length % 2 !== 0) {
-                dsfSportInfos.push({})
-            }
-            data.push({
-                data: this.homeStore.content.dsfSportInfos.slice(),
-                title: "体育竞技",
-                renderItem: ({item}) => this.renderDSFView(item, true)
+                title: "开元棋牌",
+                renderItem: ({item, index}) => this.renderHotItemView(item, index,'KY')
             })
         }
         return data
@@ -247,8 +244,10 @@ export default class TCHome extends Component {
 
     //渲染banner
     renderBanner = () => {
-        return (<Swiper
-            width={width}
+        return (
+            <View style={{width:width-20, marginLeft:10, marginTop:8, borderRadius:8,overflow: 'hidden'}}>
+            <Swiper
+            width={width-20}
             height={width * 0.383}
             autoplay={true}
             dataSource={this.homeStore.content.bannerData}
@@ -261,7 +260,8 @@ export default class TCHome extends Component {
             onPress={(item) => {
                 NavigatorHelper.pushToWebView(item.userClickUrl);
             }}
-        />)
+        />
+            </View>)
     }
 
     //渲染公告
@@ -304,32 +304,24 @@ export default class TCHome extends Component {
 
     //渲染sectionHeader
     renderSectionHeader = ({section}) => {
+        let img = section.title ==='FG 电子'?Other.cardGame.homeFG:Other.cardGame.homeKY
         return (
-            <View style={{height: 46, width: width}}>
-                <View style={{width: width, height: 10, backgroundColor: indexBgColor.mainBg}}/>
-                <View style={{backgroundColor: indexBgColor.itemBg, height: 35}}>
-                    <Text
-                        style={{
-                            marginLeft: 10,
-                            fontSize: Size.font14,
-                            height: 18,
-                            marginTop: 10,
-                            color: section.title == '热门彩票' ? indexTxtColor.hotKind : indexTxtColor.recommendKind
-                        }}
-                    >
-                        {section.title}
-                    </Text>
-                </View>
+            <View style={{height: 46, width: width,justifyContent:'center', alignItems:'center'}}>
+                    <Image
+                        style={{ marginTop: 20, width:130, height:30, backgroundColor:'#231e58', borderRadius:5}}
+                        source={img}
+                    />
             </View>
         );
     }
 
     //渲染热门彩种
-    renderHotItemView(item, index) {
+    renderHotItemView(item, index,type) {
         return (<TCCardGameItem
             rowData={item}
             rowID={index}
-            pushToEvent={item => this._pushToBetHomePage(item)}
+            type={type}
+            pushToEvent={item => this._pushToBetHomePage(item,type)}
         />)
     }
 
@@ -390,7 +382,7 @@ export default class TCHome extends Component {
     loadDataFormNet() {
         this.homeStore.loadHomeContents((res) => {
             if (res) {
-                this.showPopupAnnouncements();
+                // this.showPopupAnnouncements();
             } else {
                 NetWorkTool.checkNetworkState(isConnection => {
                     if (isConnection && !this.homeStore.isFirstLoad) {
@@ -400,25 +392,57 @@ export default class TCHome extends Component {
             }
             if (!this.homeStore.isFirstLoad) {
                 this.homeStore.isFirstLoad = true;
-                this.homeStore.requestGameSetting();
             } else {
-                // this.refs['ListView'].scrollTo({x: 0, y: 0, animated: true});
             }
         });
-        this.homeStore.getTopWinners();
     }
 
-    _pushToBetHomePage=(rowData)=> {
-        if (rowData.gameUniqueId == 'more' || rowData.gameUniqueId == '更多玩法') {
-            this.props.mainStore.changeTab('shoping')
+    _pushToBetHomePage=(dataItem,type)=> {
+        if (!this.isLogin) {
+            NavigatorHelper.pushToUserLogin();
             return;
         }
-        //跳转到PCDD
-        if (rowData.gameUniqueId == 'PCDD' || rowData.gameNameInChinese == 'PC蛋蛋') {
-            NavigatorHelper.gotoPCDD(this.props.cpArray);
-            return;
+        let gameData = {gamePlatform:type}
+        let bodyParam = {
+            gameId: dataItem.gameId,
         }
-        NavigatorHelper.pushToBetHome(rowData);
+        let url = config.api.gamesDZ_start + "/" + dataItem.gameId;
+        if (gameData.gamePlatform == "MG" || gameData.gamePlatform == "FG") { //由于MG平台的游戏 需要横屏 做特殊处理 "FG" 需要修改原生agent
+            NetUitls.getUrlAndParamsAndPlatformAndCallback(url, bodyParam, gameData.gamePlatform, (ret) => {
+                JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
+                if (ret.rs) {
+                    if (IS_IOS) {
+                        Linking.openURL(ret.content.gameUrl);
+                    } else {
+                        if(gameData.gamePlatform == "MG")
+                        {
+                            if (NativeModules.JXHelper.openGameWebViewFromJs) {
+                                NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name);
+                            } else {
+                                Linking.openURL(ret.content.gameUrl);
+                            }
+                        }else{
+                            this.onPushGameFullView(dataItem,gameData);
+                        }
+                    }
+                } else {
+                    JDToast.showLongCenter(ret.message)
+                }
+            },null,null,{})
+        } else {
+            this.onPushGameFullView(dataItem, gameData);
+        }
+    }
+
+    onPushGameFullView = (dataItem, gameData) => {
+        JX_NavHelp.pushView(JX_Compones.TCWebGameFullView, {
+            gameId: dataItem.gameId,
+            gameData,
+            isDZ: true,
+            title: dataItem.name,
+            platName: gameData.gameNameInChinese ? gameData.gameNameInChinese.substr(0, 2) : null,
+            isRotate: true
+        })
     }
 
     pushWithMoneyBarTitle(rowData) {
@@ -427,12 +451,7 @@ export default class TCHome extends Component {
             this.props.mainStore.changeTab("mine");
         } else if (title == 'ORDER' || title == '投注记录') {
             if (this.isLogin) {
-                let otherPlatform = JXHelper.getDSFOpenList().dsfAll
-                if (otherPlatform && otherPlatform.length > 0) {
-                    NavigatorHelper.pushToWorldCup()
-                } else {
-                    NavigatorHelper.pushToOrderRecord()
-                }
+                NavigatorHelper.pushToOrderRecord()
             } else {
                 NavigatorHelper.pushToUserLogin();
             }
@@ -467,21 +486,24 @@ export default class TCHome extends Component {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: indexBgColor.mainBg
+        backgroundColor:'transparent',
     },
     containerIOS: {
         height: height - bottomNavHeight,
         width: width,
-        backgroundColor: indexBgColor.mainBg
+        backgroundColor:'transparent',
     },
     listViewStyle: {
         flexWrap: 'wrap',
         flexDirection: 'row',
-        width: width
+        width: width,
+        backgroundColor:'transparent',
+        justifyContent:'center',
     },
     page: {
-        width: width,
+        width: width-20,
         flex: 1,
         height: width * 0.383,
+        backgroundColor:'transparent'
     }
 });

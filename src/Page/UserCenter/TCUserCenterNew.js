@@ -639,8 +639,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
     }, img: {
-        width: 30,
-        height: 30,
+        width: 35,
+        height: 35,
         marginLeft: 15
     },
     mySettingLeftTxtStyle: {
@@ -662,7 +662,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     }, itemContainer: {
-        width: width * 0.5 - 0.5,
+        width: width,
         height: 60,
         justifyContent: 'center',
         backgroundColor: indexBgColor.itemBg,
@@ -670,7 +670,8 @@ const styles = StyleSheet.create({
     }, listItemView: {
         flexDirection: 'row',
     }, contentTxtStyle: {
-        fontSize: Size.font10,
+        fontSize: Size.font12,
+        marginTop:5,
         color: listViewTxtColor.content
     }, listViewStyle: {
         flexWrap: 'wrap',

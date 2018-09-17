@@ -6,24 +6,16 @@
  * Created by Sam on 2016/11/12.
  */
 
-import React, {Component} from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    Dimensions,
-    Image,
-    TouchableOpacity
-} from 'react-native';
+import React, { Component } from 'react';
+import { AppRegistry, StyleSheet, Text, View, Dimensions, Image, TouchableOpacity } from 'react-native';
 
-import {width, indexBgColor, indexTxtColor, Size} from '../../resouce/theme'
-import Moment from 'moment'
+import { width, indexBgColor, indexTxtColor, Size } from '../../resouce/theme';
+import Moment from 'moment';
 import FastImage from 'react-native-fast-image';
-import jdAppStore from '../../../Data/store/JDAppStore'
+import jdAppStore from '../../../Data/store/JDAppStore';
+import {Other} from "../../asset";
 
 export default class TCHomeSportsItem extends React.Component {
-
     constructor(state) {
         super(state);
         this.state = {
@@ -33,50 +25,54 @@ export default class TCHomeSportsItem extends React.Component {
 
     static defaultProps = {
         pushToEvent: null,
-        duration: 1000,
+        duration: 1000
     };
 
     render() {
-        if (this.props.rowData.gamePlatform) {
-            return (<TouchableOpacity style={styles.container} onPress={() => {
-                this.buttonCall()
-            }}
+        return (
+            <TouchableOpacity
+                style={styles.container}
+                onPress={() => {
+                    this.buttonCall();
+                }}
             >
                 {this.getImage()}
-            </TouchableOpacity>)
-        } else {
-            return <View style={styles.container}/>
-        }
-    };
+            </TouchableOpacity>
+        );
+    }
 
     getImage() {
-        JXLog('this.props.rowData.icon == '+this.props.rowData.icon)
-        return <FastImage source={{uri: this.props.rowData.icon}}
-                              style={styles.leftImgStyle}/>
+        let img
+        if (this.props.type === 'KY'){
+            img = Other.cardGame.KY[this.props.rowData.gameId]
+        }else if (this.props.type === 'FG') {
+            img = Other.cardGame.FG[this.props.rowData.gameId]
+        }
+        return <FastImage source={img} style={styles.leftImgStyle} />;
     }
 
     buttonCall = () => {
-        if (this.props.pushToEvent == null) return
+        if (this.props.pushToEvent == null) return;
         jdAppStore.playSound();
         this.props.pushToEvent(this.props.rowData);
-    }
+    };
 }
 
+let w = (width-40)/3
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: indexBgColor.itemBg,
+        backgroundColor:'transparent',
         flexDirection: 'row',
-        height: 90,
-        width: width / 2 - 0.5,
+        height: w/0.818+10,
+        width: w+5,
+        justifyContent:'center',
         alignItems: 'center',
         marginBottom: 0.5,
-        marginLeft: 0.5
+        marginLeft: 0.5,
     },
 
     leftImgStyle: {
-        width: 60,
-        height: 60,
-        marginLeft: 8
+        width: w,
+        height: w/0.818,
     }
-
 });

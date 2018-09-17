@@ -30,7 +30,6 @@ export default class HomeStore {
                 callback(false);
             }
         })
-
         this.getCardGameList()
     }
 
@@ -83,7 +82,7 @@ export default class HomeStore {
         //     }
         // }
         this.isRefreshing = false;
-        this.content = content;
+        this.content = {...content,KY:this.KY,FG:this.FG};
     }
 
     saveHomeCacheData(json) {
@@ -123,19 +122,29 @@ export default class HomeStore {
 
     @action
     getCardGameList(){
-        JX_Store.gameDZStore.loadGames("KY", (dataList) => {
+        JX_Store.gameDZStore.loadGames("FG", (dataList) => {
             if (dataList) {
                 for( let obj of dataList){
-                    JXLog('======  999 '+obj.categoryName)
-                    if(obj.categoryName === '手机棋牌'){
-                        this.content.KY = obj.games
+                    if(obj.categoryName === '棋牌'){
+                        this.FG = obj.games
+                        if(this.content){
+                            this.content.FG = this.FG;
+                        }
                     }
                 }
             }
         })
 
-        JX_Store.gameDZStore.loadGames("FG", (dataList) => {
-            if (dataList && dataList.rs && dataList.content) {
+        JX_Store.gameDZStore.loadGames("KY", (dataList) => {
+            if (dataList) {
+                for( let obj of dataList){
+                    if(obj.categoryName === '手机棋牌'){
+                        this.KY = obj.games
+                        if(this.content){
+                            this.content.KY = this.KY;
+                        }
+                    }
+                }
             }
         })
     }
