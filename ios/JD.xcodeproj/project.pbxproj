@@ -24,6 +24,7 @@
 		14816129B81D4E32A286FB07 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8ED11D7298304500B05955C2 /* Octicons.ttf */; };
 		15114DAFE51B4D14B4A09826 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 203272E76C764DC482235BE1 /* Feather.ttf */; };
 		188B0E16342F4317BDADE2FB /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2E0334F52304C5BB785B075 /* EvilIcons.ttf */; };
+		224E322B2150D14900A438A8 /* JXHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 224E322A2150D14900A438A8 /* JXHelper.m */; };
 		2259B6F12046B34E0037370E /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2259B6F02046B34D0037370E /* libsqlite3.0.tbd */; };
 		2259B6F32046B4530037370E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2259B6F22046B4530037370E /* CFNetwork.framework */; };
 		2259B6F52046B4610037370E /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2259B6F42046B4610037370E /* CoreFoundation.framework */; };
@@ -538,6 +539,8 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		17D563AFE623498E96EE9280 /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
 		203272E76C764DC482235BE1 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		224E32292150D14900A438A8 /* JXHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JXHelper.h; sourceTree = "<group>"; };
+		224E322A2150D14900A438A8 /* JXHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JXHelper.m; sourceTree = "<group>"; };
 		2259B6F02046B34D0037370E /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		2259B6F22046B4530037370E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2259B6F42046B4610037370E /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -991,6 +994,8 @@
 				22B3BCF3204EA1A000B6B7FF /* AppDelegate+JDBase.m */,
 				22C7774D20537D9E00F8E8C6 /* JDHelper.h */,
 				22C7774E20537D9E00F8E8C6 /* JDHelper.m */,
+				224E32292150D14900A438A8 /* JXHelper.h */,
+				224E322A2150D14900A438A8 /* JXHelper.m */,
 			);
 			name = base;
 			path = JD/base;
@@ -1947,6 +1952,7 @@
 				22C777B8205613A000F8E8C6 /* NSDictionary+WTSafe.m in Sources */,
 				22C777AE205613A000F8E8C6 /* UIPasteboard+WTSafe.m in Sources */,
 				22C777BF205613A000F8E8C6 /* NSJSONSerialization+WTSafe.m in Sources */,
+				224E322B2150D14900A438A8 /* JXHelper.m in Sources */,
 				22C777C0205613A000F8E8C6 /* NSIndexPath+WTSafe.m in Sources */,
 				22C777BE205613A000F8E8C6 /* NSString+WTSafe.m in Sources */,
 				22C7774F20537D9E00F8E8C6 /* JDHelper.m in Sources */,
