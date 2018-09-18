@@ -111,10 +111,10 @@ android {
     }
 
     productFlavors {
-        JD_sit {
+        yy_cards {
             applicationId APP_ID
             versionName APP_VERSION
-            resValue "string", "app_name", "易盈棋牌-sit"
+            resValue "string", "app_name", "易盈棋牌"
             manifestPlaceholders = [
                     APP_VERSION    : APP_VERSION,
                     CHANNEL_AFFCODE: AFF_CODE,
@@ -129,10 +129,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('jdcp.keystore')
-            storePassword 'jd123456'
-            keyAlias 'jdcp-alias'
-            keyPassword 'jd123456'
+            storeFile file('kot-cards-yy.keystore')
+            storePassword 'kotcards2018'
+            keyAlias 'yy-cards'
+            keyPassword 'kotcards2018'
         }
     }
 
