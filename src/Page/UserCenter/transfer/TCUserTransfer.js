@@ -42,7 +42,7 @@ export default class TCUserTransfer extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state={show: false}
+        this.state = {show: false}
         walletStore.getAllPlatforms()
     }
 
@@ -50,12 +50,15 @@ export default class TCUserTransfer extends React.Component {
 
         return (
             <View style={styles.container}>
-                <TopNavigationBar title={'转账'} needBackButton backButtonCall={() => this.props.mainStore.changeTab('home')}
-                                  rightTitle={'转账记录'} rightButtonCall={() => Helper.pushToUserPayAndWithDraw(2)}/>
+                <TopNavigationBar title={'转账'} needBackButton
+                                  backButtonCall={() => this.props.mainPage ? this.props.mainStore.changeTab('home') : Helper.popToBack()}
+                                  rightTitle={'转账记录'}
+                                  rightButtonCall={() => Helper.pushToUserPayAndWithDraw(2)}/>
                 <TCKeyboardAvoidingScrollView contentContainerStyle={styles.content}>
                     <OneTouchTransferView showIndicator={(show) => this.setState({show: show})}/>
-                    <View style={{backgroundColor: 'transparent', height:10}} />
-                    <ManualTransferView platName={this.props.platName} showIndicator={(show) => this.setState({show: show})}/>
+                    <View style={{backgroundColor: 'transparent', height: 10}}/>
+                    <ManualTransferView platName={this.props.platName}
+                                        showIndicator={(show) => this.setState({show: show})}/>
                 </TCKeyboardAvoidingScrollView>
                 {
                     this.state.show
@@ -63,7 +66,7 @@ export default class TCUserTransfer extends React.Component {
                             size="large"
                             color={baseColor.tabSelectedTxt}
                             style={styles.loadingCenter}
-                            animating={this.state.show} />
+                            animating={this.state.show}/>
                         : null
                 }
             </View>

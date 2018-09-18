@@ -70,7 +70,7 @@ export default class TCUserPayType extends Component {
                     rightButtonCall={() => {
                         this.gotoPayRecord()
                     }}
-                    backButtonCall={() => {this.props.mainStore.changeTab('home')}}/>
+                    backButtonCall={() => {this.props.mainPage ? this.props.mainStore.changeTab('home') : this.goBack()}}/>
                 <View style={{flexDirection: 'row', padding: 10, backgroundColor: indexBgColor.itemBg}}>
                     <View style={{
                         marginLeft: 20,

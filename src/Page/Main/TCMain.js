@@ -76,15 +76,14 @@ export default class TC168 extends Component {
                             home.indexPay,
                             home.indexPayPressed,
                             'withdraw',
-                            <TCUserPayType navigator={this.props.navigation}
-                                           cpArray={this.state.cpArray}/>)
+                            <TCUserPayType navigator={this.props.navigation} mainPage={true}/>)
                     }
                     {
                         this.renderTabBarItem("转账",
                             home.indexTransferNormal,
                             home.indexTransferPressed,
                             'transfer',
-                            <TCUserTransfer navigator={this.props.navigation}/>
+                            <TCUserTransfer navigator={this.props.navigation} mainPage={true}/>
                         )
                     }
                     {
