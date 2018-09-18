@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class JXGameWebView extends Activity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
         String url = intent.getStringExtra("url");
+        String platform = intent.getStringExtra("platform");
         titleTv.setText(title);
 
         WebSettings webSettings = webView.getSettings();
@@ -61,6 +63,10 @@ public class JXGameWebView extends Activity {
         webSettings.setAllowFileAccessFromFileURLs(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setDomStorageEnabled(true);
+        if (!TextUtils.isEmpty(platform) && platform.equals("FG")) {
+            String ua = webSettings.getUserAgentString();
+            webSettings.setUserAgentString(ua + "Browser_Type/Android_APP");
+        }
 
         int layerType = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? WebView.LAYER_TYPE_HARDWARE : WebView.LAYER_TYPE_SOFTWARE;
         webView.setLayerType(layerType, null);

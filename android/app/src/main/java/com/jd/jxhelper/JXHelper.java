@@ -132,12 +132,13 @@ public class JXHelper extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void openGameWebViewFromJs(String url, String title) {
+    public void openGameWebViewFromJs(String url, String title, String platform) {
         try {
             Activity currentActivity = getCurrentActivity();
             Intent intent = new Intent(currentActivity, JXGameWebView.class);
             intent.putExtra("url", url);
             intent.putExtra("title", title);
+            intent.putExtra("platform", platform);
             currentActivity.startActivity(intent);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException(

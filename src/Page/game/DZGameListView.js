@@ -100,7 +100,7 @@ export default class DZGameListView extends Component {
             gameId: dataItem.gameId,
         }
         let url = config.api.gamesDZ_start + "/" + dataItem.gameId;
-        if (gameData.gamePlatform == "MG" || gameData.gamePlatform == "FG") { //由于MG平台的游戏 需要横屏 做特殊处理 "FG" 需要修改原生agent
+        if (gameData.gamePlatform === "MG" || gameData.gamePlatform === "FG" ||gameData.gamePlatform === "KY") { //由于MG平台的游戏 需要横屏 做特殊处理 "FG" 需要修改原生agent
             NetUitls.getUrlAndParamsAndPlatformAndCallback(url, bodyParam, gameData.gamePlatform, (ret) => {
                 JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
                 if (ret.rs) {
@@ -110,7 +110,7 @@ export default class DZGameListView extends Component {
                         if(gameData.gamePlatform === "MG" || gameData.gamePlatform === "FG")
                         {
                             if (NativeModules.JXHelper.openGameWebViewFromJs) {
-                                NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name);
+                                NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name, gameData.gamePlatform);
                             } else {
                                 Linking.openURL(ret.content.gameUrl);
                             }
