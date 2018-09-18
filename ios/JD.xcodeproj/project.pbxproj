@@ -2026,7 +2026,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.JD.org.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JD.org.cards.yy;
 				PRODUCT_NAME = JD;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2079,7 +2079,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.JD.org.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JD.org.cards.yy;
 				PRODUCT_NAME = JD;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
