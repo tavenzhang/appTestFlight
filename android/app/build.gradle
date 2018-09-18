@@ -144,6 +144,7 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release
@@ -168,6 +169,12 @@ android {
             }
         }
     }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 
 dependencies {
@@ -179,6 +186,20 @@ dependencies {
     compile 'com.umeng.sdk:analytics:latest.integration'
     compile 'com.facebook.react:react-native:+'
     compile 'com.zhy:okhttputils:2.6.2'
+//    compile(name: 'react-native-blur-release', ext: 'aar')
+//    compile(name: 'react-native-code-push-release', ext: 'aar')
+//    compile(name: 'react-native-device-info-release', ext: 'aar')
+//    compile(name: 'react-native-fast-image-release', ext: 'aar')
+//    compile(name: 'react-native-fetch-blob-release', ext: 'aar')
+//    compile(name: 'react-native-image-picker-release', ext: 'aar')
+//    compile(name: 'react-native-interactable-release', ext: 'aar')
+//    compile(name: 'react-native-material-kit-release', ext: 'aar')
+//    compile(name: 'react-native-shake-event-release', ext: 'aar')
+//    compile(name: 'react-native-sound-release', ext: 'aar')
+//    compile(name: 'react-native-splash-screen-release', ext: 'aar')
+//    compile(name: 'react-native-svg-release', ext: 'aar')
+//    compile(name: 'react-native-toast-native-release', ext: 'aar')
+//    compile(name: 'react-native-vector-icons-release', ext: 'aar')
     compile project(':react-native-toast-native')
     compile project(':react-native-shake-event')
     compile project(':react-native-code-push')
