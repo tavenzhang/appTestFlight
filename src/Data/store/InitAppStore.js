@@ -86,11 +86,23 @@ class InitAppStore {
 
     initDeviceTokenFromNative() {
         return new Promise(resolve => {
-            NativeModules.JXHelper.getCFUUID((err, uuid) => {
-                JXLog("=============deviceToken", uuid);
-                resolve(uuid);
-            })
+            try {
+                NativeModules.JXHelper.getCFUUID(
+                    (err, uuid) => {
+                        resolve(uuid)
+                    })
+            }catch (e) {
+                resolve(this.getGUIDd())
+            }
         })
+    }
+
+    getGUIDd() {
+        function S4() {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+
+        return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     }
 
     saveDeviceTokenToLocalStore() {

@@ -66,7 +66,7 @@ export default class UserRegisterStore {
             if (res.rs) {
                 let regs = res.content;
                 //对于渠道包过滤邀请码
-                if (jdAppStore.userAffCode.length > 0) {
+                if (jdAppStore.userAffCode && jdAppStore.userAffCode.length > 0) {
                     let index
                     for (let item in regs) {
                         if (regs[item].key === "affCode") {
