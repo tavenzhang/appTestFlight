@@ -136,8 +136,8 @@ export const indexBgColor = {
 
 // 下拉刷新控件progress主题样式
 export const refreshColor = {
-    progress: ['#00f8f5', '#32fdf6', '#9efef7', '#dafffc'],
-    progressBackground: '#f74953'
+    progress: ['#778c36', '#a1b348', '#b1c351', '#bdcc6a'],
+    progressBackground: '#4c368c'
 }
 
 export const borderColor = {}
