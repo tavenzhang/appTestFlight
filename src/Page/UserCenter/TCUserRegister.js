@@ -266,23 +266,25 @@ export default class TCUserRegister extends Component {
             if (res.status) {
                 this.props.userStore.getMessageStatus();
                 this.props.mainStore.changeTab("mine")
-                Alert.alert(
-                    '绑定银行卡',
-                    '绑定银行卡能更加方便提款哦~',
-                    [
-                        {
-                            text: '取消', onPress: () => {
-                                Helper.popToTop()
+                Helper.popToTop()
+                setTimeout(()=>{
+                    Alert.alert(
+                        '绑定银行卡',
+                        '绑定银行卡能更加方便提款哦~',
+                        [
+                            {
+                                text: '取消', onPress: () => {
+                                }
+                            },
+                            {
+                                text: '绑定', onPress: () => {
+                                    Helper.pushToAddBank(true)
+                                }
                             }
-                        },
-                        {
-                            text: '绑定', onPress: () => {
-                                Helper.pushToAddBank(true)
-                            }
-                        }
-                    ],
-                    {cancelable: false}
-                )
+                        ],
+                        {cancelable: false}
+                    )
+                },1000)
             }
         });
     }

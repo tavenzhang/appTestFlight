@@ -69,7 +69,7 @@ export const config = {
         refreshToken: 'account/account/system/refreshToken/', //刷新token
         register_info: 'account/webapi/account/users/register_info', //添加用户信息
         encryptRegisterInfo: 'account/webapi/account/users/encryptRegister_info', //添加用户信息加密
-        registerSwitch: 'account/webapi/operate/users/registrySwitchs', //用户注册开关
+        registerSwitch: 'account/webapi/operate/users/new/registrySwitchs', //用户注册开关
 
         getuserCardsAndWithdrawInfo: 'cashmgt/me/cards/cardsAndWithdrawDetail', //获取银行卡和取款信息
         userCards: 'cashmgt/me/cards', //获取列表和添加银行卡
