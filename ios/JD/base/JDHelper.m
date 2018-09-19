@@ -40,6 +40,18 @@ UIGraphicsBeginImageContextWithOptions(CGSizeMake(delagete.window.bounds.size.wi
   NSLog(@"%@",contextInfo);
 }
 
+RCT_EXPORT_METHOD(getAffCode:(RCTResponseSenderBlock)callback)
+{
+  NSString * str = [JDHelper getAffCode];
+  callback(@[str]);
+}
+
++ (NSString *)getAffCode{
+  NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
+  NSString *Affcode = [tempInfoDict objectForKey:@"Affcode"];
+  return Affcode;
+}
+
 RCT_EXPORT_METHOD(openAppWith:(NSString *)eventId){
   if (eventId == nil || [eventId isKindOfClass:[NSNull class]]) {
     return;
