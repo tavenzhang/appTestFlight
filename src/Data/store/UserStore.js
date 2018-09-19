@@ -276,6 +276,9 @@ class UserStore {
     register(params, callback) {
         let {userName, password, affCode, validateCode, options} = params;
         this.password = password;
+        if(validateCode){
+            validateCode = validateCode.replace(/\s+/g,"")
+        }
         secretUtils.encode(userName.toLocaleLowerCase(), password, (hash) => {
             let encryptedPWD = secretUtils.rsaEncodePWD(password);
             let data = {
