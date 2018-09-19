@@ -1,11 +1,11 @@
 package com.jd.webview;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,12 +18,13 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.jd.R;
 import com.jd.util.CommonDialog;
+import com.jd.util.JXDragView;
 import com.jd.util.StatusBarUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -37,33 +38,41 @@ public class JXGameWebView extends Activity {
     private ProgressBar mProgressBar;
     private String gameName;
     private CommonDialog mExitDialog;
+    private JXDragView mDragView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.jx_game_webview_layout);
-//        StatusBarUtils.adjustWebGameBar(this);
-//        TextView titleTv = (TextView) findViewById(R.id.tv_title);
         RelativeLayout container = (RelativeLayout) findViewById(R.id.webview_container);
         mProgressBar = (ProgressBar) findViewById(R.id.loading);
         webView = new WebView(getApplicationContext());
         webView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
         container.addView(webView, 0);
-        findViewById(R.id.return_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showExitDialog();
-            }
-        });
 
         Intent intent = getIntent();
         gameName = intent.getStringExtra("title");
         String url = intent.getStringExtra("url");
         String platform = intent.getStringExtra("platform");
 
+        hideVirtualKeys();
+
+        createDragView();
+
+        initWebView(url, platform);
+
+        getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                hideVirtualKeys();
+            }
+        });
+    }
+
+    private void initWebView(String url, String platform) {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setAllowUniversalAccessFromFileURLs(true);
@@ -80,6 +89,40 @@ public class JXGameWebView extends Activity {
         webView.setWebChromeClient(new JXWebChromeClient());
         webView.setWebViewClient(new JXWebViewClient());
         webView.loadUrl(url);
+    }
+
+    private void createDragView() {
+        ImageView returnView = new ImageView(this);
+        returnView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        returnView.setImageResource(R.drawable.ic_return_button);
+        returnView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showExitDialog();
+            }
+        });
+
+        mDragView = new JXDragView.Builder()
+                .setActivity(this)
+                .setDefaultLeft(5)
+                .setDefaultTop(5)
+                .setView(returnView)
+                .build();
+    }
+
+    protected void hideVirtualKeys() {
+        if (Build.VERSION.SDK_INT < 19) {
+            View v = this.getWindow().getDecorView();
+            v.setSystemUiVisibility(View.GONE);
+        } else {
+            View decorView = getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+            if (Build.VERSION.SDK_INT > 21) {
+                getWindow().setNavigationBarColor(Color.TRANSPARENT);
+            }
+        }
     }
 
     @Override
@@ -158,6 +201,14 @@ public class JXGameWebView extends Activity {
             });
         }
         mExitDialog.show();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (null != mDragView) {
+            mDragView.onConfigurationChanged();
+        }
     }
 
     private class JXWebViewClient extends WebViewClient {
