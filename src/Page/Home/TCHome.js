@@ -446,7 +446,7 @@ export default class TCHome extends Component {
             this.props.mainStore.changeTab("mine");
         } else if (title == 'ORDER' || title == '投注记录') {
             if (this.isLogin) {
-                NavigatorHelper.pushToOrderRecord()
+                NavigatorHelper.pushToOrderType()
             } else {
                 NavigatorHelper.pushToUserLogin();
             }
