@@ -1,6 +1,7 @@
 package com.jd.webview;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -11,6 +12,8 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -20,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jd.R;
+import com.jd.util.CommonDialog;
 import com.jd.util.StatusBarUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -27,35 +31,38 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by allen-jx on 2017/7/10.
  */
-
 public class JXGameWebView extends Activity {
 
     private WebView webView;
     private ProgressBar mProgressBar;
+    private String gameName;
+    private CommonDialog mExitDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.jx_game_webview_layout);
-        StatusBarUtils.adjustWebGameBar(this);
-        TextView titleTv = (TextView) findViewById(R.id.tv_title);
+//        StatusBarUtils.adjustWebGameBar(this);
+//        TextView titleTv = (TextView) findViewById(R.id.tv_title);
         RelativeLayout container = (RelativeLayout) findViewById(R.id.webview_container);
         mProgressBar = (ProgressBar) findViewById(R.id.loading);
         webView = new WebView(getApplicationContext());
         webView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
         container.addView(webView, 0);
-        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.return_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JXGameWebView.this.finish();
+                showExitDialog();
             }
         });
 
         Intent intent = getIntent();
-        String title = intent.getStringExtra("title");
+        gameName = intent.getStringExtra("title");
         String url = intent.getStringExtra("url");
         String platform = intent.getStringExtra("platform");
-        titleTv.setText(title);
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -90,8 +97,12 @@ public class JXGameWebView extends Activity {
     // 捕捉"回退"按键，让WebView能回退到上一页，而不是直接关闭Activity。
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
-            webView.goBack();
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (webView.canGoBack()) {
+                webView.goBack();
+            } else {
+                showExitDialog();
+            }
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -124,6 +135,29 @@ public class JXGameWebView extends Activity {
             webView.destroy();
             webView = null;
         }
+    }
+
+    private void showExitDialog() {
+        if (null == mExitDialog) {
+            mExitDialog = new CommonDialog(this);
+            mExitDialog.setDialogTitle(getString(R.string.exit_game_dialog_content, gameName));
+            mExitDialog.setNegativeBtn(getString(R.string.exit_game_dialog_left_btn_title), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mExitDialog.dismiss();
+                    JXGameWebView.this.finish();
+                }
+            });
+            mExitDialog.setPositiveBtn(getString(R.string.exit_game_dialog_right_btn_title), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != mExitDialog && mExitDialog.isShowing()) {
+                        mExitDialog.dismiss();
+                    }
+                }
+            });
+        }
+        mExitDialog.show();
     }
 
     private class JXWebViewClient extends WebViewClient {

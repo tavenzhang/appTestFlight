@@ -11,4 +11,7 @@
     <string name="talkingdata_appid">C21FB5AD22B3449E986F70F031BAC496</string>
     <string name="channelId_today_top">com.todaytop</string>
     <string name="affcode">qudao1</string>
+    <string name="exit_game_dialog_content">退出%1$s游戏？</string>
+    <string name="exit_game_dialog_left_btn_title">退出游戏</string>
+    <string name="exit_game_dialog_right_btn_title">继续玩会</string>
 </resources>
