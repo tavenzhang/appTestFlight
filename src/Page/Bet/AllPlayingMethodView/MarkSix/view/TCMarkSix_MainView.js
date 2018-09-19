@@ -165,12 +165,12 @@ export default class TCMarkSix_MainView extends React.Component {
             }
                 break
 
-            case '正码1-6-正码一':
-            case '正码1-6-正码二':
-            case '正码1-6-正码三':
-            case '正码1-6-正码四':
-            case '正码1-6-正码五':
-            case '正码1-6-正码六':{
+            case '正码1~6-正码一':
+            case '正码1~6-正码二':
+            case '正码1~6-正码三':
+            case '正码1~6-正码四':
+            case '正码1~6-正码五':
+            case '正码1~6-正码六':{
                 itemArray.push(<TCMarkSixSpecialKindSelectView key={1} odds={' '}
                                                           numberArray={SingletonDPS.getPlayTypeArray()}
                                                           prizeSettings={playGameSetting['prizeSettings']}numberEvent={this.props.numberEvent}/>)

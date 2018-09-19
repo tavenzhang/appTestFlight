@@ -166,6 +166,7 @@ function pushToBetHome(data) {
         case 'X3D':
         case '福彩3D':
         case 'HF_SHSSL':
+        case 'HF_JS3D':
         case 'PL3': {
             page = 'TCSSLBetHome';
         }

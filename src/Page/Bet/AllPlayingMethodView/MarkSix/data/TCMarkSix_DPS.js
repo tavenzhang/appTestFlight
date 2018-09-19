@@ -25,7 +25,7 @@ let config = {
         '头尾数',
         '正码',
         '正码特',
-        '正码1-6',
+        '正码1~6',
         '五行',
         '平特一肖尾数',
         '正肖',
@@ -437,12 +437,12 @@ export default class SingletonMarkSixDPS {
             case '正码特-正五特':
             case '正码特-正六特':
 
-            case '正码1-6-正码一':
-            case '正码1-6-正码二':
-            case '正码1-6-正码三':
-            case '正码1-6-正码四':
-            case '正码1-6-正码五':
-            case '正码1-6-正码六':
+            case '正码1~6-正码一':
+            case '正码1~6-正码二':
+            case '正码1~6-正码三':
+            case '正码1~6-正码四':
+            case '正码1~6-正码五':
+            case '正码1~6-正码六':
 
             case '五行-种类':
             case '正肖-生肖':
@@ -588,12 +588,12 @@ export default class SingletonMarkSixDPS {
             case '正码特-正五特':
             case '正码特-正六特':
 
-            case '正码1-6-正码一':
-            case '正码1-6-正码二':
-            case '正码1-6-正码三':
-            case '正码1-6-正码四':
-            case '正码1-6-正码五':
-            case '正码1-6-正码六':
+            case '正码1~6-正码一':
+            case '正码1~6-正码二':
+            case '正码1~6-正码三':
+            case '正码1~6-正码四':
+            case '正码1~6-正码五':
+            case '正码1~6-正码六':
 
             case '五行-种类':
             case '正肖-生肖':
@@ -736,12 +736,12 @@ export default class SingletonMarkSixDPS {
             }break
 
 
-            case '正码1-6-正码一':
-            case '正码1-6-正码二':
-            case '正码1-6-正码三':
-            case '正码1-6-正码四':
-            case '正码1-6-正码五':
-            case '正码1-6-正码六':{
+            case '正码1~6-正码一':
+            case '正码1~6-正码二':
+            case '正码1~6-正码三':
+            case '正码1~6-正码四':
+            case '正码1~6-正码五':
+            case '正码1~6-正码六':{
                 this.getRandomNumberOfSingleEntryUnits(numberOfUnits, this.config.getZM16TitlesArray(), dontAdd)
             }break
 
