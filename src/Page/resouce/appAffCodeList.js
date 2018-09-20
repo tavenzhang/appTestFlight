@@ -5,9 +5,7 @@
 
 export const affCodeList = {
 	ios: {
-		'2.9.6': 'lianyun1'
 	},
 	android: {
-		'2.10.11': '360caipiao'
 	}
 };
