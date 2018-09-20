@@ -121,7 +121,7 @@ class InitAppStore {
         } else {
             try {
                 NativeModules.JXHelper.getAffCode((affcode) => {
-                    if (!affcode) {
+                    if (affcode) {
                         this.userAffCode = affcode
                     }
                     JXLog("AFFCODE--->affcode="+affcode, this.userAffCode)
