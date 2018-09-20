@@ -65,9 +65,8 @@ public class JXHelper extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getAffCode(Callback resultCallback) {
         String affCode = AppUtil.getAFFCode(context);
-        if (!TextUtils.isEmpty(affCode)) {
-            resultCallback.invoke(affCode);
-        }
+        if (null == affCode) affCode = "";
+        resultCallback.invoke(affCode);
     }
 
     @ReactMethod
