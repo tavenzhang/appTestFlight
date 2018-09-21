@@ -4,48 +4,75 @@
 import {
     PixelRatio,
     Dimensions,
+    Platform,
     StatusBar
 } from 'react-native'
-
 const fontSizeScaler = JX_ProjectName === 'JD' ? 1 : PixelRatio.get() / PixelRatio.getFontScale()
+global.TCLineW = (Platform.OS == 'ios' && Dimensions.get('window').width > 375) ? 0.33 : 0.5
 import {
     StyleSheet
 } from 'react-native';
 // 全局字体大小
 export const Size = {
-    xxsmall: 10 * fontSizeScaler,
-    xsmall: 12 * fontSizeScaler,
-    small: 14 * fontSizeScaler,
-    default: 15 * fontSizeScaler,
-    large: 18 * fontSizeScaler,
-    xlarge: 20 * fontSizeScaler,
-    xxlarge: 24 * fontSizeScaler,
-    pixel: 1 / PixelRatio.get(), // 最细边框
-    font10: 10 * fontSizeScaler,
-    font11: 11 * fontSizeScaler,
-    font12: 12 * fontSizeScaler,
-    font13: 13 * fontSizeScaler,
-    font14: 14 * fontSizeScaler,
-    font15: 15 * fontSizeScaler,
-    font16: 16 * fontSizeScaler,
-    font17: 17 * fontSizeScaler,
-    font18: 18 * fontSizeScaler,
-    font19: 19 * fontSizeScaler,
-    font20: 20 * fontSizeScaler,
-    font21: 21 * fontSizeScaler,
-    font22: 22 * fontSizeScaler,
-    font23: 23 * fontSizeScaler,
-    font24: 24 * fontSizeScaler,
-    font25: 25 * fontSizeScaler,
-    font26: 26 * fontSizeScaler,
-    font27: 27 * fontSizeScaler,
-    font28: 28 * fontSizeScaler,
-    font29: 29 * fontSizeScaler,
-    font30: 30 * fontSizeScaler,
-}
-// 全局Window尺寸
+        xxsmall: 10 * fontSizeScaler,
+        xsmall: 12 * fontSizeScaler,
+        small: 14 * fontSizeScaler,
+        default: 15 * fontSizeScaler,
+        large: 18 * fontSizeScaler,
+        xlarge: 20 * fontSizeScaler,
+        xxlarge: 24 * fontSizeScaler,
+        pixel: 1 / PixelRatio.get(), // 最细边框
+        font10: 10 * fontSizeScaler,
+        font11: 11 * fontSizeScaler,
+        font12: 12 * fontSizeScaler,
+        font13: 13 * fontSizeScaler,
+        font14: 14 * fontSizeScaler,
+        font15: 15 * fontSizeScaler,
+        font16: 16 * fontSizeScaler,
+        font17: 17 * fontSizeScaler,
+        font18: 18 * fontSizeScaler,
+        font19: 19 * fontSizeScaler,
+        font20: 20 * fontSizeScaler,
+        font21: 21 * fontSizeScaler,
+        font22: 22 * fontSizeScaler,
+        font23: 23 * fontSizeScaler,
+        font24: 24 * fontSizeScaler,
+        font25: 25 * fontSizeScaler,
+        font26: 26 * fontSizeScaler,
+        font27: 27 * fontSizeScaler,
+        font28: 28 * fontSizeScaler,
+        font29: 29 * fontSizeScaler,
+        font30: 30 * fontSizeScaler,
+    }
+    // 全局Window尺寸
 export const width = Dimensions.get('window').width
 export const height = Dimensions.get('window').height
+    //手机状态栏高度
+export const statusBarHeight = Platform.OS == 'ios' ? (isIphoneX()?44:20) : StatusBar.currentHeight
+
+// iPhoneX
+const X_WIDTH = 375;
+const X_HEIGHT = 812;
+
+const JX_IPHON_X = Platform.OS === 'ios' &&
+    ((height === X_HEIGHT && width === X_WIDTH) ||
+    (height === X_WIDTH && width === X_HEIGHT))
+
+
+
+export function isIphoneX() {
+    return JX_IPHON_X
+}
+
+export const JX_PLAT_INFO = {
+    IS_IOS:Platform.OS == 'ios',
+    MarginBarHeight:Platform.OS == 'ios' ? (JX_IPHON_X ? 45:20):0,
+    IS_IphoneX:JX_IPHON_X
+}
+
+export const navbarHight = Platform.OS == 'ios'? (isIphoneX()?88:64):44
+export const navbarMarginTop = Platform.OS == 'ios'? (isIphoneX()?44:20):0
+export const bottomNavHeight = Platform.OS == 'ios'? (isIphoneX()?83:50):49
 
 /**
  * app主色调
@@ -55,27 +82,27 @@ export const height = Dimensions.get('window').height
 export const baseColor = {
     white: '#FFFFFF',
     black: 'black',
-    mainBg: '#F5F5F5', //主背景
+    mainBg: '#EDEDED', //主背景
     itemBg: '#FFFFFF', //次背景
-    strong: 'red', //强调色
-    tabBarBg: '#f5f5f5', //tabbar背景
-    tabUnSelectTxt: "#7c7c7c", //tab字体未选中
-    tabSelectedTxt: '#4292cd', //选中
-    waitOpen: '#51CFAF', //等待开奖
-    cpDetailTitle: '#66CCFF', //彩票详情投注号码标题
+    strong: '#EE2439', //强调色
+    tabBarBg: '#FFFFFF', //tabbar背景
+    tabUnSelectTxt: "#666666", //tab字体未选中
+    tabSelectedTxt: '#EE2439', //选中
+    waitOpen: '#4BA7ED', //等待开奖
+    cpDetailTitle: '#ABA674', //彩票详情投注号码标题
     blue: '#39c7ff'
 }
 
 const fontColor = {
     headerTitle: 'white', //主要标题色
     headerTitle1: '#C48300', //次要标题色
-    mainTxt: '#333333', //主要文本色
-    minorTxt: '#999999', //次要文本色
+    mainTxt: '#4E4E4E', //主要文本色
+    minorTxt: '#979798', //次要文本色
     strong: 'red', //强调色
     hotCp: '#333333', //热门彩种
-    issue: 'red', //期数
-    waitOpen: '#999999', //正在开奖
-    betMoney: '#EEEE03', //投注金额
+    issue: '#F57500', //期数
+    waitOpen: '#4BA7ED', //正在开奖
+    betMoney: '#FF0000 ', //投注金额
     withdraw: '#12b120', //提款
 }
 
@@ -84,10 +111,10 @@ export const indexTxtColor = {
     topTitle: fontColor.headerTitle, //顶部标题
     noticeTitle: fontColor.strong, //公告标题
     noticeContent: fontColor.mainTxt, //公告内容
-    midMenuTitle: ['#FF9F4B', '#02BCF2', '#00CB7C', '#FB6387'], //客服充值
+    midMenuTitle: [fontColor.mainTxt, fontColor.mainTxt, fontColor.mainTxt, fontColor.mainTxt], //客服充值
     recommendKind: fontColor.hotCp, //彩种推荐
     hotKind: fontColor.hotCp, //热门彩种
-    homePageHotCPTitle: ['#4292cd', '#ef2d0e', '#18a53d', '#e79811', '#ef2d0e', '#18a53d', '#e79811'], //彩种标题
+    homePageHotCPTitle: [fontColor.mainTxt, fontColor.mainTxt, fontColor.mainTxt, fontColor.mainTxt, fontColor.mainTxt, fontColor.mainTxt, fontColor.mainTxt], //彩种标题
     cpDescription: fontColor.minorTxt, //彩票描述
     cpTitle: fontColor.mainTxt, //彩票标题
     winnerTitle: fontColor.mainTxt, //中奖榜标题
@@ -110,8 +137,8 @@ export const indexBgColor = {
 
 // 下拉刷新控件progress主题样式
 export const refreshColor = {
-    progress: ['#e4dc5f', '#e4dc5f', '#ede99d', '#f4f2c4'],
-    progressBackground: '#2e4fa3'
+    progress: ['#00e3c8', '#24eeda', '#9af4e9', '#d8fbf7'],
+    progressBackground: '#dc1632'
 }
 
 export const borderColor = {}
@@ -134,10 +161,10 @@ export const transferColor = {
 
 //购彩大厅
 export const shoppingTxtColor = {
-    tabTitleNormal: fontColor.minorTxt, //tab未选中
-    tabTitlePressed: fontColor.strong, //tab选中
-    tabLine: fontColor.strong, //指示条
-    cpTitle: fontColor.mainTxt, //彩票标题
+    tabTitleNormal: '#000000', //tab未选中
+    tabTitlePressed: '#F8A600', //tab选中
+    tabLine: '#F8A600', //指示条
+    cpTitle: '#000000', //彩票标题
     cpNum: fontColor.strong, //彩票开奖号码
     cpLastIssueNumber: fontColor.issue, //彩票最新期号
     cpTipTxt: fontColor.minorTxt, //彩票提示
@@ -158,28 +185,28 @@ export const lotteryTxtColor = {
 }
 
 export const lotterBgColor = {
-    cpBallBg: '#5891db', //号码球背景
-    waitLotteryBg: '#5B5FE3', //等待开奖背景
-    newLotteryBg: '#5B5FE3', //新彩种开奖背景
+    cpBallBg: '#F73737', //号码球背景
+    waitLotteryBg: '#4BA7ED', //等待开奖背景
+    newLotteryBg: '#4BA7ED', //新彩种开奖背景
 }
 
 //登录注册样式
 export const loginAndRegeisterTxtColor = {
     inputPlaceholder: fontColor.minorTxt, //输入框提示
-    forgetPwd: '#1b81fb', //忘记密码
+    forgetPwd: '#D91D37', //忘记密码
     loginTxt: fontColor.headerTitle, //登录文本
     regTxt: fontColor.headerTitle, //注册文本
-    freePlay: '#3056b2', //试玩文本
+    freePlay: fontColor.headerTitle, //试玩文本
     inputTxt: 'black', //输入文本
     protocolTxt: fontColor.mainTxt, //协议
-    userProtocol: '#1b81fb',
-    freePlayTip: '#3056b2', //免费试玩提醒
+    userProtocol: '#D91D37',
+    freePlayTip: '#D91D37', //免费试玩提醒
 }
 
 export const loginAndRegeisterBgColor = {
-    loginBtn: '#3056b2', //登录按钮
-    regBtn: '#3056b2', //注册按钮
-    freePlayBtn: baseColor.white, //试玩按钮
+    loginBtn: '#D91D37', //登录按钮
+    regBtn: '#D91D37', //注册按钮
+    freePlayBtn: '#D91D37', //试玩按钮
     inputBg: baseColor.white, //输入框背景,
     unableBtn: '#cccccc'
 }
@@ -209,10 +236,10 @@ export const userCenterTxtColor = {
     feedBackTitle: fontColor.mainTxt, //意见反馈
     msgPiontTxt: baseColor.white,
     msgPiontBg: baseColor.strong,
-    signInBgColor: '#FF8500', //签到后按钮背景颜色
+    signInBgColor:'#FF8500', //签到后按钮背景颜色
 }
 export const userCenterBorderColor = {
-    freshBorder: fontColor.minorTxt,
+    freshBorder: fontColor.mainTxt
 }
 
 //列表界面样式
@@ -228,7 +255,7 @@ export const listViewTxtColor = {
 //弹出框样式
 export const popuWinStyle = {
     titleColor: indexTxtColor.topTitle,
-    titleBorder: loginAndRegeisterBorderColor.inputBorder,
+    titleBorder: indexTxtColor.topTitle,
     contentTxt: '#696969',
     contentBorder: fontColor.strong,
     contentBtn: loginAndRegeisterBgColor.inputBg,
@@ -238,13 +265,13 @@ export const popuWinStyle = {
 
 //通用按钮样式
 export const buttonStyle = {
-    btnBg: loginAndRegeisterBgColor.loginBtn,
-    btnTxtColor: loginAndRegeisterTxtColor.loginTxt,
-    btnBorder: loginAndRegeisterBorderColor.inputBorder,
-    btnRedBg: baseColor.strong,
-    btnUnableBg: loginAndRegeisterBgColor.loginBtn
-}
-//通用输入框样式
+        btnBg: loginAndRegeisterBgColor.loginBtn,
+        btnTxtColor: loginAndRegeisterTxtColor.loginTxt,
+        btnBorder: loginAndRegeisterBorderColor.inputBorder,
+        btnRedBg: baseColor.strong,
+        btnUnableBg: loginAndRegeisterBgColor.loginBtn
+    }
+    //通用输入框样式
 export const inputStyle = {
     inputBg: loginAndRegeisterBgColor.inputBg,
     inputTxt: loginAndRegeisterTxtColor.inputTxt,
@@ -284,20 +311,20 @@ export const ermaStyle = {
 
 //复制按钮样式
 export const copyBtnStyle = {
-    txtColor: '#39c7ff',
-    borderColor: '#39c7ff',
+    txtColor: '#D91D37',
+    borderColor: '#D91D37',
     btnBg: indexBgColor.itemBg
 }
 
 //代理中心
 export const agentCenter = {
     addAccountTopTxtNormal: fontColor.headerTitle,
-    addAccountTopTxtSelected: '#1D3B84',
+    addAccountTopTxtSelected: '#FF0000',
     addAccountTopSelectedBg: baseColor.white,
     addAccountTopBorder: fontColor.headerTitle,
     addAccountTopNormalBg: 'transparent',
-    accountTypeTxtSelected: baseColor.cpDetailTitle,
-    accountTypeSelectBorder: baseColor.cpDetailTitle,
+    accountTypeTxtSelected: '#FF0000',
+    accountTypeSelectBorder: '#FF0000',
     accountTypeTxtUnSelected: fontColor.mainTxt,
     title: fontColor.mainTxt,
     content: fontColor.minorTxt,
@@ -322,28 +349,28 @@ export const titleBarStyle = {
 
 
 export const betHome = {
-    issueTxt: fontColor.mainTxt,
+    issueTxt: '#F8A600',
     timeTxt: fontColor.strong,
     openNum: fontColor.strong,
     balanceTxt: fontColor.strong,
     betTopItemBg: baseColor.itemBg,
     betMidBg: '#f6f6f6',
     betMidBorder: '#DCDCDC',
-    betBtmBg: '#2B2B2B',
+    betBtmBg: '#FFFFFF',
     shoppingCarBorder: '#d3d3d3',
     shoppingCarTxt: '#666666',
     shoppingTipBallBg: '#f28f34',
     shoppingTipBallTxt: 'white',
-    btmBg: '#2B2B2B',
-    btmBtnBg: '#d48f08',
-    btmBtnTxt: fontColor.mainTxt,
-    btmBetNumTxt: '#FFFFFF',
-    btmClearBtnBg: '#ececec',
-    btmMoney: 'yellow',
-    btmBets: baseColor.white,
-    betLeftTitle: '#23243B',
-    betLeftGrayTitle: '#23243B',
-    betNumBallBg: baseColor.white,
+    btmBg: '#FFFFFF',
+    btmBtnBg: '#EE2439',
+    btmBtnTxt: '#FFFFFF',
+    btmClearBtnBg: '#EE2439',
+    btmMoney: '#EE2439',
+    btmBets: '#EE2439',
+    btmBetNumTxt: '#EE2439',
+    betLeftTitle: '#000000',
+    betLeftGrayTitle: '#000000',
+    betNumBallBg: '#FFFFFF',
     betNumBallTxt: '#E7381B',
     betNumBallSelectBg: '#E7381B',
     betNumBallSelectTxt: baseColor.white,
@@ -352,8 +379,8 @@ export const betHome = {
     betChoiceBtnBg: baseColor.itemBg,
     betChoiceBtnTxt: fontColor.mainTxt,
     betChoiceBtnBorder: '#E8E8E8',
-    totalMoney: '#EEEE03',
-    totalBets: fontColor.minorTxt,
+    totalMoney: '#FF0000',
+    totalBets: '#FF0000',
     betListBg: baseColor.itemBg,
     betListNum: fontColor.strong,
     betListDes: fontColor.minorTxt,
@@ -376,14 +403,14 @@ export const betHome = {
 
 export const indexBtmStyle = {
     iconStyle: {
-        width: 25,
-        height:  25,
-        marginTop: IS_IOS? 18 : 30
+        width: Platform.OS === 'ios' ? 25 : 25,
+        height: Platform.OS === 'ios' ? 25 : 25,
+        marginTop: Platform.OS === 'ios' ? 18 : 30
     },
     iconStyleSelected: {
-        width: 25,
-        height: 25,
-        marginTop: IS_IOS ? 18 : 30
+        width: Platform.OS === 'ios' ? 25 : 25,
+        height: Platform.OS === 'ios' ? 25 : 25,
+        marginTop: Platform.OS === 'ios' ? 18 : 30
     },
 }
 
@@ -425,7 +452,6 @@ export const commonNumBallStyles = StyleSheet.create({
     }
 
 });
-
 //开奖球大厅样式
 export const lotteryNumbStyle = {
     ballStyle: {

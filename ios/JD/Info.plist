@@ -2,28 +2,36 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Channel</key>
+	<string>106</string>
+	<key>UmengKey</key>
+	<string>387fdf7540b52f503d149f4bumeng</string>
+	<key>JPushKey</key>
+	<string>387fdf7540b52f503d149f4b</string>
+	<key>Affcode</key>
+    <string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>JD-Lottery</string>
+	<string>彩票12</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.id.org.cp12</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>106</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.149</string>
+	<string>2.0.14</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>6</string>
+	<string>1.0.2</string>
 	<key>CodePushDeploymentKey</key>
-	<string>deployment-key-here</string>
+	<string>l8CTU2j2WUmHz0BJak4y85HetnWAEySDzvaNz</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
@@ -58,8 +66,8 @@
 		<string>mqzoneopensdkapi</string>
 		<string>mqzoneopensdk</string>
 		<string>alipay</string>
-		<string>alipays</string>
 		<string>alipayshare</string>
+		<string>alipays</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -69,33 +77,23 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>localhost</key>
+			<key>mlsy555.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
 				<true/>
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>需要您同意，才能使用相机</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>camera</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Entypo.ttf</string>
-		<string>EvilIcons.ttf</string>
-		<string>Feather.ttf</string>
-		<string>FontAwesome.ttf</string>
-		<string>Foundation.ttf</string>
-		<string>Ionicons.ttf</string>
-		<string>MaterialCommunityIcons.ttf</string>
-		<string>MaterialIcons.ttf</string>
-		<string>Octicons.ttf</string>
-		<string>SimpleLineIcons.ttf</string>
-		<string>Zocial.ttf</string>
-	</array>
+	<string>需要您同意，才能访问相册</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -106,7 +104,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>Affcode</key>
-	<string></string>
 </dict>
 </plist>
