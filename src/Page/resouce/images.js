@@ -86,6 +86,8 @@ export const common = {
 export const home = {
     indexHomeNormal: require('./homeIcon/index_home.png'),
     indexHomePressed: require('./homeIcon/index_home_pressed.png'),
+    indexPromotionNormal: require('./homeIcon/index_promotion.png'),
+    indexPromotionPressed: require('./homeIcon/index_promotion_pressed.png'),
     indexShoppingNormal: require('./homeIcon/index_shopping.png'),
     indexShoppingPressed: require('./homeIcon/index_shopping_pressed.png'),
     indexLotteryNormal: require('./homeIcon/index_lottery.png'),
@@ -119,8 +121,9 @@ export const personal = {
     imgEye2: require('./addon/userCenterIcon/icon_eye2.png'),
     iconPay: require('./addon/userCenterIcon/icon_pay.png'),
     iconDraw: require('./addon/userCenterIcon/icon_drawings.png'),
-    imgNext: common.iconNext,
     iconTransfer: require('./addon/userCenterIcon/icon_transfer.png'),
+    transfer: require('./addon/userCenterIcon/icon_drawings.png'),
+    imgNext: common.iconNext,
     daiKaiJjiangIcon: require('./addon/userCenterIcon/dai.png'),
     jiangliIcon: require('./addon/userCenterIcon/jiangli.png'),
     yiKaiJiangIcon: require('./addon/userCenterIcon/dingdan.png'),
@@ -244,8 +247,7 @@ export const betIcon = {
     orderBottom: require('./addon/other/order_bottom.png'),
     orderQingChu: require('./addon/other/icon_qingchu.png'),
     success: common.select,
-    redCheck: require('./addon/other/red_check.png')
-
+    redCheck: require('./addon/other/red_check.png'),
 }
 
 export const IntelligenceBet = {

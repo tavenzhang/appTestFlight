@@ -33,6 +33,13 @@ import com.android.build.OutputFile
  *   // bundleInPaidRelease: true,
  *   // bundleInBeta: true,
  *
+ *   // whether to disable dev mode in custom build variants (by default only disabled in release)
+ *   // for example: to disable dev mode in the staging build type (if configured)
+ *   devDisabledInStaging: true,
+ *   // The configuration property can be in the following formats
+ *   //         'devDisabledIn${productFlavor}${buildType}'
+ *   //         'devDisabledIn${buildType}'
+ *
  *   // the root of your project, i.e. where "package.json" lives
  *   root: "../../",
  *
@@ -58,12 +65,16 @@ import com.android.build.OutputFile
  *   inputExcludes: ["android/**", "ios/**"],
  *
  *   // override which node gets called and with what additional arguments
- *   nodeExecutableAndArgs: ["node"]
+ *   nodeExecutableAndArgs: ["node"],
  *
  *   // supply additional arguments to the packager
  *   extraPackagerArgs: []
  * ]
  */
+
+project.ext.react = [
+        entryFile: "index.js"
+]
 
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
@@ -85,65 +96,46 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
-        applicationId "com.tc168.cp12"
+        applicationId "com.tc168"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0.6"
+        versionName "1.0.8"
+        resValue "string", "app_name", "106彩票-jd"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
     }
 
     productFlavors {
-
-        tc12_release {
-     	 applicationId APP_ID
-     	 versionName APP_VERSION
-     	 resValue "string", "app_name", "彩票12"
-     	 manifestPlaceholders = [CHANNEL_AFFCODE: AFF_CODE,JPUSH_KEY:JPUSH_KEY,UMENG_KEY:UMENG_KEY,APP_VERSION:APP_VERSION]
-
+        JD_sit {
+            applicationId APP_ID
+            versionName APP_VERSION
+            resValue "string", "app_name", "JD综合-sit"
+            manifestPlaceholders = [
+                    APP_VERSION    : APP_VERSION,
+                    CHANNEL_AFFCODE: AFF_CODE,
+                    JPUSH_PKGNAME  : APP_ID,
+                    JPUSH_APPKEY   : JPUSH_KEY,
+                    JPUSH_CHANNEL  : "developer-default",
+                    UMENG_KEY      : UMENG_KEY,
+                    UMENG_CHANNEL  : "developer-default"
+            ]
         }
-//        tc106_qudao1 {
-//        }
-//        tc106_qudao2 {
-//        }
-//        tc106_qudao3 {
-//        }
-//        tc106_qudao4 {
-//        }
-//        tc106_qudao5 {
-//        }
-//        tc106_qudao6 {
-//        }
-//
-//        tc106_qudao7 {
-//        }
-//
-//        tc106_qudao8 {
-//        }
-//
-//        tc106_qudao9 {
-//        }
-//
-//        tc106_qudao10 {
-//        }
-//
-//        tc_106tuiguang1 {
-//        }
     }
 
     signingConfigs {
         release {
-            storeFile file('cpcp12-release-key.keystore')
-            storePassword 'jx123456'
-            keyAlias 'cp12-key-alias'
-            keyPassword 'jx123456'
+            storeFile file('jdcp.keystore')
+            storePassword 'jd123456'
+            keyAlias 'jdcp-alias'
+            keyPassword 'jd123456'
         }
     }
+
     splits {
         abi {
             reset()
@@ -151,14 +143,6 @@ android {
             universalApk false  // If true, also generate a universal APK
             include "armeabi-v7a", "x86"
         }
-    }
-
-
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-
     }
     buildTypes {
         release {
@@ -168,18 +152,18 @@ android {
         }
     }
     // applicationVariants are e.g. debug, release
+    // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                // 输出apk名称为wooyun_v1.0_wandoujia.apk
-                def fileName =""
-     	        def apkName=APK_NAME+""
-	       	    if(apkName!=null && !apkName.isEmpty()){
-	                fileName="${apkName}.apk"
-	       	    }else {
-	       	        fileName= "${variant.productFlavors[0].name}.apk"
-	       	    }
+                def fileName = ""
+                def apkName = APK_NAME + ""
+                if (apkName != null && !apkName.isEmpty()) {
+                    fileName = "${apkName}.apk"
+                } else {
+                    fileName = "${variant.productFlavors[0].name}.apk"
+                }
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }
@@ -187,18 +171,28 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-sound')
-    compile project(':react-native-shake-event')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'cn.jiguang.sdk:jpush:3.1.6'
+    compile 'cn.jiguang.sdk:jcore:1.2.5'
+    compile 'com.umeng.sdk:common:latest.integration'
+    compile 'com.umeng.sdk:analytics:latest.integration'
     compile 'com.facebook.react:react-native:+'
-    // From node_modules
-    compile project(':react-native-toast')
-    compile project(':react-native-view-shot')
-    compile project(':react-native-code-push')
-    compile project(':react-native-sound')
-    //compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.zhy:okhttputils:2.6.2'
+    compile project(':react-native-toast-native')
+    compile project(':react-native-shake-event')
+    compile project(':react-native-code-push')
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-svg')
+    compile project(':react-native-splash-screen')
+    compile project(':react-native-sound')
+    compile project(':react-native-material-kit')
+    compile project(':react-native-interactable')
+    compile project(':react-native-image-picker')
+    compile project(':react-native-fetch-blob')
+    compile project(':react-native-device-info')
+    compile project(':react-native-blur')
+    compile project(':react-native-fast-image')
 }
 
 // Run this once to be able to run the application with BUCK
