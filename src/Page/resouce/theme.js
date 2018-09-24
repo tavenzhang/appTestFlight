@@ -4,63 +4,89 @@
 import {
     PixelRatio,
     Dimensions,
+    Platform,
     StatusBar
 } from 'react-native'
-
 const fontSizeScaler = JX_ProjectName === 'JD' ? 1 : PixelRatio.get() / PixelRatio.getFontScale()
+global.TCLineW = (Platform.OS == 'ios' && Dimensions.get('window').width > 375) ? 0.33 : 0.5
 import {
     StyleSheet
 } from 'react-native';
 // 全局字体大小
 export const Size = {
-    xxsmall: 10 * fontSizeScaler,
-    xsmall: 12 * fontSizeScaler,
-    small: 14 * fontSizeScaler,
-    default: 15 * fontSizeScaler,
-    large: 18 * fontSizeScaler,
-    xlarge: 20 * fontSizeScaler,
-    xxlarge: 24 * fontSizeScaler,
-    pixel: 1 / PixelRatio.get(), // 最细边框
-    font10: 10 * fontSizeScaler,
-    font11: 11 * fontSizeScaler,
-    font12: 12 * fontSizeScaler,
-    font13: 13 * fontSizeScaler,
-    font14: 14 * fontSizeScaler,
-    font15: 15 * fontSizeScaler,
-    font16: 16 * fontSizeScaler,
-    font17: 17 * fontSizeScaler,
-    font18: 18 * fontSizeScaler,
-    font19: 19 * fontSizeScaler,
-    font20: 20 * fontSizeScaler,
-    font21: 21 * fontSizeScaler,
-    font22: 22 * fontSizeScaler,
-    font23: 23 * fontSizeScaler,
-    font24: 24 * fontSizeScaler,
-    font25: 25 * fontSizeScaler,
-    font26: 26 * fontSizeScaler,
-    font27: 27 * fontSizeScaler,
-    font28: 28 * fontSizeScaler,
-    font29: 29 * fontSizeScaler,
-    font30: 30 * fontSizeScaler,
-}
-// 全局Window尺寸
+        xxsmall: 10 * fontSizeScaler,
+        xsmall: 12 * fontSizeScaler,
+        small: 14 * fontSizeScaler,
+        default: 15 * fontSizeScaler,
+        large: 18 * fontSizeScaler,
+        xlarge: 20 * fontSizeScaler,
+        xxlarge: 24 * fontSizeScaler,
+        pixel: 1 / PixelRatio.get(), // 最细边框
+        font10: 10 * fontSizeScaler,
+        font11: 11 * fontSizeScaler,
+        font12: 12 * fontSizeScaler,
+        font13: 13 * fontSizeScaler,
+        font14: 14 * fontSizeScaler,
+        font15: 15 * fontSizeScaler,
+        font16: 16 * fontSizeScaler,
+        font17: 17 * fontSizeScaler,
+        font18: 18 * fontSizeScaler,
+        font19: 19 * fontSizeScaler,
+        font20: 20 * fontSizeScaler,
+        font21: 21 * fontSizeScaler,
+        font22: 22 * fontSizeScaler,
+        font23: 23 * fontSizeScaler,
+        font24: 24 * fontSizeScaler,
+        font25: 25 * fontSizeScaler,
+        font26: 26 * fontSizeScaler,
+        font27: 27 * fontSizeScaler,
+        font28: 28 * fontSizeScaler,
+        font29: 29 * fontSizeScaler,
+        font30: 30 * fontSizeScaler,
+    }
+    // 全局Window尺寸
 export const width = Dimensions.get('window').width
 export const height = Dimensions.get('window').height
+    //手机状态栏高度
+export const statusBarHeight = Platform.OS == 'ios' ? (isIphoneX()?44:20) : StatusBar.currentHeight
 
+// iPhoneX
+const X_WIDTH = 375;
+const X_HEIGHT = 812;
+
+const JX_IPHON_X = Platform.OS === 'ios' &&
+    ((height === X_HEIGHT && width === X_WIDTH) ||
+    (height === X_WIDTH && width === X_HEIGHT))
+
+
+
+export function isIphoneX() {
+    return JX_IPHON_X
+}
+
+export const JX_PLAT_INFO = {
+    IS_IOS:Platform.OS == 'ios',
+    MarginBarHeight:Platform.OS == 'ios' ? (JX_IPHON_X ? 45:20):0,
+    IS_IphoneX:JX_IPHON_X
+}
+
+export const navbarHight = Platform.OS == 'ios'? (isIphoneX()?88:64):44
+export const navbarMarginTop = Platform.OS == 'ios'? (isIphoneX()?44:20):0
+export const bottomNavHeight = Platform.OS == 'ios'? (isIphoneX()?83:50):49
 /**
- * app主色调
- * @type {{}}
- */
+     * app主色调
+     * @type {{}}
+     */
 
 export const baseColor = {
     white: '#FFFFFF',
     black: 'black',
     mainBg: '#F5F5F5', //主背景
     itemBg: '#FFFFFF', //次背景
-    strong: 'red', //强调色
-    tabBarBg: '#f5f5f5', //tabbar背景
-    tabUnSelectTxt: "#7c7c7c", //tab字体未选中
-    tabSelectedTxt: '#4292cd', //选中
+    strong: '#6A58CA', //强调色
+    tabBarBg: '#231e58', //tabbar背景
+    tabUnSelectTxt: "#6A58CA", //tab字体未选中
+    tabSelectedTxt: '#FCCC45', //选中
     waitOpen: '#51CFAF', //等待开奖
     cpDetailTitle: '#66CCFF', //彩票详情投注号码标题
     blue: '#39c7ff'
@@ -110,8 +136,8 @@ export const indexBgColor = {
 
 // 下拉刷新控件progress主题样式
 export const refreshColor = {
-    progress: ['#e4dc5f', '#e4dc5f', '#ede99d', '#f4f2c4'],
-    progressBackground: '#2e4fa3'
+    progress: ['#778c36', '#a1b348', '#b1c351', '#bdcc6a'],
+    progressBackground: '#4c368c'
 }
 
 export const borderColor = {}
@@ -158,7 +184,7 @@ export const lotteryTxtColor = {
 }
 
 export const lotterBgColor = {
-    cpBallBg: '#5891db', //号码球背景
+    cpBallBg: '#FF4301', //号码球背景
     waitLotteryBg: '#5B5FE3', //等待开奖背景
     newLotteryBg: '#5B5FE3', //新彩种开奖背景
 }
@@ -166,10 +192,10 @@ export const lotterBgColor = {
 //登录注册样式
 export const loginAndRegeisterTxtColor = {
     inputPlaceholder: fontColor.minorTxt, //输入框提示
-    forgetPwd: '#1b81fb', //忘记密码
+    forgetPwd: 'red', //忘记密码
     loginTxt: fontColor.headerTitle, //登录文本
     regTxt: fontColor.headerTitle, //注册文本
-    freePlay: '#3056b2', //试玩文本
+    freePlay: 'red', //试玩文本
     inputTxt: 'black', //输入文本
     protocolTxt: fontColor.mainTxt, //协议
     userProtocol: '#1b81fb',
@@ -177,8 +203,8 @@ export const loginAndRegeisterTxtColor = {
 }
 
 export const loginAndRegeisterBgColor = {
-    loginBtn: '#3056b2', //登录按钮
-    regBtn: '#3056b2', //注册按钮
+    loginBtn: 'red', //登录按钮
+    regBtn: 'red', //注册按钮
     freePlayBtn: baseColor.white, //试玩按钮
     inputBg: baseColor.white, //输入框背景,
     unableBtn: '#cccccc'
@@ -209,10 +235,10 @@ export const userCenterTxtColor = {
     feedBackTitle: fontColor.mainTxt, //意见反馈
     msgPiontTxt: baseColor.white,
     msgPiontBg: baseColor.strong,
-    signInBgColor: '#FF8500', //签到后按钮背景颜色
+    signInBgColor:'#FF8500', //签到后按钮背景颜色
 }
 export const userCenterBorderColor = {
-    freshBorder: fontColor.minorTxt,
+    freshBorder: fontColor.mainTxt
 }
 
 //列表界面样式
@@ -238,13 +264,13 @@ export const popuWinStyle = {
 
 //通用按钮样式
 export const buttonStyle = {
-    btnBg: loginAndRegeisterBgColor.loginBtn,
-    btnTxtColor: loginAndRegeisterTxtColor.loginTxt,
-    btnBorder: loginAndRegeisterBorderColor.inputBorder,
-    btnRedBg: baseColor.strong,
-    btnUnableBg: loginAndRegeisterBgColor.loginBtn
-}
-//通用输入框样式
+        btnBg: loginAndRegeisterBgColor.loginBtn,
+        btnTxtColor: loginAndRegeisterTxtColor.loginTxt,
+        btnBorder: loginAndRegeisterBorderColor.inputBorder,
+        btnRedBg: baseColor.strong,
+        btnUnableBg: loginAndRegeisterBgColor.loginBtn
+    }
+    //通用输入框样式
 export const inputStyle = {
     inputBg: loginAndRegeisterBgColor.inputBg,
     inputTxt: loginAndRegeisterTxtColor.inputTxt,
@@ -376,14 +402,14 @@ export const betHome = {
 
 export const indexBtmStyle = {
     iconStyle: {
-        width: 25,
-        height:  25,
-        marginTop: IS_IOS? 18 : 30
+        width: Platform.OS === 'ios' ? 25 : 25,
+        height: Platform.OS === 'ios' ? 25 : 25,
+        marginTop: Platform.OS === 'ios' ? 18 : 30
     },
     iconStyleSelected: {
-        width: 25,
-        height: 25,
-        marginTop: IS_IOS ? 18 : 30
+        width: Platform.OS === 'ios' ? 25 : 25,
+        height: Platform.OS === 'ios' ? 25 : 25,
+        marginTop: Platform.OS === 'ios' ? 18 : 30
     },
 }
 

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="220dp"
     android:layout_height="wrap_content"
-    android:background="#AA040404"
+    android:background="#C8040404"
     android:orientation="vertical">
 
     <TextView

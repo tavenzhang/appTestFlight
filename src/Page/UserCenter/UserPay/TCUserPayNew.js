@@ -85,7 +85,7 @@ export default class TCUserPayNew extends Component {
                     {this.getInputView()}
                     <Text style={{color: payTxtColor.payMoneyTip}}>元</Text>
                 </View>
-                <MoneyLabelViewL
+                <MoneyLabelView
                     ref="moneyLabelView"
                     changeMoney={(money) => {
                         this.changeMoney(money)

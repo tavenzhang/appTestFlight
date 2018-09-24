@@ -82,7 +82,7 @@ let CodePushDeploymentKey = null
 
 let JDPlatform = 'SPORT'
 
-export default class App extends Component<Props> {
+export default class App extends Component {
     constructor() {
         super();
         this.state = {

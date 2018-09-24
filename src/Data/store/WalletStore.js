@@ -60,7 +60,7 @@ class WalletStore {
         otherPlatform.map((platform) => {
             if (platform.status && platform.status === 'ON') {
                 let op = this.findPlatform(platform.gamePlatform)
-                if (!op) {
+                if (!op && (platform.gamePlatform === 'FG' || platform.gamePlatform === 'KY')) {
                     this.allBalance.push({
                         gamePlatform: platform.gamePlatform,
                         gameNameInChinese: platform.gameNameInChinese,

@@ -104,17 +104,17 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0.8"
-        resValue "string", "app_name", "106彩票-jd"
+        resValue "string", "app_name", "JD棋牌-sit"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
     }
 
     productFlavors {
-        JD_sit {
+        yycp_jdcards {
             applicationId APP_ID
             versionName APP_VERSION
-            resValue "string", "app_name", "JD综合-sit"
+            resValue "string", "app_name", "易盈棋牌"
             manifestPlaceholders = [
                     APP_VERSION    : APP_VERSION,
                     CHANNEL_AFFCODE: AFF_CODE,
@@ -129,10 +129,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('jdcp.keystore')
-            storePassword 'jd123456'
-            keyAlias 'jdcp-alias'
-            keyPassword 'jd123456'
+            storeFile file('kot-cards-yy.keystore')
+            storePassword 'kotcards2018'
+            keyAlias 'yy-cards'
+            keyPassword 'kotcards2018'
         }
     }
 
@@ -144,6 +144,7 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release
@@ -159,13 +160,20 @@ android {
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 def fileName = ""
                 def apkName = APK_NAME + ""
+                def affSuffix = AFF_CODE ? "_${AFF_CODE}" : ""
                 if (apkName != null && !apkName.isEmpty()) {
-                    fileName = "${apkName}.apk"
+                    fileName = "${apkName}" + affSuffix + ".apk"
                 } else {
-                    fileName = "${variant.productFlavors[0].name}.apk"
+                    fileName = "${variant.productFlavors[0].name}" + affSuffix + ".apk"
                 }
                 output.outputFile = new File(outputFile.parent, fileName)
             }
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
         }
     }
 }
@@ -179,6 +187,20 @@ dependencies {
     compile 'com.umeng.sdk:analytics:latest.integration'
     compile 'com.facebook.react:react-native:+'
     compile 'com.zhy:okhttputils:2.6.2'
+//    compile(name: 'react-native-blur-release', ext: 'aar')
+//    compile(name: 'react-native-code-push-release', ext: 'aar')
+//    compile(name: 'react-native-device-info-release', ext: 'aar')
+//    compile(name: 'react-native-fast-image-release', ext: 'aar')
+//    compile(name: 'react-native-fetch-blob-release', ext: 'aar')
+//    compile(name: 'react-native-image-picker-release', ext: 'aar')
+//    compile(name: 'react-native-interactable-release', ext: 'aar')
+//    compile(name: 'react-native-material-kit-release', ext: 'aar')
+//    compile(name: 'react-native-shake-event-release', ext: 'aar')
+//    compile(name: 'react-native-sound-release', ext: 'aar')
+//    compile(name: 'react-native-splash-screen-release', ext: 'aar')
+//    compile(name: 'react-native-svg-release', ext: 'aar')
+//    compile(name: 'react-native-toast-native-release', ext: 'aar')
+//    compile(name: 'react-native-vector-icons-release', ext: 'aar')
     compile project(':react-native-toast-native')
     compile project(':react-native-shake-event')
     compile project(':react-native-code-push')

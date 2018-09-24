@@ -1,7 +1,3 @@
-/**
- * Created by Sam on 2016/11/10.
- */
-
 import React, {Component} from 'react';
 import {BackHandler, Image, Platform, StyleSheet, View} from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
@@ -12,7 +8,6 @@ import Home from '../Home/TCHome';
 import LotteryLobby from '../LotteryLobby/TCLotteryLobby';
 import Trend from '../Trend/TCTrend';
 import TCUserCenterHome from '../UserCenter/TCUserCenterNew';
-import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import {baseColor, indexBgColor, indexBtmStyle, Size, width} from '../resouce/theme';
 import {bottomNavHeight, JX_PLAT_INFO,} from '../asset'
@@ -21,8 +16,12 @@ import Toast from "../../Common/JXHelper/JXToast";
 import Moment from "moment/moment";
 import userStore from "../../Data/store/UserStore";
 import NavigationService from "../Route/NavigationService";
-import TCTrend from "../Trend/TCTrend";
+import TCUserPayType from "../UserCenter/UserPay/TCUserPayType";
+import TCUserTransfer from "../UserCenter/transfer/TCUserTransfer";
 
+/**
+ * Created by Sam on 2016/11/10.
+ */
 @inject("mainStore", "userStore", "jdAppStore")
 @observer
 export default class TC168 extends Component {
@@ -67,41 +66,27 @@ export default class TC168 extends Component {
                     backgroundColor: indexBgColor.tabBg, height: bottomNavHeight,
                     paddingBottom: JX_PLAT_INFO.IS_IphoneX ? 30 : 0
                 }}>
-                    {/*--首页--*/}
                     {this.renderTabBarItem("首页",
                         home.indexHomeNormal,
                         home.indexHomePressed,
                         "home",
-                        <Home navigator={this.props.navigation} cpArray={this.state.cpArray}/>)}
-                    {/*--购彩大厅--*/}
-                    {
-                        this.renderTabBarItem("购彩",
-                            home.indexShoppingNormal,
-                            home.indexShoppingPressed,
-                            'shoping',
-                            <ShopingLobby navigator={this.props.navigation}
-                                          cpArray={this.state.cpArray}/>)
+                        <Home navigator={this.props.navigation} cpArray={this.state.cpArray}/>)
                     }
-                    {/*/!*--开奖大厅--*!/*/}
                     {
-                        this.renderTabBarItem("开奖",
-                            home.indexLotteryNormal,
-                            home.indexLotteryPressed,
-                            'lobby',
-                            <LotteryLobby navigator={this.props.navigation}/>
+                        this.renderTabBarItem("充值",
+                            home.indexPay,
+                            home.indexPayPressed,
+                            'withdraw',
+                            <TCUserPayType navigator={this.props.navigation} mainPage={true}/>)
+                    }
+                    {
+                        this.renderTabBarItem("转账",
+                            home.indexTransferNormal,
+                            home.indexTransferPressed,
+                            'transfer',
+                            <TCUserTransfer navigator={this.props.navigation} mainPage={true}/>
                         )
                     }
-                    {/*/!*--福利--*!/*/}
-                    {
-                        this.renderTabBarItem("走势",
-                            home.indexTrendNormal,
-                            home.indexTrendPressed,
-                            'discover',
-                            <Trend navigator={this.props.navigation}/>
-                        )
-                    }
-
-                    {/*/!*--用户中心--*!/*/}
                     {
                         this.renderTabBarItem("我的",
                             home.indexMineNormal,

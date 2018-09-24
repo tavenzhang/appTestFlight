@@ -105,6 +105,7 @@ export class MyComponent2 extends React.Component {
     }
 
     checkDSFOpen() {
+        return false;
         let otherPlatform = JXHelper.getDSFOpenList().dsfSportInfos;
         if (otherPlatform && otherPlatform.length > 0) {
             return true;
@@ -121,8 +122,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        backgroundColor: indexBgColor.itemBg,
-        borderTopWidth:1,
-        borderTopColor:indexBgColor.mainBg
+        backgroundColor:'transparent',
     }
 });

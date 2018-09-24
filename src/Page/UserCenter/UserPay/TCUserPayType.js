@@ -42,7 +42,7 @@ import UserPayTypeStore from "../../../Data/store/UserPayTypeStore";
 /**
  * 用戶充值类型界面
  */
-@inject("jdAppStore", "userStore")
+@inject("jdAppStore", "userStore", "mainStore")
 @observer
 export default class TCUserPayType extends Component {
 
@@ -70,9 +70,7 @@ export default class TCUserPayType extends Component {
                     rightButtonCall={() => {
                         this.gotoPayRecord()
                     }}
-                    backButtonCall={() => {
-                        this.goBack()
-                    }}/>
+                    backButtonCall={() => {this.props.mainPage ? this.props.mainStore.changeTab('home') : this.goBack()}}/>
                 <View style={{flexDirection: 'row', padding: 10, backgroundColor: indexBgColor.itemBg}}>
                     <View style={{
                         marginLeft: 20,

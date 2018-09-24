@@ -87,67 +87,10 @@ const USERCENTER_ITEMS = [
             name: '我的消息',
             description: "查看系统消息",
             icon: personal.message
-        },
-        {
-            key: "wdsc",
-            name: '彩票收藏',
-            description: "收藏关注的彩种",
-            icon: personal.collect
-        }
-    ],
-    [
-        {
-            key: "yhgl",
-            name: '用户管理',
-            description: "对下级成员管理",
-            icon: personal.userManager
-        },
-        {
-            key: "dlyj",
-            name: '代理佣金',
-            description: "查看下级贡献的佣金",
-            icon: personal.agentCommission
-        },
-        {
-            key: "tdbb",
-            name: '团队报表',
-            description: "查看团队的数据汇总",
-            icon: personal.teamSheet
-        },
-        {
-            key: "more",
-            name: '代理中心',
-            description: "代理中心的所有内容",
-            icon: personal.more
-        }
-    ],
-    [
-        {
-            key: "yjfk",
-            name: '意见反馈',
-            description: "意见提出与查看反馈",
-            icon: personal.toolFeedBack
-        },
-        {
-            key: "bzzx",
-            name: '在线客服',
-            description: "帮助中心",
-            icon: personal.onlineServicer
-        },
-        {
-            key: "fxhy",
-            name: '分享好友',
-            description: "邀请好友，赚取更多收益",
-            icon: personal.shareFriends
-        },
-        {
-            key: "flzx",
-            name: '福利中心',
-            description: "优惠与返利",
-            icon: personal.promotions
         }
     ]
 ]
+
 @inject("mainStore", "userStore", "jdAppStore")
 @observer
 export default class TCUserCenterNew extends Component {
@@ -696,8 +639,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
     }, img: {
-        width: 30,
-        height: 30,
+        width: 35,
+        height: 35,
         marginLeft: 15
     },
     mySettingLeftTxtStyle: {
@@ -719,7 +662,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     }, itemContainer: {
-        width: width * 0.5 - 0.5,
+        width: width,
         height: 60,
         justifyContent: 'center',
         backgroundColor: indexBgColor.itemBg,
@@ -727,7 +670,8 @@ const styles = StyleSheet.create({
     }, listItemView: {
         flexDirection: 'row',
     }, contentTxtStyle: {
-        fontSize: Size.font10,
+        fontSize: Size.font12,
+        marginTop:5,
         color: listViewTxtColor.content
     }, listViewStyle: {
         flexWrap: 'wrap',

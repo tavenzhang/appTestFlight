@@ -17,31 +17,10 @@ export default class TCUserOrderType extends React.Component {
 
     renderOtherPlatform() {
         let tempComponent = [];
-        let sportPlatforms = JXHelper.getDSFOpenList().dsfSportInfos;
-        if (sportPlatforms && sportPlatforms.length > 0) {
-            if (sportPlatforms.find((platform) => platform.status === 'ON')) {
-                tempComponent.push(<Text style={styles.typeTitle} key={'sport'}>体育竞技</Text>)
-            }
-            sportPlatforms.map((platform) => {
-                if (platform.status === 'ON') {
-                    tempComponent.push(
-                        <TCListItemBar
-                            key={platform.gamePlatform}
-                            text={`${platform.gameNameInChinese}投注记录`}
-                            leftIcon={{uri: platform.gameIconUrl}}
-                            rightIcon={Common.iconNext}
-                            onClick={() => NavigatorHelper.pushToOtherBetRecord(platform.gamePlatform)}/>
-                    )
-                }
-            })
-        }
         let eGamePlatforms = JXHelper.getDSFOpenList().dsfEgameInfos;
         if (eGamePlatforms && eGamePlatforms.length > 0) {
-            if (eGamePlatforms.find((platform) => platform.status === 'ON')) {
-                tempComponent.push(<Text style={styles.typeTitle} key={'egame'}>电子竞技</Text>)
-            }
             eGamePlatforms.map((platform) => {
-                if (platform.status === 'ON') {
+                if (platform.status === 'ON' && platform.gamePlatform === 'FG') {
                     tempComponent.push(
                         <TCListItemBar
                             key={platform.gamePlatform}
@@ -55,11 +34,8 @@ export default class TCUserOrderType extends React.Component {
         }
         let cardPlatforms = JXHelper.getDSFOpenList().dsfCardInfos;
         if (cardPlatforms && cardPlatforms.length > 0) {
-            if (cardPlatforms.find((platform) => platform.status === 'ON')) {
-                tempComponent.push(<Text style={styles.typeTitle} key={'chess'}>棋牌竞技</Text>)
-            }
             cardPlatforms.map((platform) => {
-                if (platform.status === 'ON') {
+                if (platform.status === 'ON' && platform.gamePlatform === 'KY') {
                     tempComponent.push(
                         <TCListItemBar
                             key={platform.gamePlatform}
@@ -82,11 +58,6 @@ export default class TCUserOrderType extends React.Component {
                     needBackButton
                     backButtonCall={() => NavigatorHelper.popToBack()}/>
                 <ScrollView contentContainerStyle={styles.contentContainer}>
-                    <Text style={styles.typeTitle}>彩票游戏</Text>
-                    <TCListItemBar text={'彩票游戏投注记录'}
-                                   leftIcon={Other.caiPiao}
-                                   rightIcon={Common.iconNext}
-                                   onClick={() => NavigatorHelper.pushToOrderRecord(0)}/>
                     {this.renderOtherPlatform()}
                 </ScrollView>
             </View>

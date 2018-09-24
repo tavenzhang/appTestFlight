@@ -39,7 +39,7 @@ import {
     loginAndRegeisterBorderColor
 } from '../resouce/theme'
 
-@inject("mainStore", "jdAppStore", "userStore")
+@inject("mainStore", "jdAppStore", "userStore","initAppStore")
 @observer
 export default class TCUserRegister extends Component {
 
