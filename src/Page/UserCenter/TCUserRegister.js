@@ -61,6 +61,7 @@ export default class TCUserRegister extends Component {
     }
 
     render() {
+        const keyboardDismissMode = IS_IOS ? 'on-drag' : 'none'
         return (
             <View style={[styles.container]}>
                 < TopNavigationBar
@@ -69,7 +70,7 @@ export default class TCUserRegister extends Component {
                     backButtonCall={() => this.back()}/>
                 <KeyboardAvoidingScrollView
                     keyboardShouldPersistTaps={Platform.OS !== 'ios' ? 'handled' : false}
-                    keyboardDismissMode={'on-drag'}>
+                    keyboardDismissMode={keyboardDismissMode}>
                     <View style={{alignItems: 'center'}}>
                         < View style={styles.formstyle}>
                             <View style={styles.loginInputStyle}>
