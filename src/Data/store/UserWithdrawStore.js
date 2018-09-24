@@ -42,7 +42,7 @@ export default class UserWithdrawStore {
         withdrawSwitch: false,//取款是否需要满足打码量要求开关
         maxWithdrawMoney: 0, //最多可提现金额
         newratioOfChargeExempt: 0,//新的手续费计算
-        integerWithdrawalAmount:false,//取款是否规定取整数
+        integerWithdrawalAmount: false//取款是否规定取整数
     }
 
     @observable
@@ -89,7 +89,9 @@ export default class UserWithdrawStore {
             amount: this.money,
             userBankId: this.bank.id,
             withDrawCode: encryptDrawCode,
-            charge: this.exempt
+            charge: this.exempt,
+            chargeV1: true,
+            version: "V2"
         }, (res) => {
             let result = {}
             if (res.rs) {
@@ -118,6 +120,7 @@ export default class UserWithdrawStore {
         //当天剩余提款次数
         this.withdrawModel.surplusWithdrawCount = withdrawSetting.surplusWithdrawCount
 
+
         //厅主出款设定
         let setting = withdrawSetting.withdrawalSettings
         this.withdrawModel.withdrawFeeRateBeyondLimit = setting.chargeRatioBeyondLimit
@@ -130,11 +133,12 @@ export default class UserWithdrawStore {
         this.withdrawModel.aggregateBetRequirements = withdrawSetting.aggregateBetRequirements
         this.withdrawModel.aggregateBets = withdrawSetting.aggregateBets
         this.withdrawModel.withdrawSwitch = withdrawSetting.withdrawalSettings.withdrawSwitch
+        this.withdrawModel.minimumWithdrawAmount = setting.minimumWithdrawAmount
         this.withdrawModel.integerWithdrawalAmount = withdrawSetting.withdrawalSettings.integerWithdrawalAmount ? withdrawSetting.withdrawalSettings.integerWithdrawalAmount : false;
-
         this.ratioOfChargeExempt();
         this.getMaxWithdrawMoney(withdrawSetting, setting)
     }
+
 
     @action
     freshLoading() {
@@ -147,7 +151,7 @@ export default class UserWithdrawStore {
      */
     @computed
     get canWithdraw() {
-        if (this.withdrawModel.totalMoney < 0 || this.withdrawModel.surplusMaxWithdraw < 0 || this.withdrawModel.surplusSeconds < 0) {
+        if (this.withdrawModel.totalMoney <= 0 || this.withdrawModel.surplusMaxWithdraw <= 0 || this.withdrawModel.surplusSeconds < 0 || this.withdrawModel.surplusWithdrawCount <= 0 || (this.withdrawModel.withdrawSwitch && !this.withdrawModel.sufficeAggregateBetRequirements)) {
             return false
         }
         return true
@@ -178,12 +182,11 @@ export default class UserWithdrawStore {
      */
     @computed
     get exempt() {
-        if ((this.withdrawModel.surplusFeeWithdrawCount > 0 || this.withdrawModel.sufficeAggregateBetRequirements || parseInt(this.money) === 0)
-            && this.withdrawModel.surplusWithdrawCount > 0) {
+        if (this.withdrawModel.surplusFeeWithdrawCount > 0 || parseInt(this.money) === 0 || this.withdrawModel.surplusMaxWithdraw === 0) {
             return 0;
         }
-        let regExp = new RegExp("^\\+?[1-9][0-9]*$");
-        if (regExp.test(parseInt(this.money))) {
+        let regExp = new RegExp("^([1-9]\\d{0,9}|0)([.]?|(\\.\\d{1,2})?)$");
+        if (regExp.test(this.money)) {
             return this.calExempt(this.money)
         } else {
             return 0
@@ -204,21 +207,22 @@ export default class UserWithdrawStore {
      * @param setting
      */
     getMaxWithdrawMoney(withdrawSetting, setting) {
+
+        let withdrawMoney = withdrawSetting.surplusMaxWithdraw > withdrawSetting.balance ? withdrawSetting.balance : withdrawSetting.surplusMaxWithdraw;
+        withdrawMoney = withdrawMoney >= 0 ? withdrawMoney : 0;
         let maxMoney = 0;
-        if ((withdrawSetting.surplusFeeWithdrawCount > 0 || withdrawSetting.sufficeAggregateBetRequirements || parseInt(withdrawSetting.balance) === 0)
-            && withdrawSetting.surplusWithdrawCount > 0) {
-            maxMoney = withdrawSetting.balance < 1 ? 0 : this.FloorNum(withdrawSetting.balance, 1);
+        if ((withdrawSetting.surplusFeeWithdrawCount > 0 || parseInt(withdrawSetting.balance) === 0)) {
+            maxMoney = withdrawSetting.balance < 1 ? 0 : this.FloorNum(withdrawMoney, 1);
         } else {
-            let maxWithdraw = withdrawSetting.balance * (1 - this.withdrawModel.newratioOfChargeExempt * 0.01);
-            if (maxWithdraw >= setting.maxWithdrawCharge) {
-                maxMoney = this.FloorNum(setting.maxWithdrawCharge * (1 - this.withdrawModel.newratioOfChargeExempt * 0.01), 1);
+            let tempExempt = withdrawMoney * this.withdrawModel.newratioOfChargeExempt * 0.01
+            if (tempExempt >= setting.maxWithdrawCharge) {
+                maxMoney = this.FloorNum(withdrawMoney - setting.maxWithdrawCharge, 1)
             } else {
-                maxMoney = this.FloorNum(withdrawSetting.balance / (this.withdrawModel.newratioOfChargeExempt * 0.01 + 1), 1)
+                maxMoney = this.FloorNum(withdrawMoney / (this.withdrawModel.newratioOfChargeExempt * 0.01 + 1), 1)
             }
         }
         this.withdrawModel.maxWithdrawMoney = this.withdrawModel.integerWithdrawalAmount ? this.FloorNum(maxMoney, 0) : maxMoney;
     }
-
 
     /**
      * 显示/隐藏提示对话框
@@ -230,14 +234,10 @@ export default class UserWithdrawStore {
 
 
     ratioOfChargeExempt() {
-        if (this.withdrawModel.surplusWithdrawCount > 0) {
+        if (this.withdrawModel.sufficeAggregateBetRequirements) {
             this.withdrawModel.newratioOfChargeExempt = this.withdrawModel.ratioOfChargeExempt;
         } else {
-            if (!this.withdrawModel.sufficeAggregateBetRequirements) {
-                this.withdrawModel.newratioOfChargeExempt = this.withdrawModel.ratioOfChargeExempt + this.withdrawModel.withdrawFeeRateBeyondLimit;
-            } else {
-                this.withdrawModel.newratioOfChargeExempt = this.withdrawModel.withdrawFeeRateBeyondLimit;
-            }
+            this.withdrawModel.newratioOfChargeExempt = this.withdrawModel.withdrawFeeRateBeyondLimit;
         }
     }
 

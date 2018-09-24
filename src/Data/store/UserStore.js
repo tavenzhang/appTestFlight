@@ -246,6 +246,7 @@ class UserStore {
     saveUserInfo(user) {
         this.isLogin = true;
         this.userName = user.username.toLocaleLowerCase();
+        JDAppStore.addLoginedUserName(this.userName);
         this.prizeGroup = user.prizeGroup;
         this.minMemberPrizeGroup = user.minMemberPrizeGroup;
         this.access_token = user["oauthToken"]["access_token"];
@@ -261,6 +262,7 @@ class UserStore {
         this.updateUserOtherInfo();
         this.getCollects();
         this.getHttpVipInfo();
+
     }
 
     getCollects() {
@@ -527,12 +529,12 @@ class UserStore {
 
     @action
     getHttpVipInfo() {
-        this.vipContent=null;
+        this.vipContent = null;
         NetUitls.getUrlAndParamsAndCallback(config.api.vipLvUser, {access_token: this.access_token}, (ret) => {
             if (ret.rs) {
-                 this.vipContent=ret.content;
-                }
-           })
+                this.vipContent = ret.content;
+            }
+        })
     }
 
 }
