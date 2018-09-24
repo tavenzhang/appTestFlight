@@ -111,7 +111,12 @@ export default class TCUserWithdrawNew extends Component {
                     shadowColor={'#e4e4e4'}
                     bgColor={'#fff'}>
                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                        {this.getInfoTextView()}
+                        <Text style={{
+                            marginTop: 15,
+                            color: '#333333',
+                            fontSize: Size.font12,
+                            marginLeft: 5
+                        }}>{this.getInfoTextView()}</Text>
                     </View>
                 </PercentageCircle>
                 {this.getTipView()}
@@ -122,10 +127,10 @@ export default class TCUserWithdrawNew extends Component {
             <InputMoneyView
                 changeMoney={(text) => this.changeMoney(text)}
                 exempt={this.userWithdrawStore.exempt}
-                allWithdrawMoney={this.userWithdrawStore.withdrawModel.maxWithdrawMoney.toFixed(1)}
+                allWithdrawMoney={this.userWithdrawStore.withdrawModel.maxWithdrawMoney}
                 money={this.userWithdrawStore.money}
                 allWithdraw={() => {
-                    this.changeMoney(this.userWithdrawStore.withdrawModel.maxWithdrawMoney.toFixed(1))
+                    this.changeMoney(this.userWithdrawStore.withdrawModel.maxWithdrawMoney + "")
                 }}/>
             <View style={styles.itemStyle}>
                 {this.getConfirmButton()}
@@ -201,18 +206,28 @@ export default class TCUserWithdrawNew extends Component {
      * @returns {XML}
      */
     getInfoTextView() {
-        let num = this.userWithdrawStore.withdrawModel.aggregateBetRequirements - this.userWithdrawStore.withdrawModel.aggregateBets
-        if (num <= 0 || (this.userWithdrawStore.withdrawModel.surplusFeeWithdrawCount > 0 && !this.userWithdrawStore.withdrawModel.withdrawSwitch)) {
-            //满足大码量 或者剩余免费取款次数大于0
-            return (<Text style={{marginTop: 15, color: '#333333'}}>免费提现</Text>)
+
+        if (this.userWithdrawStore.withdrawModel.surplusMaxWithdraw <= 0) {
+            return "您今日出款额度已经用完，请明日再来!";
+        } else if (this.userWithdrawStore.withdrawModel.surplusWithdrawCount <= 0) {
+            return "您今日出款次数已经用完，请明日再来!";
+        } else if (this.userWithdrawStore.withdrawModel.withdrawSwitch) {
+            let num = this.userWithdrawStore.withdrawModel.aggregateBetRequirements - this.userWithdrawStore.withdrawModel.aggregateBets
+            if (!this.userWithdrawStore.withdrawModel.sufficeAggregateBetRequirements) {
+                return "您还需投注" + this.RoundNum(num, 2) + "元可申请提款";
+            } else {
+                if (this.userWithdrawStore.withdrawModel.surplusFeeWithdrawCount > 0) {
+                    return "免费提现";
+                } else {
+                    return '您今日的免费次数已经用完，提款需收' + this.userWithdrawStore.withdrawModel.newratioOfChargeExempt + '%手续费!';
+                }
+            }
         } else {
-            return (
-                <View style={{marginTop: 15, justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{color: '#333333'}}>免费提现还需投注 </Text>
-                    <Text style={{color: baseColor.strong}}>{this.RoundNum(num, 2)} <Text
-                        style={{color: '#333333'}}>元 </Text></Text>
-                </View>
-            )
+            if (this.userWithdrawStore.withdrawModel.surplusFeeWithdrawCount > 0) {
+                return "免费提现";
+            } else {
+                return '您今日的免费次数已经用完，提款需收' + this.userWithdrawStore.withdrawModel.newratioOfChargeExempt + '%手续费!';
+            }
         }
     }
 
@@ -247,24 +262,13 @@ export default class TCUserWithdrawNew extends Component {
      * 验证提款
      */
     validateWithDraw() {
-        if (this.userWithdrawStore.withdrawModel.surplusSeconds < 0) {
-            this.postponeShowToast('您的操作过于频繁，请' + Math.abs(this.userWithdrawStore.withdrawModel.surplusSeconds) + '秒后再试!');
-            return false;
-        }
-        if (this.userWithdrawStore.withdrawModel.surplusMaxWithdraw < 0) {
-            this.postponeShowToast('您的当天最大取款额度不足，不能提款!');
-            return false;
-        }
-        if (!this.userWithdrawStore.money || this.userWithdrawStore.money.length == 0) {
+        if (!this.userWithdrawStore.money || this.userWithdrawStore.money.length === 0) {//验证输入金额
             this.postponeShowToast('请输入取款金额!!');
             return false
         }
-        if (this.userWithdrawStore.withdrawModel.withdrawSwitch && !this.userWithdrawStore.withdrawModel.sufficeAggregateBetRequirements) {
-            this.postponeShowToast('打码量不足,不允许提现!!');
-            return false;
-        }
+
         let regExp = new RegExp("^\\d+(\\.\\d{1})?$");
-        if (this.userWithdrawStore.withdrawModel.integerWithdrawalAmount) {
+        if (this.userWithdrawStore.withdrawModel.integerWithdrawalAmount) {//验证金额格式
             regExp = new RegExp("^[1-9]\\d*$");
             if (!regExp.test(this.userWithdrawStore.money)) {
                 this.postponeShowToast('取款金额只能为整数!');
@@ -276,14 +280,35 @@ export default class TCUserWithdrawNew extends Component {
                 return false
             }
         }
+
+        if (this.userWithdrawStore.withdrawModel.surplusSeconds < 0) {
+            this.postponeShowToast('您的操作过于频繁，请' + Math.abs(this.userWithdrawStore.withdrawModel.surplusSeconds) + '秒后再试!');
+            return false;
+        }
+
+        if (this.userWithdrawStore.withdrawModel.surplusWithdrawCount <= 0) {//当天提款次数
+            this.postponeShowToast('您今日出款次数已经用完，请明日再来!');
+            return false;
+        }
+        if (this.userWithdrawStore.withdrawModel.surplusMaxWithdraw <= 0) {
+            this.postponeShowToast('您今日取款额度已经用完，请明日再来!');
+            return false;
+        }
         if (this.userWithdrawStore.money < this.userWithdrawStore.withdrawModel.minimumWithdrawAmount) {
-            this.postponeShowToast('提款金额不能小于' + this.userWithdrawStore.withdrawModel.minimumWithdrawAmount + '元!');
+            this.postponeShowToast('单次取款最少' + this.userWithdrawStore.withdrawModel.minimumWithdrawAmount + '元!');
             return false
         }
         if (this.userWithdrawStore.withdrawModel.maximumWithdrawAmount !== 0 && this.userWithdrawStore.money > this.userWithdrawStore.withdrawModel.maximumWithdrawAmount) {
-            this.postponeShowToast('提款金额不能大于' + this.userWithdrawStore.withdrawModel.maximumWithdrawAmount + '元!');
+            this.postponeShowToast('单次取款至多' + this.userWithdrawStore.withdrawModel.maximumWithdrawAmount + '元!');
             return false
         }
+
+
+        if (this.userWithdrawStore.withdrawModel.withdrawSwitch && !this.userWithdrawStore.withdrawModel.sufficeAggregateBetRequirements) {
+            this.postponeShowToast('打码量不足,不能提现!');
+            return false;
+        }
+
         let m = parseFloat(this.userWithdrawStore.money)
         let e = this.userWithdrawStore.exempt
         let money = m - e
@@ -320,9 +345,9 @@ export default class TCUserWithdrawNew extends Component {
         }
     }
 
-
     showTipDialog() {
-        Alert.alert('温馨提示', '亲，您当前打码量不足，如需提款将收取' + this.userWithdrawStore.withdrawModel.newratioOfChargeExempt + '%手续费！', [
+
+        Alert.alert('温馨提示', '您今日的免费次数已经用完，提款需收' + this.userWithdrawStore.withdrawModel.newratioOfChargeExempt + '%手续费！', [
             {
                 text: '确定',
                 onPress: () => {
@@ -523,7 +548,7 @@ const styles = StyleSheet.create({
         color: listViewTxtColor.title
     },
     inputStyle: {
-        width: width * 0.60,
+        width: width * 0.70,
         paddingLeft: 10,
         fontSize: Size.default,
         color: inputStyle.inputTxt,
