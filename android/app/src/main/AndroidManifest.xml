@@ -37,6 +37,7 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:process=":game" />
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+        <meta-data android:name="TD_CHANNEL_AFFCODE" android:value="${CHANNEL_AFFCODE}" />
         <meta-data android:name="UMENG_APPKEY" android:value="${UMENG_KEY}"/>
         <meta-data android:name="UMENG_CHANNEL" android:value="${UMENG_CHANNEL}"/>
     </application>
