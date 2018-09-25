@@ -54,17 +54,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
     static defaultProps = {};
 
     componentDidMount() {
-        this.title = ''
-        if (this.props.type === 'ZHB') {
-            this.title = '支付宝充值'
-            this.payType = 'ALIPAY'
-        } else if (this.props.type === 'WX') {
-            this.title = '微信充值'
-            this.payType = 'WECHATPAY'
-        } else if (this.props.type === 'OTHER') {
-            this.title = '其他支付'
-            this.payType = 'OTHER'
-        }
+      this.getTitle();
         this.userPayStore.codeValue = this.props.data.bankCardNo;
         AppState.addEventListener('change', () => this._handleAppStateChange());
         this.getRandomOrderNo()
@@ -141,6 +131,43 @@ export default class TCUserAliAndWechatTransfer extends Component {
         )
     }
 
+
+    getTitle() {
+        this.title = ''
+        switch (this.props.type) {
+            case 'ZHB':
+                this.title = '支付宝充值'
+                this.payType = 'ALIPAY'
+                break;
+            case 'JD':
+                this.title = '京东充值'
+                this.payType = 'OTHER'
+                break;
+            case 'WX':
+                if (this.isQQPay()) {
+                    this.title = "QQ充值";
+                    this.payType = "OTHER";
+                } else {
+                    this.title = '微信充值'
+                    this.payType = 'WECHATPAY'
+                }
+                break;
+            case 'QQ':
+                this.title = "QQ充值";
+                this.payType = "OTHER";
+                break;
+            case 'OTHER':
+                this.title = '其他支付'
+                this.payType = 'OTHER'
+                break;
+        }
+    }
+
+
+    isQQPay() {
+        return /qq/i.test(this.props.data.bankName);
+    }
+
     getTextInfo() {
         if (this.props.type === 'OTHER') {
             return
@@ -156,11 +183,29 @@ export default class TCUserAliAndWechatTransfer extends Component {
         }
         return (
             <TouchableOpacity onPress={() => this.gotoPay()} style={styles.btmBtnStyle1}>
-                <Text style={styles.btmBtnTxtStyle}>{this.props.type === 'ZHB' ? '打开支付宝' : '打开微信'}</Text>
+                <Text style={styles.btmBtnTxtStyle}>打开{this.getTypeName()}</Text>
             </TouchableOpacity>
         )
     }
 
+
+    getTypeName() {
+        switch (this.props.type) {
+            case 'ZHB':
+                return "支付宝";
+            case 'WX':
+                if (this.isQQPay()) {
+                    return "QQ";
+                } else {
+                    return "微信";
+                }
+            case 'QQ':
+                return 'QQ';
+            case 'JD':
+                return "京东";
+
+        }
+    }
     _handleAppStateChange(currentAppState) {
         if (currentAppState === "background") {
             this.stopTimer();
@@ -211,10 +256,23 @@ export default class TCUserAliAndWechatTransfer extends Component {
     onOpen() {
         this.timer2 = setTimeout(() => {
             this.snapshot()
-            if (this.props.type === 'ZHB') {
-                userOpenPayApp.openAlipay()
-            } else {
-                userOpenPayApp.openWeChat()
+            switch (this.props.type) {
+                case "ZHB":
+                    userOpenPayApp.openAlipay();
+                    break;
+                case "WX":
+                    if (this.isQQPay()) {
+                        userOpenPayApp.openQQ();
+                    } else {
+                        userOpenPayApp.openWeChat();
+                    }
+                    break;
+                case 'QQ':
+                    userOpenPayApp.openQQ();
+                    break;
+                case "JD":
+                    userOpenPayApp.openJD();
+                    break;
             }
         }, 500)
         this.setModalVisible();
@@ -225,7 +283,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
     }
 
     getTransferTip() {
-        if (this.props.type === 'OTHER') {
+        if (this.props.type == 'OTHER' || this.props.type === "JD" || this.isQQPay()) {
             return
         }
         return (
@@ -245,7 +303,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
         return (<View style={{marginTop: 10, marginLeft: 5}}>
             <Text style={styles.titleTxt}>{title}</Text>
             <View style={{alignItems: 'center', marginTop: 5}}>
-                <Image source={pic} style={{marginTop: 10, width: width * 0.9, borderRadius: 10}}/>
+                <Image    resizeMode='contain' source={pic} style={{height:height*0.3, width: width * 0.9, borderRadius: 10}}/>
             </View>
         </View>)
     }

@@ -85,6 +85,7 @@ export const config = {
         otherPay: 'cashmgt/me/transfer/topups', //用户自动充值
         getbankList: 'cashmgt/me/cards/list', //用户绑卡银行卡列表
         paymentTypeList: 'cashmgt/me/payments/name', //获取充值类型排序列表
+        paymentTypeList2: 'cashmgt/me/payments/nameV2', //获取充值类型排序列表V2
         getPaymentBankList: 'cashmgt/me/paymentbanklist',//获取网银支付的银行卡列表
 
         ordercap: 'ordercap/me', //下订投注接口
