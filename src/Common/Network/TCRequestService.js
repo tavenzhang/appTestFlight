@@ -213,7 +213,7 @@ export function addFeedBack(params, callback) {
  * @param callback
  */
 export function getPaymentTypeList(callback) {
-    RequestUtils.getUrlAndParamsAndCallback(config.api.paymentTypeList, null, callback);
+    RequestUtils.getUrlAndParamsAndCallback(config.api.paymentTypeList2, null, callback);
 }
 
 /**

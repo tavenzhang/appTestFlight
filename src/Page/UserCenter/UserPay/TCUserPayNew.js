@@ -85,7 +85,7 @@ export default class TCUserPayNew extends Component {
                     {this.getInputView()}
                     <Text style={{color: payTxtColor.payMoneyTip}}>元</Text>
                 </View>
-                <MoneyLabelViewL
+                <MoneyLabelView
                     ref="moneyLabelView"
                     changeMoney={(money) => {
                         this.changeMoney(money)
@@ -299,7 +299,7 @@ export default class TCUserPayNew extends Component {
     getPayImage(rowData) {
         let payType = rowData.type ? rowData.type : rowData.bankCode
         let perchantName = rowData.type ? rowData.merchantName : rowData.bankName
-        if (payType === 'WX' && perchantName && (perchantName.indexOf('Q') != -1 || perchantName.indexOf('q') != -1)) {
+        if (payType === 'WX' && perchantName && (/qq/i.test(perchantName))) {
             return <Image source={userPay.qqPay} style={styles.payTypeImg}/>
         }
         if (payType === 'THIRD_PARTY' || payType === 'OTHER') {
@@ -318,6 +318,8 @@ export default class TCUserPayNew extends Component {
                 return userPay.jdzf
             case 'BANK':
                 return userPay.bank
+            case 'QQ':
+                return userPay.qqPay
             default:
                 return userPay.thirdPay
         }
@@ -469,6 +471,7 @@ export default class TCUserPayNew extends Component {
             case 'WX':
             case 'ZHB':
             case 'JD':
+            case 'QQ':
             case 'OTHER':
                 this.applayPay(paymentTypes)
                 break;
@@ -514,6 +517,7 @@ export default class TCUserPayNew extends Component {
             case 'WECHAT_QR'://微信支付宝扫码
             case 'ALIPAY_QR':
             case 'JD_QR':
+            case 'QQ_QR':
             case 'OTHER_QR':
                 if (res.paymentJumpTypeEnum) {
                     this.gotoNewPay(res)
@@ -535,6 +539,7 @@ export default class TCUserPayNew extends Component {
             case 'WECHAT_APP'://跳转支付
             case 'ALIPAY_APP':
             case 'JD_APP':
+            case 'QQ_APP':
             case 'OTHER_APP':
                 if (res.paymentJumpTypeEnum === 'FROM') {
                     this.gotoFormPay(res)
@@ -635,6 +640,8 @@ export default class TCUserPayNew extends Component {
                 return '京东充值'
             case 'OTHER':
                 return '其他充值'
+            case 'QQ':
+                return 'QQ充值'
             default:
                 return '网银充值'
         }

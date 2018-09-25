@@ -53,5 +53,7 @@ export const Other = {
         greyTimeLine:require('./vip/Grey_Timeline.png'),
         yellowTimeLine:require('./vip/Yellow_Timeline.png'),
         titleBackGround:require('./vip/VIP_TitleBackgroundNew.png'),
+    }, pay: {
+        payTypeQQ: require('./pay_icon/qq.png')
     }
 }

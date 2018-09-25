@@ -26,19 +26,14 @@ import {
 } from '../../resouce/theme'
 import TopNavigationBar from "../../../Common/View/TCNavigationBar";
 import Toast from '../../../Common/JXHelper/JXToast';
-import RequestUtils from "../../../Common/Network/TCRequestUitls";
-import {config, appId} from "../../../Common/Network/TCRequestConfig";
 import LoadingSpinnerOverlay from "../../../Common/View/LoadingSpinnerOverlay";
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
-import UserPay from './TCUserPayNew'
 import {userPay, personal} from '../../resouce/images'
 import _ from 'lodash';
-import {Default_PayList} from '../../../Data/DefaultPayTypeList'
 import {common} from '../../resouce/images'
 import UserPayTypeStore from "../../../Data/store/UserPayTypeStore";
-
+import {ASSET_Other} from '../../asset/'
 /**
  * 用戶充值类型界面
  */
@@ -197,6 +192,8 @@ export default class TCUserPayType extends Component {
         switch (typeCode) {
             case 'WX':
                 return userPay.payTypeWx
+            case 'QQ':
+                return ASSET_Other.Other.pay.payTypeQQ
             case 'ZHB':
                 return userPay.payTypeAlipay
             case 'JD':
