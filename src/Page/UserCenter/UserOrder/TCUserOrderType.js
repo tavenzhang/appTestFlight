@@ -2,7 +2,7 @@
 import React from 'react';
 import {StyleSheet, SafeAreaView, View, Text, Image, ScrollView} from 'react-native';
 import {width, listViewTxtColor, Size, indexBgColor} from "../../resouce/theme";
-import {common as Common} from "../../resouce/images";
+import {common as Common} from "../../asset/images";
 import {Other} from "../../asset";
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';

@@ -5,7 +5,7 @@ import {
     TouchableOpacity,
     Image, Alert,
 } from 'react-native';
-import {betIcon, personal} from "../../resouce/images";
+import {betIcon, personal} from "../../asset/images";
 import {Size} from "../../resouce/theme";
 import {width} from "../../resouce/theme";
 

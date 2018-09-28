@@ -5,7 +5,7 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import Moment from 'moment'
-import {common} from '../../../resouce/images'
+import {common} from '../../../asset/images'
 import {indexBgColor, listViewTxtColor, Size, width} from '../../../resouce/theme'
 import JXHelper from "../../../../Common/JXHelper/JXHelper";
 

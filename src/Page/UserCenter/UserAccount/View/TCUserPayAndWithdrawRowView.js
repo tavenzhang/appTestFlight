@@ -14,7 +14,7 @@ import {
     TextInput
 } from 'react-native';
 import Moment from 'moment'
-import {common} from '../../../resouce/images'
+import {common} from '../../../asset/images'
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../../resouce/theme'
 export  default  class TCUserPayAndWithdrawRowView extends Component {
 

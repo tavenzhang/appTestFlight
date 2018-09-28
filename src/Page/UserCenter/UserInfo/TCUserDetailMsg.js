@@ -12,7 +12,7 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import UserInfo from '../../UserCenter/UserInfo/TCAddUserInfo'
 import InitHelper from '../../../Common/JXHelper/TCInitHelper'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
-import {personal} from '../../resouce/images'
+import {personal} from '../../asset/images'
 import {indexBgColor, Size, userCenterTxtColor} from '../../resouce/theme'
 import Toast from '../../../Common/JXHelper/JXToast';
 import {computed} from "mobx/lib/mobx";

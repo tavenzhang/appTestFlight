@@ -22,7 +22,7 @@ import JXHelper from '../../../Common/JXHelper/JXHelper'
 
 let timeoutTime = 0
 let happyPoker = new HappyPokerHelper()
-import {xypk} from '../../resouce/images'
+import {xypk} from '../../asset/images'
 import {Size, width, indexBgColor, betHome, lotteryNumbStyle,lotteryTxtColor} from '../../resouce/theme'
 import { observer } from 'mobx-react/native';
 import {getAnimalsWithOpenCodes,getAnimalWithOpenCode} from '../AllPlayingMethodView/MarkSix/data/MarkSixNum2AnimalHelper'

@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import _ from 'lodash';
 import TCKeyboardView from '../../Common/View/TCKeyboardView'
-import {betIcon} from '../resouce/images'
+import {betIcon} from '../asset/images'
 import {Size, betHome} from '../resouce/theme'
 export default class TCBetBillListItemView extends React.Component {
     constructor(state) {

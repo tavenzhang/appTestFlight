@@ -16,7 +16,7 @@ import {
 } from 'react-native'
 const WINDOW_WIDTH = Dimensions.get('window').width;
 import {Size, agentCenter} from '../../../../resouce/theme'
-import {agent} from '../../../../resouce/images'
+import {agent} from '../../../../asset/images'
 /**
  * 滚动导航菜单
  */

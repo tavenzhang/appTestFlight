@@ -29,9 +29,9 @@ import Toast from '../../../Common/JXHelper/JXToast';
 import LoadingSpinnerOverlay from "../../../Common/View/LoadingSpinnerOverlay";
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import JXHelper from '../../../Common/JXHelper/JXHelper'
-import {userPay, personal} from '../../resouce/images'
+import {userPay, personal} from '../../asset/images'
 import _ from 'lodash';
-import {common} from '../../resouce/images'
+import {common} from '../../asset/images'
 import UserPayTypeStore from "../../../Data/store/UserPayTypeStore";
 import {ASSET_Other} from '../../asset/'
 /**

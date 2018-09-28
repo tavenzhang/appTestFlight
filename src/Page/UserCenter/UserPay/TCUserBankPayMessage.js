@@ -39,7 +39,7 @@ import DatePicker from '../../../Common/View/datepicker';
 import Moment from 'moment'
 import _ from 'lodash'
 import dismissKeyboard from 'dismissKeyboard'
-import {common} from '../../resouce/images'
+import {common} from '../../asset/images'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 /**

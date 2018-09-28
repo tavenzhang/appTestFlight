@@ -16,7 +16,7 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native'
-import {agent, common} from '../../../resouce/images'
+import {agent, common} from '../../../asset/images'
 import {agentCenter, Size, width, height, indexBgColor} from '../../../resouce/theme'
 import RowList from './View/TCAgentCommissionListRow'
 import _ from 'lodash'

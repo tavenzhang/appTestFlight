@@ -27,7 +27,7 @@ import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import ModalDropdown from '../../Common/View/ModalDropdown'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
-import {common, personal} from '../resouce/images'
+import {common, personal} from '../asset/images'
 import {
     Size, width, height,
     indexBgColor,

@@ -13,7 +13,7 @@ import {
 import JXHelper from '../../../../../Common/JXHelper/JXHelper'
 import _ from 'lodash';
 import {betHome, Size} from '../../../../resouce/theme'
-import {betIcon} from '../../../../resouce/images'
+import {betIcon} from '../../../../asset/images'
 
 export default class TCcqsscPositionView extends Component {
 

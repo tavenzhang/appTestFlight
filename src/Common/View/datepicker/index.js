@@ -14,7 +14,7 @@ import {
 import Style from './style';
 import Moment from 'moment';
 import PropTypes from 'prop-types'
-import {userAccount} from '../../../Page/resouce/images'
+import {userAccount} from '../../../Page/asset/images'
 
 const FORMATS = {
     'date': 'YYYY-MM-DD',

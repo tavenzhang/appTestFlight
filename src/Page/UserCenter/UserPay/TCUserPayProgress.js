@@ -4,7 +4,7 @@ import {View, StyleSheet, Text, TouchableOpacity, Image, Platform} from 'react-n
 import {Size, indexBgColor, width, height, listViewTxtColor, buttonStyle, payTxtColor} from '../../resouce/theme'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
-import {userPay} from '../../resouce/images'
+import {userPay} from '../../asset/images'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 /**

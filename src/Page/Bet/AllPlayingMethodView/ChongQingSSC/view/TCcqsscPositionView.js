@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 import JXHelper from '../../../../../Common/JXHelper/JXHelper'
 import _ from 'lodash';
-import {betIcon} from '../../../../resouce/images'
+import {betIcon} from '../../../../asset/images'
 import {betHome, Size} from '../../../../resouce/theme'
 export default class TCcqsscPositionView extends Component {
 

@@ -23,7 +23,7 @@ import {config} from '../../../Common/Network/TCRequestConfig'
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
 import dismissKeyboard from 'dismissKeyboard'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
-import {common} from '../../resouce/images'
+import {common} from '../../asset/images'
 import {Size, width, height, indexBgColor, buttonStyle, inputStyle, listViewTxtColor} from '../../resouce/theme'
 import SecretUtils from '../../../Common/JXHelper/SecretUtils'
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";

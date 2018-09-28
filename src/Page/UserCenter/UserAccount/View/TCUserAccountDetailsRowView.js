@@ -13,7 +13,7 @@ import {
     Image,
     TextInput
 } from 'react-native';
-import {common} from '../../../resouce/images'
+import {common} from '../../../asset/images'
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../../resouce/theme'
 export  default  class TCUserAccountRowView extends Component {
 

@@ -124,7 +124,7 @@ import TCUserStatementsType from "../UserCenter/Agent/UserSheets/TCUserStatement
 import TCUserStatements from "../UserCenter/Agent/UserSheets/TCUserStatements";
 
 import TabBarIcon from "../../Common/View/widget/TabBarIcon";
-import {home} from "../resouce/images";
+import {home} from "../asset/images";
 import {indexBgColor, indexTxtColor} from "../resouce/theme";
 //vip 奖励
 import TCVipAwardView from "../UserCenter/vip/TCVipAwardView";

@@ -16,7 +16,7 @@ import {
     Platform,
 } from 'react-native';
 import {Size, betHome} from '../../resouce/theme'
-import {betIcon} from '../../resouce/images'
+import {betIcon} from '../../asset/images'
 export default class MyComponent extends React.PureComponent {
 
     static defaultProps = {};

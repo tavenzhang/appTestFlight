@@ -13,7 +13,7 @@ import {
     TextInput,
     Platform
 } from 'react-native';
-import {common} from '../../../resouce/images'
+import {common} from '../../../asset/images'
 import {Size, width, height, indexBgColor, listViewTxtColor} from  '../../../resouce/theme'
 export  default  class TCUserOrderItemRow extends Component {
 

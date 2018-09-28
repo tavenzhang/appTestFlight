@@ -12,7 +12,7 @@ import {
     Image,
 } from 'react-native';
 import {agentCenter, listViewTxtColor, Size, width, height, indexBgColor} from './../../../../resouce/theme'
-import {common} from '../../../../resouce/images'
+import {common} from '../../../../asset/images'
 
 export default class TCAgentCommissionListRow extends Component {
     constructor(state) {

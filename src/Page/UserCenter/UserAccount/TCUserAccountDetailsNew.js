@@ -21,7 +21,7 @@ import {
 } from '../../resouce/theme';
 import Moment from 'moment';
 import DatePicker from "../../../Common/View/datepicker";
-import {userAccount} from '../../resouce/images'
+import {userAccount} from '../../asset/images'
 import SegmentedControlTab from "../../../Common/View/SegmentedControlTab";
 import _ from "lodash";
 import Toast from '../../../Common/JXHelper/JXToast'
