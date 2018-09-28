@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {common} from '../../resouce/images';
+import {common} from '../../asset/images';
 import {indexTxtColor, Size} from '../../resouce/theme';
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper';
 import {NavBarHeaderHeight} from "../../asset/screen";

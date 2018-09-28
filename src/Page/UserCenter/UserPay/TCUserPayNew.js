@@ -25,7 +25,7 @@ import {
     buttonStyle,
     payTxtColor
 } from '../../resouce/theme'
-import {userPay} from '../../resouce/images'
+import {userPay} from '../../asset/images'
 import TopNavigationBar from "../../../Common/View/TCNavigationBar";
 import Toast from '../../../Common/JXHelper/JXToast';
 import TCKeyboardView from "../../../Common/View/TCKeyboardView";

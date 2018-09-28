@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, TextInput, Platform } from 'react-native';
 import { Size, width, indexBgColor, listViewTxtColor } from '../../../resouce/theme';
-import { common } from '../../../resouce/images';
+import { common } from '../../../asset/images';
 export default class TCUserOrderChildrenItemRow extends Component {
     constructor(props) {
         super(props);

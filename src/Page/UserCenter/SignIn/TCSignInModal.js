@@ -15,7 +15,7 @@ import {
     Image,
     TouchableHighlight
 } from 'react-native';
-import {common, personal} from '../../resouce/images'
+import {common, personal} from '../../asset/images'
 import * as Animatable from 'react-native-animatable';
 
 /**组件内部显示需要引入的类 */

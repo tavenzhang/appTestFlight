@@ -19,7 +19,7 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar';
 var WEBVIEW_REF = 'webview';
 
 import {configAppId} from "../resouce/appConfig";
-import {common} from "../resouce/images";
+import {common} from "../asset/images";
 import Moment from "moment/moment";
 import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
 import {JX_PLAT_INFO} from '../../Page/asset'

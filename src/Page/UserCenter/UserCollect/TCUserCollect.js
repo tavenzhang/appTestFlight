@@ -22,7 +22,7 @@ import RefreshListView from '../../../Common/View/RefreshListView/RefreshListVie
 import Toast from '../../../Common/JXHelper/JXToast';
 
 import JXHelpers from '../../../Common/JXHelper/JXHelper'
-import {common} from '../../resouce/images'
+import {common} from '../../asset/images'
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../resouce/theme'
 import userCollectStore from '../../../Data/store/UserCollectStore'
 

@@ -16,7 +16,7 @@ import ShopingLobby from '../ShoppingLobby/TCShopingLobby';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import {baseColor, indexBgColor, indexBtmStyle, Size, width} from '../resouce/theme';
 import {bottomNavHeight, JX_PLAT_INFO,} from '../asset'
-import {home} from '../resouce/images';
+import {home} from '../asset/images';
 import Toast from "../../Common/JXHelper/JXToast";
 import Moment from "moment/moment";
 import userStore from "../../Data/store/UserStore";

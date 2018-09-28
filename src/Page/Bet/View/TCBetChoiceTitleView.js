@@ -15,7 +15,7 @@ import {
     ImageBackground,
     Platform
 } from 'react-native';
-import {betIcon} from '../../resouce/images'
+import {betIcon} from '../../asset/images'
 import {Size, betHome} from '../../resouce/theme'
 export default class TCBetChoiceTitleView extends Component {
 

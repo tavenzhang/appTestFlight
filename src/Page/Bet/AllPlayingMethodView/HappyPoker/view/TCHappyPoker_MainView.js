@@ -13,7 +13,7 @@ import RNShakeEvent from 'react-native-shake-event';
 import {MathControllerFactory} from 'lottery-core'
 let SingletonDPS = null;
 const bxStrArray = ['对子', '豹子', '同花', '顺子', '同花顺']
-import {xypk} from '../../../../resouce/images'
+import {xypk} from '../../../../asset/images'
 import {betHome,width,Size} from '../../../../resouce/theme'
 
 export default class TCHappyPoker_MainView extends React.Component {

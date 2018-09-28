@@ -25,7 +25,7 @@ import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import {config, appId} from '../../../Common/Network/TCRequestConfig'
 import RequestUtils from '../../../Common/Network/TCRequestUitls'
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
-import {userPay} from '../../resouce/images'
+import {userPay} from '../../asset/images'
 import Moment from 'moment'
 import TCUserOpenPayApp from './TCUserOpenPayApp'
 import _ from 'lodash'

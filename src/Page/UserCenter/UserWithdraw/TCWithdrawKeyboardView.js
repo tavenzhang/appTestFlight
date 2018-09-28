@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
-import {common} from '../../../Page/resouce/images'
+import {common} from '../../asset/images'
 import {Size} from '../../../Page/resouce/theme'
 import {ScreenRatio} from "../../asset";
 import {height} from "../../resouce/theme";

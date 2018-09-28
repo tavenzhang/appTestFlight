@@ -20,7 +20,7 @@ import {
 
 import {indexTxtColor, indexBgColor,Size,width,height} from '../../resouce/theme'
 const colorArray = indexTxtColor.midMenuTitle
-import  {homeMenu} from '../../resouce/images'
+import  {homeMenu} from '../../asset/images'
 import FastImage from 'react-native-fast-image';
 
 import { Other } from '../../asset/';

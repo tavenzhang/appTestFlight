@@ -16,7 +16,7 @@ import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
 import {JX_PLAT_INFO, TC_SCREEN, themeViewStyle} from '../asset'
 import userStore from '../../Data/store/UserStore'
-import {common} from "../resouce/images";
+import {common} from "../asset/images";
 import TCNavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
 import {Size} from "../resouce/theme";
 

@@ -10,7 +10,7 @@ import Moment from 'moment'
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 
 import {configAppId} from '../resouce/appConfig'
-import {common} from "../resouce/images";
+import {common} from "../asset/images";
 import PropTypes from 'prop-types'
 import {indexBgColor, Size} from "../resouce/theme";
 import {bottomNavHeight, JX_PLAT_INFO} from '../asset'

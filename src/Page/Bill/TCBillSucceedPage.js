@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
-import {betIcon} from '../resouce/images'
+import {betIcon} from '../asset/images'
 import {Size, indexBgColor, buttonStyle, listViewTxtColor, width, height} from '../resouce/theme'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import Helper from '../../Common/JXHelper/TCNavigatorHelper';

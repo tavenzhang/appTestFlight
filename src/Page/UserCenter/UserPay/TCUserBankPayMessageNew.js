@@ -35,7 +35,7 @@ import DatePicker from '../../../Common/View/datepicker';
 import Moment from 'moment'
 import _ from 'lodash'
 import dismissKeyboard from 'dismissKeyboard'
-import {betIcon, common} from '../../resouce/images'
+import {betIcon, common} from '../../asset/images'
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import UserPayStore from "../../../Data/store/UserPayStore";
 

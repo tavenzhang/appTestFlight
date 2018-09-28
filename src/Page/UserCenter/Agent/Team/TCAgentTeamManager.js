@@ -27,7 +27,7 @@ import {
     Size,
     width
 } from '../../../resouce/theme';
-import {agent, common} from '../../../resouce/images';
+import {agent, common} from '../../../asset/images';
 import RowList from './View/TCAgentTeamListRow';
 import _ from 'lodash';
 import NetUtils from '../../../../Common/Network/TCRequestUitls';

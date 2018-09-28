@@ -3,7 +3,7 @@
  */
 import _ from 'lodash';
 import moment from "moment-timezone";
-import {gameIconKeyValue, defaultCpIcon} from '../../Page/resouce/images'
+import {gameIconKeyValue, defaultCpIcon} from '../../Page/asset/images'
 var Banks = require('../../Data/banks.json');
 
 global.JXLog = (string, str2) => {

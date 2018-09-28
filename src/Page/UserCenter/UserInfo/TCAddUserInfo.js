@@ -19,7 +19,7 @@ import Toast from '../../../Common/JXHelper/JXToast';
 import dismissKeyboard from 'dismissKeyboard'
 import ModalDropdown from '../../../Common/View/ModalDropdown'
 import Dialog from '../../../Common/View/TipDialog'
-import {common} from '../../resouce/images'
+import {common} from '../../asset/images'
 import {
     buttonStyle,
     height,

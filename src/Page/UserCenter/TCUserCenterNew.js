@@ -24,7 +24,7 @@ import JXHelper from '../../Common/JXHelper/JXHelper'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import UserIcon from '../../Common/View/TCUserIcon'
-import {personal} from '../resouce/images'
+import {personal} from '../asset/images'
 import {
     indexBgColor,
     userCenterTxtColor,

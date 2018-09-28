@@ -14,7 +14,7 @@ import {observer, inject} from 'mobx-react/native';
 import {observable, computed, action} from 'mobx';
 
 /**组件内部显示需要引入的类 */
-import {agent} from '../../resouce/images';
+import {agent} from '../../asset/images';
 import {width, Size, height, indexBgColor, agentCenter, buttonStyle} from '../../resouce/theme';
 
 /** 外部关系组件 如 页面跳转用 */

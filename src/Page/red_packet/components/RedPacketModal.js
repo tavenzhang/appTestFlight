@@ -6,7 +6,7 @@
 /**系统 npm类 */
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View, Modal, Image, ImageBackground, TouchableOpacity, TouchableHighlight } from 'react-native';
-import { common, personal } from '../../resouce/images';
+import { common, personal } from '../../asset/images';
 import * as Animatable from 'react-native-animatable';
 
 var winImage = require('../asset/hb.png');

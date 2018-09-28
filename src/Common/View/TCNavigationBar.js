@@ -22,7 +22,7 @@ import jdAppStore from '../../Data/store/JDAppStore'
 import {width, indexTxtColor, Size} from '../../Page/resouce/theme'
 
 import _ from 'lodash';
-import {common} from '../../Page/resouce/images'
+import {common} from '../../Page/asset/images'
 import {NavBarHeaderHeight} from "../../Page/asset/screen";
 import {themeViewStyle} from "../../Page/asset/theme";
 import PropTypes from 'prop-types'
