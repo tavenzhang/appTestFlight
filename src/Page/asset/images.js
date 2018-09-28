@@ -20,6 +20,8 @@ export const gameIconKeyValue = {
     'HF_JSMS': require('../resouce/gameIcon/js_lhc.png'),
 
     'X3D': require('../resouce/gameIcon/fc_3d.png'),
+    'HF_JS3D': require('../resouce/gameIcon/js_3d.png'),
+
 
     'HF_GDD11': require('../resouce/gameIcon/gd_115.png'),
     'HF_AHD11': require('../resouce/gameIcon/ah_115.png'),
@@ -43,6 +45,9 @@ export const gameIconKeyValue = {
     'HF_GXK3': require('../resouce/gameIcon/gx_k3.png'),
     'HF_AHK3': require('../resouce/gameIcon/ah_k3.png'),
     'HF_LFK3': require('../resouce/gameIcon/2f_k3.png'),
+    "HF_HBK3": require('../resouce/gameIcon/hb_k3.png'),
+    "HF_GSK3": require('../resouce/gameIcon/gs_k3.png'),
+    "HF_SHK3": require('../resouce/gameIcon/sh_k3.png'),
 
     'HF_SHSSL': require('../resouce/gameIcon/sh_ssl.png'),
     'PL3': require('../resouce/gameIcon/pl_3.png'),
@@ -51,8 +56,8 @@ export const gameIconKeyValue = {
     'HF_LFKLPK': require('../resouce/gameIcon/xy_pk.png'),
     'HF_XYFT': require('../resouce/gameIcon/xy_ft.png'),
     'HF_XYSM': require('../resouce/gameIcon/xy_sm.png'),
-    'QXC':require('../resouce/gameIcon/qxc.png'),
-    'HF_BJ5FC':require('../resouce/gameIcon/bj_5fc.png')
+    'QXC': require('../resouce/gameIcon/qxc.png'),
+    'HF_BJ5FC': require('../resouce/gameIcon/bj_5fc.png')
 }
 
 /**
@@ -86,8 +91,6 @@ export const common = {
 export const home = {
     indexHomeNormal: require('../resouce/homeIcon/index_home.png'),
     indexHomePressed: require('../resouce/homeIcon/index_home_pressed.png'),
-    indexPromotionNormal: require('../resouce/homeIcon/index_promotion.png'),
-    indexPromotionPressed: require('../resouce/homeIcon/index_promotion_pressed.png'),
     indexShoppingNormal: require('../resouce/homeIcon/index_shopping.png'),
     indexShoppingPressed: require('../resouce/homeIcon/index_shopping_pressed.png'),
     indexLotteryNormal: require('../resouce/homeIcon/index_lottery.png'),
@@ -107,7 +110,7 @@ export const homeMenu = {
     'TOPUP': home.indexAccess,
     'ORDER': home.indexOrder,
     'PROMOTION': home.indexYouhui,
-    'CUS_SERVICE': home.indexKefu
+    'CUS_SERVICE': home.indexKefu,
 }
 
 
@@ -121,9 +124,8 @@ export const personal = {
     imgEye2: require('../resouce/addon/userCenterIcon/icon_eye2.png'),
     iconPay: require('../resouce/addon/userCenterIcon/icon_pay.png'),
     iconDraw: require('../resouce/addon/userCenterIcon/icon_drawings.png'),
-    iconTransfer: require('../resouce/addon/userCenterIcon/icon_transfer.png'),
-    transfer: require('../resouce/addon/userCenterIcon/icon_drawings.png'),
     imgNext: common.iconNext,
+    iconTransfer: require('../resouce/addon/userCenterIcon/icon_transfer.png'),
     daiKaiJjiangIcon: require('../resouce/addon/userCenterIcon/dai.png'),
     jiangliIcon: require('../resouce/addon/userCenterIcon/jiangli.png'),
     yiKaiJiangIcon: require('../resouce/addon/userCenterIcon/dingdan.png'),
@@ -201,7 +203,7 @@ export const userPay = {
     payTypeJdzf: require('./pay_icon/jdzf.png'),
     payTypeUnionpay: require('./pay_icon/wy.png'),
     payTypeOther: require('./pay_icon/unionpay.png'),
-    payTypeBank: require('./pay_icon/bank.png')
+    payTypeBank: require('./pay_icon/bank.png'),
 }
 
 //代理中心
@@ -224,7 +226,7 @@ export const agent = {
     agentCommission: require('../resouce/addon/agentCenter/commission.png'),
     agentBettingMoney: require('../resouce/addon/agentCenter/bettingmoney.png'),
     banner: require('../resouce/addon/agentCenter/banner.png'),
-    shut:require('../resouce/addon/agentCenter/shut.png'),
+    shut: require('../resouce/addon/agentCenter/shut.png'),
     close: require('../resouce/addon/other/buttonClose.png'),
     swipe_right: require('../resouce/addon/other/swipe_right.png'),
     // userLayer1: require('./addon/agentCenter/daili_cengji_next1.png'),
@@ -247,7 +249,8 @@ export const betIcon = {
     orderBottom: require('../resouce/addon/other/order_bottom.png'),
     orderQingChu: require('../resouce/addon/other/icon_qingchu.png'),
     success: common.select,
-    redCheck: require('../resouce/addon/other/red_check.png'),
+    redCheck: require('../resouce/addon/other/red_check.png')
+
 }
 
 export const IntelligenceBet = {
