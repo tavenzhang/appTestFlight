@@ -9,11 +9,11 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View, Dimensions, Image, TouchableOpacity } from 'react-native';
 
-import { width, indexBgColor, indexTxtColor, Size } from '../../resouce/theme';
+import { width } from '../../resouce/theme';
 import Moment from 'moment';
-import FastImage from 'react-native-fast-image';
 import jdAppStore from '../../../Data/store/JDAppStore';
 import {Other} from "../../asset";
+import TCImage from "../../../Common/View/image/TCImage";
 
 export default class TCHomeSportsItem extends React.Component {
     constructor(state) {
@@ -48,9 +48,18 @@ export default class TCHomeSportsItem extends React.Component {
         }else if (this.props.type === 'FG') {
             img = Other.cardGame.FG[this.props.rowData.gameId]
         }
-        return <FastImage source={img} style={styles.leftImgStyle} />;
+        let myImg = img ? img:Other.cardGame.gameIcoHolder;
+        if(img){
+            return <TCImage source={myImg} style={styles.leftImgStyle} />;
+        }else{
+            return <View>
+                <TCImage source={myImg} style={styles.leftImgStyle}/>
+                <View style={{position:"absolute",bottom:13,width:(width-40)/3, alignItems:"center"}}>
+                    <Text style={{ color:"white" , fontSize: 16,fontWeight:"bold"}}>{this.props.rowData.name}</Text>
+                </View>
+            </View>;
+        }
     }
-
     buttonCall = () => {
         if (this.props.pushToEvent == null) return;
         jdAppStore.playSound();

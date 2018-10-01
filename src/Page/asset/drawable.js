@@ -60,6 +60,7 @@ export const Other = {
         homeKY:require('./cardGame/home/ky_label.png'),
         homeMore:require('./cardGame/home/more.png'),
         homeNotice:require('./cardGame/home/notice.png'),
+        gameIcoHolder:require('./cardGame/home/default.png'),
         FG:{
             bjl:require('./cardGame/FG/bjl.png'),
             cqznn:require('./cardGame/FG/cqznn.png'),
@@ -70,6 +71,7 @@ export const Other = {
             rt:require('./cardGame/FG/rt.png'),
             TexasCb:require('./cardGame/FG/TexasCb.png'),
             tz:require('./cardGame/FG/tz.png'),
+
         },
         KY:{
             0:require('./cardGame/KY/KY_0.png'),
@@ -89,6 +91,7 @@ export const Other = {
             880:require('./cardGame/KY/KY_880.png'),
             900:require('./cardGame/KY/KY_900.png'),
             910:require('./cardGame/KY/KY_910.png'),
+            920:require('./cardGame/KY/KY_920.png'),
         }
     }
 }

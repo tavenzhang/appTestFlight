@@ -79,7 +79,7 @@ export default class TCWebGameFullView extends React.Component {
         </View>
 
         if (!this.state.loadedFail) {
-            conetView = <View style={{height: SCREEN_H - (isDZ ? 0:stateBarH+(JX_PLAT_INFO.IS_IphoneX ? 10 :0)) }}>
+            conetView = <View style={{height: SCREEN_H - stateBarH}}>
                 {
                     this.state.url != "" ? <WebView
                         bounces={false}
