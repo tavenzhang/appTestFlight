@@ -18,6 +18,7 @@ import userStore from "../../Data/store/UserStore";
 import NavigationService from "../Route/NavigationService";
 import TCUserPayType from "../UserCenter/UserPay/TCUserPayType";
 import TCUserTransfer from "../UserCenter/transfer/TCUserTransfer";
+import {gameTheme} from "../asset/cardGame/gameTheme";
 
 /**
  * Created by Sam on 2016/11/10.
@@ -63,7 +64,7 @@ export default class TC168 extends Component {
         return (
             <View style={{flex: 1}}>
                 <TabNavigator tabBarStyle={{
-                    backgroundColor: indexBgColor.tabBg, height: bottomNavHeight,
+                    backgroundColor: gameTheme.tabBg, height: bottomNavHeight,
                     paddingBottom: JX_PLAT_INFO.IS_IphoneX ? 30 : 0
                 }}>
                     {this.renderTabBarItem("首页",
