@@ -125,7 +125,7 @@ export default class HomeStore {
         JX_Store.gameDZStore.loadGames("FG", (dataList) => {
             if (dataList) {
                 for( let obj of dataList){
-                    if(obj.categoryName === '棋牌'){
+                    if(obj.categoryName === '棋牌'|| obj.categoryName === '手机棋牌'){
                         this.FG = obj.games
                         if(this.content){
                             this.content.FG = this.FG;
