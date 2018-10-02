@@ -164,7 +164,7 @@ android {
                 if (apkName != null && !apkName.isEmpty()) {
                     fileName = "${apkName}" + affSuffix + ".apk"
                 } else {
-                    fileName = "${CLIENT_ID}_${variant.productFlavors[0].name}_" + affSuffix + ".apk"
+                    fileName = "${CLIENT_ID}_${variant.productFlavors[0].name}" + affSuffix + ".apk"
                 }
                 output.outputFile = new File(outputFile.parent, fileName)
             }
