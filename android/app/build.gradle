@@ -111,7 +111,7 @@ android {
     }
 
     productFlavors {
-        yycp_jdcards {
+        jdcards {
             applicationId APP_ID
             versionName APP_VERSION
             resValue "string", "app_name", "易盈棋牌"
@@ -164,7 +164,7 @@ android {
                 if (apkName != null && !apkName.isEmpty()) {
                     fileName = "${apkName}" + affSuffix + ".apk"
                 } else {
-                    fileName = "${variant.productFlavors[0].name}" + affSuffix + ".apk"
+                    fileName = "${CLIENT_ID}_${variant.productFlavors[0].name}" + affSuffix + ".apk"
                 }
                 output.outputFile = new File(outputFile.parent, fileName)
             }
