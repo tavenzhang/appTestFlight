@@ -37,6 +37,7 @@ export default class TCImage extends Component {
         resizeModeHolder: PropTypes.any,
         source: PropTypes.any,
         imgPlaceHolder: PropTypes.any,
+        onLoadSucFun:PropTypes.any,
 
     }
 
@@ -55,7 +56,7 @@ export default class TCImage extends Component {
 
         if(!this.state.onPreFinish){
             return (<View style={this.state.onPreFinish ? style:myHolderStyle} pointerEvents={"none"}>
-              <FastImage style={myHolderStyle}
+               <FastImage style={myHolderStyle}
                          resizeMode={myResizeMode}
                          source={imgPlaceHolder}/>
                 <FastImage style={imgStyle}
@@ -73,14 +74,20 @@ export default class TCImage extends Component {
     }
 
     onLoadSucess = (data) => {
-        //JXLog("onLoadError=====onLoadSucess" ,data)
+        let {style, resizeMode, imgPlaceHolder, source, styleHolder, resizeModeHolder} = this.props
+        JXLog("onLoadError=====onLoadSucess" ,source.uri)
+        let {onLoadSucFun} = this.props
         if(!this.state.onPreFinish){
             this.setState({onPreFinish: true})
         }
+        if(onLoadSucFun){
+            onLoadSucFun();
+        }
     }
 
+
     onLoadError = (data) => {
-       // JXLog("onLoadError=====", data)
+        JXLog("onLoadError=====", data)
     }
 }
 

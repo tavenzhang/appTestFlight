@@ -407,6 +407,7 @@ export default class TCHome extends Component {
             gameId: dataItem.gameId,
         }
         let url = config.api.gamesDZ_start + "/" + dataItem.gameId;
+        JXLog("click  dataItem------------",dataItem)
         if (gameData.gamePlatform === "MG" || gameData.gamePlatform === "FG" || (Platform.OS === 'android' && gameData.gamePlatform === "KY")) {
             NetUitls.getUrlAndParamsAndPlatformAndCallback(url, bodyParam, gameData.gamePlatform, (ret) => {
                 // JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
