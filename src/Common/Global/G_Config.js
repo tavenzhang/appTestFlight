@@ -7,6 +7,7 @@ global.JX_Store = rootStore
 
 
 
+
 const hasOwn = Object.prototype.hasOwnProperty
 
 function is(x, y) {

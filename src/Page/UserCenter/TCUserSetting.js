@@ -53,6 +53,7 @@ export default class TCUserSetting extends Component {
     }
 
     render() {
+        let affcode =JX_Store.initAppStore.userAffCode;
         return (
             <View style={styles.container}>
                 < TopNavigationBar
@@ -99,7 +100,7 @@ export default class TCUserSetting extends Component {
                         color: userCenterTxtColor.version,
                         fontSize: Size.font14
                     }}>version {this.appVersion} {' '}
-                    build {versionHotFix}</Text>
+                    build {versionHotFix} {affcode.length>0 ? `affcode:${affcode}`:""}</Text>
                 <LoadingSpinnerOverlay
                     ref={component => this._modalLoadingSpinnerOverLay = component}/>
             </View>
