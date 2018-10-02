@@ -86,19 +86,8 @@ export const common = {
 export const home = {
     indexHomeNormal: require('./homeIcon/index_home.png'),
     indexHomePressed: require('./homeIcon/index_home_pressed.png'),
-    indexShoppingNormal: require('./homeIcon/index_shopping.png'),
-    indexShoppingPressed: require('./homeIcon/index_shopping_pressed.png'),
-    indexLotteryNormal: require('./homeIcon/index_lottery.png'),
-    indexLotteryPressed: require('./homeIcon/index_lottery_pressed.png'),
-    indexTrendNormal: require('./homeIcon/index_trend.png'),
-    indexTrendPressed: require('./homeIcon/index_trend_pressed.png'),
     indexMineNormal: require('./homeIcon/index_mine.png'),
     indexMinePressed: require('./homeIcon/index_mine_pressed.png'),
-    indexAccess: require('./homeIcon/index_access.png'),
-    indexKefu: require('./homeIcon/index_kefu.png'),
-    indexOrder: require('./homeIcon/index_order.png'),
-    indexYouhui: require('./homeIcon/index_youhui.png'),
-    indexNotice: require('./homeIcon/index_notice.png'),
     indexPay: require('./homeIcon/index_pay.png'),
     indexPayPressed: require('./homeIcon/index_pay_pressed.png'),
     indexTransferNormal: require('./homeIcon/index_transfer.png'),
@@ -106,10 +95,10 @@ export const home = {
 }
 
 export const homeMenu = {
-    'TOPUP': home.indexAccess,
-    'ORDER': home.indexOrder,
-    'PROMOTION': home.indexYouhui,
-    'CUS_SERVICE': home.indexKefu
+    'TOPUP':require('./homeIcon/index_access.png') ,
+    'ORDER':  require('./homeIcon/index_order.png'),
+    'PROMOTION': require('./homeIcon/index_youhui.png'),
+    'CUS_SERVICE':  require('./homeIcon/index_kefu.png')
 }
 
 
