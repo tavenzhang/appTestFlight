@@ -216,18 +216,18 @@ export default class TCHome extends Component {
 
     getSectionsData() {
         let data = []
-        if (this.homeStore.content.FG && this.homeStore.content.FG.length > 0) {
-            data.push({
-                data: this.homeStore.content.FG.slice(),
-                title: "FG 电子",
-                renderItem: ({item, index}) => this.renderHotItemView(item, index,'FG')
-            })
-        }
         if (this.homeStore.content.KY && this.homeStore.content.KY.length > 0) {
             data.push({
                 data: this.homeStore.content.KY.slice(),
                 title: "开元棋牌",
                 renderItem: ({item, index}) => this.renderHotItemView(item, index,'KY')
+            })
+        }
+        if (this.homeStore.content.FG && this.homeStore.content.FG.length > 0) {
+            data.push({
+                data: this.homeStore.content.FG.slice(),
+                title: "FG 电子",
+                renderItem: ({item, index}) => this.renderHotItemView(item, index,'FG')
             })
         }
         return data
