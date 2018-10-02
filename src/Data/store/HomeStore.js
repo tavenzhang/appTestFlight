@@ -125,7 +125,7 @@ export default class HomeStore {
         JX_Store.gameDZStore.loadGames("FG", (dataList) => {
             if (dataList) {
                 for( let obj of dataList){
-                    if(obj.categoryName === '棋牌'){
+                    if(obj.categoryId === 301){
                         this.FG = obj.games
                         if(this.content){
                             this.content.FG = this.FG;
@@ -138,7 +138,7 @@ export default class HomeStore {
         JX_Store.gameDZStore.loadGames("KY", (dataList) => {
             if (dataList) {
                 for( let obj of dataList){
-                    if(obj.categoryName === '手机棋牌'){
+                    if(obj.categoryId === 16){
                         this.KY = obj.games
                         if(this.content){
                             this.content.KY = this.KY;
