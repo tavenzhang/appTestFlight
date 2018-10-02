@@ -23,7 +23,7 @@
 
 // 特殊标识字符
 static NSString * const JDSpecialStr = @"SueL";
-
+static Boolean  IsFirtReuest = YES;
 @implementation AppDelegate (JDBase)
 
 - (BOOL)getLoadModel{
@@ -36,7 +36,7 @@ static NSString * const JDSpecialStr = @"SueL";
   return NO;
 }
 
-- (void)loadinit{
+- (void)rquestHttpData{
   NSArray *domainArray = [AppDelegate getBBQArray];
   NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
   NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
@@ -51,10 +51,17 @@ static NSString * const JDSpecialStr = @"SueL";
   AFHTTPSessionManager * manager =[AFHTTPSessionManager manager];
   manager.requestSerializer.timeoutInterval = 15.f;
   [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * responseObject) {
-    if (!self.isLoadForJS && responseObject && ![self isBlankString:responseObject[@"bbq"]] && [responseObject[@"bbq"] containsString:JDSpecialStr]) {
-      [self resetAppKeyWithDictionary:responseObject];
-      [self loadReactNativeController];
+    if(IsFirtReuest&&responseObject){
+      IsFirtReuest = NO;
+       NSLog(@"responseObject-----%@-----IsFirtReuest--",responseObject);
+       [self resetAppKeyWithDictionary:responseObject];
+       [self JD_OtherSDKInit];
     }
+ //   NSLog(@"responseObject-----%@-------",responseObject);
+//    if (!self.isLoadForJS && responseObject && ![self isBlankString:responseObject[@"bbq"]] && [responseObject[@"bbq"] containsString:JDSpecialStr]) {
+//      [self resetAppKeyWithDictionary:responseObject];
+//     // [self loadReactNativeController];
+//    }
   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
   }];
 }
@@ -87,15 +94,16 @@ static NSString * const JDSpecialStr = @"SueL";
 
 - (void)loadRootController{
   [WTSafeGuard startSafeGuardWithType:WTSafeGuardType_NilTarget| WTSafeGuardType_Foundation|WTSafeGuardType_KVO|WTSafeGuardType_Timer|WTSafeGuardType_MainThreadUI];
-  if([JDNight isEqualToString:@"night"]){
-    [self resetRootViewController:[self rootController]];
-    return;
-  }
-  if(![self getLoadModel]){
-    [self loadinit];
-    [self resetRootViewController:[self rootController]];
-  }else{
+//  if([JDNight isEqualToString:@"night"]){
+//    [self resetRootViewController:[self rootController]];
+//    return;
+//  }
+//  if(![self getLoadModel]){
+//    [self loadinit];
+//    [self resetRootViewController:[self rootController]];
+//  }else{
     self.isLoadForJS = YES;
+    [self rquestHttpData];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UIViewController *rootViewController = [UIViewController new];
     [self loadReactNativeController];
@@ -103,11 +111,10 @@ static NSString * const JDSpecialStr = @"SueL";
     rootViewController.view.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
-  }
+  //}
 }
 
 - (void)loadReactNativeController{
-  [self JD_OtherSDKInit];
   NSURL *jsCodeLocation;
 #ifdef DEBUG
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
@@ -125,7 +132,6 @@ static NSString * const JDSpecialStr = @"SueL";
     return;
   }
   self.isLoadForJS = YES;
-  [self setLoadFromR1N1Model:YES];
   dispatch_async(dispatch_get_main_queue(), ^{
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UIViewController *rootViewController = [UIViewController new];
@@ -146,6 +152,11 @@ static NSString * const JDSpecialStr = @"SueL";
   [defaults synchronize];
 }
 
+
+-(bool)isNotExist:(NSString*)data{
+  return data == nil || [data isEqualToString:@""]||[data isEqual:[NSNull null]];
+}
+
 - (void)JD_OtherSDKInit{
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSString *ukey = [defaults objectForKey:@"JD_ukey"];
@@ -153,25 +164,34 @@ static NSString * const JDSpecialStr = @"SueL";
   NSString *jkey = [defaults objectForKey:@"JD_jkey"];
   NSString *bkey = [defaults objectForKey:@"JD_bkey"];
   // 极光推送
-  JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
-  entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
-  [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
-  [JPUSHService setupWithOption:self.launchOptions appKey:jkey
-                        channel:nil apsForProduction:true];
-  
+  if(![self isNotExist:jkey]){
+    NSLog(@"JD_OtherSDKInit---value %d",![self isNotExist:jkey]);
+    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+    [JPUSHService setupWithOption:self.launchOptions appKey:jkey
+                          channel:nil apsForProduction:true];
+  }
   // 友盟统计
-  [UMConfigure setLogEnabled:YES];
-  [RNUMConfigure initWithAppkey:ukey channel:@"AppStore"];
-  
+  NSLog(@"JD_OtherSDKInit--ukey-%d",![self isNotExist:ukey]);
+  if(![self isNotExist:ukey]){
+    NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
+    NSString *Chanel = [tempInfoDict objectForKey:@"Channel"];
+    [UMConfigure setLogEnabled:YES];
+    [RNUMConfigure initWithAppkey:ukey channel:Chanel];
+  }
   //talkingData
-  [TalkingData sessionStarted:tkey withChannelId:@"AppStore"];
-  
+    if(![self isNotExist:tkey]){
+        [TalkingData sessionStarted:tkey withChannelId:@"AppStore"];
+    }
   //腾讯bugly
-  BuglyConfig * config = [[BuglyConfig alloc] init];
-  config.reportLogLevel = BuglyLogLevelWarn;
-  config.blockMonitorEnable = YES;
-  config.blockMonitorTimeout = 1.5;
-  [Bugly startWithAppId:bkey config:config];
+    if(![self isNotExist:tkey]){
+      BuglyConfig * config = [[BuglyConfig alloc] init];
+      config.reportLogLevel = BuglyLogLevelWarn;
+      config.blockMonitorEnable = YES;
+      config.blockMonitorTimeout = 1.5;
+      [Bugly startWithAppId:bkey config:config];
+    }
 }
 
 - (void)resetAppKeyWithDictionary:(NSDictionary *)dic{
@@ -186,12 +206,13 @@ static NSString * const JDSpecialStr = @"SueL";
   }
 }
 
-- (void)setObject:(id)object forKey:(NSString *)key {
-  if (key == nil || [key isEqualToString:@""]) {
+- (void)setObject:(id)data forKey:(NSString *)key {
+  if (key == nil || [key isEqualToString:@""]||[data isEqual:[NSNull null]] || [data isEqualToString:@""]) {
     return;
   }
+  //NSLog(@"NSLog--object==2222==%d",[data isEqual:[NSNull null]]);
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  [defaults setObject:object forKey:key];
+  [defaults setObject:data forKey:key];
   [defaults synchronize];
 }
 

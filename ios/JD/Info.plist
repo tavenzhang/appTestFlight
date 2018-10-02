@@ -106,6 +106,8 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>Channel</key>
+	<string></string>
 	<key>Affcode</key>
 	<string></string>
 </dict>
