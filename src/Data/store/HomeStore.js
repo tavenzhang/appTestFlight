@@ -82,7 +82,7 @@ export default class HomeStore {
         //     }
         // }
         this.isRefreshing = false;
-        this.content = {...content,KY:this.KY,FG:this.FG};
+        this.content = {...content, KY: this.KY, FG: this.FG};
     }
 
     saveHomeCacheData(json) {
@@ -121,13 +121,13 @@ export default class HomeStore {
     }
 
     @action
-    getCardGameList(){
+    getCardGameList() {
         JX_Store.gameDZStore.loadGames("FG", (dataList) => {
             if (dataList) {
-                for( let obj of dataList){
-                    if(obj.categoryId === 301){
-                        this.FG = obj.games
-                        if(this.content){
+                for (let obj of dataList) {
+                    if (obj.categoryId === 301) {
+                        this.FG = this.getActiveGameList(obj.games)
+                        if (this.content) {
                             this.content.FG = this.FG;
                         }
                     }
@@ -136,17 +136,28 @@ export default class HomeStore {
         })
 
         JX_Store.gameDZStore.loadGames("KY", (dataList) => {
-            if (dataList) {
-                for( let obj of dataList){
-                    if(obj.categoryId === 16){
-                        this.KY = obj.games
-                        if(this.content){
-                            this.content.KY = this.KY;
+                if (dataList) {
+                    for (let obj of dataList) {
+                        if (obj.categoryId === 16) {
+                            this.KY = this.getActiveGameList(obj.games)
+                            if (this.content) {
+                                this.content.KY = this.KY;
+                            }
                         }
                     }
                 }
             }
-        })
+        )
+    }
+
+    getActiveGameList(dataList, state = "Normal") {
+        let relustList = [];
+        for (let item of dataList) {
+            if (item.status == state) {
+                relustList.push(item)
+            }
+        }
+        return relustList;
     }
 
     @action
