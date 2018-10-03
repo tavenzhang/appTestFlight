@@ -7,7 +7,7 @@ export const gameTheme={
 export const gameImgTextStyle={
     contain:{
         position:"absolute",
-        bottom:14,
+        bottom:13,
         width:(width-40)/3,
         alignItems:"center"
     },
