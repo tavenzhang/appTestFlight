@@ -40,11 +40,6 @@ const create = (baseURL = TCDefaultDomain) => {
   }
 }
 
-global.JXLog = (string, str2) => {
-    if (str2) {
-        if (__DEV__) console.log(string, str2)
-    } else if (__DEV__) console.log(string)
-}
 
 export default {
   create

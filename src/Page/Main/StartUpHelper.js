@@ -28,7 +28,6 @@ function getAvailableDomain (domains, callback) {
     JXLog('cacheDomain = '+domains[i])
     StartUp.get(`/api/v1/ip/user/checkIpInfoDomains?clientId=${AppConfig.clientId}&platform=GAME`).then((response) => {
       if (response.ok) {
-          JXLog('大王来巡山 '+JSON.stringify(response))
         AsyncStorage.getItem('cacheDomain').then((cacheDomain) => {
           if (!JSON.parse(cacheDomain).updateThisTime) {
             // update cacheDomain
