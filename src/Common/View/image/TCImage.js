@@ -8,6 +8,7 @@ import {
     StyleSheet,
     LayoutAnimation,
     View,
+    Image
 } from 'react-native';
 
 
@@ -52,18 +53,19 @@ export default class TCImage extends Component {
         let {style, resizeMode, imgPlaceHolder, source, styleHolder, resizeModeHolder} = this.props
         let myHolderStyle = styleHolder ? styleHolder : style;
         let myResizeMode = resizeModeHolder ? resizeModeHolder : resizeMode
-        let imgStyle = this.state.onPreFinish ? style : {width: 0, height: 0}  //通过设置宽高 达到隐藏的效果
+        let imgStyle = this.state.onPreFinish ? style : {width: 1, height: 1}  //通过设置宽高 达到隐藏的效果
 
         if(!this.state.onPreFinish){
             return (<View style={this.state.onPreFinish ? style:myHolderStyle} pointerEvents={"none"}>
-               <FastImage style={myHolderStyle}
+                <Image style={myHolderStyle}
                          resizeMode={myResizeMode}
                          source={imgPlaceHolder}/>
                 <FastImage style={imgStyle}
                            resizeMode={resizeMode}
                            source={source}
-                           onLoad={this.onLoadSucess}
-                           onError={this.onLoadError}/>
+                            onLoad={this.onLoadSucess}
+                            onError={this.onLoadError}
+                />
             </View>)
         }else{
             return  <FastImage style={imgStyle}
@@ -74,8 +76,8 @@ export default class TCImage extends Component {
     }
 
     onLoadSucess = (data) => {
-        let {style, resizeMode, imgPlaceHolder, source, styleHolder, resizeModeHolder} = this.props
-        JXLog("onLoadError=====onLoadSucess" ,source.uri)
+        //let {style, resizeMode, imgPlaceHolder, source, styleHolder, resizeModeHolder} = this.props
+        //JXLog("onLoadError=====onLoadSucess" ,source.uri)
         let {onLoadSucFun} = this.props
         if(!this.state.onPreFinish){
             this.setState({onPreFinish: true})
@@ -87,7 +89,7 @@ export default class TCImage extends Component {
 
 
     onLoadError = (data) => {
-        JXLog("onLoadError=====", data)
+      //  JXLog("onLoadError=====")
     }
 }
 
