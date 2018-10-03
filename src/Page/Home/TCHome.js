@@ -63,6 +63,7 @@ import TCImage from "../../Common/View/image/TCImage";
 import HomeStore from '../../Data/store/HomeStore';
 import {personal} from "../resouce/images";
 import JDToast from "../../Common/JXHelper/JXToast";
+import TCFlatList from "../../Common/View/RefreshListView/TCFLatList";
 
 @inject("jdAppStore", "initAppStore", "mainStore", "userStore")
 @observer
@@ -216,16 +217,19 @@ export default class TCHome extends Component {
 
     getSectionsData() {
         let data = []
-        if (this.homeStore.content.FG && this.homeStore.content.FG.length > 0) {
+         if (this.homeStore.content.FG && this.homeStore.content.FG.length > 0) {
             data.push({
                 data: this.homeStore.content.FG.slice(),
                 title: "FG 电子",
+                key:"FG",
                 renderItem: ({item, index}) => this.renderHotItemView(item, index,'FG')
+
             })
         }
         if (this.homeStore.content.KY && this.homeStore.content.KY.length > 0) {
             data.push({
                 data: this.homeStore.content.KY.slice(),
+                key:"KY",
                 title: "开元棋牌",
                 renderItem: ({item, index}) => this.renderHotItemView(item, index,'KY')
             })

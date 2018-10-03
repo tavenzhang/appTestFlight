@@ -12,16 +12,16 @@ import { AppRegistry, StyleSheet, Text, View, Dimensions, Image, TouchableOpacit
 import { width } from '../../resouce/theme';
 import Moment from 'moment';
 import jdAppStore from '../../../Data/store/JDAppStore';
-import { Other } from '../../asset';
-import TCImage from '../../../Common/View/image/TCImage';
-import FastImage from 'react-native-fast-image';
+import {Other} from "../../asset";
+import TCImage from "../../../Common/View/image/TCImage";
+import {gameImgTextStyle} from "../../asset/cardGame/gameTheme";
 
 export default class TCHomeSportsItem extends React.Component {
     constructor(state) {
         super(state);
         this.state = {
             timeStr: this.props.mTimer - Moment().format('X'),
-            loadImgOk: false
+            loadImgOk:false
         };
     }
 
@@ -44,46 +44,31 @@ export default class TCHomeSportsItem extends React.Component {
     }
 
     getImage() {
-        let imgUrl = this.props.rowData.icon;
+        let imgUrl =this.props.rowData.icon;
         let data = this.props.rowData;
-        let firstPost = imgUrl.indexOf('//') + 2;
-        let preHttp = imgUrl.substring(0, firstPost);
-        let tagetUrl = imgUrl.substr(firstPost, imgUrl.length);
-        tagetUrl = tagetUrl.substring(0, tagetUrl.indexOf('/'));
-        if (data.platForm == 'KY') {
-            //ky 特殊处理 其他平台图片不加前缀
-            tagetUrl =
-                preHttp +
-                tagetUrl +
-                '/common/gameIcon/cardGame/' +
-                data.platForm +
-                '/' +
-                data.platForm +
-                '_' +
-                data.gameId +
-                '.png';
-        } else {
-            tagetUrl = preHttp + tagetUrl + '/common/gameIcon/cardGame/' + data.platForm + '/' + data.gameId + '.png';
+        let firstPost = imgUrl.indexOf("//")+2;
+        let preHttp = imgUrl.substring(0,firstPost)
+        let tagetUrl = imgUrl.substr(firstPost,imgUrl.length);
+        tagetUrl=tagetUrl.substring(0,tagetUrl.indexOf("/"));
+        if(data.platForm=="KY"){ //ky 特殊处理 其他平台图片不加前缀
+            tagetUrl =preHttp+tagetUrl+"/common/gameIcon/cardGame/"+data.platForm+"/"+data.platForm+"_"+data.gameId+".png";
+        }else{
+            tagetUrl =preHttp+tagetUrl+"/common/gameIcon/cardGame/"+data.platForm+"/"+data.gameId+".png";
         }
 
-        let img;
-        // if (this.props.type === 'KY') {
-        //     img = Other.cardGame.KY[this.props.rowData.gameId];
-        // } else if (this.props.type === 'FG') {
-        //     img = Other.cardGame.FG[this.props.rowData.gameId];
-        // }
-        if (!img) {
-            img = { uri: tagetUrl };
-        }
-        return <FastImage source={img} style={styles.leftImgStyle} onError ={()=>{
-            JXLog('999 999 99 加载失败'+JSON.stringify(img))
-        }
-        }/>;
+        return (<View>
+            <TCImage source={{uri:tagetUrl}} style={styles.leftImgStyle} imgPlaceHolder={Other.cardGame.gameIcoHolder} onLoadSucFun={this.onLoadImge}/>
+            {
+                !this.state.loadImgOk ?  <View style={gameImgTextStyle.contain}>
+                    <Text style={gameImgTextStyle.textStyle}>{this.props.rowData.name}</Text>
+                </View>:null
+            }
+        </View>)
     }
 
-    onLoadImge = () => {
-        this.setState({ loadImgOk: true });
-    };
+    onLoadImge=()=>{
+        this.setState({loadImgOk:true})
+    }
 
     buttonCall = () => {
         if (this.props.pushToEvent == null) return;
@@ -92,21 +77,21 @@ export default class TCHomeSportsItem extends React.Component {
     };
 }
 
-let w = (width - 40) / 3;
+let w = (width-40)/3
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'transparent',
+        backgroundColor:'transparent',
         flexDirection: 'row',
-        height: w / 0.818 + 10,
-        width: w + 5,
-        justifyContent: 'center',
+        height: w/0.818+10,
+        width: w+5,
+        justifyContent:'center',
         alignItems: 'center',
         marginBottom: 0.5,
-        marginLeft: 0.5
+        marginLeft: 0.5,
     },
 
     leftImgStyle: {
         width: w,
-        height: w / 0.818
+        height: w/0.818,
     }
 });
