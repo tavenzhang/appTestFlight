@@ -126,7 +126,7 @@ export default class HomeStore {
             if (dataList) {
                 for (let obj of dataList) {
                     if (obj.categoryId === 301) {
-                        this.FG = this.getActiveGameList(obj.games)
+                        this.FG = this.getActiveGameList(obj.games,"FG")
                         if (this.content) {
                             this.content.FG = this.FG;
                         }
@@ -139,7 +139,7 @@ export default class HomeStore {
                 if (dataList) {
                     for (let obj of dataList) {
                         if (obj.categoryId === 16) {
-                            this.KY = this.getActiveGameList(obj.games)
+                            this.KY = this.getActiveGameList(obj.games,"KY")
                             if (this.content) {
                                 this.content.KY = this.KY;
                             }
@@ -150,10 +150,11 @@ export default class HomeStore {
         )
     }
 
-    getActiveGameList(dataList, state = "Normal") {
+    getActiveGameList(dataList,platForm="KY", state = "Normal") {
         let relustList = [];
         for (let item of dataList) {
             if (item.status == state) {
+                item.platForm=platForm;
                 relustList.push(item)
             }
         }
