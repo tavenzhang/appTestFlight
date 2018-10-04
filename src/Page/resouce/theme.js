@@ -83,10 +83,10 @@ export const baseColor = {
     black: 'black',
     mainBg: '#F5F5F5', //主背景
     itemBg: '#FFFFFF', //次背景
-    strong: '#6A58CA', //强调色
-    tabBarBg: '#231e58', //tabbar背景
-    tabUnSelectTxt: "#6A58CA", //tab字体未选中
-    tabSelectedTxt: '#FCCC45', //选中
+    strong: 'red', //强调色
+    tabBarBg: '#f5f5f5', //tabbar背景
+    tabUnSelectTxt: "#7c7c7c", //tab字体未选中
+    tabSelectedTxt: 'red', //选中
     waitOpen: '#51CFAF', //等待开奖
     cpDetailTitle: '#66CCFF', //彩票详情投注号码标题
     blue: '#39c7ff'
@@ -136,8 +136,8 @@ export const indexBgColor = {
 
 // 下拉刷新控件progress主题样式
 export const refreshColor = {
-    progress: ['#778c36', '#a1b348', '#b1c351', '#bdcc6a'],
-    progressBackground: '#4c368c'
+    progress: ['#00f8f5', '#32fdf6', '#9efef7', '#dafffc'],
+    progressBackground: '#f74953'
 }
 
 export const borderColor = {}
