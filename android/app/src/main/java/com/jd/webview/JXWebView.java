@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.jd.R;
+import com.jd.util.AndroidBug5497Workaround;
 import com.jd.util.StatusBarUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -67,6 +68,7 @@ public class JXWebView extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.jxwebview_layout);
+        AndroidBug5497Workaround.assistActivity(this);
         StatusBarUtils.translucentStatusBar(this);
         imageView = (ImageView) findViewById(R.id.img_back);
         imageView.setOnClickListener(new View.OnClickListener() {
