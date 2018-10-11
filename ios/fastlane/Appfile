@@ -1,8 +1,0 @@
-app_identifier("com.jx.jd.test") # The bundle identifier of your app
-apple_id("dw40704525@sina.com") # Your Apple email address
-
-itc_team_id("118970302") # iTunes Connect Team ID
-team_id("JZKTDNCXFV") # Developer Portal Team ID
-
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile
