@@ -22,7 +22,7 @@ import TCTouchMoveButton from "../../Common/View/button/TCTouchMoveButton";
 import TCImage from "../../Common/View/image/TCImage";
 import JDToast from "../../Common/JXHelper/JXToast";
 import {withMappedNavigationProps} from "react-navigation-props-mapper";
-
+let  MyDefaultColor="black"
 //专门为体育电子准备
 @withMappedNavigationProps()
 export default class TCWebGameFullView extends React.Component {
@@ -47,6 +47,12 @@ export default class TCWebGameFullView extends React.Component {
             bodyParam.gameId = gameId
             NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZ_start + "/" + gameId, bodyParam,gameData.gamePlatform, (ret) => {
                // JXLog("TCWebGameView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
+                if(gameData.gamePlatform === "FG"){
+                    let data={UserAgent:"Browser_Type/Android_APP"}
+                    if(NativeModules.JXHelper.regIosDefaultData){
+                        NativeModules.JXHelper.regIosDefaultData(data);
+                    }
+                }
                 if (ret.rs) {
                     this.setState({url: ret.content.gameUrl});
                 } else {
