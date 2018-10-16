@@ -454,9 +454,11 @@ export default class TCHome extends Component {
 
     onPushGameFullView = (dataItem, gameData) => {
         let gameBgColor = "black";
+        let isRotate=false;
         switch (gameData.gamePlatform) {
             case "KY":
                 gameBgColor = "rgb(14,5,36)";
+                isRotate=true;
                 break;
             default:
                 gameBgColor = "black";
@@ -468,7 +470,7 @@ export default class TCHome extends Component {
             isDZ: true,
             title: dataItem.name,
             platName: gameData.gameNameInChinese ? gameData.gameNameInChinese.substr(0, 2) : null,
-            isRotate: true,
+            isRotate,
             gameBgColor
         })
     }
