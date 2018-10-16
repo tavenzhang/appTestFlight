@@ -15,13 +15,13 @@ import React, {
 
 
 export const appDomainBase = {
-    base1: 'https://www.gou6000.com',
-    base2: 'https://www.12derfcgvtw.com',
-    base3: 'https://www.12kkdfjmnd.com',
-    base4: 'https://www.12prmkjdsew.com',
-    base5: 'https://www.12iiikpoadsf.com',
-    base6: 'https://www.12frtgvbnmk.com',
-    base7: 'https://www.12jfhtyklmd.com',
+    base1: 'https://www.neihukui.cn',
+    base2: 'https://www.jixianjiewu.com',
+    base3: 'https://www.dongshidakaoyan.com',
+    base4: 'https://www.ytwqefa12ddrw.com',
+    base5: 'https://www.mvkdw853vcsq.com',
+    base6: 'https://www.dwadef12efw7.com',
+    base7: 'https://www.feixiangdao.com',
 }
 
 export const configAppId = '1'
@@ -48,5 +48,7 @@ export const appHotFixUpdataServers = {
     base5: 'https://4checkupdate1.zzlhjfls.com',
     base6: 'https://5checkupdate1.zzlhjfls.com',
 }
+
+export const safeguardDomain = ['https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com','https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com']
 
 export const deploymentKey = Platform.OS === 'ios' ? 'mPO4OMsMob8tY5UHCcpnPjXaRqQe4ksvOXqog' : 'P8LQBw8uxmVPRrAbswO2Xyr9Dhpg4ksvOXqog';
