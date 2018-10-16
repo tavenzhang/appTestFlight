@@ -406,42 +406,70 @@ export default class TCHome extends Component {
             NavigatorHelper.pushToUserLogin();
             return;
         }
-        let gameData = {gamePlatform:type}
+        let gameData = {gamePlatform:type};
+        if (IS_IOS) {
+            if (gameData.gamePlatform === "MG") {
+                this.onNativeGamePlay(dataItem)
+            } else {//ios 的开源棋牌 使用内置webView 播放
+                //由于MG平台的游戏 需要横屏 做特殊处理 "FG" 需要修改原生agent
+                if (gameData.gamePlatform === "FG" && !NativeModules.JXHelper.regIosDefaultData) {
+                    this.onNativeGamePlay(dataItem)
+                } else {
+                    this.onPushGameFullView(dataItem, gameData);
+                }
+            }
+        } else {
+            if (gameData.gamePlatform === "MG" || gameData.gamePlatform === "FG" || gameData.gamePlatform === "KY") {
+                this.onNativeGamePlay(dataItem)
+            } else {
+                //使用内置webView 播放
+                this.onPushGameFullView(dataItem, gameData);
+            }
+        }
+    }
+
+    onNativeGamePlay = (dataItem,gameData) => {
         let bodyParam = {
             gameId: dataItem.gameId,
         }
         let url = config.api.gamesDZ_start + "/" + dataItem.gameId;
-        JXLog("click  dataItem------------",dataItem)
-        if (gameData.gamePlatform === "MG" || gameData.gamePlatform === "FG" || (Platform.OS === 'android' && gameData.gamePlatform === "KY")) {
-            NetUitls.getUrlAndParamsAndPlatformAndCallback(url, bodyParam, gameData.gamePlatform, (ret) => {
-                // JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
-                if (ret.rs) {
-                    if (IS_IOS) {
-                        Linking.openURL(ret.content.gameUrl);
-                    } else {
-                        if (NativeModules.JXHelper.openGameWebViewFromJs) {
-                            NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name, gameData.gamePlatform);
-                        } else {
-                            Linking.openURL(ret.content.gameUrl);
-                        }
-                    }
+        NetUitls.getUrlAndParamsAndPlatformAndCallback(url, bodyParam, gameData.gamePlatform, (ret) => {
+            // JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
+            if (ret.rs) {
+                if (JX_PLAT_INFO.IS_IOS) {
+                    Linking.openURL(ret.content.gameUrl);
                 } else {
-                    JDToast.showLongCenter(ret.message)
+                    if (NativeModules.JXHelper.openGameWebViewFromJs) {
+                        NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name, gameData.gamePlatform);
+                    } else {
+                        Linking.openURL(ret.content.gameUrl);
+                    }
                 }
-            },null,null,{})
-        } else {
-            this.onPushGameFullView(dataItem, gameData);
-        }
+            } else {
+                JDToast.showLongCenter(ret.message)
+            }
+        }, null, null, {})
     }
 
+
     onPushGameFullView = (dataItem, gameData) => {
+        let gameBgColor = "black";
+        switch (gameData.gamePlatform) {
+            case "KY":
+                gameBgColor = "rgb(14,5,36)";
+                break;
+            default:
+                gameBgColor = "black";
+        }
+
         JX_NavHelp.pushView(JX_Compones.TCWebGameFullView, {
             gameId: dataItem.gameId,
             gameData,
             isDZ: true,
             title: dataItem.name,
             platName: gameData.gameNameInChinese ? gameData.gameNameInChinese.substr(0, 2) : null,
-            isRotate: true
+            isRotate: true,
+            gameBgColor
         })
     }
 
