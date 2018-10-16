@@ -5,9 +5,7 @@ import {
     View,
     WebView,
     Alert,
-    Image,
-    TouchableOpacity,
-    InteractionManager
+    NativeModules,
 } from 'react-native';
 
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
@@ -22,7 +20,7 @@ import TCTouchMoveButton from "../../Common/View/button/TCTouchMoveButton";
 import TCImage from "../../Common/View/image/TCImage";
 import JDToast from "../../Common/JXHelper/JXToast";
 import {withMappedNavigationProps} from "react-navigation-props-mapper";
-
+let  MyDefaultColor="black"
 //专门为体育电子准备
 @withMappedNavigationProps()
 export default class TCWebGameFullView extends React.Component {
@@ -40,14 +38,21 @@ export default class TCWebGameFullView extends React.Component {
     componentWillMount() {
         let {isDZ,gameData,gameId}= this.props
         let bodyParam = {
-            //access_token: JX_Store.userStore.access_token
+            gameId
         }
 
         if (isDZ) {
-            bodyParam.gameId = gameId
             NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZ_start + "/" + gameId, bodyParam,gameData.gamePlatform, (ret) => {
-               // JXLog("TCWebGameView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
+               JXLog("TCWebGameView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
+                if(gameData.gamePlatform == "FG"){
+                    let data={UserAgent:"Browser_Type/Android_APP"};
+                    if(NativeModules.JXHelper.regIosDefaultData){
+                        NativeModules.JXHelper.regIosDefaultData(data);
+                    }
+                }
+                JXLog("TCWebGameView-----ret.rs------",ret.rs)
                 if (ret.rs) {
+
                     this.setState({url: ret.content.gameUrl});
                 } else {
                     this.setState({loadedFail: true})
@@ -71,21 +76,21 @@ export default class TCWebGameFullView extends React.Component {
 
     render() {
 
-        let {touchLeft,touchTop,isDZ,isRotate}= this.props;
-        let stateBarH =JX_PLAT_INFO.IS_IphoneX ? 45:20;
-
+        let {touchLeft,touchTop,isDZ,isRotate,gameBgColor}= this.props;
+        let stateBarH =JX_PLAT_INFO.IS_IphoneX ? 44:20;
+        let  bgColor  = gameBgColor ? gameBgColor:MyDefaultColor
         let conetView = <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
             <Text style={{fontSize: Size.font13, fontWeight: "bold"}}>页面数据加载失败,请稍后重试!</Text>
         </View>
 
         if (!this.state.loadedFail) {
-            conetView = <View style={{height: SCREEN_H - stateBarH}}>
+            conetView = <View style={{height: SCREEN_H - (isDZ ? stateBarH:stateBarH+(JX_PLAT_INFO.IS_IphoneX ? 10 :0)), backgroundColor:bgColor}}>
                 {
                     this.state.url != "" ? <WebView
                         bounces={false}
                         ref={WEBVIEW_REF}
                         automaticallyAdjustContentInsets={true}
-                        style={styles.webView}
+                        style={[styles.webView,{backgroundColor:bgColor}]}
                         source={{uri: this.state.url}}
                         javaScriptEnabled={true}
                         domStorageEnabled={true}
@@ -169,16 +174,18 @@ export default class TCWebGameFullView extends React.Component {
 
 const styles = StyleSheet.create({
     webView: {
-        flex: 1,
+        flex:1,
         width: SCREEN_W,
+        backgroundColor:MyDefaultColor
+
     },
     containView: JX_PLAT_INFO.IS_IphoneX ? {
         height: SCREEN_H ,
         width: SCREEN_W,
-        backgroundColor: indexBgColor.mainBg
+        backgroundColor: MyDefaultColor
     } : {
         height: SCREEN_H ,
-        backgroundColor: indexBgColor.mainBg
+        backgroundColor: MyDefaultColor
     },
 });
 

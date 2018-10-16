@@ -33,6 +33,25 @@ RCT_EXPORT_METHOD(getCFUUID:(RCTResponseSenderBlock)callback)
   callback(@[[NSNull null], str]);
 }
 
+RCT_EXPORT_METHOD(regIosDefaultData:(NSDictionary*)dic)
+{
+  if(dic){
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dic];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+  }
+}
+
+RCT_EXPORT_METHOD(readIosData:(NSString*)key back:(RCTResponseSenderBlock)callback)
+{
+  if(key){
+    NSString *value =[[NSUserDefaults standardUserDefaults] objectForKey:key];
+    if(callback){
+      callback(@[value]);
+    }
+  }
+}
+
+
 +(NSString *)getCFUUID
 {
   NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
