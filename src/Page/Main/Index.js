@@ -45,6 +45,8 @@ let TCInitHelper = new TCInitHelperC()
 let alreadyInCodePush = false
 let CodePushDeploymentKey = null
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
+import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
+let domainsHelper = new JXDomainsHelper()
 
 @observer
 export default class TC168 extends Component {
@@ -75,9 +77,25 @@ export default class TC168 extends Component {
         this.timer2 = setTimeout(() => {
             if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
                 this.hotFixStore.skipUpdate();
+                this.reloadAppDomain()
             }
         }, 5 * 1000)
     }
+
+    //域名异常启动介入
+    reloadAppDomain(){
+        domainsHelper.getSafeguardName((ok)=>{
+            if(ok){
+                this.initDomain()
+                this.setState({
+                    updateFinished: false,
+                    syncMessage: "初始化配置中...",
+                    updateStatus: 0,
+                })
+            }
+        })
+    }
+
 
     handleAppStateChange(nextAppState) {
         if (nextAppState === 'active') {
@@ -167,6 +185,7 @@ export default class TC168 extends Component {
             }
             this.storeLog({faileMessage: customerMessage})
             this.hotFixStore.updateFailMsg(customerMessage)
+            this.reloadAppDomain()
         } else {
             // TODO 审核通过之后 放开如下，告知ip不在更新范围内的用户
             // alert('您当前的区域无法更新')
@@ -296,6 +315,7 @@ export default class TC168 extends Component {
         this.hotFixStore.syncMessage = message;
         this.hotFixStore.updateStatus = -1;
         this.uploadLog()
+        this.reloadAppDomain()
     }
 
     getLoadingView() {
