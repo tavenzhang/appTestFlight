@@ -21,6 +21,7 @@ export default class HotFixStore {
         this.progress = false;
         this.updateFinished = true;
         this.updateStatus = 0
+        this.syncMessage = ''
     }
 
     @action

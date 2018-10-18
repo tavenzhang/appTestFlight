@@ -86,7 +86,14 @@ export default class TC168 extends Component {
     reloadAppDomain(){
         domainsHelper.getSafeguardName((ok)=>{
             if(ok){
+                //拿到d.json域名初始化
                 this.initDomain()
+
+                this.timer2 = setTimeout(() => {
+                    if (this.state.syncMessage === '检测更新中...' || this.state.syncMessage === '初始化配置中...') {
+                        this.skipUpdate()
+                    }
+                },5 * 1000)
                 this.setState({
                     updateFinished: false,
                     syncMessage: "初始化配置中...",
@@ -315,7 +322,6 @@ export default class TC168 extends Component {
         this.hotFixStore.syncMessage = message;
         this.hotFixStore.updateStatus = -1;
         this.uploadLog()
-        this.reloadAppDomain()
     }
 
     getLoadingView() {
