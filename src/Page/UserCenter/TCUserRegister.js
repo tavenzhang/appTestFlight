@@ -164,19 +164,19 @@ export default class TCUserRegister extends Component {
                                     立即注册
                                 </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.bottomBarButtonStyle1}
-                                onPress={() => {
-                                    NavigatorHelper.pushToUserFreePlay()
-                                }}>
-                                <Text style={{
-                                    color: loginAndRegeisterTxtColor.freePlay,
-                                    fontWeight: 'bold',
-                                    fontSize: Size.large
-                                }}>
-                                    免费试玩
-                                </Text>
-                            </TouchableOpacity>
+                            {/*<TouchableOpacity*/}
+                                {/*style={styles.bottomBarButtonStyle1}*/}
+                                {/*onPress={() => {*/}
+                                    {/*NavigatorHelper.pushToUserFreePlay()*/}
+                                {/*}}>*/}
+                                {/*<Text style={{*/}
+                                    {/*color: loginAndRegeisterTxtColor.freePlay,*/}
+                                    {/*fontWeight: 'bold',*/}
+                                    {/*fontSize: Size.large*/}
+                                {/*}}>*/}
+                                    {/*免费试玩*/}
+                                {/*</Text>*/}
+                            {/*</TouchableOpacity>*/}
                         </ View>
                         <View style={styles.registerWrap}>
                             <TouchableOpacity style={{alignItems: 'flex-start', flex: 1}}
