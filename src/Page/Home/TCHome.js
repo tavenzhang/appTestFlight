@@ -409,18 +409,18 @@ export default class TCHome extends Component {
         let gameData = {gamePlatform:type};
         if (IS_IOS) {
             if (gameData.gamePlatform === "MG") {
-                this.onNativeGamePlay(dataItem)
+                this.onNativeGamePlay(dataItem,gameData)
             } else {//ios 的开源棋牌 使用内置webView 播放
                 //由于MG平台的游戏 需要横屏 做特殊处理 "FG" 需要修改原生agent
                 if (gameData.gamePlatform === "FG" && !NativeModules.JXHelper.regIosDefaultData) {
-                    this.onNativeGamePlay(dataItem)
+                    this.onNativeGamePlay(dataItem,gameData)
                 } else {
                     this.onPushGameFullView(dataItem, gameData);
                 }
             }
         } else {
             if (gameData.gamePlatform === "MG" || gameData.gamePlatform === "FG" || gameData.gamePlatform === "KY") {
-                this.onNativeGamePlay(dataItem)
+                this.onNativeGamePlay(dataItem,gameData)
             } else {
                 //使用内置webView 播放
                 this.onPushGameFullView(dataItem, gameData);
