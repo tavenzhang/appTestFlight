@@ -156,18 +156,18 @@ export default class TCUserLogin extends Component {
                             onClick={() => this.register()}
                         />
 
-                        <ButtonView
-                            btnStyle={styles.bottomBarButtonStyle1}
-                            txtstyle={{
-                                color: loginAndRegeisterTxtColor.freePlay,
-                                fontWeight: 'bold',
-                                fontSize: Size.large
-                            }}
-                            text={'免费试玩'}
-                            onClick={() => {
-                                NavigatorHelper.pushToUserFreePlay()
-                            }}
-                        />
+                        {/*<ButtonView*/}
+                            {/*btnStyle={styles.bottomBarButtonStyle1}*/}
+                            {/*txtstyle={{*/}
+                                {/*color: loginAndRegeisterTxtColor.freePlay,*/}
+                                {/*fontWeight: 'bold',*/}
+                                {/*fontSize: Size.large*/}
+                            {/*}}*/}
+                            {/*text={'免费试玩'}*/}
+                            {/*onClick={() => {*/}
+                                {/*NavigatorHelper.pushToUserFreePlay()*/}
+                            {/*}}*/}
+                        {/*/>*/}
                     </View>
                 </ScrollView>
                 <LoadingSpinnerOverlay
