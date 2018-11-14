@@ -11,7 +11,7 @@ import {
     TouchableOpacity,
     Dimensions
 } from 'react-native';
-
+import PropTypes from 'prop-types';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import TCBetChoiceTitleView from '../../../View/TCBetChoiceTitleView'
@@ -23,7 +23,8 @@ export default class TCMarkSixNumberSelectView extends React.PureComponent {
     constructor(state) {
         super(state);
         this.state = {
-            selectedButton: null
+            selectedButton: null,
+            curSXList:[]
         };
     }
 
@@ -35,11 +36,39 @@ export default class TCMarkSixNumberSelectView extends React.PureComponent {
         oddsArray: null,
         prizeSettings: null,
         topShowOdds: false,
-        gameID:''
+        gameID:'',
+        isShowSX: false
     }
 
     componentWillMount() {
+        this.listener = RCTDeviceEventEmitter.addListener('qdxdsPress', (areaIndex, index,type) => {
+            if (type != "生肖") {
+                this.setState({isShowSX: false,curSXList:[]})
+            }
+        });
+        this.listener2 = RCTDeviceEventEmitter.addListener('toggleShowShengXiao', (areaIndex, isShow) => {
+            if (this.props.areaIndex == areaIndex) {
+                if (this.props.isNeedQDXDSQ) {
+                    this.setState({isShowSX: !isShow,curSXList:[]},()=>{
+                        if(isShow) {
+                            RCTDeviceEventEmitter.emit('qdxds_NumberCall_clear', areaIndex);
+                        }
+65trfdxtfdcx
+                    })
 
+                }
+            }
+        });
+        this.listener3 = RCTDeviceEventEmitter.addListener('qdxdsReset', (areaIndex) => {
+            this.setState({isShowSX: false,curSXList:[]})
+        })
+    }
+
+    componentWillUnmount() {
+        this.listener && this.listener.remove();
+        this.listener2 && this.listener2.remove();
+        this.listener3 && this.listener3.remove();
+        this.listener4 && this.listener4.remove();
     }
 
     render() {
@@ -50,8 +79,9 @@ export default class TCMarkSixNumberSelectView extends React.PureComponent {
         let contentView = null;
         if (this.props.isNeedQDXDSQ) {
             contentView = <View style={styles.container1}>
-                <TCQDXDSQBarView qdxdsArray={this.props.qdxdsArray} areaIndex={this.props.areaIndex}
+                <TCQDXDSQBarView isSXArray={true} qdxdsArray={this.props.qdxdsArray} areaIndex={this.props.areaIndex}
                                  titleName={this.props.titleName} numberEvent={this.props.numberEvent}/>
+                {this.state.isShowSX ? this.getSXView() : null}
                 <View style={[styles.rightViewStyle1, {
                     marginLeft: (31 + (width - this.numberCount * 60 + 20 - 31 - 6) / 2),  //对齐全大小单双清
                 }]}>
@@ -72,6 +102,36 @@ export default class TCMarkSixNumberSelectView extends React.PureComponent {
         }
         return contentView;
     }
+
+    getSXView = () => {
+        let dataList = ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'];
+        return (<View style={{
+            alignSelf: "center", flexWrap: "wrap", marginLeft: 15, backgroundColor: "white",
+            justifyContent: "center", flexDirection: "row", alignItems: "center", width: width - 80,
+            marginBottom: 10
+        }}>
+            {
+                dataList.map((data, index) => {
+                    return <TouchableOpacity onPress={()=>{
+                        let srcList=this.state.curSXList;
+                        if(srcList.indexOf(data)==-1){
+                            srcList.push(data)
+                        }else{
+                            srcList.splice(srcList.indexOf(data),1);
+                        }
+                        this.setState({curSXList:srcList})
+                        this.props.numberEvent.qdxdsqPressCallBack(this.props.areaIndex, "生肖", false,srcList.join(","));
+
+                    }} key={index}>
+                        <View style={{alignItems: "center", marginVertical: 5, width: (width - 80) / 6}}>
+                            <Text style={{fontSize: 14, color:this.state.curSXList.indexOf(data)>-1 ? "red":"black"}}>{data}</Text>
+                        </View>
+                    </TouchableOpacity>
+                })
+            }
+        </View>)
+    }
+
 
     getOddsTitleView() {
         if (!this.props.topShowOdds) {

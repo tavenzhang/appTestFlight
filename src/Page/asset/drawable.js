@@ -55,5 +55,7 @@ export const Other = {
         titleBackGround:require('./vip/VIP_TitleBackgroundNew.png'),
     }, pay: {
         payTypeQQ: require('./pay_icon/qq.png')
-    }
+    },
+    arrow_up: require('../resouce/addon/other/stdui_arrow_up.png'),
+    arrow_down: require('../resouce/addon/other/stdui_arrow_down.png')
 }

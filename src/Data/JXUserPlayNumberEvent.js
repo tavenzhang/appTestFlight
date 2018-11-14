@@ -58,7 +58,7 @@ class JXUserPlayNumberEvent {
     }
 
 
-    qdxdsqPressCallBack = (areaIndex, type, isCancel) => {
+    qdxdsqPressCallBack = (areaIndex, type, isCancel,shengXiao) => {
         let qdxdsqArr = this.SingletonDPS.addQDXDSQToUnAddedArr(type, areaIndex);
         if (type === '清') {
             RCTDeviceEventEmitter.emit('qdxds_NumberCall_clear', areaIndex);
@@ -68,6 +68,18 @@ class JXUserPlayNumberEvent {
             if (!isCancel) {
                 RCTDeviceEventEmitter.emit('qdxds_NumberCall_clear', areaIndex);
                 this.SingletonDPS.resetUnAddedSelectedNumbersWithIndex(areaIndex);
+            }
+
+            if(type=="生肖"){
+                if(shengXiao){
+                    let dataList=shengXiao.split(",")
+                    let resultStr ="";
+                    for (let item of dataList){
+                        resultStr+=getNumWithAnimal(item)+",";
+                    }
+                    resultStr = resultStr ? resultStr:""
+                    qdxdsqArr = resultStr.split(",");
+                }
             }
 
             for (let i = 0, len = qdxdsqArr.length; i < len; i++) {
