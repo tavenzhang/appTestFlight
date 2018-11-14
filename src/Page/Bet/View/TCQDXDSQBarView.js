@@ -93,7 +93,7 @@ class BarText extends Component {
         let text = this.props.qdxdsArray[this.props.index];
 
         return <TouchableOpacity style={{flex:1, alignItems: "center",paddingHorizontal:2}} onPress={() => this.onBarTextPress()}>
-            <View style={{flexDirection:"row",}}>
+            <View style={{flexDirection:"row",alignItems: "center"}}>
                 <Text style={[styles.barText, {
                     // paddingRight: this.props.index === this.props.index - 1 ? 22 : 15,
                     color: this.state.pressed ? betHome.betQDXDSQBarTextPressed : betHome.betQDXDSQBarText,
