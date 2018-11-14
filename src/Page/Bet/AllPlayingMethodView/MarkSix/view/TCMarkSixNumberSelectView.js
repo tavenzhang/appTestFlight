@@ -53,7 +53,7 @@ export default class TCMarkSixNumberSelectView extends React.PureComponent {
                         if(isShow) {
                             RCTDeviceEventEmitter.emit('qdxds_NumberCall_clear', areaIndex);
                         }
-65trfdxtfdcx
+
                     })
 
                 }
