@@ -4,14 +4,11 @@
 
 import React, {Component} from 'react';
 import {
-    AppRegistry,
     StyleSheet,
     Text,
     View,
     TouchableOpacity,
-    Dimensions
 } from 'react-native';
-import PropTypes from 'prop-types';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import TCBetChoiceTitleView from '../../../View/TCBetChoiceTitleView'
@@ -105,6 +102,7 @@ export default class TCMarkSixNumberSelectView extends React.PureComponent {
 
     getSXView = () => {
         let dataList = ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'];
+        JXLog("srcList--getSXView--",this.state.curSXList)
         return (<View style={{
             alignSelf: "center", flexWrap: "wrap", marginLeft: 15, backgroundColor: "white",
             justifyContent: "center", flexDirection: "row", alignItems: "center", width: width - 80,
@@ -113,13 +111,14 @@ export default class TCMarkSixNumberSelectView extends React.PureComponent {
             {
                 dataList.map((data, index) => {
                     return <TouchableOpacity onPress={()=>{
-                        let srcList=this.state.curSXList;
+                        let srcList=this.state.curSXList.slice();
                         if(srcList.indexOf(data)==-1){
                             srcList.push(data)
                         }else{
                             srcList.splice(srcList.indexOf(data),1);
                         }
                         this.setState({curSXList:srcList})
+                        JXLog("srcList----",srcList)
                         this.props.numberEvent.qdxdsqPressCallBack(this.props.areaIndex, "生肖", false,srcList.join(","));
 
                     }} key={index}>
