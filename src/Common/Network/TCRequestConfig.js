@@ -158,6 +158,8 @@ export const config = {
         vipLvUser: "rewards/vip/user/levelUser", //vip用户信息
         vipAwardHistory:"rewards/vip/reward/rewardhiss",//领奖历史
         vipUpdate:"rewards/vip/user/upgrade",//客户端触发vip升级
+        //自己的游戏
+        getInternalStartGame:"/cms/internal/startGame",//获取自己的游戏的链接
     },
     map: {
         method: 'POST',
