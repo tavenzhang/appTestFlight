@@ -139,7 +139,6 @@ class TCSelectView extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: betHome.betMidBg,
         flexDirection: 'row',
         justifyContent: 'center',

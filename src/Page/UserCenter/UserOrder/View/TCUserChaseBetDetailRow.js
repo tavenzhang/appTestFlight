@@ -15,6 +15,15 @@ import {
 } from 'react-native';
 import {common} from '../../../asset/images'
 import {Size, width, height, indexBgColor, listViewTxtColor} from  '../../../resouce/theme'
+
+const is_numeric = (value) => {
+    if (typeof(value) === 'object') {
+        return false;
+    } else {
+        return !Number.isNaN(Number(value));
+    }
+};
+
 export  default  class TCUserOrderItemRow extends Component {
 
     constructor(props) {
@@ -49,7 +58,7 @@ export  default  class TCUserOrderItemRow extends Component {
                     </View>
                     <View style={styles.itemRightStyle}>
                         <Text style={styles.itemContent1}>{(costAmount).toFixed(2)}元</Text>
-                        <Text style={styles.itemContent}>{this.getOrderState(orderData)}</Text>
+                        <Text style={styles.itemContent}>{this.getOrderState(orderData.childOrderStateName)}</Text>
                     </View>
                     <Image source={common.iconNext} style={styles.imgNext}/>
                 </View>
@@ -109,21 +118,11 @@ export  default  class TCUserOrderItemRow extends Component {
         );
     }
 
-    getOrderState(orderData) {
-        switch (orderData.childOrderState) {
-            case 'CO_SUB_WIP':
-                return '待开奖'
-            case 'CO_SUB_WIN':
-                return (<Text style={{color: listViewTxtColor.redTip}}>中{(orderData.winningAmount).toFixed(2)}元</Text>)
-            case 'CO_SUB_LOSS':
-                return '未中奖'
-            case 'CO_SUB_CANCELLED':
-                return '已取消'
-            case 'CO_COMPLETE':
-                return '追号完成'
-            case 'CO_IN_PROGRESS':
-                return '追号中'
+    getOrderState(transactionStateName){
+        if (is_numeric(transactionStateName)) {
+            return <Text style={{color: listViewTxtColor.redTip}}>中{transactionStateName}元</Text>;
         }
+        return transactionStateName;
     }
 }
 

@@ -39,7 +39,7 @@ export default class TCPromotionList extends BaseComponent {
     constructor(state) {
         super(state)
         this.pageNum = 0
-        this.pageSize = 20
+        this.pageSize = 100
         this.type = ''
         this.totalList = [];
         this.state = {
@@ -116,9 +116,6 @@ export default class TCPromotionList extends BaseComponent {
                     renderRow={(rowData, sectionID, rowID)=>this.renderRow(rowData, sectionID, rowID)}
                     removeClippedSubviews={true}
                     scrollRenderAheadDistance={20}
-                    renderFooter={()=>this._renderFooter()}
-                    onEndReachedThreshold={20}
-                    onEndReached={()=>this._endReached()}
                     enableEmptySections={true}
                     refreshControl={
                         <RefreshControl

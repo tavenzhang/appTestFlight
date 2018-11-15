@@ -34,6 +34,7 @@ import _ from 'lodash';
 import {common} from '../../asset/images'
 import UserPayTypeStore from "../../../Data/store/UserPayTypeStore";
 import {ASSET_Other} from '../../asset/'
+
 /**
  * 用戶充值类型界面
  */
@@ -191,10 +192,14 @@ export default class TCUserPayType extends Component {
     getPayTypeIcon(typeCode) {
         switch (typeCode) {
             case 'WX':
+            case 'FIXED_WX':
+            case 'WX_PUBLIC':
                 return userPay.payTypeWx
+            case 'FIXED_QQ':
             case 'QQ':
                 return ASSET_Other.Other.pay.payTypeQQ
             case 'ZHB':
+            case 'FIXED_ZHB':
                 return userPay.payTypeAlipay
             case 'JD':
                 return userPay.payTypeJdzf
@@ -257,7 +262,9 @@ export default class TCUserPayType extends Component {
     gotoPayPage(code) {
         this.hideLoading();
         let payList = this.userPayStore.getPayList(code);
-        NavigatorHelper.pushToTopUp({
+        let page = code === "WX_PUBLIC" ? "WxPublicPage" : "UserPayment"
+        JXLog("=============", code)
+        NavigatorHelper.pushToTopUp(page, {
             code: code,
             payList: payList,
             minimumTopupAmount: this.userPayStore.minimumTopupAmount

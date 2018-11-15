@@ -51,9 +51,8 @@ export default class TCUserBankPayMessageNew extends Component {
 
     constructor(props) {
         super(props)
-        this.money = this.props.transInfo.amount
+        this.money = this.props.amount
         this.name = ''
-        this.orderId = this.props.transInfo.transactionNo ? this.props.transInfo.transactionNo : this.getRandomOrderNo()
     }
 
     static defaultProps = {};
@@ -81,16 +80,6 @@ export default class TCUserBankPayMessageNew extends Component {
                             <Text style={styles.firstItemTxtStyle}>入款确认信息</Text>
                         </View>
                         <View style={styles.itemStyle}>
-                            <Text style={styles.itemTitleTxtStyle}>订  单  号</Text>
-                            <Text style={styles.transferNoTxt}>{this.orderId}</Text>
-                            <TouchableOpacity
-                                activeOpacity={0.6}
-                                style={styles.itemRightStyle}
-                                onPress={() => this.onCopy(this.props.transInfo.bankName)}>
-                                <Text style={styles.itemBtnTxtStyle}>复制</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.itemStyle}>
                             <Text style={styles.itemTitleTxtStyle}>存款时间</Text>
                             <View style={{flex:1}}>
                                 <DatePicker
@@ -111,20 +100,20 @@ export default class TCUserBankPayMessageNew extends Component {
                                     onDateChange={(date) => {this.userPayStore.date = date}}
                                 />
                             </View>
-                            <TouchableOpacity
+                       {/*     <TouchableOpacity
                                 activeOpacity={0.6}
                                 onPress={()=>{this.refs.datePicker.onPressDate()}}
                                 style={{width: 53, height: 26, marginRight:12, marginLeft:12, justifyContent: 'center', alignItems: 'center'}}>
                                 <Image source={betIcon.orderQingChu} style={{height: 20, width: 20}}/>
-                            </TouchableOpacity>
+                            </TouchableOpacity>*/}
                         </View>
                         <View style={styles.itemStyle}>
                             <Text style={styles.itemTitleTxtStyle}>存入金额</Text>
-                            <Text style={styles.transferMoney}>{this.props.transInfo.amount}</Text>
+                            <Text style={styles.transferMoney}>{this.props.amount}</Text>
                             <TouchableOpacity
                                 activeOpacity={0.6}
                                 style={styles.itemRightStyle}
-                                onPress={() => this.onCopy(this.props.transInfo.amount + '')}>
+                                onPress={() => this.onCopy(this.props.amount + '')}>
                                 <Text style={styles.itemBtnTxtStyle}>复制</Text>
                             </TouchableOpacity>
                         </View>
@@ -175,15 +164,12 @@ export default class TCUserBankPayMessageNew extends Component {
                                 <Text style={styles.itemBtnTxtStyle}>复制</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={[styles.itemStyle, {borderBottomWidth:0}]}>
-                            <View style={styles.emptyCircle}><Text style={{fontSize:Size.font10,textAlign:'center',color:'#FF5A3F'}}>!</Text></View>
-                            <Text style={styles.itemTipsTxtStyle}>依照系统提供带有小数点金额，进行汇款可快速自动到账！</Text>
-                        </View>
+
                         <View style={styles.firstItemStyle}>
                             <Text style={styles.firstItemTxtStyle}>存款人</Text>
                         </View>
                         <View style={[styles.itemStyle, {marginLeft: 0, paddingRight: 0}]}>
-                            <Text style={[styles.itemTitleTxtStyle, {marginLeft:16}]}>存款人姓名</Text>
+                            <Text style={[styles.itemTitleTxtStyle, {marginLeft:0}]}>存款人姓名</Text>
                             <TextInput style={[styles.inputTxtStyle]}
                                        ref='textInputRefer'
                                        underlineColorAndroid='transparent'
@@ -222,7 +208,7 @@ export default class TCUserBankPayMessageNew extends Component {
                                 style={styles.bottomBarButtonStyle}
                                 onPress={() => this.submitPay()}>
                                 <Text style={{color: buttonStyle.btnTxtColor, fontWeight: 'bold', fontSize: Size.font17}}>
-                                    我已转账
+                                    已转账确认
                                 </Text>
                             </TouchableOpacity>
                         </View>
@@ -336,20 +322,17 @@ export default class TCUserBankPayMessageNew extends Component {
         }
         this._modalLoadingSpinnerOverLay.show()
         let params = {
-            adminBankId: this.props.adminBankId,
-            topupAmount: this.money,
+            adminBankId: this.props.transInfo.adminBankId,
+            topupAmount: this.props.amount,
             topupCardRealname: this.name,
-            topupTime: this.userPayStore.date,
-            transferToupType: this.transferToupType,
-            paymentPlatformOrderNo: this.orderId,
-            thirdOrderNo: this.props.transInfo.thirdOrderNo,
+            transferTopupType: "BANK_ONLINE",
             id: appId
         }
 
         this.userPayStore.bankTransferQuery(params, (res) => {
             this._modalLoadingSpinnerOverLay.hide();
             if (res.status) {
-                NavigatorHelper.pushToUserPayProgress({topupAmount: res.topupAmount});
+                NavigatorHelper.pushToUserPayProgress({topupAmount: this.props.amount});
             } else {
                 Toast.showShortCenter(res.message);
             }
@@ -432,7 +415,6 @@ const styles = StyleSheet.create({
         backgroundColor: indexBgColor.itemBg,
     },
     firstItemStyle: {
-        borderBottomWidth: 1,
         borderBottomColor: '#BCBBC1',
         backgroundColor: '#EFEFF4'
     },
@@ -447,12 +429,11 @@ const styles = StyleSheet.create({
         width: width,
         minHeight: 40,
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: indexBgColor.itemBg,
         borderBottomWidth: 1,
-        borderBottomColor: '#BCBBC1',
+        borderBottomColor: indexBgColor.mainBg,
         alignItems: 'center',
-        marginLeft: 16,
-        paddingRight: 12
+        paddingLeft: 16
     },
     itemTitleTxtStyle: {
         fontSize: Size.default,

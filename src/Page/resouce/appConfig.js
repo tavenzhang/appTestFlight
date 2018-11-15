@@ -47,4 +47,4 @@ export const appHotFixUpdataServers = {
     base6: 'https://checkupdate2.106pushservice.com',
 }
 
-export const deploymentKey = Platform.OS === 'ios' ? 'xFrsnjytGR35uGox7jXFIZtkLCOd4ksvOXqog' : 'qTel14R6PoSP5uuadNi8McAzHlTH4ksvOXqog';
+export const deploymentKey = Platform.OS === 'ios' ? 'xFrsnjytGR35uGox7jXFIZtkLCOd4ksvOXqog' : '';

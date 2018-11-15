@@ -13,7 +13,7 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import {width, indexBgColor, shoppingTxtColor,Size} from '../../resouce/theme'
+import {width, indexBgColor, shoppingTxtColor,Size,lotterBgColor, lotteryTxtColor} from '../../resouce/theme'
 
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
@@ -26,7 +26,7 @@ let timeoutTime = 0
 let lastMoment = 0
 let happyPoker = new HappyPokerHelper()
 import { observer } from 'mobx-react/native';
-
+import NumbersView from "../../../Common/View/TCLotteryNumbersView";
 @observer
 export default class TCShopingListItemView extends Component {
 
@@ -116,6 +116,7 @@ export default class TCShopingListItemView extends Component {
     }
 
     getOpenCode() {
+        return this.getResultView()
         let str = ''
         if (this.props.rowData.lastOpenCode && (this.props.rowData.gameUniqueId.indexOf('28') >= 0)) {
             let numArray = this.props.rowData.lastOpenCode.split(",")
@@ -148,6 +149,27 @@ export default class TCShopingListItemView extends Component {
                 {str}
             </Text>
         )
+    }
+
+    getResultView() {
+        if (this.props.rowData.lastOpenCode && this.props.rowData.lastOpenCode != null) {
+            if (this.props.rowData.lastOpenCode != null) {
+                return (
+                    <NumbersView
+                        data={this.props.rowData}
+                        cpNumbers={this.props.rowData.lastOpenCode.split(',')}
+                        style={{ marginRight: 10, width: width }}
+                        showStyle={this.props.rowData.gameUniqueId}
+                    />
+                );
+            }
+        } else {
+            return (
+                <View style={styles.contentViewStyle}>
+                    <Text style={styles.contentTextStyle}>等待开奖</Text>
+                </View>
+            );
+        }
     }
 
     buttonCall = () => {
@@ -230,5 +252,22 @@ const styles = StyleSheet.create({
         marginTop: 2,
 
     },
+    contentViewStyle: {
+        marginBottom: 15,
+        marginLeft: 20,
+        backgroundColor: lotterBgColor.waitLotteryBg,
+        borderRadius: 20,
+        width: 160,
+        marginTop: 15,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    contentTextStyle: {
+        fontSize: Size.font16,
+        color: lotteryTxtColor.waitTxt,
+        marginTop: 5,
+        marginBottom: 5,
+        marginRight: 5
+    }
 
 });

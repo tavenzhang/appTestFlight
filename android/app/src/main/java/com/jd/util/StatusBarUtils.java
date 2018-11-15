@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +33,7 @@ public class StatusBarUtils {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void translucentStatusBar(Activity activity) {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
                     | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -44,6 +46,7 @@ public class StatusBarUtils {
             window.setNavigationBarColor(Color.BLACK);
         }
         int navigationBarHeight = getNavigationBarHeight(activity);
+        Log.e("nav", "navHeight:" + navigationBarHeight);
         if (navigationBarHeight > 0) {
             ViewGroup contentLayout = (ViewGroup) activity.findViewById(android.R.id.content);
             View parentView = contentLayout.getChildAt(0);
@@ -55,7 +58,7 @@ public class StatusBarUtils {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void adjustWebGameBar(Activity activity) {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
                     | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -69,14 +72,15 @@ public class StatusBarUtils {
         }
     }
 
-    private static int getNavigationBarHeight(@NonNull Activity activity) {
+    public static int getNavigationBarHeight(@NonNull Activity activity) {
+
         if (hasNavigationBar(activity)) {
             return getInternalDimensionSize(activity.getResources());
         }
         return 0;
     }
 
-    private static boolean hasNavigationBar(@NonNull Activity activity) {
+    public static boolean hasNavigationBar(@NonNull Activity activity) {
         Display display = activity.getWindowManager().getDefaultDisplay();
         DisplayMetrics realMetrics = new DisplayMetrics();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -91,11 +95,22 @@ public class StatusBarUtils {
         int displayHeight = displayMetrics.heightPixels;
         int displayWidth = displayMetrics.widthPixels;
 
+        if (OSUtils.isMiui()) {
+            Log.e("nav", "vheight:" + getInternalDimensionSize(activity.getResources()));
+            if (Settings.Global.getInt(activity.getContentResolver(), "force_fsg_nav_bar", 0) != 0) {
+                //开启手势，不显示虚拟键
+                return false;
+            }
+        }
+        if (OSUtils.isFlyme()) {
+            return true;
+        }
+
         return (realWidth - displayWidth) > 0 || (realHeight - displayHeight) > 0;
     }
 
     private static int getInternalDimensionSize(Resources resources) {
-        int resourceId = resources.getIdentifier("navigation_bar_height","dimen", "android");
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
         return resources.getDimensionPixelSize(resourceId);
     }
 }

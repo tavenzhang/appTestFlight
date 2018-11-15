@@ -87,6 +87,8 @@ let RIGHT_ORDER = [];
 let LAST_YEAR_ANIMAL_ORDER = [];//去年生肖顺序
 let NOW_YEAR_ANIMAL_ORDER = [];//今年生肖顺序
 const NOW_YEAR = Moment().format('YYYY')
+let ANIMAL_SORT = []
+
 /**
  * 根据开奖日期得到正确对应的号码与生肖 单个号码
  * @param time 开奖日期  unix 时间戳 stopOrderTimeEpoch 传这个字段就好
@@ -123,9 +125,14 @@ export function getAnimalWithOpenCode(time, openCode) {
             isNewYear = true;
         }
     }
-    let animalArray = getYearAnimals(isNewYear, nowYearAnimal);
+    ANIMAL_SORT = getYearAnimals(isNewYear, nowYearAnimal);
+    return ANIMAL_SORT[(code - 1) % 12];
+}
 
-    return animalArray[(code - 1) % 12];
+export function getNumWithAnimal(animal) {
+    let animalNums = ["01,13,25,37,49", "02,14,26,38", "03,15,27,39", "04,16,28,40", "05,17,29,41", "06,18,30,42", "07,19,31,43", "08,20,32,44", "09,21,33,45", "10,22,34,46", "11,23,35,47", "12,24,36,48"]
+    let index = ANIMAL_SORT.indexOf(animal)
+    return animalNums[index];
 }
 
 /**
