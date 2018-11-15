@@ -101,16 +101,9 @@ export default class UserPayTypeStore {
      * @param data
      */
     parseBankList(data) {
-        if (data.length > 0) {
-            for (var i = 0; data[i] != null; i++) {
-                let item = data[i]
-                if (item.bankCode === 'ZHB' || item.bankCode === 'WX' || item.bankCode === 'OTHER' || item.bankCode === "JD" || item.bankCode === "QQ") {
-                    this.payTansferList.push(item)
-                } else {
-                    this.bankList.push(item)
-                }
-            }
-        }
+        data.map(item => {
+            item.bankCode ? this.payTansferList.push(item) : this.bankList.push(item)
+        })
     }
 
     /**
@@ -129,46 +122,20 @@ export default class UserPayTypeStore {
             this.payTansferList.forEach((item) => {
                 let payType = item.type ? item.type : item.bankCode
                 if (payType === code) {
-                    if (code === 'WX') {//出去微信支付中的QQ支付
-                        if (!this.isQQPay(item)) {
-                            payList.push(item)
-                        }
-                    } else {
-                        payList.push(item)
-                    }
-                }
-                if (code === "QQ" && payType !== "QQ") {//将其他充值方式中的qq支付转换成qq支付
-                    this.changeToQQ(item) && payList.push(this.changeToQQ(item));
+                    payList.push(item)
                 }
             })
             return this.sortData(payList);
         }
-    }
-
-
-    changeToQQ(item) {
-        if (this.isQQPay(item)) {
-            if (item.bankCode) {
-                item.bankCode = 'QQ';
-            } else {
-                item.type = 'QQ';
-            }
-            return item;
-        }
-        return false;
-    }
-
-    isQQPay(item) {
-        let name = item.bankName ? item.bankName : item.merchantName;
-        return /qq/i.test(name);
-    }
+}
 
 //排序
-    sortData(datas) {
-        let res = datas.sort((itemA, itemB) => {
-            return itemA.position - itemB.position;
-        })
-        return res;
-    }
+sortData(datas)
+{
+    let res = datas.sort((itemA, itemB) => {
+        return itemA.position - itemB.position;
+    })
+    return res;
+}
 
 }

@@ -23,25 +23,26 @@ import {
     height,
     shoppingTxtColor,
     buttonStyle,
-    payTxtColor
+    payTxtColor,
+    copyBtnStyle,
+    loginAndRegeisterTxtColor
 } from '../../resouce/theme'
 import {userPay} from '../../asset/images'
 import TopNavigationBar from "../../../Common/View/TCNavigationBar";
 import Toast from '../../../Common/JXHelper/JXToast';
 import TCKeyboardView from "../../../Common/View/TCKeyboardView";
-import RequestUtils from "../../../Common/Network/TCRequestUitls";
-import {config, appId} from "../../../Common/Network/TCRequestConfig";
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import dismissKeyboard from 'dismissKeyboard'
-import _ from 'lodash';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import ModalList from "./View/ModalList";
 import TCButtonView from "../../../Common/View/button/TCButtonView";
 import JXHelper from "../../../Common/JXHelper/JXHelper";
 import UserPayStore from "../../../Data/store/UserPayStore";
 import NavigationService from "../../Route/NavigationService";
+import payHelper from './PayHelper'
+import {ButtonView} from "../../../Common/View";
+import walletStore from '../../../Data/store/WalletStore'
 
 /**
  * 提示对话框
@@ -55,9 +56,11 @@ export default class TCUserPayNew extends Component {
     constructor(props) {
         super(props)
         this.moneyData = new MoneyData()
+        payHelper.props = this.props;
     }
 
     componentDidMount() {
+        payHelper.clearData();
     }
 
     componentWillUnmount() {
@@ -78,18 +81,29 @@ export default class TCUserPayNew extends Component {
                         this.gotoPayRecord()
                     }}
                     backButtonCall={() => {
+                        payHelper.clearData()
                         this.goBack()
                     }}/>
-                <View style={styles.payMoneyItemStyle}>
-                    <Text style={styles.payTitleStyle}>充值金额</Text>
-                    {this.getInputView()}
-                    <Text style={{color: payTxtColor.payMoneyTip}}>元</Text>
-                </View>
-                <MoneyLabelView
-                    ref="moneyLabelView"
-                    changeMoney={(money) => {
-                        this.changeMoney(money)
-                    }}/>
+                {payHelper.isFixedPay() ? null : (
+                    <View style={{height: 160}}>
+                        <View style={styles.payMoneyItemStyle}>
+                            {/*   <Text style={styles.payTitleStyle}>充值金额(无上限)</Text>*/}
+                            {this.getInputView()}
+                            <Text style={{color: payTxtColor.payMoneyTip}}>元</Text>
+                            {<ButtonView
+                                onClick={() => this.props.code === "BANK" ? this.showInputKeyboard() : this.showKeyBoard()}
+                                text={'任意金额'}
+                                btnStyle={{marginLeft: 10, backgroundColor: indexBgColor.itemBg}}
+                                txtstyle={styles.itemBtnTxtStyle}/>}
+                        </View>
+                        <MoneyLabelView
+                            ref="moneyLabelView"
+                            changeMoney={(money) => {
+                                this.changeMoney(money)
+                            }}/>
+                    </View>
+                )}
+
                 <View style={[styles.payTipView, {flexDirection: 'row'}]}>
                     <Text style={styles.payTip}>请选择充值方式 (如有问题，请联系</Text>
                     <TouchableOpacity onPress={() => this.onlineService()}>
@@ -128,16 +142,28 @@ export default class TCUserPayNew extends Component {
         }
     }
 
+    showInputKeyboard() {
+        this.refs["inputTextMoney"].blur()
+        this.refs["inputTextMoney"].focus();
+    }
+
     /**
      * 渲染银行列表
      * @param rowData
      * @returns {XML}
      */
     renderBankList(rowData) {
-        return (<View style={styles.bankItemView}>
-            <Text>{rowData.bankName}</Text>
-            {this.getBankTypeView(rowData)}
-        </View>)
+        return (<TouchableOpacity
+            onPress={() => {
+                if (!rowData.bankType) {
+                    this.onPayBankList(rowData.bankValue)
+                }
+            }}
+        >
+            <View style={styles.bankItemView}>
+                <Text>{rowData.bankName}</Text>
+                {this.getBankTypeView(rowData)}
+            </View></TouchableOpacity>)
     }
 
     getBankTypeView(rowData) {
@@ -162,8 +188,7 @@ export default class TCUserPayNew extends Component {
 
     onPayBankList(bankValue, bankType) {
         this.userPayStore.showList = false;
-        this.showLoading();
-        this.applayPay("THIRD", bankValue, bankType);
+        payHelper.applayPay("THIRD", bankValue, null, bankType);
     }
 
     getContentView() {
@@ -186,6 +211,8 @@ export default class TCUserPayNew extends Component {
                 <TextInput
                     ref="inputTextMoney"
                     style={styles.inputTextStyle}
+                    autoFocus={false}
+                    placeholder={"充值无上限，可自行填写金额"}
                     maxLength={8}
                     keyboardType={'numeric'}
                     defaultValue={this.userPayStore.inputMoney.toString()}
@@ -199,7 +226,7 @@ export default class TCUserPayNew extends Component {
                 /></View>)
         } else {
             return (<TouchableOpacity style={styles.inputContainer} onPress={() => this.showKeyBoard()}>
-                <Text style={styles.inputTextLabelStyle}>{this.userPayStore.inputMoney}</Text>
+                <InputMoneyView ref="inputMoneyView"/>
             </TouchableOpacity>)
         }
     }
@@ -229,17 +256,13 @@ export default class TCUserPayNew extends Component {
         return (<TouchableOpacity
             key={"000" + index}
             onPress={() => {
-                this.bankApplyFor(bank)
+                payHelper.bankApplyFor(bank)
             }}>
             <View style={styles.itemMainStyle}>
                 <View style={styles.itemLeftStyle}>
                     <View style={styles.bankRowStyle}>
                         <Text style={styles.itemTitleStyle}>收款银行</Text>
                         <Text style={styles.itemTitleRightStyle}>{bank.bankName}</Text>
-                    </View>
-                    <View style={styles.bankRowStyle}>
-                        <Text style={styles.itemTitleStyle}>收款账号</Text>
-                        <Text style={styles.itemTitleRightStyle}>{bank.bankCardNo}</Text>
                     </View>
                     <View style={styles.bankRowStyle}>
                         <Text style={styles.itemTitleStyle}>{'收款人    '}</Text>
@@ -249,28 +272,15 @@ export default class TCUserPayNew extends Component {
                         <Text style={styles.itemTitleStyle}>收款支行</Text>
                         <Text style={styles.itemTitleRightStyle}>{bank.bankAddress}</Text>
                     </View>
+                    {bank.remarks ?
+                        <View style={styles.bankRowStyle}>
+                            <Text style={styles.itemTitleStyle}>汇款资讯</Text>
+                            <Text style={styles.itemTitleRightStyle}>{bank.remarks}</Text>
+                        </View> : null
+                    }
                 </View>
             </View>
         </TouchableOpacity>)
-    }
-
-    /**
-     * 申请转账
-     */
-    bankApplyFor(bank) {
-        if (!this.validMoney(bank, true)) {
-            return;
-        }
-        this.showLoading()
-        let params = {adminBankId: bank.adminBankId, amount: this.userPayStore.realTopupMoney};
-        this.userPayStore.applyfForBankPay(params, (res) => {
-            this.hideLoading();
-            if (res.status) {
-                this.gotoBankMsg(res.content, bank.adminBankId);
-            } else {
-                Toast.showShortCenter(res.message);
-            }
-        });
     }
 
     /**
@@ -279,7 +289,18 @@ export default class TCUserPayNew extends Component {
      * @returns {XML}
      */
     getPayItemView(paymentItem, index) {
-        return (<TouchableOpacity onPress={() => this.payItemSelected(paymentItem)} key={"000" + index}>
+        return (<TouchableOpacity onPress={() => {
+            this.showLoading()
+            payHelper.payItemSelected(paymentItem, (res) => {
+                this.hideLoading();
+                if (res) {
+                    this.userPayStore.showList = true;
+                    this.userPayStore.bankList = res;
+                }
+            })
+        }
+
+        } key={"000" + index}>
             <View style={styles.payItemStyle}>
                 {this.getPayImage(paymentItem)}
                 <View style={styles.payTypeTxt}>
@@ -298,28 +319,24 @@ export default class TCUserPayNew extends Component {
      */
     getPayImage(rowData) {
         let payType = rowData.type ? rowData.type : rowData.bankCode
-        let perchantName = rowData.type ? rowData.merchantName : rowData.bankName
-        if (payType === 'WX' && perchantName && (/qq/i.test(perchantName))) {
-            return <Image source={userPay.qqPay} style={styles.payTypeImg}/>
-        }
-        if (payType === 'THIRD_PARTY' || payType === 'OTHER') {
-            return <Image source={userPay.thirdPay} style={styles.payTypeImg}/>
-        }
         return <Image source={this.getPayTypeIcon(payType)} style={styles.payTypeImg}/>
     }
 
     getPayTypeIcon(payType) {
         switch (payType) {
             case 'WX':
+            case 'FIXED_WX':
                 return userPay.wechat
+            case 'FIXED_QQ':
+            case 'QQ':
+                return userPay.qqPay
             case 'ZHB':
+            case 'FIXED_ZHB':
                 return userPay.alipay
             case 'JD':
                 return userPay.jdzf
             case 'BANK':
                 return userPay.bank
-            case 'QQ':
-                return userPay.qqPay
             default:
                 return userPay.thirdPay
         }
@@ -331,7 +348,7 @@ export default class TCUserPayNew extends Component {
      */
 
     setTextInputValue(number) {
-        let currentStr = this.userPayStore.inputMoney + ''
+        let currentStr = payHelper.money + ''
         if (number == '确认') {
         } else if (number == '删除') {
             currentStr = currentStr.substr(0, currentStr.length - 1)
@@ -341,19 +358,23 @@ export default class TCUserPayNew extends Component {
                 return
             }
         }
-        if (this.userPayStore.inputMoney !== currentStr) {
+        if (payHelper.money !== currentStr) {
             let moneyLabel = this.refs.moneyLabelView
             moneyLabel._resetMoney(currentStr)
         }
-        this.userPayStore.inputMoney = currentStr
+
+        payHelper.money = currentStr
+        let moneyView = this.refs.inputMoneyView
+        moneyView._resetMoney(payHelper.money)
     }
 
     setMoneyInputValue(money) {
-        if (this.userPayStore.inputMoney !== money) {
+        if (payHelper.money !== money) {
             let moneyLabel = this.refs.moneyLabelView
             moneyLabel._resetMoney(money)
         }
-        this.userPayStore.inputMoney = money;
+        this.moneyData.resetInputMoney(money);
+        payHelper.money = money;
     }
 
     textInputOnEndEditing() {
@@ -375,6 +396,8 @@ export default class TCUserPayNew extends Component {
      * 返回上一级
      */
     goBack() {
+        walletStore.getLotteryWalletBalance()
+        dismissKeyboard();
         NavigatorHelper.popToBack();
     }
 
@@ -383,9 +406,12 @@ export default class TCUserPayNew extends Component {
      */
     showKeyBoard() {
         var popView = this.refs.tcKeyboardView
+        let moneyView = this.refs.inputMoneyView
         if (popView.modalVisible) {
+            moneyView._changeTxtTip(false)
             popView._setModalVisible(false);
         } else {
+            moneyView._changeTxtTip(true);
             popView._setModalVisible(true);
         }
     }
@@ -395,7 +421,10 @@ export default class TCUserPayNew extends Component {
      * @param money
      */
     changeMoney(money) {
-        this.userPayStore.inputMoney = money;
+        payHelper.money = money
+        this.userPayStore.inputMoney = money
+        let moneyView = this.refs.inputMoneyView
+        moneyView && moneyView._resetMoney(payHelper.money)
     }
 
     /**
@@ -412,297 +441,53 @@ export default class TCUserPayNew extends Component {
         this._partModalLoadingSpinnerOverLay.hide()
     }
 
-    /**
-     * 检查输入金额
-     * @returns {boolean}
-     */
-    validMoney(rowData, isBank) {
-        let reg = /^[0-9]+([.]{1}[0-9]{1,2})?$/
-        let inputMoney = this.userPayStore.inputMoney + ''
-        if (inputMoney.length < 1) {
-            Toast.showShortCenter('请输入充值金额!')
-            return false
-        }
-        if (!inputMoney.match(reg)) {
-            Toast.showShortCenter('您输入的金额格式不正确!')
-            return false
-        }
-        if (inputMoney === '' || inputMoney < 1) {
-            Toast.showShortCenter("充值金额不能小于1元!");
-            return false
-        }
-        if (isBank) {
-            if (inputMoney < rowData.minAmount) {
-                Toast.showShortCenter("充值金额不能小于" + rowData.minAmount + "元!");
-                return false
-            }
+}
+
+
+/**
+ * 输入金额组件
+ */
+@observer
+class InputMoneyView extends Component {
+    @observable
+    money = ''
+
+    showTipTxt = "充值无上限，可自行填写金额"
+    @observable
+    isShowHolder = true;
+
+    render() {
+        return (<Text style={this.getTxtStyle()}>{this.showTxt}</Text>)
+    }
+
+    @computed get showTxt() {
+        return this.isShowHolder && this.money.length === 0 ? this.showTipTxt : this.money;
+    }
+
+    getTxtStyle() {
+        if (this.showTxt.length > 10) {
+            return styles.inputHolder;
         } else {
-            let minTopup = rowData.minAmount > this.props.minmumTopupAmount ? rowData.minAmount : this.props.minmumTopupAmount;
-            if (inputMoney < minTopup) {
-                Toast.showShortCenter("充值金额不能小于" + minTopup + "元!");
-                return false
-            }
-        }
-
-        this.userPayStore.realTopupMoney = inputMoney
-        if (inputMoney > rowData.maxAmount) {
-            Toast.showShortCenter("充值金额不能大于" + (parseInt(rowData.maxAmount) - 1) + "元!");
-            return false
-        }
-        if (rowData.remainQuota && inputMoney > rowData.remainQuota) {
-            Toast.showShortCenter("充值金额不能大于" + parseInt(rowData.remainQuota) + "元!");
-            return false
-        }
-        return true
-    }
-
-    /**
-     * 点击支付方式
-     * @param rowData
-     */
-    payItemSelected(rowData) {
-        if (!this.validMoney(rowData)) {
-            return
-        }
-        this.showLoading()
-        this.userPayStore.payData = rowData
-        let paymentTypes = rowData.paymentType
-        switch (rowData.type) {
-            case 'WX':
-            case 'ZHB':
-            case 'JD':
-            case 'QQ':
-            case 'OTHER':
-                this.applayPay(paymentTypes)
-                break;
-            case 'THIRD_PARTY':
-                this.userPayStore.getPaymentBankList(res => {
-                    this.hideLoading();
-                    if (!res) {
-                        this.applayPay('THIRD');
-                    }
-                })
-                break;
-            default:
-                this.hideLoading()
-                this.weChatAndAlipayTransfer(rowData)
-                break;
+            return styles.inputTextLabelStyle;
         }
     }
 
-    /**
-     * 申请支付
-     * @param type
-     */
-    applayPay(type, bankCode, bankType) {
-
-        this.userPayStore.applyForOtherPay(type, bankCode, bankType, res => {
-            this.hideLoading();
-            if (res.status) {
-                this.gotoPayWithPayment(res.content);
-            } else {
-                Toast.showShortCenter(res.message);
-            }
-        });
+    _changeTxtTip(isShow) {
+        this.isShowHolder = isShow;
     }
 
-    /**
-     * 根据服务器返回的支付信息进行支付
-     * @param res
-     */
-    gotoPayWithPayment(res) {
-        this.userPayStore.realTopupMoney = res.amount && res.amount === 0 ? this.userPayStore.realTopupMoney : res.amount;
-        JXLog("TCUserAliAndWechatPay-----gotoPayWithPayment",res)
-        switch (res.paymentMethod) {
-            case 'WECHAT_QR'://微信支付宝扫码
-            case 'ALIPAY_QR':
-            case 'JD_QR':
-            case 'QQ_QR':
-            case 'OTHER_QR':
-                if (res.paymentJumpTypeEnum) {
-                    this.gotoNewPay(res)
-                } else {
-                    if (res.webview) {
-                        this.gotoUrl(res.data)
-                    } else {
-                        this.QRpay(res)
-                    }
-                }
-                break;
-            case 'BANK_ONLINE'://在线支付
-                if (res.paymentJumpTypeEnum === 'FROM') {
-                    this.gotoFormPay(res)
-                } else {
-                    this.gotoWebView(res.data)
-                }
-                break;
-            case 'WECHAT_APP'://跳转支付
-            case 'ALIPAY_APP':
-            case 'JD_APP':
-            case 'QQ_APP':
-            case 'OTHER_APP':
-                if (res.paymentJumpTypeEnum === 'FROM') {
-                    this.gotoFormPay(res)
-                } else {
-                    this.gotoUrl(res.data)
-                }
-                break;
-            default:
-                Toast.showShortCenter('该支付异常，请换一种支付方式！')
-                break;
-        }
-    }
-
-
-    /**
-     *跳转到新的支付类型
-     * @param res
-     */
-    gotoNewPay(res) {
-        switch (res.paymentJumpTypeEnum) {
-            case 'URL':
-            case 'IMG':
-                this.QRpay(res)
-                break;
-            case 'FROM':
-                this.gotoFormPay(res)
-                break
-            case 'HTML':
-                this.gotoHTMLPay(res)
-                break;
-            case 'XML':
-                break;
-        }
-    }
-
-    /**
-     * 二维码支付(str)
-     * @param res
-     * @constructor
-     */
-    QRpay(res) {
-        let payType = this.userPayStore.payData.type;
-        let qrType = res.paymentJumpTypeEnum;
-        if (res.data && res.data.length !== 0) {
-            NavigationService.navigate("UserAliAndWechatPay", {
-                type: payType,
-                codeType: qrType ? qrType : 'URL',
-                money: this.userPayStore.realTopupMoney,
-                codeValue: res.data,
-                merchantName: this.userPayStore.payData.merchantName,
-                payData: this.payData,
-                ...this.props,
-            });
-        } else {
-            Toast.showShortCenter('二维码获取失败,请稍后再试!')
-        }
-    }
-
-    /**
-     * 表单支付
-     * @param res
-     */
-    gotoFormPay(res) {
-        if (res.data && res.data.length !== 0) {
-            let html = `<html><body><div style="text-align:center;margin-top: 50px;">` + res.data + `</div></body></html>`
-            NavigatorHelper.pushToHTMLPay({
-                title: this.userPayStore.payData.merchantName,
-                html: html
-            });
-        } else {
-            Toast.showShortCenter('支付信息获取失败,请稍后再试!')
-        }
-    }
-
-    /**
-     * html页面支付
-     * @param res
-     */
-    gotoHTMLPay(res) {
-        let payTitle = this.getPayTypeTitle()
-        if (res.data && res.data.length !== 0) {
-            NavigatorHelper.pushToHTMLPay({
-                title: payTitle,
-                html: res.data
-            })
-        } else {
-            Toast.showShortCenter('支付信息获取失败,请稍后再试!')
-        }
-    }
-
-    getPayTypeTitle() {
-        switch (this.userPayStore.payData.type) {
-            case 'ZHB':
-                return '支付宝充值'
-            case 'WX':
-                return '微信充值'
-            case 'JD':
-                return '京东充值'
-            case 'OTHER':
-                return '其他充值'
-            case 'QQ':
-                return 'QQ充值'
-            default:
-                return '网银充值'
-        }
-    }
-
-    /**
-     * 根据链接跳转支付
-     * @param url
-     */
-    gotoUrl(url) {
-        if (!url) {
-            Toast.showShortCenter('支付链接失效，请稍后再试！')
-            return
-        }
-        Linking.canOpenURL(url).then(supported => {
-            if (supported) {
-                Linking.openURL(url);
-            } else {
-                Toast.showShortCenter('支付链接失效，请稍后再试！')
-            }
-        })
-    }
-
-    /**
-     * 根据链接跳转到webview支付
-     * @param url
-     */
-    gotoWebView(url) {
-        NavigatorHelper.pushToWebView(url, '充值')
-    }
-
-    /**
-     * 支付宝微信直接转账
-     * @param data
-     */
-    weChatAndAlipayTransfer(data) {
-        NavigatorHelper.pushToUserAliAndWechatTransfer({
-            type: data.bankCode,
-            money: this.userPayStore.realTopupMoney,
-            data: data
-        });
-    }
-
-    /**
-     * 跳转到转账资料信息界面
-     * @param code
-     */
-    gotoBankMsg(info, adminBankId) {
-        NavigatorHelper.pushToUserBankPayMessage({
-            adminBankId: adminBankId,
-            transInfo: info
-        })
+    _resetMoney(money) {
+        this.money = money
     }
 }
+
 
 /**
  * 金额label组件
  */
 @observer
 class MoneyLabelView extends Component {
-    moneyData = [50, 100, 300, 500, 1000, 2000, 3000, 5000]
+    moneyData = [100, 500, 1000, 3000, 5000, 10000, 30000, 50000]
     @observable
     selectedIndex = -1
     money = 0
@@ -853,7 +638,7 @@ const styles = StyleSheet.create({
         fontSize: Size.default,
 
     }, payTipView: {
-        marginTop: 60,
+        marginTop: 10,
         paddingLeft: 5
     }, payRemarkTxt: {
         color: listViewTxtColor.content,
@@ -910,5 +695,20 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'center'
-    }
+    },
+    inputHolder: {
+        color: loginAndRegeisterTxtColor.inputPlaceholder
+    }, itemBtnTxtStyle: {
+        color: copyBtnStyle.txtColor,
+        textAlign: 'center',
+        paddingTop: 4,
+        paddingBottom: 4,
+        paddingLeft: 8,
+        paddingRight: 8,
+        borderWidth: 1,
+        borderColor: copyBtnStyle.borderColor,
+        borderRadius: 5,
+        fontSize: Size.default
+    },
+
 })

@@ -110,6 +110,8 @@ class JDAppStore {
     getDefaultUserName() {
         if (this.loginedUserNames.length > 0) {
             return this.loginedUserNames[this.loginedUserNames.length - 1];
+        } else {
+            return null
         }
     }
 

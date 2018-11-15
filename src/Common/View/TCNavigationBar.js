@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
     },
     rightTitleStyle: {
-        fontSize: Size.font16,
+        fontSize: Size.font15,
         color: indexTxtColor.topTitle,
         textAlign: 'center',
         textAlignVertical: 'center',

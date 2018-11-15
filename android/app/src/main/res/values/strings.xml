@@ -1,5 +1,5 @@
 <resources>
-    <string name="deploymentKey" moduleConfig="true">qTel14R6PoSP5uuadNi8McAzHlTH4ksvOXqog</string>
+    <string name="deploymentKey" moduleConfig="true"></string>
     <string name="deploymentServer">https://checkupdate.zeuspush.com</string>
     <string name="soft_update_no">已经是最新版本</string>
     <string name="soft_update_title">软件更新</string>

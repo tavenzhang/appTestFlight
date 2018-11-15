@@ -57,7 +57,7 @@ Helper.pushToOrderType = (params) => {
     NavigationService.navigate("UserOrderType", params);
 }
 
-Helper.pushToOrderRecord = (orderType) => {
+Helper.pushToOrderRecord = (orderType = 0) => {
     NavigationService.navigate("UserOderRecord", {initPage: orderType});
 }
 
@@ -111,6 +111,10 @@ Helper.pushToPay = () => {
     NavigationService.navigate("UserPay");
 }
 
+Helper.pushToWxPublicPay = (params) => {
+    NavigationService.navigate("WxPublicPay", params)
+}
+
 Helper.pushtoPromotion = () => {
     NavigationService.navigate("TCPromotionList");
 }
@@ -118,9 +122,14 @@ Helper.pushtoPromotion = () => {
  * 根据充值类型跳转
  * @param params
  */
-Helper.pushToTopUp = (params) => {
-    NavigationService.navigate("UserPayment", params);
+// Helper.pushToTopUp = (params) => {
+//     NavigationService.navigate("UserPayment", params);
+// }
+
+Helper.pushToTopUp = (route, params) => {
+    NavigationService.navigate(route, params);
 }
+
 
 Helper.pushToAliAndWechatPay = (params) => {
     NavigationService.navigate("UserAliAndWechatPay", params);
@@ -136,6 +145,10 @@ Helper.pushToUserBankPayMessage = (params) => {
 
 Helper.pushToHTMLPay = (params) => {
     NavigationService.navigate("UserHTMLPay", params);
+}
+
+Helper.pushToFixedPage = (params) => {
+    NavigationService.navigate("FixedPage", params)
 }
 
 Helper.pushToUserPayProgress = (params) => {
@@ -360,14 +373,13 @@ Helper.pushToRedPacketRules = () => {
 }
 
 // 世界杯
-Helper.pushToWorldCup = ()=>{
+Helper.pushToWorldCup = () => {
     NavigationService.navigate("WorldCup");
 }
 
 Helper.isTopPage = () => {
     return false;
 }
-
 
 
 /**

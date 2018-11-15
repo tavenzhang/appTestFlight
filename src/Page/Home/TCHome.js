@@ -59,6 +59,8 @@ import {getPopupAnnouncements} from './popupAnnouncements/JXPopupNoticeHelper';
 import JXHelper from "../../Common/JXHelper/JXHelper";
 import TCImage from "../../Common/View/image/TCImage";
 import HomeStore from '../../Data/store/HomeStore';
+import userStore from "../../Data/store/UserStore";
+import jdAppstore from "../../Data/store/JDAppStore";
 
 @inject("jdAppStore", "initAppStore", "mainStore", "userStore")
 @observer
@@ -126,7 +128,7 @@ export default class TCHome extends Component {
                     title={this.appName}
                     needBackButton={this.isLogin}
                     leftTitle={this.isLogin ? null : '注册'}
-                    rightTitle={this.isLogin ? '余额\n￥'+this.props.userStore.balance : '登录'}
+                    rightTitle={this.isLogin ? '余额\n￥' + this.props.userStore.balance : '登录'}
                     leftImage={this.isLogin ? 'index_personal' : null}
                     centerViewShowStyleImage={true}
                     backButtonCall={
@@ -363,7 +365,7 @@ export default class TCHome extends Component {
     }
 
     //渲染体育电子
-    renderDSFView=(item, isSport = false)=> {
+    renderDSFView = (item, isSport = false) => {
         return (
             <SportItemView
                 rowData={item}
@@ -375,15 +377,15 @@ export default class TCHome extends Component {
                             if (this.isGuest) {
                                 Toast.showShortCenter(`你当前是: 试玩账号 暂时无法体验,请尽快注册正式账号参与体验吧！`);
                             } else {
-                                if(item.gamePlatform=="CP"||item.gamePlatform=="bobo"){
-                                    JX_NavHelp.pushView(JX_Compones.TCWebGameFullView,{
-                                        touchLeft:20,
-                                        touchTop:JX_PLAT_INFO.SCREEN_H-150 ,
-                                        gameData:item,
+                                if (item.gamePlatform == "CP" || item.gamePlatform == "bobo") {
+                                    JX_NavHelp.pushView(JX_Compones.TCWebGameFullView, {
+                                        touchLeft: 20,
+                                        touchTop: JX_PLAT_INFO.SCREEN_H - 150,
+                                        gameData: item,
                                         title: item.gameDescription,
-                                        isDZ:item.gamePlatform=="bobo",
+                                        isDZ: item.gamePlatform == "bobo",
                                     });
-                                }else{
+                                } else {
                                     if (isSport) {
                                         JX_NavHelp.pushView(JX_Compones.TCWebGameView, {
                                             gameData: item,
@@ -418,7 +420,7 @@ export default class TCHome extends Component {
                     }
                 });
             }
-            if (!this.homeStore.isFirstLoad) {
+            if (!this.homeStore.isFirstLoad && jdAppstore.getDefaultUserName() === null) {
                 this.homeStore.isFirstLoad = true;
                 this.homeStore.requestGameSetting();
             } else {
@@ -428,7 +430,7 @@ export default class TCHome extends Component {
         this.homeStore.getTopWinners();
     }
 
-    _pushToBetHomePage=(rowData)=> {
+    _pushToBetHomePage = (rowData) => {
         if (rowData.gameUniqueId == 'more' || rowData.gameUniqueId == '更多玩法') {
             this.props.mainStore.changeTab('shoping')
             return;
