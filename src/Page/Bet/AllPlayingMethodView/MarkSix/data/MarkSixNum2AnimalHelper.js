@@ -88,7 +88,6 @@ let LAST_YEAR_ANIMAL_ORDER = [];//去年生肖顺序
 let NOW_YEAR_ANIMAL_ORDER = [];//今年生肖顺序
 const NOW_YEAR = Moment().format('YYYY')
 let ANIMAL_SORT = []
-
 /**
  * 根据开奖日期得到正确对应的号码与生肖 单个号码
  * @param time 开奖日期  unix 时间戳 stopOrderTimeEpoch 传这个字段就好
@@ -126,6 +125,7 @@ export function getAnimalWithOpenCode(time, openCode) {
         }
     }
     ANIMAL_SORT = getYearAnimals(isNewYear, nowYearAnimal);
+
     return ANIMAL_SORT[(code - 1) % 12];
 }
 
@@ -134,6 +134,7 @@ export function getNumWithAnimal(animal) {
     let index = ANIMAL_SORT.indexOf(animal)
     return animalNums[index];
 }
+
 
 /**
  * 获取生肖数组

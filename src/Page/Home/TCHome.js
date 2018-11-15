@@ -375,12 +375,13 @@ export default class TCHome extends Component {
                             if (this.isGuest) {
                                 Toast.showShortCenter(`你当前是: 试玩账号 暂时无法体验,请尽快注册正式账号参与体验吧！`);
                             } else {
-                                if(item.gamePlatform=="CP"){
+                                if(item.gamePlatform=="CP"||item.gamePlatform=="bobo"){
                                     JX_NavHelp.pushView(JX_Compones.TCWebGameFullView,{
                                         touchLeft:20,
                                         touchTop:JX_PLAT_INFO.SCREEN_H-150 ,
                                         gameData:item,
                                         title: item.gameDescription,
+                                        isDZ:item.gamePlatform=="bobo",
                                     });
                                 }else{
                                     if (isSport) {
