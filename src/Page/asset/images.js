@@ -28,6 +28,7 @@ export const gameIconKeyValue = {
     'HF_JXD11': require('../resouce/gameIcon/jx_115.png'),
     'HF_SDD11': require('../resouce/gameIcon/sd_115.png'),
     'HF_SHD11': require('../resouce/gameIcon/sh_115.png'),
+    'HF_JSD11':require('../resouce/gameIcon/js_115.png'),
 
     'HF_CQKL10F': require('../resouce/gameIcon/cq_kl10f.png'),
     'HF_TJKL10F': require('../resouce/gameIcon/tj_kl10f.png'),

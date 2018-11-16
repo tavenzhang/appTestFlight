@@ -121,7 +121,8 @@ export default class UserPayStore {
             let result = {};
             if (res.rs) {
                 result.status = true;
-                result.topupAmount = res.content.topupAmount;
+                result.topupAmount = res.content.topupAmount
+                this.orderNum = res.content.transactionNo
             } else {
                 result.status = false;
                 if (res.status === 500) {

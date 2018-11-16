@@ -134,7 +134,7 @@ export default class TCUserOrderDetail extends BaseComponent {
                             style={styles.listStyles}
                             ordeBetList={orderData.perBetUnits.slice(0)}
                             orderMoney={orderData.perBetUnit}
-                            orderState={orderData.transactionState}
+                            orderState={orderData}
                             {...this.props}
                         />
                         {/*<Text style={styles.orderLeftTxtStyle}>{orderData.betString }</Text>*/}
@@ -269,24 +269,11 @@ export default class TCUserOrderDetail extends BaseComponent {
 
     getOrderState(orderData) {
         switch (orderData.transactionState) {
-            case 'PENDING':
-                return '待开奖';
             case 'WIN':
-                return <Text style={{color: listViewTxtColor.redTip}}>中{orderData.winningAmount.toFixed(2)}元</Text>;
-            case 'LOSS':
-                return '未中奖';
-            case 'CANCELLED':
-                return '已取消';
-            case 'CO_SUB_WIP':
-                return '待开奖';
             case 'CO_SUB_WIN':
                 return <Text style={{color: listViewTxtColor.redTip}}>中{orderData.winningAmount.toFixed(2)}元</Text>;
-            case 'CO_SUB_LOSS':
-                return '未中奖';
-            case 'CO_COMPLETE':
-                return '追号完成';
-            case 'CO_IN_PROGRESS':
-                return '追号中';
+            default:
+                return orderData.transactionStateName
         }
     }
 

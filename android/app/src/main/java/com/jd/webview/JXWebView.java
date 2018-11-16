@@ -22,9 +22,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.jd.R;
+import com.jd.util.AndroidBug5497Workaround;
+import com.jd.util.KeyboardUtils;
 import com.jd.util.StatusBarUtils;
-import com.umeng.analytics.MobclickAgent;
-
 
 /**
  * Created by allen-jx on 2017/7/10.
@@ -66,12 +66,17 @@ public class JXWebView extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.jxwebview_layout);
-        StatusBarUtils.translucentStatusBar(this);
+        AndroidBug5497Workaround.assistActivity(this);
+        if (StatusBarUtils.hasNavigationBar(this)) {
+            StatusBarUtils.translucentStatusBar(this);
+        }
         imageView = (ImageView) findViewById(R.id.img_back);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                KeyboardUtils.toggleSoftInput( JXWebView.this);
                 JXWebView.this.finish();
             }
         });
@@ -142,7 +147,7 @@ public class JXWebView extends Activity {
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-               view.loadUrl(url);
+            view.loadUrl(url);
             if (Uri.parse(url).getHost().equals(host)) {
                 // This is my web site, so do not override; let my WebView load the page
                 return false;
@@ -225,17 +230,5 @@ public class JXWebView extends Activity {
             resources.updateConfiguration(configuration, resources.getDisplayMetrics());
         }
         return resources;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
     }
 }

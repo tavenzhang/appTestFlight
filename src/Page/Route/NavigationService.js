@@ -137,6 +137,7 @@ function pushToBetHome(data) {
         case 'HF_JXD11':
         case 'HF_SDD11':
         case 'HF_SHD11':
+        case 'HF_JSD11':
         case '山东11选5': {
             page = 'TCShangDong115BetHome';
         }

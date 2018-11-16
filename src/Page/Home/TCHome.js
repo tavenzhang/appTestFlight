@@ -59,6 +59,8 @@ import { getPopupAnnouncements } from './popupAnnouncements/JXPopupNoticeHelper'
 import JXHelper from '../../Common/JXHelper/JXHelper';
 import TCImage from '../../Common/View/image/TCImage';
 import HomeStore from '../../Data/store/HomeStore';
+import userStore from "../../Data/store/UserStore";
+import jdAppstore from "../../Data/store/JDAppStore";
 
 @inject('jdAppStore', 'initAppStore', 'mainStore', 'userStore')
 @observer
@@ -430,7 +432,7 @@ export default class TCHome extends Component {
                     }
                 });
             }
-            if (!this.homeStore.isFirstLoad) {
+            if (!this.homeStore.isFirstLoad && jdAppstore.getDefaultUserName() === null) {
                 this.homeStore.isFirstLoad = true;
                 this.homeStore.requestGameSetting();
             } else {
@@ -440,7 +442,7 @@ export default class TCHome extends Component {
         this.homeStore.getTopWinners();
     }
 
-    _pushToBetHomePage = rowData => {
+    _pushToBetHomePage = (rowData) => {
         if (rowData.gameUniqueId == 'more' || rowData.gameUniqueId == '更多玩法') {
             this.props.mainStore.changeTab('shoping');
             return;

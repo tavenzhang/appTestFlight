@@ -35,6 +35,7 @@ import TcWithdrawKeyBoard from './TCWithdrawKeyboardView'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import Moment from "moment";
 import UserWithdrawStore from "../../../Data/store/UserWithdrawStore";
+import JXHelper from "../../../Common/JXHelper/JXHelper";
 
 /**
  * 用户提现
@@ -119,7 +120,7 @@ export default class TCUserWithdrawNew extends Component {
                         }}>{this.getInfoTextView()}</Text>
                     </View>
                 </PercentageCircle>
-                {this.getTipView()}
+                {this.getCustomerService()}
             </View>
             {/* <TouchableOpacity onPress={() => this.gotoBankList()}>*/}
             <DefaultBankView bank={this.userWithdrawStore.bank}/>
@@ -149,6 +150,24 @@ export default class TCUserWithdrawNew extends Component {
         return null;
     }
 
+
+    getCustomerService() {
+        return (<View style={[styles.payTipView, {flexDirection: 'row', marginTop: 10}]}>
+            <Text style={styles.payTip}>如需更换银行卡，请联系</Text>
+            <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}}
+                              onPress={() => this.onlineService()}>
+                <Text style={[styles.payTip, {color: '#4292cd'}]}>在线客服</Text>
+            </TouchableOpacity>
+        </View>)
+    }
+
+
+    onlineService() {
+        let res = JXHelper.getMenuIconsUrl('CUS_SERVICE')
+        if (res) {
+            Helper.pushToWebView(res, '在线客服')
+        }
+    }
 
     /**
      * 获取默认银行卡

@@ -6,6 +6,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, TextInput, Platform} from 'react-native';
 import {common} from '../../../asset/images';
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../../resouce/theme';
+
 export default class TCUserOrderItemRow extends Component {
     constructor(props) {
         super(props);
@@ -111,22 +112,10 @@ export default class TCUserOrderItemRow extends Component {
 
     getOrderState(orderData) {
         switch (orderData.transactionState) {
-            case 'PENDING':
-                return '待开奖';
             case 'WIN':
                 return <Text style={{color: listViewTxtColor.redTip}}>中{orderData.winAmount.toFixed(2)}元</Text>;
-            case 'LOSS':
-                return '未中奖';
-            case 'CANCELLED':
-                return '已取消';
-            case 'CO_CANCELLED':
-                return '追号已取消';
-            case 'CO_COMPLETE':
-                return '追号完成';
-            case 'CO_CANCELLED':
-                return '追号已取消';
-            case 'CO_IN_PROGRESS':
-                return '追号中';
+            default:
+                return orderData.transactionStateName
         }
     }
 }

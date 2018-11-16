@@ -25,6 +25,7 @@ import JDAppStore from './JDAppStore'
 import InitAppStore from './InitAppStore'
 import messageStore from './UserMessageStore'
 import userCollectStore from './UserCollectStore'
+import HomeStore from './HomeStore'
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
 
@@ -35,6 +36,8 @@ let secretUtils = new SecretUtils()
  *用户数据管理
  */
 class UserStore {
+
+    homeStore = new HomeStore();
 
     //当前用户是否登录
     @observable isLogin = false;
@@ -262,7 +265,7 @@ class UserStore {
         this.updateUserOtherInfo();
         this.getCollects();
         this.getHttpVipInfo();
-
+        this.homeStore.requestGameSetting()
     }
 
     getCollects() {

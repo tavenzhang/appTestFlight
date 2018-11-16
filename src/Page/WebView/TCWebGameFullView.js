@@ -156,7 +156,7 @@ export default class TCWebGameFullView extends React.Component {
             <View style={styles.containView}>
                 <View style={{ height: stateBarH, backgroundColor: bgColor }} />
                 {conetView}
-                {gameData.gamePlatformType != 2 ? this.showTouchButtonView():null}
+                {gameData.gamePlatform !== 'bobo' ? this.showTouchButtonView():null}
             </View>
         );
     }
