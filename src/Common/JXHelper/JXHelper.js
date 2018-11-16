@@ -412,10 +412,17 @@ Helper.determineLocal = (bankCode) => {
 /** 获取开通的体育和电子平台链接 */
 Helper.getDSFOpenList = () => {
     let dsfInfos ={}
+
+    function filterSelfGamePlatformType(data) {
+        return _.filter(data,(platform) => {
+            return platform.gamePlatformType == 1
+        })
+    }
+
     if (TCHomeContents.content) {
-        let dsfEgameInfos = TCHomeContents.content.dsfEgameInfos
-        let dsfSportInfos = TCHomeContents.content.dsfSportInfos
-        let dsfCardInfos = TCHomeContents.content.dsfCardInfos
+        let dsfEgameInfos = filterSelfGamePlatformType(TCHomeContents.content.dsfEgameInfos)
+        let dsfSportInfos = filterSelfGamePlatformType(TCHomeContents.content.dsfSportInfos)
+        let dsfCardInfos = filterSelfGamePlatformType(TCHomeContents.content.dsfCardInfos)
         let array = []
         if(!_.isEmpty(dsfSportInfos)){
             array =[...array, ...dsfSportInfos]

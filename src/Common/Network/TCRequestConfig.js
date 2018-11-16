@@ -21,7 +21,7 @@ export const hotfixDeploymentKey = deploymentKey;
 
 export const appVersion = '1.0.1';
 
-export const versionHotFix = 'JD180409a';
+export const versionHotFix = 'JD181116a';
 
 export const AppName = MyAppName;
 
