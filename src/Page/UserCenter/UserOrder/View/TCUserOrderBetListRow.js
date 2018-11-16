@@ -27,14 +27,32 @@ export default class TCUserOrderBetListRow extends React.Component {
     }
 
     getOrderState(bonus) {
-        let { orderState } = this.props;
+        let {orderState} = this.props;
+
+        let {transactionState, transactionStateName} = this.props.orderState
+        JXLog("transactionState:", transactionState)
+        JXLog("transactionStateName:", transactionStateName)
+        switch (transactionState){
+            case 'WIN':
+                if (bonus !== 0) {
+                    return <Text style={{color: listViewTxtColor.redTip}}>中{bonus.toFixed(3)}元</Text>;
+                } else {
+                    return '未中奖';
+                }
+            case 'PENDING':
+            case 'LOSS':
+                return transactionStateName;
+            case 'CANCELLED':
+                return '已取消';
+        }
+
         if (orderState === 'PENDING') {
             return '待开奖';
         } else if (orderState === 'CANCELLED') {
             return '已取消';
         } else {
             if (bonus !== 0) {
-                return <Text style={{ color: listViewTxtColor.redTip }}>中{bonus.toFixed(3)}元</Text>;
+                return <Text style={{color: listViewTxtColor.redTip}}>中{bonus.toFixed(3)}元</Text>;
             } else {
                 return '未中奖';
             }

@@ -1,4 +1,4 @@
-import {TabNavigator , StackNavigator} from 'react-navigation';
+import {TabNavigator, StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
 import {UIManager, StatusBar, View} from 'react-native';
 import {Provider} from 'mobx-react'
@@ -81,6 +81,11 @@ import UserAliAndWechatPay from '../../Page/UserCenter/UserPay/TCUserAliAndWecha
 import UserHTMLPay from '../../Page/UserCenter/UserPay/TCUserHTMLPay'
 import UserPayProgress from '../../Page/UserCenter/UserPay/TCUserPayProgress'
 import UserAliPayAndWechatMessage from '../../Page/UserCenter/UserPay/TCUserAliPayAndWechatMessage'
+import WechatPublicPage from '../../Page/UserCenter/UserPay/WxPublic/TCUserPayWxPublic'
+import WechatPublicPay from '../../Page/UserCenter/UserPay/WxPublic/TCUserWXPublicPay'
+import FixedPage from '../../Page/UserCenter/UserPay/TCUserPayFixedPage'
+
+
 //代理中心
 import AgentCenter from '../../Page/UserCenter/Agent/AgentCenter/TCAgentCenter'
 import AgentAddAccount from '../../Page/UserCenter/Agent/TCAgentAddAccount'
@@ -103,11 +108,11 @@ import TCWebTrendView from "../WebView/TCWebTrendView";
 import rootStore from "../../Data/store/RootStore";
 
 const appStores = {
-    jdAppStore:rootStore.jdAppstore,
-    mainStore:rootStore.mainStore,
-    initAppStore:rootStore.initAppStore,
-    userStore:rootStore.userStore,
-    commonBoxStore:rootStore.commonBoxStore,
+    jdAppStore: rootStore.jdAppstore,
+    mainStore: rootStore.mainStore,
+    initAppStore: rootStore.initAppStore,
+    userStore: rootStore.userStore,
+    commonBoxStore: rootStore.commonBoxStore,
 }
 
 import TCUserOtherBetRecords from "../UserCenter/UserOrder/TCUserOtherBetRecords";
@@ -124,7 +129,7 @@ import TCUserStatementsType from "../UserCenter/Agent/UserSheets/TCUserStatement
 import TCUserStatements from "../UserCenter/Agent/UserSheets/TCUserStatements";
 
 import TabBarIcon from "../../Common/View/widget/TabBarIcon";
-import {home} from "../resouce/images";
+import {home} from "../asset/images";
 import {indexBgColor, indexTxtColor} from "../resouce/theme";
 //vip 奖励
 import TCVipAwardView from "../UserCenter/vip/TCVipAwardView";
@@ -225,10 +230,13 @@ const Components = {
     Wallet: viewRoutHelp(TCWallet),
     DZGameListView: viewRoutHelp(DZGameListView),
     TCWebGameView: viewRoutHelp(TCWebGameView),
-    WorldCup:viewRoutHelp(WorldCup),
-    TCVipAwardView:viewRoutHelp(TCVipAwardView),
-    TCVipHistoryView:viewRoutHelp(TCVipHistoryView),
-    TCWebGameFullView:viewRoutHelp(TCWebGameFullView),
+    WorldCup: viewRoutHelp(WorldCup),
+    TCVipAwardView: viewRoutHelp(TCVipAwardView),
+    TCVipHistoryView: viewRoutHelp(TCVipHistoryView),
+    TCWebGameFullView: viewRoutHelp(TCWebGameFullView),
+    WxPublicPage: viewRoutHelp(WechatPublicPage),
+    WxPublicPay: viewRoutHelp(WechatPublicPay),
+    FixedPage: viewRoutHelp(FixedPage)
 }
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
 for (let key in Components) {

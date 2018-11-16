@@ -26,7 +26,7 @@ import {
     userCenterTxtColor,
     width
 } from '../../resouce/theme';
-import {common} from '../../resouce/images';
+import {common} from '../../asset/images';
 import FeedBackStore from '../../../Data/store/FeedBackStore'
 
 

@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { agent } from '../../../../resouce/images';
+import { agent } from '../../../../asset/images';
 import { Size, indexBgColor, width, height, listViewTxtColor } from '../../../../resouce/theme';
 export default class TCAgentTeamListRow extends React.Component {
     constructor(state) {

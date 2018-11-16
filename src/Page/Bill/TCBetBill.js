@@ -40,7 +40,7 @@ import TCBetBillBottomView from './TCBetBillBottomView';
 import {config} from '../../Common/Network/TCRequestConfig';
 import NetUitls from '../../Common/Network/TCRequestUitls';
 import {betHome, indexBgColor, Size} from '../resouce/theme';
-import {betIcon} from '../resouce/images';
+import {betIcon} from '../asset/images';
 import JXHelpers from '../../Common/JXHelper/JXHelper';
 
 // 外部关系组件 如 页面跳转用

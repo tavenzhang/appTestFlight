@@ -1,7 +1,14 @@
 export  const Default_PayList = [
     {
+        "id": 63,
+        "name": "QQ支付",
+        "code": "QQ",
+        "position": 0,
+        "state": "START",
+    },
+    {
         "id": 29,
-        "name": "微信/QQ",
+        "name": "微信支付",
         "code": "WX",
         "position": 1,
         "state": "START",

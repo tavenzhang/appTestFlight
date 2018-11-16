@@ -23,7 +23,7 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import ModalDropdown from '../../../Common/View/ModalDropdown';
 import SegmentedControlTab from '../../../Common/View/SegmentedControlTab';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import {agent} from '../../resouce/images';
+import {agent} from '../../asset/images';
 import {
     agentCenter,
     baseColor,

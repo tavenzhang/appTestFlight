@@ -14,7 +14,7 @@ import {
     TextInput
 } from 'react-native';
 import Moment from 'moment'
-import {common} from '../../../resouce/images'
+import {common} from '../../../asset/images'
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../../resouce/theme'
 export  default  class TCUserPayAndWithdrawRowView extends Component {
 
@@ -53,31 +53,12 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
     }
 
     getType() {
-        let type = this.props.rowData.type
-        if (type === 'WITHDRAWAL') {
-            return '提现'
-        } else if (type === 'TOPUP') {
-            return '充值'
-        } else if (type == 'TOPUP_FOR_CANCEL_WITHDRAWAL') {
-            return '取消提现'
-        }
+        return this.props.rowData.typeChineseDisplay
+
     }
 
     getState() {
-        let state = this.props.rowData.state
-        if (state === 'INITIALIZED' || state === 'IN_PROGRESS' || state === 'LOCK') {
-            return '处理中'
-        } else if (state === 'COMPLETED') {
-            return '已完成'
-        } else if (state === 'AUTO_TOPUP_FAILED') {
-            return '审核中'
-        } else if (state === 'FAILED') {
-            return '失败'
-        } else if (state === 'CLOSE') {
-            return '关闭'
-        } else if (state === "REFUSE") {
-            return "拒绝出款"
-        }
+        return this.props.rowData.stateChineseDisplay
     }
 
     getBalance() {

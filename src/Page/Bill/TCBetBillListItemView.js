@@ -12,7 +12,7 @@ import {
     Image,
     Dimensions
 } from 'react-native';
-import {betIcon} from '../resouce/images'
+import {betIcon} from '../asset/images'
 import {Size, betHome, indexBgColor} from '../resouce/theme'
 
 export default class TCBetBillListItemView extends React.Component {

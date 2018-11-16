@@ -101,16 +101,9 @@ export default class UserPayTypeStore {
      * @param data
      */
     parseBankList(data) {
-        if (data.length > 0) {
-            for (var i = 0; data[i] != null; i++) {
-                let item = data[i]
-                if (item.bankCode === 'ZHB' || item.bankCode === 'WX' || item.bankCode === 'OTHER'|| item.bankCode === "JD") {
-                    this.payTansferList.push(item)
-                } else {
-                    this.bankList.push(item)
-                }
-            }
-        }
+        data.map(item => {
+            item.bankCode ? this.payTansferList.push(item) : this.bankList.push(item)
+        })
     }
 
     /**
@@ -125,7 +118,7 @@ export default class UserPayTypeStore {
         if (code === 'BANK') {
             return this.sortData(this.bankList)
         } else {
-            let payList = [];
+            let payList = []
             this.payTansferList.forEach((item) => {
                 let payType = item.type ? item.type : item.bankCode
                 if (payType === code) {
@@ -134,14 +127,15 @@ export default class UserPayTypeStore {
             })
             return this.sortData(payList);
         }
-    }
+}
 
 //排序
-    sortData(datas) {
-        let res = datas.sort((itemA, itemB) => {
-            return itemA.position - itemB.position;
-        })
-        return res;
-    }
+sortData(datas)
+{
+    let res = datas.sort((itemA, itemB) => {
+        return itemA.position - itemB.position;
+    })
+    return res;
+}
 
 }

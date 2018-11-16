@@ -11,7 +11,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import {common} from '../../resouce/images'
+import {common} from '../../asset/images'
 import {indexTxtColor, popuWinStyle, Size, titleBarStyle} from '../../resouce/theme'
 import {NavBarHeaderHeight} from "../../asset/screen";
 import {themeViewStyle} from "../../asset/theme";

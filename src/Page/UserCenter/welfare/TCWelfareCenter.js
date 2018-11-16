@@ -7,7 +7,7 @@ import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import {Other} from "../../asset";
-import {personal} from '../../resouce/images'
+import {personal} from '../../asset/images'
 import RedPacket from '../../red_packet/RedPacketData';
 
 let RedPacketData = new RedPacket();

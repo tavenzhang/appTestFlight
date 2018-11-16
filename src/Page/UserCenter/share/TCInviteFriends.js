@@ -8,7 +8,7 @@ import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import JXHelper from '../../../Common/JXHelper/JXHelper';
 import TCUserOpenPayApp from '../UserPay/TCUserOpenPayApp';
 import {observer} from "mobx-react/native";
-import {inviteFriends} from '../../resouce/images';
+import {inviteFriends} from '../../asset/images';
 import QRCode from 'react-native-qrcode';
 import Toast from "../../../Common/JXHelper/JXToast";
 import { MyAppName } from '../../resouce/appConfig';

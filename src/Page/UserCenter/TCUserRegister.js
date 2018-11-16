@@ -31,7 +31,7 @@ import JXHelpers from '../../Common/JXHelper/JXHelper'
 import UserRegisterStore from '../../Data/store/UserRegisterStore'
 
 
-import {common, personal} from '../resouce/images'
+import {common, personal} from '../asset/images'
 import {
     loginAndRegeisterBgColor,
     loginAndRegeisterTxtColor,

@@ -20,7 +20,7 @@ import {
     lotteryNumbStyle,
     listViewTxtColor
 } from '../../Page/resouce/theme';
-import {k3} from '../../Page/resouce/images';
+import {k3} from '../../Page/asset/images';
 import JXHelper from '../JXHelper/JXHelper'
 import {pk10Ball} from '../../Page/asset/pk10_ball/index'
 import TCImage from "./image/TCImage";

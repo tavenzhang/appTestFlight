@@ -14,7 +14,7 @@ import {
 } from 'react-native'
 import {Size, indexBgColor, listViewTxtColor, width, height} from '../../../resouce/theme'
 import TopNavigationBar from '../../../../Common/View/TCNavigationBar'
-import {agent} from '../../../resouce/images'
+import {agent} from '../../../asset/images'
 /**
  * 代理说明
  */

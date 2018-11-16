@@ -37,13 +37,13 @@ export default class MyComponent extends React.Component {
         needSetOdds: true
     };
 
-    pricesArray = [10, 100, 1000, 5000, 10000, 50000]; //快捷prices Array
+    pricesArray = [10, 50, 100, 200, 500, 1000, 5000, 10000, 50000]; //快捷prices Array
 
     render() {
         return (
             <Modal
                 isOpen={this.d.modalVisible}
-                style={{width: width - 60, height: 410, borderRadius: 8, backgroundColor: 'transparent'}}
+                style={{width: width - 60, height: 447, borderRadius: 8, backgroundColor: 'transparent'}}
                 position="center"
                 animationDuration={500}
                 backdropPressToClose={false}
@@ -94,6 +94,7 @@ export default class MyComponent extends React.Component {
 
                     {this.getPriceItems(0, 3)}
                     {this.getPriceItems(3, 6)}
+                    {this.getPriceItems(6, 9)}
 
                     <Text style={[styles.textStyle, {marginLeft: 20, marginTop: 10}]}>
                         注数: {this.d.numberOfUnits}注{' '}

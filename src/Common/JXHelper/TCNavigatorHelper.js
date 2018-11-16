@@ -7,6 +7,8 @@ import InitHelper from './TCInitHelper'
 import JXHelper from './JXHelper'
 import NavigationService from '../../Page/Route/NavigationService'
 import userStore from '../../Data/store/UserStore'
+import {JX_PLAT_INFO} from "../../Page/asset";
+import {Platform} from 'react-native'
 
 let initHelper = new InitHelper()
 export default class Helper {
@@ -57,7 +59,7 @@ Helper.pushToOrderType = (params) => {
     NavigationService.navigate("UserOrderType", params);
 }
 
-Helper.pushToOrderRecord = (orderType) => {
+Helper.pushToOrderRecord = (orderType = 0) => {
     NavigationService.navigate("UserOderRecord", {initPage: orderType});
 }
 
@@ -95,6 +97,90 @@ Helper.pushToUserTransferDetails = (params) => {
     NavigationService.navigate("UserTransferDetails", params);
 }
 
+// 首页自定义跳转
+Helper.homeGoFastAction= (data)=>{
+    const { content, menuName, menuIcon, menuType,remark} = data;
+    switch (menuType) {
+        case "ORIGINAL":
+            if (content === "TOPUP") {
+                RCTDeviceEventEmitter.emit('setSelectedTabNavigator', 'mine');
+            }
+            if (content === "BETHISTORY") {
+                Helper.pushToOrderType()
+            }
+            if (content === "ACTIVITIES") {
+                Helper.pushtoPromotion();
+            }
+            break;
+        case "LOTTERY":
+            Helper.pushToBetHome({gameUniqueId:content})
+            break;
+        case "LINKS":
+            if(remark === '1'){
+                Helper.pushToCustomService(content)
+            }else {
+                Helper.pushToWebView(content)
+            }
+            break;
+        case "DSF":
+            if (!Helper.checkUserWhetherLogin()) {
+                Helper.pushToUserLogin()
+                return
+            }
+            if (userStore.isGuest) {
+                Toast.showShortCenter(`试玩账号不能进行该游戏`);
+                return
+            }
+            let remarkData = JSON.parse(remark);
+            let item = {gamePlatform:content}
+            if (remarkData.category === "SPORT") {
+                // 第三方体育竞技
+                JX_NavHelp.pushView(JX_Compones.DZGameListView, { gameData: item,title: item.gameDescription});
+                return;
+            }
+            if (remarkData.category === "EGAME" ||
+                remarkData.category === "CARD"
+            ) {
+                // 第三方电子游戏和棋牌自己的 gamePlatformType: 2
+                if (remarkData.platformType === "2") {
+                    JX_NavHelp.pushView(JX_Compones.TCWebGameFullView,
+                        {
+                        touchLeft: 20,
+                        touchTop: JX_PLAT_INFO.SCREEN_H - 150,
+                        gameData: item,
+                        title: item.gameDescription,
+                        isDZ: item.gamePlatform == 'bobo'
+                    });
+                } else {
+                    JX_NavHelp.pushView(JX_Compones.DZGameListView, { gameData: item,title: item.gameDescription });
+                }
+            }
+            break;
+    }
+}
+
+
+Helper.getCusServiceUrl = ()=>{
+    if (TCHomeContents.content) {
+        let pcCusService = TCHomeContents.content.pcCusService;
+        return pcCusService
+    }
+    return null
+}
+
+
+// 在线客服
+Helper.pushToCustomService=(url)=>{
+    if (Platform.OS === 'ios') {
+        Helper.pushToWebView(url?url:JXHelper.getCusServiceUrl(), '在线客服');
+    } else {
+        try {
+            NativeModules.JXHelper.openWebViewFromJs(url?url:JXHelper.getCusServiceUrl());
+        } catch (e) {
+            Helper.pushToWebView(url?url:JXHelper.getCusServiceUrl(), '在线客服');
+        }
+    }
+}
 /**
  * 用户充值提现转账
  * @param accountType：0-提现， 1-充值， 2-转账
@@ -111,6 +197,10 @@ Helper.pushToPay = () => {
     NavigationService.navigate("UserPay");
 }
 
+Helper.pushToWxPublicPay = (params) => {
+    NavigationService.navigate("WxPublicPay", params)
+}
+
 Helper.pushtoPromotion = () => {
     NavigationService.navigate("TCPromotionList");
 }
@@ -118,9 +208,14 @@ Helper.pushtoPromotion = () => {
  * 根据充值类型跳转
  * @param params
  */
-Helper.pushToTopUp = (params) => {
-    NavigationService.navigate("UserPayment", params);
+// Helper.pushToTopUp = (params) => {
+//     NavigationService.navigate("UserPayment", params);
+// }
+
+Helper.pushToTopUp = (route, params) => {
+    NavigationService.navigate(route, params);
 }
+
 
 Helper.pushToAliAndWechatPay = (params) => {
     NavigationService.navigate("UserAliAndWechatPay", params);
@@ -136,6 +231,10 @@ Helper.pushToUserBankPayMessage = (params) => {
 
 Helper.pushToHTMLPay = (params) => {
     NavigationService.navigate("UserHTMLPay", params);
+}
+
+Helper.pushToFixedPage = (params) => {
+    NavigationService.navigate("FixedPage", params)
 }
 
 Helper.pushToUserPayProgress = (params) => {
@@ -360,14 +459,13 @@ Helper.pushToRedPacketRules = () => {
 }
 
 // 世界杯
-Helper.pushToWorldCup = ()=>{
+Helper.pushToWorldCup = () => {
     NavigationService.navigate("WorldCup");
 }
 
 Helper.isTopPage = () => {
     return false;
 }
-
 
 
 /**

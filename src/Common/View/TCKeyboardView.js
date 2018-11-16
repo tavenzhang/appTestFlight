@@ -15,7 +15,7 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import {common} from '../../Page/resouce/images'
+import {common} from '../../Page/asset/images'
 import {height, Size, width} from '../../Page/resouce/theme'
 import {StatusBarHeight, ScreenRatio} from "../../Page/asset/screen";
 

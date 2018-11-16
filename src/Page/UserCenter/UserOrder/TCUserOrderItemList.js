@@ -168,6 +168,7 @@ export default class TCUserOrderItemList extends Component {
     getRenderRow(rowData, sectionID, rowID) {
         if (this.props.isCO_DontOpen) {
             rowData.bettingAmount = rowData.bettingAmount * this.props.multiplier;
+            rowData.transactionStateName = this.orderInfo.transactionStateName;
         }
         return (
             <TouchableOpacity

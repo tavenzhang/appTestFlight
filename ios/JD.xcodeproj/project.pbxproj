@@ -77,7 +77,6 @@
 		22C777C0205613A000F8E8C6 /* NSIndexPath+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777A6205613A000F8E8C6 /* NSIndexPath+WTSafe.m */; };
 		22C777C1205613A000F8E8C6 /* NSMutableString+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777A7205613A000F8E8C6 /* NSMutableString+WTSafe.m */; };
 		22C777C2205613A000F8E8C6 /* NSMutableSet+WTSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777AB205613A000F8E8C6 /* NSMutableSet+WTSafe.m */; };
-		22C777C3205613A000F8E8C6 /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 22C777AC205613A000F8E8C6 /* README.markdown */; };
 		22C777C4205613A000F8E8C6 /* WTSafeGuard.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C777AD205613A000F8E8C6 /* WTSafeGuard.m */; };
 		3576D6A17B764AED97E496D4 /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDB05AC76D4417EA214E750 /* libRNBlur.a */; };
 		3D6C1CEA06914D12AF722723 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B5EC0E0DB94D17BC79308D /* libRNImagePicker.a */; };
@@ -1906,7 +1905,6 @@
 				FF3B36F6491C452BA7FB70DC /* Ionicons.ttf in Resources */,
 				986E07F2362541D0B1D8393A /* MaterialCommunityIcons.ttf in Resources */,
 				B405F30CA6CA47168A65F099 /* MaterialIcons.ttf in Resources */,
-				22C777C3205613A000F8E8C6 /* README.markdown in Resources */,
 				14816129B81D4E32A286FB07 /* Octicons.ttf in Resources */,
 				04900EE046A744B294DFDFC5 /* SimpleLineIcons.ttf in Resources */,
 				80E35BCD7BF0452AB94CB4BC /* Zocial.ttf in Resources */,
@@ -1928,7 +1926,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

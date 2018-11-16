@@ -10,6 +10,7 @@ import {
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 import {Size, width, height, indexBgColor, baseColor} from '../../resouce/theme'
+
 /**
  * 提示对话框
  */
@@ -28,6 +29,8 @@ export default class Dialog extends Component {
 
         return (
             <Modal
+                onRequestClose={() => {
+                }}
                 animationType='fade'
                 transparent={true}
                 visible={this.modalVisible}>

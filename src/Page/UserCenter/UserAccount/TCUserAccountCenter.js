@@ -12,7 +12,7 @@ import {
 import {Size, indexBgColor, listViewTxtColor} from '../../resouce/theme'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
-import {personal} from '../../resouce/images'
+import {personal} from '../../asset/images'
 import JXHelper from "../../../Common/JXHelper/JXHelper";
 
 /**

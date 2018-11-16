@@ -3,9 +3,14 @@ import {StatusBar, Platform} from 'react-native'
 // iPhoneX
 const X_WIDTH = 375;
 const X_HEIGHT = 812;
+const XR_WIDTH = 414;
+const XR_HEIGHT = 896;
+//iPhoneX 375 x 812
+//iPhone XR：414x896
+// iPhone XS Max:414x896
 const JX_IPHON_X = IS_IOS &&
-    ((SCREEN_H === X_HEIGHT && SCREEN_W === X_WIDTH) ||
-        (SCREEN_H === X_WIDTH && SCREEN_W === X_HEIGHT));
+    ((SCREEN_H === X_HEIGHT && SCREEN_W === X_WIDTH) || (SCREEN_H === X_WIDTH && SCREEN_W === X_HEIGHT)|| ((SCREEN_H === XR_HEIGHT && SCREEN_W === XR_WIDTH) ||
+            (SCREEN_H === XR_WIDTH && SCREEN_W === XR_HEIGHT)))
 
 /**
  * 手机状态栏高度

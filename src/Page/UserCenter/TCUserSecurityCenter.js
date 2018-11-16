@@ -13,7 +13,7 @@ import {
 import {Size, indexBgColor, listViewTxtColor} from '../resouce/theme'
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import Toast from '../../Common/JXHelper/JXToast';
-import {personal} from '../resouce/images'
+import {personal} from '../asset/images'
 import Helper from "../../Common/JXHelper/TCNavigatorHelper";
 import {observer, inject} from 'mobx-react'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'

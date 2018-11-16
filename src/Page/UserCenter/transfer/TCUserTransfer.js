@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {observer} from 'mobx-react/native'
 import ModalDropdown from 'react-native-modal-dropdown';
-import {userAccount} from '../../resouce/images';
+import {userAccount} from '../../asset/images';
 import {Other} from "../../asset";
 import {
     baseColor,

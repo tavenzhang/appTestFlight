@@ -18,7 +18,7 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import JXHelper from '../../../../Common/JXHelper/JXHelper'
 import NavigatorHelper from '../../../../Common/JXHelper/TCNavigatorHelper'
 import UserIcon from '../../../../Common/View/TCUserIcon'
-import {personal} from '../../../resouce/images'
+import {personal} from '../../../asset/images'
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../../resouce/theme'
 import Helper from "../../../../Common/JXHelper/TCNavigatorHelper";
 import userStore from '../../../../Data/store/UserStore'

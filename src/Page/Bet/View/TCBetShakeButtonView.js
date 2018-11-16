@@ -18,7 +18,7 @@ import {
 
 import  * as PlayMathConfig from '../../../Data/JXPlayMathConfig'
 
-import {betIcon} from '../../resouce/images'
+import {betIcon} from '../../asset/images'
 
 import {observer} from 'mobx-react/native';
 
