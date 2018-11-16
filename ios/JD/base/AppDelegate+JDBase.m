@@ -35,7 +35,7 @@ static Boolean  IsFirtReuest = YES;
   }
   return NO;
 }
-
+//暂时不用这种方式了
 - (void)rquestHttpData{
   NSArray *domainArray = [AppDelegate getBBQArray];
   NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
@@ -94,16 +94,8 @@ static Boolean  IsFirtReuest = YES;
 
 - (void)loadRootController{
   [WTSafeGuard startSafeGuardWithType:WTSafeGuardType_NilTarget| WTSafeGuardType_Foundation|WTSafeGuardType_KVO|WTSafeGuardType_Timer|WTSafeGuardType_MainThreadUI];
-//  if([JDNight isEqualToString:@"night"]){
-//    [self resetRootViewController:[self rootController]];
-//    return;
-//  }
-//  if(![self getLoadModel]){
-//    [self loadinit];
-//    [self resetRootViewController:[self rootController]];
-//  }else{
     self.isLoadForJS = YES;
-    [self rquestHttpData];
+   // [self rquestHttpData];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UIViewController *rootViewController = [UIViewController new];
     [self loadReactNativeController];
@@ -111,7 +103,7 @@ static Boolean  IsFirtReuest = YES;
     rootViewController.view.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
-  //}
+    [self JD_OtherSDKInit];
 }
 
 - (void)loadReactNativeController{
@@ -158,11 +150,13 @@ static Boolean  IsFirtReuest = YES;
 }
 
 - (void)JD_OtherSDKInit{
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSString *ukey = [defaults objectForKey:@"JD_ukey"];
-  NSString *tkey = [defaults objectForKey:@"JD_tkey"];
-  NSString *jkey = [defaults objectForKey:@"JD_jkey"];
-  NSString *bkey = [defaults objectForKey:@"JD_bkey"];
+  
+  NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
+  NSString *ukey = [tempInfoDict objectForKey:@"UmengKey"];
+  NSString *jkey  = [tempInfoDict objectForKey:@"JPushKey"];
+  NSString *channel = [tempInfoDict objectForKey:@"Channel"];
+  NSString *tkey = [tempInfoDict objectForKey:@"tkey"];
+  NSString *bkey = [tempInfoDict objectForKey:@"bkey"];
   // 极光推送
   if(![self isNotExist:jkey]){
     NSLog(@"JD_OtherSDKInit---value %d",![self isNotExist:jkey]);
@@ -175,17 +169,15 @@ static Boolean  IsFirtReuest = YES;
   // 友盟统计
   NSLog(@"JD_OtherSDKInit--ukey-%d",![self isNotExist:ukey]);
   if(![self isNotExist:ukey]){
-    NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
-    NSString *Chanel = [tempInfoDict objectForKey:@"Channel"];
     [UMConfigure setLogEnabled:YES];
-    [RNUMConfigure initWithAppkey:ukey channel:Chanel];
+    [RNUMConfigure initWithAppkey:ukey channel:channel];
   }
   //talkingData
     if(![self isNotExist:tkey]){
         [TalkingData sessionStarted:tkey withChannelId:@"AppStore"];
     }
   //腾讯bugly
-    if(![self isNotExist:tkey]){
+    if(![self isNotExist:bkey]){
       BuglyConfig * config = [[BuglyConfig alloc] init];
       config.reportLogLevel = BuglyLogLevelWarn;
       config.blockMonitorEnable = YES;
