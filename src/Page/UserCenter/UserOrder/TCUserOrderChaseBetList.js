@@ -81,7 +81,7 @@ export default class TCUserOrderItemList extends Component {
                         );
                     }}
                 />
-                {this.getBottomButton()}
+                {/*{this.getBottomButton()}*/}
             </View>
         );
     }
