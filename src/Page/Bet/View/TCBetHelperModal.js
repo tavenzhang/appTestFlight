@@ -19,7 +19,7 @@ import JXHelpers from '../../../Common/JXHelper/JXHelper'
 
 import Toast from '../../../Common/JXHelper/JXToast';
 import TCNavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
-import {betIcon} from '../../resouce/images'
+import {betIcon} from '../../asset/images'
 import {Size} from '../../resouce/theme'
 import {navbarHight} from '../../../Page/asset'
 import userCollectStore from '../../../Data/store/UserCollectStore'

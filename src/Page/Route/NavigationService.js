@@ -4,6 +4,7 @@
 import {NavigationActions} from 'react-navigation'
 import Helper from '../../Common/JXHelper/JXHelper'
 import Toast from '../../Common/JXHelper/JXToast'
+import NavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
 
 let _navigator;
 
@@ -136,6 +137,7 @@ function pushToBetHome(data) {
         case 'HF_JXD11':
         case 'HF_SDD11':
         case 'HF_SHD11':
+        case 'HF_JSD11':
         case '山东11选5': {
             page = 'TCShangDong115BetHome';
         }
@@ -182,6 +184,9 @@ function pushToBetHome(data) {
         case 'HF_JLK3':
         case 'HF_AHK3':
         case 'HF_GXK3':
+        case "HF_HBK3":
+        case "HF_GSK3":
+        case "HF_SHK3":
         case 'HF_JSK3':
         case 'HF_KUAI3': {
             page = 'TCK3BetHome';
@@ -195,6 +200,17 @@ function pushToBetHome(data) {
             page = 'TCXYFTBetHome';
             break
     }
+
+    if (data.gameUniqueId == 'more' || data.gameUniqueId == '更多玩法') {
+        this.props.mainStore.changeTab('shoping');
+        return;
+    }
+    //跳转到PCDD
+    if (data.gameUniqueId == 'PCDD' || data.gameNameInChinese == 'PC蛋蛋') {
+        NavigatorHelper.gotoPCDD(this.props.cpArray);
+        return;
+    }
+
     let model = Helper.getGameInfoWithUniqueId(data.gameUniqueId)
     if (!model || !model.status || model.status != 'NORMAL') {
         Toast.showShortCenter('该玩法维护中暂停开放');

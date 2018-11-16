@@ -8,7 +8,7 @@ import { AppRegistry, StyleSheet, Text, View, TouchableHighlight, Image } from '
 import NumbersView from '../../../Common/View/TCLotteryNumbersView';
 import JXHelper from '../../../Common/JXHelper/JXHelper';
 import { width, indexBgColor, lotteryTxtColor, lotterBgColor, Size } from '../../resouce/theme';
-import { common } from '../../resouce/images';
+import { common } from '../../asset/images';
 
 export default class TCLotteryLobbyRowView extends React.Component {
     constructor(state) {

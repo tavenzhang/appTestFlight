@@ -35,7 +35,7 @@ import NetUtils from '../../Common/Network/TCRequestUitls'
 import {config, versionHotFix} from '../../Common/Network/TCRequestConfig';
 import JXHelpers from '../../Common/JXHelper/JXHelper'
 import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
-import {personal} from '../resouce/images'
+import {personal} from '../asset/images'
 
 @inject("initAppStore", "jdAppStore", "userStore", "mainStore")
 @observer

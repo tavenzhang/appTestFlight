@@ -118,10 +118,10 @@ export default class TCUserOrderSelectPage extends Component {
     }
 
     getNoDataTip() {
-        if (this.props.initPage === 0 || this.selectIndex === -1) {
+        if (this.initPage === 0 || this.selectIndex === -1) {
             return '暂无投注记录';
         } else {
-            return '暂无' + this.initialMessageType()[this.props.initPage] + '记录';
+            return '暂无' + this.initialMessageType()[this.initPage] + '记录';
         }
     }
 
@@ -164,6 +164,7 @@ export default class TCUserOrderSelectPage extends Component {
             nodataView._setTitle('暂无' + this.initialMessageType()[index] + '记录');
         }
         this.selectIndex = index;
+        this.initPage = index;
         this.updateData();
     }
 

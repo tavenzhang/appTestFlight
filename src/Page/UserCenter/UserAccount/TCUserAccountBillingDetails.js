@@ -36,7 +36,7 @@ export default class TCUserAccountBillingDetails extends Component {
     }
 
     render() {
-        let {crossReferenceId, transactionId, subType, notes, remarks} = this.props.orderData
+        let {crossReferenceId, transactionId, subType, notes, remarks, balance} = this.props.orderData
         let orderId = crossReferenceId ? crossReferenceId : transactionId
         return (
             <View style={styles.container}>
@@ -73,9 +73,9 @@ export default class TCUserAccountBillingDetails extends Component {
                         <Text style={styles.itemTitleStyle}>收入：</Text>
                         {this.props.isPayAndWithdrawRecord ? this.getPayAndWithdrawMoney() : this.getAccountBalance()}
                     </View>
-                    {
-                        this.getRemarks(notes, remarks)
-                    }
+
+                    { this.getBalance(balance) }
+
                     {this.props.isPayAndWithdrawRecord ? (<View style={styles.itemStyle}>
                         <Text style={styles.itemTitleStyle}>支付方式：</Text>
                         <Text style={styles.itemContentStyle}>{this.getPayType()}</Text>
@@ -86,7 +86,9 @@ export default class TCUserAccountBillingDetails extends Component {
                         <Text
                             style={styles.itemContentStyle}>{this.props.isPayAndWithdrawRecord ? this.getTime() : this.props.orderData.processTime}</Text>
                     </View>
-
+                    {
+                        this.getRemarks(notes, remarks)
+                    }
                 </View>
                 {
                     this.hasOrderDetail() &&
@@ -99,6 +101,16 @@ export default class TCUserAccountBillingDetails extends Component {
 
     };
 
+    getBalance(balance) {
+        if (balance) {
+            return (
+                <View style={styles.itemStyle}>
+                    <Text style={styles.itemTitleStyle}>余额：</Text>
+                    <Text style={styles.itemContentStyle}>{this.props.orderData.balance.toFixed(2)}元</Text>
+                </View>
+            )
+        }
+    }
 
     getRemarks(notes, remarks) {
         if (notes || remarks) {

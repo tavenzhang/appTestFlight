@@ -13,7 +13,7 @@ import {
     Image,
     TextInput
 } from 'react-native';
-import {common} from '../../../resouce/images'
+import {common} from '../../../asset/images'
 import {Size, width, height, indexBgColor, listViewTxtColor} from '../../../resouce/theme'
 export  default  class TCUserAccountRowView extends Component {
 
@@ -33,7 +33,7 @@ export  default  class TCUserAccountRowView extends Component {
                 <View style={styles.itemStyle}>
                     <View style={styles.itemLeftStyle}>
                         <Text style={styles.itemTitle}>{this.props.rowData.type}</Text>
-                        {/* <Text style={styles.itemContent}>余额：￥5.00</Text>TCUserAccountAllPage*/}
+                        <Text style={styles.itemContent}>余额：{this.props.rowData.balance.toFixed(2)}元</Text>
                     </View>
                     <View style={styles.itemRightStyle}>
                         <Text style={styles.itemTitle}>{this.getBalance()} 元</Text>

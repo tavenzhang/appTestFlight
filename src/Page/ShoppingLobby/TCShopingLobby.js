@@ -19,7 +19,7 @@ import LotteryResultData from '../../Data/JXLotteryResultData';
 
 import {Size, height, width, shoppingTxtColor, indexBgColor} from '../resouce/theme';
 import {JX_PLAT_INFO, bottomNavHeight} from '../asset'
-import {common} from '../resouce/images';
+import {common} from '../asset/images';
 import {TC_LayoutAnimaton} from "../../Common/View/layoutAnimation/LayoutAnimaton";
 
 

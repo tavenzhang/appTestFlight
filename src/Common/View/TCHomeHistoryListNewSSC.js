@@ -16,7 +16,7 @@ import {
 
 import TCListRowView from './TCLottertHistoryListRowView'
 import {Size, width, indexBgColor, listViewTxtColor} from '../../Page/resouce/theme'
-import {betIcon} from '../../Page/resouce/images'
+import {betIcon} from '../../Page/asset/images'
 import NavigatorHelper from '../JXHelper/TCNavigatorHelper'
 import JXLotteryHistoryData from '../../Data/JXLotteryHistoryData'
 import TCFlatList from "./RefreshListView/TCFLatList";

@@ -26,7 +26,7 @@ import dismissKeyboard from 'dismissKeyboard'
 
 /** 外部关系组件 如 页面跳转用 */
 var JXHelper = require('../../../Common/JXHelper/JXHelper')
-import {IntelligenceBet, agent} from '../../resouce/images'
+import {IntelligenceBet, agent} from '../../asset/images'
 import {Size, width, height} from '../../resouce/theme'
 import NumberOnlyInputText from "../../../Common/View/NumberOnlyInputText";
 

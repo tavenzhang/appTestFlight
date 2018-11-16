@@ -7,6 +7,7 @@
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import {observable, action} from 'mobx';
+import {getNumWithAnimal} from "../Page/Bet/AllPlayingMethodView/MarkSix/data/MarkSixNum2AnimalHelper";
 
 /** 外部关系组件 如 页面跳转用 */
 
@@ -58,7 +59,8 @@ class JXUserPlayNumberEvent {
     }
 
 
-    qdxdsqPressCallBack = (areaIndex, type, isCancel) => {
+
+    qdxdsqPressCallBack = (areaIndex, type, isCancel,shengXiao) => {
         let qdxdsqArr = this.SingletonDPS.addQDXDSQToUnAddedArr(type, areaIndex);
         if (type === '清') {
             RCTDeviceEventEmitter.emit('qdxds_NumberCall_clear', areaIndex);
@@ -69,7 +71,19 @@ class JXUserPlayNumberEvent {
                 RCTDeviceEventEmitter.emit('qdxds_NumberCall_clear', areaIndex);
                 this.SingletonDPS.resetUnAddedSelectedNumbersWithIndex(areaIndex);
             }
+            if(type=="生肖"){
+                if(shengXiao){
+                    let dataList=shengXiao.split(",")
+                    let resultStr ="";
+                    for (let item of dataList){
+                        resultStr+=getNumWithAnimal(item)+",";
+                    }
+                    resultStr = resultStr ? resultStr:""
+                    qdxdsqArr = resultStr.split(",");
+                }
+            }else{
 
+            }
             for (let i = 0, len = qdxdsqArr.length; i < len; i++) {
                 let num = qdxdsqArr[i];
                 RCTDeviceEventEmitter.emit('randomSelectedNumber', areaIndex, num, true, isCancel);
@@ -79,6 +93,7 @@ class JXUserPlayNumberEvent {
                     this.SingletonDPS.addToUnAddedNumbersByIndex(areaIndex, num);
                 }
             }
+
         }
 
         this.userNumberCallBackRefresh();

@@ -81,27 +81,24 @@ export default class TCUserOrderItemList extends Component {
                         );
                     }}
                 />
-                {this.getBottomButton()}
+                {/*{this.getBottomButton()}*/}
             </View>
         );
     }
 
     getBottomButton() {
-        if (this.stateModel.transactionState != 'PENDING') {
+        if (this.stateModel.transactionState != 'CO_IN_PROGRESS') {
             return;
         }
-        // return (<View style={styles.bottomStyle}>
-        //     <TouchableOpacity
-        //         style={styles.bottomBarButtonStyle}
-        //         onPress={()=> {
-        //             this.alertToCancel()
-        //         }}
-        //     >
-        //         <Text style={{color: buttonStyle.btnTxtColor, fontWeight: 'bold', fontSize: Size.default}}>
-        //             取消投注
-        //         </Text>
-        //     </TouchableOpacity>
-        // </View>)
+        return (<View style={styles.bottomStyle}>
+            <TouchableOpacity
+                style={styles.bottomBarButtonStyle}
+                onPress={() => {
+                    this.alertToCancel()
+                }}
+            ><Text style={{color: buttonStyle.btnTxtColor, fontWeight: 'bold', fontSize: Size.default}}>取消投注</Text>
+            </TouchableOpacity>
+        </View>)
     }
 
     alertToCancel() {
@@ -142,6 +139,7 @@ export default class TCUserOrderItemList extends Component {
                     Toast.showShortCenter('撤单成功');
                     var refreshListView = this.refs.refreshListView;
                     refreshListView._updateData();
+                    Helper.popToBack();
                 } else {
                     let toastString = '撤销订单失败，请检查网络后重试';
                     if (data.message) {
@@ -177,7 +175,7 @@ export default class TCUserOrderItemList extends Component {
         let transactionTimeuuid = '';
         let isCO_DontOpen = false;
         let subTransactionTimeuuid = null;
-        if (rowData.childOrderState === 'CO_SUB_WIP' || rowData.childOrderState === 'CO_SUB_CANCELLED') {
+        if (rowData.childOrderState === 'CO_SUB_WIP' || rowData.childOrderState === 'CO_SUB_CANCELLED'|| rowData.childOrderState === 'CO_SUB_CANCELLED_MANUAL') {
             transactionTimeuuid = this.props.transactionTimeuuid;
             subTransactionTimeuuid = rowData.transactionTimeuuid;
             isCO_DontOpen = true;

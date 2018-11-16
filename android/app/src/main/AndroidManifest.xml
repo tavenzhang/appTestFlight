@@ -19,6 +19,7 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+        <meta-data android:name="android.max_aspect" android:value="2.1" />
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
@@ -32,7 +33,9 @@
         </activity>
         <activity
             android:name=".webview.JXWebView"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            />
         <activity
             android:name=".webview.JXGameWebView"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"

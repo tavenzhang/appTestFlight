@@ -2,7 +2,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {listViewTxtColor, Size, width} from "../../../resouce/theme";
-import {common as Common} from "../../../resouce/images";
+import {common as Common} from "../../../asset/images";
 import {Other} from "../../../asset/drawable";
 import NavigatorHelper from "../../../../Common/JXHelper/TCNavigatorHelper";
 import TopNavigationBar from '../../../../Common/View/TCNavigationBar';

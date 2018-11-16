@@ -9,7 +9,7 @@ import {
     Image,
     Platform
 } from 'react-native'
-import {userPay} from '../../resouce/images'
+import {userPay} from '../../asset/images'
 import {Size, width, height, listViewTxtColor, indexBgColor} from '../../resouce/theme'
 
 /**

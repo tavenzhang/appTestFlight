@@ -1,9 +1,10 @@
 import React, {Component,} from 'react'
 import {
     View,
+    StyleSheet,
     Linking,
     NativeModules,
-    Text,
+    Text
 } from 'react-native'
 
 import {inject, observer} from 'mobx-react/native'
@@ -16,7 +17,6 @@ import {config} from "../../Common/Network/TCRequestConfig";
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import JDToast from "../../Common/JXHelper/JXToast";
 import {JX_PLAT_INFO} from "../asset/screen";
-
 /**
  *电子游戏
  */
@@ -93,100 +93,72 @@ export default class DZGameListView extends Component {
     }
 
 
+
     onClickItem = (dataItem) => {
-        let {gameData} = this.props;
-        if (IS_IOS) {
+        let {gameData} = this.props.navigation.state.params;
+        if(JX_PLAT_INFO.IS_IOS){
             if (gameData.gamePlatform === "MG") {
                 this.onNativeGamePlay(dataItem)
-            } else {//ios 的开源棋牌 使用内置webView 播放
+            }else{//ios 的开源棋牌 使用内置webView 播放
                 //由于MG平台的游戏 需要横屏 做特殊处理 "FG" 需要修改原生agent
-                if (gameData.gamePlatform === "FG" && !NativeModules.JXHelper.regIosDefaultData) {
+                if(gameData.gamePlatform === "FG"&&(NativeModules&&NativeModules.JXHelper&&!NativeModules.JXHelper.regIosDefaultData)){
                     this.onNativeGamePlay(dataItem)
-                } else {
-                    this.onPushGameFullView(dataItem, gameData);
+                }else{
+                    this.onPushGameFullView(dataItem,gameData);
                 }
             }
-        } else {
+        }else {
             if (gameData.gamePlatform === "MG" || gameData.gamePlatform === "FG" || gameData.gamePlatform === "KY") {
                 this.onNativeGamePlay(dataItem)
-            } else {
+            }else{
                 //使用内置webView 播放
-                this.onPushGameFullView(dataItem, gameData);
+                this.onPushGameFullView(dataItem,gameData);
             }
         }
 
     }
 
-    onNativeGamePlay = (dataItem) => {
-        let {gameData} = this.props
+
+    onNativeGamePlay=(dataItem)=> {
+        let {gameData} = this.props.navigation.state.params
         let bodyParam = {
             gameId: dataItem.gameId,
         }
         let url = config.api.gamesDZ_start + "/" + dataItem.gameId;
-        NetUitls.getUrlAndParamsAndPlatformAndCallback(url, bodyParam, gameData.gamePlatform, (ret) => {
-            // JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
-            if (ret.rs) {
-                if (JX_PLAT_INFO.IS_IOS) {
-                    Linking.openURL(ret.content.gameUrl);
-                } else {
-                    if (NativeModules.JXHelper.openGameWebViewFromJs) {
-                        NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name, gameData.gamePlatform);
-                    } else {
+        if (!this.isReuesting) {
+            this.isReuesting = true;
+            NetUitls.getUrlAndParamsAndPlatformAndCallback(url, bodyParam, gameData.gamePlatform, (ret) => {
+                this.isReuesting = false
+                // JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
+                if (ret.rs) {
+                    if (JX_PLAT_INFO.IS_IOS) {
                         Linking.openURL(ret.content.gameUrl);
+                    } else {
+                        if (NativeModules.JXHelper.openGamePageFromJs) {
+                            NativeModules.JXHelper.openGamePageFromJs(ret.content.gameUrl, dataItem.name, gameData.gamePlatform);
+                        } else if (NativeModules.JXHelper.openGameWebViewFromJs) {
+                            NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name);
+                        } else {
+                            Linking.openURL(ret.content.gameUrl);
+                        }
                     }
+                } else {
+                    JDToast.showLongCenter(ret.message);
                 }
-            } else {
-                JDToast.showLongCenter(ret.message)
-            }
-        }, null, null, {})
+            })
+        }
     }
 
-
-    //
-    // onNativeGamePlay = (dataItem) => {
-    //     //JX_NavHelp.pushView(JX_Compones.TCWebGameView,{gameId:dataItem.gameId,gameData,isDZ:true,title:dataItem.name})
-    //     let {gameData} = this.props.navigation.state.params
-    //     let bodyParam = {
-    //         gameId: dataItem.gameId,
-    //     }
-    //     let url = config.api.gamesDZ_start + "/" + dataItem.gameId;
-    //     if (gameData.gamePlatform === "MG" || gameData.gamePlatform === "FG" ||gameData.gamePlatform === "KY") { //由于MG平台的游戏 需要横屏 做特殊处理 "FG" 需要修改原生agent
-    //         NetUitls.getUrlAndParamsAndPlatformAndCallback(url, bodyParam, gameData.gamePlatform, (ret) => {
-    //             JXLog("DZGameListView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
-    //             if (ret.rs) {
-    //                 if (IS_IOS) {
-    //                     Linking.openURL(ret.content.gameUrl);
-    //                 } else {
-    //                     if(gameData.gamePlatform === "MG" || gameData.gamePlatform === "FG")
-    //                     {
-    //                         if (NativeModules.JXHelper.openGameWebViewFromJs) {
-    //                             NativeModules.JXHelper.openGameWebViewFromJs(ret.content.gameUrl, dataItem.name, gameData.gamePlatform);
-    //                         } else {
-    //                             Linking.openURL(ret.content.gameUrl);
-    //                         }
-    //                     }else{
-    //                         this.onPushGameFullView(dataItem,gameData);
-    //                     }
-    //                 }
-    //             } else {
-    //                 JDToast.showLongCenter(ret.message)
-    //             }
-    //         },null,null,{})
-    //     } else {
-    //         this.onPushGameFullView(dataItem, gameData);
-    //     }
-    // }
-
-
     onPushGameFullView = (dataItem, gameData) => {
-        let gameBgColor = "black";
-        switch (gameData.gamePlatform) {
+        let gameBgColor="black";
+        switch (gameData.gamePlatform){
             case "KY":
-                gameBgColor = "rgb(14,5,36)";
+                gameBgColor="rgb(14,5,36)";
                 break;
             default:
-                gameBgColor = "black";
+                gameBgColor="black";
         }
+
 
         JX_NavHelp.pushView(JX_Compones.TCWebGameFullView, {
             gameId: dataItem.gameId,
@@ -198,5 +170,7 @@ export default class DZGameListView extends Component {
             gameBgColor
         })
     }
+
+
 }
 

@@ -18,7 +18,7 @@ import {observer} from 'mobx-react/native';
 /**系统 npm类 */
 
 /**组件内部显示需要引入的类 */
-import {IntelligenceBet} from '../../resouce/images'
+import {IntelligenceBet} from '../../asset/images'
 import {baseColor, betHome, Size} from "../../resouce/theme";
 import NumberOnlyInputText from "../../../Common/View/NumberOnlyInputText";
 

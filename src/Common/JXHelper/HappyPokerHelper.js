@@ -15,7 +15,7 @@ import {
 let BLACK = '1', RED = '2', FLOWER = '3', FK = '4'
 let A = '01', J = '11', Q = '12', K = '13'
 
-import {xypk} from '../../Page/resouce/images'
+import {xypk} from '../../Page/asset/images'
 import {betHome,indexBgColor} from '../../Page/resouce/theme'
 /**
  * 提示对话框

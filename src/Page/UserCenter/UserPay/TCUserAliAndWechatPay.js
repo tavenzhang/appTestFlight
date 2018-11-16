@@ -131,13 +131,15 @@ export default class TCUserAliAndWechatPay extends Component {
                 return '支付宝充值'
             case 'JD':
                 return '京东充值'
+            case 'QQ':
+                return 'QQ充值'
             case 'OTHER':
                 return '其他充值'
         }
     }
 
     isQQpay() {
-        return (this.props.merchantName.indexOf('Q') != -1 || this.props.merchantName.indexOf('q') != -1)
+        return /qq/i.test(this.props.merchantName);
     }
 
     getPayType() {
@@ -148,6 +150,8 @@ export default class TCUserAliAndWechatPay extends Component {
                 return '支付宝'
             case 'JD':
                 return '京东'
+            case 'QQ':
+                return 'QQ'
             case 'OTHER':
                 return '其他支付'
         }
@@ -177,6 +181,8 @@ export default class TCUserAliAndWechatPay extends Component {
                 }
             }
                 break
+            case 'QQ':
+                userOpenPayApp.openQQ();
             case 'JD':
                 userOpenPayApp.openJD()
                 break;
