@@ -41,8 +41,8 @@ export default class HomeStore {
         if (data.content.announcements && data.content.announcements.length > 0) {
             content.noticeData = data.content.announcements;
         }
-        if (data.content.menuIcons && data.content.menuIcons.length > 0) {
-            content.menuIcons = data.content.menuIcons;
+        if (data.content.menuIconsV2 && data.content.menuIconsV2.length > 0) {
+            content.menuIcons = data.content.menuIconsV2;
         }
         if (data.content.gameInfosHot && data.content.gameInfosHot.length > 0) {
             content.gameInfosHot = data.content.gameInfosHot;

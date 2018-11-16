@@ -51,8 +51,10 @@ export default class MyComponent extends Component {
     getItemsView() {
         let itemsArray = []
         for (let i = 0; i < 4; i++) {
-            itemsArray.push(<MyComponent2 key={i} rowData={this.props.rowData[i]} url={this.props.rowData[i].iconUrl}
-                                          title={this.props.rowData[i].nameInChinese}
+            itemsArray.push(<MyComponent2 key={i}
+                                          rowData={this.props.rowData[i]}
+                                          url={this.props.rowData[i].menuIcon ? this.props.rowData[i].menuIcon : ""}
+                                          title={this.props.rowData[i].menuName}
                                           color={colorArray[i]} pushToEvent={this.props.pushToEvent}/>)
         }
         return itemsArray
@@ -87,29 +89,14 @@ export class MyComponent2 extends React.Component {
     }
 
     getImage() {
-        let img = homeMenu[this.props.rowData.type];
-        if (this.checkDSFOpen() && this.props.rowData.type == 'ORDER') {
-            img = Other.worldCup.homeEntrance;
-        }
         return (
-            <FastImage source={img} style={{width: 55, height: 55}} resizeMode={'contain'}/>
+            <FastImage source={{uri:this.props.url}} style={{width: 55, height: 55}} resizeMode={'contain'}/>
         );
     }
 
     getTitle() {
         let title = this.props.title;
-        if (this.checkDSFOpen() && this.props.rowData.type == 'ORDER') {
-            title = '2018世界杯';
-        }
         return <Text style={{ fontSize: Size.font14, marginTop: 2, color: this.props.color }}>{title}</Text>;
-    }
-
-    checkDSFOpen() {
-        let otherPlatform = JXHelper.getDSFOpenList().dsfSportInfos;
-        if (otherPlatform && otherPlatform.length > 0) {
-            return true;
-        }
-        return false;
     }
 }
 

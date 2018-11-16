@@ -4,6 +4,7 @@
 import {NavigationActions} from 'react-navigation'
 import Helper from '../../Common/JXHelper/JXHelper'
 import Toast from '../../Common/JXHelper/JXToast'
+import NavigatorHelper from "../../Common/JXHelper/TCNavigatorHelper";
 
 let _navigator;
 
@@ -198,6 +199,17 @@ function pushToBetHome(data) {
             page = 'TCXYFTBetHome';
             break
     }
+
+    if (data.gameUniqueId == 'more' || data.gameUniqueId == '更多玩法') {
+        this.props.mainStore.changeTab('shoping');
+        return;
+    }
+    //跳转到PCDD
+    if (data.gameUniqueId == 'PCDD' || data.gameNameInChinese == 'PC蛋蛋') {
+        NavigatorHelper.gotoPCDD(this.props.cpArray);
+        return;
+    }
+
     let model = Helper.getGameInfoWithUniqueId(data.gameUniqueId)
     if (!model || !model.status || model.status != 'NORMAL') {
         Toast.showShortCenter('该玩法维护中暂停开放');

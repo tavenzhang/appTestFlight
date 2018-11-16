@@ -13,6 +13,7 @@ import TCTouchMoveButton from '../../Common/View/button/TCTouchMoveButton';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import TCImage from '../../Common/View/image/TCImage';
 import _ from 'lodash';
+import UserStore from "../../Data/store/UserStore";
 
 let MyDefaultColor = 'black';
 //专门为体育电子准备
@@ -34,13 +35,16 @@ export default class TCWebGameFullView extends React.Component {
         };
 
         //自己的游戏特殊处理
-        if (gameData.gamePlatformType == 2) {
+        JXLog('gameData'+JSON.stringify(gameData))
+
+        if (gameData.gamePlatform === 'bobo' || gameData.gamePlatformType == 2) {
             StatusBar.setHidden(true);
             NetUitls.getUrlAndParamsAndCallback(
                 config.api.getInternalStartGame,
                 {
                     platformCode: gameData.gamePlatform,
                     clientId: appId,
+                    token: UserStore.access_token
                 },
                 ret => {
                     if (ret.rs) {
