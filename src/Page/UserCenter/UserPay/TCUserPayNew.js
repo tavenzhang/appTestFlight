@@ -167,6 +167,10 @@ export default class TCUserPayNew extends Component {
     }
 
     getBankTypeView(rowData) {
+        if (!rowData.bankType) {
+            return null;
+        }
+
         if (rowData.bankType.length === 2) {
             return (<View style={{flexDirection: 'row'}}>
                 <TCButtonView text="储蓄卡" btnStyle={{marginHorizontal: 5}}
