@@ -15,12 +15,18 @@
 #import <Bugly/Bugly.h>
 #import "AppDelegate+JDBase.h"
 #import <React/RCTBundleURLProvider.h>
-#import <React/RCTRootView.h>
+#import <React/RCTRootView.h>z
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+     entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
+     [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+[JPUSHService setupWithOption:launchOptions appKey:@""
+                    channel:nil apsForProduction:true];
   self.launchOptions = launchOptions;
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   [self loadRootController];

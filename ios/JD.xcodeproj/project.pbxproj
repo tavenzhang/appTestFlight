@@ -100,6 +100,7 @@
 		CF3412EF16E9446BA84C0650 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B9953CD027E480394927450 /* libRNFetchBlob.a */; };
 		DD11A6F2FC184BC79F682084 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34BED4ADF48C4F54B43D2376 /* libRNVectorIcons.a */; };
 		E1171ADBA51543C28FD82AC8 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D1185E4A41B4A59AAD4C30A /* FontAwesome.ttf */; };
+		E63B045BB1044542B1E19868 /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00DCDAD97348FBA1723627 /* libimageCropPicker.a */; };
 		EC8B7B52F39E44309A882805 /* libRNToastNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5AF657970694A0285F230D6 /* libRNToastNative.a */; };
 		FE512CAC7332430E9D4EAD39 /* libInteractable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0583A08499AA41888C73EC10 /* libInteractable.a */; };
 		FF3B36F6491C452BA7FB70DC /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6B22378FA494520987A8C30 /* Ionicons.ttf */; };
@@ -505,6 +506,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		953248E921A7E2B7002B6ABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2B317ED6FE694DD38D11B1DE /* imageCropPicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3400A8081CEB54A6008A0BC7;
+			remoteInfo = imageCropPicker;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -634,6 +642,7 @@
 		22C777AB205613A000F8E8C6 /* NSMutableSet+WTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableSet+WTSafe.m"; sourceTree = "<group>"; };
 		22C777AC205613A000F8E8C6 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		22C777AD205613A000F8E8C6 /* WTSafeGuard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSafeGuard.m; sourceTree = "<group>"; };
+		2B317ED6FE694DD38D11B1DE /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = imageCropPicker.xcodeproj; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		32E8375E70194921AF195406 /* libFastImage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libFastImage.a; sourceTree = "<group>"; };
 		34BED4ADF48C4F54B43D2376 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
@@ -664,6 +673,7 @@
 		B865BAA8F48A48F5A5082F52 /* libRNViewShot.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNViewShot.a; sourceTree = "<group>"; };
 		C2E0334F52304C5BB785B075 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		C72C822F9CE64FB08CA129D8 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
+		CC00DCDAD97348FBA1723627 /* libimageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libimageCropPicker.a; sourceTree = "<group>"; };
 		CD6E4632B66647C89D113E19 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		D02087C348C0478E8D19424E /* FastImage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = FastImage.xcodeproj; path = "../node_modules/react-native-fast-image/ios/FastImage.xcodeproj"; sourceTree = "<group>"; };
 		D591A46029CC4988A5EA0B3A /* Interactable.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Interactable.xcodeproj; path = "../node_modules/react-native-interactable/ios/Interactable.xcodeproj"; sourceTree = "<group>"; };
@@ -729,6 +739,7 @@
 				C3164721FC0749E089E9FCC2 /* libCodePush.a in Frameworks */,
 				4CBDC3B7E5C14F3F8733DD36 /* libRNShakeEvent.a in Frameworks */,
 				EC8B7B52F39E44309A882805 /* libRNToastNative.a in Frameworks */,
+				E63B045BB1044542B1E19868 /* libimageCropPicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -890,6 +901,7 @@
 				6F4DAF2C9D3A4433870383AC /* libRNShakeEvent.a */,
 				E5AF657970694A0285F230D6 /* libRNToastNative.a */,
 				B865BAA8F48A48F5A5082F52 /* libRNViewShot.a */,
+				CC00DCDAD97348FBA1723627 /* libimageCropPicker.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1258,6 +1270,7 @@
 				DA502F45563A4EF9B1618928 /* CodePush.xcodeproj */,
 				F8AF13E2F5D0411AA902D928 /* RNShakeEvent.xcodeproj */,
 				3D3FAF3DC11F488CB5FE8AC3 /* RNToastNative.xcodeproj */,
+				2B317ED6FE694DD38D11B1DE /* imageCropPicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1294,6 +1307,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		953248E621A7E2B7002B6ABC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				953248EA21A7E2B7002B6ABC /* libimageCropPicker.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1306,9 +1327,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* JD-Lottery */ = {
+		13B07F861A680F5B00A75B9A /* card */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "JD-Lottery" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "card" */;
 			buildPhases = (
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -1319,7 +1340,7 @@
 			);
 			dependencies = (
 			);
-			name = "JD-Lottery";
+			name = card;
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* JD.app */;
 			productType = "com.apple.product-type.application";
@@ -1363,6 +1384,10 @@
 				{
 					ProductGroup = 228361D1202DA1CA0075881C /* Products */;
 					ProjectRef = D02087C348C0478E8D19424E /* FastImage.xcodeproj */;
+				},
+				{
+					ProductGroup = 953248E621A7E2B7002B6ABC /* Products */;
+					ProjectRef = 2B317ED6FE694DD38D11B1DE /* imageCropPicker.xcodeproj */;
 				},
 				{
 					ProductGroup = 22836272202DA55A0075881C /* Products */;
@@ -1475,7 +1500,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* JD-Lottery */,
+				13B07F861A680F5B00A75B9A /* card */,
 			);
 		};
 /* End PBXProject section */
@@ -1880,6 +1905,13 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		953248EA21A7E2B7002B6ABC /* libimageCropPicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libimageCropPicker.a;
+			remoteRef = 953248E921A7E2B7002B6ABC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2020,12 +2052,14 @@
 					"$(SRCROOT)/../node_modules/react-native-shake-event/ios",
 					"$(SRCROOT)/../node_modules/react-native-toast-native/ios",
 					"$(SRCROOT)/../node_modules/react-native-view-shot/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 				);
 				INFOPLIST_FILE = JD/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JD/base/talkingData",
+					"\"$(SRCROOT)/JD\"",
 					"\"$(SRCROOT)/JD\"",
 					"\"$(SRCROOT)/JD\"",
 					"\"$(SRCROOT)/JD\"",
@@ -2036,7 +2070,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.JD.org.cards.yy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.cards.xx;
 				PRODUCT_NAME = JD;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2073,12 +2107,14 @@
 					"$(SRCROOT)/../node_modules/react-native-shake-event/ios",
 					"$(SRCROOT)/../node_modules/react-native-toast-native/ios",
 					"$(SRCROOT)/../node_modules/react-native-view-shot/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 				);
 				INFOPLIST_FILE = JD/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JD/base/talkingData",
+					"\"$(SRCROOT)/JD\"",
 					"\"$(SRCROOT)/JD\"",
 					"\"$(SRCROOT)/JD\"",
 					"\"$(SRCROOT)/JD\"",
@@ -2089,7 +2125,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.JD.org.cards.yy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.cards.xx;
 				PRODUCT_NAME = JD;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2174,7 +2210,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "JD-Lottery" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "card" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,

@@ -186,7 +186,7 @@ var Slider = createReactClass({
       style,
       trackStyle,
       thumbStyle,
-      ...otherProps,
+      ...otherProps
     } = props;
 
     return otherProps;

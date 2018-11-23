@@ -57,7 +57,7 @@ export default class TCImage extends Component {
 
         if(!this.state.onPreFinish){
             return (<View style={this.state.onPreFinish ? style:myHolderStyle} pointerEvents={"none"}>
-                <Image style={myHolderStyle}
+                <Image   style={myHolderStyle}
                          resizeMode={myResizeMode}
                          source={imgPlaceHolder}/>
                 <FastImage style={imgStyle}

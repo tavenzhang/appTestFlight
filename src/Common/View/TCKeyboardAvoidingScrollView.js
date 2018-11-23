@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ReactNativeComponentTree from 'react-native/Libraries/Renderer/shims/ReactNativeComponentTree';
+//import ReactNativeComponentTree from 'react-native/Libraries/Renderer/shims/ReactNativeComponentTree';
 import {Keyboard, TextInput, ScrollView, Platform,UIManager, View} from 'react-native';
 import PropTypes from 'prop-types'
 /**
@@ -60,23 +60,23 @@ export default class TCKeyboardAvoidingScrollView extends React.Component {
     _onShowKeyboard = (event) => {
         const focusedTextInputId = TextInput.State.currentlyFocusedField();
         // http://stackoverflow.com/questions/38651770/how-can-i-get-real-elment-by-node-id-react-native
-        const focusedTextInput = ReactNativeComponentTree.getInstanceFromNode(focusedTextInputId);
-        if (!focusedTextInput) {
-            return;
-        }
-
-        // TODO: 升级 React Native 后，使用 UIManger.viewIsdescendantOf 判断该 TextInput 是否在当前 ScrollView 内
-        //使用  UIManager.measure
-        UIManager.measure(focusedTextInputId, (originX, originY, width, height, pageX, pageY) => {
-           // JXLog("_onShowKeyboard----event",event)
-                const keyboardEndCoordinates = event.endCoordinates;
-                const overlapping = (pageY + height) -
-                    keyboardEndCoordinates.screenY;
-                if (overlapping + this.props.keyboardTopPadding > 0) {
-                    const contentOffset = overlapping + this.props.keyboardTopPadding + this._scrollView.contentOffset.y;
-                    this._delayScrollTo(contentOffset);
-                }
-        });
+      //  const focusedTextInput = ReactNativeComponentTree.getInstanceFromNode(focusedTextInputId);
+        // if (!focusedTextInput) {
+        //     return;
+        // }
+        //
+        // // TODO: 升级 React Native 后，使用 UIManger.viewIsdescendantOf 判断该 TextInput 是否在当前 ScrollView 内
+        // //使用  UIManager.measure
+        // UIManager.measure(focusedTextInputId, (originX, originY, width, height, pageX, pageY) => {
+        //    // JXLog("_onShowKeyboard----event",event)
+        //         const keyboardEndCoordinates = event.endCoordinates;
+        //         const overlapping = (pageY + height) -
+        //             keyboardEndCoordinates.screenY;
+        //         if (overlapping + this.props.keyboardTopPadding > 0) {
+        //             const contentOffset = overlapping + this.props.keyboardTopPadding + this._scrollView.contentOffset.y;
+        //             this._delayScrollTo(contentOffset);
+        //         }
+        // });
     }
 
     _onHideKeyBoard = () => {

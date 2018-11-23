@@ -8,6 +8,7 @@ import com.RNFetchBlob.RNFetchBlobPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -61,6 +62,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new PickerPackage(),
                     new RCTToastPackage(),
                     new RNShakeEventPackage(),
                     new CodePush(getResources().getString(R.string.deploymentKey), getApplicationContext(), BuildConfig.DEBUG),

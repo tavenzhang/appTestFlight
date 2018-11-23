@@ -129,6 +129,7 @@ export default class TCWebGameFullView extends React.Component {
                 >
                     {this.state.url != '' ? (
                         <WebView
+                            useWebKit={true}
                             bounces={false}
                             ref={WEBVIEW_REF}
                             automaticallyAdjustContentInsets={true}

@@ -18,7 +18,7 @@ const StartUp = create({
   }
 })
 
-function getAvailableDomain (domains, callback) {
+function getAvailableDomain (domains,callback) {
   // 不用检测可访问域名是否在本地缓存，第一次启动肯定不存在。如果设置缓存，其实每次还是要去校验缓存的那条地址能不能访问。
   // 直接进行检测
   AsyncStorage.setItem('cacheDomain', JSON.stringify(cacheDomain))

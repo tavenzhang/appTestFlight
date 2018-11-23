@@ -131,10 +131,10 @@ export default class TCNavigationBar extends Component {
 
     getBackImage() {
         if (_.startsWith(this.props.leftImage, 'index_personal')) {
-            return <Image source={common.topPersonal} style={styles.navIcon} resizeMode={Image.resizeMode.contain}/>
+            return <Image source={common.topPersonal} style={styles.navIcon} resizeMode={'cover'}/>
         } else if (this.props.leftImage) {
             return <Image source={{uri: this.props.leftImage}} style={styles.navIcon}
-                          resizeMode={Image.resizeMode.contain}/>
+                          resizeMode={'cover'}/>
         } else {
             return <Image source={common.back} style={styles.navIcon}/>
         }

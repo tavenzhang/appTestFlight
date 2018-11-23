@@ -179,7 +179,10 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-crop-picker')
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':jpush-react-native')
+    compile project(':jcore-react-native')
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'cn.jiguang.sdk:jpush:3.1.6'
     compile 'cn.jiguang.sdk:jcore:1.2.5'

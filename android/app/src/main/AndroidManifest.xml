@@ -31,6 +31,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+<meta-data android:name="JPUSH_CHANNEL" android:value="${APP_CHANNEL}"/>
+<meta-data android:name="JPUSH_APPKEY" android:value="${JPUSH_APPKEY}"/>
+
         <activity
             android:name=".webview.JXWebView"
             android:screenOrientation="portrait"

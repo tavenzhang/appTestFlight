@@ -2,14 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Affcode</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>易盈棋牌</string>
+	<string>星星棋牌</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.JD.org.cards.yy</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -22,8 +24,12 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>6</string>
+	<key>Channel</key>
+	<string></string>
 	<key>CodePushDeploymentKey</key>
 	<string>deployment-key-here</string>
+	<key>JPushKey</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
@@ -106,17 +112,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	    <key>JPushKey</key>
-    	<string></string>
-    	<key>UmengKey</key>
-    	<string></string>
-    	<key>Channel</key>
-    	<string></string>
-    	<key>Affcode</key>
-    	<string></string>
-    	<key>bkey</key>
-    	<string></string>
-    	<key>tkey</key>
-    	<string></string>
+	<key>UmengKey</key>
+	<string></string>
+	<key>bkey</key>
+	<string></string>
+	<key>tkey</key>
+	<string></string>
 </dict>
 </plist>
