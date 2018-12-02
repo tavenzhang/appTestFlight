@@ -32,7 +32,7 @@ import {config} from "../../../Common/Network/TCRequestConfig";
 import Moment from 'moment'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import TCBillSucceedPage from "../TCBillSucceedPage";
-import {MathControllerFactory} from 'lottery-core'
+
 import {BottomStopBetView} from "./BottomStopBetView";
 import KeyboardAvoidingScrollView from "../../../Common/View/TCKeyboardAvoidingScrollView";
 import JXHelpers from '../../../Common/JXHelper/JXHelper'
@@ -730,7 +730,8 @@ export default class IntelligenceBet extends Component {
 
 
     getSingletonDataSource() {
-        return MathControllerFactory.getInstance().getMathController(this.props.cpInfoData.rightData.gameUniqueId);
+        //return MathControllerFactory.getInstance().getMathController(this.props.cpInfoData.rightData.gameUniqueId);
+        return {}
     }
 }
 

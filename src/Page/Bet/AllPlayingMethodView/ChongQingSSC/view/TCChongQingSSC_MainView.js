@@ -22,7 +22,7 @@ TCChongQingNumberView = new NumberW()
 let showItemArray = [];
 
 import TCChongQingSSC_DPS from '../data/TCChongQingSSC_DPS'
-import {MathControllerFactory} from 'lottery-core'
+
 
 let SingletonSSC = null;
 

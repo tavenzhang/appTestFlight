@@ -20,7 +20,7 @@ TCChongQingNumberView = new NumberW()
 let showItemArray = [];
 
 import TCKL10F_DPS from '../data/TCKL10F_DPS'
-import {MathControllerFactory} from 'lottery-core'
+
 
 let SingletonSSC = null;
 

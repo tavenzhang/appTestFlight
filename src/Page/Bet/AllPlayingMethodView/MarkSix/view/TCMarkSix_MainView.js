@@ -16,7 +16,7 @@ import _ from 'lodash';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import  * as PlayConfig from '../../../../../Data/JXPlayMathConfig'
-import {MathControllerFactory} from 'lottery-core'
+
 
 
 let SingletonDPS = null;

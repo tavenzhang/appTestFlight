@@ -27,7 +27,7 @@
 	<key>Channel</key>
 	<string></string>
 	<key>CodePushDeploymentKey</key>
-	<string>deployment-key-here</string>
+	<string>test</string>
 	<key>JPushKey</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>

@@ -21,7 +21,7 @@ TCChongQingNumberView = new NumberW()
 let showItemArray = [];
 import {betHome} from '../../../../resouce/theme'
 import TCChongQingSSC_DPS from '../data/TCSSL_DPS'
-import {MathControllerFactory} from 'lottery-core'
+
 
 let SingletonSSC = null;
 

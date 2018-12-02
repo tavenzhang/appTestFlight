@@ -6,7 +6,7 @@ import React from "react";
 import JXCurrentResultData from "../../Data/JXCurrentResultData";
 import TCIntelligenceBetData from "../Bill/IntelligenceBet/TCIntelligenceBetData";
 import JXHelper from "../../Common/JXHelper/JXHelper";
-import {MathControllerFactory} from "lottery-core";
+
 import Toast from "../../Common/JXHelper/JXToast";
 import {
     StyleSheet,

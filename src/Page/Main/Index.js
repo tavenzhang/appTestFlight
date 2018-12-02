@@ -127,7 +127,7 @@ export default class TC168 extends Component {
         // } else {
         //     return (<Main/>);
         // }
-        <XXWebView/>
+        return <XXWebView/>
     }
 
     handleNeedChangeAnimated() {

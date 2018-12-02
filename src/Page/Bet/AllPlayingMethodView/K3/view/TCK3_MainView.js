@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import TCK3_DPS from '../data/TCK3_DPS'
-import {MathControllerFactory} from 'lottery-core'
+
 
 let SingletonDPS = null;
 

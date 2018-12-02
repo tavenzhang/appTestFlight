@@ -18,7 +18,7 @@ import TCBetGoBackShoppingCart from '../../../View/TCBetGoBackShoppingCart'
 import TCXYFTSpecialKindSelectView from './TCXYFTSpecialKindSelectView'
 import TCXYFTNumberSelectView from './TCXYFTNumberSelectView'
 import RNShakeEvent from 'react-native-shake-event';
-import {MathControllerFactory} from 'lottery-core'
+
 
 let SingletonDPS = null;
 import {betHome} from '../../../../resouce/theme'

@@ -24,7 +24,7 @@ import KeyboardAvoidingScrollView from '../../../../../Common/View/TCKeyboardAvo
 TCChongQingNumberView = new NumberW()
 let showItemArray = [];
 
-import {MathControllerFactory} from 'lottery-core'
+
 
 let SingletonDPS = null;
 

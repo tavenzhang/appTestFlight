@@ -10,7 +10,7 @@ import {
 import HappyPoker_DPS from '../data/TCHappyPoker_DPS'
 import TCHappyPokerSelectView from './TCHappyPokerSelectView'
 import RNShakeEvent from 'react-native-shake-event';
-import {MathControllerFactory} from 'lottery-core'
+
 let SingletonDPS = null;
 const bxStrArray = ['对子', '豹子', '同花', '顺子', '同花顺']
 import {xypk} from '../../../../asset/images'

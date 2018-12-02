@@ -7,7 +7,7 @@ import { AppRegistry, StyleSheet, InteractionManager,Text, View, Platform } from
 import TCBJPK10SpecialKindSelectView from './TCBJPK10SpecialKindSelectView';
 import TCBJPK10NumberSelectView from './TCBJPK10NumberSelectView';
 import RNShakeEvent from 'react-native-shake-event';
-import { MathControllerFactory } from 'lottery-core';
+
 let SingletonDPS = null;
 import { betHome } from '../../../../resouce/theme';
 import {TC_LayoutAnimaton} from "../../../../../Common/View/layoutAnimation/LayoutAnimaton";

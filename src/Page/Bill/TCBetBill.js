@@ -54,7 +54,7 @@ const {width, height} = Dimensions.get('window');
 import TCKeyboardView from '../../Common/View/TCKeyboardView';
 import {observer, inject} from 'mobx-react/native';
 
-import {MathControllerFactory} from 'lottery-core';
+
 import NumberOnlyInputText from '../../Common/View/NumberOnlyInputText';
 import TCIntelligenceBetData from './IntelligenceBet/TCIntelligenceBetData';
 import {BottomStopBetView} from './IntelligenceBet/BottomStopBetView';
@@ -78,11 +78,11 @@ export default class TCBetBill extends React.Component {
             numbersArray: [],
             keyboardSpace: 0
         };
-        this.processing = false;
-        this.keyboardDismissMode = false;
-        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-        this.checkAndInitIntelligence();
-        this.checkWhenKeyboardUp = this.checkWhenKeyboardUp.bind(this);
+        // this.processing = false;
+        // this.keyboardDismissMode = false;
+        // this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+        // this.checkAndInitIntelligence();
+        // this.checkWhenKeyboardUp = this.checkWhenKeyboardUp.bind(this);
     }
 
     checkAndInitIntelligence() {

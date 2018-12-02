@@ -15,7 +15,7 @@ import MarkSix_DPS from '../data/TCPCDD_DPS'
 import _ from 'lodash';
 
 import * as PlayConfig from '../../../../../Data/JXPlayMathConfig'
-import {MathControllerFactory} from 'lottery-core'
+
 
 
 let SingletonDPS = null;

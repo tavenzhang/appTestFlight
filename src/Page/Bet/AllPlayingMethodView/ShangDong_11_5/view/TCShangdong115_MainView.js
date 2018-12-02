@@ -15,7 +15,7 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Toast from '../../../../../Common/JXHelper/JXToast';
 
 import MarkSix_DPS from '../data/TCShanDong115_DPS'
-import {MathControllerFactory} from 'lottery-core'
+
 
 let SingletonDPS = null;
 
