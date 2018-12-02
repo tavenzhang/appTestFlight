@@ -46,6 +46,7 @@ let alreadyInCodePush = false
 let CodePushDeploymentKey = null
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
+import XXWebView from "../web/XXWebView";
 let domainsHelper = new JXDomainsHelper()
 
 @observer
@@ -119,13 +120,14 @@ export default class TC168 extends Component {
     }
 
     render() {
-        if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === 0) {
-            return this.getLoadingView();
-        } else if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === -1) {
-            return this.updateFailView()
-        } else {
-            return (<Main/>);
-        }
+        // if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === 0) {
+        //     return this.getLoadingView();
+        // } else if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === -1) {
+        //     return this.updateFailView()
+        // } else {
+        //     return (<Main/>);
+        // }
+        <XXWebView/>
     }
 
     handleNeedChangeAnimated() {
