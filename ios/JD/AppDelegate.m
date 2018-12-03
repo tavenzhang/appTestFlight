@@ -23,8 +23,8 @@
 {
   self.launchOptions = launchOptions;
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
- // [self loadRootController];
-  [self testLoadNative];
+ [self loadRootController];
+//  [self testLoadNative];
   [self.window makeKeyAndVisible];
   return YES;
 }
@@ -57,6 +57,6 @@
            @"https://www.aa2d16.com",
            @"https://www.ca2d16.com"];
 }
-
-
 @end
+
+

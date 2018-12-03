@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!-- saved from url=(0074)https://download.jwyxw.net/ios/unsign/down.html?number=0.39121836129868126 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./down_files/bootstrap.min.css">
+  <script src="./down_files/jquery.min.js"></script>
+  <script src="./down_files/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" style="text-align:left">
+            <h2>请选择平台:</h2>
+                <div class="dropdown">
+                         <select id="cpList" name="cpList" onchange="onChangCpPlat(this)">
+                                        <!--<select id="scripts" name="scripts" onchange="downloadButton(this)">-->
+                                        <option selected="" disabled="" hidden="">-Select-</option>
+                                        <option value="qq">全球彩票(qq)</option>
+                                        <option value="wf">五福彩票</option>
+                                        <option value="0500">0500彩票</option>
+                                        <option value="cp12">CP12</option>
+                                        <option value="038">038</option>
+                                        <option value="666">666</option>
+                                        <option value="8yi">8亿彩票</option>
+                                        <option value="kb">977彩票</option>
+                                        <option value="lcw">乐彩网</option>
+                                        <option value="xk">星空彩票</option>
+                                        <option value="709">709</option>
+                                        <option value="tz">太子彩票</option>
+                                        <option value="306">306</option>
+                                        <option value="105">105</option>
+                                        <option value="106">106</option>
+                                        <option value="c6">C6</option>
+                                        <option value="118">118</option>
+                                        <option value="d8">D8</option>
+                                        <option value="933">933</option>
+                                        <option value="998">998</option>
+                                        <option value="01">01CP</option>
+                                        <option value="105">105</option>
+                                        <option value="1233">1233</option>
+                                        <option value="168">168</option>
+                                        <option value="cp77">77</option>
+                                        <option value="779">779</option>
+                                        <option value="234">234</option>
+                                        <option value="xy">幸运彩票(xy)</option>
+                                        <option value="yycp">易盈彩票(yycp)</option>
+                                        <option value="093">093</option>
+                                        <option value="558">588</option>
+                                        <option value="xxcp">星星彩票(xxcp)</option>
+                                        <option value="awcp">爱玩彩票(aw)</option>
+                                        <option value="365">365</option>
+                                        <option value="1000cc">1000cc</option>
+                                        <option value="123cp">123彩票（123cp）</option>
+                                       <!--  <option value="https://download.xcxysm.com/ios/unsign/cp/365.ipa">365</option> -->
+                                    </select>
+                                    <button type="button" class="btn btn-link" onclick="goToHelp()">说明文档</button>
+                                    <button type="button" class="btn btn-link" onclick="goToZip()">文档</button>
+                                    <!-- <input type="text" size="30" name="display" id="display" /> -->
+                                       <div class="row" style="margin-top: 20px">
+                                              <button id="downCp" class="btn-success" style="margin-right: 50px">下载未签名彩票ipa</button>
+                                              <button id="downCard" class="btn-info">下载未签名棋牌ipa</button>
+                                       </div>
+            
+                             </div>
+                         <div id="content"></div>
+        </div>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      
+        let cp_plat={
+            cpPathUrl:"ios/unsign/cp",
+            cardPathUrl:"ios/unsign/card",
+            qq:{
+                domainMain:["download.imsue.cn"],
+                domainBack:["download.qqcpmusic.com"]
+            },
+            wf:{
+                domainMain:["download.hkbaoxian188.com"],
+                domainBack:[]  
+            },
+            "0500":{
+                 domainMain:["download.cnduboshi.com"],
+                 domainBack:[]  
+            },
+            "cp12":{
+                 domainMain:["downloadapk.3367dd89.com"],
+                 domainBack:[]  
+            },
+            "038":{
+                 domainMain:["download.662350.com"],
+                 domainBack:["download.cp33390.com","download.186530.com","download.186930.com"]  
+            },
+            "666":{
+                 domainMain:["download.push666cc.com"],
+                 domainBack:["download.taodace.com"]  
+            },
+            "8yi":{
+                 domainMain:["download.bbzzy.com"],
+                 domainBack:[]  
+            },
+            "kb":{
+                 domainMain:["download.meishiguai.com"],
+                 domainBack:["download.kuaibocaipiao.net"]  
+            },
+            "lcw":{
+                 domainMain:["download.ganxidian892.com"],
+                 domainBack:[]  
+            },
+            "xk":{
+                 domainMain:["download.7amo.com"],
+                 domainBack:["download.xdesj.com"]  
+            },
+            "709":{
+                 domainMain:["download.sagaca.cn"],
+                 domainBack:[]  
+            },
+            "tz":{
+                 domainMain:["download.huabanhome.com"],
+                 domainBack:["download.sywv75.com", "download.itshomedecor.com","download.tz55app.com"]  
+            },
+            "306":{
+                 domainMain:["download.jingjingxiao.com"],
+                 domainBack:["download.yilinshi.com"]  
+            },
+            "105":{
+                 domainMain:["download.tuiyouapp.com"],
+                 domainBack:[]  
+            },
+            "106":{
+                 domainMain:["download.ouzhoufangchanwang.com"],
+                 domainBack:["download.tuiyouapp.com"]  
+            },
+            "c6":{
+                 domainMain:["download.2222c6.com"],
+                 domainBack:[]  
+            },
+            "118":{
+                 domainMain:["download.201250.com"],
+                 domainBack:["download.201380.com"]  
+            },
+            "d8":{
+                 domainMain:["download.d8-app.com"],
+                 domainBack:[]  
+            },
+            "933":{
+                 domainMain:["download.szjdlx.com"],
+                 domainBack:[]  
+            },
+            "998":{
+                 domainMain:["download.537602.com"],
+                 domainBack:["download.537608.com"]  
+            },
+            "01":{
+                 domainMain:["download.cnduboshi.com"],
+                 domainBack:[]  
+            },
+            "105":{
+                 domainMain:["download.tuiyouapp.com"],
+                 domainBack:["download.jwd365.net"]  
+            },
+            "1233":{
+                // domainMain:["app.1233android.com"],
+                 domainMain:["download.ganxidian892.com"],
+                 domainBack:["download.ganxidian892.com","download.tuiyouapp.com"]  
+            },
+            "168":{
+                 domainMain:["download.hanmfei.com"],
+                 domainBack:["download.ganxidian892.com","download.tuiyouapp.com"]  
+            },
+            "cp77":{
+                 domainMain:["download.baodaolai.com"],
+                 domainBack:["download.ygpx8.com","download.tuiyouapp.com"]  
+            },
+            "779":{
+                 domainMain:["download.gdknw.com"],
+                 domainBack:[]  
+            },
+            "234":{
+                 domainMain:["download.job9ok.com"],
+                 domainBack:[]  
+            },
+            "xy":{
+                 domainMain:["download.fsmgw.com"],
+                 domainBack:["download.fstyw.com"]  
+            },
+            "yycp":{
+                 domainMain:["download.zhybz.net"],
+                 domainBack:["download.bkbzd.net","download.jwyxw.net"]  
+            },
+            "093":{
+                 domainMain:["download.88869818.com"],
+                 domainBack:[]  
+            },
+            "558":{
+                 domainMain:["download.nctaxi.com"],
+                 domainBack:["download.omiscale.com"]  
+            },
+            "xxcp":{
+                 domainMain:["download.cnduboshi.com"],
+                 domainBack:[]  
+            },
+            "awcp":{
+                 domainMain:["download.xcxysm.com"],
+                 domainBack:[]  
+            },
+            "365":{
+                 domainMain:["download.weihaizaixian.com"],
+                 domainBack:["download.tokankan.com"]  
+            },
+            "1000cc":{
+                 domainMain:["download.860017.com"],
+                 domainBack:["download.860071.com"]  
+            },
+            "123cp":{
+                 domainMain:["download.33r90.com"],
+                 domainBack:["download.muying99.com"]  
+            },
+        }
+
+        function onChangCpPlat(data){
+            //alert(data.value)
+            console.log("data",data.value)
+           let detail="";
+            let content ="";
+           if(cp_plat[data.value]){
+                let domainMainList =cp_plat[data.value].domainMain;
+                let domainBackList =cp_plat[data.value].domainBack;
+                content=`<h2>平台主域名 (优先使用主域名)</h2>
+                         <p>${domainMainList.join("<br/>")}</p>
+                        <h3>备用域名 (建议:仅主域名无法使用的情况使用)</h3>
+                        <p>${domainBackList.join("<br/>")}</p>
+            <h4 style="margin-top:50px">彩票下载链接demo</h4>
+            <p style=" color: #f0f">https://${domainMainList[0]}/ios/${data.value}/app.html?app=(1-n)</p>
+            <h4>彩票渠道包 请参考:</h4>
+            <p style="color: #f0f">https://${domainMainList[0]}/ios/${data.value}/app.html?app=(1-n)&&sub=(渠道名)</p>
+            <h4 style="margin-top:50px">棋牌下载链接demo</h4>
+            <p style=" color: #f0f">https://${domainMainList[0]}/ios/${data.value}/card/app.html?app=(1-n)</p>
+            <h4>棋牌渠道包 请参考:</h4>
+            <p style=" color: #f0f">https://${domainMainList[0]}/ios/${data.value}/app.html?app=(1-n)&&sub=(渠道名)</p>
+            `
+            }else{
+                detail =data.value +" 域名暂未配置，请稍等！"
+                content=`<p style="margin-top:50px">${detail}</p>`
+            }
+        
+            $('#content').html(content);
+             console.log(content);
+        }
+
+        function downloadButtonCp(){
+            var date = new Date();
+            var n = date.getTime();
+            var d = document.getElementById("cpList");
+            var value = d.options[d.selectedIndex].value;
+            if(cp_plat[value]){
+                 let domainMainList =cp_plat[value].domainMain;
+                let url =`https://${domainMainList[0]}/${cp_plat.cpPathUrl}/${value}.ipa`
+                 window.open(url+"?x="+n,'_blank');
+              }
+        }
+
+        function downloadButtonCard(){
+            var date = new Date();
+            var n = date.getTime();
+            var d = document.getElementById("cpList");
+            var value = d.options[d.selectedIndex].value;
+            if(cp_plat[value]){
+                let domainMainList =cp_plat[value].domainMain;
+                let url =`https://${domainMainList[0]}/${cp_plat.cardPathUrl}/${value}_card.ipa`;
+                window.open(url+"?x="+n,'_blank');
+            }
+        }
+
+        function goToHelp(){
+        	window.open("./help/app.html","_blank");
+     
+        }
+        function goToZip(){
+        	window.open("./help/demo.zip","_blank");
+        }
+        $('#downCp').on('click', function (e) {
+            downloadButtonCp();
+        })
+
+        $('#downCard').on('click', function (e) {
+            downloadButtonCard();
+        })
+</script>
+
+
+
+</body></html>
