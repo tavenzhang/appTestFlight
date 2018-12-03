@@ -15,19 +15,34 @@
 #import <Bugly/Bugly.h>
 #import "AppDelegate+JDBase.h"
 #import <React/RCTBundleURLProvider.h>
-#import <React/RCTRootView.h>z
-
+#import <React/RCTRootView.h>
+#import <WebKit/WebKit.h>
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   self.launchOptions = launchOptions;
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  [self loadRootController];
+ // [self loadRootController];
+  [self testLoadNative];
   [self.window makeKeyAndVisible];
   return YES;
 }
 
+-(void)testLoadNative{
+  WKWebViewConfiguration * configuration = [[WKWebViewConfiguration alloc] init];
+  [configuration.preferences setValue:@"TRUE" forKey:@"allowFileAccessFromFileURLs"];
+  WKWebView * web = [[WKWebView alloc] initWithFrame:[UIScreen mainScreen].bounds configuration:configuration];
+  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  UIViewController *rootViewController = [UIViewController new];
+  rootViewController.view = web;
+  NSString* url=[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"assets/src/page/web/gamelobby"];
+  NSURL  *nsUrl = [NSURL fileURLWithPath:url];
+  [web loadFileURL:nsUrl allowingReadAccessToURL:nsUrl];
+  self.window.rootViewController = rootViewController;
+  //NSURLRequest* request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
+  //[web loadRequest:request];
+}
 - (UIViewController *)rootController {
 #pragma mark ⚽︎ ❤️❤️❤️ ⚽︎ 替换换成壳的入口 返回一个controller
   UIViewController *nativeRootController = [[UIViewController alloc] init];
