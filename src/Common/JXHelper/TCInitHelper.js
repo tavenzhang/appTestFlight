@@ -85,46 +85,7 @@ export default class TCInitHelper {
     }
 
 
-    checkDomain(callback) {
-        NativeModules.JXHelper.getCFUUID(
-            (err, uuid) => {
 
-                TCUSER_DEVICE_TOKEN = uuid
-                failCount = 0;
-                let allCount = 0
-                isCallBack = false
-                for (let str in base) {
-                    allCount++
-                }
-                for (let str in base) {
-                    let baseUrl = base[str]
-                    let url = baseUrl + '/update/checkIpInfo'
-
-                    NetUitls.getUrlAndParamsAndCallback(url, null, (data) => {
-                        if (data && data.rs && data.content) {
-                            if (!this.baseDomain) {
-                                this.baseDomain = baseUrl
-                            }
-                            if (callback && !isCallBack) {
-                                // isCallBack = true
-                                // callback(false)
-                                // callback(data.content.allowAppUpdate)
-                                if (Platform.OS === 'ios')
-                                    this.checkHotfixServer(callback, data.content.allowAppUpdate)
-                            }
-                            this.saveDomainCacheData(baseUrl)
-                        } else {
-                            failCount++
-                            if (failCount >= allCount) {
-                                failCount = 0
-                                callback('ErrorNetwork')
-                            }
-                        }
-                    }, 10000)
-                }
-
-            })
-    }
 
     checkHotfixServer(callback, allowAppUpdate) {
         global.JXCodePushServerUrl = hotfixUpdataBase.base1;

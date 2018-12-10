@@ -95,26 +95,33 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 26
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
-        applicationId "com.tc168"
+        applicationId "com.xxcard"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0.8"
+        manifestPlaceholders = [
+                JPUSH_APPKEY: "",
+                APP_CHANNEL : "default"
+        ]
+
         resValue "string", "app_name", "JD棋牌-sit"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
     }
 
+    flavorDimensions "color"
+
     productFlavors {
-        jdcards {
+        taven {
             applicationId APP_ID
             versionName APP_VERSION
-            resValue "string", "app_name", "易盈棋牌"
+            resValue "string", "app_name", "星星棋牌"
             manifestPlaceholders = [
                     APP_VERSION    : APP_VERSION,
                     CHANNEL_AFFCODE: AFF_CODE,
@@ -124,6 +131,7 @@ android {
                     UMENG_KEY      : UMENG_KEY,
                     UMENG_CHANNEL  : "developer-default"
             ]
+            dimension "color"
         }
     }
 
@@ -155,19 +163,20 @@ android {
     // applicationVariants are e.g. debug, release
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def outputFile = output.outputFile
-            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                def fileName = ""
-                def apkName = APK_NAME + ""
-                def affSuffix = AFF_CODE ? "_${AFF_CODE}" : ""
-                if (apkName != null && !apkName.isEmpty()) {
-                    fileName = "${apkName}" + affSuffix + ".apk"
-                } else {
-                    fileName = "${CLIENT_ID}_${variant.productFlavors[0].name}" + affSuffix + ".apk"
-                }
-                output.outputFile = new File(outputFile.parent, fileName)
-            }
+        variant.outputs.all { output ->
+            outputFileName = "driver_${variant.productFlavors[0].name}_v${variant.versionName}.apk"
+//            def outputFile = output.outputFile
+//            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                def fileName = ""
+//                def apkName = APK_NAME + ""
+//                def affSuffix = AFF_CODE ? "_${AFF_CODE}" : ""
+//                if (apkName != null && !apkName.isEmpty()) {
+//                    fileName = "${apkName}" + affSuffix + ".apk"
+//                } else {
+//                    fileName = "${CLIENT_ID}_${variant.productFlavors[0].name}" + affSuffix + ".apk"
+//                }
+//                output.outputFile = new File(outputFile.parent, fileName)
+//            }
         }
     }
 
@@ -179,32 +188,34 @@ android {
 }
 
 dependencies {
+    compile project(':jpush-react-native')
+    //implementation project(':jcore-react-native')
+   // implementation project(':jpush-react-native')
     compile project(':react-native-fs')
     compile project(':react-native-image-crop-picker')
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':jpush-react-native')
-    compile project(':jcore-react-native')
-    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:appcompat-v7:26.1.1'
     compile 'cn.jiguang.sdk:jpush:3.1.6'
     compile 'cn.jiguang.sdk:jcore:1.2.5'
     compile 'com.umeng.sdk:common:latest.integration'
     compile 'com.umeng.sdk:analytics:latest.integration'
-    compile 'com.facebook.react:react-native:+'
+   // compile 'com.facebook.react:react-native:+'
+    compile project(':ReactAndroid')            //添加React-native项目
     compile 'com.zhy:okhttputils:2.6.2'
-//    compile(name: 'react-native-blur-release', ext: 'aar')
-//    compile(name: 'react-native-code-push-release', ext: 'aar')
-//    compile(name: 'react-native-device-info-release', ext: 'aar')
-//    compile(name: 'react-native-fast-image-release', ext: 'aar')
-//    compile(name: 'react-native-fetch-blob-release', ext: 'aar')
-//    compile(name: 'react-native-image-picker-release', ext: 'aar')
-//    compile(name: 'react-native-interactable-release', ext: 'aar')
-//    compile(name: 'react-native-material-kit-release', ext: 'aar')
-//    compile(name: 'react-native-shake-event-release', ext: 'aar')
-//    compile(name: 'react-native-sound-release', ext: 'aar')
-//    compile(name: 'react-native-splash-screen-release', ext: 'aar')
-//    compile(name: 'react-native-svg-release', ext: 'aar')
-//    compile(name: 'react-native-toast-native-release', ext: 'aar')
-//    compile(name: 'react-native-vector-icons-release', ext: 'aar')
+    //    compile(name: 'react-native-blur-release', ext: 'aar')
+    //    compile(name: 'react-native-code-push-release', ext: 'aar')
+    //    compile(name: 'react-native-device-info-release', ext: 'aar')
+    //    compile(name: 'react-native-fast-image-release', ext: 'aar')
+    //    compile(name: 'react-native-fetch-blob-release', ext: 'aar')
+    //    compile(name: 'react-native-image-picker-release', ext: 'aar')
+    //    compile(name: 'react-native-interactable-release', ext: 'aar')
+    //    compile(name: 'react-native-material-kit-release', ext: 'aar')
+    //    compile(name: 'react-native-shake-event-release', ext: 'aar')
+    //    compile(name: 'react-native-sound-release', ext: 'aar')
+    //    compile(name: 'react-native-splash-screen-release', ext: 'aar')
+    //    compile(name: 'react-native-svg-release', ext: 'aar')
+    //    compile(name: 'react-native-toast-native-release', ext: 'aar')
+    //    compile(name: 'react-native-vector-icons-release', ext: 'aar')
     compile project(':react-native-toast-native')
     compile project(':react-native-shake-event')
     compile project(':react-native-code-push')
@@ -226,4 +237,7 @@ dependencies {
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
+}
+configurations.all {
+    exclude group: 'com.facebook.react', module: 'react-native'
 }
