@@ -8,6 +8,7 @@ import com.RNFetchBlob.RNFetchBlobPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
+import cn.jpush.reactnativejpush.JPushPackage;
 import com.rnfs.RNFSPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.facebook.react.ReactNativeHost;
@@ -63,6 +64,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new JPushPackage(!BuildConfig.DEBUG, !BuildConfig.DEBUG),
             new RNFSPackage(),
             new PickerPackage(),
                     new RCTToastPackage(),
@@ -118,7 +120,7 @@ public class MainApplication extends Application implements ReactApplication {
         Configuration configuration = resources.getConfiguration();
         if (configuration.fontScale != 1.0f) {
             configuration.fontScale = 1.0f;
-            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+            resources.updateConfiguration(configuration, resources.,,());
         }
         return resources;
     }

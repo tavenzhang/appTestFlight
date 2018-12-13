@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <RCTJPushModule.h>
 #import <React/RCTRootView.h>
 
 static NSString * const JDNight = @"12night";

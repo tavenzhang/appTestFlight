@@ -41,16 +41,16 @@ public class JXHelper extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getCFUUID(Callback resultCallback) {
         TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        String szImei = TelephonyMgr.getDeviceId();
+      //  String szImei = TelephonyMgr.getDeviceId();
         String res = null;
-        try {
-            res = UUID.nameUUIDFromBytes(szImei.getBytes("utf8")).toString();
-        } catch (Exception e) {
-        }
-        if (res == null) {
-            res = UUID.randomUUID().toString();
-        }
-
+//        try {
+//            res = UUID.nameUUIDFromBytes(szImei.getBytes("utf8")).toString();
+//        } catch (Exception e) {
+//        }
+//        if (res == null) {
+//            res = UUID.randomUUID().toString();
+//        }
+        res = UUID.randomUUID().toString();
         resultCallback.invoke("deviceId", res);
     }
 

@@ -1,10 +1,3 @@
-//
-//  JD
-//
-//  Created by Sam on 10/03/2018.
-//  Copyright © 2018 JD. All rights reserved.
-//
-
 #import "AppDelegate.h"
 #import <RCTJPushModule.h>
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
@@ -17,6 +10,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <WebKit/WebKit.h>
+#import <NSLogger/NSLogger.h>
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -24,10 +18,13 @@
   self.launchOptions = launchOptions;
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
  [self loadRootController];
-//  [self testLoadNative];
+  //[self testLoadNative];
+ // [self startLog];
   [self.window makeKeyAndVisible];
   return YES;
 }
+
+
 
 -(void)testLoadNative{
   WKWebViewConfiguration * configuration = [[WKWebViewConfiguration alloc] init];
@@ -36,7 +33,7 @@
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = web;
-  NSString* url=[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"assets/src/page/web/gamelobby"];
+  NSString* url=[[NSBundle mainBundle] pathForResource:@"home" ofType:@"html" inDirectory:@"assets/src/page/web/gamelobby"];
   NSURL  *nsUrl = [NSURL fileURLWithPath:url];
   [web loadFileURL:nsUrl allowingReadAccessToURL:nsUrl];
   self.window.rootViewController = rootViewController;

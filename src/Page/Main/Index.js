@@ -26,11 +26,10 @@ import {observer} from 'mobx-react'
 import UserData from '../../Data/UserData'
 import Storage from '../../Common/Storage/TCStorage'
 import G_Config from '../../Common/Global/G_Config'
-import Main from '../Route';
+//import Main from '../Route';
 
 import {config, AppName, versionHotFix} from '../../Common/Network/TCRequestConfig';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
-import TCInitHelperC from '../../Common/JXHelper/TCInitHelper'
 
 import {width, indexBgColor, Size} from '../resouce/theme'
 import StartUpHelper from './StartUpHelper'
@@ -41,16 +40,14 @@ import initAppStore from '../../Data/store/InitAppStore'
 
 let retryTimes = 0
 let downloadTime = 0
-let TCInitHelper = new TCInitHelperC()
 let alreadyInCodePush = false
 let CodePushDeploymentKey = null
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
 import XXWebView from "../web/XXWebView";
 let domainsHelper = new JXDomainsHelper()
 
 @observer
-export default class TC168 extends Component {
+export default class APP extends Component {
 
     hotFixStore = new HotFixStore();
 
@@ -463,9 +460,9 @@ const styles = StyleSheet.create({
 });
 
 
-TC168 = CodePush({
+APP = CodePush({
     checkFrequency: CodePush.CheckFrequency.MANUAL,
     installMode: CodePush.InstallMode.IMMEDIATE
-})(TC168);
+})(APP);
 
-AppRegistry.registerComponent('JD', () => TC168);
+AppRegistry.registerComponent('JD', () => APP);

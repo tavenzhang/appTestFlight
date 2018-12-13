@@ -9,9 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="22" />
+    <uses-sdk android:targetSdkVersion="22" />
 
     <application
         android:name=".MainApplication"
@@ -31,9 +29,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+    <meta-data
+        android:name="JPUSH_APPKEY"
+        android:value="${JPUSH_APPKEY}" />
+    <meta-data
+        android:name="JPUSH_CHANNEL"
+        android:value="${APP_CHANNEL}" />
 
-<meta-data android:name="JPUSH_CHANNEL" android:value="${APP_CHANNEL}"/>
-<meta-data android:name="JPUSH_APPKEY" android:value="${JPUSH_APPKEY}"/>
+
+    <meta-data
+        android:name="JPUSH_CHANNEL"
+        android:value="${JPUSH_CHANNEL}" />
+
 
         <activity
             android:name=".webview.JXWebView"
