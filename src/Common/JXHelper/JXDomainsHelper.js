@@ -82,7 +82,7 @@ export default class MyComponent {
 
     getSafeguardName(callBack) {
         if (!_.isEmpty(safeguardDomain)) {
-            let alreadyCallBack=false
+            let alreadyCallBack=false;
             for (let i = 0; i < safeguardDomain.length; i++) {
                 let url = safeguardDomain[i];
                 this.testSafeguarDomains(url,(succeed)=>{

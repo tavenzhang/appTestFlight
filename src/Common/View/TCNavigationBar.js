@@ -22,7 +22,7 @@ import jdAppStore from '../../Data/store/JDAppStore'
 import {width, indexTxtColor, Size} from '../../Page/resouce/theme'
 
 import _ from 'lodash';
-import {common} from '../../Page/asset/images'
+// import {common} from '../../Page/asset/images'
 import {NavBarHeaderHeight} from "../../Page/asset/screen";
 import {themeViewStyle} from "../../Page/asset/theme";
 import PropTypes from 'prop-types'
@@ -68,7 +68,7 @@ export default class TCNavigationBar extends Component {
 
     render() {
         return (
-            <ImageBackground style={themeViewStyle.navBar} source={common.topBg} resizeMode={'cover'}>
+            <View style={themeViewStyle.navBar} >
                 <View style={themeViewStyle.navBarLeftItem}>{this.renderLeftItem()}</View>
                 <View style={themeViewStyle.navBarCenterItem}>
                     <TouchableOpacity disabled={!this.props.midCall} onPress={()=>this.props.midCall()}>
@@ -76,7 +76,7 @@ export default class TCNavigationBar extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={themeViewStyle.navBarRightItem}>{this.renderRightItem()}</View>
-            </ImageBackground>
+            </View>
         );
     }
 

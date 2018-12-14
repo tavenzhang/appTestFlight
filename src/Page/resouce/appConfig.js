@@ -1,18 +1,6 @@
-/**
- * Created by Sam on 18/02/2017.
- * Copyright © 2017年 JX. All rights reserved.
- *
- *
- *
- *
- *  *  106彩票  域名配置表
- *
- */
 import React, {
     Platform
 } from 'react-native';
-//
-
 
 export const appDomainBase = {
     base1: 'https://www.neihukui.cn',

@@ -52,7 +52,7 @@ function getAvailableDomain (domains,callback) {
                 callback(false, false, false)
               }
             })
-            AsyncStorage.setItem('AppConfig', JSON.stringify(response.data))
+            AsyncStorage.setItem('AppConfig', JSON.stringify(response.data));
           }
         }).catch(() => console.log('async get exception'))
       } else {

@@ -26,7 +26,7 @@ import {observer} from 'mobx-react'
 import UserData from '../../Data/UserData'
 import Storage from '../../Common/Storage/TCStorage'
 import G_Config from '../../Common/Global/G_Config'
-//import Main from '../Route';
+import Main from '../Route';
 
 import {config, AppName, versionHotFix} from '../../Common/Network/TCRequestConfig';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
@@ -117,14 +117,14 @@ export default class APP extends Component {
     }
 
     render() {
-        // if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === 0) {
-        //     return this.getLoadingView();
-        // } else if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === -1) {
-        //     return this.updateFailView()
-        // } else {
-        //     return (<Main/>);
-        // }
-        return <XXWebView/>
+        if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === 0) {
+            return this.getLoadingView();
+        } else if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === -1) {
+            return this.updateFailView()
+        } else {
+            return (<Main/>);
+        }
+     //   return <XXWebView/>
     }
 
     handleNeedChangeAnimated() {
@@ -162,7 +162,7 @@ export default class APP extends Component {
         } else if (!success) {//默认地址不可用，使用备份地址
             StartUpHelper.getAvailableDomain(AppConfig.backupDomains, (success, allowUpdate, message) => this.secondAttempt(success, allowUpdate, message))
         } else {//不允许更新
-            this.hotFixStore.skipUpdate()
+            this.hotFixStore.skipUpdate();
         }
     }
 
@@ -189,8 +189,8 @@ export default class APP extends Component {
                 default:
                     break
             }
-            this.storeLog({faileMessage: customerMessage})
-            this.hotFixStore.updateFailMsg(customerMessage)
+            this.storeLog({faileMessage: customerMessage});
+            this.hotFixStore.updateFailMsg(customerMessage);
             this.reloadAppDomain()
         } else {
             // TODO 审核通过之后 放开如下，告知ip不在更新范围内的用户
@@ -206,9 +206,9 @@ export default class APP extends Component {
         if (success && allowUpdate) {
             this.gotoUpdate()
         } else if (!success) {//缓存地址不可用,使用默认地址
-            StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
+            StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message));
         } else {
-            this.hotFixStore.skipUpdate()
+            this.hotFixStore.skipUpdate();
         }
     }
 
@@ -217,8 +217,8 @@ export default class APP extends Component {
         AsyncStorage.getItem('cacheDomain').then((response) => {
             let cacheDomain = JSON.parse(response)
             global.JXCodePushServerUrl = cacheDomain.hotfixDomains[0].domain
-            let hotfixDeploymentKey = IS_IOS ? cacheDomain.hotfixDomains[0].iosDeploymentKey : cacheDomain.hotfixDomains[0].androidDeploymentKey
-            CodePushDeploymentKey = hotfixDeploymentKey
+            let hotfixDeploymentKey = IS_IOS ? cacheDomain.hotfixDomains[0].iosDeploymentKey : cacheDomain.hotfixDomains[0].androidDeploymentKey;
+            CodePushDeploymentKey = hotfixDeploymentKey;
             this.hotFix(hotfixDeploymentKey)
         })
     }
@@ -260,7 +260,7 @@ export default class APP extends Component {
                 }
                 this.hotFixStore.syncMessage = '获取到更新，正在疯狂加载...';
                 this.hotFixStore.updateFinished = false;
-                this.storeLog({hotfixDomainAccess: true})
+                this.storeLog({hotfixDomainAccess: true});
 
                 if (alreadyInCodePush) return
                 alreadyInCodePush = true

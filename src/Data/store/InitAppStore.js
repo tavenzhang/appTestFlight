@@ -116,7 +116,7 @@ class InitAppStore {
         let hotAffCode = this.getAppSpecialAffCode();
         if (hotAffCode) {
             this.userAffCode = hotAffCode;
-            JXLog("AFFCODE", this.userAffCode)
+            JXLog("AFFCODE", this.userAffCode);
             return;
         } else {
             try {
@@ -124,10 +124,10 @@ class InitAppStore {
                     if (affcode) {
                         this.userAffCode = affcode
                     }
-                    JXLog("AFFCODE--->affcode="+affcode, this.userAffCode)
+                    JXLog("AFFCODE--->affcode="+affcode, this.userAffCode);
                 })
             } catch (e) {
-                JXLog("AFFCODE NOT FOUND")
+                JXLog("AFFCODE NOT FOUND");
             }
         }
     }

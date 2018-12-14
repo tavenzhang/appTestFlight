@@ -5,11 +5,10 @@ import {inject, observer} from 'mobx-react'
 import {computed} from 'mobx'
 
 import Home from '../Home/TCHome';
-
 import TCUserCenterHome from '../UserCenter/TCUserCenterNew';
 import JXHelper from '../../Common/JXHelper/TCNavigatorHelper';
-import {baseColor, indexBgColor, indexBtmStyle, Size, width} from '../resouce/theme';
-import {bottomNavHeight, JX_PLAT_INFO,} from '../asset'
+import {baseColor,  indexBtmStyle, Size, width} from '../resouce/theme';
+import {bottomNavHeight, JX_PLAT_INFO,} from '../asset';
 import {home} from '../resouce/images';
 import Toast from "../../Common/JXHelper/JXToast";
 import Moment from "moment/moment";

@@ -2,11 +2,11 @@
  * Created by Allen on 2017/1/2.
  * Copyright © 2016年 JX. All rights reserved.
  */
-var TCServerDomains = null
-var TCDefaultDomain = 'http://192.168.1.93:7500'
-var TCDefaultTendDomain = null
-var TCGameSetting = {}
-var TCHomeContents = {}
+var TCServerDomains = null;
+var TCDefaultDomain = 'http://192.168.1.93:7500';
+var TCDefaultTendDomain = null;
+var TCGameSetting = {};
+var TCHomeContents = {};
 var JXCodePushServerUrl = '';
 var JX_ProjectName = 'JD';
 // APP全局状态
