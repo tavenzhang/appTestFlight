@@ -34,24 +34,24 @@ export default class XXWebView extends Component {
 
     render() {
         let res = RNFS.MainBundlePath + '/assets/src/page/web/gamelobby/home.html';
-        JXLog("===========res=====", res)
+        TWLog("===========res=====", res)
         let source = {
             uri: res,
             allowingReadAccessToURL: RNFS.MainBundlePath,
             allowFileAccessFromFileURLs: RNFS.MainBundlePath
         }
         //let source=require('./gamelobby/index.html')
-        if (!JX_PLAT_INFO.IS_IOS) {
+        if (!G_IS_IOS) {
             source = {uri: 'file:///android_asset/gamelobby/index.html'}
         }
         return (
             <View style={styles.container}>
                 {
-                    JX_PLAT_INFO.IS_IOS ? <WKWebView source={source} onNavigationStateChange={this.onNavigationStateChange}
-                                                     onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                                                     style={styles.container}
-                                                     allowFileAccess={true}
-                                                     onError={this.onError}/> :
+                    G_IS_IOS ? <WKWebView source={source} onNavigationStateChange={this.onNavigationStateChange}
+                                                       onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+                                                       style={styles.container}
+                                                       allowFileAccess={true}
+                                                       onError={this.onError}/> :
                         <WebView
                             useWebKit={true}
                             automaticallyAdjustContentInsets={true}
@@ -77,11 +77,11 @@ export default class XXWebView extends Component {
     // render() {
     //     //<WKWebView source={{ file: RNFS.MainBundlePath + '/data/index.html', allowingReadAccessToURL: RNFS.MainBundlePath }} />
     //     // let source=require('./gamelobby/index.html');
-    //     JXLog("===========RNFS====="+RNFS.MainBundlePath,RNFS);
+    //     TWLog("===========RNFS====="+RNFS.MainBundlePath,RNFS);
     //     let res =RNFS.MainBundlePath + '/assets/src/page/web/gamelobby/index.html';
     //
     //     let source={file: res, allowingReadAccessToURL: RNFS.MainBundlePath ,allowFileAccessFromFileURLs:RNFS.MainBundlePath}
-    //     if(!JX_PLAT_INFO.isDebug&&!JX_PLAT_INFO.IS_IOS){
+    //     if(!JX_PLAT_INFO.isDebug&&!JX_PLAT_INFO.G_IS_IOS){
     //         source = {uri: 'file:///android_asset/gamelobby/index.html'}
     //     }
     //
@@ -92,16 +92,16 @@ export default class XXWebView extends Component {
 
 
     onError = (error) => {
-        JXLog("onError===========event=====", error)
+        TWLog("onError===========event=====", error)
     }
 
     onShouldStartLoadWithRequest = (event) => {
-        JXLog("onShouldStartLoadWithRequest===========event=====", event)
+        TWLog("onShouldStartLoadWithRequest===========event=====", event)
         return true;
     };
 
     onNavigationStateChange = (navState) => {
-        JXLog("navState===========onNavigationStateChange=====", navState.url)
+        TWLog("navState===========onNavigationStateChange=====", navState.url)
         this.setState({
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,

@@ -13,7 +13,6 @@ import {
 import {versionHotFix} from '../../Common/Network/TCRequestConfig'
 import {computed, action, observable} from 'mobx'
 
-import {checkAppVersion, getPlatform} from '../../Common/Network/TCRequestService'
 import SoundHelper from "../../Common/JXHelper/SoundHelper";
 
 /**
@@ -119,11 +118,11 @@ class JDAppStore {
     async initLoginUserName() {
         await storage.load({key: "LOGINEDUSERNAMES"}).then(res => {
             if (res) {
-                JXLog("loginedUserNames", res);
+                TWLog("loginedUserNames", res);
                 this.loginedUserNames = res;
             }
         }).catch(err => {
-            JXLog("loginedUserNames not found");
+            TWLog("loginedUserNames not found");
         });
     }
 
@@ -131,7 +130,7 @@ class JDAppStore {
         await  storage.load({key: "BUTTONSOUNDSTATUS"}).then(res => {
             this.buttonSoundStatus = res;
         }).catch(err => {
-            JXLog("BUTTONSOUNDSTATUS not found");
+            TWLog("BUTTONSOUNDSTATUS not found");
         });
     }
 
@@ -150,7 +149,7 @@ class JDAppStore {
 
     @action
     checkAppVersionUpdate(callback) {
-        checkAppVersion(callback);
+
     }
 
     /**
@@ -161,21 +160,13 @@ class JDAppStore {
         this.loginedUserNames.push(userName)
         this.loginedUserNames = Array.from(new Set(this.loginedUserNames))
         storage.save({key: "LOGINEDUSERNAMES", data: this.loginedUserNames})
-        JXLog("USER:", this.loginedUserNames)
+        TWLog("USER:", this.loginedUserNames)
     }
 
 
     @action
     initPlatform() {
-        getPlatform({clientId: this.clientId}, (res) => {
-            if (res.rs) {
-                let platforms = res.content;
-                JXLog("===platforms", platforms);
-                for (var platform in platforms) {
-                    this.platforms.push(platform);
-                }
-            }
-        })
+
     }
 }
 

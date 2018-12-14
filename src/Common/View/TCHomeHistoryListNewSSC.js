@@ -61,7 +61,7 @@ export default class TCHomeHistoryList extends React.Component {
 
 
     updateHistoryHight=(gustrueState)=>{
-      //  JXLog("TCSSC------------TCHomeHistoryList----gustrueState---------top==="+gustrueState.topFinal+"--gustrueState.gestureCase == null=="
+      //  TWLog("TCSSC------------TCHomeHistoryList----gustrueState---------top==="+gustrueState.topFinal+"--gustrueState.gestureCase == null=="
       //       +(gustrueState.gestureCase == null)
       //       ,(gustrueState.gestureCase ? gustrueState.gestureCase.dy:0  + gustrueState.moveTop))
         let historyHeight = gustrueState.gestureCase == null ? gustrueState.topFinal : gustrueState.gestureCase.dy + gustrueState.moveTop;
@@ -96,7 +96,7 @@ export default class TCHomeHistoryList extends React.Component {
     }
 
     render() {
-        JXLog("TCSSC------------TCHomeHistoryList----render---------",this.state);
+        TWLog("TCSSC------------TCHomeHistoryList----render---------",this.state);
         let dataList=this.lotteryHistoryData.historyData.slice();
         return (
             <View ref="historyView" style={[styles.container,{height:this.state.height}]}>

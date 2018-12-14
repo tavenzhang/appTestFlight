@@ -6,11 +6,7 @@ import moment from "moment-timezone";
 import {gameIconKeyValue, defaultCpIcon} from '../../Page/asset/images'
 var Banks = require('../../Data/banks.json');
 
-global.JXLog = (string, str2) => {
-    if (str2) {
-        if (__DEV__) console.log(string, str2)
-    } else if (__DEV__) console.log(string)
-}
+
 
 Array.prototype.remove = function (val) {
     var index = this.indexOf(val);

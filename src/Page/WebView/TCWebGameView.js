@@ -37,12 +37,12 @@ export default class TCWebGameView extends React.Component {
         let bodyParam = {
             access_token: userStore.access_token,
         }
-        JXLog("componentWillMount--- params==", params)
+        TWLog("componentWillMount--- params==", params)
         if (params.isDZ) {
             let {gameData, gameId} = params
             bodyParam.gameId = gameId
             NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZ_start + "/" + gameId,  bodyParam,gameData.gamePlatform, (ret) => {
-                JXLog("TCWebGameView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
+                TWLog("TCWebGameView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
                 if (ret.rs) {
                     this.setState({url: ret.content.gameUrl});
                 } else {
@@ -52,7 +52,7 @@ export default class TCWebGameView extends React.Component {
         } else {
             let {gameData} = params
             NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.startGame, bodyParam,gameData.gamePlatform, (ret) => {
-                JXLog("TCWebGameView-------startGame" + ret.content, ret)
+                TWLog("TCWebGameView-------startGame" + ret.content, ret)
                 if (ret.rs) {
                    // this.setState({url: "https://www.google.com.hk"});
                      this.setState({url: ret.content.gameUrl});
@@ -65,7 +65,7 @@ export default class TCWebGameView extends React.Component {
 
 
     render() {
-        JXLog("TCWebTrendView-----  this.state.backButtonEnabled--", this.props.backButtonEnabled)
+        TWLog("TCWebTrendView-----  this.state.backButtonEnabled--", this.props.backButtonEnabled)
         let {title} = this.props.navigation.state.params
 
         let conetView = <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
@@ -130,7 +130,7 @@ export default class TCWebGameView extends React.Component {
     }
 
     onLoadError = (evt) => {
-        JXLog("TCDefaultTendDomain----onLoadError==", evt)
+        TWLog("TCDefaultTendDomain----onLoadError==", evt)
         this.setState({loadedFail: true})
     }
 
@@ -140,7 +140,7 @@ export default class TCWebGameView extends React.Component {
 
 
     onNavigationStateChange = (navState) => {
-        JXLog("TCDefaultTendDomain----onNavigationStateChange==", navState)
+        TWLog("TCDefaultTendDomain----onNavigationStateChange==", navState)
         this.setState({
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,

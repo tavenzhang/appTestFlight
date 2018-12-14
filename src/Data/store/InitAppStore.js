@@ -51,12 +51,12 @@ class InitAppStore {
 
     //初始化appName
     initAppName() {
-        if (!IS_IOS) {
+        if (!G_IS_IOS) {
             NativeModules.JXHelper.getAppName((appName) => {
                 if (appName.length) {
                     this.appName = appName;
                 }
-                JXLog("APPNAME", this.appName)
+                TWLog("APPNAME", this.appName)
             })
         }
     }
@@ -65,17 +65,17 @@ class InitAppStore {
     async initAppVersion() {
         let nativeConfig = await CodePush.getConfiguration();
         this.appVersion = nativeConfig.appVersion;
-        JXLog("version", this.appVersion);
+        TWLog("version", this.appVersion);
     }
 
     async initDeviceTokenFromLocalStore() {
         await storage.load({key: "USERDEVICETOKEN"}).then(res => {
             if (res) {
-                JXLog("deviceToken", res);
+                TWLog("deviceToken", res);
                 this.deviceToken = res;
             }
         }).catch(err => {
-            JXLog("deviceToken not found");
+            TWLog("deviceToken not found");
         });
 
         if (this.deviceToken.length === 0) {
@@ -116,7 +116,7 @@ class InitAppStore {
         let hotAffCode = this.getAppSpecialAffCode();
         if (hotAffCode) {
             this.userAffCode = hotAffCode;
-            JXLog("AFFCODE", this.userAffCode);
+            TWLog("AFFCODE", this.userAffCode);
             return;
         } else {
             try {
@@ -124,10 +124,10 @@ class InitAppStore {
                     if (affcode) {
                         this.userAffCode = affcode
                     }
-                    JXLog("AFFCODE--->affcode="+affcode, this.userAffCode);
+                    TWLog("AFFCODE--->affcode="+affcode, this.userAffCode);
                 })
             } catch (e) {
-                JXLog("AFFCODE NOT FOUND");
+                TWLog("AFFCODE NOT FOUND");
             }
         }
     }

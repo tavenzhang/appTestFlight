@@ -35,7 +35,7 @@ export default class TCWebGameFullView extends React.Component {
         };
 
         //自己的游戏特殊处理
-        JXLog('gameData'+JSON.stringify(gameData))
+        TWLog('gameData'+JSON.stringify(gameData))
 
         if (gameData.gamePlatform === 'bobo' || gameData.gamePlatformType == 2) {
             StatusBar.setHidden(true);
@@ -260,7 +260,7 @@ export default class TCWebGameFullView extends React.Component {
     }
 
     onLoadError = evt => {
-        JXLog("TCDefaultTendDomain----onLoadError==", evt);
+        TWLog("TCDefaultTendDomain----onLoadError==", evt);
         this.setState({ loadedFail: true });
     };
 
@@ -269,7 +269,7 @@ export default class TCWebGameFullView extends React.Component {
     };
 
     onNavigationStateChange = navState => {
-        JXLog("TCDefaultTendDomain----onNavigationStateChange==", navState);
+        TWLog("TCDefaultTendDomain----onNavigationStateChange==", navState);
         if(navState&&navState.title.indexOf("404 Not Found")>-1){
             this.setState({loadedFail: true});
         }else{

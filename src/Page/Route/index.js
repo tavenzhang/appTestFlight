@@ -10,15 +10,14 @@ import NavigationService from './NavigationService'
 import rootStore from "../../Data/store/RootStore";
 
 const appStores = {
-    jdAppStore: rootStore.jdAppstore,
-    mainStore: rootStore.mainStore,
-    initAppStore: rootStore.initAppStore,
-    userStore: rootStore.userStore,
-    commonBoxStore: rootStore.commonBoxStore,
+    // mainStore: rootStore.mainStore,
+    // initAppStore: rootStore.initAppStore,
+    // commonBoxStore: rootStore.commonBoxStore,
 }
 import CommonBoxLayer from "../Main/CommonBoxLayer";
-
 import XXWebView from "../web/XXWebView";
+
+
 
 //用于增加通用navigator view 属性 特殊 处理
 function viewRoutHelp(component) {
@@ -73,7 +72,7 @@ export default class Main extends Component {
     }
 
     addStatusBar() {
-        if (!IS_IOS) {
+        if (!G_IS_IOS) {
             return (
                 <StatusBar
                     hidden={false}

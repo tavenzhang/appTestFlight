@@ -1,7 +1,4 @@
 'use-strict';
-import jdAppstore from "./JDAppStore";
-import GameDZStore from "./GameDZStore";
-import userStore from "./UserStore";
 import CommonBoxStore from "./CommonBoxStore";
 import initAppStore from "./InitAppStore";
 import mainStore from "./MainStore";
@@ -10,10 +7,7 @@ import mainStore from "./MainStore";
 class RootStore {
     constructor() {
         this.mainStore = mainStore;
-        this.jdAppstore=jdAppstore
         this.initAppStore = initAppStore;
-        this.userStore=userStore;
-        this.gameDZStore =new GameDZStore();
         this.commonBoxStore=new CommonBoxStore();
     }
 }

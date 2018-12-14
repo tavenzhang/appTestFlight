@@ -41,7 +41,7 @@ export default class MyComponent {
         try {
             let response = await fetch(url, map);
             if (response.status >= 200) {
-                JXLog('上传成功');
+                TWLog('上传成功');
             }
         } catch (e) {
         }

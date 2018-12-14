@@ -39,9 +39,9 @@ export default class MarqueeLabel extends Component {
                     let duration = this.duration
                     this.lastAnimationDuration = duration - (-this.lastTimeStopValue + this.bgViewWidth) / this.props.speed * 1000
                     let toValueLast = this.lastTimeStopValue
-                    // JXLog('duration = '+ this.duration)
-                    // JXLog('lastAnimationDuration = '+ this.lastAnimationDuration)
-                    // JXLog('lastTimeStopValue = '+ this.lastTimeStopValue)
+                    // TWLog('duration = '+ this.duration)
+                    // TWLog('lastAnimationDuration = '+ this.lastAnimationDuration)
+                    // TWLog('lastTimeStopValue = '+ this.lastTimeStopValue)
                     Animated.timing(this.animatedTransformX, {toValue: toValueLast, duration: 0, easing: Easing.linear}).start(() => {});
                 }
             });

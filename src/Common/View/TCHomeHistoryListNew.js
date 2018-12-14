@@ -59,11 +59,11 @@ export default class TCHomeHistoryListNew extends React.Component {
 
     onShowListView=()=>{
         let {onGuestureChange}=this.props
-        JXLog("TCJPK----------onShowListView--pre",this.state.listHightState)
+        TWLog("TCJPK----------onShowListView--pre",this.state.listHightState)
         if(this.state.listHightState<2){
             if(!this.isChanging){
                 this.isChanging=true;
-                JXLog("TCJPK----------onShowListView--start",this.state.listHightState)
+                TWLog("TCJPK----------onShowListView--start",this.state.listHightState)
                 this.setState({listHightState:this.state.listHightState+1},()=>{
                     setTimeout(()=>{
                         this.isChanging=false;
@@ -78,11 +78,11 @@ export default class TCHomeHistoryListNew extends React.Component {
 
     onHideListView=()=>{
         let {onGuestureChange}=this.props
-        JXLog("TCJPK----------onHideListView--pre",this.state.listHightState)
+        TWLog("TCJPK----------onHideListView--pre",this.state.listHightState)
         if(this.state.listHightState>0){
             if(!this.isChanging) {
                 this.isChanging = true;
-                JXLog("TCJPK----------onHideListView--start",this.state.listHightState)
+                TWLog("TCJPK----------onHideListView--start",this.state.listHightState)
                 this.setState({listHightState: this.state.listHightState - 1}, () => {
                     setTimeout(()=>{
                         this.isChanging=false;
@@ -139,7 +139,7 @@ export default class TCHomeHistoryListNew extends React.Component {
         }else if(this.state.listHightState==2){
             h=256
         }
-      JXLog("TCJPK-------renderListView--this.state.listHightState=="+this.state.listHightState,h)
+      TWLog("TCJPK-------renderListView--this.state.listHightState=="+this.state.listHightState,h)
        // style={[{height: this.state.height - 52}]}
         return (
             <View pointerEvents={"none"}>

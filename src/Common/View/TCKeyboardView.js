@@ -35,7 +35,7 @@ export default class TCKeyboardView extends Component {
     }
 
     static defaultProps = {
-        showMarginTop: height - height / 2.6 - (IS_IOS ? 0 : StatusBarHeight + (ScreenRatio < 1.8 ? 0 : 35)),
+        showMarginTop: height - height / 2.6 - (G_IS_IOS ? 0 : StatusBarHeight + (ScreenRatio < 1.8 ? 0 : 35)),
         hiddenMarginTop: height,
         setInputValue: null,
         backdropPressToClose: true,

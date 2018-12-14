@@ -32,7 +32,7 @@ export default class SecretUtils {
     encode(username, password, callBack, deviceToken) {
         Bcrypt.setRandomFallback(this.callBack)
         var str = this.getSecretFromUserNamePassword(username, password, deviceToken)
-        JXLog('str == ' + str)
+        TWLog('str == ' + str)
 
         Bcrypt.genSalt(6, function (err, salt) {
             Bcrypt.hash(str, salt, (err, hash) => {
@@ -62,7 +62,7 @@ export default class SecretUtils {
             var encodedPWD = base64.encode(encryptedPWD);
             return encodedPWD;
         } catch (error) {
-            JXLog(error);
+            TWLog(error);
         }
     }
 }

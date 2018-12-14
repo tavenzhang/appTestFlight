@@ -6,7 +6,6 @@ import Toast from '../JXHelper/JXToast'
 import InitHelper from './TCInitHelper'
 import JXHelper from './JXHelper'
 import NavigationService from '../../Page/Route/NavigationService'
-import userStore from '../../Data/store/UserStore'
 import {JX_PLAT_INFO} from "../../Page/asset";
 import {Platform} from 'react-native'
 
@@ -21,7 +20,7 @@ Helper.setNavigator = (args) => {
 }
 
 Helper.checkUserWhetherLogin = () => {
-    if (userStore.userName && userStore.isLogin) return true
+  //  if (userStore.userName && userStore.isLogin) return true
     return false
 }
 
@@ -127,10 +126,10 @@ Helper.homeGoFastAction= (data)=>{
                 Helper.pushToUserLogin()
                 return
             }
-            if (userStore.isGuest) {
-                Toast.showShortCenter(`试玩账号不能进行该游戏`);
-                return
-            }
+            // if (userStore.isGuest) {
+            //     Toast.showShortCenter(`试玩账号不能进行该游戏`);
+            //     return
+            // }
             let remarkData = JSON.parse(remark);
             let item = {gamePlatform:content}
             if (remarkData.category === "SPORT") {
@@ -190,10 +189,10 @@ Helper.pushToUserPayAndWithDraw = (accountType, isBackToTop) => {
 }
 
 Helper.pushToPay = () => {
-    if (userStore.isGuest) {
-        Toast.showShortCenter('对不起，试玩账号不能进行存取款操作!')
-        return
-    }
+    // if (userStore.isGuest) {
+    //     Toast.showShortCenter('对不起，试玩账号不能进行存取款操作!')
+    //     return
+    // }
     NavigationService.navigate("UserPay");
 }
 
@@ -368,24 +367,24 @@ Helper.pushToModifySecurityPwd = () => {
 
 // 跳转到银行卡管理页面
 Helper.pushToUserBankManager = () => {
-    if (!userStore.realName) {
-        NavigationService.navigate("UserInfo");
-    } else {
-        NavigationService.navigate("UserBankManager");
-    }
+    // if (!userStore.realName) {
+    //     NavigationService.navigate("UserInfo");
+    // } else {
+    //     NavigationService.navigate("UserBankManager");
+    // }
 }
 
 // 跳转到取款界面
 Helper.pushToWithdraw = () => {
-    if (userStore.isGuest) {
-        Toast.showShortCenter('对不起，试玩账号不能进行存取款操作!')
-        return
-    }
-    if (!userStore.realName) {
-        NavigationService.navigate("UserInfo");
-    } else {
-        NavigationService.navigate("UserWithdraw");
-    }
+    // if (userStore.isGuest) {
+    //     Toast.showShortCenter('对不起，试玩账号不能进行存取款操作!')
+    //     return
+    // }
+    // if (!userStore.realName) {
+    //     NavigationService.navigate("UserInfo");
+    // } else {
+    //     NavigationService.navigate("UserWithdraw");
+    // }
 }
 
 // 跳转到交易明细

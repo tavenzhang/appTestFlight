@@ -25,7 +25,7 @@ function getAvailableDomain (domains,callback) {
   let errorCount = 0
   for (let i = 0; i < domains.length; i++) {
     StartUp.setBaseURL(domains[i])
-    JXLog('cacheDomain = '+domains[i])
+    TWLog('cacheDomain = '+domains[i])
     StartUp.get(`/api/v1/ip/user/checkIpInfoDomains?clientId=${AppConfig.clientId}&platform=GAME`).then((response) => {
       if (response.ok) {
         AsyncStorage.getItem('cacheDomain').then((cacheDomain) => {

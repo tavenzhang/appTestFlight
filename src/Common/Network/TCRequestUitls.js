@@ -14,7 +14,7 @@ import NavigatorHelper from '../JXHelper/TCNavigatorHelper'
 import Toast from '../../Common/JXHelper/JXToast';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import initAppStore from '../../Data/store/InitAppStore'
-import userStore from '../../Data/store/UserStore'
+//import userStore from '../../Data/store/UserStore'
 
 const defaultTimeout = 10000;
 import Moment from 'moment';
@@ -58,7 +58,7 @@ export default class NetUitls extends Component {
     static PostUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState) {
         url = this.getServerUrl(url)
 
-        JXLog(JSON.stringify(config.map))
+        TWLog(JSON.stringify(config.map))
         let map = _.assignIn(config.map, {
             body: dontStringfyBody ? params : JSON.stringify(params),
         });
@@ -74,7 +74,7 @@ export default class NetUitls extends Component {
     static postUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState) {
         url = this.getServerUrl(url)
 
-        JXLog(JSON.stringify(config.map))
+        TWLog(JSON.stringify(config.map))
         let map = _.assignIn(config.map, {
             body: dontStringfyBody ? params : JSON.stringify(params),
         });
@@ -193,7 +193,7 @@ export default class NetUitls extends Component {
 
     //loadingState = {isModal: false, overStyle: {}, style: {}, margeTop: 0}
     static async fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState) {
-        // JXLog('URL:' + url)
+        // TWLog('URL:' + url)
         if (!dontAddHeadersAuthorization) {
             map = addHeadersAuthorization(map)
         } else {
@@ -219,7 +219,7 @@ export default class NetUitls extends Component {
             if(loadingState!=null){
                 rootStore.commonBoxStore.hideSpin()
             }
-            // JXLog('response:', response.headers.map.date)
+            // TWLog('response:', response.headers.map.date)
         }
 
         // 计算请求响应时间
@@ -246,7 +246,7 @@ export default class NetUitls extends Component {
                 }
             } else if (response.status >= 400) {
                 if (response.status === 401) {
-                    userStore.isLogin = false
+                   // userStore.isLogin = false
                     result = {"rs": false, "error": '无效token', "status": response.status, duration: duration}
                     Toast.showShortCenter('登录状态过期，请重新登录！')
                     NavigationService.tokenIsError();
@@ -254,13 +254,13 @@ export default class NetUitls extends Component {
                     callback(result);
                 } else if (response.status === 422) {
                     if (url.match(/refreshToken/)) {
-                        userStore.isLogin = false
+                     //   userStore.isLogin = false
                         NavigationService.tokenIsError();
                     } else {
                         result = _.assignIn(responseJson, {"rs": false, "status": response.status, duration: duration})
                     }
                 } else if (responseJson) {
-                    JXLog('responseJson:', JSON.stringify(responseJson))
+                    TWLog('responseJson:', JSON.stringify(responseJson))
                     result = _.assignIn(responseJson, {
                         "rs": false,
                         "status": response.status,
@@ -274,7 +274,7 @@ export default class NetUitls extends Component {
                 result = {"rs": false, "status": response.status, "massage": response.massage, duration: duration}
             }
         }
-        JXLog('\n\n*******   ' + map.method + '请求 url:\n' + url + '\n' + '\nrequestMap = ' + JSON.stringify(map) + '\n\n*******   状态码:' + response.status + '  *******返回结果：  \n' + JSON.stringify(result) + '\n')
+        TWLog('\n\n*******   ' + map.method + '请求 url:\n' + url + '\n' + '\nrequestMap = ' + JSON.stringify(map) + '\n\n*******   状态码:' + response.status + '  *******返回结果：  \n' + JSON.stringify(result) + '\n')
         callback(result)
     }
 
@@ -293,12 +293,12 @@ export default class NetUitls extends Component {
 }
 
 function addHeadersAuthorization(map) {
-    if (userStore.access_token && userStore.isLogin) {
-        map.headers.Authorization = 'bearer ' + userStore.access_token;
-    }
-    else {
-        map.headers.Authorization = '';
-    }
+    // if (userStore.access_token && userStore.isLogin) {
+    //     map.headers.Authorization = 'bearer ' + userStore.access_token;
+    // }
+    // else {
+    //     map.headers.Authorization = '';
+    // }
 
     return map
 }

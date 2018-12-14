@@ -32,7 +32,7 @@ export const baseUrl = {
 let headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'User-Agent': IS_IOS ? 'iphone' : 'android',
+    'User-Agent': G_IS_IOS ? 'iphone' : 'android',
     ClientId: appId,
     AppVersion: appVersion,
     'Version-hotFix': versionHotFix

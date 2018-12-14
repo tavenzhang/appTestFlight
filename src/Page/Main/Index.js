@@ -24,7 +24,7 @@ import * as Progress from 'react-native-progress';
 import {observer} from 'mobx-react'
 
 import UserData from '../../Data/UserData'
-import Storage from '../../Common/Storage/TCStorage'
+import Storage from '../../Common/Global/TCStorage'
 import G_Config from '../../Common/Global/G_Config'
 import Main from '../Route';
 
@@ -137,7 +137,7 @@ export default class APP extends Component {
 
     initDomain() {
         AsyncStorage.getItem('cacheDomain').then((response) => {
-            JXLog("refresh cache domain ", response)
+            TWLog("refresh cache domain ", response)
             let cacheDomain = response ? JSON.parse(response) : null
             if (cacheDomain != null && cacheDomain.serverDomains && cacheDomain.serverDomains.length > 0) {//缓存存在，使用缓存访问
                 StartUpHelper.getAvailableDomain(cacheDomain.serverDomains, (success, allowUpdate, message) => this.cacheAttempt(success, allowUpdate, message))
@@ -156,7 +156,7 @@ export default class APP extends Component {
 
     //使用默认地址
     firstAttempt(success, allowUpdate, message) {
-        JXLog(`first attempt ${success}, ${allowUpdate}, ${message}`)
+        TWLog(`first attempt ${success}, ${allowUpdate}, ${message}`)
         if (success && allowUpdate) {
             this.gotoUpdate()
         } else if (!success) {//默认地址不可用，使用备份地址
@@ -217,7 +217,7 @@ export default class APP extends Component {
         AsyncStorage.getItem('cacheDomain').then((response) => {
             let cacheDomain = JSON.parse(response)
             global.JXCodePushServerUrl = cacheDomain.hotfixDomains[0].domain
-            let hotfixDeploymentKey = IS_IOS ? cacheDomain.hotfixDomains[0].iosDeploymentKey : cacheDomain.hotfixDomains[0].androidDeploymentKey;
+            let hotfixDeploymentKey = G_IS_IOS ? cacheDomain.hotfixDomains[0].iosDeploymentKey : cacheDomain.hotfixDomains[0].androidDeploymentKey;
             CodePushDeploymentKey = hotfixDeploymentKey;
             this.hotFix(hotfixDeploymentKey)
         })
@@ -253,9 +253,9 @@ export default class APP extends Component {
         })
 
         CodePush.checkForUpdate(hotfixDeploymentKey).then((update) => {
-            JXLog('==checking update', update)
+            TWLog('==checking update', update)
             if (update !== null) {
-                if (IS_IOS) {
+                if (G_IS_IOS) {
                     NativeModules.JDHelper.resetLoadModleForJS(true)
                 }
                 this.hotFixStore.syncMessage = '获取到更新，正在疯狂加载...';
@@ -348,7 +348,7 @@ export default class APP extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'版本号:' + versionHotFix + '  ' + (IS_IOS? 'iOS' : '安卓') + ':' + initAppStore.appVersion}</Text>
+                }}>{'版本号:' + versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + initAppStore.appVersion}</Text>
             </View>)
         }
         return (

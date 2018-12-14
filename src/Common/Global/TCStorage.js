@@ -26,7 +26,7 @@ storage.load({
 }).then(res => {
     TCDefaultDomain = res
 }).catch(err => {
-    JXLog(err)
+    TWLog(err)
 });
 
 // storage.load({
@@ -34,7 +34,7 @@ storage.load({
 // }).then(res => {
 //     TCUSER_DATA = res;
 // }).catch(err => {
-//     JXLog(err)
+//     TWLog(err)
 // });
 //
 
@@ -44,7 +44,7 @@ storage.load({
     if (res)
     TCGameSetting = res
 }).catch(err => {
-    JXLog(err)
+    TWLog(err)
 });
 
 
@@ -53,7 +53,7 @@ storage.load({
 }).then(res => {
     TCHomeContents = res
 }).catch(err => {
-    JXLog(err)
+    TWLog(err)
 });
 
 // 对于react native

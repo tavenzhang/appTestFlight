@@ -8,7 +8,7 @@ const XR_HEIGHT = 896;
 //iPhoneX 375 x 812
 //iPhone XR：414x896
 // iPhone XS Max:414x896
-const JX_IPHON_X = IS_IOS &&
+const JX_IPHON_X = G_IS_IOS &&
     ((SCREEN_H === X_HEIGHT && SCREEN_W === X_WIDTH) || (SCREEN_H === X_WIDTH && SCREEN_W === X_HEIGHT)|| ((SCREEN_H === XR_HEIGHT && SCREEN_W === XR_WIDTH) ||
             (SCREEN_H === XR_WIDTH && SCREEN_W === XR_HEIGHT)))
 
@@ -17,7 +17,7 @@ const JX_IPHON_X = IS_IOS &&
  * for ios:     iPhoneX is 44, other is 20
  * for android: version less than 21 is 0
  */
-export const StatusBarHeight = IS_IOS ? (JX_IPHON_X ? 44 : 20) : (Platform.Version >= 21 ? StatusBar.currentHeight : 0)
+export const StatusBarHeight = G_IS_IOS ? (JX_IPHON_X ? 44 : 20) : (Platform.Version >= 21 ? StatusBar.currentHeight : 0)
 
 /**
  * 导航Header高度
@@ -32,9 +32,9 @@ export const NavBarHeight = StatusBarHeight + NavBarHeaderHeight
 /**
  * 导航栏按钮下拉框距离顶部位置
  */
-export const NavBarModalTop = IS_IOS ? NavBarHeight : NavBarHeaderHeight
+export const NavBarModalTop = G_IS_IOS ? NavBarHeight : NavBarHeaderHeight
 
-export const bottomNavHeight = IS_IOS ? (JX_IPHON_X  ? 83 : 50) : 49
+export const bottomNavHeight = G_IS_IOS ? (JX_IPHON_X  ? 83 : 50) : 49
 
 /**
  * 屏幕占比
@@ -47,5 +47,5 @@ export const JX_PLAT_INFO = {
     SCREEN_W,
     SCREEN_H,
     TCLineW,
-    IS_IOS
+    IS_IOS: G_IS_IOS
 }

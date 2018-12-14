@@ -83,7 +83,7 @@ export default class TCWebView extends Component {
     };
 
     onNavigationStateChange = (navState) => {
-        JXLog(navState)
+        TWLog(navState)
         this.setState({
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,
