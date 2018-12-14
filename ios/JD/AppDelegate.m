@@ -25,7 +25,6 @@
 }
 
 
-
 -(void)testLoadNative{
   WKWebViewConfiguration * configuration = [[WKWebViewConfiguration alloc] init];
   [configuration.preferences setValue:@"TRUE" forKey:@"allowFileAccessFromFileURLs"];
