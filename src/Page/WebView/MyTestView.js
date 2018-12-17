@@ -7,8 +7,8 @@ export default class MyTestView extends Component{
 
     componentDidMount() {
         setTimeout(()=>{
-            JX_NavHelp.popToBack()
-            TWLog("componentDidMount=======MyTestView========", )
+            TW_NavHelp.popToBack()
+            TW_Log("componentDidMount=======MyTestView========", )
         },2000)
     }
 

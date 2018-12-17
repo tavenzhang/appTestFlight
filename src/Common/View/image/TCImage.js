@@ -77,7 +77,7 @@ export default class TCImage extends Component {
 
     onLoadSucess = (data) => {
         //let {style, resizeMode, imgPlaceHolder, source, styleHolder, resizeModeHolder} = this.props
-        //TWLog("onLoadError=====onLoadSucess" ,source.uri)
+        //TW_Log("onLoadError=====onLoadSucess" ,source.uri)
         let {onLoadSucFun} = this.props
         if(!this.state.onPreFinish){
             this.setState({onPreFinish: true})
@@ -89,7 +89,7 @@ export default class TCImage extends Component {
 
 
     onLoadError = (data) => {
-      //  TWLog("onLoadError=====")
+      //  TW_Log("onLoadError=====")
     }
 }
 

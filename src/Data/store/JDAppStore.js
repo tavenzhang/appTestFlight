@@ -118,11 +118,11 @@ class JDAppStore {
     async initLoginUserName() {
         await storage.load({key: "LOGINEDUSERNAMES"}).then(res => {
             if (res) {
-                TWLog("loginedUserNames", res);
+                TW_Log("loginedUserNames", res);
                 this.loginedUserNames = res;
             }
         }).catch(err => {
-            TWLog("loginedUserNames not found");
+            TW_Log("loginedUserNames not found");
         });
     }
 
@@ -130,7 +130,7 @@ class JDAppStore {
         await  storage.load({key: "BUTTONSOUNDSTATUS"}).then(res => {
             this.buttonSoundStatus = res;
         }).catch(err => {
-            TWLog("BUTTONSOUNDSTATUS not found");
+            TW_Log("BUTTONSOUNDSTATUS not found");
         });
     }
 
@@ -160,7 +160,7 @@ class JDAppStore {
         this.loginedUserNames.push(userName)
         this.loginedUserNames = Array.from(new Set(this.loginedUserNames))
         storage.save({key: "LOGINEDUSERNAMES", data: this.loginedUserNames})
-        TWLog("USER:", this.loginedUserNames)
+        TW_Log("USER:", this.loginedUserNames)
     }
 
 

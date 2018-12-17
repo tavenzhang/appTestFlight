@@ -1,19 +1,22 @@
 
 import rootStore from "../../Data/store/RootStore";
 import NavigatorHelper from "../JXHelper/TCNavigatorHelper";
+import { Text } from 'react-native';
 
-global.TWLog = (string, str2) => {
+// 关闭应用中字体适应系统字体变化的效果
+Text.defaultProps = { ...Text.defaultProps, allowFontScaling: false};
+
+global.TW_Log = (string, str2) => {
     if (str2) {
         if (__DEV__) console.log(string, str2)
     } else if (__DEV__) console.log(string)
 }
 
 //整合全局 不变的使用 引用 常量 减少import的数量 ，以JX_ 开头
-global.JX_NavHelp = NavigatorHelper
-global.JX_Store = rootStore
+global.TW_NavHelp = NavigatorHelper;
+global.TW_Store = rootStore;
 
-
-const hasOwn = Object.prototype.hasOwnProperty
+const hasOwn = Object.prototype.hasOwnProperty;
 
 function is(x, y) {
     if (x === y) {

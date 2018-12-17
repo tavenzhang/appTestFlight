@@ -20,13 +20,12 @@ var storage = new Storage({
     // sync: require('./sync')
 });
 
-
 storage.load({
     key: 'TCDefaultDomain'
 }).then(res => {
     TCDefaultDomain = res
 }).catch(err => {
-    TWLog(err)
+    TW_Log(err)
 });
 
 // storage.load({
@@ -34,7 +33,7 @@ storage.load({
 // }).then(res => {
 //     TCUSER_DATA = res;
 // }).catch(err => {
-//     TWLog(err)
+//     TW_Log(err)Storage
 // });
 //
 
@@ -44,16 +43,15 @@ storage.load({
     if (res)
     TCGameSetting = res
 }).catch(err => {
-    TWLog(err)
+    TW_Log(err)
 });
-
 
 storage.load({
     key: 'TCHomeList'
 }).then(res => {
     TCHomeContents = res
 }).catch(err => {
-    TWLog(err)
+    TW_Log(err)
 });
 
 // 对于react native

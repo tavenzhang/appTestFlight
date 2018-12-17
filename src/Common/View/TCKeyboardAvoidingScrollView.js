@@ -68,7 +68,7 @@ export default class TCKeyboardAvoidingScrollView extends React.Component {
         // // TODO: 升级 React Native 后，使用 UIManger.viewIsdescendantOf 判断该 TextInput 是否在当前 ScrollView 内
         // //使用  UIManager.measure
         // UIManager.measure(focusedTextInputId, (originX, originY, width, height, pageX, pageY) => {
-        //    // TWLog("_onShowKeyboard----event",event)
+        //    // TW_Log("_onShowKeyboard----event",event)
         //         const keyboardEndCoordinates = event.endCoordinates;
         //         const overlapping = (pageY + height) -
         //             keyboardEndCoordinates.screenY;
@@ -112,7 +112,7 @@ export default class TCKeyboardAvoidingScrollView extends React.Component {
 
         this._delayScrollTimer = setTimeout(() => {
             if (this.refs.scrollView) {
-                // TWLog("hehehe contentY scroll " + contentOffsetY);
+                // TW_Log("hehehe contentY scroll " + contentOffsetY);
                 this.refs.scrollView.scrollTo({y: contentOffsetY});
             }
 

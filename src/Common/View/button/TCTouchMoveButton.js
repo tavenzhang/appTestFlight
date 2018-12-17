@@ -117,7 +117,7 @@ export default class TCTouchMoveButton extends React.Component {
 
     _handlePanResponderMove(e, gestureState) {
         let {edgeW,edgeH,topMargin,rightMargin,bottomMargin}=this.props;
-        //TWLog("_handlePanResponderMove-----gestureState=dx=="+gestureState.dx,gestureState.dy)
+        //TW_Log("_handlePanResponderMove-----gestureState=dx=="+gestureState.dx,gestureState.dy)
         let dx = this.previousLeft + gestureState.dx;
         let dy = this.previousTop + gestureState.dy;
 

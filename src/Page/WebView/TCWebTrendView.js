@@ -42,14 +42,14 @@ export default class TCWebTrendView extends React.Component {
 
     componentDidMount() {
         let link = `${TCDefaultTendDomain}/trend_v2?gameUniqueId=${this.state.game}&showBack=false&clientId=${configAppId}&height=${JX_PLAT_INFO.MarginBarHeight}`;
-        TWLog("TCWebTrendView-----  link==", link)
+        TW_Log("TCWebTrendView-----  link==", link)
         this.setState({url: link}, () => {
             this.initUrl = this.state.url;
         });
     }
 
     render() {
-        TWLog("TCWebTrendView-----  TCWebTrendView", this.props)
+        TW_Log("TCWebTrendView-----  TCWebTrendView", this.props)
 
         let containStyle = JX_PLAT_INFO.IS_IphoneX ? styles.containerIOS : styles.container
         if (this.state.loadedFail) {
@@ -110,7 +110,7 @@ export default class TCWebTrendView extends React.Component {
     }
 
     onLoadError = (evt) => {
-        TWLog("TCDefaultTendDomain----onLoadError==", evt)
+        TW_Log("TCDefaultTendDomain----onLoadError==", evt)
         this.setState({loadedFail: true})
     }
 
@@ -120,7 +120,7 @@ export default class TCWebTrendView extends React.Component {
 
 
     onNavigationStateChange = (navState) => {
-        TWLog("TCDefaultTendDomain----onNavigationStateChange==", navState)
+        TW_Log("TCDefaultTendDomain----onNavigationStateChange==", navState)
         this.setState({
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,

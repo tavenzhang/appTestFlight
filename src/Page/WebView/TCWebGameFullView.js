@@ -35,7 +35,7 @@ export default class TCWebGameFullView extends React.Component {
         };
 
         //自己的游戏特殊处理
-        TWLog('gameData'+JSON.stringify(gameData))
+        TW_Log('gameData'+JSON.stringify(gameData))
 
         if (gameData.gamePlatform === 'bobo' || gameData.gamePlatformType == 2) {
             StatusBar.setHidden(true);
@@ -206,12 +206,12 @@ export default class TCWebGameFullView extends React.Component {
 
     gotoTopUp(){
        // TCNavigatorHelper.pushToTopUp()
-        JX_NavHelp.popToTop();
+        TW_NavHelp.popToTop();
     }
 
     onTransMoney=()=>{
         let {title,platName,isDZ} = this.props;
-        JX_NavHelp.pushView(JX_Compones.UserTransfer,{platName:isDZ ? platName: title.substr(0,2)});
+        TW_NavHelp.pushView(JX_Compones.UserTransfer,{platName:isDZ ? platName: title.substr(0,2)});
     }
 
     onBack = () => {
@@ -227,7 +227,7 @@ export default class TCWebGameFullView extends React.Component {
                 text: '确定',
                 onPress: () => {
                     //TCNavigatorHelper.popToBack();
-                    JX_NavHelp.popToBack();
+                    TW_NavHelp.popToBack();
                 }
             },
             {
@@ -249,7 +249,7 @@ export default class TCWebGameFullView extends React.Component {
                 text: '确定',
                 onPress: () => {
                    // TCNavigatorHelper.popToBack();
-                    JX_NavHelp.popToBack();
+                    TW_NavHelp.popToBack();
                 }
             },
             {
@@ -260,7 +260,7 @@ export default class TCWebGameFullView extends React.Component {
     }
 
     onLoadError = evt => {
-        TWLog("TCDefaultTendDomain----onLoadError==", evt);
+        TW_Log("TCDefaultTendDomain----onLoadError==", evt);
         this.setState({ loadedFail: true });
     };
 
@@ -269,7 +269,7 @@ export default class TCWebGameFullView extends React.Component {
     };
 
     onNavigationStateChange = navState => {
-        TWLog("TCDefaultTendDomain----onNavigationStateChange==", navState);
+        TW_Log("TCDefaultTendDomain----onNavigationStateChange==", navState);
         if(navState&&navState.title.indexOf("404 Not Found")>-1){
             this.setState({loadedFail: true});
         }else{

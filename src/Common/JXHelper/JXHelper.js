@@ -3,8 +3,7 @@
  */
 import _ from 'lodash';
 import moment from "moment-timezone";
-import {gameIconKeyValue, defaultCpIcon} from '../../Page/asset/images'
-var Banks = require('../../Data/banks.json');
+//var Banks = require('../../Data/banks.json');
 
 
 
@@ -102,7 +101,6 @@ Object.assign(Number.prototype, {
 
     }
 
-
 });
 
 
@@ -113,7 +111,7 @@ Helper.getRandomNumber = (MaxDigits) => {
 }
 
 Helper.getTimeRegularTimeZone = (time, format) => {
-    return moment.tz(time, "Asia/Shanghai").format(format)
+    return moment.tz(time, "Asia/Shanghai").format(format);
 }
 
 Helper.getRandomChars = (randomFlag, min, max) => {
@@ -128,7 +126,7 @@ Helper.getRandomChars = (randomFlag, min, max) => {
         let pos = Math.round(Math.random() * (arr.length - 1));
         str += arr[pos];
     }
-    let a = Math.floor(Math.random() * (999999 - 100000)) + 100000
+    let a = Math.floor(Math.random() * (999999 - 100000)) + 100000;
     return a + str;
 }
 
@@ -378,7 +376,7 @@ Helper.getShareUrl4Wap = () => {
 
 /** 获取IOS分享链接 */
 Helper.getShareUrl4Ios = () => {
-    let otherSetting = Helper.getotherSettings()
+    let otherSetting = Helper.getotherSettings();
     if (otherSetting) {
         return otherSetting.shareUrl4Ios
     }
@@ -387,7 +385,7 @@ Helper.getShareUrl4Ios = () => {
 
 /** 获取Android分享链接 */
 Helper.getShareUrl4Android = () => {
-    let otherSetting = Helper.getotherSettings()
+    let otherSetting = Helper.getotherSettings();
     if (otherSetting) {
         return otherSetting.shareUrl4Android
     }
@@ -395,15 +393,15 @@ Helper.getShareUrl4Android = () => {
 }
 
 /** 判断本地或网络获取图片 */
-Helper.determineLocal = (bankCode) => {
-    let localBanks = Banks.exclude.banks;
-    for (let i = 0; i < localBanks.length; i++) {
-        if (bankCode === localBanks[i].code) {
-            return true;
-        }
-    }
-    return false;
-}
+// Helper.determineLocal = (bankCode) => {
+//     let localBanks = Banks.exclude.banks;
+//     for (let i = 0; i < localBanks.length; i++) {
+//         if (bankCode === localBanks[i].code) {
+//             return true;
+//         }
+//     }
+//     return false;
+// }
 
 /** 获取开通的体育和电子平台链接 */
 Helper.getDSFOpenList = () => {

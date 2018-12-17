@@ -1,6 +1,3 @@
-/**
- * Created by Sam on 2016/12/29.
- */
 import React, {Component} from 'react';
 import {
     AppRegistry,
@@ -8,13 +5,9 @@ import {
     Text,
     View,
     Navigator,
-    Alert,
-    Image,
-    Platform,
     NativeModules,
     TouchableOpacity,
     AsyncStorage,
-    BackAndroid,
     AppState, StatusBar
 } from 'react-native';
 
@@ -43,8 +36,8 @@ let downloadTime = 0
 let alreadyInCodePush = false
 let CodePushDeploymentKey = null
 import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
-import XXWebView from "../web/XXWebView";
 let domainsHelper = new JXDomainsHelper()
+
 
 @observer
 export default class APP extends Component {
@@ -61,21 +54,12 @@ export default class APP extends Component {
         this.uploadLog()
         this.initDomain()
 
-        // if (TC_LOGINED_USER_NAME && TC_LOGINED_USER_NAME.length == 0) {
-        //     TCInitHelper.getLoginUserNames()
-        // }
-        //
-        // if (TCUSER_COLLECT) {
-        //     UserCollectHelper.getUserCollects()
-        // }
-        //
-        // TCInitHelper.getButtonSoundStatus()
 
         AppState.addEventListener('change', this.handleAppStateChange);
         this.timer2 = setTimeout(() => {
             if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
                 this.hotFixStore.skipUpdate();
-                this.reloadAppDomain()
+                this.reloadAppDomain();
             }
         }, 5 * 1000)
     }
@@ -89,7 +73,7 @@ export default class APP extends Component {
 
                 this.timer2 = setTimeout(() => {
                     if (this.state.syncMessage === '检测更新中...' || this.state.syncMessage === '初始化配置中...') {
-                        this.skipUpdate()
+                        this.skipUpdate();
                     }
                 },5 * 1000)
                 this.setState({
@@ -124,7 +108,6 @@ export default class APP extends Component {
         } else {
             return (<Main/>);
         }
-     //   return <XXWebView/>
     }
 
     handleNeedChangeAnimated() {
@@ -137,7 +120,7 @@ export default class APP extends Component {
 
     initDomain() {
         AsyncStorage.getItem('cacheDomain').then((response) => {
-            TWLog("refresh cache domain ", response)
+            TW_Log("refresh cache domain ", response)
             let cacheDomain = response ? JSON.parse(response) : null
             if (cacheDomain != null && cacheDomain.serverDomains && cacheDomain.serverDomains.length > 0) {//缓存存在，使用缓存访问
                 StartUpHelper.getAvailableDomain(cacheDomain.serverDomains, (success, allowUpdate, message) => this.cacheAttempt(success, allowUpdate, message))
@@ -156,7 +139,7 @@ export default class APP extends Component {
 
     //使用默认地址
     firstAttempt(success, allowUpdate, message) {
-        TWLog(`first attempt ${success}, ${allowUpdate}, ${message}`)
+        TW_Log(`first attempt ${success}, ${allowUpdate}, ${message}`)
         if (success && allowUpdate) {
             this.gotoUpdate()
         } else if (!success) {//默认地址不可用，使用备份地址
@@ -253,7 +236,7 @@ export default class APP extends Component {
         })
 
         CodePush.checkForUpdate(hotfixDeploymentKey).then((update) => {
-            TWLog('==checking update', update)
+            TW_Log('==checking update', update)
             if (update !== null) {
                 if (G_IS_IOS) {
                     NativeModules.JDHelper.resetLoadModleForJS(true)

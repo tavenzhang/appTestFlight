@@ -51,7 +51,7 @@ export default class TCInitHelper {
                 this.defaultBaseDomain = base[array[_.random(0, array.length - 1)]]
             }
             Extension.init();
-            domainsHelper.start()
+            domainsHelper.start();
         }
         return instance;
     }

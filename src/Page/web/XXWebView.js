@@ -33,13 +33,13 @@ export default class XXWebView extends Component {
 
     render() {
         let res = RNFS.MainBundlePath + '/assets/src/page/web/gamelobby/home.html';
-        //TWLog("===========res=====", res)
+        //TW_Log("===========res=====", res)
         // let source = {
         //     uri: res,
         //     allowingReadAccessToURL: RNFS.MainBundlePath,
         //     allowFileAccessFromFileURLs: RNFS.MainBundlePath
         // }
-        TWLog("XXWebView render==")
+        TW_Log("XXWebView render==")
         let source=require('./gamelobby/index.html')    ;
         if (!G_IS_IOS) {
             source = {uri: 'file:///android_asset/gamelobby/index.html'}
@@ -86,26 +86,26 @@ export default class XXWebView extends Component {
 
     onMessage=(event)=>{
         let data = event.nativeEvent.data;
-        TWLog("onMessage===========event=====", data);
+        TW_Log("onMessage===========event=====", data);
         if(data.action&&data.action=="game_back"){
          return;
         }
-        JX_NavHelp.pushView(JX_Compones.WebView,{url:"http://localhost:8081/assets/src/Page/web/g_qznn/index.html?" +
+        TW_NavHelp.pushView(JX_Compones.WebView,{url:"http://localhost:8081/assets/src/Page/web/g_qznn/index.html?" +
             "jumpData=eyJ0b2tlbiI6IjgzMGFkZmMyLTIwODYtNGVkYy04NGMwLTEyYTIxZDYyNWIzYiIsImh0dHBVcmwiOiJodHRwOi8vMTkyLjE2OC4xLjkzOjgwOTEvYXBpL3YxIiwiZ2FtZUlkIjoyMn0=",data})
     }
 
     onError = (error) => {
-        TWLog("onError===========event=====", error)
+        TW_Log("onError===========event=====", error)
     }
 
     onShouldStartLoadWithRequest = (event) => {
 
-        TWLog("onShouldStartLoadWithRequest===========event=====", event)
+        TW_Log("onShouldStartLoadWithRequest===========event=====", event)
         return true;
     };
 
     onNavigationStateChange = (navState) => {
-        TWLog("navState===========onNavigationStateChange=====", navState.url)
+        TW_Log("navState===========onNavigationStateChange=====", navState.url)
         this.setState({
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,

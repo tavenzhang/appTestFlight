@@ -25,7 +25,7 @@ export const configAppId = '1'
 // export const configAppId = '31'
 
 export const trendServer = 'http://106caipiao.com'
-export const MyAppName = '易盈棋牌'
+export const MyAppName = '博博乐'
 
 export const appHotFixUpdataServers = {
     base1: 'https://checkupdate1.zzlhjfls.com',

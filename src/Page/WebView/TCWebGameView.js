@@ -37,12 +37,12 @@ export default class TCWebGameView extends React.Component {
         let bodyParam = {
             access_token: userStore.access_token,
         }
-        TWLog("componentWillMount--- params==", params)
+        TW_Log("componentWillMount--- params==", params)
         if (params.isDZ) {
             let {gameData, gameId} = params
             bodyParam.gameId = gameId
             NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.gamesDZ_start + "/" + gameId,  bodyParam,gameData.gamePlatform, (ret) => {
-                TWLog("TCWebGameView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
+                TW_Log("TCWebGameView-------getUrlAndParamsAndPlatformAndCallback--platForm==" + ret.content, ret)
                 if (ret.rs) {
                     this.setState({url: ret.content.gameUrl});
                 } else {
@@ -52,7 +52,7 @@ export default class TCWebGameView extends React.Component {
         } else {
             let {gameData} = params
             NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.startGame, bodyParam,gameData.gamePlatform, (ret) => {
-                TWLog("TCWebGameView-------startGame" + ret.content, ret)
+                TW_Log("TCWebGameView-------startGame" + ret.content, ret)
                 if (ret.rs) {
                    // this.setState({url: "https://www.google.com.hk"});
                      this.setState({url: ret.content.gameUrl});
@@ -65,7 +65,7 @@ export default class TCWebGameView extends React.Component {
 
 
     render() {
-        TWLog("TCWebTrendView-----  this.state.backButtonEnabled--", this.props.backButtonEnabled)
+        TW_Log("TCWebTrendView-----  this.state.backButtonEnabled--", this.props.backButtonEnabled)
         let {title} = this.props.navigation.state.params
 
         let conetView = <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
@@ -96,7 +96,7 @@ export default class TCWebGameView extends React.Component {
                 <TopNavigationBar  title={title} needBackButton={true} backButtonCall={this.onBack}
                                   rightTitle={'额度转换'} rightButtonCall={this.onTransMoney}/>
                 {conetView}
-                {this.state.backButtonEnabled ? <TouchableOpacity onPress={JX_NavHelp.popToBack} style={{position: "absolute",
+                {this.state.backButtonEnabled ? <TouchableOpacity onPress={TW_NavHelp.popToBack} style={{position: "absolute",
                         justifyContent: "center",
                         alignItems: "center",
                         top: JX_PLAT_INFO.MarginBarHeight + 12,
@@ -117,7 +117,7 @@ export default class TCWebGameView extends React.Component {
 
     onTransMoney=()=>{
         let {title,platName,isDZ} = this.props.navigation.state.params;
-        JX_NavHelp.pushView(JX_Compones.UserTransfer,{platName:isDZ ? platName: title.substr(0,2)});
+        TW_NavHelp.pushView(JX_Compones.UserTransfer,{platName:isDZ ? platName: title.substr(0,2)});
     }
 
     onBack = () => {
@@ -125,12 +125,12 @@ export default class TCWebGameView extends React.Component {
             this.refs[WEBVIEW_REF].goBack();
         }
         else{
-            JX_NavHelp.popToBack()
+            TW_NavHelp.popToBack()
         }
     }
 
     onLoadError = (evt) => {
-        TWLog("TCDefaultTendDomain----onLoadError==", evt)
+        TW_Log("TCDefaultTendDomain----onLoadError==", evt)
         this.setState({loadedFail: true})
     }
 
@@ -140,7 +140,7 @@ export default class TCWebGameView extends React.Component {
 
 
     onNavigationStateChange = (navState) => {
-        TWLog("TCDefaultTendDomain----onNavigationStateChange==", navState)
+        TW_Log("TCDefaultTendDomain----onNavigationStateChange==", navState)
         this.setState({
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,

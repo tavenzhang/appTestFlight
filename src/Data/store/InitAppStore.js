@@ -56,7 +56,7 @@ class InitAppStore {
                 if (appName.length) {
                     this.appName = appName;
                 }
-                TWLog("APPNAME", this.appName)
+                TW_Log("APPNAME", this.appName)
             })
         }
     }
@@ -65,17 +65,17 @@ class InitAppStore {
     async initAppVersion() {
         let nativeConfig = await CodePush.getConfiguration();
         this.appVersion = nativeConfig.appVersion;
-        TWLog("version", this.appVersion);
+        TW_Log("version", this.appVersion);
     }
 
     async initDeviceTokenFromLocalStore() {
         await storage.load({key: "USERDEVICETOKEN"}).then(res => {
             if (res) {
-                TWLog("deviceToken", res);
+                TW_Log("deviceToken", res);
                 this.deviceToken = res;
             }
         }).catch(err => {
-            TWLog("deviceToken not found");
+            TW_Log("deviceToken not found");
         });
 
         if (this.deviceToken.length === 0) {
@@ -116,7 +116,7 @@ class InitAppStore {
         let hotAffCode = this.getAppSpecialAffCode();
         if (hotAffCode) {
             this.userAffCode = hotAffCode;
-            TWLog("AFFCODE", this.userAffCode);
+            TW_Log("AFFCODE", this.userAffCode);
             return;
         } else {
             try {
@@ -124,10 +124,10 @@ class InitAppStore {
                     if (affcode) {
                         this.userAffCode = affcode
                     }
-                    TWLog("AFFCODE--->affcode="+affcode, this.userAffCode);
+                    TW_Log("AFFCODE--->affcode="+affcode, this.userAffCode);
                 })
             } catch (e) {
-                TWLog("AFFCODE NOT FOUND");
+                TW_Log("AFFCODE NOT FOUND");
             }
         }
     }

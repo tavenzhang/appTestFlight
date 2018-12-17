@@ -99,8 +99,8 @@ function routInStack(routeName, navigator) {
  * @param navigation
  */
 Helper.goBack = (routers, navigation) => {
-    TWLog("-goBack====routers-----"+routers,routers)
-    TWLog("goBack===navigation-----"+navigation,navigation)
+    TW_Log("-goBack====routers-----"+routers,routers)
+    TW_Log("goBack===navigation-----"+navigation,navigation)
     if (!routers) {
         Helper.popToTop();
         return;

@@ -1,18 +1,10 @@
-/**
- * Created by Sam on 2017/1/14.
- * Copyright © 2016年 JX. All rights reserved.
- */
-
 import React, {
     Component,
-    PropTypes,
 } from 'react'
 import {config, baseUrl} from './TCRequestConfig';
 import queryString from 'query-string';
 import _ from 'lodash';
-import NavigatorHelper from '../JXHelper/TCNavigatorHelper'
 import Toast from '../../Common/JXHelper/JXToast';
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import initAppStore from '../../Data/store/InitAppStore'
 //import userStore from '../../Data/store/UserStore'
 
@@ -58,7 +50,7 @@ export default class NetUitls extends Component {
     static PostUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState) {
         url = this.getServerUrl(url)
 
-        TWLog(JSON.stringify(config.map))
+        TW_Log(JSON.stringify(config.map))
         let map = _.assignIn(config.map, {
             body: dontStringfyBody ? params : JSON.stringify(params),
         });
@@ -74,7 +66,7 @@ export default class NetUitls extends Component {
     static postUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState) {
         url = this.getServerUrl(url)
 
-        TWLog(JSON.stringify(config.map))
+        TW_Log(JSON.stringify(config.map))
         let map = _.assignIn(config.map, {
             body: dontStringfyBody ? params : JSON.stringify(params),
         });
@@ -193,7 +185,6 @@ export default class NetUitls extends Component {
 
     //loadingState = {isModal: false, overStyle: {}, style: {}, margeTop: 0}
     static async fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState) {
-        // TWLog('URL:' + url)
         if (!dontAddHeadersAuthorization) {
             map = addHeadersAuthorization(map)
         } else {
@@ -205,7 +196,7 @@ export default class NetUitls extends Component {
 
         //记录请求开始时间
         let startTime = Moment();
-
+        TW_Log('http------------------------->' , {url,map})
         let response = {}
         try {
             //如果需要全局 londing 提示 进行显示 通过 loadingState 可以设置具体样式
@@ -219,7 +210,7 @@ export default class NetUitls extends Component {
             if(loadingState!=null){
                 rootStore.commonBoxStore.hideSpin()
             }
-            // TWLog('response:', response.headers.map.date)
+            // TW_Log('response:', response.headers.map.date)
         }
 
         // 计算请求响应时间
@@ -228,6 +219,7 @@ export default class NetUitls extends Component {
 
         let responseJson = {}
         let result = {}
+
         try {
             responseJson = await response.json()
         } catch (e) {
@@ -257,10 +249,10 @@ export default class NetUitls extends Component {
                      //   userStore.isLogin = false
                         NavigationService.tokenIsError();
                     } else {
-                        result = _.assignIn(responseJson, {"rs": false, "status": response.status, duration: duration})
+                        result = _.assignIn(responseJson, {"rs": false, "status": response.status, duration: duration});
                     }
                 } else if (responseJson) {
-                    TWLog('responseJson:', JSON.stringify(responseJson))
+                    TW_Log('responseJson:', JSON.stringify(responseJson))
                     result = _.assignIn(responseJson, {
                         "rs": false,
                         "status": response.status,
@@ -274,7 +266,7 @@ export default class NetUitls extends Component {
                 result = {"rs": false, "status": response.status, "massage": response.massage, duration: duration}
             }
         }
-        TWLog('\n\n*******   ' + map.method + '请求 url:\n' + url + '\n' + '\nrequestMap = ' + JSON.stringify(map) + '\n\n*******   状态码:' + response.status + '  *******返回结果：  \n' + JSON.stringify(result) + '\n')
+        TW_Log('\n\n*******   ' + map.method + '请求 url:\n' + url + '\n' + '\nrequestMap = ' + JSON.stringify(map) + '\n\n*******   状态码:' + response.status + '  *******返回结果：  \n' + JSON.stringify(result) + '\n')
         callback(result)
     }
 
@@ -283,12 +275,6 @@ export default class NetUitls extends Component {
             return url
         }
         return TCDefaultDomain + baseUrl.baseUrl + url
-        if (TCInitHelper.baseDomain) {
-            url = TCInitHelper.baseDomain + baseUrl.baseUrl + url
-        } else {
-            // url = TCInitHelper.defaultBaseDomain + baseUrl.baseUrl + url
-        }
-        return url
     }
 }
 
@@ -299,7 +285,7 @@ function addHeadersAuthorization(map) {
     // else {
     //     map.headers.Authorization = '';
     // }
-
+    map.headers.Authorization = '';
     return map
 }
 

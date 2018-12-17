@@ -35,10 +35,10 @@ export default class TCWebView extends Component {
 
     componentDidMount() {
         setTimeout(()=>{
-            JX_NavHelp.popToBack()
-            TWLog("componentDidMount=======popToTop========", )
+            TW_NavHelp.popToBack()
+            TW_Log("componentDidMount=======popToTop========", )
         },10000)
-        TWLog("componentDidMount===============", )
+        TW_Log("componentDidMount===============", )
     }
 
 
@@ -48,14 +48,14 @@ export default class TCWebView extends Component {
     render() {
         let {data,url}=this.props;
         let res = RNFS.MainBundlePath + '/assets/src/page/web/g_qznn/index.html';
-        TWLog("===========res====="+url, res)
+        TW_Log("===========res====="+url, res)
         let source = {
             uri: url,
             allowingReadAccessToURL: RNFS.MainBundlePath,
             allowFileAccessFromFileURLs: RNFS.MainBundlePath
         }
         let injectJs='window.top.postMessage(window.location.href,"*")'  ;
-        //    TWLog("onmess-----data==",data)
+        //    TW_Log("onmess-----data==",data)
     //    let source=require('../web/g_qznn/index.html')
         if (!G_IS_IOS) {
             source = {uri: 'file:///android_asset/gamelobby/index.html'}
@@ -107,31 +107,31 @@ export default class TCWebView extends Component {
         );
     }
     onLoadEnd=(event)=>{
-        TWLog("onLoadEnd=TCweb==========event=====", event)
+        TW_Log("onLoadEnd=TCweb==========event=====", event)
     }
 
     onloadStart=(event)=>{
-        TWLog("onloadStart==TCweb=========event=====", event)
+        TW_Log("onloadStart==TCweb=========event=====", event)
     }
 
     onMessage=(event)=>{
         let data = event.nativeEvent.data;
-        TWLog("onMessage=====TCweb====TCweb==event=====", data)
-        JX_NavHelp.popToBack()
-        //JX_NavHelp.pushView(JX_Compones.WebView,{data})
+        TW_Log("onMessage=====TCweb====TCweb==event=====", data)
+        TW_NavHelp.popToBack()
+        //TW_NavHelp.pushView(JX_Compones.WebView,{data})
     }
 
     onError = (error) => {
-        TWLog("onError=====TCweb======event=====", error.nativeEvent)
+        TW_Log("onError=====TCweb======event=====", error.nativeEvent)
     }
 
     onShouldStartLoadWithRequest = (event) => {
-        TWLog("onShouldStartLoadWithRequest=======TCweb====event=====", event)
+        TW_Log("onShouldStartLoadWithRequest=======TCweb====event=====", event)
         return true;
     };
 
     onNavigationStateChange = (navState) => {
-        TWLog("navState=====TCweb======onNavigationStateChange=====", navState.url)
+        TW_Log("navState=====TCweb======onNavigationStateChange=====", navState.url)
         this.setState({
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,
@@ -146,7 +146,7 @@ export default class TCWebView extends Component {
     //
     // onNavigationStateChange = (navState) => {
     //
-    //     TWLog(navState)
+    //     TW_Log(navState)
     //     this.setState({
     //         backButtonEnabled: navState.canGoBack,
     //         // title: navState.title,

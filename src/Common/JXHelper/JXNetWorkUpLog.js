@@ -39,9 +39,10 @@ export default class MyComponent {
             body: JSON.stringify(params)
         });
         try {
+
             let response = await fetch(url, map);
             if (response.status >= 200) {
-                TWLog('上传成功');
+                TW_Log('上传成功');
             }
         } catch (e) {
         }

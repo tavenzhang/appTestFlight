@@ -50,7 +50,7 @@ export default class TCNavigationBar extends Component {
         closeButtonCall: PropTypes.any,
         titleStyle: PropTypes.object,
         centerViewShowStyleImage: PropTypes.any,
-        backButtonCall: PropTypes.fun
+        backButtonCall: PropTypes.any
     }
 
     static defaultProps = {
