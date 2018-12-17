@@ -7,7 +7,7 @@ import React, {
     Component,
     PropTypes,
 } from 'react'
-import {config, base, baseUrl} from './TCRequestConfig';
+import {config, baseUrl} from './TCRequestConfig';
 import queryString from 'query-string';
 import _ from 'lodash';
 import NavigatorHelper from '../JXHelper/TCNavigatorHelper'

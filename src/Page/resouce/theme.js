@@ -215,31 +215,7 @@ export const loginAndRegeisterBorderColor = {
     forgetPwd: baseColor.white, //文本下划线
 }
 
-//个人中心
-export const userCenterTxtColor = {
-    userName: fontColor.headerTitle, //用户名
-    balance: fontColor.mainTxt, //余额
-    balanceTitle: fontColor.mainTxt, //余额标题
-    fresh: fontColor.mainTxt, //刷新
-    charge: fontColor.mainTxt, //充值
-    withdraw: fontColor.mainTxt, //提款
-    orderItemLeftTitle: fontColor.mainTxt, //订单Item标题
-    orderItemRightTitle: fontColor.mainTxt,
-    unKJOrder: fontColor.mainTxt, //未开奖订单
-    zjOrder: fontColor.mainTxt, //中奖订单
-    kjOrder: fontColor.mainTxt, //开奖订单
-    menuItemTitle: fontColor.mainTxt, //菜单标题
-    userDetailTitle: fontColor.mainTxt, //个人详细界面标题
-    settingTitle: fontColor.mainTxt, //设置界面
-    version: fontColor.mainTxt, //版本号
-    feedBackTitle: fontColor.mainTxt, //意见反馈
-    msgPiontTxt: baseColor.white,
-    msgPiontBg: baseColor.strong,
-    signInBgColor:'#FF8500', //签到后按钮背景颜色
-}
-export const userCenterBorderColor = {
-    freshBorder: fontColor.mainTxt
-}
+
 
 //列表界面样式
 export const listViewTxtColor = {
@@ -270,81 +246,6 @@ export const buttonStyle = {
         btnRedBg: baseColor.strong,
         btnUnableBg: loginAndRegeisterBgColor.loginBtn
     }
-    //通用输入框样式
-export const inputStyle = {
-    inputBg: loginAndRegeisterBgColor.inputBg,
-    inputTxt: loginAndRegeisterTxtColor.inputTxt,
-    inputPlaceholder: loginAndRegeisterTxtColor.inputPlaceholder,
-    inputBorder: loginAndRegeisterBorderColor.inputBorder
-}
-
-//通用dropDown样式
-export const dropDownStyle = {
-    dropBorder: fontColor.minorTxt,
-    dropBg: loginAndRegeisterBgColor.inputBg,
-    dropTxt: loginAndRegeisterTxtColor.inputTxt
-}
-
-//充值样式
-export const payTxtColor = {
-    payMoney: fontColor.strong,
-    payMoneyTip: fontColor.mainTxt,
-    moneyChecked: baseColor.white,
-    moneyUnChecked: baseColor.strong,
-    payDes: baseColor.strong
-}
-
-//二维码界面样式
-export const ermaStyle = {
-    title: baseColor.black,
-    moneyContent: baseColor.strong,
-    orderTitle: baseColor.black,
-    orderContent: fontColor.mainTxt,
-    btmBorder: baseColor.white,
-    ermaBg: baseColor.white,
-    tipTxtColor: baseColor.white,
-    mainBg: '#3056b2',
-    btnBg: baseColor.white,
-    btnTxt: '#1b81fb'
-}
-
-//复制按钮样式
-export const copyBtnStyle = {
-    txtColor: '#39c7ff',
-    borderColor: '#39c7ff',
-    btnBg: indexBgColor.itemBg
-}
-
-//代理中心
-export const agentCenter = {
-    addAccountTopTxtNormal: fontColor.headerTitle,
-    addAccountTopTxtSelected: '#1D3B84',
-    addAccountTopSelectedBg: baseColor.white,
-    addAccountTopBorder: fontColor.headerTitle,
-    addAccountTopNormalBg: 'transparent',
-    accountTypeTxtSelected: baseColor.cpDetailTitle,
-    accountTypeSelectBorder: baseColor.cpDetailTitle,
-    accountTypeTxtUnSelected: fontColor.mainTxt,
-    title: fontColor.mainTxt,
-    content: fontColor.minorTxt,
-    btnBorder: baseColor.cpDetailTitle,
-    btnTxt: baseColor.cpDetailTitle,
-    updateBtnBg: baseColor.cpDetailTitle,
-    deleteBtnBg: baseColor.strong,
-    btnAffCodeTxt: baseColor.white,
-    searchBtnBg: loginAndRegeisterBgColor.loginBtn,
-    searchTxt: baseColor.white,
-    userLayerBtnBg: baseColor.white,
-    dateTxt: fontColor.mainTxt,
-    dateChoiceBtnBg: indexBgColor.itemBg,
-    userLayerBtnBorder: 'black',
-    balance: fontColor.strong,
-}
-
-export const titleBarStyle = {
-    titleText: indexTxtColor.topTitle,
-    titleBorder: fontColor.headerTitle
-}
 
 
 export const betHome = {
@@ -400,57 +301,7 @@ export const betHome = {
     intelligenceBetListItemBgDeep: 'rgba(214,214,213,0.7)'
 }
 
-export const indexBtmStyle = {
-    iconStyle: {
-        width: Platform.OS === 'ios' ? 25 : 25,
-        height: Platform.OS === 'ios' ? 25 : 25,
-        marginTop: Platform.OS === 'ios' ? 18 : 30
-    },
-    iconStyleSelected: {
-        width: Platform.OS === 'ios' ? 25 : 25,
-        height: Platform.OS === 'ios' ? 25 : 25,
-        marginTop: Platform.OS === 'ios' ? 18 : 30
-    },
-}
 
-//通用开奖号码样式
-export const commonNumBallStyles = StyleSheet.create({
-    numberViewStyle: {
-        backgroundColor: betHome.betNumBallBg,
-        borderRadius: 30,
-        marginTop: 10,
-        marginBottom: 5,
-        marginRight: 20,
-        width: 40,
-        height: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 0.5,
-        borderColor: betHome.betNumBallBorder
-    },
-    numberViewSelectedStyle: {
-        borderRadius: 30,
-        marginTop: 10,
-        marginBottom: 5,
-        marginRight: 20,
-        width: 40,
-        height: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: betHome.betNumBallSelectBg,
-    },
-    numberViewTitleStyle: {
-        color: betHome.betNumBallTxt,
-        fontSize: Size.font18,
-        // fontWeight:'bold'
-    },
-    numberViewTitleSelectedStyle: {
-        color: betHome.betNumBallSelectTxt,
-        fontSize: Size.font18,
-        fontWeight: 'bold'
-    }
-
-});
 
 //开奖球大厅样式
 export const lotteryNumbStyle = {

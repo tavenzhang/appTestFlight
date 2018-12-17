@@ -150,7 +150,6 @@ static Boolean  IsFirtReuest = YES;
 }
 
 - (void)JD_OtherSDKInit{
-  
   NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
   NSString *ukey = [tempInfoDict objectForKey:@"UmengKey"];
   NSString *jkey  = [tempInfoDict objectForKey:@"JPushKey"];

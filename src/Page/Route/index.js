@@ -6,7 +6,6 @@ import {Provider} from 'mobx-react'
 import NavigationService from './NavigationService'
 
 
-
 import rootStore from "../../Data/store/RootStore";
 
 const appStores = {
