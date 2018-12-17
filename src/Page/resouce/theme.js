@@ -7,7 +7,8 @@ import {
     Platform,
     StatusBar
 } from 'react-native'
-const fontSizeScaler = JX_ProjectName === 'JD' ? 1 : PixelRatio.get() / PixelRatio.getFontScale()
+//const fontSizeScaler = JX_ProjectName === 'JD' ? 1 : PixelRatio.get() / PixelRatio.getFontScale()
+const fontSizeScaler =1;
 global.TCLineW = (Platform.OS == 'ios' && Dimensions.get('window').width > 375) ? 0.33 : 0.5
 import {
     StyleSheet

@@ -39,8 +39,8 @@ export default class XXWebView extends Component {
         //     allowingReadAccessToURL: RNFS.MainBundlePath,
         //     allowFileAccessFromFileURLs: RNFS.MainBundlePath
         // }
-        TW_Log("XXWebView render==");
-        let source=require('./gamelobby/index.html');
+      //  TW_Log("XXWebView render==");
+        let source=require('./gamelobby/home.html');
         if (!G_IS_IOS) {
             source = {uri: 'file:///android_asset/gamelobby/index.html'}
         }

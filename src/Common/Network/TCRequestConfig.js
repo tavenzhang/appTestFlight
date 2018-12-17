@@ -23,13 +23,7 @@ let headers = {
 };
 
 export const config = {
-    api: {
-        checkIpInfo: 'update/checkIpInfo', //热更新开关
 
-        gameSetting: 'adminsettings/user/prizeSettings', //获取游戏设定
-
-        getHome: 'cms/internal/mobile/'+configAppId+"/contents", //首页接口
-    },
     map: {
         method: 'POST',
         headers: headers,

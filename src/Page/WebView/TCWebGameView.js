@@ -46,13 +46,13 @@ export default class TCWebGameView extends React.Component {
                 if (ret.rs) {
                     this.setState({url: ret.content.gameUrl});
                 } else {
-                    this.setState({loadedFail: true})
+                    this.setState({loadedFail: true});
                 }
             })
         } else {
             let {gameData} = params
             NetUitls.getUrlAndParamsAndPlatformAndCallback(config.api.startGame, bodyParam,gameData.gamePlatform, (ret) => {
-                TW_Log("TCWebGameView-------startGame" + ret.content, ret)
+                TW_Log("TCWebGameView-------startGame" + ret.content, ret);
                 if (ret.rs) {
                    // this.setState({url: "https://www.google.com.hk"});
                      this.setState({url: ret.content.gameUrl});

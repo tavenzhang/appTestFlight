@@ -190,10 +190,9 @@ export default class NetUitls extends Component {
         } else {
             delete map.headers.Authorization
         }
-        if (initAppStore.deviceToken.length) {
-            map.headers.device_token = initAppStore.deviceToken;
-        }
-
+        // if (initAppStore.deviceToken.length) {
+        //     map.headers.device_token = initAppStore.deviceToken;
+        // }
         //记录请求开始时间
         let startTime = Moment();
         TW_Log('http------------------------->' , {url,map})
@@ -266,8 +265,9 @@ export default class NetUitls extends Component {
                 result = {"rs": false, "status": response.status, "massage": response.massage, duration: duration}
             }
         }
+        callback(result);
         TW_Log('\n\n*******   ' + map.method + '请求 url:\n' + url + '\n' + '\nrequestMap = ' + JSON.stringify(map) + '\n\n*******   状态码:' + response.status + '  *******返回结果：  \n' + JSON.stringify(result) + '\n')
-        callback(result)
+
     }
 
     static getServerUrl(url) {

@@ -114,7 +114,7 @@ static Boolean  IsFirtReuest = YES;
   jsCodeLocation = [CodePush bundleURL];
 #endif
   
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation moduleName:@"JD" initialProperties:nil launchOptions:self.launchOptions];
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation moduleName:@"BBL" initialProperties:nil launchOptions:self.launchOptions];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
   self.rootView  = rootView;
 }

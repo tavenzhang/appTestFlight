@@ -5,7 +5,6 @@ import {
     Text,
     View,
     Navigator,
-    NativeModules,
     TouchableOpacity,
     AsyncStorage,
     AppState, StatusBar
@@ -27,7 +26,6 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import {width, indexBgColor, Size} from '../resouce/theme'
 import StartUpHelper from './StartUpHelper'
 import AppConfig from './AppConfig'
-
 
 let retryTimes = 0
 let downloadTime = 0
@@ -52,7 +50,6 @@ export default class APP extends Component {
         this.uploadLog()
         this.initDomain()
 
-
         AppState.addEventListener('change', this.handleAppStateChange);
         this.timer2 = setTimeout(() => {
             if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
@@ -71,7 +68,7 @@ export default class APP extends Component {
 
                 this.timer2 = setTimeout(() => {
                     if (this.state.syncMessage === '检测更新中...' || this.state.syncMessage === '初始化配置中...') {
-                        this.skipUpdate();
+                        this.hotFixStore.skipUpdate();
                     }
                 },5 * 1000)
                 this.setState({
@@ -108,13 +105,6 @@ export default class APP extends Component {
         }
     }
 
-    handleNeedChangeAnimated() {
-        if (TC_AppState.selectedTabName === 'home' && TC_AppState.appRoute === 'root') {
-            RCTDeviceEventEmitter.emit('needChangeAnimated', 'start');
-        } else {
-            RCTDeviceEventEmitter.emit('needChangeAnimated', 'stop');
-        }
-    }
 
     initDomain() {
         AsyncStorage.getItem('cacheDomain').then((response) => {
@@ -131,13 +121,13 @@ export default class APP extends Component {
     }
 
     initData() {
-        TCDefaultDomain = AppConfig.domains[0]
-        TCDefaultTendDomain = AppConfig.trendChartDomains
+        TCDefaultDomain = AppConfig.domains[0];
+        TCDefaultTendDomain = AppConfig.trendChartDomains;
     }
 
     //使用默认地址
     firstAttempt(success, allowUpdate, message) {
-        TW_Log(`first attempt ${success}, ${allowUpdate}, ${message}`)
+        TW_Log(`first attempt ${success}, ${allowUpdate}, ${message}`);
         if (success && allowUpdate) {
             this.gotoUpdate()
         } else if (!success) {//默认地址不可用，使用备份地址
@@ -183,9 +173,9 @@ export default class APP extends Component {
 
     //使用缓存地址
     cacheAttempt(success, allowUpdate, message) {
-        console.log(`first attempt ${success}, ${allowUpdate}, ${message}`)
+        TW_Log(`first attempt ${success}, ${allowUpdate}, ${message}`);
         if (success && allowUpdate) {
-            this.gotoUpdate()
+            this.gotoUpdate();
         } else if (!success) {//缓存地址不可用,使用默认地址
             StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message));
         } else {
@@ -231,8 +221,7 @@ export default class APP extends Component {
         this.setState({
             syncMessage: '检测更新中...',
             updateStatus: 0
-        })
-
+        });
         CodePush.checkForUpdate(hotfixDeploymentKey).then((update) => {
             TW_Log('==checking update', update);
             if (update !== null) {
@@ -252,7 +241,7 @@ export default class APP extends Component {
                         this.hotFixStore.syncMessage = '下载完成,开始安装';
                         this.hotFixStore.progress = false;
                         downloadTime = Moment().format('X') - downloadTime
-                        this.storeLog({downloadStatus: true, downloadTime: downloadTime})
+                        this.storeLog({downloadStatus: true, downloadTime: downloadTime});
                         localPackage.install(CodePush.InstallMode.IMMEDIATE).then(() => {
                             this.storeLog({updateStatus: true})
                             CodePush.notifyAppReady().then(() => {
@@ -410,35 +399,6 @@ export default class APP extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    launchImageStyle: {
-        flex: 1,
-        backgroundColor: indexBgColor.mainBg
-    },
-
-    messages: {
-        textAlign: "center",
-    },
-    restartToggleButton: {
-        color: "blue",
-        fontSize: Size.font17
-    },
-    syncButton: {
-        color: "green",
-        fontSize: Size.font17
-    },
-    welcome: {
-        fontSize: Size.font20,
-        textAlign: "center",
-        margin: 10
-    },
-    container: {
-        flex: 1,
-        alignItems: "center",
-        backgroundColor: indexBgColor.mainBg,
-        paddingTop: 50
-    },
-});
 
 
 APP = CodePush({
@@ -446,4 +406,4 @@ APP = CodePush({
     installMode: CodePush.InstallMode.IMMEDIATE
 })(APP);
 
-AppRegistry.registerComponent('JD', () => APP);
+AppRegistry.registerComponent('BBL', () => APP);

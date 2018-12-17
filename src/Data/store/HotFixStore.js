@@ -1,4 +1,4 @@
-import {computed, action, observable} from 'mobx'
+import {action, observable} from 'mobx'
 
 export default class HotFixStore {
 
