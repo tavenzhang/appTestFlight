@@ -40,6 +40,7 @@ function navigate(routeName, params) {
  * 返回
  */
 function goBack() {
+    TWLog("goBack----"+_navigator,NavigationActions)
     _navigator.dispatch(
         NavigationActions.back()
     )

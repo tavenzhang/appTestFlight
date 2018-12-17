@@ -7,7 +7,6 @@ import mainStore from "./MainStore";
 class RootStore {
     constructor() {
         this.mainStore = mainStore;
-        this.initAppStore = initAppStore;
         this.commonBoxStore=new CommonBoxStore();
     }
 }

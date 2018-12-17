@@ -16,6 +16,8 @@ const appStores = {
 }
 import CommonBoxLayer from "../Main/CommonBoxLayer";
 import XXWebView from "../web/XXWebView";
+import TCWebView from "../WebView/TCWebView";
+import MyTestView from "../WebView/MyTestView";
 
 
 
@@ -26,6 +28,8 @@ function viewRoutHelp(component) {
 
 const Components = {
     Main: viewRoutHelp(XXWebView),
+    WebView:viewRoutHelp(TCWebView),
+    MyTestView:viewRoutHelp(MyTestView)
 }
 
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string

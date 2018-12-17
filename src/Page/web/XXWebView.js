@@ -33,17 +33,21 @@ export default class XXWebView extends Component {
     }
 
     render() {
-        let res = RNFS.MainBundlePath + '/assets/src/page/web/gamelobby/home.html';
-        TWLog("===========res=====", res)
-        let source = {
-            uri: res,
-            allowingReadAccessToURL: RNFS.MainBundlePath,
-            allowFileAccessFromFileURLs: RNFS.MainBundlePath
-        }
-        //let source=require('./gamelobby/index.html')
+       // let res = RNFS.MainBundlePath + '/assets/src/page/web/gamelobby/home.html';
+        //TWLog("===========res=====", res)
+        // let source = {
+        //     uri: res,
+        //     allowingReadAccessToURL: RNFS.MainBundlePath,
+        //     allowFileAccessFromFileURLs: RNFS.MainBundlePath
+        // }
+        TWLog("XXWebView render==")
+        let source=require('./gamelobby/index.html')    ;
         if (!G_IS_IOS) {
             source = {uri: 'file:///android_asset/gamelobby/index.html'}
         }
+      //  let     injectJs =`window.location.href="http://www.baidu.com";`;
+        let injectJs='window.top.postMessage(window.location.href,"*")'  ;
+       
         return (
             <View style={styles.container}>
                 {
@@ -51,13 +55,19 @@ export default class XXWebView extends Component {
                                                        onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                                                        style={styles.container}
                                                        allowFileAccess={true}
-                                                       onError={this.onError}/> :
+                                                       onError={this.onError}
+                                              javaScriptEnabled={true}
+                                        //  injectedJavaScript={injectJs}
+                                              //injectJavaScript={this.myInject}
+                                              onMessage={this.onMessage}
+                        /> :
                         <WebView
                             useWebKit={true}
                             automaticallyAdjustContentInsets={true}
                             style={styles.webView}
                             // source={{uri: this.props.url}}
                             source={source}
+
                             javaScriptEnabled={true}
                             domStorageEnabled={true}
                             decelerationRate="normal"
@@ -66,12 +76,17 @@ export default class XXWebView extends Component {
                             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                             allowFileAccess={true}
                             onError={this.onError}
+                            onMessage={this.onMessage}
                         />
 
                 }
 
             </View>
         );
+    }
+
+    myInject=(str)=>{
+                alert(str);
     }
 
     // render() {
@@ -90,6 +105,15 @@ export default class XXWebView extends Component {
     //     );
     // }
 
+    onMessage=(event)=>{
+        let data = event.nativeEvent.data;
+        TWLog("onMessage===========event=====", data);
+        if(data.action&&data.action=="game_back"){
+         return;
+        }
+        JX_NavHelp.pushView(JX_Compones.WebView,{url:"http://localhost:8081/assets/src/Page/web/g_qznn/index.html?" +
+            "jumpData=eyJ0b2tlbiI6IjgzMGFkZmMyLTIwODYtNGVkYy04NGMwLTEyYTIxZDYyNWIzYiIsImh0dHBVcmwiOiJodHRwOi8vMTkyLjE2OC4xLjkzOjgwOTEvYXBpL3YxIiwiZ2FtZUlkIjoyMn0=",data})
+    }
 
     onError = (error) => {
         TWLog("onError===========event=====", error)

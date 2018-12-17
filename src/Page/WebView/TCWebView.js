@@ -6,20 +6,13 @@
 import React, {Component} from 'react';
 
 import {
-    AppRegistry,
     StyleSheet,
-    Text,
     View,
     WebView,
-    Dimensions
 } from 'react-native';
-
-import TopNavigationBar from '../../Common/View/TCNavigationBar';
-import TCRequestUtils from '../../Common/Network/TCRequestUitls'
-import {config} from '../../Common/Network/TCRequestConfig'
-import Toast from '../../Common/JXHelper/JXToast'
-import NavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper'
+import RNFS from "react-native-fs";
 import {width, indexBgColor} from '../resouce/theme'
+import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 
 var WEBVIEW_REF = 'webview';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
@@ -41,49 +34,104 @@ export default class TCWebView extends Component {
     };
 
     componentDidMount() {
+        setTimeout(()=>{
+            JX_NavHelp.popToBack()
+            TWLog("componentDidMount=======popToTop========", )
+        },10000)
+        TWLog("componentDidMount===============", )
     }
+
 
     componentWillUnmount() {
     }
 
     render() {
+        let {data,url}=this.props;
+        let res = RNFS.MainBundlePath + '/assets/src/page/web/g_qznn/index.html';
+        TWLog("===========res====="+url, res)
+        let source = {
+            uri: url,
+            allowingReadAccessToURL: RNFS.MainBundlePath,
+            allowFileAccessFromFileURLs: RNFS.MainBundlePath
+        }
+        let injectJs='window.top.postMessage(window.location.href,"*")'  ;
+        //    TWLog("onmess-----data==",data)
+    //    let source=require('../web/g_qznn/index.html')
+        if (!G_IS_IOS) {
+            source = {uri: 'file:///android_asset/gamelobby/index.html'}
+        }
         return (
             <View style={styles.container}>
-                <TopNavigationBar title={this.state.title}
-                                  ref="topNavigation"
-                                  backButtonCall={() => {
-                                      this.backButtonCall()
-                                  }}
-                                  closeButtonCall={() => {
-                                      this.closeButtonCall()
-                                  }}
-                                  midCall={() => {
-                                      this.midCall()
-                                  }}
-                />
-                <WebView
-                    ref={WEBVIEW_REF}
-                    automaticallyAdjustContentInsets={true}
-                    style={styles.webView}
-                    source={{uri: this.props.url}}
-                    javaScriptEnabled={true}
-                    domStorageEnabled={true}
-                    decelerationRate="normal"
-                    startInLoadingState={true}
-                    scalesPageToFit={this.state.scalesPageToFit}
-                    onNavigationStateChange={this.onNavigationStateChange}
-                    onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                />
+                {/*<TopNavigationBar title={this.state.title}*/}
+                                  {/*ref="topNavigation"*/}
+                                  {/*backButtonCall={() => {*/}
+                                      {/*this.backButtonCall()*/}
+                                  {/*}}*/}
+                                  {/*closeButtonCall={() => {*/}
+                                      {/*this.closeButtonCall()*/}
+                                  {/*}}*/}
+                                  {/*midCall={() => {*/}
+                                      {/*this.midCall()*/}
+                                  {/*}}*/}
+                {/*/>*/}
+                {
+                    G_IS_IOS ? <WKWebView source={source} onNavigationStateChange={this.onNavigationStateChange}
+                                          onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+                                          style={styles.container}
+                                          allowFileAccess={true}
+                                          onError={this.onError}
+                                         // injectedJavaScript={injectJs}
+                                          onMessage={this.onMessage}
+                                          onLoadStart={this.onloadStart}
+                                          onLoadEnd={this.onLoadEnd}
+                        /> :
+                        <WebView
+                            useWebKit={true}
+                            automaticallyAdjustContentInsets={true}
+                            style={styles.webView}
+                            // source={{uri: this.props.url}}                                                                         
+                            source={source}
+                            javaScriptEnabled={true}
+                            domStorageEnabled={true}
+                            decelerationRate="normal"
+                            startInLoadingState={true}
+                            onNavigationStateChange={this.onNavigationStateChange}
+                            onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+                            allowFileAccess={true}
+                            onError={this.onError}
+                            onMessage={this.onMessage}
+                        />
+
+                }
             </View>
         );
     }
+    onLoadEnd=(event)=>{
+        TWLog("onLoadEnd=TCweb==========event=====", event)
+    }
+
+    onloadStart=(event)=>{
+        TWLog("onloadStart==TCweb=========event=====", event)
+    }
+
+    onMessage=(event)=>{
+        let data = event.nativeEvent.data;
+        TWLog("onMessage=====TCweb====TCweb==event=====", data)
+        JX_NavHelp.popToBack()
+        //JX_NavHelp.pushView(JX_Compones.WebView,{data})
+    }
+
+    onError = (error) => {
+        TWLog("onError=====TCweb======event=====", error.nativeEvent)
+    }
 
     onShouldStartLoadWithRequest = (event) => {
+        TWLog("onShouldStartLoadWithRequest=======TCweb====event=====", event)
         return true;
     };
 
     onNavigationStateChange = (navState) => {
-        TWLog(navState)
+        TWLog("navState=====TCweb======onNavigationStateChange=====", navState.url)
         this.setState({
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,
@@ -91,38 +139,28 @@ export default class TCWebView extends Component {
         });
     };
 
-    backButtonCall() {
-        NavigatorHelper.popToBack();
-    }
 
-    closeButtonCall() {
-        NavigatorHelper.popToBack();
-    }
-
-    midCall() {
-        if (this.state.title === '关于我们') {
-            this.sendRequest();
-        } else {
-            return null;
-        }
-    }
-
-    sendRequest() {
-        if (this.clickCount != 10) {
-            this.clickCount++
-            return
-        }
-        if (this.clickCount === 10) {
-            TCRequestUtils.PostUrlAndParamsAndCallback(config.api.applyWhite, null, (res) => {
-                    if (res.rs) {
-                        Toast.showShortCenter('申请已经提交,请等待管理员审核!')
-                    }
-                }
-            )
-        }
-
-        this.clickCount = 1
-    }
+    // onShouldStartLoadWithRequest = (event) => {
+    //     return true;
+    // };
+    //
+    // onNavigationStateChange = (navState) => {
+    //
+    //     TWLog(navState)
+    //     this.setState({
+    //         backButtonEnabled: navState.canGoBack,
+    //         // title: navState.title,
+    //         scalesPageToFit: false
+    //     });
+    // };
+    //
+    // backButtonCall() {
+    //     NavigatorHelper.popToBack();
+    // }
+    //
+    // closeButtonCall() {
+    //     NavigatorHelper.popToBack();
+    // }
 }
 
 
