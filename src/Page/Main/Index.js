@@ -21,15 +21,13 @@ import Storage from '../../Common/Global/TCStorage'
 import G_Config from '../../Common/Global/G_Config'
 import Main from '../Route';
 
-import {config, AppName, versionHotFix} from '../../Common/Network/TCRequestConfig';
+import {versionHotFix} from '../../Common/Network/TCRequestConfig';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 
 import {width, indexBgColor, Size} from '../resouce/theme'
 import StartUpHelper from './StartUpHelper'
 import AppConfig from './AppConfig'
-import create from './Api'
-import HotFixStore from '../../Data/store/HotFixStore'
-import initAppStore from '../../Data/store/InitAppStore'
+
 
 let retryTimes = 0
 let downloadTime = 0
@@ -42,10 +40,10 @@ let domainsHelper = new JXDomainsHelper()
 @observer
 export default class APP extends Component {
 
-    hotFixStore = new HotFixStore();
 
     constructor() {
         super();
+        this.hotFixStore=TW_Store.hotFixStore;
         this.handleAppStateChange = this.handleAppStateChange.bind(this);
     }
 
@@ -86,10 +84,10 @@ export default class APP extends Component {
     }
 
 
-    handleAppStateChange(nextAppState) {
+    handleAppStateChange=(nextAppState)=> {
         if (nextAppState === 'active') {
             if (CodePushDeploymentKey) {
-                this.hotFix(CodePushDeploymentKey)
+                this.hotFix(CodePushDeploymentKey);
             }
         }
     }
@@ -213,11 +211,11 @@ export default class APP extends Component {
     uploadLog() {
         AsyncStorage.getItem('uploadLog').then((response) => {
             if (response != null) {
-                create.create().uploadLog('INFO', response).then((response) => {
-                    if (response.ok) {
-                        AsyncStorage.removeItem('uploadLog')
-                    }
-                })
+                // create.create().uploadLog('INFO', response).then((response) => {
+                //     if (response.ok) {
+                //         AsyncStorage.removeItem('uploadLog')
+                //     }
+                // })
             }
         })
     }
@@ -236,11 +234,11 @@ export default class APP extends Component {
         })
 
         CodePush.checkForUpdate(hotfixDeploymentKey).then((update) => {
-            TW_Log('==checking update', update)
+            TW_Log('==checking update', update);
             if (update !== null) {
-                if (G_IS_IOS) {
-                    NativeModules.JDHelper.resetLoadModleForJS(true)
-                }
+                // if (G_IS_IOS) {
+                //     NativeModules.JDHelper.resetLoadModleForJS(true)
+                // }
                 this.hotFixStore.syncMessage = '获取到更新，正在疯狂加载...';
                 this.hotFixStore.updateFinished = false;
                 this.storeLog({hotfixDomainAccess: true});
@@ -296,7 +294,7 @@ export default class APP extends Component {
         })
     }
 
-    updateFail(message) {
+    updateFail=(message)=> {
         this.setState({
             syncMessage: message,
             updateStatus: -1
@@ -306,7 +304,7 @@ export default class APP extends Component {
         this.uploadLog()
     }
 
-    getLoadingView() {
+    getLoadingView=()=> {
         let progressView
         if (this.hotFixStore.progress) {
             progressView = (
@@ -321,7 +319,7 @@ export default class APP extends Component {
                     translucent={true}
                     backgroundColor={'transparent'}
                     barStyle="light-content"/>
-                <TopNavigationBar title={initAppStore.appName} needBackButton={false}/>
+                <TopNavigationBar title={TW_Store.appInfoStore.appName} needBackButton={false}/>
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
                     <Text style={{fontSize: Size.font16}}>{this.hotFixStore.syncMessage}</Text>
                 </View>
@@ -331,7 +329,7 @@ export default class APP extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'版本号:' + versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + initAppStore.appVersion}</Text>
+                }}>{'版本号:' + TW_Store.appInfoStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appInfoStore.appVersion}</Text>
             </View>)
         }
         return (
@@ -342,7 +340,7 @@ export default class APP extends Component {
                     translucent={true}
                     backgroundColor={'transparent'}
                     barStyle="light-content"/>
-                <TopNavigationBar title={initAppStore.appName} needBackButton={false}/>
+                <TopNavigationBar title={TW_Store.appInfoStore.appName} needBackButton={false}/>
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
                     {progressView}
                     <Progress.Bar
@@ -355,7 +353,7 @@ export default class APP extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'当前版本号:' + versionHotFix}</Text>
+                }}>{'当前版本号:' + TW_Store.appInfoStore.versionHotFix}</Text>
             </View>
         )
     }
@@ -369,7 +367,7 @@ export default class APP extends Component {
                     translucent={true}
                     backgroundColor={'transparent'}
                     barStyle="light-content"/>
-                <TopNavigationBar title={initAppStore.appName} needBackButton={false}/>
+                <TopNavigationBar title={TW_Store.appInfoStore.appName} needBackButton={false}/>
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
                     <Text style={{
                         fontWeight: 'bold',

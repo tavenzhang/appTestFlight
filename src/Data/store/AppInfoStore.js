@@ -1,16 +1,16 @@
-import {computed, action, observable} from 'mobx'
+import {observable} from 'mobx'
 import {NativeModules, Platform} from "react-native";
 import CodePush from 'react-native-code-push'
 import {
-    MyAppName
+    MyAppName,
+    versionHotFix
 } from '../../Page/resouce/appConfig';
 import {affCodeList} from "../../Page/resouce/appAffCodeList";
 
 /**
  * 用于初始化项目信息
  */
-
-class InitAppStore {
+export default class AppInfoStore {
 
     constructor() {
         this.init();
@@ -41,6 +41,9 @@ class InitAppStore {
      * @type {string}
      */
     userAffCode = "";
+
+    @observable
+    versionHotFix = versionHotFix;
 
     init() {
         this.initAppName();
@@ -142,5 +145,3 @@ class InitAppStore {
 
 }
 
-const initAppStore = new InitAppStore();
-export default initAppStore;

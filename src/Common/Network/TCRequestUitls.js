@@ -5,7 +5,7 @@ import {config, baseUrl} from './TCRequestConfig';
 import queryString from 'query-string';
 import _ from 'lodash';
 import Toast from '../../Common/JXHelper/JXToast';
-import initAppStore from '../../Data/store/InitAppStore'
+import initAppStore from '../../Data/store/AppInfoStore'
 //import userStore from '../../Data/store/UserStore'
 
 const defaultTimeout = 10000;

@@ -1,29 +1,13 @@
-/**
- * Created by Sam on 2016/12/13.
- * Copyright © 2016年 JX. All rights reserved.
- */
-
 import {
-    appDomainBase,
     configAppId,
-    appHotFixUpdataServers,
-    deploymentKey,
-    MyAppName
+    versionHotFix
 } from '../../Page/resouce/appConfig';
-
-export const base = appDomainBase;
 
 export const appId = configAppId;
 
-export const hotfixUpdataBase = appHotFixUpdataServers;
-
-export const hotfixDeploymentKey = deploymentKey;
-
 export const appVersion = '1.0.1';
 
-export const versionHotFix = 'JD181116a';
 
-export const AppName = MyAppName;
 
 export const baseUrl = {
     baseUrl: '/api/v1/'
