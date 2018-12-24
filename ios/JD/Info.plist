@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>星星h5</string>
+	<string>星星bbl</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.14</string>
+	<string>1.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -28,6 +28,20 @@
 	<string></string>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>4711ad6d815964a1103b461bc1d85ddf312b037d</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>JPushKey</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>

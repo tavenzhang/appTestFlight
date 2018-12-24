@@ -6,8 +6,11 @@ import android.content.res.Resources;
 
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.cmcewen.blurview.BlurViewPackage;
+import com.crashlytics.android.Crashlytics;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
+import com.xxsnakerxx.flurryanalytics.FlurryAnalyticsPackage;
+import com.smixx.fabric.FabricPackage;
 import cn.jpush.reactnativejpush.JPushPackage;
 import com.rnfs.RNFSPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
@@ -33,6 +36,7 @@ import com.umeng.commonsdk.UMConfigure;
 import com.wix.interactable.Interactable;
 import com.zmxv.RNSound.RNSoundPackage;
 
+import io.fabric.sdk.android.Fabric;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import java.util.Arrays;
@@ -64,7 +68,9 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new JPushPackage(!BuildConfig.DEBUG, !BuildConfig.DEBUG),
+            new FlurryAnalyticsPackage(),
+            new FabricPackage(),
+            new JPushPackage(false,false),
             new RNFSPackage(),
             new PickerPackage(),
                     new RCTToastPackage(),
@@ -102,6 +108,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         SoLoader.init(this, /* native exopackage */ false);
         AppUtil.updateLocalAFFCode(this);
         CrashHandler.getInstance().init(this);
@@ -120,7 +127,7 @@ public class MainApplication extends Application implements ReactApplication {
         Configuration configuration = resources.getConfiguration();
         if (configuration.fontScale != 1.0f) {
             configuration.fontScale = 1.0f;
-            resources.updateConfiguration(configuration, resources.,,());
+            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
         }
         return resources;
     }

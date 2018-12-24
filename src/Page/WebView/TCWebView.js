@@ -1,8 +1,3 @@
-/**
- * Created by Sam on 16/01/2017.
- * Copyright © 2016年 JX. All rights reserved.
- */
-
 import React, {Component} from 'react';
 
 import {
@@ -14,14 +9,12 @@ import RNFS from "react-native-fs";
 import {width, indexBgColor} from '../resouce/theme'
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 
-var WEBVIEW_REF = 'webview';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 @withMappedNavigationProps()
 export default class TCWebView extends Component {
     constructor(state) {
         super(state)
-        this.clickCount = 1
         this.state = {
             url: this.props.url,
             title: this.props.title
@@ -34,10 +27,10 @@ export default class TCWebView extends Component {
     };
 
     componentDidMount() {
-        setTimeout(()=>{
-            TW_NavHelp.popToBack()
-            TW_Log("componentDidMount=======popToTop========", )
-        },10000)
+        // setTimeout(()=>{
+        //     TW_NavHelp.popToBack()
+        //     TW_Log("componentDidMount=======popToTop========", )
+        // },6000)
         TW_Log("componentDidMount===============", )
     }
 
@@ -46,44 +39,22 @@ export default class TCWebView extends Component {
     }
 
     render() {
-        let {data,url}=this.props;
-        let res = RNFS.MainBundlePath + '/assets/src/page/web/g_qznn/index.html';
-        TW_Log("===========res====="+url, res)
+        let {url}=this.props;
         let source = {
             uri: url,
-            allowingReadAccessToURL: RNFS.MainBundlePath,
-            allowFileAccessFromFileURLs: RNFS.MainBundlePath
-        }
-        let injectJs='window.top.postMessage(window.location.href,"*")'  ;
-        //    TW_Log("onmess-----data==",data)
-    //    let source=require('../web/g_qznn/index.html')
-        if (!G_IS_IOS) {
-            source = {uri: 'file:///android_asset/gamelobby/index.html'}
         }
         return (
             <View style={styles.container}>
-                {/*<TopNavigationBar title={this.state.title}*/}
-                                  {/*ref="topNavigation"*/}
-                                  {/*backButtonCall={() => {*/}
-                                      {/*this.backButtonCall()*/}
-                                  {/*}}*/}
-                                  {/*closeButtonCall={() => {*/}
-                                      {/*this.closeButtonCall()*/}
-                                  {/*}}*/}
-                                  {/*midCall={() => {*/}
-                                      {/*this.midCall()*/}
-                                  {/*}}*/}
-                {/*/>*/}
                 {
-                    G_IS_IOS ? <WKWebView source={source} onNavigationStateChange={this.onNavigationStateChange}
+                    G_IS_IOS ? <WKWebView  source={source} onNavigationStateChange={this.onNavigationStateChange}
                                           onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                                          style={styles.container}
+                                          style={styles.webView}
                                           allowFileAccess={true}
                                           onError={this.onError}
-                                         // injectedJavaScript={injectJs}
                                           onMessage={this.onMessage}
                                           onLoadStart={this.onloadStart}
                                           onLoadEnd={this.onLoadEnd}
+
                         /> :
                         <WebView
                             useWebKit={true}
@@ -115,10 +86,47 @@ export default class TCWebView extends Component {
     }
 
     onMessage=(event)=>{
-        let data = event.nativeEvent.data;
-        TW_Log("onMessage=====TCweb====TCweb==event=====", data)
-        TW_NavHelp.popToBack()
-        //TW_NavHelp.pushView(JX_Compones.WebView,{data})
+
+        let message=null;
+        try {
+            message = JSON.parse(event.nativeEvent.data);
+            if (message){
+                this.onMsgHandle(message);
+            }
+        }catch (err) {
+            TW_Log("onMessage===========erro=="+err,event.nativeEvent);
+        }
+    }
+
+    onMsgHandle=(message)=>{
+        TW_Log("onMessage==========="+this.constructor.name, message);
+        let url="";
+        if(message&&message.action){
+            switch (message.action){
+                case "Log":
+                    // TW_Log("game---ct=="+message.ct,message.data);
+                    break;
+                case "JumpGame":
+                    url =this.handleUrl(message.au)
+                    TW_NavHelp.pushView(JX_Compones.WebView,{url})
+                    break;
+                case "game_back":
+                    TW_NavHelp.popToBack();
+                    break;
+                case  "JumpUrl":
+                    url =this.handleUrl(message.au)
+                    TW_NavHelp.pushView(JX_Compones.WebView,{url})
+                    break;
+            }
+        }
+    }
+
+    handleUrl=(url)=>{
+        if(url&&url.indexOf("../")>-1){
+            url = url.replace("../","");
+        }
+        url = TW_Store.bblStore.homeDomain +"/"+url
+        return url
     }
 
     onError = (error) => {
@@ -131,47 +139,30 @@ export default class TCWebView extends Component {
     };
 
     onNavigationStateChange = (navState) => {
-        TW_Log("navState=====TCweb======onNavigationStateChange=====", navState.url)
-        this.setState({
-            backButtonEnabled: navState.canGoBack,
-            // title: navState.title,
-            scalesPageToFit: false
-        });
+        TW_Log("navState===========onNavigationStateChange=====url=="+navState.url, navState)
+        let {onEvaleJS} = this.props
+        if(navState.url){
+            if(navState.url.indexOf("g_lobby/index.html")>-1){
+                if(navState.url.indexOf("g_lobby/index.html?status=1")>-1){
+                    onEvaleJS({action:"logout"});
+                }
+                TW_NavHelp.popToBack();
+            }
+
+        }
     };
 
-
-    // onShouldStartLoadWithRequest = (event) => {
-    //     return true;
-    // };
-    //
-    // onNavigationStateChange = (navState) => {
-    //
-    //     TW_Log(navState)
-    //     this.setState({
-    //         backButtonEnabled: navState.canGoBack,
-    //         // title: navState.title,
-    //         scalesPageToFit: false
-    //     });
-    // };
-    //
-    // backButtonCall() {
-    //     NavigatorHelper.popToBack();
-    // }
-    //
-    // closeButtonCall() {
-    //     NavigatorHelper.popToBack();
-    // }
 }
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: indexBgColor.mainBg,
+        backgroundColor: "#000000",
     },
     webView: {
         marginTop: 0,
         width: width,
+        backgroundColor: "#000000",
     }
-
 });

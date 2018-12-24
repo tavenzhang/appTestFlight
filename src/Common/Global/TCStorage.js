@@ -23,36 +23,12 @@ var storage = new Storage({
 storage.load({
     key: 'TCDefaultDomain'
 }).then(res => {
-    TCDefaultDomain = res
+    TW_Store.appInfoStore.currentDomain = res
 }).catch(err => {
     TW_Log(err)
 });
 
-// storage.load({
-//     key: 'user',
-// }).then(res => {
-//     TCUSER_DATA = res;
-// }).catch(err => {
-//     TW_Log(err)Storage
-// });
-//
 
-storage.load({
-    key: 'TCGameSetting'
-}).then(res => {
-    if (res)
-    TCGameSetting = res
-}).catch(err => {
-    TW_Log(err)
-});
-
-storage.load({
-    key: 'TCHomeList'
-}).then(res => {
-    TCHomeContents = res
-}).catch(err => {
-    TW_Log(err)
-});
 
 // 对于react native
 global.storage = storage;

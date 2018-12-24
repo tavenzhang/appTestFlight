@@ -108,7 +108,7 @@ android {
                 JPUSH_APPKEY: "",
                 APP_CHANNEL : "default"
         ]
-
+        multiDexEnabled true
         resValue "string", "app_name", "JD棋牌-sit"
         ndk {
             abiFilters "armeabi-v7a", "x86"
@@ -121,7 +121,7 @@ android {
         taven {
             applicationId APP_ID
             versionName APP_VERSION
-            resValue "string", "app_name", "星星棋牌"
+            resValue "string", "app_name", APP_NAME
             manifestPlaceholders = [
                     APP_VERSION    : APP_VERSION,
                     CHANNEL_AFFCODE: AFF_CODE,
@@ -188,34 +188,20 @@ android {
 }
 
 dependencies {
-    compile project(':jpush-react-native')
-    //implementation project(':jcore-react-native')
-   // implementation project(':jpush-react-native')
+    compile project(':react-native-flurry-analytics')
+    compile project(':react-native-fabric')
+    implementation 'com.android.support:multidex:1.0.3'
     compile project(':react-native-fs')
     compile project(':react-native-image-crop-picker')
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':jpush-react-native')
+    compile project(':jcore-react-native')
     compile 'com.android.support:appcompat-v7:26.1.1'
-    compile 'cn.jiguang.sdk:jpush:3.1.6'
-    compile 'cn.jiguang.sdk:jcore:1.2.5'
     compile 'com.umeng.sdk:common:latest.integration'
     compile 'com.umeng.sdk:analytics:latest.integration'
    // compile 'com.facebook.react:react-native:+'
     compile project(':ReactAndroid')            //添加React-native项目
     compile 'com.zhy:okhttputils:2.6.2'
-    //    compile(name: 'react-native-blur-release', ext: 'aar')
-    //    compile(name: 'react-native-code-push-release', ext: 'aar')
-    //    compile(name: 'react-native-device-info-release', ext: 'aar')
-    //    compile(name: 'react-native-fast-image-release', ext: 'aar')
-    //    compile(name: 'react-native-fetch-blob-release', ext: 'aar')
-    //    compile(name: 'react-native-image-picker-release', ext: 'aar')
-    //    compile(name: 'react-native-interactable-release', ext: 'aar')
-    //    compile(name: 'react-native-material-kit-release', ext: 'aar')
-    //    compile(name: 'react-native-shake-event-release', ext: 'aar')
-    //    compile(name: 'react-native-sound-release', ext: 'aar')
-    //    compile(name: 'react-native-splash-screen-release', ext: 'aar')
-    //    compile(name: 'react-native-svg-release', ext: 'aar')
-    //    compile(name: 'react-native-toast-native-release', ext: 'aar')
-    //    compile(name: 'react-native-vector-icons-release', ext: 'aar')
     compile project(':react-native-toast-native')
     compile project(':react-native-shake-event')
     compile project(':react-native-code-push')

@@ -21,7 +21,7 @@ import {themeViewStyle} from "../../Page/asset/theme";
 
 const NavIconSize = NavBarHeaderHeight
 import {Size, width, indexTxtColor, popuWinStyle} from '../../Page/resouce/theme'
-import jdAppStore from '../../Data/store/JDAppStore'
+import jdAppStore from '../../Data/store/BBLStore'
 
 export default class TCBetBar extends React.Component {
 

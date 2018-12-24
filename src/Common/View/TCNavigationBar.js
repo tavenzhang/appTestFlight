@@ -18,7 +18,7 @@ import {
     ImageBackground,
     TouchableOpacity
 } from 'react-native';
-import jdAppStore from '../../Data/store/JDAppStore'
+import jdAppStore from '../../Data/store/BBLStore'
 import {width, indexTxtColor, Size} from '../../Page/resouce/theme'
 
 import _ from 'lodash';

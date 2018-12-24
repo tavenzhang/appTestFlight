@@ -15,29 +15,24 @@ import CodePush from 'react-native-code-push'
 import * as Progress from 'react-native-progress';
 import {observer} from 'mobx-react'
 
-import UserData from '../../Data/UserData'
 import Storage from '../../Common/Global/TCStorage'
 import G_Config from '../../Common/Global/G_Config'
 import Main from '../Route';
 
-import {versionHotFix} from '../../Common/Network/TCRequestConfig';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 
-import {width, indexBgColor, Size} from '../resouce/theme'
+import {width, Size} from '../resouce/theme'
 import StartUpHelper from './StartUpHelper'
 import AppConfig from './AppConfig'
 
 let retryTimes = 0
 let downloadTime = 0
 let alreadyInCodePush = false
-let CodePushDeploymentKey = null
 import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
-let domainsHelper = new JXDomainsHelper()
-
-
+let domainsHelper = new JXDomainsHelper();
+import Fabric from 'react-native-fabric';
 @observer
 export default class APP extends Component {
-
 
     constructor() {
         super();
@@ -46,17 +41,18 @@ export default class APP extends Component {
     }
 
     componentWillMount() {
+      //  var { Crashlytics } = Fabric;
+
         this.initData()
         this.uploadLog()
         this.initDomain()
-
         AppState.addEventListener('change', this.handleAppStateChange);
         this.timer2 = setTimeout(() => {
             if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
                 this.hotFixStore.skipUpdate();
                 this.reloadAppDomain();
             }
-        }, 5 * 1000)
+        }, 7 * 1000)
     }
 
     //域名异常启动介入
@@ -64,7 +60,7 @@ export default class APP extends Component {
         domainsHelper.getSafeguardName((ok)=>{
             if(ok){
                 //拿到d.json域名初始化
-                this.initDomain()
+                this.initDomain();
 
                 this.timer2 = setTimeout(() => {
                     if (this.state.syncMessage === '检测更新中...' || this.state.syncMessage === '初始化配置中...') {
@@ -83,8 +79,8 @@ export default class APP extends Component {
 
     handleAppStateChange=(nextAppState)=> {
         if (nextAppState === 'active') {
-            if (CodePushDeploymentKey) {
-                this.hotFix(CodePushDeploymentKey);
+            if (TW_Store.hotFixStore.currentDeployKey) {
+                this.hotFix(TW_Store.hotFixStore.currentDeployKey);
             }
         }
     }
@@ -108,7 +104,8 @@ export default class APP extends Component {
 
     initDomain() {
         AsyncStorage.getItem('cacheDomain').then((response) => {
-            TW_Log("refresh cache domain ", response)
+            TW_Log("refresh cache domain ", response);
+
             let cacheDomain = response ? JSON.parse(response) : null
             if (cacheDomain != null && cacheDomain.serverDomains && cacheDomain.serverDomains.length > 0) {//缓存存在，使用缓存访问
                 StartUpHelper.getAvailableDomain(cacheDomain.serverDomains, (success, allowUpdate, message) => this.cacheAttempt(success, allowUpdate, message))
@@ -121,8 +118,7 @@ export default class APP extends Component {
     }
 
     initData() {
-        TCDefaultDomain = AppConfig.domains[0];
-        TCDefaultTendDomain = AppConfig.trendChartDomains;
+        TW_Store.appInfoStore.currentDomain = AppConfig.domains[0];
     }
 
     //使用默认地址
@@ -166,7 +162,6 @@ export default class APP extends Component {
         } else {
             // TODO 审核通过之后 放开如下，告知ip不在更新范围内的用户
             // alert('您当前的区域无法更新')
-
             this.hotFixStore.skipUpdate()
         }
     }
@@ -187,9 +182,11 @@ export default class APP extends Component {
     gotoUpdate() {
         AsyncStorage.getItem('cacheDomain').then((response) => {
             let cacheDomain = JSON.parse(response)
-            global.JXCodePushServerUrl = cacheDomain.hotfixDomains[0].domain
+            JXCodePushServerUrl = cacheDomain.hotfixDomains[0].domain
             let hotfixDeploymentKey = G_IS_IOS ? cacheDomain.hotfixDomains[0].iosDeploymentKey : cacheDomain.hotfixDomains[0].androidDeploymentKey;
-            CodePushDeploymentKey = hotfixDeploymentKey;
+            //  JXCodePushServerUrl ="http://192.168.11.120:3000"
+            //   let hotfixDeploymentKey =G_IS_IOS ? "mOx5dmR7vyM1vto4yR5GuGlPGHOi4ksvOXqog":"k1EZHlHkZnQQpiJwz0Pbq0laaKDX4ksvOXqog";
+            TW_Store.hotFixStore.currentDeployKey = hotfixDeploymentKey;
             this.hotFix(hotfixDeploymentKey)
         })
     }
@@ -206,6 +203,7 @@ export default class APP extends Component {
                 //         AsyncStorage.removeItem('uploadLog')
                 //     }
                 // })
+
             }
         })
     }
@@ -223,11 +221,13 @@ export default class APP extends Component {
             updateStatus: 0
         });
         CodePush.checkForUpdate(hotfixDeploymentKey).then((update) => {
-            TW_Log('==checking update', update);
+
+            TW_Log('==checking update====hotfixDeploymentKey=='+hotfixDeploymentKey, update==null);
             if (update !== null) {
                 // if (G_IS_IOS) {
                 //     NativeModules.JDHelper.resetLoadModleForJS(true)
                 // }
+                TW_Log("checking update--start");
                 this.hotFixStore.syncMessage = '获取到更新，正在疯狂加载...';
                 this.hotFixStore.updateFinished = false;
                 this.storeLog({hotfixDomainAccess: true});

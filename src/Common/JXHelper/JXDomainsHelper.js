@@ -11,7 +11,7 @@ import {AsyncStorage} from "react-native";
 
 let instance = null;
 
-export default class MyComponent {
+export default class JXDomainHelp {
     constructor() {
         if (!instance) {
             instance = this;
@@ -27,7 +27,7 @@ export default class MyComponent {
         }, 30000);
     }
 
-    testDomainsHealth(d = TCServerDomains) {
+    testDomainsHealth(d = []) {
         this.testDone = false;
         if (!_.isEmpty(d)) {
             for (let i = 0; i < d.length; i++) {
@@ -41,7 +41,7 @@ export default class MyComponent {
         this.fetchAsync(url + '/health', ads => {
             if (!this.testDone) {
                 this.testDone = true;
-                TCDefaultDomain = url;
+                TW_Store.appInfoStore.currentDomain =url;
             }
         });
     }

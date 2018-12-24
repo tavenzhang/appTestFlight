@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import _ from 'lodash';
 import Toast from '../../Common/JXHelper/JXToast';
 import initAppStore from '../../Data/store/AppInfoStore'
-//import userStore from '../../Data/store/UserStore'
+
 
 const defaultTimeout = 10000;
 import Moment from 'moment';
@@ -195,7 +195,7 @@ export default class NetUitls extends Component {
         // }
         //记录请求开始时间
         let startTime = Moment();
-        TW_Log('http------------------------->' , {url,map})
+      //  TW_Log('http------------------------->' , {url,map})
         let response = {}
         try {
             //如果需要全局 londing 提示 进行显示 通过 loadingState 可以设置具体样式
@@ -204,7 +204,7 @@ export default class NetUitls extends Component {
             }
             response = await fetch(url, map)
         } catch (e) {
-            response = {}
+
         } finally {
             if(loadingState!=null){
                 rootStore.commonBoxStore.hideSpin()
@@ -226,47 +226,49 @@ export default class NetUitls extends Component {
         } finally {
             if (response.status >= 200 && response.status < 305) {
                 if (response.status === 204) {
-                    result = {"rs": true, duration: duration}
+                    result = {"rs": true, duration: duration,"message": response.message}
                 } else {
                     result = {
                         "content": responseJson,
                         "rs": true,
                         duration: duration,
-                        serverDate: response.headers.map.date
+                        serverDate: response.headers.map.date,
+                        "message": response.message
                     }
                 }
             } else if (response.status >= 400) {
                 if (response.status === 401) {
                    // userStore.isLogin = false
-                    result = {"rs": false, "error": '无效token', "status": response.status, duration: duration}
+                    result = {"rs": false, "error": '无效token', "status": response.status, duration: duration, "message": response.message}
                     Toast.showShortCenter('登录状态过期，请重新登录！')
-                    NavigationService.tokenIsError();
+                    //NavigationService.tokenIsError();
                     result.rs = false;
                     callback(result);
                 } else if (response.status === 422) {
                     if (url.match(/refreshToken/)) {
                      //   userStore.isLogin = false
-                        NavigationService.tokenIsError();
+                        //NavigationService.tokenIsError();
                     } else {
-                        result = _.assignIn(responseJson, {"rs": false, "status": response.status, duration: duration});
+                        result = _.assignIn(responseJson, {"rs": false, "status": response.status, duration: duration, "message": response.message});
                     }
                 } else if (responseJson) {
                     TW_Log('responseJson:', JSON.stringify(responseJson))
                     result = _.assignIn(responseJson, {
                         "rs": false,
                         "status": response.status,
-                        "massage": response.massage,
+                        "massage": response.message,
                         duration: duration
                     })
                 } else {
-                    result = {"rs": false, "status": response.status, duration: duration}
+                    result = {"rs": false, "status": response.status, duration: duration,"message": response.message}
                 }
             } else {
-                result = {"rs": false, "status": response.status, "massage": response.massage, duration: duration}
+                result = {"rs": false, "status": response.status, "message": response.message, duration: duration}
             }
         }
+        result.status = response.status;
         callback(result);
-        TW_Log('\n\n*******   ' + map.method + '请求 url:\n' + url + '\n' + '\nrequestMap = ' + JSON.stringify(map) + '\n\n*******   状态码:' + response.status + '  *******返回结果：  \n' + JSON.stringify(result) + '\n')
+        TW_Log('\n\n*******   ' + map.method + '请求 url:\n' + url + '\nrequestMap = ' + JSON.stringify(map) + '\n\n*******   状态码:' + response.status + '  *******返回结果：  \n' + JSON.stringify(result) + '\n')
 
     }
 
@@ -274,7 +276,7 @@ export default class NetUitls extends Component {
         if (url && (_.startsWith(url, 'http://') || _.startsWith(url, 'https://'))) {
             return url
         }
-        return TCDefaultDomain + baseUrl.baseUrl + url
+        return TW_Store.appInfoStore.currentDomain  + baseUrl.baseUrl + url
     }
 }
 

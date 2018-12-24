@@ -15,6 +15,10 @@ export default class HotFixStore {
 
     @observable
     progress = null;
+    @observable
+    currentDeployKey="";
+
+
 
     @action
     skipUpdate() {

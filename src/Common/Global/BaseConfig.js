@@ -10,4 +10,5 @@ const isIOS = Platform.OS === "ios";
 global.G_IS_IOS = isIOS;
 global.SCREEN_W = width;
 global.SCREEN_H = height;
-global.TCLineW = (isIOS && width > 375) ? 0.33 : 0.5
+global.TCLineW = (isIOS && width > 375) ? 0.33 : 0.5;
+global.JXCodePushServerUrl ="";

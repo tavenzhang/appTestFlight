@@ -8,6 +8,7 @@ import {
 import {indexBgColor, width} from "../resouce/theme";
 import RNFS from "react-native-fs";
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
+import Fabric from "react-native-fabric";
 
 export default class XXWebView extends Component {
     constructor(state) {
@@ -32,40 +33,40 @@ export default class XXWebView extends Component {
     }
 
     render() {
-        let res = RNFS.MainBundlePath + '/assets/src/page/web/gamelobby/home.html';
-        //TW_Log("===========res=====", res)
-        // let source = {
-        //     uri: res,
-        //     allowingReadAccessToURL: RNFS.MainBundlePath,
-        //     allowFileAccessFromFileURLs: RNFS.MainBundlePath
-        // }
-      //  TW_Log("XXWebView render==");
-        let source=require('./gamelobby/home.html');
-        if (!G_IS_IOS) {
-            source = {uri: 'file:///android_asset/gamelobby/index.html'}
+
+        let res = RNFS.MainBundlePath + '/assets/src/page/web/gamelobby/index.html';
+         let source = {
+            uri: res,
+            allowingReadAccessToURL: RNFS.MainBundlePath,
+            allowFileAccessFromFileURLs: RNFS.MainBundlePath
         }
-      //  let     injectJs =`window.location.href="http://www.baidu.com";`;
-        let injectJs='window.top.postMessage(window.location.href,"*")'  ;
-       
+     //   let source = require('./gamelobby/index.html');
+       //  if (!G_IS_IOS) {
+       //      source = {uri: 'file:///android_asset/gamelobby/index.html'}
+       //  }
+
+        let injectJs = `window.appData=${JSON.stringify({isApp: true,taven:"isOk",clientId:"11",urlJSON:TW_Store.bblStore.urlJSON})}`;
+       // let injectJs = `alert("${TW_Store.appInfoStore.versionHotFix}")`;
         return (
             <View style={styles.container}>
                 {
-                    G_IS_IOS ? <WKWebView source={source} onNavigationStateChange={this.onNavigationStateChange}
+                    G_IS_IOS ? <WKWebView ref={ref => { this.webview = ref; }} source={source} onNavigationStateChange={this.onNavigationStateChange}
                                                        onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                                                       style={styles.container}
+                                                       style={styles.webView}
                                                        allowFileAccess={true}
                                                        onError={this.onError}
+                                               domStorageEnabled={true}
                                               javaScriptEnabled={true}
-                                            //  injectedJavaScript={injectJs}
-                                              //injectJavaScript={this.myInject}
+                                               injectedJavaScript={injectJs}
                                               onMessage={this.onMessage}
                         /> :
                         <WebView
+                            ref={ref => { this.webview = ref; }}
                             useWebKit={true}
                             automaticallyAdjustContentInsets={true}
                             style={styles.webView}
-                            // source={{uri: this.props.url}}
                             source={source}
+                            injectedJavaScript={injectJs}
                             javaScriptEnabled={true}
                             domStorageEnabled={true}
                             decelerationRate="normal"
@@ -85,13 +86,48 @@ export default class XXWebView extends Component {
 
 
     onMessage=(event)=>{
-        let data = event.nativeEvent.data;
-        TW_Log("onMessage===========event=====", data);
-        if(data.action&&data.action=="game_back"){
-         return;
+        let message = JSON.parse(event.nativeEvent.data);
+        this.onMsgHandle(message);
+    }
+
+    onMsgHandle=(message)=>{
+        TW_Log("onMessage==========="+this.constructor.name, message);
+        let url="";
+        if(message&&message.action){
+            switch (message.action){
+                case "Log":
+                    // TW_Log("game---ct=="+message.ct,message.data);
+                    break;
+                case "JumpGame":
+                    url =this.handleUrl(message.au)
+                    TW_NavHelp.pushView(JX_Compones.WebView,{url,onMsgHandle:this.onMsgHandle,onEvaleJS:this.onEvaleJS})
+                    break;
+                case "game_back":
+                    TW_NavHelp.popToBack();
+                    break;
+                case  "JumpUrl":
+                    url =this.handleUrl(message.au)
+                    TW_NavHelp.pushView(JX_Compones.WebView,{url,onMsgHandle:this.onMsgHandle,onEvaleJS:this.onEvaleJS})
+                    break;
+            }
         }
-        TW_NavHelp.pushView(JX_Compones.WebView,{url:"http://localhost:8081/assets/src/Page/web/g_qznn/index.html?" +
-            "jumpData=eyJ0b2tlbiI6IjgzMGFkZmMyLTIwODYtNGVkYy04NGMwLTEyYTIxZDYyNWIzYiIsImh0dHBVcmwiOiJodHRwOi8vMTkyLjE2OC4xLjkzOjgwOTEvYXBpL3YxIiwiZ2FtZUlkIjoyMn0=",data})
+    }
+
+
+
+    handleUrl=(url)=>{
+        if(url&&url.indexOf("../")>-1){
+            url = url.replace("../","");
+        }
+         url = TW_Store.bblStore.homeDomain +"/"+url
+        return url
+    }
+
+    onEvaleJS=(data)=>{
+        let dataStr= JSON.stringify(data);
+        dataStr=dataStr ? dataStr:"";
+        this.webview.evaluateJavaScript(`receivedMessageFromRN(${dataStr})`);
+
     }
 
     onError = (error) => {
@@ -105,7 +141,7 @@ export default class XXWebView extends Component {
     };
 
     onNavigationStateChange = (navState) => {
-        TW_Log("navState===========onNavigationStateChange=====", navState.url)
+        TW_Log("navState===========onNavigationStateChange=====url=="+navState.url, navState)
         this.setState({
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,
@@ -118,11 +154,9 @@ export default class XXWebView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: indexBgColor.mainBg,
+        backgroundColor: "#000000"
     },
     webView: {
-        marginTop: 0,
-        width: width,
+        backgroundColor: "#000000"
     }
-
 });
