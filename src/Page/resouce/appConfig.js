@@ -36,6 +36,6 @@ export const appHotFixUpdataServers = {
     base5: 'https://4checkupdate1.zzlhjfls.com',
     base6: 'https://5checkupdate1.zzlhjfls.com',
 }
-export const versionHotFix = 'bbl_12';
+export const versionHotFix = 'bbl_12_25';
 export const safeguardDomain = ['https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com', 'https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com']
 export const deploymentKey = Platform.OS === 'ios' ? 'mPO4OMsMob8tY5UHCcpnPjXaRqQe4ksvOXqog' : 'P8LQBw8uxmVPRrAbswO2Xyr9Dhpg4ksvOXqog';

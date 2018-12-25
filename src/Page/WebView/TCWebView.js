@@ -31,7 +31,6 @@ export default class TCWebView extends Component {
         //     TW_NavHelp.popToBack()
         //     TW_Log("componentDidMount=======popToTop========", )
         // },6000)
-        TW_Log("componentDidMount===============", )
     }
 
 

@@ -26,7 +26,7 @@ function viewRoutHelp(component) {
 }
 
 const Components = {
-    Main: viewRoutHelp(XXWebView),
+    XXWebView: viewRoutHelp(XXWebView),
     WebView:viewRoutHelp(TCWebView),
     MyTestView:viewRoutHelp(MyTestView)
 }
@@ -34,7 +34,7 @@ const Components = {
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
 for (let key in Components) {
     if (Components[key]) {
-        Components[key].routName = key
+        Components[key].routName = key;
     }
 }
 

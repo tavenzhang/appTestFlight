@@ -47,7 +47,13 @@ Helper.pushView = (component, params) => {
         NavigationService.navigate(component.routName, params)
     }
 }
-
+Helper.reset=(component,params)=>{
+    if (typeof component == 'string') {
+        NavigationService.navigate(component, params)
+    } else if (component && component.routName) {
+        NavigationService.navigate(component.routName, params)
+    }
+}
 Helper.popToBack = () => {
     NavigationService.goBack();
 }
