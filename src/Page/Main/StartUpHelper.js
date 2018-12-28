@@ -46,7 +46,7 @@ function getAvailableDomain (domains,callback) {
         }else{
             errorCount++;
             if (errorCount >= domains.length) {
-                  callback(false, false, rt.status)
+                  callback(false, false, rt.status);
             }
         }
       })

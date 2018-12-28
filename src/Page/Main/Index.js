@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {
     AppRegistry,
-    StyleSheet,
     Text,
     View,
     Navigator,
     TouchableOpacity,
     AsyncStorage,
-    AppState, StatusBar
+    AppState, StatusBar,
+    WebView
 } from 'react-native';
 
 import Moment from 'moment'
@@ -180,6 +180,10 @@ export default class APP extends Component {
 
     //使用从服务器获取的更新地址更新app
     gotoUpdate() {
+        if(TW_IS_DEBIG){
+            this.hotFixStore.skipUpdate();
+            return
+        }
         AsyncStorage.getItem('cacheDomain').then((response) => {
             let cacheDomain = JSON.parse(response)
             JXCodePushServerUrl = cacheDomain.hotfixDomains[0].domain
@@ -309,6 +313,7 @@ export default class APP extends Component {
                     backgroundColor={'transparent'}
                     barStyle="light-content"/>
                 <TopNavigationBar title={TW_Store.appInfoStore.appName} needBackButton={false}/>
+                <WebView style={{width:0, height:0,position:"absolute"}}/>
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
                     <Text style={{fontSize: Size.font16}}>{this.hotFixStore.syncMessage}</Text>
                 </View>
@@ -330,6 +335,7 @@ export default class APP extends Component {
                     backgroundColor={'transparent'}
                     barStyle="light-content"/>
                 <TopNavigationBar title={TW_Store.appInfoStore.appName} needBackButton={false}/>
+                <WebView style={{width:0, height:0,position:"absolute"}}/>
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
                     {progressView}
                     <Progress.Bar
@@ -343,6 +349,7 @@ export default class APP extends Component {
                     width: width,
                     textAlign: 'center'
                 }}>{'当前版本号:' + TW_Store.appInfoStore.versionHotFix}</Text>
+
             </View>
         )
     }

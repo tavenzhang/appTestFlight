@@ -28,9 +28,11 @@ storage.load({
     TW_Log(err)
 });
 
-
+global.TW_DATA_KEY={
+    versionBBL:"versionBBL",
+}
 
 // 对于react native
 global.storage = storage;
-
+global.TW_Data_Store=AsyncStorage;
 module.exports = storage

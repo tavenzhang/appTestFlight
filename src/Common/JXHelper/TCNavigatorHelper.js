@@ -48,10 +48,11 @@ Helper.pushView = (component, params) => {
     }
 }
 Helper.reset=(component,params)=>{
+    TW_Log("reset===========component",component)
     if (typeof component == 'string') {
-        NavigationService.navigate(component, params)
+        NavigationService.reset(component, params)
     } else if (component && component.routName) {
-        NavigationService.navigate(component.routName, params)
+        NavigationService.reset(component.routName,params)
     }
 }
 Helper.popToBack = () => {

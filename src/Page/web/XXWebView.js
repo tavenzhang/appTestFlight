@@ -6,54 +6,49 @@ import {
     WebView,
 } from 'react-native';
 
-import RNFS from "react-native-fs";
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
-import {JX_PLAT_INFO} from "../asset";
+import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
+import RNFS from "react-native-fs";
 
+@withMappedNavigationProps()
 export default class XXWebView extends Component {
     constructor(state) {
         super(state)
         this.state = {
-            fluashNum:1
+            fluashNum: 1,
         }
     }
 
-    static defaultProps = {
+    defaultProps = {
         url: '',
         title: ''
     };
 
-    componentDidMount() {
-        setTimeout(()=>{
-            TW_Log("onMessage======onAppPostMessage=componentDidMount====", this.refs.myWebView);
-            this.refs.myWebView.postMessage("{hell0--}","*");
-        },10000);
-        TW_Log("JXComponet-----",JX_Compones)
 
-    }
 
-    componentWillUnmount() {
-
-    }
 
     render() {
-        let res = RNFS.MainBundlePath + '/assets/src/page/web/gamelobby/index.html';
+        // return(<View/>)
+        let {force} = this.props;
+        let res = RNFS.MainBundlePath + '/assets/gamelobby/index.html';
         let source = {
             uri: res,
             allowingReadAccessToURL: RNFS.MainBundlePath,
             allowFileAccessFromFileURLs: RNFS.MainBundlePath
         };
-
         if (!G_IS_IOS) {
             source = {uri: 'file:///android_asset/gamelobby/index.html'}
         }
-
-        //let source = require('./gamelobby/index.html');
+        // if (TW_IS_DEBIG) {
+        //     source = require('./gamelobby/index.html');
+        // }
 
         let injectJs = `window.appData=${JSON.stringify({
             isApp: true,
             taven: "isOk",
             clientId: "11",
+            force: force ? "1" : "0",
             urlJSON: TW_Store.bblStore.urlJSON
         })}`;
         return (
@@ -79,7 +74,7 @@ export default class XXWebView extends Component {
                             javaScriptEnabled={true}
                             domStorageEnabled={true}
                             // decelerationRate="normal"
-                            startInLoadingState={true}
+                            startInLoadingState={false}
                             onNavigationStateChange={this.onNavigationStateChange}
                             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                             allowFileAccess={true}
@@ -141,17 +136,12 @@ export default class XXWebView extends Component {
     onEvaleJS = (data) => {
         let dataStr = JSON.stringify(data);
         dataStr = dataStr ? dataStr : "";
-        TW_Log("onError===========   this.webview=====" +  this.refs.myWebView == null, this.refs.myWebView);
-        if(JX_PLAT_INFO.IS_IOS){
+        TW_Log("onError===========   this.webview=====" + this.refs.myWebView == null, this.refs.myWebView);
+        if (G_IS_IOS) {
             this.refs.myWebView.evaluateJavaScript(`receivedMessageFromRN(${dataStr})`);
-        }else{
-            this.setState({fluashNum:this.state.fluashNum+1},()=>{
-                TW_Log("onError===========onEvaleJS ");
-                TW_NavHelp.reset(JX_Compones.XXWebView,{fore})
-            });
+        } else {
+            TW_NavHelp.reset(JX_Compones.XXWebView, {force: 1});
         }
-
-
     }
 
     onError = (error) => {

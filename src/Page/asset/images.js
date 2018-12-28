@@ -1,3 +1,6 @@
+// export const bbl = {
+//     mainJS: require('../web/gamelobby/js.html')
+// }
 // /**
 //  * Created by Sam on 18/04/2017.
 //  * Copyright © 2017年 JX. All rights reserved.

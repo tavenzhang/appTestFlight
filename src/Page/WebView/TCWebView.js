@@ -5,8 +5,8 @@ import {
     View,
     WebView,
 } from 'react-native';
-import RNFS from "react-native-fs";
-import {width, indexBgColor} from '../resouce/theme'
+
+import {width} from '../resouce/theme'
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
@@ -26,16 +26,6 @@ export default class TCWebView extends Component {
         title: ''
     };
 
-    componentDidMount() {
-        // setTimeout(()=>{
-        //     TW_NavHelp.popToBack()
-        //     TW_Log("componentDidMount=======popToTop========", )
-        // },6000)
-    }
-
-
-    componentWillUnmount() {
-    }
 
     render() {
         let {url}=this.props;
@@ -59,7 +49,6 @@ export default class TCWebView extends Component {
                             useWebKit={true}
                             automaticallyAdjustContentInsets={true}
                             style={styles.webView}
-                            // source={{uri: this.props.url}}                                                                         
                             source={source}
                             javaScriptEnabled={true}
                             domStorageEnabled={true}
@@ -124,7 +113,7 @@ export default class TCWebView extends Component {
         if(url&&url.indexOf("../")>-1){
             url = url.replace("../","");
         }
-        url = TW_Store.bblStore.homeDomain +"/"+url
+        url = TW_Store.bblStore.homeDomain +"/"+url;
         return url
     }
 
@@ -133,7 +122,7 @@ export default class TCWebView extends Component {
     }
 
     onShouldStartLoadWithRequest = (event) => {
-        TW_Log("onShouldStartLoadWithRequest=======TCweb====event=====", event)
+        TW_Log("onShouldStartLoadWithRequest=======TCweb====event=====", event);
         return true;
     };
 

@@ -9,6 +9,7 @@ import com.cmcewen.blurview.BlurViewPackage;
 import com.crashlytics.android.Crashlytics;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
+import com.rnziparchive.RNZipArchivePackage;
 import com.xxsnakerxx.flurryanalytics.FlurryAnalyticsPackage;
 import com.smixx.fabric.FabricPackage;
 import cn.jpush.reactnativejpush.JPushPackage;
@@ -68,6 +69,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new RNZipArchivePackage(),
             new FlurryAnalyticsPackage(),
             new FabricPackage(),
             new JPushPackage(false,false),
@@ -92,6 +94,7 @@ public class MainApplication extends Application implements ReactApplication {
                     new OpenAppPackage(),
                     new RNAudioPackage()
             );
+
         }
 
         @Override
@@ -119,6 +122,8 @@ public class MainApplication extends Application implements ReactApplication {
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
         UMConfigure.setLogEnabled(BuildConfig.DEBUG);
         UMConfigure.setEncryptEnabled(true);
+
+
     }
 
     @Override

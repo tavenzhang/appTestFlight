@@ -188,6 +188,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-zip-archive')
     compile project(':react-native-flurry-analytics')
     compile project(':react-native-fabric')
     implementation 'com.android.support:multidex:1.0.3'

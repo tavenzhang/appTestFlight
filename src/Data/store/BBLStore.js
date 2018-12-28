@@ -1,7 +1,8 @@
 
 import { observable} from 'mobx'
-
-
+import {zip, unzip, unzipAssets, subscribe} from 'react-native-zip-archive'
+import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
+import RNFS from "react-native-fs";
 /**
  *app信息管理
  */
@@ -9,6 +10,15 @@ export  default  class BBLStore {
 
     @observable
     homeDomain = "http://106games.com";
+
+    @observable
+    zipVersion = "app_1";
+
+    @observable
+    isForeReload = false;
+
+    @observable
+    versionManger ={name:"home",versionNum:6,source:'http://192.168.11.120:8888/assets.zip',toDest:`${RNFS.MainBundlePath}/temp.zip`,isFlush:false}
 
     //用于动态替换大厅域名
     @observable
@@ -28,7 +38,6 @@ export  default  class BBLStore {
             "testcustomurl":"https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"
         },
     }
-
 
 }
 
