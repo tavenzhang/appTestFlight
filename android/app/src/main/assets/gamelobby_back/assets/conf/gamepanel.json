@@ -1,0 +1,150 @@
+{
+    "pos":{ "x":0, "y":120 },
+    "girl":{
+        "src":"./assets/ui/game/img_dating_renwu.png",
+        "pos":{ "x":0, "y":0 },
+        "size":{"w":392,"h":606},
+        "hidepos":{ "x":-800, "y":0 },
+        "durationIn":500,
+        "durationOut":500
+    },
+    "panel":{
+        "content":{
+            "pos":{ "x":360, "y":0 },
+            "hidepos":{ "x":0, "y":0 },
+            "durationIn":500,
+            "durationOut":1000,
+            "size":{ "w":1334, "h":550 }
+        },
+        "rect":{
+            "x":0,
+            "y":0,
+            "w":850,
+            "h":550
+        },
+        "showbgX":{
+            "color":"#ff0000",
+            "alpha":0.5
+        }
+    },
+    "arrow":{
+        "src":"./assets/ui/game/arrow_00.png",
+        "pos":{
+            "x":1250,
+            "y":260
+        }
+    },
+    "pagearrow":{
+        "pos":{"x":1250,"y":260},
+        "src":{
+            "src":"./assets/ui/game/arrow_00.png",
+            "pos":{ "x":0, "y":0 }
+        },
+        "right":{
+            "pos":{
+                "x":3,
+                "y":0
+            },
+            "easeName":"backIn",
+            "duration":400
+        },
+        "left":{
+            "pos":{
+                "x":-3,
+                "y":0
+            },
+            "easeName":"backIn",
+            "duration":400
+        }
+    },
+    "gameitemdefault":{
+        "number":5,
+        "pos":{ "x":0, "y":0 },
+        "btnicon":{
+            "desc":"图标按钮",
+            "pos":{ "x":135, "y":135 },
+            "src":[
+                "./assets/ui/game/defaulticon.png"
+            ],
+            "size":{
+                "w":235,
+                "h":215,
+                "gw":50,
+                "gh":30,
+                "scaleW":265
+            },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/Click.mp3",
+            "grayext":"_gray"
+        },
+        "dutimer":1,
+        "lastR":10,
+        "stepR":10,
+        "nowStartAngle":0,
+        "stepAngle":30,
+        "maxR":1000,
+        "drawcenter":{ "x":87.5, "y":87.5 },
+        "sfx":"assets/raw/Flop.mp3",
+        "actionOnClick":true,
+        "statePause":{
+            "desc":"PAUSE状态呈现方式",
+            "src":"./assets/ui/game/img_dating_whz.png",
+            "pos":{ "x":50, "y":110 },
+            "size":{ "w":159, "h":62 }
+        },
+        "stateComing":{
+            "desc":"PAUSE状态呈现方式",
+            "src":"./assets/ui/game/img_dating_jingqingqidai.png",
+            "pos":{ "x":30, "y":110 },
+            "size":{ "w":209, "h":62 }
+        },
+        "hot":{
+            "src":"./assets/ui/game/icon_hot.png",
+            "pos":{ "x":170, "y":30 }
+        }
+    },
+    
+    "scrollbarX":{
+        "bg":{
+            "src":"./assets/ui/progress/img_fangjian_jingdu01.png",
+            "srcX":"./assets/ui/progress/10.png",
+            "pos":{
+                "x":0,
+                "y":395
+            },
+            "size":{
+                "w":550,
+                "h":0,
+                "splice":{
+                    "lw":4,
+                    "cw":10,
+                    "rw":4,
+                    "cwid":542
+                }
+            }
+        },
+        "ft":{
+            "src":"./assets/ui/progress/img_fangjian_jingdu02.png",
+            "srcX":"./assets/ui/progress/10.png",
+            "pos":{
+                "x":0,
+                "y":396
+            },
+            "size":{
+                "w":55,
+                "h":0,
+                "splice":{
+                    "lw":4,
+                    "cw":10,
+                    "rw":4,
+                    "cwid":47
+                }
+            }
+        },
+        "showinsmall":false,
+        "fadeAlpha":0.1
+    },
+    
+    "testItemLenX":7
+}

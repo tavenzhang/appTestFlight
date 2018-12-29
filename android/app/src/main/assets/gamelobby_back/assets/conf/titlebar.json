@@ -1,0 +1,46 @@
+{
+    "desc":"顶部标题栏",
+    "pos":{ "x":0, "y":0 },
+    "duration":500,
+    "btnnotice":{
+        "desc":"按钮",
+        "pos":{ "x":1130, "y":60 },
+        "src":[
+            "./assets/ui/titlebar/btn_notice.png"
+        ],
+        "font":{
+            "text":"",
+            "size":18,
+            "color":"#ffffff",
+            "borderColorX":"#ff0000",
+            "pos":{ "x":0, "y":0 }
+        },
+        "size":{ "w":82, "h":87 },
+        "sfx":"assets/raw/Click.mp3",
+        "maxScale":{"x":1.02,"y":1.02},
+        "normalScale":{"x":1,"y":1}
+    },
+    "btnsetting":{
+        "desc":"设置按钮",
+        "pos":{ "x":1250, "y":60 },
+        "src":[
+            "./assets/ui/titlebar/btn_setting.png"
+        ],
+        "font":{
+            "text":"",
+            "size":18,
+            "color":"#ffffff",
+            "borderColorX":"#ff0000",
+            "pos":{ "x":0, "y":0 }
+        },
+        "size":{ "w":82, "h":87 },
+        "sfx":"assets/raw/Click.mp3",
+        "maxScale":{"x":1.02,"y":1.02},
+        "normalScale":{"x":1,"y":1}
+    },
+    "title":{
+        "pos":{ "x":537, "y":15 },
+        "size":{ "w":260, "h":72 },
+        "src":"./assets/ui/titlebar/img_dating_logo.png"
+    }
+}

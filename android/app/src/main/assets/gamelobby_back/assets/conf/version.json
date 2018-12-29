@@ -1,0 +1,46 @@
+{
+    "value":"",
+    "pos":{ "x":0, "y":702 },
+    "channel":"channel20181016",
+    "device":"",
+    "platform_font":[
+        {
+            "platform":[
+                "MAC","IOS"
+            ],
+            "font":"兰亭黑 中黑"
+        },
+        {
+            "platform":[
+                "Android"
+            ],
+            "font":"思源黑体"
+        },
+        {
+            "platform":[
+                "PC"
+            ],
+            "font":"微软雅黑"
+        }
+    ],
+    "bg":{
+        "src":"./assets/ui/version/bgVersion.png",
+        "pos":{"x":0,"y":0}
+    },
+    "label":{
+        "pos":{"x":0,"y":0},
+        "font":{
+            "text":"版本号:2.0.0.00",
+            "fontsize":22,
+            "color":"#5adaec",
+            "align":"center",
+            "valign":"middle",
+            "name":"Microsoft Yahei Bold",
+            "wrap":false,
+            "underline":false,
+            "borderColorX":"#ff0000",
+            "alpha":1
+        },
+        "size":{ "w":200, "h":48 }
+    }
+}

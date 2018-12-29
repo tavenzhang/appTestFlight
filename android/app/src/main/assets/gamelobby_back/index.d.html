@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset='utf-8' />
+	<title>gamelobby</title>
+	<meta name='viewport' content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no'
+	/>
+	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+	<meta name="renderer" content="webkit"/>
+	<meta name='apple-mobile-web-app-capable' content='yes' />
+	<meta name='full-screen' content='true' />
+	<meta name='x5-fullscreen' content='true' />
+	<meta name='360-fullscreen' content='true' />
+	<meta name="laya" screenorientation ="landscape"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta http-equiv='expires' content='0' />
+	<meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+	<!-- uc强制竖屏 -->
+	<meta name="screen-orientation" content="portrait">
+	<!-- QQ强制竖屏 -->
+	<meta name="x5-orientation" content="portrait">
+	<!-- UC强制全屏 -->
+	<meta name="full-screen" content="yes">
+	<!-- QQ强制全屏 -->
+	<meta name="x5-fullscreen" content="true">
+	<!-- UC应用模式 -->
+	<meta name="browsermode" content="application">
+	<!-- QQ应用模式 -->
+	<meta name="x5-page-mode" content="app">
+	<!-- windows phone 点击无高光 -->
+	<meta name="msapplication-tap-highlight" content="no">
+	<!-- 适应移动端end -->
+
+	<link href="style/loading.css" rel="stylesheet" type="text/css"/>
+	<!--<link href="style/cursor.css" rel="stylesheet" type="text/css"/>-->
+	
+	<script type="text/javascript" src="libthird/jquery-3.3.1.min.js"></script>
+
+</head>
+
+<body class="bod">
+
+	<!--<div class="div_txt">
+		<span class="loading">疯狂加载中....请稍后</span>
+	</div>-->
+	
+	<div class="div_loading" id="loaddiv">
+		<div class="div_pic">
+			<div class="wrap">
+				<div class="outer_animgone"></div>
+				<!--<div class="inner">
+					<div class="spiner"></div>
+					<div class="filler"></div>
+					<div class="masker"></div>
+				</div>-->
+				<!--<div class="inner2">
+					<div class="spiner"></div>
+					<div class="filler"></div>
+					<div class="masker"></div>
+				</div>		-->
+			</div>
+		</div>
+		
+		<div class="div_txt">
+			<span class="loading">疯狂加载中....请稍后</span>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="libthird/vconsole.min.js"></script>
+	<script>
+
+		var loadversion = "0001";
+
+		//读取配置文件
+		function getJson()
+		{
+			$.ajax({
+				dataType:"json",
+				url:"./assets/loading/loading.json",
+				data:null,
+				success:function(dt){
+					console.log('dt.version.value:');
+					console.log(dt.version.value);
+					loadversion = dt.version.value;
+				}
+			});
+		}
+		getJson();
+		
+		//初始化vConsole
+		function initVconsole()
+		{
+			// 初始化vConsole
+			window.vConsole = new window.VConsole({
+			defaultPlugins: ['system', 'network', 'element', 'storage'], // 可以在此设定要默认加载的面板
+			maxLogNumber: 1000,
+			// disableLogScrolling: true,
+			onReady: function() {
+				console.log('vConsole is ready.');
+			},
+			onClearLog: function() {
+				console.log('on clearLog');
+			}
+			});
+
+			console.info('KOT CODES web-socket test for json buf');
+		}
+
+		initVconsole();
+
+		//加载单个js文件
+		function loadJs(scriptAll,jsPath)//,rand=Math.random(),defer=false)
+		{
+			// var rd = Math.random();
+			document.write("<scr"+"ipt src='"+jsPath+"?v="+loadversion+"' loader='laya'></scr"+'ipt>');
+			
+			// var d = document.getElementById('test');//通过id获取div节点对象
+  			// scriptAll.innerHTML = scriptAll.innerHTML + "<scr"+"ipt src='"+jsPath+"' loader='laya'></scr"+"ipt>";
+
+			// document.write("<scr"+"ipt src='"+jsPath+"?r="+rand+"' loader='laya'></scr"+'ipt>');
+			// document.write("<scr"+"ipt src='"+jsPath+'?rd='+rd+"' loader='laya'></scr"+'ipt>');
+		}
+
+		//加载完毕后，加载脚本
+		function loadAllJs(div)
+		{
+			//debug
+			loadJs(div,"libs/laya.core.js");
+			loadJs(div,"libs/laya.wxmini.js");
+			loadJs(div,"libs/laya.webgl.js");
+			loadJs(div,"libs/laya.ani.js");
+			loadJs(div,"libs/laya.filter.js");
+			loadJs(div,"libs/laya.html.js");
+			loadJs(div,"libs/laya.particle.js");
+			loadJs(div,"libs/laya.tiledmap.js");
+			loadJs(div,"libs/laya.ui.js");
+
+			// loadJs(div,"libthird/clipboard.min.js");
+			// loadJs(div,"libs/matter.js");
+			// loadJs(div,"libs/LayaRender.js");
+			// loadJs(div,"libs/vconsole.min.js");
+
+			loadJs(div,"js/common/Base64.js");
+			loadJs(div,"js/common/Common.js");
+			loadJs(div,"js/common/Debug.js");
+			loadJs(div,"js/common/MyPos.js");
+			loadJs(div,"js/common/MyScene.js");			
+			// loadJs(div,"js/common/LoadingAnim.js");
+			loadJs(div,"js/common/MyButton.js");
+			loadJs(div,"js/common/MyDialog.js");
+			loadJs(div,"js/common/MyDragPgBar.js");
+			loadJs(div,"js/common/MyDragSwitch.js");
+			loadJs(div,"js/common/MyPanel.js");
+			loadJs(div,"js/common/MySwitchBtn.js");
+			loadJs(div,"js/common/MyUid.js");
+			loadJs(div,"js/common/ProgressPie.js");
+			loadJs(div,"js/common/SaveManager.js");
+			loadJs(div,"js/common/Tools.js");
+
+			loadJs(div,"js/Loading/Loading.js");
+			loadJs(div,"js/Loading/LoadingModule.js");
+			loadJs(div,"js/Loading/MyCircleLoading.js");
+			loadJs(div,"js/Loading/MySaiziLoading.js");
+			loadJs(div,"js/Loading/PgBar.js");
+			loadJs(div,"js/Loading/PgBarSaizi.js");
+
+			loadJs(div,"js/net/NetManager.js");
+
+			loadJs(div,"js/Toast/Toast.js");
+
+			loadJs(div,"js/UI/Bg/Stars.js");
+			loadJs(div,"js/UI/Bg/UIBg.js");
+			loadJs(div,"js/UI/Bg/VersionStat.js");
+
+			loadJs(div,"js/UI/Bottom/BottomMenus.js");
+
+			loadJs(div,"js/UI/GamePanel/GameItem.js");
+			loadJs(div,"js/UI/GamePanel/GamePanel.js");
+
+			loadJs(div,"js/UI/Help/HelpPad.js");
+
+			loadJs(div,"js/UI/Highscore/Highscore.js");
+
+			loadJs(div,"js/UI/History/HistoryDialog.js");
+			loadJs(div,"js/UI/History/HistoryItem.js");
+			
+			loadJs(div,"js/UI/Notice/Notice.js");
+			loadJs(div,"js/UI/Notice/NoticeItem.js");
+			loadJs(div,"js/UI/Notice/RunMsgItem.js");
+			loadJs(div,"js/UI/Notice/RunningMsg.js");
+
+			loadJs(div,"js/UI/Recharge/RechargeHintPad.js");
+
+			loadJs(div,"js/UI/RoomPanel/InScore.js");
+			loadJs(div,"js/UI/RoomPanel/RoomItem.js");
+			loadJs(div,"js/UI/RoomPanel/RoomPanel.js");
+
+			loadJs(div,"js/UI/ScrollBar/ScrollBar.js");
+
+			loadJs(div,"js/UI/Setting/SettingPad.js");
+
+			loadJs(div,"js/UI/TitleBar/CoinIcon.js");
+			loadJs(div,"js/UI/TitleBar/DiamonIcon.js");
+			loadJs(div,"js/UI/TitleBar/HeadIcon.js");
+			loadJs(div,"js/UI/TitleBar/UITitleBar.js");
+			loadJs(div,"js/UI/TitleBar/AvatorPad.js");
+			
+			loadJs(div,"js/UI/RootScene.js");
+			loadJs(div,"js/UI/UILogin.js");
+			loadJs(div,"js/UI/UITips.js");
+			
+			loadJs(div,"js/LayaMain.js");
+
+			// loadJsOver();
+		}
+
+		//加载代码完毕，开始进入loading
+		function loadJsOver()
+		{
+			var loading = document.getElementById("loaddiv");
+			loading.style.display = "none";
+		}
+		
+		// loadAllJs(document.getElementById("script"));
+		loadAllJs(null);
+
+	</script>
+
+	<script type="text/javascript" src="libthird/screenfull.min.js"></script>
+	
+</body>
+
+</html>
