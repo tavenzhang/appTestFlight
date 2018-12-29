@@ -9,7 +9,7 @@ import RNFS from "react-native-fs";
 export  default  class BBLStore {
 
     @observable
-    homeDomain = "http://106games.com";
+    homeDomain = "http://sit.106games.com";
 
     @observable
     zipVersion = "app_1";
@@ -17,8 +17,10 @@ export  default  class BBLStore {
     @observable
     isForeReload = false;
 
+    storeDir = DocumentDirectoryPath;
+
     @observable
-    versionManger ={name:"home",versionNum:6,source:'http://192.168.11.120:8888/assets.zip',toDest:`${RNFS.MainBundlePath}/temp.zip`,isFlush:false}
+    versionManger = {name:"home",versionNum:6,source:'http://192.168.11.120:8888/gamelobby.zip',toDest:`${this.storeDir}/temp.zip`,isFlush:false}
 
     //用于动态替换大厅域名
     @observable

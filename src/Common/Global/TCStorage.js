@@ -30,6 +30,7 @@ storage.load({
 
 global.TW_DATA_KEY={
     versionBBL:"versionBBL",
+    isInitStore:"isInitStore",
 }
 
 // 对于react native

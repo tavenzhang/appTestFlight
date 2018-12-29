@@ -53,37 +53,40 @@ const MainStackNavigator = StackNavigator({
 })
 
 export default class Main extends Component {
+    constructor(state) {
+        super(state)
+        this.state = {
+            fluashNum: 1,
+            inited: false,
+            bundleDir: ""
+        }
+    }
 
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         StatusBar.setHidden(true);
-        TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
-            TW_Log("TW_DATA_KEY.versionBBL get results "+ret, ret==null);
-            try {
-                let verionM =  JSON.parse(ret);
-               // TW_Log("TW_DATA_KEY.versionBBL get results "+verionM.versionNum, verionM);
-                //TW_Log("TW_DATA_KEY.versionBBL ootStore.bblStore "+rootStore.bblStore.versionManger.versionNum, rootStore.bblStore.versionManger);
-                if(verionM.versionNum&&rootStore.bblStore.versionManger.versionNum!=verionM.versionNum){
-                    this.downloadFile();
-                }else{
-                    this.onSaveVersionM(ret);
-                }
-            }catch (error) {
-                TW_Log("TW_DATA_KEY.versionBBL get key Error "+ret, error);
-                this.onSaveVersionM();
+        TW_Data_Store.getItem(TW_DATA_KEY.isInitStore,(err,ret)=>{
+            if(ret&&`${ret}`=="1"){
+                //如果第一次拷贝到document 已经完成 开始 检测 zip 更新
+                TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
+                    TW_Log("TW_DATA_KEY.versionBBL get results "+ret, ret==null);
+                    try {
+                        let verionM =  JSON.parse(ret);
+                        // TW_Log("TW_DATA_KEY.versionBBL get results "+verionM.versionNum, verionM);
+                        //TW_Log("TW_DATA_KEY.versionBBL ootStore.bblStore "+rootStore.bblStore.versionManger.versionNum, rootStore.bblStore.versionManger);
+                        if(verionM.versionNum&&rootStore.bblStore.versionManger.versionNum!=verionM.versionNum){
+                            this.downloadFile();
+                        }else{
+                              this.onSaveVersionM(ret);
+                        }
+                    }catch (error) {
+                        TW_Log("TW_DATA_KEY.versionBBL get key Error "+ret, error);
+                        this.onSaveVersionM();
+                    }
+                }).catch((error) => {
+                    TW_Log("TW_DATA_KEY.versionBBL get error "+error, error);
+                })
             }
-            // if(ret){
-            //     let verionM =  JSON.parse(ret);
-            //     if(verionM){
-            //         if(rootStore.bblStore.versionManger.version!=verionM.version){
-            //             this.downloadFile();
-            //         }
-            //     }else{
-            //         TW_Data_Store.setItem(TW_DATA_KEY.versionBBL,JSON.stringify(rootStore.bblStore.versionManger));
-            //     }
-            // }
-        }).catch((error) => {
-            TW_Log("TW_DATA_KEY.versionBBL get error "+error, error);
         })
     }
 
@@ -99,12 +102,10 @@ export default class Main extends Component {
     }
 
     downloadFile=()=> {
-        // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
-        // 音频
-        TW_Log("versionBBL---downloadFile");
         const downloadDest = rootStore.bblStore.versionManger.toDest
         const formUrl = rootStore.bblStore.versionManger.source;
         this.downloadDest= downloadDest;
+        TW_Log("versionBBL---downloadFile=="+formUrl);
         const options = {
             fromUrl: formUrl,
             toFile: downloadDest,
@@ -142,16 +143,16 @@ export default class Main extends Component {
     {
         // zipPath：zip的路径
         // documentPath：解压到的目录
-        unzip(this.downloadDest, RNFS.MainBundlePath)
+        unzip(this.downloadDest,  rootStore.bblStore.storeDir)
             .then((path) => {
-                TW_Log(`versionBBL unzip completed at ${path}`);
+                TW_Log(`versionBBL unzip completed at------ ${path}`);
                 rootStore.bblStore.versionManger.isFlush=false
                 this.onSaveVersionM();
-                RNFS.unlink(this.downloadDest).then(() => {
-                    TW_Log("versionBBL 删除文件----downloadDest!"+this.downloadDest)
-                }).catch((err) => {
-                    TW_Log("versionBBL 删除文件失败");
-                });;
+                // RNFS.unlink(this.downloadDest).then(() => {
+                //     TW_Log("versionBBL 删除文件----downloadDest!"+this.downloadDest)
+                // }).catch((err) => {
+                //     TW_Log("versionBBL 删除文件失败");
+                // });;
             })
             .catch((error) => {
                 TW_Log("versionBBL  解压失败",error);
