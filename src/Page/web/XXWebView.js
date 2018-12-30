@@ -6,69 +6,44 @@ import {
     WebView,
     Text
 } from 'react-native';
-
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
-import RNFS from "react-native-fs";
 
 @withMappedNavigationProps()
 export default class XXWebView extends Component {
     constructor(state) {
         super(state)
         this.state = {
-            fluashNum: 1,
-            inited: false,
-            bundleDir: "",
-            target_dir_exist:false,
-            ret:""
+            // fluashNum: 1,
+            uri: TW_Store.dataStore.getHomeWebUri(),
+            bundleDir: TW_Store.dataStore.getHomeWebHome()
         }
-        this.copy_assets_to_dir = this.copy_assets_to_dir.bind(this);
-        this.checkDirExist=this.checkDirExist.bind(this);
-        this.resSourceDir = G_IS_IOS ? (RNFS.MainBundlePath + '/assets/gamelobby') : "file:///android_asset/gamelobby";
-        this.destSourceDir = DocumentDirectoryPath + "/gamelobby";
     }
-
 
     componentWillMount() {
-        TW_Data_Store.getItem(TW_DATA_KEY.isInitStore, (err, ret) => {
-            if(err){
-                this.copy_assets_to_dir(this.resSourceDir, this.destSourceDir);
-                this.setState({bundleDir: this.resSourceDir, inited: true})
-            }else{
-                this.setState({ret});
-                this.checkDirExist(this.destSourceDir)
-                if(`${ret}`=="1"){
-                    this.setState({bundleDir: this.destSourceDir, inited: true})
-                }else{
-                    this.copy_assets_to_dir(this.resSourceDir, this.destSourceDir);
-                    this.setState({bundleDir: this.resSourceDir, inited: true})
-                }
-            }
-        });
+
     }
-
-
-
 
 
     render() {
-        if (!this.state.inited) {
-            return (<View/>)
-        }
 
         let {force} = this.props;
-        //let res = RNFS.MainBundlePath + '/assets/gamelobby/index.html';
+
         let source = {
-            file: `${this.state.bundleDir}/index.html`,
+            file: this.state.uri,
             allowingReadAccessToURL: this.state.bundleDir,
             allowFileAccessFromFileURLs: this.state.bundleDir
         };
-        TW_Log("MainBundlePath---bbl--source==" , source);
-        // if (TW_IS_DEBIG) {
-        //     source = require('./gamelobby/index.html');
+        if (!G_IS_IOS) {
+            source = {
+                //uri: this.state.uri,
+                uri:`file:///${DocumentDirectoryPath}/gamelobby/index.html?11=2`
+            };
+        }
+        // if(TW_IS_DEBIG){
+        //     source =  require('./gamelobby/index.html');
         // }
-
         let injectJs = `window.appData=${JSON.stringify({
             isApp: true,
             taven: "isOk",
@@ -76,10 +51,10 @@ export default class XXWebView extends Component {
             force: force ? "1" : "0",
             urlJSON: TW_Store.bblStore.urlJSON
         })}`;
-        let logData= `inited=${this.state.inited} ---bundleDir==${this.state.bundleDir}`
         return (
             <View style={styles.container}>
-                {/*<Text style={{color:"white"}}>{logData+"\n"+`${JSON.stringify(this.state)}`+"\n"+`source==${JSON.stringify(source)}`}</Text>*/}
+                {TW_Store.dataStore.isShowDebug ? <Text
+                    style={{color: "white"}}>{`this.stat==${JSON.stringify(this.state)}` + "\n" + `source==${JSON.stringify(source)}`}</Text> : null}
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
@@ -194,63 +169,6 @@ export default class XXWebView extends Component {
             scalesPageToFit: false
         });
     };
-
-    onSavaCopyState=()=>{
-        TW_Data_Store.setItem(TW_DATA_KEY.isInitStore,"1",(err)=>{
-            if(err){
-                TW_Log("versionBBL bbl--- copyFile--setItem--error===!",err);
-            }else{
-                TW_Log("versionBBL bbl--- copyFile--setItem--sucess!===");
-            }})
-    }
-
-    async checkDirExist(target_dir){
-        const target_dir_exist = await RNFS.exists(target_dir);
-        this.setState({target_dir_exist})
-    }
-
-
-    async copy_assets_to_dir(source_dir, target_dir) {
-        const target_dir_exist = await RNFS.exists(target_dir);
-        TW_Log("versionBBL bbl--------target_dir_exist----start--"+target_dir_exist , target_dir);
-        if (G_IS_IOS) {
-            if (target_dir_exist) {
-                TW_Log("versionBBL bbl---   RNFS.unlink---start" + target_dir_exist,target_dir);
-                RNFS.unlink(target_dir).then((ret) => {
-                    TW_Log("versionBBL bbl--- unlink----target_dir==!" + target_dir_exist, ret);
-                    RNFS.copyFile(source_dir, target_dir).then(() => {
-                        this.onSavaCopyState();
-                    }).catch((err) => {
-                        TW_Log("versionBBL bbl--- 删除文件失败", target_dir_exist);
-                    })
-                })
-            } else {
-                let ret = RNFS.copyFile(source_dir, target_dir)
-                TW_Log("versionBBL bbl---  RNFS.copyFile----ret--!"+ret, ret);
-                if (ret) {
-                    this.onSavaCopyState();
-                    TW_Log("versionBBL bbl--- copy_assets_to_dir----sucess!", target_dir_exist);
-                }
-            }
-        }
-        else {
-            if (!target_dir_exist) {
-                await RNFS.mkdir(target_dir);
-                const exist = await RNFS.exists(target_dir);
-            }
-            const items = await
-            RNFS.readDirAssets(source_dir);
-            for (let i = 0; i < items.length; i++) {
-                const item = items[i];
-                if (item.isDirectory()) {
-                    await this.copy_assets_to_dir(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
-                } else {
-                    await RNFS.copyFileAssets(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
-                }
-            }
-        }
-
-    }
 }
 
 const styles = StyleSheet.create({

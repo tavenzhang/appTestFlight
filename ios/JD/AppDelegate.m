@@ -19,10 +19,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
+
   [Fabric with:@[[Crashlytics class]]];
   self.launchOptions = launchOptions;
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
- [self loadRootController];
+  [self loadRootController];
   //[self testLoadNative];
  // [self startLog];
   [self.window makeKeyAndVisible];
@@ -37,7 +38,7 @@
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = web;
-  NSString* url=[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"assets/src/page/web/gamelobby"];
+  NSString* url=[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"assets/gamelobby"];
   NSURL  *nsUrl = [NSURL fileURLWithPath:url];
   [web loadFileURL:nsUrl allowingReadAccessToURL:nsUrl];
   self.window.rootViewController = rootViewController;

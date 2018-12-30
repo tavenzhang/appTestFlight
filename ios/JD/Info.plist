@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Affcode</key>
-	<string></string>
+	<string/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -25,7 +25,7 @@
 	<key>CFBundleVersion</key>
 	<string>6</string>
 	<key>Channel</key>
-	<string></string>
+	<string/>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
 	<key>Fabric</key>
@@ -43,7 +43,7 @@
 		</array>
 	</dict>
 	<key>JPushKey</key>
-	<string></string>
+	<string/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
@@ -97,7 +97,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -128,10 +128,10 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>UmengKey</key>
-	<string></string>
+	<string/>
 	<key>bkey</key>
-	<string></string>
+	<string/>
 	<key>tkey</key>
-	<string></string>
+	<string/>
 </dict>
 </plist>

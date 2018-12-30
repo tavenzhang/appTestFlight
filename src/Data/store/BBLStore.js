@@ -1,8 +1,7 @@
 
 import { observable} from 'mobx'
-import {zip, unzip, unzipAssets, subscribe} from 'react-native-zip-archive'
 import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
-import RNFS from "react-native-fs";
+
 /**
  *app信息管理
  */
@@ -19,8 +18,13 @@ export  default  class BBLStore {
 
     storeDir = DocumentDirectoryPath;
 
+    tempZipDir=`${DocumentDirectoryPath}/game.zip`
+
     @observable
-    versionManger = {name:"home",versionNum:6,source:'http://192.168.11.120:8888/gamelobby.zip',toDest:`${this.storeDir}/temp.zip`,isFlush:false}
+    versionUrl = "http://192.168.11.120:8888/game.json"+"?random="+Math.random();
+
+    @observable
+    versionManger = {name:"home",versionNum:1,source:'http://192.168.11.120:8888/gamelobby.zip',isFlush:false}
 
     //用于动态替换大厅域名
     @observable

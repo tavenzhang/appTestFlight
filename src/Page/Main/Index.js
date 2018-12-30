@@ -30,7 +30,6 @@ let downloadTime = 0
 let alreadyInCodePush = false
 import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
 let domainsHelper = new JXDomainsHelper();
-import Fabric from 'react-native-fabric';
 @observer
 export default class APP extends Component {
 
@@ -41,8 +40,6 @@ export default class APP extends Component {
     }
 
     componentWillMount() {
-      //  var { Crashlytics } = Fabric;
-
         this.initData()
         this.uploadLog()
         this.initDomain()

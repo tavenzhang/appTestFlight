@@ -123,7 +123,6 @@ public class MainApplication extends Application implements ReactApplication {
         UMConfigure.setLogEnabled(BuildConfig.DEBUG);
         UMConfigure.setEncryptEnabled(true);
 
-
     }
 
     @Override
