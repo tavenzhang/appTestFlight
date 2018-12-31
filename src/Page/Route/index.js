@@ -76,9 +76,6 @@ export default class Main extends Component {
                         TW_Log("TW_Data_Store.getItem--.versionBBL TW_Data_Store results " + ret, ret == null);
                         try {
                               let verionM = JSON.parse(ret);
-                               if(verionM){
-                                   rootStore.bblStore.versionManger = verionM;
-                               }
                                if(verionM&&verionM.versionNum!=content.versionNum){
                                    this.downloadFile(content.source,rootStore.bblStore.tempZipDir);
                                }else{
@@ -86,9 +83,11 @@ export default class Main extends Component {
                                }
                         } catch (error) {
                             TW_Log("TW_DATA_KEY.versionBBL get key Error " + ret, error);
-                            this.onSaveVersionM(rootStore.bblStore.versionManger);
+                            this.downloadFile(content.source,rootStore.bblStore.tempZipDir);
                         }
                     })
+                }else{
+                    this.onSaveVersionM(rootStore.bblStore.versionManger);
                 }
             }
         })
@@ -100,6 +99,8 @@ export default class Main extends Component {
         let bblStoreStr = JSON.stringify(rootStore.bblStore.versionManger);
         let newSter=JSON.stringify(srcData);
         let isSame= bblStoreStr==newSter;
+        rootStore.bblStore.versionManger = {...rootStore.bblStore.versionManger,...srcData};
+
        // if(!isSame){
             TW_Log("TW_DATA_KEY.versionBBL onSaveVersionM savaData===isSame--"+isSame,newSter)
             TW_Data_Store.setItem(TW_DATA_KEY.versionBBL,newSter);

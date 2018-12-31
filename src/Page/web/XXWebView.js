@@ -37,8 +37,8 @@ export default class XXWebView extends Component {
         };
         if (!G_IS_IOS) {
             source = {
-                //uri: this.state.uri,
-                uri:`file:///${DocumentDirectoryPath}/gamelobby/index.html?11=2`
+                uri: this.state.uri,
+               // uri:`file:///${DocumentDirectoryPath}/gamelobby/index.html?11=2`
             };
         }
         // if(TW_IS_DEBIG){

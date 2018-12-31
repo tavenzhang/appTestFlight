@@ -36,14 +36,14 @@ export default class DataStore {
                 }
             }
         });
-       this.test();
+    //   this.test();
     }
 
-    async test() {
-        let target_dir_tet = DocumentDirectoryPath + "/gamelobby/style/loadingNew.css"
-        const exist2 = await RNFS.exists(target_dir_tet);
-        TW_Log('andorid----bbl----RNFS.exist ret=='+target_dir_tet +"--exist2--"+exist2,exist2);
-    }
+    // async test() {
+    //     let target_dir_tet = DocumentDirectoryPath + "/gamelobby/style/loadingNew.css"
+    //     const exist2 = await RNFS.exists(target_dir_tet);
+    //     TW_Log('andorid----bbl----RNFS.exist ret=='+target_dir_tet +"--exist2--"+exist2,exist2);
+    // }
     @action
     onSavaCopyState () {
         TW_Data_Store.setItem(TW_DATA_KEY.isInitStore, "1", (err) => {
