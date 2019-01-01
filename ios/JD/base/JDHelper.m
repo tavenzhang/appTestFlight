@@ -90,6 +90,32 @@ RCT_EXPORT_METHOD(getEvaString:(RCTResponseSenderBlock)callback){
   callback(@[[NSNull null], JD_eva]);
 }
 
+RCT_EXPORT_METHOD(notification
+                  : (NSString *)title
+                  : (NSString *)body) {
+  //1.创建本地通知
+  UILocalNotification *localNote = [[UILocalNotification alloc] init];
+  //2.设置通知显示的内容
+  //设置通知发出的时间
+  localNote.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+  //设置通知的内容
+  localNote.alertBody = body;
+  // 是否让上面的文字生效
+  localNote.hasAction = YES;
+  // 设置滑块显示的文字
+  localNote.alertAction = @"BBL";
+  //设置通知中心的标题
+  localNote.alertTitle = title;
+  // 设置通知的声音;
+  localNote.soundName = @"default";
+  //设置应用程序图标右上角的数字
+  localNote.applicationIconBadgeNumber = 1;
+   [[UIApplication sharedApplication] scheduleLocalNotification:localNote];
+//  dispatch_async(dispatch_get_main_queue(), ^{
+//    [[UIApplication sharedApplication] scheduleLocalNotification:localNote];
+//  });
+
+}
 
 
 @end

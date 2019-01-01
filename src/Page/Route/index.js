@@ -66,126 +66,41 @@ export default class Main extends Component {
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         StatusBar.setHidden(true);
-        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.versionUrl,null,(rt)=>{
-            TW_Log("TW_DATA_KEY.versionBBL get results " + rt, rt);
-            if(rt.rs){
-                let content = rt.content;
-                this.content=content;
-                if(TW_Store.dataStore.isAppUnZip){
-                    TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
-                        TW_Log("TW_Data_Store.getItem--.versionBBL TW_Data_Store results " + ret, ret == null);
-                        try {
-                              let verionM = JSON.parse(ret);
-                               if(verionM&&verionM.versionNum!=content.versionNum){
-                                   this.downloadFile(content.source,rootStore.bblStore.tempZipDir);
-                               }else{
-                                   this.onSaveVersionM(content);
-                               }
-                        } catch (error) {
-                            TW_Log("TW_DATA_KEY.versionBBL get key Error " + ret, error);
-                            this.downloadFile(content.source,rootStore.bblStore.tempZipDir);
-                        }
-                    })
-                }else{
-                    this.onSaveVersionM(rootStore.bblStore.versionManger);
-                }
-            }
-        })
+        // NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.versionUrl,null,(rt)=>{
+        //     TW_Log("TW_DATA_KEY.versionBBL get results " + rt, rt);
+        //     if(rt.rs){
+        //         let content = rt.content;
+        //         this.content=content;
+        //         if(TW_Store.dataStore.isAppUnZip){
+        //             TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
+        //                 TW_Log("TW_Data_Store.getItem--.versionBBL TW_Data_Store results " + ret, ret == null);
+        //                 try {
+        //                       let verionM = JSON.parse(ret);
+        //                        if(verionM&&verionM.versionNum!=content.versionNum){
+        //                            this.downloadFile(content.source,rootStore.bblStore.tempZipDir);
+        //                        }else{
+        //                            this.onSaveVersionM(content);
+        //                        }
+        //                 } catch (error) {
+        //                     TW_Log("TW_DATA_KEY.versionBBL get key Error " + ret, error);
+        //                     this.downloadFile(content.source,rootStore.bblStore.tempZipDir);
+        //                 }
+        //             })
+        //         }else{
+        //             this.onSaveVersionM(rootStore.bblStore.versionManger);
+        //         }
+        //     }
+        // })
 
     }
 
-    onSaveVersionM=(srcData)=>{
 
-        let bblStoreStr = JSON.stringify(rootStore.bblStore.versionManger);
-        let newSter=JSON.stringify(srcData);
-        let isSame= bblStoreStr==newSter;
-        rootStore.bblStore.versionManger = {...rootStore.bblStore.versionManger,...srcData};
-
-       // if(!isSame){
-            TW_Log("TW_DATA_KEY.versionBBL onSaveVersionM savaData===isSame--"+isSame,newSter)
-            TW_Data_Store.setItem(TW_DATA_KEY.versionBBL,newSter);
-     //  }
-    }
-
-    downloadFile=(formUrl,downloadDest)=> {
-
-        this.downloadDest= downloadDest;
-        formUrl=formUrl+"?rodom="+Math.random();
-        TW_Log("versionBBL---downloadFile=="+formUrl);
-        const options = {
-            fromUrl: formUrl,
-            toFile: downloadDest,
-            background: true,
-            begin: (res) => {
-                TW_Log('versionBBL--begin', res);
-                TW_Log('versionBBL---contentLength:', res.contentLength / 1024 / 1024, 'M');
-            },
-            // progress: (res) => {
-            //
-            //     //let pro = res.bytesWritten / res.contentLength;
-            //     // this.setState({
-            //     //     progressNum: pro,
-            //     // });
-            // }
-        };
-        try {
-            const ret = RNFS.downloadFile(options);
-            ret.promise.then(res => {
-                TW_Log('versionBBL---downloadFile---sucess file://' + downloadDest,res);
-                if(`${res.status}`!="404"){
-                    this.unzipNewCourse(downloadDest);
-                }else{
-                    TW_Log('versionBBL --downloadFile --下载文件不存在--', downloadDest);
-                }
-
-            }).catch(err => {
-                TW_Log('versionBBL --downloadFile --fail err', err);
-            });
-        }
-        catch (e) {
-            TW_Log("versionBBL---downloadFile--error",error);
-        }
-    }
-
-    async prePrepareUnZip(downloadDest){
-        let target_dir_exist = await RNFS.exists(downloadDest);
-        if (target_dir_exist) {
-             TW_Log("versionBBL bbl---   RNFS.unlink---start" + target_dir_exist,target_dir);
-            RNFS.unlink(downloadDest).then((ret) => {
-                 TW_Log("versionBBL bbl--- unlink----target_dir==!" + target_dir_exist, ret);
-               this.unzipNewCourse(downloadDest);
-            })
-        }else{
-            this.unzipNewCourse(downloadDest);
-        }
-    }
-
-    //解压
-     unzipNewCourse=(downloadDest)=> {
-         TW_Log(`versionBBL unzip start------ ${downloadDest}`);
-        // zipPath：zip的路径
-        // documentPath：解压到的目录
-        unzip(downloadDest,  rootStore.bblStore.storeDir)
-            .then((path) => {
-                TW_Log(`versionBBL unzip completed at------ ${path}`);
-                rootStore.bblStore.versionManger.isFlush=false
-                this.onSaveVersionM(this.content);
-                RNFS.unlink(this.downloadDest).then(() => {
-                    TW_Log("versionBBL 删除文件----downloadDest!"+this.downloadDest)
-                }).catch((err) => {
-                    TW_Log("versionBBL 删除文件失败");
-                });;
-            })
-            .catch((error) => {
-                TW_Log("versionBBL  解压失败",error);
-            })
-    }
 
     render() {
 
         return (
             <Provider  {...appStores} >
-                <View style={{flex: 1}}>
+                <View style={{flex: 1, backgroundColor:"black"}}>
                     {/*{this.addStatusBar()}*/}
                     <MainStackNavigator
                         ref={navigatorRef => {

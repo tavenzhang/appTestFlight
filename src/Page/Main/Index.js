@@ -105,12 +105,12 @@ export default class APP extends Component {
 
             let cacheDomain = response ? JSON.parse(response) : null
             if (cacheDomain != null && cacheDomain.serverDomains && cacheDomain.serverDomains.length > 0) {//缓存存在，使用缓存访问
-                StartUpHelper.getAvailableDomain(cacheDomain.serverDomains, (success, allowUpdate, message) => this.cacheAttempt(success, allowUpdate, message))
+                StartUpHelper.getAvailableDomain(cacheDomain.serverDomains, this.cacheAttempt)
             } else {//缓存不存在，使用默认地址访问
-                StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
+                StartUpHelper.getAvailableDomain(AppConfig.domains, this.cacheAttempt)
             }
         }).catch((error) => {
-            StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message))
+            StartUpHelper.getAvailableDomain(AppConfig.domains, this.cacheAttempt)
         })
     }
 
@@ -124,14 +124,14 @@ export default class APP extends Component {
         if (success && allowUpdate) {
             this.gotoUpdate()
         } else if (!success) {//默认地址不可用，使用备份地址
-            StartUpHelper.getAvailableDomain(AppConfig.backupDomains, (success, allowUpdate, message) => this.secondAttempt(success, allowUpdate, message))
+            StartUpHelper.getAvailableDomain(AppConfig.backupDomains, this.secondAttempt)
         } else {//不允许更新
             this.hotFixStore.skipUpdate();
         }
     }
 
     //使用默认备份地址
-    secondAttempt(success, allowUpdate, message) {
+    secondAttempt=(success, allowUpdate, message)=> {
         if (success && allowUpdate) {
             this.gotoUpdate()
         } else if (!success) {//备份地址不可用
@@ -164,7 +164,7 @@ export default class APP extends Component {
     }
 
     //使用缓存地址
-    cacheAttempt(success, allowUpdate, message) {
+    cacheAttempt=(success, allowUpdate, message)=> {
         TW_Log(`first attempt ${success}, ${allowUpdate}, ${message}`);
         if (success && allowUpdate) {
             this.gotoUpdate();
@@ -185,8 +185,6 @@ export default class APP extends Component {
             let cacheDomain = JSON.parse(response)
             JXCodePushServerUrl = cacheDomain.hotfixDomains[0].domain
             let hotfixDeploymentKey = G_IS_IOS ? cacheDomain.hotfixDomains[0].iosDeploymentKey : cacheDomain.hotfixDomains[0].androidDeploymentKey;
-            //  JXCodePushServerUrl ="http://192.168.11.120:3000"
-            //   let hotfixDeploymentKey =G_IS_IOS ? "mOx5dmR7vyM1vto4yR5GuGlPGHOi4ksvOXqog":"k1EZHlHkZnQQpiJwz0Pbq0laaKDX4ksvOXqog";
             TW_Store.hotFixStore.currentDeployKey = hotfixDeploymentKey;
             this.hotFix(hotfixDeploymentKey)
         })
@@ -345,7 +343,7 @@ export default class APP extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'当前版本号:' + TW_Store.appInfoStore.versionHotFix}</Text>
+                }}>{'当前版本号:' + TW_Store.appInfoStore.versionHotFix+`game${TW_Store.bblStore.getGameVersion()}`}</Text>
 
             </View>
         )

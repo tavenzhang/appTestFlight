@@ -12,4 +12,5 @@ global.SCREEN_W = width;
 global.SCREEN_H = height;
 global.TCLineW = (isIOS && width > 375) ? 0.33 : 0.5;
 global.JXCodePushServerUrl ="";
-global.TW_IS_DEBIG= __DEV__  ? true:false
+global.TW_IS_DEBIG= __DEV__  ? true:false;
+import G_Native from "./G_Native.js"

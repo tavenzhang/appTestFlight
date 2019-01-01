@@ -13,18 +13,10 @@ export const appDomainBase = {
 }
 
 export const configAppId = '5'
-// export const appDomainBase = {
-//     base1: 'http://192.168.12.25:7500',
-//     base2: 'http://192.168.12.23111:7500',
-//     base3: 'http://192.168.12.2411:7500',
-//     base4: 'http://192.168.1.93:7500',
-//     base5: 'http://192.168.12.2111:7500',
-//     base6: 'http://192.168.12.22311:7500',
-//     base7: 'http://192.168.12.21211:7500',
-// }
-// export const configAppId = '31'
+
 
 export const trendServer = 'http://106caipiao.com'
+
 export const MyAppName = '博博乐'
 
 export const appHotFixUpdataServers = {
@@ -39,3 +31,11 @@ export const appHotFixUpdataServers = {
 export const versionHotFix = 'bbl_12_31';
 export const safeguardDomain = ['https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com', 'https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com']
 export const deploymentKey = Platform.OS === 'ios' ? 'mPO4OMsMob8tY5UHCcpnPjXaRqQe4ksvOXqog' : 'P8LQBw8uxmVPRrAbswO2Xyr9Dhpg4ksvOXqog';
+
+export const platInfo={
+    platId:configAppId,
+    channel_1:{channel:1,jpushKey:"",umengKey:""},
+    channel_2:{channel:2,jpushKey:"",umengKey:""},
+    channel_3:{channel:2,jpushKey:"",umengKey:""},
+
+}

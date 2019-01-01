@@ -21,20 +21,18 @@ export default class XXWebView extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount(){
 
     }
 
-
     render() {
-
         let {force} = this.props;
-
         let source = {
             file: this.state.uri,
             allowingReadAccessToURL: this.state.bundleDir,
             allowFileAccessFromFileURLs: this.state.bundleDir
         };
+
         if (!G_IS_IOS) {
             source = {
                 uri: this.state.uri,
@@ -47,14 +45,13 @@ export default class XXWebView extends Component {
         let injectJs = `window.appData=${JSON.stringify({
             isApp: true,
             taven: "isOk",
-            clientId: "11",
+            clientId: TW_Store.bblStore.clientId,
             force: force ? "1" : "0",
             urlJSON: TW_Store.bblStore.urlJSON
         })}`;
         return (
             <View style={styles.container}>
-                {TW_Store.dataStore.isShowDebug ? <Text
-                    style={{color: "white"}}>{`this.stat==${JSON.stringify(this.state)}` + "\n" + `source==${JSON.stringify(source)}`}</Text> : null}
+
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
@@ -84,7 +81,9 @@ export default class XXWebView extends Component {
                             onMessage={this.onMessage}
                         />
                 }
-
+                {TW_Store.bblStore.isShowDebug ? <Text
+                    style={{color: "red",position:"absolute"}}>{`this.stat==${JSON.stringify(this.state)}` + "\n " +
+                `getGameVersion==${TW_Store.bblStore.getGameVersion()}`}</Text> : null}
             </View>
         );
     }
@@ -104,7 +103,7 @@ export default class XXWebView extends Component {
                     // TW_Log("game---ct=="+message.ct,message.data);
                     break;
                 case "JumpGame":
-                    url = this.handleUrl(message.au)
+                    url = this.handleUrl(message.au);
                     TW_NavHelp.pushView(JX_Compones.WebView, {
                         url,
                         onMsgHandle: this.onMsgHandle,
@@ -115,7 +114,8 @@ export default class XXWebView extends Component {
                     TW_NavHelp.popToBack();
                     break;
                 case  "JumpUrl":
-                    url = this.handleUrl(message.au)
+                    TN_Notification("JumpUrl",message.au);
+                    url = this.handleUrl(message.au,true)
                     TW_NavHelp.pushView(JX_Compones.WebView, {
                         url,
                         onMsgHandle: this.onMsgHandle,
@@ -127,14 +127,26 @@ export default class XXWebView extends Component {
     }
 
 
-    handleUrl = (url) => {
+    handleUrl = (url,isJumpUrl=false) => {
         if (url && url.indexOf("../") > -1) {
             url = url.replace("../", "");
+        }
+        if(isJumpUrl){
+
+            url = TW_Store.bblStore.backDomain + "/" + url
+        }else{
+            if(url.indexOf("slot_jssc")>-1){
+               // url = "http://192.168.11.111:1001"
+                url = TW_Store.bblStore.homeDomain + "/" + url
+            }else{
+                url = TW_Store.bblStore.homeDomain + "/" + url
+            }
+           // url = TW_Store.bblStore.homeDomain + "/" + url
         }
         // if(url.indexOf("slot_jssc")>-1){
         //     url = TW_Store.bblStore.homeDomain + "/" + url
         // }else{
-        url = TW_Store.bblStore.homeDomain + "/" + url
+
         //}
 
         return url

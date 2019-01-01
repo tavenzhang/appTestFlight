@@ -4,11 +4,7 @@ import { create } from 'apisauce'
 import AppConfig from './AppConfig'
 import NetUitls from "../../Common/Network/TCRequestUitls";
 
-const cacheDomain = {
-  domain: '',
-  updateThisTime: false,
-  responseTime: 0
-}
+
 
 function getAvailableDomain (domains,callback) {
   // 不用检测可访问域名是否在本地缓存，第一次启动肯定不存在。如果设置缓存，其实每次还是要去校验缓存的那条地址能不能访问。
@@ -23,7 +19,6 @@ function getAvailableDomain (domains,callback) {
           if(!isFinish){
               isFinish = true;
               let content= rt.content;
-              TW_Log('start finish check==================22==============>'+domains[i],content);
               content.allowAppUpdate=true;
               AsyncStorage.setItem('cacheDomain', JSON.stringify({
                   serverDomains: content.serverDomains,

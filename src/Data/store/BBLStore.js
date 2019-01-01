@@ -1,5 +1,5 @@
 
-import { observable} from 'mobx'
+import { observable,action} from 'mobx'
 import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
 
 /**
@@ -11,10 +11,19 @@ export  default  class BBLStore {
     homeDomain = "http://sit.106games.com";
 
     @observable
+    backDomain = "http://106games.com";
+
+    @observable
     zipVersion = "app_1";
 
     @observable
     isForeReload = false;
+
+    @observable
+    clientId =  "11";
+
+    @observable
+    isShowDebug = false;
 
     storeDir = DocumentDirectoryPath;
 
@@ -40,9 +49,17 @@ export  default  class BBLStore {
             "g_recharge":"../g_recharge/?module=recharge",
             "g_redraw":"../g_recharge/?module=redraw",
             "g_custom":"../g_recharge/?module=custom",
-
             "testcustomurl":"https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"
         },
+    }
+
+
+    @action
+    getGameVersion () {
+        if(!this.versionManger) {
+            return `init_0`
+        }
+        return ` ${this.versionManger.versionNum}`
     }
 
 }

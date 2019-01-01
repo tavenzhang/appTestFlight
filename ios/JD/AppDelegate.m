@@ -19,12 +19,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-
   [Fabric with:@[[Crashlytics class]]];
+   application.applicationIconBadgeNumber = 0;
   self.launchOptions = launchOptions;
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   [self loadRootController];
-  //[self testLoadNative];
+ // [self testLoadNative];
  // [self startLog];
   [self.window makeKeyAndVisible];
   return YES;
@@ -45,6 +45,7 @@
   //NSURLRequest* request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
   //[web loadRequest:request];
 }
+
 - (UIViewController *)rootController {
 #pragma mark ⚽︎ ❤️❤️❤️ ⚽︎ 替换换成壳的入口 返回一个controller
   UIViewController *nativeRootController = [[UIViewController alloc] init];

@@ -104,6 +104,7 @@ static Boolean  IsFirtReuest = YES;
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
     [self JD_OtherSDKInit];
+  [self registAppPush];
 }
 
 - (void)loadReactNativeController{
@@ -205,6 +206,35 @@ static Boolean  IsFirtReuest = YES;
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   [defaults setObject:data forKey:key];
   [defaults synchronize];
+}
+
+- (void)registAppPush{
+  if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+    JPUSHRegisterEntity *entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = UNAuthorizationOptionAlert | UNAuthorizationOptionBadge |
+    UNAuthorizationOptionSound;
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+  } else if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+    //可以添加自定义categories
+    [JPUSHService
+     registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                         UIUserNotificationTypeSound |
+                                         UIUserNotificationTypeAlert)
+     categories:nil];
+  } else {
+    // iOS 8以前 categories 必须为nil
+    [JPUSHService
+     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                         UIRemoteNotificationTypeSound |
+                                         UIRemoteNotificationTypeAlert)
+     categories:nil];
+  }
+  [JPUSHService setupWithOption:self.launchOptions appKey:@"test"
+                        channel:nil apsForProduction:true];
+//  [JPUSHService setupWithOption:launchOptions
+//                         appKey:appKey
+//                        channel:channel
+//               apsForProduction:isProduction];
 }
 
 
