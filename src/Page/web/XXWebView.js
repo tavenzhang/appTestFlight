@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
-import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
+//import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
 
 @withMappedNavigationProps()
 export default class XXWebView extends Component {
@@ -39,9 +39,9 @@ export default class XXWebView extends Component {
                // uri:`file:///${DocumentDirectoryPath}/gamelobby/index.html?11=2`
             };
         }
-        // if(TW_IS_DEBIG){
-        //     source =  require('./gamelobby/index.html');
-        // }
+        if(TW_IS_DEBIG){
+            source =  require('./gamelobby/index.html');
+        }
         let injectJs = `window.appData=${JSON.stringify({
             isApp: true,
             taven: "isOk",
@@ -104,6 +104,7 @@ export default class XXWebView extends Component {
                     break;
                 case "JumpGame":
                     url = this.handleUrl(message.au);
+                    //TN_Notification("JumpGame",message.au);
                     TW_NavHelp.pushView(JX_Compones.WebView, {
                         url,
                         onMsgHandle: this.onMsgHandle,
@@ -114,7 +115,7 @@ export default class XXWebView extends Component {
                     TW_NavHelp.popToBack();
                     break;
                 case  "JumpUrl":
-                    TN_Notification("JumpUrl",message.au);
+
                     url = this.handleUrl(message.au,true)
                     TW_NavHelp.pushView(JX_Compones.WebView, {
                         url,
@@ -132,7 +133,6 @@ export default class XXWebView extends Component {
             url = url.replace("../", "");
         }
         if(isJumpUrl){
-
             url = TW_Store.bblStore.backDomain + "/" + url
         }else{
             if(url.indexOf("slot_jssc")>-1){

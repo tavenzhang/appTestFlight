@@ -1,5 +1,8 @@
 package com.jd;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -13,6 +16,8 @@ import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends ReactActivity {
 
+    public static  MainActivity instance;
+    public static Context mainContent = null;
     /**
      * Returns the name of the main component registered from JavaScript.
      * This is used to schedule rendering of the component.
@@ -69,6 +74,20 @@ public class MainActivity extends ReactActivity {
           //  getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
+        instance =this;
+        mainContent = getApplicationContext();
     }
 
+    public String readMetaDataByTag(String tag) {
+        try {
+            ApplicationInfo appInfo = this.getPackageManager()
+                    .getApplicationInfo(getPackageName(),
+                            PackageManager.GET_META_DATA);
+            String mTag = appInfo.metaData.getString(tag);
+            return mTag;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
 }

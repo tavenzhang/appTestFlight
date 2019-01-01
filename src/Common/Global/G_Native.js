@@ -7,7 +7,7 @@ global.TN_GetPlatInfo = (callBack:func) => {
     if(G_IS_IOS){
          NativeModules.JDHelper.getPlatInfo(callBack);
     }else{
-
+        NativeModules.JXHelper.getPlatInfo(callBack);
     }
 }
 
@@ -17,7 +17,7 @@ global.TN_Notification = (title ="", body={}) => {
             NativeModules.JDHelper.notification(title,body)
         }
     }else{
-
+        NativeModules.JXHelper.notification(title,body)
     }
 }
 

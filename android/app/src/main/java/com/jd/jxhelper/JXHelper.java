@@ -1,29 +1,37 @@
 package com.jd.jxhelper;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
+import android.util.Log;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.jd.MainActivity;
 import com.jd.util.AppUtil;
 import com.jd.util.UpdateManager;
 import com.jd.webview.JXGameWebView;
 import com.jd.webview.JXWebView;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.UUID;
 
-/**
- * Created by Allen on 2017/2/20.
- */
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.data.JPushLocalNotification;
+
 
 public class JXHelper extends ReactContextBaseJavaModule {
     Context context;
@@ -36,6 +44,44 @@ public class JXHelper extends ReactContextBaseJavaModule {
     @Override
     public String getName() {
         return "JXHelper";
+    }
+
+
+    @ReactMethod
+    public void getPlatInfo(Callback resultCallback) {
+        String  idStr =  MainActivity.instance.readMetaDataByTag("Plat_Id");
+        String  channel= MainActivity.instance.readMetaDataByTag("Plat_Channel");
+        String  affcode= MainActivity.instance.readMetaDataByTag("AFFCODE");
+        JSONObject obj= new JSONObject();
+        try {
+            obj.put("PlatId","1");
+            obj.put("Channel","1");
+            obj.put("Affcode",affcode);
+            String ret= obj.toString();
+            resultCallback.invoke(ret);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            resultCallback.invoke("error");
+        }
+
+    }
+
+    @ReactMethod
+    public void notification(String title, String content) {
+        JPushLocalNotification ln = new JPushLocalNotification();
+        ln.setBuilderId(0);
+        ln.setContent(content);
+        ln.setTitle(title);
+        ln.setNotificationId(System.currentTimeMillis()) ;
+        ln.setBroadcastTime(System.currentTimeMillis() + 1000*1);
+        Map<String , Object> map = new HashMap<String, Object>() ;
+        map.put("name", "thomas") ;
+        map.put("data", "test") ;
+        JSONObject json = new JSONObject(map) ;
+        ln.setExtras(json.toString()) ;
+       // JPushInterface.addLocalNotification(MainActivity.mainContent, ln);
+        JPushInterface.addLocalNotification(this.context, ln);
     }
 
     @ReactMethod
@@ -112,10 +158,10 @@ public class JXHelper extends ReactContextBaseJavaModule {
         } catch (PackageManager.NameNotFoundException e) {
             applicationInfo = null;
         }
-        String applicationName =
-                (String) packageManager.getApplicationLabel(applicationInfo);
+        String applicationName = (String) packageManager.getApplicationLabel(applicationInfo);
         callback.invoke(applicationName);
     }
+
 
     @ReactMethod
     public void openWebViewFromJs(String url) {

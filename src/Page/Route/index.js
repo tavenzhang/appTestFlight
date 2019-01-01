@@ -61,18 +61,14 @@ export default class Main extends Component {
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         StatusBar.setHidden(true);
-        if(G_IS_IOS){
-            TN_GetPlatInfo((data)=>{
-                TW_Log("TN_GetPlatInfo-----",data);
+        TN_GetPlatInfo((data)=>{
+                TW_Log("TN_GetPlatInfo-----"+data,data);
                 let appInfo=JSON.parse(data);
                 TW_Log("TN_GetPlatInfo-----appInfo=",appInfo);
                 TN_StartJPush("","");
                 FlurryAnalytics.startSession("FJK8HRQDQ7VWNKS4CPVT");
-                TN_StartUMeng("5c2af406f1f5568dcc000160","test1")
+                TN_StartUMeng("5c2af406f1f5568dcc000160","test1");
             })
-        }
-
-
     }
 
 

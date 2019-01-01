@@ -51,7 +51,7 @@ public class AppUtil {
      */
     public static void updateLocalAFFCode(@NonNull Context context) {
         String applicationId = getApplicationId(context);
-        String metaData = getAppMetaDataString(context, "TD_CHANNEL_AFFCODE");
+        String metaData = getAppMetaDataString(context, "AFFCODE");
         if (!TextUtils.isEmpty(metaData)) {
             String filePath = JX_AFF_PATH + File.separator + applicationId;
             FileUtil.deleteFile(new File(filePath));

@@ -120,7 +120,7 @@ android {
         versionName "1.0.8"
         manifestPlaceholders = [
                 JPUSH_APPKEY: "",
-                APP_CHANNEL : "default"
+                APP_CHANNEL : "default",
         ]
         multiDexEnabled true
         resValue "string", "app_name", "JD棋牌-sit"
@@ -131,6 +131,7 @@ android {
 
     flavorDimensions "color"
 
+
     productFlavors {
         taven {
             applicationId APP_ID
@@ -138,12 +139,14 @@ android {
             resValue "string", "app_name", APP_NAME
             manifestPlaceholders = [
                     APP_VERSION    : APP_VERSION,
-                    CHANNEL_AFFCODE: AFF_CODE,
+                    AFFCODE        : AFF_CODE,
                     JPUSH_PKGNAME  : APP_ID,
                     JPUSH_APPKEY   : JPUSH_KEY,
                     JPUSH_CHANNEL  : "developer-default",
                     UMENG_KEY      : UMENG_KEY,
-                    UMENG_CHANNEL  : "developer-default"
+                    UMENG_CHANNEL  : "developer-default",
+                    PLAT_ID        :  Plat_Id,
+                    PLAT_CHANNEL   :  Plat_Channel,
             ]
             dimension "color"
         }

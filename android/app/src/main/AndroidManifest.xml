@@ -55,14 +55,21 @@
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
         <meta-data
-            android:name="TD_CHANNEL_AFFCODE"
-            android:value="${CHANNEL_AFFCODE}" />
+            android:name="AFFCODE"
+            android:value="${AFFCODE}" />
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="${UMENG_KEY}" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL}" />
+        <meta-data
+            android:name="Plat_Id"
+            android:value="33${PLAT_ID}" />
+        <meta-data
+            android:name="Plat_Channel"
+            android:value="${PLAT_CHANNEL}" />
+
     </application>
 
 </manifest>
