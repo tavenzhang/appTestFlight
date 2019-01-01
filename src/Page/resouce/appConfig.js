@@ -34,8 +34,8 @@ export const deploymentKey = Platform.OS === 'ios' ? 'mPO4OMsMob8tY5UHCcpnPjXaRq
 
 export const platInfo={
     platId:configAppId,
-    channel_1:{channel:1,jpushKey:"",umengKey:""},
-    channel_2:{channel:2,jpushKey:"",umengKey:""},
-    channel_3:{channel:2,jpushKey:"",umengKey:""},
+    channel_1:{channel:"1",jpushKey:"",jpush_channel:"",umengKey:""},
+    channel_2:{channel:"2",jpushKey:"",umengKey:""},
+    channel_3:{channel:"3",jpushKey:"",umengKey:""},
 
 }

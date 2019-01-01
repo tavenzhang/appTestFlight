@@ -19,7 +19,8 @@ static NSString * const JDNight = @"12night";
 @property(nonatomic,assign) BOOL isLoad;
 
 - (UIViewController *)rootController;
-
+- (void *)registAppPush:(NSString *)jkey:(NSString *)channel;
+- (void *)registUMeng:(NSString *)ukey:(NSString *)channel;
 +(NSArray *)getBBQArray;
 
 

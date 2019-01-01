@@ -121,9 +121,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>platId</key>
+	<key>PlatId</key>
 	<string>1</string>
 	<key>Channel</key>
-	<string>1</string>
+	<string>2</string>
+	<key>Affcode</key>
+	<string>&quot;test&quot;</string>
 </dict>
 </plist>

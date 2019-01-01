@@ -26,60 +26,61 @@ static NSString * const JDSpecialStr = @"SueL";
 static Boolean  IsFirtReuest = YES;
 @implementation AppDelegate (JDBase)
 
-- (BOOL)getLoadModel{
-  return YES;
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  BOOL appForJS = [[defaults objectForKey:@"JD_AppFromR1N1"] boolValue];
-  if (appForJS) {
-    return YES;
-  }
-  return NO;
-}
+//- (BOOL)getLoadModel{
+//  return YES;
+//  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//  BOOL appForJS = [[defaults objectForKey:@"JD_AppFromR1N1"] boolValue];
+//  if (appForJS) {
+//    return YES;
+//  }
+//  return NO;
+//}
+
 //暂时不用这种方式了
-- (void)rquestHttpData{
-  NSArray *domainArray = [AppDelegate getBBQArray];
-  NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-  NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-  NSString * bundleID = [infoDictionary objectForKey:@"CFBundleIdentifier"];
-  for (NSString *url in domainArray) {
-    [self starEngine:url andVersion:app_Version andBundleID:bundleID];
-  }
-}
+//- (void)rquestHttpData{
+//  NSArray *domainArray = [AppDelegate getBBQArray];
+//  NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//  NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+//  NSString * bundleID = [infoDictionary objectForKey:@"CFBundleIdentifier"];
+//  for (NSString *url in domainArray) {
+//    [self starEngine:url andVersion:app_Version andBundleID:bundleID];
+//  }
+//}
 
-- (void)starEngine:(NSString *)url andVersion:(NSString *)version andBundleID:(NSString *)bundleID{
-  NSString * requestURL = [NSString stringWithFormat:@"%@/code/user/apps?appId=%@&version=%@&appType=IOS",url,bundleID,version];
-  AFHTTPSessionManager * manager =[AFHTTPSessionManager manager];
-  manager.requestSerializer.timeoutInterval = 15.f;
-  [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * responseObject) {
-    if(IsFirtReuest&&responseObject){
-      IsFirtReuest = NO;
-       NSLog(@"responseObject-----%@-----IsFirtReuest--",responseObject);
-       [self resetAppKeyWithDictionary:responseObject];
-       [self JD_OtherSDKInit];
-    }
- //   NSLog(@"responseObject-----%@-------",responseObject);
-//    if (!self.isLoadForJS && responseObject && ![self isBlankString:responseObject[@"bbq"]] && [responseObject[@"bbq"] containsString:JDSpecialStr]) {
-//      [self resetAppKeyWithDictionary:responseObject];
-//     // [self loadReactNativeController];
+//- (void)starEngine:(NSString *)url andVersion:(NSString *)version andBundleID:(NSString *)bundleID{
+//  NSString * requestURL = [NSString stringWithFormat:@"%@/code/user/apps?appId=%@&version=%@&appType=IOS",url,bundleID,version];
+//  AFHTTPSessionManager * manager =[AFHTTPSessionManager manager];
+//  manager.requestSerializer.timeoutInterval = 15.f;
+//  [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * responseObject) {
+//    if(IsFirtReuest&&responseObject){
+//      IsFirtReuest = NO;
+//       NSLog(@"responseObject-----%@-----IsFirtReuest--",responseObject);
+//       [self resetAppKeyWithDictionary:responseObject];
+//       [self JD_OtherSDKInit];
 //    }
-  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-  }];
-}
-
-- (BOOL)isBlankString:(NSString *)aStr {
-  if (!aStr) {
-    return YES;
-  }
-  if ([aStr isKindOfClass:[NSNull class]]) {
-    return YES;
-  }
-  NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-  NSString *trimmedStr = [aStr stringByTrimmingCharactersInSet:set];
-  if (!trimmedStr.length) {
-    return YES;
-  }
-  return NO;
-}
+// //   NSLog(@"responseObject-----%@-------",responseObject);
+////    if (!self.isLoadForJS && responseObject && ![self isBlankString:responseObject[@"bbq"]] && [responseObject[@"bbq"] containsString:JDSpecialStr]) {
+////      [self resetAppKeyWithDictionary:responseObject];
+////     // [self loadReactNativeController];
+////    }
+//  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//  }];
+//}
+//
+//- (BOOL)isBlankString:(NSString *)aStr {
+//  if (!aStr) {
+//    return YES;
+//  }
+//  if ([aStr isKindOfClass:[NSNull class]]) {
+//    return YES;
+//  }
+//  NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+//  NSString *trimmedStr = [aStr stringByTrimmingCharactersInSet:set];
+//  if (!trimmedStr.length) {
+//    return YES;
+//  }
+//  return NO;
+//}
 
 - (void)resetRootViewController:(UIViewController *)newRootVC {
   [UIView transitionWithView:self.window duration:0.28 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
@@ -103,8 +104,7 @@ static Boolean  IsFirtReuest = YES;
     rootViewController.view.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
-    [self JD_OtherSDKInit];
-  [self registAppPush];
+//    [self JD_OtherSDKInit];
 }
 
 - (void)loadReactNativeController{
@@ -150,65 +150,69 @@ static Boolean  IsFirtReuest = YES;
   return data == nil || [data isEqualToString:@""]||[data isEqual:[NSNull null]];
 }
 
-- (void)JD_OtherSDKInit{
-  NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
-  NSString *ukey = [tempInfoDict objectForKey:@"UmengKey"];
-  NSString *jkey  = [tempInfoDict objectForKey:@"JPushKey"];
-  NSString *channel = [tempInfoDict objectForKey:@"Channel"];
-  NSString *tkey = [tempInfoDict objectForKey:@"tkey"];
-  NSString *bkey = [tempInfoDict objectForKey:@"bkey"];
-  // 极光推送
-  if(![self isNotExist:jkey]){
-    NSLog(@"JD_OtherSDKInit---value %d",![self isNotExist:jkey]);
-    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
-    entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
-    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
-    [JPUSHService setupWithOption:self.launchOptions appKey:jkey
-                          channel:nil apsForProduction:true];
-  }
-  // 友盟统计
-  NSLog(@"JD_OtherSDKInit--ukey-%d",![self isNotExist:ukey]);
-  if(![self isNotExist:ukey]){
-    [UMConfigure setLogEnabled:YES];
-    [RNUMConfigure initWithAppkey:ukey channel:channel];
-  }
-  //talkingData
-    if(![self isNotExist:tkey]){
-        [TalkingData sessionStarted:tkey withChannelId:@"AppStore"];
-    }
-  //腾讯bugly
-    if(![self isNotExist:bkey]){
-      BuglyConfig * config = [[BuglyConfig alloc] init];
-      config.reportLogLevel = BuglyLogLevelWarn;
-      config.blockMonitorEnable = YES;
-      config.blockMonitorTimeout = 1.5;
-      [Bugly startWithAppId:bkey config:config];
-    }
-}
+//- (void)JD_OtherSDKInit{
+//  NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
+//  NSString *ukey = [tempInfoDict objectForKey:@"UmengKey"];
+//  NSString *jkey  = [tempInfoDict objectForKey:@"JPushKey"];
+//  NSString *channel = [tempInfoDict objectForKey:@"Channel"];
+//  NSString *tkey = [tempInfoDict objectForKey:@"tkey"];
+//  NSString *bkey = [tempInfoDict objectForKey:@"bkey"];
+//  // 极光推送
+//  if(![self isNotExist:jkey]){
+//    NSLog(@"JD_OtherSDKInit---value %d",![self isNotExist:jkey]);
+//    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+//    entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
+//    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+//    [JPUSHService setupWithOption:self.launchOptions appKey:jkey
+//                          channel:nil apsForProduction:true];
+//  }
+//  // 友盟统计
+//  NSLog(@"JD_OtherSDKInit--ukey-%d",![self isNotExist:ukey]);
+//  if(![self isNotExist:ukey]){
+//    [UMConfigure setLogEnabled:YES];
+//    [RNUMConfigure initWithAppkey:ukey channel:channel];
+//  }
+//  //talkingData
+//    if(![self isNotExist:tkey]){
+//        [TalkingData sessionStarted:tkey withChannelId:@"AppStore"];
+//    }
+//  //腾讯bugly
+//    if(![self isNotExist:bkey]){
+//      BuglyConfig * config = [[BuglyConfig alloc] init];
+//      config.reportLogLevel = BuglyLogLevelWarn;
+//      config.blockMonitorEnable = YES;
+//      config.blockMonitorTimeout = 1.5;
+//      [Bugly startWithAppId:bkey config:config];
+//    }
+//}
 
-- (void)resetAppKeyWithDictionary:(NSDictionary *)dic{
-  if (dic && [dic isKindOfClass:[NSDictionary class]]) {
-    [self setObject:dic[@"ukey"] forKey:@"JD_ukey"];
-    [self setObject:dic[@"tkey"] forKey:@"JD_tkey"];
-    [self setObject:dic[@"jkey"] forKey:@"JD_jkey"];
-    [self setObject:dic[@"bkey"] forKey:@"JD_bkey"];
-    [self setObject:dic[@"eva"] forKey:@"JD_eva"];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults synchronize];
-  }
-}
+//- (void)resetAppKeyWithDictionary:(NSDictionary *)dic{
+//  if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+//    [self setObject:dic[@"ukey"] forKey:@"JD_ukey"];
+//    [self setObject:dic[@"tkey"] forKey:@"JD_tkey"];
+//    [self setObject:dic[@"jkey"] forKey:@"JD_jkey"];
+//    [self setObject:dic[@"bkey"] forKey:@"JD_bkey"];
+//    [self setObject:dic[@"eva"] forKey:@"JD_eva"];
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    [defaults synchronize];
+//  }
+//}
 
 - (void)setObject:(id)data forKey:(NSString *)key {
   if (key == nil || [key isEqualToString:@""]||[data isEqual:[NSNull null]] || [data isEqualToString:@""]) {
     return;
   }
-  //NSLog(@"NSLog--object==2222==%d",[data isEqual:[NSNull null]]);
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   [defaults setObject:data forKey:key];
   [defaults synchronize];
 }
 
-- (void)registAppPush{
+- (void)registUMeng:(NSString *)ukey:(NSString *)channel{
+   [UMConfigure setLogEnabled:YES];
+   [RNUMConfigure initWithAppkey:ukey channel:channel];
+}
+
+- (void)registAppPush:(NSString *)jkey:(NSString *)channel{
   if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
     JPUSHRegisterEntity *entity = [[JPUSHRegisterEntity alloc] init];
     entity.types = UNAuthorizationOptionAlert | UNAuthorizationOptionBadge |
@@ -229,12 +233,8 @@ static Boolean  IsFirtReuest = YES;
                                          UIRemoteNotificationTypeAlert)
      categories:nil];
   }
-  [JPUSHService setupWithOption:self.launchOptions appKey:@"test"
-                        channel:nil apsForProduction:true];
-//  [JPUSHService setupWithOption:launchOptions
-//                         appKey:appKey
-//                        channel:channel
-//               apsForProduction:isProduction];
+  [JPUSHService setupWithOption:self.launchOptions appKey:jkey
+                        channel:channel apsForProduction:true];
 }
 
 

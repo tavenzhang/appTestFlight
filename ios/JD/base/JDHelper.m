@@ -40,6 +40,31 @@ UIGraphicsBeginImageContextWithOptions(CGSizeMake(delagete.window.bounds.size.wi
   NSLog(@"%@",contextInfo);
 }
 
+RCT_EXPORT_METHOD(getPlatInfo:(RCTResponseSenderBlock)callback)
+{
+  NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
+  NSString *platId = [tempInfoDict objectForKey:@"PlatId"];
+  NSString *channel = [tempInfoDict objectForKey:@"Channel"];
+  NSString *affCode = [tempInfoDict objectForKey:@"Affcode"];
+  NSMutableDictionary *dict = [NSMutableDictionary new];
+  [dict setObject:platId forKey:@"PlatId"];
+    [dict setObject:channel forKey:@"Channel"];
+    [dict setObject:affCode forKey:@"Affcode"];
+    NSString *jsonString = nil;
+  if ([NSJSONSerialization isValidJSONObject:dict])
+  {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    jsonString =[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //NSLog(@"json data:%@",jsonString);
+    if (error) {
+      NSLog(@"Error:%@" , error);
+    }else{
+         callback(@[jsonString]);
+    }
+  }
+}
+
 RCT_EXPORT_METHOD(getAffCode:(RCTResponseSenderBlock)callback)
 {
   NSString * str = [JDHelper getAffCode];
@@ -88,6 +113,18 @@ RCT_EXPORT_METHOD(getEvaString:(RCTResponseSenderBlock)callback){
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSString *JD_eva = [defaults objectForKey:@"JD_eva"];
   callback(@[[NSNull null], JD_eva]);
+}
+
+RCT_EXPORT_METHOD(startJPush:(NSString *)key
+                  : (NSString *)channel) {
+  AppDelegate *deleagte = (AppDelegate *)[UIApplication sharedApplication].delegate;
+  [deleagte registAppPush:key :channel];
+}
+
+RCT_EXPORT_METHOD(startUMeng:(NSString *)key
+                  : (NSString *)channel) {
+  AppDelegate *deleagte = (AppDelegate *)[UIApplication sharedApplication].delegate;
+  [deleagte registUMeng:key :channel];
 }
 
 RCT_EXPORT_METHOD(notification

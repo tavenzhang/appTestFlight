@@ -5,7 +5,7 @@ import {Provider} from 'mobx-react'
 import {unzip} from 'react-native-zip-archive'
 import NavigationService from './NavigationService'
 import RNFS from "react-native-fs";
-
+import FlurryAnalytics from 'react-native-flurry-analytics';
 import rootStore from "../../Data/store/RootStore";
 
 const appStores = {
@@ -56,41 +56,22 @@ const MainStackNavigator = StackNavigator({
 export default class Main extends Component {
     constructor(state) {
         super(state)
-        this.state = {
-            fluashNum: 1,
-            inited: false,
-            bundleDir: ""
-        }
     }
 
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         StatusBar.setHidden(true);
-        // NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.versionUrl,null,(rt)=>{
-        //     TW_Log("TW_DATA_KEY.versionBBL get results " + rt, rt);
-        //     if(rt.rs){
-        //         let content = rt.content;
-        //         this.content=content;
-        //         if(TW_Store.dataStore.isAppUnZip){
-        //             TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
-        //                 TW_Log("TW_Data_Store.getItem--.versionBBL TW_Data_Store results " + ret, ret == null);
-        //                 try {
-        //                       let verionM = JSON.parse(ret);
-        //                        if(verionM&&verionM.versionNum!=content.versionNum){
-        //                            this.downloadFile(content.source,rootStore.bblStore.tempZipDir);
-        //                        }else{
-        //                            this.onSaveVersionM(content);
-        //                        }
-        //                 } catch (error) {
-        //                     TW_Log("TW_DATA_KEY.versionBBL get key Error " + ret, error);
-        //                     this.downloadFile(content.source,rootStore.bblStore.tempZipDir);
-        //                 }
-        //             })
-        //         }else{
-        //             this.onSaveVersionM(rootStore.bblStore.versionManger);
-        //         }
-        //     }
-        // })
+        if(G_IS_IOS){
+            TN_GetPlatInfo((data)=>{
+                TW_Log("TN_GetPlatInfo-----",data);
+                let appInfo=JSON.parse(data);
+                TW_Log("TN_GetPlatInfo-----appInfo=",appInfo);
+                TN_StartJPush("","");
+                FlurryAnalytics.startSession("FJK8HRQDQ7VWNKS4CPVT");
+                TN_StartUMeng("5c2af406f1f5568dcc000160","test1")
+            })
+        }
+
 
     }
 
