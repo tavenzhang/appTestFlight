@@ -15,14 +15,12 @@ export default class XXWebView extends Component {
     constructor(state) {
         super(state)
         this.state = {
-            // fluashNum: 1,
             uri: TW_Store.dataStore.getHomeWebUri(),
             bundleDir: TW_Store.dataStore.getHomeWebHome()
         }
-    }
-
-    componentDidMount(){
-
+        //防止多次点击
+        this.lastUrl="";
+        // TN_Notification("JumpGame",message.au);
     }
 
     render() {
@@ -64,7 +62,7 @@ export default class XXWebView extends Component {
                                           injectedJavaScript={injectJs}
                                           onMessage={this.onMessage}
                         /> :
-                        <WebView
+                        <WKWebView
                             ref="myWebView"
                             automaticallyAdjustContentInsets={true}
                             style={styles.webView}
@@ -72,7 +70,7 @@ export default class XXWebView extends Component {
                             injectedJavaScript={injectJs}
                             javaScriptEnabled={true}
                             domStorageEnabled={true}
-                            // decelerationRate="normal"
+                             decelerationRate="normal"
                             startInLoadingState={true}
                             onNavigationStateChange={this.onNavigationStateChange}
                             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
@@ -95,7 +93,7 @@ export default class XXWebView extends Component {
     }
 
     onMsgHandle = (message) => {
-        TW_Log("onMessage===========" + this.constructor.name, message);
+        TW_Log("onMessage===========>>" + this.constructor.name, message);
         let url = "";
         if (message && message.action) {
             switch (message.action) {
@@ -104,24 +102,28 @@ export default class XXWebView extends Component {
                     break;
                 case "JumpGame":
                     url = this.handleUrl(message.au);
-                    //TN_Notification("JumpGame",message.au);
-                    TW_NavHelp.pushView(JX_Compones.WebView, {
-                        url,
-                        onMsgHandle: this.onMsgHandle,
-                        onEvaleJS: this.onEvaleJS
-                    })
+                    if(this.lastUrl!=url){
+                        TW_NavHelp.pushView(JX_Compones.WebView, {
+                            url,
+                            onMsgHandle: this.onMsgHandle,
+                            onEvaleJS: this.onEvaleJS
+                        })
+                        this.lastUrl="";
+                    }
                     break;
                 case "game_back":
                     TW_NavHelp.popToBack();
                     break;
                 case  "JumpUrl":
-
                     url = this.handleUrl(message.au,true)
-                    TW_NavHelp.pushView(JX_Compones.WebView, {
-                        url,
-                        onMsgHandle: this.onMsgHandle,
-                        onEvaleJS: this.onEvaleJS
-                    })
+                    if(this.lastUrl!=url){
+                        TW_NavHelp.pushView(JX_Compones.WebView, {
+                            url,
+                            onMsgHandle: this.onMsgHandle,
+                            onEvaleJS: this.onEvaleJS
+                        })
+                        this.lastUrl="";
+                    }
                     break;
             }
         }
@@ -141,13 +143,7 @@ export default class XXWebView extends Component {
             }else{
                 url = TW_Store.bblStore.homeDomain + "/" + url
             }
-           // url = TW_Store.bblStore.homeDomain + "/" + url
         }
-        // if(url.indexOf("slot_jssc")>-1){
-        //     url = TW_Store.bblStore.homeDomain + "/" + url
-        // }else{
-
-        //}
 
         return url
     }
@@ -156,11 +152,8 @@ export default class XXWebView extends Component {
         let dataStr = JSON.stringify(data);
         dataStr = dataStr ? dataStr : "";
         TW_Log("onError===========   this.webview=====" + this.refs.myWebView == null, this.refs.myWebView);
-        if (G_IS_IOS) {
-            this.refs.myWebView.evaluateJavaScript(`receivedMessageFromRN(${dataStr})`);
-        } else {
-            TW_NavHelp.reset(JX_Compones.XXWebView, {force: 1});
-        }
+        this.refs.myWebView.postMessage(dataStr,"*");
+        //this.refs.myWebView.evaluateJavaScript(`receivedMessageFromRN(${dataStr})`);
     }
 
     onError = (error) => {
@@ -175,11 +168,11 @@ export default class XXWebView extends Component {
 
     onNavigationStateChange = (navState) => {
         TW_Log("navState===========onNavigationStateChange=====url==" + navState.url, navState)
-        this.setState({
-            backButtonEnabled: navState.canGoBack,
-            // title: navState.title,
-            scalesPageToFit: false
-        });
+        // this.setState({
+        //     backButtonEnabled: navState.canGoBack,
+        //     // title: navState.title,
+        //     scalesPageToFit: false
+        // });
     };
 }
 
