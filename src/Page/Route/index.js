@@ -1,6 +1,6 @@
 import {TabNavigator, StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
-import {UIManager, StatusBar, View} from 'react-native';
+import {UIManager, StatusBar, View,ToastAndroid,BackHandler} from 'react-native';
 import {Provider} from 'mobx-react'
 import {unzip} from 'react-native-zip-archive'
 import NavigationService from './NavigationService'
@@ -16,10 +16,7 @@ const appStores = {
 import CommonBoxLayer from "../Main/CommonBoxLayer";
 import XXWebView from "../web/XXWebView";
 import TCWebView from "../WebView/TCWebView";
-import MyTestView from "../WebView/MyTestView";
-import StartUpHelper from "../Main/StartUpHelper";
-import AppConfig from "../Main/AppConfig";
-import NetUitls from "../../Common/Network/TCRequestUitls";
+import LoadingView from "../Main/LoadingView";
 
 
 
@@ -31,7 +28,6 @@ function viewRoutHelp(component) {
 const Components = {
     XXWebView: viewRoutHelp(XXWebView),
     WebView:viewRoutHelp(TCWebView),
-    MyTestView:viewRoutHelp(MyTestView)
 }
 
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
@@ -69,8 +65,10 @@ export default class Main extends Component {
                 FlurryAnalytics.startSession("FJK8HRQDQ7VWNKS4CPVT");
                 TN_StartUMeng("5c2af406f1f5568dcc000160","test1");
             })
+        if (!G_IS_IOS) {
+            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        }
     }
-
 
 
     render() {
@@ -84,12 +82,29 @@ export default class Main extends Component {
                             NavigationService.setTopLevelNavigator(navigatorRef)
                         }}
                     />
-                    <CommonBoxLayer/>
+                    {/*<CommonBoxLayer/>*/}
+                    {/*<LoadingView/>*/}
+
                 </View>
             </Provider>
         )
     }
 
+    onBackAndroid = () => {
+        return false;
+        // const routers = G_NavState.routes;
+        // if (routers&&routers.length > 1) {
+        //     TW_NavHelp.goBack()
+        //     return true;
+        // }
+        // let now = new Date().getTime();
+        // if (now - this.lastClickTime < 2500) {//2.5秒内点击后退键两次推出应用程序
+        //     return false;//控制权交给原生
+        // }
+        // this.lastClickTime = now;
+        // ToastAndroid.show("再按一次退出",ToastAndroid.SHORT);
+        // return true;
+    }
     // addStatusBar() {
     //    // if (!G_IS_IOS) {
     //         return (

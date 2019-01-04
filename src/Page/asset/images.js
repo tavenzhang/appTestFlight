@@ -1,6 +1,11 @@
-// export const bbl = {
-//     mainJS: require('../web/gamelobby/js.html')
-// }
+
+export const Images = {
+    bbl:{
+        gameBg: require('./game/bg.jpg'),
+        logo:require('./game/logo.png'),
+    }
+
+}
 // /**
 //  * Created by Sam on 18/04/2017.
 //  * Copyright © 2017年 JX. All rights reserved.

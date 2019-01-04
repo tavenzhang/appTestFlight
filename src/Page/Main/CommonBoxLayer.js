@@ -29,9 +29,9 @@ export default class CommonBoxLayer extends Component {
     render() {
         let {spinState} = rootStore.commonBoxStore
         //暂时只 放置一个spinLoader
-        return (rootStore.commonBoxStore.visibleView ?
+        return (rootStore.bblStore.isLoading ?
                 <View style={styles.container}>
-                    <LoadingSpinnerOverlay style={spinState.style} overlayStyle={spinState.overStyle}
+                    <LoadingSpinnerOverlay style={{width:40, height:40}} overlayStyle={spinState.overStyle}
                                            visible={spinState.visible} modal={spinState.isModal}/>
                 </View> : null
 

@@ -43,11 +43,18 @@ export default class DataStore {
     }
 
     chectHomeZipUpdate=()=>{
-        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.versionUrl,null,(rt)=>{
+        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionConfig(),null,(rt)=>{
             TW_Log("TW_DATA_KEY.versionBBL get results " + rt, rt);
             if(rt.rs){
                 let content = rt.content;
                 this.content=content;
+                if(this.content.source){
+                    //如果config source 是相对路径 加上 config 域名
+                    if(this.content.source.indexOf("http")==-1){
+                        this.content.source = rootStore.bblStore.versionDomain+"/"+this.content.source;
+                    }
+                }
+                TW_Log("TW_DATA_KEY.versionBBL  this.content" ,  this.content);
                 if(TW_Store.dataStore.isAppUnZip){
                     TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
                         TW_Log("TW_Data_Store.getItem--.versionBBL TW_Data_Store results " + ret, ret == null);
