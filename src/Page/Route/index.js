@@ -80,6 +80,7 @@ export default class Main extends Component {
                     <MainStackNavigator
                         ref={navigatorRef => {
                             NavigationService.setTopLevelNavigator(navigatorRef)
+                            this.navigator=navigatorRef;
                         }}
                     />
                     {/*<CommonBoxLayer/>*/}
@@ -92,18 +93,18 @@ export default class Main extends Component {
 
     onBackAndroid = () => {
         return false;
-        // const routers = G_NavState.routes;
-        // if (routers&&routers.length > 1) {
-        //     TW_NavHelp.goBack()
-        //     return true;
-        // }
-        // let now = new Date().getTime();
-        // if (now - this.lastClickTime < 2500) {//2.5秒内点击后退键两次推出应用程序
-        //     return false;//控制权交给原生
-        // }
-        // this.lastClickTime = now;
-        // ToastAndroid.show("再按一次退出",ToastAndroid.SHORT);
-        // return true;
+        const routers = this.navigator.state.routes;
+        if (routers&&routers.length > 1) {
+            TW_NavHelp.goBack()
+            return true;
+        }
+        let now = new Date().getTime();
+        if (now - this.lastClickTime < 2500) {//2.5秒内点击后退键两次推出应用程序
+            return false;//控制权交给原生
+        }
+        this.lastClickTime = now;
+        ToastAndroid.show("再按一次退出",ToastAndroid.SHORT);
+        return true;
     }
     // addStatusBar() {
     //    // if (!G_IS_IOS) {

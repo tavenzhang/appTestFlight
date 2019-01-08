@@ -12,7 +12,7 @@ export const appDomainBase = {
     base7: 'https://www.diwudalu.com',
 }
 
-export const configAppId = '5'
+export const configAppId = "5"
 
 
 export const trendServer = 'http://106caipiao.com'

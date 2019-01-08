@@ -17,6 +17,7 @@ let debounce = true; // 防止快速点击操作
  * @param params 参数
  */
 function navigate(routeName, params) {
+   // TW_Log("_navigator-------",_navigator)
   if (debounce) {
     debounce = false
     _navigator.dispatch(

@@ -8,10 +8,10 @@ import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
 export  default  class BBLStore {
 
     @observable
-    homeDomain = "http://sit.106games.com";
+    homeDomain = "http://webplatform.psxiaohe.com";
 
     @observable
-    backDomain = "http://106games.com";
+    backDomain = "http://webplatform.psxiaohe.com";
 
 
     @observable
@@ -40,9 +40,9 @@ export  default  class BBLStore {
         url:{
             "home":"http://106games.com/g_lobby/home.html",
             "backlobby":"http://106games.com/g_lobby/index.html",
-            "accounturl":"http://192.168.1.93:8091/api/v1",
-            "lobbyurl":"http://192.168.1.93:8091/api/v1",
-            "rooturl":"http://192.168.1.93:8091/api/v1",
+            "accounturl":"https://webplatform.psxiaohe.com/api/v1",
+            "lobbyurl":"https://webplatform.psxiaohe.com/api/v1",
+            "rooturl":"https://webplatform.psxiaohe.com/api/v1",
 
             "g_account":"../g_recharge/?module=account",
             "g_recharge":"../g_recharge/?module=recharge",

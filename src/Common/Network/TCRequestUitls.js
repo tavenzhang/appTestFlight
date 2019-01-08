@@ -199,15 +199,15 @@ export default class NetUitls extends Component {
         let response = {}
         try {
             //如果需要全局 londing 提示 进行显示 通过 loadingState 可以设置具体样式
-            if(loadingState!=null){
-                rootStore.commonBoxStore.showSpinWithState(loadingState)
-            }
+            // if(loadingState!=null){
+            //     rootStore.commonBoxStore.showSpinWithState(loadingState)
+            // }
             response = await fetch(url, map)
         } catch (e) {
 
         } finally {
             if(loadingState!=null){
-                rootStore.commonBoxStore.hideSpin()
+               // rootStore.commonBoxStore.hideSpin()
             }
             // TW_Log('response:', response.headers.map.date)
         }

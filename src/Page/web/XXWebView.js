@@ -40,12 +40,11 @@ export default class XXWebView extends Component {
         if (!G_IS_IOS) {
             source = {
                 uri: this.state.uri,
-                // uri:`file:///${DocumentDirectoryPath}/gamelobby/index.html?11=2`
             };
         }
-        // if(TW_IS_DEBIG){
-        //     source =  require('./gamelobby/index.html');
-        // }
+        if(TW_IS_DEBIG){
+            source =  require('./gamelobby/index.html');
+        }
         let injectJs = `window.appData=${JSON.stringify({
             isApp: true,
             taven: "isOk",
@@ -116,7 +115,7 @@ export default class XXWebView extends Component {
     }
 
     onMsgHandle = (message) => {
-        TW_Log("onMessage===========>>" + this.constructor.name, message);
+        TW_Log("onMessage===========>>+" + this.constructor.name+"\n", message);
         let url = "";
         if (message && message.action) {
             switch (message.action) {
