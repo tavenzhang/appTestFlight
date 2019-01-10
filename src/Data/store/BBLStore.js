@@ -11,7 +11,12 @@ export  default  class BBLStore {
     homeDomain = "http://webplatform.psxiaohe.com";
 
     @observable
-    backDomain = "http://webplatform.psxiaohe.com";
+    urlDomain = "http://webplatform.psxiaohe.com";
+    // @observable
+    // homeDomain = "http://sit.106games.com";
+    //
+    // @observable
+    // urlDomain = "http://106games.com";
 
 
     @observable
@@ -34,7 +39,10 @@ export  default  class BBLStore {
     @observable
     versionManger = {name:"home",versionNum:1,source:'gamelobby.zip',isFlush:false}
 
-    //用于动态替换大厅域名
+    //用于动态替换大厅域名 //http:192.168.1.93:8091
+    // "accounturl":"http://192.168.1.93:8091/api/v1",
+    // "lobbyurl":"http://192.168.1.93:8091/api/v1",
+    // "rooturl":"http://192.168.1.93:8091/api/v1"
     @observable
     urlJSON={
         url:{
@@ -81,6 +89,13 @@ export  default  class BBLStore {
     getWebAction(act:String,param={}){
 
         return {action:act,...param}
+    }
+
+    @action
+    changeShowDebug(state) {
+
+        this.isShowDebug =state;
+        TW_Log(" TW_Store.bblStore.changeShowDebug--this.isShowDebug=="+this.isShowDebug,this.isShowDebug)
     }
 
     // switch (message.action) {

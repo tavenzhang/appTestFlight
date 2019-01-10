@@ -9,6 +9,7 @@ import com.cmcewen.blurview.BlurViewPackage;
 import com.crashlytics.android.Crashlytics;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
+import com.github.yamill.orientation.OrientationPackage;
 import com.rnziparchive.RNZipArchivePackage;
 import com.xxsnakerxx.flurryanalytics.FlurryAnalyticsPackage;
 import com.smixx.fabric.FabricPackage;
@@ -69,6 +70,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new OrientationPackage(),
             new RNZipArchivePackage(),
             new FlurryAnalyticsPackage(),
             new FabricPackage(),

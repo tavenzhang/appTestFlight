@@ -60,7 +60,11 @@
            @"https://www.aa2d16.com",
            @"https://www.ca2d16.com"];
 }
-
 @end
-
+@implementation NSURLRequest(DataController)
++ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host
+{
+  return YES;
+}
+@end
 

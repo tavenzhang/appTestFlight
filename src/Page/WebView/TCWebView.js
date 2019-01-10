@@ -23,9 +23,10 @@ export default class TCWebView extends Component {
         super(state)
         this.state = {
             url: this.props.url,
-            title: this.props.title
+            title: this.props.title,
+            isHide: false
         }
-        this.bblStore =  TW_Store.bblStore;
+        this.bblStore = TW_Store.bblStore;
     }
 
     static defaultProps = {
@@ -33,29 +34,34 @@ export default class TCWebView extends Component {
         title: ''
     };
 
-    componentWillMount(){
-        TW_Store.bblStore.lastGameUrl="";
+    componentWillMount() {
+        TW_Store.bblStore.lastGameUrl = "";
     }
 
-
     render() {
-        let {url}=this.props;
+        let {url} = this.props;
         let source = {
             uri: url,
         }
+
+        //andorid 显示有点小问题  黑屏处理
+        if (this.state.isHide) {
+            return <View style={{flex: 1, backgroundColor: "black"}}/>
+        }
+
         return (
             <View style={styles.container}>
                 {
-                    G_IS_IOS ? <WKWebView  source={source} onNavigationStateChange={this.onNavigationStateChange}
+                    G_IS_IOS ? <WKWebView source={source} onNavigationStateChange={this.onNavigationStateChange}
                                           onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                                           style={styles.webView}
                                           allowFileAccess={true}
                                           onError={this.onError}
-                                           startInLoadingState={true}
+                                          startInLoadingState={true}
                                           onMessage={this.onMessage}
                                           onLoadStart={this.onloadStart}
                                           onLoadEnd={this.onLoadEnd}
-                                           renderLoading={this.onRenderLoadingView}
+                                          renderLoading={this.onRenderLoadingView}
 
                         /> :
                         <WebView
@@ -75,75 +81,81 @@ export default class TCWebView extends Component {
                             onMessage={this.onMessage}
                             onLoadEnd={this.onLoadEnd}
                         />
-
                 }
             </View>
         );
     }
-    onLoadEnd=()=>{
-        TW_Store.bblStore.isLoading=false
+
+    onLoadEnd = () => {
+        TW_Store.bblStore.isLoading = false
     }
 
     onRenderLoadingView = () => {
 
-        return (<View style={{flex:1, backgroundColor:"black"}}>
+        return (<View style={{flex: 1, backgroundColor: "black"}}>
             <LoadingView/>
             {/*<TCImage source={Images.bbl.gameBg} style={{width:JX_PLAT_INFO.SCREEN_W,height:JX_PLAT_INFO.SCREEN_H}}/>*/}
         </View>)
     }
 
 
-    onLoadEnd=(event)=>{
+    onLoadEnd = (event) => {
         TW_Log("onLoadEnd=TCweb==========event=====", event)
-        TW_Store.bblStore.isLoading=false
+        TW_Store.bblStore.isLoading = false
     }
 
-    onloadStart=(event)=>{
+    onloadStart = (event) => {
         TW_Log("onloadStart==TCweb=========event=====", event)
     }
 
-    onMessage=(event)=>{
+    onMessage = (event) => {
 
-        let message=null;
+        let message = null;
         try {
             message = JSON.parse(event.nativeEvent.data);
-            if (message){
+            if (message) {
                 this.onMsgHandle(message);
             }
-        }catch (err) {
-            TW_Log("onMessage===========erro=="+err,event.nativeEvent);
+        } catch (err) {
+            TW_Log("onMessage===========erro==" + err, event.nativeEvent);
         }
     }
 
-    onMsgHandle=(message)=>{
-        TW_Log("onMessage==========="+this.constructor.name, message);
-        let url="";
-        if(message&&message.action){
-            switch (message.action){
+    onMsgHandle = (message) => {
+        TW_Log("onMessage===========" + this.constructor.name, message);
+        let url = "";
+        if (message && message.action) {
+            switch (message.action) {
                 case "Log":
                     // TW_Log("game---ct=="+message.ct,message.data);
                     break;
                 case "JumpGame":
-                    url =this.handleUrl(message.au)
-                    TW_NavHelp.pushView(JX_Compones.WebView,{url})
+                    url = this.handleUrl(message.au)
+                    TW_NavHelp.pushView(JX_Compones.WebView, {url})
                     break;
                 case "game_back":
                     TW_NavHelp.popToBack();
                     break;
                 case  "JumpUrl":
-                    TN_Notification("JumpUrl","test");
-                    url =this.handleUrl(message.au)
-                    TW_NavHelp.pushView(JX_Compones.WebView,{url})
+                    url = this.handleUrl(message.au)
+                    TW_NavHelp.pushView(JX_Compones.WebView, {url})
+                    break;
+                case "game_recharge":
+                    let data = message.jumpData || message.data
+                    if (data) {
+                        url = TW_Store.bblStore.urlDomain + "/g_recharge/?module=recharge&jumpData=" + data;
+                        TW_NavHelp.pushView(JX_Compones.WebView, {url, isAddView: true})
+                    }
                     break;
             }
         }
     }
 
-    handleUrl=(url)=>{
-        if(url&&url.indexOf("../")>-1){
-            url = url.replace("../","");
+    handleUrl = (url) => {
+        if (url && url.indexOf("../") > -1) {
+            url = url.replace("../", "");
         }
-        url = TW_Store.bblStore.homeDomain +"/"+url;
+        url = TW_Store.bblStore.homeDomain + "/" + url;
         return url
     }
 
@@ -158,28 +170,33 @@ export default class TCWebView extends Component {
 
     onNavigationStateChange = (navState) => {
 
-        TW_Log("navState===========onNavigationStateChange=====url=="+navState.url, navState)
-        let {onEvaleJS,isGame} = this.props
-        if(navState.url){
-            if(navState.url.indexOf("g_lobby/index.html")>-1){
-                if(navState.url.indexOf("g_lobby/index.html?status=1")>-1){
-                    setTimeout(this.onBackHomeJs,1000);
-                    onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.logout));
+        TW_Log("navState===========onNavigationStateChange=====url==" + navState.url, navState)
+        let {onEvaleJS, isGame} = this.props
+        if (navState.url) {
+            if (navState.url.indexOf("g_lobby/index.html") > -1) {
+                if (navState.url.indexOf("g_lobby/index.html?status=1") > -1) {
+                    setTimeout(this.onBackHomeJs, 1000);
+                    if (onEvaleJS) {
+                        onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.logout));
+                    }
                 }
                 TW_NavHelp.popToBack();
-                if(isGame){
-                    setTimeout(this.onBackHomeJs,1000)
+                this.setState({isHide: true})
+                if (isGame) {
+                    setTimeout(this.onBackHomeJs, 1000)
                 }
-                this.bblStore.lastGameUrl="home"
+                this.bblStore.lastGameUrl = "home"
             }
 
         }
     };
 
-    onBackHomeJs=()=>{
+    onBackHomeJs = () => {
         let {onEvaleJS} = this.props
-        onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData ,{isAtHome:false}));
-        onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.playMusic));
+        if (onEvaleJS) {
+            onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
+            onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.playMusic));
+        }
     }
 
 }

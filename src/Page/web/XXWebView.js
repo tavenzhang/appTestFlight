@@ -9,9 +9,11 @@ import {
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import LoadingView from "../Main/LoadingView";
+import {observer} from 'mobx-react/native';
 //import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
 
 @withMappedNavigationProps()
+@observer
 export default class XXWebView extends Component {
     constructor(state) {
         super(state)
@@ -26,6 +28,10 @@ export default class XXWebView extends Component {
     componentWillMount(){
         TW_Store.bblStore.isLoading=true;
         TW_Store.bblStore.lastGameUrl="";
+    }
+
+    componentDidMount(){
+       //TW_Store.bblStore.isShowDebug=true
     }
 
 
@@ -54,7 +60,6 @@ export default class XXWebView extends Component {
         })}`;
         return (
             <View style={styles.container}>
-
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
@@ -89,12 +94,6 @@ export default class XXWebView extends Component {
                             onLoadEnd={this.onLoadEnd}
                         />
                 }
-                {TW_Store.bblStore.isShowDebug ? <Text
-                    style={{
-                        color: "white",
-                        position: "absolute"
-                    }}>{`this.stat==${JSON.stringify(TW_Store.bblStore.versionManger)}` + "\n " +
-                `getGameVersion==${TW_Store.bblStore.getGameVersion()}`}</Text> : null}
             </View>
         );
     }
@@ -104,7 +103,6 @@ export default class XXWebView extends Component {
 
         return (<View style={{flex:1, backgroundColor:"black"}}>
             <LoadingView/>
-            {/*<TCImage source={Images.bbl.gameBg} style={{width:JX_PLAT_INFO.SCREEN_W,height:JX_PLAT_INFO.SCREEN_H}}/>*/}
         </View>)
     }
 
@@ -115,7 +113,7 @@ export default class XXWebView extends Component {
     }
 
     onMsgHandle = (message) => {
-        TW_Log("onMessage===========>>+" + this.constructor.name+"\n", message);
+        TW_Log("onMessage===========>>" + this.constructor.name+"\n", message);
         let url = "";
         if (message && message.action) {
             switch (message.action) {
@@ -142,7 +140,6 @@ export default class XXWebView extends Component {
                 case  "JumpUrl":
                     //TN_Notification("JumpUrl","test local notification");
                     url = this.handleUrl(message.au, true)
-
                     if (TW_Store.bblStore.lastGameUrl != url) {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.isLoading=true;
@@ -155,9 +152,16 @@ export default class XXWebView extends Component {
                         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
+                case  "debugInfo":
+                     let name = message.name ? message.name:"";
+                     name =name.toLowerCase();
+                     if(name=="111"&&message.pwd=="222"){
+                         TW_Store.bblStore.changeShowDebug(true);
+                     }
             }
         }
     }
+
     onLoadEnd=()=>{
         TW_Store.bblStore.isLoading=false
     }
@@ -167,10 +171,9 @@ export default class XXWebView extends Component {
             url = url.replace("../", "");
         }
         if (isJumpUrl) {
-            url = TW_Store.bblStore.backDomain + "/" + url
+            url = TW_Store.bblStore.urlDomain + "/" + url
         } else {
             if (url.indexOf("slot_jssc") > -1) {
-                // url = "http://192.168.11.111:1001"
                 url = TW_Store.bblStore.homeDomain + "/" + url
             } else {
                 url = TW_Store.bblStore.homeDomain + "/" + url
@@ -183,7 +186,6 @@ export default class XXWebView extends Component {
     onEvaleJS = (data) => {
         let dataStr = JSON.stringify(data);
         dataStr = dataStr ? dataStr : "";
-        TW_Log("onError===========   this.webview=====" + this.refs.myWebView == null, this.refs.myWebView);
         this.refs.myWebView.postMessage(dataStr, "*");
         //this.refs.myWebView.evaluateJavaScript(`receivedMessageFromRN(${dataStr})`);
     }
