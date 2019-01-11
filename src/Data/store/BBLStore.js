@@ -60,17 +60,11 @@ export  default  class BBLStore {
 
 
     @action
-    getVersionDomain () {
-        this.isDebugApp ? "http://192.168.11.120:8888":"https://download.jwyxw.net/ios/bbl"  ;
+    getVersionDomain() {
+       return this.isDebugApp ? "http://192.168.14.70:8888":"https://download.jwyxw.net/ios/bbl"  ;
     }
 
-    @action
-    getGameVersion () {
-        if(!this.versionManger) {
-            return `init_0`
-        }
-        return ` ${this.versionManger.versionNum}`
-    }
+
 
     @action
     getVersionConfig () {

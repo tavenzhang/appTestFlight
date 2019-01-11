@@ -17,10 +17,6 @@ import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
 export default class XXWebView extends Component {
     constructor(state) {
         super(state)
-        this.state = {
-           // uri: TW_Store.dataStore.getHomeWebUri(),
-            bundleDir: TW_Store.dataStore.getHomeWebHome()
-        };
     }
 
     componentWillMount(){
@@ -36,8 +32,8 @@ export default class XXWebView extends Component {
 
         let source = {
             file: TW_Store.dataStore.getHomeWebUri(),
-            allowingReadAccessToURL: TW_Store.dataStore.originAppDir,
-            allowFileAccessFromFileURLs:TW_Store.dataStore.originAppDir
+            allowingReadAccessToURL: TW_Store.dataStore.getHomeWebHome(),
+            allowFileAccessFromFileURLs:TW_Store.dataStore.getHomeWebHome()
         };
 
         if (!G_IS_IOS) {

@@ -22,6 +22,8 @@ export default class DataStore {
     @observable
     targetAppDir = G_IS_IOS ? DocumentDirectoryPath + "/gamelobby" : `file:///${DocumentDirectoryPath}/gamelobby`;
 
+    @observable
+    saveVersionM={};
 
 
     @action
@@ -33,8 +35,16 @@ export default class DataStore {
             } else {
                 if (`${ret}` == "1") {
                     this.isAppUnZip = true;
-                    this.chectHomeZipUpdate();
-
+                    TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
+                        let verionM=null;
+                        try{
+                            verionM = JSON.parse(ret);
+                        }catch (error) {
+                            verionM={}
+                        }
+                        this.saveVersionM=verionM;
+                        this.chectHomeZipUpdate();
+                    })
                 } else {
                     this.copy_assets_to_dir();
                 }
@@ -43,54 +53,42 @@ export default class DataStore {
     }
 
     chectHomeZipUpdate=()=>{
+        TW_Log("TW_DATA_KEY.versionBBL start  http ===> "+rootStore.bblStore.getVersionConfig() );
         NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionConfig(),null,(rt)=>{
-            TW_Log("TW_DATA_KEY.versionBBL get results " + rt, rt);
+            TW_Log("TW_DATA_KEY.versionBBL http results== " , rt);
             if(rt.rs){
                 let content = rt.content;
                 this.content=content;
-                if(this.content.source){
+                let zipSrc = this.content.source;
+                if(G_IS_IOS){
+                    zipSrc= this.content.source_ios ?  this.content.source_ios:zipSrc;
+                }else{
+                    zipSrc= this.content.source_android ?  this.content.source_android:zipSrc;
+                }
+                if(zipSrc){
                     //如果config source 是相对路径 加上 config 域名
-                    if(this.content.source.indexOf("http")==-1){
-                        this.content.source = rootStore.bblStore.getVersionDomain()+"/"+this.content.source;
+                    if(zipSrc.indexOf("http")==-1){
+                        zipSrc = rootStore.bblStore.getVersionDomain()+"/"+zipSrc;
                     }
                 }
                 TW_Log("TW_DATA_KEY.versionBBL  this.content" ,  this.content);
                 if(TW_Store.dataStore.isAppUnZip){
-                    TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
-                        TW_Log("TW_Data_Store.getItem--.versionBBL TW_Data_Store results " + ret, ret == null);
-                        try {
-                            let verionM = JSON.parse(ret);
-                            if(verionM){
-                                rootStore.bblStore.versionManger={...verionM};
-                                if(verionM.versionNum!=content.versionNum){
-                                    this.downloadFile(content.source,rootStore.bblStore.tempZipDir);
-                                }
-                            }else{
-                                this.downloadFile(content.source,rootStore.bblStore.tempZipDir);
-                            }
-                        } catch (error) {
-                            TW_Log("TW_DATA_KEY.versionBBL get key Error " + ret, error);
-                            this.downloadFile(content.source,rootStore.bblStore.tempZipDir);
+                    if(this.saveVersionM.versionNum!=content.versionNum){
+                            this.downloadFile(zipSrc,rootStore.bblStore.tempZipDir);
                         }
-                    })
+                    }
                 }else{
-                    this.onSaveVersionM(rootStore.bblStore.versionManger);
+                    this.onSaveVersionM({},true);
                 }
             }
-        })
+        )
     }
 
 
-    onSaveVersionM=(srcData)=>{
-
-        let bblStoreStr = JSON.stringify(rootStore.bblStore.versionManger);
-        let newSter=JSON.stringify(srcData);
-        let isSame= bblStoreStr==newSter;
-        rootStore.bblStore.versionManger = {...rootStore.bblStore.versionManger,...srcData};
-        // if(!isSame){
-        TW_Log("TW_DATA_KEY.versionBBL onSaveVersionM savaData===isSame--"+isSame,newSter)
-        TW_Data_Store.setItem(TW_DATA_KEY.versionBBL,newSter);
-        //  }
+    onSaveVersionM=(srcData,isHttpFail=false)=>{
+        TW_Log("TW_DATA_KEY.versionBBL onSaveVersionM isHttpFail==" + isHttpFail, srcData);
+        this.saveVersionM  = {...this.saveVersionM,...srcData,isHttpFail};
+        TW_Data_Store.setItem(TW_DATA_KEY.versionBBL,JSON.stringify(this.saveVersionM));
     }
 
     downloadFile=(formUrl,downloadDest)=> {
@@ -216,9 +214,9 @@ export default class DataStore {
 
     @action
     getHomeWebUri() {
-        // if(this.isAppUnZip){
-        //     return this.targetAppDir+"/index.html"
-        // }
+        if(this.isAppUnZip){
+            return this.targetAppDir+"/index.html"
+        }
         return this.originAppDir+"/index.html"
     }
 

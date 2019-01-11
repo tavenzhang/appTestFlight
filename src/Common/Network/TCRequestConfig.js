@@ -28,28 +28,28 @@ export const config = {
         method: 'POST',
         headers: headers,
         follow: 20,
-        timeout: 15000,
+        timeout: 10000,
         size: 0
     },
     mapGet: {
         method: 'GET',
         headers: headers,
         follow: 20,
-        timeout: 15000,
+        timeout: 10000,
         size: 0
     },
     mapPut: {
         method: 'PUT',
         headers: headers,
         follow: 20,
-        timeout: 15000,
+        timeout: 10000,
         size: 0
     },
     mapDelete: {
         method: 'DELETE',
         headers: headers,
         follow: 20,
-        timeout: 15000,
+        timeout: 10000,
         size: 0
     }
 };
