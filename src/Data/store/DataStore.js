@@ -42,7 +42,7 @@ export default class DataStore {
                         }catch (error) {
                             verionM={}
                         }
-                        this.saveVersionM=verionM;
+                        this.saveVersionM=verionM ? verionM:{} ;
                         this.chectHomeZipUpdate();
                     })
                 } else {

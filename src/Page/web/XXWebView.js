@@ -10,8 +10,6 @@ import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import LoadingView from "../Main/LoadingView";
 import {observer} from 'mobx-react/native';
-//import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
-import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
 @withMappedNavigationProps()
 @observer
 export default class XXWebView extends Component {
@@ -41,7 +39,6 @@ export default class XXWebView extends Component {
                 uri: TW_Store.dataStore.getHomeWebUri(),
             };
         }
-
 
        // if(TW_IS_DEBIG){
        //      source =  require('./gamelobby/index.html');
