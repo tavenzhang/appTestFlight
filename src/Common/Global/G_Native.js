@@ -40,3 +40,11 @@ global.TN_StartUMeng=(key="",channel="")=>{
 
     }
 }
+
+global.TN_CodePush_ASEET = (callBack:func) => {
+    if(G_IS_IOS){
+        NativeModules.JDHelper.getCodePushBundleURL(callBack);
+    }else{
+        NativeModules.JXHelper.getCodePushBundleURL(callBack);
+    }
+}

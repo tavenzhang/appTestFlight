@@ -48,6 +48,9 @@ export default class AppInfoStore {
     @observable
     currentDomain = "";
 
+    @observable
+    appInfo = "";
+
     init() {
         this.initAppName();
         this.initAppVersion();
@@ -71,7 +74,8 @@ export default class AppInfoStore {
     async initAppVersion() {
         let nativeConfig = await CodePush.getConfiguration();
         this.appVersion = nativeConfig.appVersion;
-        TW_Log("version-nativeConfig", nativeConfig);
+        TW_Store.bblStore.isDebugApp=  this.appVersion=="1.1.1"
+        TW_Log("version-nativeConfig--"+ TW_Store.bblStore.isDebugApp, nativeConfig);
     }
 
     async initDeviceTokenFromLocalStore() {

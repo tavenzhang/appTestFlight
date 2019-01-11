@@ -11,18 +11,16 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import LoadingView from "../Main/LoadingView";
 import {observer} from 'mobx-react/native';
 //import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
-
+import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
 @withMappedNavigationProps()
 @observer
 export default class XXWebView extends Component {
     constructor(state) {
         super(state)
         this.state = {
-            uri: TW_Store.dataStore.getHomeWebUri(),
+           // uri: TW_Store.dataStore.getHomeWebUri(),
             bundleDir: TW_Store.dataStore.getHomeWebHome()
-        }
-        //防止多次点击
-        this.lastUrl = "";
+        };
     }
 
     componentWillMount(){
@@ -30,27 +28,29 @@ export default class XXWebView extends Component {
         TW_Store.bblStore.lastGameUrl="";
     }
 
-    componentDidMount(){
-       //TW_Store.bblStore.isShowDebug=true
-    }
+
 
 
     render() {
         let {force} = this.props;
+
         let source = {
-            file: this.state.uri,
-            allowingReadAccessToURL: this.state.bundleDir,
-            allowFileAccessFromFileURLs: this.state.bundleDir
+            file: TW_Store.dataStore.getHomeWebUri(),
+            allowingReadAccessToURL: TW_Store.dataStore.originAppDir,
+            allowFileAccessFromFileURLs:TW_Store.dataStore.originAppDir
         };
 
         if (!G_IS_IOS) {
             source = {
-                uri: this.state.uri,
+                uri: TW_Store.dataStore.getHomeWebUri(),
             };
         }
-        if(TW_IS_DEBIG){
-            source =  require('./gamelobby/index.html');
-        }
+
+
+       // if(TW_IS_DEBIG){
+       //      source =  require('./gamelobby/index.html');
+       //  }
+        TW_Log("targetAppDir----MainBundlePath-",source)
         let injectJs = `window.appData=${JSON.stringify({
             isApp: true,
             taven: "isOk",
@@ -191,7 +191,7 @@ export default class XXWebView extends Component {
     }
 
     onError = (error) => {
-        TW_Log("onError===========event=====", error)
+        TW_Log("onError===========event=====rr22", error)
     }
 
     onShouldStartLoadWithRequest = (event) => {

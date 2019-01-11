@@ -12,12 +12,12 @@ export  default  class BBLStore {
 
     @observable
     urlDomain = "http://webplatform.psxiaohe.com";
+
     // @observable
     // homeDomain = "http://sit.106games.com";
     //
     // @observable
     // urlDomain = "http://106games.com";
-
 
     @observable
     isLoading = true;
@@ -26,14 +26,12 @@ export  default  class BBLStore {
     clientId =  "11";
 
     @observable
-    isShowDebug = false;
+    isDebugApp = false;
 
     storeDir = DocumentDirectoryPath;
 
     tempZipDir=`${DocumentDirectoryPath}/game.zip`;
 
-    @observable
-    versionDomain =this.isShowDebug ? "http://192.168.11.120:8888":"https://download.jwyxw.net/ios/bbl"  ;
 
 
     @observable
@@ -62,6 +60,11 @@ export  default  class BBLStore {
 
 
     @action
+    getVersionDomain () {
+        this.isDebugApp ? "http://192.168.11.120:8888":"https://download.jwyxw.net/ios/bbl"  ;
+    }
+
+    @action
     getGameVersion () {
         if(!this.versionManger) {
             return `init_0`
@@ -71,7 +74,7 @@ export  default  class BBLStore {
 
     @action
     getVersionConfig () {
-        return `${this.versionDomain}`+"/game.json?random="+Math.random();
+        return `${this.getVersionDomain()}`+"/game.json?random="+Math.random();
     }
 
     @observable
@@ -93,24 +96,9 @@ export  default  class BBLStore {
 
     @action
     changeShowDebug(state) {
-
-        this.isShowDebug =state;
-        TW_Log(" TW_Store.bblStore.changeShowDebug--this.isShowDebug=="+this.isShowDebug,this.isShowDebug)
+        this.isDebugApp =state;
     }
 
-    // switch (message.action) {
-    // case "logout":
-    //     LayaMain.onQuit();
-    // break;
-    // case "playMusic":
-    //     Laya.SoundManager.stopMusic();
-    // Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
-    // break;
-    // case "stopMusic":
-    //     Laya.SoundManager.stopMusic();
-    // case "windowResize":
-    //     this.onResize();
-    // break;
 
 }
 

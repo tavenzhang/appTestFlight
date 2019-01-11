@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 #import "AppDelegate+JDBase.h"
 #import <AdSupport/AdSupport.h>
-
+#import <CodePush.h>
 @implementation JDHelper
 RCT_EXPORT_MODULE();
 
@@ -69,6 +69,13 @@ RCT_EXPORT_METHOD(getAffCode:(RCTResponseSenderBlock)callback)
 {
   NSString * str = [JDHelper getAffCode];
   callback(@[str]);
+}
+
+RCT_EXPORT_METHOD(getCodePushBundleURL:(RCTResponseSenderBlock)callback)
+{
+    //NSString * bundleAssetsPath =  [CodePush bundleAssetsPath];
+    NSString* bundleURL=[[CodePush bundleURL] path];
+    callback(@[bundleURL]);
 }
 
 + (NSString *)getAffCode{

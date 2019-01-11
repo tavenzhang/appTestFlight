@@ -27,7 +27,7 @@ export default class DataStore {
     @action
     initAppHomeCheck = () => {
         TW_Data_Store.getItem(TW_DATA_KEY.isInitStore, (err, ret) => {
-            TW_Log("TW_Data_Store---bbl--W_DATA_KEY.isInitStore==err==" + err, ret);
+            TW_Log("TW_Data_Store---versionBBL--W_DATA_KEY.isInitStore==err==" + err, ret);
             if (err) {
                 this.copy_assets_to_dir();
             } else {
@@ -51,7 +51,7 @@ export default class DataStore {
                 if(this.content.source){
                     //如果config source 是相对路径 加上 config 域名
                     if(this.content.source.indexOf("http")==-1){
-                        this.content.source = rootStore.bblStore.versionDomain+"/"+this.content.source;
+                        this.content.source = rootStore.bblStore.getVersionDomain()+"/"+this.content.source;
                     }
                 }
                 TW_Log("TW_DATA_KEY.versionBBL  this.content" ,  this.content);
@@ -149,7 +149,7 @@ export default class DataStore {
                 });;
             })
             .catch((error) => {
-                TW_Log("versionBBL  解压失败",error);
+                TW_Log("versionBBL  解压失败11",error);
             })
     }
 
@@ -216,9 +216,9 @@ export default class DataStore {
 
     @action
     getHomeWebUri() {
-        if(this.isAppUnZip){
-            return this.targetAppDir+"/index.html"
-        }
+        // if(this.isAppUnZip){
+        //     return this.targetAppDir+"/index.html"
+        // }
         return this.originAppDir+"/index.html"
     }
 

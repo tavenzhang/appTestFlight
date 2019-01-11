@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
-
+import com.microsoft.codepush.react.CodePush;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.data.JPushLocalNotification;
 
@@ -64,7 +64,11 @@ public class JXHelper extends ReactContextBaseJavaModule {
             e.printStackTrace();
             resultCallback.invoke("error");
         }
+    }
 
+    @ReactMethod
+    public void getCodePushBundleURL(Callback resultCallback) {
+        resultCallback.invoke(CodePush.getJSBundleFile());
     }
 
     @ReactMethod

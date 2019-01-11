@@ -60,3 +60,5 @@ ios/JD-tvOSTests
 ios/JDTests
 ios/Pod*
 src/Page
+ios/bundle
+android/bundle
