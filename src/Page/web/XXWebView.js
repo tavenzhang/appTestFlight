@@ -20,6 +20,7 @@ export default class XXWebView extends Component {
     componentWillMount(){
         TW_Store.bblStore.isLoading=true;
         TW_Store.bblStore.lastGameUrl="";
+
     }
 
 
@@ -33,12 +34,12 @@ export default class XXWebView extends Component {
             allowingReadAccessToURL: TW_Store.dataStore.getHomeWebHome(),
             allowFileAccessFromFileURLs:TW_Store.dataStore.getHomeWebHome()
         };
-
-        if (!G_IS_IOS) {
-            source = {
-                uri: TW_Store.dataStore.getHomeWebUri(),
-            };
-        }
+        //
+        // if (!G_IS_IOS) {
+        //     source = {
+        //         uri: TW_Store.dataStore.getHomeWebUri(),
+        //     };
+        // }
 
        if(TW_IS_DEBIG){
             source =  require('./gamelobby/index.html');
@@ -87,6 +88,7 @@ export default class XXWebView extends Component {
                             onLoadEnd={this.onLoadEnd}
                         />
                 }
+
             </View>
         );
     }

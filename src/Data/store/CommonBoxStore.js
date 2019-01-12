@@ -5,6 +5,18 @@ export default class CommonBoxStore {
     @observable
     spinState = {visible: false, isModal: false, overStyle: {}, style: {}, margeTop: 0}
 
+    @observable
+    txtHint = "检查到资源变更 \n正在下载中... 完成后将自动重启!";
+
+    @observable
+    curPecent = 0;
+
+    @observable
+    totalPecent = 100;
+
+    @observable
+    isShow = false;
+
     @action
     showSpin(overStyle = {}, style = {}, isModal = true, marginTop = 0) {
         this.spinState.visible = true;
