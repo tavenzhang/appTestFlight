@@ -4,12 +4,12 @@ import {
     StyleSheet,
     View,
     WebView,
-    Text
 } from 'react-native';
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import LoadingView from "../Main/LoadingView";
 import {observer} from 'mobx-react/native';
+import NetUitls from "../../Common/Network/TCRequestUitls";
 @withMappedNavigationProps()
 @observer
 export default class XXWebView extends Component {
@@ -40,9 +40,9 @@ export default class XXWebView extends Component {
             };
         }
 
-       // if(TW_IS_DEBIG){
-       //      source =  require('./gamelobby/index.html');
-       //  }
+       if(TW_IS_DEBIG){
+            source =  require('./gamelobby/index.html');
+        }
         TW_Log("targetAppDir----MainBundlePath-",source)
         let injectJs = `window.appData=${JSON.stringify({
             isApp: true,
@@ -106,7 +106,7 @@ export default class XXWebView extends Component {
     }
 
     onMsgHandle = (message) => {
-        TW_Log("onMessage===========>>" + this.constructor.name+"\n", message);
+        TW_Log("onMessage===========>>" + this.constructor.name + "\n", message);
         let url = "";
         if (message && message.action) {
             switch (message.action) {
@@ -123,7 +123,7 @@ export default class XXWebView extends Component {
                             onEvaleJS: this.onEvaleJS,
                             isGame: true
                         })
-                        TW_Store.bblStore.isLoading=true;
+                        TW_Store.bblStore.isLoading = true;
                         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
@@ -135,7 +135,7 @@ export default class XXWebView extends Component {
                     url = this.handleUrl(message.au, true)
                     if (TW_Store.bblStore.lastGameUrl != url) {
                         TW_Store.bblStore.lastGameUrl = url;
-                        TW_Store.bblStore.isLoading=true;
+                        TW_Store.bblStore.isLoading = true;
                         TW_NavHelp.pushView(JX_Compones.WebView, {
                             url,
                             onMsgHandle: this.onMsgHandle,
@@ -146,11 +146,34 @@ export default class XXWebView extends Component {
                     }
                     break;
                 case  "debugInfo":
-                     let name = message.name ? message.name:"";
-                     name =name.toLowerCase();
-                     if(name=="111"&&message.pwd=="222"){
-                         TW_Store.bblStore.changeShowDebug(true);
-                     }
+                    let name = message.name ? message.name : "";
+                    name = name.toLowerCase();
+                    if (name == "111" && message.pwd == "222") {
+                        TW_Store.bblStore.changeShowDebug(true);
+                    }
+                    break;
+                case "http":
+                    let method = message.metod;
+                    method = method ? method.toLowerCase() : "get";
+                    TW_Log("---home--http---game--postUrlAndParamsAndCallback>=="+message.url+"===data--"+message.data, message)
+                    switch (method) {
+                        case "post":
+                            NetUitls.postUrlAndParamsAndCallback(message.url,JSON.parse(message.data), (ret) => {
+                                TW_Log("---home--http---game--postUrlAndParamsAndCallback>url="+message.url, ret);
+                                this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
+                            })
+                            break
+                        case "get":
+                            NetUitls.getUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
+                                this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
+                            });
+                            break;
+                        case "put":
+                            NetUitls.PutUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
+                                this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
+                            });
+                            break;
+                    }
             }
         }
     }

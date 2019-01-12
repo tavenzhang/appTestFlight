@@ -79,13 +79,13 @@ export  default  class BBLStore {
         playMusic:"playMusic",
         stopMusic:"stopMusic",
         windowResize:"windowResize",
-        appData:"appData"
+        appData:"appData",
+        http:"http"
     }
 
-
+    @action
     getWebAction(act:String,param={}){
-
-        return {action:act,...param}
+        return {...param,action:act}
     }
 
     @action
