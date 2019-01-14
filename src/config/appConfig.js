@@ -4,15 +4,15 @@ import React, {
 
 export const appDomainBase = {
     base1: 'https://www.0579jiapeiwang.com',
-    base2: 'https://www.0579jiapeiwang.com',
-    base3: 'https://www.0579jiapeiwang.com',
-    base4: 'https://www.0579jiapeiwang.com',
-    base5: 'https://www.0579jiapeiwang.com',
-    base6: 'https://www.0579jiapeiwang.com',
-    base7: 'https://www.0579jiapeiwang.com',
+    base2: 'https://www.yurewd456qwep.com',
+    base3: 'https://www.mkjow321qwup.com',
+    base4: 'https://www.qzxsaq987dwqd.com',
+    base5: 'https://www.ghyrfd123eqqd.com',
+    base6: 'https://www.qwedsa789qszd.com',
+    base7: 'https://www.vdfrtw654qefhj.com',
 }
 
-export const configAppId = "24"
+export const configAppId = "34"
 
 
 
