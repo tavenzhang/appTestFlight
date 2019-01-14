@@ -24,8 +24,6 @@ export default class XXWebView extends Component {
     }
 
 
-
-
     render() {
         let {force} = this.props;
 
@@ -34,16 +32,16 @@ export default class XXWebView extends Component {
             allowingReadAccessToURL: TW_Store.dataStore.getHomeWebHome(),
             allowFileAccessFromFileURLs:TW_Store.dataStore.getHomeWebHome()
         };
-        //
-        // if (!G_IS_IOS) {
-        //     source = {
-        //         uri: TW_Store.dataStore.getHomeWebUri(),
-        //     };
-        // }
 
-       if(TW_IS_DEBIG){
-            source =  require('./gamelobby/index.html');
+        if (!G_IS_IOS) {
+            source = {
+                uri: TW_Store.dataStore.getHomeWebUri(),
+            };
         }
+
+       // if(TW_IS_DEBIG){
+       //      source =  require('./gamelobby/index.html');
+       //  }
         TW_Log("targetAppDir----MainBundlePath-",source)
         let injectJs = `window.appData=${JSON.stringify({
             isApp: true,
