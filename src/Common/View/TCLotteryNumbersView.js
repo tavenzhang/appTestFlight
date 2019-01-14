@@ -19,7 +19,7 @@ import {
     Size,
     lotteryNumbStyle,
     listViewTxtColor
-} from '../../Page/resouce/theme';
+} from '../../Page/asset/game/themeComponet';
 import {k3} from '../../Page/asset/images';
 import JXHelper from '../JXHelper/JXHelper'
 import {pk10Ball} from '../../Page/asset/pk10_ball/index'

@@ -16,7 +16,7 @@ import {
     View,
 } from 'react-native';
 import {common} from '../../Page/asset/images'
-import {height, Size, width} from '../../Page/resouce/theme'
+import {height, Size, width} from '../../Page/asset/game/themeComponet'
 import {StatusBarHeight, ScreenRatio} from "../../Page/asset/screen";
 
 /**

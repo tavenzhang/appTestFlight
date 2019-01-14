@@ -1,7 +1,7 @@
 import {
     configAppId,
     versionHotFix
-} from '../../Page/resouce/appConfig';
+} from '../../config/appConfig';
 
 export const appId = configAppId;
 

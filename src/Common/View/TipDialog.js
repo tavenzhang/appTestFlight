@@ -1,7 +1,7 @@
 import React, {Component, PropTypes,} from 'react'
 
 import {View, StyleSheet, Text, TouchableOpacity, Modal} from 'react-native'
-import {Size,width,height,indexBgColor,indexTxtColor,baseColor} from '../../Page/resouce/theme'
+import {Size,width,height,indexBgColor,indexTxtColor,baseColor} from '../../Page/asset/game/themeComponet'
 /**
  * 提示对话框
  */

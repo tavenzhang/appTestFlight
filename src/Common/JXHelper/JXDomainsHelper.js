@@ -5,7 +5,7 @@
 
 import _ from 'lodash';
 import { config } from '../Network/TCRequestConfig';
-import { safeguardDomain } from '../../Page/resouce/appConfig';
+import { safeguardDomain } from '../../config/appConfig';
 import JXHelper from './JXHelper';
 import {AsyncStorage} from "react-native";
 

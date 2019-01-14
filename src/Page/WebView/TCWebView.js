@@ -7,7 +7,7 @@ import {
     Text
 } from 'react-native';
 
-import {width} from '../resouce/theme'
+import {width} from '../asset/game/themeComponet'
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'

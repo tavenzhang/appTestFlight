@@ -11,7 +11,7 @@ const {
     TouchableOpacity
 } = ReactNative;
 const Button = require('./Button');
-import {indexBgColor} from '../../../Page/resouce/theme'
+import {indexBgColor} from '../../../Page/asset/game/themeComponet'
 const WINDOW_WIDTH = Dimensions.get('window').width;
 var createReactClass = require('create-react-class');
 

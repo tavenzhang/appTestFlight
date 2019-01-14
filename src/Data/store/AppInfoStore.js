@@ -4,8 +4,8 @@ import CodePush from 'react-native-code-push'
 import {
     MyAppName,
     versionHotFix
-} from '../../Page/resouce/appConfig';
-import {affCodeList} from "../../Page/resouce/appAffCodeList";
+} from '../../config/appConfig';
+import {affCodeList} from "../../config/appAffCodeList";
 
 /**
  * 用于初始化项目信息

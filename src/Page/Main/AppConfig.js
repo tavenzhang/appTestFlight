@@ -1,8 +1,7 @@
-import {configAppId,MyAppName,trendServer,appDomainBase} from '../resouce/appConfig'
+import {configAppId,MyAppName,appDomainBase} from '../../config/appConfig'
 export  default {
   appName: MyAppName,
   clientId: configAppId,
-  trendChartDomains: trendServer,
   allowFontScaling: true,
   domains: [
     appDomainBase.base1,

@@ -19,7 +19,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import jdAppStore from '../../Data/store/BBLStore'
-import {width, indexTxtColor, Size} from '../../Page/resouce/theme'
+import {width, indexTxtColor, Size} from '../../Page/asset/game/themeComponet'
 
 import _ from 'lodash';
 // import {common} from '../../Page/asset/images'

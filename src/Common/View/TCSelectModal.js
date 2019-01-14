@@ -15,7 +15,7 @@ import {
     Platform,
     Dimensions
 } from 'react-native';
-import {Size, width, indexBgColor, popuWinStyle} from '../../Page/resouce/theme'
+import {Size, width, indexBgColor, popuWinStyle} from '../../Page/asset/game/themeComponet'
 import {NavBarModalTop} from "../../Page/asset/screen";
 
 export default class TCSelectModal extends React.Component {

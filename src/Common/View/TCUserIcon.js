@@ -1,6 +1,6 @@
 import React, {Component,} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-import {Size} from '../../Page/resouce/theme';
+import {Size} from '../../Page/asset/game/themeComponet';
 
 export default class TCUserIcon extends Component {
     // static propTypes = {

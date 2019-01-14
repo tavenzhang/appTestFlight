@@ -4,7 +4,7 @@ import TCImage from "./image/TCImage";
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View, Text, Image} from 'react-native';
 import PropTypes from 'prop-types';
-import {indexBgColor, listViewTxtColor, Size, width} from "../../Page/resouce/theme";
+import {indexBgColor, listViewTxtColor, Size, width} from "../../Page/asset/game/themeComponet";
 
 /**
  *
