@@ -70,7 +70,7 @@ export default class AppInfoStore {
             appInfo= appInfo ? appInfo:{PlatId:configAppId,isNative:false};
             //所以的clintId 在此重置
             this.clindId = appInfo.PlatId ? appInfo.PlatId:configAppId;
-            platInfo.plat.platId= this.clindId;
+            platInfo.platId= this.clindId;
             UpDateHeadAppId(this.clindId);
             TW_Log("TN_GetPlatInfo-----this.clindId"+this.clindId,appInfo);
             TW_Store.appStore.appInfo=appInfo;
