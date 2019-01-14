@@ -2,10 +2,13 @@ import {observable} from 'mobx'
 import {NativeModules, Platform} from "react-native";
 import CodePush from 'react-native-code-push'
 import {
+    configAppId,
     MyAppName,
-    versionHotFix
+    versionHotFix,
+    platInfo
 } from '../../config/appConfig';
 import {affCodeList} from "../../config/appAffCodeList";
+import {UpDateHeadAppId} from "../../Common/Network/TCRequestConfig";
 
 /**
  * 用于初始化项目信息
@@ -49,13 +52,33 @@ export default class AppInfoStore {
     currentDomain = "";
 
     @observable
-    appInfo = "";
+    appInfo = null;
+
+    @observable
+    clindId=configAppId;
+
 
     init() {
-        this.initAppName();
-        this.initAppVersion();
-        this.initDeviceTokenFromLocalStore();
-        this.initAffCode();
+        TN_GetPlatInfo((data)=>{
+            let appInfo;
+            TW_Log("TN_GetPlatInfo-----appInfo=data="+data);
+            try {
+                appInfo=JSON.parse(data)
+            }catch (e) {
+                TW_Log("TN_GetPlatInfo-----appInfo=error=",e);
+            }
+            appInfo= appInfo ? appInfo:{PlatId:configAppId,isNative:false};
+            //所以的clintId 在此重置
+            this.clindId = appInfo.PlatId ? appInfo.PlatId:configAppId;
+            platInfo.plat.platId= this.clindId;
+            UpDateHeadAppId(this.clindId);
+            TW_Log("TN_GetPlatInfo-----this.clindId"+this.clindId,appInfo);
+            TW_Store.appStore.appInfo=appInfo;
+            this.initAppName();
+            this.initAppVersion();
+            this.initDeviceTokenFromLocalStore();
+            this.initAffCode();
+        });
     }
 
     //初始化appName

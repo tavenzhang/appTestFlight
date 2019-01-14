@@ -23,7 +23,7 @@ var storage = new Storage({
 storage.load({
     key: 'TCDefaultDomain'
 }).then(res => {
-    TW_Store.appInfoStore.currentDomain = res
+    TW_Store.appStore.currentDomain = res
 }).catch(err => {
     TW_Log(err)
 });

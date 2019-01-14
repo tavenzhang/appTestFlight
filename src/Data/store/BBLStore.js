@@ -1,7 +1,7 @@
 
 import { observable,action} from 'mobx'
 import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
-import {appConifg} from "../../config/appConfig";
+import {platInfo} from "../../config/appConfig";
 
 /**
  *app信息管理
@@ -9,10 +9,10 @@ import {appConifg} from "../../config/appConfig";
 export  default  class BBLStore {
 
     @observable
-    homeDomain = appConifg.defaultGameDomain;
+    homeDomain = platInfo.gameDomain;
 
     @observable
-    urlDomain = appConifg.defaultGameDomain;
+    urlDomain = platInfo.gameDomain;
 
     // @observable
     // homeDomain = "http://sit.106games.com";
@@ -62,7 +62,7 @@ export  default  class BBLStore {
 
     @action
     getVersionDomain() {
-       return this.isDebugApp ? appConifg.zipCheckServer.debug_server: appConifg.zipCheckServer.release_server  ;
+       return this.isDebugApp ? platInfo.zipCheckServer.debug_server: platInfo.zipCheckServer.release_server  ;
     }
 
 

@@ -1,10 +1,7 @@
 import { AsyncStorage} from 'react-native'
 import { create } from 'apisauce'
 
-import AppConfig from './AppConfig'
 import NetUitls from "../../Common/Network/TCRequestUitls";
-
-
 
 function getAvailableDomain (domains,callback) {
   // 不用检测可访问域名是否在本地缓存，第一次启动肯定不存在。如果设置缓存，其实每次还是要去校验缓存的那条地址能不能访问。
@@ -14,7 +11,7 @@ function getAvailableDomain (domains,callback) {
   let isFinish =false;
   for (let i = 0; i < domains.length; i++) {
     TW_Log('cacheDomain check= '+domains[i]);
-      NetUitls.getUrlAndParamsAndCallback(`${domains[i]}/api/v1/ip/user/checkIpInfoDomains?clientId=${AppConfig.clientId}&platform=CG`,null,(rt)=>{
+      NetUitls.getUrlAndParamsAndCallback(`${domains[i]}/api/v1/ip/user/checkIpInfoDomains?clientId=${TW_Store.appStore.clindId}&platform=CG`,null,(rt)=>{
         if(rt.rs){
           if(!isFinish){
               isFinish = true;

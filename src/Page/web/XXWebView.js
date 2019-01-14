@@ -20,7 +20,6 @@ export default class XXWebView extends Component {
     componentWillMount(){
         TW_Store.bblStore.isLoading=true;
         TW_Store.bblStore.lastGameUrl="";
-
     }
 
 

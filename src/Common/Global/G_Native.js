@@ -5,9 +5,17 @@ import {
 //所有的本地 native 接口聚集到此 方便维护
 global.TN_GetPlatInfo = (callBack:func) => {
     if(G_IS_IOS){
-         NativeModules.JDHelper.getPlatInfo(callBack);
+        if(NativeModules.JDHelper.getPlatInfo){
+            NativeModules.JDHelper.getPlatInfo(callBack);
+        }else{
+            callBack()
+        }
     }else{
-        NativeModules.JXHelper.getPlatInfo(callBack);
+        if(NativeModules.JXHelper.getPlatInfo){
+            NativeModules.JXHelper.getPlatInfo(callBack);
+        }else{
+            callBack();
+        }
     }
 }
 
