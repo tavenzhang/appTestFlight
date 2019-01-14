@@ -6,8 +6,16 @@ import android.content.res.Resources;
 
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.cmcewen.blurview.BlurViewPackage;
+import com.crashlytics.android.Crashlytics;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
+import com.github.yamill.orientation.OrientationPackage;
+import com.rnziparchive.RNZipArchivePackage;
+import com.xxsnakerxx.flurryanalytics.FlurryAnalyticsPackage;
+import com.smixx.fabric.FabricPackage;
+import cn.jpush.reactnativejpush.JPushPackage;
+import com.rnfs.RNFSPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -30,6 +38,7 @@ import com.umeng.commonsdk.UMConfigure;
 import com.wix.interactable.Interactable;
 import com.zmxv.RNSound.RNSoundPackage;
 
+import io.fabric.sdk.android.Fabric;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import java.util.Arrays;
@@ -61,6 +70,13 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new OrientationPackage(),
+            new RNZipArchivePackage(),
+            new FlurryAnalyticsPackage(),
+            new FabricPackage(),
+            new JPushPackage(false,false),
+            new RNFSPackage(),
+            new PickerPackage(),
                     new RCTToastPackage(),
                     new RNShakeEventPackage(),
                     new CodePush(getResources().getString(R.string.deploymentKey), getApplicationContext(), BuildConfig.DEBUG),
@@ -80,6 +96,7 @@ public class MainApplication extends Application implements ReactApplication {
                     new OpenAppPackage(),
                     new RNAudioPackage()
             );
+
         }
 
         @Override
@@ -96,6 +113,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         SoLoader.init(this, /* native exopackage */ false);
         AppUtil.updateLocalAFFCode(this);
         CrashHandler.getInstance().init(this);
@@ -106,6 +124,7 @@ public class MainApplication extends Application implements ReactApplication {
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
         UMConfigure.setLogEnabled(BuildConfig.DEBUG);
         UMConfigure.setEncryptEnabled(true);
+
     }
 
     @Override

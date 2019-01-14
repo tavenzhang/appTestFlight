@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 #import "AppDelegate+JDBase.h"
 #import <AdSupport/AdSupport.h>
-
+#import <CodePush.h>
 @implementation JDHelper
 RCT_EXPORT_MODULE();
 
@@ -40,10 +40,42 @@ UIGraphicsBeginImageContextWithOptions(CGSizeMake(delagete.window.bounds.size.wi
   NSLog(@"%@",contextInfo);
 }
 
+RCT_EXPORT_METHOD(getPlatInfo:(RCTResponseSenderBlock)callback)
+{
+  NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
+  NSString *platId = [tempInfoDict objectForKey:@"PlatId"];
+  NSString *channel = [tempInfoDict objectForKey:@"Channel"];
+  NSString *affCode = [tempInfoDict objectForKey:@"Affcode"];
+  NSMutableDictionary *dict = [NSMutableDictionary new];
+  [dict setObject:platId forKey:@"PlatId"];
+    [dict setObject:channel forKey:@"Channel"];
+    [dict setObject:affCode forKey:@"Affcode"];
+    NSString *jsonString = nil;
+  if ([NSJSONSerialization isValidJSONObject:dict])
+  {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    jsonString =[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //NSLog(@"json data:%@",jsonString);
+    if (error) {
+      NSLog(@"Error:%@" , error);
+    }else{
+         callback(@[jsonString]);
+    }
+  }
+}
+
 RCT_EXPORT_METHOD(getAffCode:(RCTResponseSenderBlock)callback)
 {
   NSString * str = [JDHelper getAffCode];
   callback(@[str]);
+}
+
+RCT_EXPORT_METHOD(getCodePushBundleURL:(RCTResponseSenderBlock)callback)
+{
+    //NSString * bundleAssetsPath =  [CodePush bundleAssetsPath];
+    NSString* bundleURL=[[CodePush bundleURL] path];
+    callback(@[bundleURL]);
 }
 
 + (NSString *)getAffCode{
@@ -90,6 +122,44 @@ RCT_EXPORT_METHOD(getEvaString:(RCTResponseSenderBlock)callback){
   callback(@[[NSNull null], JD_eva]);
 }
 
+RCT_EXPORT_METHOD(startJPush:(NSString *)key
+                  : (NSString *)channel) {
+  AppDelegate *deleagte = (AppDelegate *)[UIApplication sharedApplication].delegate;
+  [deleagte registAppPush:key :channel];
+}
+
+RCT_EXPORT_METHOD(startUMeng:(NSString *)key
+                  : (NSString *)channel) {
+  AppDelegate *deleagte = (AppDelegate *)[UIApplication sharedApplication].delegate;
+  [deleagte registUMeng:key :channel];
+}
+
+RCT_EXPORT_METHOD(notification
+                  : (NSString *)title
+                  : (NSString *)body) {
+  //1.创建本地通知
+  UILocalNotification *localNote = [[UILocalNotification alloc] init];
+  //2.设置通知显示的内容
+  //设置通知发出的时间
+  localNote.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+  //设置通知的内容
+  localNote.alertBody = body;
+  // 是否让上面的文字生效
+  localNote.hasAction = YES;
+  // 设置滑块显示的文字
+  localNote.alertAction = @"BBL";
+  //设置通知中心的标题
+  localNote.alertTitle = title;
+  // 设置通知的声音;
+  localNote.soundName = @"default";
+  //设置应用程序图标右上角的数字
+  localNote.applicationIconBadgeNumber = 1;
+   [[UIApplication sharedApplication] scheduleLocalNotification:localNote];
+//  dispatch_async(dispatch_get_main_queue(), ^{
+//    [[UIApplication sharedApplication] scheduleLocalNotification:localNote];
+//  });
+
+}
 
 
 @end

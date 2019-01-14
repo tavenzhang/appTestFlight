@@ -1,29 +1,37 @@
 package com.jd.jxhelper;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
+import android.util.Log;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.jd.MainActivity;
 import com.jd.util.AppUtil;
 import com.jd.util.UpdateManager;
 import com.jd.webview.JXGameWebView;
 import com.jd.webview.JXWebView;
 
-import java.util.UUID;
+import org.json.JSONObject;
 
-/**
- * Created by Allen on 2017/2/20.
- */
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
+import com.microsoft.codepush.react.CodePush;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.data.JPushLocalNotification;
+
 
 public class JXHelper extends ReactContextBaseJavaModule {
     Context context;
@@ -38,19 +46,61 @@ public class JXHelper extends ReactContextBaseJavaModule {
         return "JXHelper";
     }
 
+
+    @ReactMethod
+    public void getPlatInfo(Callback resultCallback) {
+        String  idStr =  MainActivity.instance.readMetaDataByTag("Plat_Id");
+        String  channel= MainActivity.instance.readMetaDataByTag("Plat_Channel");
+        String  affcode= MainActivity.instance.readMetaDataByTag("AFFCODE");
+        JSONObject obj= new JSONObject();
+        try {
+            obj.put("PlatId","1");
+            obj.put("Channel","1");
+            obj.put("Affcode",affcode);
+            String ret= obj.toString();
+            resultCallback.invoke(ret);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            resultCallback.invoke("error");
+        }
+    }
+
+    @ReactMethod
+    public void getCodePushBundleURL(Callback resultCallback) {
+        resultCallback.invoke(CodePush.getJSBundleFile());
+    }
+
+    @ReactMethod
+    public void notification(String title, String content) {
+        JPushLocalNotification ln = new JPushLocalNotification();
+        ln.setBuilderId(0);
+        ln.setContent(content);
+        ln.setTitle(title);
+        ln.setNotificationId(System.currentTimeMillis()) ;
+        ln.setBroadcastTime(System.currentTimeMillis() + 1000*1);
+        Map<String , Object> map = new HashMap<String, Object>() ;
+        map.put("name", "thomas") ;
+        map.put("data", "test") ;
+        JSONObject json = new JSONObject(map) ;
+        ln.setExtras(json.toString()) ;
+       // JPushInterface.addLocalNotification(MainActivity.mainContent, ln);
+        JPushInterface.addLocalNotification(this.context, ln);
+    }
+
     @ReactMethod
     public void getCFUUID(Callback resultCallback) {
         TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        String szImei = TelephonyMgr.getDeviceId();
+      //  String szImei = TelephonyMgr.getDeviceId();
         String res = null;
-        try {
-            res = UUID.nameUUIDFromBytes(szImei.getBytes("utf8")).toString();
-        } catch (Exception e) {
-        }
-        if (res == null) {
-            res = UUID.randomUUID().toString();
-        }
-
+//        try {
+//            res = UUID.nameUUIDFromBytes(szImei.getBytes("utf8")).toString();
+//        } catch (Exception e) {
+//        }
+//        if (res == null) {
+//            res = UUID.randomUUID().toString();
+//        }
+        res = UUID.randomUUID().toString();
         resultCallback.invoke("deviceId", res);
     }
 
@@ -65,9 +115,8 @@ public class JXHelper extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getAffCode(Callback resultCallback) {
         String affCode = AppUtil.getAFFCode(context);
-        if (!TextUtils.isEmpty(affCode)) {
-            resultCallback.invoke(affCode);
-        }
+        if (null == affCode) affCode = "";
+        resultCallback.invoke(affCode);
     }
 
     @ReactMethod
@@ -113,10 +162,10 @@ public class JXHelper extends ReactContextBaseJavaModule {
         } catch (PackageManager.NameNotFoundException e) {
             applicationInfo = null;
         }
-        String applicationName =
-                (String) packageManager.getApplicationLabel(applicationInfo);
+        String applicationName = (String) packageManager.getApplicationLabel(applicationInfo);
         callback.invoke(applicationName);
     }
+
 
     @ReactMethod
     public void openWebViewFromJs(String url) {
@@ -132,12 +181,13 @@ public class JXHelper extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void openGameWebViewFromJs(String url, String title) {
+    public void openGameWebViewFromJs(String url, String title, String platform) {
         try {
             Activity currentActivity = getCurrentActivity();
             Intent intent = new Intent(currentActivity, JXGameWebView.class);
             intent.putExtra("url", url);
             intent.putExtra("title", title);
+            intent.putExtra("platform", platform);
             currentActivity.startActivity(intent);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException(

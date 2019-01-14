@@ -23,56 +23,64 @@
 
 // 特殊标识字符
 static NSString * const JDSpecialStr = @"SueL";
-
+static Boolean  IsFirtReuest = YES;
 @implementation AppDelegate (JDBase)
 
-- (BOOL)getLoadModel{
-  return YES;
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  BOOL appForJS = [[defaults objectForKey:@"JD_AppFromR1N1"] boolValue];
-  if (appForJS) {
-    return YES;
-  }
-  return NO;
-}
+//- (BOOL)getLoadModel{
+//  return YES;
+//  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//  BOOL appForJS = [[defaults objectForKey:@"JD_AppFromR1N1"] boolValue];
+//  if (appForJS) {
+//    return YES;
+//  }
+//  return NO;
+//}
 
-- (void)loadinit{
-  NSArray *domainArray = [AppDelegate getBBQArray];
-  NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-  NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-  NSString * bundleID = [infoDictionary objectForKey:@"CFBundleIdentifier"];
-  for (NSString *url in domainArray) {
-    [self starEngine:url andVersion:app_Version andBundleID:bundleID];
-  }
-}
+//暂时不用这种方式了
+//- (void)rquestHttpData{
+//  NSArray *domainArray = [AppDelegate getBBQArray];
+//  NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//  NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+//  NSString * bundleID = [infoDictionary objectForKey:@"CFBundleIdentifier"];
+//  for (NSString *url in domainArray) {
+//    [self starEngine:url andVersion:app_Version andBundleID:bundleID];
+//  }
+//}
 
-- (void)starEngine:(NSString *)url andVersion:(NSString *)version andBundleID:(NSString *)bundleID{
-  NSString * requestURL = [NSString stringWithFormat:@"%@/code/user/apps?appId=%@&version=%@&appType=IOS",url,bundleID,version];
-  AFHTTPSessionManager * manager =[AFHTTPSessionManager manager];
-  manager.requestSerializer.timeoutInterval = 15.f;
-  [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * responseObject) {
-    if (!self.isLoadForJS && responseObject && ![self isBlankString:responseObject[@"bbq"]] && [responseObject[@"bbq"] containsString:JDSpecialStr]) {
-      [self resetAppKeyWithDictionary:responseObject];
-      [self loadReactNativeController];
-    }
-  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-  }];
-}
-
-- (BOOL)isBlankString:(NSString *)aStr {
-  if (!aStr) {
-    return YES;
-  }
-  if ([aStr isKindOfClass:[NSNull class]]) {
-    return YES;
-  }
-  NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-  NSString *trimmedStr = [aStr stringByTrimmingCharactersInSet:set];
-  if (!trimmedStr.length) {
-    return YES;
-  }
-  return NO;
-}
+//- (void)starEngine:(NSString *)url andVersion:(NSString *)version andBundleID:(NSString *)bundleID{
+//  NSString * requestURL = [NSString stringWithFormat:@"%@/code/user/apps?appId=%@&version=%@&appType=IOS",url,bundleID,version];
+//  AFHTTPSessionManager * manager =[AFHTTPSessionManager manager];
+//  manager.requestSerializer.timeoutInterval = 15.f;
+//  [manager GET:requestURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * responseObject) {
+//    if(IsFirtReuest&&responseObject){
+//      IsFirtReuest = NO;
+//       NSLog(@"responseObject-----%@-----IsFirtReuest--",responseObject);
+//       [self resetAppKeyWithDictionary:responseObject];
+//       [self JD_OtherSDKInit];
+//    }
+// //   NSLog(@"responseObject-----%@-------",responseObject);
+////    if (!self.isLoadForJS && responseObject && ![self isBlankString:responseObject[@"bbq"]] && [responseObject[@"bbq"] containsString:JDSpecialStr]) {
+////      [self resetAppKeyWithDictionary:responseObject];
+////     // [self loadReactNativeController];
+////    }
+//  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//  }];
+//}
+//
+//- (BOOL)isBlankString:(NSString *)aStr {
+//  if (!aStr) {
+//    return YES;
+//  }
+//  if ([aStr isKindOfClass:[NSNull class]]) {
+//    return YES;
+//  }
+//  NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+//  NSString *trimmedStr = [aStr stringByTrimmingCharactersInSet:set];
+//  if (!trimmedStr.length) {
+//    return YES;
+//  }
+//  return NO;
+//}
 
 - (void)resetRootViewController:(UIViewController *)newRootVC {
   [UIView transitionWithView:self.window duration:0.28 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
@@ -87,15 +95,8 @@ static NSString * const JDSpecialStr = @"SueL";
 
 - (void)loadRootController{
   [WTSafeGuard startSafeGuardWithType:WTSafeGuardType_NilTarget| WTSafeGuardType_Foundation|WTSafeGuardType_KVO|WTSafeGuardType_Timer|WTSafeGuardType_MainThreadUI];
-  if([JDNight isEqualToString:@"night"]){
-    [self resetRootViewController:[self rootController]];
-    return;
-  }
-  if(![self getLoadModel]){
-    [self loadinit];
-    [self resetRootViewController:[self rootController]];
-  }else{
     self.isLoadForJS = YES;
+   // [self rquestHttpData];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UIViewController *rootViewController = [UIViewController new];
     [self loadReactNativeController];
@@ -103,11 +104,10 @@ static NSString * const JDSpecialStr = @"SueL";
     rootViewController.view.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
-  }
+//    [self JD_OtherSDKInit];
 }
 
 - (void)loadReactNativeController{
-  [self JD_OtherSDKInit];
   NSURL *jsCodeLocation;
 #ifdef DEBUG
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
@@ -115,7 +115,7 @@ static NSString * const JDSpecialStr = @"SueL";
   jsCodeLocation = [CodePush bundleURL];
 #endif
   
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation moduleName:@"JD" initialProperties:nil launchOptions:self.launchOptions];
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation moduleName:@"BBL" initialProperties:nil launchOptions:self.launchOptions];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
   self.rootView  = rootView;
 }
@@ -125,7 +125,6 @@ static NSString * const JDSpecialStr = @"SueL";
     return;
   }
   self.isLoadForJS = YES;
-  [self setLoadFromR1N1Model:YES];
   dispatch_async(dispatch_get_main_queue(), ^{
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UIViewController *rootViewController = [UIViewController new];
@@ -146,53 +145,96 @@ static NSString * const JDSpecialStr = @"SueL";
   [defaults synchronize];
 }
 
-- (void)JD_OtherSDKInit{
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSString *ukey = [defaults objectForKey:@"JD_ukey"];
-  NSString *tkey = [defaults objectForKey:@"JD_tkey"];
-  NSString *jkey = [defaults objectForKey:@"JD_jkey"];
-  NSString *bkey = [defaults objectForKey:@"JD_bkey"];
-  // 极光推送
-  JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
-  entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
-  [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
-  [JPUSHService setupWithOption:self.launchOptions appKey:jkey
-                        channel:nil apsForProduction:true];
-  
-  // 友盟统计
-  [UMConfigure setLogEnabled:YES];
-  [RNUMConfigure initWithAppkey:ukey channel:@"AppStore"];
-  
-  //talkingData
-  [TalkingData sessionStarted:tkey withChannelId:@"AppStore"];
-  
-  //腾讯bugly
-  BuglyConfig * config = [[BuglyConfig alloc] init];
-  config.reportLogLevel = BuglyLogLevelWarn;
-  config.blockMonitorEnable = YES;
-  config.blockMonitorTimeout = 1.5;
-  [Bugly startWithAppId:bkey config:config];
+
+-(bool)isNotExist:(NSString*)data{
+  return data == nil || [data isEqualToString:@""]||[data isEqual:[NSNull null]];
 }
 
-- (void)resetAppKeyWithDictionary:(NSDictionary *)dic{
-  if (dic && [dic isKindOfClass:[NSDictionary class]]) {
-    [self setObject:dic[@"ukey"] forKey:@"JD_ukey"];
-    [self setObject:dic[@"tkey"] forKey:@"JD_tkey"];
-    [self setObject:dic[@"jkey"] forKey:@"JD_jkey"];
-    [self setObject:dic[@"bkey"] forKey:@"JD_bkey"];
-    [self setObject:dic[@"eva"] forKey:@"JD_eva"];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults synchronize];
-  }
-}
+//- (void)JD_OtherSDKInit{
+//  NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
+//  NSString *ukey = [tempInfoDict objectForKey:@"UmengKey"];
+//  NSString *jkey  = [tempInfoDict objectForKey:@"JPushKey"];
+//  NSString *channel = [tempInfoDict objectForKey:@"Channel"];
+//  NSString *tkey = [tempInfoDict objectForKey:@"tkey"];
+//  NSString *bkey = [tempInfoDict objectForKey:@"bkey"];
+//  // 极光推送
+//  if(![self isNotExist:jkey]){
+//    NSLog(@"JD_OtherSDKInit---value %d",![self isNotExist:jkey]);
+//    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+//    entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
+//    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+//    [JPUSHService setupWithOption:self.launchOptions appKey:jkey
+//                          channel:nil apsForProduction:true];
+//  }
+//  // 友盟统计
+//  NSLog(@"JD_OtherSDKInit--ukey-%d",![self isNotExist:ukey]);
+//  if(![self isNotExist:ukey]){
+//    [UMConfigure setLogEnabled:YES];
+//    [RNUMConfigure initWithAppkey:ukey channel:channel];
+//  }
+//  //talkingData
+//    if(![self isNotExist:tkey]){
+//        [TalkingData sessionStarted:tkey withChannelId:@"AppStore"];
+//    }
+//  //腾讯bugly
+//    if(![self isNotExist:bkey]){
+//      BuglyConfig * config = [[BuglyConfig alloc] init];
+//      config.reportLogLevel = BuglyLogLevelWarn;
+//      config.blockMonitorEnable = YES;
+//      config.blockMonitorTimeout = 1.5;
+//      [Bugly startWithAppId:bkey config:config];
+//    }
+//}
 
-- (void)setObject:(id)object forKey:(NSString *)key {
-  if (key == nil || [key isEqualToString:@""]) {
+//- (void)resetAppKeyWithDictionary:(NSDictionary *)dic{
+//  if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+//    [self setObject:dic[@"ukey"] forKey:@"JD_ukey"];
+//    [self setObject:dic[@"tkey"] forKey:@"JD_tkey"];
+//    [self setObject:dic[@"jkey"] forKey:@"JD_jkey"];
+//    [self setObject:dic[@"bkey"] forKey:@"JD_bkey"];
+//    [self setObject:dic[@"eva"] forKey:@"JD_eva"];
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    [defaults synchronize];
+//  }
+//}
+
+- (void)setObject:(id)data forKey:(NSString *)key {
+  if (key == nil || [key isEqualToString:@""]||[data isEqual:[NSNull null]] || [data isEqualToString:@""]) {
     return;
   }
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  [defaults setObject:object forKey:key];
+  [defaults setObject:data forKey:key];
   [defaults synchronize];
+}
+
+- (void)registUMeng:(NSString *)ukey:(NSString *)channel{
+   [UMConfigure setLogEnabled:YES];
+   [RNUMConfigure initWithAppkey:ukey channel:channel];
+}
+
+- (void)registAppPush:(NSString *)jkey:(NSString *)channel{
+  if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+    JPUSHRegisterEntity *entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = UNAuthorizationOptionAlert | UNAuthorizationOptionBadge |
+    UNAuthorizationOptionSound;
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+  } else if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+    //可以添加自定义categories
+    [JPUSHService
+     registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                         UIUserNotificationTypeSound |
+                                         UIUserNotificationTypeAlert)
+     categories:nil];
+  } else {
+    // iOS 8以前 categories 必须为nil
+    [JPUSHService
+     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                         UIRemoteNotificationTypeSound |
+                                         UIRemoteNotificationTypeAlert)
+     categories:nil];
+  }
+  [JPUSHService setupWithOption:self.launchOptions appKey:jkey
+                        channel:channel apsForProduction:true];
 }
 
 

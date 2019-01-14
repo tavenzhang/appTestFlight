@@ -18,8 +18,8 @@ public class RNAudioModule extends ReactContextBaseJavaModule {
 
     public RNAudioModule(ReactApplicationContext reactContext) {
         super(reactContext);
-        mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        mSoundId = mSoundPool.load(reactContext, R.raw.bet, 1);
+        //mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+       // mSoundId = mSoundPool.load(reactContext, R.raw.bet, 1);
     }
 
     @Override

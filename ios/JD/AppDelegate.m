@@ -1,10 +1,3 @@
-//
-//  JD
-//
-//  Created by Sam on 10/03/2018.
-//  Copyright © 2018 JD. All rights reserved.
-//
-
 #import "AppDelegate.h"
 #import <RCTJPushModule.h>
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
@@ -16,16 +9,41 @@
 #import "AppDelegate+JDBase.h"
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <WebKit/WebKit.h>
+#import <NSLogger/NSLogger.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+  [Fabric with:@[[Crashlytics class]]];
+   application.applicationIconBadgeNumber = 0;
   self.launchOptions = launchOptions;
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   [self loadRootController];
+ // [self testLoadNative];
+ // [self startLog];
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+
+-(void)testLoadNative{
+  WKWebViewConfiguration * configuration = [[WKWebViewConfiguration alloc] init];
+  [configuration.preferences setValue:@"TRUE" forKey:@"allowFileAccessFromFileURLs"];
+  WKWebView * web = [[WKWebView alloc] initWithFrame:[UIScreen mainScreen].bounds configuration:configuration];
+  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  UIViewController *rootViewController = [UIViewController new];
+  rootViewController.view = web;
+  NSString* url=[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"assets/gamelobby"];
+  NSURL  *nsUrl = [NSURL fileURLWithPath:url];
+  [web loadFileURL:nsUrl allowingReadAccessToURL:nsUrl];
+  self.window.rootViewController = rootViewController;
+  //NSURLRequest* request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
+  //[web loadRequest:request];
 }
 
 - (UIViewController *)rootController {
@@ -42,32 +60,11 @@
            @"https://www.aa2d16.com",
            @"https://www.ca2d16.com"];
 }
-
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-[JPUSHService registerDeviceToken:deviceToken];
-}
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-[[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:userInfo];
-}
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)   (UIBackgroundFetchResult))completionHandler {
-[[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:userInfo];
-}
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
- NSDictionary * userInfo = notification.request.content.userInfo;
-  [JPUSHService handleRemoteNotification:userInfo];
- [[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:userInfo];
-    
- completionHandler(UNNotificationPresentationOptionAlert);
-}
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
-NSDictionary * userInfo = response.notification.request.content.userInfo;
-[JPUSHService handleRemoteNotification:userInfo];
-[[NSNotificationCenter defaultCenter] postNotificationName:kJPFOpenNotification object:userInfo];
-
-completionHandler();
-}
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-[[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:notification.userInfo];
+@end
+@implementation NSURLRequest(DataController)
++ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host
+{
+  return YES;
 }
 @end
+

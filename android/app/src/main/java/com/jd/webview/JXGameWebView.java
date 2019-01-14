@@ -22,7 +22,6 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.jd.R;
 import com.jd.util.CommonDialog;
@@ -185,15 +184,15 @@ public class JXGameWebView extends Activity {
     private void showExitDialog() {
         if (null == mExitDialog) {
             mExitDialog = new CommonDialog(this);
-            mExitDialog.setDialogTitle("退出" + gameName + "游戏？");
-            mExitDialog.setNegativeBtn("退出游戏", new View.OnClickListener() {
+            mExitDialog.setDialogTitle(getString(R.string.exit_game_dialog_content, gameName));
+            mExitDialog.setNegativeBtn(getString(R.string.exit_game_dialog_left_btn_title), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mExitDialog.dismiss();
                     JXGameWebView.this.finish();
                 }
             });
-            mExitDialog.setPositiveBtn("继续玩会", new View.OnClickListener() {
+            mExitDialog.setPositiveBtn(getString(R.string.exit_game_dialog_right_btn_title), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (null != mExitDialog && mExitDialog.isShowing()) {
