@@ -74,6 +74,7 @@ export default class AppInfoStore {
             UpDateHeadAppId(this.clindId);
             TW_Log("TN_GetPlatInfo-----this.clindId"+this.clindId,appInfo);
             TW_Store.appStore.appInfo=appInfo;
+            
             this.initAppName();
             this.initAppVersion();
             this.initDeviceTokenFromLocalStore();

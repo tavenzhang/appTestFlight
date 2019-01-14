@@ -12,7 +12,7 @@ export const appDomainBase = {
     base7: 'https://www.vdfrtw654qefhj.com',
 }
 
-export let configAppId = "24"
+export let configAppId = "34"
 
 
 export const AppConfig = {
@@ -47,12 +47,29 @@ export const platInfo = {
         debug_server: "http://192.168.14.70:8888",
         release_server: "https://download.hkbaoxian188.com/game/365"
     },
+    platId: configAppId,
 
-    plat: {
-        platId: configAppId,
-        channel_1: {channel: "1", jpushKey: "", jpush_channel: "", umengKey: ""},
-        channel_2: {channel: "2", jpushKey: "", umengKey: ""},
-        channel_3: {channel: "3", jpushKey: "", umengKey: ""},
+    channel: {
+        c_1: {
+            jpushKey: "",
+            jpush_channel: "",
+            umengKey: "5c2af406f1f5568dcc000160",
+            umengChanel:"1",
+            flurry:"FJK8HRQDQ7VWNKS4CPVT"
+        },
+        c_2: {jpushKey: "",
+            jpushKey: "",
+            jpush_channel: "",
+            umengKey: "5c2af406f1f5568dcc000160",
+            umengChanel:"1",
+            flurry:"FJK8HRQDQ7VWNKS4CPVT"
+        },
+        c_3: {jpushKey: "",
+            jpushKey: "",
+            jpush_channel: "",
+            umengKey: "5c2af406f1f5568dcc000160",
+            umengChanel:"1",
+            flurry:"FJK8HRQDQ7VWNKS4CPVT"
+        },
     }
-
 }
