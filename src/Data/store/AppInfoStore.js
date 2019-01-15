@@ -77,7 +77,7 @@ export default class AppInfoStore {
             platInfo.platId= this.clindId;
             UpDateHeadAppId(this.clindId);
             this.isInitPlat=true;
-            callInitFuc = callInitFuc ? callInitFuc():null;
+            this.callInitFuc = this.callInitFuc ? this.callInitFuc():null;
             TW_Log("TN_GetPlatInfo-----this.clindId"+this.clindId,appInfo);
             TW_Store.appStore.appInfo=appInfo;
             this.initAppName();
