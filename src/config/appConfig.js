@@ -12,7 +12,7 @@ export const appDomainBase = {
     base7: 'https://www.vdfrtw654qefhj.com',
 }
 
-export let configAppId = "5"
+export let configAppId = "34"
 
 
 export const AppConfig = {
