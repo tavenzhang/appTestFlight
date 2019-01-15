@@ -57,7 +57,9 @@ export default class AppInfoStore {
     @observable
     clindId=configAppId;
 
-    callInitFuc=null
+    callInitFuc=null;
+
+    isInitPlat=false;
 
 
     init() {
@@ -74,6 +76,8 @@ export default class AppInfoStore {
             this.clindId = appInfo.PlatId ? appInfo.PlatId:configAppId;
             platInfo.platId= this.clindId;
             UpDateHeadAppId(this.clindId);
+            this.isInitPlat=true;
+            callInitFuc = callInitFuc ? callInitFuc():null;
             TW_Log("TN_GetPlatInfo-----this.clindId"+this.clindId,appInfo);
             TW_Store.appStore.appInfo=appInfo;
             this.initAppName();
@@ -83,6 +87,12 @@ export default class AppInfoStore {
         });
     }
 
+    regCallInitFuc(callBack){
+        this.callInitFuc =callBack;
+        if(this.isInitPlat){
+            callBack();
+        }
+    }
 
 
     //初始化appName

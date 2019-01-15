@@ -20,8 +20,6 @@
 	<string>2.2.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>6</string>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
 	<key>Fabric</key>
@@ -125,6 +123,8 @@
 	<string>34</string>
 	<key>Channel</key>
 	<string>2</string>
+	<key>CFBundleVersion</key>
+	<string>6</string>
 	<key>Affcode</key>
 	<string>&quot;test&quot;</string>
 </dict>
