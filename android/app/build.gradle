@@ -145,8 +145,8 @@ android {
                     JPUSH_CHANNEL  : "developer-default",
                     UMENG_KEY      : UMENG_KEY,
                     UMENG_CHANNEL  : "developer-default",
-                    PLAT_ID        :  Plat_Id,
-                    PLAT_CHANNEL   :  Plat_Channel,
+                    PLAT_ID        :  PLAT_ID,
+                    PLAT_CH        :  PLAT_CH,
             ]
             dimension "color"
         }

@@ -83,8 +83,8 @@ public class MainActivity extends ReactActivity {
             ApplicationInfo appInfo = this.getPackageManager()
                     .getApplicationInfo(getPackageName(),
                             PackageManager.GET_META_DATA);
-            String mTag = appInfo.metaData.getString(tag);
-            return mTag;
+            Object mTag = appInfo.metaData.get(tag);
+            return mTag.toString();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return "error";
