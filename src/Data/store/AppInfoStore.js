@@ -76,10 +76,10 @@ export default class AppInfoStore {
             this.clindId = appInfo.PlatId ? appInfo.PlatId:configAppId;
             platInfo.platId= this.clindId;
             UpDateHeadAppId(this.clindId);
-            this.isInitPlat=true;
-            this.callInitFuc = this.callInitFuc ? this.callInitFuc():null;
             TW_Log("TN_GetPlatInfo-----this.clindId"+this.clindId,appInfo);
             TW_Store.appStore.appInfo=appInfo;
+            this.isInitPlat=true;
+            this.callInitFuc = this.callInitFuc ? this.callInitFuc():null;
             this.initAppName();
             this.initAppVersion();
             this.initDeviceTokenFromLocalStore();
