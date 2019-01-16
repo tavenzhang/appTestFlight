@@ -13,7 +13,7 @@ const appStores = {
     // initAppStore: rootStore.initAppStore,
     // commonBoxStore: rootStore.commonBoxStore,
 }
-import CommonBoxLayer from "../Main/CommonBoxLayer";
+import CommonBoxLayer from "../enter/CommonBoxLayer";
 import XXWebView from "../web/XXWebView";
 import TCWebView from "../WebView/TCWebView";
 

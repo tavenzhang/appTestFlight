@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
-import LoadingView from "../Main/LoadingView";
+import LoadingView from "../enter/LoadingView";
 import {observer} from 'mobx-react/native';
 import NetUitls from "../../Common/Network/TCRequestUitls";
 @withMappedNavigationProps()

@@ -14,7 +14,7 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import TCImage from "../../Common/View/image/TCImage";
 import {Images} from "../asset/images";
 import {JX_PLAT_INFO} from "../asset";
-import LoadingView from "../Main/LoadingView";
+import LoadingView from "../enter/LoadingView";
 
 
 @withMappedNavigationProps()
