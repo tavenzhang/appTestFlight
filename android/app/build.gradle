@@ -111,7 +111,7 @@ def enableProguardInReleaseBuilds = false
 android {
     compileSdkVersion 26
     buildToolsVersion '28.0.3'
-    android { compileOptions.encoding = "GBK" }
+    android { compileOptions.encoding = "GBK" } 
     defaultConfig {
         applicationId "com.xxcard"
         minSdkVersion 16
@@ -181,7 +181,8 @@ android {
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            outputFileName = "driver_${variant.productFlavors[0].name}_v${variant.versionName}.apk"
+          outputFileName = "release.apk"
+     //       outputFileName = "${variant.productFlavors[0].name}_v${variant.versionName}.apk"
 //            def outputFile = output.outputFile
 //            if (outputFile != null && outputFile.name.endsWith('.apk')) {
 //                def fileName = ""
