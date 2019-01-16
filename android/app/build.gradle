@@ -111,7 +111,7 @@ def enableProguardInReleaseBuilds = false
 android {
     compileSdkVersion 26
     buildToolsVersion '28.0.3'
-    android { compileOptions.encoding = "GBK" } 
+
     defaultConfig {
         applicationId "com.xxcard"
         minSdkVersion 16
@@ -126,6 +126,9 @@ android {
         resValue "string", "app_name", "JD棋牌-sit"
         ndk {
             abiFilters "armeabi-v7a", "x86"
+        }
+        compileOptions {
+            encoding "GBK"
         }
     }
 
