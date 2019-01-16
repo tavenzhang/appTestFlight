@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Affcode</key>
-	<string>"test"</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -24,8 +22,6 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>6</string>
-	<key>Channel</key>
-	<string>2</string>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
 	<key>Fabric</key>
@@ -100,10 +96,9 @@
 	<string>camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>camera</string>
-	<key>PlatId</key>
-	<string>34</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Affcode</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>Feather.ttf</string>
@@ -127,5 +122,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>Affcode</key>
+	<string>&quot;test&quot;</string>
+	<key>Channel</key>
+	<string>2</string>
+	<key>PlatId</key>
+	<string>34</string>
 </dict>
 </plist>
