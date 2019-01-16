@@ -111,7 +111,7 @@ def enableProguardInReleaseBuilds = false
 android {
     compileSdkVersion 26
     buildToolsVersion '28.0.3'
-
+    android { compileOptions.encoding = "GBK" }
     defaultConfig {
         applicationId "com.xxcard"
         minSdkVersion 16
