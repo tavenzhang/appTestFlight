@@ -42,14 +42,16 @@ export  default  class BBLStore {
     // "accounturl":"http://192.168.1.93:8091/api/v1",
     // "lobbyurl":"http://192.168.1.93:8091/api/v1",
     // "rooturl":"http://192.168.1.93:8091/api/v1"
+
     @observable
     urlJSON={
         url:{
-            "home":"http://106games.com/g_lobby/home.html",
-            "backlobby":"http://106games.com/g_lobby/index.html",
-            "accounturl":"https://webplatform.psxiaohe.com/api/v1",
-            "lobbyurl":"https://webplatform.psxiaohe.com/api/v1",
-            "rooturl":"https://webplatform.psxiaohe.com/api/v1",
+            "home":`${platInfo.gameDomain}/g_lobby/home.html`,
+            "backlobby":`${platInfo.gameDomain}/g_lobby/index.html`,
+            "accounturl":`${platInfo.loginDoain}/api/v1`,
+            "lobbyurl":`${platInfo.gameDomain}/api/v1`,
+            "rooturl":`${platInfo.gameDomain}/api/v1`,
+
 
             "g_account":"../g_recharge/?module=account",
             "g_recharge":"../g_recharge/?module=recharge",
@@ -62,6 +64,7 @@ export  default  class BBLStore {
 
     @action
     getVersionDomain() {
+        TW_Log("platInfo.homeDomain-----"+platInfo.gameDomain,platInfo.gameDomain)
        return this.isDebugApp ? platInfo.zipCheckServer.debug_server: platInfo.zipCheckServer.release_server  ;
     }
 
