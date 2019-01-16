@@ -59,6 +59,6 @@ ios/JD-tvOS
 ios/JD-tvOSTests
 ios/JDTests
 ios/Pod*
-src/Page
 ios/bundle
 android/bundle
+src/Page/web/gamelobby
