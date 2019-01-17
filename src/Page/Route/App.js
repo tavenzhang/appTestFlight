@@ -60,7 +60,7 @@ export default class App extends Component {
         StatusBar.setHidden(true);
         let cData = platInfo.channel.c_1;
         TN_StartJPush(cData.jpushKey,cData.jpush_channel);
-        FlurryAnalytics.startSession(cData.flurry);
+        FlurryAnalytics.startSession(G_IS_IOS ? cData.flurry_ios:cData.flurry_android);
         TN_StartJPush(cData.jpushKey,cData.umengChanel);
         if (!G_IS_IOS) {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);

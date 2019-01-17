@@ -29,6 +29,9 @@ export default class DataStore {
     @observable
     log="";
 
+    @observable
+    isCheckZipUpdate=true;
+
     @action
     initAppHomeCheck = () => {
         TW_Data_Store.getItem(TW_DATA_KEY.isInitStore, (err, ret) => {
@@ -57,7 +60,9 @@ export default class DataStore {
                 verionM={}
             }
             this.saveVersionM=verionM ? verionM:{} ;
-            this.chectHomeZipUpdate();
+            if(this.isCheckZipUpdate){
+                this.chectHomeZipUpdate();
+            }
         })
     }
 

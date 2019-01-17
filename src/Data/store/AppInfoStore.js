@@ -63,28 +63,48 @@ export default class AppInfoStore {
 
 
     init() {
-        TN_GetPlatInfo((data)=>{
+        TW_Data_Store.getItem(TW_DATA_KEY.platData, (err, ret) => {
+            TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat" + err, ret);
             let appInfo;
-            TW_Log("TN_GetPlatInfo-----appInfo=data="+data);
-            try {
-                appInfo=JSON.parse(data)
-            }catch (e) {
-                TW_Log("TN_GetPlatInfo-----appInfo=error=",e);
+            if (err) {
+                appInfo = {PlatId: configAppId, isNative: false};
+            } else {
+                try {
+                    appInfo = JSON.parse(ret)
+                } catch (e) {
+
+                }
             }
-            appInfo= appInfo ? appInfo:{PlatId:configAppId,isNative:false};
+            TW_Log("TN_GetPlatInfo-----appInfo==", appInfo);
+            appInfo=appInfo ? appInfo: {PlatId: configAppId, isNative: false};
             //所以的clintId 在此重置
-            this.clindId = appInfo.PlatId ? appInfo.PlatId:configAppId;
-            platInfo.platId= this.clindId;
+            this.clindId = appInfo.PlatId ? appInfo.PlatId : configAppId;
+            platInfo.platId = this.clindId;
             UpDateHeadAppId(this.clindId);
-            TW_Log("TN_GetPlatInfo-----this.clindId"+this.clindId,appInfo);
-            TW_Store.appStore.appInfo=appInfo;
-            this.isInitPlat=true;
-            this.callInitFuc = this.callInitFuc ? this.callInitFuc():null;
+            TW_Store.appStore.appInfo = appInfo;
+            this.isInitPlat = true;
+            this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
             this.initAppName();
             this.initAppVersion();
             this.initDeviceTokenFromLocalStore();
             this.initAffCode();
-        });
+
+            TN_GetPlatInfo((data) => {
+                TW_Log("TN_GetPlatInfo-----ret=="+(ret==data) , ret);
+                if(data){
+                    if (data != ret) {
+                        appInfo=JSON.parse(data);
+                        this.clindId = appInfo.PlatId ? appInfo.PlatId : configAppId;
+                        platInfo.platId = this.clindId;
+                        UpDateHeadAppId(this.clindId);
+                        TW_Store.appStore.appInfo = appInfo;
+                        TW_Data_Store.setItem(TW_DATA_KEY.platData, data);
+                    }
+                }
+
+            });
+        })
+
     }
 
     regCallInitFuc(callBack){

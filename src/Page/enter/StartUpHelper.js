@@ -16,7 +16,7 @@ function getAvailableDomain (domains,callback) {
           if(!isFinish){
               isFinish = true;
               let content= rt.content;
-              content.allowAppUpdate=true;
+              //content.allowAppUpdate=true;
               AsyncStorage.setItem('cacheDomain', JSON.stringify({
                   serverDomains: content.serverDomains,
                   hotfixDomains: content.availableUpdateInfoList,
@@ -30,7 +30,7 @@ function getAvailableDomain (domains,callback) {
                           callback(true, false, null)
                       }
                   } else {//写入缓存失败
-                      callback(false, false, false)
+                      callback(false, false, false);
                       TW_Log("callback------写入缓存失败---");
                   }
               })

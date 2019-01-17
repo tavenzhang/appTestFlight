@@ -48,10 +48,7 @@ export  default  class BBLStore {
         url:{
             "home":`${platInfo.gameDomain}/g_lobby/home.html`,
             "backlobby":`${platInfo.gameDomain}/g_lobby/index.html`,
-            "accounturl":`${platInfo.loginDoain}/api/v1`,
-            "lobbyurl":`${platInfo.gameDomain}/api/v1`,
-            "rooturl":`${platInfo.gameDomain}/api/v1`,
-
+            "apihome":`${platInfo.gameDomain}/api/v1`,
 
             "g_account":"../g_recharge/?module=account",
             "g_recharge":"../g_recharge/?module=recharge",

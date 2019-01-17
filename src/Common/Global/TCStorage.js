@@ -31,6 +31,7 @@ storage.load({
 global.TW_DATA_KEY={
     versionBBL:"versionBBL",
     isInitStore:"isInitStore",
+    platData:"platData"
 }
 
 // 对于react native

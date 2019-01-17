@@ -10,11 +10,16 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import LoadingView from "../enter/LoadingView";
 import {observer} from 'mobx-react/native';
 import NetUitls from "../../Common/Network/TCRequestUitls";
+import {platInfo} from "../../config/appConfig";
 @withMappedNavigationProps()
 @observer
 export default class XXWebView extends Component {
     constructor(state) {
         super(state)
+        this.filtUrlList=["/api/v1/account/webapi/account/users/login","/api/v1/account/webapi/account/users/userWebEncryptRegister"];
+        this.state={
+            isFail:false
+        }
     }
 
     componentWillMount(){
@@ -154,10 +159,20 @@ export default class XXWebView extends Component {
                 case "http":
                     let method = message.metod;
                     method = method ? method.toLowerCase() : "get";
-                    TW_Log("---home--http---game--postUrlAndParamsAndCallback>=="+message.url+"===data--"+message.data, message)
+                  //  TW_Log("---home--http---game--postUrlAndParamsAndCallback>=="+message.url+"===data--"+message.data, message)
                     switch (method) {
                         case "post":
-                            NetUitls.postUrlAndParamsAndCallback(message.url,JSON.parse(message.data), (ret) => {
+                            let myUrl = message.url;
+                            for (let item of this.filtUrlList){
+                                let myIndex = myUrl.indexOf(item);
+                                TW_Log("myUrl------"+myIndex+"--myUrl=="+myUrl,item);
+                                if(myIndex>1){
+                                    myUrl= platInfo.loginDomain+ myUrl.substring(myIndex);
+                                    TW_Log("myUrl------last="+myUrl);
+                                    break;
+                                }
+                            }
+                            NetUitls.postUrlAndParamsAndCallback(myUrl,JSON.parse(message.data), (ret) => {
                                 TW_Log("---home--http---game--postUrlAndParamsAndCallback>url="+message.url, ret);
                                 this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
                             })
