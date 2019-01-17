@@ -40,7 +40,10 @@ export const safeguardDomain = [
 
 
 export const platInfo = {
-    gameDomain: "http://webplatform.psxiaohe.com",
+    loginDomain:"https://0365cai.cc",
+    //gameDomain: "https://dk3nuq7v.zhdisi.com",
+    gameDomain:"https://dk3nuq7v.zhdisi.com",
+    // gameDomain: "https://0365cai.cc",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
@@ -54,21 +57,22 @@ export const platInfo = {
             jpush_channel: "",
             umengKey: "5c2af406f1f5568dcc000160",
             umengChanel:"1",
-            flurry:"FJK8HRQDQ7VWNKS4CPVT"
+            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
+            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
         },
         c_2: {jpushKey: "",
-            jpushKey: "",
             jpush_channel: "",
             umengKey: "5c2af406f1f5568dcc000160",
             umengChanel:"1",
-            flurry:"FJK8HRQDQ7VWNKS4CPVT"
+            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
+            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
         },
         c_3: {jpushKey: "",
-            jpushKey: "",
             jpush_channel: "",
             umengKey: "5c2af406f1f5568dcc000160",
             umengChanel:"1",
-            flurry:"FJK8HRQDQ7VWNKS4CPVT"
+            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
+            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
         },
     }
 }
