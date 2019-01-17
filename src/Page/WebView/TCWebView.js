@@ -196,7 +196,6 @@ export default class TCWebView extends Component {
                     }
                     this.bblStore.lastGameUrl = "home"
                 }
-
             }
         }
 
@@ -207,6 +206,7 @@ export default class TCWebView extends Component {
         if (onEvaleJS) {
             onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.playMusic));
+            onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.flushMoney));
         }
     }
 

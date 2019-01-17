@@ -80,7 +80,8 @@ export  default  class BBLStore {
         stopMusic:"stopMusic",
         windowResize:"windowResize",
         appData:"appData",
-        http:"http"
+        http:"http",
+        flushMoney:"flushMoney"
     }
 
     @action
