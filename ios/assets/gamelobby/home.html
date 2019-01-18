@@ -1,0 +1,227 @@
+<html>
+<head>
+	<meta charset='utf-8' />
+	<title>UAT index</title>
+
+	<meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1"/>
+	
+	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+	<meta name="renderer" content="webkit"/>
+	
+	<!-- IOS 主屏幕应用全屏 -->
+	<meta name='apple-mobile-web-app-capable' content='yes' />
+	<!-- IOS默認的時間、電池、供應商等信息 -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- 安卓 主屏幕应用全屏 -->
+	<meta name="mobile-web-app-capable" content="yes" />
+	
+
+	<!-- force webkit on 360 -->
+	<meta name="renderer" content="webkit"/>
+	<meta name="force-rendering" content="webkit"/>
+
+	<!-- force full screen on some browser -->
+	<meta name='full-screen' content='yes' />
+	<meta name='x5-fullscreen' content='true' />
+	<meta name='360-fullscreen' content='true' />
+
+	<meta name="laya" screenorientation ="landscape"/>
+
+	<!-- force edge on IE -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<!-- windows phone 点击无高光 -->
+	<meta name="msapplication-tap-highlight" content="no">
+
+
+	<meta http-equiv='expires' content='0' />
+	<meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+	<!-- uc强制竖屏 -->
+	<meta name="screen-orientation" content="landscape">
+	<!-- QQ强制竖屏 -->
+	<meta name="x5-orientation" content="landscape">
+	<!-- UC强制全屏 -->
+	<meta name="full-screen" content="yes">
+	<!-- QQ强制全屏 -->
+	<meta name="x5-fullscreen" content="true">
+	<!-- UC应用模式 -->
+	<meta name="browsermode" content="application">
+	<!-- QQ应用模式 -->
+	<meta name="x5-page-mode" content="app">
+	
+	<!-- 适应移动端end -->
+        
+        <script type="text/javascript" src="libthird/jquery-3.3.1.min.js"></script>
+        <script>
+		
+			var u = navigator.userAgent;
+			var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+			var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			//alert('是否是Android：'+isAndroid);
+			//alert('是否是iOS：'+isiOS);
+			var openinblank = 1;
+
+
+            function loginPostAjax()
+            {
+                var port = location.port;
+                var head = "file";
+
+                var names = $("#username").val();
+                var pswds = $("#password").val();
+				
+                var urls = "../api/v1/account/webapi/account/users/login?checkHash=false";
+				if( port == "90" )
+                {
+                    urls = "http://106games.com:90/api/v1/account/webapi/account/users/login?checkHash=false";
+                }else if( port == "89")
+                {
+                    urls = "http://106games.com:89/api/v1/account/webapi/account/users/login?checkHash=false";
+                }else if( port == "88" || port == "8900" )
+                {
+                    urls = "http://106games.com:88/api/v1/account/webapi/account/users/login?checkHash=false";
+                }else if( head == "file" )
+                {
+                    urls = "http://106games.com/api/v1/account/webapi/account/users/login?checkHash=false";
+                }
+
+				
+                console.log('names:'+names+" pswds:"+pswds);
+                console.log(" urls:"+urls);
+                // var header = ["Content-Type","application/json; charset=utf-8","Accept","sean"];
+                var header = {
+                    "Content-Type":"application/json",
+                    // "Accept-Encoding":"gzip, deflate",
+                    "Accept":"*/*",
+					//"Origin":"http://106games.com"
+                };
+
+                var datas = {
+                    username:names,
+                    password:pswds
+                };
+
+                var ei = $("#errinfo");
+                ei.text("");
+
+                var btn_login = $("#login");
+                btn_login.attr("disabled","true");
+
+                $.ajax({
+                    url:urls,// 'https://url.com',
+                    type:"POST",//"GET",//
+                    data:JSON.stringify(datas),
+                    // headers: {
+                    //     Header_Name_One: 'Header Value One',   //If your header name has spaces or any other char not appropriate
+                    //     "Header Name Two": 'Header Value Two'  //for object property name, use quoted notation shown in second
+                    // },
+                    headers:header,
+					//beforeSend:function(req){
+					//	req.setRequestHeader("Origin", "http://106games.com");
+					//},
+                    dataType:"JSON",//"SCRIPT",//"XML",//"HTML",//
+                    success: function (ds) {
+						console.log(ds);
+						//var data = JSON.parse(ds);
+                        //console.info(data);
+						data = ds;
+                        //拿到登录数据了
+                        //取出oauthToken
+                        var token = data.oauthToken.access_token;
+                        var url = "./index.html?token="+token;
+						
+						//if( isiOS || isAndroid )
+						if( openinblank == 0 )
+						{
+							window.location.href = "./index.html?token="+token;
+						}else{
+							window.open(url);
+						}
+                    },
+                    complete: function(ds){
+                        // console.log('complete:');
+                        // console.log(ds);
+						//var data = JSON.parse(datas);
+
+                        var btn_login = $("#login");
+                        btn_login.removeAttr("disabled");
+                    },
+                    error: function(xhr, textStatus, error){
+                        //请求出错处理
+                        console.log('error:');
+                        console.log(error);
+                        console.log('xhr:');
+                        console.log(xhr);
+                        console.log('textStatus:');
+                        console.log(textStatus);
+                        
+                        var ei = $("#errinfo");
+                        //ei.text("登录失败，请检查console查看具体原因");
+                        ei.html("登录失败:"+textStatus+"<br>"+
+                            "responseText:"+xhr.responseText+"<br/>"+
+                            "xhr.status:"+xhr.status);
+
+						var btn_login = $("#login");
+                        btn_login.removeAttr("disabled");
+                    }
+                });
+            }
+
+            //检测回车键
+            function keypressed()
+            {
+                //按下enter後的動作
+                if(event.keyCode=='13')
+                {
+                    //to do
+                    loginPostAjax();
+                }
+            }
+
+			
+			//读取配置文件
+			function getJson()
+			{
+				$.ajax({
+					dataType:"json",
+					url:"./assets/conf/config.json",
+					data:null,
+					success:function(dt){
+						console.log('dt.openblank.value:');
+						console.log(dt.openblank.value);
+						openinblank = dt.openblank.value;
+					}
+				});
+			}
+			getJson();
+			
+        </script>
+</head>
+    <body onkeyup="keypressed()">
+
+        <div id="errinfo" style="color:#ff0000;"></div>
+        <!--<span id="errinfo" style="color:#ff0000;"></span>-->
+
+        <table>
+            <tr>
+                <td>用户名</td>
+                <td>
+                    <input type="text" name="username" id="username" />
+                </td>
+            </tr>
+            <tr>
+                <td>密码</td>
+                <td>
+                    <input type="text" name="password" id="password" />
+                </td>
+            </tr>
+        </table>
+
+        <input type="button" name="login" id="login" value="登录" onclick="loginPostAjax();" />
+
+        
+    </body>
+</html>

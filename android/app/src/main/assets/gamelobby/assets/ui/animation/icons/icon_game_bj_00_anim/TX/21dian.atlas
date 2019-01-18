@@ -1,0 +1,230 @@
+
+21dian.png
+size: 794,277
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+2
+  rotate: false
+  xy: 2, 60
+  size: 235, 215
+  orig: 235, 215
+  offset: 0, 0
+  index: -1
+流光_T00000
+  rotate: false
+  xy: 653, 125
+  size: 49, 49
+  orig: 512, 512
+  offset: 264, 250
+  index: -1
+流光_T00001
+  rotate: false
+  xy: 585, 114
+  size: 66, 60
+  orig: 512, 512
+  offset: 247, 250
+  index: -1
+流光_T00002
+  rotate: false
+  xy: 358, 2
+  size: 82, 70
+  orig: 512, 512
+  offset: 231, 250
+  index: -1
+流光_T00003
+  rotate: false
+  xy: 696, 196
+  size: 96, 79
+  orig: 512, 512
+  offset: 217, 250
+  index: -1
+流光_T00004
+  rotate: false
+  xy: 477, 92
+  size: 106, 87
+  orig: 512, 512
+  offset: 207, 250
+  index: -1
+流光_T00005
+  rotate: false
+  xy: 477, 181
+  size: 114, 94
+  orig: 512, 512
+  offset: 199, 250
+  index: -1
+流光_T00006
+  rotate: false
+  xy: 239, 72
+  size: 117, 100
+  orig: 512, 512
+  offset: 196, 250
+  index: -1
+流光_T00007
+  rotate: false
+  xy: 239, 174
+  size: 117, 101
+  orig: 512, 512
+  offset: 196, 250
+  index: -1
+流光_T00008
+  rotate: false
+  xy: 358, 175
+  size: 117, 100
+  orig: 512, 512
+  offset: 196, 251
+  index: -1
+流光_T00009
+  rotate: false
+  xy: 358, 74
+  size: 111, 99
+  orig: 512, 512
+  offset: 196, 252
+  index: -1
+流光_T00010
+  rotate: false
+  xy: 593, 176
+  size: 101, 99
+  orig: 512, 512
+  offset: 196, 252
+  index: -1
+火焰_T00000
+  rotate: false
+  xy: 585, 79
+  size: 67, 33
+  orig: 512, 512
+  offset: 212, 260
+  index: -1
+火焰_T00001
+  rotate: false
+  xy: 720, 91
+  size: 66, 33
+  orig: 512, 512
+  offset: 212, 260
+  index: -1
+火焰_T00002
+  rotate: false
+  xy: 704, 126
+  size: 66, 34
+  orig: 512, 512
+  offset: 212, 260
+  index: -1
+火焰_T00003
+  rotate: false
+  xy: 212, 2
+  size: 66, 34
+  orig: 512, 512
+  offset: 212, 260
+  index: -1
+火焰_T00004
+  rotate: false
+  xy: 280, 2
+  size: 64, 34
+  orig: 512, 512
+  offset: 214, 260
+  index: -1
+火焰_T00005
+  rotate: false
+  xy: 654, 89
+  size: 64, 34
+  orig: 512, 512
+  offset: 214, 260
+  index: -1
+火焰_T00006
+  rotate: false
+  xy: 654, 54
+  size: 64, 33
+  orig: 512, 512
+  offset: 214, 260
+  index: -1
+火焰_T00007
+  rotate: false
+  xy: 511, 23
+  size: 64, 33
+  orig: 512, 512
+  offset: 214, 260
+  index: -1
+火焰_T00008
+  rotate: false
+  xy: 577, 44
+  size: 64, 33
+  orig: 512, 512
+  offset: 214, 260
+  index: -1
+火焰_T00009
+  rotate: false
+  xy: 577, 10
+  size: 64, 32
+  orig: 512, 512
+  offset: 214, 260
+  index: -1
+火焰_T00010
+  rotate: false
+  xy: 643, 20
+  size: 64, 32
+  orig: 512, 512
+  offset: 214, 260
+  index: -1
+火焰_T00011
+  rotate: false
+  xy: 720, 57
+  size: 66, 32
+  orig: 512, 512
+  offset: 213, 260
+  index: -1
+火焰_T00012
+  rotate: false
+  xy: 442, 24
+  size: 67, 32
+  orig: 512, 512
+  offset: 213, 260
+  index: -1
+火焰_T00013
+  rotate: false
+  xy: 720, 23
+  size: 67, 32
+  orig: 512, 512
+  offset: 213, 260
+  index: -1
+火焰_T00014
+  rotate: false
+  xy: 239, 38
+  size: 68, 32
+  orig: 512, 512
+  offset: 212, 260
+  index: -1
+火焰_T00015
+  rotate: false
+  xy: 2, 25
+  size: 68, 33
+  orig: 512, 512
+  offset: 212, 260
+  index: -1
+火焰_T00016
+  rotate: false
+  xy: 72, 25
+  size: 68, 33
+  orig: 512, 512
+  offset: 212, 260
+  index: -1
+火焰_T00017
+  rotate: false
+  xy: 142, 25
+  size: 68, 33
+  orig: 512, 512
+  offset: 212, 260
+  index: -1
+火焰_T00018
+  rotate: false
+  xy: 471, 58
+  size: 68, 32
+  orig: 512, 512
+  offset: 212, 260
+  index: -1
+火焰_T00019
+  rotate: false
+  xy: 704, 162
+  size: 69, 32
+  orig: 512, 512
+  offset: 211, 260
+  index: -1
