@@ -53,8 +53,8 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
-ios/assets
-android/app/src/main/assets
+#ios/assets
+#android/app/src/main/assets
 ios/JD-tvOS
 ios/JD-tvOSTests
 ios/JDTests

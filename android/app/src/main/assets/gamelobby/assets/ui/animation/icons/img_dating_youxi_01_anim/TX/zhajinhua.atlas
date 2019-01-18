@@ -1,0 +1,111 @@
+
+zhajinhua.png
+size: 509,289
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+12
+  rotate: false
+  xy: 2, 72
+  size: 226, 215
+  orig: 235, 215
+  offset: 5, 0
+  index: -1
+火焰_T00000
+  rotate: false
+  xy: 450, 84
+  size: 57, 47
+  orig: 512, 512
+  offset: 295, 297
+  index: -1
+火焰_T00001
+  rotate: false
+  xy: 317, 5
+  size: 86, 76
+  orig: 512, 512
+  offset: 266, 263
+  index: -1
+火焰_T00002
+  rotate: false
+  xy: 422, 197
+  size: 81, 90
+  orig: 512, 512
+  offset: 261, 254
+  index: -1
+火焰_T00003
+  rotate: false
+  xy: 322, 83
+  size: 70, 98
+  orig: 512, 512
+  offset: 281, 255
+  index: -1
+火焰_T00004
+  rotate: false
+  xy: 337, 190
+  size: 83, 97
+  orig: 512, 512
+  offset: 275, 250
+  index: -1
+火焰_T00005
+  rotate: false
+  xy: 405, 32
+  size: 93, 49
+  orig: 512, 512
+  offset: 270, 300
+  index: -1
+火焰_T00006
+  rotate: false
+  xy: 394, 133
+  size: 60, 55
+  orig: 512, 512
+  offset: 293, 289
+  index: -1
+火焰_T00007
+  rotate: false
+  xy: 188, 2
+  size: 59, 68
+  orig: 512, 512
+  offset: 289, 280
+  index: -1
+火焰_T00008
+  rotate: false
+  xy: 249, 5
+  size: 66, 81
+  orig: 512, 512
+  offset: 286, 272
+  index: -1
+火焰_T00009
+  rotate: false
+  xy: 230, 88
+  size: 90, 93
+  orig: 512, 512
+  offset: 262, 260
+  index: -1
+火焰_T00010
+  rotate: false
+  xy: 230, 183
+  size: 105, 104
+  orig: 512, 512
+  offset: 257, 248
+  index: -1
+火焰_T00011
+  rotate: false
+  xy: 96, 9
+  size: 90, 61
+  orig: 512, 512
+  offset: 275, 286
+  index: -1
+火焰_T00012
+  rotate: false
+  xy: 2, 3
+  size: 92, 67
+  orig: 512, 512
+  offset: 271, 278
+  index: -1
+火焰_T00013
+  rotate: false
+  xy: 394, 83
+  size: 54, 48
+  orig: 512, 512
+  offset: 290, 301
+  index: -1
