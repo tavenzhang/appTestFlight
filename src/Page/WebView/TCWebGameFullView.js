@@ -8,7 +8,7 @@ import { config, appId } from '../../Common/Network/TCRequestConfig';
 import TCNavigatorHelper from '../../Common/JXHelper/TCNavigatorHelper';
 import JDToast from "../../Common/JXHelper/JXToast";
 import { ASSET_Other, JX_PLAT_INFO } from '../asset';
-import { indexBgColor, Size } from '../resouce/theme';
+import { indexBgColor, Size } from '../asset/game/themeComponet';
 import TCTouchMoveButton from '../../Common/View/button/TCTouchMoveButton';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import TCImage from '../../Common/View/image/TCImage';

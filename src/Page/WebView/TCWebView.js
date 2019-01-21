@@ -7,30 +7,31 @@ import {
     Text
 } from 'react-native';
 
-import {width} from '../resouce/theme'
+import {width} from '../asset/game/themeComponet'
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import TCImage from "../../Common/View/image/TCImage";
 import {Images} from "../asset/images";
 import {JX_PLAT_INFO} from "../asset";
-import LoadingView from "../Main/LoadingView";
+import LoadingView from "../enter/LoadingView";
+import TCButtonView from "../../Common/View/button/TCButtonView";
 
 
 @withMappedNavigationProps()
 export default class TCWebView extends Component {
     constructor(state) {
         super(state)
+        let {url} = this.props;
         this.state = {
-            url: this.props.url,
-            title: this.props.title,
-            isHide: false
+            isHide: false,
+            isHttpFail: false,
+            uri: url,
         }
         this.bblStore = TW_Store.bblStore;
     }
 
     static defaultProps = {
-        url: '',
         title: ''
     };
 
@@ -39,49 +40,54 @@ export default class TCWebView extends Component {
     }
 
     render() {
-        let {url} = this.props;
+
         let source = {
-            uri: url,
+            uri: this.state.uri,
         }
 
         //andorid 显示有点小问题  黑屏处理
         if (this.state.isHide) {
             return <View style={{flex: 1, backgroundColor: "black"}}/>
         }
+        let wenConteView = G_IS_IOS ? <WKWebView source={source} onNavigationStateChange={this.onNavigationStateChange}
+                                                 onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+                                                 style={styles.webView}
+                                                 allowFileAccess={true}
+                                                 onError={this.onError}
+                                                 startInLoadingState={true}
+                                                 onMessage={this.onMessage}
+                                                 onLoadStart={this.onloadStart}
+                                                 onLoadEnd={this.onLoadEnd}
+                                                 renderLoading={this.onRenderLoadingView}
 
+            /> :
+            <WebView
+                useWebKit={true}
+                automaticallyAdjustContentInsets={true}
+                style={styles.webView}
+                source={source}
+                javaScriptEnabled={true}
+                domStorageEnabled={true}
+                decelerationRate="normal"
+                renderLoading={this.onRenderLoadingView}
+                startInLoadingState={true}
+                onNavigationStateChange={this.onNavigationStateChange}
+                onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+                allowFileAccess={true}
+                onError={this.onError}
+                onMessage={this.onMessage}
+                onLoadEnd={this.onLoadEnd}
+            />
         return (
             <View style={styles.container}>
-                {
-                    G_IS_IOS ? <WKWebView source={source} onNavigationStateChange={this.onNavigationStateChange}
-                                          onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                                          style={styles.webView}
-                                          allowFileAccess={true}
-                                          onError={this.onError}
-                                          startInLoadingState={true}
-                                          onMessage={this.onMessage}
-                                          onLoadStart={this.onloadStart}
-                                          onLoadEnd={this.onLoadEnd}
-                                          renderLoading={this.onRenderLoadingView}
-
-                        /> :
-                        <WebView
-                            useWebKit={true}
-                            automaticallyAdjustContentInsets={true}
-                            style={styles.webView}
-                            source={source}
-                            javaScriptEnabled={true}
-                            domStorageEnabled={true}
-                            decelerationRate="normal"
-                            renderLoading={this.onRenderLoadingView}
-                            startInLoadingState={true}
-                            onNavigationStateChange={this.onNavigationStateChange}
-                            onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                            allowFileAccess={true}
-                            onError={this.onError}
-                            onMessage={this.onMessage}
-                            onLoadEnd={this.onLoadEnd}
-                        />
-                }
+                {!this.state.isHttpFail ? wenConteView:<View style={{height:JX_PLAT_INFO.SCREEN_H, justifyContent:"center",
+                    alignItems:
+                "center"}}>
+                    <TCButtonView btnStyle={{width:300}} onClick={()=>{
+                        TW_NavHelp.popToBack();
+                        setTimeout(this.onBackHomeJs, 1000)
+                    }} text={"返回大厅"}/>
+                </View>}
             </View>
         );
     }
@@ -172,23 +178,27 @@ export default class TCWebView extends Component {
 
         TW_Log("navState===========onNavigationStateChange=====url==" + navState.url, navState)
         let {onEvaleJS, isGame} = this.props
-        if (navState.url) {
-            if (navState.url.indexOf("g_lobby/index.html") > -1) {
-                if (navState.url.indexOf("g_lobby/index.html?status=1") > -1) {
-                    setTimeout(this.onBackHomeJs, 1000);
-                    if (onEvaleJS) {
-                        onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.logout));
+        if (navState.title == "404 Not Found") {
+            this.setState({isHttpFail: true})
+        } else {
+            if (navState.url) {
+                if (navState.url.indexOf("g_lobby/index.html") > -1) {
+                    if (navState.url.indexOf("g_lobby/index.html?status=1") > -1) {
+                        setTimeout(this.onBackHomeJs, 1000);
+                        if (onEvaleJS) {
+                            onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.logout));
+                        }
                     }
+                    TW_NavHelp.popToBack();
+                    this.setState({isHide: true})
+                    if (isGame) {
+                        setTimeout(this.onBackHomeJs, 1000)
+                    }
+                    this.bblStore.lastGameUrl = "home"
                 }
-                TW_NavHelp.popToBack();
-                this.setState({isHide: true})
-                if (isGame) {
-                    setTimeout(this.onBackHomeJs, 1000)
-                }
-                this.bblStore.lastGameUrl = "home"
             }
-
         }
+
     };
 
     onBackHomeJs = () => {
@@ -196,6 +206,7 @@ export default class TCWebView extends Component {
         if (onEvaleJS) {
             onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.playMusic));
+            onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.flushMoney));
         }
     }
 

@@ -23,9 +23,8 @@ export const StatusBarHeight = G_IS_IOS ? (JX_IPHON_X ? 44 : 20) : (Platform.Ver
  * 导航Header高度
  */
 export const NavBarHeaderHeight = 44
-
 /**
- * 导航Header高度（加上状态栏）
+ * 导航Header高度（加上状态栏）5
  */
 export const NavBarHeight = StatusBarHeight + NavBarHeaderHeight
 

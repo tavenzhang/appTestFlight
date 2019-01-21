@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import com.facebook.react.ReactActivity;
 import com.umeng.analytics.MobclickAgent;
 
+import org.devio.rn.splashscreen.SplashScreen;
+
 public class MainActivity extends ReactActivity {
 
     public static  MainActivity instance;
@@ -52,6 +54,7 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         // 设置透明状态栏
         if (Build.VERSION.SDK_INT >= 21) {
@@ -76,6 +79,7 @@ public class MainActivity extends ReactActivity {
         }
         instance =this;
         mainContent = getApplicationContext();
+        SplashScreen.show(this,true);  // here
     }
 
     public String readMetaDataByTag(String tag) {
@@ -83,8 +87,8 @@ public class MainActivity extends ReactActivity {
             ApplicationInfo appInfo = this.getPackageManager()
                     .getApplicationInfo(getPackageName(),
                             PackageManager.GET_META_DATA);
-            String mTag = appInfo.metaData.getString(tag);
-            return mTag;
+            Object mTag = appInfo.metaData.get(tag);
+            return mTag.toString();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return "error";

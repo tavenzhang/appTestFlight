@@ -17,7 +17,7 @@ import {
     Modal,
     ActivityIndicator,
 } from 'react-native';
-import {Size} from '../../Page/resouce/theme'
+import {Size} from '../../Page/asset/game/themeComponet'
 import {StatusBarHeight} from "../../Page/asset/screen";
 
 const TOUCHABLE_ELEMENTS = ['TouchableHighlight', 'TouchableOpacity', 'TouchableWithoutFeedback', 'TouchableWithNativeFeedback'];

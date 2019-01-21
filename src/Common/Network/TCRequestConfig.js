@@ -1,9 +1,8 @@
 import {
     configAppId,
     versionHotFix
-} from '../../Page/resouce/appConfig';
+} from '../../config/appConfig';
 
-export const appId = configAppId;
 
 export const appVersion = '1.0.1';
 
@@ -13,11 +12,11 @@ export const baseUrl = {
     baseUrl: '/api/v1/'
 };
 
-let headers = {
+export let headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'User-Agent': G_IS_IOS ? 'iphone' : 'android',
-    ClientId: appId,
+    ClientId: configAppId,
     AppVersion: appVersion,
     'Version-hotFix': versionHotFix
 };
@@ -52,4 +51,13 @@ export const config = {
         timeout: 10000,
         size: 0
     }
+};
+
+export const UpDateHeadAppId =(newId)=> {
+    headers.ClientId=newId;
+    config.map.headers.ClientId=newId;
+    config.mapGet.headers.ClientId=newId;
+    config.mapPut.headers.ClientId=newId;
+    config.mapDelete.headers.ClientId=newId;
+
 };

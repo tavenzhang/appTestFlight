@@ -4,7 +4,7 @@
 
 import React, {Component,} from 'react'
 import {View, Dimensions, StyleSheet} from "react-native";
-import {Size} from "../../Page/resouce/theme";
+import {Size} from "../../Page/asset/game/themeComponet";
 
 const {width,height} = Dimensions.get('window')
 

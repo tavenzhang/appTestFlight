@@ -1,0 +1,89 @@
+{
+    "pos":{"x":0,"y":0},
+    "switch":{
+        "desc":"开关",
+        "pos":{ "x":1271, "y":706.5 },
+        "src":[
+            "./assets/ui/mine/btn_switch.png"
+        ],
+        "size":{ "w":124, "h":87 },
+        "maxScale":{"x":1.02,"y":1.02},
+        "normalScale":{"x":1,"y":1},
+        "sfxX":"assets/raw/Click.mp3",
+        "anim":{
+            "textPath":"./assets/ui/animation/btn_mine/menu.png",
+            "animPath":"./assets/ui/animation/btn_mine/menu.sk",
+            "playSpeed":1.5,
+            "loop":true,
+            "pos":{ "x":0, "y":-3 }
+        }
+    },
+    "menus":{
+        "pos":{ "x":0, "y":0 },
+        "alphabgX":{
+            "pos":{ "x":0, "y":0 },
+            "size":{ "w":1334, "h":750 },
+            "color":"#000000",
+            "alpha":0.0
+        },
+        "bg":{
+            "src":"./assets/ui/mine/bgMenus.png",
+            "pos":{ "x":528, "y":666 },
+            "size":{ "w":806, "h":84 }
+        },
+        "btns":[
+            {
+                "desc":"帐号",
+                "cmd":"account",
+                "pos":{ "x":810, "y":700 },
+                "src":[
+                    "./assets/ui/mine/btn_account.png"
+                ],
+                "size":{ "w":82, "h":87 },
+                "maxScale":{"x":1.02,"y":1.02},
+                "normalScale":{"x":1,"y":1},
+                "sfxX":"assets/raw/Click.mp3"
+            },
+            {
+                "desc":"充值",
+                "cmd":"recharge",
+                "pos":{ "x":920, "y":700 },
+                "src":[
+                    "./assets/ui/mine/btn_recharge.png"
+                ],
+                "size":{ "w":82, "h":87 },
+                "maxScale":{"x":1.02,"y":1.02},
+                "normalScale":{"x":1,"y":1},
+                "sfxX":"assets/raw/Click.mp3"
+            },
+            {
+                "desc":"提现",
+                "cmd":"redraw",
+                "pos":{ "x":1030, "y":700 },
+                "src":[
+                    "./assets/ui/mine/btn_redraw.png"
+                ],
+                "size":{ "w":82, "h":87 },
+                "maxScale":{"x":1.02,"y":1.02},
+                "normalScale":{"x":1,"y":1},
+                "sfxX":"assets/raw/Click.mp3"
+            },
+            {
+                "desc":"客服",
+                "cmd":"custom",
+                "pos":{ "x":1140, "y":700 },
+                "src":[
+                    "./assets/ui/mine/btn_custom.png"
+                ],
+                "size":{ "w":82, "h":87 },
+                "maxScale":{"x":1.02,"y":1.02},
+                "normalScale":{"x":1,"y":1},
+                "sfxX":"assets/raw/Click.mp3"
+            }
+        ]
+    },
+    "default":{
+        "desc":"默认开还是关",
+        "bOpen":true
+    }
+}

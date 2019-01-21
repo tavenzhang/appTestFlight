@@ -9,7 +9,7 @@ import MarqueeLabel from './MarqueeLabel'
 import MarqueeLabel2 from './TCMarqueeLabel';
 import JXHelper from '../../JXHelper/TCNavigatorHelper'
 
-import {indexTxtColor, Size, width} from '../../../Page/resouce/theme'
+import {indexTxtColor, Size, width} from '../../../Page/asset/game/themeComponet'
 import {Other} from "../../../Page/asset";
 
 var px = PixelRatio.get()

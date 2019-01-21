@@ -1,0 +1,48 @@
+
+jssc.png
+size: 625,177
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+切图/facaiqianbi2673
+  rotate: false
+  xy: 375, 8
+  size: 201, 89
+  orig: 201, 89
+  offset: 0, 0
+  index: -1
+切图/fuwa96846
+  rotate: false
+  xy: 0, 6
+  size: 170, 171
+  orig: 170, 171
+  offset: 0, 0
+  index: -1
+切图/icon/11
+  rotate: false
+  xy: 375, 99
+  size: 239, 78
+  orig: 239, 78
+  offset: 0, 0
+  index: -1
+切图/tubiaobeijing
+  rotate: false
+  xy: 172, 52
+  size: 201, 125
+  orig: 201, 125
+  offset: 0, 0
+  index: -1
+切图/光效存放/闪光2347567
+  rotate: false
+  xy: 578, 51
+  size: 47, 46
+  orig: 51, 51
+  offset: 2, 2
+  index: -1
+切图/闭眼狮子
+  rotate: false
+  xy: 172, 0
+  size: 85, 50
+  orig: 85, 50
+  offset: 0, 0
+  index: -1

@@ -13,7 +13,7 @@
 #import <NSLogger/NSLogger.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-
+#import <SplashScreen.h>
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -27,6 +27,7 @@
  // [self testLoadNative];
  // [self startLog];
   [self.window makeKeyAndVisible];
+  [SplashScreen show];
   return YES;
 }
 
@@ -60,6 +61,7 @@
            @"https://www.aa2d16.com",
            @"https://www.ca2d16.com"];
 }
+
 @end
 @implementation NSURLRequest(DataController)
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host

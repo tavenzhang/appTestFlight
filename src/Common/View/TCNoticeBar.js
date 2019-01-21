@@ -22,7 +22,7 @@ import MarqueeLabel from './MarqueeLabel'
 import JXHelper from '../JXHelper/TCNavigatorHelper'
 import MarqueeLabel2 from './TCMarqueeLabel';
 
-import {width, indexBgColor, indexTxtColor, Size} from '../../Page/resouce/theme'
+import {width, indexBgColor, indexTxtColor, Size} from '../../Page/asset/game/themeComponet'
 
 let noticeText = ''
 export default class MyComponent extends Component {

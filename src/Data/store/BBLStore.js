@@ -1,6 +1,7 @@
 
 import { observable,action} from 'mobx'
 import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
+import {platInfo} from "../../config/appConfig";
 
 /**
  *app信息管理
@@ -8,10 +9,10 @@ import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
 export  default  class BBLStore {
 
     @observable
-    homeDomain = "http://webplatform.psxiaohe.com";
+    homeDomain = platInfo.gameDomain;
 
     @observable
-    urlDomain = "http://webplatform.psxiaohe.com";
+    urlDomain = platInfo.gameDomain;
 
     // @observable
     // homeDomain = "http://sit.106games.com";
@@ -41,14 +42,13 @@ export  default  class BBLStore {
     // "accounturl":"http://192.168.1.93:8091/api/v1",
     // "lobbyurl":"http://192.168.1.93:8091/api/v1",
     // "rooturl":"http://192.168.1.93:8091/api/v1"
+
     @observable
     urlJSON={
         url:{
-            "home":"http://106games.com/g_lobby/home.html",
-            "backlobby":"http://106games.com/g_lobby/index.html",
-            "accounturl":"https://webplatform.psxiaohe.com/api/v1",
-            "lobbyurl":"https://webplatform.psxiaohe.com/api/v1",
-            "rooturl":"https://webplatform.psxiaohe.com/api/v1",
+            "home":`${platInfo.gameDomain}/g_lobby/home.html`,
+            "backlobby":`${platInfo.gameDomain}/g_lobby/index.html`,
+            "apihome":`${platInfo.gameDomain}/api/v1`,
 
             "g_account":"../g_recharge/?module=account",
             "g_recharge":"../g_recharge/?module=recharge",
@@ -61,9 +61,9 @@ export  default  class BBLStore {
 
     @action
     getVersionDomain() {
-       return this.isDebugApp ? "http://192.168.14.70:8888":"https://download.jwyxw.net/ios/bbl"  ;
+        TW_Log("platInfo.homeDomain-----"+platInfo.gameDomain,platInfo.gameDomain)
+       return this.isDebugApp ? platInfo.zipCheckServer.debug_server: platInfo.zipCheckServer.release_server  ;
     }
-
 
 
     @action
@@ -80,7 +80,8 @@ export  default  class BBLStore {
         stopMusic:"stopMusic",
         windowResize:"windowResize",
         appData:"appData",
-        http:"http"
+        http:"http",
+        flushMoney:"flushMoney"
     }
 
     @action

@@ -7,7 +7,7 @@ import {
 
 import {observer} from 'mobx-react/native';
 
-import {Size} from "../../Page/resouce/theme";
+import {Size} from "../../Page/asset/game/themeComponet";
 
 @observer
 export default class NumberOnlyInputText extends Component {

@@ -7,7 +7,7 @@ const {
     Animated,
 } = ReactNative;
 const Button = require('./Button');
-import {indexBgColor} from '../../../Page/resouce/theme'
+import {indexBgColor} from '../../../Page/asset/game/themeComponet'
 var createReactClass = require('create-react-class');
 
 const DefaultTabBar = createReactClass({

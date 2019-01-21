@@ -23,7 +23,7 @@ var storage = new Storage({
 storage.load({
     key: 'TCDefaultDomain'
 }).then(res => {
-    TW_Store.appInfoStore.currentDomain = res
+    TW_Store.appStore.currentDomain = res
 }).catch(err => {
     TW_Log(err)
 });
@@ -31,6 +31,7 @@ storage.load({
 global.TW_DATA_KEY={
     versionBBL:"versionBBL",
     isInitStore:"isInitStore",
+    platData:"platData"
 }
 
 // 对于react native

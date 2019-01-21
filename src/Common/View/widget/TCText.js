@@ -2,7 +2,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
-import {baseColor, Size} from "../../../Page/resouce/theme";
+import {baseColor, Size} from "../../../Page/asset/game/themeComponet";
 
 /**
  * 自定义Text，兼容IOS文本不居中

@@ -2,7 +2,7 @@ import React, {Component,} from 'react'
 
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native'
 import {common} from '../../Page/asset/images'
-import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle} from '../../Page/resouce/theme'
+import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle} from '../../Page/asset/game/themeComponet'
 import PropTypes from 'prop-types';
 /**
  * 提示对话框

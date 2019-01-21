@@ -49,13 +49,13 @@ public class JXHelper extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void getPlatInfo(Callback resultCallback) {
-        String  idStr =  MainActivity.instance.readMetaDataByTag("Plat_Id");
-        String  channel= MainActivity.instance.readMetaDataByTag("Plat_Channel");
-        String  affcode= MainActivity.instance.readMetaDataByTag("AFFCODE");
+        String  idStr =  MainActivity.instance.readMetaDataByTag("PLAT_ID");
+        String  channel = MainActivity.instance.readMetaDataByTag("PLAT_CH");
+        String  affcode = MainActivity.instance.readMetaDataByTag("AFFCODE");
         JSONObject obj= new JSONObject();
         try {
-            obj.put("PlatId","1");
-            obj.put("Channel","1");
+            obj.put("PlatId",idStr);
+            obj.put("Channel",channel);
             obj.put("Affcode",affcode);
             String ret= obj.toString();
             resultCallback.invoke(ret);

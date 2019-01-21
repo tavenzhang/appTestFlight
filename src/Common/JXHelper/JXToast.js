@@ -3,7 +3,7 @@
  */
 import Toast from 'react-native-root-toast'
 import {Platform} from "react-native"
-import {baseColor, Size} from "../../Page/resouce/theme"
+import {baseColor, Size} from "../../Page/asset/game/themeComponet"
 
 const style = Platform.OS === "ios" ? {
     backgroundColor: baseColor.black,

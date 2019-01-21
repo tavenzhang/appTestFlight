@@ -23,7 +23,7 @@ import {
     width,
     height,
     refreshColor
-} from '../../../Page/resouce/theme'
+} from '../../../Page/asset/game/themeComponet'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 

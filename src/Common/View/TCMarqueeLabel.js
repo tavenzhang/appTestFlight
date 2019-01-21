@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Animated, Easing} from 'react-native';
-import {Size} from '../../Page/resouce/theme'
+import {Size} from '../../Page/asset/game/themeComponet'
 /**系统 npm类 */
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 

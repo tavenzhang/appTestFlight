@@ -127,6 +127,9 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        compileOptions {
+            encoding "GBK"
+        }
     }
 
     flavorDimensions "color"
@@ -145,8 +148,8 @@ android {
                     JPUSH_CHANNEL  : "developer-default",
                     UMENG_KEY      : UMENG_KEY,
                     UMENG_CHANNEL  : "developer-default",
-                    PLAT_ID        :  Plat_Id,
-                    PLAT_CHANNEL   :  Plat_Channel,
+                    PLAT_ID        :  PLAT_ID,
+                    PLAT_CH        :  PLAT_CH,
             ]
             dimension "color"
         }
@@ -181,7 +184,8 @@ android {
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            outputFileName = "driver_${variant.productFlavors[0].name}_v${variant.versionName}.apk"
+          outputFileName = "release.apk"
+     //       outputFileName = "${variant.productFlavors[0].name}_v${variant.versionName}.apk"
 //            def outputFile = output.outputFile
 //            if (outputFile != null && outputFile.name.endsWith('.apk')) {
 //                def fileName = ""

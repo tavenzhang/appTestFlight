@@ -64,11 +64,11 @@
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL}" />
         <meta-data
-            android:name="Plat_Id"
-            android:value="33${PLAT_ID}" />
+            android:name="PLAT_ID"
+            android:value="${PLAT_ID}" />
         <meta-data
-            android:name="Plat_Channel"
-            android:value="${PLAT_CHANNEL}" />
+            android:name="PLAT_CH"
+            android:value="${PLAT_CH}" />
 
     </application>
 

@@ -1,0 +1,202 @@
+
+hongheidazhan.png
+size: 837,1021
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+房间游戏名-红黑大战
+  rotate: false
+  xy: 2, 4
+  size: 229, 77
+  orig: 229, 77
+  offset: 0, 0
+  index: -1
+流光_T00001
+  rotate: false
+  xy: 784, 131
+  size: 46, 78
+  orig: 512, 512
+  offset: 313, 217
+  index: -1
+流光_T00002
+  rotate: false
+  xy: 628, 59
+  size: 99, 131
+  orig: 512, 512
+  offset: 260, 217
+  index: -1
+流光_T00003
+  rotate: false
+  xy: 688, 877
+  size: 129, 142
+  orig: 512, 512
+  offset: 230, 216
+  index: -1
+流光_T00004
+  rotate: false
+  xy: 672, 601
+  size: 153, 146
+  orig: 512, 512
+  offset: 206, 216
+  index: -1
+流光_T00005
+  rotate: false
+  xy: 664, 453
+  size: 171, 146
+  orig: 512, 512
+  offset: 188, 216
+  index: -1
+流光_T00006
+  rotate: false
+  xy: 449, 193
+  size: 188, 146
+  orig: 512, 512
+  offset: 171, 216
+  index: -1
+流光_T00007
+  rotate: false
+  xy: 458, 504
+  size: 204, 146
+  orig: 512, 512
+  offset: 155, 217
+  index: -1
+流光_T00008
+  rotate: false
+  xy: 654, 313
+  size: 174, 138
+  orig: 512, 512
+  offset: 147, 224
+  index: -1
+流光_T00009
+  rotate: false
+  xy: 688, 749
+  size: 133, 126
+  orig: 512, 512
+  offset: 146, 236
+  index: -1
+流光_T00010
+  rotate: false
+  xy: 639, 192
+  size: 108, 119
+  orig: 512, 512
+  offset: 145, 242
+  index: -1
+流光_T00011
+  rotate: false
+  xy: 749, 211
+  size: 81, 100
+  orig: 512, 512
+  offset: 145, 255
+  index: -1
+流光_T00012
+  rotate: false
+  xy: 729, 109
+  size: 53, 81
+  orig: 512, 512
+  offset: 146, 267
+  index: -1
+红黑大战0
+  rotate: false
+  xy: 233, 481
+  size: 219, 160
+  orig: 219, 160
+  offset: 0, 0
+  index: -1
+通用底
+  rotate: false
+  xy: 233, 2
+  size: 201, 125
+  orig: 201, 125
+  offset: 0, 0
+  index: -1
+闪光_T00005
+  rotate: false
+  xy: 442, 45
+  size: 184, 146
+  orig: 512, 512
+  offset: 163, 211
+  index: -1
+闪光_T00006
+  rotate: false
+  xy: 454, 341
+  size: 198, 161
+  orig: 512, 512
+  offset: 158, 204
+  index: -1
+闪光_T00007
+  rotate: false
+  xy: 460, 652
+  size: 210, 178
+  orig: 512, 512
+  offset: 155, 195
+  index: -1
+闪光_T00008
+  rotate: false
+  xy: 229, 129
+  size: 211, 172
+  orig: 512, 512
+  offset: 152, 198
+  index: -1
+闪光_T00009
+  rotate: false
+  xy: 231, 303
+  size: 216, 176
+  orig: 512, 512
+  offset: 150, 196
+  index: -1
+闪光_T00010
+  rotate: false
+  xy: 2, 83
+  size: 219, 181
+  orig: 512, 512
+  offset: 149, 193
+  index: -1
+闪光_T00011
+  rotate: false
+  xy: 233, 643
+  size: 223, 185
+  orig: 512, 512
+  offset: 148, 191
+  index: -1
+闪光_T00012
+  rotate: false
+  xy: 233, 830
+  size: 225, 189
+  orig: 512, 512
+  offset: 148, 189
+  index: -1
+闪光_T00013
+  rotate: false
+  xy: 460, 832
+  size: 226, 187
+  orig: 512, 512
+  offset: 148, 189
+  index: -1
+闪光_T00014
+  rotate: false
+  xy: 2, 634
+  size: 229, 191
+  orig: 512, 512
+  offset: 147, 187
+  index: -1
+闪光_T00015
+  rotate: false
+  xy: 2, 827
+  size: 229, 192
+  orig: 512, 512
+  offset: 147, 186
+  index: -1
+闪光_T00016
+  rotate: false
+  xy: 2, 445
+  size: 227, 187
+  orig: 512, 512
+  offset: 147, 189
+  index: -1
+闪光_T00017
+  rotate: false
+  xy: 2, 266
+  size: 225, 177
+  orig: 512, 512
+  offset: 147, 195
+  index: -1
