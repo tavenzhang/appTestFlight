@@ -3,17 +3,17 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://yx478yj5.512haoyu.com',
-    base2: 'https://yx478yj5.zyrfanli.com',
-    base3: 'https://yx478yj5.fdgjqh.com',
-    base4: 'https://93n7h5sw.512haoyu.com',
-    base5: 'https://www.ghyrfd123eqqd.com',
-    base6: 'https://93n7h5sw.zyrfanli.com',
-    base7: 'https://93n7h5sw.fdgjqh.com',
+    base1: 'https://www.diwudalu.com',
+    base2: 'https://www.diwudalu.com',
+    base3: 'https://www.diwudalu.com',
+    base4: 'https://www.diwudalu.com',
+    base5: 'https://www.diwudalu.com',
+    base6: 'https://www.diwudalu.com',
+    base7: 'https://www.diwudalu.com',
 }
 
 
-export let configAppId = "34"
+export let configAppId = "5"
 
 
 export const AppConfig = {
@@ -31,9 +31,9 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '365游戏';
+export const MyAppName = '博博乐';
 
-export const versionHotFix = '365_1_22';
+export const versionHotFix = 'bbl_1_22';
 
 export const safeguardDomain = [
     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
@@ -41,39 +41,39 @@ export const safeguardDomain = [
 
 
 export const platInfo = {
-    loginDomain:"https://0365cai.cc",
-    //gameDomain: "https://dk3nuq7v.zhdisi.com",
-    gameDomain:"https://dk3nuq7v.zhdisi.com",
-    // gameDomain: "https://0365cai.cc",
+    //loginDomain:"https://0365cai.cc",
+    loginDomain: "https://webplatform.psxiaohe.com",
+    //  gameDomain:"https://dk3nuq7v.zhdisi.com",
+     gameDomain: "https://webplatform.psxiaohe.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.hkbaoxian188.com/game/365"
+        release_server: "https://download.hkbaoxian188.com/game/bbl"
     },
     platId: configAppId,
 
     channel: {
         c_1: {
-            jpushKey: "31b1733f3bdd5f6a06ce377b",
+            jpushKey: "",
             jpush_channel: "",
-            umengKey: "c456e0af1f556b788000837",
+            umengKey: "",
             umengChanel:"1",
-            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
-            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
+            flurry_ios:"uat",
+            flurry_android:"uat"
         },
-        c_2: {jpushKey: "31b1733f3bdd5f6a06ce377b",
+        c_2: {jpushKey: "",
             jpush_channel: "",
-            umengKey: "c456e0af1f556b788000837",
+            umengKey: "",
             umengChanel:"1",
-            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
-            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
+            flurry_ios:"uat",
+            flurry_android:"uat"
         },
-        c_3: {jpushKey: "31b1733f3bdd5f6a06ce377b",
+        c_3: {jpushKey: "",
             jpush_channel: "",
-            umengKey: "c456e0af1f556b788000837",
+            umengKey: "",
             umengChanel:"1",
-            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
-            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
+            flurry_ios:"uat",
+            flurry_android:"uat"
         },
     }
 }

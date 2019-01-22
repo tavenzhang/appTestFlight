@@ -196,10 +196,10 @@ export default class Enter extends Component {
 
     //使用从服务器获取的更新地址更新app
     gotoUpdate() {
-        // if(TW_IS_DEBIG){
-        //     this.hotFixStore.skipUpdate();
-        //     return
-        // }
+        if(TW_IS_DEBIG){
+            this.hotFixStore.skipUpdate();
+            return
+        }
         AsyncStorage.getItem('cacheDomain').then((response) => {
             let cacheDomain = JSON.parse(response)
             JXCodePushServerUrl = cacheDomain.hotfixDomains[0].domain
