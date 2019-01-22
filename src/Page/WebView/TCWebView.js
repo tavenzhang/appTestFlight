@@ -97,9 +97,10 @@ export default class TCWebView extends Component {
     }
 
     onRenderLoadingView = () => {
-
+        let {isGame} = this.props
         return (<View style={{flex: 1, backgroundColor: "black"}}>
-            <LoadingView/>
+            {isGame ? null:<LoadingView/>}
+
             {/*<TCImage source={Images.bbl.gameBg} style={{width:JX_PLAT_INFO.SCREEN_W,height:JX_PLAT_INFO.SCREEN_H}}/>*/}
         </View>)
     }
@@ -184,7 +185,7 @@ export default class TCWebView extends Component {
             if (navState.url) {
                 if (navState.url.indexOf("g_lobby/index.html") > -1) {
                     if (navState.url.indexOf("g_lobby/index.html?status=1") > -1) {
-                        setTimeout(this.onBackHomeJs, 1000);
+                        this.onBackHomeJs();
                         if (onEvaleJS) {
                             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.logout));
                         }
@@ -192,7 +193,7 @@ export default class TCWebView extends Component {
                     TW_NavHelp.popToBack();
                     this.setState({isHide: true})
                     if (isGame) {
-                        setTimeout(this.onBackHomeJs, 1000)
+                        this.onBackHomeJs();
                     }
                     this.bblStore.lastGameUrl = "home"
                 }

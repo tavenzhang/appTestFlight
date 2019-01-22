@@ -3,14 +3,15 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://www.0579jiapeiwang.com',
-    base2: 'https://www.yurewd456qwep.com',
-    base3: 'https://www.mkjow321qwup.com',
-    base4: 'https://www.qzxsaq987dwqd.com',
+    base1: 'https://yx478yj5.512haoyu.com',
+    base2: 'https://yx478yj5.zyrfanli.com',
+    base3: 'https://yx478yj5.fdgjqh.com',
+    base4: 'https://93n7h5sw.512haoyu.com',
     base5: 'https://www.ghyrfd123eqqd.com',
-    base6: 'https://www.qwedsa789qszd.com',
-    base7: 'https://www.vdfrtw654qefhj.com',
+    base6: 'https://93n7h5sw.zyrfanli.com',
+    base7: 'https://93n7h5sw.fdgjqh.com',
 }
+
 
 export let configAppId = "34"
 
@@ -32,7 +33,7 @@ export const AppConfig = {
 
 export const MyAppName = '365游戏';
 
-export const versionHotFix = '365_1_18';
+export const versionHotFix = '365_1_22';
 
 export const safeguardDomain = [
     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
@@ -53,23 +54,23 @@ export const platInfo = {
 
     channel: {
         c_1: {
-            jpushKey: "",
+            jpushKey: "31b1733f3bdd5f6a06ce377b",
             jpush_channel: "",
-            umengKey: "5c2af406f1f5568dcc000160",
+            umengKey: "c456e0af1f556b788000837",
             umengChanel:"1",
             flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
             flurry_android:"BGZ8YFQ22PMPF87KCCBW"
         },
-        c_2: {jpushKey: "",
+        c_2: {jpushKey: "31b1733f3bdd5f6a06ce377b",
             jpush_channel: "",
-            umengKey: "5c2af406f1f5568dcc000160",
+            umengKey: "c456e0af1f556b788000837",
             umengChanel:"1",
             flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
             flurry_android:"BGZ8YFQ22PMPF87KCCBW"
         },
-        c_3: {jpushKey: "",
+        c_3: {jpushKey: "31b1733f3bdd5f6a06ce377b",
             jpush_channel: "",
-            umengKey: "5c2af406f1f5568dcc000160",
+            umengKey: "c456e0af1f556b788000837",
             umengChanel:"1",
             flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
             flurry_android:"BGZ8YFQ22PMPF87KCCBW"
