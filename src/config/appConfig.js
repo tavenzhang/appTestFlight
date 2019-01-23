@@ -42,9 +42,9 @@ export const safeguardDomain = [
 
 export const platInfo = {
     //loginDomain:"https://0365cai.cc",
-    loginDomain: "http://106games.com",
+    loginDomain: "https://webplatform.psxiaohe.com",
     //  gameDomain:"https://dk3nuq7v.zhdisi.com",
-     gameDomain: "http://106games.com",
+     gameDomain: "https://webplatform.psxiaohe.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
