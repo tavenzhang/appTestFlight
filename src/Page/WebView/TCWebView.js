@@ -148,7 +148,7 @@ export default class TCWebView extends Component {
                     TW_NavHelp.pushView(JX_Compones.WebView, {url})
                     break;
                 case "game_recharge":
-                    let data = message.jumpData || message.data
+                    let data = message.jumpData || message.data ||TW_Store.bblStore.jumpData
                     if (data) {
                         url = TW_Store.bblStore.urlDomain + "/g_recharge/?module=recharge&jumpData=" + data;
                         TW_NavHelp.pushView(JX_Compones.WebView, {url, isAddView: true})
@@ -188,6 +188,7 @@ export default class TCWebView extends Component {
                         this.onBackHomeJs();
                         if (onEvaleJS) {
                             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.logout));
+                            TW_Store.bblStore.jumpData=null;
                         }
                     }
                     TW_NavHelp.popToBack();

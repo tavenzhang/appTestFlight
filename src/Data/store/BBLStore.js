@@ -58,6 +58,9 @@ export  default  class BBLStore {
         },
     }
 
+    @observable
+    jumpData = null;
+
 
     @action
     getVersionDomain() {
