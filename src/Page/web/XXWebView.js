@@ -43,9 +43,9 @@ export default class XXWebView extends Component {
             };
         }
 
-       // if(TW_IS_DEBIG){
-       //      source =  require('./gamelobby/index.html');
-       //  }
+       if(TW_IS_DEBIG){
+            source =  require('./gamelobby/index.html');
+        }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source)
         let injectJs = `window.appData=${JSON.stringify({
@@ -123,13 +123,13 @@ export default class XXWebView extends Component {
                     url = this.handleUrl(message.au);
                     if (TW_Store.bblStore.lastGameUrl != url) {
                         TW_Store.bblStore.lastGameUrl = url;
+                        TW_Store.bblStore.jumpData=this.getJumpData(message.au)
                         TW_NavHelp.pushView(JX_Compones.WebView, {
                             url,
                             onMsgHandle: this.onMsgHandle,
                             onEvaleJS: this.onEvaleJS,
                             isGame: true
                         })
-                        TW_Store.bblStore.isLoading = true;
                         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
@@ -141,7 +141,7 @@ export default class XXWebView extends Component {
                     url = this.handleUrl(message.au, true)
                     if (TW_Store.bblStore.lastGameUrl != url) {
                         TW_Store.bblStore.lastGameUrl = url;
-                        TW_Store.bblStore.isLoading = true;
+                        TW_Store.bblStore.jumpData=this.getJumpData(message.au+"&cc=2");
                         TW_NavHelp.pushView(JX_Compones.WebView, {
                             url,
                             onMsgHandle: this.onMsgHandle,
@@ -213,6 +213,16 @@ export default class XXWebView extends Component {
         }
 
         return url
+    }
+
+    getJumpData=(data)=>{
+        TW_Log(" TW_Store.bblStore.jumpData==pre", data)
+       let jumper = data.substr(data.indexOf("jumpData=")+9);
+        let sunIndex = jumper.indexOf("&");
+        if(sunIndex>-1){
+            jumper =jumper.substring(0,sunIndex);
+        }
+        return jumper;
     }
 
     onEvaleJS = (data) => {
