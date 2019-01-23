@@ -61,6 +61,18 @@
             }
         },
         {
+            "desc":"财神驾到",
+            "src":"icon_game_csjd.png",
+            "anim":{
+                "textPath":"./assets/ui/animation/icons/icon_game_csjd_anim/csjd.png",
+                "animPath":"./assets/ui/animation/icons/icon_game_csjd_anim/csjd.sk",
+                "playSpeed":1.0,
+                "loop":true,
+                "dAlpha":0,
+                "pos":{ "x":134, "y":138 }
+            }
+        },
+        {
             "desc":"抢庄牛牛",
             "src":"img_dating_youxi_05.png",
             "anim":{

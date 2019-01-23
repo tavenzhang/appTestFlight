@@ -45,7 +45,6 @@ export default class TCWebView extends Component {
         let source = {
             uri: this.state.uri,
         }
-
         //andorid 显示有点小问题  黑屏处理
         if (this.state.isHide) {
             return <View style={{flex: 1, backgroundColor: "black"}}/>
