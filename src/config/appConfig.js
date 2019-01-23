@@ -33,7 +33,7 @@ export const AppConfig = {
 
 export const MyAppName = '博博乐';
 
-export const versionHotFix = 'bbl_1_22';
+export const versionHotFix = 'uat_1_23';
 
 export const safeguardDomain = [
     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
@@ -48,7 +48,7 @@ export const platInfo = {
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.hkbaoxian188.com/game/uat"
+        release_server: "https://download.hkbaoxian188.com/game/release/uat"
     },
     platId: configAppId,
 

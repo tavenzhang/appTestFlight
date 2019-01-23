@@ -130,7 +130,6 @@ export default class XXWebView extends Component {
                             onEvaleJS: this.onEvaleJS,
                             isGame: true
                         })
-                        TW_Store.bblStore.isLoading = true;
                         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
@@ -142,7 +141,6 @@ export default class XXWebView extends Component {
                     url = this.handleUrl(message.au, true)
                     if (TW_Store.bblStore.lastGameUrl != url) {
                         TW_Store.bblStore.lastGameUrl = url;
-                        TW_Store.bblStore.isLoading = true;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.au+"&cc=2");
                         TW_NavHelp.pushView(JX_Compones.WebView, {
                             url,

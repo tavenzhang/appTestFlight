@@ -37,6 +37,7 @@ export default class TCWebView extends Component {
 
     componentWillMount() {
         TW_Store.bblStore.lastGameUrl = "";
+        TW_Store.bblStore.isLoading = true;
     }
 
     render() {
@@ -178,9 +179,14 @@ export default class TCWebView extends Component {
     onNavigationStateChange = (navState) => {
 
         TW_Log("navState===========onNavigationStateChange=====url==" + navState.url, navState)
-        let {onEvaleJS, isGame} = this.props
+        let {onEvaleJS, isGame,isAddView} = this.props
         if (navState.title == "404 Not Found") {
+            if(!isGame) {
+                TW_NavHelp.popToBack();
+                this.setState({isHide: true})
+            }
             this.setState({isHttpFail: true})
+
         } else {
             if (navState.url) {
                 if (navState.url.indexOf("g_lobby/index.html") > -1) {
@@ -211,7 +217,6 @@ export default class TCWebView extends Component {
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.flushMoney));
         }
     }
-
 }
 
 
