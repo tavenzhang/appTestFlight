@@ -47,7 +47,7 @@ export const platInfo = {
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.hkbaoxian188.com/game/365"
+        release_server: "https://download.hkbaoxian188.com/game/release/365"
     },
     platId: configAppId,
 

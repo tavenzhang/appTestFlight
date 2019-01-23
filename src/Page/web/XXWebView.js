@@ -43,15 +43,15 @@ export default class XXWebView extends Component {
             };
         }
 
-       if(TW_IS_DEBIG){
-            source =  require('./gamelobby/index.html');
-        }
+       // if(TW_IS_DEBIG){
+       //      source =  require('./gamelobby/index.html');
+       //  }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source)
         let injectJs = `window.appData=${JSON.stringify({
             isApp: true,
             taven: "isOk",
-            clientId: TW_Store.bblStore.clientId,
+            clientId: TW_Store.appStore.clindId,
             force: force ? "1" : "0",
             urlJSON: TW_Store.bblStore.urlJSON
         })}`;

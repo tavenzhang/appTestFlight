@@ -23,8 +23,6 @@ export  default  class BBLStore {
     @observable
     isLoading = true;
 
-    @observable
-    clientId =  "11";
 
     @observable
     isDebugApp = false;
