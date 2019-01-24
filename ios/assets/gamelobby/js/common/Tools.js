@@ -288,13 +288,13 @@ var Tools = /** @class */ (function () {
     //跳转到游戏
     Tools.jump2game = function (url) {
         Debug.trace("Tools jump2game url:" + url);
-        var alias = Common.getCurGameAlias();
+        var ginfo = Common.getCurGameInfo();
         var backurl = ConfObjRead.getConfUrl().url.backlobby;
-        Debug.trace("Tools jump2game0 alias:" + alias + " backUrl:" + backurl);
-        if (alias == "zjh") {
-            backurl = backurl + "?gameId=" + Common.gameId + "&alias=" + alias;
+        Debug.trace("Tools jump2game0 alias:" + ginfo.alias + " backUrl:" + backurl);
+        if (ginfo.alias == "zjh") {
+            backurl = backurl + "?gameId=" + Common.gameId + "&alias=" + ginfo.alias;
         }
-        Debug.trace("Tools jump2game1 alias:" + alias + " backUrl:" + backurl);
+        Debug.trace("Tools jump2game1 alias:" + ginfo.alias + " backUrl:" + backurl);
         try {
             var confUrl = ConfObjRead.getConfUrl();
             var jobj = {
@@ -304,7 +304,8 @@ var Tools = /** @class */ (function () {
                 "wsUrl": Common.wsUrl,
                 "roomId": Common.roomId,
                 "backUrl": backurl,
-                "alias": alias,
+                "alias": ginfo.alias,
+                "name": ginfo.name,
                 "clientId": Common.clientId
             };
             var b = new MyBase64();
@@ -387,11 +388,10 @@ var Tools = /** @class */ (function () {
             // Debug.trace("jump2module:"+au);
             // Debug.trace(jobj);
             //Add by Jelly 设定死 
-            //    if(Common.IS_NATIVE_APP){
             if (1 + 1 == 2) {
-                //这里都需要使用postMessage Modify by Jelly on 2018.12.27
                 //Add by Jelly on 2018.12.27  如果是app 使用 PostMHelp.jupmToUrl
                 if (!Common.IS_NATIVE_APP) {
+                    //Add by Jelly on 2018.12.27
                     switch (type) {
                         case "account":
                             PostMHelp.game_account(jobj);

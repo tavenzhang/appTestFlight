@@ -23,8 +23,6 @@ export  default  class BBLStore {
     @observable
     isLoading = true;
 
-    @observable
-    clientId =  "11";
 
     @observable
     isDebugApp = false;
@@ -57,6 +55,9 @@ export  default  class BBLStore {
             "testcustomurl":"https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"
         },
     }
+
+    @observable
+    jumpData = null;
 
 
     @action
