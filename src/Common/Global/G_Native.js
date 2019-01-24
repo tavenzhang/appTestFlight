@@ -56,3 +56,10 @@ global.TN_CodePush_ASEET = (callBack:func) => {
         NativeModules.JXHelper.getCodePushBundleURL(callBack);
     }
 }
+global.TN_START_Fabric = (key="4711ad6d815964a1103b461bc1d85ddf312b037d") => {
+    if(G_IS_IOS){
+        NativeModules.JDHelper&&NativeModules.JDHelper.startFarbic(key);
+    }else{
+        NativeModules.JDHelper&&NativeModules.JXHelper.startFarbic(key);
+    }
+}

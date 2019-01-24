@@ -11,16 +11,15 @@
 #import <React/RCTRootView.h>
 #import <WebKit/WebKit.h>
 #import <NSLogger/NSLogger.h>
-#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <SplashScreen.h>
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  
 
-  [Fabric with:@[[Crashlytics class]]];
-   application.applicationIconBadgeNumber = 0;
+  application.applicationIconBadgeNumber = 0;
   self.launchOptions = launchOptions;
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   [self loadRootController];
