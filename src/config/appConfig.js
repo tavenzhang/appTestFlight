@@ -77,13 +77,3 @@ export const platInfo = {
         },
     }
 }
-
-
-export const affCodeList = {
-    ios: {
-        '2.9.6': 'bbl_ios'
-    },
-    android: {
-        '2.10.11': 'bbl_android'
-    }
-};
