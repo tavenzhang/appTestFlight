@@ -5,9 +5,10 @@ import {
     configAppId,
     MyAppName,
     versionHotFix,
-    platInfo
+    platInfo,
+    affCodeList
 } from '../../config/appConfig';
-import {affCodeList} from "../../config/appAffCodeList";
+
 import {UpDateHeadAppId} from "../../Common/Network/TCRequestConfig";
 
 /**
