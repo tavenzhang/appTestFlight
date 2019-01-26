@@ -51,7 +51,7 @@ var Common = /** @class */ (function () {
         return null;
     };
     //获取当前游戏的别名
-    Common.getCurGameInfo = function (id) {
+    Common.getCurGameAlias = function (id) {
         if (id === void 0) { id = null; }
         // Common.getAliasFromRoomPanel();
         if (id == null) {
@@ -59,26 +59,25 @@ var Common = /** @class */ (function () {
         }
         try {
             var glen = Common.gameInfo.length;
-            // Debug.traceObj("Common.getCurGameAlias glen:"+glen+" id:"+id);
+            Debug.traceObj("Common.getCurGameAlias glen:" + glen + " id:" + id);
             // for( var k in Common.gameInfo )
             for (var k = 0; k < glen; k++) {
                 var g = Common.gameInfo[k];
-                // Debug.trace("Common.getCurGameAlias g.id:"+g.id);
+                Debug.trace("Common.getCurGameAlias g.id:" + g.id);
                 if (g.id == id) //Common.gameId )
                  {
-                    // Debug.trace("Common.getCurGameAlias return g.alias:"+g.alias);
+                    Debug.trace("Common.getCurGameAlias return g.alias:" + g.alias);
                     //这个就是当前的游戏
-                    return g; //.alias;
+                    return g.alias;
                 }
             }
             Debug.trace("Common.getCurGameAlias return zjh");
-            return null; //默认为扎金花
+            return ""; //默认为扎金花
         }
         catch (e) {
             //出错了，没有gameInfo信息。直接进入的游戏房间列表。
-            // Debug.trace("Common.getCurGameAlias e:"+e);
-            // return Common.getAliasFromRoomPanel();
-            return null;
+            Debug.trace("Common.getCurGameAlias e:" + e);
+            return Common.getAliasFromRoomPanel();
         }
     };
     //从房间列表面板提取游戏数据，返回alias
