@@ -88,42 +88,35 @@
         {"url":"./assets/ui/game/img_dating_youxi_05_gray.png","type":"IMAGE"},
         {"url":"./assets/ui/game/icon_game_10.png","type":"IMAGE"},
         {"url":"./assets/ui/game/icon_game_10_gray.png","type":"IMAGE"},
+        {"url":"./assets/ui/game/icon_game_csjd.png","type":"IMAGE"},
+        {"url":"./assets/ui/game/icon_game_csjd_gray.png","type":"IMAGE"},
 
         {"url":"./assets/ui/animation/icons/icon_game_06_anim/jialebisuoha.png","type":"IMAGE"},
         {"url":"./assets/ui/animation/icons/icon_game_06_anim/jialebisuoha.sk","type":"BUFFER"},
-
         {"url":"./assets/ui/animation/icons/icon_game_07_anim/xy5z.png","type":"IMAGE"},
         {"url":"./assets/ui/animation/icons/icon_game_07_anim/xy5z.sk","type":"BUFFER"},
-
         {"url":"./assets/ui/animation/icons/icon_game_08_anim/hlhb.png","type":"IMAGE"},
         {"url":"./assets/ui/animation/icons/icon_game_08_anim/hlhb.sk","type":"BUFFER"},
-
         {"url":"./assets/ui/animation/icons/icon_game_09_anim/ddz.png","type":"IMAGE"},
         {"url":"./assets/ui/animation/icons/icon_game_09_anim/ddz.sk","type":"BUFFER"},
-
         {"url":"./assets/ui/animation/icons/icon_game_10_anim/jssc.png","type":"IMAGE"},
         {"url":"./assets/ui/animation/icons/icon_game_10_anim/jssc.sk","type":"BUFFER"},
-
         {"url":"./assets/ui/animation/icons/icon_game_bj_00_anim/21dian.png","type":"IMAGE"},
         {"url":"./assets/ui/animation/icons/icon_game_bj_00_anim/21dian.sk","type":"BUFFER"},
-
         {"url":"./assets/ui/animation/icons/icon_game_dt_00_anim/longhudou.png","type":"IMAGE"},
         {"url":"./assets/ui/animation/icons/icon_game_dt_00_anim/longhudou.sk","type":"BUFFER"},
-
         {"url":"./assets/ui/animation/icons/icon_game_rb_00_anim/hongheidazhan.png","type":"IMAGE"},
         {"url":"./assets/ui/animation/icons/icon_game_rb_00_anim/hongheidazhan.sk","type":"BUFFER"},
-
         {"url":"./assets/ui/animation/icons/img_dating_youxi_01_anim/zhajinhua.png","type":"IMAGE"},
         {"url":"./assets/ui/animation/icons/img_dating_youxi_01_anim/zhajinhua.sk","type":"BUFFER"},
-
         {"url":"./assets/ui/animation/icons/img_dating_youxi_02_anim/yazhuniuniu.png","type":"IMAGE"},
         {"url":"./assets/ui/animation/icons/img_dating_youxi_02_anim/yazhuniuniu.sk","type":"BUFFER"},
-
         {"url":"./assets/ui/animation/icons/img_dating_youxi_03_anim/tongbiniuniu.png","type":"IMAGE"},
         {"url":"./assets/ui/animation/icons/img_dating_youxi_03_anim/tongbiniuniu.sk","type":"BUFFER"},
-
         {"url":"./assets/ui/animation/icons/img_dating_youxi_05_anim/qznn.png","type":"IMAGE"},
         {"url":"./assets/ui/animation/icons/img_dating_youxi_05_anim/qznn.sk","type":"BUFFER"},
+        {"url":"./assets/ui/animation/icons/icon_game_csjd_anim/csjd.png","type":"IMAGE"},
+        {"url":"./assets/ui/animation/icons/icon_game_csjd_anim/csjd.sk","type":"BUFFER"},
 
         {"url":"./assets/ui/game/icon_hot.png","type":"IMAGE"},
         {"url":"./assets/ui/game/img_dating_jingqingqidai.png","type":"IMAGE"},
