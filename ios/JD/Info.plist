@@ -5,11 +5,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>博博乐</string>
+	<string>365</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.card.bbl</string>
+	<string>com.bbl.g365</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>2.2.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -98,6 +98,7 @@
 	<string>camera</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Affcode</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>Feather.ttf</string>
@@ -122,10 +123,10 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>PlatId</key>
-	<string>5</string>
+	<string>34</string>
 	<key>Channel</key>
-	<string>1</string>
+	<string>2</string>
 	<key>Affcode</key>
-	<string>&quot;&quot;</string>
+	<string>&quot;test&quot;</string>
 </dict>
 </plist>
