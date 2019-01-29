@@ -37,6 +37,7 @@ export default class TCWebView extends Component {
 
     componentWillMount() {
         TW_Store.bblStore.lastGameUrl = "";
+        TW_Store.bblStore.isLoading = true;
     }
 
     render() {
@@ -44,7 +45,6 @@ export default class TCWebView extends Component {
         let source = {
             uri: this.state.uri,
         }
-
         //andorid 显示有点小问题  黑屏处理
         if (this.state.isHide) {
             return <View style={{flex: 1, backgroundColor: "black"}}/>
@@ -148,7 +148,7 @@ export default class TCWebView extends Component {
                     TW_NavHelp.pushView(JX_Compones.WebView, {url})
                     break;
                 case "game_recharge":
-                    let data = message.jumpData || message.data
+                    let data = message.jumpData || message.data ||TW_Store.bblStore.jumpData
                     if (data) {
                         url = TW_Store.bblStore.urlDomain + "/g_recharge/?module=recharge&jumpData=" + data;
                         TW_NavHelp.pushView(JX_Compones.WebView, {url, isAddView: true})
@@ -178,9 +178,14 @@ export default class TCWebView extends Component {
     onNavigationStateChange = (navState) => {
 
         TW_Log("navState===========onNavigationStateChange=====url==" + navState.url, navState)
-        let {onEvaleJS, isGame} = this.props
+        let {onEvaleJS, isGame,isAddView} = this.props
         if (navState.title == "404 Not Found") {
+            if(!isGame) {
+                TW_NavHelp.popToBack();
+                this.setState({isHide: true})
+            }
             this.setState({isHttpFail: true})
+
         } else {
             if (navState.url) {
                 if (navState.url.indexOf("g_lobby/index.html") > -1) {
@@ -188,6 +193,7 @@ export default class TCWebView extends Component {
                         this.onBackHomeJs();
                         if (onEvaleJS) {
                             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.logout));
+                            TW_Store.bblStore.jumpData=null;
                         }
                     }
                     TW_NavHelp.popToBack();
@@ -210,7 +216,6 @@ export default class TCWebView extends Component {
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.flushMoney));
         }
     }
-
 }
 
 

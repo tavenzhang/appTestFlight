@@ -65,6 +65,7 @@ export default class App extends Component {
         if (!G_IS_IOS) {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
+        TN_START_Fabric()
 
         // TN_CodePush_ASEET((data)=>{
         //    // this.setState({aseets:data})

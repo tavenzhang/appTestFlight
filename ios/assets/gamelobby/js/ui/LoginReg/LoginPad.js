@@ -146,6 +146,7 @@ var LoginPad = /** @class */ (function (_super) {
             Toast.showToast("请正确输入用户名及密码");
             return;
         }
+        PostMHelp.debugInfo({ name: name, pwd: pwd });
         //发起网络请求，请求登录
         this.requestLogin(name, pwd);
     };

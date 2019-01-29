@@ -1,5 +1,5 @@
 {
-    "debugmode":0,
+    "debugmode":1,
     "loadmode":{
         "desc":"子游戏的加载模式 0 为url跳转，1 为在大厅内加载, 是否没有服务器支持的测试？测试的游戏跳转地址？",
         "testnoserver":1,

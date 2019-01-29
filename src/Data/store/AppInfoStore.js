@@ -5,9 +5,10 @@ import {
     configAppId,
     MyAppName,
     versionHotFix,
-    platInfo
+    platInfo,
+    affCodeList
 } from '../../config/appConfig';
-import {affCodeList} from "../../config/appAffCodeList";
+
 import {UpDateHeadAppId} from "../../Common/Network/TCRequestConfig";
 
 /**
@@ -131,7 +132,8 @@ export default class AppInfoStore {
     async initAppVersion() {
         let nativeConfig = await CodePush.getConfiguration();
         this.appVersion = nativeConfig.appVersion;
-        TW_Store.bblStore.isDebugApp=  this.appVersion=="1.1.1"
+        TW_Store.bblStore.isDebugApp=  this.appVersion=="1.1.1";
+
         TW_Log("version-nativeConfig--"+ TW_Store.bblStore.isDebugApp, nativeConfig);
     }
 

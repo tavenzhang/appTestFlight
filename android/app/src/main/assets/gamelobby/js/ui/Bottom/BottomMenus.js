@@ -80,7 +80,7 @@ var BottomMenus = /** @class */ (function (_super) {
         else if (style == "rule") {
             // window.location.href = "https://www.google.com";
             // lamain.showHelpPad(Common.getCurGameAlias());
-            HelpPad.showPad(Common.getCurGameAlias());
+            HelpPad.showPad("");
         }
         else if (style == "setting") {
             var conf = ConfObjRead.getConfSetting();
