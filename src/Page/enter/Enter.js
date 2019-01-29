@@ -14,6 +14,7 @@ import Moment from 'moment'
 import CodePush from 'react-native-code-push'
 import * as Progress from 'react-native-progress';
 import {observer} from 'mobx-react'
+import AppInfoStore from '../../Data/store/AppInfoStore'
 
 import Storage from '../../Common/Global/TCStorage'
 import G_Config from '../../Common/Global/G_Config'
@@ -23,6 +24,7 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import SplashScreen from 'react-native-splash-screen'
 import {width, Size} from '../asset/game/themeComponet'
 import StartUpHelper from './StartUpHelper'
+import NetUitls from "../../Common/Network/TCRequestUitls";
 
 
 let retryTimes = 0
@@ -30,11 +32,13 @@ let downloadTime = 0
 let alreadyInCodePush = false
 import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
 import {AppConfig} from "../../config/appConfig";
+import HotFixStore from "../../Data/store/HotFixStore";
 let domainsHelper = new JXDomainsHelper();
-
+let appInfoStore = new AppInfoStore();
 @observer
 export default class Enter extends Component {
 
+    hotFixStore = new HotFixStore();
     constructor() {
         super();
         this.hotFixStore=TW_Store.hotFixStore;
@@ -49,7 +53,9 @@ export default class Enter extends Component {
     onInitAllData=()=>{
         this.initData()
         this.uploadLog()
-        this.initDomain()
+            appInfoStore.initAndroidAppInfo(res=>{
+                this.checkUpdate();
+            })
         AppState.addEventListener('change', this.handleAppStateChange);
         this.timer2 = setTimeout(() => {
             if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
@@ -92,7 +98,7 @@ export default class Enter extends Component {
 
 
     handleAppStateChange=(nextAppState)=> {
-        if (nextAppState === 'active') {
+        if (nextAppState === 'active' && this.hotFixStore.allowUpdate) {
             if (TW_Store.hotFixStore.currentDeployKey) {
                 this.hotFix(TW_Store.hotFixStore.currentDeployKey);
             }
@@ -117,6 +123,38 @@ export default class Enter extends Component {
     }
 
 
+    updateflag = false;
+
+    checkUpdate(){
+        let checkUpdateDemain =  AppConfig.checkUpdateDomains;
+        TW_Log("================checkUpdate")
+
+        for(var i = 0;i<checkUpdateDemain.length;i++){
+            NetUitls.getUrlAndParamsAndCallback(checkUpdateDemain[i]+'/code/user/apps',{
+                appId: appInfoStore.applicationId,
+                version: appInfoStore.appVersion,
+                appType: 'ANDROID',
+                owner:"365彩票"
+            },res=>{
+                if(res.rs){
+                    if(!this.updateflag)
+                        this.updateCallback(res);
+                }
+            })
+        }
+    }
+
+    updateCallback(response){
+        this.updateflag = true;
+        TW_Log("================checkUpdate",response)
+        if (response.content.bbq && response.content.bbq.indexOf("SueL") != -1) {//允许更新
+            this.hotFixStore.allowUpdate = true;
+        }
+        this.initDomain()
+    }
+
+
+
     initDomain() {
         AsyncStorage.getItem('cacheDomain').then((response) => {
             TW_Log("refresh cache domain ", response);
@@ -139,9 +177,9 @@ export default class Enter extends Component {
     //使用默认地址
     firstAttempt(success, allowUpdate, message) {
         TW_Log(`first attempt ${success}, ${allowUpdate}, ${message}`);
-        if (success && allowUpdate) {
+        if (success && allowUpdate && this.hotFixStore.allowUpdate) {
             this.gotoUpdate()
-        } else if (!success) {//默认地址不可用，使用备份地址
+        } else if (!success && this.hotFixStore.allowUpdate) {//默认地址不可用，使用备份地址
             StartUpHelper.getAvailableDomain(AppConfig.backupDomains, this.secondAttempt)
         } else {//不允许更新
             this.hotFixStore.skipUpdate();
@@ -150,9 +188,9 @@ export default class Enter extends Component {
 
     //使用默认备份地址
     secondAttempt=(success, allowUpdate, message)=> {
-        if (success && allowUpdate) {
+        if (success && allowUpdate && this.hotFixStore.allowUpdate) {
             this.gotoUpdate()
-        } else if (!success) {//备份地址不可用
+        } else if (!success && this.hotFixStore.allowUpdate) {//备份地址不可用
             // Toast User to change a better network and retry
             let customerMessage = "当前网络无法更新，可能是请求域名的问题"
             switch (message) {
@@ -185,9 +223,9 @@ export default class Enter extends Component {
     //使用缓存地址
     cacheAttempt=(success, allowUpdate, message)=> {
         TW_Log(`first attempt ${success}, ${allowUpdate}, ${message}`);
-        if (success && allowUpdate) {
+        if (success && allowUpdate && this.hotFixStore.allowUpdate) {
             this.gotoUpdate();
-        } else if (!success) {//缓存地址不可用,使用默认地址
+        } else if (!success && this.hotFixStore.allowUpdate) {//缓存地址不可用,使用默认地址
             StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message));
         } else {
             this.hotFixStore.skipUpdate();

@@ -18,7 +18,7 @@ export default class HotFixStore {
     @observable
     currentDeployKey="";
 
-
+    allowUpdate = false;
 
     @action
     skipUpdate() {

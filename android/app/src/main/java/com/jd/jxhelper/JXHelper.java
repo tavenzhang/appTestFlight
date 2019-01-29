@@ -11,11 +11,13 @@ import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableMap;
 import com.jd.MainActivity;
 import com.jd.util.AppUtil;
 import com.jd.util.UpdateManager;
@@ -51,7 +53,7 @@ public class JXHelper extends ReactContextBaseJavaModule {
     public void getPlatInfo(Callback resultCallback) {
         String  idStr =  MainActivity.instance.readMetaDataByTag("PLAT_ID");
         String  channel = MainActivity.instance.readMetaDataByTag("PLAT_CH");
-        String  affcode = MainActivity.instance.readMetaDataByTag("AFFCODE");
+        String  affcode = MainActivity.instance.readMetaDataByTag("TD_CHANNEL_AFFCODE");
         JSONObject obj= new JSONObject();
         try {
             obj.put("PlatId",idStr);
@@ -202,5 +204,21 @@ public class JXHelper extends ReactContextBaseJavaModule {
         } catch (Exception e) {
 
         }
+    }
+
+    @ReactMethod
+    public void getAppInfo(Callback callback){
+        WritableMap map = Arguments.createMap();
+        String applicationId = getReactApplicationContext().getPackageName();
+        map.putString("versionName",getVersionCode());
+        map.putString("affcode",getAffCode());
+        map.putString("applicationId",applicationId);
+        callback.invoke(map);
+    }
+    public String getAffCode() {
+        return AppUtil.getAFFCode(context);
+    }
+    public String getVersionCode() {
+        return getPackageInfo(context).versionName;
     }
 }

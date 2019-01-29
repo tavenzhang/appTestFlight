@@ -127,9 +127,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-        compileOptions {
-            encoding "GBK"
-        }
+
     }
 
     flavorDimensions "color"
@@ -142,7 +140,7 @@ android {
             resValue "string", "app_name", APP_NAME
             manifestPlaceholders = [
                     APP_VERSION    : APP_VERSION,
-                    AFFCODE        : AFF_CODE,
+                    CHANNEL_AFFCODE        : AFF_CODE,
                     JPUSH_PKGNAME  : APP_ID,
                     JPUSH_APPKEY   : JPUSH_KEY,
                     JPUSH_CHANNEL  : "developer-default",
@@ -209,37 +207,36 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-orientation')
-    compile project(':react-native-zip-archive')
-    compile project(':react-native-flurry-analytics')
-    compile project(':react-native-fabric')
+    implementation project(':react-native-orientation')
+    implementation project(':react-native-zip-archive')
+    implementation project(':react-native-flurry-analytics')
+    implementation project(':react-native-fabric')
     implementation 'com.android.support:multidex:1.0.3'
-    compile project(':react-native-fs')
-    compile project(':react-native-image-crop-picker')
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':jpush-react-native')
-    compile project(':jcore-react-native')
-    compile 'com.android.support:appcompat-v7:26.1.1'
-    compile 'com.umeng.sdk:common:latest.integration'
-    compile 'com.umeng.sdk:analytics:latest.integration'
+    implementation project(':react-native-fs')
+    implementation project(':react-native-image-crop-picker')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':jpush-react-native')
+    implementation project(':jcore-react-native')
+    implementation 'com.android.support:appcompat-v7:26.1.1'
+    implementation 'com.umeng.sdk:common:latest.integration'
+    implementation 'com.umeng.sdk:analytics:latest.integration'
     // compile 'com.facebook.react:react-native:+'
-    compile project(':ReactAndroid')            //添加React-native项目
-    compile 'com.zhy:okhttputils:2.6.2'
-    compile project(':react-native-toast-native')
-    compile project(':react-native-shake-event')
-    compile project(':react-native-code-push')
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-svg')
-    compile project(':react-native-splash-screen')
-    compile project(':react-native-sound')
-    compile project(':react-native-material-kit')
-    compile project(':react-native-interactable')
-    compile project(':react-native-image-picker')
-    compile project(':react-native-fetch-blob')
-    compile project(':react-native-device-info')
-    compile project(':react-native-blur')
-    compile project(':react-native-fast-image')
-
+    implementation project(':ReactAndroid')            //添加React-native项目
+    implementation 'com.zhy:okhttputils:2.6.2'
+    implementation project(':react-native-toast-native')
+    implementation project(':react-native-shake-event')
+    implementation project(':react-native-code-push')
+    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-svg')
+    implementation project(':react-native-splash-screen')
+    implementation project(':react-native-sound')
+    implementation project(':react-native-material-kit')
+    implementation project(':react-native-interactable')
+    implementation project(':react-native-image-picker')
+    implementation project(':react-native-fetch-blob')
+    implementation project(':react-native-device-info')
+    implementation project(':react-native-blur')
+    implementation project(':react-native-fast-image')
 }
 
 // Run this once to be able to run the application with BUCK

@@ -62,6 +62,7 @@ export default class AppInfoStore {
 
     isInitPlat=false;
 
+    applicationId = "";
 
     init() {
         TW_Data_Store.getItem(TW_DATA_KEY.platData, (err, ret) => {
@@ -126,6 +127,21 @@ export default class AppInfoStore {
                 TW_Log("APPNAME", this.appName)
             })
         }
+    }
+
+    async initAndroidAppInfo(callback){
+        let appInfo = await this.getAppInfo();
+        this.userAffCode = appInfo.affcode;
+        this.appVersion = appInfo.versionName;
+        this.applicationId = appInfo.applicationId;
+        callback&&callback(true)
+    }
+    getAppInfo(){
+        return new Promise(resolve => {
+            NativeModules.JXHelper.getAppInfo((appInfo) => {
+                resolve(appInfo)
+            })
+        })
     }
 
     //初始化app版本号
@@ -207,7 +223,6 @@ export default class AppInfoStore {
         if (a) return a;
         return null;
     }
-
 
 }
 
