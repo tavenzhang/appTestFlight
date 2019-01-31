@@ -50,7 +50,7 @@ export default class Enter extends Component {
     }
 
     onInitAllData=()=>{
-        TW_Log("appInfo----start--onInitAllData");
+
         this.initData()
         this.uploadLog()
         appInfoStore.initAndroidAppInfo(res=>{
