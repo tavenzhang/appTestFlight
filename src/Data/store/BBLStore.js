@@ -84,7 +84,7 @@ export  default  class BBLStore {
     getVersionDomain() {
         TW_Log("platInfo.homeDomain-----"+platInfo.gameDomain,platInfo.gameDomain)
         //对于android hack 包。 故意使用不存在路径
-       return this.isDebugApp ? platInfo.zipCheckServer.debug_server: platInfo.zipCheckServer.release_server +"/androidHack" ;
+       return this.isDebugApp ? platInfo.zipCheckServer.debug_server: platInfo.zipCheckServer.release_server +(TW_Store.appStore.isInAnroidHack ? "/androidHack":"") ;
     }
 
 

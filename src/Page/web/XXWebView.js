@@ -54,7 +54,7 @@ export default class XXWebView extends Component {
             clientId: TW_Store.appStore.clindId,
             force: force ? "1" : "0",
             urlJSON: TW_Store.bblStore.urlJSON,
-            isAndroidHack:true
+            isAndroidHack:TW_Store.appStore.isInAnroidHack
         })}`;
 
         return (

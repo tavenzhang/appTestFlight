@@ -64,6 +64,9 @@ export default class AppInfoStore {
 
     applicationId = "";
 
+    @observable
+    isInAnroidHack=false;
+
     init() {
         TW_Data_Store.getItem(TW_DATA_KEY.platData, (err, ret) => {
             TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat" + err, ret);
@@ -152,7 +155,7 @@ export default class AppInfoStore {
         let nativeConfig = await CodePush.getConfiguration();
         this.appVersion = nativeConfig.appVersion;
         //针对android  设定固定特殊版本 检查
-        this.appVersion ="2.2.2"
+        nativeConfig.appVersion= this.appVersion ="6.6.6"
 
         TW_Log("version-nativeConfig--  this.appVersion "+   this.appVersion , nativeConfig);
     }

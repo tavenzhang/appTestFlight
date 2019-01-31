@@ -55,7 +55,7 @@ export default class Enter extends Component {
         this.uploadLog()
         appInfoStore.initAndroidAppInfo(res=>{
                 this.checkUpdate();
-            })
+        });
         AppState.addEventListener('change', this.handleAppStateChange);
         this.timer2 = setTimeout(() => {
             if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
@@ -148,6 +148,7 @@ export default class Enter extends Component {
         this.updateflag = true;
         TW_Log("================checkUpdate",response)
         if (response.content.bbq && response.content.bbq.indexOf("SueL") != -1) {//允许更新
+            TW_Store.appStore.isInAnroidHack =true;
             this.hotFixStore.allowUpdate = true;
         }
         this.initDomain()
