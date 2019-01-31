@@ -378,7 +378,7 @@ export default class Enter extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+"   plat: "+TW_Store.appStore.clindId}</Text>
+                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+"   plat: "+TW_Store.appStore.clindId+"   channel: "+TW_Store.appStore.appInfo.Channel}</Text>
             </View>)
         }
         return (
@@ -403,7 +403,7 @@ export default class Enter extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+"   plat: "+TW_Store.appStore.clindId}</Text>
+                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+"   plat: "+TW_Store.appStore.clindId+"   channel: "+TW_Store.appStore.appInfo.Channel}</Text>
 
             </View>
         )
