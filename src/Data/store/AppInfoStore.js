@@ -77,7 +77,7 @@ export default class AppInfoStore {
 
                 }
             }
-            TW_Log("TN_GetPlatInfo-----appInfo==", appInfo);
+            TW_Log("TN_GetPlatInfo-----appInfo=="+"  --this.callInitFuc"+this.callInitFuc==null, appInfo);
             appInfo=appInfo ? appInfo: {PlatId: configAppId, isNative: false};
             //所以的clintId 在此重置
             this.clindId = appInfo.PlatId ? appInfo.PlatId : configAppId;
@@ -130,13 +130,16 @@ export default class AppInfoStore {
     }
 
     async initAndroidAppInfo(callback){
+        TW_Log("appInfo----start--");
         let appInfo = await this.getAppInfo();
+        TW_Log("appInfo----end",appInfo);
         this.userAffCode = appInfo.affcode;
         this.appVersion = appInfo.versionName;
         this.applicationId = appInfo.applicationId;
         callback&&callback(true)
     }
     getAppInfo(){
+        TW_Log("appInfo----start--getAppInfo");
         return new Promise(resolve => {
             NativeModules.JXHelper.getAppInfo((appInfo) => {
                 resolve(appInfo)
@@ -148,9 +151,10 @@ export default class AppInfoStore {
     async initAppVersion() {
         let nativeConfig = await CodePush.getConfiguration();
         this.appVersion = nativeConfig.appVersion;
-        TW_Store.bblStore.isDebugApp=  this.appVersion=="1.1.1";
+        //针对android  设定固定特殊版本 检查
+        this.appVersion ="2.2.2"
 
-        TW_Log("version-nativeConfig--"+ TW_Store.bblStore.isDebugApp, nativeConfig);
+        TW_Log("version-nativeConfig--  this.appVersion "+   this.appVersion , nativeConfig);
     }
 
     async initDeviceTokenFromLocalStore() {

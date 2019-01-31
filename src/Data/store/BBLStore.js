@@ -57,6 +57,26 @@ export  default  class BBLStore {
     }
 
     @observable
+    menuJson={
+        "menus":{
+            "btns":[
+                {
+                    "desc":"帐号",
+                    "cmd":"account",
+                    "pos":{ "x":1140, "y":700 },
+                    "src":[
+                        "./assets/ui/mine/btn_account.png"
+                    ],
+                    "size":{ "w":82, "h":87 },
+                    "maxScale":{"x":1.02,"y":1.02},
+                    "normalScale":{"x":1,"y":1},
+                    "sfxX":"assets/raw/Click.mp3"
+                },
+            ]
+        },
+    }
+
+    @observable
     jumpData = null;
 
 

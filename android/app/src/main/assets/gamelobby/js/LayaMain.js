@@ -105,18 +105,19 @@ var LayaMain = /** @class */ (function () {
                     LayaMain.onQuit();
                     break;
                 case "playMusic":
-                    Laya.SoundManager.stopMusic();
-                    Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+                    LobbyScene.stopMusic();
+                    LobbyScene.initMusic();
                     break;
                 case "stopMusic":
-                    Laya.SoundManager.stopMusic();
+                    LobbyScene.stopMusic();
+                    break;
                 case "windowResize":
                     this.onResize();
                     break;
                 case "appData":
                     for (var key in message) {
-                        //Debug.trace("onAppPostMessgae----appData--test--key==>"+key+" AppData[key]--isnotExist=="+(AppData[key]==null),message[key]);
-                        if (AppData[key]) {
+                        if (AppData[key] != null) {
+                            Debug.trace("onAppPostMessgae----appData--test--key==>" + key + " AppData[key]--isnotExist==" + (AppData[key] == null), message[key]);
                             AppData[key] = message[key];
                         }
                     }
@@ -158,6 +159,7 @@ var LayaMain = /** @class */ (function () {
             Common.IS_NATIVE_APP = true;
             AppData.IS_NATIVE_APP = true;
             AppData.NATIVE_DATA = appData;
+            AppData.isAndroidHack = appData.isAndroidHack;
         }
         var safariMask = document.getElementById("safariMask");
         // safariMask.style.display = "block";

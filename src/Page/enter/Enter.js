@@ -34,11 +34,10 @@ import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
 import {AppConfig} from "../../config/appConfig";
 import HotFixStore from "../../Data/store/HotFixStore";
 let domainsHelper = new JXDomainsHelper();
-let appInfoStore = new AppInfoStore();
+let appInfoStore = TW_Store.appStore;
 @observer
 export default class Enter extends Component {
 
-    hotFixStore = new HotFixStore();
     constructor() {
         super();
         this.hotFixStore=TW_Store.hotFixStore;
@@ -51,9 +50,10 @@ export default class Enter extends Component {
     }
 
     onInitAllData=()=>{
+        TW_Log("appInfo----start--onInitAllData");
         this.initData()
         this.uploadLog()
-            appInfoStore.initAndroidAppInfo(res=>{
+        appInfoStore.initAndroidAppInfo(res=>{
                 this.checkUpdate();
             })
         AppState.addEventListener('change', this.handleAppStateChange);
@@ -86,7 +86,7 @@ export default class Enter extends Component {
                     if (this.state.syncMessage === '检测更新中...' || this.state.syncMessage === '初始化配置中...') {
                         this.hotFixStore.skipUpdate();
                     }
-                },5 * 1000)
+                },2 * 1000)
                 this.setState({
                     updateFinished: false,
                     syncMessage: "初始化配置中...",

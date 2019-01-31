@@ -59,6 +59,7 @@ var LoadingScene = /** @class */ (function (_super) {
         }
         else {
             var urlJson = AppData.NATIVE_DATA.urlJSON;
+            Common.clientId = AppData.NATIVE_DATA.clientId;
             var localUrlJson = ConfObjRead.getConfUrl();
             //利用app数据动态 替换urls 数据
             //  Debug.trace("ConfObjRead.getConfUrl()----urlJson==",urlJson);
@@ -76,7 +77,7 @@ var LoadingScene = /** @class */ (function (_super) {
             //Debug.trace("ConfObjRead.getConfUrl()----",ConfObjRead.getConfUrl())
         }
         //开始播放背景音乐
-        Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+        LobbyScene.initMusic();
         if (this.temp_token.length <= 0 || this.status == 1) {
             //没有token存档的情况下，直接进入登录场景
             LayaMain.getInstance().initLogin();
