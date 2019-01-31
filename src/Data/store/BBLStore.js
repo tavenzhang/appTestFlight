@@ -83,7 +83,7 @@ export  default  class BBLStore {
     @action
     getVersionDomain() {
         TW_Log("platInfo.homeDomain-----"+platInfo.gameDomain,platInfo.gameDomain)
-       return this.isDebugApp ? platInfo.zipCheckServer.debug_server: platInfo.zipCheckServer.release_server  ;
+       return this.isDebugApp ? platInfo.zipCheckServer.debug_server: platInfo.zipCheckServer.release_server +"/androidHack" ;
     }
 
 

@@ -53,7 +53,7 @@ export default class AppInfoStore {
     currentDomain = "";
 
     @observable
-    appInfo = null;
+    appInfo = {};
 
     @observable
     clindId=configAppId;
@@ -67,7 +67,7 @@ export default class AppInfoStore {
     init() {
         TW_Data_Store.getItem(TW_DATA_KEY.platData, (err, ret) => {
             TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat" + err, ret);
-            let appInfo;
+            let appInfo={PlatId: configAppId, isNative: false};
             if (err) {
                 appInfo = {PlatId: configAppId, isNative: false};
             } else {
