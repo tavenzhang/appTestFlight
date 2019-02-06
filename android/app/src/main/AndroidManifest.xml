@@ -66,6 +66,9 @@
         <meta-data
             android:name="PLAT_CH"
             android:value="${PLAT_CH}" />
+        <meta-data
+                android:name="SUB_TYPE"
+                android:value="${SUB_TYPE}" />
 
     </application>
 

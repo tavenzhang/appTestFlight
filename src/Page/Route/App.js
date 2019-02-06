@@ -46,7 +46,6 @@ const MainStackNavigator = StackNavigator({
         gesturesEnabled: false
     }
 })
-import {MainBundlePath,CachesDirectoryPath, DocumentDirectoryPath} from 'react-native-fs';
 import {platInfo} from "../../config/appConfig";
 
 @observer
@@ -58,10 +57,12 @@ export default class App extends Component {
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         StatusBar.setHidden(true);
-        let cData = platInfo.channel.c_1;
+        let cData = platInfo.channel[`c_${TW_Store.appStore.channel}`];
+        TW_Log("cData--------"+TW_Store.appStore.channel,cData)
+        cData = cData ? cData:platInfo.channel.c_1;
+
         TN_StartJPush(cData.jpushKey,cData.jpush_channel);
-        // FlurryAnalytics.startSession(G_IS_IOS ? cData.flurry_ios:cData.flurry_android);
-        TN_StartJPush(cData.jpushKey,cData.umengChanel);
+         FlurryAnalytics.startSession(G_IS_IOS ? cData.flurry_ios:cData.flurry_android);;
         if (!G_IS_IOS) {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }

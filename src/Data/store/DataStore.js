@@ -11,7 +11,7 @@ export default class DataStore {
     constructor() {
         this.copy_assets_to_dir=this.copy_assets_to_dir.bind(this);
         this.onSavaCopyState=this.onSavaCopyState.bind(this);
-        this.initAppHomeCheck();
+        this.initAppHomeCheck=this.initAppHomeCheck.bind(this);
     }
 
     @observable
@@ -33,7 +33,7 @@ export default class DataStore {
     isCheckZipUpdate=true;
 
     @action
-    initAppHomeCheck = () => {
+    initAppHomeCheck () {
         TW_Data_Store.getItem(TW_DATA_KEY.isInitStore, (err, ret) => {
             TW_Log("TW_Data_Store---versionBBL--W_DATA_KEY.isInitStore==err==" + err, ret);
             if (err) {
@@ -251,8 +251,8 @@ export default class DataStore {
                     TW_Log('andorid----bbl----copyFileAssets ret==!',ret);
                 });
 
-
             }else{
+
                 unzip(DocumentDirectoryPath + "/gamelobby.zip", DocumentDirectoryPath)
                     .then(() => {
                         TW_Log('andorid----bbl----unzipAssets completed!');

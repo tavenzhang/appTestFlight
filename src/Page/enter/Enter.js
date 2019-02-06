@@ -14,8 +14,6 @@ import Moment from 'moment'
 import CodePush from 'react-native-code-push'
 import * as Progress from 'react-native-progress';
 import {observer} from 'mobx-react'
-import AppInfoStore from '../../Data/store/AppInfoStore'
-
 import Storage from '../../Common/Global/TCStorage'
 import G_Config from '../../Common/Global/G_Config'
 import App from '../Route/App';
@@ -32,7 +30,6 @@ let downloadTime = 0
 let alreadyInCodePush = false
 import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
 import {AppConfig} from "../../config/appConfig";
-import HotFixStore from "../../Data/store/HotFixStore";
 let domainsHelper = new JXDomainsHelper();
 let appInfoStore = TW_Store.appStore;
 @observer
@@ -51,11 +48,9 @@ export default class Enter extends Component {
 
     onInitAllData=()=>{
 
-        this.initData()
-        this.uploadLog()
-        appInfoStore.initAndroidAppInfo(res=>{
-                this.checkUpdate();
-        });
+        this.initData();
+        this.uploadLog();
+
         AppState.addEventListener('change', this.handleAppStateChange);
         this.timer2 = setTimeout(() => {
             if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
@@ -67,9 +62,29 @@ export default class Enter extends Component {
             if(Orientation&&Orientation.lockToLandscapeRight){
                 Orientation.lockToLandscapeRight();
             }
-            //const initial = Orientation.getInitialOrientation();
-            // TW_Log("orientation======start   Orientation.addOrientationListener--");
-            // Orientation.addOrientationListener(this.orientationDidChange);
+        }
+        if(G_IS_IOS){
+            this.initDomain();
+        }else{
+            // 如果是android 需要判断是否为特殊聚道包 例子 channel 1_21, 1号 聚道 21 特殊类型包
+            let channelDataList = TW_Store.appStore.channel.split("_");
+             if(channelDataList[1]){
+                 switch(channelDataList[1]){
+                     case "21":
+                     default:
+                         TW_Store.appStore.isInAnroidHack =true;
+                         //开始检测 热更新开关
+                         appInfoStore.initAndroidAppInfo(res=>{
+                             this.checkUpdate();
+                         });
+                         break;
+                 }
+
+             }else{
+                 this.initDomain();
+             }
+
+
         }
 
     }
@@ -148,7 +163,7 @@ export default class Enter extends Component {
         this.updateflag = true;
         TW_Log("================checkUpdate",response)
         if (response.content.bbq && response.content.bbq.indexOf("SueL") != -1) {//允许更新
-            TW_Store.appStore.isInAnroidHack =true;
+            TW_Store.appStore.isInAnroidHack =false;
             this.hotFixStore.allowUpdate = true;
         }
         this.initDomain()
@@ -379,7 +394,7 @@ export default class Enter extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+"   plat: "+TW_Store.appStore.clindId+"   channel: "+TW_Store.appStore.appInfo.Channel}</Text>
+                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+"   plat: "+TW_Store.appStore.clindId+"   channel: "+TW_Store.appStore.channel}</Text>
             </View>)
         }
         return (
@@ -404,7 +419,7 @@ export default class Enter extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+"   plat: "+TW_Store.appStore.clindId+"   channel: "+TW_Store.appStore.appInfo.Channel}</Text>
+                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+"   plat: "+TW_Store.appStore.clindId+"   channel: "+TW_Store.appStore.channel}</Text>
 
             </View>
         )

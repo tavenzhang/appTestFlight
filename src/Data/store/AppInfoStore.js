@@ -56,6 +56,9 @@ export default class AppInfoStore {
     appInfo = {};
 
     @observable
+    channel = "";
+
+    @observable
     clindId=configAppId;
 
     callInitFuc=null;
@@ -69,47 +72,55 @@ export default class AppInfoStore {
 
     init() {
         TW_Data_Store.getItem(TW_DATA_KEY.platData, (err, ret) => {
-            TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat" + err, ret);
+            TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====" + err+"--ret--"+ret);
             let appInfo={PlatId: configAppId, isNative: false};
             if (err) {
-                appInfo = {PlatId: configAppId, isNative: false};
+                this.checkAppInfoUpdate(null);
             } else {
-                try {
-                    appInfo = JSON.parse(ret)
-                } catch (e) {
-
+                if(ret){
+                    appInfo = JSON.parse(ret);
+                    this.initData(appInfo);
+                    this.checkAppInfoUpdate(ret);
+                }else{
+                    this.checkAppInfoUpdate(null);
                 }
             }
-            TW_Log("TN_GetPlatInfo-----appInfo=="+"  --this.callInitFuc"+this.callInitFuc==null, appInfo);
-            appInfo=appInfo ? appInfo: {PlatId: configAppId, isNative: false};
-            //所以的clintId 在此重置
-            this.clindId = appInfo.PlatId ? appInfo.PlatId : configAppId;
-            platInfo.platId = this.clindId;
-            UpDateHeadAppId(this.clindId);
-            TW_Store.appStore.appInfo = appInfo;
-            this.isInitPlat = true;
-            this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
-            this.initAppName();
-            this.initAppVersion();
-            this.initDeviceTokenFromLocalStore();
-            this.initAffCode();
+        })
+    }
 
-            TN_GetPlatInfo((data) => {
-                TW_Log("TN_GetPlatInfo-----ret=="+(ret==data) , ret);
-                if(data){
-                    if (data != ret) {
-                        appInfo=JSON.parse(data);
-                        this.clindId = appInfo.PlatId ? appInfo.PlatId : configAppId;
-                        platInfo.platId = this.clindId;
-                        UpDateHeadAppId(this.clindId);
-                        TW_Store.appStore.appInfo = appInfo;
+    checkAppInfoUpdate=(oldData=null)=>{
+        TN_GetPlatInfo((data) => {
+            if(data){
+                let appInfo=JSON.parse(data);
+                this.initData(appInfo);
+                if(oldData){
+                    if(oldData!=data){
                         TW_Data_Store.setItem(TW_DATA_KEY.platData, data);
                     }
+                }else{
+                    TW_Data_Store.setItem(TW_DATA_KEY.platData, data);
                 }
+            }
+        });
+    }
 
-            });
-        })
-
+    initData=(appInfo)=>{
+        appInfo=appInfo ? appInfo: {PlatId: configAppId, isNative: false};
+        //所以的clintId 在此重置
+        this.clindId = appInfo.PlatId ? appInfo.PlatId : configAppId;
+        let channel= appInfo.Channel ;
+        this.channel=channel ? channel:"1";
+        platInfo.platId = this.clindId;
+        UpDateHeadAppId(this.clindId);
+        TW_Store.appStore.appInfo = appInfo;
+        this.isInitPlat = true;
+        this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
+        this.initAppName();
+        this.initAppVersion();
+        this.initDeviceTokenFromLocalStore();
+        this.initAffCode();
+        TW_Store.dataStore.initAppHomeCheck();
+        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--"+appInfo, appInfo);
     }
 
     regCallInitFuc(callBack){
