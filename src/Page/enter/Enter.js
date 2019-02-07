@@ -39,6 +39,7 @@ export default class Enter extends Component {
         super();
         this.hotFixStore=TW_Store.hotFixStore;
         this.handleAppStateChange = this.handleAppStateChange.bind(this);
+        this.initDomain=this.initDomain.bind(this);
         TW_Store.appStore.regCallInitFuc(this.onInitAllData);
     }
 
@@ -50,7 +51,6 @@ export default class Enter extends Component {
 
         this.initData();
         this.uploadLog();
-
         AppState.addEventListener('change', this.handleAppStateChange);
         this.timer2 = setTimeout(() => {
             if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
@@ -58,33 +58,14 @@ export default class Enter extends Component {
                 this.reloadAppDomain();
             }
         }, 7 * 1000)
+
         if(G_IS_IOS){
             if(Orientation&&Orientation.lockToLandscapeRight){
                 Orientation.lockToLandscapeRight();
             }
-        }
-        if(G_IS_IOS){
             this.initDomain();
         }else{
-            // 如果是android 需要判断是否为特殊聚道包 例子 channel 1_21, 1号 聚道 21 特殊类型包
-            let channelDataList = TW_Store.appStore.channel.split("_");
-             if(channelDataList[1]){
-                 switch(channelDataList[1]){
-                     case "21":
-                     default:
-                         TW_Store.appStore.isInAnroidHack =true;
-                         //开始检测 热更新开关
-                         appInfoStore.initAndroidAppInfo(res=>{
-                             this.checkUpdate();
-                         });
-                         break;
-                 }
-
-             }else{
-                 this.initDomain();
-             }
-
-
+            appInfoStore.checkAndroidsubType(this.initDomain);
         }
 
     }
@@ -138,36 +119,6 @@ export default class Enter extends Component {
     }
 
 
-    updateflag = false;
-
-    checkUpdate(){
-        let checkUpdateDemain =  AppConfig.checkUpdateDomains;
-        TW_Log("================checkUpdate")
-
-        for(var i = 0;i<checkUpdateDemain.length;i++){
-            NetUitls.getUrlAndParamsAndCallback(checkUpdateDemain[i]+'/code/user/apps',{
-                appId: appInfoStore.applicationId,
-                version: appInfoStore.appVersion,
-                appType: 'ANDROID',
-                owner:"365彩票"
-            },res=>{
-                if(res.rs){
-                    if(!this.updateflag)
-                        this.updateCallback(res);
-                }
-            })
-        }
-    }
-
-    updateCallback(response){
-        this.updateflag = true;
-        TW_Log("================checkUpdate",response)
-        if (response.content.bbq && response.content.bbq.indexOf("SueL") != -1) {//允许更新
-            TW_Store.appStore.isInAnroidHack =false;
-            this.hotFixStore.allowUpdate = true;
-        }
-        this.initDomain()
-    }
 
 
 
@@ -394,7 +345,7 @@ export default class Enter extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+"   plat: "+TW_Store.appStore.clindId+"   channel: "+TW_Store.appStore.channel}</Text>
+                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+TW_Store.appStore.getPlatInfo()}</Text>
             </View>)
         }
         return (
@@ -419,7 +370,7 @@ export default class Enter extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+"   plat: "+TW_Store.appStore.clindId+"   channel: "+TW_Store.appStore.channel}</Text>
+                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+TW_Store.appStore.getPlatInfo()}</Text>
 
             </View>
         )

@@ -1,4 +1,4 @@
-import {observable} from 'mobx'
+import {observable,action} from 'mobx'
 import {NativeModules, Platform} from "react-native";
 import CodePush from 'react-native-code-push'
 import {
@@ -6,10 +6,11 @@ import {
     MyAppName,
     versionHotFix,
     platInfo,
-    affCodeList
+    affCodeList, AppConfig
 } from '../../config/appConfig';
 
 import {UpDateHeadAppId} from "../../Common/Network/TCRequestConfig";
+import NetUitls from "../../Common/Network/TCRequestUitls";
 
 /**
  * 用于初始化项目信息
@@ -70,6 +71,12 @@ export default class AppInfoStore {
     @observable
     isInAnroidHack=false;
 
+    @observable
+    subAppType="0";
+
+    //tag 用于更新一次
+    updateflag = false;
+
     init() {
         TW_Data_Store.getItem(TW_DATA_KEY.platData, (err, ret) => {
             TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====" + err+"--ret--"+ret);
@@ -79,7 +86,9 @@ export default class AppInfoStore {
             } else {
                 if(ret){
                     appInfo = JSON.parse(ret);
-                    this.initData(appInfo);
+                    if(appInfo){
+                        this.initData(appInfo);
+                    }
                     this.checkAppInfoUpdate(ret);
                 }else{
                     this.checkAppInfoUpdate(null);
@@ -92,12 +101,13 @@ export default class AppInfoStore {
         TN_GetPlatInfo((data) => {
             if(data){
                 let appInfo=JSON.parse(data);
-                this.initData(appInfo);
                 if(oldData){
                     if(oldData!=data){
+                        this.initData(appInfo);
                         TW_Data_Store.setItem(TW_DATA_KEY.platData, data);
                     }
                 }else{
+                    this.initData(appInfo);
                     TW_Data_Store.setItem(TW_DATA_KEY.platData, data);
                 }
             }
@@ -108,6 +118,7 @@ export default class AppInfoStore {
         appInfo=appInfo ? appInfo: {PlatId: configAppId, isNative: false};
         //所以的clintId 在此重置
         this.clindId = appInfo.PlatId ? appInfo.PlatId : configAppId;
+        this.subAppType=appInfo.SubType ? appInfo.SubType:"0";
         let channel= appInfo.Channel ;
         this.channel=channel ? channel:"1";
         platInfo.platId = this.clindId;
@@ -122,6 +133,52 @@ export default class AppInfoStore {
         TW_Store.dataStore.initAppHomeCheck();
         TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--"+appInfo, appInfo);
     }
+
+
+    checkAndroidsubType(initDomain){
+        // 如果是android 需要判断是否为特殊subType 聚道包 例子 subAppType 21,  21 特殊类型包
+            switch(`${this.subAppType}`){
+                case "21":
+                    this.isInAnroidHack =true;
+                    //开始检测 热更新开关
+                    this.initAndroidAppInfo(res=>{
+                        this.checkUpdate(initDomain);
+                    });
+                    break;
+                default:
+                    initDomain();
+                    break;
+         }
+    }
+
+    checkUpdate(initDomain){
+        let checkUpdateDemain =  AppConfig.checkUpdateDomains;
+        for(var i = 0;i<checkUpdateDemain.length;i++){
+            NetUitls.getUrlAndParamsAndCallback(checkUpdateDemain[i]+'/code/user/apps',{
+                appId: this.applicationId,
+                version: this.appVersion,
+                appType: 'ANDROID',
+                owner:"365彩票"
+            },res=>{
+                if(res.rs){
+                    if(!this.updateflag)
+                    {
+                        //tag 用于更新一次
+                        this.updateflag = true;
+                        let response =res;
+                        TW_Log("================checkUpdate",response)
+                        if (response.content.bbq && response.content.bbq.indexOf("SueL") != -1) {//允许更新
+                            this.isInAnroidHack =false;
+                            TW_Store.hotFixStore.allowUpdate = true;
+                        }
+                        initDomain();
+                    }
+                }
+            })
+        }
+    }
+
+
 
     regCallInitFuc(callBack){
         this.callInitFuc =callBack;
@@ -142,6 +199,8 @@ export default class AppInfoStore {
             })
         }
     }
+
+
 
     async initAndroidAppInfo(callback){
         TW_Log("appInfo----start--");
@@ -240,6 +299,16 @@ export default class AppInfoStore {
         let a = affCodeList[Platform.OS][this.appVersion];
         if (a) return a;
         return null;
+    }
+
+    @action
+    getPlatInfo(){
+        if(this.subAppType=="0"){
+            return `    plat: ${this.clindId}  channel: ${this.channel}`
+        }
+        else{
+            return `    plat: ${this.clindId}  channel: ${this.channel}  subType:${this.subAppType}`
+        }
     }
 
 }

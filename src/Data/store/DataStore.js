@@ -199,7 +199,7 @@ export default class DataStore {
                 this.isAppUnZip = true;
                // this.startCheckZipUpdate();
             }
-            this.log+="onSavaCoisInitStorepyState---  this.isAppUnZip="+this.isAppUnZip+"\n"
+            this.log+="onSavaCopyState---  this.isAppUnZip="+this.isAppUnZip+"\n"
             this.startCheckZipUpdate();
         })
     }
