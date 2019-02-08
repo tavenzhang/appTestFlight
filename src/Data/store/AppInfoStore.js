@@ -307,9 +307,8 @@ export default class AppInfoStore {
             return `    plat: ${this.clindId}  channel: ${this.channel}`
         }
         else{
-            return `    plat: ${this.clindId}  channel: ${this.channel}  subType:${this.subAppType}`
+            return `    plat: ${this.clindId}  channel: ${this.channel}  subType: f${this.subAppType}`
         }
     }
-
 }
 
