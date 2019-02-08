@@ -60,6 +60,6 @@ global.TN_START_Fabric = (key="4711ad6d815964a1103b461bc1d85ddf312b037d") => {
     if(G_IS_IOS){
         NativeModules.JDHelper.startFarbic&&NativeModules.JDHelper.startFarbic(key);
     }else{
-        NativeModules.JDHelper.startFarbic&&NativeModules.JXHelper.startFarbic(key);
+        NativeModules.JXHelper.startFarbic&&NativeModules.JXHelper.startFarbic(key);
     }
 }

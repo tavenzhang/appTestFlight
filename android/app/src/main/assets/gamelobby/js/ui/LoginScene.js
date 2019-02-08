@@ -33,10 +33,12 @@ var LoginScene = /** @class */ (function (_super) {
         sp_shine.init(ConfObjRead.getConfLogin().login.bg.shine);
         this.addChild(sp_shine);
         //客服按钮
-        var custom = new MyButton();
-        custom.init(ConfObjRead.getConfLogin().custom, this, this.onCustomClick);
-        custom.pos(ConfObjRead.getConfLogin().custom.pos.x, ConfObjRead.getConfLogin().custom.pos.y);
-        this.addChild(custom);
+        if (!AppData.isAndroidHack) {
+            var custom = new MyButton();
+            custom.init(ConfObjRead.getConfLogin().custom, this, this.onCustomClick);
+            custom.pos(ConfObjRead.getConfLogin().custom.pos.x, ConfObjRead.getConfLogin().custom.pos.y);
+            this.addChild(custom);
+        }
         //登录
         var login = LoginPad.showPad(this, ConfObjRead.getConfLogin().login);
         //注册

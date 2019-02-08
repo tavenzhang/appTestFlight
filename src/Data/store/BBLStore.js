@@ -57,13 +57,34 @@ export  default  class BBLStore {
     }
 
     @observable
+    menuJson={
+        "menus":{
+            "btns":[
+                {
+                    "desc":"帐号",
+                    "cmd":"account",
+                    "pos":{ "x":1140, "y":700 },
+                    "src":[
+                        "./assets/ui/mine/btn_account.png"
+                    ],
+                    "size":{ "w":82, "h":87 },
+                    "maxScale":{"x":1.02,"y":1.02},
+                    "normalScale":{"x":1,"y":1},
+                    "sfxX":"assets/raw/Click.mp3"
+                },
+            ]
+        },
+    }
+
+    @observable
     jumpData = null;
 
 
     @action
     getVersionDomain() {
         TW_Log("platInfo.homeDomain-----"+platInfo.gameDomain,platInfo.gameDomain)
-       return this.isDebugApp ? platInfo.zipCheckServer.debug_server: platInfo.zipCheckServer.release_server  ;
+        //对于android hack 包。 故意使用不存在路径
+       return this.isDebugApp ? platInfo.zipCheckServer.debug_server: platInfo.zipCheckServer.release_server +(TW_Store.appStore.isInAnroidHack ? "/androidHack":"") ;
     }
 
 

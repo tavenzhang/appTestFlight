@@ -5,6 +5,7 @@ var AppData = /** @class */ (function () {
     AppData.NATIVE_DATA = {};
     AppData.isAtHome = true;
     AppData.testStr = "test";
+    AppData.isAndroidHack = true;
     return AppData;
 }());
 //# sourceMappingURL=AppData.js.map

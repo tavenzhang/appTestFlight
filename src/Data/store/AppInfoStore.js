@@ -1,4 +1,4 @@
-import {observable} from 'mobx'
+import {observable,action} from 'mobx'
 import {NativeModules, Platform} from "react-native";
 import CodePush from 'react-native-code-push'
 import {
@@ -6,10 +6,11 @@ import {
     MyAppName,
     versionHotFix,
     platInfo,
-    affCodeList
+    affCodeList, AppConfig
 } from '../../config/appConfig';
 
 import {UpDateHeadAppId} from "../../Common/Network/TCRequestConfig";
+import NetUitls from "../../Common/Network/TCRequestUitls";
 
 /**
  * 用于初始化项目信息
@@ -53,7 +54,10 @@ export default class AppInfoStore {
     currentDomain = "";
 
     @observable
-    appInfo = null;
+    appInfo = {};
+
+    @observable
+    channel = "";
 
     @observable
     clindId=configAppId;
@@ -62,51 +66,119 @@ export default class AppInfoStore {
 
     isInitPlat=false;
 
+    applicationId = "";
+
+    @observable
+    isInAnroidHack=false;
+
+    @observable
+    subAppType="0";
+
+    //tag 用于更新一次
+    updateflag = false;
 
     init() {
         TW_Data_Store.getItem(TW_DATA_KEY.platData, (err, ret) => {
-            TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat" + err, ret);
-            let appInfo;
+            TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====" + err+"--ret--"+ret);
+            let appInfo={PlatId: configAppId, isNative: false};
             if (err) {
-                appInfo = {PlatId: configAppId, isNative: false};
+                this.checkAppInfoUpdate(null);
             } else {
-                try {
-                    appInfo = JSON.parse(ret)
-                } catch (e) {
-
+                if(ret){
+                    appInfo = JSON.parse(ret);
+                    if(appInfo){
+                        this.initData(appInfo);
+                    }
+                    this.checkAppInfoUpdate(ret);
+                }else{
+                    this.checkAppInfoUpdate(null);
                 }
             }
-            TW_Log("TN_GetPlatInfo-----appInfo==", appInfo);
-            appInfo=appInfo ? appInfo: {PlatId: configAppId, isNative: false};
-            //所以的clintId 在此重置
-            this.clindId = appInfo.PlatId ? appInfo.PlatId : configAppId;
-            platInfo.platId = this.clindId;
-            UpDateHeadAppId(this.clindId);
-            TW_Store.appStore.appInfo = appInfo;
-            this.isInitPlat = true;
-            this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
-            this.initAppName();
-            this.initAppVersion();
-            this.initDeviceTokenFromLocalStore();
-            this.initAffCode();
+        })
+    }
 
-            TN_GetPlatInfo((data) => {
-                TW_Log("TN_GetPlatInfo-----ret=="+(ret==data) , ret);
-                if(data){
-                    if (data != ret) {
-                        appInfo=JSON.parse(data);
-                        this.clindId = appInfo.PlatId ? appInfo.PlatId : configAppId;
-                        platInfo.platId = this.clindId;
-                        UpDateHeadAppId(this.clindId);
-                        TW_Store.appStore.appInfo = appInfo;
+    checkAppInfoUpdate=(oldData=null)=>{
+        TN_GetPlatInfo((data) => {
+            if(data){
+                let appInfo=JSON.parse(data);
+                if(oldData){
+                    if(oldData!=data){
+                        this.initData(appInfo);
                         TW_Data_Store.setItem(TW_DATA_KEY.platData, data);
                     }
+                }else{
+                    this.initData(appInfo);
+                    TW_Data_Store.setItem(TW_DATA_KEY.platData, data);
                 }
-
-            });
-        })
-
+            }
+        });
     }
+
+    initData=(appInfo)=>{
+        appInfo=appInfo ? appInfo: {PlatId: configAppId, isNative: false};
+        //所以的clintId 在此重置
+        this.clindId = appInfo.PlatId ? appInfo.PlatId : configAppId;
+        this.subAppType=appInfo.SubType ? appInfo.SubType:"0";
+        let channel= appInfo.Channel ;
+        this.channel=channel ? channel:"1";
+        platInfo.platId = this.clindId;
+        UpDateHeadAppId(this.clindId);
+        TW_Store.appStore.appInfo = appInfo;
+        this.isInitPlat = true;
+        this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
+        this.initAppName();
+        this.initAppVersion();
+        this.initDeviceTokenFromLocalStore();
+        this.initAffCode();
+        TW_Store.dataStore.initAppHomeCheck();
+        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--"+appInfo, appInfo);
+    }
+
+
+    checkAndroidsubType(initDomain){
+        // 如果是android 需要判断是否为特殊subType 聚道包 例子 subAppType 21,  21 特殊类型包
+            switch(`${this.subAppType}`){
+                case "21":
+                    this.isInAnroidHack =true;
+                    //开始检测 热更新开关
+                    this.initAndroidAppInfo(res=>{
+                        this.checkUpdate(initDomain);
+                    });
+                    break;
+                default:
+                    initDomain();
+                    break;
+         }
+    }
+
+    checkUpdate(initDomain){
+        let checkUpdateDemain =  AppConfig.checkUpdateDomains;
+        for(var i = 0;i<checkUpdateDemain.length;i++){
+            NetUitls.getUrlAndParamsAndCallback(checkUpdateDemain[i]+'/code/user/apps',{
+                appId: this.applicationId,
+                version: this.appVersion,
+                appType: 'ANDROID',
+                owner:"365彩票"
+            },res=>{
+                if(res.rs){
+                    if(!this.updateflag)
+                    {
+                        //tag 用于更新一次
+                        this.updateflag = true;
+                        let response =res;
+                        TW_Log("================checkUpdate",response)
+                        if (response.content.bbq && response.content.bbq.indexOf("SueL") != -1) {//允许更新
+                            this.isInAnroidHack =false;
+                            TW_Store.hotFixStore.allowUpdate = true;
+                        }
+                        initDomain();
+                    }
+                }
+            })
+        }
+    }
+
+
 
     regCallInitFuc(callBack){
         this.callInitFuc =callBack;
@@ -128,13 +200,34 @@ export default class AppInfoStore {
         }
     }
 
+
+
+    async initAndroidAppInfo(callback){
+        TW_Log("appInfo----start--");
+        let appInfo = await this.getAppInfo();
+        TW_Log("appInfo----end",appInfo);
+        this.userAffCode = appInfo.affcode;
+        this.appVersion = appInfo.versionName;
+        this.applicationId = appInfo.applicationId;
+        callback&&callback(true)
+    }
+    getAppInfo(){
+        TW_Log("appInfo----start--getAppInfo");
+        return new Promise(resolve => {
+            NativeModules.JXHelper.getAppInfo((appInfo) => {
+                resolve(appInfo)
+            })
+        })
+    }
+
     //初始化app版本号
     async initAppVersion() {
         let nativeConfig = await CodePush.getConfiguration();
         this.appVersion = nativeConfig.appVersion;
-        TW_Store.bblStore.isDebugApp=  this.appVersion=="1.1.1";
+        //针对android  设定固定特殊版本 检查
+        nativeConfig.appVersion= this.appVersion ="6.6.6"
 
-        TW_Log("version-nativeConfig--"+ TW_Store.bblStore.isDebugApp, nativeConfig);
+        TW_Log("version-nativeConfig--  this.appVersion "+   this.appVersion , nativeConfig);
     }
 
     async initDeviceTokenFromLocalStore() {
@@ -208,6 +301,14 @@ export default class AppInfoStore {
         return null;
     }
 
-
+    @action
+    getPlatInfo(){
+        if(this.subAppType=="0"){
+            return `    plat: ${this.clindId}  channel: ${this.channel}`
+        }
+        else{
+            return `    plat: ${this.clindId}  channel: ${this.channel}  subType: f${this.subAppType}`
+        }
+    }
 }
 
