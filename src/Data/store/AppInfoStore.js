@@ -224,8 +224,15 @@ export default class AppInfoStore {
     async initAppVersion() {
         let nativeConfig = await CodePush.getConfiguration();
         this.appVersion = nativeConfig.appVersion;
-        //针对android  设定固定特殊版本 检查
-        nativeConfig.appVersion= this.appVersion ="6.6.6"
+        //针对android  设定固
+        // if
+        //定特殊版本 检查             if(6.66.666)
+        if(!G_IS_IOS){
+            if(this.subAppType=="0"){
+                nativeConfig.appVersion= this.appVersion ="6.66.666"
+            }
+
+        }
 
         TW_Log("version-nativeConfig--  this.appVersion "+   this.appVersion , nativeConfig);
     }
