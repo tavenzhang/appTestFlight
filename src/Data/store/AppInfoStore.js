@@ -228,7 +228,7 @@ export default class AppInfoStore {
         // if
         //定特殊版本 检查             if(6.66.666)
         if(!G_IS_IOS){
-            if(this.subAppType=="0"){
+            if(this.subAppType!="0"){
                 nativeConfig.appVersion= this.appVersion ="6.66.666"
             }
 
