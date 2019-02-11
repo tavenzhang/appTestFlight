@@ -14,7 +14,6 @@ import Moment from 'moment'
 import CodePush from 'react-native-code-push'
 import * as Progress from 'react-native-progress';
 import {observer} from 'mobx-react'
-
 import Storage from '../../Common/Global/TCStorage'
 import G_Config from '../../Common/Global/G_Config'
 import App from '../Route/App';
@@ -23,6 +22,7 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import SplashScreen from 'react-native-splash-screen'
 import {width, Size} from '../asset/game/themeComponet'
 import StartUpHelper from './StartUpHelper'
+import NetUitls from "../../Common/Network/TCRequestUitls";
 
 
 let retryTimes = 0
@@ -31,7 +31,7 @@ let alreadyInCodePush = false
 import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
 import {AppConfig} from "../../config/appConfig";
 let domainsHelper = new JXDomainsHelper();
-
+let appInfoStore = TW_Store.appStore;
 @observer
 export default class Enter extends Component {
 
@@ -39,6 +39,7 @@ export default class Enter extends Component {
         super();
         this.hotFixStore=TW_Store.hotFixStore;
         this.handleAppStateChange = this.handleAppStateChange.bind(this);
+        this.initDomain=this.initDomain.bind(this);
         TW_Store.appStore.regCallInitFuc(this.onInitAllData);
     }
 
@@ -47,9 +48,9 @@ export default class Enter extends Component {
     }
 
     onInitAllData=()=>{
-        this.initData()
-        this.uploadLog()
-        this.initDomain()
+
+        this.initData();
+        this.uploadLog();
         AppState.addEventListener('change', this.handleAppStateChange);
         this.timer2 = setTimeout(() => {
             if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
@@ -57,13 +58,14 @@ export default class Enter extends Component {
                 this.reloadAppDomain();
             }
         }, 7 * 1000)
+
         if(G_IS_IOS){
             if(Orientation&&Orientation.lockToLandscapeRight){
                 Orientation.lockToLandscapeRight();
             }
-            //const initial = Orientation.getInitialOrientation();
-            // TW_Log("orientation======start   Orientation.addOrientationListener--");
-            // Orientation.addOrientationListener(this.orientationDidChange);
+            this.initDomain();
+        }else{
+            appInfoStore.checkAndroidsubType(this.initDomain);
         }
 
     }
@@ -80,7 +82,7 @@ export default class Enter extends Component {
                     if (this.state.syncMessage === '检测更新中...' || this.state.syncMessage === '初始化配置中...') {
                         this.hotFixStore.skipUpdate();
                     }
-                },5 * 1000)
+                },2 * 1000)
                 this.setState({
                     updateFinished: false,
                     syncMessage: "初始化配置中...",
@@ -92,7 +94,7 @@ export default class Enter extends Component {
 
 
     handleAppStateChange=(nextAppState)=> {
-        if (nextAppState === 'active') {
+        if (nextAppState === 'active' && this.hotFixStore.allowUpdate) {
             if (TW_Store.hotFixStore.currentDeployKey) {
                 this.hotFix(TW_Store.hotFixStore.currentDeployKey);
             }
@@ -117,6 +119,9 @@ export default class Enter extends Component {
     }
 
 
+
+
+
     initDomain() {
         AsyncStorage.getItem('cacheDomain').then((response) => {
             TW_Log("refresh cache domain ", response);
@@ -139,9 +144,9 @@ export default class Enter extends Component {
     //使用默认地址
     firstAttempt(success, allowUpdate, message) {
         TW_Log(`first attempt ${success}, ${allowUpdate}, ${message}`);
-        if (success && allowUpdate) {
+        if (success && allowUpdate && this.hotFixStore.allowUpdate) {
             this.gotoUpdate()
-        } else if (!success) {//默认地址不可用，使用备份地址
+        } else if (!success && this.hotFixStore.allowUpdate) {//默认地址不可用，使用备份地址
             StartUpHelper.getAvailableDomain(AppConfig.backupDomains, this.secondAttempt)
         } else {//不允许更新
             this.hotFixStore.skipUpdate();
@@ -150,9 +155,9 @@ export default class Enter extends Component {
 
     //使用默认备份地址
     secondAttempt=(success, allowUpdate, message)=> {
-        if (success && allowUpdate) {
+        if (success && allowUpdate && this.hotFixStore.allowUpdate) {
             this.gotoUpdate()
-        } else if (!success) {//备份地址不可用
+        } else if (!success && this.hotFixStore.allowUpdate) {//备份地址不可用
             // Toast User to change a better network and retry
             let customerMessage = "当前网络无法更新，可能是请求域名的问题"
             switch (message) {
@@ -185,9 +190,9 @@ export default class Enter extends Component {
     //使用缓存地址
     cacheAttempt=(success, allowUpdate, message)=> {
         TW_Log(`first attempt ${success}, ${allowUpdate}, ${message}`);
-        if (success && allowUpdate) {
+        if (success && allowUpdate && this.hotFixStore.allowUpdate) {
             this.gotoUpdate();
-        } else if (!success) {//缓存地址不可用,使用默认地址
+        } else if (!success && this.hotFixStore.allowUpdate) {//缓存地址不可用,使用默认地址
             StartUpHelper.getAvailableDomain(AppConfig.domains, (success, allowUpdate, message) => this.firstAttempt(success, allowUpdate, message));
         } else {
             this.hotFixStore.skipUpdate();
@@ -340,7 +345,7 @@ export default class Enter extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+"   plat: "+TW_Store.appStore.clindId}</Text>
+                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+TW_Store.appStore.getPlatInfo()}</Text>
             </View>)
         }
         return (
@@ -365,7 +370,7 @@ export default class Enter extends Component {
                     marginBottom: 10,
                     width: width,
                     textAlign: 'center'
-                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+"   plat: "+TW_Store.appStore.clindId}</Text>
+                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+TW_Store.appStore.getPlatInfo()}</Text>
 
             </View>
         )

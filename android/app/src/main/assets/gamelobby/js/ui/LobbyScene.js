@@ -55,6 +55,9 @@ var LobbyScene = /** @class */ (function (_super) {
         this.initBgMusic();
     };
     LobbyScene.prototype.initBgMusic = function () {
+        LobbyScene.initMusic();
+    };
+    LobbyScene.initMusic = function () {
         var _this = this;
         if (LobbyScene.IS_PLAYED_MUSIC) {
             return;
@@ -62,12 +65,16 @@ var LobbyScene = /** @class */ (function (_super) {
         LobbyScene.IS_PLAYED_MUSIC = true;
         Laya.loader.load([{ url: ConfObjRead.getConfMusic().src }], new Laya.Handler(this, function () {
             Debug.trace("player bg music -AppData.isAtHome+==" + AppData.isAtHome);
-            Laya.timer.once(3000, _this, function () {
+            Laya.timer.once(100, _this, function () {
                 if (AppData.isAtHome) {
                     Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
                 }
             });
         }));
+    };
+    LobbyScene.stopMusic = function () {
+        LobbyScene.IS_PLAYED_MUSIC = false;
+        Laya.SoundManager.stopMusic();
     };
     LobbyScene.prototype.OnAvatorScrollOut = function (e) {
     };

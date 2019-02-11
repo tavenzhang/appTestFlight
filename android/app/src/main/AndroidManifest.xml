@@ -1,7 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jd"
-    android:versionCode="1"
-    android:versionName="1.0">
+    package="com.jd">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -9,7 +7,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-sdk android:targetSdkVersion="22" />
 
     <application
         android:name=".MainApplication"
@@ -55,8 +52,8 @@
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
         <meta-data
-            android:name="AFFCODE"
-            android:value="${AFFCODE}" />
+            android:name="TD_CHANNEL_AFFCODE"
+            android:value="${CHANNEL_AFFCODE}" />
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="${UMENG_KEY}" />
@@ -69,6 +66,9 @@
         <meta-data
             android:name="PLAT_CH"
             android:value="${PLAT_CH}" />
+        <meta-data
+                android:name="SUB_TYPE"
+                android:value="${SUB_TYPE}" />
 
     </application>
 

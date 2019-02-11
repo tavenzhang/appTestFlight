@@ -1,5 +1,5 @@
 import {action, observable} from 'mobx'
-import {unzip } from 'react-native-zip-archive'
+import {unzip,zip } from 'react-native-zip-archive'
 import RNFS from "react-native-fs";
 import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
 import NetUitls from "../../Common/Network/TCRequestUitls";
@@ -11,7 +11,8 @@ export default class DataStore {
     constructor() {
         this.copy_assets_to_dir=this.copy_assets_to_dir.bind(this);
         this.onSavaCopyState=this.onSavaCopyState.bind(this);
-        this.initAppHomeCheck();
+        this.initAppHomeCheck=this.initAppHomeCheck.bind(this);
+        this.androdi_copy_assets_to_dir=this.androdi_copy_assets_to_dir.bind(this);
     }
 
     @observable
@@ -33,7 +34,7 @@ export default class DataStore {
     isCheckZipUpdate=true;
 
     @action
-    initAppHomeCheck = () => {
+    initAppHomeCheck () {
         TW_Data_Store.getItem(TW_DATA_KEY.isInitStore, (err, ret) => {
             TW_Log("TW_Data_Store---versionBBL--W_DATA_KEY.isInitStore==err==" + err, ret);
             if (err) {
@@ -199,7 +200,7 @@ export default class DataStore {
                 this.isAppUnZip = true;
                // this.startCheckZipUpdate();
             }
-            this.log+="onSavaCoisInitStorepyState---  this.isAppUnZip="+this.isAppUnZip+"\n"
+            this.log+="onSavaCopyState---  this.isAppUnZip="+this.isAppUnZip+"\n"
             this.startCheckZipUpdate();
         })
     }
@@ -207,7 +208,7 @@ export default class DataStore {
     async copy_assets_to_dir() {
         let source_dir = this.originAppDir;
         let target_dir = ""
-
+        TW_Log('andorid--------copy_assets_to_dir--start');
         if (G_IS_IOS) {
             target_dir = DocumentDirectoryPath + "/gamelobby"
             let target_dir_exist = await RNFS.exists(target_dir);
@@ -232,37 +233,45 @@ export default class DataStore {
                     this.log+="copyFile-err--"+err
                     //TW_Log("versionBBL bbl--- 删除文件失败", target_dir_exist);
                 })
-
-               //  this.log+="RNFS.exis=="+target_dir_exist+"-----ret=="+ret;
-               // // if (ret) {
-               //      this.onSavaCopyState();
-               // // }
             }
         }
         else {
-            target_dir = DocumentDirectoryPath + "/gamelobby.zip"
-            const exist = await RNFS.exists(target_dir);
-            TW_Log('andorid----bbl----RNFS.exist ret=='+exist ,exist );
-            this.log+="copyFile-exist--"+exist
-            if(!exist){
-                RNFS.copyFileAssets("gamelobby.zip", target_dir).then((ret)=>{
-                    this.log+="copyFile-copyFileAssets--"+ret;
-                    this.copy_assets_to_dir();
-                    TW_Log('andorid----bbl----copyFileAssets ret==!',ret);
-                });
-
-
-            }else{
-                unzip(DocumentDirectoryPath + "/gamelobby.zip", DocumentDirectoryPath)
-                    .then(() => {
-                        TW_Log('andorid----bbl----unzipAssets completed!');
-                        this.onSavaCopyState();
-                    })
-                    .catch((error) => {
-                        TW_Log('andorid---bbl-----unzipAssets!error----', error);
-                    })
+            target_dir = DocumentDirectoryPath + "/gamelobby";
+            let source_dir="gamelobby"
+            const target_dir_exist = await RNFS.exists(target_dir);
+            if (!target_dir_exist) {
+                await RNFS.mkdir(target_dir);
             }
+            const items = await RNFS.readDirAssets(source_dir);
+            TW_Log('andorid--------RNFS.readDirAssets(source_dir)--'+items.length);
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                if (item.isDirectory()) {
+                    await this.androdi_copy_assets_to_dir(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
+                } else {
+                    await RNFS.copyFileAssets(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
+                }
+            }
+        }
+    }
 
+     async androdi_copy_assets_to_dir(source_dir:string, target_dir:string) {
+        const target_dir_exist = await RNFS.exists(target_dir);
+        if (!target_dir_exist) {
+            await RNFS.mkdir(target_dir);
+        }
+        const items = await RNFS.readDirAssets(source_dir);
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            TW_Log('andorid--------androdi_copy_assets_to_dir--items.length--'+items.length, item);
+            if (item.isDirectory()) {
+                await this.androdi_copy_assets_to_dir(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
+            } else {
+                await RNFS.copyFileAssets(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
+                if(item.path&&item.path.indexOf("style/")>-1){
+                    this.onSavaCopyState();
+                }
+            }
         }
     }
 

@@ -53,7 +53,8 @@ export default class XXWebView extends Component {
             taven: "isOk",
             clientId: TW_Store.appStore.clindId,
             force: force ? "1" : "0",
-            urlJSON: TW_Store.bblStore.urlJSON
+            urlJSON: TW_Store.bblStore.urlJSON,
+            isAndroidHack:TW_Store.appStore.isInAnroidHack
         })}`;
 
         return (

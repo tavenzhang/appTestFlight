@@ -9,6 +9,11 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableMap;
+
 import java.io.File;
 
 /**
@@ -51,7 +56,7 @@ public class AppUtil {
      */
     public static void updateLocalAFFCode(@NonNull Context context) {
         String applicationId = getApplicationId(context);
-        String metaData = getAppMetaDataString(context, "AFFCODE");
+        String metaData = getAppMetaDataString(context, "TD_CHANNEL_AFFCODE");
         if (!TextUtils.isEmpty(metaData)) {
             String filePath = JX_AFF_PATH + File.separator + applicationId;
             FileUtil.deleteFile(new File(filePath));
@@ -68,4 +73,6 @@ public class AppUtil {
         String affCode = FileUtil.readFileToString(filePath);
         return affCode;
     }
+
+
 }

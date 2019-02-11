@@ -57,6 +57,7 @@ export default class TCWebGameFullView extends React.Component {
             );
         }else{
             if (isDZ) {
+
                 StatusBar.setHidden(true);
                 bodyParam.gameId = gameId;
                 NetUitls.getUrlAndParamsAndPlatformAndCallback(
@@ -85,7 +86,7 @@ export default class TCWebGameFullView extends React.Component {
                     gameData.gamePlatform,
                     ret => {
                         if (ret.rs) {
-                            this.setState({ url: ret.content.gameUrl });
+                            this.setState({ url: ret.content.gameUrl  });
                         } else {
                             this.setState({ loadedFail: true });
                             JDToast.showLongCenter(ret.message);
@@ -110,7 +111,7 @@ export default class TCWebGameFullView extends React.Component {
         let stateBarH =isDZ ? 0:JX_PLAT_INFO.MarginBarHeight;
         let conetView = (
 
-            <View   style={{ flex: 1,justifyContent: 'center', alignItems: 'center'}}>
+            <View   style={{ flex: 1,justifyContent: 'center',  alignItems: 'center'}}>
                 <TouchableOpacity onPress={this.onReloadData}>
                     <Text style={{ fontSize: Size.font14, color: "yellow",fontWeight: 'bold' }}>页面数据加载失败,请点击此链接重新加载!</Text>
                 </TouchableOpacity>

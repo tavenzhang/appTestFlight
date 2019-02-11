@@ -27,13 +27,18 @@ export const AppConfig = {
         appDomainBase.base4,
         appDomainBase.base5,
         appDomainBase.base6
-    ]
+    ],
+    checkUpdateDomains:[
+        "https://www.ba2d16.com",
+        "https://www.aa2d16.com",
+        "https://www.ca2d16.com"
+    ],
 }
 
 
 export const MyAppName = '博博乐';
 
-export const versionHotFix = 'bbl_1_22';
+export const versionHotFix = 'bbl_1_31';
 
 export const safeguardDomain = [
     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
@@ -44,11 +49,11 @@ export const platInfo = {
     //loginDomain:"https://0365cai.cc",
     loginDomain: "https://webplatform.psxiaohe.com",
     //  gameDomain:"https://dk3nuq7v.zhdisi.com",
-     gameDomain: "https://webplatform.psxiaohe.com",
+    gameDomain: "https://webplatform.psxiaohe.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.hkbaoxian188.com/game/release/bbl"
+        release_server: "https://download.hkbaoxian188.com/game/release/uat"
     },
     platId: configAppId,
 
