@@ -18,7 +18,8 @@ export default class HotFixStore {
     @observable
     currentDeployKey="";
 
-    allowUpdate = false;
+    //默认允许更新
+    allowUpdate = true;
 
     @action
     skipUpdate() {

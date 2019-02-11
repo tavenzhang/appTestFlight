@@ -141,6 +141,7 @@ export default class AppInfoStore {
             switch(`${this.subAppType}`){
                 case "21":
                     this.isInAnroidHack =true;
+                    TW_Store.hotFixStore.allowUpdate=false;
                     //开始检测 热更新开关
                     this.initAndroidAppInfo(res=>{
                         this.checkUpdate(initDomain);

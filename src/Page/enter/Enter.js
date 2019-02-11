@@ -206,6 +206,7 @@ export default class Enter extends Component {
             return
         }
         AsyncStorage.getItem('cacheDomain').then((response) => {
+
             let cacheDomain = JSON.parse(response)
             JXCodePushServerUrl = cacheDomain.hotfixDomains[0].domain
             let hotfixDeploymentKey = G_IS_IOS ? cacheDomain.hotfixDomains[0].iosDeploymentKey : cacheDomain.hotfixDomains[0].androidDeploymentKey;
