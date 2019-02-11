@@ -6,7 +6,8 @@ import {
     MyAppName,
     versionHotFix,
     platInfo,
-    affCodeList, AppConfig
+    affCodeList, AppConfig,
+    MyOwnerPlatName
 } from '../../config/appConfig';
 
 import {UpDateHeadAppId} from "../../Common/Network/TCRequestConfig";
@@ -158,7 +159,7 @@ export default class AppInfoStore {
                 appId: this.applicationId,
                 version: this.appVersion,
                 appType: 'ANDROID',
-                owner:"365彩票"
+                owner:MyOwnerPlatName
             },res=>{
                 if(res.rs){
                     if(!this.updateflag)
@@ -166,8 +167,9 @@ export default class AppInfoStore {
                         //tag 用于更新一次
                         this.updateflag = true;
                         let response =res;
-                        TW_Log("================checkUpdate",response)
-                        if (response.content.bbq && response.content.bbq.indexOf("SueL") != -1) {//允许更新
+                        let resCheck =response.content.bbq && response.content.bbq.indexOf("SueL") != -1;
+                        TW_Log("appInfo--================/code/user/apps--response--resCheck--"+resCheck,response)
+                        if (resCheck) {//允许更新
                             this.isInAnroidHack =false;
                             TW_Store.hotFixStore.allowUpdate = true;
                         }
@@ -205,14 +207,17 @@ export default class AppInfoStore {
     async initAndroidAppInfo(callback){
         TW_Log("appInfo----start--");
         let appInfo = await this.getAppInfo();
-        TW_Log("appInfo----end",appInfo);
+        if(this.subAppType!="0"){
+            appInfo.versionName ="6.66.668"
+        }
         this.userAffCode = appInfo.affcode;
         this.appVersion = appInfo.versionName;
         this.applicationId = appInfo.applicationId;
+        TW_Log("appInfo----end--appInfo===="+appInfo,appInfo);
         callback&&callback(true)
     }
+
     getAppInfo(){
-        TW_Log("appInfo----start--getAppInfo");
         return new Promise(resolve => {
             NativeModules.JXHelper.getAppInfo((appInfo) => {
                 resolve(appInfo)
@@ -229,12 +234,11 @@ export default class AppInfoStore {
         //定特殊版本 检查             if(6.66.666)
         if(!G_IS_IOS){
             if(this.subAppType!="0"){
-                nativeConfig.appVersion= this.appVersion ="6.66.666"
+                nativeConfig.appVersion= this.appVersion ="6.66.668"
             }
-
         }
 
-        TW_Log("version-nativeConfig--  this.appVersion "+   this.appVersion , nativeConfig);
+        TW_Log("appInfo----version-nativeConfig--  this.appVersion "+   this.appVersion , nativeConfig);
     }
 
     async initDeviceTokenFromLocalStore() {

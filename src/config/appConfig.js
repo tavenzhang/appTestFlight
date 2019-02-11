@@ -37,6 +37,8 @@ export const AppConfig = {
 
 export const MyAppName = '365游戏';
 
+export const MyOwnerPlatName= '365彩票';
+
 export const versionHotFix = '365_1_31';
 
 export const safeguardDomain = [

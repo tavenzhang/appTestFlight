@@ -110,7 +110,7 @@ export default class DataStore {
                 callFunc(ret);
             }
         });
-        T
+
     }
 
     downloadFile=(formUrl,downloadDest)=> {
