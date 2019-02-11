@@ -3,17 +3,16 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://www.diwudalu.com',
-    base2: 'https://www.diwudalu.com',
-    base3: 'https://www.diwudalu.com',
-    base4: 'https://www.diwudalu.com',
-    base5: 'https://www.diwudalu.com',
-    base6: 'https://www.diwudalu.com',
-    base7: 'https://www.diwudalu.com',
+    base1: 'https://www.0579jiapeiwang.com',
+    base2: 'https://www.yurewd456qwep.com',
+    base3: 'https://www.mkjow321qwup.com',
+    base4: 'https://www.qzxsaq987dwqd.com',
+    base5: 'https://www.ghyrfd123eqqd.com',
+    base6: 'https://www.qwedsa789qszd.com',
+    base7: 'https://www.vdfrtw654qefhj.com',
 }
 
-
-export let configAppId = "5"
+export let configAppId = "34"
 
 
 export const AppConfig = {
@@ -36,9 +35,9 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '博博乐';
+export const MyAppName = '365游戏';
 
-export const versionHotFix = 'bbl_1_31';
+export const versionHotFix = '365_1_31';
 
 export const safeguardDomain = [
     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
@@ -46,14 +45,14 @@ export const safeguardDomain = [
 
 
 export const platInfo = {
-    //loginDomain:"https://0365cai.cc",
-    loginDomain: "https://webplatform.psxiaohe.com",
-    //  gameDomain:"https://dk3nuq7v.zhdisi.com",
-    gameDomain: "https://webplatform.psxiaohe.com",
+    loginDomain:"https://0365cai.cc",
+    //gameDomain: "https://dk3nuq7v.zhdisi.com",
+    gameDomain:"https://dk3nuq7v.zhdisi.com",
+    // gameDomain: "https://0365cai.cc",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.hkbaoxian188.com/game/release/uat"
+        release_server: "https://download.hkbaoxian188.com/game/release/365"
     },
     platId: configAppId,
 
@@ -61,28 +60,27 @@ export const platInfo = {
         c_1: {
             jpushKey: "",
             jpush_channel: "",
-            umengKey: "",
+            umengKey: "5c2af406f1f5568dcc000160",
             umengChanel:"1",
-            flurry_ios:"uat",
-            flurry_android:"uat"
+            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
+            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
         },
         c_2: {jpushKey: "",
             jpush_channel: "",
-            umengKey: "",
+            umengKey: "5c2af406f1f5568dcc000160",
             umengChanel:"1",
-            flurry_ios:"uat",
-            flurry_android:"uat"
+            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
+            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
         },
         c_3: {jpushKey: "",
             jpush_channel: "",
-            umengKey: "",
+            umengKey: "5c2af406f1f5568dcc000160",
             umengChanel:"1",
-            flurry_ios:"uat",
-            flurry_android:"uat"
+            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
+            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
         },
     }
 }
-
 
 export const affCodeList = {
     ios: {
