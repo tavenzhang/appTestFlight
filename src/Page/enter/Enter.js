@@ -48,7 +48,6 @@ export default class Enter extends Component {
     }
 
     onInitAllData=()=>{
-
         this.initData();
         this.uploadLog();
         AppState.addEventListener('change', this.handleAppStateChange);

@@ -94,7 +94,7 @@ export default class App extends Component {
                             position: "absolute",
                             fontWeight:"bold"
                         }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.saveVersionM)}` +
-                    `\n appInfo=${JSON.stringify(TW_Store.appStore.appInfo)} \n applicationId==${TW_Store.appStore.applicationId} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text> : null}
+                    `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text> : null}
                     <CommonBoxLayer/>
                 </View>
             </Provider>

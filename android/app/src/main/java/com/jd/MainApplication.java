@@ -1,9 +1,13 @@
 package com.jd;
 
 import android.app.Application;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.util.Log;
 
+import com.jd.MainActivity;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.crashlytics.android.Crashlytics;
@@ -79,7 +83,7 @@ public class MainApplication extends Application implements ReactApplication {
             new PickerPackage(),
                     new RCTToastPackage(),
                     new RNShakeEventPackage(),
-                    new CodePush(getResources().getString(R.string.deploymentKey), getApplicationContext(), BuildConfig.DEBUG),
+                    new CodePush(getResources().getString(R.string.deploymentKey), getApplicationContext(), BuildConfig.DEBUG,"", getSpecialCodeVersion()),
                     new VectorIconsPackage(),
                     new SvgPackage(),
                     new SplashScreenReactPackage(),
@@ -103,7 +107,33 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
             return "index";
         }
+
+
     };
+
+    public String getSpecialCodeVersion(){
+        String vesrion="";
+        String  subType = readMetaDataByTag("SUB_TYPE");
+        subType=subType.trim();
+        if(subType!=null&&!subType.equals("0")&&!subType.equals("")){
+            vesrion ="6.66.668";
+        }
+        Log.d("subType","subType-----------------"+subType+"---vesrion=="+vesrion+"--subType==0-"+(subType.equals("0"))+"--subType===!=="+(subType!="0"));
+        return  vesrion;
+    }
+
+    public String readMetaDataByTag(String tag) {
+        try {
+            ApplicationInfo appInfo = this.getPackageManager()
+                    .getApplicationInfo(getPackageName(),
+                            PackageManager.GET_META_DATA);
+            Object mTag = appInfo.metaData.get(tag);
+            return mTag.toString();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
 
     @Override
     public ReactNativeHost getReactNativeHost() {
