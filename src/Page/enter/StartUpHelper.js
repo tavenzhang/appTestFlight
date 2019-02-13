@@ -31,7 +31,7 @@ function getAvailableDomain (domains,callback) {
                       }
                   } else {//写入缓存失败
                       callback(false, false, false);
-                      TW_Log("callback------写入缓存失败---");
+                      TW_Log("callback------写入缓存失败--");
                   }
               })
           }

@@ -123,9 +123,14 @@ export default class Enter extends Component {
 
 
     initDomain() {
+        //如果不是处于android 特殊检测开关 强制开启this.hotFixStore.allowUpdate 开关
+        if(!TW_Store.appStore.isInAnroidHack) {
+            if(!this.hotFixStore.allowUpdate){
+                this.hotFixStore.allowUpdate=true;
+            }
+        }
         AsyncStorage.getItem('cacheDomain').then((response) => {
             TW_Log("refresh cache domain ", response);
-
             let cacheDomain = response ? JSON.parse(response) : null
             if (cacheDomain != null && cacheDomain.serverDomains && cacheDomain.serverDomains.length > 0) {//缓存存在，使用缓存访问
                 StartUpHelper.getAvailableDomain(cacheDomain.serverDomains, this.cacheAttempt)
@@ -201,10 +206,10 @@ export default class Enter extends Component {
 
     //使用从服务器获取的更新地址更新app
     gotoUpdate() {
-        if(TW_IS_DEBIG){
-            this.hotFixStore.skipUpdate();
-            return
-        }
+        // if(TW_IS_DEBIG){
+        //     this.hotFixStore.skipUpdate();
+        //     return
+        // }
         AsyncStorage.getItem('cacheDomain').then((response) => {
 
             let cacheDomain = JSON.parse(response)
@@ -249,7 +254,7 @@ export default class Enter extends Component {
         });
         CodePush.checkForUpdate(hotfixDeploymentKey).then((update) => {
 
-            TW_Log('==checking update====hotfixDeploymentKey=='+hotfixDeploymentKey, update==null);
+            TW_Log('==checking update====hotfixDeploymentKey=='+hotfixDeploymentKey, update);
             if (update !== null) {
                 // if (G_IS_IOS) {
                 //     NativeModules.JDHelper.resetLoadModleForJS(true)

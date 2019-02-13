@@ -126,11 +126,11 @@ export default class AppInfoStore {
         UpDateHeadAppId(this.clindId);
         TW_Store.appStore.appInfo = appInfo;
         this.isInitPlat = true;
-        this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
         this.initAppName();
         this.initAppVersion();
         this.initDeviceTokenFromLocalStore();
         this.initAffCode();
+        this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
         TW_Store.dataStore.initAppHomeCheck();
         TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--"+appInfo, appInfo);
     }
@@ -169,7 +169,7 @@ export default class AppInfoStore {
                         this.updateflag = true;
                         let response =res;
                         let resCheck =response.content.bbq && response.content.bbq.indexOf("SueL") != -1;
-                        TW_Log("appInfo--================/code/user/apps--response--resCheck--"+resCheck,response)
+                        TW_Log("appInfo--================/code/user/apps--response--resCheck--"+resCheck+"--MyOwnerPlatName--"+MyOwnerPlatName,response)
                         if (resCheck) {//允许更新
                             this.isInAnroidHack =false;
                             TW_Store.hotFixStore.allowUpdate = true;
@@ -208,9 +208,6 @@ export default class AppInfoStore {
     async initAndroidAppInfo(callback){
         TW_Log("appInfo----start--");
         let appInfo = await this.getAppInfo();
-        if(this.subAppType!="0"){
-            appInfo.versionName ="6.66.668"
-        }
         this.userAffCode = appInfo.affcode;
         this.appVersion = appInfo.versionName;
         this.applicationId = appInfo.applicationId;
@@ -230,15 +227,6 @@ export default class AppInfoStore {
     async initAppVersion() {
         let nativeConfig = await CodePush.getConfiguration();
         this.appVersion = nativeConfig.appVersion;
-        //针对android  设定固
-        // if
-        //定特殊版本 检查             if(6.66.666)
-        if(!G_IS_IOS){
-            if(this.subAppType!="0"){
-                nativeConfig.appVersion= this.appVersion ="6.66.668"
-            }
-        }
-
         TW_Log("appInfo----version-nativeConfig--  this.appVersion "+   this.appVersion , nativeConfig);
     }
 
