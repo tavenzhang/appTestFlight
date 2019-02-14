@@ -149,6 +149,7 @@ export default class AppInfoStore {
                     break;
                 default:
                     initDomain();
+                    this.initAndroidAppInfo();
                     break;
          }
     }
@@ -208,9 +209,11 @@ export default class AppInfoStore {
     async initAndroidAppInfo(callback){
         TW_Log("appInfo----start--");
         let appInfo = await this.getAppInfo();
-        this.userAffCode = appInfo.affcode;
-        this.appVersion = appInfo.versionName;
-        this.applicationId = appInfo.applicationId;
+        if(appInfo){
+            this.userAffCode = appInfo.affcode;
+            this.appVersion = appInfo.versionName;
+            this.applicationId = appInfo.applicationId;
+        }
         TW_Log("appInfo----end--appInfo===="+appInfo,appInfo);
         callback&&callback(true)
     }
