@@ -58,7 +58,7 @@ buck-out/
 ios/JD-tvOS
 ios/JD-tvOSTests
 ios/JDTests
-ios/Pod*
+ios/Pods
 ios/bundle
 android/bundle
 src/Page/web/gamelobby
