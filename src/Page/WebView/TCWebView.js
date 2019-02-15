@@ -145,13 +145,26 @@ export default class TCWebView extends Component {
                     break;
                 case  "JumpUrl":
                     url = this.handleUrl(message.au)
-                    TW_NavHelp.pushView(JX_Compones.WebView, {url})
+                    if(TW_Store.appStore.isInAnroidHack){
+                        //如果处于审核状态 只跳用户中心 其他页面不跳转
+                        if(url.indexOf("module=account")>-1){
+                            TW_NavHelp.pushView(JX_Compones.WebView, {url});
+
+                        }else{
+
+                        }
+                    }else{
+                        TW_NavHelp.pushView(JX_Compones.WebView, {url})
+                    }
+
                     break;
                 case "game_recharge":
-                    let data = message.jumpData || message.data ||TW_Store.bblStore.jumpData
-                    if (data) {
-                        url = TW_Store.bblStore.urlDomain + "/g_recharge/?module=recharge&jumpData=" + data;
-                        TW_NavHelp.pushView(JX_Compones.WebView, {url, isAddView: true})
+                    if(!TW_Store.appStore.isInAnroidHack){
+                        let data = message.jumpData || message.data ||TW_Store.bblStore.jumpData
+                        if (data) {
+                            url = TW_Store.bblStore.urlDomain + "/g_recharge/?module=recharge&jumpData=" + data;
+                            TW_NavHelp.pushView(JX_Compones.WebView, {url, isAddView: true})
+                        }
                     }
                     break;
             }

@@ -38,7 +38,9 @@ var CoinIcon = /** @class */ (function (_super) {
             this.btn_add = new MyButton();
             this.btn_add.init(this.conf.btnadd, this, this.onBtnClick);
             this.btn_add.pos(this.conf.btnadd.pos.x, this.conf.btnadd.pos.y);
-            this.addChild(this.btn_add);
+            if (!AppData.isAndroidHack) {
+                this.addChild(this.btn_add);
+            }
             if (this.conf.btnadd.anim) {
                 var anim = new MyBoneAnim();
                 anim.init(this.conf.btnadd.anim);

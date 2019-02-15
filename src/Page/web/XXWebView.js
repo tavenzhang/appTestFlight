@@ -141,7 +141,18 @@ export default class XXWebView extends Component {
                 case  "JumpUrl":
                     //TN_Notification("JumpUrl","test local notification");
                     url = this.handleUrl(message.au, true)
-                    if (TW_Store.bblStore.lastGameUrl != url) {
+                    let isOk=true;
+                    TW_Log("game---isInAnroidHack=="+url+"--index="+url.indexOf("module=account"));
+                    if(TW_Store.appStore.isInAnroidHack){
+                        //如果处于审核状态 只跳用户中心 其他页面不跳转
+                        if(url.indexOf("module=account")>-1){
+                            isOk=true
+                        }else{
+                            isOk=false
+                        }
+                    }
+
+                    if (isOk&&TW_Store.bblStore.lastGameUrl != url) {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.au+"&cc=2");
                         TW_NavHelp.pushView(JX_Compones.WebView, {
