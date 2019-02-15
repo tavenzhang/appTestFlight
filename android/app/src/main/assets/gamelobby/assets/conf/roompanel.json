@@ -1,0 +1,67 @@
+{
+    "pos":{ "x":0, "y":0 },
+    "panel":{
+        "content":{
+            "pos":{ "x":0, "y":195 },
+            "hidepos":{ "x":1500, "y":195 },
+            "durationIn":500,
+            "durationOut":1000,
+            "size":{ "w":1334, "h":400 }
+        },
+        "showbgX":{
+            "color":"#ffff00",
+            "alpha":0.2
+        }
+    },
+    "gameitemdefault":{
+        "number":4,
+        "iconsrc":[
+            "./assets/ui/room/room00.png",
+            "./assets/ui/room/room01.png",
+            "./assets/ui/room/room02.png",
+            "./assets/ui/room/room03.png"
+        ],
+        "btnicon":{
+            "desc":"头像按钮，点击后可以打开个人信息面板",
+            "pos":{ "x":225, "y":201 },
+            "src":[
+                "./assets/ui/room/room00.png"
+            ],
+            "size":{ "w":241, "h":372, "gw":50 },
+            "maxScale":{"x":1.05,"y":1.05},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/Click.mp3",
+            "grayext":"_gray"
+        },
+        "showbgX":{
+            "color":"#ff0000",
+            "alpha":0.1
+        },
+        "statusNormal":{
+            "status":[
+                "./assets/ui/room/room_status_00.png",
+                "./assets/ui/room/room_status_01.png",
+                "./assets/ui/room/room_status_02.png"
+            ],
+            "pos":{
+                "x":195,
+                "y":360
+            }
+        },
+        "statePause":{
+            "desc":"PAUSE状态呈现方式",
+            "src":"./assets/ui/room/room_status_03.png",
+            "pos":{ "x":125, "y":200 },
+            "size":{ "w":207, "h":62 }
+        },
+        "dutimer":1,
+        "lastR":10,
+        "stepR":10,
+        "nowStartAngle":0,
+        "stepAngle":30,
+        "maxR":1000,
+        "drawcenter":{ "x":87.5, "y":87.5 },
+        "sfx":"assets/raw/Flop.mp3"
+    },
+    "testItemLenX":13
+}

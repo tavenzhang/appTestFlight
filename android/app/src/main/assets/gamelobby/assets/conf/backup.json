@@ -1,0 +1,7 @@
+{
+        "home":"http://106games.com/g_lobby/home.html",
+        "backlobby":"http://106games.com/g_lobby/index.html",
+        "accounturl":"http://192.168.1.93:8091/api/v1",
+        "lobbyurl":"http://192.168.1.93:8091/api/v1",
+        "rooturl":"http://192.168.1.93:8091/api/v1"
+}
