@@ -4,14 +4,13 @@
 #use_frameworks!
 
 # Add new pods below this line
-pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
+#pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
 
-pod 'RNZipArchive', :path => '../node_modules/react-native-zip-archive'
+#pod 'RNZipArchive', :path => '../node_modules/react-native-zip-archive'
 
 target 'card' do
 pod 'NSLogger/NoStrip'
 pod 'Fabric'
 pod 'Crashlytics'
 pod 'Flurry-iOS-SDK/FlurrySDK'
-
 end
