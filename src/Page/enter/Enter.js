@@ -122,6 +122,7 @@ export default class Enter extends Component {
 
 
     initDomain() {
+        TW_Store.dataStore.initAppHomeCheck();
         //如果不是处于android 特殊检测开关 强制开启this.hotFixStore.allowUpdate 开关
         if(!TW_Store.appStore.isInAnroidHack) {
             if(!this.hotFixStore.allowUpdate){

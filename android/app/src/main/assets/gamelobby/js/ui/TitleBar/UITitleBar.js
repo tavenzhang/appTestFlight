@@ -33,7 +33,9 @@ var UITitleBar = /** @class */ (function (_super) {
         this.conf = conf;
         this.caller = caller;
         this.callback = callback;
-        this.initTitle(this.conf.title);
+        if (!AppData.isAndroidHack) {
+            this.initTitle(this.conf.title);
+        }
         //Modified by Jelly on 2018.12.27
         if (Common.IS_NATIVE_APP) {
             this.initSetting(this.conf.btnsetting_native);
