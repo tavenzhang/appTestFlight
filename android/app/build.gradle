@@ -118,7 +118,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0.8"
-        // SUB_TYPE       :  1 写死1 当中聚道主包
+        // SUB_TYPE       :  1 写死1 当聚道主包
         manifestPlaceholders = [
                    APP_VERSION    : APP_VERSION,
                                    CHANNEL_AFFCODE        : AFF_CODE,
