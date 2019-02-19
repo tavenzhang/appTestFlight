@@ -1,3 +1,5 @@
+# demo    sh qudao.sh develop uat
+
 scriptPath=$(cd `dirname $0`; pwd)
 configDir=${scriptPath}/../BBL_Game_Config
 #ios工程目录
