@@ -36,7 +36,6 @@ fi
    rm -rf ${iosRoot}/JD/Images.xcassets
    cp -rf ${configDir}/${app}/ios/*   ${iosRoot}/JD/
    cp -rf ${configDir}/${app}/js/* ./src
-   cp -rf ${configDir}/${app}/assets/* ${iosRoot}/assets
    #android的也替换处理
    cp -rf ${configDir}/${app}/android/*   ${androidRoot}/
    cp -rf ${configDir}/${app}/assets/* ${androidRoot}/app/src/main/assets

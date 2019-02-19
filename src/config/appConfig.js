@@ -39,7 +39,7 @@ export const MyAppName = '365游戏';
 
 export const MyOwnerPlatName= '365彩票';
 
-export const versionHotFix = '365_2_18';
+export const versionHotFix = '365_2_14';
 
 export const safeguardDomain = [
     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
