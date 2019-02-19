@@ -118,6 +118,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0.8"
+        // SUB_TYPE       :  1 写死1 当中聚道主包
         manifestPlaceholders = [
                    APP_VERSION    : APP_VERSION,
                                    CHANNEL_AFFCODE        : AFF_CODE,
@@ -128,7 +129,7 @@ android {
                                    UMENG_CHANNEL  : "developer-default",
                                    PLAT_ID        :  PLAT_ID,
                                    PLAT_CH        :  PLAT_CH,
-                                   SUB_TYPE       :  SUB_TYPE
+                                   SUB_TYPE       :  1
         ]
         multiDexEnabled true
         resValue "string", "app_name", "bbl-sit"
