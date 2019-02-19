@@ -18,13 +18,14 @@ fi
 cd ${scriptPath}
 app=$@
 
-git checkout -f origin/release/${app}
+git checkout  release/${app}
 if [ $? -eq 0 ];then
       echo bbl_${app} 分支切换成功 ${workRoot}
      else
       echo bbl_${app} 分支不存在 ${workRoot}
    exit -1;
 fi
+git pull
 
 if [ -d ${configDir}/${app}/ios ]; then
       echo 开始拷贝和替换 ${configDir}/${app}/ios 文件
