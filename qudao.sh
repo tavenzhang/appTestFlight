@@ -1,3 +1,5 @@
+#demo  sh qudao.sh 渠道分支名称（develop_guest） 平台名称（365）
+
 scriptPath=$(cd `dirname $0`; pwd)
 configDir=${scriptPath}/../BBL_Game_Config
 #ios工程目录
