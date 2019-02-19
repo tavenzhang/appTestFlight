@@ -16,23 +16,17 @@ if [ $? -eq 0 ];then
     exit -1;
 fi
 cd ${scriptPath}
-app=$@
+brunch=$1
+app=$2
 
-git checkout  release/${app}
+git checkout  qudao/${brunch}
 if [ $? -eq 0 ];then
-      echo bbl_${app} 分支切换成功 ${workRoot}
+      echo  分支切换成功 qudao/${brunch}
      else
-      echo bbl_${app} 分支不存在 ${workRoot}
+      echo  分支不存在 qudao/${brunch}
    exit -1;
 fi
-git pull
-   git merge  origin/master -m 'autoMerge master'
-   if [ $? -eq 0 ];then
-    echo ${app} merge成功
-   else
-    echo ${app} merge 失败
-    exit -1;
-   fi
+
 if [ -d ${configDir}/${app}/ios ]; then
       echo 开始拷贝和替换 ${configDir}/${app}/ios 文件
     else
