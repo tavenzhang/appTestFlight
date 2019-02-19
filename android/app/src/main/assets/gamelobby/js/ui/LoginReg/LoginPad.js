@@ -108,8 +108,10 @@ var LoginPad = /** @class */ (function (_super) {
     };
     //背景
     LoginPad.prototype.initBg = function () {
-        if (this.conf.logo) {
-            var sp_logo = Tools.addSprite(this, this.conf.logo);
+        if (!AppData.isAndroidHack) {
+            if (this.conf.logo) {
+                var sp_logo = Tools.addSprite(this, this.conf.logo);
+            }
         }
         if (this.conf.bg) {
             var sp_bg = Tools.addSprite(this, this.conf.bg);
