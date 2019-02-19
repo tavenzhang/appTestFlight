@@ -26,7 +26,13 @@ if [ $? -eq 0 ];then
    exit -1;
 fi
 git pull
-
+   git merge  origin/master -m 'autoMerge master'
+   if [ $? -eq 0 ];then
+    echo ${app} merge成功
+   else
+    echo ${app} merge 失败
+    exit -1;
+   fi
 if [ -d ${configDir}/${app}/ios ]; then
       echo 开始拷贝和替换 ${configDir}/${app}/ios 文件
     else
