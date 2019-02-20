@@ -1,3 +1,5 @@
+import UserStore from "./UserStore";
+
 'use-strict';
 import CommonBoxStore from "./CommonBoxStore";
 import AppInfoStore from "./AppInfoStore";
@@ -12,6 +14,7 @@ class RootStore {
         this.commonBoxStore=new CommonBoxStore();
         this.hotFixStore = new HotFixStore();
         this.bblStore =new BBLStore();
+        this.userStore = new UserStore();
     }
 }
 

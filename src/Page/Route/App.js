@@ -26,6 +26,10 @@ function viewRoutHelp(component) {
 const Components = {
     XXWebView: viewRoutHelp(XXWebView),
     WebView:viewRoutHelp(TCWebView),
+    TCUserDetailMsg:viewRoutHelp(TCUserDetailMsg),
+    TCUserMessage:viewRoutHelp(TCUserMessage),
+    TCAddUserInfo:viewRoutHelp(TCAddUserInfo),
+    TCAddPhoneNumberInfo:viewRoutHelp(TCAddPhoneNumberInfo)
 }
 
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
@@ -47,6 +51,10 @@ const MainStackNavigator = StackNavigator({
     }
 })
 import {platInfo} from "../../config/appConfig";
+import TCUserDetailMsg from "../UserCenter/user/TCUserDetailMsg";
+import TCUserMessage from "../UserCenter/user/TCUserMessage";
+import TCAddUserInfo from "../UserCenter/user/TCAddUserInfo";
+import TCAddPhoneNumberInfo from "../UserCenter/user/TCAddPhoneNumberInfo";
 
 @observer
 export default class App extends Component {

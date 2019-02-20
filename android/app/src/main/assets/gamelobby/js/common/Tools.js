@@ -14,7 +14,7 @@ var Tools = /** @class */ (function () {
     encode(username, password, callBack) {
             Bcrypt.setRandomFallback(this.callBack)
         var str = this.getSecretFromUserNamePassword(username, password)
-        JXLog('str == '+str)
+        TW_Log('str == '+str)
 
         Bcrypt.genSalt(6, function (err, salt) {
             Bcrypt.hash(str, salt, (err, hash) => {

@@ -36,7 +36,7 @@ class SecretUtils {
     encode(username, password, callBack) {
         bcrypt.setRandomFallback(this.callBack);
         var str = this.getSecretFromUserNamePassword(username, password);
-        //JXLog('str == ' + str);
+        //TW_Log('str == ' + str);
 
         bcrypt.genSalt(6, function(err, salt) {
             bcrypt.hash(str, salt, (err, hash) => {
@@ -65,7 +65,7 @@ class SecretUtils {
             var encodedPWD = base65.encode(encryptedPWD);
             return encodedPWD;
         } catch (error) {
-            //JXLog(error);
+            //TW_Log(error);
         }
     }
 }
