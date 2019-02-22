@@ -88,7 +88,7 @@ export default class App extends Component {
     render() {
 
         return (
-            <Provider  {...appStores} >
+            <Provider  {...rootStore} >
                 <View style={{flex: 1, backgroundColor:"black"}}>
                     <MainStackNavigator
                         ref={navigatorRef => {

@@ -8,7 +8,6 @@ import {observer, inject} from 'mobx-react'
 
 
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import UserInfo from '../../UserCenter/UserInfo/TCAddUserInfo'
 import JXHelper from '../../../Common/JXHelper/JXHelper'
 import {personal} from '../../asset/images'
 import {indexBgColor, Size} from '../../asset/game/themeComponet'
@@ -21,16 +20,18 @@ import Toast from "../../../Common/JXHelper/JXToast";
 export default class TCUserDetailMsg extends Component {
 
     constructor(props) {
-        super({...props, userStore: TW_Store.userStore});
+        super(props);
     }
 
     componentDidMount() {
+       
     }
 
     componentWillUnmount() {
     }
 
     render() {
+       // TW_Log("TCUserDetailMsg----------TW_Store.userStore==",this.props)
         return (
             <View style={styles.container}>
                 <TopNavigationBar
@@ -49,7 +50,7 @@ export default class TCUserDetailMsg extends Component {
                         borderRadius: 20,
                         borderWidth: TCLineW,
                         borderColor: 'rgba(0,0,0,0.3)',
-                        backgroundColor: this.props.userStore.userLogoColor,
+                        backgroundColor: TW_Store.userStore.userLogoColor,
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
@@ -83,7 +84,7 @@ export default class TCUserDetailMsg extends Component {
                 <View style={{marginTop: 10}}>
                     <View style={styles.setItem}>
                         <Text style={styles.itemTxt}>余额</Text>
-                        <Text style={styles.itemRightTxt}>{this.props.userStore.balance}</Text>
+                        <Text style={styles.itemRightTxt}>{TW_Store.userStore.balance}</Text>
                     </View>
                     {this.getPrizeGroup()}
                 </View>
@@ -91,30 +92,30 @@ export default class TCUserDetailMsg extends Component {
     };
 
     @computed get userName() {
-        return this.props.userStore.userName;
+        return TW_Store.userStore.userName;
     }
 
     back() {
-        NavigationService.goBack()
+       TW_NavHelp.goBack()
     }
 
     /**
      * 跳转到修改真实姓名
      */
     gotoChangeRealName() {
-        if (this.props.userStore.isGuest) {
+        if (TW_Store.userStore.isGuest) {
             Toast.showShortCenter('试玩账号不能修改身份信息！')
             return
         }
-        TW_NavHelp.pushView(this.props.userStore.realName ? JX_Compones.TCUserMessage : JX_Compones.TCAddUserInfo)
+        TW_NavHelp.pushView(TW_Store.userStore.realName ? JX_Compones.TCUserMessage : JX_Compones.TCAddUserInfo)
     }
 
     gotoChangePhoneNumber() {
-        if (this.props.userStore.isGuest) {
+        if (TW_Store.userStore.isGuest) {
             Toast.showShortCenter('试玩账号不能修改手机号码！')
             return
         }
-        if (this.props.userStore.phoneNumber) {
+        if (TW_Store.userStore.phoneNumber) {
             Toast.showShortCenter('如需修改请联系客服！')
             return;
         }
@@ -127,10 +128,10 @@ export default class TCUserDetailMsg extends Component {
      * @returns {XML}
      */
     getPrizeGroup() {
-        if (this.props.userStore.prizeGroup) {
+        if (TW_Store.userStore.prizeGroup) {
             return (<View style={styles.setItem}>
                 <Text style={styles.itemTxt}>彩票返点</Text>
-                <Text style={styles.itemRightTxt}>{this.props.userStore.prizeGroup}</Text>
+                <Text style={styles.itemRightTxt}>{TW_Store.userStore.prizeGroup}</Text>
             </View>)
         }
     }
@@ -140,9 +141,9 @@ export default class TCUserDetailMsg extends Component {
      * @returns {XML}
      */
     getUserInfo() {
-        if (this.props.userStore.realName) {
+        if (TW_Store.userStore.realName) {
             return (<View style={styles.itemRight}>
-                <Text style={styles.itemRightTxt}>{this.props.userStore.realName}</Text>
+                <Text style={styles.itemRightTxt}>{TW_Store.userStore.realName}</Text>
                 <Image source={personal.imgNext} style={styles.imgNext}/>
             </View>)
         } else {
@@ -155,9 +156,9 @@ export default class TCUserDetailMsg extends Component {
     }
 
     getPhoneInfo() {
-        if (this.props.userStore.phoneNumber) {
+        if (TW_Store.userStore.phoneNumber) {
             return (<View style={styles.itemRight}>
-                <Text style={styles.itemRightTxt}>{this.props.userStore.phoneNumber}</Text>
+                <Text style={styles.itemRightTxt}>{TW_Store.userStore.phoneNumber}</Text>
                 <Image source={personal.imgNext} style={styles.imgNext}/>
             </View>)
         } else {

@@ -43,10 +43,9 @@ export default class XXWebView extends Component {
             };
         }
 
-       // if(TW_IS_DEBIG){
-       //      source =  require('./gamelobby/index.html');
-       //  }
-
+       if(TW_IS_DEBIG){
+            source =  require('./gamelobby/index.html');
+        }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source)
         let injectJs = `window.appData=${JSON.stringify({
@@ -155,13 +154,8 @@ export default class XXWebView extends Component {
                     if (isOk&&TW_Store.bblStore.lastGameUrl != url) {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.au+"&cc=2");
-                        TW_NavHelp.pushView(JX_Compones.WebView, {
-                            url,
-                            onMsgHandle: this.onMsgHandle,
-                            onEvaleJS: this.onEvaleJS,
-                            isGame: false
-                        })
-                        this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
+                        TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
+                        //this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
                 case  "debugInfo":
@@ -175,6 +169,7 @@ export default class XXWebView extends Component {
                     let method = message.metod;
                     method = method ? method.toLowerCase() : "get";
                   //  TW_Log("---home--http---game--postUrlAndParamsAndCallback>=="+message.url+"===data--"+message.data, message)
+
                     switch (method) {
                         case "post":
                             let myUrl = message.url;
@@ -190,17 +185,21 @@ export default class XXWebView extends Component {
                             NetUitls.postUrlAndParamsAndCallback(myUrl,JSON.parse(message.data), (ret) => {
                                 TW_Log("---home--http---game--postUrlAndParamsAndCallback>url="+message.url, ret);
                                 this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
-                            })
+                            },10,false,false,null,true)
                             break
                         case "get":
                             NetUitls.getUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
                                 this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
-                            });
+                                let access_token =TW_GetQueryString("access_token",message.url);
+                                if(access_token&&access_token!=""){
+                                    TW_Store.userStore.initLoginToken(access_token);
+                                }
+                            },10,false,false,true);
                             break;
                         case "put":
-                            NetUitls.PutUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
+                            NetUitls.putUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
                                 this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
-                            });
+                            },10,false,true);
                             break;
                     }
             }

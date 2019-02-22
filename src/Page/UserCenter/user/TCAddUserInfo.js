@@ -14,7 +14,6 @@ import {observer, inject,} from 'mobx-react/native'
 import {action, observable, computed} from 'mobx'
 
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import Toast from '../../../Common/JXHelper/JXToast';
 import dismissKeyboard from 'dismissKeyboard'
 import ModalDropdown from '../../../Common/View/ModalDropdown'
@@ -29,17 +28,16 @@ import {
     Size,
     width
 } from '../../resouce/theme'
-import BankStore from "../../../Data/store/BankStore";
-import NavigationService from "../../Route/NavigationService";
+
 
 /**
  * 添加用户信息
  */
-@inject("userStore", "jdAppStore")
+@inject("userStore")
 @observer
 export default class TCAddUserInfo extends Component {
 
-    bankStore = new BankStore();
+    bankStore = TW_Store.bankStore
 
     constructor(props) {
         super(props)
@@ -56,7 +54,7 @@ export default class TCAddUserInfo extends Component {
     render() {
         return (
             <View style={styles.container}>
-                < TopNavigationBar
+                <TopNavigationBar
                     title={'添加银行信息'}
                     needBackButton={true}
                     backButtonCall={() => {
@@ -169,19 +167,14 @@ export default class TCAddUserInfo extends Component {
                         dialogTitle={'交易设置提示'}
                         dialogContent={'交易密码用于余额提现，\n可以在安全中心修改'}
                         btnTxt={'我知道了'}/>
-                <LoadingSpinnerOverlay
-                    ref={component => this._modalLoadingSpinnerOverLay = component}/>
+
             </View>
         )
     }
 
     back() {
         dismissKeyboard()
-        if (this.props.backToTop) {
-            NavigationService.popToTop()
-        } else {
-            NavigationService.goBack();
-        }
+       TW_NavHelp.goBack();
     }
 
     @computed get realName() {
@@ -237,11 +230,9 @@ export default class TCAddUserInfo extends Component {
 
     onCardNoCheck() {
         if (this.bankStore.bankInfo.accountNum.length >= 14) {
-            this._modalLoadingSpinnerOverLay.show()
-            this.bankStore.lastRequestBankNo = this.bankStore.bankInfo.accountNum
 
+            this.bankStore.lastRequestBankNo = this.bankStore.bankInfo.accountNum
             this.bankStore.getBankName((res)=>{
-                this._modalLoadingSpinnerOverLay.hide()
                 if(!res.status){
                     Toast.showShortCenter(res.message)
                 }
@@ -299,7 +290,7 @@ export default class TCAddUserInfo extends Component {
             <TouchableOpacity>
                 <View style={styles.dropDownItemStyle}>
                     <Image
-                        source={ this.props.jdAppStore.getBankCardLogo(this.bankStore.bankList.bankCodes[rowId])}
+                        source={ this.props.userStore.getBankCardLogo(this.bankStore.bankList.bankCodes[rowId])}
                         resizeMode={'contain'}
                         style={styles.bankIcon}/>
                     <Text style={{fontSize: Size.font16, color: listViewTxtColor.title}}>{rowData}</Text>
@@ -358,9 +349,8 @@ export default class TCAddUserInfo extends Component {
             Toast.showShortCenter('对不起，试玩账号不能添加银行卡信息!')
             return
         }
-        this._modalLoadingSpinnerOverLay.show();
+
         this.bankStore.addBank((res) => {
-            this._modalLoadingSpinnerOverLay.hide();
             if (!res.status) {
                 Toast.showShortCenter(res.message);
             }

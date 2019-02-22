@@ -170,6 +170,7 @@ export function getBankNameFromServer(accountNum,callback) {
  */
 export function addBank(params, callback) {
     RequestUtils.putUrlAndParamsAndCallback(config.api.encryptRegisterInfo, params, callback);
+
 }
 
 /**
@@ -179,6 +180,8 @@ export function addBank(params, callback) {
  */
 export function addPhoneNumber(params, callback) {
     RequestUtils.putUrlAndParamsAndCallback(config.api.addUserPhoneNum, params, callback);
+
+
 }
 
 /**
@@ -187,6 +190,7 @@ export function addPhoneNumber(params, callback) {
  */
 export function getUserBank(callback) {
     RequestUtils.getUrlAndParamsAndCallback(config.api.userCards, null, callback);
+
 }
 
 /**

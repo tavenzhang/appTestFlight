@@ -7,27 +7,14 @@ import Base64 from '../../Common/JXHelper/Base64'
 import SecretUtils from '../../Common/JXHelper/SecretUtils'
 import Moment from 'moment'
 import {
-    userLogin,
-    userRegister,
-    signInData,
-    singin,
-    guestRegister,
     getBalance,
     getBalaceAndUserInfo,
     userLogOut,
     modifyUserRealName,
     getUserInfo,
     modifyPwd,
-    getPlatformBalance,
-    getAllBalance
 } from '../../Common/Network/TCRequestService'
-import JDAppStore from './JDAppStore'
-import InitAppStore from './InitAppStore'
-import messageStore from './UserMessageStore'
-import userCollectStore from './UserCollectStore'
-import homeStore from './HomeStore'
-import NetUitls from "../../Common/Network/TCRequestUitls";
-import {config} from "../../Common/Network/TCRequestConfig";
+
 
 let base64 = new Base64()
 let secretUtils = new SecretUtils()
@@ -84,20 +71,6 @@ export default class UserStore {
     //金额是否可见
     @observable moneyIsVisable = true;
 
-    //新消息数量
-    @observable newMsgCount = 0;
-    //意见反馈提示
-    @observable newFeedBackCount = 0;
-
-    //APP版本
-    @observable
-    loginAppVersion = Platform.OS + '-' + InitAppStore.appVersion + '-' + JDAppStore.hotFixVersion;
-
-
-    sessionId;
-
-    //vip信息
-    @observable vipContent = null;
 
     constructor() {
        // this.initUserInfo()
@@ -118,6 +91,28 @@ export default class UserStore {
     @action
     changeMoneyIsVisable() {
         this.moneyIsVisable = !this.moneyIsVisable;
+    }
+
+    @action
+    initLoginToken(access_token){
+
+        if(this.access_token!=access_token){
+            TW_Log("initLoginToken---"+access_token);
+            this.access_token=access_token;
+            this.freshBalance(false);
+        }
+
+    }
+
+
+    getBankCardLogo(bankCode) {
+       // return {uri: TCHomeContents.content.otherSettings.bankCardLogoUrlPrefix + bankCode + ".png"};
+        return {uri:  bankCode + ".png"}
+    }
+
+    getBankBackground(bankCode) {
+      //  return {uri: TCHomeContents.content.otherSettings.bankCardLogoUrlPrefix + bankCode + "_bg.png"};
+        return {uri:  bankCode + "_bg.png"}
     }
 
     @action
@@ -145,36 +140,36 @@ export default class UserStore {
     }
 
 
-   async initUserInfo(){
-        await storage.load({
-            key: 'USERINFO',
-        }).then(res => {
-            if (res) {
-                if (res.username) {
-                    this.userName = res.username;
-                    this.realName = res.realname;
-                    this.access_token = res.oauthToken.access_token;
-                    this.oauthRole = res.oauthRole;
-                    this.prizeGroup = res.prizeGroup;
-                    this.password = base64.decode(res.password);
-                }
-            } else {
-                this.isLogin = false;
-            }
-        }).catch(err => {
-            JXLog("get userinfo false")
-            this.isLogin = false;
-        });
-    }
+   // async initUserInfo(){
+   //      await storage.load({
+   //          key: 'USERINFO',
+   //      }).then(res => {
+   //          if (res) {
+   //              if (res.username) {
+   //                  this.userName = res.username;
+   //                  this.realName = res.realname;
+   //                  this.access_token = res.oauthToken.access_token;
+   //                  this.oauthRole = res.oauthRole;
+   //                  this.prizeGroup = res.prizeGroup;
+   //                  this.password = base64.decode(res.password);
+   //              }
+   //          } else {
+   //              this.isLogin = false;
+   //          }
+   //      }).catch(err => {
+   //          JXLog("get userinfo false")
+   //          this.isLogin = false;
+   //      });
+   //  }
 
-    async updateUserOtherInfo() {
-        await storage.load({key: 'USERLOGOCOLOR'}).then((res) => {
-            this.userLogoColor = res;
-        }).catch(err => {
-            this.getRandomColorToSave();
-        })
-        this.getSignInData();
-    }
+    // async updateUserOtherInfo() {
+    //     await storage.load({key: 'USERLOGOCOLOR'}).then((res) => {
+    //         this.userLogoColor = res;
+    //     }).catch(err => {
+    //         this.getRandomColorToSave();
+    //     })
+    //     this.getSignInData();
+    // }
 
     //更新用户数据
     updateUserAllInfo() {
@@ -199,98 +194,8 @@ export default class UserStore {
         this.userLogoColor = color;
     }
 
-    /**
-     * 验证登录
-     * @param callback
-     */
-    @action
 
 
-    (callback) {
-        let name = this.userName.replace(/^\s+|\s+$/g, "");
-        let res = {};
-        if (!name.length) {
-            res.status = false;
-            res.message = "请输入用户名";
-            callback(res);
-            return;
-        }
-        let re = /^[0-9A-Za-z]{4,12}$/
-        if (name.length < 4 || name.length > 12 || !name.match(re)) {
-            res.status = false;
-            res.message = "用户名格式错误";
-            callback(res);
-            return;
-        }
-        // if (this.isGuest) {
-        //     res.status = false;
-        //     res.message = "试玩账号不能登录";
-        //     callback(res);
-        //     return;
-        // }
-
-        if (!this.password.length) {
-            res.status = false;
-            res.message = "请输入密码";
-            callback(res);
-            return;
-        }
-        this.login(callback);
-    }
-
-    //登录
-    @action
-    login(callback) {
-        TW_Log("Begin Login")
-        if(!this.userName)
-            return;
-        secretUtils.encode(this.userName, this.password, (hash) => {
-            let encryptPWD = secretUtils.rsaEncodePWD(this.password);
-            let data = {
-                'username': this.userName,
-                'password': encryptPWD,
-                'hash': hash,
-                appVersion: this.loginAppVersion
-            };
-            TW_Log("data", data);
-            userLogin(data, (res) => {
-                if (res.rs) {
-                    TW_Log("Login success")
-                    let user = res.content;
-                    if (user) {
-                        this.saveUserInfo(user);
-                        callback({status: true, message: "登录成功!"})
-                    } else {
-                        callback({status: false, message: "服务器错误，登录失败!"})
-                    }
-                } else {
-                    if (res.message) {
-                        callback({status: false, message: res.message})
-                    } else {
-                        callback({status: false, message: "服务器错误，登录失败!"})
-                    }
-                }
-            })
-        }, InitAppStore.deviceToken)
-    }
-
-    //保存用户信息
-    saveUserInfo(user) {
-        this.isLogin = true;
-        this.userName = user.username.toLocaleLowerCase();
-        this.prizeGroup = user.prizeGroup;
-        this.minMemberPrizeGroup = user.minMemberPrizeGroup;
-        this.access_token = user["oauthToken"]["access_token"];
-        user.password = base64.encode(this.password);
-        this.realName = user.realname;
-        this.oauthRole = user.oauthRole;
-        this.balance = user.balance;
-        this.sessionId = user.sessionId;
-        storage.save({
-            key: 'USERINFO',
-            data: user
-        });
-    }
 
 
     /**
@@ -344,50 +249,14 @@ export default class UserStore {
         this.isLogin = false;
         this.balance = 0;
         this.phoneNumber = null;
-        this.resetMsgCount();
-        this.resetFeedBackCount();
         storage.save({
             key: 'USERINFO',
             data: {}
         });
     }
 
-    @action
-    resetMsgCount() {
-        this.newMsgCount = 0;
-    }
 
-    @action
-    resetFeedBackCount() {
-        this.newFeedBackCount = 0;
-    }
 
-    //获取签到数据
-    @action
-    getSignInData() {
-        signInData((res) => {
-            if (res.rs) {
-                this.isSigned = res.content.isSigned;
-                this.keepSignInDays = res.content.keepSignInDays;
-            }
-        })
-    }
-
-    /**
-     * 签到
-     * @param callback
-     */
-    @action
-    singIn(callback) {
-        singin((res) => {
-            if (res.rs) {
-                this.getSignInData();
-                callback({status: true})
-            } else {
-                callback({status: false, message: res.message ? res.message : "签到失败!"})
-            }
-        })
-    }
 
     lastRequestTime = 0;
 
@@ -463,25 +332,6 @@ export default class UserStore {
         })
     }
 
-    @action
-    getMessageStatus() {
-        messageStore.getMessageStatus(res => {
-            if (res.rs) {
-                this.newMsgCount = res.content.messageCount;
-                this.newFeedBackCount = res.content.replyNotReadCount;
-            }
-        })
-    }
-
-    @action
-    getHttpVipInfo() {
-        // this.vipContent = null;
-        NetUitls.getUrlAndParamsAndCallback(config.api.vipLvUser, {access_token: this.access_token}, (ret) => {
-            if (ret.rs) {
-                this.vipContent = ret.content;
-            }
-        })
-    }
 
 }
 

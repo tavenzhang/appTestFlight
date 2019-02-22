@@ -12,14 +12,14 @@ import {
 } from '../../Common/Network/TCRequestService'
 
 
-let userStore=null;
+
 
 let secretUtils = new SecretUtils()
 
 export default class BankStore {
 
     constructor() {
-        userStore = TW_Store.userStore
+     
     }
 
     //服务器银行卡列表
@@ -126,7 +126,7 @@ export default class BankStore {
                 result.status = true;
                 this.showAddBankSuccess = true;
 
-                userStore.updateUserAllInfo();
+                TW_Store.userStore.updateUserAllInfo();
                 callback(result);
             } else {
                 result.status = false;

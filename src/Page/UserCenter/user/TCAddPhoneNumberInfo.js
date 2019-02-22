@@ -9,14 +9,12 @@ import {
     Platform
 } from 'react-native'
 
-import {observer, inject,} from 'mobx-react/native'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import { indexBgColor, inputStyle, buttonStyle} from '../../resouce/theme'
+import { indexBgColor, inputStyle, buttonStyle} from '../../asset/game/themeComponet'
 import Helper from "../../../Common/JXHelper/TCNavigatorHelper";
 import dismissKeyboard from 'dismissKeyboard'
 import Toast from '../../../Common/JXHelper/JXToast';
 import NavigationService from "../../Route/NavigationService";
-import userStore from "../../../Data/store/UserStore"
 import {addPhoneNumber} from "../../../Common/Network/TCRequestService";
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 
@@ -84,9 +82,9 @@ export default class TCAddPhoneNumberInfo extends Component {
             return;
 
         }
-       addPhoneNumber({"phoneNumber": this.state.phoneNum,username:userStore.userName}, (response) => {
+       addPhoneNumber({"phoneNumber": this.state.phoneNum,username:TW_Store.userStore.userName}, (response) => {
             if (response.rs) {
-                userStore.phoneNumber = this.state.phoneNum
+                TW_Store.userStore.phoneNumber = this.state.phoneNum
                 Toast.showShortCenter('已绑定成功！')
                 Helper.popToTop()
             }
@@ -111,19 +109,17 @@ export default class TCAddPhoneNumberInfo extends Component {
 
     back() {
         dismissKeyboard()
-        if (this.props.backToTop) {
-            NavigationService.popToTop()
-        } else {
+        // if (this.props.backToTop) {
+        //     NavigationService.popToTop()
+        // } else {
             NavigationService.goBack();
-        }
+        // }
     }
 
 
     SetPhoneNumber(text) {
         this.state.phoneNum = text
     }
-
-
 
 }
 

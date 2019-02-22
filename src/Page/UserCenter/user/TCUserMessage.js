@@ -10,7 +10,8 @@ import {
     View,
     TouchableOpacity,
     TextInput,
-    Alert
+    Alert,
+    ScrollView
 } from 'react-native';
 
 import {observer, inject} from 'mobx-react/native'
@@ -50,7 +51,7 @@ export default class TCUserMessage extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 < TopNavigationBar
                     title={'领奖身份信息'}
                     needBackButton={true}
@@ -103,7 +104,7 @@ export default class TCUserMessage extends Component {
                     <LoadingSpinnerOverlay
                         ref={component => this._modalLoadingSpinnerOverLay = component}/>
                 </View>
-            </View>
+            </ScrollView>
 
         );
 

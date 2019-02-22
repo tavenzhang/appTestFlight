@@ -248,6 +248,14 @@ export const buttonStyle = {
         btnUnableBg: loginAndRegeisterBgColor.loginBtn
     }
 
+//通用输入框样式
+export const inputStyle = {
+    inputBg: loginAndRegeisterBgColor.inputBg,
+    inputTxt: loginAndRegeisterTxtColor.inputTxt,
+    inputPlaceholder: loginAndRegeisterTxtColor.inputPlaceholder,
+    inputBorder: loginAndRegeisterBorderColor.inputBorder
+};
+
 
 export const betHome = {
     issueTxt: fontColor.mainTxt,

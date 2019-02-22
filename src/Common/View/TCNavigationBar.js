@@ -26,6 +26,7 @@ import _ from 'lodash';
 import {NavBarHeaderHeight} from "../../Page/asset/screen";
 import {themeViewStyle} from "../../Page/asset/theme";
 import PropTypes from 'prop-types'
+import {common} from "../../Page/asset/images";
 
 const NavIconSize = NavBarHeaderHeight
 
@@ -142,7 +143,6 @@ export default class TCNavigationBar extends Component {
 
     backButtonCall = () => {
         if (this.props.backButtonCall == null) return;
-        jdAppStore.playSound();
         this.props.backButtonCall();
     }
 
