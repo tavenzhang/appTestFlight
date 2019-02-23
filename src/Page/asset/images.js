@@ -150,5 +150,15 @@ export const betIcon = {
     orderQingChu: require('../resouce/addon/other/icon_qingchu.png'),
     success: common.select,
     redCheck: require('../resouce/addon/other/red_check.png')
+}
 
+//账号信息
+export const gameAccount = {
+    btnPhone: require('./game/account/btn_phone.png'),
+    persionText:require('./game/account/persionText.png'),
+    personBg:require('./game/account/personBg.png'),
+    btnClose:require('./game/account/btnClose.png'),
+    btnOk:require('./game/account/btn_queren.png'),
+    pwdOpen:require('./game/account/pwdOpen.png'),
+    pwdClose:require('./game/account/pwdClose.png'),
 }

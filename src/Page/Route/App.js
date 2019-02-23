@@ -65,7 +65,8 @@ import TCUserPayAndWithdrawRecordsMain from "../UserCenter/UserAccount/TCUserPay
 import UserPayment from '../../Page/UserCenter/UserPay/TCUserPayNew'
 import WechatPublicPage from '../../Page/UserCenter/UserPay/WxPublic/TCUserPayWxPublic'
 import TCUserWithdrawNew from "../UserCenter/UserWithdraw/TCUserWithdraw";
-
+import GameUIView from "../enter/GameUIView";
+import KeyboardManager from 'react-native-keyboard-manager'
 @observer
 export default class App extends Component {
     constructor(state) {
@@ -74,6 +75,7 @@ export default class App extends Component {
 
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+        KeyboardManager.setToolbarPreviousNextButtonEnable(true);
         StatusBar.setHidden(true);
         let cData = platInfo.channel[`c_${TW_Store.appStore.channel}`];
         TW_Log("cData--------"+TW_Store.appStore.channel,cData)
@@ -114,6 +116,7 @@ export default class App extends Component {
                         }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.saveVersionM)}` +
                     `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text> : null}
                     <CommonBoxLayer/>
+                    <GameUIView/>
                 </View>
             </Provider>
         )

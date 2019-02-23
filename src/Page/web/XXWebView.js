@@ -156,8 +156,23 @@ export default class XXWebView extends Component {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.au+"&cc=2");
                        // TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
-                        //
-                        TW_NavHelp.pushView(JX_Compones.TCUserWithdrawNew, {})
+                        let module =TW_GetQueryString("module",message.au);
+                        switch(module){
+                            case "recharge":
+                                TW_NavHelp.pushView(JX_Compones.TCUserPayType, {})
+                                break;
+                            case "account":
+                                TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
+                                break;
+                            case "redraw":
+                                TW_NavHelp.pushView(JX_Compones.TCUserWithdrawNew, {})
+                                break;
+                            case "custom":
+                                TW_NavHelp.pushView(JX_Compones.WebView, {url})
+                                break;
+
+                        }
+                        //TW_Log("module-----------"+module)
                         //this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
