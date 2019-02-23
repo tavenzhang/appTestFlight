@@ -91,7 +91,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -127,6 +127,6 @@
 	<key>Channel</key>
 	<string>2</string>
 	<key>Affcode</key>
-	<string>&quot;test&quot;</string>
+	<string>"test"</string>
 </dict>
 </plist>

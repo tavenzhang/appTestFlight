@@ -21,6 +21,13 @@ export default class TipDialog extends Component {
                 animationType='fade'
                 transparent={true}
                 visible={this.props.show}
+                supportedOrientations={[
+                    'portrait',
+                    'portrait-upside-down',
+                    'landscape',
+                    'landscape-left',
+                    'landscape-right',
+                ]}
                 onRequestClose={() => {
                 }}
             >

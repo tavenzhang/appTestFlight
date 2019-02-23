@@ -18,7 +18,7 @@ import {
     ImageBackground,
     TouchableOpacity
 } from 'react-native';
-import jdAppStore from '../../Data/store/BBLStore'
+
 import {width, indexTxtColor, Size} from '../../Page/asset/game/themeComponet'
 
 import _ from 'lodash';
@@ -180,7 +180,6 @@ export default class TCNavigationBar extends Component {
 
     rightButtonCall() {
         if (this.props.rightButtonCall == null) return;
-        jdAppStore.playSound();
         this.props.rightButtonCall();
     }
 

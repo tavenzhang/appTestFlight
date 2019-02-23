@@ -7,6 +7,9 @@ import BBLStore from "./BBLStore";
 import DataStore from "./DataStore";
 import HotFixStore from "./HotFixStore";
 import BankStore from "./BankStore";
+import UserPayTypeStore from "./UserPayTypeStore";
+import UserAccountStore from "./UserAccountStore";
+import UserWithdrawStore from "./UserWithdrawStore";
 //中央store 整合app 状态 需要多页面共享数据的store 请放在此处 方便注入 以及调用。
 class RootStore {
     constructor() {
@@ -16,7 +19,12 @@ class RootStore {
         this.hotFixStore = new HotFixStore();
         this.bblStore =new BBLStore();
         this.userStore = new UserStore();
-        this.bankStore = new BankStore()
+        this.bankStore = new BankStore();
+        this.userPayTypeStore=new UserPayTypeStore();
+        this.userAccountStore=new UserAccountStore();
+        this.userWithdrawStore= new UserWithdrawStore()
+
+
     }
 }
 

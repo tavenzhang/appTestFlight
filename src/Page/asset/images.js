@@ -88,6 +88,7 @@ export const personal = {
 
 
 //用户充值
+//用户充值
 export const userPay = {
     noPayData: common.noPayData,
     qqPay: require('../resouce/addon/other/qq_pay.png'),
@@ -106,5 +107,48 @@ export const userPay = {
     paidui01: common.select,
     paidui02: require('../resouce/addon/other/paidui22.png'),
     paidui03: require('../resouce/addon/other/win.png'),
+    step1: require('./pay_step/step_1.png'),
+    step3: require('./pay_step/step_3.png'),
+    step4: require('./pay_step/step_4.png'),
+    step5: require('./pay_step/step_5.png'),
+    step6: require('./pay_step/step_6.png'),
+    step7: require('./pay_step/step_7.png'),
+    step8: require('./pay_step/step_8.png'),
+    step9: require('./pay_step/step_9.png'),
+    stepWx1: require('../asset/pay_step/wx_public/step1.png'),
+    stepWx2: require('../asset/pay_step/wx_public/step2.png'),
+    stepWx3: require('./pay_step/wx_step_3.png'),
+    stepWx4: require('./pay_step/wx_step_4.png'),
+    payTypeWx: require('./pay_icon/wx.png'),
+    payTypeAlipay: require('./pay_icon/alipay.png'),
+    payTypeJdzf: require('./pay_icon/jdzf.png'),
+    payTypeUnionpay: require('./pay_icon/wy.png'),
+    payTypeOther: require('./pay_icon/unionpay.png'),
+    payTypeBank: require('./pay_icon/bank.png'),
+}
+
+//账变明细
+export const userAccount = {
+    calendar: require('../resouce/addon/userAccount/calendar.png'),
+    calendarDropDown: require('../resouce/addon/userAccount/calendar_drop_down.png'),
+    dayAfter: require('../resouce/addon/userAccount/day_after.png'),
+    dayBefore: require('../resouce/addon/userAccount/day_before.png')
+}
+//投注页面
+export const betIcon = {
+    bgPlace: require('../resouce/addon/other/bg_place.png'),
+    bgPlace02: require('../resouce/addon/other/bg_place02.png'),
+    back: require('../resouce/addon/other/fanhui2.png'),
+    handPointing: require('../resouce/addon/other/hand_pointing.png'),
+    topBg: require('../resouce/addon/other/top_bg.png'),
+    shake: require('../resouce/addon/other/icon_shake.png'),
+    explain: require('../resouce/addon/other/explain.png'),
+    check: personal.check,
+    unCheck: personal.unCheck,
+    orderTop: require('../resouce/addon/other/order_top.png'),
+    orderBottom: require('../resouce/addon/other/order_bottom.png'),
+    orderQingChu: require('../resouce/addon/other/icon_qingchu.png'),
+    success: common.select,
+    redCheck: require('../resouce/addon/other/red_check.png')
 
 }

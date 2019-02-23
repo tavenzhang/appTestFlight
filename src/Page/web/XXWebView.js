@@ -11,6 +11,7 @@ import LoadingView from "../enter/LoadingView";
 import {observer} from 'mobx-react/native';
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {platInfo} from "../../config/appConfig";
+
 @withMappedNavigationProps()
 @observer
 export default class XXWebView extends Component {
@@ -154,7 +155,9 @@ export default class XXWebView extends Component {
                     if (isOk&&TW_Store.bblStore.lastGameUrl != url) {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.au+"&cc=2");
-                        TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
+                       // TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
+                        //
+                        TW_NavHelp.pushView(JX_Compones.TCUserWithdrawNew, {})
                         //this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
