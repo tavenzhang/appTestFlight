@@ -95,11 +95,11 @@ export default class UserStore {
 
     @action
     initLoginToken(access_token){
-
         if(this.access_token!=access_token){
             TW_Log("initLoginToken---"+access_token);
             this.access_token=access_token;
             this.freshBalance(false);
+            TW_Store.bankStore.initUserBank();
         }
 
     }
@@ -248,7 +248,7 @@ export default class UserStore {
     clearLoginData() {
         this.isLogin = false;
         this.balance = 0;
-        this.phoneNumber = null;
+        this.phoneNumber = "";
         storage.save({
             key: 'USERINFO',
             data: {}
@@ -297,6 +297,7 @@ export default class UserStore {
     getBalanceAnUserInfo() {
         getBalaceAndUserInfo((res) => {
             if (res.rs) {
+                TW_Log("TW_Store.userStore.phoneNumber-getBalaceAndUserInfo-",res)
                 this.balance = res.content.userBalance.balance;
                 this.realName = res.content.realName;
                 this.phoneNumber = res.content.phoneNumber;

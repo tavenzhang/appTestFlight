@@ -24,7 +24,7 @@ export default class BankStore {
 
     //服务器银行卡列表
     @observable
-    bankList = {bankNames: [], bankCodes: []};
+    bankList = {bankNames: [], bankCodes: [],codes:[]};
 
     //个人银行卡
     @observable
@@ -52,7 +52,7 @@ export default class BankStore {
 
 
 
-
+    @observable
     bankInfo = {
         accountNum: '',//银行卡号
         realName: '',//真实姓名
@@ -93,38 +93,47 @@ export default class BankStore {
         getUserBank((res) => {
             if (res.rs) {
                 this.personBank = res.content;
+                let myCard = res.content[0];
                 result.status = true;
-                callback(result);
-                return;
+                this.bankInfo={accountNum:myCard.bankCardNo,
+                    realName:myCard.bankAccountName,
+                    bankAddress:myCard.bankAddress,
+                    bankName:myCard.bankName,
+                    bankCode:myCard.bankCode,
+                    password:"****"
+                }
+                callback&&callback(result);
+
             } else {
                 result.status = false;
                 result.message = res.message ? res.message : "服务器出错啦!";
-                callback(result);
-                return;
+                callback&&callback(result);
             }
         })
     }
 
     @action
-    addBank(callback) {
-        let bankCardNo = this.bankInfo.accountNum.replace(/\s+/g, "");
-        let encryptSecurityPwd = secretUtils.rsaEncodePWD(this.bankInfo.password);
+    addBank(callback,bankInfo) {
+        let bankCardNo = bankInfo.accountNum.replace(/\s+/g, "");
+        let encryptSecurityPwd = secretUtils.rsaEncodePWD(bankInfo.password);
         let params = {
-            realName: this.bankInfo.realName,
+            realName: bankInfo.realName,
             securityPassword: encryptSecurityPwd,
             userBankCardDto: {
                 bankCardNo: bankCardNo,
-                bankAccountName: this.bankInfo.realName,
-                bankAddress: this.bankInfo.bankAddress,
-                bankCode: this.bankInfo.bankCode,
-                bankName: this.bankInfo.bankName,
+                bankAccountName: bankInfo.realName,
+                bankAddress: bankInfo.bankAddress,
+                bankCode: bankInfo.bankCode,
+                bankName: bankInfo.bankName,
             }
         }
+
         addBank(params, (res) => {
             let result = {};
             if (res.rs) {
                 result.status = true;
                 this.showAddBankSuccess = true;
+                this.bankInfo = {...bankInfo,accountNum:bankCardNo};
 
                 TW_Store.userStore.updateUserAllInfo();
                 callback(result);
@@ -141,8 +150,8 @@ export default class BankStore {
     }
 
     @action
-    getBankName(callback){
-        getBankNameFromServer(this.bankInfo.accountNum,(response)=>{
+    getBankName(callback,cardNum){
+        getBankNameFromServer(cardNum ,(response)=>{
             let result ={}
             if (response.rs&&response.content&&response.content.bank) {
                          let filterIndex = this.bankList.codes.findIndex(function (it) {
@@ -160,8 +169,8 @@ export default class BankStore {
                             this.showBankTextView = false
                             result.index = filterIndex
                             result.status = true
-                            this.bankInfo.bankName = this.bankList.bankNames[filterIndex]
-                            this.bankInfo.bankCode = this.bankList.bankCodes[filterIndex]
+                            this.bankInfo.bankName = this.bankList.bankNames[filterIndex];
+                            this.bankInfo.bankCode = this.bankList.bankCodes[filterIndex];
                         }
             } else {
                 result.status = false

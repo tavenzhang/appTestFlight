@@ -20,6 +20,7 @@ import TCButtonView from "../../Common/View/button/TCButtonView";
 
 @withMappedNavigationProps()
 export default class TCWebView extends Component {
+
     constructor(state) {
         super(state)
         let {url} = this.props;

@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Affcode</key>
+	<string>"test"</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -9,7 +11,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.bbl.g365</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -22,6 +24,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>6</string>
+	<key>Channel</key>
+	<string>2</string>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
 	<key>Fabric</key>
@@ -91,11 +95,13 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>camera</string>
+	<key>PlatId</key>
+	<string>34</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Affcode</string>
@@ -122,11 +128,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>PlatId</key>
-	<string>34</string>
-	<key>Channel</key>
-	<string>2</string>
-	<key>Affcode</key>
-	<string>"test"</string>
 </dict>
 </plist>

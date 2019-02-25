@@ -153,7 +153,8 @@ export const betIcon = {
 }
 
 //账号信息
-export const gameAccount = {
+export const gameUI = {
+    //useraccout
     btnPhone: require('./game/account/btn_phone.png'),
     persionText:require('./game/account/persionText.png'),
     personBg:require('./game/account/personBg.png'),
@@ -161,4 +162,8 @@ export const gameAccount = {
     btnOk:require('./game/account/btn_queren.png'),
     pwdOpen:require('./game/account/pwdOpen.png'),
     pwdClose:require('./game/account/pwdClose.png'),
+    bindPhoneBg:require('./game/account/bindPhoneBg.png'),
+    titlePhone:require('./game/account/titlePhone.png'),
+    //guest
+    guestBg:require('./game/guest/gusetBg.png'),
 }

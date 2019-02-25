@@ -152,8 +152,8 @@ export default class XXWebView extends Component {
                         }
                     }
 
-                    if (isOk&&TW_Store.bblStore.lastGameUrl != url) {
-                        TW_Store.bblStore.lastGameUrl = url;
+                    if (isOk) {
+                        //TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.au+"&cc=2");
                        // TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
                         let module =TW_GetQueryString("module",message.au);
@@ -162,13 +162,15 @@ export default class XXWebView extends Component {
                                 TW_NavHelp.pushView(JX_Compones.TCUserPayType, {})
                                 break;
                             case "account":
-                                TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
+                              //  TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
+                                TW_Store.gameUIStroe.isShowUserInfo =!TW_Store.gameUIStroe.isShowUserInfo;
                                 break;
                             case "redraw":
                                 TW_NavHelp.pushView(JX_Compones.TCUserWithdrawNew, {})
                                 break;
                             case "custom":
-                                TW_NavHelp.pushView(JX_Compones.WebView, {url})
+                                TW_Store.gameUIStroe.gustWebUrl = url;
+                                TW_Store.gameUIStroe.isShowGuest=!TW_Store.gameUIStroe.isShowGuest;
                                 break;
 
                         }

@@ -4,9 +4,12 @@
 #use_frameworks!
 
 # Add new pods below this line
+pod 'Picker', :path => '../node_modules/react-native-picker'
+
 #pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
 
 #pod 'RNZipArchive', :path => '../node_modules/react-native-zip-archive'
+#pod 'ReactNativeKeyboardManager', :path => '../node_modules/react-native-keyboard-manager'
 
 target 'card' do
 pod 'NSLogger/NoStrip'
