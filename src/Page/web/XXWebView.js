@@ -159,14 +159,16 @@ export default class XXWebView extends Component {
                         let module =TW_GetQueryString("module",message.au);
                         switch(module){
                             case "recharge":
-                                TW_NavHelp.pushView(JX_Compones.TCUserPayType, {})
+                                //TW_NavHelp.pushView(JX_Compones.TCUserPayType, {})
+                                TW_Store.gameUIStroe.isShowAddPayView=!TW_Store.gameUIStroe.isShowAddPayView;
                                 break;
                             case "account":
                               //  TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
                                 TW_Store.gameUIStroe.isShowUserInfo =!TW_Store.gameUIStroe.isShowUserInfo;
                                 break;
                             case "redraw":
-                                TW_NavHelp.pushView(JX_Compones.TCUserWithdrawNew, {})
+                                TW_Store.gameUIStroe.isShowWithDraw =! TW_Store.gameUIStroe.isShowWithDraw;
+                                //TW_NavHelp.pushView(JX_Compones.TCUserWithdrawNew, {})
                                 break;
                             case "custom":
                                 TW_Store.gameUIStroe.gustWebUrl = url;

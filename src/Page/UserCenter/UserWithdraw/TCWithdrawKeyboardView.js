@@ -61,6 +61,13 @@ export default class TCKeyboardView extends Component {
                 animationType={'none'}
                 transparent={true}
                 visible={this.modalVisible}
+                supportedOrientations={[
+                    'portrait',
+                    'portrait-upside-down',
+                    'landscape',
+                    'landscape-left',
+                    'landscape-right',
+                ]}
                 onRequestClose={() => {
                     this._setModalVisible(false)
                 }}>

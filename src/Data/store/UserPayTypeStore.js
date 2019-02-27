@@ -33,7 +33,7 @@ export default class UserPayTypeStore {
             } else {
                 this.payTypeList = Default_PayList;
             }
-            callback();
+            callback&&callback();
         })
     }
 
@@ -69,7 +69,7 @@ export default class UserPayTypeStore {
                 let result = {};
                 result.status = false;
                 result.message = res.message ? res.message : "服务器出错啦!";
-                callback(result);
+                callback&&callback(result);
             }
         });
     }
@@ -91,7 +91,7 @@ export default class UserPayTypeStore {
                 result.status = false;
                 result.message = response.message ? response.message : "服务器出错啦!";
             }
-            callback(result);
+            callback&&callback(result);
         })
     }
 

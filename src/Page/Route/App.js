@@ -34,7 +34,8 @@ const Components = {
     UserAcountPay:viewRoutHelp(TCUserPayAndWithdrawRecordsMain),
     UserPayment: viewRoutHelp(UserPayment),
     WxPublicPage: viewRoutHelp(WechatPublicPage),
-    TCUserWithdrawNew:viewRoutHelp(TCUserWithdrawNew)
+    TCUserWithdrawNew:viewRoutHelp(TCUserWithdrawNew),
+    TCUserBankPayMessageNew:viewRoutHelp(TCUserBankPayMessageNew)
 }
 
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
@@ -67,6 +68,7 @@ import WechatPublicPage from '../../Page/UserCenter/UserPay/WxPublic/TCUserPayWx
 import TCUserWithdrawNew from "../UserCenter/UserWithdraw/TCUserWithdraw";
 import GameUIView from "../enter/GameUIView";
 import KeyboardManager from 'react-native-keyboard-manager'
+import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
 @observer
 export default class App extends Component {
     constructor(state) {

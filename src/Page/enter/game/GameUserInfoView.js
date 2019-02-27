@@ -102,7 +102,7 @@ export default class GameUserInfoView extends Component {
             }} imgSource={this.state.isPwdOpen ? ASSET_Images.gameUI.pwdOpen : ASSET_Images.gameUI.pwdClose}
                          btnStyle={{position: "absolute", right: 50, top: 235}}/>
             <View style={{position: "absolute", left: 120, top: 155}} pointerEvents={isHaveCard ? "none" : "auto"}>
-                <TCTextInput value={this.state.inputRealName} onChangeText={(text) => {
+                <TCTextInput viewStyle={{}} value={this.state.inputRealName} onChangeText={(text) => {
                     this.setState({inputRealName: text})
                 }} placeholder={"请输入持卡人姓名"} inputStyle={styles.inputStyle} placeholderTextColor={"#9cc5d8"}/>
 
@@ -152,16 +152,16 @@ export default class GameUserInfoView extends Component {
         </View>)
     }
 
-    getUserNameView = () => {
-        let realName = TW_Store.userStore.realName;
-        if (realName && realName.length > 0) {
-            return (<Text style={styles.inputStyle}>{realName}</Text>)
-        } else {
-            return (<TCTextInput value={this.bankStore.bankInfo.realName} onChangeText={(text) => {
-                this.bankStore.bankInfo.realName = text;
-            }} placeholder={"请输入持卡人姓名"} inputStyle={styles.inputStyle} placeholderTextColor={"#9cc5d8"}/>)
-        }
-    }
+    // getUserNameView = () => {
+    //     let realName = TW_Store.userStore.realName;
+    //     if (realName && realName.length > 0) {
+    //         return (<Text style={styles.inputStyle}>{realName}</Text>)
+    //     } else {
+    //         return (<TCTextInput value={this.bankStore.bankInfo.realName} onChangeText={(text) => {
+    //             this.bankStore.bankInfo.realName = text;
+    //         }} placeholder={"请输入持卡人姓名"} inputStyle={styles.inputStyle} placeholderTextColor={"#9cc5d8"}/>)
+    //     }
+    // }
 
 
     onChangeAccountNum = (text) => {
@@ -177,9 +177,9 @@ export default class GameUserInfoView extends Component {
     onCardNumCheck=()=> {
         if (this.state.inputBankNum.length >= 14) {
             this.bankStore.getBankName((res)=> {
-                if (!res.status) {
-                    Toast.showShortCenter(res.message)
-                }
+                // if (!res.status) {
+                //     Toast.showShortCenter(res.message)
+                // }
             },this.state.inputBankNum)
         } else {
             Toast.showShortCenter('请输入正确的银行卡号,必须不小于14位');
@@ -193,7 +193,6 @@ export default class GameUserInfoView extends Component {
             if(ret.status){
                 Toast.showShortCenter('添加成功！');
             }
-
         },{
             accountNum: this.state.inputBankNum,
             password:this.state.inputPwd,
@@ -221,8 +220,7 @@ export default class GameUserInfoView extends Component {
                          btnStyle={{position: "absolute", right: 0, top: 10}}
                          onClick={() => {
                              this.setState({isShowPhone: false})
-                         }
-                         }/>
+                         }}/>
             <View style={{position: "absolute", left: 190, top: 125}}>
                 <TCTextInput onChangeText={(text) => {
                     this.setState({phoneNum: text})
@@ -270,7 +268,6 @@ export default class GameUserInfoView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: JX_PLAT_INFO.SCREEN_H,
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
@@ -281,6 +278,7 @@ const styles = StyleSheet.create({
     inputStyle: {
         fontSize: 11,
         fontWeight: "bold",
+        textAlign:"left",
         color: "#efe8cd"
     }
 

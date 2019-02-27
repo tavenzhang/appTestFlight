@@ -13,6 +13,8 @@ import TCText from "../../Common/View/widget/TCText";
 import GameUserInfoView from "./game/GameUserInfoView";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 import GameGuestView from "./game/GameGuestView";
+import GameMoneyOutView from "./game/GameMoneyOutView";
+import GameMoneyInView from "./game/GameMoneyInView";
 
 
 @observer
@@ -28,8 +30,9 @@ export default class GameUIView extends Component {
     render() {
         return (<View style={styles.container}>
             {TW_Store.gameUIStroe.isShowUserInfo ? <GameUserInfoView/>:null}
+            {TW_Store.gameUIStroe.isShowWithDraw ? <GameMoneyOutView/>:null}
+            {TW_Store.gameUIStroe.isShowAddPayView ? <GameMoneyInView/>:null}
             {TW_Store.gameUIStroe.isShowGuest ? <GameGuestView/>:null}
-
         </View>)
 
     }

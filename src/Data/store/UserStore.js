@@ -100,6 +100,8 @@ export default class UserStore {
             this.access_token=access_token;
             this.freshBalance(false);
             TW_Store.bankStore.initUserBank();
+            TW_Store.userPayTypeStore.initPopUp();
+            TW_Store.userPayTypeStore.initPayTypeList();
         }
 
     }

@@ -9,6 +9,7 @@ import {Linking} from "react-native";
 import FixedPage from './TCUserPayFixedPage'
 import userStore from '../../../Data/store/UserStore'
 import BankPayApply from "./TCUserBankPayMessageNew";
+import {userPay} from "../../asset/images";
 
 class PayHelper {
     money = '';
@@ -17,7 +18,8 @@ class PayHelper {
 
 
     isFixedPay() {
-        return this.props.code.indexOf("FIXED") !== -1
+       // return this.props.code.indexOf("FIXED") !== -1
+        return false
     }
 
     /**
@@ -343,15 +345,46 @@ class PayHelper {
         if (!this.validMoney(bank, true)) {
             return;
         }
-        NavigatorHelper.pushToUserBankPayMessage({
-            amount: this.money,
-            transInfo: bank
-        })
+        TW_NavHelp.pushView(JX_Compones.TCUserBankPayMessageNew,{amount: this.money,
+            transInfo: bank});
+        // NavigatorHelper.pushToUserBankPayMessage({
+        //     amount: this.money,
+        //     transInfo: bank
+        // })
     }
 
     clearData() {
         this.money = '';
         this.payData = {};
+    }
+
+
+    /**
+     * 获取支付图标
+     * @param rowData
+     * @returns {XML}
+     */
+    getPayTypeIcon=(typeCode)=> {
+        switch (typeCode) {
+            case 'WX':
+            case 'FIXED_WX':
+            case 'WX_PUBLIC':
+                return userPay.payTypeWx
+            case 'FIXED_QQ':
+            case 'QQ':
+                return  userPay.qqPay
+            case 'ZHB':
+            case 'FIXED_ZHB':
+                return userPay.payTypeAlipay
+            case 'JD':
+                return userPay.payTypeJdzf
+            case 'BANK':
+                return userPay.payTypeBank
+            case 'ONLINEBANK':
+                return userPay.payTypeUnionpay
+            default:
+                return userPay.payTypeOther
+        }
     }
 }
 

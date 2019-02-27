@@ -43,7 +43,7 @@ export default class TCUserAccountBillingDetails extends Component {
         let orderId = crossReferenceId ? crossReferenceId : transactionId
         return (
             <View style={styles.container}>
-                < TopNavigationBar
+                <TopNavigationBar
                     title={'账单详情'}
                     needBackButton={true}
                     backButtonCall={() => {

@@ -27,12 +27,15 @@ export class TCTextInput extends React.Component {
     }
 
   static defaultProps= {
-      viewStyle:{flex:1, justifyContent:"center", alignItems:"center"},
-      isDefaultTextStyle:true
+      viewStyle:{flex:1, justifyContent:"center"},
+      isDefaultTextStyle:true,
+      inputStyle:{
+          fontSize: 14,
+      }
   }
 
     render() {
-        const {onBlur,onSubmitEditing,isDefaultTextStyle,placeholder, maxLength,onfocus,inputStyle, autoFocus, viewStyle,secureTextEntry,onChangeText,multiline,keyboardType,value,placeholderTextColor,editable} = this.props;
+        const {onBlur,onSubmitEditing,placeholder, maxLength,onfocus,inputStyle, autoFocus, viewStyle,secureTextEntry,onChangeText,multiline,keyboardType,value,placeholderTextColor,editable} = this.props;
         return (
             <View style={viewStyle}>
                 <TextInput
@@ -41,7 +44,7 @@ export class TCTextInput extends React.Component {
                         onfocus;
                     }}
                     textAlignVertical={"top"}
-                    style={[styles.textStyle,inputStyle]}
+                    style={[inputStyle]}
                     onChangeText={onChangeText}
                     value={value}
                     editable={ typeof editable === 'undefined' ? true : editable}
@@ -61,10 +64,10 @@ export class TCTextInput extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    textStyle: {
-        width: 150,
-        fontSize: 14
-    },
+    // textStyle: {
+    //
+    //     fontSize: 14
+    // },
 
 })
 

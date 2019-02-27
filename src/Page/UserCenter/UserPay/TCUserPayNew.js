@@ -53,8 +53,6 @@ export default class TCUserPayNew extends Component {
 
     userPayStore = new UserPayStore();
 
-
-
     constructor(props) {
         super(props)
         this.moneyData = new MoneyData();
@@ -75,7 +73,7 @@ export default class TCUserPayNew extends Component {
                 <TCKeyboardView ref="tcKeyboardView" setInputValue={(number) => {
                     this.setTextInputValue(number)
                 }}/>
-                < TopNavigationBar
+                <TopNavigationBar
                     title={'充值'}
                     needBackButton={true}
                     rightTitle={'充值明细'}

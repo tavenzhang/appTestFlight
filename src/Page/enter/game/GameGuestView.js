@@ -8,13 +8,7 @@ import {observer} from 'mobx-react/native';
 import TCImage from "../../../Common/View/image/TCImage";
 import {ASSET_Images, JX_PLAT_INFO} from "../../asset";
 import {TCButtonImg} from "../../../Common/View/button/TCButtonView";
-import {TCTextInput} from "../../../Common/View/TCTextInput";
-import TCText from "../../../Common/View/widget/TCText";
-import {G_LayoutAnimaton} from "../../../Common/Global/G_LayoutAnimaton";
-import Toast from "../../../Common/JXHelper/JXToast";
-import {addPhoneNumber} from "../../../Common/Network/TCRequestService";
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
-import {width} from "../../asset/game/themeComponet";
 
 @observer
 export default class GameGuestView extends Component {
@@ -35,6 +29,9 @@ export default class GameGuestView extends Component {
         return (<View style={styles.container}>
             <TCImage source={ASSET_Images.gameUI.guestBg}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
+                         onClick={() => TW_Store.gameUIStroe.isShowGuest = false}
+                         btnStyle={{position: "absolute", right: 0, top: 0}}/>
+            <TCButtonImg imgSource={ASSET_Images.gameUI.btn}
                          onClick={() => TW_Store.gameUIStroe.isShowGuest = false}
                          btnStyle={{position: "absolute", right: 0, top: 20}}/>
             <View style={{position: "absolute",}}>
@@ -67,8 +64,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        alignSelf: "center",
         backgroundColor: "transparent",
+        position: "absolute",
     },
     inputStyle: {
         fontSize: 11,

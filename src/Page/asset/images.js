@@ -166,4 +166,30 @@ export const gameUI = {
     titlePhone:require('./game/account/titlePhone.png'),
     //guest
     guestBg:require('./game/guest/gusetBg.png'),
+    //moneyOut
+    titleMoneyOut:require('./game/moneyOut/titleMoneyOut.png'),
+    moneyOutBg:require('./game/moneyOut/menyOutBg.png'),
+    btnOut:require('./game/moneyOut/btn_out.png'),
+    //moneyPay
+    moneyInBg:require('./game/moneyPay/moneyInBg.png'),
+    btn_onLine:require('./game/moneyPay/btn_guset_online.png'),
+    title_pay:require('./game/moneyPay/title_payType.png'),
+    title_qr:require('./game/moneyPay/title_qrCode.png'),
+    btn_minxi:require('./game/moneyPay/btn_minxi.png'),
+
+    btnPayNormal:require('./game/moneyPay/btnPayNormal.png'),
+    btnPayHight:require('./game/moneyPay/btnPayHight.png'),
+    btnMoneyHight:require('./game/moneyPay/btnMoneyHight.png'),
+    btnMoneyBg:require('./game/moneyPay/btnMoneyBg.png'),
+    //btn
+    typeJD:require('./game/moneyPay/type/typeJD.png'),
+    typeQQ:require('./game/moneyPay/type/typeQQ.png'),
+    typeWX:require('./game/moneyPay/type/typeWX.png'),
+    typeWX_GZ:require('./game/moneyPay/type/typeWX_GZ.png'),
+    typeZFB:require('./game/moneyPay/type/typeZFB.png'),
+    typeBank:require('./game/moneyPay/type/typeYN.png'),
+    //stepOnebg1@2x
+    stepOneBg1:require('./game/moneyPay/stepOnebg1.png'),
+    listItemBg:require('./game/moneyPay/listItemBg.png'),
+
 }

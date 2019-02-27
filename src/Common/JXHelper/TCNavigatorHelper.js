@@ -63,6 +63,9 @@ Helper.popToTop = () => {
     NavigationService.popToTop();
 }
 
+Helper.pushToUserBankPayMessage = (params) => {
+    NavigationService.navigate("UserBankPayMessage", params);
+}
 /**
  * 返回多级页面
  * @param n
