@@ -14,6 +14,9 @@ import TCFlatList from "../../../Common/View/RefreshListView/TCFLatList";
 import GamePayStepOne from "./pay/GamePayStepOne";
 import Toast from "../../../Common/JXHelper/JXToast";
 
+import TCUserPayAndWithdrawRecordsMain from "../../UserCenter/UserAccount/TCUserPayAndWithdrawRecordsMain";
+import BaseGameAlert from "./pay/BaseGameAlert";
+
 @observer
 export default class GameMoneyInView extends Component {
 
@@ -47,7 +50,8 @@ export default class GameMoneyInView extends Component {
         super(state)
         this.state = {
             selectPayCode:"",
-            payList:[]
+            payList:[],
+            isShowHistory:false
         }
         this.bblStore = TW_Store.bblStore;
         this.userPayStore=TW_Store.userPayTypeStore;
@@ -77,10 +81,8 @@ export default class GameMoneyInView extends Component {
                          onClick={() => TW_Store.gameUIStroe.isShowAddPayView = false}
                          btnStyle={{position: "absolute", right: 0, top: 10}}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btn_minxi}
-                         btnStyle={{position: "absolute", right: 30, top: 53}} onClick={()=>{
-                           TW_NavHelp.pushView(JX_Compones.UserAcountPay,{accountType: 1, isBackToTop: false})
-                         }
-            }/>
+                         btnStyle={{position: "absolute", right: 30, top: 53}} onClick={this.onShowHistoyView}
+            />
             <TCImage source={ASSET_Images.gameUI.title_pay} style={{position: "absolute", right: 180, top: 60}}/>
 
             <View style={{position: "absolute", top:82,left:24}}>
@@ -89,9 +91,20 @@ export default class GameMoneyInView extends Component {
             <View style={{position: "absolute", top:82,left:147}}>
                 {this.state.selectPayCode.length >0 ? <GamePayStepOne  type={bankCode}/>:null}
             </View>
-
+            <View style={{position: "absolute"}}>
+            {
+                //TW_NavHelp.pushView(JX_Compones.UserAcountPay,{accountType: 0, isBackToTop: true})
+                this.state.isShowHistory ? <BaseGameAlert  onClose={this.onShowHistoyView}>
+                    <TCUserPayAndWithdrawRecordsMain onBack={this.onShowHistoyView}  accountType={1} isBackToTop={false}/>
+                </BaseGameAlert>:null
+            }
+            </View>
         </View>)
 
+    }
+
+    onShowHistoyView=()=>{
+        this.setState({isShowHistory:!this.state.isShowHistory})
     }
 
     onRenderPayTypeItem=(item, index)=>{
@@ -119,7 +132,7 @@ const styles = StyleSheet.create({
         // alignItems: "center",
         // alignSelf: "center",
          position: "absolute",
-        // backgroundColor: "transparent",
+        // backgroundColor: "red",
         // zIndex: 100
     },
 

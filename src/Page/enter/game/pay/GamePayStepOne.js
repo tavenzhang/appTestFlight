@@ -49,10 +49,7 @@ export default class GamePayStepOne extends Component {
         TW_Log("GamePayStepOne---payList--type==" + type, payList)
         return (<View style={styles.container}>
             <TCImage source={ASSET_Images.gameUI.stepOneBg1}/>
-            <TCButtonImg imgSource={ASSET_Images.gameUI.btn_onLine}
-                         btnStyle={{position: "absolute", right: 48, top: 88}} onClick={() => {
-                TW_Store.gameUIStroe.isShowGuest = true;
-            }}/>
+
             <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`} viewStyle={{position: "absolute", right: 30, top: 5}}
                          placeholder={"充值无上限,可自行填写金额"}
                          keyboardType={"numeric"}
@@ -74,7 +71,10 @@ export default class GamePayStepOne extends Component {
                                                   renderRow={this.onRenderItemView}/> : this.getEmptyTip()}
 
             </View>
-
+            <TCButtonImg imgSource={ASSET_Images.gameUI.btn_onLine}
+                         btnStyle={{position: "absolute", right: 48, top: 88}} onClick={() => {
+                TW_Store.gameUIStroe.isShowGuest = true;
+            }}/>
         </View>)
     }
 

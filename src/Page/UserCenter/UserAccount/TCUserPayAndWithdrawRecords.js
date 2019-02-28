@@ -13,6 +13,7 @@ import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {indexBgColor} from '../../resouce/theme'
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView'
 import TransferRow from './View/TCUserTransferRowView'
+import UserAccount from "./TCUserPayAndWithdrawRecordsMain";
 
 
 @observer
@@ -76,7 +77,9 @@ export default class TCUserPayAndWithdrawRecords extends Component {
         }
     }
 
-    getNodataView() {
+    getNodataView=()=> {
+        let {onBack} = this.props
+
         if (this.props.accountType === 1) {
             return (
                 <NoDataView
@@ -84,9 +87,7 @@ export default class TCUserPayAndWithdrawRecords extends Component {
                     titleTip={this.getNodataTip()}
                     contentTip="大奖不等待，速去购彩吧~"
                     btnTxt="立即充值"
-                    gotoDoing={() => {
-                        Helper.pushToPay()
-                    }}
+                    gotoDoing={onBack}
                 />
             )
         } else {

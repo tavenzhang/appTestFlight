@@ -15,9 +15,7 @@ import UserAccount from './TCUserPayAndWithdrawRecords'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import {Size, shoppingTxtColor, indexBgColor, listViewTxtColor} from '../../asset/game/themeComponet'
-import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
-@withMappedNavigationProps()
 export default class TCUserPayAndWithdrawRecordsMain extends Component {
 
     constructor(props) {
@@ -38,15 +36,9 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
 
     render() {
         const navTitle = ['提款记录', '充值记录', '转账记录']
+        let {onBack}=this.props
         return (
             <View style={styles.container}>
-                < TopNavigationBar
-                    title={navTitle[this.props.accountType]}
-                    needBackButton={true}
-                    backButtonCall={() => {
-                        this.back()
-                    }}
-                />
                 <ScrollableTabView
                     renderTabBar={() => <DefaultTabBar style={{height: 45}} textStyle={{marginTop: 30}}/>}
                     tabBarUnderlineStyle={{backgroundColor: shoppingTxtColor.tabLine, height: 2}}
@@ -56,11 +48,11 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
                     tabBarActiveTextColor={shoppingTxtColor.tabTitlePressed}
                     tabBarInactiveTextColor={shoppingTxtColor.tabTitleNormal}
                     tabBarTextStyle={{fontSize: Size.font15, fontWeight: 'normal', marginTop: 10,}}>
-                    <UserAccount tabLabel='全部' navigator={this.props.navigator} type={1}
+                    <UserAccount onBack={onBack} tabLabel='全部' navigator={this.props.navigator} type={1}
                                  accountType={this.props.accountType}/>
-                    <UserAccount tabLabel='已完成' navigator={this.props.navigator} type={2}
+                    <UserAccount onBack={onBack}  tabLabel='已完成' navigator={this.props.navigator} type={2}
                                  accountType={this.props.accountType}/>
-                    <UserAccount tabLabel='失败' navigator={this.props.navigator} type={3}
+                    <UserAccount  onBack={onBack} tabLabel='失败' navigator={this.props.navigator} type={3}
                                  accountType={this.props.accountType}/>
                 </ScrollableTabView>
             </View>
@@ -68,18 +60,12 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
 
     };
 
-    back() {
-        if (this.props.isBackToTop) {
-            RCTDeviceEventEmitter.emit('balanceChange')
-            Helper.popToTop()
-        } else {
-            Helper.popToBack()
-        }
-    }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop:50,
+        paddingHorizontal:15
     },
 });

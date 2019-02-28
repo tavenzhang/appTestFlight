@@ -192,6 +192,8 @@ export default class GameUserInfoView extends Component {
         this.bankStore.addBank((ret)=>{
             if(ret.status){
                 Toast.showShortCenter('添加成功！');
+            }else{
+                Toast.showShortCenter(ret.message)
             }
         },{
             accountNum: this.state.inputBankNum,
