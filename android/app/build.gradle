@@ -215,6 +215,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-splash-screen')
     implementation project(':react-native-orientation')
     implementation project(':react-native-zip-archive')
     implementation project(':react-native-flurry-analytics')

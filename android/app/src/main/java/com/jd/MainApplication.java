@@ -13,6 +13,7 @@ import com.cmcewen.blurview.BlurViewPackage;
 import com.crashlytics.android.Crashlytics;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.rnziparchive.RNZipArchivePackage;
 import com.xxsnakerxx.flurryanalytics.FlurryAnalyticsPackage;
@@ -74,6 +75,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new SplashScreenReactPackage(),
             new OrientationPackage(),
             new RNZipArchivePackage(),
             new FlurryAnalyticsPackage(),

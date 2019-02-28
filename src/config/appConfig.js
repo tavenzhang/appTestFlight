@@ -3,16 +3,17 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://www.0579jiapeiwang.com',
-    base2: 'https://www.yurewd456qwep.com',
-    base3: 'https://www.mkjow321qwup.com',
-    base4: 'https://www.qzxsaq987dwqd.com',
-    base5: 'https://www.ghyrfd123eqqd.com',
-    base6: 'https://www.qwedsa789qszd.com',
-    base7: 'https://www.vdfrtw654qefhj.com',
+    base1: 'https://6ykufu5x.xuhuicaifu.com',
+    base2: 'https://7gz24qk6.xuhuicaifu.com',
+    base3: 'https://3gxwm2qg.xuhuicaifu.com',
+    base4: 'https://6ykufu5x.xuhuicaifu.com',
+    base5: 'https://7gz24qk6.xuhuicaifu.com',
+    base6: 'https://3gxwm2qg.xuhuicaifu.com',
+    base7: 'https://6ykufu5x.xuhuicaifu.com',
 }
 
-export let configAppId = "34"
+
+export let configAppId = "2"
 
 
 export const AppConfig = {
@@ -35,26 +36,24 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '365游戏';
+export const MyAppName = '梦想游戏';
 
-export const MyOwnerPlatName= '365彩票';
-
-export const versionHotFix = '365_2_14';
+export const versionHotFix = 'mxcp_1_14';
 
 export const safeguardDomain = [
-    'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
-    'https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com']
+    'https://721327bfc0e276a871561a42ac89a490.oss-cn-shenzhen.aliyuncs.com',
+    'https://721327bfc0e276a871561a42ac89a490.s3-accelerate.amazonaws.com']
 
 
 export const platInfo = {
-    loginDomain:"https://0365cai.cc",
+    loginDomain:"https://5530cp.net",
     //gameDomain: "https://dk3nuq7v.zhdisi.com",
-    gameDomain:"https://dk3nuq7v.zhdisi.com",
+    gameDomain:"https://ax7eykmk.syglhfsp.com",
     // gameDomain: "https://0365cai.cc",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.hkbaoxian188.com/game/release/365"
+        release_server: "https://download.hkbaoxian188.com/game/release/mxcp"
     },
     platId: configAppId,
 
@@ -86,9 +85,7 @@ export const platInfo = {
 
 export const affCodeList = {
     ios: {
-        '2.9.6': '365_ios'
     },
     android: {
-        '2.10.11': '365_android'
     }
 };
