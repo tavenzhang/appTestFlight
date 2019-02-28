@@ -38,6 +38,7 @@ import _ from 'lodash'
 import dismissKeyboard from 'dismissKeyboard'
 import {betIcon, common} from '../../asset/images'
 import UserPayStore from "../../../Data/store/UserPayStore";
+import TCUserPayProgress from "./TCUserPayProgress";
 
 /**
  * 银行充值
@@ -308,11 +309,11 @@ export default class TCUserBankPayMessageNew extends Component {
     /**
      * 提交转账请求
      */
-    submitPay() {
+    submitPay=()=>{
         if (!this.validateInfo()) {
             return
         }
-        this._modalLoadingSpinnerOverLay.show()
+        //this._modalLoadingSpinnerOverLay.show();
         let params = {
             adminBankId: this.props.transInfo.adminBankId,
             topupAmount: this.props.amount,
@@ -322,9 +323,12 @@ export default class TCUserBankPayMessageNew extends Component {
         }
 
         this.userPayStore.bankTransferQuery(params, (res) => {
-            this._modalLoadingSpinnerOverLay.hide();
+            //this._modalLoadingSpinnerOverLay.hide();
             if (res.status) {
-                NavigatorHelper.pushToUserPayProgress({topupAmount: this.props.amount});
+                //TW_Store.gameUIStroe.showUserPayProgress({topupAmount: this.props.amount})
+                TW_Store.gameUIStroe.showCommonView("充值进度",TCUserPayProgress,{topupAmount: this.props.amount})
+
+             //   NavigatorHelper.pushToUserPayProgress({topupAmount: this.props.amount});
             } else {
                 Toast.showShortCenter(res.message);
             }

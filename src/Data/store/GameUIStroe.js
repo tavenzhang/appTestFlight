@@ -61,6 +61,14 @@ export default class GameUIStroe {
         }
     }
 
+    @action
+    showCommonView(title="",component=null,param={}){
+        this.gameAlertData={
+            title,
+            component,
+            param,
+        }
+    }
 
 
     @action

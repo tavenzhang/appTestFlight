@@ -1,16 +1,16 @@
 import React, {Component,} from 'react'
 
-import {View, StyleSheet, Text, TouchableOpacity, Image, Platform} from 'react-native'
+import {View, StyleSheet, Text, TouchableOpacity, Image, Platform,ScrollView} from 'react-native'
 import {Size, indexBgColor, width, height, listViewTxtColor, buttonStyle, payTxtColor} from '../../resouce/theme'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {userPay} from '../../asset/images'
-import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
 
 /**
  * 充值进度界面
  */
-@withMappedNavigationProps()
+
 export default class TCUserPayProgress extends Component {
 
     // 构造函数
@@ -29,14 +29,8 @@ export default class TCUserPayProgress extends Component {
     render() {
 
         return (
-            <View style={styles.container}>
-                < TopNavigationBar
-                    title={'充值进度'}
-                    needBackButton={true}
-                    backButtonCall={() => {
-                        Helper.popToBack();
-                    }}/>
-                <View style={{alignItems: 'center', marginBottom: 20}}>
+            <ScrollView style={styles.container}>
+                <View style={{alignItems: 'center', marginBottom: 10}}>
                     <View style={styles.mainViewStyle}>
                         <View style={styles.leftViewStyle}>
                             <Image source={userPay.paidui01} style={styles.firstImgStyle}/>
@@ -74,12 +68,12 @@ export default class TCUserPayProgress extends Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 
     gotoPayRecord() {
-        Helper.pushToUserPayAndWithDraw(1, true)
+        TW_Store.gameUIStroe.showChongZhiDetail();
     }
 
 }
@@ -88,6 +82,7 @@ export default class TCUserPayProgress extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        height:240,
         backgroundColor: indexBgColor.mainBg,
     }, bottomBarButtonStyle: {
         backgroundColor: buttonStyle.btnBg,
