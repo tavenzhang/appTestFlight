@@ -99,7 +99,7 @@ export default class TCWebView extends Component {
     onRenderLoadingView = () => {
         let {isGame} = this.props
         return (<View style={{flex: 1, backgroundColor: "black"}}>
-            {isGame ? null:<LoadingView/>}
+            {isGame ? <LoadingView/>:<LoadingView/>}
 
             {/*<TCImage source={Images.bbl.gameBg} style={{width:JX_PLAT_INFO.SCREEN_W,height:JX_PLAT_INFO.SCREEN_H}}/>*/}
         </View>)
