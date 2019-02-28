@@ -15,6 +15,7 @@ import {userPay} from "../../../asset/images";
 import {copyBtnStyle, indexBgColor, listViewTxtColor, payTxtColor, Size, width} from "../../../resouce/theme";
 import payHelper from "../../../UserCenter/UserPay/PayHelper";
 import UserPayStore from "../../../../Data/store/UserPayStore";
+import BaseGameAlert from "../GameMoneyInView";
 
 @observer
 export default class GamePayStepOne extends Component {
@@ -40,13 +41,15 @@ export default class GamePayStepOne extends Component {
     }
 
     componentDidMount(): void {
-
+        setTimeout(()=>{
+            this.setState({test:""})
+        },1000)
     }
 
     render() {
         let {type} = this.props;
         let payList = TW_Store.userPayTypeStore.getPayList(type);
-        TW_Log("GamePayStepOne---payList--type==" + type, payList)
+
         return (<View style={styles.container}>
             <TCImage source={ASSET_Images.gameUI.stepOneBg1}/>
 
@@ -75,6 +78,13 @@ export default class GamePayStepOne extends Component {
                          btnStyle={{position: "absolute", right: 48, top: 88}} onClick={() => {
                 TW_Store.gameUIStroe.isShowGuest = true;
             }}/>
+            {/*{*/}
+                {/*//TW_NavHelp.pushView(JX_Compones.UserAcountPay,{accountType: 0, isBackToTop: true})*/}
+                {/*this.state.isShowHistory ? <BaseGameAlert  onClose={this.onShowHistoyView}>*/}
+                    {/*<TCUserPayAndWithdrawRecordsMain onBack={this.onShowHistoyView}  accountType={1} isBackToTop={false}/>*/}
+                {/*</BaseGameAlert>:null*/}
+            {/*}*/}
+
         </View>)
     }
 

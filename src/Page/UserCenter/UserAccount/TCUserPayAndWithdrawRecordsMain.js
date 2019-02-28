@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
+    ScrollView
 } from 'react-native';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import ScrollableTabView from '../../../Common/View/ScrollableTab'
@@ -64,8 +65,7 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        paddingTop:50,
-        paddingHorizontal:15
+        height:240,
+        //backgroundColor:"green"
     },
 });

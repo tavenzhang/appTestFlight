@@ -38,7 +38,10 @@ export default class BtnPayType extends Component {
                         <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center",}}>
                             <TCImage source={this.getPayTypeIcon(data.code)}
                                      style={{width: 25, height: 25, marginRight: 5}}/>
+                            <View style={{justifyContent:"center", alignItems:"center"}}>
                             <TCImage source={this.getPayName(data.code)}/>
+                                {this.isFinxePay(data.code) ? <TCImage source={ASSET_Images.gameUI.title_fix}/>:null}
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -51,6 +54,15 @@ export default class BtnPayType extends Component {
         if (onClick) {
             onClick(data)
         }
+    }
+
+    isFinxePay=(typeCode)=>{
+        if(typeCode&&typeCode.indexOf("FIXED")>-1){
+            return true;
+        }else{
+            return false
+        }
+
     }
 
 

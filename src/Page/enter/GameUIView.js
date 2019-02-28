@@ -15,6 +15,7 @@ import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 import GameGuestView from "./game/GameGuestView";
 import GameMoneyOutView from "./game/GameMoneyOutView";
 import GameMoneyInView from "./game/GameMoneyInView";
+import BaseGameAlert from "./game/pay/BaseGameAlert";
 
 
 @observer
@@ -28,11 +29,26 @@ export default class GameUIView extends Component {
     }
 
     render() {
+        let gameAlertView = TW_Store.gameUIStroe.gameAlertData;
+
+        let SubComponet = gameAlertView.component;
         return (<View style={styles.container}>
-            {TW_Store.gameUIStroe.isShowUserInfo ? <GameUserInfoView/>:null}
-            {TW_Store.gameUIStroe.isShowWithDraw ? <GameMoneyOutView/>:null}
-            {TW_Store.gameUIStroe.isShowAddPayView ? <GameMoneyInView/>:null}
-            {TW_Store.gameUIStroe.isShowGuest ? <GameGuestView/>:null}
+            {TW_Store.gameUIStroe.isShowUserInfo ? <GameUserInfoView/> : null}
+            {TW_Store.gameUIStroe.isShowWithDraw ? <GameMoneyOutView/> : null}
+            {TW_Store.gameUIStroe.isShowAddPayView ? <GameMoneyInView/> : null}
+            {TW_Store.gameUIStroe.isShowGuest ? <GameGuestView/> : null}
+            {
+                gameAlertView.component ? <BaseGameAlert title={gameAlertView.title} onClose={() => {
+                    TW_Store.gameUIStroe.hideAlertUI();
+                    if (gameAlertView.onBack) {
+                        gameAlertView.onBack();
+                    }
+                }
+                }>
+                    <SubComponet {...gameAlertView.param}/>
+                </BaseGameAlert> : null
+            }
+
         </View>)
 
     }

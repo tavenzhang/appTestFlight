@@ -8,7 +8,8 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    View
+    View,
+    ScrollView
 } from 'react-native'
 
 import {observer} from 'mobx-react/native'
@@ -24,7 +25,6 @@ import {
     width,
     payTxtColor
 } from '../../resouce/theme'
-import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import KeyboardAvoidingScrollView from '../../../Common/View/TCKeyboardAvoidingScrollView';
 import Toast from '../../../Common/JXHelper/JXToast';
 import Dialog from './Dialog'
@@ -37,13 +37,12 @@ import Moment from 'moment'
 import _ from 'lodash'
 import dismissKeyboard from 'dismissKeyboard'
 import {betIcon, common} from '../../asset/images'
-import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import UserPayStore from "../../../Data/store/UserPayStore";
 
 /**
  * 银行充值
  */
-@withMappedNavigationProps()
+
 @observer
 export default class TCUserBankPayMessageNew extends Component {
 
@@ -64,18 +63,7 @@ export default class TCUserBankPayMessageNew extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                < TopNavigationBar
-                    title={'转账资料'}
-                    needBackButton={true}
-                    rightTitle={'充值明细'}
-                    rightButtonCall={() => {
-                        this.gotoPayRecord()
-                    }}
-                    backButtonCall={() => {
-                        this.showBackTip();
-                    }}/>
-                <KeyboardAvoidingScrollView>
+            <ScrollView style={styles.container}>
                     <View style={styles.mainItemStyle}>
                         <View style={styles.firstItemStyle}>
                             <Text style={styles.firstItemTxtStyle}>入款确认信息</Text>
@@ -230,8 +218,7 @@ export default class TCUserBankPayMessageNew extends Component {
                         <LoadingSpinnerOverlay
                             ref={component => this._modalLoadingSpinnerOverLay = component}/>
                     </View>
-                </KeyboardAvoidingScrollView>
-            </View>
+            </ScrollView>
         )
     }
 
@@ -345,12 +332,6 @@ export default class TCUserBankPayMessageNew extends Component {
 
     }
 
-    /**
-     * 跳转到充值历史界面
-     */
-    gotoPayRecord() {
-        NavigatorHelper.pushToUserPayAndWithDraw(1)
-    }
 }
 
 @observer
@@ -403,7 +384,7 @@ class StateModel {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height:240,
         backgroundColor: indexBgColor.mainBg,
     },
     bottomBarButtonStyle: {

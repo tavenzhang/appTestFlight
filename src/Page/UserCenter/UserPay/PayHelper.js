@@ -345,12 +345,11 @@ class PayHelper {
         if (!this.validMoney(bank, true)) {
             return;
         }
-        TW_NavHelp.pushView(JX_Compones.TCUserBankPayMessageNew,{amount: this.money,
-            transInfo: bank});
-        // NavigatorHelper.pushToUserBankPayMessage({
-        //     amount: this.money,
-        //     transInfo: bank
-        // })
+        TW_Store.gameUIStroe.showBankPay({amount: this.money,
+            transInfo: bank})
+        // TW_NavHelp.pushView(JX_Compones.TCUserBankPayMessageNew,{amount: this.money,
+        //     transInfo: bank});
+
     }
 
     clearData() {

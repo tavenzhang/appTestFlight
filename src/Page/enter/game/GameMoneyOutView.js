@@ -51,7 +51,12 @@ export default class GameMoneyOutView extends Component {
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnOut}
                          onClick={() => {
                              //TW_NavHelp.pushView(JX_Compones.UserAcountPay,{accountType: 0, isBackToTop: true})
-                             this.setState({isShowHistory:true})
+                             // TW_Store.gameUIStroe.gameAlertData={
+                             //     title:"提现明细",
+                             //     component:TCUserPayAndWithdrawRecordsMain,
+                             //     param:{accountType: 0, isBackToTop: true}
+                             // }
+                             TW_Store.gameUIStroe.showTiXianDetail();
                          }}
                          btnStyle={{position: "absolute", right: 80, top: 110}}/>
             <View style={{position: "absolute", left: 160, top: 90}}>
@@ -114,14 +119,14 @@ export default class GameMoneyOutView extends Component {
                 this.callback(res)
                 }}/>
             </View>
-            {
-                //TW_NavHelp.pushView(JX_Compones.UserAcountPay,{accountType: 0, isBackToTop: true})
-                this.state.isShowHistory ? <BaseGameAlert onClose={()=>{
-                     this.setState({isShowHistory:false})
-                }}>
-                    <TCUserPayAndWithdrawRecordsMain accountType={0} isBackToTop={true}/>
-                </BaseGameAlert>:null
-            }
+            {/*{*/}
+                {/*//TW_NavHelp.pushView(JX_Compones.UserAcountPay,{accountType: 0, isBackToTop: true})*/}
+                {/*this.state.isShowHistory ? <BaseGameAlert title={"提现明细"} onClose={()=>{*/}
+                     {/*this.setState({isShowHistory:false})*/}
+                {/*}}>*/}
+                    {/*<TCUserPayAndWithdrawRecordsMain accountType={0} isBackToTop={true}/>*/}
+                {/*</BaseGameAlert>:null*/}
+            {/*}*/}
 
         </View>)
 

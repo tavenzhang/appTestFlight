@@ -236,11 +236,12 @@ export default class UserStore {
      */
     @action
     exitAppToLoginPage(callback) {
+       this.access_token="";
         userLogOut((res) => {
             if (res.rs) {
                 this.clearLoginData();
             }
-            callback(res);
+            callback&&callback(res);
         });
 
     }
@@ -251,10 +252,7 @@ export default class UserStore {
         this.isLogin = false;
         this.balance = 0;
         this.phoneNumber = "";
-        storage.save({
-            key: 'USERINFO',
-            data: {}
-        });
+
     }
 
 

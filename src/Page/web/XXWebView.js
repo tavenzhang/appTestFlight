@@ -45,10 +45,10 @@ export default class XXWebView extends Component {
         }
 
        if(TW_IS_DEBIG){
-            source =  require('./gamelobby/index.html');
+            source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
         }
 
-        TW_Log("targetAppDir-33---MainBundlePath-",source)
+        TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({
             isApp: true,
             taven: "isOk",
@@ -185,6 +185,10 @@ export default class XXWebView extends Component {
                     name = name.toLowerCase();
                     if (name == "111" && message.pwd == "222") {
                         TW_Store.bblStore.changeShowDebug(true);
+                    }else if(name=="logout"){
+
+                        TW_Store.userStore.exitAppToLoginPage()
+
                     }
                     break;
                 case "http":

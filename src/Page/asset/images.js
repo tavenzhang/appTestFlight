@@ -191,5 +191,9 @@ export const gameUI = {
     //stepOnebg1@2x
     stepOneBg1:require('./game/moneyPay/stepOnebg1.png'),
     listItemBg:require('./game/moneyPay/listItemBg.png'),
+    //alet
+    uiTitleBg:require('./game/uiTitleBg.png'),
+    title_fix:require('./game/title_fix.png'),
+    btn_fanhui:require('./game/btn_fanhui.png'),
 
 }

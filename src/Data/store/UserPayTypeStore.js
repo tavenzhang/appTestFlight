@@ -129,12 +129,13 @@ export default class UserPayTypeStore {
 }
 
 //排序
-sortData(datas)
-{
-    let res = datas.sort((itemA, itemB) => {
-        return itemA.position - itemB.position;
-    })
-    return res;
-}
+
+    @action
+    sortData(datas) {
+        let res = datas.sort((itemA, itemB) => {
+            return itemA.position - itemB.position;
+        })
+        return res;
+    }
 
 }
