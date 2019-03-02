@@ -583,7 +583,7 @@ export const ermaStyle = {
     orderContent: fontColor.mainTxt,
     btmBorder: baseColor.white,
     ermaBg: baseColor.white,
-    tipTxtColor: baseColor.white,
+    tipTxtColor: fontColor.mainTxt,
     mainBg: '#3056b2',
     btnBg: baseColor.white,
     btnTxt: '#1b81fb'

@@ -38,6 +38,7 @@ import Moment from 'moment'
 
 var moment = new Moment()
 import dismissKeyboard from 'dismissKeyboard'
+import {ASSET_Theme} from "../../asset";
 
 
 /**
@@ -68,17 +69,7 @@ export default class TCUserAliPayAndWechatMessage extends Component {
     render() {
 
         return (
-            <View style={styles.container}>
-                < TopNavigationBar
-                    title={this.props.type === 'ZHB' ? '支付宝充值提单' : '微信充值提单'}
-                    needBackButton={true}
-                    rightTitle={'充值明细'}
-                    rightButtonCall={() => {
-                        this.gotoPayRecord()
-                    }}
-                    backButtonCall={() => {
-                        NavigatorHelper.popToBack();
-                    }}/>
+            <View style={ASSET_Theme.gameUIStyle.subViewContainStye}>
                 <ScrollView
                     keyboardDismissMode={'on-drag'}
                     onScroll={() => {

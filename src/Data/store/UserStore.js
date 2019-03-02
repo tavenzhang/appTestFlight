@@ -252,6 +252,8 @@ export default class UserStore {
         this.isLogin = false;
         this.balance = 0;
         this.phoneNumber = "";
+        TW_Store.bankStore.clearBank();
+        TW_Store.userPayTypeStore.clearPlayTypeData()
 
     }
 

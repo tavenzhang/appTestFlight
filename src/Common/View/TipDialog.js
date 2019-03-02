@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         borderTopWidth:0.5,
         borderTopColor: '#cccccc',
     },
-    queryBtnStyle: {
+    btnRowStyle: {
         borderTopWidth: 0.5,
         borderTopColor: '#cccccc',
         height: height * 0.15-40,

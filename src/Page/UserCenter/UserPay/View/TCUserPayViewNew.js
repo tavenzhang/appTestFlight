@@ -60,10 +60,8 @@ export default class TCUserPayViewNew extends Component {
             borderBottomWidth: 0.5,
             borderBottomColor: ermaStyle.btmBorder
             ,paddingBottom:5}}>
-            <Text
-                style={{ color:ermaStyle.orderTitle, fontSize: Size.default,}}>{'订 单 号   ：'}</Text>
-            <Text
-                style={{color: ermaStyle.orderContent, fontSize: Size.default,width:width*0.4}}>{this.props.orderNo}</Text>
+            <Text style={{ color:ermaStyle.orderTitle, fontSize: Size.default,}}>{'订 单 号   ：'}</Text>
+            <Text style={{color: ermaStyle.orderContent, fontSize: Size.default,width:220}}>{this.props.orderNo}</Text>
 
             <TouchableOpacity onPress={()=> {
                 this.onCopy(this.props.orderNo)
@@ -78,7 +76,7 @@ export default class TCUserPayViewNew extends Component {
 
     onCopy(text) {
         Clipboard.setString(text);
-        Toast.showShortTop('已复制!')
+        Toast.showShortCenter('已复制!');
     }
 
     getNameView(){
@@ -89,8 +87,7 @@ export default class TCUserPayViewNew extends Component {
             borderBottomWidth: 0.5,
             borderBottomColor: ermaStyle.btmBorder
             ,paddingBottom:5}}>
-            <Text
-                style={{ color:ermaStyle.orderTitle, fontSize: Size.default,}}>{'存 款 人   ：'}</Text>
+            <Text style={{ color:ermaStyle.orderTitle, fontSize: Size.default,}}>{'存 款 人   ：'}</Text>
             <Text
                 style={{color: ermaStyle.orderContent, fontSize: Size.default,width:width*0.4}}>{this.props.realName}</Text></View>):null
     }
@@ -113,13 +110,13 @@ export default class TCUserPayViewNew extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width:300,
+        // width:300,
         backgroundColor: indexBgColor.mainBg,
-        alignItems: 'center',
+        //alignItems: 'center',
     },
     topItemStyle: {
         marginTop: 10,
-        backgroundColor: ermaStyle.ermaBg,
+        backgroundColor: indexBgColor.mainBg,
         height: height * 0.45,
         width: width * 0.5
     }, topItemStyle1: {
@@ -138,12 +135,10 @@ const styles = StyleSheet.create({
     }, ewmImgItemStyle: {
         justifyContent: 'center',
         alignItems: 'center',
-        height: height * 0.35,
-        marginTop: 1,
     },
     imgewmStyle: {
-        height: height * 0.3,
-        width: width * 0.6
+        height: 100,
+        width:100
     },
     moneyTxtStyle: {
         color: ermaStyle.moneyContent,

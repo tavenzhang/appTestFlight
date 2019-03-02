@@ -19,6 +19,7 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 var WEBVIEW_REF = 'webview'
 import {Size, indexBgColor} from '../../resouce/theme'
 import PropTypes from "prop-types";
+import {ASSET_Theme} from "../../asset";
 
 
 export default class TCUserHTMLPay extends Component {
@@ -35,9 +36,7 @@ export default class TCUserHTMLPay extends Component {
 
     constructor(state) {
         super(state)
-        this.state = {
 
-        }
     }
 
 
@@ -50,9 +49,10 @@ export default class TCUserHTMLPay extends Component {
         }else{
             source= {uri}
         }
-
+     TW_Log("TCUserHTMLPay---source--",source)
+        TW_Log("TCUserHTMLPay---props--",this.props)
         return (
-            <View style={styles.container}>
+            <View style={ASSET_Theme.gameUIStyle.subViewContainStye}>
                 <WebView
                     ref={WEBVIEW_REF}
                     automaticallyAdjustContentInsets={true}
@@ -63,7 +63,7 @@ export default class TCUserHTMLPay extends Component {
                     decelerationRate="normal"
                     onError={this.onError}
                     renderError={this.renderError}
-                    scalesPageToFit={this.state.scalesPageToFit}
+                    scalesPageToFit={true}
                 />
             </View>
 
@@ -96,10 +96,9 @@ export default class TCUserHTMLPay extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: indexBgColor.mainBg,
+
     }, webStyle: {
-        flex: 1,
+       flex:1,
         backgroundColor: indexBgColor.mainBg,
     }
 });

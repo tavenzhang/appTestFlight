@@ -4,7 +4,7 @@ import {
     View,
     StyleSheet,
     Text,
-    Alert
+    Alert, ScrollView
 } from 'react-native'
 import {observer} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
@@ -20,8 +20,8 @@ import Dialog from './Dialog'
 import Toast from "../../../Common/JXHelper/JXToast";
 import TcTools from '../../../Common/View/Tools'
 import TCUserOpenPayApp from './TCUserOpenPayApp'
-import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import UserPayStore from "../../../Data/store/UserPayStore";
+import {ASSET_Theme} from "../../asset";
 
 let userOpenPayApp = new TCUserOpenPayApp()
 let Tools = new TcTools()
@@ -29,7 +29,7 @@ let Tools = new TcTools()
 /**
  * 支付宝支付
  */
-@withMappedNavigationProps()
+
 @observer
 export default class TCUserAliAndWechatPay extends Component {
 
@@ -53,20 +53,20 @@ export default class TCUserAliAndWechatPay extends Component {
     render() {
         TW_Log("TCUserAliAndWechatPay---",this.props);
         return (
-            <View style={styles.container}>
-                <TopNavigationBar
-                    title={this.getPayTypeTitle()}
-                    needBackButton={true}
-                    rightTitle={'帮助'}
-                    rightButtonCall={() => {
-                        if (this.props.type === 'WX' || this.props.type === 'ZHB') {
-                            this.userPayStore.next(0)
-                        }
-                    }}
-                    backButtonCall={() => {
-                        this.showBackTip();
-                    }}
-                />
+            <ScrollView style={[ASSET_Theme.gameUIStyle.subViewContainStye,{backgroundColor:"white"}]}>
+                {/*<TopNavigationBar*/}
+                    {/*title={this.getPayTypeTitle()}*/}
+                    {/*needBackButton={true}*/}
+                    {/*rightTitle={'帮助'}*/}
+                    {/*rightButtonCall={() => {*/}
+                        {/*if (this.props.type === 'WX' || this.props.type === 'ZHB') {*/}
+                            {/*this.userPayStore.next(0)*/}
+                        {/*}*/}
+                    {/*}}*/}
+                    {/*backButtonCall={() => {*/}
+                        {/*this.showBackTip();*/}
+                    {/*}}*/}
+                {/*/>*/}
                 <UserPay
                     payType={this.getPayType()}
                     gotoPay={() => {
@@ -78,6 +78,7 @@ export default class TCUserAliAndWechatPay extends Component {
                     money={this.props.money}
                     prompt={this.props.payData ? this.props.payData.userPrompt:0}
                     leftBtnTitle={'立即充值'}
+
                 />
 
                 <Help01 show={this.userPayStore.showhelper0} next={() => this.userPayStore.next(1)}
@@ -99,7 +100,7 @@ export default class TCUserAliAndWechatPay extends Component {
                     btnTxt={'打开'}
                     leftTxt={'取消'}
                 />
-            </View>
+            </ScrollView>
         )
     }
 
@@ -154,7 +155,7 @@ export default class TCUserAliAndWechatPay extends Component {
         }
     }
 
-    onOpen() {
+    onOpen=()=> {
         this.timer2 = setTimeout(() => {
             this.openApps()
         }, 1000)
@@ -164,7 +165,7 @@ export default class TCUserAliAndWechatPay extends Component {
         }, 3000)
     }
 
-    openApps() {
+    openApps=()=>{
         switch (this.props.type) {
             case 'ZHB':
                 userOpenPayApp.openAlipay()
@@ -203,13 +204,8 @@ export default class TCUserAliAndWechatPay extends Component {
         this.setModalVisible();
     }
 
-    hadPay() {
-        NavigationHelper.pushToUserPayAndWithDraw(1, true);
+    hadPay=()=>{
+        TW_Store.gameUIStroe.showChongZhiDetail()
+        //NavigationHelper.pushToUserPayAndWithDraw(1, true);
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: indexBgColor.mainBg,
-    },
-})

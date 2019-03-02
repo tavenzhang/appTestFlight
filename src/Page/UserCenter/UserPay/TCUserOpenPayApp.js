@@ -20,7 +20,12 @@ export default class TCUserOpenPayApp {
      */
     openWeChat() {
         // NativeModules.TCOpenOtherAppHelper.openApp("com.tencent.mm", "微信");
-        NativeModules.TCOpenOtherAppHelper.openWeiXin()
+        if( NativeModules.TCOpenOtherAppHelper){
+            NativeModules.TCOpenOtherAppHelper.openWeiXin()
+        }else{
+            this.linkingApp('weixin://', '微信');
+        }
+
     }
 
     /**

@@ -26,6 +26,7 @@ export default class Dialog extends Component {
 
 
     render() {
+        let {leftBtnClick,rightBtnClick}=this.props
 
         return (
             <Modal
@@ -33,6 +34,7 @@ export default class Dialog extends Component {
                 }}
                 animationType='fade'
                 transparent={true}
+                supportedOrientations={["portrait", "portrait-upside-down", "landscape", "landscape-left", "landscape-right"]}
                 visible={this.modalVisible}>
                 <View style={styles.modalStyle}>
                     <View style={styles.modalMain}>
@@ -47,17 +49,21 @@ export default class Dialog extends Component {
                             </Text>
                             </Text>
                         </View>
-                        <View style={styles.queryBtnStyle}>
-                            <TouchableOpacity onPress={() => this.props.leftBtnClick()}>
-                                <View style={styles.txtBtnStyle}>
+                        <View style={styles.btnRowStyle}>
+
+                                <TouchableOpacity onPress={leftBtnClick} style={styles.txtViewStyle}>
+                                    <View >
                                     <Text style={styles.queryLeftTxtStyle}>{this.props.leftTxt}</Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.props.rightBtnClick()}>
-                                <View style={styles.txtBtnStyle}>
-                                    <Text style={styles.queryLeftTxtStyle}>{this.props.btnTxt}</Text>
-                                </View>
-                            </TouchableOpacity>
+                                    </View>
+                                </TouchableOpacity>
+
+
+                                <TouchableOpacity onPress={rightBtnClick} style={[styles.txtViewStyle, {backgroundColor: "blue"}]}>
+                                    <View >
+                                    <Text style={styles.queryRightTxtStyle}>{this.props.btnTxt}</Text>
+                                    </View>
+                                </TouchableOpacity>
+
                         </View>
                     </View>
                 </View>
@@ -87,30 +93,45 @@ const styles = StyleSheet.create({
         fontSize: Size.large,
         textAlign: 'center',
     }, modalContent: {
-        height: height * 0.15,
-        width: width * 0.6,
-
-    },
-    queryBtnStyle: {
-        height: height * 0.07,
-        borderTopWidth: 1,
-        borderTopColor: '#cccccc',
-        flexDirection: 'row',
+        height: height * 0.2,
+        paddingHorizontal:10,
+        // width: width * 0.6,
 
     },
     modalMain: {
         backgroundColor: 'white',
-        height: height * 0.3,
-        width: width * 0.8,
+
+        width: width * 0.5,
         borderRadius: 5,
-        alignItems: 'center'
-    }, queryLeftTxtStyle: {
+        alignItems: 'center',
+        paddingTop:15
+    },
+    btnRowStyle: {
+        height: height * 0.1,
+        borderTopWidth: 1,
+        borderTopColor: 'red',
+        flexDirection: 'row',
+        width: width * 0.5,
+
+        // justifyContent:"center",
+        // alignItems:"center"
+
+    }, txtViewStyle: {
+        flex: 1,
+        //width:width * 0.5/2,
+        justifyContent: 'center',
+        alignItems:"center"
+        // backgroundColor:"yellow"
+
+    },
+    queryLeftTxtStyle: {
         color: baseColor.blue,
         textAlign: 'center',
         fontSize: Size.large
-    }, txtBtnStyle: {
-        width: width * 0.4,
-        justifyContent: 'center',
-        height: height * 0.07,
+    },
+    queryRightTxtStyle: {
+        color: baseColor.blue,
+        textAlign: 'center',
+        fontSize: Size.large
     }
 })

@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
 
 import {View, StyleSheet, Text, TouchableOpacity, Image, Platform, ScrollView, Clipboard,} from 'react-native'
 // import  QRCode from '../../../../Common/View/qrcode/QRCode'
@@ -9,10 +9,20 @@ import {
     width,
     height,
     ermaStyle,
-    customButtonStyle
+    customButtonStyle, baseColor
 } from '../../../resouce/theme'
+import PropTypes from "prop-types";
 
 export default class TCUserPayView extends Component {
+
+    static propTypes = {
+        userPrompt:PropTypes.any,
+        money: PropTypes.any,
+        leftBtnTitle: PropTypes.any,
+        rightBtnTitle:PropTypes.any
+    }
+
+
     // 构造函数
     constructor(props) {
         super(props)
@@ -26,8 +36,7 @@ export default class TCUserPayView extends Component {
                     <View style={this.props.transfer ? styles.topItemStyle1 : styles.topItemStyle}>
                         <View style={styles.payTitleItemStyle}>
                             <View style={{flexDirection: 'row'}}>
-                                <Text
-                                    style={styles.payTitleTxtStyle}>充值金额：
+                                <Text style={styles.payTitleTxtStyle}>充值金额：
                                     <Text
                                         style={styles.moneyTxtStyle}>{this.props.money} 元</Text></Text>
                                 <TouchableOpacity style={{width: 100, height: 28}} onPress={() => {
@@ -39,23 +48,20 @@ export default class TCUserPayView extends Component {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={styles.payNoticeItemStyle}><Text
-                            style={styles.moneyTxtStyle}>{this.props.prompt?this.props.userPrompt:'请一定按照以上显示金额付款'}</Text></View>
-                        <View style={styles.ewmImgItemStyle}>
-                            {this.getQRCode()}
-                        </View>
+                        <View style={[styles.payNoticeItemStyle, {marginBottom: 20}]}><Text
+                            style={styles.moneyTxtStyle}>{this.props.prompt ? this.props.userPrompt : '请一定按照以上显示金额付款'}</Text></View>
+                        {this.getQRCode()}
                     </View>
-                    <View
-                        style={[styles.btmBtnItemStyle, {justifyContent: 'center',}]}>
-                        <TouchableOpacity onPress={() => this.props.gotoPay()}
-                                          style={styles.btmBtnStyle}><Text
+                    <View style={[{justifyContent: 'center', alignItems: "center", flexDirection:"row", marginTop:20}]}>
+                        <TouchableOpacity onPress={this.props.gotoPay}
+                                          style={styles.btmBtnSpStyle} ><Text
                             style={styles.btmBtnTxtStyle}>{this.props.leftBtnTitle}</Text></TouchableOpacity>
-                        {this.props.rightBtnTitle ? (<TouchableOpacity onPress={() => this.props.hadPay()}
-                                                                       style={styles.btmBtnStyle}><Text
-                            style={styles.btmBtnTxtStyle}>{this.props.rightBtnTitle}</Text></TouchableOpacity>) : null}
+                        {this.props.rightBtnTitle ? (<TouchableOpacity style={styles.btmBtnSpStyle} onPress={() => this.props.hadPay()}>
+                            <Text style={styles.btmBtnTxtStyle}>{this.props.rightBtnTitle}</Text>
+                        </TouchableOpacity>) : null}
                     </View>
                     <View style={{marginBottom: 20}}>
-                        { this.getInfoText()}
+                        {this.getInfoText()}
                     </View>
                 </ScrollView>
             </View>
@@ -64,7 +70,7 @@ export default class TCUserPayView extends Component {
 
     onCopy(text) {
         Clipboard.setString('' + text);
-        Toast.showShortTop("充值金额已复制！")
+        Toast.showShortCenter("充值金额已复制！")
     }
 
     getInfoText() {
@@ -89,10 +95,10 @@ export default class TCUserPayView extends Component {
     getQRCode() {
         let codeType = this.props.codeType;
         if (codeType === 'URL') {
-            return ( <QRCode
+            return (<QRCode
                 value={this.props.codeValue}
                 size={Platform.OS == 'ios' ? 180 : width * 0.5}
-               />)
+            />)
         } else if (codeType === 'IMG') {
             return (<Image style={styles.imgewmStyle} source={{uri: this.props.codeValue}} resizeMode={'contain'}/>)
         }
@@ -103,20 +109,18 @@ export default class TCUserPayView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: ermaStyle.mainBg,
+        // backgroundColor: ermaStyle.mainBg,
+        backgroundColor: "white",
         alignItems: 'center',
     },
     topItemStyle: {
         marginTop: 20,
         backgroundColor: ermaStyle.ermaBg,
-        height: height * 0.5,
-        width: width * 0.9,
-        marginLeft: width * 0.05
+
     }, topItemStyle1: {
         marginTop: 20,
         backgroundColor: ermaStyle.ermaBg,
-        height: height * 0.55,
-        width: width * 0.9
+
     }, payTitleItemStyle: {
         justifyContent: 'center',
         borderBottomWidth: 0.5,
@@ -134,6 +138,7 @@ const styles = StyleSheet.create({
     }, ewmImgItemStyle: {
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: "red",
         height: height * 0.35,
         marginTop: 1,
     },
@@ -150,7 +155,7 @@ const styles = StyleSheet.create({
         height: height * 0.08,
         marginLeft: width * 0.05
     }, btmBtnTxtStyle: {
-        backgroundColor: ermaStyle.btnBg,
+        backgroundColor: baseColor.blue,
         color: ermaStyle.btnTxt,
         padding: 8,
         borderRadius: Platform.OS == 'ios' ? 0 : 5,
@@ -160,14 +165,12 @@ const styles = StyleSheet.create({
         color: ermaStyle.tipTxtColor,
         padding: 10,
         fontSize: Size.small,
-    }, btmBtnStyle: {
-        height: height * 0.08,
-        width: width * 0.3,
     }, moneyTxtStyle: {
         color: ermaStyle.moneyContent,
         fontSize: Size.font14
-    }, btmBtnStyle1: {
-        height: height * 0.08,
-        width: width * 0.39,
+    }, btmBtnSpStyle: {
+        width:100,
+        marginHorizontal:5
+
     }
 })

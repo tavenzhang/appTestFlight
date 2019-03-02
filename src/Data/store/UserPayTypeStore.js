@@ -25,6 +25,16 @@ export default class UserPayTypeStore {
     //最小充值额度
     minimumTopupAmount = 1;
 
+
+    @action
+    clearPlayTypeData(){
+        this.payTypeList=[];
+        this.payTansferList=[];
+        this.bankList=[];
+        this.minimumTopupAmount=1
+
+    }
+
     @action
     initPayTypeList(callback) {
         getPaymentTypeList((response) => {

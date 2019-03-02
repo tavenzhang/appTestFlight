@@ -216,8 +216,8 @@ export default class TCUserBankPayMessageNew extends Component {
                             rightBtnClick={() => this.setModalVisible()}
                             leftBtnClick={() => this.submitPay()}
                         />
-                        <LoadingSpinnerOverlay
-                            ref={component => this._modalLoadingSpinnerOverLay = component}/>
+                        {/*<LoadingSpinnerOverlay*/}
+                            {/*ref={component => this._modalLoadingSpinnerOverLay = component}/>*/}
                     </View>
             </ScrollView>
         )

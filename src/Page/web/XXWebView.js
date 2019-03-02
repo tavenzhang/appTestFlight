@@ -187,9 +187,7 @@ export default class XXWebView extends Component {
                     if (name == "111" && message.pwd == "222") {
                         TW_Store.bblStore.changeShowDebug(true);
                     }else if(name=="logout"){
-
                         TW_Store.userStore.exitAppToLoginPage()
-
                     }
                     break;
                 case "http":

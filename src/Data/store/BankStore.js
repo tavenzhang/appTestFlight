@@ -63,6 +63,20 @@ export default class BankStore {
     }
 
     @action
+    clearBank(){
+        this.bankInfo = {
+            accountNum: '',//银行卡号
+            realName: '',//真实姓名
+            bankAddress: '',//开户支行
+            bankCode: '',//银行编码
+            bankName: '',//银行名称
+            password: '',//交易密码
+        }
+        this.personBank = [];
+        this.bankList={bankNames: [], bankCodes: [],codes:[]}
+    }
+
+    @action
     initBankList(callback) {
         getBankList((res) => {
             if (res.rs) {

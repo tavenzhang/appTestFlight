@@ -15,7 +15,7 @@ import {observer, inject} from 'mobx-react/native'
 import {observable, computed, action} from 'mobx'
 
 import UserPay from './View/TCUserPayViewNew'
-import {Size, indexBgColor, buttonStyle, ermaStyle, width, height} from '../../resouce/theme'
+import {Size, indexBgColor, buttonStyle, ermaStyle, width, height, baseColor} from '../../resouce/theme'
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import Dialog from './Dialog'
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
@@ -72,51 +72,48 @@ export default class TCUserAliAndWechatTransfer extends Component {
     }
 
     render() {
+        let {type} = this.props
         return (
             <ScrollView style={styles.container}>
-                {/*<TopNavigationBar*/}
-                    {/*title={this.title}*/}
-                    {/*needBackButton={true}*/}
-                    {/*rightTitle={'充值明细'}*/}
-                    {/*rightButtonCall={() => {*/}
-                        {/*NavigatorHelper.pushToUserPayAndWithDraw(1)*/}
-                    {/*}}*/}
-                    {/*backButtonCall={() => {*/}
-                        {/*this.showBackTip();*/}
-                    {/*}}/>*/}
-
                     <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
                         <UserPay ref="erweimaaa"
                                  payType={this.props.type === 'ZHB' ? '支付宝' : '微信'}
                                  orderNo={this.userPayStore.orderNum}
                                  realName={this.props.data.realName}
-                                 gotoPay={() => {
-                                     this.gotoPay()
-                                 }}
-                                 hadPay={() => this.next()}
+                                 gotoPay={this.gotoPay}
+                                 hadPay={ this.next}
                                  codeType={'IMG'}
                                  codeValue={this.userPayStore.codeValue}
                                  money={this.userPayStore.money}
                                  transfer={true}/>
-                        <View style={{width: width * 0.9, alignItems: 'center'}}>
-                            {this.getTextInfo()}
+                        <View style={{alignItems: 'center'}}>
+                          {
+                              type == 'OTHER' ? null: <Text style={styles.moneyTxtStyle}>{'*请将用户账户*\n*填写到您的转账备注中*'} </Text>
+
+                          }
                         </View>
                         <View
                             style={{
                                 flexDirection: 'row',
                                 marginTop: 5,
                                 justifyContent: 'space-around',
-                                width: width * 0.9
+                                width: width * 0.5
                             }}>
-                            {this.getOpenButtonView()}
-                            <TouchableOpacity onPress={() => this.gotoProgress()}
-                                              style={styles.btmBtnStyle1}>
-                                <Text
-                                    style={styles.btmBtnTxtStyle}>{'支付已完成'}</Text></TouchableOpacity>
+                            {
+                                type == 'OTHER' ? null:  <TouchableOpacity onPress={this.gotoPay} style={{flex:1, borderRadius:5,
+
+                                }}>
+                                    <Text style={[styles.btmBtnTxtStyle,{backgroundColor:"#aaa", marginRight:10}]}>打开{this.getTypeName()}</Text>
+                                </TouchableOpacity>
+
+                            }
+                            <TouchableOpacity onPress={this.gotoProgress} style={{flex:1,borderRadius:5}}>
+                                <Text style={[styles.btmBtnTxtStyle]}>{'支付已完成'}</Text></TouchableOpacity>
                         </View>
-                        <View style={{marginBottom: 20}}>
-                            {this.getTransferTip()}
-                        </View>
+                        {this.getSnapshotErrorView()}
+
+                        {this.getTransferTip()}
+
                 </View>
                 <Dialog
                     ref="Dialog"
@@ -163,26 +160,6 @@ export default class TCUserAliAndWechatTransfer extends Component {
     }
 
 
-    getTextInfo() {
-        if (this.props.type === 'OTHER') {
-            return
-        }
-        return (
-            <Text style={styles.moneyTxtStyle}>{'*请将用户账户*\n*填写到您的转账备注中*'} </Text>
-        )
-    }
-
-    getOpenButtonView() {
-        if (this.props.type === 'OTHER') {
-            return
-        }
-        return (
-            <TouchableOpacity onPress={() => this.gotoPay()} style={styles.btmBtnStyle1}>
-                <Text style={styles.btmBtnTxtStyle}>打开{this.getTypeName()}</Text>
-            </TouchableOpacity>
-        )
-    }
-
 
     getTypeName() {
         switch (this.props.type) {
@@ -211,7 +188,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
     /**
      * 刷新二维码
      */
-    refershCode() {
+    refershCode=()=> {
         this.userPayStore.refreshCode(this.props.data.adminBankId, (res) => {
             if (res.rs) {
                 if (res.content.bankCardNo) {
@@ -223,7 +200,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
                             {
                                 text: '确定',
                                 onPress: () => {
-                                    this.props.navigator.pop()
+                                    TW_Store.gameUIStroe.hideAlertUI()
                                 }
                             }
                         ]);
@@ -269,13 +246,13 @@ export default class TCUserAliAndWechatTransfer extends Component {
         this.setModalVisible();
     }
 
-    getTransferTip() {
+    getTransferTip=()=> {
         if (this.props.type == 'OTHER' || this.props.type === "JD" || this.props.type === "QQ") {
             return
         }
         return (
-            <View>
-                {this.getSnapshotErrorView()}
+            <View style={{flex:1}}>
+
                 <View style={{marginTop: 15}}>
                     <Text style={{color: ermaStyle.tipTxtColor, fontSize: Size.large, marginLeft: 5}}>充值步骤：</Text>
                 </View>
@@ -290,21 +267,21 @@ export default class TCUserAliAndWechatTransfer extends Component {
             return (
                 <View>
                     <View style={{marginTop: 15}}>
-                        <Text style={{color: ermaStyle.moneyContent, fontSize: Size.large, marginLeft: 5}}>
+                        <Text style={{color: "green", fontSize: Size.large, marginLeft: 5}}>
                             {'请手动截屏后,再打开' + (this.getTypeName()) + '\n扫描这个二维码支付'}</Text>
                     </View>
                 </View>
             )
         }
+
     }
 
-    getItemView(title, pic) {
+    getItemView=(title, pic)=> {
         return (<View style={{marginTop: 10, marginLeft: 5}}>
             <Text style={styles.titleTxt}>{title}</Text>
-            <View style={{alignItems: 'center', marginTop: 5}}>
-                <Image resizeMode='contain' source={pic}
-                       style={{height: height * 0.3, width: width * 0.9, borderRadius: 10}}/>
-            </View>
+            <Image resizeMode='contain' source={pic}
+                       style={{height: 200 ,width: 300, borderRadius: 10}}/>
+
         </View>)
     }
 
@@ -327,12 +304,12 @@ export default class TCUserAliAndWechatTransfer extends Component {
         }
     }
 
-    gotoPay() {
+    gotoPay=()=> {
         Tools.saveScreenshot();
         this.setModalVisible();
     }
 
-    next() {
+    next=()=> {
         TW_Store.gameUIStroe.showCommonView(this.props.type,TCUserAliPayAndWechatMessage,{
             type: this.props.type,
             topupAmount: this.props.money,
@@ -347,12 +324,12 @@ export default class TCUserAliAndWechatTransfer extends Component {
     /**
      * 跳转到支付进度界面
      */
-    gotoProgress() {
+    gotoProgress=()=> {
        // NavigatorHelper.pushToUserPayProgress({topupAmount: this.userPayStore.money});
         TW_Store.gameUIStroe.showCommonView("充值进度",TCUserPayProgress,{topupAmount: this.userPayStore.money})
     }
 
-    showBackTip() {
+    showBackTip=()=> {
         Alert.alert('您确定退出充值吗？', '请确保已支付完成再退出!', [
             {
                 text: '确定',
@@ -399,7 +376,7 @@ const styles = StyleSheet.create({
     container: {
         //flex: 240,
         height:240,
-        backgroundColor: ermaStyle.mainBg
+        backgroundColor: "white"
     }, moneyTxtStyle: {
         color: ermaStyle.moneyContent,
         fontSize: Size.xxlarge,
@@ -408,7 +385,7 @@ const styles = StyleSheet.create({
     }, btmBtnStyle1: {
         width: width * 0.38,
     }, btmBtnTxtStyle: {
-        backgroundColor: ermaStyle.btnBg,
+         backgroundColor: baseColor.blue,
         color: ermaStyle.btnTxt,
         padding: 8,
         borderRadius: G_IS_IOS ? 0 : 5,
@@ -423,7 +400,8 @@ const styles = StyleSheet.create({
     }, titleTxt: {
         color: ermaStyle.tipTxtColor,
         fontSize: Size.default,
-        width: width * 0.9
+
+
     }, redTipTxt: {
         color: ermaStyle.moneyContent,
         fontSize: Size.default,
