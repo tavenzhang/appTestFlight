@@ -29,13 +29,13 @@ import LoadingSpinnerOverlay from "../../../Common/View/LoadingSpinnerOverlay";
 import JXHelper from "../../../Common/JXHelper/JXHelper";
 import {userPay} from "../../asset/images";
 import payHelper from './PayHelper'
-import {withMappedNavigationProps} from "react-navigation-props-mapper";
+import {ASSET_Theme} from "../../asset";
 
 
 /**
  * 银行充值
  */
-@withMappedNavigationProps()
+
 export default class TCUserPayFixedPage extends Component {
 
     moneyData = []
@@ -54,17 +54,7 @@ export default class TCUserPayFixedPage extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                < TopNavigationBar
-                    title={this.props.title}
-                    needBackButton={true}
-                    rightTitle={'充值明细'}
-                    rightButtonCall={() => {
-                        this.gotoPayRecord()
-                    }}
-                    backButtonCall={() => {
-                        this.showBackTip();
-                    }}/>
+            <ScrollView style={ASSET_Theme.gameUIStyle.subViewContainStye}>
                 <View style={{paddingTop: 10, paddingLeft: 10, paddingBottom: 5, flexDirection: 'row'}}>
                     <Text style={styles.payTip}>请选择充值金额 (如有问题，请联系</Text>
                     <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}}
@@ -89,7 +79,7 @@ export default class TCUserPayFixedPage extends Component {
                     ref={component => this._partModalLoadingSpinnerOverLay = component}
                     modal={true}
                     marginTop={64}/>
-            </View>
+            </ScrollView>
         )
     }
 
@@ -156,15 +146,11 @@ export default class TCUserPayFixedPage extends Component {
         )
     }
 
-    /**
-     * 跳转到充值历史界面
-     */
-    gotoPayRecord() {
-        NavigatorHelper.pushToUserPayAndWithDraw(1)
-    }
+
 
     onlineService() {
-        NavigatorHelper.pushToCustomService(JXHelper.getMenuIconsUrl('CUS_SERVICE'));
+        TW_Store.gameUIStroe.showGusetView();
+       // NavigatorHelper.pushToCustomService(JXHelper.getMenuIconsUrl('CUS_SERVICE'));
     }
 }
 

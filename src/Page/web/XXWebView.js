@@ -171,8 +171,9 @@ export default class XXWebView extends Component {
                                 //TW_NavHelp.pushView(JX_Compones.TCUserWithdrawNew, {})
                                 break;
                             case "custom":
+                                TW_Log("custom---"+TW_Store.gameUIStroe.isShowGuest+"--url"+url)
                                 TW_Store.gameUIStroe.gustWebUrl = url;
-                                TW_Store.gameUIStroe.isShowGuest=!TW_Store.gameUIStroe.isShowGuest;
+                                TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
                                 break;
 
                         }

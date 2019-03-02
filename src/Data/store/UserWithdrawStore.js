@@ -79,7 +79,7 @@ export default class UserWithdrawStore {
                 result.status = false;
                 result.message = res.message ? res.message : "服务器出错啦!";
             }
-            callback(result);
+            callback&&callback(result);
         })
     }
 
@@ -96,7 +96,7 @@ export default class UserWithdrawStore {
         }, (res) => {
             let result = {}
             if (res.rs) {
-                this.tipMsg = '您的提款申请已提交，请耐心等待!'
+                this.tipMsg = '您的提款申请已提交，请耐心等待,如有需要可以通过 点击明细 查看进度！'
                 result.status = true;
                 TW_Store.userStore.freshBalance(true);
                 this.setWithdrawModalVisible()

@@ -70,6 +70,11 @@ export default class GameUIStroe {
         }
     }
 
+    @action
+    showGusetView(isShow=true){
+        this.isShowGuest = isShow;
+    }
+
 
     @action
     hideAlertUI() {

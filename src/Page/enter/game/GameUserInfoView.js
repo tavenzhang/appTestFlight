@@ -56,7 +56,8 @@ export default class GameUserInfoView extends Component {
 
 
     render() {
-        return (<View style={styles.container}>
+        let {pointerEvents}=this.props;
+        return (<View style={styles.container} pointerEvents={pointerEvents}>
             {this.getInfoView()}
             {this.state.isShowPhone ? this.getBindPhoneView() : null}
         </View>)
@@ -65,6 +66,7 @@ export default class GameUserInfoView extends Component {
 
     getInfoView = () => {
         TW_Log("TW_Store.userStore.phoneNumber--",this.state);
+
         let realName = TW_Store.userStore.realName;
         let isHaveCard = realName && realName.length > 0;
         let pickDataList = [];
@@ -72,7 +74,7 @@ export default class GameUserInfoView extends Component {
             pickDataList.push({name: this.bankStore.bankList.bankNames[index], value: item})
         });
 
-        return (<View style={{position: "absolute"}}>
+        return (<View style={{position: "absolute"}} >
             <TCImage source={ASSET_Images.gameUI.personBg}/>
             {
                 TW_Store.userStore.phoneNumber ? null : <TCButtonImg imgSource={ASSET_Images.gameUI.btnPhone}

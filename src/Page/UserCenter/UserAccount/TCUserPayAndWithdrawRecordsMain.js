@@ -16,6 +16,7 @@ import UserAccount from './TCUserPayAndWithdrawRecords'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import {Size, shoppingTxtColor, indexBgColor, listViewTxtColor} from '../../asset/game/themeComponet'
+import {ASSET_Theme} from "../../asset";
 
 export default class TCUserPayAndWithdrawRecordsMain extends Component {
 
@@ -39,7 +40,7 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
         const navTitle = ['提款记录', '充值记录', '转账记录']
         let {onBack}=this.props
         return (
-            <View style={styles.container}>
+            <View style={ASSET_Theme.gameUIStyle.subViewContainStye}>
                 <ScrollableTabView
                     renderTabBar={() => <DefaultTabBar style={{height: 45}} textStyle={{marginTop: 30}}/>}
                     tabBarUnderlineStyle={{backgroundColor: shoppingTxtColor.tabLine, height: 2}}
@@ -63,9 +64,3 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
 
 }
 
-const styles = StyleSheet.create({
-    container: {
-        height:240,
-        //backgroundColor:"green"
-    },
-});

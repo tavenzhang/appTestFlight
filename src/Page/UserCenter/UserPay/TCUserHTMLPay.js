@@ -18,36 +18,46 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 
 var WEBVIEW_REF = 'webview'
 import {Size, indexBgColor} from '../../resouce/theme'
+import PropTypes from "prop-types";
 
-@withMappedNavigationProps()
+
 export default class TCUserHTMLPay extends Component {
+
+    static propTypes = {
+        html: PropTypes.any,
+        uri:PropTypes.any,
+    }
+
+    static defaultProps = {
+        html: null,
+        uri:null
+    }
+
     constructor(state) {
         super(state)
-        this.state = {}
+        this.state = {
+
+        }
     }
 
-    static defaultProps = {};
 
-    componentDidMount() {
-    }
 
     render() {
+        let {html,uri}=this.props
+        let source = {}
+        if(html){
+            source= {html}
+        }else{
+            source= {uri}
+        }
+
         return (
             <View style={styles.container}>
-                <TopNavigationBar title={this.props.title}
-                                  ref="topNavigation"
-                                  backButtonCall={() => {
-                                      this.backButtonCall()
-                                  }}
-                                  closeButtonCall={() => {
-                                      this.closeButtonCall()
-                                  }}
-                />
                 <WebView
                     ref={WEBVIEW_REF}
                     automaticallyAdjustContentInsets={true}
                     style={styles.webView}
-                    source={{html: this.props.html}}
+                    source={source}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
                     decelerationRate="normal"
@@ -67,18 +77,7 @@ export default class TCUserHTMLPay extends Component {
     renderError = () => {
         return <View/>
     }
-    onShouldStartLoadWithRequest = (event) => {
-        return true;
-    };
 
-    onNavigationStateChange = (navState) => {
-        JXLog(navState)
-        this.setState({
-            backButtonEnabled: navState.canGoBack,
-            title: navState.title,
-            scalesPageToFit: true
-        });
-    };
 
     backButtonCall() {
         if (this.state.backButtonEnabled) {

@@ -36,7 +36,7 @@ export default class TCUserPayViewNew extends Component {
                     <View style={styles.ewmImgItemStyle}>
                         {this.getQRCode()}
                     </View>
-                    {!IS_IOS && <TouchableOpacity onPress={()=> this.saveScreenshot()}>
+                    {!G_IS_IOS && <TouchableOpacity onPress={()=> this.saveScreenshot()}>
                         <View style={styles.viewScreenshot}>
                             <Text style={customButtonStyle.btnBlueBorder}>截屏</Text>
                         </View>
@@ -113,6 +113,7 @@ export default class TCUserPayViewNew extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width:300,
         backgroundColor: indexBgColor.mainBg,
         alignItems: 'center',
     },
@@ -120,11 +121,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
         backgroundColor: ermaStyle.ermaBg,
         height: height * 0.45,
-        width: width * 0.9
+        width: width * 0.5
     }, topItemStyle1: {
         backgroundColor: ermaStyle.ermaBg,
         height: height * 0.55,
-        width: width * 0.9
+        width: width * 0.5
     }, payTitleItemStyle: {
         justifyContent: 'center',
         borderBottomWidth: 0.5,

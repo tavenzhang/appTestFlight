@@ -14,11 +14,10 @@ import {TCTextInput} from "../../../Common/View/TCTextInput";
 import {Size} from "../../resouce/theme";
 import Moment from "moment";
 import TCWithdrawKeyboardView from "../../UserCenter/UserWithdraw/TCWithdrawKeyboardView";
-import BaseGameAlert from "./pay/BaseGameAlert";
-import TCUserPayAndWithdrawRecordsMain from "../../UserCenter/UserAccount/TCUserPayAndWithdrawRecordsMain";
 
 @observer
 export default class GameMoneyOutView extends Component {
+
 
     constructor(pro) {
         super(pro)
@@ -39,9 +38,10 @@ export default class GameMoneyOutView extends Component {
     }
 
     render() {
+        let {pointerEvents}=this.props;
         let num = this.userWithdrawStore.withdrawModel.aggregateBetRequirements - this.userWithdrawStore.withdrawModel.aggregateBets
 
-        return (<View style={styles.container}>
+        return (<View style={styles.container} pointerEvents={pointerEvents}>
             <TCImage source={ASSET_Images.gameUI.moneyOutBg}/>
             <TCImage source={ASSET_Images.gameUI.titleMoneyOut}
                      style={{position: "absolute", right: 208, top: 45}}/>
@@ -50,12 +50,6 @@ export default class GameMoneyOutView extends Component {
                          btnStyle={{position: "absolute", right: 0, top: 20}}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnOut}
                          onClick={() => {
-                             //TW_NavHelp.pushView(JX_Compones.UserAcountPay,{accountType: 0, isBackToTop: true})
-                             // TW_Store.gameUIStroe.gameAlertData={
-                             //     title:"提现明细",
-                             //     component:TCUserPayAndWithdrawRecordsMain,
-                             //     param:{accountType: 0, isBackToTop: true}
-                             // }
                              TW_Store.gameUIStroe.showTiXianDetail();
                          }}
                          btnStyle={{position: "absolute", right: 80, top: 110}}/>
@@ -66,9 +60,9 @@ export default class GameMoneyOutView extends Component {
                         textStyle={{color: "#efe8cd",}} text={`${TW_Store.userStore.balance}`}/>
             </View>
 
-            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: 100, top: 148}}
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: 105, top: 148}}
                     textStyle={{color: "#efe8cd",}} text={this.userWithdrawStore.withdrawModel.aggregateBets}/>
-            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", right: 110, top: 148}}
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: 410, top: 148}}
                     textStyle={{color: "#efe8cd",}} text={num}/>
             <View style={{
                 flexDirection: "row",
@@ -162,6 +156,10 @@ export default class GameMoneyOutView extends Component {
         this.userWithdrawStore.applyWithdraw(this.pwd, (res) => {
             if (!res.status) {
                 Toast.showShortCenter(res.message);
+            }else{
+                Toast.showShortCenter('您的提款申请已提交，请耐心等待,如有需要 可以点击明细 查看进度！');
+                this.userWithdrawStore.initDefaultBank()
+               // this.tipMsg = '您的提款申请已提交，请耐心等待!'
             }
         })
     }

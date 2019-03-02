@@ -30,40 +30,48 @@ export default class GameUIView extends Component {
 
     render() {
         let gameAlertView = TW_Store.gameUIStroe.gameAlertData;
-
         let SubComponet = gameAlertView.component;
-        return (<View style={styles.container}>
-            {TW_Store.gameUIStroe.isShowUserInfo ? <GameUserInfoView/> : null}
-            {TW_Store.gameUIStroe.isShowWithDraw ? <GameMoneyOutView/> : null}
-            {TW_Store.gameUIStroe.isShowAddPayView ? <GameMoneyInView/> : null}
-            {TW_Store.gameUIStroe.isShowGuest ? <GameGuestView/> : null}
-            {
-                gameAlertView.component ? <BaseGameAlert title={gameAlertView.title} onClose={() => {
-                    TW_Store.gameUIStroe.hideAlertUI();
-                    if (gameAlertView.onBack) {
-                        gameAlertView.onBack();
+        let isShowUi=TW_Store.gameUIStroe.isShowUserInfo||TW_Store.gameUIStroe.isShowWithDraw||TW_Store.gameUIStroe.isShowAddPayView
+            ||TW_Store.gameUIStroe.isShowAddPayView|| TW_Store.gameUIStroe.isShowGuest ||gameAlertView.component
+        let isHaveAletView =gameAlertView.component ? "none":"auto";
+        if(isShowUi)
+        {
+            return (<View style={styles.container}>
+                {TW_Store.gameUIStroe.isShowUserInfo ? <GameUserInfoView pointerEvents={isHaveAletView}/> : null}
+                {TW_Store.gameUIStroe.isShowWithDraw ? <GameMoneyOutView pointerEvents={isHaveAletView}/> : null}
+                {TW_Store.gameUIStroe.isShowAddPayView ? <GameMoneyInView pointerEvents={isHaveAletView}/> : null}
+                {TW_Store.gameUIStroe.isShowGuest ? <GameGuestView   pointerEvents={isHaveAletView}/> : null}
+                {
+                    gameAlertView.component ? <BaseGameAlert title={gameAlertView.title} onClose={() => {
+                        TW_Store.gameUIStroe.hideAlertUI();
+                        if (gameAlertView.onBack) {
+                            gameAlertView.onBack();
+                        }
                     }
+                    }>
+                        <SubComponet {...gameAlertView.param}/>
+                    </BaseGameAlert> : null
                 }
-                }>
-                    <SubComponet {...gameAlertView.param}/>
-                </BaseGameAlert> : null
-            }
 
-        </View>)
-
+            </View>)
+        }else
+        {
+            return null;
+        }
     }
+
 
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         height: JX_PLAT_INFO.SCREEN_H,
+        width:JX_PLAT_INFO.SCREEN_W,
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
         position: "absolute",
-        backgroundColor: "transparent",
+        backgroundColor: "rgba(10,10,10,0.6)",
         zIndex: 150
     },
     inputStyle: {

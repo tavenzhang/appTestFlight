@@ -1,8 +1,3 @@
-'use strict'
-/**
- * 账单详情
- * Created by Allen on 2016/12/10.
- */
 import React, {Component} from 'react';
 
 import {
@@ -10,16 +5,16 @@ import {
     Text,
     View,
     TouchableOpacity,
-    Clipboard
+    Clipboard,
+    ScrollView
 } from 'react-native';
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import Toast from '../../../Common/JXHelper/JXToast';
 import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle, copyBtnStyle} from '../../resouce/theme'
 import Moment from 'moment'
-import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 
-@withMappedNavigationProps()
+
 export default class TCUserAccountBillingDetails extends Component {
 
     constructor(props) {
@@ -42,15 +37,7 @@ export default class TCUserAccountBillingDetails extends Component {
         let {crossReferenceId, transactionId, subType, notes, remarks, balance} = this.props.orderData
         let orderId = crossReferenceId ? crossReferenceId : transactionId
         return (
-            <View style={styles.container}>
-                <TopNavigationBar
-                    title={'账单详情'}
-                    needBackButton={true}
-                    backButtonCall={() => {
-                        Helper.popToBack();
-                    }}
-                />
-
+            <ScrollView style={styles.container}>
                 <View>
                     <View style={styles.itemStyle}>
                         <Text style={styles.itemTitleStyle}>订单号：</Text>
@@ -101,7 +88,7 @@ export default class TCUserAccountBillingDetails extends Component {
                         <Text style={styles.orderDetailTxt}>订单详情</Text>
                     </TouchableOpacity>
                 }
-            </View>
+            </ScrollView>
         );
 
     };
@@ -288,6 +275,7 @@ export default class TCUserAccountBillingDetails extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        height:240,
         backgroundColor: indexBgColor.mainBg,
     },
     itemStyle: {

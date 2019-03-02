@@ -56,12 +56,7 @@ export function isIphoneX() {
     return JX_IPHON_X;
 }
 
-export const JX_PLAT_INFO = {
-    
-    G_IS_IOS: Platform.OS == 'ios',
-    MarginBarHeight: Platform.OS == 'ios' ? (JX_IPHON_X ? 45 : 20) : 0,
-    IS_IphoneX: JX_IPHON_X
-};
+
 
 export const navbarHight = Platform.OS == 'ios' ? (isIphoneX() ? 88 : 64) : 44;
 export const navbarMarginTop = Platform.OS == 'ios' ? (isIphoneX() ? 44 : 20) : 0;

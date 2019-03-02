@@ -49,7 +49,7 @@ export default class GameMoneyInView extends Component {
     constructor(state) {
         super(state)
         this.state = {
-            selectPayCode:"",
+            selectPayitem:null,
             payList:[],
             isShowHistory:false
         }
@@ -71,11 +71,12 @@ export default class GameMoneyInView extends Component {
 
 
     render() {
-        let bankCode = this.state.selectPayCode;
-        if(bankCode.length==0&&this.userPayStore.payTypeList.length>0){
-            bankCode = this.userPayStore.payTypeList[0].code;
+        let {pointerEvents}=this.props;
+        let bankitem = this.state.selectPayitem;
+        if(!bankitem&&this.userPayStore.payTypeList.length>0){
+            bankitem = this.userPayStore.payTypeList[0];
         }
-        return (<View style={styles.container}>
+        return (<View style={styles.container} pointerEvents={pointerEvents}>
             <TCImage source={ASSET_Images.gameUI.moneyInBg}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
                          onClick={() => TW_Store.gameUIStroe.isShowAddPayView = false}
@@ -89,7 +90,7 @@ export default class GameMoneyInView extends Component {
                 <TCFlatList style={{height:220}} dataS={ this.userPayStore.payTypeList} renderRow={this.onRenderPayTypeItem}/>
             </View>
             <View style={{position: "absolute", top:82,left:147}}>
-                {this.state.selectPayCode.length >0 ? <GamePayStepOne  type={bankCode}/>:null}
+                {bankitem ? <GamePayStepOne itemData={bankitem} />:null}
             </View>
         </View>)
 
@@ -99,15 +100,16 @@ export default class GameMoneyInView extends Component {
 
     onRenderPayTypeItem=(item, index)=>{
 
-        let bankCode = this.state.selectPayCode;
-        if(bankCode.length==0&&this.userPayStore.payTypeList.length>0){
-            this.setState({selectPayCode:this.userPayStore.payTypeList[0].code})
+        let bankitem = this.state.selectPayitem;
+        if(bankitem&this.userPayStore.payTypeList.length>0){
+            bankitem = this.userPayStore.payTypeList[0];
         }
+        bankitem= bankitem ? bankitem:{}
         return  <BtnPayType onClick={(data)=>{
-           this.setState({selectPayCode:data.code});
+           this.setState({selectPayitem:data});
 
          }
-        }  isSelect={item.code==this.state.selectPayCode} data={item}/>
+        }  isSelect={item.code==bankitem.code} data={item}/>
     }
 
 

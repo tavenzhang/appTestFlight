@@ -1,8 +1,13 @@
 //常用容器或者组件样式
 import {indexBgColor, width} from "./game/themeComponet";
-import {bottomNavHeight, JX_PLAT_INFO} from '../asset/screen'
-import {NavBarHeaderHeight, NavBarHeight, StatusBarHeight} from "./screen";
+import {bottomNavHeight} from '../asset/screen'
+import {JX_PLAT_INFO, NavBarHeaderHeight, NavBarHeight, StatusBarHeight} from "./screen";
 
+export const gameUIStyle = {
+    subViewContainStye:{
+        height:240,
+    }
+}
 export const themeViewStyle = {
     containTabView: JX_PLAT_INFO.IS_IphoneX ? {
         height: SCREEN_H - bottomNavHeight,

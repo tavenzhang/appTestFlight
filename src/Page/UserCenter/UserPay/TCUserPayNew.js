@@ -34,7 +34,6 @@ import TCKeyboardView from "../../../Common/View/TCKeyboardView";
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
 import dismissKeyboard from 'dismissKeyboard'
-import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import ModalList from "./View/ModalList";
 import TCButtonView from "../../../Common/View/button/TCButtonView";
 import JXHelper from "../../../Common/JXHelper/JXHelper";
@@ -47,7 +46,7 @@ import UserPayStore from "../../../Data/store/UserPayStore";
 /**
  * 提示对话框
  */
-@withMappedNavigationProps()
+
 @observer
 export default class TCUserPayNew extends Component {
 
@@ -193,7 +192,7 @@ export default class TCUserPayNew extends Component {
             </View></TouchableOpacity>)
     }
 
-    getBankTypeView(rowData) {
+    getBankTypeView=(rowData)=> {
         if (!rowData.bankType) {
             return null;
         }
@@ -217,7 +216,7 @@ export default class TCUserPayNew extends Component {
         }
     }
 
-    onPayBankList(bankValue, bankType) {
+    onPayBankList=(bankValue, bankType)=>{
         this.userPayStore.showList = false;
         payHelper.applayPay("THIRD", bankValue, null, bankType);
     }
@@ -480,19 +479,6 @@ export default class TCUserPayNew extends Component {
         moneyView && moneyView._resetMoney(payHelper.money)
     }
 
-    /**
-     * 显示加载提示
-     */
-    showLoading() {
-        this._partModalLoadingSpinnerOverLay.show()
-    }
-
-    /**
-     * 隐藏加载提示
-     */
-    hideLoading() {
-        this._partModalLoadingSpinnerOverLay.hide()
-    }
 
 }
 

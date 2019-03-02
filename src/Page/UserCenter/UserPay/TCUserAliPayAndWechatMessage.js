@@ -31,7 +31,7 @@ import RequestUtils from '../../../Common/Network/TCRequestUitls'
 import {config, appId} from '../../../Common/Network/TCRequestConfig'
 import NavigatorHelper from '../../../Common/JXHelper/TCNavigatorHelper'
 import LoadingSpinnerOverlay from '../../../Common/View/LoadingSpinnerOverlay'
-import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
 
 import DatePicker from '../../../Common/View/datepicker';
 import Moment from 'moment'
@@ -43,7 +43,6 @@ import dismissKeyboard from 'dismissKeyboard'
 /**
  * 银行充值
  */
-@withMappedNavigationProps()
 export default class TCUserAliPayAndWechatMessage extends Component {
 
 

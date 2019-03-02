@@ -1567,7 +1567,7 @@
 				ORGANIZATIONNAME = JD;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = ZBE9R237M6;
+						DevelopmentTeam = 9UQ3Y54H5D;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -2375,7 +2375,7 @@
 				CODE_SIGN_ENTITLEMENTS = JD/JD.entitlements;
 				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = ZBE9R237M6;
+				DEVELOPMENT_TEAM = 9UQ3Y54H5D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JD/umeng",
@@ -2419,7 +2419,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.cg365;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.cg365cc;
 				PRODUCT_NAME = JD;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2433,7 +2433,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = JD/JD.entitlements;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = ZBE9R237M6;
+				DEVELOPMENT_TEAM = 9UQ3Y54H5D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JD/umeng",
@@ -2477,7 +2477,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.cg365;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.cg365cc;
 				PRODUCT_NAME = JD;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

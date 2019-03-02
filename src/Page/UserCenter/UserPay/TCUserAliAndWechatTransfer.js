@@ -27,10 +27,11 @@ import Moment from 'moment'
 import TCUserOpenPayApp from './TCUserOpenPayApp'
 import _ from 'lodash'
 import Toast from "../../../Common/JXHelper/JXToast";
-import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import UserPayStore from "../../../Data/store/UserPayStore";
 import payHelper from './PayHelper'
 import TcTools from '../../../Common/View/Tools'
+import TCUserPayProgress from "./TCUserPayProgress";
+import TCUserAliPayAndWechatMessage from "./TCUserAliPayAndWechatMessage";
 
 let userOpenPayApp = new TCUserOpenPayApp()
 let Tools = new TcTools()
@@ -39,7 +40,7 @@ let Tools = new TcTools()
  * 支付宝支付
  */
 @inject("userStore")
-@withMappedNavigationProps()
+
 @observer
 export default class TCUserAliAndWechatTransfer extends Component {
 
@@ -72,18 +73,18 @@ export default class TCUserAliAndWechatTransfer extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <TopNavigationBar
-                    title={this.title}
-                    needBackButton={true}
-                    rightTitle={'充值明细'}
-                    rightButtonCall={() => {
-                        NavigatorHelper.pushToUserPayAndWithDraw(1)
-                    }}
-                    backButtonCall={() => {
-                        this.showBackTip();
-                    }}/>
-                <ScrollView>
+            <ScrollView style={styles.container}>
+                {/*<TopNavigationBar*/}
+                    {/*title={this.title}*/}
+                    {/*needBackButton={true}*/}
+                    {/*rightTitle={'充值明细'}*/}
+                    {/*rightButtonCall={() => {*/}
+                        {/*NavigatorHelper.pushToUserPayAndWithDraw(1)*/}
+                    {/*}}*/}
+                    {/*backButtonCall={() => {*/}
+                        {/*this.showBackTip();*/}
+                    {/*}}/>*/}
+
                     <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
                         <UserPay ref="erweimaaa"
                                  payType={this.props.type === 'ZHB' ? '支付宝' : '微信'}
@@ -116,9 +117,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
                         <View style={{marginBottom: 20}}>
                             {this.getTransferTip()}
                         </View>
-                    </View>
-                    <LoadingSpinnerOverlay visible={this.state.isSpinnerVisible} />
-                </ScrollView>
+                </View>
                 <Dialog
                     ref="Dialog"
                     show={false}
@@ -129,7 +128,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
                     btnTxt={'打开'}
                     leftTxt={'取消'}
                     tipTxt={'(请将本次充值订单号复制到您的转账备注中)'}/>
-            </View>
+            </ScrollView>
         )
     }
 
@@ -287,7 +286,7 @@ export default class TCUserAliAndWechatTransfer extends Component {
     }
 
     getSnapshotErrorView() {
-        if (IS_IOS) {
+        if (G_IS_IOS) {
             return (
                 <View>
                     <View style={{marginTop: 15}}>
@@ -334,18 +333,23 @@ export default class TCUserAliAndWechatTransfer extends Component {
     }
 
     next() {
-        NavigatorHelper.pushToUserAliPayAndWechatMessage({
+        TW_Store.gameUIStroe.showCommonView(this.props.type,TCUserAliPayAndWechatMessage,{
             type: this.props.type,
             topupAmount: this.props.money,
-            orderNo: this.state.orderNo
-        })
+            orderNo: this.state.orderNo})
+        // NavigatorHelper.pushToUserAliPayAndWechatMessage({
+        //     type: this.props.type,
+        //     topupAmount: this.props.money,
+        //     orderNo: this.state.orderNo
+        // })
     }
 
     /**
      * 跳转到支付进度界面
      */
     gotoProgress() {
-        NavigatorHelper.pushToUserPayProgress({topupAmount: this.userPayStore.money});
+       // NavigatorHelper.pushToUserPayProgress({topupAmount: this.userPayStore.money});
+        TW_Store.gameUIStroe.showCommonView("充值进度",TCUserPayProgress,{topupAmount: this.userPayStore.money})
     }
 
     showBackTip() {
@@ -393,7 +397,8 @@ export default class TCUserAliAndWechatTransfer extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        //flex: 240,
+        height:240,
         backgroundColor: ermaStyle.mainBg
     }, moneyTxtStyle: {
         color: ermaStyle.moneyContent,

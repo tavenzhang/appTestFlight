@@ -1,4 +1,4 @@
-import {StyleSheet,Text, View} from "react-native";
+import {StyleSheet, Text, TouchableNativeFeedbackComponent, TouchableWithoutFeedback, View} from "react-native";
 
 import {ASSET_Images} from "../../../asset";
 import {TCButtonImg} from "../../../../Common/View/button/TCButtonView";
@@ -32,7 +32,7 @@ export default class BaseGameAlert extends Component {
 
         return (<View style={{position:"absolute",height:280}}>
             <TCImage source={ASSET_Images.gameUI.uiTitleBg}/>
-            <View style={{position: "absolute", marginTop: 48,width:460,
+            <View style={{position: "absolute", marginTop: 48,width:459,
                 alignSelf:"center", backgroundColor:indexBgColor.mainBg}}>
                 {this.props.children}
             </View>
@@ -40,9 +40,13 @@ export default class BaseGameAlert extends Component {
                 alignItems: "center",alignSelf:"center"}}>
                 <Text style={{color:"#937e7e", fontSize:18}}>{title}</Text>
             </View>
-            <TCButtonImg imgSource={ASSET_Images.gameUI.btn_fanhui}
-                         onClick={onClose}
-                         btnStyle={{position: "absolute", left:40, top: 20}}/>
+            <TouchableWithoutFeedback>
+            <View style={{position: "absolute", left:30, top: 20,  width:60, height:30}}>
+                <TCButtonImg imgSource={ASSET_Images.gameUI.btn_fanhui}
+                             onClick={onClose}
+                             btnStyle={{}}/>
+            </View>
+            </TouchableWithoutFeedback>
 
         </View>)
 

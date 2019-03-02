@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, StyleSheet, Text, TextInputComponent, TouchableOpacity, View} from "react-native";
+import {Image, ScrollView, StyleSheet, Text, TextInputComponent, TouchableOpacity, View} from "react-native";
 
 import {ASSET_Images} from "../../../asset";
 import TCImage from "../../../../Common/View/image/TCImage";
@@ -17,18 +17,22 @@ import payHelper from "../../../UserCenter/UserPay/PayHelper";
 import UserPayStore from "../../../../Data/store/UserPayStore";
 import BaseGameAlert from "../GameMoneyInView";
 
+import ModalInputDialog from "../../../../Common/View/ModalInputDialog";
+import ModalList from "../../../UserCenter/UserPay/View/ModalList";
+import TCButtonView from "../../../UserCenter/UserPay/TCUserPayNew";
+
 @observer
 export default class GamePayStepOne extends Component {
     userPayStore = new UserPayStore();
 
     static propTypes = {
-        dataList: PropTypes.any,
+        itemData:PropTypes.any,
         type: PropTypes.any
     }
 
     static defaultProps = {
         type: "",
-        dataList: []
+        itemData:{}
     }
 
 
@@ -47,9 +51,10 @@ export default class GamePayStepOne extends Component {
     }
 
     render() {
-        let {type} = this.props;
-        let payList = TW_Store.userPayTypeStore.getPayList(type);
+        let {itemData} = this.props;
+        let payList = TW_Store.userPayTypeStore.getPayList(itemData.code);
 
+        payHelper.props = itemData;
         return (<View style={styles.container}>
             <TCImage source={ASSET_Images.gameUI.stepOneBg1}/>
 
@@ -70,20 +75,58 @@ export default class GamePayStepOne extends Component {
                 })}
             </View>
             <View style={{position: "absolute", top: 90, left: 24}}>
-                {payList.length > 0 ? <TCFlatList style={{height: 120, marginTop: 12}} dataS={payList}
+                {payList&&payList.length > 0 ? <TCFlatList style={{height: 120, marginTop: 12}} dataS={payList}
                                                   renderRow={this.onRenderItemView}/> : this.getEmptyTip()}
 
             </View>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btn_onLine}
                          btnStyle={{position: "absolute", right: 48, top: 88}} onClick={() => {
-                TW_Store.gameUIStroe.isShowGuest = true;
+                TW_Store.gameUIStroe.showGusetView();
             }}/>
-            {/*{*/}
-                {/*//TW_NavHelp.pushView(JX_Compones.UserAcountPay,{accountType: 0, isBackToTop: true})*/}
-                {/*this.state.isShowHistory ? <BaseGameAlert  onClose={this.onShowHistoyView}>*/}
-                    {/*<TCUserPayAndWithdrawRecordsMain onBack={this.onShowHistoyView}  accountType={1} isBackToTop={false}/>*/}
-                {/*</BaseGameAlert>:null*/}
-            {/*}*/}
+            <ModalList
+                show={this.userPayStore.showList}
+                dataList={this.userPayStore.bankList}
+                closeModal={() => {
+                    this.userPayStore.showList = false;
+                }}
+                renderRow={(rowData) => this.renderBankList(rowData)}
+            />
+            <ModalInputDialog
+                show={this.userPayStore.showInputName}
+                dialogTitle={"存款人信息"}
+                btnLeftTxt={"取消"}
+                btnRigthTxt={"下一步"}
+                content={payHelper.payData}
+                btnLeftClick={() => {
+                    this.userPayStore.showInputName = false
+                }}
+                btnRightClick={(inputData) => {
+                    let {realname,phoneNum,cardNo} = inputData
+                    // let reg = /^([\s\u4e00-\u9fa5]{1}([·•● ]?[\s\u4e00-\u9fa5]){1,14})$|^[a-zA-Z\s]{4,30}$/;
+                    // if (payHelper.payData.realNameReq && !realname.match(reg)) {
+                    //     Toast.showShortCenter("请输入正确的存款人姓名")
+                    //     return false;
+                    // }
+                    // reg = /^134[0-8]\d{7}$|^13[^4]\d{8}$|^14[5-9]\d{8}$|^15[^4]\d{8}$|^16[6]\d{8}$|^17[0-8]\d{8}$|^18[\d]{9}$|^19[8,9]\d{8}$/
+                    //
+                    // if (payHelper.payData.mobileNoReq && !phoneNum.match(reg)) {
+                    //     Toast.showShortCenter("请输入正确的手机号码")
+                    //     return false;
+                    // }
+                    // if (payHelper.payData.cardNoReq && cardNo.length < 14) {
+                    //     Toast.showShortCenter("请输入正确的银行卡号")
+                    //     return false;
+                    // }
+                    payHelper.payData.realName = realname?realname:"";
+                    payHelper.payData.mobileNo = phoneNum?phoneNum:"";
+                    payHelper.payData.cardNo = cardNo?cardNo:"";
+                    this.userPayStore.showInputName = false;
+                    this.gotoPay(payHelper.payData)
+
+                }}
+
+            />
+
 
         </View>)
     }
@@ -97,9 +140,9 @@ export default class GamePayStepOne extends Component {
     }
 
     onRenderItemView = (data, index) => {
-        TW_Log("GamePayStepOne---onRenderItemView--" + index, data);
-        let {type} = this.props;
-        if (type == 'BANK') {
+      //  TW_Log("GamePayStepOne---onRenderItemView--" + index, data);
+        let {itemData} = this.props;
+        if (itemData.code == 'BANK') {
             let bank = data;
             return (<TouchableOpacity
                 onPress={() => {
@@ -134,7 +177,7 @@ export default class GamePayStepOne extends Component {
                 }}><View style={{width: 320, height: 100, alignItems: "center", flexDirection: "row"}}>
                 <TCImage source={ASSET_Images.gameUI.listItemBg}
                          style={{position: "absolute", width: 350, height: 100}}/>
-                <TCImage source={payHelper.getPayTypeIcon(type)} style={{height: 50, width: 50, marginLeft: 10}}/>
+                <TCImage source={payHelper.getPayTypeIcon(paymentItem.code)} style={{height: 50, width: 50, marginLeft: 10}}/>
                 <View>
                     <Text
                         style={[styles.itemLable, {fontSize: 12}]}>{paymentItem.type ? paymentItem.merchantName : paymentItem.receiptName}</Text>
@@ -147,6 +190,7 @@ export default class GamePayStepOne extends Component {
     }
 
     onPressPay = (paymentItem) => {
+        TW_Log("GamePayStepOne---paymentItem--payHelper.validMoney--"+payHelper.validMoney(paymentItem, false),paymentItem)
         if (!payHelper.isFixedPay() && !payHelper.validMoney(paymentItem, false))
             return
         if (this.inputUserName(paymentItem)) {
@@ -176,7 +220,6 @@ export default class GamePayStepOne extends Component {
     }
 
 
-
     /**
      * 当数据为空时提示
      * @returns {XML}
@@ -191,6 +234,57 @@ export default class GamePayStepOne extends Component {
                 <Text style={{color: listViewTxtColor.content, fontSize: 11}}>敬请谅解!请选择其它支付方式!</Text>
             </View>
         )
+    }
+
+
+
+    /**
+     * 渲染银行列表
+     * @param rowData
+     * @returns {XML}
+     */
+    renderBankList(rowData) {
+        return (<TouchableOpacity
+            onPress={() => {
+                if (!rowData.bankType) {
+                    this.onPayBankList(rowData.bankValue)
+                }
+            }}
+        >
+            <View style={styles.bankItemView}>
+                <Text>{rowData.bankName}</Text>
+                {this.getBankTypeView(rowData)}
+            </View></TouchableOpacity>)
+    }
+
+    getBankTypeView=(rowData)=> {
+        if (!rowData.bankType) {
+            return null;
+        }
+
+        if (rowData.bankType.length === 2) {
+            return (<View style={{flexDirection: 'row'}}>
+                <TCButtonView text="储蓄卡" btnStyle={{marginHorizontal: 5}}
+                              onClick={() => this.onPayBankList(rowData.bankValue, 'DC')}/>
+                <TCButtonView text="信用卡" btnStyle={{marginHorizontal: 5}}
+                              onClick={() => this.onPayBankList(rowData.bankValue, 'CC')}/>
+            </View>)
+        } else {
+            let type = rowData.bankType[0];
+            if (type === 'DC') {
+                return (<TCButtonView text={'储蓄卡'} btnStyle={{marginHorizontal: 5}}
+                                      onClick={() => this.onPayBankList(rowData.bankValue, 'DC')}/>)
+            } else {
+                return (<TCButtonView text={'信用卡'} btnStyle={{marginHorizontal: 5}}
+                                      onClick={() => this.onPayBankList(rowData.bankValue, 'CC')}/>)
+            }
+        }
+    }
+
+
+    onPayBankList=(bankValue, bankType)=>{
+        this.userPayStore.showList = false;
+        payHelper.applayPay("THIRD", bankValue, null, bankType);
     }
 
 }

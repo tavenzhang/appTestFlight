@@ -56,6 +56,7 @@ Helper.reset=(component,params)=>{
     }
 }
 Helper.popToBack = () => {
+    TW_Store.gameUIStroe.hideAlertUI();
     NavigationService.goBack();
 }
 

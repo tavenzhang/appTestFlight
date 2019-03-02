@@ -9,16 +9,25 @@ import TCImage from "../../../Common/View/image/TCImage";
 import {ASSET_Images, JX_PLAT_INFO} from "../../asset";
 import {TCButtonImg} from "../../../Common/View/button/TCButtonView";
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
+import PropTypes from "prop-types";
 
 @observer
 export default class GameGuestView extends Component {
+
+    static propTypes = {
+        isSelect: PropTypes.bool,
+        onClick: PropTypes.func,
+        data: PropTypes.any
+    }
+
+    static defaultProps = {
+        isSelect: false,
+    }
 
     constructor(state) {
         super(state)
         let {url} = this.props;
         this.state = {
-            isHide: false,
-            isHttpFail: false,
             uri: url,
         }
         this.bblStore = TW_Store.bblStore;
@@ -26,7 +35,8 @@ export default class GameGuestView extends Component {
 
 
     render() {
-        return (<View style={styles.container}>
+        let {pointerEvents}=this.props;
+        return (<View style={styles.container} pointerEvents={pointerEvents}>
             <TCImage source={ASSET_Images.gameUI.guestBg}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
                          onClick={() => TW_Store.gameUIStroe.isShowGuest = false}
@@ -35,7 +45,6 @@ export default class GameGuestView extends Component {
                          onClick={() => TW_Store.gameUIStroe.isShowGuest = false}
                          btnStyle={{position: "absolute", right: 0, top: 20}}/>
             <View style={{position: "absolute",}}>
-
                 {this.getWebView()}
             </View>
 
@@ -50,8 +59,8 @@ export default class GameGuestView extends Component {
         }
         return (
             <WKWebView source={source}
-                                 style={styles.webView}
-                                 allowFileAccess={true}
+                       style={styles.webView}
+                       allowFileAccess={true}
         />)
     }
 

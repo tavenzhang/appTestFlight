@@ -14,6 +14,8 @@ import {indexBgColor} from '../../resouce/theme'
 import RefreshListView from '../../../Common/View/RefreshListView/RefreshListView'
 import TransferRow from './View/TCUserTransferRowView'
 import UserAccount from "./TCUserPayAndWithdrawRecordsMain";
+import TCUserTransferDetails from "./TCUserTransferDetails";
+import TCUserAccountBillingDetails from "./TCUserAccountBillingDetails";
 
 
 @observer
@@ -87,7 +89,7 @@ export default class TCUserPayAndWithdrawRecords extends Component {
                     titleTip={this.getNodataTip()}
                     contentTip="大奖不等待，速去购彩吧~"
                     btnTxt="立即充值"
-                    gotoDoing={onBack}
+                    gotoDoing={()=>TW_Store.gameUIStroe.hideAlertUI()}
                 />
             )
         } else {
@@ -111,15 +113,21 @@ export default class TCUserPayAndWithdrawRecords extends Component {
 
     pressRow(rowData) {
         if (this.props.accountType === 2) {
-            Helper.pushToUserTransferDetails({
-                orderData: rowData,
-            })
+            TW_Store.gameUIStroe.showCommonView("转账详情",TCUserTransferDetails,{orderData: rowData});
+            // Helper.pushToUserTransferDetails({
+            //     orderData: rowData,
+            // })
         } else {
-            Helper.pushToUserAcountDetail({
+            TW_Store.gameUIStroe.showCommonView("账单详情",TCUserAccountBillingDetails,{
                 orderData: rowData,
                 isPayAndWithdrawRecord: true,
                 accountType: this.props.accountType
-            })
+            });
+            // Helper.pushToUserAcountDetail({
+            //     orderData: rowData,
+            //     isPayAndWithdrawRecord: true,
+            //     accountType: this.props.accountType
+            // })
         }
     }
 

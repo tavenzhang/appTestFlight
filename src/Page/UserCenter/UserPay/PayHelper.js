@@ -2,11 +2,11 @@ import Toast from '../../../Common/JXHelper/JXToast';
 import RequestUtils from "../../../Common/Network/TCRequestUitls";
 import {appId, config} from "../../../Common/Network/TCRequestConfig";
 import AlipayAndWechatTransfer from "./TCUserAliAndWechatTransfer";
-import Pay from "./TCUserAliAndWechatPay";
+import TCUserAliAndWechatPay from "./TCUserAliAndWechatPay";
 import NavigatorHelper from "../../../Common/JXHelper/TCNavigatorHelper";
-import HTMLPay from "./TCUserHTMLPay";
+import TCUserHTMLPay from "./TCUserHTMLPay";
 import {Linking} from "react-native";
-import FixedPage from './TCUserPayFixedPage'
+import TCUserPayFixedPage from './TCUserPayFixedPage'
 import userStore from '../../../Data/store/UserStore'
 import BankPayApply from "./TCUserBankPayMessageNew";
 import {userPay} from "../../asset/images";
@@ -18,8 +18,8 @@ class PayHelper {
 
 
     isFixedPay() {
-       // return this.props.code.indexOf("FIXED") !== -1
-        return false
+        return this.props.code.indexOf("FIXED") !== -1
+       // return false
     }
 
     /**
@@ -72,12 +72,14 @@ class PayHelper {
      * @param rowData
      */
     payItemSelected(rowData, callback) {
+        TW_Log("GamePayStepOne---payItemSelected-this.isFixedPay()=="+this.isFixedPay()+"-----this.validMoney(rowData)--"+this.validMoney(rowData),rowData)
         if (!this.isFixedPay() && !this.validMoney(rowData)) {
             callback();
             return;
         }
         this.payData = rowData
         let paymentTypes = rowData.paymentType
+        TW_Log("GamePayStepOne---payItemSelected-",rowData)
         switch (rowData.type) {
             case 'WX':
             case 'ZHB':
@@ -115,10 +117,12 @@ class PayHelper {
 
 
     gotoFixedPage(payData) {
-        NavigatorHelper.pushToFixedPage({
-            data: payData,
-            title: this.getPayTypeTitle()
-        })
+
+        TW_Store.gameUIStroe.showCommonView(this.getPayTypeTitle(),TCUserPayFixedPage,{ data: payData, title: this.getPayTypeTitle()})
+        // NavigatorHelper.pushToFixedPage({
+        //     data: payData,
+        //     title: this.getPayTypeTitle()
+        // })
     }
 
     /**
@@ -233,15 +237,20 @@ class PayHelper {
         let payType = this.payData.type
         let qrType = res.paymentJumpTypeEnum
         if (res.data && res.data.length !== 0) {
-
-            NavigatorHelper.pushToAliAndWechatPay({
-                type: payType,
+            TW_Store.gameUIStroe.showCommonView(payType,TCUserAliAndWechatPay,{ type: payType,
                 codeType: qrType ? qrType : 'URL',
                 money: this.money,
                 codeValue: res.data,
                 payData: this.payData,
-                merchantName: this.payData.merchantName
-            })
+                merchantName: this.payData.merchantName})
+            // NavigatorHelper.pushToAliAndWechatPay({
+            //     type: payType,
+            //     codeType: qrType ? qrType : 'URL',
+            //     money: this.money,
+            //     codeValue: res.data,
+            //     payData: this.payData,
+            //     merchantName: this.payData.merchantName
+            // })
         } else {
             Toast.showShortCenter('二维码获取失败,请稍后再试!')
         }
@@ -254,10 +263,11 @@ class PayHelper {
     gotoFormPay(res) {
         if (res.data && res.data.length !== 0) {
             let html = `<html><body><div style="text-align:center;margin-top: 50px;">` + res.data + `</div></body></html>`
-            NavigatorHelper.pushToHTMLPay({
-                title: this.payData.merchantName,
-                html: html
-            })
+            TW_Store.gameUIStroe.showCommonView(this.payData.merchantName,TCUserHTMLPay,{html: html})
+            // NavigatorHelper.pushToHTMLPay({
+            //     title: this.payData.merchantName,
+            //     html: html
+            // })
         } else {
             Toast.showShortCenter('支付信息获取失败,请稍后再试!')
         }
@@ -270,10 +280,11 @@ class PayHelper {
     gotoHTMLPay(res) {
         let payTitle = this.getPayTypeTitle()
         if (res.data && res.data.length !== 0) {
-            NavigatorHelper.pushToHTMLPay({
-                title: payTitle,
-                html: res.data
-            })
+            TW_Store.gameUIStroe.showCommonView(payTitle,TCUserHTMLPay,{html: res.data})
+            // NavigatorHelper.pushToHTMLPay({
+            //     title: payTitle,
+            //     html: res.data
+            // })
         } else {
             Toast.showShortCenter('支付信息获取失败,请稍后再试!')
         }
@@ -323,7 +334,9 @@ class PayHelper {
      * @param url
      */
     gotoWebView(url) {
-        NavigatorHelper.pushToWebView(url, '充值')
+       // TW_Store.gameUIStroe.showCommonView(payTitle,TCUserHTMLPay,{html: res.data})
+        TW_Store.gameUIStroe.showCommonView('充值',TCUserHTMLPay,{uri: url})
+       // NavigatorHelper.pushToWebView(url, '充值')
     }
 
     /**
@@ -331,11 +344,15 @@ class PayHelper {
      * @param data
      */
     weChatAndAlipayTransfer(data) {
-        NavigatorHelper.pushToUserAliAndWechatTransfer({
+        TW_Store.gameUIStroe.showCommonView(data.bankCode,AlipayAndWechatTransfer,{
             type: data.bankCode,
             money: this.money,
-            data: data
-        })
+            data: data})
+        // NavigatorHelper.pushToUserAliAndWechatTransfer({
+        //     type: data.bankCode,
+        //     money: this.money,
+        //     data: data
+        // })
     }
 
     /**
