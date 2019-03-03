@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.Log;
 
+import com.beefe.picker.PickerViewPackage;
 import com.jd.MainActivity;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.cmcewen.blurview.BlurViewPackage;
@@ -44,7 +45,7 @@ import com.wix.interactable.Interactable;
 import com.zmxv.RNSound.RNSoundPackage;
 
 import io.fabric.sdk.android.Fabric;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -75,7 +76,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new SplashScreenReactPackage(),
+                    new PickerViewPackage(),
             new OrientationPackage(),
             new RNZipArchivePackage(),
             new FlurryAnalyticsPackage(),
