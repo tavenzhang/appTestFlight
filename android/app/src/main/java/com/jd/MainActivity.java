@@ -1,6 +1,7 @@
 package com.jd;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -12,14 +13,17 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.facebook.react.ReactActivity;
+import com.jd.ushare.invokenative.ShareModule;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.UMShareAPI;
 
 import org.devio.rn.splashscreen.SplashScreen;
 
 public class MainActivity extends ReactActivity {
 
-    public static  MainActivity instance;
+    public static MainActivity instance;
     public static Context mainContent = null;
+
     /**
      * Returns the name of the main component registered from JavaScript.
      * This is used to schedule rendering of the component.
@@ -54,8 +58,9 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+
+        initUmeng();
         // 设置透明状态栏
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
@@ -74,18 +79,18 @@ public class MainActivity extends ReactActivity {
             decorView.setSystemUiVisibility(option);
             getWindow().setNavigationBarColor(Color.BLACK);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
-          //  getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //  getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
-        instance =this;
+        instance = this;
         mainContent = getApplicationContext();
-         String  subType = readMetaDataByTag("SUB_TYPE");
-                subType=subType.trim();
-                if(subType!=null&&!subType.equals("0")&&!subType.equals("")){
-                    //SplashScreen.show(this,false);  // here
-                }else{
-                      SplashScreen.show(this,true);  // here
-                }
+        String subType = readMetaDataByTag("SUB_TYPE");
+        subType = subType.trim();
+        if (subType != null && !subType.equals("0") && !subType.equals("")) {
+            //SplashScreen.show(this,false);  // here
+        } else {
+            SplashScreen.show(this, true);  // here
+        }
     }
 
     public String readMetaDataByTag(String tag) {
@@ -99,5 +104,16 @@ public class MainActivity extends ReactActivity {
             e.printStackTrace();
             return "error";
         }
+    }
+
+    private void initUmeng() {
+        ShareModule.initSocialSDK(this);
+        MobclickAgent.setSessionContinueMillis(1000);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 }

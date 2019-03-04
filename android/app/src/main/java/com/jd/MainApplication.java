@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.util.Log;
 
 import com.jd.MainActivity;
@@ -14,10 +15,15 @@ import com.crashlytics.android.Crashlytics;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
 import com.github.yamill.orientation.OrientationPackage;
+import com.jd.ushare.invokenative.DplusReactPackage;
+import com.jd.ushare.invokenative.RNUMConfigure;
 import com.rnziparchive.RNZipArchivePackage;
+import com.umeng.socialize.PlatformConfig;
 import com.xxsnakerxx.flurryanalytics.FlurryAnalyticsPackage;
 import com.smixx.fabric.FabricPackage;
+
 import cn.jpush.reactnativejpush.JPushPackage;
+
 import com.rnfs.RNFSPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.facebook.react.ReactNativeHost;
@@ -43,6 +49,7 @@ import com.wix.interactable.Interactable;
 import com.zmxv.RNSound.RNSoundPackage;
 
 import io.fabric.sdk.android.Fabric;
+
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import java.util.Arrays;
@@ -53,6 +60,8 @@ import cn.jpush.android.api.JPushInterface;
 public class MainApplication extends Application implements ReactApplication {
 
     private static MainApplication mInstance = null;
+    private static final String TAG = MainApplication.class.getName();
+    private Handler handler;
 
     public static MainApplication getInstance() {
         return mInstance;
@@ -74,16 +83,16 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new OrientationPackage(),
-            new RNZipArchivePackage(),
-            new FlurryAnalyticsPackage(),
-            new FabricPackage(),
-            new JPushPackage(false,false),
-            new RNFSPackage(),
-            new PickerPackage(),
+                    new OrientationPackage(),
+                    new RNZipArchivePackage(),
+                    new FlurryAnalyticsPackage(),
+                    new FabricPackage(),
+                    new JPushPackage(false, false),
+                    new RNFSPackage(),
+                    new PickerPackage(),
                     new RCTToastPackage(),
                     new RNShakeEventPackage(),
-                    new CodePush(getResources().getString(R.string.deploymentKey), getApplicationContext(), BuildConfig.DEBUG,"", getSpecialCodeVersion()),
+                    new CodePush(getResources().getString(R.string.deploymentKey), getApplicationContext(), BuildConfig.DEBUG, "", getSpecialCodeVersion()),
                     new VectorIconsPackage(),
                     new SvgPackage(),
                     new SplashScreenReactPackage(),
@@ -98,7 +107,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new RCTMarqueeLabelPackage(),
                     new JXHelperPackage(),
                     new OpenAppPackage(),
-                    new RNAudioPackage()
+                    new RNAudioPackage(),
+                    new DplusReactPackage()
             );
 
         }
@@ -111,15 +121,15 @@ public class MainApplication extends Application implements ReactApplication {
 
     };
 
-    public String getSpecialCodeVersion(){
-        String vesrion="";
-        String  subType = readMetaDataByTag("SUB_TYPE");
-        subType=subType.trim();
-        if(subType!=null&&!subType.equals("0")&&!subType.equals("")){
-            vesrion ="6.66.668";
+    public String getSpecialCodeVersion() {
+        String vesrion = "";
+        String subType = readMetaDataByTag("SUB_TYPE");
+        subType = subType.trim();
+        if (subType != null && !subType.equals("0") && !subType.equals("")) {
+            vesrion = "6.66.668";
         }
-        Log.d("subType","subType-----------------"+subType+"---vesrion=="+vesrion+"--subType==0-"+(subType.equals("0"))+"--subType===!=="+(subType!="0"));
-        return  vesrion;
+        Log.d("subType", "subType-----------------" + subType + "---vesrion==" + vesrion + "--subType==0-" + (subType.equals("0")) + "--subType===!==" + (subType != "0"));
+        return vesrion;
     }
 
     public String readMetaDataByTag(String tag) {
@@ -154,7 +164,7 @@ public class MainApplication extends Application implements ReactApplication {
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
         UMConfigure.setLogEnabled(BuildConfig.DEBUG);
         UMConfigure.setEncryptEnabled(true);
-
+        initUmeng();
     }
 
     @Override
@@ -166,5 +176,19 @@ public class MainApplication extends Application implements ReactApplication {
             resources.updateConfiguration(configuration, resources.getDisplayMetrics());
         }
         return resources;
+    }
+
+    private void initUmeng() {
+        String umengKey = BuildConfig.UMENG_KEY;
+        String wechatKey = BuildConfig.WECHAT_KEY;
+        String wechatSecretKey = BuildConfig.WECHAT_SECRET_KEY;
+
+        UMConfigure.setLogEnabled(BuildConfig.DEBUG);
+        RNUMConfigure.init(this, umengKey, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        PlatformConfig.setWeixin(wechatKey, wechatSecretKey);
+//        豆瓣RENREN平台目前只能在服务器端配置
+//        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
+//        PlatformConfig.setYixin("yxc0614e80c9304c11b0391514d09f13bf");
+//        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
     }
 }
