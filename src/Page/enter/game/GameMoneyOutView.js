@@ -44,32 +44,32 @@ export default class GameMoneyOutView extends Component {
         return (<View style={styles.container} pointerEvents={pointerEvents}>
             <TCImage source={ASSET_Images.gameUI.moneyOutBg}/>
             <TCImage source={ASSET_Images.gameUI.titleMoneyOut}
-                     style={{position: "absolute", right: 208, top: 45}}/>
+                     style={{position: "absolute", right: 208, top: 28}}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
                          onClick={() => TW_Store.gameUIStroe.isShowWithDraw = false}
-                         btnStyle={{position: "absolute", right: 0, top: 20}}/>
+                         btnStyle={{position: "absolute", right: 0, top:10}}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnOut}
                          onClick={() => {
                              TW_Store.gameUIStroe.showTiXianDetail();
                          }}
-                         btnStyle={{position: "absolute", right: 80, top: 110}}/>
-            <View style={{position: "absolute", left: 160, top: 90}}>
+                         btnStyle={{position: "absolute", right: 80, top: 90}}/>
+            <View style={{position: "absolute", left: 160, top: 66,}}>
                 <TCText backgroundStyle={{backgroundColor: "transparent"}} textStyle={{color: "#efe8cd",}}
                         text={TW_Store.userStore.userName}/>
-                <TCText backgroundStyle={{backgroundColor: "transparent", marginTop: 10}}
+                <TCText backgroundStyle={{backgroundColor: "transparent", marginTop:G_IS_IOS ? 12:9}}
                         textStyle={{color: "#efe8cd",}} text={`${TW_Store.userStore.balance}`}/>
             </View>
 
-            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: 105, top: 148}}
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: 105, top: 126}}
                     textStyle={{color: "#efe8cd",}} text={this.userWithdrawStore.withdrawModel.aggregateBets}/>
-            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: 410, top: 148}}
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: 410, top: 126}}
                     textStyle={{color: "#efe8cd",}} text={num}/>
             <View style={{
                 flexDirection: "row",
                 position: "absolute",
                 justifyContent: "center",
                 alignItems: "center",
-                top: 238,
+                top: 213,
                 left: 90,
             }}>
                 <TCTextInput value={this.userWithdrawStore.money}
@@ -95,14 +95,14 @@ export default class GameMoneyOutView extends Component {
             <Text style={{
                 position: "absolute",
                 left: 90,
-                top: 260,
+                top: 235,
                 fontSize: 12,
                 color: "rgb(132,168,168)",
                 marginLeft: 10
             }}>{`(最多可提取金额 ${this.userWithdrawStore.withdrawModel.maxWithdrawMoney} 元)`}</Text>
             {this.getConfirmButton()}
 
-            <View style={{position: "absolute",left: 70, top: 180}}>
+            <View style={{position: "absolute",left: 70, top: 155}}>
                     <Text style={{color: "#efe8cd"}}>{this.userWithdrawStore.bank.bankName}</Text>
                     <Text style={{color: "rgb(132,168,168)", fontSize:14, marginTop:5}}>{this.userWithdrawStore.bank.bankCardNo}</Text>
             </View>
@@ -113,15 +113,6 @@ export default class GameMoneyOutView extends Component {
                 this.callback(res)
                 }}/>
             </View>
-            {/*{*/}
-                {/*//TW_NavHelp.pushView(JX_Compones.UserAcountPay,{accountType: 0, isBackToTop: true})*/}
-                {/*this.state.isShowHistory ? <BaseGameAlert title={"提现明细"} onClose={()=>{*/}
-                     {/*this.setState({isShowHistory:false})*/}
-                {/*}}>*/}
-                    {/*<TCUserPayAndWithdrawRecordsMain accountType={0} isBackToTop={true}/>*/}
-                {/*</BaseGameAlert>:null*/}
-            {/*}*/}
-
         </View>)
 
     }
@@ -327,12 +318,12 @@ export default class GameMoneyOutView extends Component {
     getConfirmButton = () => {
         if (this.userWithdrawStore.canWithdraw) {
             return (
-                <TCButtonImg btnStyle={{position: "absolute", right: 200, top: 283}}
+                <TCButtonImg btnStyle={{position: "absolute", right: 200, top: 260}}
                              imgSource={ASSET_Images.gameUI.btnOk} onClick={this.onOkGetOutMoeny}/>
             )
         } else {
             return (
-                <View style={{position: "absolute", right: 220, top: 290}}>
+                <View style={{position: "absolute", right: 220, top: 270}}>
                     <Text style={{color: 'red', fontWeight: 'bold', fontSize: Size.font15}}>您暂时无法提款</Text>
                 </View>
             )
@@ -343,22 +334,16 @@ export default class GameMoneyOutView extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+
         justifyContent: "center",
         alignItems: "center",
-        alignSelf: "center",
-        backgroundColor: "transparent",
+       // alignSelf: "center",
+       // backgroundColor: "transparent",
     },
     inputStyle: {
         fontSize: 13,
         fontWeight: "bold",
         color: "#efe8cd"
     },
-    webView: {
-        marginTop: 18,
-        height: 250,
-        width: 485,
-        backgroundColor: "transparent",
-    }
 
 });

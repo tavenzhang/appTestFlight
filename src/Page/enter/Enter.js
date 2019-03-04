@@ -22,7 +22,7 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import SplashScreen from 'react-native-splash-screen'
 import {width, Size} from '../asset/game/themeComponet'
 import StartUpHelper from './StartUpHelper'
-import NetUitls from "../../Common/Network/TCRequestUitls";
+
 
 
 let retryTimes = 0

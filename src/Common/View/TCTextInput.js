@@ -27,7 +27,7 @@ export class TCTextInput extends React.Component {
     }
 
   static defaultProps= {
-      viewStyle:{flex:1, justifyContent:"center"},
+      viewStyle:{},
       isDefaultTextStyle:true,
       inputStyle:{
           fontSize: 14,
@@ -44,7 +44,7 @@ export class TCTextInput extends React.Component {
                         onfocus;
                     }}
                     textAlignVertical={"top"}
-                    style={[inputStyle]}
+                    style={[styles.textStyle,inputStyle]}
                     onChangeText={onChangeText}
                     value={value}
                     editable={ typeof editable === 'undefined' ? true : editable}
@@ -64,10 +64,10 @@ export class TCTextInput extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    // textStyle: {
-    //
-    //     fontSize: 14
-    // },
+    textStyle: {
+        padding: 0,
+        height:16,
+    },
 
 })
 

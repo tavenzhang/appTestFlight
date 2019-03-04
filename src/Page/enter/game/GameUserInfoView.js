@@ -74,7 +74,7 @@ export default class GameUserInfoView extends Component {
             pickDataList.push({name: this.bankStore.bankList.bankNames[index], value: item})
         });
 
-        return (<View style={{position: "absolute"}} >
+        return (<View >
             <TCImage source={ASSET_Images.gameUI.personBg}/>
             {
                 TW_Store.userStore.phoneNumber ? null : <TCButtonImg imgSource={ASSET_Images.gameUI.btnPhone}
@@ -103,7 +103,7 @@ export default class GameUserInfoView extends Component {
                 this.setState({isPwdOpen: !this.state.isPwdOpen});
             }} imgSource={this.state.isPwdOpen ? ASSET_Images.gameUI.pwdOpen : ASSET_Images.gameUI.pwdClose}
                          btnStyle={{position: "absolute", right: 50, top: 235}}/>
-            <View style={{position: "absolute", left: 120, top: 155}} pointerEvents={isHaveCard ? "none" : "auto"}>
+            <View style={{position: "absolute", left: 120, top: 153}} pointerEvents={isHaveCard ? "none" : "auto"}>
                 <TCTextInput viewStyle={{}} value={this.state.inputRealName} onChangeText={(text) => {
                     this.setState({inputRealName: text})
                 }} placeholder={"请输入持卡人姓名"} inputStyle={styles.inputStyle} placeholderTextColor={"#9cc5d8"}/>
@@ -116,7 +116,7 @@ export default class GameUserInfoView extends Component {
                              keyboardType={"numeric"} viewStyle={{marginTop: 8}}
                              placeholder={"请输入银行卡号"} maxLength={25} inputStyle={styles.inputStyle}
                              placeholderTextColor={"#9cc5d8"}/>
-                <View style={{marginTop: 8}}>
+                <View style={{marginTop: 4}}>
                     <Chooser textStyle={{color: "#9cc5d8", fontSize: 11}}
                              value={this.bankStore.bankInfo.bankCode}
                              placeholder={"请选择开户银行"} dataList={pickDataList} onSelect={(item)=>{
@@ -128,20 +128,20 @@ export default class GameUserInfoView extends Component {
                 </View>
                 <TCTextInput onChangeText={(text) => {
                     this.setState({inputBrunchAddr: text})
-                }} value={this.state.inputBrunchAddr} viewStyle={{marginTop: 8}} placeholder={"请输入省市区"}
+                }} value={this.state.inputBrunchAddr} viewStyle={{marginTop: 6}} placeholder={"请输入省市区"}
                              inputStyle={styles.inputStyle} placeholderTextColor={"#9cc5d8"}/>
                 <TCTextInput onChangeText={(text) => {
                     this.setState({inputPwd: text})
                 }} value={this.state.inputPwd} keyboardType={"numeric"} maxLength={4}
-                             secureTextEntry={!this.state.isPwdOpen} viewStyle={{marginTop: 8}}
+                             secureTextEntry={!this.state.isPwdOpen} viewStyle={{marginTop:6}}
                              placeholder={"请设置提现密码"} inputStyle={styles.inputStyle}
                              placeholderTextColor={"#9cc5d8"}/>
 
             </View>
-            <View style={{position: "absolute", left: 170, top: 68}}>
+            <View style={{position: "absolute", left: 160, top: 66}}>
                 <TCText backgroundStyle={{backgroundColor: "transparent"}} textStyle={{color: "#efe8cd",}}
                         text={TW_Store.userStore.userName}/>
-                <TCText backgroundStyle={{backgroundColor: "transparent", marginTop: 10}}
+                <TCText backgroundStyle={{backgroundColor: "transparent", marginTop: G_IS_IOS ? 12:8}}
                         textStyle={{color: "#efe8cd",}} text={`${TW_Store.userStore.balance}`}/>
                 {TW_Store.userStore.phoneNumber ?
                     <View style={{position: "absolute", flexDirection: "row", alignItems: "center", top: 0, left: 140}}>
@@ -271,7 +271,6 @@ export default class GameUserInfoView extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",

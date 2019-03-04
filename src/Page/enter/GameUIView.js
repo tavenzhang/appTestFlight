@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         position: "absolute",
         backgroundColor: "rgba(10,10,10,0.6)",
-        zIndex: 150
+
     },
     inputStyle: {
         fontSize: 11,

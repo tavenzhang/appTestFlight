@@ -58,7 +58,7 @@ export default class GamePayStepOne extends Component {
         return (<View style={styles.container}>
             <TCImage source={ASSET_Images.gameUI.stepOneBg1}/>
 
-            <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`} viewStyle={{position: "absolute", right: 30, top: 5}}
+            <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`} viewStyle={{position: "absolute", right: 30, top: 5,}}
                          placeholder={"充值无上限,可自行填写金额"}
                          keyboardType={"numeric"}
                          inputStyle={[styles.inputStyle, {fontSize: 11}]}
