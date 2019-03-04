@@ -151,6 +151,8 @@ export default class GameUserInfoView extends Component {
                     </View> : null}
 
             </View>
+            <TCImage  source={{uri:TW_Store.bblStore.getHeadIcoUrl()}}
+                      style={{position: "absolute", width: 45, height: 46,left: 42, top: 68,}}/>
         </View>)
     }
 

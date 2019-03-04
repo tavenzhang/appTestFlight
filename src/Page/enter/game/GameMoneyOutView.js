@@ -106,6 +106,9 @@ export default class GameMoneyOutView extends Component {
                     <Text style={{color: "#efe8cd"}}>{this.userWithdrawStore.bank.bankName}</Text>
                     <Text style={{color: "rgb(132,168,168)", fontSize:14, marginTop:5}}>{this.userWithdrawStore.bank.bankCardNo}</Text>
             </View>
+            <TCImage  source={{uri:TW_Store.bblStore.getHeadIcoUrl()}}
+                     style={{position: "absolute", width: 45, height: 46,left: 42, top: 68,}}/>
+
             <View style={{position: "absolute"}}>
                 <TCWithdrawKeyboardView
                 ref="KeyBoard"

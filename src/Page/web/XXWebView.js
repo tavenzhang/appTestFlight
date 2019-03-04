@@ -218,6 +218,9 @@ export default class XXWebView extends Component {
                                 if(access_token&&access_token!=""){
                                     TW_Store.userStore.initLoginToken(access_token);
                                 }
+                                if(message.url.indexOf("/api/v1/gamecenter/player/user")>-1){
+                                    TW_Store.bblStore.avatarData =ret.content
+                                }
                             },10,false,false,true);
                             break;
                         case "put":
