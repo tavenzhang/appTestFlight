@@ -77,7 +77,10 @@ export default class App extends Component {
 
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-        KeyboardManager.setToolbarPreviousNextButtonEnable(true);
+        if(KeyboardManager&&KeyboardManager.setToolbarPreviousNextButtonEnable){
+            KeyboardManager.setToolbarPreviousNextButtonEnable(true);
+        }
+
         StatusBar.setHidden(true);
         let cData = platInfo.channel[`c_${TW_Store.appStore.channel}`];
         TW_Log("cData--------"+TW_Store.appStore.channel,cData)

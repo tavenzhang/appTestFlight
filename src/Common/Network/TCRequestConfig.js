@@ -35,11 +35,11 @@ export const config = {
         currentTime: 'result/service/mobile/results/currentTime',//获取当前时间
 
         getMessageStatus: 'cms/Message/playerMessagesStatus', //获取是否有新消息状态
-        getPromotionList: 'cms/internal/mobile/' + configAppId + '/promotionList', //获取优惠活动列表
+       // getPromotionList: 'cms/internal/mobile/' + getClietnId() + '/promotionList', //获取优惠活动列表
         getHistoryList: 'result/service/mobile/results/today', //历史数据
         getBetHomeHistoryList: 'result/service/mobile/results/hist/', //下注页面历史数据
         getAllHistory: 'result/service/mobile/results/lastOpen', //开奖大厅
-        getCurrentResults: 'result/service/mobile/results/current/order/'+configAppId, //购彩大厅
+       // getCurrentResults: 'result/service/mobile/results/current/order/'+getClietnId(), //购彩大厅
 
 
         changePwd: 'account/webapi/account/users/change/password', //修改用户密码或取款密码
@@ -68,6 +68,7 @@ export const config = {
         onlineTopUp: 'cashmgt/me/payments/settings/onlineTopup',//线上充值下限
         orderhistory: 'cashmgt/me/transfer/orderhistory', //获取订单历史记录
         otherPay: 'cashmgt/me/transfer/topups', //用户自动充值
+
         getbankList: 'cashmgt/me/cards/list', //用户绑卡银行卡列表
         //获取支付类型列表
         paymentTypeList4: 'cashmgt/me/payments/nameV4',
@@ -125,6 +126,9 @@ export const config = {
         //自己的游戏
         getInternalStartGame:"/cms/internal/startGame",//获取自己的游戏的链接
 
+        //游戏客服
+        gameCuest:"/api/v1/cms/internal/mobile/#0/otherSetting/pcCusService"
+
 
     },
     map: {
@@ -156,6 +160,12 @@ export const config = {
         size: 0
     }
 };
+
+
+// function  getClietnId(){
+//
+//         return TW_Store.appStore.clindId;
+// }
 
 export const UpDateHeadAppId =(newId)=> {
     headers.ClientId=newId;

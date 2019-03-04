@@ -5,6 +5,8 @@ import BaseGameAlert from "../../Page/enter/game/GameMoneyInView";
 import React from "react";
 import TCUserBankPayMessageNew from "../../Page/UserCenter/UserPay/TCUserBankPayMessageNew";
 
+import NetUitls from "../../Common/Network/TCRequestUitls";
+import {config} from "../../Common/Network/TCRequestConfig";
 export default class GameUIStroe {
 
     @observable
@@ -83,5 +85,16 @@ export default class GameUIStroe {
             component:null,
             param:{}
         }
+    }
+    @action
+    getGustUrl(){
+        let  url = TW_Store.bblStore.urlDomain+ config.api.gameCuest.replace("#0",TW_Store.appStore.clindId);
+        NetUitls.getUrlAndParamsAndCallback(url, null, (ret) => {
+            //{"content":{"pcCusService":"https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"},
+            if(ret.rs){
+                this.gustWebUrl = ret.content.pcCusService;
+            }
+        },10,false,false);
+
     }
 }

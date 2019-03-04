@@ -26,24 +26,23 @@ export default class GameGuestView extends Component {
 
     constructor(state) {
         super(state)
-        let {url} = this.props;
-        this.state = {
-            uri: url,
+    }
+
+    componentWillMount(): void {
+        if(TW_Store.gameUIStroe.gustWebUrl.length==0){
+            TW_Store.gameUIStroe.getGustUrl();
         }
-        this.bblStore = TW_Store.bblStore;
     }
 
 
     render() {
         let {pointerEvents}=this.props;
+
         return (<View style={styles.container} pointerEvents={pointerEvents}>
             <TCImage source={ASSET_Images.gameUI.guestBg}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
                          onClick={() => TW_Store.gameUIStroe.isShowGuest = false}
                          btnStyle={{position: "absolute", right: 0, top: 0}}/>
-            <TCButtonImg imgSource={ASSET_Images.gameUI.btn}
-                         onClick={() => TW_Store.gameUIStroe.isShowGuest = false}
-                         btnStyle={{position: "absolute", right: 0, top: 20}}/>
             <View style={{position: "absolute",}}>
                 {this.getWebView()}
             </View>
@@ -54,6 +53,7 @@ export default class GameGuestView extends Component {
 
 
     getWebView = () => {
+        TW_Log("getWebView---TW_Store.gameUIStroe.gustWebUrl=="+TW_Store.gameUIStroe.gustWebUrl)
         let source = {
             uri: TW_Store.gameUIStroe.gustWebUrl,
         }
