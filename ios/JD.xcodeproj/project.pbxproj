@@ -100,6 +100,15 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B405F30CA6CA47168A65F099 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD6E4632B66647C89D113E19 /* MaterialIcons.ttf */; };
 		C3164721FC0749E089E9FCC2 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EA3914555C244DD85E59A89 /* libCodePush.a */; };
+		C61C60AB222CBE7600E09E95 /* UMShare in Resources */ = {isa = PBXBuildFile; fileRef = C61C60AA222CBE7500E09E95 /* UMShare */; };
+		C61C60AE222CBE9D00E09E95 /* UMShareModule.m in Sources */ = {isa = PBXBuildFile; fileRef = C61C60AD222CBE9D00E09E95 /* UMShareModule.m */; };
+		C61C60B0222CBEB600E09E95 /* UMShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61C60AF222CBEB600E09E95 /* UMShare.framework */; };
+		C61C60B2222CBED700E09E95 /* UShareUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61C60B1222CBED700E09E95 /* UShareUI.framework */; };
+		C61C60B4222CBF2400E09E95 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61C60B3222CBF2400E09E95 /* SystemConfiguration.framework */; };
+		C61C60B6222CBF3900E09E95 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61C60B5222CBF3900E09E95 /* CoreGraphics.framework */; };
+		C61C60B8222CBF4200E09E95 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C61C60B7222CBF4200E09E95 /* libsqlite3.tbd */; };
+		C61C60BA222CBF5100E09E95 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61C60B9222CBF5100E09E95 /* CoreTelephony.framework */; };
+		C61C60BB222CBF6700E09E95 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2259B7132046BE5F0037370E /* libc++.tbd */; };
 		CA481DB733C7451E9D654CFE /* libRCTMaterialKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FED91463EADC41BDB278DB44 /* libRCTMaterialKit.a */; };
 		CF3412EF16E9446BA84C0650 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B9953CD027E480394927450 /* libRNFetchBlob.a */; };
 		DD11A6F2FC184BC79F682084 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34BED4ADF48C4F54B43D2376 /* libRNVectorIcons.a */; };
@@ -779,6 +788,15 @@
 		B3B5EC0E0DB94D17BC79308D /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		B865BAA8F48A48F5A5082F52 /* libRNViewShot.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNViewShot.a; sourceTree = "<group>"; };
 		C2E0334F52304C5BB785B075 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		C61C60AA222CBE7500E09E95 /* UMShare */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UMShare; sourceTree = "<group>"; };
+		C61C60AC222CBE9D00E09E95 /* UMShareModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMShareModule.h; sourceTree = "<group>"; };
+		C61C60AD222CBE9D00E09E95 /* UMShareModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMShareModule.m; sourceTree = "<group>"; };
+		C61C60AF222CBEB600E09E95 /* UMShare.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMShare.framework; path = JD/base/umeng/UMShare/UMShare.framework; sourceTree = "<group>"; };
+		C61C60B1222CBED700E09E95 /* UShareUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UShareUI.framework; path = JD/base/umeng/UMShare/UMSocialUI/UShareUI.framework; sourceTree = "<group>"; };
+		C61C60B3222CBF2400E09E95 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C61C60B5222CBF3900E09E95 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C61C60B7222CBF4200E09E95 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		C61C60B9222CBF5100E09E95 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		C72C822F9CE64FB08CA129D8 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		CC00DCDAD97348FBA1723627 /* libimageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libimageCropPicker.a; sourceTree = "<group>"; };
 		CD6E4632B66647C89D113E19 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -799,6 +817,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C61C60BB222CBF6700E09E95 /* libc++.tbd in Frameworks */,
+				C61C60BA222CBF5100E09E95 /* CoreTelephony.framework in Frameworks */,
+				C61C60B8222CBF4200E09E95 /* libsqlite3.tbd in Frameworks */,
+				C61C60B6222CBF3900E09E95 /* CoreGraphics.framework in Frameworks */,
+				C61C60B4222CBF2400E09E95 /* SystemConfiguration.framework in Frameworks */,
+				C61C60B2222CBED700E09E95 /* UShareUI.framework in Frameworks */,
+				C61C60B0222CBEB600E09E95 /* UMShare.framework in Frameworks */,
 				950EE74E221A8C090011DBE1 /* libRNZipArchive.a in Frameworks */,
 				9501198B21E43927008CB01A /* libRCTOrientation.a in Frameworks */,
 				951A04F021D8A65D000EBC62 /* libc++abi.tbd in Frameworks */,
@@ -1120,6 +1145,9 @@
 		22B3BD02204FB4CF00B6B7FF /* umeng */ = {
 			isa = PBXGroup;
 			children = (
+				C61C60AC222CBE9D00E09E95 /* UMShareModule.h */,
+				C61C60AD222CBE9D00E09E95 /* UMShareModule.m */,
+				C61C60AA222CBE7500E09E95 /* UMShare */,
 				22B3BD03204FB4CF00B6B7FF /* Bugly.framework */,
 				22B3BD04204FB4CF00B6B7FF /* UMAnalyticsModule.h */,
 				22B3BD05204FB4CF00B6B7FF /* RNUMConfigure.m */,
@@ -1281,6 +1309,12 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C61C60B9222CBF5100E09E95 /* CoreTelephony.framework */,
+				C61C60B7222CBF4200E09E95 /* libsqlite3.tbd */,
+				C61C60B5222CBF3900E09E95 /* CoreGraphics.framework */,
+				C61C60B3222CBF2400E09E95 /* SystemConfiguration.framework */,
+				C61C60B1222CBED700E09E95 /* UShareUI.framework */,
+				C61C60AF222CBEB600E09E95 /* UMShare.framework */,
 				9501198921E438DF008CB01A /* libSDWebImage iOS static.a */,
 				951A04EF21D8A65D000EBC62 /* libc++abi.tbd */,
 				952508D121B6BC7800E78AB2 /* libresolv.tbd */,
@@ -2191,6 +2225,7 @@
 				FF3B36F6491C452BA7FB70DC /* Ionicons.ttf in Resources */,
 				986E07F2362541D0B1D8393A /* MaterialCommunityIcons.ttf in Resources */,
 				B405F30CA6CA47168A65F099 /* MaterialIcons.ttf in Resources */,
+				C61C60AB222CBE7600E09E95 /* UMShare in Resources */,
 				14816129B81D4E32A286FB07 /* Octicons.ttf in Resources */,
 				04900EE046A744B294DFDFC5 /* SimpleLineIcons.ttf in Resources */,
 				80E35BCD7BF0452AB94CB4BC /* Zocial.ttf in Resources */,
@@ -2281,6 +2316,7 @@
 				22C777612053D20900F8E8C6 /* AFURLRequestSerialization.m in Sources */,
 				22C777B5205613A000F8E8C6 /* WTWeakTimerTarget.m in Sources */,
 				22C777B7205613A000F8E8C6 /* NSObject+WTSafe.m in Sources */,
+				C61C60AE222CBE9D00E09E95 /* UMShareModule.m in Sources */,
 				22C777B1205613A000F8E8C6 /* JRSwizzle.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				22C777BB205613A000F8E8C6 /* NSAttributedString+WTSafe.m in Sources */,
@@ -2320,6 +2356,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JD/umeng",
 					"$(PROJECT_DIR)/JD/base/umeng",
+					"$(PROJECT_DIR)/JD/base/umeng/UMShare",
+					"$(PROJECT_DIR)/JD/base/umeng/UMShare/UMSocialUI",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2378,6 +2416,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JD/umeng",
 					"$(PROJECT_DIR)/JD/base/umeng",
+					"$(PROJECT_DIR)/JD/base/umeng/UMShare",
+					"$(PROJECT_DIR)/JD/base/umeng/UMShare/UMSocialUI",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
