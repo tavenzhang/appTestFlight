@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>Affcode</key>
-	<string>&quot;&quot;</string>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>梦想棋牌</string>
+	<string>博博乐new</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.bbl.gmxcp</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -19,13 +19,13 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2.2</string>
+	<string>3.2.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>6</string>
 	<key>Channel</key>
-	<string>2</string>
+	<string>1</string>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
 	<key>Fabric</key>
@@ -101,10 +101,9 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>camera</string>
 	<key>PlatId</key>
-	<string>34</string>
+	<string>5</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Affcode</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>Feather.ttf</string>

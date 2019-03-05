@@ -7,12 +7,15 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
+//    implementation project(':jcore-react-native')
+//    implementation project(':jpush-react-native')
         // The Fabric Gradle plugin uses an open ended version to react
         // quickly to Android tooling updates
         classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 apply plugin: 'io.fabric'
+
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
@@ -109,6 +112,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
+
     compileSdkVersion 26
     buildToolsVersion '28.0.3'
 
@@ -118,6 +122,11 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0.8"
+        manifestPlaceholders = [
+                JPUSH_APPKEY: "",
+                APP_CHANNEL : "default"
+        ]
+
         manifestPlaceholders = [
                    APP_VERSION    : APP_VERSION,
                                    CHANNEL_AFFCODE        : AFF_CODE,
@@ -215,7 +224,28 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-picker')
+    compile project(':react-native-zip-archive')
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-toast-native')
+    compile project(':react-native-svg')
     compile project(':react-native-splash-screen')
+    compile project(':react-native-sound')
+    compile project(':react-native-shake-event')
+    compile project(':react-native-orientation')
+    compile project(':react-native-material-kit')
+    compile project(':react-native-interactable')
+    compile project(':react-native-image-picker')
+    compile project(':react-native-image-crop-picker')
+    compile project(':react-native-fs')
+    compile project(':react-native-flurry-analytics')
+    compile project(':react-native-fetch-blob')
+    compile project(':react-native-fast-image')
+    compile project(':react-native-fabric')
+    compile project(':react-native-device-info')
+    compile project(':react-native-code-push')
+    compile project(':react-native-blur')
+    compile project(':jpush-react-native')
     implementation project(':react-native-orientation')
     implementation project(':react-native-zip-archive')
     implementation project(':react-native-flurry-analytics')

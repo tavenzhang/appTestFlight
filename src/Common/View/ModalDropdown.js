@@ -182,6 +182,13 @@ export default class ModalDropdown extends Component {
             return (
                 <Modal animationType='fade'
                        transparent={true}
+                       supportedOrientations={[
+                           'portrait',
+                           'portrait-upside-down',
+                           'landscape',
+                           'landscape-left',
+                           'landscape-right',
+                       ]}
                        onRequestClose={this._onRequestClose.bind(this)}>
                     <TouchableWithoutFeedback onPress={this._onModalPress.bind(this)}>
                         <View style={styles.modal}>

@@ -85,7 +85,18 @@ class LoadingSpinnerOverlay extends Component {
         return (
             this.state.modal ?
                 (this.state.marginTop === 0 ?
-                    <Modal animationType={'none'} transparent={true} visible={this.state.visible} onRequestClose={noop}>
+                    <Modal animationType={'none'}
+                           transparent={true} visible={this.state.visible}
+                           onRequestClose={noop}
+                           supportedOrientations={[
+                               'portrait',
+                               'portrait-upside-down',
+                               'landscape',
+                               'landscape-left',
+                               'landscape-right',
+                           ]}
+                    >
+
                         {loadingSpinner}
                     </Modal> :
                     (this.state.visible ?

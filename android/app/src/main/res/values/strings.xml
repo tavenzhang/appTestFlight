@@ -1,4 +1,5 @@
 <resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey"></string>
     <string name="deploymentKey" moduleConfig="true"></string>
     <string name="deploymentServer">https://checkupdate.zeuspush.com</string>
     <string name="soft_update_no">已经是最新版本</string>

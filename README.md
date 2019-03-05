@@ -47,6 +47,17 @@ https://www.c-8.cc/code/user/apps?appId=com.998.p1&version=2.0.14&appType=IOS
 初次运行前先执行一次`JDInit`脚本 之后如果不报错就不需要执行
 
 
+https://gitlab.mtgogo.online/Zhang/BBL_Game.git
+博博乐 app 部分代码，主要用与app与html通信。webView 性能优化，游戏页面显示
+
+https://gitlab.mtgogo.online/Zhang/BBL_Game_Config.git
+博博乐 多平台配置config文件，方便多个平台部署。一般使用develop 分支
+
+https://gitlab.mtgogo.online/Zhang/BBL_Game_Lobby.git
+博博乐 大厅html5 代码。基于laya引擎，与app 通过postMessage 进行通信 
+
+
+
 
 
 

@@ -122,6 +122,7 @@ export default class AppInfoStore {
         this.subAppType=appInfo.SubType ? appInfo.SubType:"0";
         let channel= appInfo.Channel ;
         this.channel=channel ? channel:"1";
+
         platInfo.platId = this.clindId;
         UpDateHeadAppId(this.clindId);
         TW_Store.appStore.appInfo = appInfo;

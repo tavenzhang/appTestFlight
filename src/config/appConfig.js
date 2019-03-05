@@ -3,17 +3,17 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://6ykufu5x.xuhuicaifu.com',
-    base2: 'https://7gz24qk6.xuhuicaifu.com',
-    base3: 'https://3gxwm2qg.xuhuicaifu.com',
-    base4: 'https://6ykufu5x.xuhuicaifu.com',
-    base5: 'https://7gz24qk6.xuhuicaifu.com',
-    base6: 'https://3gxwm2qg.xuhuicaifu.com',
-    base7: 'https://6ykufu5x.xuhuicaifu.com',
+    base1: 'https://www.diwudalu.com',
+    base2: 'https://www.diwudalu.com',
+    base3: 'https://www.diwudalu.com',
+    base4: 'https://www.diwudalu.com',
+    base5: 'https://www.diwudalu.com',
+    base6: 'https://www.diwudalu.com',
+    base7: 'https://www.diwudalu.com',
 }
 
 
-export let configAppId = "2"
+export let configAppId = "5"
 
 
 export const AppConfig = {
@@ -36,24 +36,26 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '梦想游戏';
+export const MyAppName = '博博乐';
 
-export const versionHotFix = 'mxcp_1_14';
+export const versionHotFix = 'bbl_1_31';
+
+export const MyOwnerPlatName= 'uat彩票';
 
 export const safeguardDomain = [
-    'https://721327bfc0e276a871561a42ac89a490.oss-cn-shenzhen.aliyuncs.com',
-    'https://721327bfc0e276a871561a42ac89a490.s3-accelerate.amazonaws.com']
+    'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
+    'https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com']
 
 
 export const platInfo = {
-    loginDomain:"https://5530cp.net",
-    //gameDomain: "https://dk3nuq7v.zhdisi.com",
-    gameDomain:"https://ax7eykmk.syglhfsp.com",
-    // gameDomain: "https://0365cai.cc",
+    //loginDomain:"https://0365cai.cc",
+    loginDomain: "https://webplatform.psxiaohe.com",
+    //  gameDomain:"https://dk3nuq7v.zhdisi.com",
+    gameDomain: "https://webplatform.psxiaohe.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.hkbaoxian188.com/game/release/mxcp"
+        release_server: "https://download.hkbaoxian188.com/game/release/uat"
     },
     platId: configAppId,
 
@@ -61,31 +63,34 @@ export const platInfo = {
         c_1: {
             jpushKey: "",
             jpush_channel: "",
-            umengKey: "5c2af406f1f5568dcc000160",
+            umengKey: "",
             umengChanel:"1",
-            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
-            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
+            flurry_ios:"uat",
+            flurry_android:"uat"
         },
         c_2: {jpushKey: "",
             jpush_channel: "",
-            umengKey: "5c2af406f1f5568dcc000160",
+            umengKey: "",
             umengChanel:"1",
-            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
-            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
+            flurry_ios:"uat",
+            flurry_android:"uat"
         },
         c_3: {jpushKey: "",
             jpush_channel: "",
-            umengKey: "5c2af406f1f5568dcc000160",
+            umengKey: "",
             umengChanel:"1",
-            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
-            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
+            flurry_ios:"uat",
+            flurry_android:"uat"
         },
     }
 }
 
+
 export const affCodeList = {
     ios: {
+        '2.9.6': '365_ios'
     },
     android: {
+        '2.10.11': '365_android'
     }
 };

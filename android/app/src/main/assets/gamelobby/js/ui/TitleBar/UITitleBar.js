@@ -40,7 +40,7 @@ var UITitleBar = /** @class */ (function (_super) {
         if (Common.IS_NATIVE_APP) {
             this.initSetting(this.conf.btnsetting_native);
             this.initExit(this.conf.btnexit_native);
-            this.btn_exit.visible = false; //不显示
+           // this.btn_exit.visible = false; //不显示
         }
         else {
             this.initSetting(this.conf.btnsetting);
@@ -59,7 +59,7 @@ var UITitleBar = /** @class */ (function (_super) {
         }
         this.btn_exit = new MyButton();
         this.btn_exit.init(conf, this, this.onExitClick);
-        this.btn_exit.pos(conf.pos.x, conf.pos.y);
+        this.btn_exit.pos(conf.pos.x-(AppData.IS_NATIVE_APP ? 240 : 0), conf.pos.y);
         this.addChild(this.btn_exit);
     };
     UITitleBar.prototype.initSetting = function (conf) {
@@ -78,7 +78,7 @@ var UITitleBar = /** @class */ (function (_super) {
         }
         this.btn_notice = new MyButton();
         this.btn_notice.init(conf, this, this.onNoticeClick);
-        this.btn_notice.pos(conf.pos.x + (AppData.IS_NATIVE_APP ? 120 : 0), conf.pos.y);
+        this.btn_notice.pos(conf.pos.x +(AppData.IS_NATIVE_APP ? 120 : 0), conf.pos.y);
         //这个版本不上，先隐藏了 Add by Jelly 2018.12.27
         //  this.btn_notice.visible = false;
         this.addChild(this.btn_notice);
@@ -105,6 +105,10 @@ var UITitleBar = /** @class */ (function (_super) {
     UITitleBar.prototype.onExitClick = function (e) {
         //返回
         PostMHelp.goBack({ token: Common.access_token });
+        if(AppData.IS_NATIVE_APP){
+            LayaMain.onQuit();
+            PostMHelp.debugInfo({ name: "logout"});
+        }
         //
     };
     UITitleBar.prototype.onNoticeClick = function (e) {
