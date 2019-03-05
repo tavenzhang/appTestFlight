@@ -70,7 +70,7 @@ export default class XXWebView extends Component {
                                           startInLoadingState={false}
                                           onError={this.onError}
                                           domStorageEnabled={true}
-                                          renderLoading={this.onRenderLoadingView}
+                                          // renderLoading={this.onRenderLoadingView}
                                           javaScriptEnabled={true}
                                           injectedJavaScript={injectJs}
                                           onMessage={this.onMessage}
@@ -87,8 +87,8 @@ export default class XXWebView extends Component {
                             javaScriptEnabled={true}
                             domStorageEnabled={true}
                             decelerationRate="normal"
-                            startInLoadingState={false}
-                            renderLoading={this.onRenderLoadingView}
+                            // startInLoadingState={true}
+                             renderLoading={this.onRenderLoadingView}
                             onNavigationStateChange={this.onNavigationStateChange}
                             onLoadStart={this.onLoadStart}
                             allowFileAccess={true}
@@ -102,12 +102,12 @@ export default class XXWebView extends Component {
         );
     }
 
-    // onRenderLoadingView = () => {
-    //
-    //     return (<View style={{flex:1, backgroundColor:"black"}}>
-    //         {G_IS_IOS ?  <LoadingView/>: <LoadingView/>}
-    //     </View>)
-    // }
+    onRenderLoadingView = () => {
+        return null
+        // return (<View style={{flex:1, backgroundColor:"black"}}>
+        //     {G_IS_IOS ?  <LoadingView/>: <LoadingView/>}
+        // </View>)
+    }
 
 
     onMessage = (event) => {
@@ -236,12 +236,17 @@ export default class XXWebView extends Component {
     }
 
     onLoadStart = (event) => {
-        SplashScreen.hide();
+        if(G_IS_IOS){
+            SplashScreen.hide();
+        }
+
     };
 
 
     onLoadEnd=()=>{
-        TW_Store.bblStore.isLoading=false
+        TW_Store.bblStore.isLoading=false;
+        SplashScreen.hide();
+        this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize,{}));
 
     }
 
