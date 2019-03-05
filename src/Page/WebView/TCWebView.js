@@ -16,9 +16,11 @@ import {Images} from "../asset/images";
 import {JX_PLAT_INFO} from "../asset";
 import LoadingView from "../enter/LoadingView";
 import TCButtonView from "../../Common/View/button/TCButtonView";
+import {observer} from "mobx-react/native";
 
 
 @withMappedNavigationProps()
+@observer
 export default class TCWebView extends Component {
 
     constructor(state) {
@@ -46,20 +48,22 @@ export default class TCWebView extends Component {
         let source = {
             uri: this.state.uri,
         }
+        let dis = TW_Store.bblStore.isLoading ? "none":"flex";
+        TW_Log("TW_Store.bblStore.isLoading---"+TW_Store.bblStore.isLoading,dis);
         //andorid 显示有点小问题  黑屏处理
         if (this.state.isHide) {
             return <View style={{flex: 1, backgroundColor: "black"}}/>
         }
         let wenConteView = G_IS_IOS ? <WKWebView source={source} onNavigationStateChange={this.onNavigationStateChange}
                                                  onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                                                 style={styles.webView}
+                                                 style={[styles.webView,{display:dis}]}
                                                  allowFileAccess={true}
                                                  onError={this.onError}
-                                                 startInLoadingState={true}
+                                                 startInLoadingState={false}
                                                  onMessage={this.onMessage}
                                                  onLoadStart={this.onloadStart}
                                                  onLoadEnd={this.onLoadEnd}
-                                                 renderLoading={this.onRenderLoadingView}
+                                                 // renderLoading={this.onRenderLoadingView}
 
             /> :
             <WebView
@@ -70,8 +74,8 @@ export default class TCWebView extends Component {
                 javaScriptEnabled={true}
                 domStorageEnabled={true}
                 decelerationRate="normal"
-                renderLoading={this.onRenderLoadingView}
-                startInLoadingState={true}
+                // renderLoading={this.onRenderLoadingView}
+                startInLoadingState={false}
                 onNavigationStateChange={this.onNavigationStateChange}
                 onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                 allowFileAccess={true}
@@ -93,26 +97,26 @@ export default class TCWebView extends Component {
         );
     }
 
-    onLoadEnd = () => {
-        TW_Store.bblStore.isLoading = false
-    }
 
-    onRenderLoadingView = () => {
-        let {isGame} = this.props
-        return (<View style={{flex: 1, backgroundColor: "black"}}>
-            {isGame ? <LoadingView/>:<LoadingView/>}
 
-            {/*<TCImage source={Images.bbl.gameBg} style={{width:JX_PLAT_INFO.SCREEN_W,height:JX_PLAT_INFO.SCREEN_H}}/>*/}
-        </View>)
-    }
+    // onRenderLoadingView = () => {
+    //     let {isGame} = this.props
+    //     return (<View style={{flex: 1, backgroundColor: "black"}}>
+    //         {isGame ? <LoadingView/>:<LoadingView/>}
+    //
+    //         {/*<TCImage source={Images.bbl.gameBg} style={{width:JX_PLAT_INFO.SCREEN_W,height:JX_PLAT_INFO.SCREEN_H}}/>*/}
+    //     </View>)
+    // }
 
 
     onLoadEnd = (event) => {
         TW_Log("onLoadEnd=TCweb==========event=====", event)
-        TW_Store.bblStore.isLoading = false
+
+        TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--"+ TW_Store.bblStore.isLoading, event)
     }
 
     onloadStart = (event) => {
+        TW_Store.bblStore.isLoading = false
         TW_Log("onloadStart==TCweb=========event=====", event)
     }
 

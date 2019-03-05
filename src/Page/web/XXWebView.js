@@ -64,10 +64,10 @@ export default class XXWebView extends Component {
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
-                                          onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+                                          onLoadStart={this.onShouldStartLoadWithRequest}
                                           style={styles.webView}
                                           allowFileAccess={true}
-                                          startInLoadingState={true}
+                                          startInLoadingState={false}
                                           onError={this.onError}
                                           domStorageEnabled={true}
                                           renderLoading={this.onRenderLoadingView}
@@ -75,6 +75,8 @@ export default class XXWebView extends Component {
                                           injectedJavaScript={injectJs}
                                           onMessage={this.onMessage}
                                           onLoadEnd={this.onLoadEnd}
+                                          onLoadStart={this.onLoadStart}
+
                         /> :
                         <WebView
                             ref="myWebView"
@@ -85,10 +87,10 @@ export default class XXWebView extends Component {
                             javaScriptEnabled={true}
                             domStorageEnabled={true}
                             decelerationRate="normal"
-                            startInLoadingState={true}
+                            startInLoadingState={false}
                             renderLoading={this.onRenderLoadingView}
                             onNavigationStateChange={this.onNavigationStateChange}
-                            onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+                            onLoadStart={this.onLoadStart}
                             allowFileAccess={true}
                             onError={this.onError}
                             onMessage={this.onMessage}
@@ -100,13 +102,12 @@ export default class XXWebView extends Component {
         );
     }
 
-
-    onRenderLoadingView = () => {
-
-        // return (<View style={{flex:1, backgroundColor:"black"}}>
-        //     <LoadingView/>
-        // </View>)
-    }
+    // onRenderLoadingView = () => {
+    //
+    //     return (<View style={{flex:1, backgroundColor:"black"}}>
+    //         {G_IS_IOS ?  <LoadingView/>: <LoadingView/>}
+    //     </View>)
+    // }
 
 
     onMessage = (event) => {
@@ -234,9 +235,14 @@ export default class XXWebView extends Component {
         }
     }
 
+    onLoadStart = (event) => {
+        SplashScreen.hide();
+    };
+
+
     onLoadEnd=()=>{
         TW_Store.bblStore.isLoading=false
-        SplashScreen.hide();
+
     }
 
     handleUrl = (url, isJumpUrl = false) => {
@@ -278,7 +284,7 @@ export default class XXWebView extends Component {
     }
 
     onShouldStartLoadWithRequest = (event) => {
-        TW_Log("onShouldStartLoadWithRequest===========event=====", event)
+        TW_Log("onShouldStartLoadWithRequest===========event====22=", event)
         return true;
     };
 

@@ -69,6 +69,7 @@ import TCUserWithdrawNew from "../UserCenter/UserWithdraw/TCUserWithdraw";
 import GameUIView from "../enter/GameUIView";
 import KeyboardManager from 'react-native-keyboard-manager'
 import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
+import LoadingView from "../enter/LoadingView";
 @observer
 export default class App extends Component {
     constructor(state) {
@@ -122,6 +123,7 @@ export default class App extends Component {
                     `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text> : null}
                     <CommonBoxLayer/>
                     <GameUIView/>
+                    {/*<LoadingView/>*/}
                 </View>
             </Provider>
         )

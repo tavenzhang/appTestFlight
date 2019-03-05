@@ -337,7 +337,7 @@ export default class Enter extends Component {
         let progressView
         if (this.hotFixStore.progress) {
             progressView = (
-                <Text style={{color:"yellow", marginBottom:10}}>
+                <Text style={{color:"yellow",marginVertical:10}}>
                     正在下载({parseFloat(this.hotFixStore.progress.receivedBytes / 1024 / 1024).toFixed(2)}M/{parseFloat(this.hotFixStore.progress.totalBytes / 1024 / 1024).toFixed(2)}M) {(parseFloat(this.hotFixStore.progress.receivedBytes / this.hotFixStore.progress.totalBytes).toFixed(2) * 100).toFixed(1)}%</Text>
             )
         } else {
@@ -358,9 +358,10 @@ export default class Enter extends Component {
         }
         return (
                 <View style={{justifyContent: 'center', alignItems: 'center', width: JX_PLAT_INFO.SCREEN_W,height:JX_PLAT_INFO.SCREEN_H, flex: 1,position:"absolute"}}>
-                    <Text style={{fontSize: Size.font16}}>{this.hotFixStore.syncMessage}</Text>
+                    <Text style={{fontSize: Size.font16,color:"white"}}>{this.hotFixStore.syncMessage}</Text>
                     {progressView}
                     <Progress.Bar
+                        color={"yellow"}
                         progress={(this.hotFixStore.progress.receivedBytes / this.hotFixStore.progress.totalBytes).toFixed(2)}
                         width={200}/>
                 </View>
