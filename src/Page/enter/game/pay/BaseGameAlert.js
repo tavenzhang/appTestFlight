@@ -41,7 +41,7 @@ export default class BaseGameAlert extends Component {
                 <Text style={{color:"#937e7e", fontSize:18}}>{title}</Text>
             </View>
             <TouchableWithoutFeedback>
-            <View style={{position: "absolute", left:30, top: 20,  width:60, height:30}}>
+            <View style={{position: "absolute", right:30, top: 20,  width:60, height:30, }}>
                 <TCButtonImg imgSource={ASSET_Images.gameUI.btn_fanhui}
                              onClick={onClose}
                              btnStyle={{}}/>

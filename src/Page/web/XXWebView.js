@@ -11,6 +11,7 @@ import LoadingView from "../enter/LoadingView";
 import {observer} from 'mobx-react/native';
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {platInfo} from "../../config/appConfig";
+import SplashScreen from "react-native-splash-screen";
 
 @withMappedNavigationProps()
 @observer
@@ -102,9 +103,9 @@ export default class XXWebView extends Component {
 
     onRenderLoadingView = () => {
 
-        return (<View style={{flex:1, backgroundColor:"black"}}>
-            <LoadingView/>
-        </View>)
+        // return (<View style={{flex:1, backgroundColor:"black"}}>
+        //     <LoadingView/>
+        // </View>)
     }
 
 
@@ -235,6 +236,7 @@ export default class XXWebView extends Component {
 
     onLoadEnd=()=>{
         TW_Store.bblStore.isLoading=false
+        SplashScreen.hide();
     }
 
     handleUrl = (url, isJumpUrl = false) => {

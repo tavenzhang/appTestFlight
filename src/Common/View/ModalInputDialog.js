@@ -25,13 +25,17 @@ export default class TipDialog extends Component {
             nameMsg:false,
             mobileMsg:false,
             cardMsg:false,
-            errMsg:""
-        }
-        this.inputdata={
-            realname:"",
+            errMsg:"",
+            realname:'',
             phoneNum:"",
             cardNo:""
-        };
+        }
+
+        // this.inputdata={
+        //     realname:"",
+        //     phoneNum:"",
+        //     cardNo:""
+        // };
     }
 
 
@@ -45,7 +49,7 @@ export default class TipDialog extends Component {
             <Modal
                 animationType='fade'
                 transparent={true}
-                supportedOrientations={[ "portrait", "portrait-upside-down" ,"landscape" ,"landscape-left" , "landscape-right"]}
+                supportedOrientations={[ "portrait","landscape" ]}
                 visible={show}
                 onRequestClose={() => {
                 }}
@@ -67,7 +71,9 @@ export default class TipDialog extends Component {
                                 maxLength={6}
                                 placeholderTextSize={Size.default}
                                 underlineColorAndroid='transparent'
-                                onChangeText={(text) => this.inputdata.realname = text}/>
+                                value={this.state.realname}
+                                onChangeText={(text) => this.setState({realname:text})}
+                            />
                             {/*{this.state.nameMsg&&<Text style={{color:'red'}}>请输入正确的存款人姓名!</Text>}*/}
                         </View>):null}
                         {mobileNoReq ?( <View style={styles.modalContent}>
@@ -79,7 +85,8 @@ export default class TipDialog extends Component {
                                 keyboardType={'numeric'}
                                 placeholderTextSize={Size.default}
                                 underlineColorAndroid='transparent'
-                                onChangeText={(text) => this.inputdata.phoneNum = text}/>
+                                value={this.state.phoneNum}
+                                onChangeText={(text) =>this.setState({phoneNum:text})}/>
                             {/*{this.state.mobileMsg&&<Text style={{color:'red'}}>请输入正确的存款人手机号!</Text>}*/}
                         </View>):null}
                         {cardNoReq ? ( <View style={styles.modalContent}>
@@ -91,7 +98,8 @@ export default class TipDialog extends Component {
                                 keyboardType={'numeric'}
                                 placeholderTextSize={Size.default}
                                 underlineColorAndroid='transparent'
-                                onChangeText={(text) => this.inputdata.cardNo = text}/>
+                                value={this.state.cardNo}
+                                onChangeText={(text) =>this.setState({cardNo:text})}/>
                             {/*{this.state.cardMsg&&<Text style={{color:'red'}}>请输入正确的存款人银行卡号!</Text>}*/}
                         </View>):null}
                         <View>
@@ -108,7 +116,7 @@ export default class TipDialog extends Component {
                             </TouchableOpacity>
                             <TouchableOpacity onPress={()=>{
                                 if(!this.showErrorMsg()){
-                                    btnRightClick(this.inputdata);
+                                    btnRightClick(this.state);
                                     this.clearData();
                                 }
                             }}>
@@ -126,16 +134,12 @@ export default class TipDialog extends Component {
 
 
     clearData(){
-        this.inputdata={
-            realname:"",
-            phoneNum:"",
-            cardNo:""
-        };
-        this.setState({
-            nameMsg:false,
-            mobileMsg:false,
-            cardMsg:false
-        })
+        // this.inputdata={
+        //     realname:"",
+        //     phoneNum:"",
+        //     cardNo:""
+        // };
+
     }
 
     showErrorMsg=()=>{
@@ -143,7 +147,7 @@ export default class TipDialog extends Component {
         let myContent = content ? content:{}
         let { realNameReq, mobileNoReq, cardNoReq} = myContent;
         let reg = /^([\s\u4e00-\u9fa5]{1}([·•● ]?[\s\u4e00-\u9fa5]){1,14})$|^[a-zA-Z\s]{4,30}$/;
-        let {realname,phoneNum,cardNo} = this.inputdata;
+        let {realname,phoneNum,cardNo} = this.state;
         let nameMsg = false,
             mobileMsg = false,
             cardMsg = false;

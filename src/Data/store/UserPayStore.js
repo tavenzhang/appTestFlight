@@ -65,7 +65,7 @@ export default class UserPayStore {
                 result.status = true;
                 result.code = response.content.topupCode;
                 result.content = response.content;
-                JXLog("================", response)
+                TW_Log("================", response)
                 callback(result);
             } else {
                 result.state = false;

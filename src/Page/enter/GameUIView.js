@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center",
         position: "absolute",
-        backgroundColor: G_IS_IOS ? "rgba(10,10,10,0.6)":"transparent",
+       // backgroundColor: G_IS_IOS ? "rgba(10,10,10,0.6)":"transparent",
+        backgroundColor: "rgba(10,10,10,0.6)"
 
     },
     inputStyle: {

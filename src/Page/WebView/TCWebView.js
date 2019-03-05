@@ -160,13 +160,14 @@ export default class TCWebView extends Component {
 
                     break;
                 case "game_recharge":
-                    if(!TW_Store.appStore.isInAnroidHack){
-                        let data = message.jumpData || message.data ||TW_Store.bblStore.jumpData
-                        if (data) {
-                            url = TW_Store.bblStore.urlDomain + "/g_recharge/?module=recharge&jumpData=" + data;
-                            TW_NavHelp.pushView(JX_Compones.WebView, {url, isAddView: true})
-                        }
-                    }
+                    TW_Store.gameUIStroe.isShowAddPayView=!TW_Store.gameUIStroe.isShowAddPayView;
+                    // if(!TW_Store.appStore.isInAnroidHack){
+                    //     let data = message.jumpData || message.data ||TW_Store.bblStore.jumpData
+                    //     if (data) {
+                    //         url = TW_Store.bblStore.urlDomain + "/g_recharge/?module=recharge&jumpData=" + data;
+                    //         TW_NavHelp.pushView(JX_Compones.WebView, {url, isAddView: true})
+                    //     }
+                    // }
                     break;
             }
         }
