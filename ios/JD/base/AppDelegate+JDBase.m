@@ -209,10 +209,12 @@ static Boolean  IsFirtReuest = YES;
 }
 
 - (void)registUMeng:(NSString *)ukey:(NSString *)channel{
-   [UMConfigure setLogEnabled:YES];
-   [RNUMConfigure initWithAppkey:ukey channel:channel];
-  [self configUSharePlatforms];
-  [self confitUShareSettings];
+  if(ukey.length > 0){
+    [UMConfigure setLogEnabled:YES];
+    [RNUMConfigure initWithAppkey:ukey channel:channel];
+    [self configUSharePlatforms];
+    [self confitUShareSettings];
+  }
 }
 
 - (void)registAppPush:(NSString *)jkey:(NSString *)channel{
