@@ -22,6 +22,9 @@ export default class GameUIStroe {
     isShowGuest= false;
 
     @observable
+    isShowShare= false;
+
+    @observable
     gustWebUrl= "";
 
     @observable

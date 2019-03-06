@@ -130,7 +130,12 @@ export  default  class BBLStore {
         TW_Log("getHeadIcoUrl--------url--"+url,this.avatarData)
         return url
        // uri:"https://download.jingjingxiao.com/game/gameImage/head/img_touxiang_01.jpg"}
+    }
 
+    @observable
+    shareURL={
+        ios:"https://download.jingjingxiao.com/ios/gameImage",
+        android:"https://www.baidu.com",
     }
 
 }

@@ -197,3 +197,17 @@ export const gameUI = {
     btn_fanhui:require('./game/btn_fanhui.png'),
 
 }
+
+export const gameShare = {
+    //useraccout
+    boxBg: require('./game/share/boxBg.png'),
+    btnAndroid:require('./game/share/btnAndroid.png'),
+    btnApple:require('./game/share/btnApple.png'),
+    btnWX:require('./game/share/btnWX.png'),
+    btPYQ:require('./game/share/btPYQ.png'),
+    fengxiangBg:require('./game/share/fengxiangBg.png'),
+    imgMM:require('./game/share/img_mm.png'),
+    imgBox:require('./game/share/imgBox.png'),
+    btn_wxShare:require('./game/share/btn_wxShare.png'),
+    btn_Copy:require('./game/share/btnCopy.png'),
+}
