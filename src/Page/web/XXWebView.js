@@ -4,9 +4,6 @@ import {
     StyleSheet,
     View,
     WebView,
-    TouchableOpacity,
-    Text,
-    NativeModules
 } from 'react-native';
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
@@ -32,42 +29,6 @@ export default class XXWebView extends Component {
 
 
     render() {
-        return (
-            <View style={{padding:20}}>
-                    <TouchableOpacity
-                        style={{paddingBottom:20}}
-                        onPress={() => {
-                            console.log('zzz0', NativeModules.UMShareModule.share);
-                            NativeModules.UMShareModule.share(
-                                'Bellooooo',
-                                'http://dev.umeng.com/images/tab2_1.png',
-                                'http://www.umeng.com/',
-                                'Jazzzzzzz',
-                                2,
-                                (code, message) => {
-                                    console.log('zzz1', code);
-                                    console.log('zzz2', message);
-                                }
-                            );
-                        }}>
-                        <Text style={styles.textShare}>{'微信分享'}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.btnShare}
-                        onPress={() => {
-                            console.log('zzz0', NativeModules.UMShareModule.auth);
-                            NativeModules.UMShareModule.auth(2, (code, result, message) => {
-                                console.log('zzz1', code);
-                                console.log('zzz2', result);
-                                console.log('zzz3', message);
-                                console.log('zzz4', result.uid);
-                            });
-                        }}>
-                        <Text style={styles.textShare}>{'微信授权'}</Text>
-                    </TouchableOpacity>
-                </View>
-        );
-
         let {force} = this.props;
 
         let source = {
