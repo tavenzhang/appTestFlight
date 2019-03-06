@@ -12,7 +12,7 @@
 #import <WebKit/WebKit.h>
 #import <NSLogger/NSLogger.h>
 #import <Crashlytics/Crashlytics.h>
-//#import <SplashScreen.h>
+#import <SplashScreen.h>
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -26,7 +26,7 @@
  // [self testLoadNative];
  // [self startLog];
   [self.window makeKeyAndVisible];
-//  [SplashScreen show];
+  [SplashScreen show];
   return YES;
 }
 

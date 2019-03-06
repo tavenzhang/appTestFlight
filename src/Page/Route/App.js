@@ -67,6 +67,8 @@ export default class App extends Component {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
         TN_START_Fabric()
+        
+        TN_StartUMeng(cData.umengKey, cData.umengChanel)
 
         // TN_CodePush_ASEET((data)=>{
         //    // this.setState({aseets:data})

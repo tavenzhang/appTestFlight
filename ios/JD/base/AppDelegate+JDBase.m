@@ -290,8 +290,18 @@ static Boolean  IsFirtReuest = YES;
 
 - (void)configUSharePlatforms
 {
+  NSArray *URLTypesArr = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"];
   /* 设置微信的appKey和appSecret */
-  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxdc1e388c3822c80b" appSecret:@"3baf1193c85774b3fd9d18447d76cab0" redirectURL:@""];
+  NSDictionary *AppSecretDic = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AppSecret"];
+
+  for(NSDictionary *urlTypes in  URLTypesArr){
+    if([[urlTypes objectForKey:@"CFBundleURLName"] isEqualToString:@"weixin"]){
+      NSArray *weixinKey = [urlTypes objectForKey:@"CFBundleURLSchemes"];
+      [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:weixinKey.count > 0? weixinKey[0]:@"" appSecret:[AppSecretDic objectForKey:@"weixin"] redirectURL:@""];
+      [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatTimeLine appKey:weixinKey.count > 0? weixinKey[0]:@"" appSecret:[AppSecretDic objectForKey:@"weixin"] redirectURL:@""];
+    }
+  }
+
   /*
    * 移除相应平台的分享，如微信收藏
    */

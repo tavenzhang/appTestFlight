@@ -4,6 +4,11 @@
 <dict>
 	<key>Affcode</key>
 	<string>"test"</string>
+	<key>AppSecret</key>
+	<dict>
+		<key>weixin</key>
+		<string>67de54808bba55e934e3126f3e607a42</string>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -28,7 +33,11 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>wewixin</string>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx39520c48b4a7dc64</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>

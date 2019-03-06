@@ -100,6 +100,7 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B405F30CA6CA47168A65F099 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD6E4632B66647C89D113E19 /* MaterialIcons.ttf */; };
 		C3164721FC0749E089E9FCC2 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EA3914555C244DD85E59A89 /* libCodePush.a */; };
+		C6073E87222E1276001E64D0 /* libSocialWeChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6073E86222E1275001E64D0 /* libSocialWeChat.a */; };
 		C61C60AB222CBE7600E09E95 /* UMShare in Resources */ = {isa = PBXBuildFile; fileRef = C61C60AA222CBE7500E09E95 /* UMShare */; };
 		C61C60AE222CBE9D00E09E95 /* UMShareModule.m in Sources */ = {isa = PBXBuildFile; fileRef = C61C60AD222CBE9D00E09E95 /* UMShareModule.m */; };
 		C61C60B0222CBEB600E09E95 /* UMShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61C60AF222CBEB600E09E95 /* UMShare.framework */; };
@@ -788,6 +789,7 @@
 		B3B5EC0E0DB94D17BC79308D /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		B865BAA8F48A48F5A5082F52 /* libRNViewShot.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNViewShot.a; sourceTree = "<group>"; };
 		C2E0334F52304C5BB785B075 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		C6073E86222E1275001E64D0 /* libSocialWeChat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSocialWeChat.a; path = JD/base/umeng/UMShare/SocialLibraries/WeChat/libSocialWeChat.a; sourceTree = "<group>"; };
 		C61C60AA222CBE7500E09E95 /* UMShare */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UMShare; sourceTree = "<group>"; };
 		C61C60AC222CBE9D00E09E95 /* UMShareModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMShareModule.h; sourceTree = "<group>"; };
 		C61C60AD222CBE9D00E09E95 /* UMShareModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMShareModule.m; sourceTree = "<group>"; };
@@ -817,6 +819,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6073E87222E1276001E64D0 /* libSocialWeChat.a in Frameworks */,
 				C61C60BB222CBF6700E09E95 /* libc++.tbd in Frameworks */,
 				C61C60BA222CBF5100E09E95 /* CoreTelephony.framework in Frameworks */,
 				C61C60B8222CBF4200E09E95 /* libsqlite3.tbd in Frameworks */,
@@ -1309,6 +1312,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C6073E86222E1275001E64D0 /* libSocialWeChat.a */,
 				C61C60B9222CBF5100E09E95 /* CoreTelephony.framework */,
 				C61C60B7222CBF4200E09E95 /* libsqlite3.tbd */,
 				C61C60B5222CBF3900E09E95 /* CoreGraphics.framework */,
@@ -2390,6 +2394,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JD/base/talkingData",
 					"\"$(SRCROOT)/JD\"",
+					"$(PROJECT_DIR)/JD/base/umeng/UMShare/SocialLibraries/WeChat",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -2450,6 +2455,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JD/base/talkingData",
 					"\"$(SRCROOT)/JD\"",
+					"$(PROJECT_DIR)/JD/base/umeng/UMShare/SocialLibraries/WeChat",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
