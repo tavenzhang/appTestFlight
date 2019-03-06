@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.jd.R;
+import com.caipiao.sanliuwu.R;
 import com.caipiao.sanliuwu.util.CommonDialog;
 import com.caipiao.sanliuwu.util.JXDragView;
 import com.umeng.analytics.MobclickAgent;

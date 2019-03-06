@@ -1,4 +1,4 @@
-package com.jd.marqueeLabel;
+package com.caipiao.sanliuwu.marqueeLabel;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;

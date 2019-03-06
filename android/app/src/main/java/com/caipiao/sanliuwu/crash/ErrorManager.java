@@ -1,4 +1,4 @@
-package com.jd.crash;
+package com.caipiao.sanliuwu.crash;
 
 import android.os.Environment;
 import android.text.TextUtils;

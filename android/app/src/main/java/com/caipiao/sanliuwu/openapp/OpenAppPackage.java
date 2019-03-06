@@ -1,4 +1,4 @@
-package com.jd.openapp;
+package com.caipiao.sanliuwu.openapp;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;

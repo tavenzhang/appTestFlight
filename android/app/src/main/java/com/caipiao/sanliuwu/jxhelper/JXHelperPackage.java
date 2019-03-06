@@ -1,4 +1,4 @@
-package com.jd.jxhelper;
+package com.caipiao.sanliuwu.jxhelper;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;

@@ -1,4 +1,4 @@
-package com.jd.openapp;
+package com.caipiao.sanliuwu.openapp;
 
 import android.content.Context;
 import android.content.Intent;
