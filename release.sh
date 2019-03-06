@@ -9,7 +9,7 @@ androidRoot=${scriptPath}/android
 
 #更新config文件
 cd ${configDir}
-git checkout  develop
+#git checkout  develop
 git pull
 if [ $? -eq 0 ];then
    echo checkout config develop 分支切换成功
