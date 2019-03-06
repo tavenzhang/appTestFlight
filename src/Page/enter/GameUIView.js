@@ -16,6 +16,7 @@ import GameGuestView from "./game/GameGuestView";
 import GameMoneyOutView from "./game/GameMoneyOutView";
 import GameMoneyInView from "./game/GameMoneyInView";
 import BaseGameAlert from "./game/pay/BaseGameAlert";
+import GameShareView from "./game/GameShareView";
 
 
 @observer
@@ -32,7 +33,7 @@ export default class GameUIView extends Component {
         let gameAlertView = TW_Store.gameUIStroe.gameAlertData;
         let SubComponet = gameAlertView.component;
         let isShowUi=TW_Store.gameUIStroe.isShowUserInfo||TW_Store.gameUIStroe.isShowWithDraw||TW_Store.gameUIStroe.isShowAddPayView
-            ||TW_Store.gameUIStroe.isShowAddPayView|| TW_Store.gameUIStroe.isShowGuest ||gameAlertView.component
+            ||TW_Store.gameUIStroe.isShowAddPayView|| TW_Store.gameUIStroe.isShowGuest ||gameAlertView.component||TW_Store.gameUIStroe.isShowShare
         let isHaveAletView =gameAlertView.component ? "none":"auto";
         if(isShowUi)
         {
@@ -41,6 +42,7 @@ export default class GameUIView extends Component {
                 {TW_Store.gameUIStroe.isShowWithDraw ? <GameMoneyOutView pointerEvents={isHaveAletView}/> : null}
                 {TW_Store.gameUIStroe.isShowAddPayView ? <GameMoneyInView pointerEvents={isHaveAletView}/> : null}
                 {TW_Store.gameUIStroe.isShowGuest ? <GameGuestView   pointerEvents={isHaveAletView}/> : null}
+                {TW_Store.gameUIStroe.isShowShare ? <GameShareView   pointerEvents={isHaveAletView}/> : null}
                 {
                     gameAlertView.component ? <BaseGameAlert title={gameAlertView.title} onClose={() => {
                         TW_Store.gameUIStroe.hideAlertUI();

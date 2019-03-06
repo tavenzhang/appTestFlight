@@ -174,7 +174,8 @@ export default class XXWebView extends Component {
                                 break;
                             case "custom":
                                 TW_Log("custom---"+TW_Store.gameUIStroe.isShowGuest+"--url"+url)
-                                TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
+                                //TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
+                                TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
                                 break;
 
                         }
