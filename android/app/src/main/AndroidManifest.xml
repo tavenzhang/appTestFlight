@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jd">
+    package="com.caipiao.sanliuwu">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -21,7 +21,7 @@
     <!--<uses-permission android:name="android.permission.USE_CREDENTIALS" />-->
 
     <application
-        android:name=".MainApplication"
+        android:name="com.caipiao.sanliuwu.MainApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/logo"
@@ -32,7 +32,7 @@
             android:name="android.max_aspect"
             android:value="2.1" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.caipiao.sanliuwu.MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
@@ -54,11 +54,11 @@
             android:value="${JPUSH_CHANNEL}" />
 
         <activity
-            android:name=".webview.JXWebView"
+            android:name="com.caipiao.sanliuwu.webview.JXWebView"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".webview.JXGameWebView"
+            android:name="com.caipiao.sanliuwu.webview.JXGameWebView"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:process=":game"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
@@ -85,7 +85,7 @@
 
         <!-- Ushare -->
         <activity
-            android:name="ushare.wxapi.WXEntryActivity"
+            android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -107,7 +107,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name="ushare.WBShareActivity"
+            android:name=".WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait">
             <intent-filter>

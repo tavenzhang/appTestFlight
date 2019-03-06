@@ -4,8 +4,8 @@ import android.os.Environment;
 import android.text.TextUtils;
 
 
-import com.jd.MainApplication;
-import com.jd.util.FileUtil;
+import com.caipiao.sanliuwu.MainApplication;
+import com.caipiao.sanliuwu.util.FileUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.jd;
+package com.caipiao.sanliuwu;
 
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
@@ -8,13 +8,14 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.util.Log;
 
-import com.jd.MainActivity;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.crashlytics.android.Crashlytics;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
 import com.github.yamill.orientation.OrientationPackage;
+import com.jd.BuildConfig;
+import com.jd.R;
 import com.jd.ushare.invokenative.DplusReactPackage;
 import com.jd.ushare.invokenative.RNUMConfigure;
 import com.rnziparchive.RNZipArchivePackage;
@@ -39,7 +40,7 @@ import com.jd.crash.CrashHandler;
 import com.jd.jxhelper.JXHelperPackage;
 import com.jd.marqueeLabel.RCTMarqueeLabelPackage;
 import com.jd.openapp.OpenAppPackage;
-import com.jd.util.AppUtil;
+import com.caipiao.sanliuwu.util.AppUtil;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.microsoft.codepush.react.CodePush;
 import com.oblador.vectoricons.VectorIconsPackage;

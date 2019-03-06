@@ -1,4 +1,4 @@
-package com.jd.util;
+package com.caipiao.sanliuwu.util;
 
 import android.os.Build;
 import android.text.TextUtils;

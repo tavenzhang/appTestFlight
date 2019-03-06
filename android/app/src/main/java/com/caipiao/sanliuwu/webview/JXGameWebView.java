@@ -1,7 +1,6 @@
-package com.jd.webview;
+package com.caipiao.sanliuwu.webview;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -24,9 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.jd.R;
-import com.jd.util.CommonDialog;
-import com.jd.util.JXDragView;
-import com.jd.util.StatusBarUtils;
+import com.caipiao.sanliuwu.util.CommonDialog;
+import com.caipiao.sanliuwu.util.JXDragView;
 import com.umeng.analytics.MobclickAgent;
 
 

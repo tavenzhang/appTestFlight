@@ -1,4 +1,4 @@
-package com.jd.util;
+package com.caipiao.sanliuwu.util;
 
 import android.app.Activity;
 import android.graphics.Rect;

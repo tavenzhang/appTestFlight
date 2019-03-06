@@ -1,4 +1,4 @@
-package com.jd.util;
+package com.caipiao.sanliuwu.util;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -8,11 +8,6 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
-
-import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableMap;
 
 import java.io.File;
 

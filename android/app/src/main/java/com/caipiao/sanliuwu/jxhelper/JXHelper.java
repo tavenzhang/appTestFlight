@@ -1,15 +1,12 @@
 package com.jd.jxhelper;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
@@ -18,16 +15,15 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
-import com.jd.MainActivity;
-import com.jd.util.AppUtil;
-import com.jd.util.UpdateManager;
-import com.jd.webview.JXGameWebView;
-import com.jd.webview.JXWebView;
+import com.caipiao.sanliuwu.MainActivity;
+import com.caipiao.sanliuwu.util.AppUtil;
+import com.caipiao.sanliuwu.util.UpdateManager;
+import com.caipiao.sanliuwu.webview.JXGameWebView;
+import com.caipiao.sanliuwu.webview.JXWebView;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 import com.microsoft.codepush.react.CodePush;

@@ -1,4 +1,4 @@
-package com.jd.webview;
+package com.caipiao.sanliuwu.webview;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -22,9 +22,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.jd.R;
-import com.jd.util.AndroidBug5497Workaround;
-import com.jd.util.KeyboardUtils;
-import com.jd.util.StatusBarUtils;
+import com.caipiao.sanliuwu.util.AndroidBug5497Workaround;
+import com.caipiao.sanliuwu.util.KeyboardUtils;
+import com.caipiao.sanliuwu.util.StatusBarUtils;
 
 /**
  * Created by allen-jx on 2017/7/10.
