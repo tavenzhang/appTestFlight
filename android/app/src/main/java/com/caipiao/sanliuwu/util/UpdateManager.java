@@ -14,8 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 
-import com.jd.R;
-import com.jd.numberprogressbar.NumberProgressBar;
+import com.caipiao.sanliuwu.R;
+import com.caipiao.sanliuwu.numberprogressbar.NumberProgressBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
 

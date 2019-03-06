@@ -1,4 +1,4 @@
-package com.jd.numberprogressbar;
+package com.caipiao.sanliuwu.numberprogressbar;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,7 +11,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.jd.R;
+import com.caipiao.sanliuwu.R;
 
 
 public class NumberProgressBar extends View {

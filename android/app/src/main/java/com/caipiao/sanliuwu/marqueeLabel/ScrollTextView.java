@@ -1,4 +1,4 @@
-package com.jd.marqueeLabel;
+package com.caipiao.sanliuwu.marqueeLabel;
 
 import android.content.Context;
 import android.graphics.Canvas;

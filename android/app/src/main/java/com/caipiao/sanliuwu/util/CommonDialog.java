@@ -10,7 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.jd.R;
+import com.caipiao.sanliuwu.R;
 
 /**
  * Created by mason on 2018/9/19.

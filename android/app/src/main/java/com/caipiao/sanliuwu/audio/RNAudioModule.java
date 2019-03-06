@@ -1,4 +1,4 @@
-package com.jd.audio;
+package com.caipiao.sanliuwu.audio;
 
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -6,7 +6,7 @@ import android.media.SoundPool;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.jd.R;
+import com.caipiao.sanliuwu.R;
 
 /**
  * @author: Mason

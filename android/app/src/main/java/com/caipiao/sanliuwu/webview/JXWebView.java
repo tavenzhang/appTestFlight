@@ -21,7 +21,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.jd.R;
+import com.caipiao.sanliuwu.R;
 import com.caipiao.sanliuwu.util.AndroidBug5497Workaround;
 import com.caipiao.sanliuwu.util.KeyboardUtils;
 import com.caipiao.sanliuwu.util.StatusBarUtils;

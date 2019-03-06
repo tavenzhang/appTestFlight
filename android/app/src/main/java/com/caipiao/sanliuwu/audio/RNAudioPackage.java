@@ -1,4 +1,4 @@
-package com.jd.audio;
+package com.caipiao.sanliuwu.audio;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

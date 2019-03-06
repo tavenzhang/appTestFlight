@@ -12,8 +12,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.caipiao.sanliuwu.invokenative.ShareModule;
 import com.facebook.react.ReactActivity;
-import com.jd.ushare.invokenative.ShareModule;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
 

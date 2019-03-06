@@ -89,21 +89,24 @@ public class ShareModule extends ReactContextBaseJavaModule {
         return new UMShareListener() {
             @Override
             public void onStart(SHARE_MEDIA share_media) {
-
+                Log.e("zzz1", "onStart");
             }
 
             @Override
             public void onResult(SHARE_MEDIA share_media) {
+                Log.e("zzz1", "onResult");
                 successCallback.invoke(SUCCESS, "success");
             }
 
             @Override
             public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                Log.e("zzz1", "onError");
                 successCallback.invoke(ERROR, throwable.getMessage());
             }
 
             @Override
             public void onCancel(SHARE_MEDIA share_media) {
+                Log.e("zzz1", "onCancel");
                 successCallback.invoke(CANCEL, "cancel");
             }
         };

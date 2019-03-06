@@ -1,4 +1,4 @@
-package com.jd.crash;
+package com.caipiao.sanliuwu.crash;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jd.R;
+import com.caipiao.sanliuwu.R;
 
 
 /**
