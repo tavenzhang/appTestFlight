@@ -1,0 +1,223 @@
+
+yazhuniuniu.png
+size: 1512,411
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+台子
+  rotate: false
+  xy: 2, 24
+  size: 222, 148
+  orig: 222, 148
+  offset: 0, 0
+  index: -1
+押注牛牛
+  rotate: false
+  xy: 1304, 226
+  size: 197, 61
+  orig: 197, 61
+  offset: 0, 0
+  index: -1
+流光_T_00000
+  rotate: true
+  xy: 226, 2
+  size: 170, 120
+  orig: 170, 120
+  offset: 0, 0
+  index: -1
+流光_T_00001
+  rotate: true
+  xy: 348, 2
+  size: 170, 120
+  orig: 170, 120
+  offset: 0, 0
+  index: -1
+流光_T_00002
+  rotate: true
+  xy: 470, 2
+  size: 170, 120
+  orig: 170, 120
+  offset: 0, 0
+  index: -1
+流光_T_00003
+  rotate: true
+  xy: 592, 2
+  size: 170, 120
+  orig: 170, 120
+  offset: 0, 0
+  index: -1
+流光_T_00004
+  rotate: true
+  xy: 714, 2
+  size: 170, 120
+  orig: 170, 120
+  offset: 0, 0
+  index: -1
+流光_T_00005
+  rotate: true
+  xy: 836, 2
+  size: 170, 120
+  orig: 170, 120
+  offset: 0, 0
+  index: -1
+流光_T_00006
+  rotate: true
+  xy: 958, 2
+  size: 170, 120
+  orig: 170, 120
+  offset: 0, 0
+  index: -1
+流光_T_00007
+  rotate: true
+  xy: 1080, 2
+  size: 170, 120
+  orig: 170, 120
+  offset: 0, 0
+  index: -1
+流光_T_00008
+  rotate: true
+  xy: 1202, 2
+  size: 170, 120
+  orig: 170, 120
+  offset: 0, 0
+  index: -1
+流光_T_00009
+  rotate: false
+  xy: 1304, 289
+  size: 170, 120
+  orig: 170, 120
+  offset: 0, 0
+  index: -1
+牌
+  rotate: true
+  xy: 2, 174
+  size: 235, 215
+  orig: 235, 215
+  offset: 0, 0
+  index: -1
+筹码
+  rotate: true
+  xy: 219, 174
+  size: 235, 215
+  orig: 235, 215
+  offset: 0, 0
+  index: -1
+筹码2
+  rotate: true
+  xy: 436, 174
+  size: 235, 215
+  orig: 235, 215
+  offset: 0, 0
+  index: -1
+金币1
+  rotate: true
+  xy: 653, 174
+  size: 235, 215
+  orig: 235, 215
+  offset: 0, 0
+  index: -1
+金币2
+  rotate: true
+  xy: 870, 174
+  size: 235, 215
+  orig: 235, 215
+  offset: 0, 0
+  index: -1
+闪光_T_00000
+  rotate: false
+  xy: 1304, 174
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00001
+  rotate: false
+  xy: 1324, 122
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00002
+  rotate: false
+  xy: 1356, 174
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00003
+  rotate: false
+  xy: 1324, 70
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00004
+  rotate: false
+  xy: 1324, 18
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00005
+  rotate: false
+  xy: 1408, 174
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00006
+  rotate: false
+  xy: 1460, 174
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00007
+  rotate: false
+  xy: 1376, 122
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00008
+  rotate: false
+  xy: 1428, 122
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00009
+  rotate: false
+  xy: 1376, 70
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00010
+  rotate: false
+  xy: 1376, 18
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00011
+  rotate: false
+  xy: 1428, 70
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00012
+  rotate: false
+  xy: 1428, 18
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+阴影
+  rotate: true
+  xy: 1087, 174
+  size: 235, 215
+  orig: 235, 215
+  offset: 0, 0
+  index: -1

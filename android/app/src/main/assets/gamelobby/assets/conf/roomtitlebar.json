@@ -1,0 +1,36 @@
+{
+    "desc":"顶部标题栏",
+    "pos":{ "x":0, "y":0 },
+    "duration":500,
+    "bg":{
+        "pos":{ "x":1049, "y":0 },
+        "src":"./assets/ui/titlebar/img_touxaing_fanhuidi.png"
+    },
+    "btnback":{
+        "desc":"按钮",
+        "pos":{ "x":1175, "y":35 },
+        "src":[
+            "./assets/ui/titlebar/btn_dating_fanhui.png"
+        ],
+        "size":{ "w":54, "h":55 },
+        "sfx":"assets/raw/Click.mp3",
+        "maxScale":{"x":1.05,"y":1.05},
+        "normalScale":{"x":1,"y":1}
+    },
+    "btnback2":{
+        "desc":"按钮",
+        "pos":{ "x":1260, "y":38 },
+        "src":[
+            "./assets/ui/titlebar/btn_dating_fanhui3.png"
+        ],
+        "size":{ "w":114, "h":31 },
+        "sfx":"assets/raw/Click.mp3",
+        "maxScale":{"x":1.05,"y":1.05},
+        "normalScale":{"x":1,"y":1}
+    },
+    "title":{
+        "pos":{ "x":900, "y":15 },
+        "size":{ "w":229, "h":77 },
+        "src":"./assets/ui/room/titlebar/lb_zjh.png"
+    }
+}
