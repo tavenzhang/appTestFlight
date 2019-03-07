@@ -4,9 +4,10 @@
     "duration":500,
     "btnnotice":{
         "desc":"公告按钮",
-        "pos":{ "x":1170, "y":35 },
+        "posx":{ "x":1170, "y":35 },
+        "pos":{ "x":1170, "y":60 },
         "src":[
-            "./assets/ui/titlebar/btn_dating_fanhui.png"
+            "./assets/ui/titlebar/icon_dating_huiodong.png"
         ],
         "font":{
             "text":"",
@@ -15,7 +16,8 @@
             "borderColorX":"#ff0000",
             "pos":{ "x":0, "y":0 }
         },
-        "size":{ "w":54, "h":55 },
+        "sizex":{ "w":54, "h":55 },
+        "size":{ "w":80, "h":91 },
         "sfx":"assets/raw/Click.mp3",
         "maxScale":{"x":1.02,"y":1.02},
         "normalScale":{"x":1,"y":1}
@@ -56,7 +58,7 @@
         "maxScale":{"x":1.02,"y":1.02},
         "normalScale":{"x":1,"y":1}
     },
-    "btncustomX":{
+    "btncustom":{
         "desc":"客服按钮",
         "pos":{ "x":1250, "y":60 },
         "src":[
@@ -131,7 +133,7 @@
     },
 
 
-    "title":{
+    "titleX":{
         "pos":{ "x":1049, "y":0 },
         "size":{ "w":285, "h":86 },
         "src":"./assets/ui/titlebar/img_touxaing_fanhuidi.png"

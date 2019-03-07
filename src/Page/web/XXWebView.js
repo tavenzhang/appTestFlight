@@ -14,8 +14,6 @@ import {platInfo} from "../../config/appConfig";
 import SplashScreen from "react-native-splash-screen";
 
 import TCButtonView from "../../Common/View/button/TCButtonView";
-import {NativeModules} from "react-native";
-import ShareUtile from '../../Common/UMeng/ShareUtil'
 @withMappedNavigationProps()
 @observer
 export default class XXWebView extends Component {
@@ -64,20 +62,6 @@ export default class XXWebView extends Component {
 
         return (
             <View style={styles.container}>
-                {
-                    <TCButtonView btnStyle={{width:300}} onClick={()=>{
-                        //微信分享参考https://developer.umeng.com/docs/66632/detail/67587
-                        /*text 为分享内容
-                        img 为图片地址，可以为链接，本地地址以及res图片（如果使用res,请使用如下写法：res/icon.png）
-                        url 为分享链接，可以为空
-                        title 为分享链接的标题
-                        platform为平台id，id对照表与授权相同
-                        callback中code为错误码，当为200时，标记成功。message为错误信息*/
-                            ShareUtile.shareboard('abc','','https://www.google.com/','testshare',[2,3],(code,message) =>{
-                                this.setState({result:message});
-                            });
-                    }} text={"这里接微信"}/>
-                }
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
@@ -157,7 +141,7 @@ export default class XXWebView extends Component {
                     break;
                 case  "JumpUrl":
                     //TN_Notification("JumpUrl","test local notification");
-                    url = this.handleUrl(message.au, true)
+                    url = this.handleUrl(message.payload, true)
                     let isOk=true;
                     TW_Log("game---isInAnroidHack=="+url+"--index="+url.indexOf("module=account"));
                     if(TW_Store.appStore.isInAnroidHack){
@@ -201,14 +185,14 @@ export default class XXWebView extends Component {
                     break;
                 case "game_redraw":
                     TW_Store.gameUIStroe.isShowWithDraw=!TW_Store.gameUIStroe.isShowWithDraw;
-                    break;
-                case "game_recharge":
-                    TW_Store.gameUIStroe.isShowAddPayView =!TW_Store.gameUIStroe.isShowAddPayView;
-                    break;
+                   // break;
                 case "game_back":
                     TW_Log("custom---exitAppToLoginPage")
                     TW_Store.userStore.exitAppToLoginPage();
                     this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.logout));
+                    break;
+                case "game_recharge":
+                    TW_Store.gameUIStroe.isShowAddPayView =!TW_Store.gameUIStroe.isShowAddPayView;
                     break;
                 case  "debugInfo":
                     let name = message.name ? message.name : "";

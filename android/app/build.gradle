@@ -154,7 +154,7 @@ android {
         taven {
             applicationId APP_ID
             versionName APP_VERSION
-            resValue "string", "app_name", APP_NAME
+            resValue "string", "app_name", new String(APP_NAME.getBytes("iso8859-1"), "UTF-8")
             manifestPlaceholders = [
                     APP_VERSION    : APP_VERSION,
                     CHANNEL_AFFCODE: AFF_CODE,
@@ -170,6 +170,8 @@ android {
             dimension "color"
         }
     }
+
+
 
     signingConfigs {
         release {
