@@ -313,14 +313,22 @@ var Tools = /** @class */ (function () {
             if (AppData.IS_NATIVE_APP) {
                 jumpUrl = "/" + dir;
             }
+            var jobj = {};
+            // Debug.trace("Tools.jump2game create jobj");
             if (ginfo && ginfo.alias) {
                 // Debug.trace("Tools jump2game0 alias:"+ginfo.alias+" backUrl:"+backurl);
                 if (ginfo.alias == "zjh") {
                     backurl = backurl + "?gameId=" + Common.gameId + "&alias=" + ginfo.alias;
                 }
-                // Debug.trace("Tools jump2game1 alias:"+ginfo.alias+" backUrl:"+backurl);
             }
-            var jobj = {
+            else {
+                ginfo = {
+                    "alias": "",
+                    "name": "" //"炸金花"
+                };
+            }
+            // Debug.trace("Tools jump2game1 alias:"+ginfo.alias+" backUrl:"+backurl);
+            jobj = {
                 "token": Common.access_token,
                 "httpUrl": ConfObjRead.getConfUrl().url.apihome,
                 "gameId": Common.gameId,
@@ -332,6 +340,8 @@ var Tools = /** @class */ (function () {
                 "clientId": Common.clientId,
                 "mainUrl": mainUrl
             };
+            Debug.trace("Tools.jump2game jobj:");
+            Debug.trace(jobj);
             var b = new MyBase64();
             var param = b.encode(JSON.stringify(jobj));
             var au = jumpUrl + "?jumpData=" + param;
@@ -427,6 +437,9 @@ var Tools = /** @class */ (function () {
                         break;
                     case "redraw":
                         PostMHelp.game_redraw(jobj);
+                        break;
+                    case "share":
+                        PostMHelp.game_share(jobj);
                         break;
                 }
                 // PostMHelp.jupmToUrl({jobj,au})

@@ -145,8 +145,8 @@ var LoadingScene = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.checkReconnectOk);
     };
     LoadingScene.prototype.checkReconnectOk = function (s, stat, hr) {
-        // Debug.trace('checkReconnectOk stat:'+stat);        
-        // Debug.trace(s);
+        Debug.trace('checkReconnectOk stat:' + stat);
+        Debug.trace(s);
         // Debug.trace("checkReconnectOk hr:");
         // Debug.trace(hr);
         if (stat == "complete") {
@@ -163,10 +163,10 @@ var LoadingScene = /** @class */ (function (_super) {
                 Common.gameId = 0;
                 Common.wsUrl = "";
                 Common.roomId = 0;
-                this.checkBackFromGameX();
+                this.checkBackFromGame();
             }
             else {
-                this.checkBackFromGameX();
+                this.checkBackFromGame();
             }
         }
         else {
@@ -174,17 +174,14 @@ var LoadingScene = /** @class */ (function (_super) {
             //无需重连，检查是否从游戏中退出来的？
             //如果是从游戏中退出来的，应该进入到该游戏的房间列表
             // Debug.trace("RootScene check old gameId:"+Common.gameId);
-            this.checkBackFromGameX();
+            this.checkBackFromGame();
         }
     };
     //检查当前是否从游戏返回大厅，是的话就要进入房间列表
-    LoadingScene.prototype.checkBackFromGameX = function () {
-        // var gameId = Tools.getQueryVariable("gameId");
-        // var alias = Tools.getQueryVariable("alias");
-        // if (AppData.IS_NATIVE_APP) {
-        //     gameId = Common.gameId.toString();
-        // }
-        // Debug.trace("LoadingScene.checkBackFromGame gameId:" + gameId + " alias:" + alias);
+    LoadingScene.prototype.checkBackFromGame = function () {
+        var gameId = Tools.getQueryVariable("gameId");
+        var alias = Tools.getQueryVariable("alias");
+        // Debug.trace("LoadingScene.checkBackFromGame gameId:"+gameId+" alias:"+alias);
         if (Common.gameId > 0) {
             Debug.trace('checkBackFromGame gameId:' + Common.gameId);
             //直接进入到对应游戏的房间列表
