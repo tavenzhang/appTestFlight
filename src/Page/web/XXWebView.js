@@ -136,6 +136,7 @@ export default class XXWebView extends Component {
                             onEvaleJS: this.onEvaleJS,
                             isGame: true
                         })
+                        this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic),{});
                         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;

@@ -154,6 +154,7 @@ var LayaMain = /** @class */ (function () {
                     break;
                 case "stopMusic":
                     lamain.onGamePause();
+                   // Laya.SoundManager.stopMusic();
                     break;
                 case "windowResize":
                     this.onResize();
