@@ -6,6 +6,7 @@ import {ASSET_Images} from "../../../asset";
 import {TCButtonImg} from "../../../../Common/View/button/TCButtonView";
 import React from "react";
 import TCImage from "../../../../Common/View/image/TCImage";
+import {MyAppName} from "../../../../config/appConfig";
 
 
 export default class ShareBox extends Component {
@@ -49,8 +50,8 @@ export default class ShareBox extends Component {
 
     onSimpleShare=()=>{
         Share.share({
-            title:"uat棋牌",
-            message: 'React Native | A framework for building native apps using React'
+            title: MyAppName,
+            message: '快乐一起分享，大家一起来!'
         }).then(this.showResult)
             .catch((error) => this.setState({result: 'error: ' + error.message}));
     }

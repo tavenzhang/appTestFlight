@@ -37,7 +37,7 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '超会盈游戏';
+export const MyAppName = '超会盈棋牌';
 
 export const versionHotFix = 'chy_3_6';
 
