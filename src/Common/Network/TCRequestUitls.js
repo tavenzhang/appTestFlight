@@ -264,6 +264,7 @@ export default class NetUitls extends Component {
         if (url && (_.startsWith(url, 'http://') || _.startsWith(url, 'https://'))) {
             return url
         }
+
         return TW_Store.appStore.currentDomain  + baseUrl.baseUrl + url
     }
 
