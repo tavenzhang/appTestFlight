@@ -1,0 +1,31 @@
+PODS:
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
+  - Fabric (1.9.0)
+  - Flurry-iOS-SDK/FlurrySDK (9.2.3)
+  - NSLogger/NoStrip (1.9.0):
+    - NSLogger/ObjC
+  - NSLogger/ObjC (1.9.0)
+
+DEPENDENCIES:
+  - Crashlytics
+  - Fabric
+  - Flurry-iOS-SDK/FlurrySDK
+  - NSLogger/NoStrip
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Crashlytics
+    - Fabric
+    - Flurry-iOS-SDK
+    - NSLogger
+
+SPEC CHECKSUMS:
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
+  Flurry-iOS-SDK: 2ea1973a6c9c6b3675765d73ea290b281f8cb084
+  NSLogger: 9f8f5ab017eb34d1a138f4905dc7fb8e9a0e3186
+
+PODFILE CHECKSUM: fe6712dab13e275b76bbeeda77aa450b85539ab4
+
+COCOAPODS: 1.6.1

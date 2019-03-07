@@ -3,7 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>Affcode</key>
-	<string></string>
+	<string>"test"</string>
+	<key>AppSecret</key>
+	<dict>
+		<key>weixin</key>
+		<string>67de54808bba55e934e3126f3e607a42</string>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -22,6 +27,19 @@
 	<string>3.2.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx39520c48b4a7dc64</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>6</string>
 	<key>Channel</key>
