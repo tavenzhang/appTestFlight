@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -196,9 +196,10 @@ var GameItem = /** @class */ (function (_super) {
             }
         }
         //不能点击了 如果是app 需要可以重复点击
-        if (!Common.IS_NATIVE_APP) {
-            this.btn_icon.bclick = false;
-        }
+        // if(!Common.IS_NATIVE_APP)
+        // {
+        //       this.btn_icon.bclick = false;
+        // }
     };
     //设置数据
     GameItem.prototype.setData = function (dt) {

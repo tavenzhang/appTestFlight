@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -91,6 +91,13 @@ var Avator = /** @class */ (function (_super) {
         // bg.pos(this.conf.bg.pos.x,this.conf.bg.pos.y);
         var bg = Tools.newSprite(conf);
         this.addChild(bg);
+        if (conf.anim) {
+            var anim = new MyBoneAnim();
+            anim.init(conf.anim);
+            this.addChild(anim);
+            anim.playAnim(0, true);
+            // anim.pos(conf.anim.pos.x,conf.anim.pos.y);
+        }
     };
     //点击头像
     Avator.prototype.onClickAvator = function (e) {

@@ -4,9 +4,9 @@
     "duration":500,
     "btnnotice":{
         "desc":"公告按钮",
-        "pos":{ "x":1010, "y":60 },
+        "pos":{ "x":1170, "y":35 },
         "src":[
-            "./assets/ui/titlebar/btn_notice.png"
+            "./assets/ui/titlebar/btn_dating_fanhui.png"
         ],
         "font":{
             "text":"",
@@ -15,16 +15,16 @@
             "borderColorX":"#ff0000",
             "pos":{ "x":0, "y":0 }
         },
-        "size":{ "w":82, "h":87 },
+        "size":{ "w":54, "h":55 },
         "sfx":"assets/raw/Click.mp3",
         "maxScale":{"x":1.02,"y":1.02},
         "normalScale":{"x":1,"y":1}
     },
     "btnexit":{
         "desc":"退出按钮",
-        "pos":{ "x":1250, "y":60 },
+        "pos":{ "x":1250, "y":38 },
         "src":[
-            "./assets/ui/titlebar/exit_btn.png"
+            "./assets/ui/titlebar/btn_dating_fanhui2.png"
         ],
         "font":{
             "text":"",
@@ -33,12 +33,12 @@
             "borderColorX":"#ff0000",
             "pos":{ "x":0, "y":0 }
         },
-        "size":{ "w":82, "h":87 },
+        "size":{ "w":70, "h":32 },
         "sfx":"assets/raw/Click.mp3",
         "maxScale":{"x":1.02,"y":1.02},
         "normalScale":{"x":1,"y":1}
     },
-    "btnsetting":{
+    "btnsettingX":{
         "desc":"设置按钮",
         "pos":{ "x":1130, "y":60 },
         "src":[
@@ -56,13 +56,30 @@
         "maxScale":{"x":1.02,"y":1.02},
         "normalScale":{"x":1,"y":1}
     },
-
+    "btncustomX":{
+        "desc":"客服按钮",
+        "pos":{ "x":1250, "y":60 },
+        "src":[
+            "./assets/ui/titlebar/icon_dating_kefu.png"
+        ],
+        "font":{
+            "text":"",
+            "size":18,
+            "color":"#ffffff",
+            "borderColorX":"#ff0000",
+            "pos":{ "x":0, "y":0 }
+        },
+        "size":{ "w":80, "h":91 },
+        "sfx":"assets/raw/Click.mp3",
+        "maxScale":{"x":1.02,"y":1.02},
+        "normalScale":{"x":1,"y":1}
+    },
 
     "btnnotice_native":{
         "desc":"按钮",
         "pos":{ "x":1130, "y":60 },
         "src":[
-            "./assets/ui/titlebar/btn_notice.png"
+            "./assets/ui/titlebar/icon_dating_huiodong.png"
         ],
         "font":{
             "text":"",
@@ -115,8 +132,8 @@
 
 
     "title":{
-        "pos":{ "x":537, "y":15 },
-        "size":{ "w":260, "h":72 },
-        "src":"./brand/lobby_logo.png"
+        "pos":{ "x":1049, "y":0 },
+        "size":{ "w":285, "h":86 },
+        "src":"./assets/ui/titlebar/img_touxaing_fanhuidi.png"
     }
 }

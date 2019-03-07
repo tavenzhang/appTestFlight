@@ -9,7 +9,7 @@ class  TCButtonCommon extends PureComponent {
 
     static propTypes = {
         disabled: PropTypes.bool,//按钮不可用状态（true不可用，false可用）
-        btnStyle: PropTypes.any,//按钮样式
+        containStyles: PropTypes.any,//按钮样式
         styleDisabled: PropTypes.any,//按钮不可用状态样式
         text: PropTypes.any,//按钮文本
         txtstyle: PropTypes.any,//文本样式
@@ -19,7 +19,7 @@ class  TCButtonCommon extends PureComponent {
 
     static defaultProps = {
         disabled: false,
-        btnStyle: null,
+        containStyles: null,
         styleDisabled: null,
         text: 'button',
         txtstyle: null,
@@ -90,9 +90,10 @@ export default class TCButtonView extends PureComponent {
         }
         return (
             <TCButtonCommon {...this.props} containStyles={buttonStyles}>
-                <Text style={textStyles}>
+                {text ? <Text style={textStyles}>
                     {text}
-                </Text>
+                </Text>:null}
+
             </TCButtonCommon>
         )
     }
@@ -128,10 +129,10 @@ export  class TCButtonImg extends PureComponent {
 
 
     render() {
-        let {disabled,text, imgSource, isHorizon,textStyle,imgStyle,imgSourceDisabled, imgStyleDisable} = this.props;
+        let {disabled,text, imgSource, isHorizon,btnStyle,textStyle,imgStyle,imgSourceDisabled, imgStyleDisable} = this.props;
         let myImgSourceDisabled = imgSourceDisabled ? imgSourceDisabled:imgSource;
         return (
-            <TCButtonCommon  {...this.props}>
+            <TCButtonCommon  {...this.props} containStyles={btnStyle}>
                 <View style={{flexDirection:isHorizon ? "row":"column", justifyContent:"center",alignItems:"center"}}>
                 <FastImage style={disabled ? imgStyleDisable:imgStyle}
                            source={disabled ? myImgSourceDisabled:imgSource}

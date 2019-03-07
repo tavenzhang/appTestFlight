@@ -1,6 +1,27 @@
 var ConfObjRead = /** @class */ (function () {
     function ConfObjRead() {
     }
+    ConfObjRead.getConfGirlManager = function () {
+        if (ConfObjRead.girlObj) {
+            return ConfObjRead.girlObj;
+        }
+        ConfObjRead.girlObj = Laya.Loader.getRes("./assets/conf/girl.json");
+        return ConfObjRead.girlObj;
+    };
+    ConfObjRead.getConfDataNum = function () {
+        if (ConfObjRead.dataNumObj) {
+            return ConfObjRead.dataNumObj;
+        }
+        ConfObjRead.dataNumObj = Laya.Loader.getRes("./assets/conf/datanum.json");
+        return ConfObjRead.dataNumObj;
+    };
+    ConfObjRead.getConfHtmlLabel = function () {
+        if (ConfObjRead.htmlObj) {
+            return ConfObjRead.htmlObj;
+        }
+        ConfObjRead.htmlObj = Laya.Loader.getRes("./assets/conf/libhtml.json");
+        return ConfObjRead.htmlObj;
+    };
     ConfObjRead.getGameIconAnim = function () {
         if (ConfObjRead.giconAnimObj) {
             return ConfObjRead.giconAnimObj;
@@ -244,6 +265,9 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.musicObj = Laya.Loader.getRes("./assets/conf/music.json");
         return ConfObjRead.musicObj;
     };
+    ConfObjRead.girlObj = null;
+    ConfObjRead.dataNumObj = null;
+    ConfObjRead.htmlObj = null;
     ConfObjRead.giconAnimObj = null;
     ConfObjRead.gamepanelObj = null;
     //跑马灯消息

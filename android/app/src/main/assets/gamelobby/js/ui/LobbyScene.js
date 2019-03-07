@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -30,6 +30,10 @@ var LobbyScene = /** @class */ (function (_super) {
         //背景
         UIBg.getInstance(this, ConfObjRead.getConfUiBg());
         // Debug.trace("LobbyScene.initUI bg ok");
+        //游戏图标
+        GamePanel.getInstance(this, ConfObjRead.getConfGamepanel(), this, this.gamepanelOver);
+        //广告模块
+        GirlManager.getInstance(this);
         //标题栏
         UITitleBar.getInstance(this, ConfObjRead.getConfTitlebar(), this, this.titlebarOver);
         // Debug.trace("LobbyScene.initUI titlebar ok");
@@ -40,41 +44,35 @@ var LobbyScene = /** @class */ (function (_super) {
         VersionStat.getInstance(this, ConfObjRead.getConfVersion());
         // Debug.trace("LobbyScene.initUI version stat");
         //跑马灯消息
-        RunningMsg.getInstance(this, ConfObjRead.getConfRunningmsg(), this, this.runningmsgOver);
+        // RunningMsg.getInstance(this,ConfObjRead.getConfRunningmsg(),
+        //     this,this.runningmsgOver);
+        var msgUrl = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.noticelist +
+            "?pageSize=20&start=0&access_token=" + Common.access_token;
+        RunningMsg.getInstance(this, "./assets/conf/runningmsg.json", msgUrl);
         // Debug.trace("LobbyScene.initUI runningmsg");
         //个人中心菜单组
         MineMenus.getInstance(this, ConfObjRead.getConfMinemenus());
         // Debug.trace("LobbyScene.initUI minemenus");
-        //游戏图标
-        GamePanel.getInstance(this, ConfObjRead.getConfGamepanel(), this, this.gamepanelOver);
         //公告
         if (ConfObjRead.getConfAttention().bAutoShowInLobby) {
             AttentionDialog.showPad(this, ConfObjRead.getConfAttention());
         }
         //初始化音效 Add by Jelly on 2018/12/26
-        this.initBgMusic();
+        // this.initBgMusic();
     };
     LobbyScene.prototype.initBgMusic = function () {
-        LobbyScene.initMusic();
-    };
-    LobbyScene.initMusic = function () {
-        var _this = this;
         if (LobbyScene.IS_PLAYED_MUSIC) {
             return;
         }
         LobbyScene.IS_PLAYED_MUSIC = true;
         Laya.loader.load([{ url: ConfObjRead.getConfMusic().src }], new Laya.Handler(this, function () {
-            Debug.trace("player bg music -AppData.isAtHome+==" + AppData.isAtHome);
-            Laya.timer.once(100, _this, function () {
-                if (AppData.isAtHome) {
-                    Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
-                }
-            });
+            Debug.trace("player bg music");
+            // Laya.timer.once( 3000 , this , ()=>{
+            //     Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+            // } );
+            Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
         }));
-    };
-    LobbyScene.stopMusic = function () {
-        LobbyScene.IS_PLAYED_MUSIC = false;
-        Laya.SoundManager.stopMusic();
     };
     LobbyScene.prototype.OnAvatorScrollOut = function (e) {
     };

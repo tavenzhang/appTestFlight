@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 var GamePanel = /** @class */ (function (_super) {
     __extends(GamePanel, _super);
     function GamePanel() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super.call(this) || this;
         _this.bDrag = false; //是否再拖动中
         _this.downX = 0; //当前鼠标按下的位置
         _this.lastScrollSpdX = 0; //前一刻的滚动速度
@@ -82,7 +82,7 @@ var GamePanel = /** @class */ (function (_super) {
         this.resetScrollBar();
     };
     GamePanel.prototype.createGirl = function () {
-        if (!this.sp_girl) {
+        if (!this.sp_girl && this.conf.girl) {
             this.sp_girl = new Laya.Sprite();
             this.sp_girl.loadImage(this.conf.girl.src);
             this.addChild(this.sp_girl);
@@ -93,6 +93,9 @@ var GamePanel = /** @class */ (function (_super) {
         // this.scrollInContent();
     };
     GamePanel.prototype.scrollInGirl = function () {
+        if (!this.sp_girl) {
+            return;
+        }
         var tween = Laya.Tween.to(this.sp_girl, {
             x: this.conf.girl.pos.x,
             y: this.conf.girl.pos.y
@@ -103,6 +106,9 @@ var GamePanel = /** @class */ (function (_super) {
         // Debug.trace("GamePanel.scrollInGirlOK");
     };
     GamePanel.prototype.scrollOutGirl = function () {
+        if (!this.sp_girl) {
+            return;
+        }
         var tween = Laya.Tween.to(this.sp_girl, {
             x: this.conf.girl.hidepos.x,
             y: this.conf.girl.hidepos.y
@@ -367,25 +373,21 @@ var GamePanel = /** @class */ (function (_super) {
             // gi.x = this.conf.gameitemdefault.btnicon.pos.x + (i * this.conf.gameitemdefault.btnicon.size.w) + (i*this.conf.gameitemdefault.btnicon.size.gw);
             gi.x = this.conf.gameitemdefault.btnicon.pos.x +
                 (v * this.conf.gameitemdefault.btnicon.size.w) +
-                (v * this.conf.gameitemdefault.btnicon.size.gw);
+                (v * this.conf.gameitemdefault.btnicon.size.gw) + this.conf.gameitemdefault.pos.x;
             // v*this.conf.flip.offsetx;
             gi.y = this.conf.gameitemdefault.btnicon.pos.y +
                 (h * this.conf.gameitemdefault.btnicon.size.h) +
-                (h * this.conf.gameitemdefault.btnicon.size.gh);
+                (h * this.conf.gameitemdefault.btnicon.size.gh) + this.conf.gameitemdefault.pos.y;
             // this.addChild(gi);
             this.sp_content.addChild(gi);
             gi.setData(dt[i]);
             this.items.push(gi);
-            // this.totalWidth = gi.x + gi.width + 
-            //     this.conf.panel.content.pos.x + 
-            //     this.conf.gameitemdefault.btnicon.pos.x;
             this.totalWidth = (gi.width +
                 this.conf.gameitemdefault.btnicon.size.gw) * (v + 1);
-            // Debug.trace("GamePanel totalWidth:"+this.totalWidth);
             this.minx = this.conf.panel.rect.w - this.totalWidth +
                 this.conf.gameitemdefault.btnicon.pos.x -
                 this.conf.gameitemdefault.btnicon.size.offsetx;
-            this.maxx = this.conf.gameitemdefault.btnicon.pos.x;
+            this.maxx = this.conf.gameitemdefault.btnicon.pos.x + this.conf.gameitemdefault.pos.x;
         }
         if (this.conf.panel.itembg) {
             this.itembg = new Laya.Sprite();

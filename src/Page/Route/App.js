@@ -26,6 +26,16 @@ function viewRoutHelp(component) {
 const Components = {
     XXWebView: viewRoutHelp(XXWebView),
     WebView:viewRoutHelp(TCWebView),
+    TCUserDetailMsg:viewRoutHelp(TCUserDetailMsg),
+    TCUserMessage:viewRoutHelp(TCUserMessage),
+    TCAddUserInfo:viewRoutHelp(TCAddUserInfo),
+    TCAddPhoneNumberInfo:viewRoutHelp(TCAddPhoneNumberInfo),
+    TCUserPayType:viewRoutHelp(TCUserPayType),
+    UserAcountPay:viewRoutHelp(TCUserPayAndWithdrawRecordsMain),
+    UserPayment: viewRoutHelp(UserPayment),
+    WxPublicPage: viewRoutHelp(WechatPublicPage),
+    TCUserWithdrawNew:viewRoutHelp(TCUserWithdrawNew),
+    TCUserBankPayMessageNew:viewRoutHelp(TCUserBankPayMessageNew)
 }
 
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
@@ -47,7 +57,19 @@ const MainStackNavigator = StackNavigator({
     }
 })
 import {platInfo} from "../../config/appConfig";
-
+import TCUserDetailMsg from "../UserCenter/user/TCUserDetailMsg";
+import TCUserMessage from "../UserCenter/user/TCUserMessage";
+import TCAddUserInfo from "../UserCenter/user/TCAddUserInfo";
+import TCAddPhoneNumberInfo from "../UserCenter/user/TCAddPhoneNumberInfo";
+import TCUserPayType from "../UserCenter/UserPay/TCUserPayType";
+import TCUserPayAndWithdrawRecordsMain from "../UserCenter/UserAccount/TCUserPayAndWithdrawRecordsMain";
+import UserPayment from '../../Page/UserCenter/UserPay/TCUserPayNew'
+import WechatPublicPage from '../../Page/UserCenter/UserPay/WxPublic/TCUserPayWxPublic'
+import TCUserWithdrawNew from "../UserCenter/UserWithdraw/TCUserWithdraw";
+import GameUIView from "../enter/GameUIView";
+import KeyboardManager from 'react-native-keyboard-manager'
+import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
+import LoadingView from "../enter/LoadingView";
 @observer
 export default class App extends Component {
     constructor(state) {
@@ -56,6 +78,10 @@ export default class App extends Component {
 
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+        if(KeyboardManager&&KeyboardManager.setToolbarPreviousNextButtonEnable){
+            KeyboardManager.setToolbarPreviousNextButtonEnable(true);
+        }
+
         StatusBar.setHidden(true);
         let cData = platInfo.channel[`c_${TW_Store.appStore.channel}`];
         TW_Log("cData--------"+TW_Store.appStore.channel,cData)
@@ -67,6 +93,8 @@ export default class App extends Component {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
         TN_START_Fabric()
+        
+        TN_StartUMeng(cData.umengKey, cData.umengChanel)
 
         // TN_CodePush_ASEET((data)=>{
         //    // this.setState({aseets:data})
@@ -80,7 +108,7 @@ export default class App extends Component {
     render() {
 
         return (
-            <Provider  {...appStores} >
+            <Provider  {...rootStore} >
                 <View style={{flex: 1, backgroundColor:"black"}}>
                     <MainStackNavigator
                         ref={navigatorRef => {
@@ -96,6 +124,8 @@ export default class App extends Component {
                         }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.saveVersionM)}` +
                     `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text> : null}
                     <CommonBoxLayer/>
+                    <GameUIView/>
+                    {/*<LoadingView/>*/}
                 </View>
             </Provider>
         )

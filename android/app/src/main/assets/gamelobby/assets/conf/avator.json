@@ -4,14 +4,25 @@
     "duration":500,
     "bg":{
         "pos":{"x":0,"y":0},
-        "src":"./assets/ui/avator/bgAvator.png"
+        "src":"./assets/ui/avator/img_touxaingdi.png",
+        "anim":{
+            "pos":{"x":280,"y":58},
+            "textPath":"./assets/ui/animation/liangguang/liangguang.png",
+            "animPath":"./assets/ui/animation/liangguang/liangguang.sk",
+            "playSpeed":1.0,
+            "loop":true,
+            "loopdelay":2000,
+            "stopHide":{
+                "value":true
+            }
+        }
     },
     "headicon":{
         "btnicon":{
             "desc":"头像按钮，点击后可以打开个人信息面板",
             "pos":{
-                "x":84.5,
-                "y":74.5
+                "x":75,
+                "y":55
             },
             "src":[
                 "./assets/ui/avator/default.jpg"
@@ -23,29 +34,34 @@
                 "borderColorX":"#ff0000",
                 "pos":{ "x":0, "y":0 }
             },
-            "size":{ "w":110, "h":110 },
+            "size":{ "w":90, "h":90 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
             "sfx":"assets/raw/Click.mp3"
         },
         "iconframe":{
             "src":"./assets/ui/avator/avatorFrame.png",
-            "pos":{ "x":22.5, "y":12.5 },
-            "size":{ "w":124, "h":124 }
+            "pos":{ "x":25, "y":5 },
+            "size":{ "w":100, "h":100 }
+        },
+        "lbname":{
+            "src":"./assets/ui/avator/img_dating_zhanghaozi.png",
+            "pos":{ "x":150, "y":5 },
+            "size":{ "w":146, "h":32 }
         },
         "name":{
             "size":{ "w":165, "h":35 },
             "font":{
                 "pretext":"xxx",
-                "size":24,
-                "color":"#92c6dd",
-                "align":"center",
-                "valign":"top",
+                "size":30,
+                "color":"#ffe996",
+                "align":"left",
+                "valign":"middle",
                 "borderColorX":"#ff0000",
                 "name":"x",
                 "wordwrap":false
             },
-            "pos":{ "x":165, "y":53 }
+            "pos":{ "x":150, "y":60 }
         },
         "picnamehead":"touxiang/img_touxiang_",
         "picnameend":".jpg",
@@ -56,9 +72,9 @@
         "bStarName":false
     },
     "coinicon":{
-        "pos":{ "x":145, "y":0 },
+        "pos":{ "x":600, "y":10 },
         "bg":{
-            "src":"./assets/ui/avator/bgCoin.png",
+            "src":"./assets/ui/avator/img_dating_qian_di.png",
             "pos":{ "x":0, "y":0 }
         },
         "label":{
@@ -75,15 +91,26 @@
                 "wrap":false
             }
         },
-        "iconX":{
-            "src":"./assets/ui/titlebar/icon_fangjian_ziyuan_chouam.png",
-            "pos":{ "x":0, "y":5 }
+        "icon":{
+            "srcX":"./assets/ui/avator/icon_fangjian_ziyuan_chouam.png",
+            "pos":{ "x":20, "y":40 },
+            "anim":{
+                "textPath":"./assets/ui/animation/coins/money_icon.png",
+                "animPath":"./assets/ui/animation/coins/money_icon.sk",
+                "playSpeed":1.0,
+                "loop":true,
+                "loopdelay":2000,
+                "pos":{ "x":0, "y":0 },
+                "stopHide":{
+                    "value":true
+                }
+            }
         },
         "btnadd":{
             "src":[
-                "./assets/ui/avator/btn_add.png"
+                "./assets/ui/avator/btn_dating_zengjia.png"
             ],
-            "pos":{ "x":230, "y":46 },
+            "pos":{ "x":300, "y":38 },
             "font":{
                 "text":"",
                 "size":18,
@@ -91,10 +118,10 @@
                 "borderColorX":"#ff0000",
                 "pos":{ "x":0, "y":0 }
             },
-            "size":{ "w":71, "h":71 },
+            "size":{ "w":55, "h":55 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "anim":{
+            "animX":{
                 "textPath":"./assets/ui/animation/btn_recharge/Reload.png",
                 "animPath":"./assets/ui/animation/btn_recharge/Reload.sk",
                 "playSpeed":1.0,

@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -32,6 +32,9 @@ var HeadIcon = /** @class */ (function (_super) {
         if (this.conf.iconframe) {
             this.initIconFrame(this.conf.iconframe);
         }
+        if (this.conf.lbname) {
+            this.initLbName(this.conf.lbname);
+        }
         //图标
         this.btn_icon = new MyButton();
         this.btn_icon.init(this.conf.btnicon, this, this.callback);
@@ -52,6 +55,10 @@ var HeadIcon = /** @class */ (function (_super) {
     //初始化头像框
     HeadIcon.prototype.initIconFrame = function (conf) {
         var sp = Tools.newSprite(this.conf.iconframe);
+        this.addChild(sp);
+    };
+    HeadIcon.prototype.initLbName = function (conf) {
+        var sp = Tools.newSprite(conf);
         this.addChild(sp);
     };
     //初始化用户id

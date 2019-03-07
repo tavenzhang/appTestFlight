@@ -63,3 +63,5 @@ global.TN_START_Fabric = (key="4711ad6d815964a1103b461bc1d85ddf312b037d") => {
         NativeModules.JXHelper.startFarbic&&NativeModules.JXHelper.startFarbic(key);
     }
 }
+
+global.TN_UMShareModule = NativeModules.UMShareModule;

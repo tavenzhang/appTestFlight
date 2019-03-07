@@ -1,6 +1,6 @@
 {
     "pos":{ "x":0, "y":120 },
-    "girl":{
+    "girlX":{
         "src":"./assets/ui/game/img_dating_renwu.png",
         "pos":{ "x":0, "y":0 },
         "size":{"w":392,"h":606},
@@ -10,7 +10,8 @@
     },
     "panel":{
         "content":{
-            "pos":{ "x":360, "y":0 },
+            "pos":{ "x":430, "y":0 },
+            "posX":{ "x":225, "y":0 },
             "hidepos":{ "x":0, "y":0 },
             "durationIn":500,
             "durationOut":1000,
@@ -20,12 +21,7 @@
             "desc":"是否使用遮罩",
             "value":true
         },
-        "rect":{
-            "x":0,
-            "y":0,
-            "w":1000,
-            "h":550
-        },
+        "rect":{ "x":0, "y":0, "w":995, "h":550 },
         "showbgX":{
             "desc":"内容容器绘制背景",
             "color":"#ff0000",
@@ -40,14 +36,11 @@
     "arrow":{
         "desc":"右侧提示箭头，已废除",
         "src":"./assets/ui/game/arrow_00.png",
-        "pos":{
-            "x":1250,
-            "y":260
-        }
+        "pos":{ "x":1250, "y":260 }
     },
     "pagearrow":{
         "desc":"右侧箭头动画",
-        "pos":{"x":1205,"y":260},
+        "pos":{"x":1255,"y":260},
         "src":{
             "src":"./assets/ui/game/arrow_00.png",
             "pos":{ "x":0, "y":0 }
@@ -78,7 +71,7 @@
     },
     "gameitemdefault":{
         "number":5,
-        "pos":{ "x":0, "y":0 },
+        "pos":{ "x":-30, "y":0 },
         "showbgX":{
             "color":"#ff0000",
             "alpha":0.5

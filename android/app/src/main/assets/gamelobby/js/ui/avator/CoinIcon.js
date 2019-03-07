@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -24,16 +24,38 @@ var CoinIcon = /** @class */ (function (_super) {
         this.addChild(this.sp_bg);
         if (this.conf.icon) {
             this.sp_icon = new Laya.Sprite();
-            this.sp_icon.loadImage(this.conf.icon.src);
+            if (this.conf.icon.src) {
+                this.sp_icon.loadImage(this.conf.icon.src);
+            }
             this.sp_icon.pos(this.conf.icon.pos.x, this.conf.icon.pos.y);
             this.addChild(this.sp_icon);
+            //如果有动画，就加动画
+            if (this.conf.icon.anim) {
+                var anim = new MyBoneAnim();
+                anim.init(this.conf.icon.anim);
+                this.sp_icon.addChild(anim);
+                anim.playAnim(0, true);
+            }
         }
-        this.lb_num = Tools.newLabel(this.conf.label.font.text, this.conf.label.size.w, this.conf.label.size.h, this.conf.label.font.size, this.conf.label.font.color, this.conf.label.font.align, this.conf.label.font.valign, this.conf.label.font.name, this.conf.label.font.wrap);
-        if (this.conf.label.font.borderColor) {
+        /*
+        this.lb_num = Tools.newLabel(
+            this.conf.label.font.text,
+            this.conf.label.size.w,this.conf.label.size.h,
+            this.conf.label.font.size,this.conf.label.font.color,
+            this.conf.label.font.align,this.conf.label.font.valign,
+            this.conf.label.font.name,this.conf.label.font.wrap
+            );
+        if( this.conf.label.font.borderColor )
+        {
             this.lb_num.borderColor = this.conf.label.font.borderColor;
         }
-        this.lb_num.pos(this.conf.label.pos.x, this.conf.label.pos.y);
+        this.lb_num.pos(this.conf.label.pos.x,this.conf.label.pos.y);
         this.addChild(this.lb_num);
+        */
+        this.lb_num = new DataNum(ConfObjRead.getConfDataNum());
+        this.addChild(this.lb_num);
+        this.lb_num.setNum("0");
+        this.lb_num.pos(this.conf.label.pos.x, this.conf.label.pos.y);
         if (this.conf.btnadd) {
             this.btn_add = new MyButton();
             this.btn_add.init(this.conf.btnadd, this, this.onBtnClick);
@@ -56,9 +78,13 @@ var CoinIcon = /** @class */ (function (_super) {
         Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
     };
     CoinIcon.prototype.setData = function (dt) {
+        Debug.trace("CoinIcon.setData dt.userBalance.balance:");
+        Debug.trace(dt);
         var v = dt.userBalance.balance;
         v = Tools.FormatMoney(v, 2);
-        this.lb_num.text = v;
+        // this.lb_num.text = v;
+        Debug.trace("CoinIcon.setData v:" + v);
+        this.lb_num.setNum(v);
     };
     return CoinIcon;
 }(Laya.Sprite));

@@ -79,10 +79,55 @@ var LayaMain = /** @class */ (function () {
         // Laya.stage.fullScreenEnabled = true;
         Laya.stage.on(Laya.Event.RESIZE, this, this.onResize);
         //添加侦听postMessage
+        //   window.addEventListener("message", this.handleAction,false);
         window.document.addEventListener("message", this.handleIFrameAction, false);
     }
     LayaMain.getInstance = function () {
         return LayaMain.obj;
+    };
+    LayaMain.prototype.handleAction = function (e) {
+        try {
+            // Debug.trace("Laya handleAction:");
+            // Debug.trace(e);
+            var obj = JSON.parse(e.data);
+            Debug.trace("Laya handleAction obj:");
+            Debug.trace(obj);
+            Debug.trace("Laya handleAction action:");
+            Debug.trace(obj.action);
+            switch (obj.action) {
+                case "lobbyResume":
+                    Debug.trace("LayaMain.handleAction in case");
+                    lamain.onGameResume();
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (e) { }
+    };
+    LayaMain.prototype.onGameResume = function () {
+        Debug.trace("LayaMain.onGameResume mv:" + Common.lastMusicVolume + " sv:" + Common.lastSoundVolume);
+        try {
+            var lms = SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1);
+            var lmv = SaveManager.getObj().get(SaveManager.KEY_MUSIC_VL, 1);
+            var lss = SaveManager.getObj().get(SaveManager.KEY_SFX_SWITCH, 1);
+            var lsv = SaveManager.getObj().get(SaveManager.KEY_SFX_VL, 1);
+            //恢复到暂存音量
+            Laya.SoundManager.setMusicVolume(lmv);
+            Laya.SoundManager.setSoundVolume(lsv);
+            if (lms == 1) {
+                Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+            }
+        }
+        catch (e) { }
+    };
+    LayaMain.prototype.onGamePause = function () {
+        //检查当前声音音量，进行暂存
+        // Common.lastMusicVolume = Laya.SoundManager.musicVolume;
+        // Common.lastSoundVolume = Laya.SoundManager.soundVolume;
+        //然后关闭所有声音
+        Laya.SoundManager.setMusicVolume(0);
+        Laya.SoundManager.setSoundVolume(0);
     };
     //接收平台消息
     LayaMain.prototype.handleIFrameAction = function (e) {
@@ -105,11 +150,10 @@ var LayaMain = /** @class */ (function () {
                     LayaMain.onQuit();
                     break;
                 case "playMusic":
-                    LobbyScene.stopMusic();
-                    LobbyScene.initMusic();
+                    lamain.onGameResume();
                     break;
                 case "stopMusic":
-                    LobbyScene.stopMusic();
+                    lamain.onGamePause();
                     break;
                 case "windowResize":
                     this.onResize();

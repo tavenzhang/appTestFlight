@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -33,8 +33,19 @@ var RoomTitleBar = /** @class */ (function (_super) {
         this.conf = conf;
         this.caller = caller;
         this.callback = callback;
+        if (this.conf.bg) {
+            var bg = Tools.addSprite(this, this.conf.bg);
+        }
         this.initTitle(this.conf.title);
-        this.initSetting(this.conf.btnback);
+        if (this.conf.btnback) {
+            this.initSetting(this.conf.btnback);
+        }
+        if (this.conf.btnback2) {
+            var b2 = new MyButton();
+            b2.init(this.conf.btnback2, this, this.onSettingClick);
+            b2.pos(this.conf.btnback2.pos.x, this.conf.btnback2.pos.y);
+            this.addChild(b2);
+        }
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
     RoomTitleBar.prototype.initSetting = function (conf) {

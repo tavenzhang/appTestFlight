@@ -86,7 +86,7 @@ export  default class QRCode extends React.Component {
         let value = this.utf16to8(this.props.value);
 
         return (
-            <View>
+            <View >
                 <Canvas
                     context={{
                         size: size,

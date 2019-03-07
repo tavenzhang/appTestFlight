@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -204,6 +204,8 @@ var LoginPad = /** @class */ (function (_super) {
             Common.access_token = jobj.oauthToken.access_token;
             //存档
             SaveManager.getObj().save(SaveManager.KEY_TOKEN, Common.access_token);
+            //登录成功，通知容器，当前新token
+            PostMHelp.tokenChange({ "payload": Common.access_token });
             //登录成功，进入大厅
             LayaMain.getInstance().initLobby();
         }

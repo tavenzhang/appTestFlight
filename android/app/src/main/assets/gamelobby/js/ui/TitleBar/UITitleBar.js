@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -37,10 +37,10 @@ var UITitleBar = /** @class */ (function (_super) {
             this.initTitle(this.conf.title);
         }
         //Modified by Jelly on 2018.12.27
-        if (Common.IS_NATIVE_APP) {
-            this.initSetting(this.conf.btnsetting_native);
-            this.initExit(this.conf.btnexit_native);
-            this.btn_exit.visible = false; //不显示
+        if (AppData.IS_NATIVE_APP) {
+            this.initSetting(this.conf.btnsetting);
+            this.initExit(this.conf.btnexit);
+            //  this.btn_exit.visible = false;//不显示
         }
         else {
             this.initSetting(this.conf.btnsetting);
@@ -48,6 +48,7 @@ var UITitleBar = /** @class */ (function (_super) {
         }
         //暂时没有这个
         this.initNotice(this.conf.btnnotice);
+        this.initCustom(this.conf.btncustom);
         // Debug.trace("titlebar init ok");
         // Debug.trace(this.conf);
         this.pos(this.conf.pos.x, this.conf.pos.y);
@@ -72,13 +73,22 @@ var UITitleBar = /** @class */ (function (_super) {
         this.btn_setting.pos(conf.pos.x, conf.pos.y);
         this.addChild(this.btn_setting);
     };
+    UITitleBar.prototype.initCustom = function (conf) {
+        if (!conf) {
+            return;
+        }
+        this.btn_custom = new MyButton();
+        this.btn_custom.init(conf, this, this.onCustomClick);
+        this.btn_custom.pos(conf.pos.x, conf.pos.y);
+        this.addChild(this.btn_custom);
+    };
     UITitleBar.prototype.initNotice = function (conf) {
         if (!conf) {
             return;
         }
         this.btn_notice = new MyButton();
         this.btn_notice.init(conf, this, this.onNoticeClick);
-        this.btn_notice.pos(conf.pos.x + (AppData.IS_NATIVE_APP ? 120 : 0), conf.pos.y);
+        this.btn_notice.pos(conf.pos.x, conf.pos.y);
         //这个版本不上，先隐藏了 Add by Jelly 2018.12.27
         //  this.btn_notice.visible = false;
         this.addChild(this.btn_notice);
@@ -108,9 +118,12 @@ var UITitleBar = /** @class */ (function (_super) {
         //
     };
     UITitleBar.prototype.onNoticeClick = function (e) {
-        // LayaMain.getInstance().showNoticePad(ConfObjRead.getConfNotice());//Common.confObj.settingpad);
-        AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention());
-        AttentionDialog.obj.show();
+        // AttentionDialog.showPad( LobbyScene.getInstance(), ConfObjRead.getConfAttention());
+        // AttentionDialog.obj.show();
+        this.onExitClick(null);
+    };
+    UITitleBar.prototype.onCustomClick = function (e) {
+        // Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom,"custom");
     };
     UITitleBar.prototype.scrollOut = function () {
         var xIn = 0;
