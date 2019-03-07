@@ -124,10 +124,11 @@ export default class XXWebView extends Component {
                     // TW_Log("game---ct=="+message.ct,message.data);
                     break;
                 case "JumpGame":
-                    url = this.handleUrl(message.au);
+                    url = this.handleUrl(message.payload);
+                    TW_Log("onMessage===========>>JumpGame--" +  url,message.payload);
                     if (TW_Store.bblStore.lastGameUrl != url) {
                         TW_Store.bblStore.lastGameUrl = url;
-                        TW_Store.bblStore.jumpData=this.getJumpData(message.au)
+                        TW_Store.bblStore.jumpData=this.getJumpData(message.payload)
                         TW_NavHelp.pushView(JX_Compones.WebView, {
                             url,
                             onMsgHandle: this.onMsgHandle,
@@ -136,9 +137,6 @@ export default class XXWebView extends Component {
                         })
                         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
-                    break;
-                case "game_back":
-                    TW_NavHelp.popToBack();
                     break;
                 case  "JumpUrl":
                     //TN_Notification("JumpUrl","test local notification");
@@ -160,10 +158,6 @@ export default class XXWebView extends Component {
                        // TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
                         let module =TW_GetQueryString("module",message.au);
                         switch(module){
-                            case "recharge":
-                                //TW_NavHelp.pushView(JX_Compones.TCUserPayType, {})
-                                TW_Store.gameUIStroe.isShowAddPayView=!TW_Store.gameUIStroe.isShowAddPayView;
-                                break;
                             case "account":
                               //  TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
                                 TW_Store.gameUIStroe.isShowUserInfo =!TW_Store.gameUIStroe.isShowUserInfo;
@@ -172,24 +166,38 @@ export default class XXWebView extends Component {
                                 TW_Store.gameUIStroe.isShowWithDraw =! TW_Store.gameUIStroe.isShowWithDraw;
                                 //TW_NavHelp.pushView(JX_Compones.TCUserWithdrawNew, {})
                                 break;
-                            case "custom":
-                                TW_Log("custom---"+TW_Store.gameUIStroe.isShowGuest+"--url"+url)
-                                //TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
-                                TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
-                                break;
+
 
                         }
                         //TW_Log("module-----------"+module)
                         //this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
+
+                case  "game_custom":
+
+                    TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
+                   // TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
+                    break;
+                case  "game_share":
+                     TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
+                    break;
+                case "game_redraw":
+                    TW_Store.gameUIStroe.isShowWithDraw=!TW_Store.gameUIStroe.isShowWithDraw;
+                    break;
+                case "game_recharge":
+                    TW_Store.gameUIStroe.isShowAddPayView =!TW_Store.gameUIStroe.isShowAddPayView;
+                    break;
+                case "game_back":
+                    TW_Log("custom---exitAppToLoginPage")
+                    TW_Store.userStore.exitAppToLoginPage();
+                    this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.logout));
+                    break;
                 case  "debugInfo":
                     let name = message.name ? message.name : "";
                     name = name.toLowerCase();
                     if (name == "111" && message.pwd == "222") {
                         TW_Store.bblStore.changeShowDebug(true);
-                    }else if(name=="logout"){
-                        TW_Store.userStore.exitAppToLoginPage()
                     }
                     break;
                 case "http":

@@ -113,7 +113,8 @@ export default class Enter extends Component {
         if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === 0) {
             checkView =this.getLoadingView();
         } else if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === -1) {
-            checkView =this.updateFailView()
+            //checkView =this.updateFailView()
+            checkView = null
         }
         // else {
         //     return (<App/>);
