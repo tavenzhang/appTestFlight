@@ -298,22 +298,21 @@ var Tools = /** @class */ (function () {
     };
     //跳转到游戏
     Tools.jump2game = function (urls) {
-        var url = urls;
-        // Debug.trace("Tools jump2game url:"+url);
-        var ginfo = Common.getCurGameInfo();
-        var backurl = ConfObjRead.getConfUrl().url.backlobby;
-        var mainUrl = Tools.getCurFullPath();
-        Debug.trace("Tools.jump2game mainUrl:" + mainUrl);
-        var hostUrl = Tools.getCurHost(mainUrl);
-        //将url前头的../去掉
-        var dir = Tools.filterGameDir(urls);
-        var jumpUrl = hostUrl + "/" + dir;
-        //如果是app 不加localhost 前缀
-        if (AppData.IS_NATIVE_APP) {
-            jumpUrl = "/" + dir;
-        }
-        Debug.trace("Tools.jump2game jumpUrl:" + jumpUrl);
         try {
+            var url = urls;
+            // Debug.trace("Tools jump2game url:"+url);
+            var ginfo = Common.getCurGameInfo();
+            var backurl = ConfObjRead.getConfUrl().url.backlobby;
+            var mainUrl = Tools.getCurFullPath();
+            Debug.trace("Tools.jump2game mainUrl:" + mainUrl);
+            var hostUrl = Tools.getCurHost(mainUrl);
+            //将url前头的../去掉
+            var dir = Tools.filterGameDir(urls);
+            var jumpUrl = hostUrl + "/" + dir;
+            Debug.trace("Tools.jump2game jumpUrl:" + jumpUrl);
+            if (AppData.IS_NATIVE_APP) {
+                jumpUrl = "/" + dir;
+            }
             if (ginfo && ginfo.alias) {
                 // Debug.trace("Tools jump2game0 alias:"+ginfo.alias+" backUrl:"+backurl);
                 if (ginfo.alias == "zjh") {
@@ -321,9 +320,6 @@ var Tools = /** @class */ (function () {
                 }
                 // Debug.trace("Tools jump2game1 alias:"+ginfo.alias+" backUrl:"+backurl);
             }
-        }
-        catch (e) { }
-        try {
             var jobj = {
                 "token": Common.access_token,
                 "httpUrl": ConfObjRead.getConfUrl().url.apihome,
@@ -431,9 +427,6 @@ var Tools = /** @class */ (function () {
                         break;
                     case "redraw":
                         PostMHelp.game_redraw(jobj);
-                        break;
-                    case "share":
-                        PostMHelp.game_share(jobj);
                         break;
                 }
                 // PostMHelp.jupmToUrl({jobj,au})

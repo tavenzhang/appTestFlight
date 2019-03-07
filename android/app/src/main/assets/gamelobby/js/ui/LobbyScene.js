@@ -33,7 +33,7 @@ var LobbyScene = /** @class */ (function (_super) {
         //游戏图标
         GamePanel.getInstance(this, ConfObjRead.getConfGamepanel(), this, this.gamepanelOver);
         //广告模块
-        AdManager.getInstance(this);
+        GirlManager.getInstance(this);
         //标题栏
         UITitleBar.getInstance(this, ConfObjRead.getConfTitlebar(), this, this.titlebarOver);
         // Debug.trace("LobbyScene.initUI titlebar ok");

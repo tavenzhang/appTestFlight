@@ -37,24 +37,24 @@
             "size":{ "w":1326, "h":78 }
         },
         "btns":[
-             {
-            "desc":"分享",
-            "cmd":"share",
-            "pos":{ "x":520, "y":700 },
-            "src":[
-                "./assets/ui/mine/icon_fenxiang.png"
-            ],
-            "size":{ "w":76, "h":90 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfxX":"assets/raw/Click.mp3"
-        },
             {
                 "desc":"提现",
                 "cmd":"redraw",
                 "pos":{ "x":1000, "y":700 },
                 "src":[
-                    "./assets/ui/mine/icon_duixian.png"
+                    "./assets/ui/mine/icon_tixian.png"
+                ],
+                "size":{ "w":76, "h":90 },
+                "maxScale":{"x":1.02,"y":1.02},
+                "normalScale":{"x":1,"y":1},
+                "sfxX":"assets/raw/Click.mp3"
+            },
+            {
+                "desc":"账户",
+                "cmd":"account",
+                "pos":{ "x":880, "y":700 },
+                "src":[
+                    "./assets/ui/mine/icon_zhanghu.png"
                 ],
                 "size":{ "w":76, "h":90 },
                 "maxScale":{"x":1.02,"y":1.02},
@@ -64,7 +64,7 @@
             {
                 "desc":"客服",
                 "cmd":"custom",
-                "pos":{ "x":880, "y":700 },
+                "pos":{ "x":760, "y":700 },
                 "src":[
                     "./assets/ui/mine/icon_kefu.png"
                 ],
@@ -76,7 +76,7 @@
             {
                 "desc":"设置",
                 "cmd":"setting",
-                "pos":{ "x":760, "y":700 },
+                "pos":{ "x":640, "y":700 },
                 "src":[
                     "./assets/ui/mine/icon_shezhi.png"
                 ],
@@ -88,7 +88,7 @@
             {
                 "desc":"活动",
                 "cmd":"notice",
-                "pos":{ "x":640, "y":700 },
+                "pos":{ "x":520, "y":700 },
                 "src":[
                     "./assets/ui/mine/icon_huodong.png"
                 ],
@@ -100,7 +100,18 @@
         ]
     },
     "bak":[
-       
+        {
+            "desc":"分享",
+            "cmd":"share",
+            "pos":{ "x":400, "y":700 },
+            "src":[
+                "./assets/ui/mine/icon_fenxiang.png"
+            ],
+            "size":{ "w":76, "h":90 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfxX":"assets/raw/Click.mp3"
+        }
     ],
     "default":{
         "desc":"默认开还是关",

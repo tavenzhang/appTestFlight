@@ -39,7 +39,7 @@ var UITitleBar = /** @class */ (function (_super) {
         //Modified by Jelly on 2018.12.27
         if (AppData.IS_NATIVE_APP) {
             this.initSetting(this.conf.btnsetting);
-            this.initExit(this.conf.btnsetting);
+            this.initExit(this.conf.btnexit);
             //  this.btn_exit.visible = false;//不显示
         }
         else {

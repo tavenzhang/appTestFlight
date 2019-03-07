@@ -163,12 +163,10 @@ var LoadingScene = /** @class */ (function (_super) {
                 Common.gameId = 0;
                 Common.wsUrl = "";
                 Common.roomId = 0;
-                this.checkBackFromGame();
+                this.checkBackFromGameX();
             }
             else {
-                // this.uigamepanel.visible = true;
-                //没有重连也要检查是否来自游戏
-                this.checkBackFromGame();
+                this.checkBackFromGameX();
             }
         }
         else {
@@ -176,11 +174,17 @@ var LoadingScene = /** @class */ (function (_super) {
             //无需重连，检查是否从游戏中退出来的？
             //如果是从游戏中退出来的，应该进入到该游戏的房间列表
             // Debug.trace("RootScene check old gameId:"+Common.gameId);
-            this.checkBackFromGame();
+            this.checkBackFromGameX();
         }
     };
     //检查当前是否从游戏返回大厅，是的话就要进入房间列表
-    LoadingScene.prototype.checkBackFromGame = function () {
+    LoadingScene.prototype.checkBackFromGameX = function () {
+        // var gameId = Tools.getQueryVariable("gameId");
+        // var alias = Tools.getQueryVariable("alias");
+        // if (AppData.IS_NATIVE_APP) {
+        //     gameId = Common.gameId.toString();
+        // }
+        // Debug.trace("LoadingScene.checkBackFromGame gameId:" + gameId + " alias:" + alias);
         if (Common.gameId > 0) {
             Debug.trace('checkBackFromGame gameId:' + Common.gameId);
             //直接进入到对应游戏的房间列表

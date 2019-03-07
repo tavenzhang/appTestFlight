@@ -1,12 +1,12 @@
 var ConfObjRead = /** @class */ (function () {
     function ConfObjRead() {
     }
-    ConfObjRead.getConfAdManager = function () {
-        if (ConfObjRead.AdObj) {
-            return ConfObjRead.AdObj;
+    ConfObjRead.getConfGirlManager = function () {
+        if (ConfObjRead.girlObj) {
+            return ConfObjRead.girlObj;
         }
-        ConfObjRead.AdObj = Laya.Loader.getRes("./assets/conf/ad.json");
-        return ConfObjRead.AdObj;
+        ConfObjRead.girlObj = Laya.Loader.getRes("./assets/conf/girl.json");
+        return ConfObjRead.girlObj;
     };
     ConfObjRead.getConfDataNum = function () {
         if (ConfObjRead.dataNumObj) {
@@ -265,7 +265,7 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.musicObj = Laya.Loader.getRes("./assets/conf/music.json");
         return ConfObjRead.musicObj;
     };
-    ConfObjRead.AdObj = null;
+    ConfObjRead.girlObj = null;
     ConfObjRead.dataNumObj = null;
     ConfObjRead.htmlObj = null;
     ConfObjRead.giconAnimObj = null;

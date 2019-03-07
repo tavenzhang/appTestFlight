@@ -174,9 +174,10 @@ export default class XXWebView extends Component {
                         //this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
-
+                case  "game_account":
+                    TW_Store.gameUIStroe.isShowUserInfo =!TW_Store.gameUIStroe.isShowUserInfo;
+                    break;
                 case  "game_custom":
-
                     TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
                    // TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
                     break;
@@ -185,7 +186,7 @@ export default class XXWebView extends Component {
                     break;
                 case "game_redraw":
                     TW_Store.gameUIStroe.isShowWithDraw=!TW_Store.gameUIStroe.isShowWithDraw;
-                   // break;
+                    break;
                 case "game_back":
                     TW_Log("custom---exitAppToLoginPage")
                     TW_Store.userStore.exitAppToLoginPage();

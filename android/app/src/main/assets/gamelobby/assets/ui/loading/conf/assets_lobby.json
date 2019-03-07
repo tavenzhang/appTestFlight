@@ -4,7 +4,6 @@
         {"url":"./brand/login_logo.png","type":"IMAGE"},
         {"url":"./brand/lobby_logo.png","type":"IMAGE"},
         
-        {"url":"./assets/conf/ad.json","type":"JSON"},
         {"url":"./assets/conf/attention.json","type":"JSON"},
         {"url":"./assets/conf/avator.json","type":"JSON"},
         {"url":"./assets/conf/avatorpad.json","type":"JSON"},
@@ -15,6 +14,7 @@
         {"url":"./assets/conf/datanum.json","type":"JSON"},
         {"url":"./assets/conf/gameiconanim.json","type":"JSON"},
         {"url":"./assets/conf/gamepanel.json","type":"JSON"},
+        {"url":"./assets/conf/girl.json","type":"JSON"},
         {"url":"./assets/conf/helppad.json","type":"JSON"},
         {"url":"./assets/conf/history.json","type":"JSON"},
         {"url":"./assets/conf/libhtml.json","type":"JSON"},
@@ -199,7 +199,8 @@
         {"url":"./assets/ui/mine/btn_redraw.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/btn_switch.png","type":"IMAGE"},
 
-        {"url":"./assets/ui/mine/icon_duixian.png","type":"IMAGE"},
+        {"url":"./assets/ui/mine/icon_tixian.png","type":"IMAGE"},
+        {"url":"./assets/ui/mine/icon_zhanghu.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/icon_fenxiang.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/icon_guize.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/icon_huodong.png","type":"IMAGE"},
