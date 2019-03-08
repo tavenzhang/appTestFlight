@@ -21,8 +21,8 @@ var PostMHelp = /** @class */ (function () {
     PostMHelp.tokenChange = function (data) {
         if (data === void 0) { data = {}; }
         var msg = JSON.stringify(__assign({ action: "game_user_token" }, data));
-        Debug.trace("tokenChange msg:");
-        Debug.trace(msg);
+        // Debug.trace("tokenChange msg:");
+        // Debug.trace(msg);
         window.top.postMessage(msg, "*");
     };
     PostMHelp.jumpToGame = function (data) {
@@ -53,40 +53,36 @@ var PostMHelp = /** @class */ (function () {
     PostMHelp.game_recharge = function (data) {
         if (data === void 0) { data = {}; }
         //需要关闭声音
-        try {
-            lamain.onGamePause();
-        }
-        catch (e) { }
+        // try{
+        //       lamain.onGamePause();
+        // }catch(e){}
         window.top.postMessage(JSON.stringify(__assign({ action: "game_recharge" }, data)), "*");
     };
     //提款
     PostMHelp.game_redraw = function (data) {
-        if (data === void 0) { data = {}; }
         //需要关闭声音
-        try {
-            lamain.onGamePause();
-        }
-        catch (e) { }
+        // try{
+        //       lamain.onGamePause();
+        // }catch(e){}
+        if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "game_redraw" }, data)), "*");
     };
     //打开个人信息
     PostMHelp.game_account = function (data) {
         if (data === void 0) { data = {}; }
         //需要关闭声音
-        try {
-            lamain.onGamePause();
-        }
-        catch (e) { }
+        // try{
+        //       lamain.onGamePause();
+        // }catch(e){}
         window.top.postMessage(JSON.stringify(__assign({ action: "game_account" }, data)), "*");
     };
     //打开客服
     PostMHelp.game_custom = function (data) {
         if (data === void 0) { data = {}; }
         //需要关闭声音
-        try {
-            lamain.onGamePause();
-        }
-        catch (e) { }
+        // try{
+        //       lamain.onGamePause();
+        // }catch(e){}
         window.top.postMessage(JSON.stringify(__assign({ action: "game_custom" }, data)), "*");
     };
     //代理大厅 所有app请求

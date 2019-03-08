@@ -44,8 +44,8 @@
 	],
 	"descDefaultAttr":"缺省属性及值",
 	"defaultAttr":[
-		"fontsize-18",
-		"fontcolor-rgb(255,255,255)"
+		"fontsize-26",
+		"fontcolor-rgb(239,232,205)"
 	],
 	"descDefaultParam":"缺省设置",
 	"defaultParam":{

@@ -88,14 +88,8 @@
             "duration":500,
             "autoPercent":0.5,
             "initpos":{"x":0,"y":0},
-            "left":{
-                "x":-300,
-                "y":0
-            },
-            "right":{
-                "x":300,
-                "y":0
-            }
+            "left":{ "x":-300, "y":0 },
+            "right":{ "x":300, "y":0 }
         }
     },
     "tabsItem":{

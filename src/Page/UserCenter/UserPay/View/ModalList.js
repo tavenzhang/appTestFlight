@@ -46,6 +46,7 @@ export default class ModalList extends Component {
                 animationType='fade'
                 transparent={true}
                 visible={this.state.show}
+                supportedOrientations={["portrait" , "portrait-upside-down" ,"landscape" , "landscape-left" , "landscape-right"]}
                 onRequestClose={() => {
                 }}
             >

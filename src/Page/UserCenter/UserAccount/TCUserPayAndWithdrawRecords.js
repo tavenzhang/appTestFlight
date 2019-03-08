@@ -87,7 +87,7 @@ export default class TCUserPayAndWithdrawRecords extends Component {
                 <NoDataView
                     ref='NoDataView'
                     titleTip={this.getNodataTip()}
-                    contentTip="大奖不等待，速去购彩吧~"
+                    contentTip="大奖不等待，速去押注吧~~"
                     btnTxt="立即充值"
                     gotoDoing={()=>TW_Store.gameUIStroe.hideAlertUI()}
                 />
@@ -96,7 +96,7 @@ export default class TCUserPayAndWithdrawRecords extends Component {
             return (<NoDataView
                 ref='NoDataView'
                 titleTip={this.getNodataTip()}
-                contentTip="大奖不等待，速去购彩吧~"
+                contentTip="大奖不等待，速去押注吧~"
             />)
         }
     }

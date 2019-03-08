@@ -389,7 +389,7 @@
                 "size":{ "w":150, "h":40 }
             }
         },
-        "yaoqingma":{
+        "yaoqingmaX":{
             "pos":{"x":0,"y":-10},
             "label":{
                 "src":"./assets/ui/login/lb_invation.png",
@@ -412,7 +412,7 @@
                 "prompt":"邀请码只能是字母或数字（选填）"
             }
         },
-        "phone":{
+        "phoneX":{
             "pos":{"x":0,"y":-10},
             "label":{
                 "src":"./assets/ui/login/lb_phone.png",

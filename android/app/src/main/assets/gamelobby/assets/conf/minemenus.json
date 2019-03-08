@@ -37,18 +37,6 @@
             "size":{ "w":1326, "h":78 }
         },
         "btns":[
-              {
-            "desc":"分享",
-            "cmd":"share",
-            "pos":{ "x":400, "y":700 },
-            "src":[
-                "./assets/ui/mine/icon_fenxiang.png"
-            ],
-            "size":{ "w":76, "h":90 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfxX":"assets/raw/Click.mp3"
-        }, 
             {
                 "desc":"提现",
                 "cmd":"redraw",
@@ -74,23 +62,26 @@
                 "sfxX":"assets/raw/Click.mp3"
             },
             {
-                "desc":"客服",
-                "cmd":"custom",
+                "desc":"分享",
+                "cmd":"share",
                 "pos":{ "x":760, "y":700 },
                 "src":[
-                    "./assets/ui/mine/icon_kefu.png"
+                    "./assets/ui/mine/icon_fenxiang.png"
                 ],
                 "size":{ "w":76, "h":90 },
                 "maxScale":{"x":1.02,"y":1.02},
                 "normalScale":{"x":1,"y":1},
                 "sfxX":"assets/raw/Click.mp3"
-            },
+            }
+        ]
+    },
+    "bak":[
             {
-                "desc":"设置",
-                "cmd":"setting",
-                "pos":{ "x":640, "y":700 },
+                "desc":"分享",
+                "cmd":"share",
+                "pos":{ "x":400, "y":700 },
                 "src":[
-                    "./assets/ui/mine/icon_shezhi.png"
+                    "./assets/ui/mine/icon_fenxiang.png"
                 ],
                 "size":{ "w":76, "h":90 },
                 "maxScale":{"x":1.02,"y":1.02},
@@ -108,34 +99,31 @@
                 "maxScale":{"x":1.02,"y":1.02},
                 "normalScale":{"x":1,"y":1},
                 "sfxX":"assets/raw/Click.mp3"
+            },
+            {
+                "desc":"客服",
+                "cmd":"custom",
+                "pos":{ "x":760, "y":700 },
+                "src":[
+                    "./assets/ui/mine/icon_kefu.png"
+                ],
+                "size":{ "w":76, "h":90 },
+                "maxScale":{"x":1.02,"y":1.02},
+                "normalScale":{"x":1,"y":1},
+                "sfxX":"assets/raw/Click.mp3"
+            },
+            {
+                "desc":"设置",
+                "cmd":"setting",
+                "pos":{ "x":760, "y":700 },
+                "src":[
+                    "./assets/ui/mine/icon_shezhi.png"
+                ],
+                "size":{ "w":76, "h":90 },
+                "maxScale":{"x":1.02,"y":1.02},
+                "normalScale":{"x":1,"y":1},
+                "sfxX":"assets/raw/Click.mp3"
             }
-        ]
-    },
-    "bak":[
-           {
-            "desc":"分享",
-            "cmd":"share",
-            "pos":{ "x":400, "y":700 },
-            "src":[
-                "./assets/ui/mine/icon_fenxiang.png"
-            ],
-            "size":{ "w":76, "h":90 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfxX":"assets/raw/Click.mp3"
-        },
-        {
-            "desc":"分享",
-            "cmd":"share",
-            "pos":{ "x":400, "y":700 },
-            "src":[
-                "./assets/ui/mine/icon_fenxiang.png"
-            ],
-            "size":{ "w":76, "h":90 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfxX":"assets/raw/Click.mp3"
-        }
     ],
     "default":{
         "desc":"默认开还是关",

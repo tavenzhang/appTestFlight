@@ -134,8 +134,8 @@ export  default  class BBLStore {
 
     @observable
     shareURL={
-        ios:"https://download.jingjingxiao.com/ios/gameImage",
-        android:"https://www.baidu.com",
+        ios:"https://download.425306.com/game/app.html?sub=release-mxaw7&app=1&rom=7827",
+        android:"https://download.425306.com/game/release/mxaw7/mxaw7.apk?rom=5593",
     }
 
 }

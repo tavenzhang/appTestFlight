@@ -188,6 +188,9 @@ export const gameUI = {
     typeWX_GZ:require('./game/moneyPay/type/typeWX_GZ.png'),
     typeZFB:require('./game/moneyPay/type/typeZFB.png'),
     typeBank:require('./game/moneyPay/type/typeYN.png'),
+    typeWy:require('./game/moneyPay/type/typeWy.png'),
+    typeTrans:require('./game/moneyPay/type/typeTrans.png'),
+
     //stepOnebg1@2x
     stepOneBg1:require('./game/moneyPay/stepOnebg1.png'),
     listItemBg:require('./game/moneyPay/listItemBg.png'),

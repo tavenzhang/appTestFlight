@@ -141,14 +141,8 @@
             }
         },
         "label":{
-            "pos":{
-                "x":45,
-                "y":0
-            },
-            "size":{
-                "w":110,
-                "h":38
-            },
+            "pos":{ "x":45, "y":0 },
+            "size":{ "w":110, "h":38 },
             "font":{
                 "text":"0",
                 "size":24,
@@ -162,37 +156,22 @@
         },
         "icon":{
             "src":"./assets/ui/titlebar/icon_fangjian_ziyuan_zuanshi.png",
-            "pos":{
-                "x":-15,
-                "y":-5
-            }
+            "pos":{ "x":-15, "y":-5 }
         },
         "btnaddX":{
             "src":[
                 "./assets/ui/titlebar/add.png"
             ],
-            "pos":{
-                "x":80,
-                "y":25
-            },
+            "pos":{ "x":80, "y":25 },
             "font":{
                 "text":"",
                 "size":18,
                 "color":"#ffffff",
                 "borderColorX":"#ff0000",
-                "pos":{
-                    "x":0,
-                    "y":0
-                }
+                "pos":{ "x":0, "y":0 }
             },
-            "size":{
-                "w":20,
-                "h":20
-            }
+            "size":{ "w":20, "h":20 }
         },
-        "pos":{
-            "x":600,
-            "y":0
-        }
+        "pos":{ "x":600, "y":0 }
     }
 }

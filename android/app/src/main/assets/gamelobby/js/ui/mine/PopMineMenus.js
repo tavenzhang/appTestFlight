@@ -78,7 +78,8 @@ var PopMineMenus = /** @class */ (function (_super) {
                 Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
                 break;
             case "setting":
-                SettingPad.showPad(LobbyScene.getInstance(), ConfObjRead.getConfSetting(), this, this.setCallback);
+                // SettingPad.showPad(LobbyScene.getInstance(),ConfObjRead.getConfSetting(),this,this.setCallback);
+                SettingPad.showPad(Laya.stage, ConfObjRead.getConfSetting(), this, this.setCallback);
                 break;
             case "notice":
                 AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention());

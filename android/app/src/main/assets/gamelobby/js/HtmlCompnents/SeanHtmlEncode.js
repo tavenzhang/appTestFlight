@@ -1,8 +1,3 @@
-/*
-Author : sean.guo49@gmail.com
-create : 20190118
-Features : read html nodes and transform to json Object
-*/
 var SeanHtmlEncode = /** @class */ (function () {
     function SeanHtmlEncode() {
     }
