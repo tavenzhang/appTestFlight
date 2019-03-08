@@ -4,7 +4,7 @@ import React, {
 
 
 export const appDomainBase = {
-    base1: 'https://38fo28gk.ewxsg.cn',
+    base1: 'https://38fo28gk.ewxsg.cn"',
     base2: "https://38fo28gk.jjxzt.cn",
     base3: "https://38fo28gk.gybye.cn",
     base4: "https://hosobw29.ewxsg.cn",
@@ -37,7 +37,7 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '超会盈棋牌';
+export const MyAppName = '超会盈游戏';
 
 export const versionHotFix = 'chy_3_6';
 
@@ -58,9 +58,9 @@ export const platInfo = {
 
     channel: {
         c_1: {
-            jpushKey: "",
+            jpushKey: "e9f6454032a3f4936d80a82f",
             jpush_channel: "",
-            umengKey: "5c80d8883fc195f177000916",
+            umengKey: "5b9f7642f43e486308000111",
             umengChanel:"1",
             flurry_ios:"",
             flurry_android:""
