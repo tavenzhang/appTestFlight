@@ -2460,7 +2460,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.365.new;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.gmxaw;
 				PRODUCT_NAME = JD;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2521,7 +2521,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.365.new;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.gmxaw;
 				PRODUCT_NAME = JD;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
