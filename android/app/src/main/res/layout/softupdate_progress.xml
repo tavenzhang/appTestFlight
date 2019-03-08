@@ -13,7 +13,7 @@
         android:text="@string/soft_updating"
         android:textSize="18sp" />
 
-    <com.caipiao.sanliuwu.numberprogressbar.NumberProgressBar
+    <com.bbl.cgmx.numberprogressbar.NumberProgressBar
         android:id="@+id/update_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
