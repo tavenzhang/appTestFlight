@@ -77,8 +77,14 @@ var LoadingScene = /** @class */ (function (_super) {
             //Debug.trace("ConfObjRead.getConfUrl()----",ConfObjRead.getConfUrl())
         }
         //开始播放背景音乐
-        //LobbyScene.initMusic();
-        Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+        Laya.loader.load([{ url: ConfObjRead.getConfMusic().src }], new Laya.Handler(this, function () {
+            Debug.trace("player bg music");
+            // Laya.timer.once( 3000 , this , ()=>{
+            //     Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+            // } );
+            Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+        }));
+        //Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
         if (this.temp_token.length <= 0 || this.status == 1) {
             //没有token存档的情况下，直接进入登录场景
             Debug.trace("ConfObjRead.getConfUrl()---- LayaMain.getInstance().initLogin()");

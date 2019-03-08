@@ -49,11 +49,12 @@ export default class ShareBox extends Component {
     }
 
     onSimpleShare=()=>{
+        let url =  G_IS_IOS ?TW_Store.bblStore.shareURL.ios:TW_Store.bblStore.shareURL.android
         Share.share({
             title: MyAppName,
-            message: '快乐一起分享，大家一起来!'
+            message: url
         }).then(this.showResult)
-            .catch((error) => this.setState({result: 'error: ' + error.message}));
+            .catch((error) =>TW_Log({result: 'error: ' + error.message}));
         // Share.share({
         //     title:"uat棋牌",
         //     message: 'React Native | A framework for building native apps using React'

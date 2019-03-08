@@ -15,6 +15,16 @@ export default class TCUserOpenPayApp {
     ALIPAY_PACKAGE = "com.eg.android.AlipayGphone"
     JD_PACKAGE = "com.jingdong.app.mall"
 
+
+
+    static openWX(){
+        // NativeModules.TCOpenOtherAppHelper.openApp("com.tencent.mm", "微信");
+        if( NativeModules.TCOpenOtherAppHelper){
+            NativeModules.TCOpenOtherAppHelper.openWeiXin()
+        }else{
+            TCUserOpenPayApp.linkingApp('weixin://', '微信');
+        }
+    }
     /**
      * 打开微信
      */
@@ -58,6 +68,12 @@ export default class TCUserOpenPayApp {
     }
 
     linkingApp(url, payType) {
+        Linking.openURL(url).catch(err => {
+            Toast.showShortCenter('请您先安装' + payType + '应用！')
+        })
+    }
+
+    static linkingApp(url, payType) {
         Linking.openURL(url).catch(err => {
             Toast.showShortCenter('请您先安装' + payType + '应用！')
         })

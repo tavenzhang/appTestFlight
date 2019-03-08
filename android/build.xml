@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?> <!-- 项目名称test,可用全局替换为当前项目名称 -->
 <project>
-    <property name="defaultPackageName" value="com.jd" />
-    <property name="defaultPackagePath" value="com/jd" />
-    <property name="newPackageName" value="com.caipiao.sanliuwu" />
-    <property name="newPackagePath" value="com/caipiao/sanliuwu" />
+    <property name="defaultPackageName" value="com.caipiao.sanliuwu" />
+    <property name="defaultPackagePath" value="com/caipiao/sanliuwu" />
+    <property name="newPackageName" value="com.bbl.cgmx" />
+    <property name="newPackagePath" value="com/bbl/cgmx" />
     <!--<echo>current directory: ${basedir}</echo>-->
 
     <target name="build">
