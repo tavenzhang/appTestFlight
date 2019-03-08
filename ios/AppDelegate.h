@@ -21,6 +21,7 @@ static NSString * const JDNight = @"12night";
 - (UIViewController *)rootController;
 - (void *)registAppPush:(NSString *)jkey:(NSString *)channel;
 - (void *)registUMeng:(NSString *)ukey:(NSString *)channel;
+- (void *)registUMengShare:(NSString *)appId:(NSString *)api;
 +(NSArray *)getBBQArray;
 
 

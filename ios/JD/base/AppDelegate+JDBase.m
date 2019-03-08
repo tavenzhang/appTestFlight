@@ -212,8 +212,7 @@ static Boolean  IsFirtReuest = YES;
   if(ukey.length > 0){
     [UMConfigure setLogEnabled:YES];
     [RNUMConfigure initWithAppkey:ukey channel:channel];
-    [self configUSharePlatforms];
-    [self confitUShareSettings];
+   // [self configUSharePlatforms];
   }
 }
 
@@ -290,19 +289,26 @@ static Boolean  IsFirtReuest = YES;
   //[UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
 }
 
-- (void)configUSharePlatforms
+- (void)registUMengShare:(NSString *)appId:(NSString *)api
 {
   NSArray *URLTypesArr = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"];
   /* 设置微信的appKey和appSecret */
   NSDictionary *AppSecretDic = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AppSecret"];
-
-  for(NSDictionary *urlTypes in  URLTypesArr){
-    if([[urlTypes objectForKey:@"CFBundleURLName"] isEqualToString:@"weixin"]){
-      NSArray *weixinKey = [urlTypes objectForKey:@"CFBundleURLSchemes"];
-      [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:weixinKey.count > 0? weixinKey[0]:@"" appSecret:[AppSecretDic objectForKey:@"weixin"] redirectURL:@""];
-      [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatTimeLine appKey:weixinKey.count > 0? weixinKey[0]:@"" appSecret:[AppSecretDic objectForKey:@"weixin"] redirectURL:@""];
+  //NSLog(@"appId--api-:%@---api---%@" , appId,api);
+  if(appId.length>0&&api.length>0){
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:appId appSecret:api redirectURL:@""];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatTimeLine appKey:appId appSecret:api redirectURL:@""];
+  }else{
+    for(NSDictionary *urlTypes in  URLTypesArr){
+      if([[urlTypes objectForKey:@"CFBundleURLName"] isEqualToString:@"weixin"]){
+        NSArray *weixinKey = [urlTypes objectForKey:@"CFBundleURLSchemes"];
+        [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:weixinKey.count > 0? weixinKey[0]:@"" appSecret:[AppSecretDic objectForKey:@"weixin"] redirectURL:@""];
+        [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatTimeLine appKey:weixinKey.count > 0? weixinKey[0]:@"" appSecret:[AppSecretDic objectForKey:@"weixin"] redirectURL:@""];
+      }
     }
   }
+  [self confitUShareSettings];
+  
 
   /*
    * 移除相应平台的分享，如微信收藏

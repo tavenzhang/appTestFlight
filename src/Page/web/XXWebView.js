@@ -263,6 +263,7 @@ export default class XXWebView extends Component {
     }
 
     handleUrl = (url, isJumpUrl = false) => {
+
         if (url && url.indexOf("../") > -1) {
             url = url.replace("../", "");
         }
@@ -270,9 +271,9 @@ export default class XXWebView extends Component {
             url = TW_Store.bblStore.urlDomain + "/" + url
         } else {
             if (url.indexOf("slot_jssc") > -1) {
-                url = TW_Store.bblStore.homeDomain + "/" + url
+                url = TW_Store.bblStore.homeDomain  + url
             } else {
-                url = TW_Store.bblStore.homeDomain + "/" + url
+                url = TW_Store.bblStore.homeDomain  + url
             }
         }
 
