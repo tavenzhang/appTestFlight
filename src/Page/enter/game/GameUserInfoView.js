@@ -47,6 +47,7 @@ export default class GameUserInfoView extends Component {
         /**
          * 加载厅主绑卡银行卡列表
          */
+        TW_Store.userStore.freshBalance();
         this.bankStore.initBankList((res) => {
             if (!res.status) {
                 Toast.showShortCenter(res.message);

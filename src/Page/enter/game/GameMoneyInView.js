@@ -59,6 +59,7 @@ export default class GameMoneyInView extends Component {
     }
 
     componentWillMount(): void {
+
         this.userPayStore.selectPayType((res) => {
             if (res.status) {
                // this.gotoPayPage(item.code);

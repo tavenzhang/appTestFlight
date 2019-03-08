@@ -171,13 +171,14 @@ export default class GamePayStepOne extends Component {
             </TouchableOpacity>)
         } else {
             let paymentItem = data;
+            TW_Log("paymentItem---",paymentItem)
             return (<TouchableOpacity
                 onPress={() => {
                     this.onPressPay(paymentItem)
                 }}><View style={{width: 320, height: 100, alignItems: "center", flexDirection: "row"}}>
                 <TCImage source={ASSET_Images.gameUI.listItemBg}
                          style={{position: "absolute", width: 350, height: 100}}/>
-                <TCImage source={payHelper.getPayTypeIcon(paymentItem.code)} style={{height: 50, width: 50, marginLeft: 10}}/>
+                <TCImage source={payHelper.getPayTypeIcon(paymentItem.type)} style={{height: 50, width: 50, marginLeft: 10}}/>
                 <View>
                     <Text
                         style={[styles.itemLable, {fontSize: 12}]}>{paymentItem.type ? paymentItem.merchantName : paymentItem.receiptName}</Text>

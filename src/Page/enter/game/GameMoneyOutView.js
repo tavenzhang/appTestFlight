@@ -29,7 +29,7 @@ export default class GameMoneyOutView extends Component {
     }
 
     componentWillMount(): void {
-
+        TW_Store.userStore.freshBalance();
         this.userWithdrawStore.initDefaultBank((res) => {
             if (!res.status) {
                 Toast.showShortCenter(res.message);

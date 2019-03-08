@@ -147,6 +147,7 @@ export default class TCWebView extends Component {
                     break;
                 case "game_back":
                     TW_NavHelp.popToBack();
+                    this.onBackHomeJs()
                     break;
                 case  "JumpUrl":
                     url = this.handleUrl(message.au)
@@ -208,13 +209,6 @@ export default class TCWebView extends Component {
         } else {
             if (navState.url) {
                 if (navState.url.indexOf("g_lobby/index.html") > -1) {
-                    if (navState.url.indexOf("g_lobby/index.html?status=1") > -1) {
-                        this.onBackHomeJs();
-                        if (onEvaleJS) {
-                            onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.logout));
-                            TW_Store.bblStore.jumpData=null;
-                        }
-                    }
                     TW_NavHelp.popToBack();
                     this.setState({isHide: true})
                     if (isGame) {

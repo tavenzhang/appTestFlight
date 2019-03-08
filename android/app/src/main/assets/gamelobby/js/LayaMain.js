@@ -137,7 +137,7 @@ var LayaMain = /** @class */ (function () {
             }
             //重新拉取用户帐户信息，刷新帐户数据
             if (Avator.getInstance()) {
-                Avator.getInstance().startRequest();
+                Avator.getInstance().flushUserInfo();
             }
         }
         catch (e) { }
