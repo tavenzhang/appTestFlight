@@ -51,7 +51,7 @@ export default class Enter extends Component {
     onInitAllData=()=>{
         this.initData();
         this.uploadLog();
-        AppState.addEventListener('change', this.handleAppStateChange);
+       // AppState.addEventListener('change', this.handleAppStateChange);
         this.timer2 = setTimeout(() => {
             if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
                 this.hotFixStore.skipUpdate();
@@ -105,7 +105,7 @@ export default class Enter extends Component {
         this.timer && clearTimeout(this.timer)
         this.timer2 && clearTimeout(this.timer2)
         AppState.removeEventListener('change', this.handleAppStateChange);
-        Orientation&&Orientation.removeOrientationListener(this.orientationDidChange);
+        Orientation&&this.orientationDidChange&&Orientation.removeOrientationListener(this.orientationDidChange);
     }
 
     render() {

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Affcode</key>
-	<string>""</string>
+	<string>&quot;&quot;</string>
 	<key>AppSecret</key>
 	<dict>
 		<key>weixin</key>
@@ -16,7 +16,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.bbl.gmxaw</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

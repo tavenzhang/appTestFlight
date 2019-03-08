@@ -40,7 +40,7 @@ export const safeguardDomain = [
 
 
 export const platInfo = {
-    loginDomain:"https://yw8txj2e.pgzlwx.com",
+    loginDomain:"https://38fo28gk.czdelong.com",
     gameDomain:"https://yw8txj2e.pgzlwx.com",
 
     zipCheckServer: {
@@ -51,9 +51,9 @@ export const platInfo = {
 
     channel: {
         c_1: {
-            jpushKey: "",
+            jpushKey: "e9f6454032a3f4936d80a82f",
             jpush_channel: "",
-            umengKey: "5c80cf7b203657e07c000759",
+            umengKey: "5b9f7642f43e486308000111",
             umengChanel:"1",
             flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
             flurry_android:"BGZ8YFQ22PMPF87KCCBW"
