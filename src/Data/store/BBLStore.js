@@ -134,8 +134,8 @@ export  default  class BBLStore {
 
     @observable
     shareURL={
-        ios:"https://download.jingjingxiao.com/ios/gameImage",
-        android:"https://www.baidu.com",
+        ios:"https://download.jinkuangjia.com/game/app.html?sub=release-chyqp&app=1&rom=7827",
+        android:"https://download.jinkuangjia.com/game/release/chyqp/chyqp.apk?rom=5593",
     }
 
 }

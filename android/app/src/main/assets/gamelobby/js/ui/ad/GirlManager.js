@@ -193,11 +193,22 @@ var GirlManager = /** @class */ (function (_super) {
                 var y = this.conf.content.girl.initpos.y;
                 // Debug.trace("k"+k+" x"+x+" y:"+y);
                 sp_icon.initPos(x, y);
+                sp_icon.setListener(k, this, this.onGirlEvent);
                 sp_icon.visible = false;
                 this.sp_content.addChild(sp_icon);
                 this.arr_items.push(sp_icon);
             }
         }
+    };
+    //女孩移动事件
+    GirlManager.prototype.onGirlEvent = function (girl, movetype, direct) {
+        Debug.trace("GirlManager.onGirlEvent:");
+        Debug.trace("movetype:" + movetype);
+        Debug.trace("direct:" + direct);
+        //根据当前时间类型（移出还是移入）进行处理
+        //移出---移入下一个
+        //下一个移入方向与此一致
+        //移入---不管
     };
     //获取到当前对象
     GirlManager.prototype.getCurObj = function (id) {

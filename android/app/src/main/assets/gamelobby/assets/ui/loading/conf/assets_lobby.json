@@ -4,6 +4,7 @@
         {"url":"./brand/login_logo.png","type":"IMAGE"},
         {"url":"./brand/lobby_logo.png","type":"IMAGE"},
         
+        {"url":"./assets/conf/accountpad.json","type":"JSON"},
         {"url":"./assets/conf/attention.json","type":"JSON"},
         {"url":"./assets/conf/avator.json","type":"JSON"},
         {"url":"./assets/conf/avatorpad.json","type":"JSON"},
@@ -34,6 +35,16 @@
         {"url":"./assets/conf/toast.json","type":"JSON"},
         {"url":"./assets/conf/urls.json","type":"JSON"},
         {"url":"./assets/conf/version.json","type":"JSON"},
+
+        {"url":"./assets/ui/accountcenter/btn_genghuantouxiang.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/btn_qiehuanzhanghao.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/btn_setting.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/btn_zhanghuxinxi.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/img_gerenzhongx_di.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/img_touxiangdi.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/img_zi_yuer.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/img_zi_zhanghao.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/img_zi_zhufu.png","type":"IMAGE"},
 
         {"url":"./assets/ui/animation/btn_mine/menu.sk","type":"BUFFER"},
         {"url":"./assets/ui/animation/btn_mine/menu.png","type":"IMAGE"},
@@ -290,6 +301,7 @@
 
         {"url":"./assets/ui/titlebar/icon_dating_huiodong.png","type":"IMAGE"},
         {"url":"./assets/ui/titlebar/icon_dating_kefu.png","type":"IMAGE"},
+        {"url":"./assets/ui/titlebar/icon_dating_fanhui.png","type":"IMAGE"},
         {"url":"./assets/ui/titlebar/btn_setting.png","type":"IMAGE"},
         {"url":"./assets/ui/titlebar/btn_dating_fanhui.png","type":"IMAGE"},
         {"url":"./assets/ui/titlebar/btn_dating_fanhui2.png","type":"IMAGE"},

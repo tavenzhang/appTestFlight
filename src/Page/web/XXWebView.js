@@ -12,8 +12,9 @@ import {observer} from 'mobx-react/native';
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {platInfo} from "../../config/appConfig";
 import SplashScreen from "react-native-splash-screen";
+import CodePush from 'react-native-code-push'
 
-import TCButtonView from "../../Common/View/button/TCButtonView";
+
 @withMappedNavigationProps()
 @observer
 export default class XXWebView extends Component {
@@ -298,6 +299,7 @@ export default class XXWebView extends Component {
     }
 
     onError = (error) => {
+        CodePush.restartApp();
         TW_Log("onError===========event=====rr22", error)
     }
 

@@ -13,6 +13,7 @@ import Toast from "../../../Common/JXHelper/JXToast";
 import TCButtonView from "../../../Common/View/button/TCButtonView";
 import QRCode from 'react-native-qrcode-svg';
 import ShareBox from "./pay/ShareBox";
+import TCUserOpenPayApp from "../../UserCenter/UserPay/TCUserOpenPayApp";
 @observer
 export default class GameShareView extends Component {
 
@@ -98,7 +99,11 @@ export default class GameShareView extends Component {
     }
 
     onWxShare=()=>{
-       this.setState({isShowShareUI:!this.state.isShowShareUI})
+
+        Clipboard.setString(this.state.shareURL);
+        Toast.showShortCenter("已复制链接!")
+        TCUserOpenPayApp.openWX()
+      // this.setState({isShowShareUI:!this.state.isShowShareUI})
         //微信分享参考https://developer.umeng.com/docs/66632/detail/67587
         /*text 为分享内容
         img 为图片地址，可以为链接，本地地址以及res图片（如果使用res,请使用如下写法：res/icon.png）

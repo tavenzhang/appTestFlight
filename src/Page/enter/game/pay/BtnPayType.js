@@ -115,9 +115,9 @@ export default class BtnPayType extends Component {
             case 'JD':
                 return ASSET_Images.gameUI.typeJD;
             case 'BANK':
-                return ASSET_Images.gameUI.typeBank;
+                return ASSET_Images.gameUI.typeTrans ;
             case 'ONLINEBANK':
-                return ASSET_Images.gameUI.typeBank
+                return ASSET_Images.gameUI.typeWy
             default:
                 return ASSET_Images.gameUI.typeBank
         }

@@ -1,6 +1,13 @@
 var ConfObjRead = /** @class */ (function () {
     function ConfObjRead() {
     }
+    ConfObjRead.getConfAccountCenter = function () {
+        if (ConfObjRead.accenterObj) {
+            return ConfObjRead.accenterObj;
+        }
+        ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad.json");
+        return ConfObjRead.accenterObj;
+    };
     ConfObjRead.getConfGirlManager = function () {
         if (ConfObjRead.girlObj) {
             return ConfObjRead.girlObj;
@@ -265,6 +272,7 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.musicObj = Laya.Loader.getRes("./assets/conf/music.json");
         return ConfObjRead.musicObj;
     };
+    ConfObjRead.accenterObj = null;
     ConfObjRead.girlObj = null;
     ConfObjRead.dataNumObj = null;
     ConfObjRead.htmlObj = null;

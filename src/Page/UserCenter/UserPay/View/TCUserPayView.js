@@ -49,8 +49,11 @@ export default class TCUserPayView extends Component {
                             </View>
                         </View>
                         <View style={[styles.payNoticeItemStyle, {marginBottom: 20}]}><Text
-                            style={styles.moneyTxtStyle}>{this.props.prompt ? this.props.userPrompt : '请一定按照以上显示金额付款'}</Text></View>
+                            style={styles.moneyTxtStyle}>{this.props.prompt ? this.props.userPrompt : '请一定按照以上显示金额付款'}</Text>
+                        </View>
+                        <View style={{alignSelf:'center'}}>
                         {this.getQRCode()}
+                        </View>
                     </View>
                     <View style={[{justifyContent: 'center', alignItems: "center", flexDirection:"row", marginTop:20}]}>
                         <TouchableOpacity onPress={this.props.gotoPay}
@@ -97,7 +100,7 @@ export default class TCUserPayView extends Component {
         if (codeType === 'URL') {
             return (<QRCode
                 value={this.props.codeValue}
-                size={Platform.OS == 'ios' ? 180 : width * 0.5}
+                size={Platform.OS == 'ios' ? 100 : 100}
             />)
         } else if (codeType === 'IMG') {
             return (<Image style={styles.imgewmStyle} source={{uri: this.props.codeValue}} resizeMode={'contain'}/>)
@@ -143,8 +146,8 @@ const styles = StyleSheet.create({
         marginTop: 1,
     },
     imgewmStyle: {
-        height: height * 0.3,
-        width: width * 0.6
+        height: 100,
+        width: 100,
     },
     btmBtnItemStyle: {
         flexDirection: 'row',

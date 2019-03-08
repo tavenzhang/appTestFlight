@@ -11,11 +11,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-/*
-Author : sean.guo49@gmail.com
-create : 20190118
-Features : Read html nodes and create LayaAir H5 Label
-*/
 var SeanHtmlString = /** @class */ (function (_super) {
     __extends(SeanHtmlString, _super);
     function SeanHtmlString(str_html, src_conf) {

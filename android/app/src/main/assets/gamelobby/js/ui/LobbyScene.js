@@ -61,7 +61,7 @@ var LobbyScene = /** @class */ (function (_super) {
         //初始化音效 Add by Jelly on 2018/12/26
         // this.initBgMusic();
     };
-    LobbyScene.prototype.initBgMusic = function () {
+    LobbyScene.initBgMusic = function () {
         if (LobbyScene.IS_PLAYED_MUSIC) {
             return;
         }

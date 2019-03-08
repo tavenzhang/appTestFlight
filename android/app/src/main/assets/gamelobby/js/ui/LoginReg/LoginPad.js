@@ -93,6 +93,12 @@ var LoginPad = /** @class */ (function (_super) {
             this.inputPwd = Tools.addInput(this, this.conf.pwd.input);
         }
     };
+    //设置用户名
+    LoginPad.prototype.setUserName = function (name) {
+        if (this.inputName) {
+            this.inputName.text = name;
+        }
+    };
     //半透明背景
     LoginPad.prototype.initAlphaBg = function () {
         if (this.conf.mask) {

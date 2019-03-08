@@ -17,6 +17,11 @@ var Girl = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.iMovePercent = 0;
         _this.curMove = 0;
+        _this.moveType = 0; //移动类型
+        _this.moveDirect = 0; //移动方向
+        _this.id = -1;
+        _this.caller = null;
+        _this.callback = null;
         _this.conf = conf;
         _this.confCommon = confCommon;
         _this.init();
@@ -34,6 +39,12 @@ var Girl = /** @class */ (function (_super) {
         if (this.conf.front) {
             this.initFront(this.conf.front);
         }
+    };
+    //设置侦听
+    Girl.prototype.setListener = function (id, caller, callback) {
+        this.id = id;
+        this.caller = caller;
+        this.callback = callback;
     };
     //初始化背景
     Girl.prototype.initBg = function (conf) {
@@ -83,12 +94,12 @@ var Girl = /** @class */ (function (_super) {
         if (this.iMovePercent >= this.confCommon.autoPercent) {
             //区分当前移动方向的左右
             var px = 0, py = 0;
-            if (direct == 1) {
+            if (direct == Girl.MOVE_DIRECT_RIGHT) {
                 //右移
                 px = this.confCommon.right.x + this.pinit.x;
                 py = this.confCommon.right.y + this.pinit.y;
             }
-            else if (direct == -1) {
+            else if (direct == Girl.MOVE_DIRECT_LEFT) {
                 //左移
                 px = this.confCommon.left.x + this.pinit.x;
                 py = this.confCommon.left.y + this.pinit.y;
@@ -106,7 +117,10 @@ var Girl = /** @class */ (function (_super) {
     };
     //弹出动画播放完毕，恢复到初始位置
     Girl.prototype.autoMoveSuc = function () {
-        this.reset();
+        // this.reset();
+        if (this.callback && this.caller) {
+            this.callback.apply(this.caller, [this, this.moveType, this.moveDirect]);
+        }
     };
     //重设该角色
     Girl.prototype.reset = function () {
@@ -115,6 +129,10 @@ var Girl = /** @class */ (function (_super) {
         this.curMove = 0;
         this.alpha = 1;
     };
+    Girl.MOVE_TYPE_OUT = 0;
+    Girl.MOVE_TYPE_IN = 1;
+    Girl.MOVE_DIRECT_LEFT = 1;
+    Girl.MOVE_DIRECT_RIGHT = -1;
     return Girl;
 }(Laya.Sprite));
 //# sourceMappingURL=Girl.js.map

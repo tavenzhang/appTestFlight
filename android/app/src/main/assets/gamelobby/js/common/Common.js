@@ -1,6 +1,10 @@
 var Common = /** @class */ (function () {
     function Common() {
     }
+    //切换路径类型
+    Common.changePathType = function (n) {
+        Common.pathType = n;
+    };
     //是否能进入游戏
     Common.canGoinGame = function (roomData) {
         var zhunru = roomData.roomConfig.minScore; // * 100000;
@@ -153,6 +157,10 @@ var Common = /** @class */ (function () {
     Common.IDX_TOP_TOAST = 99999;
     Common.IDX_TOP_DRAW = 99998;
     Common.IDX_BELOW_DRAW = 88888;
+    //注册界面使用的路径类型
+    Common.PATH_TYPE_XD = 0;
+    Common.PATH_TYPE_JD = 1;
+    Common.pathType = Common.PATH_TYPE_XD;
     //当前登录用户令牌
     Common.access_token = "";
     //当前用户是否全新登录
