@@ -211,12 +211,16 @@ var LayaMain = /** @class */ (function () {
     LayaMain.prototype.onResize = function () {
         Debug.trace("onResize:");
         // Debug.trace(e);
+
         var appData = window["appData"];
         if (appData) {
             Common.IS_NATIVE_APP = true;
             AppData.IS_NATIVE_APP = true;
             AppData.NATIVE_DATA = appData;
             AppData.isAndroidHack = appData.isAndroidHack;
+            if(AppData.clientId=="5"){
+                window["initVconsole"]();
+            }
         }
         var safariMask = document.getElementById("safariMask");
         // safariMask.style.display = "block";
