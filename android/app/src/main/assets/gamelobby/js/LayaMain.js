@@ -218,7 +218,7 @@ var LayaMain = /** @class */ (function () {
             AppData.IS_NATIVE_APP = true;
             AppData.NATIVE_DATA = appData;
             AppData.isAndroidHack = appData.isAndroidHack;
-            if(AppData.clientId=="5"){
+            if(`${appData.clientId}`=="5"){
                 window["initVconsole"]();
             }
         }
