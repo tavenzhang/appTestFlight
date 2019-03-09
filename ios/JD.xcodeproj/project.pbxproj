@@ -103,7 +103,6 @@
 		B405F30CA6CA47168A65F099 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD6E4632B66647C89D113E19 /* MaterialIcons.ttf */; };
 		C3164721FC0749E089E9FCC2 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EA3914555C244DD85E59A89 /* libCodePush.a */; };
 		C6073E87222E1276001E64D0 /* libSocialWeChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6073E86222E1275001E64D0 /* libSocialWeChat.a */; };
-		C61C60AB222CBE7600E09E95 /* UMShare in Resources */ = {isa = PBXBuildFile; fileRef = C61C60AA222CBE7500E09E95 /* UMShare */; };
 		C61C60AE222CBE9D00E09E95 /* UMShareModule.m in Sources */ = {isa = PBXBuildFile; fileRef = C61C60AD222CBE9D00E09E95 /* UMShareModule.m */; };
 		C61C60B0222CBEB600E09E95 /* UMShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61C60AF222CBEB600E09E95 /* UMShare.framework */; };
 		C61C60B2222CBED700E09E95 /* UShareUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61C60B1222CBED700E09E95 /* UShareUI.framework */; };
@@ -2289,7 +2288,6 @@
 				FF3B36F6491C452BA7FB70DC /* Ionicons.ttf in Resources */,
 				986E07F2362541D0B1D8393A /* MaterialCommunityIcons.ttf in Resources */,
 				B405F30CA6CA47168A65F099 /* MaterialIcons.ttf in Resources */,
-				C61C60AB222CBE7600E09E95 /* UMShare in Resources */,
 				14816129B81D4E32A286FB07 /* Octicons.ttf in Resources */,
 				04900EE046A744B294DFDFC5 /* SimpleLineIcons.ttf in Resources */,
 				80E35BCD7BF0452AB94CB4BC /* Zocial.ttf in Resources */,
@@ -2462,7 +2460,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.365.chy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.gmxaw7;
 				PRODUCT_NAME = JD;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2523,7 +2521,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.365.chy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.gmxaw7;
 				PRODUCT_NAME = JD;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
