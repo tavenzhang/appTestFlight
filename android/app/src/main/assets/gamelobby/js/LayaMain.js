@@ -373,30 +373,30 @@ var LayaMain = /** @class */ (function () {
         LayaMain.getInstance().initLogin();
     };
     LayaMain.prototype.showCircleLoading = function (b, data) {
-        if (b === void 0) { b = true; }
-        if (data === void 0) { data = null; }
-        // var d = {
-        //     "tips":"正在加载中",
-        //     "bShowBg":b
+        // if (b === void 0) { b = true; }
+        // if (data === void 0) { data = null; }
+        // // var d = {
+        // //     "tips":"正在加载中",
+        // //     "bShowBg":b
+        // // }
+        // if (b && !this.cloading) {
+        //     // Debug.trace("LayaMain.showCircleLoading create new cloading");
+        //     this.cloading = MyBBLoading.getObj(true); //.show();
+        //     this.cloading.zOrder = 99999;
+        //     Laya.stage.addChild(this.cloading);
+        //     // this.sceneLobby.addChild(this.cloading);
         // }
-        if (b && !this.cloading) {
-            // Debug.trace("LayaMain.showCircleLoading create new cloading");
-            this.cloading = MyBBLoading.getObj(true); //.show();
-            this.cloading.zOrder = 99999;
-            Laya.stage.addChild(this.cloading);
-            // this.sceneLobby.addChild(this.cloading);
-        }
-        if (!b) {
-            if (this.cloading) {
-                // Debug.trace("LayaMain.showCircleLoading hide");
-                this.cloading.hide();
-                this.cloading = null;
-            }
-        }
-        else {
-            // Debug.trace("LayaMain.showCircleLoading show");
-            this.cloading.show();
-        }
+        // if (!b) {
+        //     if (this.cloading) {
+        //         // Debug.trace("LayaMain.showCircleLoading hide");
+        //         this.cloading.hide();
+        //         this.cloading = null;
+        //     }
+        // }
+        // else {
+        //     // Debug.trace("LayaMain.showCircleLoading show");
+        //     this.cloading.show();
+        // }
         // MyBBLoading.showPad(Laya.stage,ConfObjRead.getConfCLoading(),d);
     };
     //本地退出
