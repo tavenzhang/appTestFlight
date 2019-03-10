@@ -18,7 +18,6 @@ var GamePanel = /** @class */ (function (_super) {
         _this.bDrag = false; //是否再拖动中
         _this.downX = 0; //当前鼠标按下的位置
         _this.startDragX = 0; //开始按下的位置
-        _this.lastScrollSpdX = 0; //前一刻的滚动速度
         _this.minx = 0;
         _this.maxx = 0;
         _this.totalWidth = 0;
@@ -238,7 +237,7 @@ var GamePanel = /** @class */ (function (_super) {
             this.itembg.x += nx;
         }
         //记录下当前的滚动速度
-        this.lastScrollSpdX = nx;
+        // this.lastScrollSpdX = nx;
         if (this.scrollbar) {
             this.scrollbar.move(nx);
         }
@@ -257,17 +256,13 @@ var GamePanel = /** @class */ (function (_super) {
         if (this.itembg) {
             this.itembg.x += nx;
         }
-        //重合运算滑动平均速度
-        var spd = this.getCurSpeed(x);
         //记录下当前的滚动速度
-        this.lastScrollSpdX = nx;
+        // this.lastScrollSpdX = nx;
+        //根据移动方向，计算当前分隔点坐标距离哪个图标最近
+        //超过图标一半即不考虑
+        //图标层自动滚动到该图标上
         var bHave = this.isHaveGameIcons();
         this.sp_arrow.visible = bHave;
-    };
-    //取得当前平均速度
-    GamePanel.prototype.getCurSpeed = function (x) {
-        //从速度池里提取出近期移动数据
-        return 0;
     };
     //移动结束
     GamePanel.prototype.moveEnd = function (x) {
@@ -298,7 +293,7 @@ var GamePanel = /** @class */ (function (_super) {
     GamePanel.prototype.requestGameList = function (url, data) {
         if (data === void 0) { data = null; }
         this.bRequestStatus = 1;
-        Debug.trace("GamePanel.requestGameList show");
+        // Debug.trace("GamePanel.requestGameList show");
         LayaMain.getInstance().showCircleLoading(true);
         // MyBBLoading.showPad(this,ConfObjRead.getConfCLoading(),null);
         // "Access-Control-Allow-Origin","*",

@@ -294,8 +294,9 @@
                 "overflow":"scroll",
                 "leading":10
             },
+            "pretext":"\r\n",
             "scrollbar":{
-                "desc":"滚动文本框的滚动条配置，待规划后再做"
+                "desc":"滚动文本框的滚动条配置，暂无"
             }
         },
         "lbAuthor":{

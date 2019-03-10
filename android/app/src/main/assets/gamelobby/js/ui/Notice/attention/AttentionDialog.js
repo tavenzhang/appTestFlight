@@ -355,8 +355,8 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.responseAttention = function (s, stat, hr) {
         // Debug.trace("AttentionDialog.responseAttention stat:"+stat);
-        Debug.trace("AttentionDialog.responseAttention s:");
-        Debug.trace(s);
+        // Debug.trace("AttentionDialog.responseAttention s:");
+        // Debug.trace(s);
         // Debug.trace("AttentionDialog.responseAttention hr:");
         // Debug.trace(hr);
         /*
