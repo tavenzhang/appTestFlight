@@ -24,7 +24,47 @@ var LayaMain = /** @class */ (function () {
         Laya.init(Common.GM_SCREEN_W, Common.GM_SCREEN_H, Laya.WebGL);
         // Laya.URL.basePath = "http://localhost/";
         //根据参数来确定当前屏幕适配模式
-        Laya.stage.scaleMode = window["sScaleMode"]; //Tools.getQueryVariable("sm");
+        var scalemode = Tools.getQueryVariable("sm"); //"shawn";//"fixedheight";//
+        switch (scalemode) {
+            case "exactfit":
+                Laya.stage.scaleMode = Laya.Stage.SCALE_EXACTFIT;
+                break;
+            case "fixedauto":
+                Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_AUTO;
+                break;
+            case "fixedheight":
+                Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_HEIGHT;
+                break;
+            case "fixedwidth":
+                Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_WIDTH;
+                break;
+            case "scalefull":
+                Laya.stage.scaleMode = Laya.Stage.SCALE_FULL;
+                break;
+            case "noborder":
+                Laya.stage.scaleMode = Laya.Stage.SCALE_NOBORDER;
+                break;
+            case "noscale":
+                Laya.stage.scaleMode = Laya.Stage.SCALE_NOBORDER;
+                break;
+            case "showall":
+                Laya.stage.scaleMode = Laya.Stage.SCALE_SHOWALL;
+                break;
+            case "shawn":
+                Laya.stage.scaleMode = "shawn";
+                break;
+            default:
+                // Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_AUTO;
+                Laya.stage.scaleMode = Laya.Stage.SCALE_SHOWALL;
+                break;
+        }
+        // Laya.stage.scaleMode = Laya.Stage.SCALE_SHOWALL; //全部显示，左右或者上下有黑边
+        // Laya.stage.scaleMode = Laya.Stage.SCALE_EXACTFIT;   //铺满全屏，拉伸
+        // Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_AUTO;  //canvas是全屏的，但是所有都靠左上
+        // Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_HEIGHT;   //竖屏被吃右边，横屏超出
+        // Laya.stage.scaleMode = Laya.Stage.SCALE_FULL; //竖屏靠左上，右侧被吃
+        // Laya.stage.scaleMode = Laya.Stage.SCALE_NOBORDER;   //地址栏方向被吃，右侧会超出
+        // Laya.stage.scaleMode = Laya.Stage.SCALE_NOSCALE;    //地址栏方向被吃
         Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL; //.SCREEN_VERTICAL;//.SCREEN_NONE;
         Laya.stage.alignH = Laya.Stage.ALIGN_CENTER;
         Laya.stage.alignV = Laya.Stage.ALIGN_MIDDLE;
@@ -167,15 +207,13 @@ var LayaMain = /** @class */ (function () {
                     if (Avator.obj) {
                         Avator.obj.flushUserInfo();
                     }
-                case "openDebug":
-                    window["initVconsole"]();
                     break;
             }
         }
     };
     //改变屏幕尺寸时处理
     LayaMain.prototype.onResize = function () {
-        // Debug.trace("onResize:");
+        Debug.trace("onResize:");
         // Debug.trace(e);
         var appData = window["appData"];
         if (appData) {
@@ -231,7 +269,7 @@ var LayaMain = /** @class */ (function () {
         this.clearChild();
         Laya.URL.basePath = "";
         if (this.sceneLoading == null) {
-            // Debug.trace("LayaMain.sceneLoading == null to create");
+            Debug.trace("LayaMain.sceneLoading == null to create");
             this.sceneLoading = new LoadingScene();
             Debug.trace("LayaMain.sceneLoading == end to over");
             this.sceneLoading.initLoading();
@@ -335,33 +373,30 @@ var LayaMain = /** @class */ (function () {
         LayaMain.getInstance().initLogin();
     };
     LayaMain.prototype.showCircleLoading = function (b, data) {
-        if (b === void 0) { b = true; }
-        if (data === void 0) { data = null; }
-        // var d = {
-        //     "tips":"正在加载中",
-        //     "bShowBg":b
+        // if (b === void 0) { b = true; }
+        // if (data === void 0) { data = null; }
+        // // var d = {
+        // //     "tips":"正在加载中",
+        // //     "bShowBg":b
+        // // }
+        // if (b && !this.cloading) {
+        //     // Debug.trace("LayaMain.showCircleLoading create new cloading");
+        //     this.cloading = MyBBLoading.getObj(true); //.show();
+        //     this.cloading.zOrder = 99999;
+        //     Laya.stage.addChild(this.cloading);
+        //     // this.sceneLobby.addChild(this.cloading);
         // }
-        if (AppData.IS_NATIVE_APP) {
-            return;
-        }
-        if (b && !this.cloading) {
-            // Debug.trace("LayaMain.showCircleLoading create new cloading");
-            this.cloading = MyBBLoading.getObj(true); //.show();
-            this.cloading.zOrder = 99999;
-            Laya.stage.addChild(this.cloading);
-            // this.sceneLobby.addChild(this.cloading);
-        }
-        if (!b) {
-            if (this.cloading) {
-                // Debug.trace("LayaMain.showCircleLoading hide");
-                this.cloading.hide();
-                this.cloading = null;
-            }
-        }
-        else {
-            // Debug.trace("LayaMain.showCircleLoading show");
-            this.cloading.show();
-        }
+        // if (!b) {
+        //     if (this.cloading) {
+        //         // Debug.trace("LayaMain.showCircleLoading hide");
+        //         this.cloading.hide();
+        //         this.cloading = null;
+        //     }
+        // }
+        // else {
+        //     // Debug.trace("LayaMain.showCircleLoading show");
+        //     this.cloading.show();
+        // }
         // MyBBLoading.showPad(Laya.stage,ConfObjRead.getConfCLoading(),d);
     };
     //本地退出
