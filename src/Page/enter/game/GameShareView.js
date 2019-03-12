@@ -102,11 +102,11 @@ export default class GameShareView extends Component {
     }
 
     onWxShare=()=>{
-        TW_Log("onWxShare---"+this.state.surl,this.state)
-        Clipboard.setString(this.state.surl);
-        Toast.showShortCenter("已复制链接!")
-        TCUserOpenPayApp.openWX()
-      // this.setState({isShowShareUI:!this.state.isShowShareUI})
+        // TW_Log("onWxShare---"+this.state.surl,this.state)
+        // Clipboard.setString(this.state.surl);
+        // Toast.showShortCenter("已复制链接!")
+        // TCUserOpenPayApp.openWX()
+        this.setState({isShowShareUI:!this.state.isShowShareUI})
         //微信分享参考https://developer.umeng.com/docs/66632/detail/67587
         /*text 为分享内容
         img 为图片地址，可以为链接，本地地址以及res图片（如果使用res,请使用如下写法：res/icon.png）
