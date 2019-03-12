@@ -142,6 +142,21 @@ RCT_EXPORT_METHOD(startUMeng:(NSString *)key
   [deleagte registUMeng:key :channel];
 }
 
+RCT_EXPORT_METHOD(startUMengShare:(NSString *)appId
+                  : (NSString *)api) {
+  AppDelegate *deleagte = (AppDelegate *)[UIApplication sharedApplication].delegate;
+  NSString* myAppid =@"";
+  NSString* myApi=@"";
+  if(appId&&appId.length>0){
+    myAppid = appId;
+  }
+  if(api&&api.length>0){
+    myApi = api;
+  }
+  [deleagte registUMengShare:appId:api];
+}
+
+
 RCT_EXPORT_METHOD(notification
                   : (NSString *)title
                   : (NSString *)body) {
@@ -167,6 +182,25 @@ RCT_EXPORT_METHOD(notification
 //    [[UIApplication sharedApplication] scheduleLocalNotification:localNote];
 //  });
 
+}
+
+RCT_EXPORT_METHOD(setAgent
+                  : (NSString *)agent) {
+  static dispatch_once_t onceToken;
+  
+  dispatch_once(&onceToken, ^{
+    
+    UIWebView *tempWebView=[[UIWebView alloc] init];
+    
+    NSString *originUA = [tempWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    
+    NSString *newUA = [NSString stringWithFormat:@"%@ %@",originUA,agent];
+    
+    NSDictionary *dictionary = @{@"UserAgent":newUA};
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+    
+  });
 }
 
 

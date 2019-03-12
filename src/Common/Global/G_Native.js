@@ -63,3 +63,13 @@ global.TN_START_Fabric = (key="4711ad6d815964a1103b461bc1d85ddf312b037d") => {
         NativeModules.JXHelper.startFarbic&&NativeModules.JXHelper.startFarbic(key);
     }
 }
+
+global.TN_START_SHARE = (appId="wx4705de7e82fa978f",api="67de54808bba55e934e3126f3e607a42") => {
+    if(G_IS_IOS){
+        NativeModules.JDHelper.startUMengShare&&NativeModules.JDHelper.startUMengShare(appId,api);
+    }else{
+        NativeModules.JXHelper.startUMengShare&&NativeModules.JXHelper.startUMengShare(appId,api);
+    }
+}
+
+global.TN_UMShareModule = NativeModules.UMShareModule;

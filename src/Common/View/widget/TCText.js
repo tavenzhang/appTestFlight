@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
     defaultText: {
         color: baseColor.tabUnSelectTxt,
         fontSize: Size.default,
-        textAlign: 'center',
+        textAlign: 'left',
         textAlignVertical: 'center',
     },
     defaultBackground: {
-        alignItems: 'center',
-        justifyContent: 'center',
+        //alignItems: 'center',
+       // justifyContent: 'center',
         backgroundColor: baseColor.tabBarBg,
     }
 })

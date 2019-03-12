@@ -15,13 +15,29 @@ var PostMHelp = /** @class */ (function () {
     //native log 
     PostMHelp.Log = function (data) {
         if (data === void 0) { data = {}; }
-        window.top.postMessage(JSON.stringify({ action: "Log", data: JSON.stringify(data) }), "*");
+        window.top.postMessage(JSON.stringify(__assign({ action: "Log" }, data)), "*");
     };
-    PostMHelp.jupmToGame = function (data) {
+    //令牌更改通知消息
+    PostMHelp.tokenChange = function (data) {
         if (data === void 0) { data = {}; }
-        window.top.postMessage(JSON.stringify(__assign({ action: "JumpGame" }, data)), "*");
+        var msg = JSON.stringify(__assign({ action: "game_user_token" }, data));
+        window.top.postMessage(msg, "*");
     };
-    PostMHelp.jupmToUrl = function (data) {
+    PostMHelp.jumpToGame = function (data) {
+        if (data === void 0) { data = {}; }
+        //需要关闭声音
+        try {
+            lamain.onGamePause();
+        }
+        catch (e) { }
+        //
+        var msg = JSON.stringify(__assign({ action: "game_open_game" }, data));
+        window.top.postMessage(msg, "*");
+        if (AppData.IS_NATIVE_APP) {
+            window.top.postMessage(JSON.stringify(__assign({ action: "JumpGame" }, data)), "*");
+        }
+    };
+    PostMHelp.jumpToUrl = function (data) {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "JumpUrl" }, data)), "*");
     };
@@ -54,9 +70,15 @@ var PostMHelp = /** @class */ (function () {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "http" }, data)), "*");
     };
+    //调试信息
     PostMHelp.debugInfo = function (data) {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "debugInfo" }, data)), "*");
+    };
+    //调试信息
+    PostMHelp.game_share = function (data) {
+        if (data === void 0) { data = {}; }
+        window.top.postMessage(JSON.stringify(__assign({ action: "game_share" }, data)), "*");
     };
     return PostMHelp;
 }());

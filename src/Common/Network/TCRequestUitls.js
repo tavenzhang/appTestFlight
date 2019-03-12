@@ -11,7 +11,7 @@ import initAppStore from '../../Data/store/AppInfoStore'
 const defaultTimeout = 10000;
 import Moment from 'moment';
 import NavigationService from "../../Page/Route/NavigationService";
-import rootStore from "../../Data/store/RootStore";
+
 
 export default class NetUitls extends Component {
     /**
@@ -19,8 +19,8 @@ export default class NetUitls extends Component {
      *params:参数(Json对象)
      *callback:回调函数
      */
-    static getUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization,loadingState) {
-        this.getUrlAndParamsAndPlatformAndCallback(url, params, null, callback, timeout, dontAddHeadersAuthorization,loadingState)
+    static getUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization,loadingState,isWebHttp=false) {
+        this.getUrlAndParamsAndPlatformAndCallback(url, params, null, callback, timeout, dontAddHeadersAuthorization,loadingState,isWebHttp)
     }
 
     /**
@@ -31,7 +31,7 @@ export default class NetUitls extends Component {
      * @param timeout
      * @param dontAddHeadersAuthorization
      */
-    static getUrlAndParamsAndPlatformAndCallback(url, params, platform, callback, timeout, dontAddHeadersAuthorization,loadingState) {
+    static getUrlAndParamsAndPlatformAndCallback(url, params, platform, callback, timeout, dontAddHeadersAuthorization,loadingState,isWebHttp=false) {
         url = this.getServerUrl(url)
         if (typeof params === 'string') {
             url += '/' + params
@@ -44,10 +44,10 @@ export default class NetUitls extends Component {
             config.mapGet.timeout = defaultTimeout
         }
         config.mapGet.headers.gamePlatform = platform ? platform : '';
-        this.fetchAsync(url, config.mapGet, callback, dontAddHeadersAuthorization,loadingState)
+        this.fetchAsync(url, config.mapGet, callback, dontAddHeadersAuthorization,loadingState,isWebHttp)
     }
 
-    static PostUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState) {
+    static PostUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState,isWebHttp=false) {
         url = this.getServerUrl(url)
 
         TW_Log(JSON.stringify(config.map))
@@ -60,10 +60,10 @@ export default class NetUitls extends Component {
             map.timeout = defaultTimeout
         }
 
-        this.fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState)
+        this.fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState,isWebHttp)
     }
 
-    static postUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState) {
+    static postUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState,isWebHttp=false) {
         url = this.getServerUrl(url)
 
         TW_Log(JSON.stringify(config.map))
@@ -76,10 +76,10 @@ export default class NetUitls extends Component {
             map.timeout = defaultTimeout
         }
 
-        this.fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState)
+        this.fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState,isWebHttp)
     }
 
-    static PutUrlAndParamsAndCallback(url, params, callback, timeout,loadingState) {
+    static putUrlAndParamsAndCallback(url, params, callback, timeout, loadingState, isWebHttp=false) {
         url = this.getServerUrl(url)
         let map = _.assignIn(config.mapPut, {
             body: JSON.stringify(params)
@@ -89,21 +89,9 @@ export default class NetUitls extends Component {
         } else {
             map.timeout = defaultTimeout
         }
-        this.fetchAsync(url, map, callback,loadingState)
+        this.fetchAsync(url, map, callback,false,loadingState,isWebHttp)
     }
 
-    static putUrlAndParamsAndCallback(url, params, callback, timeout,loadingState) {
-        url = this.getServerUrl(url)
-        let map = _.assignIn(config.mapPut, {
-            body: JSON.stringify(params)
-        })
-        if (timeout > 0) {
-            map.timeout = timeout
-        } else {
-            map.timeout = defaultTimeout
-        }
-        this.fetchAsync(url, map, callback,loadingState)
-    }
 
     /**
      * put请求
@@ -113,7 +101,7 @@ export default class NetUitls extends Component {
      * @param callback 请求回调
      * @param timeout 超时设置
      */
-    static putUrlAndParamsAndAndPlatformAndCallback(url, platform, params, callback, timeout,loadingState) {
+    static putUrlAndParamsAndAndPlatformAndCallback(url, platform, params, callback, timeout,loadingState,isWebHttp=false) {
         url = this.getServerUrl(url)
         let map = _.assignIn(config.mapPut, {
             body: JSON.stringify(params)
@@ -124,10 +112,10 @@ export default class NetUitls extends Component {
             map.timeout = defaultTimeout
         }
         map.headers.gamePlatform = platform ? platform : '';
-        this.fetchAsync(url, map, callback,loadingState)
+        this.fetchAsync(url, map, callback,loadingState,isWebHttp)
     }
 
-    static DeleteUrlAndParamsAndCallback(url, params, callback, timeout,loadingState) {
+    static DeleteUrlAndParamsAndCallback(url, params, callback, timeout,loadingState,isWebHttp=false) {
         url = this.getServerUrl(url)
         let map = _.assignIn(config.mapDelete, {
             body: JSON.stringify(params)
@@ -137,10 +125,10 @@ export default class NetUitls extends Component {
         } else {
             map.timeout = defaultTimeout
         }
-        this.fetchAsync(url, map, callback,loadingState)
+        this.fetchAsync(url, map, callback,loadingState,isWebHttp)
     }
 
-    static deleteUrlAndParamsAndCallback(url, params, callback, timeout,loadingState) {
+    static deleteUrlAndParamsAndCallback(url, params, callback, timeout,loadingState,isWebHttp=false) {
         url = this.getServerUrl(url)
         let map = _.assignIn(config.mapDelete, {
             body: JSON.stringify(params)
@@ -150,10 +138,10 @@ export default class NetUitls extends Component {
         } else {
             map.timeout = defaultTimeout
         }
-        this.fetchAsync(url, map, callback,loadingState)
+        this.fetchAsync(url, map, callback,loadingState,isWebHttp)
     }
 
-    static DeleteHttpUrlAndParamsAndCallback(url, params, callback, timeout,loadingState) {
+    static DeleteHttpUrlAndParamsAndCallback(url, params, callback, timeout,loadingState,isWebHttp=false) {
         url = this.getServerUrl(url)
         if (typeof params === 'string') {
             url += '/' + params
@@ -165,10 +153,10 @@ export default class NetUitls extends Component {
         } else {
             config.mapDelete.timeout = defaultTimeout
         }
-        this.fetchAsync(url, config.mapDelete, callback,loadingState)
+        this.fetchAsync(url, config.mapDelete, callback,loadingState,isWebHttp)
     }
 
-    static deleteHttpUrlAndParamsAndCallback(url, params, callback, timeout,loadingState) {
+    static deleteHttpUrlAndParamsAndCallback(url, params, callback, timeout,loadingState,isWebHttp=false) {
         url = this.getServerUrl(url)
         if (typeof params === 'string') {
             url += '/' + params
@@ -180,13 +168,13 @@ export default class NetUitls extends Component {
         } else {
             config.mapDelete.timeout = defaultTimeout
         }
-        this.fetchAsync(url, config.mapDelete, callback,loadingState)
+        this.fetchAsync(url, config.mapDelete, callback,loadingState,isWebHttp)
     }
 
     //loadingState = {isModal: false, overStyle: {}, style: {}, margeTop: 0}
-    static async fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState) {
+    static async fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState,isWebHttp=false) {
         if (!dontAddHeadersAuthorization) {
-            map = addHeadersAuthorization(map)
+            map = addHeadersAuthorization(map,isWebHttp)
         } else {
             delete map.headers.Authorization
         }
@@ -276,18 +264,41 @@ export default class NetUitls extends Component {
         if (url && (_.startsWith(url, 'http://') || _.startsWith(url, 'https://'))) {
             return url
         }
+
         return TW_Store.appStore.currentDomain  + baseUrl.baseUrl + url
+    }
+
+    /**
+     * 请求其他服务器数据
+     * @param url
+     * @param callback
+     * @param timeout
+     * @param header
+     */
+    static getOtherServerUrlAndCallback(url,timeout,header,callback){
+        let map = config.mapGet
+        if(header){
+            map.headers = header
+        }
+        if(timeout>0){
+            map.timeout = timeout
+        }
+
+        this.fetchAsync(url,map,callback)
     }
 }
 
-function addHeadersAuthorization(map) {
-    // if (userStore.access_token && userStore.isLogin) {
-    //     map.headers.Authorization = 'bearer ' + userStore.access_token;
-    // }
-    // else {
-    //     map.headers.Authorization = '';
-    // }
-    map.headers.Authorization = '';
+function addHeadersAuthorization(map,isWebHttp=false) {
+    if(!isWebHttp){
+        if (TW_Store.userStore.access_token && TW_Store.userStore.access_token!="") {
+            map.headers.Authorization = 'bearer ' + TW_Store.userStore.access_token;
+        }
+        else {
+            map.headers.Authorization = '';
+        }
+    }else{
+        map.headers.Authorization = '';
+    }
     return map
 }
 

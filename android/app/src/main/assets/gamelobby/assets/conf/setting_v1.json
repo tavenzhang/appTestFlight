@@ -76,10 +76,7 @@
     },
     "close":{
         "desc":"关闭按钮",
-        "pos":{
-            "x":700,
-            "y":55
-        },
+        "pos":{ "x":700, "y":55 },
         "src":[
             "./assets/ui/history/btn_zhanji_kuangdi_guanbi.png"
         ],
@@ -88,16 +85,10 @@
             "size":18,
             "color":"#ffffff",
             "borderColorX":"#ff0000",
-            "pos":{
-                "x":0,
-                "y":0
-            }
+            "pos":{ "x":0, "y":0 }
         },
-        "size":{
-            "w":47,
-            "h":47
-        },
-        "sfx":"assets/raw/Click.mp3",
+        "size":{ "w":47, "h":47 },
+        "sfx":"assets/raw/close.mp3",
         "maxScale":1.1,
         "normalScale":1
     },
@@ -108,43 +99,25 @@
     "line":{
         "desc":"分隔线",
         "src":"./assets/ui/setting/v1/img_shezhi_line.png",
-        "pos":{
-            "x":32,
-            "y":300
-        },
-        "size":{
-            "w":696,
-            "h":13
-        }
+        "pos":{ "x":32, "y":300 },
+        "size":{ "w":696, "h":13 }
     },
     "musicbar":{
         "desc":"背景音乐栏目",
         "icon":{
             "src":"./assets/ui/setting/v1/icon_shezhi_yingyue.png",
-            "pos":{
-                "x":80,
-                "y":130
-            }
+            "pos":{ "x":80, "y":130 }
         },
         "label":{
             "src":"./assets/ui/setting/beijingyinyue.png",
-            "pos":{
-                "x":140,
-                "y":130
-            }
+            "pos":{ "x":140, "y":130 }
         },
         "dragbar":{
             "desc":"拖拉块",
-            "pos":{
-                "x":270,
-                "y":125
-            },
+            "pos":{ "x":270, "y":125 },
             "bg":{
                 "src":"./assets/ui/setting/v1/img_shezhi_jingdutiao2.png",
-                "pos":{
-                    "x":0,
-                    "y":15
-                },
+                "pos":{ "x":0, "y":15 },
                 "size":{
                     "w":450,
                     "h":20,
@@ -158,21 +131,12 @@
             },
             "front":{
                 "src":"./assets/ui/setting/v1/img_shezhi_jjingdutiao.png",
-                "pos":{
-                    "x":-6,
-                    "y":8
-                },
-                "size":{
-                    "w":450,
-                    "h":34
-                }
+                "pos":{ "x":-6, "y":8 },
+                "size":{ "w":450, "h":34 }
             },
             "drag":{
                 "src":"./assets/ui/setting/btn_tiaojie.png",
-                "pos":{
-                    "x":0,
-                    "y":0
-                }
+                "pos":{ "x":0, "y":0 }
             }
         }
     },
@@ -180,30 +144,18 @@
         "desc":"音效栏目",
         "icon":{
             "src":"./assets/ui/setting/v1/icon_shezhi_yinliang.png",
-            "pos":{
-                "x":80,
-                "y":200
-            }
+            "pos":{ "x":80, "y":200 }
         },
         "label":{
             "src":"./assets/ui/setting/youxiyinxiao.png",
-            "pos":{
-                "x":140,
-                "y":200
-            }
+            "pos":{ "x":140, "y":200 }
         },
         "dragbar":{
             "desc":"拖拉块",
-            "pos":{
-                "x":270,
-                "y":195
-            },
+            "pos":{ "x":270, "y":195 },
             "bg":{
                 "src":"./assets/ui/setting/v1/img_shezhi_jingdutiao2.png",
-                "pos":{
-                    "x":0,
-                    "y":15
-                },
+                "pos":{ "x":0, "y":15 },
                 "size":{
                     "w":450,
                     "h":20,
@@ -217,21 +169,12 @@
             },
             "front":{
                 "src":"./assets/ui/setting/v1/img_shezhi_jjingdutiao.png",
-                "pos":{
-                    "x":-6,
-                    "y":8
-                },
-                "size":{
-                    "w":450,
-                    "h":34
-                }
+                "pos":{ "x":-6, "y":8 },
+                "size":{ "w":450, "h":34 }
             },
             "drag":{
                 "src":"./assets/ui/setting/btn_tiaojie.png",
-                "pos":{
-                    "x":0,
-                    "y":0
-                }
+                "pos":{ "x":0, "y":0 }
             }
         }
     },
@@ -239,74 +182,44 @@
         "desc":"背景音乐开关",
         "label":{
             "src":"./assets/ui/setting/img_shezhi_yingyue.png",
-            "pos":{
-                "x":80,
-                "y":325
-            }
+            "pos":{ "x":80, "y":325 }
         },
         "switch":{
             "desc":"切换开关",
-            "pos":{
-                "x":180,
-                "y":325
-            },
+            "pos":{ "x":180, "y":325 },
             "bg":{
                 "src":"./assets/ui/setting/v1/btn_shezhi_kaiguan01.png",
-                "pos":{
-                    "x":0,
-                    "y":0
-                }
+                "pos":{ "x":0, "y":0 }
             },
             "drag":{
                 "src":"./assets/ui/setting/v1/btn_shezhi_kuaiguan02.png",
-                "pos":{
-                    "x":0,
-                    "y":0
-                },
-                "posoff":{
-                    "x":60,
-                    "y":0
-                }
+                "pos":{ "x":0, "y":0 },
+                "posoff":{ "x":60, "y":0 }
             },
             "duration":100,
-            "sfx":"assets/raw/Click.mp3"
+            "sfx":"assets/raw/click.mp3"
         }
     },
     "sfxswitch":{
         "desc":"音效开关",
         "label":{
             "src":"./assets/ui/setting/img_shezhi_yingxiao.png",
-            "pos":{
-                "x":470,
-                "y":325
-            }
+            "pos":{ "x":470, "y":325 }
         },
         "switch":{
             "desc":"切换开关",
-            "pos":{
-                "x":570,
-                "y":325
-            },
+            "pos":{ "x":570, "y":325 },
             "bg":{
                 "src":"./assets/ui/setting/v1/btn_shezhi_kaiguan01.png",
-                "pos":{
-                    "x":0,
-                    "y":0
-                }
+                "pos":{ "x":0, "y":0 }
             },
             "drag":{
                 "src":"./assets/ui/setting/v1/btn_shezhi_kuaiguan02.png",
-                "pos":{
-                    "x":0,
-                    "y":0
-                },
-                "posoff":{
-                    "x":60,
-                    "y":0
-                }
+                "pos":{ "x":0, "y":0 },
+                "posoff":{ "x":60, "y":0 }
             },
             "duration":100,
-            "sfx":"assets/raw/Click.mp3"
+            "sfx":"assets/raw/click.mp3"
         }
     }
 }

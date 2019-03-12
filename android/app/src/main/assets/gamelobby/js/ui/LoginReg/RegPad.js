@@ -4,13 +4,16 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/*
+注册界面
+*/
 var RegPad = /** @class */ (function (_super) {
     __extends(RegPad, _super);
     function RegPad() {
@@ -103,15 +106,15 @@ var RegPad = /** @class */ (function (_super) {
             var star = Tools.addLabels(sp, this.conf.pwdconfirm.star);
         }
         if (this.conf.yanzhengma) {
-            var sp = new Laya.Sprite();
-            sp.pos(this.conf.yanzhengma.pos.x, this.conf.yanzhengma.pos.y);
-            this.addChild(sp);
-            var lb = Tools.addSprite(sp, this.conf.yanzhengma.label);
-            var inputbg = Tools.addSprite(sp, this.conf.yanzhengma.inputbg);
-            this.inputYanzhengma = Tools.addInput(sp, this.conf.yanzhengma.input);
+            this.sp_yanzhengma = new Laya.Sprite();
+            this.sp_yanzhengma.pos(this.conf.yanzhengma.pos.x, this.conf.yanzhengma.pos.y);
+            this.addChild(this.sp_yanzhengma);
+            var lb = Tools.addSprite(this.sp_yanzhengma, this.conf.yanzhengma.label);
+            var inputbg = Tools.addSprite(this.sp_yanzhengma, this.conf.yanzhengma.inputbg);
+            this.inputYanzhengma = Tools.addInput(this.sp_yanzhengma, this.conf.yanzhengma.input);
             // this.inputYanzhengma.on(Laya.Event.FOCUS,this,this.onYanzhengmaFocus);
-            var star = Tools.addLabels(sp, this.conf.yanzhengma.star);
-            this.imgYanzhengma = this.newYanzhengma(sp, this.conf.yanzhengma.image);
+            var star = Tools.addLabels(this.sp_yanzhengma, this.conf.yanzhengma.star);
+            this.imgYanzhengma = this.newYanzhengma(this.sp_yanzhengma, this.conf.yanzhengma.image);
         }
         if (this.conf.yaoqingma) {
             var sp = new Laya.Sprite();
@@ -140,7 +143,54 @@ var RegPad = /** @class */ (function (_super) {
         // }
     };
     //新的验证码图片对象
+    RegPad.prototype.newYanzhengmaY = function (node, conf) {
+        var img;
+        if (this.imgYanzhengma) {
+            img = this.imgYanzhengma;
+        }
+        else {
+            img = new Laya.Sprite();
+            img.on(Laya.Event.CLICK, this, this.onYanzhengmaFocus, [node]);
+            img.pos(conf.pos.x, conf.pos.y);
+            img.size(conf.size.w, conf.size.h);
+            node.addChild(img);
+        }
+        this.yanzhengma_root = Math.random();
+        // img.pos(conf.pos.x,conf.pos.y);
+        // img.size(conf.size.w,conf.size.h);
+        Debug.trace("RegPad.newYanzhengma root:" + this.yanzhengma_root);
+        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.yanzhengma_root;
+        Debug.trace("RegPad.newYanzhengma url:" + url);
+        Laya.loader.load(url, Laya.Handler.create(this, this.onYZMLoaded, [img, url, conf.size.w, conf.size.h]));
+        // img.skin = url;
+        // img.loadImage(url);
+        // img.on(Laya.Event.CLICK,this,this.onYanzhengmaFocus,[node]);
+        // node.addChild(img);
+        return img;
+    };
+    //test
+    RegPad.prototype.onYZMLoaded = function (sp, url, w, h) {
+        // Debug.trace("RegPad.onYZMLoaded e:");
+        // Debug.trace(e);
+        Debug.trace("RegPad.onYZMLoaded url:" + url);
+        var img = sp;
+        img.graphics.clear();
+        var t = Laya.loader.getRes(url);
+        Debug.trace("RegPad.onYZMLoaded t:");
+        Debug.trace(t);
+        img.graphics.drawTexture(t, 0, 0, w, h);
+    };
     RegPad.prototype.newYanzhengma = function (node, conf) {
+        //根据当前路径类型来
+        switch (Common.pathType) {
+            case Common.PATH_TYPE_XD:
+                return this.newYanzhengma_xiangdui(node, conf);
+            default:
+                return this.newYanzhengma_juedui(node, conf);
+        }
+    };
+    //image加载模式
+    RegPad.prototype.newYanzhengma_xiangdui = function (node, conf) {
         var img;
         if (this.imgYanzhengma) {
             img = this.imgYanzhengma;
@@ -155,7 +205,38 @@ var RegPad = /** @class */ (function (_super) {
         this.yanzhengma_root = Math.random();
         // img.pos(conf.pos.x,conf.pos.y);
         // img.size(conf.size.w,conf.size.h);
-        img.skin = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.yanzhengma_root;
+        Debug.trace("RegPad.newYanzhengma root:" + this.yanzhengma_root);
+        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.yanzhengma_root;
+        Debug.trace("RegPad.newYanzhengma url:" + url);
+        img.skin = url;
+        // img.on(Laya.Event.CLICK,this,this.onYanzhengmaFocus,[node]);
+        // node.addChild(img);
+        return img;
+    };
+    RegPad.prototype.newYanzhengma_juedui = function (node, conf) {
+        var img;
+        if (this.imgYanzhengma) {
+            img = this.imgYanzhengma;
+        }
+        else {
+            img = new Laya.Image();
+            img.on(Laya.Event.CLICK, this, this.onYanzhengmaFocus, [node]);
+            img.pos(conf.pos.x, conf.pos.y);
+            img.size(conf.size.w, conf.size.h);
+            node.addChild(img);
+        }
+        this.yanzhengma_root = Math.random();
+        // img.pos(conf.pos.x,conf.pos.y);
+        // img.size(conf.size.w,conf.size.h);
+        Debug.trace("RegPad.newYanzhengma root:" + this.yanzhengma_root);
+        var url = Tools.getCurHost(Tools.getCurFullPath()); //+"/";
+        var ext = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.yanzhengma_root;
+        if (ext.indexOf("../") == 0) {
+            ext = ext.substr(3, ext.length);
+        }
+        url = url + ext;
+        Debug.trace("RegPad.newYanzhengma url:" + url);
+        img.skin = url;
         // img.on(Laya.Event.CLICK,this,this.onYanzhengmaFocus,[node]);
         // node.addChild(img);
         return img;
@@ -210,8 +291,14 @@ var RegPad = /** @class */ (function (_super) {
         var pwd = this.inputPwd.text;
         var pwdconfirm = this.inputConfirmPwd.text;
         var yanzhengma = this.inputYanzhengma.text;
-        var yaoqingma = this.inputYaoqingma.text;
-        var phone = this.inputPhone.text;
+        var yaoqingma = null;
+        if (this.inputYaoqingma) {
+            yaoqingma = this.inputYaoqingma.text;
+        }
+        var phone = null;
+        if (this.inputPhone) {
+            phone = this.inputPhone.text;
+        }
         //检查是否填写内容
         if (name.length <= 0
             || pwd.length <= 0
@@ -259,15 +346,28 @@ var RegPad = /** @class */ (function (_super) {
             // Debug.trace("sPhone:"+sPhone);
         }
         RegPad.request_header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        // RegPad.request_data = {
+        //     username:name,
+        //     password:ePwd,
+        //     hash:RegPad.reghash,
+        //     affCode:yaoqing,
+        //     validateCode:yanzheng,
+        //     webUniqueCode:deviceId,
+        //     options:sPhone
+        // };
         RegPad.request_data = {
             username: name,
             password: ePwd,
             hash: RegPad.reghash,
-            affCode: yaoqing,
             validateCode: yanzheng,
-            webUniqueCode: deviceId,
-            options: sPhone
+            webUniqueCode: deviceId
         };
+        if (yaoqing) {
+            RegPad.request_data.affCode = yaoqing;
+        }
+        if (phone) {
+            RegPad.request_data.options = sPhone;
+        }
         window['SecretUtils'].encode(name, pwd, this.getHash);
         // var hash = "xxx";
     };
@@ -281,6 +381,9 @@ var RegPad = /** @class */ (function (_super) {
         if (stat == "complete") {
             //注册成功
             Toast.showToast("注册成功，请返回登录");
+            //自动填写用户名到登录界面
+            LoginPad.getObj().setUserName(RegPad.request_data.username);
+            //关闭注册界面
             RegPad.obj.onCloseClick(null);
         }
         else {
@@ -292,6 +395,8 @@ var RegPad = /** @class */ (function (_super) {
             catch (e) {
                 Debug.trace("error===" + err, hr.http);
             }
+            //出现任何错误，自动刷新验证码
+            this.onYanzhengmaFocus(this.sp_yanzhengma);
         }
         if (MyBBLoading.obj) {
             MyBBLoading.obj.show(false);

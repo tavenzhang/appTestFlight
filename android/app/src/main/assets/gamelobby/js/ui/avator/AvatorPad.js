@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -252,6 +252,8 @@ var AvatorPad = /** @class */ (function (_super) {
             //通知titlebar，头像发生改变了
             Common.userInfo.avatorId = Tools.FormatNumber(this.cur_choose_id, 2);
             HeadIcon.refreshAvator();
+            //通知个人中心，刷新头像
+            AccountCenter.getObj().setIcon(Common.userInfo.avatorId);
             //目前没有接口的情况下，把头像数据保存到localStorge
             SaveManager.getObj().save(SaveManager.KEY_SFX_VL, Common.userInfo.avatorId);
             //设置了图标之后，就又不能点按钮了，因为当前还没有换焦点

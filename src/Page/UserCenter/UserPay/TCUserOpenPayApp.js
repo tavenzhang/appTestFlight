@@ -1,0 +1,81 @@
+import {
+    NativeModules,
+    Linking,
+    Platform
+} from 'react-native'
+
+import Toast from '../../../Common/JXHelper/JXToast';
+/**
+ * 打开用户支付App
+ */
+export default class TCUserOpenPayApp {
+
+    WEICHAT_PACKAGE = "com.tencent.mm"
+    QQ_PACKAGE = "com.tencent.mobileqq"
+    ALIPAY_PACKAGE = "com.eg.android.AlipayGphone"
+    JD_PACKAGE = "com.jingdong.app.mall"
+
+
+
+    static openWX(){
+        // NativeModules.TCOpenOtherAppHelper.openApp("com.tencent.mm", "微信");
+        if( NativeModules.TCOpenOtherAppHelper){
+            NativeModules.TCOpenOtherAppHelper.openWeiXin()
+        }else{
+            TCUserOpenPayApp.linkingApp('weixin://', '微信');
+        }
+    }
+    /**
+     * 打开微信
+     */
+    openWeChat() {
+        // NativeModules.TCOpenOtherAppHelper.openApp("com.tencent.mm", "微信");
+        if( NativeModules.TCOpenOtherAppHelper){
+            NativeModules.TCOpenOtherAppHelper.openWeiXin()
+        }else{
+            this.linkingApp('weixin://', '微信');
+        }
+
+    }
+
+    /**
+     * 打开QQ
+     */
+    openQQ() {
+        if (Platform.OS === 'ios') {
+            this.linkingApp('mqq://', 'QQ')
+        } else {
+            try {
+                NativeModules.TCOpenOtherAppHelper.openApp(this.QQ_PACKAGE, "QQ")
+            } catch (e) {
+                Toast.showShortCenter('暂时不支持打开QQ,请手动打开')
+            }
+        }
+    }
+
+    /**
+     * 打开京东
+     */
+    openJD() {
+        this.linkingApp("openApp.jdMobile://", "京东")
+    }
+
+    /**
+     * 打开支付宝
+     */
+    openAlipay() {
+        NativeModules.TCOpenOtherAppHelper.openAlipay();
+    }
+
+    linkingApp(url, payType) {
+        Linking.openURL(url).catch(err => {
+            Toast.showShortCenter('请您先安装' + payType + '应用！')
+        })
+    }
+
+    static linkingApp(url, payType) {
+        Linking.openURL(url).catch(err => {
+            Toast.showShortCenter('请您先安装' + payType + '应用！')
+        })
+    }
+}

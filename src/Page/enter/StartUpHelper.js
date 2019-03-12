@@ -16,7 +16,7 @@ function getAvailableDomain (domains,callback) {
           if(!isFinish){
               isFinish = true;
               let content= rt.content;
-              //content.allowAppUpdate=true;
+              content.allowAppUpdate=true;
               AsyncStorage.setItem('cacheDomain', JSON.stringify({
                   serverDomains: content.serverDomains,
                   hotfixDomains: content.availableUpdateInfoList,

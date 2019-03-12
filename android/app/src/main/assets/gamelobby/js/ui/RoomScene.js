@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -26,7 +26,12 @@ var RoomScene = /** @class */ (function (_super) {
         //版本信息
         VersionStat.getInstance(this, ConfObjRead.getConfVersion());
         //跑马灯消息
-        RunningMsg.getInstance(this, ConfObjRead.getConfRunningmsg(), this, this.runningmsgOver);
+        // RunningMsg.getInstance(this,ConfObjRead.getConfRunningmsg(),
+        //     this,this.runningmsgOver);
+        var msgUrl = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.noticelist +
+            "?pageSize=20&start=0&access_token=" + Common.access_token;
+        RunningMsg.getInstance(this, "./assets/conf/runningmsg.json", msgUrl);
         //底部菜单
         BottomMenus.getInstance(this, ConfObjRead.getConfBottommenu());
         //房间列表

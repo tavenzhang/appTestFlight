@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -25,10 +25,12 @@ var RunningMsg = /** @class */ (function (_super) {
         _this.bInScrolling = false;
         return _this;
     }
-    RunningMsg.getInstance = function (node, conf, caller, callback) {
+    RunningMsg.getInstance = function (node, confsrc, url, caller, callback) {
+        if (caller === void 0) { caller = null; }
+        if (callback === void 0) { callback = null; }
         if (!RunningMsg.obj) {
             var a = new RunningMsg();
-            a.init(conf, caller, callback);
+            a.init(confsrc, url, caller, callback);
             node.addChild(a);
         }
         return RunningMsg.obj;
@@ -39,12 +41,26 @@ var RunningMsg = /** @class */ (function (_super) {
         RunningMsg.obj = null;
         _super.prototype.destroy.call(this, b);
     };
-    RunningMsg.prototype.init = function (conf, caller, callback) {
-        this.conf = conf;
+    RunningMsg.prototype.init = function (confsrc, url, caller, callback) {
         this.caller = caller;
         this.callback = callback;
-        //初始化消息池
-        // this.msg_pool = new Array();
+        this.url = url;
+        // this.conf = conf;
+        this.confsrc = confsrc;
+        Laya.loader.load(this.confsrc, Laya.Handler.create(this, this.onConfLoaded, [this.confsrc]), null, Laya.Loader.JSON);
+    };
+    RunningMsg.prototype.onConfLoaded = function (e) {
+        //加载完毕之后，读取对象
+        // Debug.trace("RunningMsg.onConfLoaded confsrc:"+this.confsrc);
+        this.conf = Laya.loader.getRes(this.confsrc);
+        if (this.conf) {
+            this.create();
+        }
+        else {
+            Debug.trace("RunningMsg.onConfLoaded conf null");
+        }
+    };
+    RunningMsg.prototype.create = function () {
         //构造左右的背景
         this.initBg(this.conf.bg);
         //消息数组和容器
@@ -53,10 +69,11 @@ var RunningMsg = /** @class */ (function (_super) {
         this.initMask(this.conf.mask);
         //请求第一次，然后开启定时器，定时轮询是否有公告
         this.requestOnce();
-        // this.initRequestTimer(this.conf.request);
         this.pos(this.conf.pos.x, this.conf.pos.y);
         //跑马灯初始化完毕
-        this.callback.apply(this.caller, [this]);
+        if (this.caller && this.callback) {
+            this.callback.apply(this.caller, [this]);
+        }
     };
     //初始化轮询定时器
     RunningMsg.prototype.initRequestTimer = function (conf) {
@@ -76,14 +93,26 @@ var RunningMsg = /** @class */ (function (_super) {
     };
     //发起一次轮询请求
     RunningMsg.prototype.requestOnce = function () {
-        var url = ConfObjRead.getConfUrl().url.apihome +
-            ConfObjRead.getConfUrl().cmd.noticelist +
-            // Common.confObj.cmd.noticelist+
-            "?pageSize=20&start=0&access_token=" + Common.access_token;
-        NetManager.getObj().HttpConnect(url, this, this.responseOnce);
+        // Debug.trace("RunningMsg.requestOnce url:"+this.url);
+        if (this.url.length > 0) {
+            // Debug.trace("RunningMsg.requestOnce url:"+this.url);
+            NetManager.getObj().HttpConnect(this.url, this, this.responseOnce);
+        }
+        else {
+            // Debug.trace("RunningMsg.requestOnce empty");
+            var s = {
+                "datas": [
+                    {
+                        //"notice":"未传递正确的滚动消息拉取地址，请正确填写拉取地址"
+                        "notice": this.conf.request.emptyMsg
+                    }
+                ]
+            };
+            this.responseOnce(s, "complete", null);
+        }
     };
     //收到一次轮询结果
-    RunningMsg.prototype.responseOnce = function (s, stat) {
+    RunningMsg.prototype.responseOnce = function (s, stat, hr) {
         if (stat == "complete") {
             //设置所有参数
             //有内容？先把之前的内容全部移除掉?
@@ -103,33 +132,16 @@ var RunningMsg = /** @class */ (function (_super) {
             }
         }
         else {
-            // Toast.showToast(s);
             this.initRequestTimer(this.conf.request);
-            //脱网测试
-            // Debug.trace("RunningMsg response add msg items");
-            // var objs = [
-            //     {"notice":"hhhhhhhhhh"}
-            // ];
-            // this.addMsgItems(objs);
         }
-        // Debug.trace("response userInfo:"+stat);
-        // Debug.trace(s);
-        //完毕了，之后又干嘛
-        // this.callback.apply(this.caller,[this]);
     };
     RunningMsg.prototype.initBg = function (conf) {
         if (!conf) {
             return;
         }
         //有配置背景的情况下，显示背景
-        // var bg = new Laya.Sprite();
-        // bg.loadImage(this.conf.bg.src);
-        // bg.pos(this.conf.bg.pos.x,this.conf.bg.pos.y);
         var bg = Tools.newSprite(conf);
         this.addChild(bg);
-        // var scx = this.conf.bg.size.w / this.bg.width;
-        // var scy = this.conf.bg.size.h / this.bg.height;
-        // this.bg.scale(scx,scy);
     };
     RunningMsg.prototype.initContent = function (conf) {
         if (!conf) {
@@ -148,21 +160,20 @@ var RunningMsg = /** @class */ (function (_super) {
         if (!conf) {
             return;
         }
-        // this.sp_mask = new Laya.Sprite();
-        // Tools.drawRect(this.sp_mask,
-        //     conf.pos.x,conf.pos.y,
-        //     conf.size.w,conf.size.h,
-        //     conf.color
-        //     );
-        // this.sp_mask.size(conf.size.w,conf.size.h);
-        // this.sp_lbcontent.mask = this.sp_mask;
         this.sp_lbcontent.scrollRect = new Laya.Rectangle(conf.pos.x, conf.pos.y, conf.size.w, conf.size.h);
+        //如果有配置外框颜色，则绘制出外框
+        if (conf.frameColor) {
+            Tools.drawRectWithAlpha(this.sp_lbcontent, conf.pos.x, conf.pos.y, conf.size.w, conf.size.h, conf.frameColor, conf.frameAlpha);
+        }
     };
     //添加全部消息
     RunningMsg.prototype.addMsgItems = function (data) {
         // Debug.trace("data:");
         // Debug.trace(data);
         var whole_str = "";
+        if (this.conf.request.bTest) {
+            whole_str = this.conf.request.emptyMsg;
+        }
         //逐个添加
         // for( var k in data )
         for (var k = 0; k < data.length; k++) {
@@ -184,7 +195,7 @@ var RunningMsg = /** @class */ (function (_super) {
     };
     RunningMsg.prototype.addMsgItem = function (text) {
         var nowhave = this.lb_msgs.length;
-        // Debug.trace('RunningMsg.addMsgItem text:'+nowhave);
+        // Debug.trace('RunningMsg.addMsgItem text:'+text);
         var lbmsg = new RunMsgItem();
         lbmsg.init(this, this.conf.msgcontent.label, text);
         lbmsg.setId(nowhave);

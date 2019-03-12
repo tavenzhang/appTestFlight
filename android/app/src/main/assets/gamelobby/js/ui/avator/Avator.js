@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -20,7 +20,11 @@ var Avator = /** @class */ (function (_super) {
         return _this;
     }
     Avator.getInstance = function (node, conf, caller, callback) {
-        if (!Avator.obj) {
+        if (node === void 0) { node = null; }
+        if (conf === void 0) { conf = null; }
+        if (caller === void 0) { caller = null; }
+        if (callback === void 0) { callback = null; }
+        if (!Avator.obj && node != null && conf != null && caller != null && callback != null) {
             var a = new Avator();
             a.init(conf, caller, callback);
             node.addChild(a);
@@ -46,6 +50,9 @@ var Avator = /** @class */ (function (_super) {
         this.initCoinIcon(this.conf.coinicon);
         this.pos(this.conf.hidepos.x, this.conf.hidepos.y);
         // this.pos(this.conf.pos.x, this.conf.pos.y);
+        this.startRequest();
+    };
+    Avator.prototype.startRequest = function () {
         //请求用户信息
         this.requestUserInfo(ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.userinfobalance +
@@ -91,6 +98,13 @@ var Avator = /** @class */ (function (_super) {
         // bg.pos(this.conf.bg.pos.x,this.conf.bg.pos.y);
         var bg = Tools.newSprite(conf);
         this.addChild(bg);
+        if (conf.anim) {
+            var anim = new MyBoneAnim();
+            anim.init(conf.anim);
+            this.addChild(anim);
+            anim.playAnim(0, true);
+            // anim.pos(conf.anim.pos.x,conf.anim.pos.y);
+        }
     };
     //点击头像
     Avator.prototype.onClickAvator = function (e) {
@@ -101,7 +115,9 @@ var Avator = /** @class */ (function (_super) {
         // Debug.trace('onClickAvator:');
         // Debug.trace(e);
         // LayaMain.getInstance().showAvatorInfo(e);
-        AvatorPad.showPad(Laya.stage); //this.parent);
+        // AvatorPad.showPad(LobbyScene.getInstance());
+        // AccountCenter.showPad(LobbyScene.getInstance());
+        AccountCenter.showPad(Laya.stage);
     };
     Avator.prototype.requestUserInfo = function (url) {
         this.bRequestStatus = 1;

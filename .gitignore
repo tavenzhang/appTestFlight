@@ -2,7 +2,7 @@
 #
 .DS_Store
 package-lock.json
-
+*Podfile.lock
 # Xcode
 #
 build/
@@ -30,13 +30,12 @@ build/
 .gradle
 local.properties
 *.iml
-*.lock
 # node.js
 #
 node_modules/
 npm-debug.log
 yarn-error.log
-
+*temp.sh
 # BUCK
 buck-out/
 \.buckd/
