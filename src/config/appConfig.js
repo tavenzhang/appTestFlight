@@ -54,7 +54,7 @@ export const platInfo = {
      gameDomain: "https://webplatform.psxiaohe.com",
 
     zipCheckServer: {
-        debug_server: "http://192.168.14.70:8888",
+        debug_server: "https://download.hkbaoxian188.com/game/release/uat",
         release_server: "https://download.hkbaoxian188.com/game/release/uat"
     },
     platId: configAppId,
@@ -88,9 +88,9 @@ export const platInfo = {
 
 export const affCodeList = {
     ios: {
-        '2.9.6': '365_ios'
+        '2.9.6': 'uat_ios'
     },
     android: {
-        '2.10.11': '365_android'
+        '2.10.11': 'uat_android'
     }
 };

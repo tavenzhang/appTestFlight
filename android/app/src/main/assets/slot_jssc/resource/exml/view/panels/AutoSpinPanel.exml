@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="AutoSpinPanelUi" width="750" height="1334" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="Backdrop" width="100%" height="100%" fillAlpha="0.6" />
+	<e:Group id="AutoSpinContainer" horizontalCenter="0" width="660" anchorOffsetY="0" height="594" y="370">
+		<e:Image source="panel_common_bg" scale9Grid="10,10,80,80" width="100%" height="100%" horizontalCenter="0" />
+		<e:Image source="panel_common_texture" fillMode="repeat" width="100%" height="100%" alpha="0.03" />
+		<e:Image source="panel_common_title-bar" y="-2" horizontalCenter="0" />
+		<e:Image y="5" horizontalCenter="0" source="panel_label_autospin" />
+		<e:Group height="418" y="72" width="580" horizontalCenter="0">
+			<e:Image scale9Grid="10,10,80,80" height="100%" source="panel_common_inner_bg" scaleX="1" scaleY="1" width="100%" />
+			<e:Group id="SpinCountSelectorContainer" width="589" height="112" y="-0.5" scaleX="1" scaleY="1" horizontalCenter="0">
+				<e:ToggleButton label="999" y="41" name="select0" x="20">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_autospin-unselect" source.down="btn_autospin-select" />
+							<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+						</e:Skin>
+					</e:skinName>
+				</e:ToggleButton>
+				<e:ToggleButton label="999" x="133" y="41" name="select1">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_autospin-unselect" source.down="btn_autospin-select" />
+							<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+						</e:Skin>
+					</e:skinName>
+				</e:ToggleButton>
+				<e:ToggleButton label="999" x="247" y="41" name="select2">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_autospin-unselect" source.down="btn_autospin-select" />
+							<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+						</e:Skin>
+					</e:skinName>
+				</e:ToggleButton>
+				<e:ToggleButton label="999" x="360" y="41" name="select3">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_autospin-unselect" source.down="btn_autospin-select" />
+							<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+						</e:Skin>
+					</e:skinName>
+				</e:ToggleButton>
+				<e:ToggleButton label="999" y="41" name="select4" x="473">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_autospin-unselect" source.down="btn_autospin-select" />
+							<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+						</e:Skin>
+					</e:skinName>
+				</e:ToggleButton>
+				<e:Label id="Amount" text="旋转次数" width="526" textAlign="left" fontFamily="SimHei" touchEnabled="false" top="10"
+				         textColor="0xf96d6d" size="25" x="30" />
+			</e:Group>
+			<e:Group id="LossContainer" width="526" height="50" y="134" scaleX="1" scaleY="1" horizontalCenter="0">
+				<e:Image source="btn_autospin-draggerline" verticalCenter="0"  horizontalCenter="0"/>
+				<e:Rect height="3" name="bar" anchorOffsetY="1.5" width="526" verticalCenter="0" fillAlpha="0.5"
+				        fillColor="0xffffff" />
+				<e:Button label="" anchorOffsetX="18" anchorOffsetY="18" name="dragger" verticalCenter="0">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_autospin-dragger_up"
+							         source.disabled="btn_autospin-dragger_disable" />
+							<e:Label id="labelDisplay" />
+						</e:Skin>
+					</e:skinName>
+				</e:Button>
+				<e:Label id="LoseNone" text="999.99" y="-25" textAlign="right" verticalAlign="middle" size="25" anchorOffsetX="0"
+				         width="50%" anchorOffsetY="0" height="29" name="totalTxt" right="0" fontFamily="Microsoft YaHei"
+				         touchEnabled="false" textColor="0xf0de02" />
+				<e:Label id="LoseAllowed" text="输多少则停止旋转" width="100%" textAlign="left" horizontalCenter="0" fontFamily="SimHei"
+				         touchEnabled="false" y="-25" textColor="0xf96d6d" size="25" />
+			</e:Group>
+			<e:Group id="WinContainer" width="526" height="50" y="221" scaleX="1" scaleY="1" horizontalCenter="0">
+				<e:Image source="btn_autospin-draggerline" verticalCenter="0"  horizontalCenter="0"/>
+				<e:Rect height="3" name="bar" anchorOffsetY="1.5" width="526" verticalCenter="0" fillColor="0xffffff"
+				        fillAlpha="0.5" />
+				<e:Button label="" anchorOffsetX="18" anchorOffsetY="18" name="dragger" verticalCenter="0">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_autospin-dragger_up"
+							         source.disabled="btn_autospin-dragger_disable" />
+							<e:Label id="labelDisplay" />
+						</e:Skin>
+					</e:skinName>
+				</e:Button>
+				<e:Label id="WinNone" text="999.99" y="-25" textAlign="right" verticalAlign="middle" size="25" anchorOffsetX="0"
+				         width="50%" anchorOffsetY="0" height="29" name="totalTxt" right="0" fontFamily="Microsoft YaHei"
+				         touchEnabled="false" textColor="0xf0de02" />
+				<e:Label id="WinAllowed" text="赢多少则停止旋转" y="-25" width="100%" textAlign="left" fontFamily="SimHei"
+				         touchEnabled="false" scaleX="1" scaleY="1" textColor="0xf96d6d" size="25" />
+			</e:Group>
+			<e:Group id="StopConditionContainer" width="526" height="95" y="298" horizontalCenter="0" anchorOffsetY="0">
+				<e:ToggleButton id="BtnStopOnFreeGame" label="" y="0">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_autospin-toggle_up" source.down="btn_autospin-toggle_down" />
+							<e:Label id="labelDisplay" />
+						</e:Skin>
+					</e:skinName>
+				</e:ToggleButton>
+				<e:Label id="StopOnFreeGame" text="赢得免费旋转则停止旋转" textAlign="left" fontFamily="SimHei" touchEnabled="false"
+				         textColor="0xF96D6D" size="25" anchorOffsetY="0" height="41" anchorOffsetX="0" width="463"
+				         verticalAlign="middle" x="63" />
+				<e:ToggleButton id="BtnStopOnBonusGame" label="" bottom="0">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_autospin-toggle_up" source.down="btn_autospin-toggle_down" />
+							<e:Label id="labelDisplay" />
+						</e:Skin>
+					</e:skinName>
+				</e:ToggleButton>
+				<e:Label id="StopOnBonusGame" text="赢得赏金游戏则停止旋转" textAlign="left" fontFamily="SimHei" touchEnabled="false"
+				         textColor="0xF96D6D" size="25" height="41" width="463" verticalAlign="middle" x="63" bottom="0" />
+			</e:Group>
+		</e:Group>
+		<e:Group y="507" width="355" height="60" horizontalCenter="0.5">
+			<e:Button id="BtnStartAutoSpin" label="" scaleX="1" scaleY="1" horizontalCenter="0">
+				<e:skinName>
+					<e:Skin states="up,down,disabled">
+						<e:Image width="100%" height="100%" source="btn_startautospin_up" source.disabled="btn_startautospin_disable" />
+						<e:Label id="labelDisplay" />
+					</e:Skin>
+				</e:skinName>
+			</e:Button>
+
+			<e:Label id="Start" text="开始自动旋转" anchorOffsetX="0" width="550" textAlign="center" fontFamily="SimHei"
+			         touchEnabled="false" textColor="0x782402" bold="true" scaleX="1" scaleY="1" horizontalCenter="0"
+			         verticalCenter="-1" />
+		</e:Group>
+		<e:Button id="BtnClose" label="" right="30" top="10">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+					<e:Image width="100%" height="100%" source="btn_close_up" source.down="btn_close_down" />
+					<e:Label id="labelDisplay" />
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+	</e:Group>
+</e:Skin>

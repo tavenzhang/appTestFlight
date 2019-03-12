@@ -18,6 +18,8 @@ export default class DataStore {
     @observable
     isAppUnZip = false;
 
+
+
     @observable
     originAppDir = G_IS_IOS ? (MainBundlePath + '/assets/gamelobby') : "file:///android_asset/gamelobby";
 
@@ -32,6 +34,17 @@ export default class DataStore {
 
     @observable
     isCheckZipUpdate=true;
+
+    @action
+    getGameRootDir(){
+        return G_IS_IOS ? (MainBundlePath + '/assets') : "file:///android_asset";
+        if(this.isAppUnZip) {
+            return   G_IS_IOS ? DocumentDirectoryPath  : `file:///${DocumentDirectoryPath}`;
+        }
+        else{
+            return G_IS_IOS ? (MainBundlePath + '/assets') : "file:///android_asset";
+        }
+    }
 
     @action
     initAppHomeCheck () {
@@ -127,7 +140,6 @@ export default class DataStore {
                //{statusCode: 404, headers: {…}, jobId: 1, contentLength: 153
                  if(res.statusCode != 404){
                      TW_Store.commonBoxStore.isShow=true;
-                    // TW_Log('versionBBL--begin  TW_Store.commonBoxStore.isShow--'+  TW_Store.commonBoxStore.isShow)
                  }else{
                      TW_Store.commonBoxStore.isShow=false
                  }
@@ -221,7 +233,7 @@ export default class DataStore {
                         this.log+="onSavaCopyState---\n"
                         this.onSavaCopyState();
                     }).catch((err) => {
-                        //TW_Log("versionBBL bbl--- 删除文件失败", target_dir_exist);
+                        TW_Log("versionBBL bbl--- 删除文件失败", target_dir_exist);
                     })
                 })
             } else {
@@ -277,15 +289,15 @@ export default class DataStore {
 
     @action
     getHomeWebUri() {
-        if(this.isAppUnZip){
-            return this.targetAppDir+"/index.html"
-        }
+        // if(this.isAppUnZip){
+        //     return this.targetAppDir+"/index.html"
+        // }
         return this.originAppDir+"/index.html"
     }
 
     @action
     getHomeWebHome() {
-        return this.isAppUnZip  ? this.targetAppDir:this.originAppDir
+        return (this.isAppUnZip  ? this.targetAppDir:this.originAppDir)
     }
 }
 

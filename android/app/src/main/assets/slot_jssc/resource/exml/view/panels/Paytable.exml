@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PaytableUi" width="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+    <e:Rect id="Backdrop" width="100%" height="1773" fillAlpha="0.7" />
+    <e:Group id="PaytableContainer" width="750" anchorOffsetY="0" height="100%">
+        <e:Image source="bg_texture" x="1" />
+        <e:Group id="Contents" horizontalCenter="0" width="700" y="120">
+            <e:Group id="SpecialSymbols" width="700">
+                <e:Group width="100%" name="content0">
+                    <e:Image anchorOffsetY="0" source="pay_texture" right="80" />
+                    <e:Image anchorOffsetY="0" source="pay_texture" scaleX="-1" left="80" />
+                    <e:Label text="Label" name="text" width="100%" verticalAlign="middle" textAlign="center"
+                             anchorOffsetY="0" height="47" fontFamily="SimHei" size="45" bold="true" />
+                </e:Group>
+                <e:Group anchorOffsetY="0" width="100%" name="content1" y="67">
+                    <e:Image id="s1" source="s1" x="30" y="18" />
+                    <e:Label fontFamily="SimHei" size="25" width="65%" y="50" lineSpacing="5" name="text" right="30" />
+                </e:Group>
+                <e:Group anchorOffsetY="0" width="100%" name="content2" y="219">
+                    <e:Image id="s2" source="s2" x="30" y="18" />
+                    <e:Label fontFamily="SimHei" size="25" width="65%" y="50" lineSpacing="5" name="text" right="30" />
+                </e:Group>
+                <e:Group anchorOffsetY="0" width="100%" name="content3" y="371">
+                    <e:Image id="s3" source="s3" x="30" y="18" />
+                    <e:Label fontFamily="SimHei" size="25" width="65%" y="50" lineSpacing="5" name="text" right="30" />
+                </e:Group>
+            </e:Group>
+            <e:Group id="PayRateContainer" width="100%" y="603" locked="true">
+                <e:Group width="100%" name="content0">
+                    <e:Image anchorOffsetY="0" source="pay_texture" right="80" />
+                    <e:Image anchorOffsetY="0" source="pay_texture" scaleX="-1" left="80" />
+                    <e:Label text="Label" name="text" width="100%" verticalAlign="middle" textAlign="center"
+                             anchorOffsetY="0" height="47" fontFamily="SimHei" size="45" bold="true" />
+                </e:Group>
+                <e:Group id="Rate4" y="67" x="180">
+                    <e:Image id="s4" source="s4" y="-21" />
+                    <e:Group name="index" x="150" verticalCenter="7">
+                        <e:Label text="5" textAlign="right" width="40" name="idx5" />
+                        <e:Label text="4" textAlign="right" width="40" y="30" name="idx4" />
+                        <e:Label text="3" textAlign="right" width="40" y="60" name="idx3" />
+                    </e:Group>
+                    <e:Group name="rates" x="210" verticalCenter="7">
+                        <e:Label text="999,999,999" textAlign="left" name="rate5" />
+                        <e:Label text="999,999,999" y="30" name="rate4" />
+                        <e:Label text="999,999,999" textAlign="left" y="60" name="rate3" />
+                    </e:Group>
+                </e:Group>
+                <e:Group id="Rate5" y="220" left="30">
+                    <e:Image id="s5" source="s5" y="-21" />
+                    <e:Group name="index" x="150" verticalCenter="0">
+                        <e:Label text="5" textAlign="right" width="40" name="idx5" />
+                        <e:Label text="4" textAlign="right" width="40" y="30" name="idx4" />
+                        <e:Label text="3" textAlign="right" width="40" y="60" name="idx3" />
+                    </e:Group>
+                    <e:Group name="rates" x="210" verticalCenter="0">
+                        <e:Label text="999,999,999" textAlign="left" name="rate5" />
+                        <e:Label text="999,999,999" y="30" name="rate4" />
+                        <e:Label text="999,999,999" textAlign="left" y="60" name="rate3" />
+                    </e:Group>
+                </e:Group>
+                <e:Group id="Rate6" y="220" x="345">
+                    <e:Image id="s6" source="s6" y="-21" />
+                    <e:Group name="index" x="150" verticalCenter="0">
+                        <e:Label text="5" textAlign="right" width="40" name="idx5" />
+                        <e:Label text="4" textAlign="right" width="40" y="30" name="idx4" />
+                        <e:Label text="3" textAlign="right" width="40" y="60" name="idx3" />
+                    </e:Group>
+                    <e:Group name="rates" x="210" verticalCenter="0">
+                        <e:Label text="999,999,999" textAlign="left" name="rate5" />
+                        <e:Label text="999,999,999" y="30" name="rate4" />
+                        <e:Label text="999,999,999" textAlign="left" y="60" name="rate3" />
+                    </e:Group>
+                </e:Group>
+                <e:Group id="Rate7" y="367" left="30">
+                    <e:Image id="s7" source="s7" y="-21" />
+                    <e:Group name="index" x="150" verticalCenter="0">
+                        <e:Label text="5" textAlign="right" width="40" name="idx5" />
+                        <e:Label text="4" textAlign="right" width="40" y="30" name="idx4" />
+                        <e:Label text="3" textAlign="right" width="40" y="60" name="idx3" />
+                    </e:Group>
+                    <e:Group name="rates" x="210" verticalCenter="0">
+                        <e:Label text="999,999,999" textAlign="left" name="rate5" />
+                        <e:Label text="999,999,999" y="30" name="rate4" />
+                        <e:Label text="999,999,999" textAlign="left" y="60" name="rate3" />
+                    </e:Group>
+                </e:Group>
+                <e:Group id="Rate8" y="367" x="345">
+                    <e:Image id="s8" source="s8" y="-21" />
+                    <e:Group name="index" x="150" verticalCenter="0">
+                        <e:Label text="5" textAlign="right" width="40" name="idx5" />
+                        <e:Label text="4" textAlign="right" width="40" y="30" name="idx4" />
+                        <e:Label text="3" textAlign="right" width="40" y="60" name="idx3" />
+                    </e:Group>
+                    <e:Group name="rates" x="210" verticalCenter="0">
+                        <e:Label text="999,999,999" textAlign="left" name="rate5" />
+                        <e:Label text="999,999,999" y="30" name="rate4" />
+                        <e:Label text="999,999,999" textAlign="left" y="60" name="rate3" />
+                    </e:Group>
+                </e:Group>
+                <e:Group id="Rate9" y="513" left="30">
+                    <e:Image id="s9" source="s9" y="-21" />
+                    <e:Group name="index" x="150" verticalCenter="0">
+                        <e:Label text="5" textAlign="right" width="40" name="idx5" />
+                        <e:Label text="4" textAlign="right" width="40" y="30" name="idx4" />
+                        <e:Label text="3" textAlign="right" width="40" y="60" name="idx3" />
+                    </e:Group>
+                    <e:Group name="rates" x="210" verticalCenter="0">
+                        <e:Label text="999,999,999" textAlign="left" name="rate5" />
+                        <e:Label text="999,999,999" y="30" name="rate4" />
+                        <e:Label text="999,999,999" textAlign="left" y="60" name="rate3" />
+                    </e:Group>
+                </e:Group>
+                <e:Group id="Rate10" y="513" x="345">
+                    <e:Image id="s10" source="s10" y="-21" />
+                    <e:Group name="index" x="150" verticalCenter="0">
+                        <e:Label text="5" textAlign="right" width="40" name="idx5" />
+                        <e:Label text="4" textAlign="right" width="40" y="30" name="idx4" />
+                        <e:Label text="3" textAlign="right" width="40" y="60" name="idx3" />
+                    </e:Group>
+                    <e:Group name="rates" x="210" verticalCenter="0">
+                        <e:Label text="999,999,999" textAlign="left" name="rate5" />
+                        <e:Label text="999,999,999" y="30" name="rate4" />
+                        <e:Label text="999,999,999" textAlign="left" y="60" name="rate3" />
+                    </e:Group>
+                </e:Group>
+            </e:Group>
+            <e:Group id="FreeGame" width="700" y="1348" horizontalCenter="0">
+                <e:Group width="100%" name="content0">
+                    <e:Image anchorOffsetY="0" source="pay_texture" right="80" />
+                    <e:Image anchorOffsetY="0" source="pay_texture" scaleX="-1" left="80" />
+                    <e:Label text="Label" name="text" width="100%" verticalAlign="middle" textAlign="center"
+                             anchorOffsetY="0" height="47" fontFamily="SimHei" size="45" bold="true" />
+                </e:Group>
+                <e:Image anchorOffsetY="0" y="67" source="pay_freespin_ss" horizontalCenter="0" />
+                <e:Group anchorOffsetY="0" width="90%" name="content1" y="517" horizontalCenter="0">
+                    <e:Label fontFamily="SimHei" size="25" width="100%" y="50" lineSpacing="5" name="text" />
+                </e:Group>
+            </e:Group>
+            <e:Group id="BonusGame" width="700" y="1995" horizontalCenter="0">
+                <e:Group width="100%" name="content0">
+                    <e:Image anchorOffsetY="0" source="pay_texture" right="80" />
+                    <e:Image anchorOffsetY="0" source="pay_texture" scaleX="-1" left="80" />
+                    <e:Label text="Label" name="text" width="100%" verticalAlign="middle" textAlign="center"
+                             anchorOffsetY="0" height="47" fontFamily="SimHei" size="45" bold="true" />
+                </e:Group>
+                <e:Image anchorOffsetY="0" y="67" horizontalCenter="0" source="pay_bonus_ss" />
+                <e:Group anchorOffsetY="0" width="90%" name="content1" y="500" horizontalCenter="0">
+                    <e:Label fontFamily="SimHei" size="25" width="100%" y="50" lineSpacing="5" name="text" />
+                </e:Group>
+            </e:Group>
+            <e:Group id="PayLineContainer" width="100%" y="2625">
+                <e:Group width="100%" name="content0">
+                    <e:Image anchorOffsetY="0" source="pay_texture" right="80" />
+                    <e:Image anchorOffsetY="0" source="pay_texture" scaleX="-1" left="80" />
+                    <e:Label text="Label" name="text" width="100%" verticalAlign="middle" textAlign="center"
+                             anchorOffsetY="0" height="47" fontFamily="SimHei" size="45" bold="true" />
+                </e:Group>
+                <e:Group id="Line0" width="110" height="60" anchorOffsetY="10" x="30" y="91">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line1" width="110" height="60" x="163" y="91" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line2" width="110" height="60" x="295" y="91" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line3" width="110" height="60" x="428" y="91" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line4" width="110" height="60" y="91" anchorOffsetY="10" x="560">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line5" width="110" height="60" y="161" x="30" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line6" width="110" height="60" y="161" x="163" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line7" width="110" height="60" y="161" x="295" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line8" width="110" height="60" y="161" x="428" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line9" width="110" height="60" y="161" anchorOffsetY="10" x="560">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line10" width="110" height="60" y="231" x="30" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line11" width="110" height="60" x="163" y="231" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line12" width="110" height="60" x="295" y="231" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line13" width="110" height="60" y="231" x="428" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line14" width="110" height="60" y="231" anchorOffsetY="10" x="560">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line15" width="110" height="60" y="300" x="30" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line16" width="110" height="60" y="300" x="163" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line17" width="110" height="60" y="300" x="295" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line18" width="110" height="60" x="428" y="300" anchorOffsetY="10">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line19" width="110" height="60" y="300" anchorOffsetY="10" x="560">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line20" width="110" height="60" left="30" anchorOffsetY="10" y="370">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line21" width="110" height="60" x="163" anchorOffsetY="10" y="370">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line22" width="110" height="60" x="295" anchorOffsetY="10" y="370">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line23" width="110" height="60" x="428" anchorOffsetY="10" y="370">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group id="Line24" width="110" height="60" right="30" anchorOffsetY="10" y="370">
+                    <e:Label text="99" width="35" textAlign="right" name="index" size="25" y="10" />
+                </e:Group>
+                <e:Group anchorOffsetY="0" width="90%" name="content1" y="447" horizontalCenter="0">
+                    <e:Label fontFamily="SimHei" size="25" width="100%" y="50" lineSpacing="5" name="text" />
+                </e:Group>
+            </e:Group>
+        </e:Group>
+        <e:Group width="100%">
+            <e:Image fillMode="repeat" horizontalCenter="0.5" source="panel_common_title-bar" scaleX="1.3" scaleY="1.3" y="-1"/>
+            <e:Image fillMode="repeat"  y="7" source="panel_label_paytable" horizontalCenter="0"/>
+            <e:Button id="BtnClose" label="" width="50" height="50" right="30" verticalCenter="0">
+                <e:skinName>
+                    <e:Skin states="up,down,disabled">
+                        <e:Image width="100%" height="100%" source="btn_close_up" source.down="btn_close_down" />
+                        <e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+                    </e:Skin>
+                </e:skinName>
+            </e:Button>
+        </e:Group>
+    </e:Group>
+</e:Skin>

@@ -17,6 +17,8 @@ import {JX_PLAT_INFO} from "../asset";
 import LoadingView from "../enter/LoadingView";
 import TCButtonView from "../../Common/View/button/TCButtonView";
 import {observer} from "mobx-react/native";
+import NetUitls from "../../Common/Network/TCRequestUitls";
+import rootStore from "../../Data/store/RootStore";
 
 
 @withMappedNavigationProps()
@@ -25,11 +27,12 @@ export default class TCWebView extends Component {
 
     constructor(state) {
         super(state)
-        let {url} = this.props;
+        let {url,param} = this.props;
         this.state = {
             isHide: false,
             isHttpFail: false,
             uri: url,
+            param
         }
         this.bblStore = TW_Store.bblStore;
     }
@@ -45,9 +48,25 @@ export default class TCWebView extends Component {
 
     render() {
 
+        let myUrl = this.state.uri;
+        let tempIndex = myUrl.indexOf("?");
+        let myParam = myUrl.substr(tempIndex);
+        let newUrl=  myUrl.substring(0,tempIndex)+"index.html";
+        TW_Log("myUrl------------------------tempStr--"+myParam+"-\n-newUrl----"+newUrl)
+
         let source = {
-            uri: this.state.uri,
+            file: newUrl,
+            allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
+            allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
+            param:myParam
+        };
+
+        if (!G_IS_IOS) {
+            source = {
+                uri: newUrl+`${myParam}`,
+            };
         }
+
         let dis = TW_Store.bblStore.isLoading ? "none":"flex";
         TW_Log("TW_Store.bblStore.isLoading---"+TW_Store.bblStore.isLoading,dis);
         //andorid 显示有点小问题  黑屏处理

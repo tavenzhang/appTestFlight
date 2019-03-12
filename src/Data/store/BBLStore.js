@@ -9,16 +9,12 @@ import {platInfo} from "../../config/appConfig";
 export  default  class BBLStore {
 
     @observable
-    homeDomain = platInfo.gameDomain;
+    gameDomain = platInfo.gameDomain;
 
     @observable
-    urlDomain = platInfo.gameDomain;
+    loginDomain = platInfo.loginDomain;
 
-    // @observable
-    // homeDomain = "http://sit.106games.com";
-    //
-    // @observable
-    // urlDomain = "http://106games.com";
+
 
     @observable
     isLoading = true;

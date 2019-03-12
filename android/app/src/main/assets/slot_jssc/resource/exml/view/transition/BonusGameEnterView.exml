@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BonusGameEnterViewUi" width="750" height="1334" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Rect width="100%" height="100%" fillAlpha="0.8" />
+    <e:Group id="EnterContainer"></e:Group>
+</e:Skin>

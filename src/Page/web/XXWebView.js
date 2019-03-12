@@ -13,6 +13,8 @@ import NetUitls from "../../Common/Network/TCRequestUitls";
 import {platInfo} from "../../config/appConfig";
 import SplashScreen from "react-native-splash-screen";
 import CodePush from 'react-native-code-push'
+import Base64 from "../../Common/JXHelper/Base64";
+import rootStore from "../../Data/store/RootStore";
 
 
 @withMappedNavigationProps()
@@ -29,6 +31,9 @@ export default class XXWebView extends Component {
     componentWillMount(){
         TW_Store.bblStore.isLoading=true;
         TW_Store.bblStore.lastGameUrl="";
+        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionDomain()+"/gameList.json"+"?rom="+Math.random(),null,(rt)=>{
+            TW_Log("NetUitls.getUrlAndParamsAndCallback-----------rt==-",rt)
+        })
     }
 
 
@@ -37,8 +42,9 @@ export default class XXWebView extends Component {
 
         let source = {
             file: TW_Store.dataStore.getHomeWebUri(),
-            allowingReadAccessToURL: TW_Store.dataStore.getHomeWebHome(),
-            allowFileAccessFromFileURLs:TW_Store.dataStore.getHomeWebHome()
+            allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
+            allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
+            param:"?taven=1&status=2&token=3"
         };
 
         if (!G_IS_IOS) {
@@ -47,9 +53,9 @@ export default class XXWebView extends Component {
             };
         }
 
-       if(TW_IS_DEBIG){
-            source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-        }
+       // if(TW_IS_DEBIG){
+       //      source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+       //  }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({
@@ -58,7 +64,9 @@ export default class XXWebView extends Component {
             clientId: TW_Store.appStore.clindId,
             force: force ? "1" : "0",
             urlJSON: TW_Store.bblStore.urlJSON,
-            isAndroidHack:TW_Store.appStore.isInAnroidHack
+            isAndroidHack:TW_Store.appStore.isInAnroidHack,
+            loginDomain:TW_Store.bblStore.loginDomain+"/api/v1/account",
+            gameDomain:TW_Store.bblStore.gameDomain+"/api/v1/gamecenter",
         })}`;
 
         return (
@@ -81,6 +89,7 @@ export default class XXWebView extends Component {
 
                         /> :
                         <WebView
+                            originWhitelist={['*']}
                             ref="myWebView"
                             automaticallyAdjustContentInsets={true}
                             style={styles.webView}
@@ -127,53 +136,21 @@ export default class XXWebView extends Component {
                     break;
                 case "JumpGame":
                     url = this.handleUrl(message.payload);
-                    TW_Log("onMessage===========>>JumpGame--" +  url,message.payload);
+
                     if (TW_Store.bblStore.lastGameUrl != url) {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.payload)
+
+                        TW_Log("onMessage========tempData-===>>message.payload--"+message.payload ,url);
                         TW_NavHelp.pushView(JX_Compones.WebView, {
                             url,
                             onMsgHandle: this.onMsgHandle,
                             onEvaleJS: this.onEvaleJS,
-                            isGame: true
+                            isGame: true,
+                            parm:``
                         })
                         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic),{});
                         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
-                    }
-                    break;
-                case  "JumpUrl":
-                    //TN_Notification("JumpUrl","test local notification");
-                    url = this.handleUrl(message.payload, true)
-                    let isOk=true;
-                    TW_Log("game---isInAnroidHack=="+url+"--index="+url.indexOf("module=account"));
-                    if(TW_Store.appStore.isInAnroidHack){
-                        //如果处于审核状态 只跳用户中心 其他页面不跳转
-                        if(url.indexOf("module=account")>-1){
-                            isOk=true
-                        }else{
-                            isOk=false
-                        }
-                    }
-
-                    if (isOk) {
-                        //TW_Store.bblStore.lastGameUrl = url;
-                        TW_Store.bblStore.jumpData=this.getJumpData(message.au+"&cc=2");
-                       // TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
-                        let module =TW_GetQueryString("module",message.au);
-                        switch(module){
-                            case "account":
-                              //  TW_NavHelp.pushView(JX_Compones.TCUserDetailMsg, {})
-                                TW_Store.gameUIStroe.isShowUserInfo =!TW_Store.gameUIStroe.isShowUserInfo;
-                                break;
-                            case "redraw":
-                                TW_Store.gameUIStroe.isShowWithDraw =! TW_Store.gameUIStroe.isShowWithDraw;
-                                //TW_NavHelp.pushView(JX_Compones.TCUserWithdrawNew, {})
-                                break;
-
-
-                        }
-                        //TW_Log("module-----------"+module)
-                        //this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
                 case  "game_account":
@@ -269,12 +246,12 @@ export default class XXWebView extends Component {
             url = url.replace("../", "");
         }
         if (isJumpUrl) {
-            url = TW_Store.bblStore.urlDomain + "/" + url
+            url = TW_Store.bblStore.gameDomain + "/" + url
         } else {
-            if (url.indexOf("slot_jssc") > -1) {
-                url = TW_Store.bblStore.homeDomain  + url
+            if (url.indexOf("gamethree") > -1||url.indexOf("slot_jssc") ) {
+                url = TW_Store.dataStore.getGameRootDir()  + url
             } else {
-                url = TW_Store.bblStore.homeDomain  + url
+                url = TW_Store.bblStore.gameDomain  + url
             }
         }
 

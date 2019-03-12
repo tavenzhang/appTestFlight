@@ -1,0 +1,1 @@
+{"groups":[{"keys":"zh-cn.preload_json","name":"lang_preload"},{"keys":"zh-cn_json,zh-cn.contents_json","name":"contents"}],"resources":[{"url":"contents/zh-cn.contents.json","type":"json","name":"zh-cn.contents_json"},{"url":"common/contents/zh-cn.json","type":"json","name":"zh-cn_json"},{"url":"contents/zh-cn.preload.json","type":"json","name":"zh-cn.preload_json"}]}

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MainPanelUi" width="750" height="1334" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="Backdrop" width="100%" height="100%" fillAlpha="0" />
+	<e:Group id="TopContainer" width="100%" height="94">
+		<e:Group id="BalanceContainer" y="9" horizontalCenter="0">
+			<e:Button id="BtnReload" label="" x="0">
+				<e:skinName>
+					<e:Skin states="up,down,disabled">
+						<e:Image width="100%" height="100%" source="btn_top-bar-reload_up" source.down="btn_top-bar-reload_down" />
+						<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+					</e:Skin>
+				</e:skinName>
+			</e:Button>
+
+			<e:Label id="Balance" text="999,999,999.00" textAlign="center" size="40" width="450" textColor="0xffffff"
+			         horizontalCenter="0" fontFamily="Microsoft YaHei" bold="true" verticalCenter="0" touchEnabled="false" />
+		</e:Group>
+		<e:Button id="BtnSettings" label="" y="9" right="20">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+					<e:Image width="100%" height="100%" source="btn_menu_up" source.down="btn_menu_down" />
+					<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button id="BtnBack" label="" y="9" left="20">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+					<e:Image width="100%" height="100%" source="btn_back_up" source.down="btn_back_down" />
+					<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+	</e:Group>
+	<e:Group id="SubPanel" y="105" right="-1">
+		<e:Image source="panel_common_bg" scale9Grid="10,10,80,80" width="100%" height="100%" horizontalCenter="0" />
+		<e:Image source="panel_common_texture" fillMode="repeat" width="100%" height="100%" alpha="0.03" />
+		<e:Group id="SubPanelContents" horizontalCenter="0" verticalCenter="0">
+			<e:Image scale9Grid="10,10,80,80" height="100%" source="panel_common_inner_bg" width="100%" />
+			<e:Group id="Record">
+				<e:Image name="btn_bg" width="100%" height="100%" scale9Grid="10,0,31,51" alpha="0.4"  source="btn_subpanel_btn-bg"/>
+				<e:Button label="" name="click">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_record_up" />
+							<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+						</e:Skin>
+					</e:skinName>
+				</e:Button>
+				<e:Label text="Record" textAlign="left" fontFamily="SimHei" verticalAlign="middle" touchEnabled="false"
+				         verticalCenter="0.5" wordWrap="true" multiline="true" name="label" y="126" left="76" />
+			</e:Group>
+			<e:Group id="Paytable" y="71">
+				<e:Image name="btn_bg" width="100%" height="100%" source="btn_subpanel_btn-bg" scale9Grid="10,0,31,51" alpha="0.4" />
+				<e:Button label="" name="click">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_paytable_up" />
+							<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+						</e:Skin>
+					</e:skinName>
+				</e:Button>
+				<e:Label text="Paytable" textAlign="left" fontFamily="SimHei" verticalAlign="middle" touchEnabled="false"
+				         verticalCenter="0.5" wordWrap="true" multiline="true" name="label" y="126" left="76" />
+			</e:Group>
+			<e:Group id="GameInfo" y="142">
+				<e:Image name="btn_bg" width="100%" height="100%" source="btn_subpanel_btn-bg" scale9Grid="10,0,31,51" alpha="0.4" />
+				<e:Button label="" name="click">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_gameinfo_up" />
+							<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+						</e:Skin>
+					</e:skinName>
+				</e:Button>
+				<e:Label text="Help" textAlign="left" fontFamily="SimHei" verticalAlign="middle" touchEnabled="false"
+				         verticalCenter="0.5" wordWrap="true" multiline="true" name="label" y="126" left="76" />
+			</e:Group>
+			<e:Group id="History" y="213">
+				<e:Image name="btn_bg" width="100%" height="100%" source="btn_subpanel_btn-bg" scale9Grid="10,0,31,51" alpha="0.4" />
+				<e:Button label="" name="click">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_history_up" />
+							<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+						</e:Skin>
+					</e:skinName>
+				</e:Button>
+				<e:Label text="History" textAlign="left" fontFamily="SimHei" verticalAlign="middle" touchEnabled="false"
+				         verticalCenter="0.5" wordWrap="true" multiline="true" name="label" y="126" left="76" />
+			</e:Group>
+			<e:Group id="Sound" y="283">
+				<e:Image name="btn_bg" width="100%" height="100%" source="btn_subpanel_btn-bg" scale9Grid="10,0,31,51" alpha="0.4" />
+				<e:Button label="" name="click">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+							<e:Image width="100%" height="100%" source="btn_sound_up" />
+							<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+						</e:Skin>
+					</e:skinName>
+				</e:Button>
+				<e:Label text="Sound" textAlign="left" fontFamily="SimHei" verticalAlign="middle" touchEnabled="false"
+				         verticalCenter="0.5" wordWrap="true" multiline="true" name="label" y="126" left="76" />
+			</e:Group>
+		</e:Group>
+	</e:Group>
+</e:Skin>
