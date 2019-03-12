@@ -21,15 +21,10 @@
             "desc":"是否使用遮罩",
             "value":true
         },
-        "rect":{ "x":0, "y":0, "w":995, "h":550 },
+        "rect":{ "x":0, "y":0, "w":905, "h":550 },
         "showbgX":{
             "desc":"内容容器绘制背景",
             "color":"#ff0000",
-            "alpha":0.5
-        },
-        "itembgX":{
-            "desc":"图标整体背景",
-            "color":"#ffff00",
             "alpha":0.5
         }
     },
@@ -61,7 +56,8 @@
             },
             "easeName":"backIn",
             "duration":400
-        }
+        },
+        "jumpNum":3
     },
     "flip":{
         "desc":"箭头点击之后，一次翻动的列数及x坐标偏移值",
@@ -79,7 +75,7 @@
         },
         "btnicon":{
             "desc":"图标按钮",
-            "pos":{ "x":135, "y":111 },
+            "pos":{ "x":135, "y":140 },
             "src":[
                 "./assets/ui/game/defaulticon.png"
             ],
@@ -121,7 +117,38 @@
             "pos":{ "x":170, "y":30 }
         }
     },
-    
+    "movecontent":{
+        "scrollType":"tween1",
+        "fps":60,
+        
+        "goonLoopDelay":10,
+        "durationGoon":1000,
+        "goonOffsetMin":0.1,
+        "tweenGoonName":"circOut",
+
+        "duration":1000,
+        "tweenName":"backOut",
+
+        "pos":{
+            "init":{"x":0,"y":0}
+        },
+        "visibleRect":{
+            "x":0,"y":0,"w":910,"h":550
+        },
+        "itembgX":{
+            "desc":"图标整体背景",
+            "color":"#ffff00",
+            "alpha":0.5
+        },
+        "desc_jump":"点击箭头要跳的速度与持续时间",
+        "jumpspd":-5,
+        "jumptime":1000,
+        "jumpspds":-110,
+        "jumptimes":200,
+        "desc_offset":"自动滑动，超过一定值，就算滑动完毕",
+        "minxOffsetX":200,
+        "maxxOffsetX":200
+    },
     "scrollbarX":{
         "bg":{
             "src":"./assets/ui/progress/img_fangjian_jingdu01.png",

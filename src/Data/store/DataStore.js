@@ -27,7 +27,10 @@ export default class DataStore {
     targetAppDir = G_IS_IOS ? DocumentDirectoryPath + "/gamelobby" : `file:///${DocumentDirectoryPath}/gamelobby`;
 
     @observable
-    saveVersionM={};
+    homeVersionM={};
+
+    @observable
+    appGameListM={};
 
     @observable
     log="";
@@ -37,7 +40,7 @@ export default class DataStore {
 
     @action
     getGameRootDir(){
-        return G_IS_IOS ? (MainBundlePath + '/assets') : "file:///android_asset";
+       // return G_IS_IOS ? (MainBundlePath + '/assets') : "file:///android_asset";
         if(this.isAppUnZip) {
             return   G_IS_IOS ? DocumentDirectoryPath  : `file:///${DocumentDirectoryPath}`;
         }
@@ -73,7 +76,7 @@ export default class DataStore {
             }catch (error) {
                 verionM={}
             }
-            this.saveVersionM=verionM ? verionM:{} ;
+            this.homeVersionM=verionM ? verionM:{} ;
             if(this.isCheckZipUpdate){
                 this.chectHomeZipUpdate();
             }
@@ -103,7 +106,7 @@ export default class DataStore {
                 TW_Log("TW_DATA_KEY.versionBBL  this.content" ,  this.content);
                 this.log+="==>TW_Store.dataStore.isAppUnZip="+TW_Store.dataStore.isAppUnZip;
                 if(TW_Store.dataStore.isAppUnZip){
-                    if(this.saveVersionM.versionNum!=content.versionNum){
+                    if(this.homeVersionM.versionNum!=content.versionNum){
                             this.downloadFile(zipSrc,rootStore.bblStore.tempZipDir);
                         }
                     }
@@ -117,8 +120,8 @@ export default class DataStore {
 
     onSaveVersionM=(srcData,isHttpFail=false,callFunc)=>{
         TW_Log("TW_DATA_KEY.versionBBL onSaveVersionM isHttpFail==" + isHttpFail, srcData);
-        this.saveVersionM  = {...this.saveVersionM,...srcData,isHttpFail};
-        TW_Data_Store.setItem(TW_DATA_KEY.versionBBL,JSON.stringify(this.saveVersionM),(ret)=>{
+        this.homeVersionM  = {...this.homeVersionM,...srcData,isHttpFail};
+        TW_Data_Store.setItem(TW_DATA_KEY.versionBBL,JSON.stringify(this.homeVersionM),(ret)=>{
             if(callFunc){
                 callFunc(ret);
             }

@@ -31,8 +31,10 @@ storage.load({
 global.TW_DATA_KEY={
     versionBBL:"versionBBL",
     isInitStore:"isInitStore",
-    platData:"platData"
+    platData:"platData",
+    gameList:"gameList"
 }
+
 
 // 对于react native
 global.storage = storage;

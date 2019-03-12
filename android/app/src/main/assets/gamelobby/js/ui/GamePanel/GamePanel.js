@@ -18,9 +18,12 @@ var GamePanel = /** @class */ (function (_super) {
         _this.bDrag = false; //是否再拖动中
         _this.downX = 0; //当前鼠标按下的位置
         _this.startDragX = 0; //开始按下的位置
+        _this.lastScrollSpdX = 0; //前一刻的滚动速度
+        _this.startDragTime = 0; //按下时的时间
+        _this.endDragTime = 0; //松开的时间
         _this.minx = 0;
         _this.maxx = 0;
-        _this.totalWidth = 0;
+        _this.totalWidth = 0; //内容涵盖的总宽度
         _this.bRequestStatus = 1; //当前网络请求状态 1=未请求，0=成功，-1=出错
         return _this;
     }
@@ -55,15 +58,16 @@ var GamePanel = /** @class */ (function (_super) {
         this.addChild(this.sp_content);
         this.items = new Array();
         this.pos(this.conf.pos.x, this.conf.pos.y);
-        this.sp_content.on(Laya.Event.MOUSE_DOWN, this, this.moveContent);
-        this.sp_content.on(Laya.Event.MOUSE_MOVE, this, this.moveContent);
-        this.sp_content.on(Laya.Event.MOUSE_UP, this, this.moveContent);
-        this.sp_content.on(Laya.Event.MOUSE_OUT, this, this.moveContent);
+        this.sp_content.on(Laya.Event.MOUSE_DOWN, this, this.moveContentEvent);
+        this.sp_content.on(Laya.Event.MOUSE_MOVE, this, this.moveContentEvent);
+        this.sp_content.on(Laya.Event.MOUSE_UP, this, this.moveContentEvent);
+        this.sp_content.on(Laya.Event.MOUSE_OUT, this, this.moveContentEvent);
         if (this.conf.panel.bmask && this.conf.panel.bmask.value) {
             this.sp_content.scrollRect = new Laya.Rectangle(this.conf.panel.rect.x, this.conf.panel.rect.y, this.conf.panel.rect.w, this.conf.panel.rect.h);
         }
         //内容移动节点
-        this.sp_ct_move = new Laya.Sprite();
+        this.sp_ct_move = new MoveContent(this.conf.movecontent); //new Laya.Sprite();
+        this.sp_ct_move.setListener(0, this, this.onContentEvent);
         this.sp_content.addChild(this.sp_ct_move);
         //箭头
         if (this.conf.pagearrow) {
@@ -169,36 +173,55 @@ var GamePanel = /** @class */ (function (_super) {
         // Debug.trace("GamePanel.flip sumx:"+sumx+" v:"+v+" x:"+x);
         this.moveAllItem(sumx);
     };
-    GamePanel.prototype.moveContent = function (e) {
+    //点击箭头，自动向左移动num格
+    GamePanel.prototype.flipNext = function (num) {
+        if (this.conf.movecontent.scrollType == "tween") {
+            this.sp_ct_move.autoSlips(MoveContent.MOVE_DIRECT_LEFT, this.conf.movecontent.jumpspds * num, this.conf.movecontent.jumptimes);
+        }
+        else {
+            this.sp_ct_move.autoSlip(MoveContent.MOVE_DIRECT_LEFT, this.conf.movecontent.jumpspd * num, this.conf.movecontent.jumptime);
+        }
+    };
+    GamePanel.prototype.moveContentEvent = function (e) {
         // Debug.trace('panel move '+e.type);
         // Debug.trace('zOrder:'+this.zOrder);
         var x = e.stageX;
+        var y = e.stageY;
         switch (e.type) {
             case Laya.Event.MOUSE_DOWN:
                 this.bDrag = true;
                 this.downX = x;
                 this.startDragX = x;
-                if (this.scrollbar) {
-                    this.scrollbar.moveStart();
-                }
+                this.startDragTime = Tools.getTime();
+                // Debug.trace("GamePanel.moveContentEvent down x:"+this.startDragX);
+                // if( this.scrollbar )
+                // {
+                //     this.scrollbar.moveStart();
+                // }
                 break;
             case Laya.Event.MOUSE_MOVE:
-                if (this.downX > 0) {
+                if (this.downX > 0 && this.bDrag) {
                     var sumx = x - this.downX;
                     this.downX = x;
-                    this.moveAllItem(sumx);
-                    // this.moveGameItems(sumx);
+                    // this.moveAllItem(sumx);
+                    this.moveGameItems(sumx, x, y);
                     //当前按下的位置与第一次移动产生的方向，区分方向进行音效播放
                 }
                 break;
             case Laya.Event.MOUSE_OUT:
             case Laya.Event.MOUSE_UP:
                 // this.moveEnd(x);
+                // Debug.trace("GamePanel.moveContentEvent out x");
+                if (this.bDrag) {
+                    this.endDragTime = Tools.getTime();
+                    this.moveEnds(x, y);
+                }
                 this.downX = 0;
                 this.bDrag = false;
-                if (this.scrollbar) {
-                    this.scrollbar.moveEnd();
-                }
+                // if( this.scrollbar )
+                // {
+                //     this.scrollbar.moveEnd();
+                // }
                 break;
         }
     };
@@ -233,11 +256,8 @@ var GamePanel = /** @class */ (function (_super) {
             // this.items[i].x += nx;
             this.items[i].imMove(nx);
         }
-        if (this.itembg) {
-            this.itembg.x += nx;
-        }
         //记录下当前的滚动速度
-        // this.lastScrollSpdX = nx;
+        this.lastScrollSpdX = nx;
         if (this.scrollbar) {
             this.scrollbar.move(nx);
         }
@@ -248,21 +268,48 @@ var GamePanel = /** @class */ (function (_super) {
         var bHave = this.isHaveGameIcons();
         this.sp_arrow.visible = bHave;
     };
-    GamePanel.prototype.moveGameItems = function (x) {
-        var nx = x;
+    GamePanel.prototype.moveGameItems = function (sumx, cx, cy) {
+        var nx = sumx;
         var cx = this.sp_ct_move.x;
         var newx = cx + nx;
         this.sp_ct_move.x += nx;
-        if (this.itembg) {
-            this.itembg.x += nx;
-        }
         //记录下当前的滚动速度
-        // this.lastScrollSpdX = nx;
+        this.lastScrollSpdX = nx;
         //根据移动方向，计算当前分隔点坐标距离哪个图标最近
         //超过图标一半即不考虑
         //图标层自动滚动到该图标上
         var bHave = this.isHaveGameIcons();
         this.sp_arrow.visible = bHave;
+    };
+    GamePanel.prototype.moveEnds = function (cx, cy) {
+        //本次移动按下的点与当前点形成的差值，标记了当前移动的方向
+        var direct = MoveContent.MOVE_DIRECT_LEFT;
+        var dx = this.startDragX - cx;
+        if (dx > 0) {
+            //向左
+            direct = MoveContent.MOVE_DIRECT_LEFT;
+        }
+        else if (dx < 0) {
+            //向右
+            direct = MoveContent.MOVE_DIRECT_RIGHT;
+        }
+        //指令下发，当前已经完成拖拽，内容层可自行惯性滑动了
+        var timeSum = this.endDragTime - this.startDragTime;
+        if (this.conf.movecontent.scrollType == "tween") {
+            this.sp_ct_move.autoSlips(direct, this.lastScrollSpdX, timeSum);
+        }
+        else {
+            this.sp_ct_move.autoSlip(direct, this.lastScrollSpdX, timeSum);
+        }
+    };
+    //处理来自移动对象的事件
+    GamePanel.prototype.onContentEvent = function (obj, mvEvent, mvType, mvDirect) {
+        //弹完之后，检查箭头是否还需要显示
+        // Debug.trace("GamePanel.onContentEvent mvEvent:"+mvEvent+" mvType:"+mvType+" mvDirect:"+mvDirect);
+        if (mvEvent == MoveContent.MOVE_EVENT_END) {
+            var bHave = this.isHaveGameIcons();
+            this.sp_arrow.visible = bHave;
+        }
     };
     //移动结束
     GamePanel.prototype.moveEnd = function (x) {
@@ -413,21 +460,19 @@ var GamePanel = /** @class */ (function (_super) {
                 this.conf.gameitemdefault.btnicon.size.offsetx;
             this.maxx = this.conf.gameitemdefault.btnicon.pos.x + this.conf.gameitemdefault.pos.x;
         }
-        if (this.conf.panel.itembg) {
-            this.itembg = new Laya.Sprite();
-            this.addChild(this.itembg);
-            Tools.drawRectWithAlpha(this.itembg, this.conf.panel.content.pos.x, this.conf.panel.content.pos.y, this.totalWidth, this.conf.panel.rect.h, this.conf.panel.itembg.color, this.conf.panel.itembg.alpha);
-        }
         //设定内容层的大小尺寸
         this.sp_ct_move.size(this.totalWidth, this.conf.panel.rect.h);
         this.resetScrollBar();
+        //检查绘制移动层背景
+        this.sp_ct_move.checkShowBg();
     };
     //指定坐标右侧是否还有游戏图标？
     GamePanel.prototype.isHaveGameIcons = function () {
         try {
             // Debug.trace("this.items[0].x:"+this.items[0].x);
             // Debug.trace("this.minx:"+this.minx);
-            if (this.items[0].x <= this.minx) {
+            // if( this.items[0].x <= this.minx )
+            if (this.sp_ct_move.x <= this.minx) {
                 return false;
             }
         }

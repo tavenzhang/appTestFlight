@@ -339,8 +339,8 @@ var Tools = /** @class */ (function () {
                 "name": ginfo.name,
                 "clientId": Common.clientId,
                 "mainUrl": mainUrl,
-                "usergateway":AppData.NATIVE_DATA.loginDomain,
-                "gamecenter":AppData.NATIVE_DATA.gameDomain
+                "usergateway": AppData.NATIVE_DATA.loginDomain,
+                "gamecenter": AppData.NATIVE_DATA.gameDomain
             };
             // Debug.trace("Tools.jump2game jobj:");
             // Debug.trace(jobj);

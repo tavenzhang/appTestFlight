@@ -28,8 +28,9 @@ export  default  class BBLStore {
 
     storeDir = DocumentDirectoryPath;
 
-    tempZipDir=`${DocumentDirectoryPath}/game.zip`;
+    tempZipDir=`${DocumentDirectoryPath}/home.zip`;
 
+    tempGameZip=`${DocumentDirectoryPath}/game.zip`;
 
     @observable
     versionManger = {name:"home",versionNum:1,source:'gamelobby.zip',isFlush:false}

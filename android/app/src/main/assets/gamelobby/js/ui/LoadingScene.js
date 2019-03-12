@@ -140,7 +140,7 @@ var LoadingScene = /** @class */ (function (_super) {
     };
     //检查重连需求
     LoadingScene.prototype.checkReconnect = function () {
-        var url = ConfObjRead.getConfUrl().url.lobbyurl +
+        var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.reconnect +
             "?access_token=" + Common.access_token;
         NetManager.getObj().HttpConnect(url, this, this.checkReconnectOk);

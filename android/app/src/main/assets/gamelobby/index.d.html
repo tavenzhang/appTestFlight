@@ -92,6 +92,9 @@
 		
 		var bDebugPlatform = "web";
 		var bDebug = true;
+		var sScaleMode = "fixedheight";
+		var bShowStat = true;
+		//"exactfit","fixedauto","fixedheight","fixedwidth","scalefull","noborder","noscale","showall"
 		//初始化vConsole
 		function initVconsole()
 		{
@@ -113,22 +116,7 @@
 		// initVconsole();
 		
 		var loadversion = "0002";
-		//读取配置文件
-		/*function getJson()
-		{
-			$.ajax({
-				dataType:"json",
-				url:"./assets/ui/loading/conf/loading.json",
-				data:null,
-				success:function(dt){
-					console.log('dt.version.value:');
-					console.log(dt.version.value);
-					loadversion = dt.version.value;
-				}
-			});
-		}
-		getJson();*/
-
+		
 		//加载单个js文件
 		function loadJs(scriptAll,jsPath)//,rand=Math.random(),defer=false)
 		{
@@ -194,8 +182,6 @@
 			loadJs(div,"js/Loading/PgBarSaizi.js");
 			loadJs(div,"js/Toast/NoticeDialog.js");
 			loadJs(div,"js/Toast/Toast.js");
-			loadJs(div,"js/UI/Girls/Girl.js");
-			loadJs(div,"js/UI/Girls/GirlManager.js");
 			loadJs(div,"js/UI/avator/AccountCenter.js");
 			loadJs(div,"js/UI/avator/Avator.js");
 			loadJs(div,"js/UI/avator/AvatorPad.js");
@@ -208,7 +194,10 @@
 			loadJs(div,"js/UI/Bottom/BottomMenus.js");
 			loadJs(div,"js/UI/GamePanel/GameItem.js");
 			loadJs(div,"js/UI/GamePanel/GamePanel.js");
+			loadJs(div,"js/UI/GamePanel/MoveContent.js");
 			loadJs(div,"js/UI/GamePanel/PageArrow.js");
+			loadJs(div,"js/UI/Girls/Girl.js");
+			loadJs(div,"js/UI/Girls/GirlManager.js");
 			loadJs(div,"js/UI/Help/HelpPad.js");
 			loadJs(div,"js/UI/Highscore/Highscore.js");
 			loadJs(div,"js/UI/History/HistoryDialog.js");

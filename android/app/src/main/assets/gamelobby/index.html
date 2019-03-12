@@ -95,12 +95,15 @@
 	<script type="text/javascript" src="libthird/vconsole.min.js"></script>
 	<script>
 		var bDebugPlatform = "web";
-		var bDebug = true;
-		var sScaleMode = "showall";
+		var bDebug = false;
+		var sScaleMode = "fixedheight";
+		var bShowStat = false;
 		//"exactfit","fixedauto","fixedheight","fixedwidth","scalefull","noborder","noscale","showall"
 		//初始化vConsole
 		function initVconsole()
 		{
+			bDebug = true;
+			bShowStat=true
 			// 初始化vConsole
 			window.vConsole = new window.VConsole({
 			defaultPlugins: ['system', 'network', 'element', 'storage'], // 可以在此设定要默认加载的面板
@@ -200,6 +203,7 @@
 	<script src="js/ui/Bottom/BottomMenus.js"></script>
 	<script src="js/ui/GamePanel/GameItem.js"></script>
 	<script src="js/ui/GamePanel/GamePanel.js"></script>
+	<script src="js/ui/GamePanel/MoveContent.js"></script>
 	<script src="js/ui/GamePanel/PageArrow.js"></script>
 	<script src="js/ui/Girls/Girl.js"></script>
 	<script src="js/ui/Girls/GirlManager.js"></script>

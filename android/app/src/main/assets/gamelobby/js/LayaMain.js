@@ -18,28 +18,22 @@ var LayaMain = /** @class */ (function () {
         this.cloading = null;
         LayaMain.obj = this;
         //初始化微信小游戏
-        Laya.MiniAdpter.init();
+        // Laya.MiniAdpter.init();
         //程序入口
         // Laya.init(Common.GM_SCREEN_W,Common.GM_SCREEN_H);//, Laya.WebGL);
         Laya.init(Common.GM_SCREEN_W, Common.GM_SCREEN_H, Laya.WebGL);
         // Laya.URL.basePath = "http://localhost/";
+        if (window["bShowStat"]) {
+            Laya.Stat.show(0, 0);
+        }
         //根据参数来确定当前屏幕适配模式
-        Laya.stage.scaleMode = window["sScaleMode"]; //Tools.getQueryVariable("sm");
-        Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL; //.SCREEN_VERTICAL;//.SCREEN_NONE;
+        Laya.stage.scaleMode = window["sScaleMode"];
+        Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
         Laya.stage.alignH = Laya.Stage.ALIGN_CENTER;
         Laya.stage.alignV = Laya.Stage.ALIGN_MIDDLE;
         Laya.stage.bgColor = "#000000";
         // Laya.stage.bgColor = "#ffffff";
-        // Common.platformInfo = Tools.platformInfo();
-        // Debug.trace('platform:');
-        // Debug.trace(Common.platformInfo);
-        // Tools.deviceInfo();
-        // let canvas = Laya.Render.canvas;
-        // var cs = Laya.Browser.canvas.getCanvas();
-        // Debug.trace("cs:");
-        // Debug.trace(cs);
-        //不靠谱，不能主动全屏，而是设置允许全屏后，等待下次点击全屏
-        // Laya.stage.fullScreenEnabled = true;
+        //不靠谱，不能主动全屏，而是设置允许全屏后，等待下次点击全屏 = true;
         Laya.stage.on(Laya.Event.RESIZE, this, this.onResize);
         //添加侦听postMessage
         //   window.addEventListener("message", this.handleAction,false);

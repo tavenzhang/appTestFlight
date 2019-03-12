@@ -287,6 +287,8 @@
         {"url":"./assets/ui/scrollpad/img_lunbo2.png","type":"IMAGE"},
         {"url":"./assets/ui/scrollpad/img_ren01.png","type":"IMAGE"},
         {"url":"./assets/ui/scrollpad/img_ren02.png","type":"IMAGE"},
+        {"url":"./assets/ui/scrollpad/img_renwu03.png","type":"IMAGE"},
+        {"url":"./assets/ui/scrollpad/img_renwu04.png","type":"IMAGE"},
 
         {"url":"./assets/ui/setting/bg.png","type":"IMAGE"},
         {"url":"./assets/ui/setting/btn_switch0.png","type":"IMAGE"},

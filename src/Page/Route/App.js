@@ -121,7 +121,7 @@ export default class App extends Component {
                             color: "yellow",
                             position: "absolute",
                             fontWeight:"bold"
-                        }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.saveVersionM)}` +
+                        }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
                     `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text> : null}
                     <CommonBoxLayer/>
                     <GameUIView/>

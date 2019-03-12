@@ -1,0 +1,108 @@
+
+import {unzip,zip } from 'react-native-zip-archive'
+import RNFS from "react-native-fs";
+import rootStore from "../../Data/store/RootStore";
+import Toast from "../JXHelper/JXToast";
+
+
+export default class FileTools {
+
+    static  downloadFile(formUrl,downloadDest,param,onSucFuc){
+        if(formUrl.indexOf("http")==-1){
+            formUrl = rootStore.bblStore.getVersionDomain()+"/"+formUrl;
+        }
+        formUrl=formUrl+"?rodom="+Math.random();
+        TW_Log("FileTools---downloadFile=="+formUrl);
+        const options = {
+            fromUrl: formUrl,
+            toFile: downloadDest,
+            background: true,
+            begin: (res) => {
+                // this.log+="==>downloadFile--begin="+res;
+                //{statusCode: 404, headers: {…}, jobId: 1, contentLength: 153
+                TW_Log("FileTools---downloadFile=background--=",res);
+                if(res.statusCode != 404){
+                    TW_Store.commonBoxStore.isShow=true;
+                }else{
+                    Toast.showShortCenter("需要下载的游戏文件不存在");
+                   TW_Store.commonBoxStore.isShow=false
+                }
+
+            },
+            progress: (res) => {
+                // this.log+="==>progress-="+res;
+                //let pro = res.bytesWritten / res.contentLength;
+                 TW_Store.commonBoxStore.curPecent=res.bytesWritten;
+                 TW_Store.commonBoxStore.totalPecent=res.contentLength;
+                // if(onProcesFuc){
+                //     onProcesFuc(res.bytesWritten,res.contentLength);
+                // }
+            }
+        };
+        try {
+            const ret = RNFS.downloadFile(options);
+            this.log+="==>downloadFile-="+options;
+            ret.promise.then(res => {
+                TW_Log('FileTools---downloadFile---sucess file://' + downloadDest,res);
+                // this.log+="==>downloadFile--promise="+JSON.stringify(res)+"---state--"+res.statusCode;
+                if(`${res.statusCode}`!="404"){
+                    FileTools.unzipFile(downloadDest,TW_Store.bblStore.storeDir,onSucFuc,param);
+                }else{
+                    this.log+="==>downloadFile--fail--notstart=";
+                    TW_Log('FileTools --downloadFile --下载文件不存在--', downloadDest);
+
+                    TW_Store.commonBoxStore.isShow=false;
+                    if(onSucFuc){
+                        onSucFuc({rs:false,param})
+                    }
+                }
+            }).catch(err => {
+                TW_Log('FileTools --downloadFile --fail err', err);
+            });
+        }
+        catch (e) {
+            TW_Log("FileTools---downloadFile--error",error);
+        }
+    }
+
+
+
+    //解压
+    static  unzipFile(srcZip,destDir,onSucFuc,param) {
+        TW_Log(`FileTools--unzip start------ ${srcZip}`);
+        // zipPath：zip的路径
+        // destDir：解压到的目录
+        unzip(srcZip,  destDir)
+            .then((path) => {
+                if(onSucFuc){
+                    Toast.showShortCenter(param.name+" 准备完成");
+                    onSucFuc({rs:true,param})
+                }
+                TW_Log(`FileTools-- unzip completed at------ ${path}`);
+                RNFS.unlink(srcZip).then(() => {
+                    TW_Log("FileTools--- 删除文件----srcZip=="+srcZip)
+                }).catch((err) => {
+                    TW_Log("FileTools--- 删除文件失败");
+                });
+
+            })
+            .catch((error) => {
+                // Toast.showShortCenter(param.name+" 解压失败");
+                // if(onSucFuc){
+                //     onSucFuc({rs:false,param})
+                // }
+            })
+    }
+
+
+    async exist(target_dir) {
+        let target_dir_exist = await RNFS.exists(target_dir);
+        if(target_dir_exist){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+}

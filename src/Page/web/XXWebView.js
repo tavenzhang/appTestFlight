@@ -15,6 +15,8 @@ import SplashScreen from "react-native-splash-screen";
 import CodePush from 'react-native-code-push'
 import Base64 from "../../Common/JXHelper/Base64";
 import rootStore from "../../Data/store/RootStore";
+import FileTools from "../../Common/Global/FileTools";
+import JXToast from "../../Common/JXHelper/JXToast";
 
 
 @withMappedNavigationProps()
@@ -24,17 +26,128 @@ export default class XXWebView extends Component {
         super(state)
         this.filtUrlList=["/api/v1/account/webapi/account/users/login","/api/v1/account/webapi/account/users/userWebEncryptRegister"];
         this.state={
-            isFail:false
+            isFail:false,
+            updateList:[]
         }
+        this.loadQueue=[];
+        this.isLoading=false;
     }
 
     componentWillMount(){
         TW_Store.bblStore.isLoading=true;
         TW_Store.bblStore.lastGameUrl="";
-        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionDomain()+"/gameList.json"+"?rom="+Math.random(),null,(rt)=>{
-            TW_Log("NetUitls.getUrlAndParamsAndCallback-----------rt==-",rt)
-        })
+        TW_Data_Store.getItem(TW_DATA_KEY.gameList, (err, ret) => {
+            TW_Log("(TW_DATA_KEY.gameList-FileTools--==err==" + err+"--ret---", ret);
+            if (ret) {
+               let res = JSON.parse(ret) ;
+               if(res){
+                   TW_Store.dataStore.appGameListM = res;
+               }
+            }
+            TW_Log("(TW_DATA_KEY.gameList--FileTools-==err==" + err+"---res--"+ret,  TW_Store.dataStore.appGameListM );
+            NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionDomain()+"/gameList.json"+"?rom="+Math.random(),null,(rt)=>{
+                TW_Log("TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-",rt);
+                let newList = rt.content ? rt.content:[];
+                let gameM =  TW_Store.dataStore.appGameListM;
+                for(let item of newList){
+                    if(gameM[`${item.id}`]&&gameM[`${item.id}`].version!=item.version){
+                        gameM[`${item.id}`]={...gameM[`${item.id}`],isNeedUpdate:true,newVersion:item.version}
+                    }else if(!gameM[`${item.id}`]){
+                        gameM[`${item.id}`]={id:item.id,curPecent:0,total:100,
+                            isOk:false,isNeedUpdate:true,dir:item.dir,name:item.name,
+                            source:item.source,newVersion:item.version}
+                    }
+                }
+                //this.checkGameVersion();
+            })
+        });
     }
+
+
+    //
+    // checkGameLoad=(gameData)=>{
+    //
+    //      for (let key in TW_Store.dataStore.appGameListM){
+    //          let item = TW_Store.dataStore.appGameListM[key];
+    //          if(item.id == gameData.alias){
+    //              TW_Log("FileTools-checkGameLoad------",gameData)
+    //             if(item.isNeedUpdate){
+    //                 this.loadQueue.push(item);
+    //                 if(!this.isLoading){
+    //                     this.startLoadGame(item)
+    //                 }
+    //             }
+    //             return true;
+    //          }
+    //      }
+    //      return false;
+    //
+    // }
+
+    handleUrl = (url, data) => {
+        let index= url.indexOf("?");
+        url = url.substr(index);
+        TW_Log("FileTools--------url--"+url,data);
+        if(data){
+            if(data.isNeedUpdate){
+                this.loadQueue.push(data);
+                if(!this.isLoading){
+                    this.startLoadGame(data)
+                }
+            }else{
+                url = TW_Store.dataStore.getGameRootDir()+"/"+data.dir+"/"  + url;
+            }
+
+        }else{
+            if (url && url.indexOf("../") > -1) {
+                url = url.replace("../", "");
+            }
+            url = TW_Store.bblStore.gameDomain  + url
+        }
+
+        return url
+    }
+
+
+
+    startLoadGame=(item)=>{
+        let downData=item;
+        if(downData){
+            let index = this.loadQueue.indexOf(downData);
+            this.loadQueue.splice(index,1);
+
+        }else{
+            if(this.loadQueue.length>0){
+                downData = this.loadQueue.pop();
+            }
+        }
+        TW_Log("(TW_DATA_KEY.gameList-FileTools--==this.state.updateList==item" , downData);
+        if(downData){
+            this.isLoading=true;
+           // JXToast.showShortCenter(`${downData.name} 开始下载！`)
+            FileTools.downloadFile(downData.source,TW_Store.bblStore.tempGameZip,downData,this.onLoadZipFish);
+        }
+    }
+
+
+    onLoadZipFish=(ret)=> {
+        this.isLoading=false;
+        TW_Log("FileTools------ret===",ret)
+        if(ret.rs){
+            TW_Store.commonBoxStore.isShow=false;
+            let data = TW_Store.dataStore.appGameListM[ret.param.id];
+            data.version=data.newVersion;
+            data.isNeedUpdate =false;
+            this.onSaveGameData();
+        }
+        this.startLoadGame();
+    }
+
+    onSaveGameData=()=>{
+        TW_Log("FileTools------onSaveGameData===",TW_Store.dataStore.appGameListM);
+        TW_Data_Store.setItem(TW_DATA_KEY.gameList,JSON.stringify(TW_Store.dataStore.appGameListM))
+    }
+
 
 
     render() {
@@ -135,11 +248,19 @@ export default class XXWebView extends Component {
                     // TW_Log("game---ct=="+message.ct,message.data);
                     break;
                 case "JumpGame":
-                    url = this.handleUrl(message.payload);
 
-                    if (TW_Store.bblStore.lastGameUrl != url) {
+                    let data =JSON.parse(TW_Base64.decode(this.getJumpData(message.payload)));
+                    let gameData = TW_Store.dataStore.appGameListM[data.alias];
+                    if(!gameData){
+                        JXToast.showShortCenter(`${data.name} 暂未配置！`)
+                        return;
+                    }
+                    let isNeedLoad = gameData ? gameData.isNeedUpdate:false;
+                    url = this.handleUrl(message.payload,gameData);
+                    TW_Log("FileTools---------data--isNeedLoad==-"+url,gameData)
+                    if (!isNeedLoad) {
                         TW_Store.bblStore.lastGameUrl = url;
-                        TW_Store.bblStore.jumpData=this.getJumpData(message.payload)
+                        TW_Store.bblStore.jumpData=this.getJumpData(message.payload);
 
                         TW_Log("onMessage========tempData-===>>message.payload--"+message.payload ,url);
                         TW_NavHelp.pushView(JX_Compones.WebView, {
@@ -184,8 +305,6 @@ export default class XXWebView extends Component {
                 case "http":
                     let method = message.metod;
                     method = method ? method.toLowerCase() : "get";
-                  //  TW_Log("---home--http---game--postUrlAndParamsAndCallback>=="+message.url+"===data--"+message.data, message)
-
                     switch (method) {
                         case "post":
                             let myUrl = message.url;
@@ -240,23 +359,7 @@ export default class XXWebView extends Component {
 
     }
 
-    handleUrl = (url, isJumpUrl = false) => {
 
-        if (url && url.indexOf("../") > -1) {
-            url = url.replace("../", "");
-        }
-        if (isJumpUrl) {
-            url = TW_Store.bblStore.gameDomain + "/" + url
-        } else {
-            if (url.indexOf("gamethree") > -1||url.indexOf("slot_jssc") ) {
-                url = TW_Store.dataStore.getGameRootDir()  + url
-            } else {
-                url = TW_Store.bblStore.gameDomain  + url
-            }
-        }
-
-        return url
-    }
 
     getJumpData=(data)=>{
         TW_Log(" TW_Store.bblStore.jumpData==pre", data)
