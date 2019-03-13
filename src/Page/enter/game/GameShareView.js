@@ -59,7 +59,7 @@ export default class GameShareView extends Component {
 
 
             <View style={{position: "absolute",left:350,top:150}}>
-                <Text style={{color:"yellow", width:190, height: 20,fontWeight: "bold",lineNumber:1,textAlign:"center"}}>{this.state.surl}</Text>
+                <Text style={{color:"yellow", width:190, height: 20,fontWeight: "bold",textAlign:"center"}}>{this.state.surl}</Text>
                 <View style={{flexDirection:"row", alignItems:"center", marginTop: 15,justifyContent:"space-around"}}>
                     <TCButtonImg imgSource={ASSET_Images.gameShare.btn_Copy} onClick={this.onCopyLink} />
                     <TCButtonImg imgSource={ASSET_Images.gameShare.btn_wxShare} onClick={this.onWxShare}/>
@@ -95,18 +95,22 @@ export default class GameShareView extends Component {
     }
 
     onCopyLink=()=>{
-        TW_Log("onWxShare-onCopyLink--pre--"+this.state.surl+"--isIOS--"+this.state.isIos,this.state)
-        Clipboard.setString(this.state.surl);
-        TW_Log("onWxShare-onCopyLink--"+this.state.surl,this.state)
-        Toast.showShortCenter("已复制链接!")
+        // TW_Log("onWxShare-onCopyLink--pre--"+this.state.surl+"--isIOS--"+this.state.isIos,this.state)
+        // Clipboard.setString(this.state.surl);
+        // TW_Log("onWxShare-onCopyLink--"+this.state.surl,this.state)
+        // Toast.showShortCenter("已复制链接!")
+
+        TN_WechatShare('Bellooooo','http://dev.umeng.com/images/tab2_1.png','http://www.umeng.com/','Hello');
     }
 
     onWxShare=()=>{
+        this.setState({isShowShareUI:!this.state.isShowShareUI})
+        
         // TW_Log("onWxShare---"+this.state.surl,this.state)
         // Clipboard.setString(this.state.surl);
         // Toast.showShortCenter("已复制链接!")
         // TCUserOpenPayApp.openWX()
-        this.setState({isShowShareUI:!this.state.isShowShareUI})
+
         //微信分享参考https://developer.umeng.com/docs/66632/detail/67587
         /*text 为分享内容
         img 为图片地址，可以为链接，本地地址以及res图片（如果使用res,请使用如下写法：res/icon.png）

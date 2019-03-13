@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Share, StyleSheet, View, NativeModules } from 'react-native';
+import { Share, StyleSheet, View } from 'react-native';
 
 import { ASSET_Images } from '../../../asset';
 import { TCButtonImg } from '../../../../Common/View/button/TCButtonView';
@@ -11,6 +11,8 @@ import { MyAppName } from '../../../../config/appConfig';
 export default class ShareBox extends Component {
     constructor(state) {
         super(state);
+        this.onClickWechatShare = this.onClickWechatShare.bind(this);
+        this.onClickWechatPyqShare = this.onClickWechatPyqShare.bind(this);
         this.state = {
             isWechatEnabled: false
         };
@@ -29,10 +31,18 @@ export default class ShareBox extends Component {
     };
 
     componentDidMount() {
-        NativeModules.UMShareModule.isWechatEnabled((isWechatEnabled) => {
+        TN_IsWechatEnabled((isWechatEnabled) => {
             this.setState({ isWechatEnabled });
         });
     }
+
+    onClickWechatShare() {
+        TN_WechatShare('Wechat Share','http://dev.umeng.com/images/tab2_1.png','http://www.umeng.com/','Wechat Content');
+    };
+
+    onClickWechatPyqShare() {
+        TN_WechatShareBoard('Wechat Shareboard','http://dev.umeng.com/images/tab2_1.png','http://www.umeng.com/','Wechat Content');
+    };
 
     render() {
         let { onClose } = this.props;
@@ -53,7 +63,7 @@ export default class ShareBox extends Component {
                     }}>
                     <TCButtonImg
                         imgSource={ASSET_Images.gameShare.btnWX}
-                        onClick={this.onCickWXShare}
+                        onClick={this.onClickWechatShare}
                     />
                     <TCButtonImg
                         imgSource={ASSET_Images.gameShare.btPYQ}
@@ -65,18 +75,14 @@ export default class ShareBox extends Component {
         ) : null;
     }
 
-    onCickWXShare = () => {
-        this.onSimpleShare();
-    };
-
-    onSimpleShare = () => {
-        Share.share({
-            title: MyAppName,
-            message: '快乐一起分享，大家一起来!'
-        })
-            .then(this.showResult)
-            .catch((error) => this.setState({ result: 'error: ' + error.message }));
-    };
+    // onSimpleShare = () => {
+    //     Share.share({
+    //         title: MyAppName,
+    //         message: '快乐一起分享，大家一起来!'
+    //     })
+    //         .then(this.showResult)
+    //         .catch((error) => this.setState({ result: 'error: ' + error.message }));
+    // };
 
     showResult = (result) => {
         if (result.action === Share.sharedAction) {
@@ -88,9 +94,6 @@ export default class ShareBox extends Component {
         } else if (result.action === Share.dismissedAction) {
             this.setState({ result: 'dismissed' });
         }
-    };
-    onClickPYQSHare = () => {
-        this.onSimpleShare();
     };
 }
 
