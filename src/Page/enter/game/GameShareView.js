@@ -45,7 +45,6 @@ export default class GameShareView extends Component {
         // }
     }
 
-
     render() {
         let {pointerEvents}=this.props;
         return (<View style={styles.container} pointerEvents={pointerEvents}>
@@ -56,7 +55,6 @@ export default class GameShareView extends Component {
             <TCImage source={ASSET_Images.gameShare.imgMM} style={{position: "absolute",left:0}}/>
             {this.state.isIos ?  <TCImage  source={ASSET_Images.gameShare.btnApple}
                                                 style={{position: "absolute", left:232,top:115}}/>: <TCImage source={ASSET_Images.gameShare.btnAndroid}  style={{position: "absolute",left:278,top:115}}/> }
-
 
             <View style={{position: "absolute",left:350,top:150}}>
                 <Text style={{color:"yellow", width:190, height: 20,fontWeight: "bold",textAlign:"center"}}>{this.state.surl}</Text>
@@ -76,16 +74,13 @@ export default class GameShareView extends Component {
                         <ShareBox onClose={this.onCloseShare}/>
                     </View>:null
                 }
-
-        </View>
+            </View>
         )
-
     }
 
     onCloseShare=()=>{
         this.setState({isShowShareUI:false})
     }
-
 
     onClickAndroid=()=>{
         this.setState({isIos:false,surl:TW_Store.bblStore.shareURL.android})
@@ -95,12 +90,10 @@ export default class GameShareView extends Component {
     }
 
     onCopyLink=()=>{
-        // TW_Log("onWxShare-onCopyLink--pre--"+this.state.surl+"--isIOS--"+this.state.isIos,this.state)
-        // Clipboard.setString(this.state.surl);
-        // TW_Log("onWxShare-onCopyLink--"+this.state.surl,this.state)
-        // Toast.showShortCenter("已复制链接!")
-
-        TN_WechatShare('Bellooooo','http://dev.umeng.com/images/tab2_1.png','http://www.umeng.com/','Hello');
+        TW_Log("onWxShare-onCopyLink--pre--"+this.state.surl+"--isIOS--"+this.state.isIos,this.state)
+        Clipboard.setString(this.state.surl);
+        TW_Log("onWxShare-onCopyLink--"+this.state.surl,this.state)
+        Toast.showShortCenter("已复制链接!")
     }
 
     onWxShare=()=>{
@@ -140,10 +133,7 @@ export default class GameShareView extends Component {
     //                    allowFileAccess={true}
     //         />)
     // }
-
-
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -164,5 +154,4 @@ const styles = StyleSheet.create({
         width:485,
         backgroundColor: "transparent",
     }
-
 });
