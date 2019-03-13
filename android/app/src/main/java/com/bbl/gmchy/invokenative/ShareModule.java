@@ -56,11 +56,16 @@ public class ShareModule extends ReactContextBaseJavaModule {
         mSDKHandler.postDelayed(runnable, 0);
     }
 
+    private boolean isStringValid(String value) {
+        return value != null && value != "";
+    }
+
     @ReactMethod
     public void isWechatEnabled(final Callback successCallback) {
+        String umengKey = BuildConfig.UMENG_KEY;
         String wechatKey = BuildConfig.WECHAT_KEY;
         String wechatSecretKey = BuildConfig.WECHAT_SECRET_KEY;
-        boolean isEnabled = wechatKey != null && wechatKey != "" && wechatSecretKey != null && wechatSecretKey != "";
+        boolean isEnabled = isStringValid(umengKey) && isStringValid(wechatKey) && isStringValid(wechatSecretKey);
         successCallback.invoke(isEnabled);
     }
 

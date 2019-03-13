@@ -79,7 +79,7 @@ export default class ShareBox extends Component {
                     />
                     <TCButtonImg
                         imgSource={ASSET_Images.gameShare.btPYQ}
-                        onClick={this.onClickPYQSHare}
+                        onClick={this.onClickWechatPyqShare}
                         btnStyle={{ marginLeft: 20 }}
                     />
                 </View>
