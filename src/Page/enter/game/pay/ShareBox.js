@@ -7,7 +7,7 @@ import { TCButtonImg } from '../../../../Common/View/button/TCButtonView';
 import React from 'react';
 import TCImage from '../../../../Common/View/image/TCImage';
 import { MyAppName, platInfo } from '../../../../config/appConfig';
-import TCUserOpenPayApp from "../../../UserCenter/UserPay/TCUserOpenPayApp";
+import TCUserOpenPayApp from '../../../UserCenter/UserPay/TCUserOpenPayApp';
 
 const WECHAT = {
     SHARE_TITLE: MyAppName,
@@ -20,8 +20,7 @@ export default class ShareBox extends Component {
         this.onClickWechatShare = this.onClickWechatShare.bind(this);
         this.onClickWechatPyqShare = this.onClickWechatPyqShare.bind(this);
         this.state = {
-            isWechatEnabled: false,
-            umengKey : platInfo.channel[`c_${TW_Store.appStore.channel}`].umengKey
+            isWechatEnabled: false
         };
     }
 
@@ -40,12 +39,25 @@ export default class ShareBox extends Component {
 
     componentDidMount() {
         TN_IsWechatEnabled((isWechatEnabled) => {
-            this.setState({ isWechatEnabled });
-            if(!isWechatEnabled || this.state.umengKey.length <= 0){
-                Clipboard.setString(this.props.url);
-                TCUserOpenPayApp.openWX()
+            if (G_IS_IOS) {
+                const umengKey = platInfo.channel[`c_${TW_Store.appStore.channel}`].umengKey;
+                const isEnabled = isWechatEnabled && umengKey.length > 0;
+                this.setState({ isWechatEnabled: isEnabled });
+                this.openPayApp(isEnabled);
+            } else {
+                TN_IsWechatEnabled((isWechatEnabled) => {
+                    this.setState({ isWechatEnabled });
+                    this.openPayApp(isWechatEnabled);
+                });
             }
         });
+    }
+
+    openPayApp(isWechatEnabled) {
+        if (!isWechatEnabled) {
+            Clipboard.setString(this.props.url);
+            TCUserOpenPayApp.openWX();
+        }
     }
 
     onClickWechatShare() {
@@ -60,7 +72,7 @@ export default class ShareBox extends Component {
 
     render() {
         let { onClose } = this.props;
-        return this.state.isWechatEnabled && this.state.umengKey.length > 0? (
+        return this.state.isWechatEnabled ? (
             <View style={styles.container}>
                 <TCImage source={ASSET_Images.gameShare.boxBg} />
                 <TCButtonImg
