@@ -6,7 +6,7 @@ import { ASSET_Images } from '../../../asset';
 import { TCButtonImg } from '../../../../Common/View/button/TCButtonView';
 import React from 'react';
 import TCImage from '../../../../Common/View/image/TCImage';
-import { MyAppName } from '../../../../config/appConfig';
+import { MyAppName, platInfo } from '../../../../config/appConfig';
 
 const WECHAT = {
     SHARE_TITLE: MyAppName,
@@ -19,7 +19,8 @@ export default class ShareBox extends Component {
         this.onClickWechatShare = this.onClickWechatShare.bind(this);
         this.onClickWechatPyqShare = this.onClickWechatPyqShare.bind(this);
         this.state = {
-            isWechatEnabled: false
+            isWechatEnabled: false,
+            umengKey : platInfo.channel[`c_${TW_Store.appStore.channel}`].umengKey
         };
     }
 
@@ -54,7 +55,7 @@ export default class ShareBox extends Component {
 
     render() {
         let { onClose } = this.props;
-        return this.state.isWechatEnabled ? (
+        return this.state.isWechatEnabled && this.state.umengKey.length > 0? (
             <View style={styles.container}>
                 <TCImage source={ASSET_Images.gameShare.boxBg} />
                 <TCButtonImg
