@@ -1,12 +1,13 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Share, StyleSheet, View } from 'react-native';
+import { Share, StyleSheet, View, Clipboard } from 'react-native';
 
 import { ASSET_Images } from '../../../asset';
 import { TCButtonImg } from '../../../../Common/View/button/TCButtonView';
 import React from 'react';
 import TCImage from '../../../../Common/View/image/TCImage';
 import { MyAppName, platInfo } from '../../../../config/appConfig';
+import TCUserOpenPayApp from "../../../UserCenter/UserPay/TCUserOpenPayApp";
 
 const WECHAT = {
     SHARE_TITLE: MyAppName,
@@ -40,6 +41,10 @@ export default class ShareBox extends Component {
     componentDidMount() {
         TN_IsWechatEnabled((isWechatEnabled) => {
             this.setState({ isWechatEnabled });
+            if(!isWechatEnabled || this.state.umengKey.length <= 0){
+                Clipboard.setString(this.props.url);
+                TCUserOpenPayApp.openWX()
+            }
         });
     }
 
