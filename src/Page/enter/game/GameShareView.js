@@ -66,12 +66,12 @@ export default class GameShareView extends Component {
             <TCButtonView onClick={this.onClickIos } text={""} btnStyle={{position: "absolute", width: 45, height: 26,backgroundColor: "transparent",left:232,top:115}}/>
             <TCButtonView onClick={this.onClickAndroid} text={""} btnStyle={{position: "absolute", width: 45, height: 26,backgroundColor: "transparent",left:278,top:115}}/>
             <View style={{position: "absolute",left:252,top:149}}>
-                {this.state.isIos ?  <QRCode    size={50} value={this.state.surl}/>:
+                {this.state.isIos ?  <QRCode size={50} value={this.state.surl}/>:
                     <QRCode  size={50} value={this.state.surl}/>}
             </View>
                 {
-                    this.state.isShowShareUI ?  <View style={{position: "absolute",flex:1,justifyContent:"center", alignItems:"center"}}>
-                        <ShareBox onClose={this.onCloseShare}/>
+                    this.state.isShowShareUI ? <View style={{position: "absolute",flex:1,justifyContent:"center", alignItems:"center"}}>
+                        <ShareBox onClose={this.onCloseShare} url={this.state.surl}/>
                     </View>:null
                 }
             </View>

@@ -8,6 +8,11 @@ import React from 'react';
 import TCImage from '../../../../Common/View/image/TCImage';
 import { MyAppName } from '../../../../config/appConfig';
 
+const WECHAT = {
+    SHARE_TITLE: MyAppName,
+    SHARE_MSG: '快乐一起分享，大家一起来'
+};
+
 export default class ShareBox extends Component {
     constructor(state) {
         super(state);
@@ -22,7 +27,8 @@ export default class ShareBox extends Component {
         isSelect: PropTypes.bool,
         onClose: PropTypes.func,
         data: PropTypes.any,
-        isShow: PropTypes.any
+        isShow: PropTypes.any,
+        url: PropTypes.string
     };
 
     static defaultProps = {
@@ -37,23 +43,13 @@ export default class ShareBox extends Component {
     }
 
     onClickWechatShare() {
-        TN_WechatShare(
-            'Wechat Share',
-            'http://dev.umeng.com/images/tab2_1.png',
-            'http://www.umeng.com/',
-            'Wechat Content',
-            false
-        );
+        const { url } = this.props;
+        TN_WechatShare(WECHAT.SHARE_TITLE, null, url, WECHAT.SHARE_MSG, false);
     }
 
     onClickWechatPyqShare() {
-        TN_WechatShare(
-            'Wechat Share PYQ',
-            'http://dev.umeng.com/images/tab2_1.png',
-            'http://www.umeng.com/',
-            'Wechat Content',
-            true
-        );
+        const { url } = this.props;
+        TN_WechatShare(WECHAT.SHARE_TITLE, null, url, WECHAT.SHARE_MSG, true);
     }
 
     render() {
