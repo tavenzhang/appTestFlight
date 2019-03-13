@@ -37,12 +37,24 @@ export default class ShareBox extends Component {
     }
 
     onClickWechatShare() {
-        TN_WechatShare('Wechat Share','http://dev.umeng.com/images/tab2_1.png','http://www.umeng.com/','Wechat Content');
-    };
+        TN_WechatShare(
+            'Wechat Share',
+            'http://dev.umeng.com/images/tab2_1.png',
+            'http://www.umeng.com/',
+            'Wechat Content',
+            false
+        );
+    }
 
     onClickWechatPyqShare() {
-        TN_WechatShareBoard('Wechat Shareboard','http://dev.umeng.com/images/tab2_1.png','http://www.umeng.com/','Wechat Content');
-    };
+        TN_WechatShare(
+            'Wechat Share PYQ',
+            'http://dev.umeng.com/images/tab2_1.png',
+            'http://www.umeng.com/',
+            'Wechat Content',
+            true
+        );
+    }
 
     render() {
         let { onClose } = this.props;

@@ -91,12 +91,8 @@ global.TN_IsWechatEnabled = (callBack: func) => {
     NativeModules.UMShareModule.isWechatEnabled(callBack);
 };
 
-global.TN_WechatShare = (text, image, url, title) => {
-    NativeModules.UMShareModule.share(text, image, url, title, 2, (code, message) => {});
-};
-
-global.TN_WechatShareBoard = (text, image, url, title) => {
-    NativeModules.UMShareModule.shareboard(text, image, url, title, [2, 3], (code, message) => {});
+global.TN_WechatShare = (text, image, url, title, isPyq) => {
+    NativeModules.UMShareModule.share(text, image, url, title, isPyq? 3:2, (code, message) => {});
 };
 
 global.TN_UMShareModule = NativeModules.UMShareModule;
