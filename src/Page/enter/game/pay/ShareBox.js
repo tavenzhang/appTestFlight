@@ -57,6 +57,7 @@ export default class ShareBox extends Component {
         if (!isWechatEnabled) {
             Clipboard.setString(this.props.url);
             TCUserOpenPayApp.openWX();
+            this.props.onClose();
         }
     }
 
