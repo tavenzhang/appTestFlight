@@ -37,7 +37,7 @@
             "size":{ "w":1326, "h":78 }
         },
         "btns":[
-            {
+           {
                 "desc":"提现",
                 "cmd":"redraw",
                 "pos":{ "x":1000, "y":700 },
@@ -47,7 +47,7 @@
                 "size":{ "w":76, "h":90 },
                 "maxScale":{"x":1.02,"y":1.02},
                 "normalScale":{"x":1,"y":1},
-                "sfx":"assets/raw/click.mp3"
+                "sfxX":"assets/raw/Click.mp3"
             },
             {
                 "desc":"账户",
@@ -59,60 +59,22 @@
                 "size":{ "w":76, "h":90 },
                 "maxScale":{"x":1.02,"y":1.02},
                 "normalScale":{"x":1,"y":1},
-                "sfx":"assets/raw/click.mp3"
-            }
-        ]
-    },
-    "bak":[
+                "sfxX":"assets/raw/Click.mp3"
+            },
             {
                 "desc":"分享",
                 "cmd":"share",
-                "pos":{ "x":400, "y":700 },
+                "pos":{ "x":760, "y":700 },
                 "src":[
                     "./assets/ui/mine/icon_fenxiang.png"
                 ],
                 "size":{ "w":76, "h":90 },
                 "maxScale":{"x":1.02,"y":1.02},
                 "normalScale":{"x":1,"y":1},
-                "sfx":"assets/raw/click.mp3"
-            },
-            {
-                "desc":"活动",
-                "cmd":"notice",
-                "pos":{ "x":520, "y":700 },
-                "src":[
-                    "./assets/ui/mine/icon_huodong.png"
-                ],
-                "size":{ "w":76, "h":90 },
-                "maxScale":{"x":1.02,"y":1.02},
-                "normalScale":{"x":1,"y":1},
-                "sfx":"assets/raw/click.mp3"
-            },
-            {
-                "desc":"客服",
-                "cmd":"custom",
-                "pos":{ "x":760, "y":700 },
-                "src":[
-                    "./assets/ui/mine/icon_kefu.png"
-                ],
-                "size":{ "w":76, "h":90 },
-                "maxScale":{"x":1.02,"y":1.02},
-                "normalScale":{"x":1,"y":1},
-                "sfx":"assets/raw/click.mp3"
-            },
-            {
-                "desc":"设置",
-                "cmd":"setting",
-                "pos":{ "x":760, "y":700 },
-                "src":[
-                    "./assets/ui/mine/icon_shezhi.png"
-                ],
-                "size":{ "w":76, "h":90 },
-                "maxScale":{"x":1.02,"y":1.02},
-                "normalScale":{"x":1,"y":1},
-                "sfx":"assets/raw/click.mp3"
+                "sfxX":"assets/raw/Click.mp3"
             }
-    ],
+        ]
+    },
     "default":{
         "desc":"默认开还是关",
         "bOpen":true

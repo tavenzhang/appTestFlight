@@ -204,16 +204,27 @@ var LoginPad = /** @class */ (function (_super) {
         // Debug.trace(hr);
         if (stat == "complete") {
             //保存登录信息
-            // var jobj = JSON.parse(s);
-            var jobj = s;
-            Common.loginInfo = jobj;
-            Common.access_token = jobj.oauthToken.access_token;
-            //存档
-            SaveManager.getObj().save(SaveManager.KEY_TOKEN, Common.access_token);
-            //登录成功，通知容器，当前新token
-            PostMHelp.tokenChange({ "payload": Common.access_token });
-            //登录成功，进入大厅
-            LayaMain.getInstance().initLobby();
+            var jobj; // = JSON.parse(s);
+            try {
+                jobj = JSON.parse(s);
+            }
+            catch (e) {
+                Debug.trace(e);
+                jobj = s;
+            }
+            try {
+                Common.loginInfo = jobj;
+                Common.access_token = jobj.oauthToken.access_token;
+                //存档
+                SaveManager.getObj().save(SaveManager.KEY_TOKEN, Common.access_token);
+                //登录成功，通知容器，当前新token
+                PostMHelp.tokenChange({ "payload": Common.access_token });
+                //登录成功，进入大厅
+                LayaMain.getInstance().initLobby();
+            }
+            catch (e) {
+                Debug.trace(e);
+            }
         }
         else {
             //找出错误信息

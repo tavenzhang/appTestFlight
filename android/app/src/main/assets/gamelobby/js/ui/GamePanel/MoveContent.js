@@ -30,6 +30,17 @@ var MoveContent = /** @class */ (function (_super) {
         _this.conf = conf;
         return _this;
     }
+    //开始移动拖拉
+    MoveContent.prototype.startMoveDrag = function () {
+        //如果当前在动画中，立刻停掉
+        if (this.bAutogo) {
+            //关闭所有缓动
+            Laya.Tween.clearAll(this);
+            //停止滑行定时器
+            Laya.timer.clearAll(this);
+            this.bAutogo = false;
+        }
+    };
     MoveContent.prototype.checkShowBg = function () {
         if (this.conf.itembg) {
             Tools.drawRectWithAlpha(this, this.conf.visibleRect.x, this.conf.visibleRect.y, this.width, this.conf.visibleRect.h, this.conf.itembg.color, this.conf.itembg.alpha);
@@ -41,6 +52,7 @@ var MoveContent = /** @class */ (function (_super) {
         this.caller = caller;
         this.callback = callback;
     };
+    //自动继续滑动
     MoveContent.prototype.autoSlips = function (direct, spd, timeSum) {
         //计算出目的地 s = vt
         var v = spd / timeSum;

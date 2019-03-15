@@ -21,7 +21,7 @@
             "desc":"是否使用遮罩",
             "value":true
         },
-        "rect":{ "x":0, "y":0, "w":905, "h":550 },
+        "rect":{ "x":0, "y":0, "w":902, "h":550 },
         "showbgX":{
             "desc":"内容容器绘制背景",
             "color":"#ff0000",
@@ -120,14 +120,16 @@
     "movecontent":{
         "scrollType":"tween1",
         "fps":60,
-        
+        "dragendoffset":2,
+        "moveddis":50,
         "goonLoopDelay":10,
         "durationGoon":1000,
         "goonOffsetMin":0.1,
         "tweenGoonName":"circOut",
 
         "duration":1000,
-        "tweenName":"backOut",
+        "tweenNameX":"backOut",
+        "tweenName":"circOut",
 
         "pos":{
             "init":{"x":0,"y":0}

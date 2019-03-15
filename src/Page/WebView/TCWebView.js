@@ -18,7 +18,6 @@ import LoadingView from "../enter/LoadingView";
 import TCButtonView from "../../Common/View/button/TCButtonView";
 import {observer} from "mobx-react/native";
 import NetUitls from "../../Common/Network/TCRequestUitls";
-import rootStore from "../../Data/store/RootStore";
 
 
 @withMappedNavigationProps()
@@ -27,12 +26,11 @@ export default class TCWebView extends Component {
 
     constructor(state) {
         super(state)
-        let {url,param} = this.props;
+        let {url} = this.props;
         this.state = {
             isHide: false,
             isHttpFail: false,
             uri: url,
-            param
         }
         this.bblStore = TW_Store.bblStore;
     }
@@ -47,12 +45,12 @@ export default class TCWebView extends Component {
     }
 
     render() {
-
+        let {isOrigan}=this.props
         let myUrl = this.state.uri;
         let tempIndex = myUrl.indexOf("?");
         let myParam = myUrl.substr(tempIndex);
         let newUrl=  myUrl.substring(0,tempIndex)+"index.html";
-        TW_Log("myUrl------------------------tempStr--"+myParam+"-\n-newUrl----"+newUrl)
+        TW_Log("myUrl------------------------myParam--"+myParam+"-\n-newUrl----"+newUrl)
 
         let source = {
             file: newUrl,
@@ -60,11 +58,16 @@ export default class TCWebView extends Component {
             allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
             param:myParam
         };
-
         if (!G_IS_IOS) {
             source = {
                 uri: newUrl+`${myParam}`,
             };
+        }else{
+            if(isOrigan){
+                source = {
+                    uri: newUrl+`${myParam}`,
+                };
+            }
         }
 
         let dis = TW_Store.bblStore.isLoading ? "none":"flex";

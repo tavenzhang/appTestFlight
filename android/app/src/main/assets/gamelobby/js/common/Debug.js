@@ -20,13 +20,12 @@ var Debug = /** @class */ (function () {
         if (!Debug.bDebug) {
             return;
         }
-        PostMHelp.Log({ ct: ct, data: data });
-        // if( Debug.bDebugPlatform == "web" )
-        // {
-        //     Debug.traceWeb(ct);
-        // }else{
-        //     Debug.traceX(ct,data);
-        // }
+        if (Debug.bDebugPlatform == "web") {
+            Debug.traceWeb(ct);
+        }
+        else {
+            PostMHelp.Log({ ct: ct, data: data });
+        }
     };
     Debug.traceWeb = function (ct, data) {
         if (data === void 0) { data = {}; }

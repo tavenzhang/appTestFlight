@@ -47,7 +47,7 @@ var LoadingScene = /** @class */ (function (_super) {
         // //从url中读取Token
         var urlToken = Tools.getQueryVariable("token");
         //从url中获取业主id 如果是app 会通过app 传送clientID
-        if (!Common.IS_NATIVE_APP) {
+        if (!AppData.IS_NATIVE_APP) {
             if (urlToken != undefined && urlToken.length != 0) {
                 this.temp_token = urlToken;
             }

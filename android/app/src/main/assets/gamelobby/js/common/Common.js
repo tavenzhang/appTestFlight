@@ -149,7 +149,7 @@ var Common = /** @class */ (function () {
     };
     // public static GM_SCREEN_H:number = 640;
     // public static GM_SCREEN_W:number = 1136;
-    Common.IS_NATIVE_APP = false;
+    // public static IS_NATIVE_APP:boolean = false;
     Common.GM_SCREEN_H = 750;
     Common.GM_SCREEN_W = 1334;
     //loading及toast的深度

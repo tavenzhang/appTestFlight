@@ -22,7 +22,10 @@ var LayaMain = /** @class */ (function () {
         //程序入口
         // Laya.init(Common.GM_SCREEN_W,Common.GM_SCREEN_H);//, Laya.WebGL);
         Laya.init(Common.GM_SCREEN_W, Common.GM_SCREEN_H, Laya.WebGL);
-        // Laya.URL.basePath = "http://localhost/";
+        // Laya.URL.basePath = window["sPubRes"];
+        // Laya.URL.rootPath = window["sPubRes"];
+        // Laya.URL.rootPath = Laya.URL.basePath + window["sPubRes"];
+        // Debug.trace("Laya.URL.basePath:"+Laya.URL.basePath);
         if (window["bShowStat"]) {
             Laya.Stat.show(0, 0);
         }
@@ -95,7 +98,7 @@ var LayaMain = /** @class */ (function () {
             }
             //重新拉取用户帐户信息，刷新帐户数据
             if (Avator.getInstance()) {
-                Avator.getInstance().startRequest();
+                Avator.getInstance().flushUserInfo();
             }
         }
         catch (e) { }
@@ -124,7 +127,7 @@ var LayaMain = /** @class */ (function () {
                     lamain.onGameResume();
                     break;
                 case "stopMusic":
-                    lamain.onGamePause();
+                    Laya.SoundManager.stopAll();
                     break;
                 case "windowResize":
                     this.onResize();
@@ -173,7 +176,7 @@ var LayaMain = /** @class */ (function () {
         // Debug.trace(e);
         var appData = window["appData"];
         if (appData) {
-            Common.IS_NATIVE_APP = true;
+            // Common.IS_NATIVE_APP = true;
             AppData.IS_NATIVE_APP = true;
             AppData.NATIVE_DATA = appData;
             AppData.isAndroidHack = appData.isAndroidHack;
@@ -223,7 +226,6 @@ var LayaMain = /** @class */ (function () {
     };
     LayaMain.prototype.initLoading = function () {
         this.clearChild();
-        Laya.URL.basePath = "";
         if (this.sceneLoading == null) {
             // Debug.trace("LayaMain.sceneLoading == null to create");
             this.sceneLoading = new LoadingScene();
@@ -234,7 +236,6 @@ var LayaMain = /** @class */ (function () {
     };
     LayaMain.prototype.initLogin = function () {
         this.clearChild();
-        Laya.URL.basePath = "";
         if (this.sceneLogin == null) {
             this.sceneLogin = new LoginScene();
             this.sceneLogin.onLoaded();
@@ -245,7 +246,6 @@ var LayaMain = /** @class */ (function () {
         // Debug.trace("LayaMain.initLobby");
         //构造大厅之前，再次清空整个stage
         this.clearChild();
-        Laya.URL.basePath = "";
         if (this.sceneLobby == null) {
             // Debug.trace("LayaMain.initLobby == null to create");
             this.sceneLobby = new LobbyScene();
@@ -258,7 +258,6 @@ var LayaMain = /** @class */ (function () {
     };
     LayaMain.prototype.initRoom = function (data) {
         this.clearChild();
-        Laya.URL.basePath = "";
         if (this.sceneRoom == null) {
             this.sceneRoom = new RoomScene();
             this.sceneRoom.onLoaded(data);
@@ -329,15 +328,12 @@ var LayaMain = /** @class */ (function () {
         LayaMain.getInstance().initLogin();
     };
     LayaMain.prototype.showCircleLoading = function (b, data) {
-        if (b === void 0) { b = true; }
-        if (data === void 0) { data = null; }
         // var d = {
         //     "tips":"正在加载中",
         //     "bShowBg":b
         // }
-        if (AppData.IS_NATIVE_APP) {
-            return;
-        }
+        if (b === void 0) { b = true; }
+        if (data === void 0) { data = null; }
         if (b && !this.cloading) {
             // Debug.trace("LayaMain.showCircleLoading create new cloading");
             this.cloading = MyBBLoading.getObj(true); //.show();
@@ -368,6 +364,7 @@ var LayaMain = /** @class */ (function () {
     LayaMain.obj = null;
     return LayaMain;
 }());
+var AppData = window["sAppData"];
 var lamain = new LayaMain();
 lamain.initLoading();
 window.top["receivedMessageFromRN"] = lamain.onAppPostMessgae;

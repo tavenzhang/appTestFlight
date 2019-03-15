@@ -11,7 +11,7 @@
         "src":"./assets/ui/dialog/img_touxiang_dadi.png",
         "pos":{ "x":139.5, "y":53 }
     },
-    "bgbig":{
+    "bgbigX":{
         "desc":"整体大背景",
         "src":"./assets/ui/notice/bgBig.png",
         "pos":{ "x":170, "y":195 }
@@ -62,7 +62,7 @@
         "desc":"表格标题",
         "bg":{
             "src":"./assets/ui/rule/bgTitle.png",
-            "pos":{ "x":180, "y":140 }
+            "pos":{ "x":180, "y":152 }
         },
         "headlines":{
             "desc":"表头的分隔线",
@@ -70,7 +70,7 @@
             "ws":[
                 242,244
             ],
-            "wy":140,
+            "wy":152,
             "tips":{
                 "desc":"公告tab上的未读数量提示",
                 "pos":{ "x":216, "y":2 },
@@ -100,8 +100,12 @@
                     "switch":{
                         "desc":"活动公告",
                         "posY":{ "x":426, "y":140 },
-                        "pos":{ "x":180, "y":140 },
+                        "pos":{ "x":180, "y":152 },
                         "src":[
+                            "./assets/ui/notice/btn_yxgg_00.png",
+                            "./assets/ui/notice/btn_yxgg_01.png"
+                        ],
+                        "srcX":[
                             "./assets/ui/notice/btn_hdgg_00.png",
                             "./assets/ui/notice/btn_hdgg_01.png"
                         ],
@@ -113,10 +117,14 @@
                     "switch":{
                         "desc":"游戏公告",
                         "posX":{ "x":180, "y":140 },
-                        "pos":{ "x":426, "y":140 },
-                        "src":[
+                        "pos":{ "x":426, "y":152 },
+                        "srcX":[
                             "./assets/ui/notice/btn_yxgg_00.png",
                             "./assets/ui/notice/btn_yxgg_01.png"
+                        ],
+                        "src":[
+                            "./assets/ui/notice/btn_hdgg_00.png",
+                            "./assets/ui/notice/btn_hdgg_01.png"
                         ],
                         "sfx":"assets/raw/click.mp3",
                         "size":{"w":240,"h":55}

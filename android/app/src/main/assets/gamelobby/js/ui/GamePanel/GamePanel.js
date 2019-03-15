@@ -28,7 +28,11 @@ var GamePanel = /** @class */ (function (_super) {
         return _this;
     }
     GamePanel.getInstance = function (node, conf, caller, callback) {
-        if (!GamePanel.obj) {
+        if (node === void 0) { node = null; }
+        if (conf === void 0) { conf = null; }
+        if (caller === void 0) { caller = null; }
+        if (callback === void 0) { callback = null; }
+        if (!GamePanel.obj && node != null && conf != null) {
             var a = new GamePanel();
             a.init(conf, caller, callback);
             node.addChild(a);
@@ -198,6 +202,8 @@ var GamePanel = /** @class */ (function (_super) {
                 // {
                 //     this.scrollbar.moveStart();
                 // }
+                //重新开始拖拉的时候，应该停掉之前的动画
+                this.sp_ct_move.startMoveDrag();
                 break;
             case Laya.Event.MOUSE_MOVE:
                 if (this.downX > 0 && this.bDrag) {
@@ -214,7 +220,9 @@ var GamePanel = /** @class */ (function (_super) {
                 // Debug.trace("GamePanel.moveContentEvent out x");
                 if (this.bDrag) {
                     this.endDragTime = Tools.getTime();
-                    this.moveEnds(x, y);
+                    if (this.isMoved(x, y)) {
+                        this.moveEnds(x, y);
+                    }
                 }
                 this.downX = 0;
                 this.bDrag = false;
@@ -224,6 +232,11 @@ var GamePanel = /** @class */ (function (_super) {
                 // }
                 break;
         }
+    };
+    //是否发生了移动
+    GamePanel.prototype.isMoved = function (x, y) {
+        var sumx = Math.abs(this.startDragX - x);
+        return sumx > this.conf.movecontent.moveddis;
     };
     GamePanel.prototype.moveAllItem = function (x) {
         // Debug.trace('move x:'+x);
@@ -268,18 +281,55 @@ var GamePanel = /** @class */ (function (_super) {
         var bHave = this.isHaveGameIcons();
         this.sp_arrow.visible = bHave;
     };
+    //拖拉内容层
     GamePanel.prototype.moveGameItems = function (sumx, cx, cy) {
+        var minx = (this.conf.movecontent.visibleRect.w - this.sp_ct_move.width) - this.conf.movecontent.minxOffsetX;
+        var maxx = 0 + this.conf.movecontent.maxxOffsetX;
         var nx = sumx;
         var cx = this.sp_ct_move.x;
         var newx = cx + nx;
+        //拖拉超过一定值，就松开
+        if (sumx <= 0) {
+            //left
+            if (newx <= minx) {
+                //直接停止
+                // this.stopDragForce();
+                // this.lastScrollSpdX = 0;
+                // return; //不能拖了，不继续走
+                //超出越多，速度降低越多
+                var sumLeft = Math.abs(minx - newx);
+                nx = nx / (sumLeft / this.conf.movecontent.dragendoffset);
+            }
+        }
+        else if (sumx > 0) {
+            //right
+            if (newx >= maxx) {
+                //直接停止
+                // this.stopDragForce();
+                // this.lastScrollSpdX = 0;
+                // return; //不能拖了
+                //超出越多，速度降低越多
+                var sumRight = Math.abs(maxx - newx);
+                nx = nx / (sumRight / this.conf.movecontent.dragendoffset);
+            }
+        }
+        // Debug.trace();
         this.sp_ct_move.x += nx;
         //记录下当前的滚动速度
         this.lastScrollSpdX = nx;
-        //根据移动方向，计算当前分隔点坐标距离哪个图标最近
-        //超过图标一半即不考虑
-        //图标层自动滚动到该图标上
         var bHave = this.isHaveGameIcons();
         this.sp_arrow.visible = bHave;
+    };
+    //强制停止拖拽
+    GamePanel.prototype.stopDragForce = function () {
+        if (this.bDrag) {
+            this.endDragTime = Tools.getTime();
+            var x = this.sp_content.mouseX;
+            var y = this.sp_content.mouseY;
+            this.moveEnds(x, y);
+        }
+        this.downX = 0;
+        this.bDrag = false;
     };
     GamePanel.prototype.moveEnds = function (cx, cy) {
         //本次移动按下的点与当前点形成的差值，标记了当前移动的方向

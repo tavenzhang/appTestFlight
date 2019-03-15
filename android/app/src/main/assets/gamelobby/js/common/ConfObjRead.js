@@ -178,7 +178,12 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.room_titlebarObj) {
             return ConfObjRead.room_titlebarObj;
         }
-        ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar.json");
+        if (AppData.IS_NATIVE_APP) {
+            ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar_app.json");
+        }
+        else {
+            ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar.json");
+        }
         return ConfObjRead.room_titlebarObj;
     };
     ConfObjRead.getConfRoomTitlebar = function () {
@@ -206,7 +211,12 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.minemenuObj) {
             return ConfObjRead.minemenuObj;
         }
-        ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus.json");
+        if (AppData.IS_NATIVE_APP) {
+            ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus_app.json");
+        }
+        else {
+            ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus.json");
+        }
         return ConfObjRead.minemenuObj;
     };
     ConfObjRead.getConfLeftmenus = function () {

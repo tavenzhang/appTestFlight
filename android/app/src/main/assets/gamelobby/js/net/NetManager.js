@@ -22,7 +22,7 @@ var NetManager = /** @class */ (function () {
             }
         }
         //app 使用本地app 代理请求 网页使用原来的
-        if (Common.IS_NATIVE_APP) {
+        if (AppData.IS_NATIVE_APP) {
             var httpData = { hashUrl: hashUrl, caller: caller, callback: callback };
             NetManager.httpRequestList.push(httpData);
             PostMHelp.game_Http({ url: url, header: header, data: data, metod: metod, restype: restype, hashUrl: hashUrl });

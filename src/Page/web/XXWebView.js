@@ -58,37 +58,16 @@ export default class XXWebView extends Component {
                             source:item.source,newVersion:item.version}
                     }
                 }
-                //this.checkGameVersion();
             })
         });
     }
 
 
-    //
-    // checkGameLoad=(gameData)=>{
-    //
-    //      for (let key in TW_Store.dataStore.appGameListM){
-    //          let item = TW_Store.dataStore.appGameListM[key];
-    //          if(item.id == gameData.alias){
-    //              TW_Log("FileTools-checkGameLoad------",gameData)
-    //             if(item.isNeedUpdate){
-    //                 this.loadQueue.push(item);
-    //                 if(!this.isLoading){
-    //                     this.startLoadGame(item)
-    //                 }
-    //             }
-    //             return true;
-    //          }
-    //      }
-    //      return false;
-    //
-    // }
-
     handleUrl = (url, data) => {
-        let index= url.indexOf("?");
-        url = url.substr(index);
-        TW_Log("FileTools--------url--"+url,data);
+
         if(data){
+            let index= url.indexOf("?");
+            url = url.substr(index);
             if(data.isNeedUpdate){
                 this.loadQueue.push(data);
                 if(!this.isLoading){
@@ -104,7 +83,7 @@ export default class XXWebView extends Component {
             }
             url = TW_Store.bblStore.gameDomain  + url
         }
-
+        TW_Log("FileTools--------url--"+url,data);
         return url
     }
 
@@ -166,9 +145,9 @@ export default class XXWebView extends Component {
             };
         }
 
-       // if(TW_IS_DEBIG){
-       //      source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-       //  }
+       if(TW_IS_DEBIG){
+            source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+        }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({
@@ -251,27 +230,30 @@ export default class XXWebView extends Component {
 
                     let data =JSON.parse(TW_Base64.decode(this.getJumpData(message.payload)));
                     let gameData = TW_Store.dataStore.appGameListM[data.alias];
+                    let isNeedLoad=false;
+                    let isOrigan =false;
                     if(!gameData){
                         JXToast.showShortCenter(`${data.name} 暂未配置！`)
-                        return;
+                        url = this.handleUrl(message.payload,gameData);
+                        isOrigan=true
+                    }else {
+                        isNeedLoad = gameData ? gameData.isNeedUpdate:isNeedLoad;
+                        url = this.handleUrl(message.payload,gameData);
                     }
-                    let isNeedLoad = gameData ? gameData.isNeedUpdate:false;
-                    url = this.handleUrl(message.payload,gameData);
-                    TW_Log("FileTools---------data--isNeedLoad==-"+url,gameData)
-                    if (!isNeedLoad) {
+
+                    TW_Log("FileTools---------data--isNeedLoad==-url=="+url+"-----------gameData==",gameData);
+                    if (!isNeedLoad&&TW_Store.bblStore.lastGameUrl!=url) {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.payload);
-
-                        TW_Log("onMessage========tempData-===>>message.payload--"+message.payload ,url);
                         TW_NavHelp.pushView(JX_Compones.WebView, {
                             url,
                             onMsgHandle: this.onMsgHandle,
                             onEvaleJS: this.onEvaleJS,
                             isGame: true,
-                            parm:``
+                            isOrigan
                         })
                         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic),{});
-                        this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
+                        //this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
                 case  "game_account":
@@ -319,7 +301,7 @@ export default class XXWebView extends Component {
                             }
                             NetUitls.postUrlAndParamsAndCallback(myUrl,JSON.parse(message.data), (ret) => {
                                 TW_Log("---home--http---game--postUrlAndParamsAndCallback>url="+message.url, ret);
-                                this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
+                                this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
                             },10,false,false,null,true)
                             break
                         case "get":
