@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -36,52 +36,22 @@ var UITitleBar = /** @class */ (function (_super) {
         if (!AppData.isAndroidHack) {
             this.initTitle(this.conf.title);
         }
-        //Modified by Jelly on 2018.12.27
-        if (Common.IS_NATIVE_APP) {
-            this.initSetting(this.conf.btnsetting_native);
-            this.initExit(this.conf.btnexit_native);
-            this.btn_exit.visible = false; //不显示
-        }
-        else {
-            this.initSetting(this.conf.btnsetting);
-            this.initExit(this.conf.btnexit);
-        }
-        //暂时没有这个
-        this.initNotice(this.conf.btnnotice);
-        // Debug.trace("titlebar init ok");
-        // Debug.trace(this.conf);
+        //遍历构造所有按钮
+        this.initBtns(this.conf.btns);
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
-    //初始化退出按钮
-    UITitleBar.prototype.initExit = function (conf) {
-        if (!conf) {
-            return;
+    //批量生产按钮
+    UITitleBar.prototype.initBtns = function (conf) {
+        this.arr_btns = new Array();
+        for (var i = 0; i < conf.length; i++) {
+            var cf = conf[i];
+            var btn = new MyButton();
+            btn.setQuery(cf.cmd);
+            btn.init(cf, this, this.onEventClick);
+            btn.pos(cf.pos.x, cf.pos.y);
+            this.addChild(btn);
+            this.arr_btns.push(btn);
         }
-        this.btn_exit = new MyButton();
-        this.btn_exit.init(conf, this, this.onExitClick);
-        this.btn_exit.pos(conf.pos.x, conf.pos.y);
-        this.addChild(this.btn_exit);
-    };
-    UITitleBar.prototype.initSetting = function (conf) {
-        if (!conf) {
-            return;
-        }
-        Debug.trace("SettingPad conf:");
-        this.btn_setting = new MyButton();
-        this.btn_setting.init(conf, this, this.onSettingClick);
-        this.btn_setting.pos(conf.pos.x, conf.pos.y);
-        this.addChild(this.btn_setting);
-    };
-    UITitleBar.prototype.initNotice = function (conf) {
-        if (!conf) {
-            return;
-        }
-        this.btn_notice = new MyButton();
-        this.btn_notice.init(conf, this, this.onNoticeClick);
-        this.btn_notice.pos(conf.pos.x + (AppData.IS_NATIVE_APP ? 120 : 0), conf.pos.y);
-        //这个版本不上，先隐藏了 Add by Jelly 2018.12.27
-        //  this.btn_notice.visible = false;
-        this.addChild(this.btn_notice);
     };
     UITitleBar.prototype.initTitle = function (conf) {
         if (!conf) {
@@ -89,28 +59,35 @@ var UITitleBar = /** @class */ (function (_super) {
         }
         var sp = Tools.addSprite(this, conf);
     };
-    //点击设置按钮
-    UITitleBar.prototype.onSettingClick = function (e) {
-        var conf = ConfObjRead.getConfSetting();
-        // Debug.trace("SettingPad conf:");
-        // Debug.trace(conf);
-        SettingPad.showPad(Laya.stage, conf, this, this.setCallback);
+    //点击按钮
+    UITitleBar.prototype.onEventClick = function (e) {
+        var btn = e;
+        try {
+            var cmd = btn.getQuery();
+            switch (cmd) {
+                case "custom":
+                    Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
+                    break;
+                case "notice":
+                    //活动
+                    AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention());
+                    AttentionDialog.obj.show();
+                    break;
+                case "quit":
+                    //返回
+                    PostMHelp.goBack({ token: Common.access_token });
+                    break;
+                case "setting":
+                    var conf = ConfObjRead.getConfSetting();
+                    SettingPad.showPad(Laya.stage, conf, this, this.setCallback);
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (e) { }
     };
     UITitleBar.prototype.setCallback = function (e) {
-    };
-    /**
-     * 点击了退出
-     * @param e
-     */
-    UITitleBar.prototype.onExitClick = function (e) {
-        //返回
-        PostMHelp.goBack({ token: Common.access_token });
-        //
-    };
-    UITitleBar.prototype.onNoticeClick = function (e) {
-        // LayaMain.getInstance().showNoticePad(ConfObjRead.getConfNotice());//Common.confObj.settingpad);
-        AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention());
-        AttentionDialog.obj.show();
     };
     UITitleBar.prototype.scrollOut = function () {
         var xIn = 0;

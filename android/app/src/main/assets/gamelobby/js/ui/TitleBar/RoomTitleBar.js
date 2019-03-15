@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -33,18 +33,26 @@ var RoomTitleBar = /** @class */ (function (_super) {
         this.conf = conf;
         this.caller = caller;
         this.callback = callback;
+        if (this.conf.bg) {
+            var bg = Tools.addSprite(this, this.conf.bg);
+        }
         this.initTitle(this.conf.title);
-        this.initSetting(this.conf.btnback);
+        if (this.conf.btns) {
+            this.initButtons(this.conf.btns);
+        }
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
-    RoomTitleBar.prototype.initSetting = function (conf) {
-        if (!conf) {
-            return;
+    RoomTitleBar.prototype.initButtons = function (conf) {
+        this.arr_btns = new Array();
+        for (var i = 0; i < conf.length; i++) {
+            var cf = conf[i];
+            var btn = new MyButton();
+            btn.setQuery(cf.cmd);
+            btn.init(cf, this, this.onEventClick);
+            btn.pos(cf.pos.x, cf.pos.y);
+            this.addChild(btn);
+            this.arr_btns.push(btn);
         }
-        this.btn_setting = new MyButton();
-        this.btn_setting.init(this.conf.btnback, this, this.onSettingClick);
-        this.btn_setting.pos(this.conf.btnback.pos.x, this.conf.btnback.pos.y);
-        this.addChild(this.btn_setting);
     };
     RoomTitleBar.prototype.initTitle = function (conf) {
         if (!conf) {
@@ -53,9 +61,36 @@ var RoomTitleBar = /** @class */ (function (_super) {
         var sp = Tools.addSprite(this, conf);
     };
     //点击设置按钮
-    RoomTitleBar.prototype.onSettingClick = function (e) {
-        //返回大厅
-        LayaMain.getInstance().initLobby();
+    RoomTitleBar.prototype.onEventClick = function (e) {
+        var btn = e;
+        try {
+            var cmd = btn.getQuery();
+            switch (cmd) {
+                case "backlobby":
+                    //返回大厅
+                    LayaMain.getInstance().initLobby();
+                    break;
+                case "custom":
+                    Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
+                    break;
+                case "notice":
+                    //活动
+                    AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention());
+                    AttentionDialog.obj.show();
+                    break;
+                case "quit":
+                    //返回
+                    PostMHelp.goBack({ token: Common.access_token });
+                    break;
+                case "setting":
+                    var conf = ConfObjRead.getConfSetting();
+                    SettingPad.showPad(Laya.stage, conf, this, this.setCallback);
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (e) { }
     };
     RoomTitleBar.prototype.setCallback = function (e) {
     };

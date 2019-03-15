@@ -20,6 +20,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import "AFNetworking.h"
 #import "WTSafeGuard.h"
+#import <UMShare/UMShare.h>
 
 // 特殊标识字符
 static NSString * const JDSpecialStr = @"SueL";
@@ -110,7 +111,7 @@ static Boolean  IsFirtReuest = YES;
 - (void)loadReactNativeController{
   NSURL *jsCodeLocation;
 #ifdef DEBUG
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  jsCodeLocation = [NSURL URLWithString:@"http://192.168.4.249:8081/index.bundle?platform=ios&dev=true"];
 #else
   jsCodeLocation = [CodePush bundleURL];
 #endif
@@ -208,8 +209,12 @@ static Boolean  IsFirtReuest = YES;
 }
 
 - (void)registUMeng:(NSString *)ukey:(NSString *)channel{
-   [UMConfigure setLogEnabled:YES];
-   [RNUMConfigure initWithAppkey:ukey channel:channel];
+  if(ukey.length > 0){
+    [UMConfigure setLogEnabled:YES];
+    [RNUMConfigure initWithAppkey:ukey channel:channel];
+    [self configureUmengShare];
+    // [self configUSharePlatforms];
+  }
 }
 
 - (void)registAppPush:(NSString *)jkey:(NSString *)channel{
@@ -265,6 +270,136 @@ static Boolean  IsFirtReuest = YES;
 }
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
   [[NSNotificationCenter defaultCenter] postNotificationName:kJPFDidReceiveRemoteNotification object:notification.userInfo];
+}
+
+#pragma mark UMShare 友盟分享
+- (void)confitUShareSettings
+{
+  /*
+   * 打开图片水印
+   */
+  //[UMSocialGlobal shareInstance].isUsingWaterMark = YES;
+  /*
+   * 关闭强制验证https，可允许http图片分享，但需要在info.plist设置安全域名
+   <key>NSAppTransportSecurity</key>
+   <dict>
+   <key>NSAllowsArbitraryLoads</key>
+   <true/>
+   </dict>
+   */
+  //[UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
+}
+
+- (void)configureUmengShare
+{
+  NSArray *URLTypesArr = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"];
+  /* 设置微信的appKey和appSecret */
+  NSDictionary *AppSecretDic = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AppSecret"];
+  //NSLog(@"appId--api-:%@---api---%@" , appId,api);
+  
+  for(NSDictionary *urlTypes in  URLTypesArr){
+    if([[urlTypes objectForKey:@"CFBundleURLName"] isEqualToString:@"weixin"]){
+      NSArray *weixinKey = [urlTypes objectForKey:@"CFBundleURLSchemes"];
+      [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:weixinKey.count > 0? weixinKey[0]:@"" appSecret:[AppSecretDic objectForKey:@"weixin"] redirectURL:@""];
+      [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatTimeLine appKey:weixinKey.count > 0? weixinKey[0]:@"" appSecret:[AppSecretDic objectForKey:@"weixin"] redirectURL:@""];
+    }
+  }
+  
+  [self confitUShareSettings];
+  
+  
+  /*
+   * 移除相应平台的分享，如微信收藏
+   */
+  //[[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite)]];
+  /* 设置分享到QQ互联的appID
+   * U-Share SDK为了兼容大部分平台命名，统一用appKey和appSecret进行参数设置，而QQ平台仅需将appID作为U-Share的appKey参数传进即可。
+   */
+  //  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105821097"/*设置QQ平台的appID*/  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+  //  /* 设置新浪的appKey和appSecret */
+  //  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3921700954"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
+  //  /* 钉钉的appKey */
+  //  [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_DingDing appKey:@"dingoalmlnohc0wggfedpk" appSecret:nil redirectURL:nil];
+  //  /* 支付宝的appKey */
+  //  [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_AlipaySession appKey:@"2015111700822536" appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+  //  /* 设置易信的appKey */
+  //  [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_YixinSession appKey:@"yx35664bdff4db42c2b7be1e29390c1a06" appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+  //  /* 设置点点虫（原来往）的appKey和appSecret */
+  //  [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_LaiWangSession appKey:@"8112117817424282305" appSecret:@"9996ed5039e641658de7b83345fee6c9" redirectURL:@"http://mobile.umeng.com/social"];
+  //  /* 设置领英的appKey和appSecret */
+  //  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Linkedin appKey:@"81t5eiem37d2sc"  appSecret:@"7dgUXPLH8kA8WHMV" redirectURL:@"https://api.linkedin.com/v1/people"];
+  //  /* 设置Twitter的appKey和appSecret */
+  //  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Twitter appKey:@"fB5tvRpna1CKK97xZUslbxiet"  appSecret:@"YcbSvseLIwZ4hZg9YmgJPP5uWzd4zr6BpBKGZhf07zzh3oj62K" redirectURL:nil];
+  //  /* 设置Facebook的appKey和UrlString */
+  //  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"506027402887373"  appSecret:nil redirectURL:@"http://www.umeng.com/social"];
+  //  /* 设置Pinterest的appKey */
+  //  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Pinterest appKey:@"4864546872699668063"  appSecret:nil redirectURL:nil];
+  //  /* dropbox的appKey */
+  //  [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_DropBox appKey:@"k4pn9gdwygpy4av" appSecret:@"td28zkbyb9p49xu" redirectURL:@"https://mobile.umeng.com/social"];
+  //  /* vk的appkey */
+  //  [[UMSocialManager defaultManager]  setPlaform:UMSocialPlatformType_VKontakte appKey:@"5786123" appSecret:nil redirectURL:nil];
+}
+
+- (void)registUMengShare:(NSString *)appId:(NSString *)api
+{
+  NSArray *URLTypesArr = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"];
+  /* 设置微信的appKey和appSecret */
+  NSDictionary *AppSecretDic = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AppSecret"];
+  //NSLog(@"appId--api-:%@---api---%@" , appId,api);
+  if(appId.length>0&&api.length>0){
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:appId appSecret:api redirectURL:@""];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatTimeLine appKey:appId appSecret:api redirectURL:@""];
+  }else{
+    for(NSDictionary *urlTypes in  URLTypesArr){
+      if([[urlTypes objectForKey:@"CFBundleURLName"] isEqualToString:@"weixin"]){
+        NSArray *weixinKey = [urlTypes objectForKey:@"CFBundleURLSchemes"];
+        [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:weixinKey.count > 0? weixinKey[0]:@"" appSecret:[AppSecretDic objectForKey:@"weixin"] redirectURL:@""];
+        [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatTimeLine appKey:weixinKey.count > 0? weixinKey[0]:@"" appSecret:[AppSecretDic objectForKey:@"weixin"] redirectURL:@""];
+      }
+    }
+  }
+  [self confitUShareSettings];
+  
+  
+  /*
+   * 移除相应平台的分享，如微信收藏
+   */
+  //[[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite)]];
+  /* 设置分享到QQ互联的appID
+   * U-Share SDK为了兼容大部分平台命名，统一用appKey和appSecret进行参数设置，而QQ平台仅需将appID作为U-Share的appKey参数传进即可。
+   */
+  //  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105821097"/*设置QQ平台的appID*/  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+  //  /* 设置新浪的appKey和appSecret */
+  //  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3921700954"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
+  //  /* 钉钉的appKey */
+  //  [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_DingDing appKey:@"dingoalmlnohc0wggfedpk" appSecret:nil redirectURL:nil];
+  //  /* 支付宝的appKey */
+  //  [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_AlipaySession appKey:@"2015111700822536" appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+  //  /* 设置易信的appKey */
+  //  [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_YixinSession appKey:@"yx35664bdff4db42c2b7be1e29390c1a06" appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+  //  /* 设置点点虫（原来往）的appKey和appSecret */
+  //  [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_LaiWangSession appKey:@"8112117817424282305" appSecret:@"9996ed5039e641658de7b83345fee6c9" redirectURL:@"http://mobile.umeng.com/social"];
+  //  /* 设置领英的appKey和appSecret */
+  //  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Linkedin appKey:@"81t5eiem37d2sc"  appSecret:@"7dgUXPLH8kA8WHMV" redirectURL:@"https://api.linkedin.com/v1/people"];
+  //  /* 设置Twitter的appKey和appSecret */
+  //  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Twitter appKey:@"fB5tvRpna1CKK97xZUslbxiet"  appSecret:@"YcbSvseLIwZ4hZg9YmgJPP5uWzd4zr6BpBKGZhf07zzh3oj62K" redirectURL:nil];
+  //  /* 设置Facebook的appKey和UrlString */
+  //  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"506027402887373"  appSecret:nil redirectURL:@"http://www.umeng.com/social"];
+  //  /* 设置Pinterest的appKey */
+  //  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Pinterest appKey:@"4864546872699668063"  appSecret:nil redirectURL:nil];
+  //  /* dropbox的appKey */
+  //  [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_DropBox appKey:@"k4pn9gdwygpy4av" appSecret:@"td28zkbyb9p49xu" redirectURL:@"https://mobile.umeng.com/social"];
+  //  /* vk的appkey */
+  //  [[UMSocialManager defaultManager]  setPlaform:UMSocialPlatformType_VKontakte appKey:@"5786123" appSecret:nil redirectURL:nil];
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+  BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+  if (!result) {
+    // 其他如支付等SDK的回调
+  }
+  return result;
 }
 
 @end

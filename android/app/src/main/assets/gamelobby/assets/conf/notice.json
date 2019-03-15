@@ -45,10 +45,7 @@
     },
     "close":{
         "desc":"关闭按钮",
-        "pos":{
-            "x":550,
-            "y":-20
-        },
+        "pos":{ "x":550, "y":-20 },
         "src":[
             "./assets/ui/history/btn_zhanji_kuangdi_guanbi.png"
         ],
@@ -57,22 +54,14 @@
             "size":18,
             "color":"#ffffff",
             "borderColorX":"#ff0000",
-            "pos":{
-                "x":0,
-                "y":0
-            }
+            "pos":{ "x":0, "y":0 }
         },
-        "size":{
-            "w":20,
-            "h":20
-        }
+        "size":{ "w":20, "h":20 },
+        "sfx":"assets/raw/close.mp3"
     },
     "touchout":{
         "desc":"是否点按外部触发鼠标事件",
         "value":true
     },
-    "pos":{
-        "x":284,
-        "y":160
-    }
+    "pos":{ "x":284, "y":160 }
 }

@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -138,7 +138,8 @@ var GameItem = /** @class */ (function (_super) {
                 break;
         }
     };
-    GameItem.prototype.drawPie = function () {
+    //绘制转圈圆弧，废弃
+    GameItem.prototype.drawPieX = function () {
         var x = this.conf.drawcenter.x; //0;//this.width/2;
         var y = this.conf.drawcenter.y; //0;//this.height/2;
         var r = this.stepR + this.lastR;
@@ -156,22 +157,24 @@ var GameItem = /** @class */ (function (_super) {
         this.lastR = r;
         if (this.lastR >= this.maxR) {
             // Debug.trace('drawPie end');
-            Laya.timer.clear(this, this.drawPie);
+            Laya.timer.clear(this, this.drawPieX);
             //跳转
             var url = this.data.url; // + "?token="+Common.access_token+"&id="+this.data.id;
             Tools.jump2game(url);
         }
     };
+    //点击图标
     GameItem.prototype.onClickItem = function () {
         //发生点击了
         //记录下当前选中的游戏id
         Common.gameId = this.data.id;
         Common.wsUrl = this.data.url;
         if (this.conf.sfx) {
+            // Debug.trace("GameItem.onClickItem sfx:"+this.conf.sfx);
             Laya.SoundManager.playSound(this.conf.sfx);
         }
-        Debug.trace("GameItem.onClickItem gData:", this.data);
-        Debug.traceObj(this.data);
+        // Debug.trace("GameItem.onClickItem gData this.data:");
+        // Debug.traceObj(this.data);
         //看配置成啥，配置成跳转到游戏的话，就去游戏，去房间列表的话，就去房间列表
         if (this.data.jumpUrl) {
             //跳转url
@@ -192,13 +195,14 @@ var GameItem = /** @class */ (function (_super) {
                 //调整深度，绘制弧面动画，切换到白屏
                 this.panel.setAllItemOrder(Common.IDX_BELOW_DRAW);
                 this.zOrder = Common.IDX_TOP_DRAW;
-                Laya.timer.loop(this.conf.dutimer, this, this.drawPie);
+                Laya.timer.loop(this.conf.dutimer, this, this.drawPieX);
             }
         }
         //不能点击了 如果是app 需要可以重复点击
-        if (!Common.IS_NATIVE_APP) {
-            this.btn_icon.bclick = false;
-        }
+        // if(!Common.IS_NATIVE_APP)
+        // {
+        //       this.btn_icon.bclick = false;
+        // }
     };
     //设置数据
     GameItem.prototype.setData = function (dt) {
@@ -245,6 +249,10 @@ var GameItem = /** @class */ (function (_super) {
             // Debug.trace("GameItem.setEnable b:"+b+" showGray");
             this.showGray();
             // Tools.setSpriteGrayFilter(this.btn_icon);
+            if (this.sp_anim) {
+                Debug.trace("GameItem.setEnable gray anim");
+                Tools.setSpriteGrayFilter(this.sp_anim);
+            }
             if (!this.sp_pause) {
                 var conf;
                 if (this.data.state == "PAUSE") {
@@ -261,6 +269,11 @@ var GameItem = /** @class */ (function (_super) {
             }
             //  this.btn_icon.bclick = false;
         }
+        // if( this.sp_anim && !b )
+        // {
+        // Debug.trace("GameItem.setEnable gray anim");
+        //     Tools.setSpriteGrayFilter(this.sp_anim);
+        // }
     };
     //我正在移动，移动了nx
     GameItem.prototype.imMove_ = function (nx) {

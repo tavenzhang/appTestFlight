@@ -274,30 +274,61 @@ var Tools = /** @class */ (function () {
             // {
             //     window.open(au);
             // }else{
-            if (Common.IS_NATIVE_APP) {
-                PostMHelp.jupmToUrl({ au: au });
-            }
-            else {
-                window.location.href = au;
-            }
+            // if(Common.IS_NATIVE_APP){
+            PostMHelp.jumpToUrl({ au: au });
+            // }else{
+            //     window.location.href = au;
+            // }
             // }
         }
         catch (e) {
         }
     };
-    //跳转到游戏
-    Tools.jump2game = function (url) {
-        Debug.trace("Tools jump2game url:" + url);
-        var ginfo = Common.getCurGameInfo();
-        var backurl = ConfObjRead.getConfUrl().url.backlobby;
-        Debug.trace("Tools jump2game0 alias:" + ginfo.alias + " backUrl:" + backurl);
-        if (ginfo.alias == "zjh") {
-            backurl = backurl + "?gameId=" + Common.gameId + "&alias=" + ginfo.alias;
+    //过滤游戏目录前的../
+    Tools.filterGameDir = function (url) {
+        var dir = url;
+        var idx = url.indexOf("../");
+        if (idx == 0) {
+            //需要过滤
+            var s = url.substr(3, url.length);
+            dir = s;
         }
-        Debug.trace("Tools jump2game1 alias:" + ginfo.alias + " backUrl:" + backurl);
+        Debug.trace("Tools.filterGameDir url:" + url + " idx:" + idx + " dir:" + dir);
+        return dir;
+    };
+    //跳转到游戏
+    Tools.jump2game = function (urls) {
         try {
-            var confUrl = ConfObjRead.getConfUrl();
-            var jobj = {
+            var url = urls;
+            // Debug.trace("Tools jump2game url:"+url);
+            var ginfo = Common.getCurGameInfo();
+            var backurl = ConfObjRead.getConfUrl().url.backlobby;
+            var mainUrl = Tools.getCurFullPath();
+            // Debug.trace("Tools.jump2game mainUrl:"+mainUrl);
+            var hostUrl = Tools.getCurHost(mainUrl);
+            //将url前头的../去掉
+            var dir = Tools.filterGameDir(urls);
+            var jumpUrl = hostUrl + "/" + dir;
+            Debug.trace("Tools.jump2game jumpUrl:" + jumpUrl);
+            if (AppData.IS_NATIVE_APP) {
+                jumpUrl = "/" + dir;
+            }
+            var jobj = {};
+            // Debug.trace("Tools.jump2game create jobj");
+            if (ginfo && ginfo.alias) {
+                // Debug.trace("Tools jump2game0 alias:"+ginfo.alias+" backUrl:"+backurl);
+                if (ginfo.alias == "zjh") {
+                    backurl = backurl + "?gameId=" + Common.gameId + "&alias=" + ginfo.alias;
+                }
+            }
+            else {
+                ginfo = {
+                    "alias": "",
+                    "name": "" //"炸金花"
+                };
+            }
+            // Debug.trace("Tools jump2game1 alias:"+ginfo.alias+" backUrl:"+backurl);
+            jobj = {
                 "token": Common.access_token,
                 "httpUrl": ConfObjRead.getConfUrl().url.apihome,
                 "gameId": Common.gameId,
@@ -306,30 +337,33 @@ var Tools = /** @class */ (function () {
                 "backUrl": backurl,
                 "alias": ginfo.alias,
                 "name": ginfo.name,
-                "clientId": Common.clientId
+                "clientId": Common.clientId,
+                "mainUrl": mainUrl
             };
+            // Debug.trace("Tools.jump2game jobj:");
+            // Debug.trace(jobj);
             var b = new MyBase64();
             var param = b.encode(JSON.stringify(jobj));
-            var au = url + "?jumpData=" + param;
+            var au = jumpUrl + "?jumpData=" + param;
             var enUrl = encodeURI(au);
             au = enUrl;
             var ne = b.decode(param);
-            if (Common.IS_NATIVE_APP) {
-                PostMHelp.jupmToGame({ jobj: jobj, au: au, ne: ne });
-                //app 需要暂时关闭 背景音乐 
-                Laya.SoundManager.stopMusic();
-            }
-            else {
-                // if( Common.confObj.openblank.value == 1 )
-                // {
-                //     window.open(au);
-                // }else{
-                window.location.href = au;
-                // }
-            }
+            Debug.trace("Tools.jump2game url:" + au);
+            //需要关闭声音等暂停操作
+            LayaMain.getInstance().onGamePause();
+            // if(Common.IS_NATIVE_APP){
+            PostMHelp.jumpToGame({ "payload": au });
+            // }else{
+            // if( Common.confObj.openblank.value == 1 )
+            // {
+            //     window.open(au);
+            // }else{
+            // window.location.href = au;
+            // }
+            // }
         }
         catch (e) {
-            Debug.trace(e);
+            //Debug.trace(e);
         }
     };
     //检查字符串是否存在
@@ -372,6 +406,7 @@ var Tools = /** @class */ (function () {
                 "clientId": Common.clientId,
                 // "cid":Common.userInfo.userBalance.clientId,
                 "backUrl": ConfObjRead.getConfUrl().url.backlobby //,
+                // "mainUrl":ConfObjRead.getConfUrl().url.backlobby,
                 // "customUrl":curl
             };
             var b = new MyBase64();
@@ -388,28 +423,28 @@ var Tools = /** @class */ (function () {
             // Debug.trace("jump2module:"+au);
             // Debug.trace(jobj);
             //Add by Jelly 设定死 
+            // if(Common.IS_NATIVE_APP)
             if (1 + 1 == 2) {
-                //Add by Jelly on 2018.12.27  如果是app 使用 PostMHelp.jupmToUrl
-                if (!Common.IS_NATIVE_APP) {
-                    //Add by Jelly on 2018.12.27
-                    switch (type) {
-                        case "account":
-                            PostMHelp.game_account(jobj);
-                            break;
-                        case "custom":
-                            PostMHelp.game_custom(jobj);
-                            break;
-                        case "recharge":
-                            PostMHelp.game_recharge(jobj);
-                            break;
-                        case "redraw":
-                            PostMHelp.game_redraw(jobj);
-                            break;
-                    }
+                //这里都需要使用postMessage Modify by Jelly on 2018.12.27
+                //Add by Jelly on 2018.12.27
+                switch (type) {
+                    case "account":
+                        PostMHelp.game_account(jobj);
+                        break;
+                    case "custom":
+                        PostMHelp.game_custom(jobj);
+                        break;
+                    case "recharge":
+                        PostMHelp.game_recharge(jobj);
+                        break;
+                    case "redraw":
+                        PostMHelp.game_redraw(jobj);
+                        break;
+                    case "share":
+                        PostMHelp.game_share(jobj);
+                        break;
                 }
-                else {
-                    PostMHelp.jupmToUrl({ jobj: jobj, au: au });
-                }
+                // PostMHelp.jupmToUrl({jobj,au})
             }
             else {
                 window.location.href = au;
@@ -727,6 +762,32 @@ var Tools = /** @class */ (function () {
             return httpName + "://" + hostname + ":" + port + "/" + str;
         }
         return httpName + "://" + hostname + "/" + str;
+    };
+    //获取当前域名
+    Tools.getCurHost = function (fullpath) {
+        var url4 = window.location.host;
+        // Debug.trace("url4:"+url4);
+        //检查完整路径里面是否有http，有就取出来用
+        var idxHttp = fullpath.indexOf("http");
+        var idxHttps = fullpath.indexOf("https");
+        if (idxHttps == 0) {
+            //直接拼
+            return "https://" + url4;
+        }
+        else if (idxHttp == 0) {
+            return "http://" + url4;
+        }
+        return url4;
+    };
+    //提取当前完整路径
+    Tools.getCurFullPath = function () {
+        var url2 = document.URL;
+        // Debug.trace("url2:"+url2);
+        // var url3 = window.location;
+        // Debug.trace("url3:"+url3);
+        // var url4 = window.location.host;
+        // Debug.trace("url4:"+url4);
+        return url2;
     };
     //提取当前子游戏模块资源加载地址
     Tools.getResRootPath = function (str) {

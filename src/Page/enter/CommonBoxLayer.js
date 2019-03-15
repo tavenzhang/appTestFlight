@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
         alignItems:"center",
         alignSelf:"center",
         position: "absolute",
-        backgroundColor:"red",
         backgroundColor:"transparent",
         zIndex: 300
     },

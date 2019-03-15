@@ -17,7 +17,7 @@
             "size":{ "w":82, "h":87 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/Click.mp3"
+            "sfx":"assets/raw/click.mp3"
         },
         {
             "desc":"战绩",
@@ -29,7 +29,7 @@
             "size":{ "w":82, "h":87 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/Click.mp3"                
+            "sfx":"assets/raw/click.mp3"                
         },
         {
             "desc":"设置",
@@ -41,7 +41,7 @@
             "size":{ "w":82, "h":87 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/Click.mp3"
+            "sfx":"assets/raw/click.mp3"
         }
     ]
 }

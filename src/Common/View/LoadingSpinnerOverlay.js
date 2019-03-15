@@ -81,18 +81,40 @@ class LoadingSpinnerOverlay extends Component {
         return this._renderOverLay(loadingSpinner)
     }
 
+
+    getWidth(){
+        let marginLeft = this.props.marginLeft
+        let width = deviceWidth
+        if(marginLeft){
+            width = deviceHeight +marginLeft;
+        }
+        return width;
+    }
+
     _renderOverLay(loadingSpinner) {
+
         return (
             this.state.modal ?
                 (this.state.marginTop === 0 ?
-                    <Modal animationType={'none'} transparent={true} visible={this.state.visible} onRequestClose={noop}>
+                    <Modal animationType={'none'}
+                           transparent={true} visible={this.state.visible}
+                           onRequestClose={noop}
+                           supportedOrientations={[
+                               'portrait',
+                               'portrait-upside-down',
+                               'landscape',
+                               'landscape-left',
+                               'landscape-right',
+                           ]}
+                    >
+
                         {loadingSpinner}
                     </Modal> :
                     (this.state.visible ?
                         <View
                             style={[styles.overlay, {
                                 marginTop: this.props.marginTop,
-                                width: deviceWidth,
+                                width: this.getWidth(),
                                 height: deviceHeight - this.props.marginTop,
                             }, this.props.overlayStyle,]}>
                             {loadingSpinner}
@@ -200,7 +222,8 @@ class LoadingSpinnerOverlay extends Component {
         if (!this._loadingSpinnerWidth || !this._loadingSpinnerHeight) {
             return
         }
-        let left = (deviceWidth - this._loadingSpinnerWidth) / 2
+
+        let left = (this.getWidth() - this._loadingSpinnerWidth) / 2
         let top = (deviceHeight - this._loadingSpinnerHeight) / 2 - (modal && marginTop === 0 ? 0 : marginTop)
         this._container.setNativeProps({
             style: {

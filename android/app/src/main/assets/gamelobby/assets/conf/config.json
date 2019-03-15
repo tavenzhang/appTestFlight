@@ -11,5 +11,6 @@
         "value":0
     },
     "resrootX":"",
-    "resroot":""
+    "resroot":"",
+    "testLogin":false
 }

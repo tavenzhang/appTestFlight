@@ -56,6 +56,7 @@ Helper.reset=(component,params)=>{
     }
 }
 Helper.popToBack = () => {
+    TW_Store.gameUIStroe.hideAlertUI();
     NavigationService.goBack();
 }
 
@@ -63,6 +64,9 @@ Helper.popToTop = () => {
     NavigationService.popToTop();
 }
 
+Helper.pushToUserBankPayMessage = (params) => {
+    NavigationService.navigate("UserBankPayMessage", params);
+}
 /**
  * 返回多级页面
  * @param n

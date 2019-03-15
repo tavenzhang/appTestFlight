@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -100,6 +100,7 @@ var RoomItem = /** @class */ (function (_super) {
         // Debug.trace("RoomItem.onClickItem roomData:");
         // Debug.trace(this.data);
         if (this.conf.sfx) {
+            // Debug.trace("RoomItem.onClickItem sfx:"+this.conf.sfx);
             Laya.SoundManager.playSound(this.conf.sfx);
         }
         //游戏图标点击后，应该开始拉取当前该游戏的所有房间列表
@@ -133,9 +134,10 @@ var RoomItem = /** @class */ (function (_super) {
             RechargeHintPad.showPad(null, this, this.closeRecharge);
         }
         //发生点击了，不得重复点击 如果是app 交给app控制
-        if (!Common.IS_NATIVE_APP) {
-            this.setEnable(false);
-        }
+        // if(!Common.IS_NATIVE_APP)
+        // {
+        //     this.setEnable(false);
+        // }
     };
     //关闭充值面板
     RoomItem.prototype.closeRecharge = function () {

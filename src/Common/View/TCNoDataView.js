@@ -1,6 +1,6 @@
 import React, {Component,} from 'react'
 
-import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native'
+import {View, StyleSheet, Text, TouchableOpacity,ScrollView, Image} from 'react-native'
 import {common} from '../../Page/asset/images'
 import {Size, width, height, indexBgColor, listViewTxtColor, buttonStyle} from '../../Page/asset/game/themeComponet'
 import PropTypes from 'prop-types';
@@ -27,7 +27,7 @@ export default class TCNoDataView extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <View style={styles.mainView}>
                     {
                         this.props.unNetwork ? (<Image
@@ -52,7 +52,7 @@ export default class TCNoDataView extends Component {
                     </TouchableOpacity>) : null}
                 </View>
 
-            </View>
+            </ScrollView>
         )
     }
 
@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: indexBgColor.mainBg,
     }, imageStyle: {
-        marginTop: height * 0.2,
+        // marginTop: height * 0.2,
+        marginTop:10,
         width: width * 0.3,
         height: height * 0.2,
     }, mainView: {
