@@ -16,7 +16,7 @@ import CodePush from 'react-native-code-push'
 import rootStore from "../../Data/store/RootStore";
 import FileTools from "../../Common/Global/FileTools";
 import JXToast from "../../Common/JXHelper/JXToast";
-import base64 from 'react-native-base64'
+
 
 @withMappedNavigationProps()
 @observer
