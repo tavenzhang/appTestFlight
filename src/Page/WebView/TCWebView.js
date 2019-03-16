@@ -11,13 +11,9 @@ import {width} from '../asset/game/themeComponet'
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
-import TCImage from "../../Common/View/image/TCImage";
-import {Images} from "../asset/images";
 import {JX_PLAT_INFO} from "../asset";
-import LoadingView from "../enter/LoadingView";
 import TCButtonView from "../../Common/View/button/TCButtonView";
 import {observer} from "mobx-react/native";
-import NetUitls from "../../Common/Network/TCRequestUitls";
 
 
 @withMappedNavigationProps()

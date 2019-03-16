@@ -102,7 +102,8 @@ export  default  class BBLStore {
         windowResize:"windowResize",
         appData:"appData",
         http:"http",
-        flushMoney:"flushMoney"
+        flushMoney:"flushMoney",
+        gameData:"gameData",
     }
 
     @action

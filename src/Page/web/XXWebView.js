@@ -7,17 +7,16 @@ import {
 } from 'react-native';
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
-import LoadingView from "../enter/LoadingView";
 import {observer} from 'mobx-react/native';
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {platInfo} from "../../config/appConfig";
 import SplashScreen from "react-native-splash-screen";
 import CodePush from 'react-native-code-push'
-import Base64 from "../../Common/JXHelper/Base64";
+
 import rootStore from "../../Data/store/RootStore";
 import FileTools from "../../Common/Global/FileTools";
 import JXToast from "../../Common/JXHelper/JXToast";
-
+import base64 from 'react-native-base64'
 
 @withMappedNavigationProps()
 @observer
@@ -50,12 +49,15 @@ export default class XXWebView extends Component {
                 let newList = rt.content ? rt.content:[];
                 let gameM =  TW_Store.dataStore.appGameListM;
                 for(let item of newList){
-                    if(gameM[`${item.id}`]&&gameM[`${item.id}`].version!=item.version){
-                        gameM[`${item.id}`]={...gameM[`${item.id}`],isNeedUpdate:true,newVersion:item.version}
+                    if(gameM[`${item.id}`]){
+                        if(gameM[`${item.id}`].version!=item.version){
+                            gameM[`${item.id}`]={...gameM[`${item.id}`],...item,version:gameM[`${item.id}`].version,isNeedUpdate:true,newVersion:item.version}
+                        }else{
+                            gameM[`${item.id}`]={...gameM[`${item.id}`],...item};
+                        }
+
                     }else if(!gameM[`${item.id}`]){
-                        gameM[`${item.id}`]={id:item.id,curPecent:0,total:100,
-                            isOk:false,isNeedUpdate:true,dir:item.dir,name:item.name,
-                            source:item.source,newVersion:item.version}
+                        gameM[`${item.id}`]={...item,version:"",isNeedUpdate:true,newVersion:item.version}
                     }
                 }
             })
@@ -71,7 +73,7 @@ export default class XXWebView extends Component {
             if(data.isNeedUpdate){
                 this.loadQueue.push(data);
                 if(!this.isLoading){
-                    this.startLoadGame(data)
+                    this.startLoadGame()
                 }
             }else{
                 url = TW_Store.dataStore.getGameRootDir()+"/"+data.dir+"/"  + url;
@@ -89,22 +91,24 @@ export default class XXWebView extends Component {
 
 
 
-    startLoadGame=(item)=>{
-        let downData=item;
-        if(downData){
-            let index = this.loadQueue.indexOf(downData);
-            this.loadQueue.splice(index,1);
-
-        }else{
-            if(this.loadQueue.length>0){
+    startLoadGame=()=>{
+        let downData=null;
+       if(this.loadQueue.length>0){
                 downData = this.loadQueue.pop();
-            }
-        }
+       }
         TW_Log("(TW_DATA_KEY.gameList-FileTools--==this.state.updateList==item" , downData);
         if(downData){
             this.isLoading=true;
            // JXToast.showShortCenter(`${downData.name} 开始下载！`)
-            FileTools.downloadFile(downData.source,TW_Store.bblStore.tempGameZip,downData,this.onLoadZipFish);
+            let loadUrl =downData.source;
+            if(loadUrl.indexOf("http")>-1){
+                loadUrl= loadUrl;
+            }else{
+                loadUrl =  TW_Store.bblStore.gameDomain+"/"+downData.dir+"/"  + downData.dir;
+            }
+
+            TW_Log("loadUrl-----"+loadUrl,downData);
+            FileTools.downloadFile(loadUrl,TW_Store.bblStore.tempGameZip,downData,this.onLoadZipFish);
         }
     }
 
@@ -118,6 +122,8 @@ export default class XXWebView extends Component {
             data.version=data.newVersion;
             data.isNeedUpdate =false;
             this.onSaveGameData();
+        }else{
+            TW_Store.commonBoxStore.isShow=false;
         }
         this.startLoadGame();
     }
@@ -241,7 +247,7 @@ export default class XXWebView extends Component {
                         url = this.handleUrl(message.payload,gameData);
                     }
 
-                    TW_Log("FileTools---------data--isNeedLoad==-url=="+url+"-----------gameData==",gameData);
+                    TW_Log("FileTools---------data--isNeedLoad==-url=="+url+"-----------gameData==",data);
                     if (!isNeedLoad&&TW_Store.bblStore.lastGameUrl!=url) {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.payload);

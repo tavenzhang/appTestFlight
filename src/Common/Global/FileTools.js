@@ -1,16 +1,13 @@
 
 import {unzip,zip } from 'react-native-zip-archive'
 import RNFS from "react-native-fs";
-import rootStore from "../../Data/store/RootStore";
 import Toast from "../JXHelper/JXToast";
 
 
 export default class FileTools {
 
     static  downloadFile(formUrl,downloadDest,param,onSucFuc){
-        if(formUrl.indexOf("http")==-1){
-            formUrl = rootStore.bblStore.getVersionDomain()+"/"+formUrl;
-        }
+
         formUrl=formUrl+"?rodom="+Math.random();
         TW_Log("FileTools---downloadFile=="+formUrl);
         const options = {
@@ -79,18 +76,17 @@ export default class FileTools {
                     onSucFuc({rs:true,param})
                 }
                 TW_Log(`FileTools-- unzip completed at------ ${path}`);
+            })
+            .catch((error) => {
+                 Toast.showShortCenter(param.name+" 解压失败");
+                if(onSucFuc){
+                    onSucFuc({rs:false,param})
+                }
                 RNFS.unlink(srcZip).then(() => {
                     TW_Log("FileTools--- 删除文件----srcZip=="+srcZip)
                 }).catch((err) => {
                     TW_Log("FileTools--- 删除文件失败");
                 });
-
-            })
-            .catch((error) => {
-                // Toast.showShortCenter(param.name+" 解压失败");
-                // if(onSucFuc){
-                //     onSucFuc({rs:false,param})
-                // }
             })
     }
 

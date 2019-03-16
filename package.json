@@ -29,6 +29,7 @@
         "react-native": "^0.57.5",
         "react-native-action-button": "2.8.4",
         "react-native-animatable": "1.2.4",
+        "react-native-base64": "0.0.2",
         "react-native-bcrypt": "2.4.0",
         "react-native-blur": "3.2.2",
         "react-native-carousel": "0.10.0",
