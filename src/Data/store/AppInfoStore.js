@@ -279,21 +279,11 @@ export default class AppInfoStore {
      */
     initAffCode() {
         let hotAffCode = this.getAppSpecialAffCode();
+        TW_Log("AFFCODE--appInfo", this.appInfo);
         if (hotAffCode) {
             this.userAffCode = hotAffCode;
-            TW_Log("AFFCODE", this.userAffCode);
-            return;
         } else {
-            try {
-                NativeModules.JXHelper.getAffCode((affcode) => {
-                    if (affcode) {
-                        this.userAffCode = affcode
-                    }
-                    TW_Log("AFFCODE--->affcode="+affcode, this.userAffCode);
-                })
-            } catch (e) {
-                TW_Log("AFFCODE NOT FOUND");
-            }
+            this.userAffCode=this.appInfo.Affcode;
         }
     }
 
