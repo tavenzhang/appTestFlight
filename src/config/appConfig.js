@@ -94,3 +94,8 @@ export const affCodeList = {
         '2.10.11': '365_android'
     }
 };
+
+export const shareURL={
+    ios:"https://download.jinkuangjia.com/game/app.html?sub=release-chyqp&app=1&rom=7827",
+    android:"https://download.jinkuangjia.com/game/release/chyqp/chyqp.apk?rom=5593",
+}
