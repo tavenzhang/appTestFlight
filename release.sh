@@ -42,6 +42,13 @@ if [ -d ${configDir}/${app}/ios ]; then
       exit -1;
 fi
    rm -rf ${iosRoot}/JD/Images.xcassets
+   cp -rf ${configDir}/game/*   ${androidRoot}/app/src/main/assets/gamelobby/
+    if [ $? -eq 0 ];then
+    echo ${app} cp成功
+   else
+    echo ${app} cp 失败
+    exit -1;
+   fi
    cp -rf ${configDir}/${app}/ios/*   ${iosRoot}/JD/
    cp -rf ${configDir}/${app}/js/* ./src
    #android的也替换处理

@@ -1,0 +1,293 @@
+
+jialebisuoha.png
+size: 2280,186
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+加勒比梭哈3
+  rotate: false
+  xy: 1744, 9
+  size: 220, 53
+  orig: 220, 53
+  offset: 0, 0
+  index: -1
+台子
+  rotate: false
+  xy: 194, 36
+  size: 222, 148
+  orig: 222, 148
+  offset: 0, 0
+  index: -1
+望远镜
+  rotate: true
+  xy: 1650, 64
+  size: 120, 110
+  orig: 120, 110
+  offset: 0, 0
+  index: -1
+流光_T_00000
+  rotate: true
+  xy: 530, 54
+  size: 130, 110
+  orig: 130, 110
+  offset: 0, 0
+  index: -1
+流光_T_00001
+  rotate: true
+  xy: 642, 54
+  size: 130, 110
+  orig: 130, 110
+  offset: 0, 0
+  index: -1
+流光_T_00002
+  rotate: true
+  xy: 754, 54
+  size: 130, 110
+  orig: 130, 110
+  offset: 0, 0
+  index: -1
+流光_T_00003
+  rotate: true
+  xy: 866, 54
+  size: 130, 110
+  orig: 130, 110
+  offset: 0, 0
+  index: -1
+流光_T_00004
+  rotate: true
+  xy: 978, 54
+  size: 130, 110
+  orig: 130, 110
+  offset: 0, 0
+  index: -1
+流光_T_00005
+  rotate: true
+  xy: 1090, 54
+  size: 130, 110
+  orig: 130, 110
+  offset: 0, 0
+  index: -1
+流光_T_00006
+  rotate: true
+  xy: 1202, 54
+  size: 130, 110
+  orig: 130, 110
+  offset: 0, 0
+  index: -1
+流光_T_00007
+  rotate: true
+  xy: 1314, 54
+  size: 130, 110
+  orig: 130, 110
+  offset: 0, 0
+  index: -1
+流光_T_00008
+  rotate: true
+  xy: 1426, 54
+  size: 130, 110
+  orig: 130, 110
+  offset: 0, 0
+  index: -1
+流光_T_00009
+  rotate: true
+  xy: 1538, 54
+  size: 130, 110
+  orig: 130, 110
+  offset: 0, 0
+  index: -1
+流光_T_00010
+  rotate: true
+  xy: 418, 54
+  size: 130, 110
+  orig: 130, 110
+  offset: 0, 0
+  index: -1
+箱子
+  rotate: true
+  xy: 2, 6
+  size: 178, 190
+  orig: 178, 190
+  offset: 0, 0
+  index: -1
+金币76523
+  rotate: false
+  xy: 1966, 17
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+闪光_T_00000
+  rotate: false
+  xy: 418, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00001
+  rotate: false
+  xy: 520, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00002
+  rotate: false
+  xy: 622, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00003
+  rotate: false
+  xy: 724, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00004
+  rotate: false
+  xy: 826, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00005
+  rotate: false
+  xy: 928, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00006
+  rotate: false
+  xy: 1030, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00007
+  rotate: false
+  xy: 1132, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00008
+  rotate: false
+  xy: 1234, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00009
+  rotate: false
+  xy: 1336, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00010
+  rotate: false
+  xy: 1438, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00011
+  rotate: false
+  xy: 1540, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00012
+  rotate: false
+  xy: 1642, 2
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00013
+  rotate: true
+  xy: 1762, 84
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00014
+  rotate: true
+  xy: 1814, 84
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00015
+  rotate: true
+  xy: 1866, 84
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00016
+  rotate: true
+  xy: 1918, 84
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00017
+  rotate: true
+  xy: 1970, 84
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00018
+  rotate: true
+  xy: 2022, 84
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00019
+  rotate: false
+  xy: 2033, 32
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00020
+  rotate: true
+  xy: 2074, 84
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00021
+  rotate: true
+  xy: 2126, 84
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00022
+  rotate: false
+  xy: 2178, 134
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00023
+  rotate: false
+  xy: 2178, 82
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+闪光_T_00024
+  rotate: false
+  xy: 2135, 30
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1

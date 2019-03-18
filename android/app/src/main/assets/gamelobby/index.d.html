@@ -110,7 +110,7 @@
 
 			console.info('KOT CODES web-socket test for json buf');
 		}
-		//initVconsole();
+		// initVconsole();
 		
 		var loadversion = "0002";
 		//读取配置文件
@@ -156,12 +156,10 @@
 			loadJs(div,"libs/laya.tiledmap.js");
 			loadJs(div,"libs/laya.ui.js");
 
-			// loadJs(div,"libthird/clipboard.min.js");
-			// loadJs(div,"libs/matter.js");
-			// loadJs(div,"libs/LayaRender.js");
-			// loadJs(div,"libs/vconsole.min.js");
-
 			loadJs(div,"js/net/NetManager.js");
+			loadJs(div,"js/HtmlCompnents/SeanHtmlEncode.js");
+			loadJs(div,"js/HtmlCompnents/SeanHtmlDecode.js");
+			loadJs(div,"js/HtmlCompnents/SeanAttributeNode.js");
 			loadJs(div,"js/common/Tools.js");
 			loadJs(div,"js/common/SaveManager.js");
 			loadJs(div,"js/common/PostMHelp.js");
@@ -172,6 +170,7 @@
 			loadJs(div,"js/common/ConfObjRead.js");
 			loadJs(div,"js/common/Common.js");
 			loadJs(div,"js/common/ColorTool.js");
+			loadJs(div,"js/common/DataNum.js");
 			loadJs(div,"js/common/FireWorks.js");
 			loadJs(div,"js/common/LoadingAnim.js");
 			loadJs(div,"js/common/MyBoneAnim.js");
@@ -184,6 +183,8 @@
 			loadJs(div,"js/common/MyScene.js");
 			loadJs(div,"js/common/MySwitchBtn.js");
 			loadJs(div,"js/common/ProgressPie.js");
+			loadJs(div,"js/HtmlCompnents/SeanHtmlString.js");
+			loadJs(div,"js/HtmlCompnents/SeanLabel.js");
 			loadJs(div,"js/Loading/Loading.js");
 			loadJs(div,"js/Loading/LoadingModule.js");
 			loadJs(div,"js/Loading/MyCircleLoading.js");
@@ -193,6 +194,9 @@
 			loadJs(div,"js/Loading/PgBarSaizi.js");
 			loadJs(div,"js/Toast/NoticeDialog.js");
 			loadJs(div,"js/Toast/Toast.js");
+			loadJs(div,"js/UI/Girls/Girl.js");
+			loadJs(div,"js/UI/Girls/GirlManager.js");
+			loadJs(div,"js/UI/avator/AccountCenter.js");
 			loadJs(div,"js/UI/avator/Avator.js");
 			loadJs(div,"js/UI/avator/AvatorPad.js");
 			loadJs(div,"js/UI/avator/CoinIcon.js");
@@ -235,9 +239,8 @@
 			loadJs(div,"js/UI/Setting/SettingPad.js");
 			loadJs(div,"js/UI/TitleBar/RoomTitleBar.js");
 			loadJs(div,"js/UI/TitleBar/UITitleBar.js");
-
+			
 			loadJs(div,"js/LayaMain.js");
-			// loadJsOver();
 		}
 
 		//加载代码完毕，开始进入loading
@@ -247,7 +250,6 @@
 			loading.style.display = "none";
 		}
 		
-		// loadAllJs(document.getElementById("script"));
 		loadAllJs(null);
 
 	</script>

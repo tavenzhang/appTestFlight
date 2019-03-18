@@ -8,8 +8,8 @@
         "desc":"装载界面",
         "bg":{
             "anim":{
-                "textPath":"./assets/ui/animation/loadingpage_newyear/loadingpage_newyear.png",
-                "animPath":"./assets/ui/animation/loadingpage_newyear/loadingpage_newyear.sk",
+                "textPath":"./assets/ui/animation/loading_page/Loadingpage.png",
+                "animPath":"./assets/ui/animation/loading_page/Loadingpage.sk",
                 "playSpeed":1,
                 "loop":true,
                 "pos":{ "x":667, "y":375 }
@@ -129,8 +129,8 @@
         }
     },
     "preload":[
-        {"url":"./assets/ui/animation/loadingpage_newyear/loadingpage_newyear.sk","type":"BUFFER"},
-        {"url":"./assets/ui/animation/loadingpage_newyear/loadingpage_newyear.png","type":"IMAGE"},
+        {"url":"./assets/ui/animation/loading_page/Loadingpage.sk","type":"BUFFER"},
+        {"url":"./assets/ui/animation/loading_page/Loadingpage.png","type":"IMAGE"},
 
         {"url":"./assets/ui/animation/yanhua/yanhua.sk","type":"BUFFER"},
         {"url":"./assets/ui/animation/yanhua/yanhua.png","type":"IMAGE"},

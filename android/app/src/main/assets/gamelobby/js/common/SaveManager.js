@@ -10,9 +10,13 @@ var SaveManager = /** @class */ (function () {
         }
         return SaveManager.obj;
     };
+    SaveManager.prototype.refreshSaveObj = function () {
+        this.mtObj = this.getObjTotal(SaveManager.SAVE_KEY_NN, {});
+    };
     SaveManager.prototype.init = function () {
         //取出总的存档
-        this.mtObj = this.getObjTotal(SaveManager.SAVE_KEY_NN, {});
+        // this.mtObj = this.getObjTotal(SaveManager.SAVE_KEY_NN,{});
+        this.refreshSaveObj();
         // Debug.trace('SaveManager init:');
         // Debug.trace(this.mtObj);
         this.initSetting();
@@ -56,12 +60,6 @@ var SaveManager = /** @class */ (function () {
     };
     //从json中提取值
     SaveManager.prototype.get = function (key, def) {
-        // var a = Laya.LocalStorage.getItem(key);
-        // if( a )
-        // {
-        //     return a;
-        // }
-        // return def;
         if (this.mtObj[key] != null && this.mtObj[key] != undefined) {
             return this.mtObj[key];
         }

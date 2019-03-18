@@ -1,7 +1,7 @@
 
 import { observable,action} from 'mobx'
 import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
-import {platInfo} from "../../config/appConfig";
+import {platInfo, shareURL} from "../../config/appConfig";
 
 /**
  *app信息管理
@@ -23,6 +23,9 @@ export  default  class BBLStore {
     @observable
     isLoading = true;
 
+    @observable
+    avatarData = null;
+
 
     @observable
     isDebugApp = false;
@@ -30,7 +33,6 @@ export  default  class BBLStore {
     storeDir = DocumentDirectoryPath;
 
     tempZipDir=`${DocumentDirectoryPath}/game.zip`;
-
 
 
     @observable
@@ -116,6 +118,22 @@ export  default  class BBLStore {
         this.isDebugApp =state;
     }
 
+    @action
+    getHeadIcoUrl(){
+        //{"content":{"userId":1107,"avatar":"3","firstLogin":false,"userState":"NORMAL"},"rs":true,}
+
+        let avatarId =  this.avatarData&&this.avatarData.avatar ? this.avatarData.avatar:"01"
+        if(avatarId.length<2){
+            avatarId="0"+avatarId
+        }
+        let url= `https://download.jingjingxiao.com/game/gameImage/head/img_touxiang_${avatarId}.jpg`;
+        TW_Log("getHeadIcoUrl--------url--"+url,this.avatarData)
+        return url
+       // uri:"https://download.jingjingxiao.com/game/gameImage/head/img_touxiang_01.jpg"}
+    }
+
+    @observable
+    shareURL=shareURL
 
 }
 

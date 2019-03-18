@@ -22,14 +22,14 @@
         "pos":{ "x":423, "y":205 }
     },
     "fu":{
-        "desc":"新春标记、福字",
+        "desc":"新春标记、福字，更改为标题底和右下角宝箱",
         "left":{
-            "src":"./assets/ui/notice/fu_00.png",
-            "pos":{ "x":80, "y":48 }
+            "src":"./assets/ui/notice/img_com_biaotou.png",
+            "pos":{ "x":220, "y":30 }
         },
         "right":{
-            "src":"./assets/ui/notice/fu_01.png",
-            "pos":{ "x":988, "y":48 }
+            "src":"./assets/ui/notice/img_huodong_baoxiang.png",
+            "pos":{ "x":1050, "y":600 }
         }
     },
     "mask":{
@@ -39,7 +39,7 @@
     "title":{
         "lb":{
             "desc":"标题显示的文字",
-            "src":"./assets/ui/notice/lbTitle.png",
+            "src":"./assets/ui/notice/img_huodongzhongxing_zi.png",
             "pos":{ "x":580, "y":76 }
         }
     },
@@ -50,7 +50,7 @@
             "./assets/ui/dialog/btn_touxiang_guangbi.png"
         ],
         "size":{ "w":76, "h":77 },
-        "sfx":"assets/raw/Click.mp3",
+        "sfx":"assets/raw/close.mp3",
         "maxScale":{ "x":1.05,"y":1.05},
         "normalScale":{ "x":1.0,"y":1.0}
     },
@@ -98,26 +98,30 @@
             "labels":[
                 {
                     "switch":{
-                        "desc":"游戏公告",
-                        "pos":{ "x":180, "y":140 },
-                        "src":[
-                            "./assets/ui/notice/btn_yxgg_00.png",
-                            "./assets/ui/notice/btn_yxgg_01.png"
-                        ],
-                        "sfx":"assets/raw/Click.mp3",
-                        "size":{"w":240,"h":55}
-                    }
-                },
-                {
-                    "switch":{
                         "desc":"活动公告",
-                        "pos":{ "x":426, "y":140 },
+                        "posY":{ "x":426, "y":140 },
+                        "pos":{ "x":180, "y":140 },
                         "src":[
                             "./assets/ui/notice/btn_hdgg_00.png",
                             "./assets/ui/notice/btn_hdgg_01.png"
                         ],
-                        "sfx":"assets/raw/Click.mp3"
-                    }
+                        "sfx":"assets/raw/click.mp3"
+                    },
+                    "id":1
+                },
+                {
+                    "switch":{
+                        "desc":"游戏公告",
+                        "posX":{ "x":180, "y":140 },
+                        "pos":{ "x":426, "y":140 },
+                        "src":[
+                            "./assets/ui/notice/btn_yxgg_00.png",
+                            "./assets/ui/notice/btn_yxgg_01.png"
+                        ],
+                        "sfx":"assets/raw/click.mp3",
+                        "size":{"w":240,"h":55}
+                    },
+                    "id":0
                 }
             ]
         }
@@ -204,7 +208,7 @@
                     "./assets/ui/notice/btn_attention_00.png",
                     "./assets/ui/notice/btn_attention_01.png"
                 ],
-                "sfx":"assets/raw/Click.mp3",
+                "sfx":"assets/raw/click.mp3",
                 "size":{"w":232,"h":86,"gh":2}
             },
             "markNew":{
@@ -290,8 +294,9 @@
                 "overflow":"scroll",
                 "leading":10
             },
+            "pretext":"\r\n",
             "scrollbar":{
-                "desc":"滚动文本框的滚动条配置，待规划后再做"
+                "desc":"滚动文本框的滚动条配置，暂无"
             }
         },
         "lbAuthor":{

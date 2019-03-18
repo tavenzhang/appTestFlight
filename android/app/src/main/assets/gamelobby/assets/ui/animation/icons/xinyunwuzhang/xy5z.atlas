@@ -1,0 +1,104 @@
+
+xy5z.png
+size: 1135,239
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+切图/maozi-yinzi
+  rotate: true
+  xy: 315, 102
+  size: 135, 130
+  orig: 135, 130
+  offset: 0, 0
+  index: -1
+切图/maozi76235
+  rotate: true
+  xy: 447, 103
+  size: 134, 128
+  orig: 134, 128
+  offset: 0, 0
+  index: -1
+切图/redcouma27866
+  rotate: true
+  xy: 152, 74
+  size: 163, 161
+  orig: 163, 161
+  offset: 0, 0
+  index: -1
+切图/光效存放/98ed760
+  rotate: false
+  xy: 577, 109
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+切图/光效存放/帽子光_00001
+  rotate: false
+  xy: 577, 2
+  size: 126, 105
+  orig: 126, 105
+  offset: 0, 0
+  index: -1
+切图/光效存放/帽子光_00005
+  rotate: false
+  xy: 705, 2
+  size: 126, 105
+  orig: 126, 105
+  offset: 0, 0
+  index: -1
+切图/光效存放/帽子光_00009
+  rotate: true
+  xy: 707, 111
+  size: 126, 105
+  orig: 126, 105
+  offset: 0, 0
+  index: -1
+切图/光效存放/帽子光_00013
+  rotate: true
+  xy: 814, 111
+  size: 126, 105
+  orig: 126, 105
+  offset: 0, 0
+  index: -1
+切图/光效存放/帽子光_00017
+  rotate: false
+  xy: 833, 4
+  size: 126, 105
+  orig: 126, 105
+  offset: 0, 0
+  index: -1
+切图/光效存放/帽子光_00021
+  rotate: true
+  xy: 921, 111
+  size: 126, 105
+  orig: 126, 105
+  offset: 0, 0
+  index: -1
+切图/光效存放/帽子光_00025
+  rotate: false
+  xy: 961, 4
+  size: 126, 105
+  orig: 126, 105
+  offset: 0, 0
+  index: -1
+切图/光效存放/帽子光_00029
+  rotate: true
+  xy: 1028, 111
+  size: 126, 105
+  orig: 126, 105
+  offset: 0, 0
+  index: -1
+切图/台子
+  rotate: true
+  xy: 2, 15
+  size: 222, 148
+  orig: 222, 148
+  offset: 0, 0
+  index: -1
+切图/幸运五张
+  rotate: false
+  xy: 152, 14
+  size: 190, 58
+  orig: 190, 58
+  offset: 0, 0
+  index: -1

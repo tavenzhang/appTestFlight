@@ -22,7 +22,7 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import SplashScreen from 'react-native-splash-screen'
 import {width, Size} from '../asset/game/themeComponet'
 import StartUpHelper from './StartUpHelper'
-import NetUitls from "../../Common/Network/TCRequestUitls";
+
 
 
 let retryTimes = 0
@@ -30,6 +30,7 @@ let downloadTime = 0
 let alreadyInCodePush = false
 import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
 import {AppConfig} from "../../config/appConfig";
+import {JX_PLAT_INFO} from "../asset";
 let domainsHelper = new JXDomainsHelper();
 let appInfoStore = TW_Store.appStore;
 @observer
@@ -44,13 +45,13 @@ export default class Enter extends Component {
     }
 
     componentWillMount(){
-        SplashScreen.hide();
+        //SplashScreen.hide();
     }
 
     onInitAllData=()=>{
         this.initData();
         this.uploadLog();
-        AppState.addEventListener('change', this.handleAppStateChange);
+       // AppState.addEventListener('change', this.handleAppStateChange);
         this.timer2 = setTimeout(() => {
             if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
                 this.hotFixStore.skipUpdate();
@@ -104,17 +105,25 @@ export default class Enter extends Component {
         this.timer && clearTimeout(this.timer)
         this.timer2 && clearTimeout(this.timer2)
         AppState.removeEventListener('change', this.handleAppStateChange);
-        Orientation&&Orientation.removeOrientationListener(this.orientationDidChange);
+        Orientation&&this.orientationDidChange&&Orientation.removeOrientationListener(this.orientationDidChange);
     }
 
     render() {
+        let checkView =null
         if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === 0) {
-            return this.getLoadingView();
+            checkView =this.getLoadingView();
         } else if (!this.hotFixStore.updateFinished && this.hotFixStore.updateStatus === -1) {
-            return this.updateFailView()
-        } else {
-            return (<App/>);
+            //checkView =this.updateFailView()
+            checkView = null
         }
+        // else {
+        //     return (<App/>);
+        // }
+        return (<View style={{flex:1}}>
+                      <App/>
+                     {checkView}
+
+              </View>)
     }
 
 
@@ -206,10 +215,10 @@ export default class Enter extends Component {
 
     //使用从服务器获取的更新地址更新app
     gotoUpdate() {
-        // if(TW_IS_DEBIG){
-        //     this.hotFixStore.skipUpdate();
-        //     return
-        // }
+        if(TW_IS_DEBIG){
+            this.hotFixStore.skipUpdate();
+            return
+        }
         AsyncStorage.getItem('cacheDomain').then((response) => {
 
             let cacheDomain = JSON.parse(response)
@@ -329,56 +338,35 @@ export default class Enter extends Component {
         let progressView
         if (this.hotFixStore.progress) {
             progressView = (
-                <Text>
+                <Text style={{color:"yellow",marginVertical:10}}>
                     正在下载({parseFloat(this.hotFixStore.progress.receivedBytes / 1024 / 1024).toFixed(2)}M/{parseFloat(this.hotFixStore.progress.totalBytes / 1024 / 1024).toFixed(2)}M) {(parseFloat(this.hotFixStore.progress.receivedBytes / this.hotFixStore.progress.totalBytes).toFixed(2) * 100).toFixed(1)}%</Text>
             )
         } else {
-            return (<View style={{flex: 1}}>
-                <StatusBar
-                    hidden={false}
-                    animated={true}
-                    translucent={true}
-                    backgroundColor={'transparent'}
-                    barStyle="light-content"/>
-                <TopNavigationBar title={TW_Store.appStore.appName} needBackButton={false}/>
-                <WebView style={{width:0, height:0,position:"absolute"}}/>
-                <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-                    <Text style={{fontSize: Size.font16}}>{this.hotFixStore.syncMessage}</Text>
-                </View>
-                <Text style={{
-                    fontSize: Size.font13,
-                    color: '#666666',
-                    marginBottom: 10,
-                    width: width,
-                    textAlign: 'center'
-                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+TW_Store.appStore.getPlatInfo()}</Text>
-            </View>)
+            return null;
+            // return (<View style={{flex: 1}}>
+            //
+            //     <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+            //         <Text style={{fontSize: Size.font16}}>{this.hotFixStore.syncMessage}</Text>
+            //     </View>
+            //     <Text style={{
+            //         fontSize: Size.font13,
+            //         color: '#ff0000',
+            //         marginBottom: 10,
+            //         width: width,
+            //         textAlign: 'center'
+            //     }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+TW_Store.appStore.getPlatInfo()}</Text>
+            // </View>)
         }
         return (
-            <View style={{flex: 1}}>
-                <StatusBar
-                    hidden={false}
-                    animated={true}
-                    translucent={true}
-                    backgroundColor={'transparent'}
-                    barStyle="light-content"/>
-                <TopNavigationBar title={TW_Store.appStore.appName} needBackButton={false}/>
-                <WebView style={{width:0, height:0,position:"absolute"}}/>
-                <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+                <View pointerEvents={"none"} style={{justifyContent: 'center', alignItems: 'center', width: JX_PLAT_INFO.SCREEN_W,height:JX_PLAT_INFO.SCREEN_H, flex: 1,position:"absolute"}}>
+                    <Text style={{fontSize: Size.font16,color:"white"}}>{this.hotFixStore.syncMessage}</Text>
                     {progressView}
                     <Progress.Bar
+                        color={"yellow"}
                         progress={(this.hotFixStore.progress.receivedBytes / this.hotFixStore.progress.totalBytes).toFixed(2)}
                         width={200}/>
                 </View>
-                <Text style={{
-                    fontSize: 13,
-                    color: '#666666',
-                    marginBottom: 10,
-                    width: width,
-                    textAlign: 'center'
-                }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+TW_Store.appStore.getPlatInfo()}</Text>
 
-            </View>
         )
     }
 

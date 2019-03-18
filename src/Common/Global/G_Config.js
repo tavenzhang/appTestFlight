@@ -49,3 +49,18 @@ global.JX_ShallowEqual= shallowEqual=(objA, objB)=> {
 
     return true
 }
+
+
+global.TW_GetQueryString= (name,url="") =>{
+    let myUrl=url;
+    let hasindex= myUrl.indexOf("?");
+    TW_Log("TW_GetQueryString--url--"+myUrl+"--hasindex--"+hasindex);
+    if(hasindex>-1){
+        myUrl = myUrl.substr(hasindex);
+    }
+
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = myUrl.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+

@@ -9,6 +9,12 @@ var Debug = /** @class */ (function () {
         console.log(ct);
         PostMHelp.Log({ ct: ct, data: data });
     };
+    Debug.error = function (ct) {
+        if (!Debug.bDebug) {
+            return;
+        }
+        console.error(ct);
+    };
     Debug.trace = function (ct, data) {
         if (data === void 0) { data = {}; }
         if (!Debug.bDebug) {

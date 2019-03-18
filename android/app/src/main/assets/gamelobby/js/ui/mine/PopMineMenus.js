@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 var PopMineMenus = /** @class */ (function (_super) {
     __extends(PopMineMenus, _super);
     function PopMineMenus() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        return _super.call(this) || this;
     }
     PopMineMenus.prototype.init = function (conf) {
         this.conf = conf;
@@ -71,19 +71,32 @@ var PopMineMenus = /** @class */ (function (_super) {
     PopMineMenus.prototype.onClickBtn = function (e) {
         var cmd = e.getQuery();
         switch (cmd) {
-            case "account":
-                Tools.jump2module(ConfObjRead.getConfUrl().url.g_account, "account");
-                break;
             case "recharge":
                 Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
-                break;
-            case "redraw":
-                Tools.jump2module(ConfObjRead.getConfUrl().url.g_redraw, "redraw");
                 break;
             case "custom":
                 Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
                 break;
+            case "setting":
+                // SettingPad.showPad(LobbyScene.getInstance(),ConfObjRead.getConfSetting(),this,this.setCallback);
+                SettingPad.showPad(Laya.stage, ConfObjRead.getConfSetting(), this, this.setCallback);
+                break;
+            case "notice":
+                AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention());
+                AttentionDialog.obj.show();
+                break;
+            case "share":
+                Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "share");
+                break;
+            case "account":
+                Tools.jump2module(ConfObjRead.getConfUrl().url.g_account, "account");
+                break;
+            case "redraw":
+                Tools.jump2module(ConfObjRead.getConfUrl().url.g_redraw, "redraw");
+                break;
         }
+    };
+    PopMineMenus.prototype.setCallback = function (e) {
     };
     //显示或隐藏
     PopMineMenus.prototype.show = function (b) {

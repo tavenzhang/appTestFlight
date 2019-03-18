@@ -21,6 +21,13 @@ export default class TipDialog extends Component {
                 animationType='fade'
                 transparent={true}
                 visible={this.props.show}
+                supportedOrientations={[
+                    'portrait',
+                    'portrait-upside-down',
+                    'landscape',
+                    'landscape-left',
+                    'landscape-right',
+                ]}
                 onRequestClose={() => {
                 }}
             >
@@ -72,7 +79,7 @@ const styles = StyleSheet.create({
         borderTopWidth:0.5,
         borderTopColor: '#cccccc',
     },
-    queryBtnStyle: {
+    btnRowStyle: {
         borderTopWidth: 0.5,
         borderTopColor: '#cccccc',
         height: height * 0.15-40,

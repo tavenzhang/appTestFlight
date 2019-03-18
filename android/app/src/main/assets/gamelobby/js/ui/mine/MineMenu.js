@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -48,12 +48,13 @@ var MineMenus = /** @class */ (function (_super) {
             this.btn_switch = new MyButton();
             this.btn_switch.init(this.conf.switch, this, this.clickSwitch);
             this.addChild(this.btn_switch);
+            this.btn_switch.btn_ui.alpha = this.conf.switch.alpha;
             // Debug.trace("MineMenu.init 4");
             if (this.conf.switch.anim) {
                 // Debug.trace("MineMenu.init 5");
                 var anim = new MyBoneAnim();
                 anim.init(this.conf.switch.anim);
-                this.btn_switch.addChild(anim);
+                this.addChild(anim);
                 anim.playAnim(0, true);
                 // Debug.trace("MineMenu.init 6");
             }
@@ -64,7 +65,8 @@ var MineMenus = /** @class */ (function (_super) {
     };
     MineMenus.prototype.clickSwitch = function (e) {
         //点击后，检查菜单组是否打开？进行切换
-        this.btn_menus.switch();
+        // this.btn_menus.switch();
+        Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
     };
     MineMenus.obj = null;
     return MineMenus;

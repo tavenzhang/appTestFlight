@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -65,8 +65,6 @@ var AttentionDialog = /** @class */ (function (_super) {
         this.initBg(this.conf);
         //公告内容背景
         this.initNoticeBg();
-        //标题
-        this.initTitle();
         //按钮组
         this.initBtns();
         //表格头
@@ -75,6 +73,10 @@ var AttentionDialog = /** @class */ (function (_super) {
         // this.arr_btns = new Array();
         //公告内容组，用于存放公告按钮
         this.arr_btns_content = new Array();
+        //标题背景及宝箱
+        this.initFu();
+        //标题
+        this.initTitle();
         this.initCloseBtn();
         this.pos(this.conf.pos.x, this.conf.pos.y);
         //公告界面先隐藏
@@ -90,6 +92,14 @@ var AttentionDialog = /** @class */ (function (_super) {
         this.requestPop();
         // this.requestAttention();
         // this.requestRead(10006);
+    };
+    AttentionDialog.prototype.initFu = function () {
+        if (this.conf.fu && this.conf.fu.left) {
+            var ful = Tools.addSprite(this, this.conf.fu.left);
+        }
+        if (this.conf.fu && this.conf.fu.right) {
+            var fur = Tools.addSprite(this, this.conf.fu.right);
+        }
     };
     //按数据显示公告
     AttentionDialog.prototype.showAttention = function (data) {
@@ -251,13 +261,15 @@ var AttentionDialog = /** @class */ (function (_super) {
             var labelInfo = this.conf.tablehead.headlines.labels[k];
             var lb = new MySwitchBtn();
             lb.init(labelInfo.switch, this, this.headClick);
-            lb.setQuery(k);
+            // lb.setQuery(k);
+            lb.setQuery(labelInfo.id);
             this.addChild(lb);
             lb.setOn(0, false);
             this.arr_cate_btns.push(lb);
             var tips = new NoticeTipsNumber();
             tips.init(this.conf.tablehead.headlines.tips);
-            tips.setQuery(k);
+            // tips.setQuery(k);
+            tips.setQuery(labelInfo.id);
             lb.addChild(tips);
             this.arr_tips.push(tips);
         }
@@ -277,8 +289,6 @@ var AttentionDialog = /** @class */ (function (_super) {
     AttentionDialog.prototype.initBg = function (conf) {
         var bg = Tools.addSprite(this, this.conf.bg);
         var bgbig = Tools.addSprite(this, this.conf.bgbig);
-        var ful = Tools.addSprite(this, this.conf.fu.left);
-        var fur = Tools.addSprite(this, this.conf.fu.right);
     };
     //请求是否需要弹窗
     AttentionDialog.prototype.requestPop = function () {
@@ -295,10 +305,10 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.responsePop = function (s, stat, hr) {
         // Debug.trace("AttentionDialog.responsePop stat:"+stat);
-        Debug.trace("AttentionDialog.responsePop s:");
-        Debug.trace(s);
-        Debug.trace("AttentionDialog.responsePop hr:");
-        Debug.trace(hr);
+        // Debug.trace("AttentionDialog.responsePop s:");
+        // Debug.trace(s);
+        // Debug.trace("AttentionDialog.responsePop hr:");
+        // Debug.trace(hr);
         /*
         {
             pop:true
@@ -345,8 +355,8 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.responseAttention = function (s, stat, hr) {
         // Debug.trace("AttentionDialog.responseAttention stat:"+stat);
-        Debug.trace("AttentionDialog.responseAttention s:");
-        Debug.trace(s);
+        // Debug.trace("AttentionDialog.responseAttention s:");
+        // Debug.trace(s);
         // Debug.trace("AttentionDialog.responseAttention hr:");
         // Debug.trace(hr);
         /*

@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -22,12 +22,11 @@ var LoadingScene = /** @class */ (function (_super) {
     //开始加载
     LoadingScene.prototype.initLoading = function () {
         Loading.getObj(this, this, this.onLoaded, "./assets/ui/loading/conf/loadconf.json", "./assets/ui/loading/conf/assets_lobby.json").show(true);
-        Debug.trace("init loading");
-        try {
-            window['loadJsOver']();
-        }
-        catch (e) {
-        }
+        // Debug.trace("init loading");
+        //输出颜色矩阵
+        // ColorTool.getInstance().targetsChangeColor(0xfe8bff);//0x8bebff);//0xe2ff8b);//0xffcd8b);
+        // var color1 = ColorTool.getInstance().getColorMatrix();
+        // Debug.trace(color1);
     };
     LoadingScene.prototype.removeLoading = function () {
         Loading.obj.destroy(true);
@@ -77,14 +76,17 @@ var LoadingScene = /** @class */ (function (_super) {
             //Debug.trace("ConfObjRead.getConfUrl()----",ConfObjRead.getConfUrl())
         }
         //开始播放背景音乐
-        LobbyScene.initMusic();
-        if (this.temp_token.length <= 0 || this.status == 1) {
+        LobbyScene.initBgMusic();
+        //Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+        if (this.temp_token.length <= 0 || this.status == 1 || Common.confObj.testLogin) {
             //没有token存档的情况下，直接进入登录场景
+            Debug.trace("ConfObjRead.getConfUrl()---- LayaMain.getInstance().initLogin()");
             LayaMain.getInstance().initLogin();
         }
         else {
             //检查该token是否可用，可用，直接进入大厅
             //不可用，进入登录
+            Debug.trace("ConfObjRead.getConfUrl()----  this.requestTokenTest(this.temp_token)");
             this.requestTokenTest(this.temp_token);
         }
         // LayaMain.getInstance().initLogin();
@@ -114,6 +116,8 @@ var LoadingScene = /** @class */ (function (_super) {
     LoadingScene.prototype.responseInfo = function (s, stat, hr) {
         Debug.trace("Loading userinfo stat:" + stat);
         Debug.trace(s);
+        // Debug.trace("LoadingScene.responseInfo userinfo stat:"+stat);
+        // Debug.trace(s);
         if (stat == "complete") {
             //正确了
             Common.userInfo = s;
@@ -123,14 +127,14 @@ var LoadingScene = /** @class */ (function (_super) {
             if (!Common.clientId) {
                 Common.clientId = Common.userInfo.userBalance.clientId;
             }
-            Debug.trace("loading initLobby");
+            // Debug.trace("loading initLobby");
             //启动检测重连
             this.checkReconnect();
             // LayaMain.getInstance().initLobby();
         }
         else {
             //出错了
-            Debug.trace("loading initLogin");
+            // Debug.trace("loading initLogin");
             LayaMain.getInstance().initLogin();
         }
     };
@@ -163,8 +167,6 @@ var LoadingScene = /** @class */ (function (_super) {
                 this.checkBackFromGame();
             }
             else {
-                // this.uigamepanel.visible = true;
-                //没有重连也要检查是否来自游戏
                 this.checkBackFromGame();
             }
         }
@@ -178,6 +180,10 @@ var LoadingScene = /** @class */ (function (_super) {
     };
     //检查当前是否从游戏返回大厅，是的话就要进入房间列表
     LoadingScene.prototype.checkBackFromGame = function () {
+        var gameId = Tools.getQueryVariable("gameId");
+        // var alias = Tools.getQueryVariable( "alias" );
+        var alias = Tools.getQueryVariable("alias");
+        // Debug.trace("LoadingScene.checkBackFromGame gameId:"+gameId+" alias:"+alias);
         if (Common.gameId > 0) {
             Debug.trace('checkBackFromGame gameId:' + Common.gameId);
             //直接进入到对应游戏的房间列表

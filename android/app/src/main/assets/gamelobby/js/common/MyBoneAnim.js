@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -82,7 +82,12 @@ var MyBoneAnim = /** @class */ (function (_super) {
         this.playAnim(0, true);
     };
     MyBoneAnim.prototype.stopAnim = function () {
-        this.visible = false;
+        if (this.conf.stopHide) {
+            this.visible = this.conf.stopHide.value;
+        }
+        else {
+            this.visible = false;
+        }
     };
     MyBoneAnim.prototype.playAnim = function (n, b) {
         //如果是有循环播放间隔的

@@ -13,5 +13,6 @@
 - (void)loadReactNativeController;
 - (void)loadRootController;
 - (void)reloadForJSRN;
-
+- (void)confitUShareSettings;
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url;
 @end
