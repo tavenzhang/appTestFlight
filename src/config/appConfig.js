@@ -90,6 +90,6 @@ export const affCodeList = {
 };
 
 export const shareURL={
-    ios:"https://download.imsue.cn/game/app.html?sub=release-uat&app=1&rom=7803",
-    android:"https://download.imsue.cn/game/release/uat/uat.apk?rom=4473",
+    ios:"https://download.jinkuangjia.com/game/app.html?sub=release-chyqp&app=1&rom=7827",
+    android:"https://download.jinkuangjia.com/game/release/chyqp/chyqp.apk?rom=5593",
 }

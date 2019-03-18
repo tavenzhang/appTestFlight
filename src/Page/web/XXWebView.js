@@ -59,7 +59,7 @@ export default class XXWebView extends Component {
             force: force ? "1" : "0",
             urlJSON: TW_Store.bblStore.urlJSON,
             isAndroidHack:TW_Store.appStore.isInAnroidHack,
-            affCode:"TW_Store.appStore.userAffCode",
+            affCode:TW_Store.appStore.userAffCode,
         })}`;
 
         return (
