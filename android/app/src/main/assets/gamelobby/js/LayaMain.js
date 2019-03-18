@@ -101,7 +101,7 @@ var LayaMain = /** @class */ (function () {
             }
             //重新拉取用户帐户信息，刷新帐户数据
             if (Avator.getInstance()) {
-                Avator.getInstance().startRequest();
+                Avator.getInstance().flushUserInfo()
             }
         }
         catch (e) { }
@@ -130,7 +130,7 @@ var LayaMain = /** @class */ (function () {
                     lamain.onGameResume();
                     break;
                 case "stopMusic":
-                    lamain.onGamePause();
+                    Laya.SoundManager.stopAll();
                     break;
                 case "windowResize":
                     this.onResize();
@@ -167,6 +167,7 @@ var LayaMain = /** @class */ (function () {
                     if (Avator.obj) {
                         Avator.obj.flushUserInfo();
                     }
+                    break;
                 case "openDebug":
                     window["initVconsole"]();
                     break;
@@ -341,9 +342,6 @@ var LayaMain = /** @class */ (function () {
         //     "tips":"正在加载中",
         //     "bShowBg":b
         // }
-        if (AppData.IS_NATIVE_APP) {
-            return;
-        }
         if (b && !this.cloading) {
             // Debug.trace("LayaMain.showCircleLoading create new cloading");
             this.cloading = MyBBLoading.getObj(true); //.show();
