@@ -49,13 +49,12 @@ public class JXHelper extends ReactContextBaseJavaModule {
     public void getPlatInfo(Callback resultCallback) {
         String  idStr =  MainActivity.instance.readMetaDataByTag("PLAT_ID");
         String  channel = MainActivity.instance.readMetaDataByTag("PLAT_CH");
-        String  affcode = MainActivity.instance.readMetaDataByTag("TD_CHANNEL_AFFCODE");
         String  subType = MainActivity.instance.readMetaDataByTag("SUB_TYPE");
         JSONObject obj= new JSONObject();
         try {
             obj.put("PlatId",idStr);
             obj.put("Channel",channel);
-            obj.put("Affcode",affcode);
+            obj.put("Affcode",getAffCode());
             obj.put("SubType",subType);
             String ret= obj.toString();
             resultCallback.invoke(ret);
@@ -214,7 +213,7 @@ public class JXHelper extends ReactContextBaseJavaModule {
         callback.invoke(map);
     }
     public String getAffCode() {
-        return AppUtil.getAFFCode(context);
+        return  MainActivity.instance.readMetaDataByTag("TD_CHANNEL_AFFCODE");
     }
     public String getVersionCode() {
         return getPackageInfo(context).versionName;
