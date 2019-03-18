@@ -1,7 +1,7 @@
 
 import { observable,action} from 'mobx'
 import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
-import {platInfo} from "../../config/appConfig";
+import {platInfo, shareURL} from "../../config/appConfig";
 
 /**
  *app信息管理
@@ -133,10 +133,7 @@ export  default  class BBLStore {
     }
 
     @observable
-    shareURL={
-        ios:"https://download.jinkuangjia.com/game/app.html?sub=release-chyqp&app=1&rom=7827",
-        android:"https://download.jinkuangjia.com/game/release/chyqp/chyqp.apk?rom=5593",
-    }
+    shareURL=shareURL
 
 }
 

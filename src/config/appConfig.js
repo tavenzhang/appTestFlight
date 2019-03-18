@@ -88,3 +88,8 @@ export const affCodeList = {
     android: {
     }
 };
+
+export const shareURL={
+    ios:"https://download.imsue.cn/game/app.html?sub=release-uat&app=1&rom=7803",
+    android:"https://download.imsue.cn/game/release/uat/uat.apk?rom=4473",
+}
