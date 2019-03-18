@@ -432,6 +432,7 @@ var GamePanel = /** @class */ (function (_super) {
             // Debug.trace('gameInfo datas:');
             // Debug.trace(s);
             this.addGameItems(s.datas);
+            this.onUpdateMsgInit();
             // lamain.sceneRoot.showCircleLoading(false);
             // Debug.trace('GamePanel.responseGameList addGameItems ok');
             this.bRequestStatus = 0;
@@ -478,7 +479,8 @@ var GamePanel = /** @class */ (function (_super) {
                 }
             }
         }
-        // Debug.trace('addGameItems len:'+dt.length);
+        Debug.trace('addGameItems len:' + dt.length);
+        Debug.trace(dt);
         // for( var i = 0; i < this.conf.gameitemdefault.number; i++ )
         // var i = 0;
         // Debug.trace("GamePanel this.width:"+this.width);
@@ -541,6 +543,63 @@ var GamePanel = /** @class */ (function (_super) {
         }
         if (this.scrollbar) {
             this.scrollbar.reset(this.width, this.totalWidth);
+        }
+    };
+    //找出图标
+    GamePanel.prototype.getIconByGameId = function (gameId) {
+        var len = this.items.length;
+        for (var i = 0; i < len; i++) {
+            var icon = this.items[i];
+            if (icon.data.id == gameId) {
+                return icon;
+            }
+        }
+        return null;
+    };
+    GamePanel.prototype.getIconByGameAlias = function (alias) {
+        var len = this.items.length;
+        for (var i = 0; i < len; i++) {
+            var icon = this.items[i];
+            if (icon.data.alias == alias) {
+                return icon;
+            }
+        }
+        return null;
+    };
+    //检查更新
+    GamePanel.prototype.onUpdateMsgInit = function () {
+        // UpdateMsgHandle.onInitMsg(null);
+        if (UpdateMsgHandle.updateInitMsg) {
+            var len = UpdateMsgHandle.updateInitMsg.length;
+            for (var i = 0; i < len; i++) {
+                var obj = UpdateMsgHandle.updateInitMsg[i];
+                // var gameId = obj.gameId;
+                var gameAlias = obj.alias;
+                var bUp = obj.bupdate;
+                //刷新对应的图标
+                // var icon:GameItem = this.getIconByGameId(gameId);
+                var icon = this.getIconByGameAlias(gameAlias);
+                if (icon) {
+                    icon.setStatus(GameItem.STATUS_UPDATE);
+                }
+            }
+        }
+    };
+    //更新百分比
+    GamePanel.prototype.onUpdatePercent = function (data) {
+        if (!data || data.length <= 0) {
+            return;
+        }
+        for (var i = 0; i < data.length; i++) {
+            var obj = data[i];
+            // var gameId = obj.gameId;
+            var gameAlias = obj.alias;
+            var percent = obj.percent;
+            // var icon:GameItem = this.getIconByGameId(gameId);
+            var icon = this.getIconByGameAlias(gameAlias);
+            if (icon) {
+                icon.onUpdateProgress(percent);
+            }
         }
     };
     GamePanel.obj = null;

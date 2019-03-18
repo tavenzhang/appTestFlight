@@ -99,7 +99,7 @@
 			"NATIVE_DATA":{},
 			"isAtHome":true,
 			"testStr":"test",
-			"isAndroidHack":true
+			"isAndroidHack":false
 		};
 
 	</script>
@@ -108,7 +108,7 @@
 	<script>
 		var bDebugPlatform = "web";
 		var bDebug = true;
-		var sScaleMode = "showall";
+		var sScaleMode = "showall";//"fixedwidth";//"noborder";//"showall";
 		var bShowStat = false;
 		var sPubRes = "../pubres/assets/lobby/";
 		
@@ -173,6 +173,7 @@
 	<!--删除标签，ide不会自动添加js文件，请谨慎操作-->
 	<!--jsfile--startTag-->
 	<script src="js/net/NetManager.js"></script>
+	<script src="js/common/ToolsApp.js"></script>
 	<script src="js/common/Tools.js"></script>
 	<script src="js/common/SaveManager.js"></script>
 	<script src="js/common/PostMHelp.js"></script>

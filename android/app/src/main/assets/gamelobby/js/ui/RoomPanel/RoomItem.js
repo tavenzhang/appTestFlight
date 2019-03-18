@@ -91,53 +91,25 @@ var RoomItem = /** @class */ (function (_super) {
     RoomItem.prototype.onClickItem = function () {
         //发生点击了
         if (!this.btn_icon.bclick) {
-            // Debug.trace("room onclick return");
             return;
         }
         //记录当前的房间id
         Common.roomId = this.data.id;
         Common.wsUrl = this.data.url;
-        // Debug.trace("RoomItem.onClickItem roomData:");
-        // Debug.trace(this.data);
         if (this.conf.sfx) {
-            // Debug.trace("RoomItem.onClickItem sfx:"+this.conf.sfx);
             Laya.SoundManager.playSound(this.conf.sfx);
         }
-        //游戏图标点击后，应该开始拉取当前该游戏的所有房间列表
-        // Debug.trace('GameItem onClick');
-        //调整深度，绘制弧面动画，切换到白屏
-        // this.panel.setAllItemOrder(Common.IDX_BELOW_DRAW);
-        // this.zOrder = Common.IDX_TOP_DRAW;
-        // Laya.timer.loop(this.conf.dutimer,this,this.drawPie);
         //可以跳转吗？
         if (Common.canGoinGame(this.data)) {
-            // Debug.trace("RoomItem.onClickItem panel:");
-            // Debug.trace(this.panel);
-            // Debug.trace("RoomItem.onClickItem panel.gamedata:");
-            // Debug.trace(this.panel.gamedata);
             //直接跳转
-            var url = this.panel.gamedata.url; // + "?token="+Common.access_token+"&id="+this.panel.gamedata.id;
-            // Debug.trace('room item url:'+url);
-            // if( this.panel.gamedata.jumpUrl == true )
-            // {
+            var url = this.panel.gamedata.url;
             Tools.jump2game(url);
-            // }else
-            // {
-            // lamain.loadModule(url);//+"/game.conf");//http://192.168.9.6:7070/g3/zgame/");
-            // LayaMain.getInstance().loadModule(url);
-            // Toast.showToast("hhhhhhhhh");
-            // }
         }
         else {
             //不能跳，钱不够
             // Toast.showToast("金币不足");
             RechargeHintPad.showPad(null, this, this.closeRecharge);
         }
-        //发生点击了，不得重复点击 如果是app 交给app控制
-        // if(!Common.IS_NATIVE_APP)
-        // {
-        //     this.setEnable(false);
-        // }
     };
     //关闭充值面板
     RoomItem.prototype.closeRecharge = function () {
@@ -146,16 +118,7 @@ var RoomItem = /** @class */ (function (_super) {
     //设置数据
     RoomItem.prototype.setData = function (dt, id) {
         this.data = dt;
-        //过滤233的路径为本地路径
-        // var url = dt.icon;
-        // if( url == null )
-        // {
-        //     this.setIcon(dt.icon);    
-        // }else{
-        //     this.setIcon(url);
-        // }
         try {
-            // this.icon_src = this.conf.iconsrc[id];
             this.setIcon(this.conf.iconsrc[id]);
         }
         catch (e) { }

@@ -147,11 +147,8 @@ var Common = /** @class */ (function () {
     Common.setLoginPlatform = function (s) {
         Common.LOGIN_PLATFORM = s;
     };
-    // public static GM_SCREEN_H:number = 640;
-    // public static GM_SCREEN_W:number = 1136;
-    // public static IS_NATIVE_APP:boolean = false;
     Common.GM_SCREEN_H = 750;
-    Common.GM_SCREEN_W = 1624;
+    Common.GM_SCREEN_W = 1334;
     //loading及toast的深度
     Common.IDX_TOP_LOADING = 9999;
     Common.IDX_TOP_TOAST = 99999;

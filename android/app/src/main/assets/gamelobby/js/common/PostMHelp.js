@@ -23,6 +23,9 @@ var PostMHelp = /** @class */ (function () {
         var msg = JSON.stringify(__assign({ action: "game_user_token" }, data));
         window.top.postMessage(msg, "*");
     };
+    PostMHelp.startUpdate = function (data) {
+        window.top.postMessage(JSON.stringify(__assign({ action: "startUpdate" }, data)), "*");
+    };
     PostMHelp.jumpToGame = function (data) {
         if (data === void 0) { data = {}; }
         //需要关闭声音

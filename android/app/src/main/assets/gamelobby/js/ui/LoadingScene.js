@@ -94,7 +94,7 @@ var LoadingScene = /** @class */ (function (_super) {
         // var testGameData = {
         //     alias:"zjh",
         //     gameType:"ROUND",
-        //     icon:"/assets/ui/game/img_dating_youxi_01.png",
+        //     icon:"/assets/ui/game/icon_zjh.png",
         //     id:10,
         //     jumpUrl:false,
         //     minEntry:0,

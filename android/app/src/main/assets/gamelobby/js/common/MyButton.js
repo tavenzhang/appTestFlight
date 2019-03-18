@@ -18,11 +18,6 @@ var MyButton = /** @class */ (function (_super) {
         _this.bclick = true; // = bclick;	//是否可以点击
         _this.actionDown = false; //是否在按下的时候就响应执行回调
         return _this;
-        // public changeRes(res:any):void
-        // {
-        // 	var t = Laya.loader.getRes( Tools.getSrc(res[0]) );
-        // 	this.redraw(t);
-        // }
     }
     MyButton.prototype.setQuery = function (q) {
         this.query = q;
@@ -101,7 +96,8 @@ var MyButton = /** @class */ (function (_super) {
         this.btn_ui.graphics.clear();
         var t = Laya.loader.getRes(Tools.getSrc(this.res[0]));
         this.redraw(t);
-        if (this.bclick) {
+        // if( this.bclick )
+        {
             // this.btn_ui.on(Laya.Event.CLICK, this, this.onBtnClick);
             // this.btn_ui.on(Laya.Event.MOUSE_DOWN, this, this.onBtnDown);
             // this.btn_ui.on(Laya.Event.MOUSE_UP, this, this.onBtnUp);
@@ -137,6 +133,7 @@ var MyButton = /** @class */ (function (_super) {
                 // this.btn_ui.pivot(e.width/2,e.height/2);
             }
             this.btn_ui.pivot(this.btn_ui.width / 2, this.btn_ui.height / 2);
+            this.size(this.btn_ui.width, this.btn_ui.height);
         }
         catch (err) {
             Debug.trace("MyButton redraw err:");
@@ -256,23 +253,25 @@ var MyButton = /** @class */ (function (_super) {
     MyButton.prototype.setEnabled = function (b, useImg) {
         if (useImg === void 0) { useImg = false; }
         this.bclick = b;
-        // if( useImg )
-        // {
-        // 	if( !b )
-        // 	{
-        // 		if( this.conf.disablesrc )
-        // 		{
-        // 			Debug.trace("change disable src:");
-        // 			Debug.trace(this.conf.disablesrc);
-        // 			this.changeRes(this.conf.disablesrc);
-        // 		}
-        // 	}else{
-        // 		Debug.trace("change src:");
-        // 		Debug.trace(this.conf.src);
-        // 		this.changeRes(this.conf.src);
-        // 	}
-        // }
+        if (useImg) {
+            if (!b) {
+                if (this.conf.disablesrc) {
+                    Debug.trace("change disable src:");
+                    Debug.trace(this.conf.disablesrc);
+                    this.changeRes(this.conf.disablesrc);
+                }
+            }
+            else {
+                Debug.trace("change src:");
+                Debug.trace(this.conf.src);
+                this.changeRes(this.conf.src);
+            }
+        }
         // Debug.trace("btn enable:"+this.bclick);
+    };
+    MyButton.prototype.changeRes = function (res) {
+        var t = Laya.loader.getRes(Tools.getSrc(res[0]));
+        this.redraw(t);
     };
     return MyButton;
 }(Laya.Sprite));

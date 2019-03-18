@@ -127,7 +127,7 @@ var LayaMain = /** @class */ (function () {
                     lamain.onGameResume();
                     break;
                 case "stopMusic":
-                    Laya.SoundManager.stopAll();
+                    lamain.onGamePause();
                     break;
                 case "windowResize":
                     this.onResize();
@@ -167,33 +167,29 @@ var LayaMain = /** @class */ (function () {
                 case "openDebug":
                     window["initVconsole"]();
                     break;
+                case "gamesinfo":
+                    UpdateMsgHandle.onInitMsg(message.data);
+                    break;
+                case "updateProgress":
+                    UpdateMsgHandle.onUpdateMsg(message.data);
+                    break;
             }
         }
     };
     //改变屏幕尺寸时处理
     LayaMain.prototype.onResize = function () {
-        // Debug.trace("onResize:");
-        // Debug.trace(e);
-        var appData = window["appData"];
-        if (appData) {
-            // Common.IS_NATIVE_APP = true;
-            AppData.IS_NATIVE_APP = true;
-            AppData.NATIVE_DATA = appData;
-            AppData.isAndroidHack = appData.isAndroidHack;
-            if ("" + appData.clientId == "5") {
-                window["initVconsole"]();
-            }
-        }
-        var safariMask = document.getElementById("safariMask");
+        ToolsApp.initAppData();
+        // var safariMask = document.getElementById("safariMask");
         // safariMask.style.display = "block";
-        if (safariMask) {
-            if (window.innerHeight == document.documentElement.clientHeight) {
-                safariMask.setAttribute("style", "display: none");
-            }
-            else {
-                safariMask.setAttribute("style", "display: block");
-            }
-        }
+        // if( safariMask )
+        // {
+        //     if(window.innerHeight == document.documentElement.clientHeight)
+        //     {
+        //         safariMask.setAttribute("style", "display: none");
+        //     }else{
+        //         safariMask.setAttribute("style", "display: block");
+        //     }
+        // }
     };
     LayaMain.prototype.clearChild = function () {
         if (this.sceneLobby) {
@@ -328,12 +324,11 @@ var LayaMain = /** @class */ (function () {
         LayaMain.getInstance().initLogin();
     };
     LayaMain.prototype.showCircleLoading = function (b, data) {
-        // var d = {
-        //     "tips":"正在加载中",
-        //     "bShowBg":b
-        // }
         if (b === void 0) { b = true; }
         if (data === void 0) { data = null; }
+        if (AppData.IS_NATIVE_APP) {
+            return;
+        }
         if (b && !this.cloading) {
             // Debug.trace("LayaMain.showCircleLoading create new cloading");
             this.cloading = MyBBLoading.getObj(true); //.show();

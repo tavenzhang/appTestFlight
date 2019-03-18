@@ -5,7 +5,12 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.accenterObj) {
             return ConfObjRead.accenterObj;
         }
-        ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad.json");
+        if (AppData.IS_NATIVE_APP) {
+            ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad_app.json");
+        }
+        else {
+            ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad.json");
+        }
         return ConfObjRead.accenterObj;
     };
     ConfObjRead.getConfGirlManager = function () {
@@ -36,7 +41,28 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.giconAnimObj = Laya.Loader.getRes("./assets/conf/gameiconanim.json");
         return ConfObjRead.giconAnimObj;
     };
-    ConfObjRead.getGameIconAnimBySrc = function (src) {
+    //取出游戏图标配置
+    ConfObjRead.getGameIconSrcByAlias = function (alias) {
+        var obj = ConfObjRead.getGameIconAnim();
+        for (var i = 0; i < obj.icons.length; i++) {
+            if (obj.icons[i].alias == alias) {
+                return obj.icons[i].src;
+            }
+        }
+        //没有配置的时候不能为空，给一个默认的
+        return obj.defaultIcon.src;
+    };
+    ConfObjRead.getGameIconAnimByAlias = function (alias) {
+        var obj = ConfObjRead.getGameIconAnim();
+        for (var i = 0; i < obj.icons.length; i++) {
+            if (obj.icons[i].alias == alias) {
+                return obj.icons[i].anim;
+            }
+        }
+        //没有配置的时候不能为空，给一个默认的
+        return obj.defaultIcon.anim;
+    };
+    ConfObjRead.getGameIconAnimBySrcX = function (src) {
         var obj = ConfObjRead.getGameIconAnim();
         for (var i = 0; i < obj.icons.length; i++) {
             // if( obj.icons[i].src == src )

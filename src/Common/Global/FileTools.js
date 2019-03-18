@@ -6,7 +6,7 @@ import Toast from "../JXHelper/JXToast";
 
 export default class FileTools {
 
-    static  downloadFile(formUrl,downloadDest,param,onSucFuc){
+    static  downloadFile(formUrl,downloadDest,param,onSucFuc, onProgress){
 
         formUrl=formUrl+"?rodom="+Math.random();
         TW_Log("FileTools---downloadFile=="+formUrl);
@@ -19,21 +19,22 @@ export default class FileTools {
                 //{statusCode: 404, headers: {…}, jobId: 1, contentLength: 153
                 TW_Log("FileTools---downloadFile=background--=",res);
                 if(res.statusCode != 404){
-                    TW_Store.commonBoxStore.isShow=true;
+                    //TW_Store.commonBoxStore.isShow=true;
                 }else{
                     Toast.showShortCenter("需要下载的游戏文件不存在");
-                   TW_Store.commonBoxStore.isShow=false
+                  // TW_Store.commonBoxStore.isShow=false
                 }
 
             },
             progress: (res) => {
                 // this.log+="==>progress-="+res;
                 //let pro = res.bytesWritten / res.contentLength;
-                 TW_Store.commonBoxStore.curPecent=res.bytesWritten;
-                 TW_Store.commonBoxStore.totalPecent=res.contentLength;
-                // if(onProcesFuc){
-                //     onProcesFuc(res.bytesWritten,res.contentLength);
-                // }
+                //  TW_Store.commonBoxStore.curPecent=res.bytesWritten;
+                //  TW_Store.commonBoxStore.totalPecent=res.contentLength;
+                TW_Log("FileTools---progress==",res);
+                if(onProgress){
+                     onProgress({percent:(res.bytesWritten/res.contentLength).toFixed(2),param});
+                }
             }
         };
         try {
