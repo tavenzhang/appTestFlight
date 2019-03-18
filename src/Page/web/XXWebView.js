@@ -60,7 +60,8 @@ export default class XXWebView extends Component {
                         }
 
                     }else if(!gameM[`${item.alias}`]){
-                        gameM[`${item.alias}`]={...item,version:"",bupdate:true,newVersion:item.version}
+                        gameM[`${item.alias}`]={...item,version:"",bupdate:true,newVersion:item.version};
+                        lastList.push(gameM[`${item.id}`]);
                     }
                    
                 }
