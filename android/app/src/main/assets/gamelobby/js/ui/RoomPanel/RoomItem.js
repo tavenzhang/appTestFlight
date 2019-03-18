@@ -100,7 +100,7 @@ var RoomItem = /** @class */ (function (_super) {
         // Debug.trace("RoomItem.onClickItem roomData:");
         // Debug.trace(this.data);
         if (this.conf.sfx) {
-            Debug.trace("RoomItem.onClickItem sfx:" + this.conf.sfx);
+            // Debug.trace("RoomItem.onClickItem sfx:"+this.conf.sfx);
             Laya.SoundManager.playSound(this.conf.sfx);
         }
         //游戏图标点击后，应该开始拉取当前该游戏的所有房间列表

@@ -14,6 +14,7 @@ import TCButtonView from "../../../Common/View/button/TCButtonView";
 import QRCode from 'react-native-qrcode-svg';
 import ShareBox from "./pay/ShareBox";
 import TCUserOpenPayApp from "../../UserCenter/UserPay/TCUserOpenPayApp";
+
 @observer
 export default class GameShareView extends Component {
 
@@ -26,14 +27,14 @@ export default class GameShareView extends Component {
 
     static defaultProps = {
         isSelect: false,
-        shareUrl:""
+        surl:""
     }
 
     constructor(state) {
         super(state)
         this.state={
             isIos:G_IS_IOS,
-            shareUrl:G_IS_IOS ? TW_Store.bblStore.shareURL.ios:TW_Store.bblStore.shareURL.android,
+            surl:G_IS_IOS ? TW_Store.bblStore.shareURL.ios:TW_Store.bblStore.shareURL.android,
             isShowShareUI:false
         }
     }
@@ -43,7 +44,6 @@ export default class GameShareView extends Component {
         //     TW_Store.gameUIStroe.getGustUrl();
         // }
     }
-
 
     render() {
         let {pointerEvents}=this.props;
@@ -56,9 +56,8 @@ export default class GameShareView extends Component {
             {this.state.isIos ?  <TCImage  source={ASSET_Images.gameShare.btnApple}
                                                 style={{position: "absolute", left:232,top:115}}/>: <TCImage source={ASSET_Images.gameShare.btnAndroid}  style={{position: "absolute",left:278,top:115}}/> }
 
-
             <View style={{position: "absolute",left:350,top:150}}>
-                <Text style={{color:"yellow", width:190, height: 20,fontWeight: "bold",lineNumber:1,textAlign:"center"}}>{this.state.shareUrl}</Text>
+                <Text style={{color:"yellow", width:190, height: 20,fontWeight: "bold",textAlign:"center"}}>{this.state.surl}</Text>
                 <View style={{flexDirection:"row", alignItems:"center", marginTop: 15,justifyContent:"space-around"}}>
                     <TCButtonImg imgSource={ASSET_Images.gameShare.btn_Copy} onClick={this.onCopyLink} />
                     <TCButtonImg imgSource={ASSET_Images.gameShare.btn_wxShare} onClick={this.onWxShare}/>
@@ -67,59 +66,41 @@ export default class GameShareView extends Component {
             <TCButtonView onClick={this.onClickIos } text={""} btnStyle={{position: "absolute", width: 45, height: 26,backgroundColor: "transparent",left:232,top:115}}/>
             <TCButtonView onClick={this.onClickAndroid} text={""} btnStyle={{position: "absolute", width: 45, height: 26,backgroundColor: "transparent",left:278,top:115}}/>
             <View style={{position: "absolute",left:252,top:149}}>
-                {this.state.isIos ?  <QRCode    size={50} value={TW_Store.bblStore.shareURL.ios}/>:
-                    <QRCode  size={50} value={TW_Store.bblStore.shareURL.android}/>}
+                {this.state.isIos ?  <QRCode size={50} value={this.state.surl}/>:
+                    <QRCode  size={50} value={this.state.surl}/>}
             </View>
                 {
-                    this.state.isShowShareUI ?  <View style={{position: "absolute",flex:1,backgroundColor: "red",justifyContent:"center", alignItems:"center"}}>
-                        <ShareBox onClose={this.onCloseShare}/>
+                    this.state.isShowShareUI ? <View style={{position: "absolute",flex:1,justifyContent:"center", alignItems:"center"}}>
+                        <ShareBox onClose={this.onCloseShare} url={this.state.surl}/>
                     </View>:null
                 }
-
-        </View>
+            </View>
         )
-
     }
 
     onCloseShare=()=>{
         this.setState({isShowShareUI:false})
     }
 
-
     onClickAndroid=()=>{
-        this.setState({isIos:false,shareUrl:TW_Store.bblStore.shareURL.android})
+        this.setState({isIos:false,surl:TW_Store.bblStore.shareURL.android})
     }
     onClickIos=()=>{
-        this.setState({isIos:true,shareUrl:TW_Store.bblStore.shareURL.ios})
+        this.setState({isIos:true,surl:TW_Store.bblStore.shareURL.ios})
     }
 
     onCopyLink=()=>{
-        Clipboard.setString(this.state.shareURL);
+        TW_Log("onWxShare-onCopyLink--pre--"+this.state.surl+"--isIOS--"+this.state.isIos,this.state)
+        Clipboard.setString(this.state.surl);
+        TW_Log("onWxShare-onCopyLink--"+this.state.surl,this.state)
         Toast.showShortCenter("已复制链接!")
     }
 
     onWxShare=()=>{
-
-        Clipboard.setString(this.state.shareURL);
-        Toast.showShortCenter("已复制链接!")
-        TCUserOpenPayApp.openWX()
-      // this.setState({isShowShareUI:!this.state.isShowShareUI})
-        //微信分享参考https://developer.umeng.com/docs/66632/detail/67587
-        /*text 为分享内容
-        img 为图片地址，可以为链接，本地地址以及res图片（如果使用res,请使用如下写法：res/icon.png）
-        url 为分享链接，可以为空
-        title 为分享链接的标题
-        platform为平台id，id对照表与授权相同
-        callback中code为错误码，当为200时，标记成功。message为错误信息*/
-        // TN_UMShareModule.shareboard('abc','','https://www.google.com/','testshare',[2,3],(code,message) =>{
-        //     if(code!=200){
-        //         Toast.showLongCenter("code--"+code+"====message"+message)
-        //     }else{
-        //         Toast.showLongCenter(message)
-        //     }
-        //     TW_Log("result--code=="+code+"----message----",message)
-        //    // this.setState({result:message});
-        // });
+        this.setState({isShowShareUI:!this.state.isShowShareUI})
+        // TW_Log("onWxShare---"+this.state.surl,this.state)
+        // Clipboard.setString(this.state.surl);
+        // TCUserOpenPayApp.openWX()
     }
 
     // getWebView = () => {
@@ -133,10 +114,7 @@ export default class GameShareView extends Component {
     //                    allowFileAccess={true}
     //         />)
     // }
-
-
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -157,5 +135,4 @@ const styles = StyleSheet.create({
         width:485,
         backgroundColor: "transparent",
     }
-
 });

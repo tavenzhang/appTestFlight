@@ -168,10 +168,11 @@ android {
                     SUB_TYPE       : SUB_TYPE
             ]
             dimension "color"
+            buildConfigField("String", "UMENG_KEY", "\"${UMENG_KEY}\"")
+            buildConfigField("String", "WECHAT_KEY", "\"${WECHAT_KEY}\"")
+            buildConfigField("String", "WECHAT_SECRET_KEY", "\"${WECHAT_SECRET_KEY}\"")
         }
     }
-
-
 
     signingConfigs {
         release {

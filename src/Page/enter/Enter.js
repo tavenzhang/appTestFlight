@@ -358,7 +358,7 @@ export default class Enter extends Component {
             // </View>)
         }
         return (
-                <View style={{justifyContent: 'center', alignItems: 'center', width: JX_PLAT_INFO.SCREEN_W,height:JX_PLAT_INFO.SCREEN_H, flex: 1,position:"absolute"}}>
+                <View pointerEvents={"none"} style={{justifyContent: 'center', alignItems: 'center', width: JX_PLAT_INFO.SCREEN_W,height:JX_PLAT_INFO.SCREEN_H, flex: 1,position:"absolute"}}>
                     <Text style={{fontSize: Size.font16,color:"white"}}>{this.hotFixStore.syncMessage}</Text>
                     {progressView}
                     <Progress.Bar

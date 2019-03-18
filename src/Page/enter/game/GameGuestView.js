@@ -8,8 +8,9 @@ import {observer} from 'mobx-react/native';
 import TCImage from "../../../Common/View/image/TCImage";
 import {ASSET_Images, JX_PLAT_INFO} from "../../asset";
 import {TCButtonImg} from "../../../Common/View/button/TCButtonView";
-import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import PropTypes from "prop-types";
+import LoadingView from "../LoadingView";
+
 
 @observer
 export default class GameGuestView extends Component {
@@ -45,6 +46,7 @@ export default class GameGuestView extends Component {
                          btnStyle={{position: "absolute", right: 0, top: 0}}/>
             <View style={{position: "absolute",}}>
                 {this.getWebView()}
+
             </View>
 
         </View>)
@@ -58,10 +60,25 @@ export default class GameGuestView extends Component {
             uri: TW_Store.gameUIStroe.gustWebUrl,
         }
         return (
-            <WKWebView source={source}
+            <WebView source={source}
                        style={styles.webView}
                        allowFileAccess={true}
-        />)
+                       startInLoadingState={true}
+                      renderLoading={this.onRenderLoadingView}
+                       useWebKit={true}
+                      onError={this.onError}/>)
+    }
+
+
+
+    onRenderLoadingView = () => {
+        return (<View style={{}}>
+                   <LoadingView myStyle={{width:485,height:300}}/>
+            </View>)
+    }
+
+    onError = (error) => {
+        TW_Log("onError=====TCweb======event=====", error.nativeEvent)
     }
 
 

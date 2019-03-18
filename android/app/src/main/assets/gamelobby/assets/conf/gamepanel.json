@@ -70,6 +70,7 @@
         "movex":0
     },
     "gameitemdefault":{
+        "desc":"图标",
         "number":5,
         "pos":{ "x":-30, "y":0 },
         "showbgX":{
@@ -78,7 +79,7 @@
         },
         "btnicon":{
             "desc":"图标按钮",
-            "pos":{ "x":155, "y":135 },
+            "pos":{ "x":135, "y":111 },
             "src":[
                 "./assets/ui/game/defaulticon.png"
             ],
@@ -106,7 +107,7 @@
         "statePause":{
             "desc":"PAUSE状态呈现方式",
             "src":"./assets/ui/game/img_dating_whz.png",
-            "pos":{ "x":50, "y":110 },
+            "pos":{ "x":54, "y":110 },
             "size":{ "w":159, "h":62 }
         },
         "stateComing":{

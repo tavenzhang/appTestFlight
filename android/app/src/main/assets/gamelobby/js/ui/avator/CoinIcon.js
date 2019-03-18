@@ -78,12 +78,12 @@ var CoinIcon = /** @class */ (function (_super) {
         Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
     };
     CoinIcon.prototype.setData = function (dt) {
-        Debug.trace("CoinIcon.setData dt.userBalance.balance:");
-        Debug.trace(dt);
+        // Debug.trace("CoinIcon.setData dt.userBalance.balance:");
+        // Debug.trace(dt);
         var v = dt.userBalance.balance;
         v = Tools.FormatMoney(v, 2);
         // this.lb_num.text = v;
-        Debug.trace("CoinIcon.setData v:" + v);
+        // Debug.trace("CoinIcon.setData v:"+v);
         this.lb_num.setNum(v);
     };
     return CoinIcon;
