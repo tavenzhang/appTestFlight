@@ -120,6 +120,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0.8"
+        // SUB_TYPE       :  1 写死1 当聚道主包
         manifestPlaceholders = [
                 JPUSH_APPKEY: "",
                 APP_CHANNEL : "default"
@@ -135,7 +136,7 @@ android {
                                    UMENG_CHANNEL  : "developer-default",
                                    PLAT_ID        :  PLAT_ID,
                                    PLAT_CH        :  PLAT_CH,
-                                   SUB_TYPE       :  SUB_TYPE
+                                   SUB_TYPE       :  1
         ]
         buildConfigField("String", "UMENG_KEY", "\"${UMENG_KEY}\"")
         buildConfigField("String", "WECHAT_KEY", "\"${WECHAT_KEY}\"")
