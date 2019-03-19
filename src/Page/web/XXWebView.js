@@ -278,7 +278,7 @@ export default class XXWebView extends Component {
                     let isNeedLoad=false;
                     let isOrigan =false;
                     if(!gameData){
-                        JXToast.showShortCenter(`${data.name} 暂未配置！`)
+                       // JXToast.showShortCenter(`${data.name} 暂未配置！`)
                         url = this.handleUrl(message.payload,gameData);
                         isOrigan=true
                     }else {
