@@ -94,7 +94,7 @@
 			"NATIVE_DATA":{},
 			"isAtHome":true,
 			"testStr":"test",
-			"isAndroidHack":true
+			"isAndroidHack":false
 		};
 
 	</script>
@@ -104,7 +104,7 @@
 		
 		var bDebugPlatform = "web";
 		var bDebug = true;
-		var sScaleMode = "fixedheight";
+		var sScaleMode = "showall";
 		var bShowStat = false;
 		var sPubRes = "../pubres/assets/lobby/";
 		//"exactfit","fixedauto","fixedheight","fixedwidth","scalefull","noborder","noscale","showall"
@@ -161,6 +161,7 @@
 			loadJs(div,"js/HtmlCompnents/SeanHtmlEncode.js");
 			loadJs(div,"js/HtmlCompnents/SeanHtmlDecode.js");
 			loadJs(div,"js/HtmlCompnents/SeanAttributeNode.js");
+			loadJs(div,"js/common/ToolsApp.js");
 			loadJs(div,"js/common/Tools.js");
 			loadJs(div,"js/common/SaveManager.js");
 			loadJs(div,"js/common/PostMHelp.js");
@@ -209,6 +210,7 @@
 			loadJs(div,"js/UI/GamePanel/GamePanel.js");
 			loadJs(div,"js/UI/GamePanel/MoveContent.js");
 			loadJs(div,"js/UI/GamePanel/PageArrow.js");
+			loadJs(div,"js/UI/GamePanel/UpdateMsgHandle.js");
 			loadJs(div,"js/UI/Girls/Girl.js");
 			loadJs(div,"js/UI/Girls/GirlManager.js");
 			loadJs(div,"js/UI/Help/HelpPad.js");

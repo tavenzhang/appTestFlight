@@ -76,21 +76,27 @@ var MoveContent = /** @class */ (function (_super) {
     };
     //自动滑行，按原方向，原速度，逐渐减速
     MoveContent.prototype.autoSlip = function (direct, spd, timeSum) {
+        // var minx = (this.conf.visibleRect.w - this.width) - this.conf.minxOffsetX;
+        // var maxx = 0 + this.conf.maxxOffsetX;
         //计算出目的地 s = vt
-        var v = spd / timeSum;
-        var s = v * this.conf.duration; //spd * this.conf.fps;
-        // Debug.trace("MoveContent.autoSlip s:"+s+" spd:"+spd+" time:"+timeSum+" v:"+v);
+        // var v = spd/timeSum;
+        // var s = v * this.conf.duration;
         //当前坐标及宽度
-        // Debug.trace("x:"+this.x+" w:"+this.width);
-        var nX = this.x + s;
-        //检查该自动移动目的地点，是否已超过内容层可移动范围？
-        //当前最大坐标就是0，最小坐标就是总宽度与可视区域的差值
-        // var minx = this.conf.visibleRect.w - this.width;
-        // if( nX > 0 )
+        var nX = this.x; // + s;
+        // var t = this.conf.duration;
+        // var tcount = t/this.conf.goonLoopDelay;
+        // var a = spd/tcount;
+        // var v2 = spd + a*tcount;
+        // a = (0 - spd)/tcount;
+        // var dis = spd*tcount + (1/2)*a * tcount * tcount;
+        // Debug.trace("MoveContent.autoSlip dis:"+dis+" a:"+a+" tcount:"+tcount);
+        // var nX = this.x + dis;
+        // switch(direct)
         // {
-        //     nX = 0;
-        // }else if( nX <= minx ){
-        //     nX = minx;
+        //     case MoveContent.MOVE_DIRECT_LEFT:
+        //     break;
+        //     case MoveContent.MOVE_DIRECT_RIGHT:
+        //     break;
         // }
         this.moveDirect = direct;
         this.moveType = MoveContent.MOVE_TYPE_SLIP;
@@ -98,30 +104,84 @@ var MoveContent = /** @class */ (function (_super) {
         //自动滑行动画
         this.autoGoon(spd, this.moveDirect, nX, this.y);
     };
+    MoveContent.prototype.getSpdAByS = function (v, t, s) {
+        var a = (s - v * t) / (t * t * 2);
+        return a;
+    };
+    //加速度
+    MoveContent.prototype.getSpdA = function (v, t) {
+        var v1 = v;
+        if (v >= 0) {
+            //right
+            v1 = -v;
+        }
+        else {
+            //left
+            v1 = v;
+        }
+        //v2 = v1 + at;
+        //s = v1*t + (1/2)a*t*t;
+        //v2*t*t - v1*v1 = 2*a*s
+        var v2 = 0;
+        var a = (v2 - v1) / t;
+        return a;
+    };
+    MoveContent.prototype.getSpdS = function (v, t, a) {
+        var s = v * t + (1 / 2) * a * t * t;
+        return s;
+    };
     //自动继续滑行
     MoveContent.prototype.autoGoon = function (spdx, direct, dx, dy) {
         if (this.bAutogo) {
             return;
         }
         this.bAutogo = true;
+        var minx = (this.conf.visibleRect.w - this.width); // - this.conf.minxOffsetX;
+        var maxx = 0; // + this.conf.maxxOffsetX;
         //启动一个循环
         //目的地
         var destPos = {
             "x": dx,
             "y": dy
         };
+        var t = this.conf.durationGoon / this.conf.goonLoopDelay;
+        var a1 = this.getSpdA(spdx, t);
+        var s1 = this.getSpdS(spdx, t, a1);
+        var dx = this.x + s1;
+        // Debug.trace("MoveContent a1:"+a1+" s1:"+s1+" dx:"+dx+" minx:"+minx+" maxx:"+maxx);
         //起止时间
-        this.startGoonTime = Tools.getTime();
-        this.endGoonTime = this.startGoonTime + this.conf.durationGoon;
+        // this.startGoonTime = Tools.getTime();
+        // this.endGoonTime = this.startGoonTime + this.conf.durationGoon;
         this.goonSpdX = spdx;
         //在this.conf.durationGoon时间内，要将spdx降低到0
         //运行次数 = duration/delay
         //每次需要降低的量 = 总量/次数
-        this.offsetSpdX = Math.abs(this.goonSpdX / (this.conf.durationGoon / this.conf.goonLoopDelay));
+        // this.offsetSpdX = Math.abs(this.goonSpdX/( this.conf.durationGoon/this.conf.goonLoopDelay ));
+        // if( this.offsetSpdX < this.conf.goonOffsetMin )
+        // {
+        //     this.offsetSpdX = this.conf.goonOffsetMin;
+        // }
+        var s = 0;
+        switch (direct) {
+            case MoveContent.MOVE_DIRECT_LEFT:
+                if (dx < minx) {
+                    dx = minx;
+                }
+                s = Math.abs(this.x - dx);
+                break;
+            case MoveContent.MOVE_DIRECT_RIGHT:
+                if (dx > maxx) {
+                    dx = maxx;
+                }
+                s = Math.abs(this.x - dx);
+                break;
+        }
+        var a = this.getSpdAByS(spdx, t, s);
+        // Debug.trace("MoveContent.autoGoon s:"+s+" a:"+a+" spdx:"+spdx+" minx:"+minx+" maxx:"+maxx);
+        this.offsetSpdX = a;
         if (this.offsetSpdX < this.conf.goonOffsetMin) {
             this.offsetSpdX = this.conf.goonOffsetMin;
         }
-        // Debug.trace("MoveContent.autoGoon offsetX:"+this.offsetSpdX);
         //启动循环
         Laya.timer.loop(this.conf.goonLoopDelay, this, this.goonMove, [spdx, direct, destPos]);
     };
@@ -141,7 +201,7 @@ var MoveContent = /** @class */ (function (_super) {
                 this.goonSpdX += this.offsetSpdX;
                 if (this.goonSpdX >= 0 || this.x <= minx) {
                     //end
-                    this.goonMoveSuc(direct);
+                    this.goonMoveSuc(this.goonSpdX, direct);
                 }
                 break;
             case MoveContent.MOVE_DIRECT_RIGHT:
@@ -149,13 +209,13 @@ var MoveContent = /** @class */ (function (_super) {
                 this.goonSpdX -= this.offsetSpdX;
                 if (this.goonSpdX <= 0 || this.x >= maxx) {
                     //end
-                    this.goonMoveSuc(direct);
+                    this.goonMoveSuc(this.goonSpdX, direct);
                 }
                 break;
         }
     };
     //继续滑动完成，启动回弹
-    MoveContent.prototype.goonMoveSuc = function (direct) {
+    MoveContent.prototype.goonMoveSuc = function (spdx, direct) {
         //移动结束
         // Debug.trace("MoveContent.goonMoveSuc");
         this.bAutogo = false;
@@ -166,12 +226,24 @@ var MoveContent = /** @class */ (function (_super) {
         if (this.x < minx) {
             //向右回弹到minx
             this.autoGo(minx, this.y, 1);
+            // this.autoBack(spdx,direct,minx,this.y,1);
         }
         else if (this.x > maxx) {
             //向左回弹
             this.autoGo(maxx, this.y, 1);
+            // this.autoBack(spdx,direct,maxx,this.y,1);
         }
     };
+    //自动弹回目标坐标，保持原速度，逐渐减少
+    // public autoBack(spdx:number,direct:string,x:number,y:number,alpha:number):void
+    // {
+    //     //速度取反
+    //     var spd = spdx * -1;
+    //     //总的移动距离
+    //     var dis = this.x - x;
+    //     //总的移动时间
+    //     Laya.timer.loop(this.conf.goonLoopDelay,this,this.backMove,[spdx,direct,destPos]);
+    // }
     //自动移动出去
     MoveContent.prototype.autoGo = function (xs, ys, alphas) {
         if (alphas === void 0) { alphas = 1; }

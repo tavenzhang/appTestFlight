@@ -462,6 +462,8 @@ var GameItem = /** @class */ (function (_super) {
             // this.sp_anim.alpha = 1;
             this.setStatus(GameItem.STATUS_NORMAL);
             this.bInUpdate = false;
+            //清除更新信息中的对应数据
+            UpdateMsgHandle.clearInfoByAlias(this.data.alias);
         }
     };
     //渲染出加载过程百分比

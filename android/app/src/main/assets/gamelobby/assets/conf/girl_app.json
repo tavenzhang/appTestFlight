@@ -166,7 +166,7 @@
     "tabsItem":{
         "desc":"轮播焦点展示按钮,只定一个首坐标，根据数量居中对齐",
         "bswitch":false,
-        "defaultId":1,
+        "defaultId":2,
         "pos":{ "x":215, "y":640 },
         "size":{"w":20,"h":26},
         "jianju":{"w":20,"h":0},

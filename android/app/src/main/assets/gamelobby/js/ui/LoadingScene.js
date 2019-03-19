@@ -80,13 +80,13 @@ var LoadingScene = /** @class */ (function (_super) {
         //Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
         if (this.temp_token.length <= 0 || this.status == 1 || Common.confObj.testLogin) {
             //没有token存档的情况下，直接进入登录场景
-            Debug.trace("ConfObjRead.getConfUrl()---- LayaMain.getInstance().initLogin()");
+            // Debug.trace("ConfObjRead.getConfUrl()---- LayaMain.getInstance().initLogin()")
             LayaMain.getInstance().initLogin();
         }
         else {
             //检查该token是否可用，可用，直接进入大厅
             //不可用，进入登录
-            Debug.trace("ConfObjRead.getConfUrl()----  this.requestTokenTest(this.temp_token)");
+            // Debug.trace("ConfObjRead.getConfUrl()----  this.requestTokenTest(this.temp_token)")
             this.requestTokenTest(this.temp_token);
         }
         // LayaMain.getInstance().initLogin();

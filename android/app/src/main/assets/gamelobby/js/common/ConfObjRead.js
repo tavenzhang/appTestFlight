@@ -6,7 +6,12 @@ var ConfObjRead = /** @class */ (function () {
             return ConfObjRead.accenterObj;
         }
         if (AppData.IS_NATIVE_APP) {
-            ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad_app.json");
+            if (AppData.isAndroidHack) {
+                ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad_app_temp.json");
+            }
+            else {
+                ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad_app.json");
+            }
         }
         else {
             ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad.json");
@@ -17,7 +22,12 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.girlObj) {
             return ConfObjRead.girlObj;
         }
-        ConfObjRead.girlObj = Laya.Loader.getRes("./assets/conf/girl.json");
+        if (AppData.IS_NATIVE_APP) {
+            ConfObjRead.girlObj = Laya.Loader.getRes("./assets/conf/girl_app.json");
+        }
+        else {
+            ConfObjRead.girlObj = Laya.Loader.getRes("./assets/conf/girl.json");
+        }
         return ConfObjRead.girlObj;
     };
     ConfObjRead.getConfDataNum = function () {
@@ -118,7 +128,17 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.avatorObj) {
             return ConfObjRead.avatorObj;
         }
-        ConfObjRead.avatorObj = Laya.Loader.getRes("./assets/conf/avator.json");
+        if (AppData.IS_NATIVE_APP) {
+            if (!AppData.isAndroidHack) {
+                ConfObjRead.avatorObj = Laya.Loader.getRes("./assets/conf/avator_app.json");
+            }
+            else {
+                ConfObjRead.avatorObj = Laya.Loader.getRes("./assets/conf/avator_app_temp.json");
+            }
+        }
+        else {
+            ConfObjRead.avatorObj = Laya.Loader.getRes("./assets/conf/avator.json");
+        }
         return ConfObjRead.avatorObj;
     };
     ConfObjRead.getConfAvatorPad = function () {
@@ -205,7 +225,12 @@ var ConfObjRead = /** @class */ (function () {
             return ConfObjRead.room_titlebarObj;
         }
         if (AppData.IS_NATIVE_APP) {
-            ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar_app.json");
+            if (!AppData.isAndroidHack) {
+                ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar_app.json");
+            }
+            else {
+                ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar_app_temp.json");
+            }
         }
         else {
             ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar.json");
@@ -238,7 +263,12 @@ var ConfObjRead = /** @class */ (function () {
             return ConfObjRead.minemenuObj;
         }
         if (AppData.IS_NATIVE_APP) {
-            ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus_app.json");
+            if (!AppData.isAndroidHack) {
+                ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus_app.json");
+            }
+            else {
+                ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus_app_temp.json");
+            }
         }
         else {
             ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus.json");

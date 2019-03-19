@@ -1,6 +1,19 @@
 {
     "icons":[
         {
+            "desc":"百花洛神",
+            "alias":"bhls",
+            "src":"./assets/ui/game/icon_game_bhls.png",
+            "anim":{
+                "textPath":"./assets/ui/animation/icons/baihualuoshen/icon_baihua.png",
+                "animPath":"./assets/ui/animation/icons/baihualuoshen/icon_baihua.sk",
+                "playSpeed":1.0,
+                "loop":true,
+                "dAlpha":0,
+                "pos":{ "x":138, "y":134 }
+            }
+        },
+        {
             "desc":"加勒比梭哈",
             "alias":"jlbsh",
             "src":"./assets/ui/game/icon_jlbsh.png",
@@ -140,7 +153,7 @@
                 "playSpeed":1.0,
                 "loop":true,
                 "dAlpha":0,
-                "pos":{ "x":135, "y":144 }
+                "pos":{ "x":135, "y":138 }
             }
         },
         {

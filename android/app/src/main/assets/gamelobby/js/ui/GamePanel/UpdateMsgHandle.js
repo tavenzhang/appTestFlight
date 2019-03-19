@@ -42,6 +42,20 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
             GamePanel.getInstance().onUpdateMsgInit();
         }
     };
+    UpdateMsgHandle.clearInfoByAlias = function (alias) {
+        // Debug.trace("UpdateMsgHandle.clearInfoByAlias alias:"+alias);
+        // Debug.trace(UpdateMsgHandle.updateInitMsg);
+        for (var i = 0; i < UpdateMsgHandle.updateInitMsg.length; i++) {
+            var obj = UpdateMsgHandle.updateInitMsg[i];
+            // Debug.trace(obj);
+            if (obj.alias == alias) {
+                Debug.trace("UpdateMsgHandle.clearInfoByAlias alias:" + alias + " i:" + i);
+                UpdateMsgHandle.updateInitMsg.splice(i, 1);
+                Debug.trace(UpdateMsgHandle.updateInitMsg);
+                return;
+            }
+        }
+    };
     UpdateMsgHandle.onUpdateMsg = function (data) {
         // data = [
         //     {

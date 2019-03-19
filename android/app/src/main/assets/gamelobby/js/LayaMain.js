@@ -38,9 +38,7 @@ var LayaMain = /** @class */ (function () {
         // Laya.stage.bgColor = "#ffffff";
         //不靠谱，不能主动全屏，而是设置允许全屏后，等待下次点击全屏 = true;
         Laya.stage.on(Laya.Event.RESIZE, this, this.onResize);
-        //添加侦听postMessage
-        //   window.addEventListener("message", this.handleAction,false);
-        window.document.addEventListener("message", this.handleIFrameAction, false);
+        window.addEventListener("message", this.handleAction, false);
     }
     LayaMain.getInstance = function () {
         return LayaMain.obj;
@@ -110,7 +108,7 @@ var LayaMain = /** @class */ (function () {
         LayaMain.getInstance().onAppPostMessgae(data);
     };
     LayaMain.prototype.onAppPostMessgae = function (data) {
-        Debug.trace("onAppPostMessgae----data==" + data, data);
+        // Debug.trace("onAppPostMessgae----data==" + data, data);
         var message = null;
         try {
             message = JSON.parse(data);
@@ -127,7 +125,7 @@ var LayaMain = /** @class */ (function () {
                     lamain.onGameResume();
                     break;
                 case "stopMusic":
-                    lamain.onGamePause();
+                    Laya.SoundManager.stopAll();
                     break;
                 case "windowResize":
                     this.onResize();
@@ -178,7 +176,12 @@ var LayaMain = /** @class */ (function () {
     };
     //改变屏幕尺寸时处理
     LayaMain.prototype.onResize = function () {
+        //由于app的inject数据 在constru 获取不到故 添加在这个地方
         ToolsApp.initAppData();
+        if (AppData.IS_NATIVE_APP) {
+            window.removeEventListener("message", this.handleAction, false);
+            window.document.addEventListener("message", this.handleIFrameAction, false);
+        }
         // var safariMask = document.getElementById("safariMask");
         // safariMask.style.display = "block";
         // if( safariMask )
@@ -225,7 +228,7 @@ var LayaMain = /** @class */ (function () {
         if (this.sceneLoading == null) {
             // Debug.trace("LayaMain.sceneLoading == null to create");
             this.sceneLoading = new LoadingScene();
-            Debug.trace("LayaMain.sceneLoading == end to over");
+            // Debug.trace("LayaMain.sceneLoading == end to over");
             this.sceneLoading.initLoading();
             Laya.stage.addChild(this.sceneLoading);
         }
@@ -239,7 +242,6 @@ var LayaMain = /** @class */ (function () {
         }
     };
     LayaMain.prototype.initLobby = function () {
-        // Debug.trace("LayaMain.initLobby");
         //构造大厅之前，再次清空整个stage
         this.clearChild();
         if (this.sceneLobby == null) {
@@ -326,9 +328,6 @@ var LayaMain = /** @class */ (function () {
     LayaMain.prototype.showCircleLoading = function (b, data) {
         if (b === void 0) { b = true; }
         if (data === void 0) { data = null; }
-        if (AppData.IS_NATIVE_APP) {
-            return;
-        }
         if (b && !this.cloading) {
             // Debug.trace("LayaMain.showCircleLoading create new cloading");
             this.cloading = MyBBLoading.getObj(true); //.show();

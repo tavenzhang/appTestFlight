@@ -43,7 +43,7 @@ export default class XXWebView extends Component {
                    TW_Store.dataStore.appGameListM = res;
                }
             }
-            TW_Log("(TW_DATA_KEY.gameList--FileTools-==err==" + err+"---res--"+ret,  TW_Store.dataStore.appGameListM );
+            //TW_Log("(TW_DATA_KEY.gameList--FileTools-==err==" + err+"---res--"+ret,  TW_Store.dataStore.appGameListM );
             NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionDomain()+"/gameList.json"+"?rom="+Math.random(),null,(rt)=>{
                 TW_Log("TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-",rt);
                 let newList = rt.content ? rt.content:[];
@@ -82,7 +82,7 @@ export default class XXWebView extends Component {
                     this.startLoadGame()
                 }
             }else{
-                url = TW_Store.dataStore.getGameRootDir()+"/"+data.dir+"/"  + url;
+                url = TW_Store.dataStore.getGameRootDir()+"/"+data.dir+"/"  + url
             }
 
         }else{
@@ -91,8 +91,8 @@ export default class XXWebView extends Component {
             }
             url = TW_Store.bblStore.gameDomain  + url
         }
-        TW_Log("FileTools--------url--"+url,data);
-        return url
+       
+        return `${url}&app=${G_IS_IOS ? "ios":"android"}`;
     }
 
 
@@ -114,7 +114,7 @@ export default class XXWebView extends Component {
                 if(loadUrl.indexOf("http")>-1){
                     loadUrl= loadUrl;
                 }else{
-                    loadUrl =  TW_Store.bblStore.gameDomain+"/"+downData.dir+"/"  + downData.dir;
+                    loadUrl = TW_Store.bblStore.gameDomain+"/"+downData.dir+"/"  + downData.dir;
                 }
                 FileTools.downloadFile(loadUrl,TW_Store.bblStore.tempGameZip,downData,this.onLoadZipFish,this.onLoadProgress);
             }
@@ -166,7 +166,7 @@ export default class XXWebView extends Component {
             file: TW_Store.dataStore.getHomeWebUri(),
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
             allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
-            param:"?taven=1&status=2&token=3"
+            param:"?app=true"
         };
 
         if (!G_IS_IOS) {
