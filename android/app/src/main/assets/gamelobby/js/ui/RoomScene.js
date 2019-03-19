@@ -32,10 +32,10 @@ var RoomScene = /** @class */ (function (_super) {
             ConfObjRead.getConfUrl().cmd.noticelist +
             "?pageSize=20&start=0&access_token=" + Common.access_token;
         RunningMsg.getInstance(this, "./assets/conf/runningmsg.json", msgUrl);
-        //底部菜单
-        BottomMenus.getInstance(this, ConfObjRead.getConfBottommenu());
         //房间列表
         RoomPanel.getInstance(this, ConfObjRead.getConfRoomPanel(), gamedata, this, this.roompanelOver);
+        //底部菜单
+        BottomMenus.getInstance(this, ConfObjRead.getConfBottommenu());
     };
     RoomScene.prototype.OnAvatorScrollOut = function (e) {
     };
