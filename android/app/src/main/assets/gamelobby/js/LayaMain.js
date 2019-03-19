@@ -18,32 +18,27 @@ var LayaMain = /** @class */ (function () {
         this.cloading = null;
         LayaMain.obj = this;
         //初始化微信小游戏
-        Laya.MiniAdpter.init();
+        // Laya.MiniAdpter.init();
         //程序入口
         // Laya.init(Common.GM_SCREEN_W,Common.GM_SCREEN_H);//, Laya.WebGL);
         Laya.init(Common.GM_SCREEN_W, Common.GM_SCREEN_H, Laya.WebGL);
-        // Laya.URL.basePath = "http://localhost/";
+        // Laya.URL.basePath = window["sPubRes"];
+        // Laya.URL.rootPath = window["sPubRes"];
+        // Laya.URL.rootPath = Laya.URL.basePath + window["sPubRes"];
+        // Debug.trace("Laya.URL.basePath:"+Laya.URL.basePath);
+        if (window["bShowStat"]) {
+            Laya.Stat.show(0, 0);
+        }
         //根据参数来确定当前屏幕适配模式
-        Laya.stage.scaleMode = window["sScaleMode"]; //Tools.getQueryVariable("sm");
-        Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL; //.SCREEN_VERTICAL;//.SCREEN_NONE;
+        Laya.stage.scaleMode = window["sScaleMode"];
+        Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
         Laya.stage.alignH = Laya.Stage.ALIGN_CENTER;
         Laya.stage.alignV = Laya.Stage.ALIGN_MIDDLE;
         Laya.stage.bgColor = "#000000";
         // Laya.stage.bgColor = "#ffffff";
-        // Common.platformInfo = Tools.platformInfo();
-        // Debug.trace('platform:');
-        // Debug.trace(Common.platformInfo);
-        // Tools.deviceInfo();
-        // let canvas = Laya.Render.canvas;
-        // var cs = Laya.Browser.canvas.getCanvas();
-        // Debug.trace("cs:");
-        // Debug.trace(cs);
-        //不靠谱，不能主动全屏，而是设置允许全屏后，等待下次点击全屏
-        // Laya.stage.fullScreenEnabled = true;
+        //不靠谱，不能主动全屏，而是设置允许全屏后，等待下次点击全屏 = true;
         Laya.stage.on(Laya.Event.RESIZE, this, this.onResize);
-        //添加侦听postMessage
-        //   window.addEventListener("message", this.handleAction,false);
-        window.document.addEventListener("message", this.handleIFrameAction, false);
+        window.addEventListener("message", this.handleAction, false);
     }
     LayaMain.getInstance = function () {
         return LayaMain.obj;
@@ -101,7 +96,7 @@ var LayaMain = /** @class */ (function () {
             }
             //重新拉取用户帐户信息，刷新帐户数据
             if (Avator.getInstance()) {
-                Avator.getInstance().flushUserInfo()
+                Avator.getInstance().flushUserInfo();
             }
         }
         catch (e) { }
@@ -113,7 +108,7 @@ var LayaMain = /** @class */ (function () {
         LayaMain.getInstance().onAppPostMessgae(data);
     };
     LayaMain.prototype.onAppPostMessgae = function (data) {
-        Debug.trace("onAppPostMessgae----data==" + data, data);
+        // Debug.trace("onAppPostMessgae----data==" + data, data);
         var message = null;
         try {
             message = JSON.parse(data);
@@ -167,37 +162,37 @@ var LayaMain = /** @class */ (function () {
                     if (Avator.obj) {
                         Avator.obj.flushUserInfo();
                     }
-                    break;
                 case "openDebug":
                     window["initVconsole"]();
+                    break;
+                case "gamesinfo":
+                    UpdateMsgHandle.onInitMsg(message.data);
+                    break;
+                case "updateProgress":
+                    UpdateMsgHandle.onUpdateMsg(message.data);
                     break;
             }
         }
     };
     //改变屏幕尺寸时处理
     LayaMain.prototype.onResize = function () {
-        // Debug.trace("onResize:");
-        // Debug.trace(e);
-        var appData = window["appData"];
-        if (appData) {
-            Common.IS_NATIVE_APP = true;
-            AppData.IS_NATIVE_APP = true;
-            AppData.NATIVE_DATA = appData;
-            AppData.isAndroidHack = appData.isAndroidHack;
-            if ("" + appData.clientId == "5") {
-                window["initVconsole"]();
-            }
+        //由于app的inject数据 在constru 获取不到故 添加在这个地方
+        ToolsApp.initAppData();
+        if (AppData.IS_NATIVE_APP) {
+            window.removeEventListener("message", this.handleAction, false);
+            window.document.addEventListener("message", this.handleIFrameAction, false);
         }
-        var safariMask = document.getElementById("safariMask");
+        // var safariMask = document.getElementById("safariMask");
         // safariMask.style.display = "block";
-        if (safariMask) {
-            if (window.innerHeight == document.documentElement.clientHeight) {
-                safariMask.setAttribute("style", "display: none");
-            }
-            else {
-                safariMask.setAttribute("style", "display: block");
-            }
-        }
+        // if( safariMask )
+        // {
+        //     if(window.innerHeight == document.documentElement.clientHeight)
+        //     {
+        //         safariMask.setAttribute("style", "display: none");
+        //     }else{
+        //         safariMask.setAttribute("style", "display: block");
+        //     }
+        // }
     };
     LayaMain.prototype.clearChild = function () {
         if (this.sceneLobby) {
@@ -230,18 +225,16 @@ var LayaMain = /** @class */ (function () {
     };
     LayaMain.prototype.initLoading = function () {
         this.clearChild();
-        Laya.URL.basePath = "";
         if (this.sceneLoading == null) {
             // Debug.trace("LayaMain.sceneLoading == null to create");
             this.sceneLoading = new LoadingScene();
-            Debug.trace("LayaMain.sceneLoading == end to over");
+            // Debug.trace("LayaMain.sceneLoading == end to over");
             this.sceneLoading.initLoading();
             Laya.stage.addChild(this.sceneLoading);
         }
     };
     LayaMain.prototype.initLogin = function () {
         this.clearChild();
-        Laya.URL.basePath = "";
         if (this.sceneLogin == null) {
             this.sceneLogin = new LoginScene();
             this.sceneLogin.onLoaded();
@@ -249,10 +242,8 @@ var LayaMain = /** @class */ (function () {
         }
     };
     LayaMain.prototype.initLobby = function () {
-        // Debug.trace("LayaMain.initLobby");
         //构造大厅之前，再次清空整个stage
         this.clearChild();
-        Laya.URL.basePath = "";
         if (this.sceneLobby == null) {
             // Debug.trace("LayaMain.initLobby == null to create");
             this.sceneLobby = new LobbyScene();
@@ -265,7 +256,6 @@ var LayaMain = /** @class */ (function () {
     };
     LayaMain.prototype.initRoom = function (data) {
         this.clearChild();
-        Laya.URL.basePath = "";
         if (this.sceneRoom == null) {
             this.sceneRoom = new RoomScene();
             this.sceneRoom.onLoaded(data);
@@ -338,10 +328,6 @@ var LayaMain = /** @class */ (function () {
     LayaMain.prototype.showCircleLoading = function (b, data) {
         if (b === void 0) { b = true; }
         if (data === void 0) { data = null; }
-        // var d = {
-        //     "tips":"正在加载中",
-        //     "bShowBg":b
-        // }
         if (b && !this.cloading) {
             // Debug.trace("LayaMain.showCircleLoading create new cloading");
             this.cloading = MyBBLoading.getObj(true); //.show();
@@ -372,6 +358,7 @@ var LayaMain = /** @class */ (function () {
     LayaMain.obj = null;
     return LayaMain;
 }());
+var AppData = window["sAppData"];
 var lamain = new LayaMain();
 lamain.initLoading();
 window.top["receivedMessageFromRN"] = lamain.onAppPostMessgae;

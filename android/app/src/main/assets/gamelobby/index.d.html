@@ -87,11 +87,27 @@
 		<!-- </div>> -->
 	</div>
 
+	<script type="text/javascript">
+
+		var sAppData = {
+			"IS_NATIVE_APP":false,
+			"NATIVE_DATA":{},
+			"isAtHome":true,
+			"testStr":"test",
+			"isAndroidHack":false
+		};
+
+	</script>
+	
 	<script type="text/javascript" src="libthird/vconsole.min.js"></script>
 	<script>
 		
 		var bDebugPlatform = "web";
 		var bDebug = true;
+		var sScaleMode = "showall";
+		var bShowStat = false;
+		var sPubRes = "../pubres/assets/lobby/";
+		//"exactfit","fixedauto","fixedheight","fixedwidth","scalefull","noborder","noscale","showall"
 		//初始化vConsole
 		function initVconsole()
 		{
@@ -113,22 +129,7 @@
 		// initVconsole();
 		
 		var loadversion = "0002";
-		//读取配置文件
-		/*function getJson()
-		{
-			$.ajax({
-				dataType:"json",
-				url:"./assets/ui/loading/conf/loading.json",
-				data:null,
-				success:function(dt){
-					console.log('dt.version.value:');
-					console.log(dt.version.value);
-					loadversion = dt.version.value;
-				}
-			});
-		}
-		getJson();*/
-
+		
 		//加载单个js文件
 		function loadJs(scriptAll,jsPath)//,rand=Math.random(),defer=false)
 		{
@@ -160,6 +161,7 @@
 			loadJs(div,"js/HtmlCompnents/SeanHtmlEncode.js");
 			loadJs(div,"js/HtmlCompnents/SeanHtmlDecode.js");
 			loadJs(div,"js/HtmlCompnents/SeanAttributeNode.js");
+			loadJs(div,"js/common/ToolsApp.js");
 			loadJs(div,"js/common/Tools.js");
 			loadJs(div,"js/common/SaveManager.js");
 			loadJs(div,"js/common/PostMHelp.js");
@@ -194,8 +196,6 @@
 			loadJs(div,"js/Loading/PgBarSaizi.js");
 			loadJs(div,"js/Toast/NoticeDialog.js");
 			loadJs(div,"js/Toast/Toast.js");
-			loadJs(div,"js/UI/Girls/Girl.js");
-			loadJs(div,"js/UI/Girls/GirlManager.js");
 			loadJs(div,"js/UI/avator/AccountCenter.js");
 			loadJs(div,"js/UI/avator/Avator.js");
 			loadJs(div,"js/UI/avator/AvatorPad.js");
@@ -208,7 +208,11 @@
 			loadJs(div,"js/UI/Bottom/BottomMenus.js");
 			loadJs(div,"js/UI/GamePanel/GameItem.js");
 			loadJs(div,"js/UI/GamePanel/GamePanel.js");
+			loadJs(div,"js/UI/GamePanel/MoveContent.js");
 			loadJs(div,"js/UI/GamePanel/PageArrow.js");
+			loadJs(div,"js/UI/GamePanel/UpdateMsgHandle.js");
+			loadJs(div,"js/UI/Girls/Girl.js");
+			loadJs(div,"js/UI/Girls/GirlManager.js");
 			loadJs(div,"js/UI/Help/HelpPad.js");
 			loadJs(div,"js/UI/Highscore/Highscore.js");
 			loadJs(div,"js/UI/History/HistoryDialog.js");

@@ -1,5 +1,5 @@
 {
-    "pos":{"x":0,"y":0},
+    "pos":{"x":0,"y":18},
     "moveAction":false,
     "content":{
         "pos":{"x":0,"y":40},
@@ -68,6 +68,74 @@
                     "pos":{"x":0,"y":-10}
                 },
                 "front":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":300},
+                        "textPath":"./assets/ui/animation/human_fr/card_bg.png",
+                        "animPath":"./assets/ui/animation/human_fr/card_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelayX":0,
+                        "stopHide":{
+                            "value":true
+                        }
+                    }
+                }
+            },
+            {
+                "bgX":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":320},
+                        "textPath":"./assets/ui/animation/human_bg/human_bg.png",
+                        "animPath":"./assets/ui/animation/human_bg/human_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelay":2000,
+                        "stopHide":{
+                            "value":true
+                        }
+                    }
+                },
+                "gg":{
+                    "src":"./assets/ui/scrollpad/img_renwu03.png",
+                    "pos":{"x":0,"y":-10}
+                },
+                "frontX":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":300},
+                        "textPath":"./assets/ui/animation/human_fr/card_bg.png",
+                        "animPath":"./assets/ui/animation/human_fr/card_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelayX":0,
+                        "stopHide":{
+                            "value":true
+                        }
+                    }
+                }
+            },
+            {
+                "bgX":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":320},
+                        "textPath":"./assets/ui/animation/human_bg/human_bg.png",
+                        "animPath":"./assets/ui/animation/human_bg/human_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelay":2000,
+                        "stopHide":{
+                            "value":true
+                        }
+                    }
+                },
+                "gg":{
+                    "src":"./assets/ui/scrollpad/img_renwu04.png",
+                    "pos":{"x":0,"y":-10}
+                },
+                "frontX":{
                     "pos":{"x":0,"y":0},
                     "anim":{
                         "pos":{"x":670,"y":300},

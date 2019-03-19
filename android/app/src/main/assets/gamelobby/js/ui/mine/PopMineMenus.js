@@ -40,11 +40,13 @@ var PopMineMenus = /** @class */ (function (_super) {
         if (this.conf.btns) {
             var blen = this.conf.btns.length;
             this.arr_btns = new Array(); //[];
-            if (AppData.isAndroidHack) {
-                blen = 1;
-                this.conf.btns[0].pos = { "x": 1140, "y": 700 };
-            }
-            blen = AppData.isAndroidHack ? 1 : blen;
+            // if(AppData.isAndroidHack)
+            // {
+            // blen =1;
+            // this.conf.btns[0].pos={ "x":1140, "y":700 };
+            // this.conf.btns[0].pos=window["redrawPos"];//{ "x":1140, "y":700 };
+            // }
+            // blen = AppData.isAndroidHack ? 1:blen;
             // for(var a in this.conf.btns)
             for (var a = 0; a < blen; a++) {
                 var btnconf = this.conf.btns[a];

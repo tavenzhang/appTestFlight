@@ -91,16 +91,33 @@
 		  <!-- <p style="color: #ffffff"><font size="2">向上滑动全屏游戏</font></p> -->
 		<!-- </div>> -->
 	</div>
+
+	<script type="text/javascript">
+
+		var sAppData = {
+			"IS_NATIVE_APP":false,	//是否运行在app
+			"NATIVE_DATA":{},
+			"isAtHome":true,
+			"testStr":"test",
+			"isAndroidHack":false
+		};
+
+	</script>
 	
 	<script type="text/javascript" src="libthird/vconsole.min.js"></script>
 	<script>
 		var bDebugPlatform = "web";
 		var bDebug = true;
-		var sScaleMode = "showall";
+		var sScaleMode = "showall";//"fixedwidth";//"noborder";//"showall";
+		var bShowStat = false;
+		var sPubRes = "../pubres/assets/lobby/";
+		
 		//"exactfit","fixedauto","fixedheight","fixedwidth","scalefull","noborder","noscale","showall"
 		//初始化vConsole
 		function initVconsole()
 		{
+			bDebug = true;
+			bShowStat=true
 			// 初始化vConsole
 			window.vConsole = new window.VConsole({
 			defaultPlugins: ['system', 'network', 'element', 'storage'], // 可以在此设定要默认加载的面板
@@ -156,6 +173,7 @@
 	<!--删除标签，ide不会自动添加js文件，请谨慎操作-->
 	<!--jsfile--startTag-->
 	<script src="js/net/NetManager.js"></script>
+	<script src="js/common/ToolsApp.js"></script>
 	<script src="js/common/Tools.js"></script>
 	<script src="js/common/SaveManager.js"></script>
 	<script src="js/common/PostMHelp.js"></script>
@@ -166,7 +184,6 @@
 	<script src="js/common/ConfObjRead.js"></script>
 	<script src="js/common/Common.js"></script>
 	<script src="js/common/ColorTool.js"></script>
-	<script src="js/common/AppData.js"></script>
 	<script src="js/HtmlCompnents/SeanHtmlEncode.js"></script>
 	<script src="js/HtmlCompnents/SeanHtmlDecode.js"></script>
 	<script src="js/HtmlCompnents/SeanAttributeNode.js"></script>
@@ -200,7 +217,9 @@
 	<script src="js/ui/Bottom/BottomMenus.js"></script>
 	<script src="js/ui/GamePanel/GameItem.js"></script>
 	<script src="js/ui/GamePanel/GamePanel.js"></script>
+	<script src="js/ui/GamePanel/MoveContent.js"></script>
 	<script src="js/ui/GamePanel/PageArrow.js"></script>
+	<script src="js/ui/GamePanel/UpdateMsgHandle.js"></script>
 	<script src="js/ui/Girls/Girl.js"></script>
 	<script src="js/ui/Girls/GirlManager.js"></script>
 	<script src="js/ui/Help/HelpPad.js"></script>

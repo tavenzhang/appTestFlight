@@ -267,19 +267,10 @@ var Tools = /** @class */ (function () {
     //跳转到指定地址
     Tools.jump2url = function (url) {
         try {
-            var au = url; //Tools.filterUrl2rewrite(Tools.whichRewrite(),url);
+            var au = url;
             var enUrl = encodeURI(au);
             au = enUrl;
-            // if( Common.confObj.openblank.value == 1 )
-            // {
-            //     window.open(au);
-            // }else{
-            // if(Common.IS_NATIVE_APP){
             PostMHelp.jumpToUrl({ au: au });
-            // }else{
-            //     window.location.href = au;
-            // }
-            // }
         }
         catch (e) {
         }
@@ -300,23 +291,17 @@ var Tools = /** @class */ (function () {
     Tools.jump2game = function (urls) {
         try {
             var url = urls;
-            // Debug.trace("Tools jump2game url:"+url);
             var ginfo = Common.getCurGameInfo();
             var backurl = ConfObjRead.getConfUrl().url.backlobby;
             var mainUrl = Tools.getCurFullPath();
-            // Debug.trace("Tools.jump2game mainUrl:"+mainUrl);
             var hostUrl = Tools.getCurHost(mainUrl);
             //将url前头的../去掉
             var dir = Tools.filterGameDir(urls);
-            var jumpUrl = hostUrl + "/" + dir;
+            // var jumpUrl = hostUrl+"/"+dir;
+            var jumpUrl = ToolsApp.getGameJumpUrl(hostUrl, dir);
             Debug.trace("Tools.jump2game jumpUrl:" + jumpUrl);
-            if (AppData.IS_NATIVE_APP) {
-                jumpUrl = "/" + dir;
-            }
             var jobj = {};
-            // Debug.trace("Tools.jump2game create jobj");
             if (ginfo && ginfo.alias) {
-                // Debug.trace("Tools jump2game0 alias:"+ginfo.alias+" backUrl:"+backurl);
                 if (ginfo.alias == "zjh") {
                     backurl = backurl + "?gameId=" + Common.gameId + "&alias=" + ginfo.alias;
                 }
@@ -327,7 +312,6 @@ var Tools = /** @class */ (function () {
                     "name": "" //"炸金花"
                 };
             }
-            // Debug.trace("Tools jump2game1 alias:"+ginfo.alias+" backUrl:"+backurl);
             jobj = {
                 "token": Common.access_token,
                 "httpUrl": ConfObjRead.getConfUrl().url.apihome,
@@ -338,7 +322,9 @@ var Tools = /** @class */ (function () {
                 "alias": ginfo.alias,
                 "name": ginfo.name,
                 "clientId": Common.clientId,
-                "mainUrl": mainUrl
+                "mainUrl": mainUrl,
+                "usergateway": AppData.NATIVE_DATA.loginDomain,
+                "gamecenter": AppData.NATIVE_DATA.gameDomain
             };
             // Debug.trace("Tools.jump2game jobj:");
             // Debug.trace(jobj);
@@ -351,19 +337,10 @@ var Tools = /** @class */ (function () {
             Debug.trace("Tools.jump2game url:" + au);
             //需要关闭声音等暂停操作
             LayaMain.getInstance().onGamePause();
-            // if(Common.IS_NATIVE_APP){
             PostMHelp.jumpToGame({ "payload": au });
-            // }else{
-            // if( Common.confObj.openblank.value == 1 )
-            // {
-            //     window.open(au);
-            // }else{
-            // window.location.href = au;
-            // }
-            // }
         }
         catch (e) {
-            //Debug.trace(e);
+            Debug.trace(e);
         }
     };
     //检查字符串是否存在
@@ -392,26 +369,15 @@ var Tools = /** @class */ (function () {
     //跳转到扩展模块
     Tools.jump2module = function (url, type) {
         try {
-            // var curl = ConfObjRead.getConfUrl().url.testcustomurl;
-            // if( Common.userInfo && Common.userInfo.customUrl )
-            // {
-            //     curl = Common.userInfo.customUrl;
-            // }
-            // Debug.trace("Common.userInfo:");
-            // Debug.trace(Common.userInfo);
             var jobj = {
                 "token": Common.access_token,
                 "httpUrl": ConfObjRead.getConfUrl().url.apihome,
-                // "clientId":Common.userInfo.userBalance.clientId,
                 "clientId": Common.clientId,
-                // "cid":Common.userInfo.userBalance.clientId,
-                "backUrl": ConfObjRead.getConfUrl().url.backlobby //,
-                // "mainUrl":ConfObjRead.getConfUrl().url.backlobby,
-                // "customUrl":curl
+                "backUrl": ConfObjRead.getConfUrl().url.backlobby
             };
             var b = new MyBase64();
             var param = b.encode(JSON.stringify(jobj));
-            var au = url; // + "?jumpData="+ param;
+            var au = url;
             if (Tools.isHaveString("?", url)) {
                 au = url + "&jumpData=" + param;
             }
@@ -420,34 +386,24 @@ var Tools = /** @class */ (function () {
             }
             var enUrl = encodeURI(au);
             au = enUrl;
-            // Debug.trace("jump2module:"+au);
-            // Debug.trace(jobj);
-            //Add by Jelly 设定死 
-            // if(Common.IS_NATIVE_APP)
-            if (1 + 1 == 2) {
-                //这里都需要使用postMessage Modify by Jelly on 2018.12.27
-                //Add by Jelly on 2018.12.27
-                switch (type) {
-                    case "account":
-                        PostMHelp.game_account(jobj);
-                        break;
-                    case "custom":
-                        PostMHelp.game_custom(jobj);
-                        break;
-                    case "recharge":
-                        PostMHelp.game_recharge(jobj);
-                        break;
-                    case "redraw":
-                        PostMHelp.game_redraw(jobj);
-                        break;
-                    case "share":
-                        PostMHelp.game_share(jobj);
-                        break;
-                }
-                // PostMHelp.jupmToUrl({jobj,au})
-            }
-            else {
-                window.location.href = au;
+            //这里都需要使用postMessage Modify by Jelly on 2018.12.27
+            //Add by Jelly on 2018.12.27
+            switch (type) {
+                case "account":
+                    PostMHelp.game_account(jobj);
+                    break;
+                case "custom":
+                    PostMHelp.game_custom(jobj);
+                    break;
+                case "recharge":
+                    PostMHelp.game_recharge(jobj);
+                    break;
+                case "redraw":
+                    PostMHelp.game_redraw(jobj);
+                    break;
+                case "share":
+                    PostMHelp.game_share(jobj);
+                    break;
             }
         }
         catch (e) {
@@ -1213,6 +1169,12 @@ var Tools = /** @class */ (function () {
         if (conf.font.overflow) {
             lb.overflow = conf.font.overflow;
         }
+        if (conf.font.stroke) {
+            lb.stroke = conf.font.stroke;
+        }
+        if (conf.font.strokeColor) {
+            lb.strokeColor = conf.font.strokeColor;
+        }
         return lb;
     };
     Tools.newLabels = function (conf) {
@@ -1279,6 +1241,11 @@ var Tools = /** @class */ (function () {
     //数字限定长度 不足在前面补0
     Tools.FormatNumber = function (num, length) {
         return (Array(length).join('0') + num).slice(-length);
+    };
+    //将数字格式化到小数点后几位
+    Tools.FormatFloatNumber = function (num, len) {
+        var st = Number(num).toFixed(len);
+        return st;
     };
     //金额管制 以万为单位，万以下以元为单位
     Tools.FormatMoney = function (num, len) {
