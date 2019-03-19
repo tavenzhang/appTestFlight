@@ -88,7 +88,9 @@ var RoomItem = /** @class */ (function (_super) {
             Debug.trace(s);
         }
     };
-    RoomItem.prototype.onClickItem = function () {
+    RoomItem.prototype.onClickItem = function (e) {
+        Debug.trace("RoomItem.onClickItem e:");
+        Debug.trace(e);
         //发生点击了
         if (!this.btn_icon.bclick) {
             return;

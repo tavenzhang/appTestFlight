@@ -3,6 +3,7 @@
     "panel":{
         "content":{
             "pos":{ "x":0, "y":195 },
+            "posY":{ "x":0, "y":0 },
             "hidepos":{ "x":1500, "y":195 },
             "durationIn":500,
             "durationOut":1000,
@@ -24,6 +25,7 @@
         "btnicon":{
             "desc":"头像按钮，点击后可以打开个人信息面板",
             "pos":{ "x":225, "y":201 },
+            "posY":{ "x":0, "y":0 },
             "src":[
                 "./assets/ui/room/room00.png"
             ],
@@ -35,7 +37,7 @@
         },
         "showbgX":{
             "color":"#ff0000",
-            "alpha":0.1
+            "alpha":0.3
         },
         "statusNormal":{
             "status":[

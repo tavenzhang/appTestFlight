@@ -12,12 +12,10 @@ var __assign = (this && this.__assign) || function () {
 var PostMHelp = /** @class */ (function () {
     function PostMHelp() {
     }
-    //native log 
     PostMHelp.Log = function (data) {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "Log" }, data)), "*");
     };
-    //令牌更改通知消息
     PostMHelp.tokenChange = function (data) {
         if (data === void 0) { data = {}; }
         var msg = JSON.stringify(__assign({ action: "game_user_token" }, data));
@@ -28,12 +26,10 @@ var PostMHelp = /** @class */ (function () {
     };
     PostMHelp.jumpToGame = function (data) {
         if (data === void 0) { data = {}; }
-        //需要关闭声音
         try {
             lamain.onGamePause();
         }
         catch (e) { }
-        //
         var msg = JSON.stringify(__assign({ action: "game_open_game" }, data));
         window.top.postMessage(msg, "*");
         if (AppData.IS_NATIVE_APP) {
@@ -48,37 +44,30 @@ var PostMHelp = /** @class */ (function () {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "game_back" }, data)), "*");
     };
-    //充值
     PostMHelp.game_recharge = function (data) {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "game_recharge" }, data)), "*");
     };
-    //提款
     PostMHelp.game_redraw = function (data) {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "game_redraw" }, data)), "*");
     };
-    //打开个人信息
     PostMHelp.game_account = function (data) {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "game_account" }, data)), "*");
     };
-    //打开客服
     PostMHelp.game_custom = function (data) {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "game_custom" }, data)), "*");
     };
-    //代理大厅 所有app请求
     PostMHelp.game_Http = function (data) {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "http" }, data)), "*");
     };
-    //调试信息
     PostMHelp.debugInfo = function (data) {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "debugInfo" }, data)), "*");
     };
-    //调试信息
     PostMHelp.game_share = function (data) {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "game_share" }, data)), "*");

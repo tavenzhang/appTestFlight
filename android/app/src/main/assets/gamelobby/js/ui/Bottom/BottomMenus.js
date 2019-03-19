@@ -36,6 +36,8 @@ var BottomMenus = /** @class */ (function (_super) {
         // Debug.trace(this.conf);
         if (this.conf.menus) {
             // for(var a in this.conf.menus)
+            // Debug.trace("BottomMenus.init menus:"+this.conf.menus.length);
+            // Debug.trace(this.conf.menus);
             for (var a = 0; a < this.conf.menus.length; a++) {
                 var bc = this.conf.menus[a];
                 var btn = new MyButton();
@@ -43,50 +45,31 @@ var BottomMenus = /** @class */ (function (_super) {
                 btn.init(bc, this, this.onClick);
                 btn.setQuery(bc.cmd);
                 this.addChild(btn);
-                btn.pos(bc.pos.x, bc.pos.y);
+                // btn.pos(bc.pos.x,bc.pos.y);
             }
         }
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
     BottomMenus.prototype.onClick = function (btn) {
+        // Debug.trace("BottomMenus.onClick btn:");
+        // Debug.trace(btn);
         this.click(btn.getQuery());
     };
-    // public onClickHighscore(e:any):void
-    // {
-    //     this.click("fullscreen");
-    // }
-    // public onClickChat(e:any):void
-    // {
-    //     this.click("rule");
-    // }
-    // public onClickMore(e:any):void
-    // {
-    //     this.click("history");
-    // }
-    // public onClickStore(e:any):void
-    // {
-    //     this.click("setting");
-    // }
     BottomMenus.prototype.click = function (style) {
         // Debug.trace("click style:"+style);
-        if (style == "history") {
-            //查看当前选中的游戏战绩
-            HistoryDialog.showPad(Common.gameId);
-        }
-        else if (style == "fullscreen") {
-            // Debug.trace('highscore click');
-            // Tools.doFullscreen();
-        }
-        else if (style == "rule") {
-            // window.location.href = "https://www.google.com";
-            // lamain.showHelpPad(Common.getCurGameAlias());
-            HelpPad.showPad("");
-        }
-        else if (style == "setting") {
-            var conf = ConfObjRead.getConfSetting();
-            // Debug.trace("SettingPad conf:");
-            // Debug.trace(conf);
-            SettingPad.showPad(Laya.stage, conf, this, this.setCallback);
+        switch (style) {
+            case "history":
+                HistoryDialog.showPad(Common.gameId);
+                break;
+            case "fullscreen":
+                // Tools.doFullscreen();
+                break;
+            case "rule":
+                HelpPad.showPad("");
+                break;
+            case "setting":
+                SettingPad.showPad(Laya.stage, ConfObjRead.getConfSetting(), this, this.setCallback);
+                break;
         }
     };
     BottomMenus.prototype.setCallback = function (e) {

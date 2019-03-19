@@ -49,9 +49,9 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
             var obj = UpdateMsgHandle.updateInitMsg[i];
             // Debug.trace(obj);
             if (obj.alias == alias) {
-                Debug.trace("UpdateMsgHandle.clearInfoByAlias alias:" + alias + " i:" + i);
+                // Debug.trace("UpdateMsgHandle.clearInfoByAlias alias:"+alias+" i:"+i);
                 UpdateMsgHandle.updateInitMsg.splice(i, 1);
-                Debug.trace(UpdateMsgHandle.updateInitMsg);
+                // Debug.trace(UpdateMsgHandle.updateInitMsg);
                 return;
             }
         }

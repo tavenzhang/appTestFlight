@@ -69,6 +69,7 @@ export default class XXWebView extends Component {
             })
         });
     }
+    
 
 
     handleUrl = (url, data) => {
@@ -145,6 +146,7 @@ export default class XXWebView extends Component {
             let data = TW_Store.dataStore.appGameListM[ret.param.id];
             data.version=data.newVersion;
             data.bupdate =false;
+            this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.updateProgress,{data:[{"alias":ret.param.id,percent:1}]}));
             this.onSaveGameData();
         }else{
             TW_Store.commonBoxStore.isShow=false;
@@ -175,9 +177,9 @@ export default class XXWebView extends Component {
             };
         }
 
-       if(TW_IS_DEBIG){
-            source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-        }
+       // if(TW_IS_DEBIG){
+       //      source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+       //  }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({
@@ -271,7 +273,6 @@ export default class XXWebView extends Component {
                         }
                     break;
                 case "JumpGame":
-
                     let data =JSON.parse(TW_Base64.decode(this.getJumpData(message.payload)));
                     let gameData = TW_Store.dataStore.appGameListM[data.alias];
                     let isNeedLoad=false;
