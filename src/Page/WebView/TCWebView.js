@@ -41,6 +41,7 @@ export default class TCWebView extends Component {
     componentWillMount() {
         TW_Store.bblStore.lastGameUrl = "";
         TW_Store.bblStore.isLoading = true;
+        TW_OnBackHomeJs=this.onBackHomeJs;
     }
 
     render() {
@@ -222,7 +223,9 @@ export default class TCWebView extends Component {
     };
 
     onBackHomeJs = () => {
+
         let {onEvaleJS} = this.props
+        TW_Log("onEvaleJS---onBackHomeJs--",onEvaleJS)
         if (onEvaleJS) {
             onEvaleJS(this.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.playMusic));

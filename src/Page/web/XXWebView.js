@@ -30,6 +30,7 @@ export default class XXWebView extends Component {
         TW_Store.bblStore.isLoading=true;
         TW_Store.bblStore.lastGameUrl="";
     }
+    
 
 
     render() {

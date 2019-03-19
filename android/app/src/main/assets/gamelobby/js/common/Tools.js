@@ -366,7 +366,6 @@ var Tools = /** @class */ (function () {
         //}
         return "." + instr;
     };
-    //跳转到扩展模块
     Tools.jump2module = function (url, type) {
         try {
             var jobj = {
@@ -386,8 +385,6 @@ var Tools = /** @class */ (function () {
             }
             var enUrl = encodeURI(au);
             au = enUrl;
-            //这里都需要使用postMessage Modify by Jelly on 2018.12.27
-            //Add by Jelly on 2018.12.27
             switch (type) {
                 case "account":
                     PostMHelp.game_account(jobj);
@@ -410,12 +407,9 @@ var Tools = /** @class */ (function () {
             Debug.trace(e);
         }
     };
-    //载入指定路径的js代码
-    //这种方式会重写整个页面，加到head标签里面
     Tools.loadJavaScript = function (src) {
         document.write("<scr" + "ipt src='" + src + "' loader='laya'></scr" + 'ipt>');
     };
-    //按规则缩放精灵,wid - 目标总宽度
     Tools.scaleSprite = function (sp, src, conf, wid) {
         if (wid === void 0) { wid = 0; }
         var lw = conf.lw;
@@ -431,49 +425,37 @@ var Tools = /** @class */ (function () {
         }
         var tw = texture.width;
         var th = texture.height;
-        // sp.graphics.drawTexture(texture,0,0,tw,th);
         var x1, y1, w1, h1;
         x1 = 0;
         y1 = 0;
-        w1 = lw; //x1 + lx;
+        w1 = lw;
         h1 = th;
-        // Debug.trace('x1:'+x1+" y1:"+y1+" w1:"+w1+" h1:"+h1);
-        // sp.graphics.drawTexture(texture,x1,y1,w1,h1);
         var texLeft = Laya.Texture.createFromTexture(texture, x1, y1, w1, h1);
         sp.graphics.drawTexture(texLeft, x1, y1, texLeft.width, texLeft.height);
         var x2, y2, w2, h2;
         x2 = tw - rw;
         y2 = 0;
-        w2 = rw; //x2 + (rx-cx);
+        w2 = rw;
         h2 = th;
-        // Debug.trace('x2:'+x2+" y2:"+y2+" w2:"+w2+" h2:"+h2);
         var texRight = Laya.Texture.createFromTexture(texture, x2, y2, w2, h2);
         var drawX, drawY, drawW, drawH;
         drawX = x1 + w1 + midw;
         drawY = y2;
         drawW = texRight.width;
         drawH = texRight.height;
-        // Debug.trace('drawX:'+drawX+" drawY:"+drawY+" drawW:"+drawW+" drawH:"+drawH);
-        sp.graphics.drawTexture(texRight, drawX, //750,
-        drawY, //0,
-        drawW, drawH);
+        sp.graphics.drawTexture(texRight, drawX, drawY, drawW, drawH);
         var x_c, y_c, w_c, h_c;
         x_c = lw;
         y_c = 0;
         w_c = tw - lw - rw;
         h_c = th;
-        // Debug.trace("xc:"+x_c+" yc:"+y_c+" wc:"+w_c+" hc:"+h_c);
         var texCenter = Laya.Texture.createFromTexture(texture, x_c, y_c, w_c, h_c);
         drawX = w1;
         drawY = y_c;
         drawW = midw;
         drawH = texRight.height;
-        // Debug.trace('drawX:'+drawX+" drawY:"+drawY+" drawW:"+drawW+" drawH:"+drawH);
-        sp.graphics.drawTexture(texCenter, drawX, drawY, drawW, //texCenter.width,//
-        drawH);
-        // sp.graphics.drawTexture(texture,x2,y2,w2,h2);
+        sp.graphics.drawTexture(texCenter, drawX, drawY, drawW, drawH);
     };
-    //按规则缩放精灵V向 hei - 目标总高度
     Tools.scaleSpriteV = function (sp, src, conf, hei) {
         if (hei === void 0) { hei = 0; }
         var th = conf.th;
@@ -483,13 +465,10 @@ var Tools = /** @class */ (function () {
         if (hei != 0) {
             midh = Math.floor(hei) - th - bh;
         }
-        // Debug.trace("Tools.scaleSpriteV src:"+src);
         var texture = Laya.loader.getRes(Tools.getSrc(src));
         if (!texture) {
             return;
         }
-        // Debug.trace("Tools.scaleSpriteV texture:");
-        // Debug.trace(texture);
         var txw = texture.width;
         var txh = texture.height;
         var x1, y1, w1, h1;
@@ -497,7 +476,6 @@ var Tools = /** @class */ (function () {
         y1 = 0;
         w1 = txw;
         h1 = th;
-        // Debug.trace('x1:'+x1+" y1:"+y1+" w1:"+w1+" h1:"+h1);
         var tex1 = Laya.Texture.createFromTexture(texture, x1, y1, w1, h1);
         sp.graphics.drawTexture(tex1, x1, y1, tex1.width, tex1.height);
         var x2, y2, w2, h2;

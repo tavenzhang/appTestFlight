@@ -132,7 +132,7 @@ export default class AppInfoStore {
         this.initDeviceTokenFromLocalStore();
         this.initAffCode();
         this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
-        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--"+appInfo, appInfo);
+        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--", appInfo);
     }
 
 

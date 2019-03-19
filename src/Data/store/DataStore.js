@@ -25,7 +25,7 @@ export default class DataStore {
     targetAppDir = G_IS_IOS ? DocumentDirectoryPath + "/gamelobby" : `file:///${DocumentDirectoryPath}/gamelobby`;
 
     @observable
-    saveVersionM={};
+    saveVersionM={name:"home",versionNum:"1",baseVersion:"1",source:"",isFlush:false};
 
     @observable
     log="";
@@ -54,13 +54,16 @@ export default class DataStore {
     startCheckZipUpdate=()=>{
         TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
             let verionM=null;
-            this.log+="-->startCheckZipUpdate---=ret"+ret
+            this.log+="-->startCheckZipUpdate---=ret--start"+ret
             try{
                 verionM = JSON.parse(ret);
             }catch (error) {
-                verionM={}
+                this.log+="-->startCheckZipUpdate---=catch--"
             }
-            this.saveVersionM=verionM ? verionM:{} ;
+            if(ret&&verionM){
+                this.saveVersionM =verionM;
+            }
+            this.log+="-->startCheckZipUpdate---=ret-ret---"+JSON.stringify(this.saveVersionM)
             if(this.isCheckZipUpdate){
                 this.chectHomeZipUpdate();
             }
@@ -150,7 +153,7 @@ export default class DataStore {
                     this.unzipNewCourse(downloadDest);
                 }else{
                     this.log+="==>downloadFile--fail--notstart=";
-                    TW_Log('versionBBL --downloadFile --下载文件不存在--', downloadDest);
+                    TW_Log('versionBBL --downloadFile --下载文件不存在--', formUrl);
                     TW_Store.commonBoxStore.isShow=false;
                 }
             }).catch(err => {
