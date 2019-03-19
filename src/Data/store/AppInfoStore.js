@@ -73,7 +73,7 @@ export default class AppInfoStore {
     isInAnroidHack=false;
 
     @observable
-    subAppType="0";
+    subAppType="1";
 
     //tag 用于更新一次
     updateflag = false;
@@ -132,7 +132,7 @@ export default class AppInfoStore {
         this.initDeviceTokenFromLocalStore();
         this.initAffCode();
         this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
-        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--"+appInfo, appInfo);
+        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--", appInfo);
     }
 
 
