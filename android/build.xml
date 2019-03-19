@@ -1,22 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?> <!-- 项目名称test,可用全局替换为当前项目名称 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 用于全局替换为当前项目名称 -->
+<!-- 1. 更改当前包名和新包名 -->
+<!-- 请更换defaultPackageName与newPackageName里的property值 -->
+<!-- defaultPackageName: 当前包名, eg: com.jd -->
+<!-- newPackageName: 新包名, eg: com.tc168.qq -->
+<!-- 2. 执行ant脚本 -->
+<!-- 确保旧与新的包名已正确，在terminal执行 $ant build -->
+<!-- 3. 安装ant(如还未安装) -->
+<!-- 如还未安装ant，在terminal执行 $brew install ant -->
+
 <project>
-    <property name="defaultPackageName" value="com.caipiao.sanliuwu" />
-    <property name="defaultPackagePath" value="com/caipiao/sanliuwu" />
+    <property name="defaultPackageName" value="com.jd" />
     <property name="newPackageName" value="com.bbl.gmchy" />
-    <property name="newPackagePath" value="com/bbl/gmchy" />
-    <!--<echo>current directory: ${basedir}</echo>-->
+
+    <script language="javascript">
+        var defaultPackageName = project.getProperty("defaultPackageName");
+        project.setProperty("defaultPackagePath", defaultPackageName.split(".").join("/"));
+        var newPackageName = project.getProperty("newPackageName");
+        project.setProperty("newPackagePath", newPackageName.split(".").join("/"));
+    </script>
 
     <target name="build">
         <!-- Replaces all of the references to the old package name in files in the "src" directory -->
         <replace dir="app/src" summary="true" token="${defaultPackageName}" value="${newPackageName}" />
-
-        <!-- replaces the package name in the manifest -->
-        <replace file="app/src/main/AndroidManifest.xml" summary="true" token="${defaultPackageName}"
-            value="${newPackageName}" />
-
-        <!-- renames the src folders -->
+        <echo>重新命名src/java里的所有包名至${newPackageName}</echo>
+        <!-- Replaces the package name in the manifest -->
+        <replace file="app/src/main/AndroidManifest.xml" summary="true" token="${defaultPackageName}" value="${newPackageName}" />
+        <echo>重新命名AndroidManifest里的包名至${newPackageName}</echo>
+        <!-- Renames the src folders -->
         <move toDir="app/src/main/java/${newPackagePath}">
             <fileset dir="app/src/main/java/${defaultPackagePath}" />
         </move>
+        <echo>移动src里的包至${newPackagePath}</echo>
     </target>
 </project>
