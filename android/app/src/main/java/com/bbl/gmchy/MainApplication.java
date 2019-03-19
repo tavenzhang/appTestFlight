@@ -180,12 +180,12 @@ public class MainApplication extends Application implements ReactApplication {
     }
 
     private void initUmeng() {
-        String umengKey = BuildConfig.UMENG_KEY;
+//        String umengKey = BuildConfig.UMENG_KEY;
         String wechatKey = BuildConfig.WECHAT_KEY;
         String wechatSecretKey = BuildConfig.WECHAT_SECRET_KEY;
 
-        UMConfigure.setLogEnabled(BuildConfig.DEBUG);
-        RNUMConfigure.init(this, umengKey, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+//        UMConfigure.setLogEnabled(BuildConfig.DEBUG);
+//        RNUMConfigure.init(this, umengKey, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         PlatformConfig.setWeixin(wechatKey, wechatSecretKey);
 //        豆瓣RENREN平台目前只能在服务器端配置
 //        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
