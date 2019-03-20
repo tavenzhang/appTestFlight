@@ -209,7 +209,7 @@ android {
 //            def outputFile = output.outputFile
 //            if (outputFile != null && outputFile.name.endsWith('.apk')) {
 //                def fileName = ""
-//                def apkName = APK_NAME + ""
+//                def apkName = APK_FILE_NAME + ""
 //                def affSuffix = AFF_CODE ? "_${AFF_CODE}" : ""
 //                if (apkName != null && !apkName.isEmpty()) {
 //                    fileName = "${apkName}" + affSuffix + ".apk"
