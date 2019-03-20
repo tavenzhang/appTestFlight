@@ -81,8 +81,8 @@ export default class App extends Component {
         StatusBar.setHidden(true);
 
         TN_GetAppInfo((a)=>{
-            let appInfo = JSON.parse(a)
             if (G_IS_IOS){
+                let appInfo = JSON.parse(a)
                 TW_Log('JX===  appInfo '+appInfo.APP_DOWNLOAD_VERSION)
                 TN_StartJPush(appInfo.JPushKey,'1');
                 TN_START_Fabric()
