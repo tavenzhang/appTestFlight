@@ -279,8 +279,8 @@ export default class AppInfoStore {
      */
     initAffCode() {
         TN_GetAppInfo((a)=>{
-            let appInfo = JSON.parse(a)
             if (G_IS_IOS){
+                let appInfo = JSON.parse(a)
                 this.userAffCode = appInfo.Affcode;
             }
         })
