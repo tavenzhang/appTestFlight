@@ -1,7 +1,7 @@
 {
     "pos":{"x":0,"y":0},
     "switchX":{
-        "desc":"充值",
+        "desc":"",
         "pos":{ "x":1200, "y":706.5 },
         "src":[
             "./assets/ui/mine/btn_switch.png"
@@ -38,7 +38,7 @@
         },
         "btnsX":[
             {
-                "desc":"提现",
+                "desc":"",
                 "cmd":"redraw",
                 "pos":{ "x":1140, "y":700 },
                 "src":[
@@ -51,8 +51,5 @@
             }
         ]
     },
-    "default":{
-        "desc":"默认开还是关",
-        "bOpen":true
-    }
+    "default":{ "desc":"", "bOpen":true }
 }

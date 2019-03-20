@@ -1,30 +1,24 @@
 {
-    "desc":"金钱不足的提示板板",
+    "desc":"",
     "pos":{ "x":0, "y":0 },
-    "size":{
-        "desc":"大背景尺寸,要半透明的",
-        "w":1334, "h":750 
-    },
-    "mask":{
-        "desc":"大背景半透明度",
-        "alpha":0.6
-    },
+    "size":{ "desc":"", "w":1334, "h":750  },
+    "mask":{ "desc":"", "alpha":0.6 },
     "bg":{
-        "desc":"内容背景 纵向拉伸的",
+        "desc":"",
         "src":"./assets/ui/dialog/bgNotice.png",
         "pos":{ "x":350, "y":142 },
         "size":{"w":635,"h":466}
     },
     "title":{
         "lb":{
-            "desc":"标题显示的文字",
+            "desc":"",
             "src":"./assets/ui/dialog/lbNotice.png",
             "pos":{ "x":560.5, "y":166 },
             "size":{"w":214,"h":48}
         }
     },
     "content":{
-        "desc":"内容，一个label？Text？",
+        "desc":"",
         "pos":{ "x":0, "y":0 },
         "label":{
             "pos":{ "x":390, "y":250 },
@@ -44,7 +38,7 @@
         }
     },
     "close":{
-        "desc":"关闭按钮",
+        "desc":"",
         "pos":{ "x":960, "y":170 },
         "src":[
             "./assets/ui/dialog/btn_touxiang_guangbi.png"
@@ -55,7 +49,7 @@
         "normalScale":{"x":1,"y":1}
     },
     "recharge":{
-        "desc":"充值按钮",
+        "desc":"",
         "pos":{ "x":670, "y":525 },
         "src":[
             "./assets/ui/login/btn_ok.png"
@@ -66,8 +60,5 @@
         "normalScale":{"x":1,"y":1}
     },
     "clickrechargejump":false,
-    "touchout":{
-        "desc":"是否点按外部触发鼠标事件",
-        "value":false
-    }
+    "touchout":{ "desc":"", "value":false }
 }

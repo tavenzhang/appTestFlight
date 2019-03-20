@@ -1,7 +1,7 @@
 {
     "pos":{"x":0,"y":0},
     "switch":{
-        "desc":"充值",
+        "desc":"",
         "pos":{ "x":1200, "y":706.5 },
         "src":[
             "./assets/ui/mine/btn_switch.png"
@@ -17,9 +17,7 @@
             "loop":true,
             "loopdelay":1000,
             "pos":{ "x":1247, "y":710 },
-            "stopHide":{
-                "value":true
-            }
+            "stopHide":{ "value":true }
         },
         "alpha":0
     },
@@ -38,7 +36,7 @@
         },
         "btns":[
            {
-                "desc":"提现",
+                "desc":"",
                 "cmd":"redraw",
                 "pos":{ "x":1000, "y":700 },
                 "src":[
@@ -50,7 +48,7 @@
                 "sfxX":"assets/raw/Click.mp3"
             },
             {
-                "desc":"账户",
+                "desc":"",
                 "cmd":"account",
                 "pos":{ "x":880, "y":700 },
                 "src":[
@@ -62,7 +60,7 @@
                 "sfxX":"assets/raw/Click.mp3"
             },
             {
-                "desc":"分享",
+                "desc":"",
                 "cmd":"share",
                 "pos":{ "x":760, "y":700 },
                 "src":[
@@ -75,8 +73,5 @@
             }
         ]
     },
-    "default":{
-        "desc":"默认开还是关",
-        "bOpen":true
-    }
+    "default":{ "desc":"", "bOpen":true }
 }

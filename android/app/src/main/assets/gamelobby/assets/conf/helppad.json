@@ -1,7 +1,7 @@
 {
     "pos":{ "x":0, "y":0 },
     "size":{
-        "desc":"大背景尺寸",
+        "desc":"",
         "w":1334,
         "h":750
     },
@@ -10,7 +10,7 @@
         "pos":{ "x":139.5, "y":53 }
     },
     "mask":{
-        "desc":"大背景半透明度",
+        "desc":"",
         "alpha":0.6
     },
     "title":{
@@ -20,13 +20,13 @@
         }
     },
     "tablehead":{
-        "desc":"表格标题",
+        "desc":"",
         "bg":{
             "src":"./assets/ui/rule/bgTitle.png",
             "pos":{ "x":180, "y":140 }
         },
         "headlines":{
-            "desc":"表头的分隔线",
+            "desc":"",
             "src":"./assets/ui/rule/vlineTitle.png",
             "ws":[
                 240,244,242
@@ -35,7 +35,7 @@
             "labels":[
                 {
                     "switch":{
-                        "desc":"切换开关",
+                        "desc":"",
                         "pos":{ "x":180, "y":140 },
                         "src":[
                             "./assets/ui/rule/btn_paixing_00.png",
@@ -47,7 +47,7 @@
                 },
                 {
                     "switch":{
-                        "desc":"切换开关",
+                        "desc":"",
                         "pos":{ "x":422, "y":140 },
                         "src":[
                             "./assets/ui/rule/btn_wanfa_00.png",
@@ -58,7 +58,7 @@
                 },
                 {
                     "switch":{
-                        "desc":"切换开关",
+                        "desc":"",
                         "pos":{ "x":664, "y":140 },
                         "src":[
                             "./assets/ui/rule/btn_jiesuan_00.png",
@@ -69,7 +69,7 @@
                 },
                 {
                     "switch":{
-                        "desc":"切换开关",
+                        "desc":"",
                         "pos":{ "x":911, "y":140 },
                         "src":[
                             "./assets/ui/rule/btn_guanyu_00.png",
@@ -103,7 +103,7 @@
     "content":{
         "pos":{ "x":200, "y":205 },
         "rect":{
-            "desc":"绘制矩形参数",
+            "desc":"",
             "x":0,
             "y":0,
             "w":972,
@@ -112,7 +112,7 @@
     },
     "defaultItemConfs":[
         {
-            "desc":"牌型",
+            "desc":"",
             "pos":{ "x":5, "y":5 },
             "href":[
                 "./assets/ui/rule/ct_paixing.png",
@@ -120,21 +120,21 @@
             ]
         },
         {
-            "desc":"玩法",
+            "desc":"",
             "pos":{ "x":5, "y":5 },
             "href":[
                 "./assets/ui/rule/ct_wanfa.png"
             ]
         },
         {
-            "desc":"结算",
+            "desc":"",
             "pos":{ "x":5, "y":5 },
             "href":[
                 "./assets/ui/rule/ct_jiesuan.png"
             ]
         },
         {
-            "desc":"关于",
+            "desc":"",
             "pos":{ "x":5, "y":-10 },
             "href":[
                 "./assets/ui/rule/ct_guanyu.png"
@@ -142,7 +142,7 @@
         }
     ],
     "close":{
-        "desc":"关闭按钮",
+        "desc":"",
         "pos":{ "x":1167, "y":84 },
         "src":[
             "./assets/ui/dialog/btn_touxiang_guangbi.png"
@@ -153,13 +153,13 @@
         "normalScale":{"x":1,"y":1}
     },
     "touchout":{
-        "desc":"是否点按外部触发鼠标事件",
+        "desc":"",
         "value":false
     },
     "slip":{
-        "desc0":"滑动距离",
+        "desc0":"",
         "slipdis":100,
-        "desc1":"滑动时间间隔",
+        "desc1":"",
         "slipdistime":1000,
         "duration":500,
         "poshideleft":{ "x":-400, "y":0 },
