@@ -51,7 +51,6 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.giconAnimObj = Laya.Loader.getRes("./assets/conf/gameiconanim.json");
         return ConfObjRead.giconAnimObj;
     };
-    //取出游戏图标配置
     ConfObjRead.getGameIconSrcByAlias = function (alias) {
         var obj = ConfObjRead.getGameIconAnim();
         for (var i = 0; i < obj.icons.length; i++) {
@@ -59,7 +58,6 @@ var ConfObjRead = /** @class */ (function () {
                 return obj.icons[i].src;
             }
         }
-        //没有配置的时候不能为空，给一个默认的
         return obj.defaultIcon.src;
     };
     ConfObjRead.getGameIconAnimByAlias = function (alias) {
@@ -69,13 +67,11 @@ var ConfObjRead = /** @class */ (function () {
                 return obj.icons[i].anim;
             }
         }
-        //没有配置的时候不能为空，给一个默认的
         return obj.defaultIcon.anim;
     };
     ConfObjRead.getGameIconAnimBySrcX = function (src) {
         var obj = ConfObjRead.getGameIconAnim();
         for (var i = 0; i < obj.icons.length; i++) {
-            // if( obj.icons[i].src == src )
             if (src.indexOf(obj.icons[i].src) >= 0) {
                 return obj.icons[i].anim;
             }
@@ -153,8 +149,6 @@ var ConfObjRead = /** @class */ (function () {
             return ConfObjRead.settingpadObj;
         }
         ConfObjRead.settingpadObj = Laya.Loader.getRes("./assets/conf/setting.json");
-        // Debug.trace("SettingPad conf:");
-        // Debug.trace(ConfObjRead.settingpadObj);
         return ConfObjRead.settingpadObj;
     };
     ConfObjRead.getConfAttention = function () {
@@ -344,36 +338,25 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.htmlObj = null;
     ConfObjRead.giconAnimObj = null;
     ConfObjRead.gamepanelObj = null;
-    //跑马灯消息
     ConfObjRead.runningmsgObj = null;
     ConfObjRead.commonObj = null;
     ConfObjRead.urlObj = null;
     ConfObjRead.room_roompadObj = null;
     ConfObjRead.roomlistObj = null;
     ConfObjRead.avatorObj = null;
-    //获取头像修改面板配置
     ConfObjRead.room_avatorObj = null;
     ConfObjRead.settingpadObj = null;
-    //公告弹窗配置
     ConfObjRead.attentionObj = null;
     ConfObjRead.noticeDialogObj = null;
     ConfObjRead.room_helpObj = null;
-    //金钱不足的对话框
     ConfObjRead.nomoneyObj = null;
-    //读取提示信息
     ConfObjRead.room_toastObj = null;
-    //加载进度框样式配置
     ConfObjRead.room_saiziObj = null;
-    //读取战绩配置
     ConfObjRead.room_historyObj = null;
-    //底部菜单
     ConfObjRead.room_bottomObj = null;
-    //公告滚动消息框
     ConfObjRead.room_noticeObj = null;
-    //标题栏
     ConfObjRead.room_titlebarObj = null;
     ConfObjRead.rmttbObj = null;
-    //房间背景配置
     ConfObjRead.room_bgObj = null;
     ConfObjRead.peoplesObj = null;
     ConfObjRead.minemenuObj = null;

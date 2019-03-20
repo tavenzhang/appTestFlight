@@ -17,24 +17,15 @@ var RoomScene = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     RoomScene.prototype.initUI = function (gamedata) {
-        //背景
         UIBg.getInstance(this, ConfObjRead.getConfUiBg());
-        //标题栏
         RoomTitleBar.getInstance(this, ConfObjRead.getConfRoomTitlebar(), this, this.titlebarOver);
-        //头像
         Avator.getInstance(this, ConfObjRead.getConfAvator(), this, this.OnAvatorScrollOut);
-        //版本信息
         VersionStat.getInstance(this, ConfObjRead.getConfVersion());
-        //跑马灯消息
-        // RunningMsg.getInstance(this,ConfObjRead.getConfRunningmsg(),
-        //     this,this.runningmsgOver);
         var msgUrl = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.noticelist +
             "?pageSize=20&start=0&access_token=" + Common.access_token;
         RunningMsg.getInstance(this, "./assets/conf/runningmsg.json", msgUrl);
-        //房间列表
         RoomPanel.getInstance(this, ConfObjRead.getConfRoomPanel(), gamedata, this, this.roompanelOver);
-        //底部菜单
         BottomMenus.getInstance(this, ConfObjRead.getConfBottommenu());
     };
     RoomScene.prototype.OnAvatorScrollOut = function (e) {
@@ -49,9 +40,7 @@ var RoomScene = /** @class */ (function (_super) {
     };
     RoomScene.prototype.roompanelOver = function () {
     };
-    //载入完毕
     RoomScene.prototype.onLoaded = function (s) {
-        //构造界面
         this.initUI(s);
     };
     return RoomScene;

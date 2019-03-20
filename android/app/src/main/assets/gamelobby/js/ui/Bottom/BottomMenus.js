@@ -15,8 +15,8 @@ var BottomMenus = /** @class */ (function (_super) {
     __extends(BottomMenus, _super);
     function BottomMenus() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.state = 0; //初始状态是藏起来的
-        _this.style = ""; //当前是在哪个界面
+        _this.state = 0;
+        _this.style = "";
         return _this;
     }
     BottomMenus.getInstance = function (node, conf) {
@@ -33,36 +33,27 @@ var BottomMenus = /** @class */ (function (_super) {
     };
     BottomMenus.prototype.init = function (conf) {
         this.conf = conf;
-        // Debug.trace(this.conf);
         if (this.conf.menus) {
-            // for(var a in this.conf.menus)
-            // Debug.trace("BottomMenus.init menus:"+this.conf.menus.length);
-            // Debug.trace(this.conf.menus);
             for (var a = 0; a < this.conf.menus.length; a++) {
                 var bc = this.conf.menus[a];
                 var btn = new MyButton();
-                btn.actionDown = bc.actionDown; //true;   //该按钮动作是按下即执行
+                btn.actionDown = bc.actionDown;
                 btn.init(bc, this, this.onClick);
                 btn.setQuery(bc.cmd);
                 this.addChild(btn);
-                // btn.pos(bc.pos.x,bc.pos.y);
             }
         }
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
     BottomMenus.prototype.onClick = function (btn) {
-        // Debug.trace("BottomMenus.onClick btn:");
-        // Debug.trace(btn);
         this.click(btn.getQuery());
     };
     BottomMenus.prototype.click = function (style) {
-        // Debug.trace("click style:"+style);
         switch (style) {
             case "history":
                 HistoryDialog.showPad(Common.gameId);
                 break;
             case "fullscreen":
-                // Tools.doFullscreen();
                 break;
             case "rule":
                 HelpPad.showPad("");
@@ -74,38 +65,31 @@ var BottomMenus = /** @class */ (function (_super) {
     };
     BottomMenus.prototype.setCallback = function (e) {
     };
-    //使用坐标隐藏
     BottomMenus.prototype.hidePos = function () {
         this.y = this.conf.scrollout.pos.y;
     };
-    //整体向上移动
     BottomMenus.prototype.scrollin = function () {
         this.visible = true;
         var tween = Laya.Tween.to(this, {
             x: this.conf.pos.x,
             y: this.conf.pos.y
-        }, this.conf.duration, 
-        // Laya.Ease["elasticOut"],
-        Laya.Ease["backIn"], new Laya.Handler(this, this.scrollinOver));
+        }, this.conf.duration, Laya.Ease["backIn"], new Laya.Handler(this, this.scrollinOver));
     };
     BottomMenus.prototype.scrollinOver = function (gotos) {
         this.state = 1;
         this.style = gotos;
     };
-    // 整体向下移出
     BottomMenus.prototype.scrollout = function () {
         var tween = Laya.Tween.to(this, {
             x: this.conf.scrollout.pos.x,
             y: this.conf.scrollout.pos.y
-        }, this.conf.duration, 
-        // Laya.Ease["elasticIn"],
-        Laya.Ease["backOut"], new Laya.Handler(this, this.scrolloutOver));
+        }, this.conf.duration, Laya.Ease["backOut"], new Laya.Handler(this, this.scrolloutOver));
     };
     BottomMenus.prototype.scrolloutOver = function () {
         this.state = 0;
         this.visible = false;
     };
-    BottomMenus.bClickFullscreen = false; //当前是否全屏
+    BottomMenus.bClickFullscreen = false;
     BottomMenus.obj = null;
     return BottomMenus;
 }(Laya.Sprite));

@@ -2,6 +2,8 @@
 import { observable,action} from 'mobx'
 import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
 import {platInfo, shareURL} from "../../config/appConfig";
+import {config} from "../../Common/Network/TCRequestConfig";
+import NetUitls from "../../Common/Network/TCRequestUitls";
 
 /**
  *app信息管理
@@ -156,6 +158,23 @@ export  default  class BBLStore {
 
     @observable
     shareURL=shareURL
+
+    @observable
+    shareData={}
+
+    @action
+    getAppData(){
+        let  url = TW_Store.bblStore.gameDomain+ config.api.gameShareDown.replace("#0",TW_Store.appStore.clindId);
+        NetUitls.getUrlAndParamsAndCallback(url, null, (ret) => {
+            if(ret.rs&&ret.content){
+                this.shareData = ret.content;
+                this.shareURL.ios=this.shareData.iosShareUrl;
+                this.shareURL.android=this.shareData.androidShareUrl;
+            }
+            TW_Log("---getUrlAndParamsAndCallback--getAppData--",ret.content)
+
+        },10,false,false);
+    }
 
 }
 

@@ -1,32 +1,11 @@
 {
-    "desc":"顶部标题栏",
+    "desc":"",
     "pos":{ "x":0, "y":0 },
     "duration":500,
-    "btns_des":"所有按钮统一排布",
-    "bak":[
-        {
-            "desc":"设置",
-            "cmd":"setting",
-            "pos":{ "x":920, "y":60 },
-            "src":[
-                "./assets/ui/titlebar/btn_setting.png"
-            ],
-            "font":{
-                "text":"",
-                "size":18,
-                "color":"#ffffff",
-                "borderColorX":"#ff0000",
-                "pos":{ "x":0, "y":0 }
-            },
-            "size":{ "w":82, "h":87 },
-            "sfx":"assets/raw/click.mp3",
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1}
-        }
-    ],
+    "btns_des":"",
     "btns":[
          {
-            "desc":"活动公告",
+            "desc":"",
             "cmd":"notice",
             "pos":{ "x":1140, "y":60 },
             "src":[
@@ -45,7 +24,7 @@
             "normalScale":{"x":1,"y":1}
         },
         {
-            "desc":"客服",
+            "desc":"",
             "cmd":"custom",
             "pos":{ "x": 1250, "y":60 },
             "src":[
@@ -64,7 +43,7 @@
             "normalScale":{"x":1,"y":1}
         },
         {
-            "desc":"返回",
+            "desc":"",
             "cmd":"quit",
             "pos":{ "x":1250, "y":-60 },
             "src":[

@@ -68,7 +68,7 @@ export default class XXWebView extends Component {
                 this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:lastList}));
             })
         });
-        TW_Store.gameUIStroe.getAppData();
+        TW_Store.bblStore.getAppData();
     }
     
 
@@ -178,9 +178,9 @@ export default class XXWebView extends Component {
             };
         }
 
-       // if(TW_IS_DEBIG){
-       //      source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-       //  }
+       if(TW_IS_DEBIG){
+            source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+        }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({

@@ -18,23 +18,23 @@
             "size":{ "w":1334, "h":550 }
         },
         "bmask":{
-            "desc":"是否使用遮罩",
+            "desc":"",
             "value":true
         },
         "rect":{ "x":0, "y":0, "w":902, "h":550 },
         "showbgX":{
-            "desc":"内容容器绘制背景",
+            "desc":"",
             "color":"#ff0000",
             "alpha":0.5
         }
     },
     "arrow":{
-        "desc":"右侧提示箭头，已废除",
+        "desc":"",
         "src":"./assets/ui/game/arrow_00.png",
         "pos":{ "x":1250, "y":260 }
     },
     "pagearrow":{
-        "desc":"右侧箭头动画",
+        "desc":"",
         "pos":{"x":1255,"y":260},
         "src":{
             "src":"./assets/ui/game/arrow_00.png",
@@ -42,18 +42,12 @@
         },
         "bclick":true,
         "right":{
-            "pos":{
-                "x":3,
-                "y":0
-            },
+            "pos":{ "x":3, "y":0 },
             "easeName":"backIn",
             "duration":400
         },
         "left":{
-            "pos":{
-                "x":-3,
-                "y":0
-            },
+            "pos":{ "x":-3, "y":0 },
             "easeName":"backIn",
             "duration":400
         },
@@ -79,13 +73,7 @@
             "src":[
                 "./assets/ui/game/defaulticon.png"
             ],
-            "size":{
-                "w":244,
-                "h":202,
-                "gw":30,
-                "gh":30,
-                "offsetx":100
-            },
+            "size":{ "w":244, "h":202, "gw":30, "gh":30, "offsetx":100 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
             "sfx":"assets/raw/flopright.mp3",
@@ -159,16 +147,16 @@
             "x":0,"y":0,"w":910,"h":550
         },
         "itembgX":{
-            "desc":"图标整体背景",
+            "desc":"",
             "color":"#ffff00",
             "alpha":0.5
         },
-        "desc_jump":"点击箭头要跳的速度与持续时间",
+        "desc_jump":"",
         "jumpspd":-5,
         "jumptime":1000,
         "jumpspds":-110,
         "jumptimes":200,
-        "desc_offset":"自动滑动，超过一定值，就算滑动完毕",
+        "desc_offset":"",
         "minxOffsetX":200,
         "maxxOffsetX":200
     },
@@ -176,44 +164,28 @@
         "bg":{
             "src":"./assets/ui/progress/img_fangjian_jingdu01.png",
             "srcX":"./assets/ui/progress/10.png",
-            "pos":{
-                "x":0,
-                "y":395
-            },
+            "pos":{ "x":0, "y":395 },
             "size":{
                 "w":550,
                 "h":0,
-                "splice":{
-                    "lw":4,
-                    "cw":10,
-                    "rw":4,
-                    "cwid":542
-                }
+                "splice":{ "lw":4, "cw":10, "rw":4, "cwid":542 }
             }
         },
         "ft":{
             "src":"./assets/ui/progress/img_fangjian_jingdu02.png",
             "srcX":"./assets/ui/progress/10.png",
-            "pos":{
-                "x":0,
-                "y":396
-            },
+            "pos":{ "x":0, "y":396 },
             "size":{
                 "w":55,
                 "h":0,
-                "splice":{
-                    "lw":4,
-                    "cw":10,
-                    "rw":4,
-                    "cwid":47
-                }
+                "splice":{ "lw":4, "cw":10, "rw":4, "cwid":47 }
             }
         },
         "showinsmall":false,
         "fadeAlpha":0.1
     },
     "scrollcom":{
-        "desc":"滚动配置",
+        "desc":"",
         "spdpoolcount":10,
         "goondis":200,
         "duration":1500
