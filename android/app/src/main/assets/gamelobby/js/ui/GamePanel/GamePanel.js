@@ -451,6 +451,10 @@ var GamePanel = /** @class */ (function (_super) {
             }
         }
     };
+    GamePanel.prototype.resume = function () {
+        var gi = this.getIconByGameId(Common.gameId);
+        gi.btn_icon.bclick = true;
+    };
     GamePanel.obj = null;
     return GamePanel;
 }(Laya.Sprite));

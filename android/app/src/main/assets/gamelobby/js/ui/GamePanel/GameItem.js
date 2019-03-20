@@ -109,7 +109,7 @@ var GameItem = /** @class */ (function (_super) {
         }
     };
     GameItem.prototype.onClickItem = function () {
-        Debug.trace("GameItem.onClickItem this.sStatus:" + this.sStatus);
+        // Debug.trace("GameItem.onClickItem this.sStatus:"+this.sStatus);
         switch (this.sStatus) {
             case GameItem.STATUS_PAUSE:
             case GameItem.STATUS_COMING:
@@ -132,6 +132,10 @@ var GameItem = /** @class */ (function (_super) {
             Laya.SoundManager.playSound(this.conf.sfx);
         }
         if (this.data.jumpUrl) {
+            if (!this.btn_icon.bclick) {
+                return;
+            }
+            this.btn_icon.bclick = false;
             var url = this.data.url;
             Tools.jump2game(url);
         }

@@ -24,7 +24,12 @@ var RoomPanel = /** @class */ (function (_super) {
         return _this;
     }
     RoomPanel.getInstance = function (node, conf, data, caller, callback) {
-        if (!RoomPanel.obj) {
+        if (node === void 0) { node = null; }
+        if (conf === void 0) { conf = null; }
+        if (data === void 0) { data = null; }
+        if (caller === void 0) { caller = null; }
+        if (callback === void 0) { callback = null; }
+        if (!RoomPanel.obj && node != null && conf != null && data != null && caller != null && callback != null) {
             var a = new RoomPanel();
             a.init(conf, data, caller, callback);
             node.addChild(a);
@@ -199,6 +204,19 @@ var RoomPanel = /** @class */ (function (_super) {
             it.destroy(true);
         }
         this.items.splice(0, this.items.length);
+    };
+    RoomPanel.prototype.getRoomById = function (id) {
+        for (var k = 0; k < this.items.length; k++) {
+            var it = this.items[k];
+            if (it.data.id == id) {
+                return it;
+            }
+        }
+        return null;
+    };
+    RoomPanel.prototype.resume = function () {
+        var ri = this.getRoomById(Common.roomId);
+        ri.btn_icon.bclick = true;
     };
     RoomPanel.obj = null;
     return RoomPanel;

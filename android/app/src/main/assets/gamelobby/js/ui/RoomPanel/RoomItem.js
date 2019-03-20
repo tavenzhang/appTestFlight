@@ -42,8 +42,9 @@ var RoomItem = /** @class */ (function (_super) {
     };
     RoomItem.prototype.setIcon = function (src) {
         this.icon_src = src;
-        var srcs = Tools.getCurDirPath(src);
-        this.iconLoaded(srcs, "");
+        // var srcs = Tools.getCurDirPath(src);
+        // Debug.trace("RoomItem.setIcon srcs:"+srcs);
+        this.iconLoaded(src, "");
     };
     RoomItem.prototype.iconLoaded = function (res, s) {
         try {
@@ -61,6 +62,7 @@ var RoomItem = /** @class */ (function (_super) {
             Laya.SoundManager.playSound(this.conf.sfx);
         }
         if (Common.canGoinGame(this.data)) {
+            this.btn_icon.bclick = false;
             var url = this.panel.gamedata.url;
             Tools.jump2game(url);
         }
@@ -73,6 +75,10 @@ var RoomItem = /** @class */ (function (_super) {
     };
     RoomItem.prototype.setData = function (dt, id) {
         this.data = dt;
+        // Debug.trace("RoomItem.setData id:"+id+" dt:");
+        // Debug.trace(dt);
+        // Debug.trace("RoomItem.setData this.conf.iconsrc:");
+        // Debug.trace(this.conf.iconsrc);
         try {
             this.setIcon(this.conf.iconsrc[id]);
         }

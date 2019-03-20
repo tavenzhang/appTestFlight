@@ -33,7 +33,7 @@ var LayaMain = /** @class */ (function () {
         //     window.addEventListener("message", this.handleAction,false);
         // }else{
         window.document.addEventListener("message", this.handleIFrameAction, false);
-        //}
+        // }
     }
     LayaMain.getInstance = function () {
         return LayaMain.obj;
@@ -86,6 +86,14 @@ var LayaMain = /** @class */ (function () {
             if (Avator.getInstance()) {
                 Avator.getInstance().flushUserInfo();
             }
+            try {
+                GamePanel.getInstance().resume();
+            }
+            catch (e) { }
+            try {
+                RoomPanel.getInstance().resume();
+            }
+            catch (e) { }
         }
         catch (e) { }
     };
