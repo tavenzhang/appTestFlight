@@ -2,10 +2,7 @@ import {TabNavigator, StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
 import {UIManager, StatusBar,Text,View,ToastAndroid,BackHandler} from 'react-native';
 import {Provider} from 'mobx-react'
-import {unzip} from 'react-native-zip-archive'
 import NavigationService from './NavigationService'
-import RNFS from "react-native-fs";
-import FlurryAnalytics from 'react-native-flurry-analytics';
 import rootStore from "../../Data/store/RootStore";
 import {observer} from 'mobx-react/native';
 const appStores = {
@@ -90,7 +87,7 @@ export default class App extends Component {
         TN_StartJPush(cData.jpushKey,cData.jpush_channel);
       //   FlurryAnalytics.startSession(G_IS_IOS ? cData.flurry_ios:cData.flurry_android);;
         if (!G_IS_IOS) {
-            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
+            BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
         TN_START_Fabric()
         TN_START_SHARE("111","222");
@@ -103,6 +100,11 @@ export default class App extends Component {
 
     }
 
+    componentWillUnmount(): void {
+        if (!G_IS_IOS) {
+            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+    }
 
 
     render() {
@@ -121,7 +123,7 @@ export default class App extends Component {
                             color: "yellow",
                             position: "absolute",
                             fontWeight:"bold"
-                        }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.saveVersionM)}` +
+                        }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
                     `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text> : null}
                     <CommonBoxLayer/>
                     <GameUIView/>
@@ -132,9 +134,13 @@ export default class App extends Component {
     }
 
     onBackAndroid = () => {
-        return false;
+        TW_Log("onBackAndroid----",this.navigator);
+       // return false;
         const routers = this.navigator.state.routes;
         if (routers&&routers.length > 1) {
+            if(TW_OnBackHomeJs){
+                TW_OnBackHomeJs();
+            }
             TW_NavHelp.goBack()
             return true;
         }

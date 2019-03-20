@@ -109,8 +109,33 @@
         "desc":"是否点按外部触发鼠标事件",
         "value":false
     },
-
     "btns":[
+        {
+            "desc":"设置",
+            "cmd":"setting",
+            "pos":{ "x":388, "y":595 },
+            "src":[
+                "./assets/ui/accountcenter/btn_setting.png"
+            ],
+            "size":{ "w":297, "h":108 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3"
+        },
+        {
+            "desc":"账户",
+            "cmd":"account",
+            "pos":{ "x":941, "y":600 },
+            "src":[
+                "./assets/ui/accountcenter/btn_zhanghuxinxi.png"
+            ],
+            "size":{ "w":297, "h":101 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3"
+        }
+    ],
+    "btnsX":[
         {
             "desc":"设置",
             "cmd":"setting",

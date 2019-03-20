@@ -18,11 +18,6 @@ var MyButton = /** @class */ (function (_super) {
         _this.bclick = true; // = bclick;	//是否可以点击
         _this.actionDown = false; //是否在按下的时候就响应执行回调
         return _this;
-        // public changeRes(res:any):void
-        // {
-        // 	var t = Laya.loader.getRes( Tools.getSrc(res[0]) );
-        // 	this.redraw(t);
-        // }
     }
     MyButton.prototype.setQuery = function (q) {
         this.query = q;
@@ -39,14 +34,9 @@ var MyButton = /** @class */ (function (_super) {
             this.btn_ui = new Laya.Sprite();
             this.btn_ui.pos(0, 0);
             this.addChild(this.btn_ui);
-            Laya.loader.load(this.res, Laya.Handler.create(this, this.onResLoaded));
+            this.onResLoaded();
+            // Laya.loader.load(this.res, Laya.Handler.create(this, this.onResLoaded));
         }
-        // if( this.conf.disablesrc )
-        // {
-        // 	Laya.loader.load(
-        // 		this.conf.disablesrc, 
-        // 		Laya.Handler.create(this, this.onDisResLoaded));
-        // }
         if (this.conf.actionDown) {
             this.actionDown = this.conf.actionDown;
         }
@@ -85,6 +75,10 @@ var MyButton = /** @class */ (function (_super) {
             this.scaleBtn(this.conf.normalScale);
         }
         this.pos(this.conf.pos.x, this.conf.pos.y);
+        // Tools.drawRectWithAlpha(this,
+        //         0,0,
+        //         this.width,this.height,
+        //         "#ff0000",0.3);
     };
     MyButton.prototype.show = function (b) {
         if (b) {
@@ -98,10 +92,11 @@ var MyButton = /** @class */ (function (_super) {
         this.sp_hint.visible = b;
     };
     MyButton.prototype.onResLoaded = function () {
-        this.btn_ui.graphics.clear();
+        // this.btn_ui.graphics.clear();
         var t = Laya.loader.getRes(Tools.getSrc(this.res[0]));
         this.redraw(t);
-        if (this.bclick) {
+        // if( this.bclick )
+        if (this.btn_ui) {
             // this.btn_ui.on(Laya.Event.CLICK, this, this.onBtnClick);
             // this.btn_ui.on(Laya.Event.MOUSE_DOWN, this, this.onBtnDown);
             // this.btn_ui.on(Laya.Event.MOUSE_UP, this, this.onBtnUp);
@@ -110,6 +105,7 @@ var MyButton = /** @class */ (function (_super) {
             this.btn_ui.on(Laya.Event.MOUSE_DOWN, this, this.onMouseEvent);
             this.btn_ui.on(Laya.Event.MOUSE_UP, this, this.onMouseEvent);
             this.btn_ui.on(Laya.Event.MOUSE_OUT, this, this.onMouseEvent);
+            // Debug.trace("MyButton.onResLoaded desc:"+this.conf.desc+"size w:"+this.btn_ui.width+" h:"+this.btn_ui.height + " bclick:"+this.bclick);
         }
     };
     MyButton.prototype.onDisResLoaded = function () {
@@ -124,9 +120,7 @@ var MyButton = /** @class */ (function (_super) {
             this.btn_ui.graphics.clear();
             if (this.conf.size) {
                 //有设定大小的情况下，按设定来
-                this.btn_ui.graphics.drawTexture(e, 
-                // this.conf.pos.x,this.conf.pos.y,
-                0, 0, this.conf.size.w, this.conf.size.h);
+                this.btn_ui.graphics.drawTexture(e, 0, 0, this.conf.size.w, this.conf.size.h);
                 this.btn_ui.size(this.conf.size.w, this.conf.size.h);
                 // this.btn_ui.pivot(this.conf.size.w/2,this.conf.size.h/2);
             }
@@ -137,6 +131,7 @@ var MyButton = /** @class */ (function (_super) {
                 // this.btn_ui.pivot(e.width/2,e.height/2);
             }
             this.btn_ui.pivot(this.btn_ui.width / 2, this.btn_ui.height / 2);
+            this.size(this.btn_ui.width, this.btn_ui.height);
         }
         catch (err) {
             Debug.trace("MyButton redraw err:");
@@ -163,11 +158,11 @@ var MyButton = /** @class */ (function (_super) {
         this.btn_name.visible = b;
     };
     MyButton.prototype.onMouseEvent = function (e) {
+        // Debug.trace('MyButton onMouseEvent bclick:'+this.bclick+" cmd:"+this.conf.desc);
+        // Debug.trace(e);
         if (!this.bclick) {
             return;
         }
-        // Debug.trace('MyButton onMouseEvent');
-        // Debug.trace(e);
         switch (e.type) {
             case Laya.Event.MOUSE_DOWN:
                 //记录当前的按下坐标
@@ -256,23 +251,25 @@ var MyButton = /** @class */ (function (_super) {
     MyButton.prototype.setEnabled = function (b, useImg) {
         if (useImg === void 0) { useImg = false; }
         this.bclick = b;
-        // if( useImg )
-        // {
-        // 	if( !b )
-        // 	{
-        // 		if( this.conf.disablesrc )
-        // 		{
-        // 			Debug.trace("change disable src:");
-        // 			Debug.trace(this.conf.disablesrc);
-        // 			this.changeRes(this.conf.disablesrc);
-        // 		}
-        // 	}else{
-        // 		Debug.trace("change src:");
-        // 		Debug.trace(this.conf.src);
-        // 		this.changeRes(this.conf.src);
-        // 	}
-        // }
+        if (useImg) {
+            if (!b) {
+                if (this.conf.disablesrc) {
+                    Debug.trace("change disable src:");
+                    Debug.trace(this.conf.disablesrc);
+                    this.changeRes(this.conf.disablesrc);
+                }
+            }
+            else {
+                Debug.trace("change src:");
+                Debug.trace(this.conf.src);
+                this.changeRes(this.conf.src);
+            }
+        }
         // Debug.trace("btn enable:"+this.bclick);
+    };
+    MyButton.prototype.changeRes = function (res) {
+        var t = Laya.loader.getRes(Tools.getSrc(res[0]));
+        this.redraw(t);
     };
     return MyButton;
 }(Laya.Sprite));

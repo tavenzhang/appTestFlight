@@ -269,7 +269,7 @@ var SettingPad = /** @class */ (function (_super) {
             //音乐按钮打开，开始播放   //Modified by Jelly on 2018.12.26   //Laya.SoundManager.playMusic(Common.confObj.music.src);
             // Laya.SoundManager.playMusic(Common.confObj.music.src);
             Laya.loader.load([{ url: ConfObjRead.getConfMusic().src }], new Laya.Handler(this, function () {
-                Debug.trace("player bg music");
+                // Debug.trace( "player bg music" );
                 Laya.timer.once(100, _this, function () {
                     Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
                 });

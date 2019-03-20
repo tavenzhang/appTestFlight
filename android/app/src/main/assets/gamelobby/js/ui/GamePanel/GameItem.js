@@ -11,10 +11,16 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/*
+游戏图标
+*/
 var GameItem = /** @class */ (function (_super) {
     __extends(GameItem, _super);
     function GameItem() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.sStatus = GameItem.STATUS_NORMAL;
+        _this.iUpdateProgress = 0; //更新或下载进度
+        _this.bInUpdate = false; //是否处于更新进程
         //上次绘制的半径
         _this.lastR = 10;
         //步进半径
@@ -69,11 +75,17 @@ var GameItem = /** @class */ (function (_super) {
         }
         // this.y = this.conf.pos.y;
     };
+    GameItem.prototype.getGraySrc = function (src) {
+        var n = Tools.getFileNameExt(src);
+        var srcDest = n.name + this.conf.btnicon.grayext + n.ext;
+        return srcDest;
+    };
     //显示灰色图片
     GameItem.prototype.showGray = function () {
-        var n = Tools.getFileNameExt(this.icon_src);
-        var src = n.name + this.conf.btnicon.grayext + n.ext;
-        var srcs = src;
+        // var n = Tools.getFileNameExt(this.icon_src);
+        // var src = n.name+this.conf.btnicon.grayext+n.ext;
+        // var srcs = src;
+        var srcs = this.getGraySrc(this.icon_src);
         // var srcs = Tools.getCurDirPath(src);
         // Debug.trace('GameItem.showGray n:'+n+' src:'+src+" srcs:"+srcs);
         // Laya.loader.load(srcs,new Laya.Handler(this,this.iconLoaded,[srcs]));
@@ -114,7 +126,7 @@ var GameItem = /** @class */ (function (_super) {
             this.lb_name.text = name;
         }
     };
-    GameItem.prototype.onMouseEvent = function (e) {
+    GameItem.prototype.onMouseEventX = function (e) {
         // Debug.trace('GameItem onMouseEvent');
         // Debug.trace(e);
         switch (e.type) {
@@ -138,34 +150,68 @@ var GameItem = /** @class */ (function (_super) {
                 break;
         }
     };
+    /*
     //绘制转圈圆弧，废弃
-    GameItem.prototype.drawPieX = function () {
-        var x = this.conf.drawcenter.x; //0;//this.width/2;
-        var y = this.conf.drawcenter.y; //0;//this.height/2;
+    public drawPieX():void
+    {
+        var x = this.conf.drawcenter.x;//0;//this.width/2;
+        var y = this.conf.drawcenter.y;//0;//this.height/2;
         var r = this.stepR + this.lastR;
         var fc = "#ffffff";
         var lc = "#ffffff";
         var lw = 0;
+
         var start = this.nowStartAngle;
         var end = start + this.stepAngle;
+
         // this.sp_icon.graphics.drawPie(x,y,r,start,end,fc,lc,lw);
-        this.sp_pie.graphics.drawPie(x, y, r, start, end, fc, lc, lw);
+        this.sp_pie.graphics.drawPie(x,y,r,start,end,fc,lc,lw);
+
         this.nowStartAngle = end;
-        if (this.nowStartAngle >= 360) {
+        if( this.nowStartAngle >= 360 )
+        {
             this.nowStartAngle -= 360;
         }
+
         this.lastR = r;
-        if (this.lastR >= this.maxR) {
+
+        if( this.lastR >= this.maxR )
+        {
             // Debug.trace('drawPie end');
-            Laya.timer.clear(this, this.drawPieX);
+            Laya.timer.clear(this,this.drawPieX);
+
             //跳转
-            var url = this.data.url; // + "?token="+Common.access_token+"&id="+this.data.id;
+            var url = this.data.url;// + "?token="+Common.access_token+"&id="+this.data.id;
             Tools.jump2game(url);
         }
-    };
+    }
+    */
     //点击图标
     GameItem.prototype.onClickItem = function () {
+        Debug.trace("GameItem.onClickItem this.sStatus:" + this.sStatus);
         //发生点击了
+        switch (this.sStatus) {
+            case GameItem.STATUS_PAUSE:
+            case GameItem.STATUS_COMING:
+                //不能点
+                break;
+            case GameItem.STATUS_ONLINE:
+                //在线玩
+                this.onLaunchGame();
+                break;
+            case GameItem.STATUS_UPDATE:
+                //需更新
+                this.onStartUpdate();
+                break;
+            default:
+                //一般状态，可以玩，点击进入
+                this.onLaunchGame();
+                break;
+        }
+    };
+    //点击启动游戏
+    GameItem.prototype.onLaunchGame = function () {
+        Debug.trace("GameItem.onLaunchGame this.data.id:" + this.data.id + " this.data.url:" + this.data.url);
         //记录下当前选中的游戏id
         Common.gameId = this.data.id;
         Common.wsUrl = this.data.url;
@@ -173,8 +219,6 @@ var GameItem = /** @class */ (function (_super) {
             // Debug.trace("GameItem.onClickItem sfx:"+this.conf.sfx);
             Laya.SoundManager.playSound(this.conf.sfx);
         }
-        // Debug.trace("GameItem.onClickItem gData this.data:");
-        // Debug.traceObj(this.data);
         //看配置成啥，配置成跳转到游戏的话，就去游戏，去房间列表的话，就去房间列表
         if (this.data.jumpUrl) {
             //跳转url
@@ -182,27 +226,11 @@ var GameItem = /** @class */ (function (_super) {
             Tools.jump2game(url);
         }
         else {
-            if (this.conf.actionOnClick) {
-                //游戏图标点击后，应该开始拉取当前该游戏的所有房间列表
-                // sceneRoot.getInGame(this.data);
-                //使用动画，女孩离开
-                // this.panel.scrollOutGirl();
-                // this.panel.scrollOutContent(this.data);
+            if (this.conf.actionOnClick) //进入房间列表
+             {
                 LayaMain.getInstance().initRoom(this.data);
             }
-            else {
-                // Debug.trace('GameItem onClick');
-                //调整深度，绘制弧面动画，切换到白屏
-                this.panel.setAllItemOrder(Common.IDX_BELOW_DRAW);
-                this.zOrder = Common.IDX_TOP_DRAW;
-                Laya.timer.loop(this.conf.dutimer, this, this.drawPieX);
-            }
         }
-        //不能点击了 如果是app 需要可以重复点击
-        // if(!Common.IS_NATIVE_APP)
-        // {
-        //       this.btn_icon.bclick = false;
-        // }
     };
     //设置数据
     GameItem.prototype.setData = function (dt) {
@@ -210,11 +238,26 @@ var GameItem = /** @class */ (function (_super) {
         // Debug.trace(dt);
         this.data = dt;
         this.icon_src = this.data.icon;
-        this.setEnable(true);
+        // this.setEnable(true);
+        if (this.data.state == "NORMAL") {
+            this.sStatus = GameItem.STATUS_NORMAL;
+        }
+        else if (this.data.state == "PAUSE") {
+            this.sStatus = GameItem.STATUS_PAUSE;
+        }
+        else if (this.data.state == "EXPECTATION") {
+            this.sStatus = GameItem.STATUS_COMING;
+        }
         //过滤233的路径为本地路径
-        var url = dt.icon;
-        this.setIcon(url);
+        // var url = dt.icon;
+        // this.setIcon(url);
+        var src = ConfObjRead.getGameIconSrcByAlias(this.data.alias);
+        // Debug.trace("GameItem.setData alias:"+this.data.alias+" src:"+src);
+        if (src) {
+            this.setIcon(src);
+        }
         this.setName(dt.name);
+        this.initAnim();
         this.setHot(dt.bhot);
         this.px = this.x;
     };
@@ -222,51 +265,50 @@ var GameItem = /** @class */ (function (_super) {
     GameItem.prototype.setHot = function (b) {
         this.sp_hot.visible = b;
     };
+    //初始化动画
+    GameItem.prototype.initAnim = function () {
+        this.animConf = ConfObjRead.getGameIconAnimByAlias(this.data.alias);
+        if (this.animConf && !this.sp_anim) {
+            this.sp_anim = new MyBoneAnim();
+            this.sp_anim.init(this.animConf);
+            this.addChild(this.sp_anim);
+            this.sp_anim.playAnim(0, true);
+        }
+    };
     //设置本游戏图标的可用性，是否可以点击
     GameItem.prototype.setEnable = function (b) {
+        // Debug.trace("GameItem.setEnable b:"+b+" this.btn_icon.bclick:"+this.btn_icon.bclick+" w:"+this.btn_icon.width+" h:"+this.btn_icon.height);
         if (this.data.state == "NORMAL") {
-            this.btn_icon.bclick = b;
-            //可用状态，贴动效
-            var anim = ConfObjRead.getGameIconAnimBySrc(this.icon_src);
-            // Debug.trace("GameItem.setEnable icon_src:"+this.icon_src);
-            // Debug.trace("GameItem.setEnable anim:");
-            // Debug.trace(anim);
-            if (anim && !this.sp_anim) {
-                this.sp_anim = new MyBoneAnim();
-                this.sp_anim.init(anim);
-                this.addChild(this.sp_anim);
-                this.sp_anim.playAnim(0, true);
-                this.btn_icon.alpha = anim.dAlpha;
-            }
-            else {
-                if (!this.sp_anim) {
-                    this.btn_icon.alpha = 1;
-                }
-            }
+            // this.btn_icon.bclick = b;
+            this.btn_icon.alpha = this.animConf.dAlpha;
+            this.btn_icon.setEnabled(true);
         }
         else {
             //显示灰色
+            this.sp_anim.alpha = 0;
             // Debug.trace("GameItem.setEnable b:"+b+" showGray");
             this.showGray();
+            this.showPause();
             // Tools.setSpriteGrayFilter(this.btn_icon);
-            if (this.sp_anim) {
-                Debug.trace("GameItem.setEnable gray anim");
-                Tools.setSpriteGrayFilter(this.sp_anim);
-            }
-            if (!this.sp_pause) {
-                var conf;
-                if (this.data.state == "PAUSE") {
-                    conf = this.conf.statePause;
-                }
-                else if (this.data.state == "EXPECTATION") {
-                    conf = this.conf.stateComing;
-                }
-                try {
-                    this.sp_pause = Tools.newSprite(conf);
-                    this.addChild(this.sp_pause);
-                }
-                catch (e) { }
-            }
+            // if( this.sp_anim )
+            // {
+            //     Debug.trace("GameItem.setEnable gray anim");
+            //     Tools.setSpriteGrayFilter(this.sp_anim);
+            // }
+            // if( !this.sp_pause )
+            // {
+            //     var conf:any;
+            //     if( this.data.state == "PAUSE" )
+            //     {
+            //         conf = this.conf.statePause;
+            //     }else if( this.data.state == "EXPECTATION" ) {
+            //         conf = this.conf.stateComing;
+            //     }
+            //     try{
+            //         this.sp_pause = Tools.newSprite(conf);
+            //         this.addChild(this.sp_pause);
+            //     }catch(e){}
+            // }
             //  this.btn_icon.bclick = false;
         }
         // if( this.sp_anim && !b )
@@ -313,6 +355,152 @@ var GameItem = /** @class */ (function (_super) {
         this.px += nx;
         this.x = this.px;
     };
+    //显示更新按钮
+    GameItem.prototype.showUpdateBtn = function () {
+        if (!this.sp_Update) {
+            this.sp_Update = Tools.addSprite(this, this.conf.spupdate);
+        }
+    };
+    GameItem.prototype.showProgressText = function () {
+        if (!this.lb_update) {
+            this.lb_update = Tools.addLabels(this, this.conf.updateText);
+        }
+    };
+    GameItem.prototype.showPause = function () {
+        if (!this.sp_pause) {
+            var conf;
+            if (this.data.state == "PAUSE") {
+                conf = this.conf.statePause;
+            }
+            else if (this.data.state == "EXPECTATION") {
+                conf = this.conf.stateComing;
+            }
+            try {
+                this.sp_pause = Tools.newSprite(conf);
+                this.addChild(this.sp_pause);
+            }
+            catch (e) { }
+        }
+    };
+    //刷新状态
+    GameItem.prototype.refreshStatus = function () {
+        // Debug.trace("GameItem.refreshStatus this.sStatus:"+this.sStatus);
+        switch (this.sStatus) {
+            case GameItem.STATUS_COMING:
+                this.showPause();
+                break;
+            case GameItem.STATUS_NORMAL:
+                this.sp_anim.alpha = 1;
+                this.sp_anim.visible = true;
+                this.btn_icon.alpha = this.animConf.dAlpha;
+                this.btn_icon.setEnabled(true);
+                // Debug.trace("GameItem.refreshStatus normal show anim hide icon");
+                break;
+            case GameItem.STATUS_PAUSE:
+                this.showPause();
+                break;
+            case GameItem.STATUS_UPDATE:
+                //需要更新
+                //动画上显示更新标记
+                this.showUpdateBtn();
+                break;
+        }
+    };
+    //设置状态
+    GameItem.prototype.setStatus = function (st) {
+        this.sStatus = st;
+        //刷新状态呈现内容
+        this.refreshStatus();
+    };
+    GameItem.prototype.onStartUpdate = function () {
+        if (this.bInUpdate) {
+            return;
+        }
+        this.bInUpdate = true;
+        // Debug.trace("GameItem.onStartUpdate this.iUpdateProgress:"+this.iUpdateProgress);
+        this.iUpdateProgress = 0.0;
+        //隐藏动画，显示按钮
+        this.sp_anim.visible = false;
+        //当前按钮不可点击了
+        this.btn_icon.setEnabled(false);
+        this.btn_icon.alpha = 1;
+        //不显示更新提示
+        this.sp_Update.visible = false;
+        this.showProgressText();
+        //按钮渲染为不可用
+        this.refreshUpdateProgress();
+        //通知App，开始下载
+        PostMHelp.startUpdate({ "gameId": this.data.id, "alias": this.data.alias });
+    };
+    //刷新进度
+    GameItem.prototype.onUpdateProgress = function (n) {
+        this.iUpdateProgress = n;
+        this.refreshUpdateProgress();
+    };
+    //刷新进度图案效果
+    GameItem.prototype.refreshUpdateProgress = function () {
+        //计算当前进度，
+        var nowHei = this.iUpdateProgress * this.btn_icon.height;
+        //由总高度计算出灰图高度，剩余高度为亮图
+        var lastHei = this.btn_icon.height - nowHei;
+        //进行渲染
+        this.renderPercent(nowHei, lastHei);
+        //刷新文字提示内容
+        if (this.lb_update) {
+            var pct = this.iUpdateProgress * 100;
+            var spct = Tools.FormatFloatNumber(pct, 2);
+            this.lb_update.text = this.conf.updateText.font.pretext + spct + this.conf.updateText.font.endtext;
+        }
+        //如果完成了，不显示更新文本标签
+        if (this.iUpdateProgress >= 1) {
+            if (this.lb_update) {
+                this.removeChild(this.lb_update);
+                this.lb_update.destroy(true);
+                this.lb_update = null;
+            }
+            // this.btn_icon.alpha = this.animConf.dAlpha;
+            // this.sp_anim.alpha = 1;
+            this.setStatus(GameItem.STATUS_NORMAL);
+            this.bInUpdate = false;
+            //清除更新信息中的对应数据
+            UpdateMsgHandle.clearInfoByAlias(this.data.alias);
+        }
+    };
+    //渲染出加载过程百分比
+    GameItem.prototype.renderPercent = function (bottomH, topH) {
+        var btn = this.btn_icon.btn_ui;
+        var texLight = Laya.loader.getRes(this.icon_src);
+        // Debug.trace("GameItem.renderPercent this.icon_src:"+this.icon_src+" texLight:");
+        // Debug.trace(texLight);
+        var src_gray = this.getGraySrc(this.icon_src);
+        var texGray = Laya.loader.getRes(src_gray);
+        // Debug.trace("GameItem.renderPercent src_gray:"+src_gray+" textGray:");
+        // Debug.trace(texGray);
+        var xGray = 0;
+        var yGray = 0;
+        var wGray = btn.width;
+        var hGray = topH;
+        var xLight = 0;
+        var yLight = topH;
+        var wLight = btn.width;
+        var hLight = bottomH;
+        // Debug.trace("GameItem.renderPercent xLight:"+xLight+" yLight:"+yLight+" wLight:"+wLight+" hLight:"+hLight);
+        // Debug.trace("GameItem.renderPercent xGray:"+xGray+" yGray:"+yGray+" wGray:"+wGray+" hGray:"+hGray);
+        btn.graphics.clear();
+        btn.graphics.save();
+        btn.graphics.clipRect(xGray, yGray, wGray, hGray);
+        btn.graphics.drawTexture(texGray);
+        btn.graphics.restore();
+        btn.graphics.save();
+        btn.graphics.clipRect(xLight, yLight, wLight, hLight);
+        btn.graphics.drawTexture(texLight);
+        btn.graphics.restore();
+    };
+    GameItem.STATUS_UPDATE = "update";
+    GameItem.STATUS_PAUSE = "pause";
+    GameItem.STATUS_NORMAL = "normal";
+    GameItem.STATUS_COMING = "coming";
+    GameItem.STATUS_ONLINE = "online";
     return GameItem;
 }(Laya.Sprite));
 //# sourceMappingURL=GameItem.js.map

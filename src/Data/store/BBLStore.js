@@ -9,16 +9,12 @@ import {platInfo, shareURL} from "../../config/appConfig";
 export  default  class BBLStore {
 
     @observable
-    homeDomain = platInfo.gameDomain;
+    gameDomain = platInfo.gameDomain;
 
     @observable
-    urlDomain = platInfo.gameDomain;
+    loginDomain = platInfo.loginDomain;
 
-    // @observable
-    // homeDomain = "http://sit.106games.com";
-    //
-    // @observable
-    // urlDomain = "http://106games.com";
+
 
     @observable
     isLoading = true;
@@ -32,8 +28,9 @@ export  default  class BBLStore {
 
     storeDir = DocumentDirectoryPath;
 
-    tempZipDir=`${DocumentDirectoryPath}/game.zip`;
+    tempZipDir=`${DocumentDirectoryPath}/home.zip`;
 
+    tempGameZip=`${DocumentDirectoryPath}/game.zip`;
 
     @observable
     versionManger = {name:"home",versionNum:1,source:'gamelobby.zip',isFlush:false}
@@ -84,9 +81,30 @@ export  default  class BBLStore {
 
     @action
     getVersionDomain() {
-        TW_Log("platInfo.homeDomain-----"+platInfo.gameDomain,platInfo.gameDomain)
+
+        let isSubWay = false;
+        let subStrWay=`${TW_Store.appStore.subAppType}`;
+        if(subStrWay.length>0&&subStrWay!="0"){
+            isSubWay = true;
+        }
+        let versionDomain = this.isDebugApp ? platInfo.zipCheckServer.debug_server: platInfo.zipCheckServer.release_server;
+        if(this.isDebugApp){
+            versionDomain = platInfo.zipCheckServer.debug_server;
+        }else{
+            if(isSubWay){
+                versionDomain= platInfo.zipCheckServer.release_server+"/qudao"
+            }else{
+                versionDomain= platInfo.zipCheckServer.release_server
+            }
+
+        }
+        //TW_Store.appStore.isInAnroidHack
+        if(TW_Store.appStore.isInAnroidHack){
+            versionDomain+="/isInAnroidHack"
+        }
+
         //对于android hack 包。 故意使用不存在路径
-       return this.isDebugApp ? platInfo.zipCheckServer.debug_server: platInfo.zipCheckServer.release_server +(TW_Store.appStore.isInAnroidHack ? "/androidHack":"") ;
+       return versionDomain;
     }
 
 
@@ -105,7 +123,11 @@ export  default  class BBLStore {
         windowResize:"windowResize",
         appData:"appData",
         http:"http",
-        flushMoney:"flushMoney"
+        flushMoney:"flushMoney",
+        gameData:"gameData",
+        gamesinfo:"gamesinfo",
+        updateProgress:"updateProgress"
+
     }
 
     @action

@@ -78,7 +78,7 @@ var AttentionCatePage = /** @class */ (function (_super) {
     };
     //修改当前索引页面
     AttentionCatePage.prototype.changeNotice = function (noticeid) {
-        Debug.trace("AttentionCatePage.changeNotice:" + noticeid);
+        // Debug.trace("AttentionCatePage.changeNotice:"+noticeid);
         this.curShowNoticeId = noticeid;
         this.updateTab();
     };

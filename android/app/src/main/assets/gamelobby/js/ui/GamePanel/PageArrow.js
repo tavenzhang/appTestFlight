@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 var PageArrow = /** @class */ (function (_super) {
     __extends(PageArrow, _super);
     function PageArrow() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super.call(this) || this;
         _this.conf = null;
         return _this;
     }
@@ -33,8 +33,9 @@ var PageArrow = /** @class */ (function (_super) {
     //被点击了
     PageArrow.prototype.onClick = function () {
         // Debug.traceObj("PageArrow.onClick");
-        // Debug.traceObj(this);
-        this.gamepanel.flip(1);
+        // Debug.traceObj(this.conf);
+        // this.gamepanel.flip(1);
+        this.gamepanel.flipNext(this.conf.jumpNum);
     };
     PageArrow.prototype.leftOk = function () {
         // Laya.timer.frameLoop(this.conf.framedelay,this,this.loop);

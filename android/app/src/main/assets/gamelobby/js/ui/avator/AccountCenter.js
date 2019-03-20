@@ -44,8 +44,8 @@ var AccountCenter = /** @class */ (function (_super) {
         this.conf = conf;
         this.arr_btns = new Array();
         this.data = Common.userInfo; //headicon.data;
-        // Debug.trace('this.data:');
-        // Debug.trace(this.data);
+        Debug.trace('AccountCenter.init this.data:');
+        Debug.trace(this.data);
         //半透明大背景
         this.initAlphaBg();
         //背景图
@@ -266,6 +266,7 @@ var AccountCenter = /** @class */ (function (_super) {
     //设置头像编号
     AccountCenter.prototype.setIcon = function (id) {
         // this.cur_icon_id = id;
+        Debug.trace("AccountCenter.setIcon id:" + id);
         if (this.sp_icon) {
             this.drawIcon(id);
         }
@@ -275,6 +276,7 @@ var AccountCenter = /** @class */ (function (_super) {
         if (!this.sp_icon) {
             return;
         }
+        Debug.trace("AccountCenter.drawIcon id:" + id);
         //先清除
         this.sp_icon.graphics.clear();
         //头像编号补齐
@@ -285,6 +287,7 @@ var AccountCenter = /** @class */ (function (_super) {
             index +
             // Common.confObj.titlebar.headicon.picnameend;
             ConfObjRead.getConfAvator().headicon.picnameend;
+        Debug.trace("AccountCenter.drawIcon res:" + res);
         //根据资源取出texture
         var tex = Laya.loader.getRes(Tools.getSrc(res));
         //绘制新的
