@@ -207,9 +207,19 @@ public class JXHelper extends ReactContextBaseJavaModule {
     public void getAppInfo(Callback callback){
         WritableMap map = Arguments.createMap();
         String applicationId = getReactApplicationContext().getPackageName();
+        String  idStr =  MainActivity.instance.readMetaDataByTag("PLAT_ID");
+        String  channel = MainActivity.instance.readMetaDataByTag("PLAT_CH");
+        String  subType = MainActivity.instance.readMetaDataByTag("SUB_TYPE");
+        String  appDownloadVersion = MainActivity.instance.readMetaDataByTag("APP_DOWNLOAD_VERSION");
+
         map.putString("versionName",getVersionCode());
         map.putString("affcode",getAffCode());
         map.putString("applicationId",applicationId);
+        map.putString("APP_DOWNLOAD_VERSION",appDownloadVersion);
+        map.putString("PLAT_ID",idStr);
+        map.putString("PLAT_CH",channel);
+        map.putString("SUB_TYPE",subType);
+
         callback.invoke(map);
     }
     public String getAffCode() {

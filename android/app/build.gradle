@@ -136,7 +136,9 @@ android {
                                    UMENG_CHANNEL  : "developer-default",
                                    PLAT_ID        :  PLAT_ID,
                                    PLAT_CH        :  PLAT_CH,
-                                   SUB_TYPE       :  1
+                                   SUB_TYPE       :  1,
+                                   APP_DOWNLOAD_VERSION : APP_DOWNLOAD_VERSION
+
         ]
         buildConfigField("String", "UMENG_KEY", "\"${UMENG_KEY}\"")
         buildConfigField("String", "WECHAT_KEY", "\"${WECHAT_KEY}\"")
@@ -166,7 +168,8 @@ android {
                     UMENG_CHANNEL  : "developer-default",
                     PLAT_ID        : PLAT_ID,
                     PLAT_CH        : PLAT_CH,
-                    SUB_TYPE       : SUB_TYPE
+                    SUB_TYPE       : SUB_TYPE,
+                    APP_DOWNLOAD_VERSION : APP_DOWNLOAD_VERSION
             ]
             dimension "color"
             buildConfigField("String", "UMENG_KEY", "\"${UMENG_KEY}\"")

@@ -42,6 +42,8 @@
 			</dict>
 		</array>
 	</dict>
+	<key>JPushKey</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
@@ -94,12 +96,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>需要您的同意,才能访问相机</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>camera</string>
+	<string>需要您的同意,才能添加到相册</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>camera</string>
+	<string>需要您的同意,才能访问相册</string>
 	<key>PlatId</key>
 	<string>5</string>
 	<key>UIAppFonts</key>
@@ -127,5 +131,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UmengKey</key>
+	<string></string>
+	<key>APP_DOWNLOAD_VERSION</key>
+	<string>1.0</string>
 </dict>
 </plist>
