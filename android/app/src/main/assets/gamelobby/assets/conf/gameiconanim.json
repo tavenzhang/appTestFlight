@@ -184,7 +184,7 @@
         }
     ],
     "defaultIcon":{
-        "desc":"三公",
+        "desc":"无",
         "alias":"ddz",
         "src":"./assets/ui/game/icon_ddz.png",
         "anim":{

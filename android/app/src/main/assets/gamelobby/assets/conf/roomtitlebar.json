@@ -1,5 +1,5 @@
 {
-    "desc":"顶部标题栏",
+    "desc":"",
     "pos":{ "x":0, "y":0 },
     "duration":500,
     "bg":{
@@ -8,7 +8,7 @@
     },
     "btns":[
         {
-            "desc":"按钮",
+            "desc":"",
             "cmd":"backlobby",
             "pos":{ "x":1175, "y":35 },
             "src":[
@@ -20,7 +20,7 @@
             "normalScale":{"x":1,"y":1}
         },
         {
-            "desc":"按钮",
+            "desc":"",
             "cmd":"backlobby",
             "pos":{ "x":1260, "y":38 },
             "src":[

@@ -11,19 +11,16 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-/*
-更新消息处理
-*/
 var UpdateMsgHandle = /** @class */ (function (_super) {
     __extends(UpdateMsgHandle, _super);
     function UpdateMsgHandle() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    //初始化消息，哪些游戏需要更新
     UpdateMsgHandle.onInitMsg = function (data) {
         // data = [
         //     {
         //         "gameId":31,
+        //         "alias":"zjh",
         //         "bupdate":true
         //     },
         //     {
@@ -35,23 +32,38 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
         //         "bupdate":true
         //     }
         // ];
-        //刷新纪录
         UpdateMsgHandle.updateInitMsg = data;
-        //刷新
         if (GamePanel.getInstance()) {
             GamePanel.getInstance().onUpdateMsgInit();
         }
     };
+    UpdateMsgHandle.getGameIndexByAlias = function (alias) {
+        for (var i = 0; i < UpdateMsgHandle.updateInitMsg.length; i++) {
+            var msg = UpdateMsgHandle.updateInitMsg[i];
+            if (msg.alias == alias) {
+                return i;
+            }
+        }
+        return null;
+    };
+    UpdateMsgHandle.refreshArr = function (progress) {
+        for (var i = 0; i < progress.length; i++) {
+            var gp = progress[i];
+            var gi = UpdateMsgHandle.getGameIndexByAlias(gp.alias);
+            if (gi != null) {
+                UpdateMsgHandle.updateInitMsg[gi].percent = gp.percent;
+                if (UpdateMsgHandle.updateInitMsg[gi].percent >= 1) {
+                    UpdateMsgHandle.updateInitMsg[gi].bupdate = false;
+                    UpdateMsgHandle.clearInfoByAlias(gp.alias);
+                }
+            }
+        }
+    };
     UpdateMsgHandle.clearInfoByAlias = function (alias) {
-        // Debug.trace("UpdateMsgHandle.clearInfoByAlias alias:"+alias);
-        // Debug.trace(UpdateMsgHandle.updateInitMsg);
         for (var i = 0; i < UpdateMsgHandle.updateInitMsg.length; i++) {
             var obj = UpdateMsgHandle.updateInitMsg[i];
-            // Debug.trace(obj);
             if (obj.alias == alias) {
-                // Debug.trace("UpdateMsgHandle.clearInfoByAlias alias:"+alias+" i:"+i);
                 UpdateMsgHandle.updateInitMsg.splice(i, 1);
-                // Debug.trace(UpdateMsgHandle.updateInitMsg);
                 return;
             }
         }
@@ -60,15 +72,16 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
         // data = [
         //     {
         //         "gameId":30,
+        //         "alias":"zjh"
         //         "percent":0.7
         //     }
         // ];
-        //刷新
+        UpdateMsgHandle.refreshArr(data);
         if (GamePanel.getInstance()) {
             GamePanel.getInstance().onUpdatePercent(data);
         }
     };
-    UpdateMsgHandle.updateInitMsg = null; //当前哪些游戏是需要下载或者更新的
+    UpdateMsgHandle.updateInitMsg = null;
     return UpdateMsgHandle;
 }(Laya.Sprite));
 //# sourceMappingURL=UpdateMsgHandle.js.map

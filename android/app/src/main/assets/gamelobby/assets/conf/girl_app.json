@@ -3,16 +3,8 @@
     "moveAction":false,
     "content":{
         "pos":{"x":0,"y":40},
-        "rect":{
-            "x":0,
-            "y":0,
-            "w":450,
-            "h":600
-        },
-        "frameX":{
-            "color":"#ff0000",
-            "alpha":0.2
-        },
+        "rect":{ "x":0, "y":0, "w":450, "h":600 },
+        "frameX":{ "color":"#ff0000", "alpha":0.2 },
         "girls":[
             {
                 "bg":{
@@ -164,7 +156,7 @@
         }
     },
     "tabsItem":{
-        "desc":"轮播焦点展示按钮,只定一个首坐标，根据数量居中对齐",
+        "desc":"",
         "bswitch":false,
         "defaultId":2,
         "pos":{ "x":215, "y":640 },
@@ -175,7 +167,7 @@
             "pos":{ "x":650, "y":210 }
         },
         "switch":{
-            "desc":"切换开关",
+            "desc":"",
             "pos":{ "x":0, "y":0 },
             "src":[
                 "./assets/ui/scrollpad/img_lunbo2.png",

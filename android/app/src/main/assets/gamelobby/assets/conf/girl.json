@@ -164,7 +164,7 @@
         }
     },
     "tabsItem":{
-        "desc":"轮播焦点展示按钮,只定一个首坐标，根据数量居中对齐",
+        "desc":"",
         "bswitch":false,
         "defaultId":1,
         "pos":{ "x":215, "y":640 },
@@ -175,7 +175,7 @@
             "pos":{ "x":650, "y":210 }
         },
         "switch":{
-            "desc":"切换开关",
+            "desc":"",
             "pos":{ "x":0, "y":0 },
             "src":[
                 "./assets/ui/scrollpad/img_lunbo2.png",

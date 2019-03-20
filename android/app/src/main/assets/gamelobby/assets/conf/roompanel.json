@@ -9,10 +9,7 @@
             "durationOut":1000,
             "size":{ "w":1334, "h":400 }
         },
-        "showbgX":{
-            "color":"#ffff00",
-            "alpha":0.2
-        }
+        "showbgX":{ "color":"#ffff00", "alpha":0.2 }
     },
     "gameitemdefault":{
         "number":4,
@@ -23,7 +20,7 @@
             "./assets/ui/room/room03.png"
         ],
         "btnicon":{
-            "desc":"头像按钮，点击后可以打开个人信息面板",
+            "desc":"",
             "pos":{ "x":225, "y":201 },
             "posY":{ "x":0, "y":0 },
             "src":[
@@ -35,23 +32,17 @@
             "sfx":"assets/raw/flopright.mp3",
             "grayext":"_gray"
         },
-        "showbgX":{
-            "color":"#ff0000",
-            "alpha":0.3
-        },
+        "showbgX":{ "color":"#ff0000", "alpha":0.3 },
         "statusNormal":{
             "status":[
                 "./assets/ui/room/room_status_00.png",
                 "./assets/ui/room/room_status_01.png",
                 "./assets/ui/room/room_status_02.png"
             ],
-            "pos":{
-                "x":195,
-                "y":360
-            }
+            "pos":{ "x":195, "y":360 }
         },
         "statePause":{
-            "desc":"PAUSE状态呈现方式",
+            "desc":"",
             "src":"./assets/ui/room/room_status_03.png",
             "pos":{ "x":125, "y":200 },
             "size":{ "w":207, "h":62 }

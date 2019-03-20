@@ -28,7 +28,12 @@ var LayaMain = /** @class */ (function () {
         Laya.stage.alignV = Laya.Stage.ALIGN_MIDDLE;
         Laya.stage.bgColor = "#000000";
         Laya.stage.on(Laya.Event.RESIZE, this, this.onResize);
+        // if( !AppData.IS_NATIVE_APP )
+        // {
+        //     window.addEventListener("message", this.handleAction,false);
+        // }else{
         window.document.addEventListener("message", this.handleIFrameAction, false);
+        //}
     }
     LayaMain.getInstance = function () {
         return LayaMain.obj;
@@ -142,6 +147,7 @@ var LayaMain = /** @class */ (function () {
                     if (Avator.obj) {
                         Avator.obj.flushUserInfo();
                     }
+                    break;
                 case "openDebug":
                     window["initVconsole"]();
                     break;
@@ -156,12 +162,6 @@ var LayaMain = /** @class */ (function () {
     };
     LayaMain.prototype.onResize = function () {
         ToolsApp.initAppData();
-
-        //if(AppData.IS_NATIVE_APP ) {
-
-        // }else{
-        //       window.document.removeEventListener("message", this.handleIFrameAction,false);
-        // }
     };
     LayaMain.prototype.clearChild = function () {
         if (this.sceneLobby) {
@@ -286,5 +286,7 @@ var LayaMain = /** @class */ (function () {
 var AppData = window["sAppData"];
 var lamain = new LayaMain();
 lamain.initLoading();
-window.top["receivedMessageFromRN"] = lamain.onAppPostMessgae;
+if (AppData.IS_NATIVE_APP) {
+    window.top["receivedMessageFromRN"] = lamain.onAppPostMessgae;
+}
 //# sourceMappingURL=LayaMain.js.map

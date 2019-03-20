@@ -19,7 +19,7 @@
     },
     "headicon":{
         "btnicon":{
-            "desc":"头像按钮，点击后可以打开个人信息面板",
+            "desc":"",
             "pos":{
                 "x":75,
                 "y":55
@@ -133,7 +133,7 @@
         }
     },
     "diamoniconX":{
-        "desc":"顶部钻石资源图标，v2版本不显示",
+        "desc":"",
         "bg":{
             "src":"./assets/ui/titlebar/icon_fangjian_ziyuan_di.png",
             "pos":{

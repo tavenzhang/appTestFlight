@@ -1,11 +1,8 @@
 {
     "src":"./assets/ui/lobby/bg_beijign004.jpg",
-    "pos":{
-        "x":0,
-        "y":0
-    },
+    "pos":{ "x":0, "y":0 },
     "starsX":{
-        "desc":"大背景上的星星",
+        "desc":"",
         "starscount":50,
         "src":"./assets/ui/img_dating_xinxing.png",
         "minScale":0.01,
