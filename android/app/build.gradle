@@ -136,29 +136,34 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        buildConfigField("String", "UMENG_KEY", "\"${UMENG_KEY}\"")
+        buildConfigField("String", "WECHAT_KEY", "\"${WECHAT_KEY}\"")
+        buildConfigField("String", "WECHAT_SECRET_KEY", "\"${WECHAT_SECRET_KEY}\"")
     }
 
     flavorDimensions "color"
-
 
     productFlavors {
         taven {
             applicationId APP_ID
             versionName APP_VERSION
-            resValue "string", "app_name", APP_NAME
+            resValue "string", "app_name", new String(APP_NAME.getBytes("iso8859-1"), "UTF-8")
             manifestPlaceholders = [
                     APP_VERSION    : APP_VERSION,
-                    CHANNEL_AFFCODE        : AFF_CODE,
+                    CHANNEL_AFFCODE: AFF_CODE,
                     JPUSH_PKGNAME  : APP_ID,
                     JPUSH_APPKEY   : JPUSH_KEY,
                     JPUSH_CHANNEL  : "developer-default",
                     UMENG_KEY      : UMENG_KEY,
                     UMENG_CHANNEL  : "developer-default",
-                    PLAT_ID        :  PLAT_ID,
-                    PLAT_CH        :  PLAT_CH,
-                    SUB_TYPE       :  SUB_TYPE
+                    PLAT_ID        : PLAT_ID,
+                    PLAT_CH        : PLAT_CH,
+                    SUB_TYPE       : SUB_TYPE
             ]
             dimension "color"
+            buildConfigField("String", "UMENG_KEY", "\"${UMENG_KEY}\"")
+            buildConfigField("String", "WECHAT_KEY", "\"${WECHAT_KEY}\"")
+            buildConfigField("String", "WECHAT_SECRET_KEY", "\"${WECHAT_SECRET_KEY}\"")
         }
     }
 
