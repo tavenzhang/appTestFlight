@@ -58,17 +58,40 @@ export const platInfo = {
         release_server: "https://download.hkbaoxian188.com/game/release/uat"
     },
     platId: configAppId,
+    brand: "uat01",
+    channel: {
+        c_1: {
+            jpushKey: "",
+            jpush_channel: "",
+            umengKey: "",
+            umengChanel:"1",
+            flurry_ios:"uat",
+            flurry_android:"uat"
+        },
+        c_2: {jpushKey: "",
+            jpush_channel: "",
+            umengKey: "",
+            umengChanel:"1",
+            flurry_ios:"uat",
+            flurry_android:"uat"
+        },
+        c_3: {jpushKey: "",
+            jpush_channel: "",
+            umengKey: "",
+            umengChanel:"1",
+            flurry_ios:"uat",
+            flurry_android:"uat"
+        },
+    }
 }
 
 
 export const affCodeList = {
     ios: {
+        '2.9.6': '365_ios'
     },
     android: {
+        '2.10.11': '365_android'
     }
 };
 
-export const shareURL={
-    ios:"https://download.imsue.cn/game/app.html?sub=release-uat&app=1&rom=7803",
-    android:"https://download.imsue.cn/game/release/uat/uat.apk?rom=4473",
-}

@@ -55,7 +55,7 @@ export default class AppInfoStore {
     currentDomain = "";
 
     @observable
-    appInfo = {};
+    appInfo = {PLAT_ID:"",PLAT_CH:"",APP_DOWNLOAD_VERSION:"",Affcode:"",JPushKey:"",UmengKey:""};
 
     @observable
     channel = "";
@@ -81,7 +81,7 @@ export default class AppInfoStore {
     init() {
         TW_Data_Store.getItem(TW_DATA_KEY.platData, (err, ret) => {
             TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====" + err+"--ret--"+ret);
-            let appInfo={PlatId: configAppId, isNative: false};
+            let appInfo={PLAT_ID: configAppId, isNative: false};
             if (err) {
                 this.checkAppInfoUpdate(null);
             } else {
@@ -99,9 +99,10 @@ export default class AppInfoStore {
     }
 
     checkAppInfoUpdate=(oldData=null)=>{
-        TN_GetPlatInfo((data) => {
+        TN_GetAppInfo((data) => {
             if(data){
                 let appInfo=JSON.parse(data);
+                //TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat====", appInfo);
                 if(oldData){
                     if(oldData!=data){
                         this.initData(appInfo);
@@ -116,10 +117,10 @@ export default class AppInfoStore {
     }
 
     initData=(appInfo)=>{
-        appInfo=appInfo ? appInfo: {PlatId: configAppId, isNative: false};
+        appInfo=appInfo ? appInfo: {PLAT_ID: configAppId, isNative: false};
         //所以的clintId 在此重置
-        this.clindId = appInfo.PlatId ? appInfo.PlatId : configAppId;
-        this.subAppType=appInfo.SubType ? appInfo.SubType:"0";
+        this.clindId = appInfo.PLAT_ID ? appInfo.PLAT_ID : configAppId;
+        this.subAppType=appInfo.PLAT_CH ? appInfo.PLAT_CH:"0";
         let channel= appInfo.Channel ;
         this.channel=channel ? channel:"1";
 
@@ -130,9 +131,19 @@ export default class AppInfoStore {
         this.initAppName();
         this.initAppVersion();
         this.initDeviceTokenFromLocalStore();
-        this.initAffCode();
+        /*** 初始化邀请码*/
+        this.userAffCode = this.appInfo.Affcode;
         this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
-        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--", appInfo);
+        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--this.userAffCode--"+this.userAffCode, appInfo);
+        if (G_IS_IOS){
+            //ios 动态开启友盟等接口 android 是编译时 决定好了。
+            let appInfo =TW_Store.appStore.appInfo;
+            TW_Log('JX===  appInfo '+appInfo.APP_DOWNLOAD_VERSION+"--appInfo.JPushKey=="+appInfo.JPushKey,appInfo)
+            TN_StartJPush(appInfo.JPushKey,'1');
+            TN_START_Fabric();
+            // TN_START_SHARE("111","222");
+            TN_StartUMeng(appInfo.UmengKey, appInfo.Affcode)
+        }
     }
 
 
@@ -208,9 +219,9 @@ export default class AppInfoStore {
 
     async initAndroidAppInfo(callback){
         TW_Log("appInfo----start--");
-        let appInfo = await this.getAppInfo();
+        let appInfo = this.appInfo;
         if(appInfo){
-            this.userAffCode = appInfo.affcode;
+            //this.userAffCode = appInfo.Affcode;
             this.appVersion = appInfo.versionName;
             this.applicationId = appInfo.applicationId;
         }
@@ -272,18 +283,6 @@ export default class AppInfoStore {
 
     saveDeviceTokenToLocalStore() {
         storage.save({key: "USERDEVICETOKEN", data: this.deviceToken})
-    }
-
-    /**
-     * 初始化邀请码
-     */
-    initAffCode() {
-        TN_GetAppInfo((a)=>{
-            if (G_IS_IOS){
-                let appInfo = JSON.parse(a)
-                this.userAffCode = appInfo.Affcode;
-            }
-        })
     }
 
     @action

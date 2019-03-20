@@ -80,16 +80,6 @@ export default class App extends Component {
         }
         StatusBar.setHidden(true);
 
-        TN_GetAppInfo((a)=>{
-            if (G_IS_IOS){
-                let appInfo = JSON.parse(a)
-                TW_Log('JX===  appInfo '+appInfo.APP_DOWNLOAD_VERSION)
-                TN_StartJPush(appInfo.JPushKey,'1');
-                TN_START_Fabric()
-                TN_START_SHARE("111","222");
-                TN_StartUMeng(appInfo.UmengKey, appInfo.Affcode)
-            }
-        })
         if (!G_IS_IOS) {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }

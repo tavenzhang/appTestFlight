@@ -213,7 +213,7 @@ public class JXHelper extends ReactContextBaseJavaModule {
         String  appDownloadVersion = MainActivity.instance.readMetaDataByTag("APP_DOWNLOAD_VERSION");
 
         map.putString("versionName",getVersionCode());
-        map.putString("affcode",getAffCode());
+        map.putString("Affcode",getAffCode());
         map.putString("applicationId",applicationId);
         map.putString("APP_DOWNLOAD_VERSION",appDownloadVersion);
         map.putString("PLAT_ID",idStr);

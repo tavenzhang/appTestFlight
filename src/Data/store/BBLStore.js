@@ -1,7 +1,7 @@
 
 import { observable,action} from 'mobx'
 import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
-import {platInfo, shareURL} from "../../config/appConfig";
+import {platInfo} from "../../config/appConfig";
 import {config} from "../../Common/Network/TCRequestConfig";
 import NetUitls from "../../Common/Network/TCRequestUitls";
 
@@ -157,14 +157,14 @@ export  default  class BBLStore {
     }
 
     @observable
-    shareURL=shareURL
+    shareURL={ios:"",android:""}
 
     @observable
     shareData={}
 
     @action
     getAppData(){
-        let  url = TW_Store.bblStore.gameDomain+ config.api.gameShareDown.replace("#0",TW_Store.appStore.clindId);
+        let  url = TW_Store.bblStore.gameDomain+ config.api.gameShareDown.replace("#0",platInfo.brand);
         NetUitls.getUrlAndParamsAndCallback(url, null, (ret) => {
             if(ret.rs&&ret.content){
                 this.shareData = ret.content;
