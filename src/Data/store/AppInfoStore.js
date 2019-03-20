@@ -55,7 +55,7 @@ export default class AppInfoStore {
     currentDomain = "";
 
     @observable
-    appInfo = {PLAT_ID:"",PLAT_CH:"",APP_DOWNLOAD_VERSION:"",Affcode:"",JPushKey:"",UmengKey:""};
+    appInfo = {PLAT_ID:"",PLAT_CH:"",APP_DOWNLOAD_VERSION:"",Affcode:"",JPushKey:"",UmengKey:"",applicationId:"",SUB_TYPE:"0"};
 
     @observable
     channel = "";
@@ -81,12 +81,12 @@ export default class AppInfoStore {
     init() {
         TW_Data_Store.getItem(TW_DATA_KEY.platData, (err, ret) => {
             TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====" + err+"--ret--"+ret);
-            let appInfo={PLAT_ID: configAppId, isNative: false};
+            this.appInfo.PLAT_ID = configAppId;
             if (err) {
                 this.checkAppInfoUpdate(null);
             } else {
                 if(ret){
-                    appInfo = JSON.parse(ret);
+                   let appInfo = JSON.parse(ret);
                     if(appInfo){
                         this.initData(appInfo);
                     }
@@ -120,13 +120,12 @@ export default class AppInfoStore {
         appInfo=appInfo ? appInfo: {PLAT_ID: configAppId, isNative: false};
         //所以的clintId 在此重置
         this.clindId = appInfo.PLAT_ID ? appInfo.PLAT_ID : configAppId;
-        this.subAppType=appInfo.PLAT_CH ? appInfo.PLAT_CH:"0";
-        let channel= appInfo.Channel ;
-        this.channel=channel ? channel:"1";
+        this.subAppType=appInfo.SUB_TYPE ? appInfo.SUB_TYPE:"0";
+        this.channel=appInfo.PLAT_CH ? appInfo.PLAT_CH:"1";
 
         platInfo.platId = this.clindId;
         UpDateHeadAppId(this.clindId);
-        TW_Store.appStore.appInfo = appInfo;
+        this.appInfo = appInfo;
         this.isInitPlat = true;
         this.initAppName();
         this.initAppVersion();
@@ -218,7 +217,6 @@ export default class AppInfoStore {
 
 
     async initAndroidAppInfo(callback){
-        TW_Log("appInfo----start--");
         let appInfo = this.appInfo;
         if(appInfo){
             //this.userAffCode = appInfo.Affcode;
