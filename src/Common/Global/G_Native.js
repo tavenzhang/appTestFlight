@@ -17,6 +17,13 @@ global.TN_GetPlatInfo = (callBack: func) => {
     }
 };
 
+//所有的本地 native 接口聚集到此 方便维护
+global.TN_GetAppInfo = (callBack: func) => {
+        if (NativeModules.JXHelper.getAppInfo) {
+            NativeModules.JXHelper.getAppInfo(callBack);
+        }
+};
+
 global.TN_Notification = (title = '', body = {}) => {
     if (G_IS_IOS) {
         if (NativeModules.JDHelper.notification) {

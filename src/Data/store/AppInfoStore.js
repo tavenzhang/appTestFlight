@@ -278,20 +278,12 @@ export default class AppInfoStore {
      * 初始化邀请码
      */
     initAffCode() {
-        let hotAffCode = this.getAppSpecialAffCode();
-        TW_Log("AFFCODE--appInfo", this.appInfo);
-        if (hotAffCode) {
-            this.userAffCode = hotAffCode;
-        } else {
-            this.userAffCode=this.appInfo.Affcode;
-        }
-    }
-
-    //获取Js中的邀请码
-    getAppSpecialAffCode() {
-        let a = affCodeList[Platform.OS][this.appVersion];
-        if (a) return a;
-        return null;
+        TN_GetAppInfo((a)=>{
+            if (G_IS_IOS){
+                let appInfo = JSON.parse(a)
+                this.userAffCode = appInfo.Affcode;
+            }
+        })
     }
 
     @action

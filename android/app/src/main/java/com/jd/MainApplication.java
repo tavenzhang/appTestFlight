@@ -17,6 +17,7 @@ import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
 import com.beefe.picker.PickerViewPackage;
 import com.github.yamill.orientation.OrientationPackage;
+import com.jd.webview.WebViewReactPackage;
 import com.rnziparchive.RNZipArchivePackage;
 import com.umeng.socialize.PlatformConfig;
 import com.xxsnakerxx.flurryanalytics.FlurryAnalyticsPackage;
@@ -109,7 +110,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new JXHelperPackage(),
                     new OpenAppPackage(),
                     new RNAudioPackage(),
-                    new DplusReactPackage()
+                    new DplusReactPackage(),
+                    new WebViewReactPackage()
             );
 
         }

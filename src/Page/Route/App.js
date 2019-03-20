@@ -78,25 +78,21 @@ export default class App extends Component {
         if(KeyboardManager&&KeyboardManager.setToolbarPreviousNextButtonEnable){
             KeyboardManager.setToolbarPreviousNextButtonEnable(true);
         }
-
         StatusBar.setHidden(true);
-        let cData = platInfo.channel[`c_${TW_Store.appStore.channel}`];
-        TW_Log("cData--------"+TW_Store.appStore.channel,cData)
-        cData = cData ? cData:platInfo.channel.c_1;
 
-        TN_StartJPush(cData.jpushKey,cData.jpush_channel);
-      //   FlurryAnalytics.startSession(G_IS_IOS ? cData.flurry_ios:cData.flurry_android);;
+        TN_GetAppInfo((a)=>{
+            if (G_IS_IOS){
+                let appInfo = JSON.parse(a)
+                TW_Log('JX===  appInfo '+appInfo.APP_DOWNLOAD_VERSION)
+                TN_StartJPush(appInfo.JPushKey,'1');
+                TN_START_Fabric()
+                TN_START_SHARE("111","222");
+                TN_StartUMeng(appInfo.UmengKey, appInfo.Affcode)
+            }
+        })
         if (!G_IS_IOS) {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
-        TN_START_Fabric()
-        TN_START_SHARE("111","222");
-        TN_StartUMeng(cData.umengKey, cData.umengChanel)
-
-        // TN_CodePush_ASEET((data)=>{
-        //    // this.setState({aseets:data})
-        //     this.checkFile(data);
-        // })
 
     }
 

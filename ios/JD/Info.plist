@@ -2,8 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>PlatId</key>
+	<string>1146</string>
+	<key>PLAT_CH</key>
+	<string>1</string>
+	<key>APP_DOWNLOAD_VERSION</key>
+    <string>1.0</string>
 	<key>Affcode</key>
-	<string>""</string>
+	<string></string>
+	<key>JPushKey</key>
+	<string></string>
+	<key>UmengKey</key>
+	<string></string>
 	<key>AppSecret</key>
 	<dict>
 		<key>weixin</key>
@@ -42,8 +52,6 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>6</string>
-	<key>Channel</key>
-	<string>1</string>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
 	<key>Fabric</key>
@@ -118,8 +126,6 @@
 	<string>camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>camera</string>
-	<key>PlatId</key>
-	<string>1146</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>

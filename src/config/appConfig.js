@@ -48,7 +48,7 @@ export const platInfo = {
         release_server: "https://download.hkbaoxian188.com/game/release/mxaw7"
     },
     platId: configAppId,
-
+    brand: "mxqp",
     channel: {
         c_1: {
             jpushKey: "e9f6454032a3f4936d80a82f",

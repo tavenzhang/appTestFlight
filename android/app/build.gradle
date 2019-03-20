@@ -1,18 +1,19 @@
 apply plugin: "com.android.application"
 
-import com.android.build.OutputFile
-
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
+//    implementation project(':jcore-react-native')
+//    implementation project(':jpush-react-native')
         // The Fabric Gradle plugin uses an open ended version to react
         // quickly to Android tooling updates
         classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 apply plugin: 'io.fabric'
+
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
@@ -109,6 +110,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
+
     compileSdkVersion 26
     buildToolsVersion '28.0.3'
 
@@ -120,6 +122,11 @@ android {
         versionName "1.0.8"
         // SUB_TYPE       :  1 写死1 当聚道主包
         manifestPlaceholders = [
+                JPUSH_APPKEY: "",
+                APP_CHANNEL : "default"
+        ]
+
+        manifestPlaceholders = [
                    APP_VERSION    : APP_VERSION,
                                    CHANNEL_AFFCODE        : AFF_CODE,
                                    JPUSH_PKGNAME  : APP_ID,
@@ -129,19 +136,22 @@ android {
                                    UMENG_CHANNEL  : "developer-default",
                                    PLAT_ID        :  PLAT_ID,
                                    PLAT_CH        :  PLAT_CH,
-                                   SUB_TYPE       :  1
+                                   SUB_TYPE       :  1,
+                                   APP_DOWNLOAD_VERSION : APP_DOWNLOAD_VERSION
+
         ]
+        buildConfigField("String", "UMENG_KEY", "\"${UMENG_KEY}\"")
+        buildConfigField("String", "WECHAT_KEY", "\"${WECHAT_KEY}\"")
+        buildConfigField("String", "WECHAT_SECRET_KEY", "\"${WECHAT_SECRET_KEY}\"")
         multiDexEnabled true
         resValue "string", "app_name", "bbl-sit"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-        buildConfigField("String", "UMENG_KEY", "\"${UMENG_KEY}\"")
-        buildConfigField("String", "WECHAT_KEY", "\"${WECHAT_KEY}\"")
-        buildConfigField("String", "WECHAT_SECRET_KEY", "\"${WECHAT_SECRET_KEY}\"")
     }
 
     flavorDimensions "color"
+
 
     productFlavors {
         taven {
@@ -158,7 +168,8 @@ android {
                     UMENG_CHANNEL  : "developer-default",
                     PLAT_ID        : PLAT_ID,
                     PLAT_CH        : PLAT_CH,
-                    SUB_TYPE       : SUB_TYPE
+                    SUB_TYPE       : SUB_TYPE,
+                    APP_DOWNLOAD_VERSION : APP_DOWNLOAD_VERSION
             ]
             dimension "color"
             buildConfigField("String", "UMENG_KEY", "\"${UMENG_KEY}\"")
@@ -196,12 +207,12 @@ android {
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-          outputFileName = "release.apk"
-     //       outputFileName = "${variant.productFlavors[0].name}_v${variant.versionName}.apk"
+            outputFileName = "release.apk"
+            //       outputFileName = "${variant.productFlavors[0].name}_v${variant.versionName}.apk"
 //            def outputFile = output.outputFile
 //            if (outputFile != null && outputFile.name.endsWith('.apk')) {
 //                def fileName = ""
-//                def apkName = APK_FILE_NAME=bbl_mxqp_release + ""
+//                def apkName = APK_FILE_NAME + ""
 //                def affSuffix = AFF_CODE ? "_${AFF_CODE}" : ""
 //                if (apkName != null && !apkName.isEmpty()) {
 //                    fileName = "${apkName}" + affSuffix + ".apk"
@@ -221,13 +232,14 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-picker')
     compile project(':react-native-zip-archive')
     compile project(':react-native-vector-icons')
     compile project(':react-native-toast-native')
     compile project(':react-native-svg')
+    compile project(':react-native-splash-screen')
     compile project(':react-native-sound')
     compile project(':react-native-shake-event')
-    compile project(':react-native-picker')
     compile project(':react-native-orientation')
     compile project(':react-native-material-kit')
     compile project(':react-native-interactable')
@@ -242,7 +254,6 @@ dependencies {
     compile project(':react-native-code-push')
     compile project(':react-native-blur')
     compile project(':jpush-react-native')
-    compile project(':react-native-splash-screen')
     implementation project(':react-native-orientation')
     implementation project(':react-native-zip-archive')
     implementation project(':react-native-flurry-analytics')

@@ -83,6 +83,9 @@
         <meta-data
             android:name="SUB_TYPE"
             android:value="${SUB_TYPE}" />
+        <meta-data
+                android:name="APP_DOWNLOAD_VERSION"
+                android:value="${APP_DOWNLOAD_VERSION}" />
 
         <!-- Ushare -->
         <activity
