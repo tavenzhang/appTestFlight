@@ -68,6 +68,7 @@ export default class XXWebView extends Component {
                 this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:lastList}));
             })
         });
+        TW_Store.gameUIStroe.getAppData();
     }
     
 
