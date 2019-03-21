@@ -115,7 +115,7 @@ export default class GameUserInfoView extends Component {
                              }}
                              onBlur={this.onCardNumCheck}
                              keyboardType={"numeric"} viewStyle={{marginTop: 8}}
-                             placeholder={"请输入银行卡号"} maxLength={22} inputStyle={styles.inputStyle}
+                             placeholder={"请输入银行卡号"} maxLength={25} inputStyle={styles.inputStyle}
                              placeholderTextColor={"#9cc5d8"}/>
                 <View style={{marginTop: 4}}>
                     <Chooser textStyle={{color: "#9cc5d8", fontSize: 11}}
