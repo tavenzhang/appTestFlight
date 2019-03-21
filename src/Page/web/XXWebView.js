@@ -43,32 +43,36 @@ export default class XXWebView extends Component {
                    TW_Store.dataStore.appGameListM = res;
                }
             }
-            //TW_Log("(TW_DATA_KEY.gameList--FileTools-==err==" + err+"---res--"+ret,  TW_Store.dataStore.appGameListM );
-            NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionDomain()+"/gameList.json"+"?rom="+Math.random(),null,(rt)=>{
-                TW_Log("TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-",rt);
-                let newList = rt.content ? rt.content:[];
-                let gameM =  TW_Store.dataStore.appGameListM;
-                let lastList=[];
-                for(let item of newList){
-                    item.alias=item.id;
-                    if(gameM[`${item.alias}`]){
-                        if(gameM[`${item.alias}`].version!=item.version){
-                            gameM[`${item.alias}`]={...gameM[`${item.alias}`],...item,version:gameM[`${item.alias}`].version,bupdate:true,newVersion:item.version}
-                            lastList.push(gameM[`${item.id}`]);
-                        }else{
-                            gameM[`${item.alias}`]={...gameM[`${item.alias}`],bupdate:false,...item};
-                        }
-
-                    }else if(!gameM[`${item.alias}`]){
-                        gameM[`${item.alias}`]={...item,version:"",bupdate:true,newVersion:item.version};
-                        lastList.push(gameM[`${item.id}`]);
-                    }
-                   
-                }
-                this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:lastList}));
-            })
+            this.onFlushGameData()
+          
         });
         TW_Store.bblStore.getAppData();
+    }
+    
+    onFlushGameData=()=>{
+        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionDomain()+"/gameList.json"+"?rom="+Math.random(),null,(rt)=>{
+            TW_Log("TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-",rt);
+            let newList = rt.content ? rt.content:[];
+            let gameM =  TW_Store.dataStore.appGameListM;
+            let lastList=[];
+            for(let item of newList){
+                item.alias=item.id;
+                if(gameM[`${item.alias}`]){
+                    if(gameM[`${item.alias}`].version!=item.version){
+                        gameM[`${item.alias}`]={...gameM[`${item.alias}`],...item,version:gameM[`${item.alias}`].version,bupdate:true,newVersion:item.version}
+                        lastList.push(gameM[`${item.id}`]);
+                    }else{
+                        gameM[`${item.alias}`]={...gameM[`${item.alias}`],bupdate:false,...item};
+                    }
+
+                }else if(!gameM[`${item.alias}`]){
+                    gameM[`${item.alias}`]={...item,version:"",bupdate:true,newVersion:item.version};
+                    lastList.push(gameM[`${item.id}`]);
+                }
+
+            }
+            this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:lastList}));
+        })
     }
     
     componentDidMount(): void {
@@ -361,6 +365,7 @@ export default class XXWebView extends Component {
                                 let access_token =TW_GetQueryString("access_token",message.url);
                                 if(access_token&&access_token!=""){
                                     TW_Store.userStore.initLoginToken(access_token);
+                                    this.onFlushGameData();
                                 }
                                 if(message.url.indexOf("/api/v1/gamecenter/player/user")>-1){
                                     TW_Store.bblStore.avatarData =ret.content

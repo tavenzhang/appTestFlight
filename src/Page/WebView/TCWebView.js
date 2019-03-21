@@ -41,6 +41,13 @@ export default class TCWebView extends Component {
         TW_OnBackHomeJs=this.onBackHomeJs;
     }
 
+    componentDidMount(): void {
+        if(this.refs.myWebView.getSettings){
+            this.refs.myWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        }
+    }
+
+
     render() {
         let {isOrigan}=this.props
         let myUrl = this.state.uri;
@@ -73,7 +80,9 @@ export default class TCWebView extends Component {
         if (this.state.isHide) {
             return <View style={{flex: 1, backgroundColor: "black"}}/>
         }
-        let wenConteView = G_IS_IOS ? <WKWebView source={source} onNavigationStateChange={this.onNavigationStateChange}
+        let wenConteView = G_IS_IOS ? <WKWebView
+                ref="myWebView"
+                source={source} onNavigationStateChange={this.onNavigationStateChange}
                                                  onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                                                  style={[styles.webView,{display:dis}]}
                                                  allowFileAccess={true}
@@ -86,6 +95,7 @@ export default class TCWebView extends Component {
 
             /> :
             <WebView
+                ref="myWebView"
                 useWebKit={true}
                 automaticallyAdjustContentInsets={true}
                 style={styles.webView}
