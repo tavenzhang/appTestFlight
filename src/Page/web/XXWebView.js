@@ -71,6 +71,11 @@ export default class XXWebView extends Component {
         TW_Store.bblStore.getAppData();
     }
     
+    componentDidMount(): void {
+        if(this.refs.myWebView.getSettings){
+            this.refs.myWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        }
+    }
 
 
     handleUrl = (url, data) => {
