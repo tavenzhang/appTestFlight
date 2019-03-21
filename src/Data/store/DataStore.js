@@ -18,6 +18,8 @@ export default class DataStore {
     @observable
     isAppUnZip = false;
 
+
+
     @observable
     originAppDir = G_IS_IOS ? (MainBundlePath + '/assets/gamelobby') : "file:///android_asset/gamelobby";
 
@@ -25,13 +27,30 @@ export default class DataStore {
     targetAppDir = G_IS_IOS ? DocumentDirectoryPath + "/gamelobby" : `file:///${DocumentDirectoryPath}/gamelobby`;
 
     @observable
-    saveVersionM={};
+    homeVersionM={name:"home",versionNum:"1",baseVersion:"1",source:"",isFlush:false};
+
+    @observable
+    appGameListM={};
 
     @observable
     log="";
 
     @observable
     isCheckZipUpdate=true;
+
+    @observable
+    appData={};
+
+    @action
+    getGameRootDir(){
+       // return G_IS_IOS ? (MainBundlePath + '/assets') : "file:///android_asset";
+        if(this.isAppUnZip) {
+            return   G_IS_IOS ? DocumentDirectoryPath  : `file:///${DocumentDirectoryPath}`;
+        }
+        else{
+            return G_IS_IOS ? (MainBundlePath + '/assets') : "file:///android_asset";
+        }
+    }
 
     @action
     initAppHomeCheck () {
@@ -54,13 +73,17 @@ export default class DataStore {
     startCheckZipUpdate=()=>{
         TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
             let verionM=null;
-            this.log+="-->startCheckZipUpdate---=ret"+ret
+            this.log+="-->startCheckZipUpdate---=ret--start"+ret
             try{
                 verionM = JSON.parse(ret);
             }catch (error) {
-                verionM={}
+                this.log+="-->startCheckZipUpdate---=catch--"
             }
-            this.saveVersionM=verionM ? verionM:{} ;
+
+            if(ret&&verionM){
+                this.homeVersionM =verionM;
+            }
+            this.log+="-->startCheckZipUpdate---=ret-ret---"+JSON.stringify(this.homeVersionM)
             if(this.isCheckZipUpdate){
                 this.chectHomeZipUpdate();
             }
@@ -90,7 +113,7 @@ export default class DataStore {
                 TW_Log("TW_DATA_KEY.versionBBL  this.content" ,  this.content);
                 this.log+="==>TW_Store.dataStore.isAppUnZip="+TW_Store.dataStore.isAppUnZip;
                 if(TW_Store.dataStore.isAppUnZip){
-                    if(this.saveVersionM.versionNum!=content.versionNum){
+                    if(this.homeVersionM.versionNum!=content.versionNum){
                             this.downloadFile(zipSrc,rootStore.bblStore.tempZipDir);
                         }
                     }
@@ -104,8 +127,8 @@ export default class DataStore {
 
     onSaveVersionM=(srcData,isHttpFail=false,callFunc)=>{
         TW_Log("TW_DATA_KEY.versionBBL onSaveVersionM isHttpFail==" + isHttpFail, srcData);
-        this.saveVersionM  = {...this.saveVersionM,...srcData,isHttpFail};
-        TW_Data_Store.setItem(TW_DATA_KEY.versionBBL,JSON.stringify(this.saveVersionM),(ret)=>{
+        this.homeVersionM  = {...this.homeVersionM,...srcData,isHttpFail};
+        TW_Data_Store.setItem(TW_DATA_KEY.versionBBL,JSON.stringify(this.homeVersionM),(ret)=>{
             if(callFunc){
                 callFunc(ret);
             }
@@ -127,7 +150,6 @@ export default class DataStore {
                //{statusCode: 404, headers: {…}, jobId: 1, contentLength: 153
                  if(res.statusCode != 404){
                      TW_Store.commonBoxStore.isShow=true;
-                    // TW_Log('versionBBL--begin  TW_Store.commonBoxStore.isShow--'+  TW_Store.commonBoxStore.isShow)
                  }else{
                      TW_Store.commonBoxStore.isShow=false
                  }
@@ -150,7 +172,7 @@ export default class DataStore {
                     this.unzipNewCourse(downloadDest);
                 }else{
                     this.log+="==>downloadFile--fail--notstart=";
-                    TW_Log('versionBBL --downloadFile --下载文件不存在--', downloadDest);
+                    TW_Log('versionBBL --downloadFile --下载文件不存在--', formUrl);
                     TW_Store.commonBoxStore.isShow=false;
                 }
             }).catch(err => {
@@ -221,7 +243,7 @@ export default class DataStore {
                         this.log+="onSavaCopyState---\n"
                         this.onSavaCopyState();
                     }).catch((err) => {
-                        //TW_Log("versionBBL bbl--- 删除文件失败", target_dir_exist);
+                        TW_Log("versionBBL bbl--- 删除文件失败", target_dir_exist);
                     })
                 })
             } else {
@@ -285,7 +307,7 @@ export default class DataStore {
 
     @action
     getHomeWebHome() {
-        return this.isAppUnZip  ? this.targetAppDir:this.originAppDir
+        return (this.isAppUnZip  ? this.targetAppDir:this.originAppDir)
     }
 }
 

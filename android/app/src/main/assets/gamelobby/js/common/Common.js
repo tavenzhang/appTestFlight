@@ -1,7 +1,6 @@
 var Common = /** @class */ (function () {
     function Common() {
     }
-    //切换路径类型
     Common.changePathType = function (n) {
         Common.pathType = n;
     };
@@ -138,26 +137,17 @@ var Common = /** @class */ (function () {
         Common.normalFont = "xxx";
     };
     Common.getLoginPlatform = function () {
-        // if( !Common.LOGIN_PLATFORM )
-        // {
-        //     Common.LOGIN_PLATFORM = MyUid.getPlatform();
-        // }
         return Common.LOGIN_PLATFORM;
     };
     Common.setLoginPlatform = function (s) {
         Common.LOGIN_PLATFORM = s;
     };
-    // public static GM_SCREEN_H:number = 640;
-    // public static GM_SCREEN_W:number = 1136;
-    Common.IS_NATIVE_APP = false;
     Common.GM_SCREEN_H = 750;
     Common.GM_SCREEN_W = 1334;
-    //loading及toast的深度
     Common.IDX_TOP_LOADING = 9999;
     Common.IDX_TOP_TOAST = 99999;
     Common.IDX_TOP_DRAW = 99998;
     Common.IDX_BELOW_DRAW = 88888;
-    //注册界面使用的路径类型
     Common.PATH_TYPE_XD = 0;
     Common.PATH_TYPE_JD = 1;
     Common.pathType = Common.PATH_TYPE_XD;
@@ -175,10 +165,6 @@ var Common = /** @class */ (function () {
     Common.roomId = 0;
     //返回地址，回到大厅地址
     Common.backUrl = "http://192.168.1.145/gamelobby/index.d.html";
-    //当前游戏地址
-    // public static gameUrl:string = "";
-    //当前平台信息,可以通过 Laya.Browser 获取，无需自行获取
-    // public static platformInfo:any;
     //channel   在config中配置
     Common.channel = "";
     //device 需要结合app的java交互获取
@@ -197,28 +183,6 @@ var Common = /** @class */ (function () {
     Common.confHelp = null;
     //默认的字体
     Common.normalFont = null;
-    //获取对应游戏的规则数据
-    // public static getHelpDataByGameName(gname:string):any
-    // {
-    // var data = [
-    //     "./assets/help/paixing.html",
-    //     "./assets/help/moban407/index.html",//wanfa.html",
-    //     "./assets/help/moban1222/index.html",//peilv.html",
-    //     "./assets/help/moban2681/single.html"//guanyu.html",
-    // ];
-    // return data;
-    // return Common.confObj.helppad;
-    // Debug.trace('common getHelpDataByGameName:'+gname);
-    //     for(var k in Common.confHelp.helps)
-    //     {
-    //         var g = Common.confHelp.helps[k];
-    //         if( g.alias == gname )
-    //         {
-    //             return g.htmls;
-    //         }
-    //     }
-    //     return null;
-    // }
     //当前登录设备
     Common.LOGIN_PLATFORM = "";
     return Common;

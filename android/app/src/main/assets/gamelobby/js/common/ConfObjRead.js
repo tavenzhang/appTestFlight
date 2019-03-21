@@ -5,14 +5,29 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.accenterObj) {
             return ConfObjRead.accenterObj;
         }
-        ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad.json");
+        if (AppData.IS_NATIVE_APP) {
+            if (AppData.isAndroidHack) {
+                ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad_app_temp.json");
+            }
+            else {
+                ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad_app.json");
+            }
+        }
+        else {
+            ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad.json");
+        }
         return ConfObjRead.accenterObj;
     };
     ConfObjRead.getConfGirlManager = function () {
         if (ConfObjRead.girlObj) {
             return ConfObjRead.girlObj;
         }
-        ConfObjRead.girlObj = Laya.Loader.getRes("./assets/conf/girl.json");
+        if (AppData.IS_NATIVE_APP) {
+            ConfObjRead.girlObj = Laya.Loader.getRes("./assets/conf/girl_app.json");
+        }
+        else {
+            ConfObjRead.girlObj = Laya.Loader.getRes("./assets/conf/girl.json");
+        }
         return ConfObjRead.girlObj;
     };
     ConfObjRead.getConfDataNum = function () {
@@ -36,10 +51,27 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.giconAnimObj = Laya.Loader.getRes("./assets/conf/gameiconanim.json");
         return ConfObjRead.giconAnimObj;
     };
-    ConfObjRead.getGameIconAnimBySrc = function (src) {
+    ConfObjRead.getGameIconSrcByAlias = function (alias) {
         var obj = ConfObjRead.getGameIconAnim();
         for (var i = 0; i < obj.icons.length; i++) {
-            // if( obj.icons[i].src == src )
+            if (obj.icons[i].alias == alias) {
+                return obj.icons[i].src;
+            }
+        }
+        return obj.defaultIcon.src;
+    };
+    ConfObjRead.getGameIconAnimByAlias = function (alias) {
+        var obj = ConfObjRead.getGameIconAnim();
+        for (var i = 0; i < obj.icons.length; i++) {
+            if (obj.icons[i].alias == alias) {
+                return obj.icons[i].anim;
+            }
+        }
+        return obj.defaultIcon.anim;
+    };
+    ConfObjRead.getGameIconAnimBySrcX = function (src) {
+        var obj = ConfObjRead.getGameIconAnim();
+        for (var i = 0; i < obj.icons.length; i++) {
             if (src.indexOf(obj.icons[i].src) >= 0) {
                 return obj.icons[i].anim;
             }
@@ -92,7 +124,17 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.avatorObj) {
             return ConfObjRead.avatorObj;
         }
-        ConfObjRead.avatorObj = Laya.Loader.getRes("./assets/conf/avator.json");
+        if (AppData.IS_NATIVE_APP) {
+            if (!AppData.isAndroidHack) {
+                ConfObjRead.avatorObj = Laya.Loader.getRes("./assets/conf/avator_app.json");
+            }
+            else {
+                ConfObjRead.avatorObj = Laya.Loader.getRes("./assets/conf/avator_app_temp.json");
+            }
+        }
+        else {
+            ConfObjRead.avatorObj = Laya.Loader.getRes("./assets/conf/avator.json");
+        }
         return ConfObjRead.avatorObj;
     };
     ConfObjRead.getConfAvatorPad = function () {
@@ -107,8 +149,6 @@ var ConfObjRead = /** @class */ (function () {
             return ConfObjRead.settingpadObj;
         }
         ConfObjRead.settingpadObj = Laya.Loader.getRes("./assets/conf/setting.json");
-        // Debug.trace("SettingPad conf:");
-        // Debug.trace(ConfObjRead.settingpadObj);
         return ConfObjRead.settingpadObj;
     };
     ConfObjRead.getConfAttention = function () {
@@ -178,7 +218,17 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.room_titlebarObj) {
             return ConfObjRead.room_titlebarObj;
         }
-        ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar.json");
+        if (AppData.IS_NATIVE_APP) {
+            if (!AppData.isAndroidHack) {
+                ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar_app.json");
+            }
+            else {
+                ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar_app_temp.json");
+            }
+        }
+        else {
+            ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar.json");
+        }
         return ConfObjRead.room_titlebarObj;
     };
     ConfObjRead.getConfRoomTitlebar = function () {
@@ -206,7 +256,17 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.minemenuObj) {
             return ConfObjRead.minemenuObj;
         }
-        ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus.json");
+        if (AppData.IS_NATIVE_APP) {
+            if (!AppData.isAndroidHack) {
+                ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus_app.json");
+            }
+            else {
+                ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus_app_temp.json");
+            }
+        }
+        else {
+            ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus.json");
+        }
         return ConfObjRead.minemenuObj;
     };
     ConfObjRead.getConfLeftmenus = function () {
@@ -278,36 +338,25 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.htmlObj = null;
     ConfObjRead.giconAnimObj = null;
     ConfObjRead.gamepanelObj = null;
-    //跑马灯消息
     ConfObjRead.runningmsgObj = null;
     ConfObjRead.commonObj = null;
     ConfObjRead.urlObj = null;
     ConfObjRead.room_roompadObj = null;
     ConfObjRead.roomlistObj = null;
     ConfObjRead.avatorObj = null;
-    //获取头像修改面板配置
     ConfObjRead.room_avatorObj = null;
     ConfObjRead.settingpadObj = null;
-    //公告弹窗配置
     ConfObjRead.attentionObj = null;
     ConfObjRead.noticeDialogObj = null;
     ConfObjRead.room_helpObj = null;
-    //金钱不足的对话框
     ConfObjRead.nomoneyObj = null;
-    //读取提示信息
     ConfObjRead.room_toastObj = null;
-    //加载进度框样式配置
     ConfObjRead.room_saiziObj = null;
-    //读取战绩配置
     ConfObjRead.room_historyObj = null;
-    //底部菜单
     ConfObjRead.room_bottomObj = null;
-    //公告滚动消息框
     ConfObjRead.room_noticeObj = null;
-    //标题栏
     ConfObjRead.room_titlebarObj = null;
     ConfObjRead.rmttbObj = null;
-    //房间背景配置
     ConfObjRead.room_bgObj = null;
     ConfObjRead.peoplesObj = null;
     ConfObjRead.minemenuObj = null;

@@ -1,29 +1,29 @@
 {
     "pos":{ "x":0, "y":0 },
     "size":{
-        "desc":"大背景尺寸,要半透明的",
+        "desc":"",
         "w":1334,
         "h":750
     },
     "mask":{
-        "desc":"大背景半透明度",
+        "desc":"",
         "alpha":0.6
     },
     "bg":{
-        "desc":"内容背景 纵向拉伸的",
+        "desc":"",
         "src":"./assets/ui/accountcenter/img_gerenzhongx_di.png",
         "pos":{ "x":127.5, "y":42.5 },
         "pivotX":{ "x":0, "y":0 }
     },
     "title":{
         "lb":{
-            "desc":"标题显示的文字",
+            "desc":"",
             "src":"./assets/ui/accountcenter/img_zi_zhufu.png",
             "pos":{ "x":550, "y":465 }
         }
     },
     "curavator":{
-        "desc":"当前头像",
+        "desc":"",
         "bgX":{
             "src":"./assets/ui/avatorpad/bgDialog.png",
             "pos":{"x":160,"y":130}
@@ -81,7 +81,7 @@
             }
         },
         "btnchange":{
-            "desc":"确认更换按钮",
+            "desc":"",
             "cmd":"changeicon",
             "pos":{ "x":975, "y":360 },
             "src":[
@@ -94,7 +94,7 @@
         }
     },
     "close":{
-        "desc":"关闭按钮",
+        "desc":"",
         "pos":{ "x":1187, "y":90 },
         "src":[
             "./assets/ui/dialog/btn_touxiang_guangbi.png"
@@ -106,13 +106,38 @@
     },
     
     "touchout":{
-        "desc":"是否点按外部触发鼠标事件",
+        "desc":"",
         "value":false
     },
-
     "btns":[
         {
-            "desc":"设置",
+            "desc":"",
+            "cmd":"setting",
+            "pos":{ "x":388, "y":595 },
+            "src":[
+                "./assets/ui/accountcenter/btn_setting.png"
+            ],
+            "size":{ "w":297, "h":108 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3"
+        },
+        {
+            "desc":"",
+            "cmd":"account",
+            "pos":{ "x":941, "y":600 },
+            "src":[
+                "./assets/ui/accountcenter/btn_zhanghuxinxi.png"
+            ],
+            "size":{ "w":297, "h":101 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3"
+        }
+    ],
+    "btnsX":[
+        {
+            "desc":"",
             "cmd":"setting",
             "pos":{ "x":340, "y":600 },
             "src":[
@@ -124,7 +149,7 @@
             "sfx":"assets/raw/click.mp3"
         },
         {
-            "desc":"账户",
+            "desc":"",
             "cmd":"account",
             "pos":{ "x":665, "y":605 },
             "src":[
@@ -136,7 +161,7 @@
             "sfx":"assets/raw/click.mp3"
         },
         {
-            "desc":"退出",
+            "desc":"",
             "cmd":"logout",
             "pos":{ "x":990, "y":600 },
             "src":[

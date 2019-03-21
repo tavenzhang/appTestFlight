@@ -47,7 +47,7 @@ var LoadingScene = /** @class */ (function (_super) {
         // //从url中读取Token
         var urlToken = Tools.getQueryVariable("token");
         //从url中获取业主id 如果是app 会通过app 传送clientID
-        if (!Common.IS_NATIVE_APP) {
+        if (!AppData.IS_NATIVE_APP) {
             if (urlToken != undefined && urlToken.length != 0) {
                 this.temp_token = urlToken;
             }
@@ -80,13 +80,13 @@ var LoadingScene = /** @class */ (function (_super) {
         //Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
         if (this.temp_token.length <= 0 || this.status == 1 || Common.confObj.testLogin) {
             //没有token存档的情况下，直接进入登录场景
-            Debug.trace("ConfObjRead.getConfUrl()---- LayaMain.getInstance().initLogin()");
+            // Debug.trace("ConfObjRead.getConfUrl()---- LayaMain.getInstance().initLogin()")
             LayaMain.getInstance().initLogin();
         }
         else {
             //检查该token是否可用，可用，直接进入大厅
             //不可用，进入登录
-            Debug.trace("ConfObjRead.getConfUrl()----  this.requestTokenTest(this.temp_token)");
+            // Debug.trace("ConfObjRead.getConfUrl()----  this.requestTokenTest(this.temp_token)")
             this.requestTokenTest(this.temp_token);
         }
         // LayaMain.getInstance().initLogin();
@@ -94,7 +94,7 @@ var LoadingScene = /** @class */ (function (_super) {
         // var testGameData = {
         //     alias:"zjh",
         //     gameType:"ROUND",
-        //     icon:"/assets/ui/game/img_dating_youxi_01.png",
+        //     icon:"/assets/ui/game/icon_zjh.png",
         //     id:10,
         //     jumpUrl:false,
         //     minEntry:0,
@@ -140,7 +140,7 @@ var LoadingScene = /** @class */ (function (_super) {
     };
     //检查重连需求
     LoadingScene.prototype.checkReconnect = function () {
-        var url = ConfObjRead.getConfUrl().url.lobbyurl +
+        var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.reconnect +
             "?access_token=" + Common.access_token;
         NetManager.getObj().HttpConnect(url, this, this.checkReconnectOk);

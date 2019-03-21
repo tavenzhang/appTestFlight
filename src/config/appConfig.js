@@ -55,7 +55,7 @@ export const platInfo = {
         release_server: "https://download.hkbaoxian188.com/game/release/chyqp"
     },
     platId: configAppId,
-
+    brand: "chyqp",
     channel: {
         c_1: {
             jpushKey: "e9f6454032a3f4936d80a82f",
@@ -89,7 +89,3 @@ export const affCodeList = {
     }
 };
 
-export const shareURL={
-    ios:"https://download.imsue.cn/game/app.html?sub=release-uat&app=1&rom=7803",
-    android:"https://download.imsue.cn/game/release/uat/uat.apk?rom=4473",
-}

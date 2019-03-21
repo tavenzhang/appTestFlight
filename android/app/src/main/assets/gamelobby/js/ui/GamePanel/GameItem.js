@@ -15,17 +15,14 @@ var GameItem = /** @class */ (function (_super) {
     __extends(GameItem, _super);
     function GameItem() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        //上次绘制的半径
+        _this.sStatus = GameItem.STATUS_NORMAL;
+        _this.iUpdateProgress = 0;
+        _this.bInUpdate = false;
         _this.lastR = 10;
-        //步进半径
         _this.stepR = 10;
-        //当前绘制的开始角度
         _this.nowStartAngle = 0;
-        //当前步进绘制角度
         _this.stepAngle = 30;
-        //最大半径
         _this.maxR = 1139;
-        //我的坐标X
         _this.px = 0;
         return _this;
     }
@@ -57,69 +54,43 @@ var GameItem = /** @class */ (function (_super) {
         this.sp_pie = new Laya.Sprite();
         this.sp_pie.pos(0, 0);
         this.addChild(this.sp_pie);
-        //設定自己的坐標
-        // this.size(this.sp_icon.width,this.sp_icon.height);
         this.size(this.conf.btnicon.size.w, this.conf.btnicon.size.h);
         this.pivot(this.conf.btnicon.size.w / 2, this.conf.btnicon.size.h / 2);
-        // this.pos(this.conf.pos.x,this.conf.pos.y);
         if (this.conf.showbg) {
             var showbg = new Laya.Sprite();
             this.addChild(showbg);
             Tools.drawRectWithAlpha(showbg, this.x, this.y, this.conf.btnicon.size.w, this.conf.btnicon.size.h, this.conf.showbg.color, this.conf.showbg.alpha);
         }
-        // this.y = this.conf.pos.y;
     };
-    //显示灰色图片
+    GameItem.prototype.getGraySrc = function (src) {
+        var n = Tools.getFileNameExt(src);
+        var srcDest = n.name + this.conf.btnicon.grayext + n.ext;
+        return srcDest;
+    };
     GameItem.prototype.showGray = function () {
-        var n = Tools.getFileNameExt(this.icon_src);
-        var src = n.name + this.conf.btnicon.grayext + n.ext;
-        var srcs = src;
-        // var srcs = Tools.getCurDirPath(src);
-        // Debug.trace('GameItem.showGray n:'+n+' src:'+src+" srcs:"+srcs);
-        // Laya.loader.load(srcs,new Laya.Handler(this,this.iconLoaded,[srcs]));
+        var srcs = this.getGraySrc(this.icon_src);
         this.iconLoaded(srcs, null);
     };
     GameItem.prototype.setIcon = function (src) {
         this.icon_src = src;
         var srcs = src;
-        // var srcs = Tools.getCurDirPath(src);
-        // Debug.trace('GameItem.setIcon '+' srcs:'+srcs);
-        // Laya.loader.load(srcs,new Laya.Handler(this,this.iconLoaded,[srcs]));
         this.iconLoaded(srcs, null);
     };
     GameItem.prototype.iconLoaded = function (res, s) {
-        // this.sp_icon.graphics.clear();
-        // this.sp_icon.graphics.drawTexture(e, 0, 0,
-        //     this.sp_icon.width,this.sp_icon.height
-        //     );
-        // this.btn_icon.redraw(e);
-        // this.btn_icon.data = this.data;
-        // this.btn_icon.redrawTexture(res,e);
-        // Debug.trace("GameItem.iconLoaded res:"+res);
         res = Tools.isHaveHeadPoint(".", res, 1);
         try {
             this.btn_icon.setRes([res]);
         }
-        catch (e) {
-            Debug.trace('gameitem icon loaded e:');
-            Debug.trace(e);
-            Debug.trace('icon loaded res:' + this.data.name);
-            Debug.trace(res);
-            Debug.trace('icon loaded s:');
-            Debug.trace(s);
-        }
+        catch (e) { }
     };
     GameItem.prototype.setName = function (name) {
         if (this.lb_name) {
             this.lb_name.text = name;
         }
     };
-    GameItem.prototype.onMouseEvent = function (e) {
-        // Debug.trace('GameItem onMouseEvent');
-        // Debug.trace(e);
+    GameItem.prototype.onMouseEventX = function (e) {
         switch (e.type) {
             case Laya.Event.MOUSE_DOWN:
-                //记录当前的按下坐标
                 this.downPos = { x: e.stageX, y: e.stageY };
                 break;
             case Laya.Event.MOUSE_MOVE:
@@ -128,7 +99,6 @@ var GameItem = /** @class */ (function (_super) {
                 this.downPos = null;
                 break;
             case Laya.Event.MOUSE_UP:
-                //释放的时候检查，与按下的坐标对比，距离小于一定值，才算click
                 if (this.downPos) {
                     var upPos = { x: e.stageX, y: e.stageY };
                     if (Tools.isClick(this.downPos, upPos)) {
@@ -138,165 +108,100 @@ var GameItem = /** @class */ (function (_super) {
                 break;
         }
     };
-    //绘制转圈圆弧，废弃
-    GameItem.prototype.drawPieX = function () {
-        var x = this.conf.drawcenter.x; //0;//this.width/2;
-        var y = this.conf.drawcenter.y; //0;//this.height/2;
-        var r = this.stepR + this.lastR;
-        var fc = "#ffffff";
-        var lc = "#ffffff";
-        var lw = 0;
-        var start = this.nowStartAngle;
-        var end = start + this.stepAngle;
-        // this.sp_icon.graphics.drawPie(x,y,r,start,end,fc,lc,lw);
-        this.sp_pie.graphics.drawPie(x, y, r, start, end, fc, lc, lw);
-        this.nowStartAngle = end;
-        if (this.nowStartAngle >= 360) {
-            this.nowStartAngle -= 360;
-        }
-        this.lastR = r;
-        if (this.lastR >= this.maxR) {
-            // Debug.trace('drawPie end');
-            Laya.timer.clear(this, this.drawPieX);
-            //跳转
-            var url = this.data.url; // + "?token="+Common.access_token+"&id="+this.data.id;
-            Tools.jump2game(url);
+    GameItem.prototype.onClickItem = function () {
+        // Debug.trace("GameItem.onClickItem this.sStatus:"+this.sStatus);
+        switch (this.sStatus) {
+            case GameItem.STATUS_PAUSE:
+            case GameItem.STATUS_COMING:
+                break;
+            case GameItem.STATUS_ONLINE:
+                this.onLaunchGame();
+                break;
+            case GameItem.STATUS_UPDATE:
+                this.onStartUpdate();
+                break;
+            default:
+                this.onLaunchGame();
+                break;
         }
     };
-    //点击图标
-    GameItem.prototype.onClickItem = function () {
-        //发生点击了
-        //记录下当前选中的游戏id
+    GameItem.prototype.onLaunchGame = function () {
         Common.gameId = this.data.id;
         Common.wsUrl = this.data.url;
         if (this.conf.sfx) {
-            // Debug.trace("GameItem.onClickItem sfx:"+this.conf.sfx);
             Laya.SoundManager.playSound(this.conf.sfx);
         }
-        // Debug.trace("GameItem.onClickItem gData this.data:");
-        // Debug.traceObj(this.data);
-        //看配置成啥，配置成跳转到游戏的话，就去游戏，去房间列表的话，就去房间列表
         if (this.data.jumpUrl) {
-            //跳转url
+            if (!this.btn_icon.bclick) {
+                return;
+            }
+            this.btn_icon.bclick = false;
             var url = this.data.url;
             Tools.jump2game(url);
         }
         else {
             if (this.conf.actionOnClick) {
-                //游戏图标点击后，应该开始拉取当前该游戏的所有房间列表
-                // sceneRoot.getInGame(this.data);
-                //使用动画，女孩离开
-                // this.panel.scrollOutGirl();
-                // this.panel.scrollOutContent(this.data);
                 LayaMain.getInstance().initRoom(this.data);
             }
-            else {
-                // Debug.trace('GameItem onClick');
-                //调整深度，绘制弧面动画，切换到白屏
-                this.panel.setAllItemOrder(Common.IDX_BELOW_DRAW);
-                this.zOrder = Common.IDX_TOP_DRAW;
-                Laya.timer.loop(this.conf.dutimer, this, this.drawPieX);
-            }
         }
-        //不能点击了 如果是app 需要可以重复点击
-        // if(!Common.IS_NATIVE_APP)
-        // {
-        //       this.btn_icon.bclick = false;
-        // }
     };
-    //设置数据
     GameItem.prototype.setData = function (dt) {
-        // Debug.trace("GameItem.setData dt:");
-        // Debug.trace(dt);
         this.data = dt;
         this.icon_src = this.data.icon;
-        this.setEnable(true);
-        //过滤233的路径为本地路径
-        var url = dt.icon;
-        this.setIcon(url);
+        if (this.data.state == "NORMAL") {
+            this.sStatus = GameItem.STATUS_NORMAL;
+        }
+        else if (this.data.state == "PAUSE") {
+            this.sStatus = GameItem.STATUS_PAUSE;
+        }
+        else if (this.data.state == "EXPECTATION") {
+            this.sStatus = GameItem.STATUS_COMING;
+        }
+        var src = ConfObjRead.getGameIconSrcByAlias(this.data.alias);
+        if (src) {
+            this.setIcon(src);
+        }
         this.setName(dt.name);
+        this.initAnim();
         this.setHot(dt.bhot);
         this.px = this.x;
     };
-    //是否显示热门
     GameItem.prototype.setHot = function (b) {
         this.sp_hot.visible = b;
     };
-    //设置本游戏图标的可用性，是否可以点击
+    GameItem.prototype.initAnim = function () {
+        this.animConf = ConfObjRead.getGameIconAnimByAlias(this.data.alias);
+        if (this.animConf && !this.sp_anim) {
+            this.sp_anim = new MyBoneAnim();
+            this.sp_anim.init(this.animConf);
+            this.addChild(this.sp_anim);
+            this.sp_anim.playAnim(0, true);
+        }
+    };
     GameItem.prototype.setEnable = function (b) {
         if (this.data.state == "NORMAL") {
-            this.btn_icon.bclick = b;
-            //可用状态，贴动效
-            var anim = ConfObjRead.getGameIconAnimBySrc(this.icon_src);
-            // Debug.trace("GameItem.setEnable icon_src:"+this.icon_src);
-            // Debug.trace("GameItem.setEnable anim:");
-            // Debug.trace(anim);
-            if (anim && !this.sp_anim) {
-                this.sp_anim = new MyBoneAnim();
-                this.sp_anim.init(anim);
-                this.addChild(this.sp_anim);
-                this.sp_anim.playAnim(0, true);
-                this.btn_icon.alpha = anim.dAlpha;
-            }
-            else {
-                if (!this.sp_anim) {
-                    this.btn_icon.alpha = 1;
-                }
-            }
+            this.btn_icon.alpha = this.animConf.dAlpha;
+            this.btn_icon.setEnabled(true);
         }
         else {
-            //显示灰色
-            // Debug.trace("GameItem.setEnable b:"+b+" showGray");
+            this.sp_anim.alpha = 0;
             this.showGray();
-            // Tools.setSpriteGrayFilter(this.btn_icon);
-            if (this.sp_anim) {
-                Debug.trace("GameItem.setEnable gray anim");
-                Tools.setSpriteGrayFilter(this.sp_anim);
-            }
-            if (!this.sp_pause) {
-                var conf;
-                if (this.data.state == "PAUSE") {
-                    conf = this.conf.statePause;
-                }
-                else if (this.data.state == "EXPECTATION") {
-                    conf = this.conf.stateComing;
-                }
-                try {
-                    this.sp_pause = Tools.newSprite(conf);
-                    this.addChild(this.sp_pause);
-                }
-                catch (e) { }
-            }
-            //  this.btn_icon.bclick = false;
+            this.showPause();
         }
-        // if( this.sp_anim && !b )
-        // {
-        // Debug.trace("GameItem.setEnable gray anim");
-        //     Tools.setSpriteGrayFilter(this.sp_anim);
-        // }
     };
-    //我正在移动，移动了nx
     GameItem.prototype.imMove_ = function (nx) {
-        // Debug.trace('imMove nx:'+nx);
         this.px += nx;
-        // if( this.px >= ( this.conf.btnicon.pos.x - 10) )
         if (this.px >= this.conf.btnicon.pos.x) {
             this.x = this.px;
         }
         else {
-            //不再移动其坐标
         }
-        // Debug.trace(this.data.name+' x:'+this.x + " w:"+this.width);
-        //移动的过程中监控，我的坐标小于0多少？
-        //比0小的程度就是我缩小的成都和alpha的程度
-        //总的移动区间就是我的宽度
         if (this.px < this.conf.btnicon.pos.x) {
             var totalw = this.conf.btnicon.size.scaleW + this.conf.btnicon.pos.x;
             var dis = this.px - this.conf.btnicon.pos.x;
             var minusZ = totalw - Math.abs(dis);
             var scaleP = minusZ / totalw;
             var alphaP = scaleP;
-            // Debug.trace('x:'+minusZ+" tw:"+totalw+" pscal:"+scaleP+" alp:"+alphaP);
             this.scale(scaleP, scaleP);
             this.alpha = alphaP;
         }
@@ -313,6 +218,121 @@ var GameItem = /** @class */ (function (_super) {
         this.px += nx;
         this.x = this.px;
     };
+    GameItem.prototype.showUpdateBtn = function () {
+        if (!this.sp_Update) {
+            this.sp_Update = Tools.addSprite(this, this.conf.spupdate);
+        }
+    };
+    GameItem.prototype.showProgressText = function () {
+        if (!this.lb_update) {
+            this.lb_update = Tools.addLabels(this, this.conf.updateText);
+        }
+    };
+    GameItem.prototype.showPause = function () {
+        if (!this.sp_pause) {
+            var conf;
+            if (this.data.state == "PAUSE") {
+                conf = this.conf.statePause;
+            }
+            else if (this.data.state == "EXPECTATION") {
+                conf = this.conf.stateComing;
+            }
+            try {
+                this.sp_pause = Tools.newSprite(conf);
+                this.addChild(this.sp_pause);
+            }
+            catch (e) { }
+        }
+    };
+    GameItem.prototype.refreshStatus = function () {
+        switch (this.sStatus) {
+            case GameItem.STATUS_COMING:
+                this.showPause();
+                break;
+            case GameItem.STATUS_NORMAL:
+                this.sp_anim.alpha = 1;
+                this.sp_anim.visible = true;
+                this.btn_icon.alpha = this.animConf.dAlpha;
+                this.btn_icon.setEnabled(true);
+                break;
+            case GameItem.STATUS_PAUSE:
+                this.showPause();
+                break;
+            case GameItem.STATUS_UPDATE:
+                this.showUpdateBtn();
+                break;
+        }
+    };
+    GameItem.prototype.setStatus = function (st) {
+        this.sStatus = st;
+        this.refreshStatus();
+    };
+    GameItem.prototype.onStartUpdate = function () {
+        if (this.bInUpdate) {
+            return;
+        }
+        this.bInUpdate = true;
+        this.iUpdateProgress = 0.0;
+        this.sp_anim.visible = false;
+        this.btn_icon.setEnabled(false);
+        this.btn_icon.alpha = 1;
+        this.sp_Update.visible = false;
+        this.showProgressText();
+        this.refreshUpdateProgress();
+        PostMHelp.startUpdate({ "gameId": this.data.id, "alias": this.data.alias });
+    };
+    GameItem.prototype.onUpdateProgress = function (n) {
+        this.iUpdateProgress = n;
+        this.refreshUpdateProgress();
+    };
+    GameItem.prototype.refreshUpdateProgress = function () {
+        var nowHei = this.iUpdateProgress * this.btn_icon.height;
+        var lastHei = this.btn_icon.height - nowHei;
+        this.renderPercent(nowHei, lastHei);
+        if (this.lb_update) {
+            var pct = this.iUpdateProgress * 100;
+            var spct = Tools.FormatFloatNumber(pct, 2);
+            this.lb_update.text = this.conf.updateText.font.pretext + spct + this.conf.updateText.font.endtext;
+        }
+        if (this.iUpdateProgress >= 1) {
+            if (this.lb_update) {
+                this.removeChild(this.lb_update);
+                this.lb_update.destroy(true);
+                this.lb_update = null;
+            }
+            this.setStatus(GameItem.STATUS_NORMAL);
+            this.bInUpdate = false;
+            UpdateMsgHandle.clearInfoByAlias(this.data.alias);
+        }
+    };
+    GameItem.prototype.renderPercent = function (bottomH, topH) {
+        var btn = this.btn_icon.btn_ui;
+        var texLight = Laya.loader.getRes(this.icon_src);
+        var src_gray = this.getGraySrc(this.icon_src);
+        var texGray = Laya.loader.getRes(src_gray);
+        var xGray = 0;
+        var yGray = 0;
+        var wGray = btn.width;
+        var hGray = topH;
+        var xLight = 0;
+        var yLight = topH;
+        var wLight = btn.width;
+        var hLight = bottomH;
+        btn.graphics.clear();
+        btn.graphics.save();
+        btn.graphics.clipRect(xGray, yGray, wGray, hGray);
+        btn.graphics.drawTexture(texGray);
+        btn.graphics.restore();
+        btn.graphics.save();
+        btn.graphics.clipRect(xLight, yLight, wLight, hLight);
+        btn.graphics.drawTexture(texLight);
+        btn.graphics.restore();
+    };
+    GameItem.STATUS_UPDATE = "update";
+    GameItem.STATUS_PAUSE = "pause";
+    GameItem.STATUS_NORMAL = "normal";
+    GameItem.STATUS_COMING = "coming";
+    GameItem.STATUS_ONLINE = "online";
     return GameItem;
 }(Laya.Sprite));
 //# sourceMappingURL=GameItem.js.map

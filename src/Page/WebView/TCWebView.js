@@ -11,10 +11,7 @@ import {width} from '../asset/game/themeComponet'
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
-import TCImage from "../../Common/View/image/TCImage";
-import {Images} from "../asset/images";
 import {JX_PLAT_INFO} from "../asset";
-import LoadingView from "../enter/LoadingView";
 import TCButtonView from "../../Common/View/button/TCButtonView";
 import {observer} from "mobx-react/native";
 
@@ -41,20 +38,51 @@ export default class TCWebView extends Component {
     componentWillMount() {
         TW_Store.bblStore.lastGameUrl = "";
         TW_Store.bblStore.isLoading = true;
+        TW_OnBackHomeJs=this.onBackHomeJs;
     }
 
+    componentDidMount(): void {
+        if(this.refs.myWebView.getSettings){
+            this.refs.myWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        }
+    }
+
+
     render() {
+        let {isOrigan}=this.props
+        let myUrl = this.state.uri;
+        let tempIndex = myUrl.indexOf("?");
+        let myParam = myUrl.substr(tempIndex);
+        let newUrl=  myUrl.substring(0,tempIndex)+"index.html";
+        TW_Log("myUrl------------------------myParam--"+myParam+"-\n-newUrl----"+newUrl)
 
         let source = {
-            uri: this.state.uri,
+            file: newUrl,
+            allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
+            allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
+            param:myParam
+        };
+        if (!G_IS_IOS) {
+            source = {
+                uri: newUrl+`${myParam}`,
+            };
+        }else{
+            if(isOrigan){
+                source = {
+                    uri: newUrl+`${myParam}`,
+                };
+            }
         }
+
         let dis = TW_Store.bblStore.isLoading ? "none":"flex";
         TW_Log("TW_Store.bblStore.isLoading---"+TW_Store.bblStore.isLoading,dis);
         //andorid 显示有点小问题  黑屏处理
         if (this.state.isHide) {
             return <View style={{flex: 1, backgroundColor: "black"}}/>
         }
-        let wenConteView = G_IS_IOS ? <WKWebView source={source} onNavigationStateChange={this.onNavigationStateChange}
+        let wenConteView = G_IS_IOS ? <WKWebView
+                ref="myWebView"
+                source={source} onNavigationStateChange={this.onNavigationStateChange}
                                                  onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                                                  style={[styles.webView,{display:dis}]}
                                                  allowFileAccess={true}
@@ -67,6 +95,7 @@ export default class TCWebView extends Component {
 
             /> :
             <WebView
+                ref="myWebView"
                 useWebKit={true}
                 automaticallyAdjustContentInsets={true}
                 style={styles.webView}
@@ -222,7 +251,9 @@ export default class TCWebView extends Component {
     };
 
     onBackHomeJs = () => {
+
         let {onEvaleJS} = this.props
+        TW_Log("onEvaleJS---onBackHomeJs--",onEvaleJS)
         if (onEvaleJS) {
             onEvaleJS(this.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.playMusic));

@@ -1,0 +1,135 @@
+{
+    "pos":{"x":0,"y":0},
+    "hidepos":{"x":0,"y":-500},
+    "duration":500,
+    "bg":{
+        "pos":{"x":0,"y":0},
+        "src":"./assets/ui/avator/img_touxaingdi.png",
+        "anim":{
+            "pos":{"x":280,"y":58},
+            "textPath":"./assets/ui/animation/liangguang/liangguang.png",
+            "animPath":"./assets/ui/animation/liangguang/liangguang.sk",
+            "playSpeed":1.0,
+            "loop":true,
+            "loopdelay":2000,
+            "stopHide":{
+                "value":true
+            }
+        }
+    },
+    "headicon":{
+        "btnicon":{
+            "desc":"",
+            "pos":{
+                "x":75,
+                "y":55
+            },
+            "src":[
+                "./assets/ui/avator/default.jpg"
+            ],
+            "fontX":{
+                "text":"",
+                "size":18,
+                "color":"#ffffff",
+                "borderColorX":"#ff0000",
+                "pos":{ "x":0, "y":0 }
+            },
+            "size":{ "w":90, "h":90 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3"
+        },
+        "iconframe":{
+            "src":"./assets/ui/avator/avatorFrame.png",
+            "pos":{ "x":25, "y":5 },
+            "size":{ "w":100, "h":100 }
+        },
+        "lbname":{
+            "src":"./assets/ui/avator/img_dating_zhanghaozi.png",
+            "pos":{ "x":150, "y":5 },
+            "size":{ "w":146, "h":32 }
+        },
+        "name":{
+            "size":{ "w":165, "h":35 },
+            "font":{
+                "pretext":"xxx",
+                "size":30,
+                "color":"#ffe996",
+                "align":"left",
+                "valign":"middle",
+                "borderColorX":"#ff0000",
+                "name":"x",
+                "wordwrap":false
+            },
+            "pos":{ "x":150, "y":60 }
+        },
+        "picnamehead":"touxiang/img_touxiang_",
+        "picnameend":".jpg",
+        "pos":{ "x":0, "y":0 },
+        "sound":{
+            "src":"assets/raw/click.mp3"
+        },
+        "bStarName":false
+    },
+    "coinicon":{
+        "pos":{ "x":600, "y":10 },
+        "bg":{
+            "src":"./assets/ui/avator/img_dating_qian_di.png",
+            "pos":{ "x":0, "y":0 }
+        },
+        "label":{
+            "pos":{ "x":55, "y":19 },
+            "size":{ "w":110, "h":30 },
+            "font":{
+                "text":"123456",
+                "size":24,
+                "color":"#ffc602",
+                "borderColorX":"#ff0000",
+                "align":"left",
+                "valign":"middle",
+                "name":"x",
+                "wrap":false
+            }
+        },
+        "icon":{
+            "srcX":"./assets/ui/avator/icon_fangjian_ziyuan_chouam.png",
+            "pos":{ "x":20, "y":40 },
+            "anim":{
+                "textPath":"./assets/ui/animation/coins/money_icon.png",
+                "animPath":"./assets/ui/animation/coins/money_icon.sk",
+                "playSpeed":1.0,
+                "loop":true,
+                "loopdelay":2000,
+                "pos":{ "x":0, "y":0 },
+                "stopHide":{
+                    "value":true
+                }
+            }
+        },
+        "btnaddX":{
+            "src":[
+                "./assets/ui/avator/btn_dating_zengjia.png"
+            ],
+            "pos":{ "x":300, "y":38 },
+            "font":{
+                "text":"",
+                "size":18,
+                "color":"#ffffff",
+                "borderColorX":"#ff0000",
+                "pos":{ "x":0, "y":0 }
+            },
+            "size":{ "w":55, "h":55 },
+            "maxScale":{"x":1.05,"y":1.05},
+            "normalScale":{"x":1,"y":1},
+            "animX":{
+                "textPath":"./assets/ui/animation/btn_recharge/Reload.png",
+                "animPath":"./assets/ui/animation/btn_recharge/Reload.sk",
+                "playSpeed":1.0,
+                "loop":true,
+                "loopdelay":2000,
+                "pos":{ "x":0, "y":0 }
+            },
+            "sfx":"assets/raw/recharge.mp3"
+        }
+    }
+}
