@@ -255,6 +255,7 @@ RCT_EXPORT_METHOD(auth:(NSInteger)platform completion:(RCTResponseSenderBlock)co
 RCT_EXPORT_METHOD(isWechatEnabled :(RCTResponseSenderBlock)completion){
   NSArray *URLTypesArr = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"];
   NSDictionary *AppSecretDic = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AppSecret"];
+  NSString *umengKeyString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UmengKey"];
   NSString *weixinKeyString = @"";
   NSString *weixinKeyAppSecret = @"";
   
@@ -270,7 +271,7 @@ RCT_EXPORT_METHOD(isWechatEnabled :(RCTResponseSenderBlock)completion){
     }
   }
   
-  completion(@[[NSNumber numberWithBool:weixinKeyString.length > 0 && weixinKeyAppSecret.length > 0]]);
+  completion(@[[NSNumber numberWithBool:weixinKeyString.length > 0 && weixinKeyAppSecret.length > 0 && umengKeyString.length > 0]]);
   return;
 }
 @end
