@@ -148,7 +148,7 @@ export default class AppInfoStore {
             TW_Log('JX===  appInfo '+this.appInfo.APP_DOWNLOAD_VERSION+"--appInfo.JPushKey=="+this.appInfo.JPushKey,this.appInfo)
             TN_StartJPush(this.appInfo.JPushKey,'1');
             TN_START_Fabric();
-            // TN_START_SHARE("111","222");
+             TN_START_SHARE("111","222");
             TN_StartUMeng(this.appInfo.UmengKey, this.appInfo.Affcode)
         }
     }

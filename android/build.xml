@@ -11,7 +11,7 @@
 
 <project>
     <property name="defaultPackageName" value="com.jd" />
-    <property name="newPackageName" value="com.xxx" />
+    <property name="newPackageName" value="com.bbl.cgmx" />
 
     <script language="javascript">
         var defaultPackageName = project.getProperty("defaultPackageName");
