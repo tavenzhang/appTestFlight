@@ -80,12 +80,13 @@ export default class AppInfoStore {
 
     init() {
         TW_Data_Store.getItem(TW_DATA_KEY.platData, (err, ret) => {
-            TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====" + err+"--ret--"+ret);
+            TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror=" + err+"--ret--"+ret);
             this.appInfo.PLAT_ID = configAppId;
             if (err) {
                 this.checkAppInfoUpdate(null);
             } else {
                 if(ret){
+
                    let appInfo = JSON.parse(ret);
                     if(appInfo){
                         this.initData(appInfo);
@@ -100,11 +101,18 @@ export default class AppInfoStore {
 
     checkAppInfoUpdate=(oldData=null)=>{
         TN_GetAppInfo((data) => {
+            TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==data=",data);
             if(data){
-                let appInfo=JSON.parse(data);
-                //TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat====", appInfo);
+                let appInfo ={};
+                if(G_IS_IOS){
+                    appInfo = JSON.parse(data);
+                }else{
+                    appInfo =data;
+                }
+                TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==appInfo----=",appInfo);
+                let dataString= JSON.stringify(appInfo)
                 if(oldData){
-                    if(oldData!=data){
+                    if(oldData!=dataString){
                         this.initData(appInfo);
                         TW_Data_Store.setItem(TW_DATA_KEY.platData, data);
                     }
@@ -117,6 +125,7 @@ export default class AppInfoStore {
     }
 
     initData=(appInfo)=>{
+        TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.initData====");
         appInfo=appInfo ? appInfo: {PLAT_ID: configAppId, isNative: false};
         //所以的clintId 在此重置
         this.clindId = appInfo.PLAT_ID ? appInfo.PLAT_ID : configAppId;
@@ -136,12 +145,11 @@ export default class AppInfoStore {
         TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--this.userAffCode--"+this.userAffCode, appInfo);
         if (G_IS_IOS){
             //ios 动态开启友盟等接口 android 是编译时 决定好了。
-            let appInfo =TW_Store.appStore.appInfo;
-            TW_Log('JX===  appInfo '+appInfo.APP_DOWNLOAD_VERSION+"--appInfo.JPushKey=="+appInfo.JPushKey,appInfo)
-            TN_StartJPush(appInfo.JPushKey,'1');
+            TW_Log('JX===  appInfo '+this.appInfo.APP_DOWNLOAD_VERSION+"--appInfo.JPushKey=="+this.appInfo.JPushKey,this.appInfo)
+            TN_StartJPush(this.appInfo.JPushKey,'1');
             TN_START_Fabric();
             // TN_START_SHARE("111","222");
-            TN_StartUMeng(appInfo.UmengKey, appInfo.Affcode)
+            TN_StartUMeng(this.appInfo.UmengKey, this.appInfo.Affcode)
         }
     }
 
