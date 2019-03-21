@@ -38,6 +38,9 @@ export default class DataStore {
     @observable
     isCheckZipUpdate=true;
 
+    @observable
+    appData={};
+
     @action
     getGameRootDir(){
        // return G_IS_IOS ? (MainBundlePath + '/assets') : "file:///android_asset";
