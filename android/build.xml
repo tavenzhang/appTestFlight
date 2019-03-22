@@ -10,8 +10,8 @@
 <!-- 如还未安装ant，在terminal执行 $brew install ant -->
 
 <project>
-    <property name="defaultPackageName" value="com.xxx" />
-    <property name="newPackageName" value="com.jd" />
+    <property name="defaultPackageName" value="com.jd" />
+    <property name="newPackageName" value="com.bbl.gmchy" />
 
     <script language="javascript">
         var defaultPackageName = project.getProperty("defaultPackageName");
