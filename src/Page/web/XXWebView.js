@@ -115,7 +115,7 @@ export default class XXWebView extends Component {
         if(!this.isLoading){
             let downData=null;
             if(this.loadQueue.length>0){
-                downData = this.loadQueue.pop();
+                downData = this.loadQueue.shift();
             }
             TW_Log("(TW_DATA_KEY.gameList-FileTools--==this.state.updateList==item" , downData);
             if(downData){

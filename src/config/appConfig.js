@@ -60,28 +60,7 @@ export const platInfo = {
     platId: configAppId,
     brand: "uat01",
     channel: {
-        c_1: {
-            jpushKey: "",
-            jpush_channel: "",
-            umengKey: "",
-            umengChanel:"1",
-            flurry_ios:"uat",
-            flurry_android:"uat"
-        },
-        c_2: {jpushKey: "",
-            jpush_channel: "",
-            umengKey: "",
-            umengChanel:"1",
-            flurry_ios:"uat",
-            flurry_android:"uat"
-        },
-        c_3: {jpushKey: "",
-            jpush_channel: "",
-            umengKey: "",
-            umengChanel:"1",
-            flurry_ios:"uat",
-            flurry_android:"uat"
-        },
+
     }
 }
 
