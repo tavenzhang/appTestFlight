@@ -1,6 +1,6 @@
 import {TabNavigator, StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
-import {UIManager, StatusBar,Text,View,ToastAndroid,BackHandler} from 'react-native';
+import {UIManager, StatusBar,Text,View,ToastAndroid,BackHandler,ScrollView} from 'react-native';
 import {Provider} from 'mobx-react'
 import NavigationService from './NavigationService'
 import rootStore from "../../Data/store/RootStore";
@@ -104,13 +104,13 @@ export default class App extends Component {
                             this.navigator=navigatorRef;
                         }}
                     />
-                    {TW_Store.bblStore.isDebugApp ? <Text
+                    {TW_Store.bblStore.isDebugApp ? <ScrollView  style={{ position: "absolute",}}><Text
                         style={{
                             color: "yellow",
-                            position: "absolute",
+
                             fontWeight:"bold"
                         }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
-                    `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text> : null}
+                    `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
                     <CommonBoxLayer/>
                     <GameUIView/>
                     {/*<LoadingView/>*/}
