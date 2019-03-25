@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     AsyncStorage,
     AppState, StatusBar,
-    WebView
+    NativeModules
 } from 'react-native';
 
 import Moment from 'moment'
@@ -45,7 +45,9 @@ export default class Enter extends Component {
     }
 
     componentWillMount(){
-        if(KeepAwake&&KeepAwake.activate){
+
+        if(NativeModules.KCKeepAwake&&KeepAwake.activate){
+            TW_Store.appStore.keepAwake=true;
             KeepAwake.activate();
         }
         //SplashScreen.hide();

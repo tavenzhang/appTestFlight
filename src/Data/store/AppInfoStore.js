@@ -29,6 +29,13 @@ export default class AppInfoStore {
     @observable
     appName = MyAppName;
 
+
+    /**
+     *  是否保持高亮
+     * @type {string}
+     */
+    @observable
+    keepAwake = false
     /**
      * 应用版本号
      * @type {string}
@@ -77,6 +84,9 @@ export default class AppInfoStore {
 
     //tag 用于更新一次
     updateflag = false;
+
+
+
 
     init() {
         TW_Data_Store.getItem(TW_DATA_KEY.platData, (err, ret) => {
