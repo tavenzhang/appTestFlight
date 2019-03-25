@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     AsyncStorage,
     AppState, StatusBar,
-    WebView
+    WebView,
+    NativeModules
 } from 'react-native';
 
 import Moment from 'moment'
@@ -19,10 +20,10 @@ import G_Config from '../../Common/Global/G_Config'
 import App from '../Route/App';
 import Orientation from 'react-native-orientation';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
-import SplashScreen from 'react-native-splash-screen'
+
 import {width, Size} from '../asset/game/themeComponet'
 import StartUpHelper from './StartUpHelper'
-
+import KeepAwake from 'react-native-keep-awake';
 
 
 let retryTimes = 0
@@ -45,6 +46,9 @@ export default class Enter extends Component {
     }
 
     componentWillMount(){
+        if(NativeModules.KCKeepAwake&&KeepAwake.activate){
+            KeepAwake.activate();
+        }
         //SplashScreen.hide();
     }
 

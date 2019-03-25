@@ -91,6 +91,7 @@
 		952508F921B76BF400E78AB2 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9525061921B5009C00E78AB2 /* libRNFS.a */; };
 		9543D1C521C0E948006E51DD /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA91DF850E9000B6D8A /* libcxxreact.a */; };
 		9585BA4221CB76660096C6BE /* libSMXCrashlytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9585BA3E21CB765B0096C6BE /* libSMXCrashlytics.a */; };
+		95E1B8372248845600C9CE2E /* libKCKeepAwake.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95E1B7F62248844A00C9CE2E /* libKCKeepAwake.a */; };
 		95FFA4E621B402F700E25995 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		95FFA52221B40D2A00E25995 /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B3BD78204FDC9600B6B7FF /* RSKImageCropper.framework */; };
 		95FFA52321B40D2A00E25995 /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 22B3BD78204FDC9600B6B7FF /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -637,6 +638,13 @@
 			remoteGlobalIDString = 6463C84C1EBA12A60095B8CD;
 			remoteInfo = "SMXCrashlytics-tvOS";
 		};
+		95E1B7F52248844A00C9CE2E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95E1B7EC2248844A00C9CE2E /* KCKeepAwake.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = KCKeepAwake;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -807,6 +815,7 @@
 		9525080221B6B0D200E78AB2 /* RCTJCoreModule.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTJCoreModule.xcodeproj; path = "../node_modules/jcore-react-native/ios/RCTJCoreModule.xcodeproj"; sourceTree = "<group>"; };
 		952508D121B6BC7800E78AB2 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		9585B9FA21CB765B0096C6BE /* SMXCrashlytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SMXCrashlytics.xcodeproj; path = "../node_modules/react-native-fabric/ios/SMXCrashlytics.xcodeproj"; sourceTree = "<group>"; };
+		95E1B7EC2248844A00C9CE2E /* KCKeepAwake.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KCKeepAwake.xcodeproj; path = "../node_modules/react-native-keep-awake/ios/KCKeepAwake.xcodeproj"; sourceTree = "<group>"; };
 		96858F9303A3430C9B779674 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		9B931D2045C340A399639EBC /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		A11C89B7D2F54BF391728875 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -859,6 +868,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95E1B8372248845600C9CE2E /* libKCKeepAwake.a in Frameworks */,
 				950EEEA3222416700011DBE1 /* libRCTBEEPickerManager.a in Frameworks */,
 				950EEE0622214EA30011DBE1 /* libReactNativeKeyboardManager.a in Frameworks */,
 				966FE2E53841EE7ED797F741 /* libPods-card.a in Frameworks */,
@@ -1422,6 +1432,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				95E1B7EC2248844A00C9CE2E /* KCKeepAwake.xcodeproj */,
 				950EEE59222416390011DBE1 /* RCTBEEPickerManager.xcodeproj */,
 				950EEDBD22214E850011DBE1 /* ReactNativeKeyboardManager.xcodeproj */,
 				9501194121E438C8008CB01A /* RCTOrientation.xcodeproj */,
@@ -1587,6 +1598,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		95E1B7ED2248844A00C9CE2E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				95E1B7F62248844A00C9CE2E /* libKCKeepAwake.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1741,6 +1760,10 @@
 				{
 					ProductGroup = 22836272202DA55A0075881C /* Products */;
 					ProjectRef = D591A46029CC4988A5EA0B3A /* Interactable.xcodeproj */;
+				},
+				{
+					ProductGroup = 95E1B7ED2248844A00C9CE2E /* Products */;
+					ProjectRef = 95E1B7EC2248844A00C9CE2E /* KCKeepAwake.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -2361,6 +2384,13 @@
 			fileType = archive.ar;
 			path = libSMXCrashlytics.a;
 			remoteRef = 9585BA3F21CB765B0096C6BE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		95E1B7F62248844A00C9CE2E /* libKCKeepAwake.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKCKeepAwake.a;
+			remoteRef = 95E1B7F52248844A00C9CE2E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {

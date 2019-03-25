@@ -33,4 +33,18 @@
         </move>
         <echo>移动src里的包至${newPackagePath}</echo>
     </target>
+    <target name="gen-R">
+        <exec executable="${aapt}" failonerror="true">
+            <arg value="package" />
+            <arg value="-m" />
+            <arg value="-J" />
+            <arg value="${gen-dir}" />
+            <arg value="-M" />
+            <arg value="${manifest-xml}" />
+            <arg value="-S" />
+            <arg value="${resource-dir}" />
+            <arg value="-I" />
+            <arg value="${android-jar}" />
+        </exec>
+    </target>
 </project>

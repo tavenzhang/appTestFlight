@@ -32,11 +32,12 @@ export const AppConfig = {
 
 export const MyAppName = '梦想游戏';
 
-export const versionHotFix = 'mx-aw7-3';
+export const versionHotFix = 'mxqp-3——23';
 
 export const safeguardDomain = [
-    'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
-    'https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com']
+    "https://37a9aea1be8915f4998443873ec90db0.oss-cn-shenzhen.aliyuncs.com",
+    "https://37a9aea1be8915f4998443873ec90db0.s3-accelerate.amazonaws.com",
+    "https://37a9aea1be8915f4998443873ec90db0.azureedge.net"]
 
 
 export const platInfo = {
@@ -49,30 +50,7 @@ export const platInfo = {
     },
     platId: configAppId,
     brand: "mxqp",
-    channel: {
-        c_1: {
-            jpushKey: "e9f6454032a3f4936d80a82f",
-            jpush_channel: "",
-            umengKey: "5b9f7642f43e486308000111",
-            umengChanel:"1",
-            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
-            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
-        },
-        c_2: {jpushKey: "",
-            jpush_channel: "",
-            umengKey: "",
-            umengChanel:"1",
-            flurry_ios:"",
-            flurry_android:""
-        },
-        c_3: {jpushKey: "",
-            jpush_channel: "",
-            umengKey: "",
-            umengChanel:"1",
-            flurry_ios:"",
-            flurry_android:""
-        },
-    }
+    channel: {}
 }
 
 export const affCodeList = {
@@ -83,8 +61,3 @@ export const affCodeList = {
         '2.10.11': 'mxaw7_android'
     }
 };
-
-export const shareURL={
-    ios:"https://download.jinkuangjia.com/game/app.html?sub=release-mxqp&app=1&rom=7827",
-    android:"https://download.jinkuangjia.com/game/release/mxqp/mxqp.apk?rom=5593",
-}

@@ -136,7 +136,7 @@ android {
                                    UMENG_CHANNEL  : "developer-default",
                                    PLAT_ID        :  PLAT_ID,
                                    PLAT_CH        :  PLAT_CH,
-                                   SUB_TYPE       :  1,
+                                   SUB_TYPE       :  SUB_TYPE,
                                    APP_DOWNLOAD_VERSION : APP_DOWNLOAD_VERSION
 
         ]
@@ -232,6 +232,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-keep-awake')
     compile project(':react-native-picker')
     compile project(':react-native-zip-archive')
     compile project(':react-native-vector-icons')
