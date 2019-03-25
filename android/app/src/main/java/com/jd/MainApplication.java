@@ -15,6 +15,7 @@ import com.cmcewen.blurview.BlurViewPackage;
 import com.crashlytics.android.Crashlytics;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
+import com.corbt.keepawake.KCKeepAwakePackage;
 import com.beefe.picker.PickerViewPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.jd.webview.WebViewReactPackage;
@@ -84,6 +85,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new KCKeepAwakePackage(),
                     new PickerViewPackage(),
                     new OrientationPackage(),
                     new RNZipArchivePackage(),

@@ -39,11 +39,12 @@ export const AppConfig = {
 
 export const MyAppName = '超会盈游戏';
 
-export const versionHotFix = 'chy_3_6';
+export const versionHotFix = 'chy_3_25';
 
 export const safeguardDomain = [
-    'https://721327bfc0e276a871561a42ac89a490.oss-cn-shenzhen.aliyuncs.com',
-    'https://721327bfc0e276a871561a42ac89a490.s3-accelerate.amazonaws.com']
+    'https://cea4eca650d71bd9d552b4cf38e05702.oss-cn-shenzhen.aliyuncs.com',
+    'https://cea4eca650d71bd9d552b4cf38e05702.s3-accelerate.amazonaws.com',
+    'https://cea4eca650d71bd9d552b4cf38e05702.azureedge.net']
 
 
 export const platInfo = {
@@ -56,30 +57,7 @@ export const platInfo = {
     },
     platId: configAppId,
     brand: "chyqp",
-    channel: {
-        c_1: {
-            jpushKey: "e9f6454032a3f4936d80a82f",
-            jpush_channel: "",
-            umengKey: "5b9f7642f43e486308000111",
-            umengChanel:"1",
-            flurry_ios:"",
-            flurry_android:""
-        },
-        c_2: {jpushKey: "",
-            jpush_channel: "",
-            umengKey: "",
-            umengChanel:"1",
-            flurry_ios:"",
-            flurry_android:""
-        },
-        c_3: {jpushKey: "",
-            jpush_channel: "",
-            umengKey: "",
-            umengChanel:"1",
-            flurry_ios:"",
-            flurry_android:""
-        },
-    }
+    channel: {}
 }
 
 export const affCodeList = {
