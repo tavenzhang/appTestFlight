@@ -30,9 +30,11 @@ export default class XXWebView extends Component {
         }
         this.loadQueue=[];
         this.isLoading=false;
+
     }
 
     componentWillMount(){
+        TW_OnValueJSHome = this.onEvaleJS;
         TW_Store.bblStore.isLoading=true;
         TW_Store.bblStore.lastGameUrl="";
         TW_Data_Store.getItem(TW_DATA_KEY.gameList, (err, ret) => {
@@ -46,6 +48,7 @@ export default class XXWebView extends Component {
             this.onFlushGameData()
           
         });
+
         TW_Store.bblStore.getAppData();
     }
     
@@ -71,7 +74,8 @@ export default class XXWebView extends Component {
                 }
 
             }
-            this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:lastList}));
+
+            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:lastList}));
         })
     }
     
@@ -348,14 +352,15 @@ export default class XXWebView extends Component {
                             for (let item of this.filtUrlList){
                                 let myIndex = myUrl.indexOf(item);
                                 TW_Log("myUrl------"+myIndex+"--myUrl=="+myUrl,item);
-                                if(myIndex>1){
+                                if(myIndex>-1){
+                                    //针对几个特殊接口  使用platInfo.loginDomain
                                     myUrl= platInfo.loginDomain+ myUrl.substring(myIndex);
-                                    TW_Log("myUrl------last="+myUrl);
+                                   // TW_Log("myUrl------last="+myUrl);
                                     break;
                                 }
                             }
                             NetUitls.postUrlAndParamsAndCallback(myUrl,JSON.parse(message.data), (ret) => {
-                                TW_Log("---home--http---game--postUrlAndParamsAndCallback>url="+message.url, ret);
+                                //TW_Log("---home--http---game--postUrlAndParamsAndCallback>url="+message.url, ret);
                                 this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
                             },10,false,false,null,true)
                             break
