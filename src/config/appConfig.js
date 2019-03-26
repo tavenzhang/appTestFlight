@@ -32,7 +32,7 @@ export const AppConfig = {
 
 export const MyAppName = '梦想游戏';
 
-export const versionHotFix = 'mxqp-3——23';
+export const versionHotFix = 'mxqp_3_23';
 
 export const safeguardDomain = [
     "https://37a9aea1be8915f4998443873ec90db0.oss-cn-shenzhen.aliyuncs.com",
