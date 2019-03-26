@@ -1,17 +1,10 @@
 {
-    "desc":"设置面板",
+    "desc":"",
     "pos":{ "x":291, "y":80 },
-    "size":{
-        "desc":"大背景尺寸,要半透明的",
-        "w":1334,
-        "h":750
-    },
-    "mask":{
-        "desc":"大背景半透明度",
-        "alpha":0.6
-    },
+    "size":{ "desc":"", "w":1334, "h":750 },
+    "mask":{ "desc":"", "alpha":0.6 },
     "bg":{
-        "desc":"内容背景 纵向拉伸的",
+        "desc":"",
         "src":"./assets/ui/setting/bg.png",
         "pos":{ "x":0, "y":40 }
     },
@@ -21,28 +14,25 @@
             "pos":{ "x":10, "y":0 }
         },
         "lb":{
-            "desc":"标题显示的文字",
+            "desc":"",
             "src":"./assets/ui/setting/title.png",
             "pos":{ "x":280, "y":65 }
         }
     },
     "close":{
-        "desc":"关闭按钮",
+        "desc":"",
         "pos":{ "x":720, "y":70 },
         "src":[
             "./assets/ui/dialog/btn_touxiang_guangbi.png"
         ],
         "size":{ "w":76, "h":77 },
-        "sfx":"assets/raw/Click.mp3",
+        "sfx":"assets/raw/close.mp3",
         "maxScale":{"x":1.05,"y":1.05},
         "normalScale":{"x":1,"y":1}
     },
-    "touchout":{
-        "desc":"是否点按外部触发鼠标事件",
-        "value":false
-    },
+    "touchout":{ "desc":"", "value":false },
     "musicbar":{
-        "desc":"背景音乐栏目",
+        "desc":"",
         "iconX":{
             "src":"./assets/ui/setting/icon_music.png",
             "pos":{ "x":43, "y":200 }
@@ -52,7 +42,7 @@
             "pos":{ "x":60, "y":215 }
         },
         "dragbar":{
-            "desc":"拖拉块",
+            "desc":"",
             "pos":{ "x":160, "y":195 },
             "bg":{
                 "src":"./assets/ui/setting/pgBg.png",
@@ -72,7 +62,7 @@
         }
     },
     "sfxbar":{
-        "desc":"音效栏目",
+        "desc":"",
         "iconX":{
             "src":"./assets/ui/setting/icon_sfx.png",
             "pos":{ "x":43, "y":338 }
@@ -82,7 +72,7 @@
             "pos":{ "x":60, "y":353 }
         },
         "dragbar":{
-            "desc":"拖拉块",
+            "desc":"",
             "pos":{ "x":160, "y":338 },
             "bg":{
                 "src":"./assets/ui/setting/pgBg.png",
@@ -102,35 +92,35 @@
         }
     },
     "musicswitch":{
-        "desc":"背景音乐开关",
+        "desc":"",
         "labelX":{
             "src":"./assets/ui/setting/lb_music.png",
             "pos":{ "x":650, "y":210 }
         },
         "switch":{
-            "desc":"切换开关",
+            "desc":"",
             "pos":{ "x":600, "y":215 },
             "src":[
                 "./assets/ui/setting/btn_switch1.png",
                 "./assets/ui/setting/btn_switch0.png"
             ],
-            "sfx":"assets/raw/Click.mp3"
+            "sfx":"assets/raw/click.mp3"
         }
     },
     "sfxswitch":{
-        "desc":"音效开关",
+        "desc":"",
         "labelX":{
             "src":"./assets/ui/setting/lb_sfx.png",
             "pos":{ "x":650, "y":348 }
         },
         "switch":{
-            "desc":"切换开关",
+            "desc":"",
             "pos":{ "x":600, "y":353 },
             "src":[
                 "./assets/ui/setting/btn_switch1.png",
                 "./assets/ui/setting/btn_switch0.png"
             ],
-            "sfx":"assets/raw/Click.mp3"
+            "sfx":"assets/raw/click.mp3"
         }
     }
 }

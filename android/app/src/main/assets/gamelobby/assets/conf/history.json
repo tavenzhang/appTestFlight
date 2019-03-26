@@ -1,39 +1,32 @@
 {
     "pos":{ "x":0, "y":0 },
-    "size":{
-        "desc":"大背景尺寸",
-        "w":1334,
-        "h":750
-    },
+    "size":{ "desc":"", "w":1334, "h":750 },
     "bg":{
-        "desc":"内容背景 纵向拉伸的",
+        "desc":"",
         "src":"./assets/ui/dialog/img_touxiang_dadi.png",
         "pos":{ "x":139.5, "y":53 }
     },
-    "mask":{
-        "desc":"大背景半透明度",
-        "alpha":0.6
-    },
+    "mask":{ "desc":"", "alpha":0.6 },
     "title":{
         "lb":{
-            "desc":"标题显示的文字",
+            "desc":"",
             "src":"./assets/ui/history/titleName.png",
             "pos":{ "x":580, "y":76 }
         }
     },
     "close":{
-        "desc":"关闭按钮",
+        "desc":"",
         "pos":{ "x":1167, "y":84 },
         "src":[
             "./assets/ui/dialog/btn_touxiang_guangbi.png"
         ],
         "size":{ "w":76, "h":77 },
-        "sfx":"assets/raw/Click.mp3",
+        "sfx":"assets/raw/click.mp3",
         "maxScale":{ "x":1.05,"y":1.05},
         "normalScale":{ "x":1.0,"y":1.0}
     },
     "tablehead":{
-        "desc":"表格标题",
+        "desc":"",
         "bg":{
             "src":"./assets/ui/history/titleTable.png",
             "pos":{ "x":180, "y":140 }
@@ -44,22 +37,16 @@
         "pos":{ "x":180, "y":140 }
     },
     "content":{
-        "desc":"放置内容的容器",
+        "desc":"",
         "pos":{ "x":180, "y":215 }
     },
     "ctmask":{
-        "desc":"内容蒙版，外侧的内容条目不显示",
-        "rect":{
-            "desc":"绘制矩形参数",
-            "x":0,
-            "y":-20,
-            "w":972,
-            "h":415
-        },
+        "desc":"",
+        "rect":{ "desc":"", "x":0, "y":-20, "w":972, "h":415 },
         "colorX":"ff0000"
     },
     "empty":{
-        "desc":"无记录，空数据",
+        "desc":"",
         "size":{ "w":200, "h":50 },
         "pos":{ "x":580, "y":350 },
         "font":{
@@ -74,7 +61,7 @@
         }
     },
     "bottomhint":{
-        "desc":"底部提示性文字",
+        "desc":"",
         "pos":{ "x":0, "y":650 },
         "size":{ "w":1334, "h":25 },
         "count":10,
@@ -91,12 +78,12 @@
     },
     
     "touchout":{
-        "desc":"是否点按外部触发鼠标事件",
+        "desc":"",
         "value":false
     },
     "item":{
         "id":{
-            "desc":"内容文本框",
+            "desc":"",
             "pos":{ "x":0, "y":0 },
             "size":{ "w":80, "h":30 },
             "font":{
@@ -110,7 +97,7 @@
             }
         },
         "gameid":{
-            "desc":"内容文本框",
+            "desc":"",
             "pos":{ "x":80, "y":0 },
             "size":{ "w":290, "h":30 },
             "font":{
@@ -125,7 +112,7 @@
             }
         },
         "room":{
-            "desc":"内容文本框",
+            "desc":"",
             "pos":{ "x":370, "y":0 },
             "size":{ "w":120, "h":30 },
             "font":{
@@ -139,7 +126,7 @@
             }
         },
         "earn":{
-            "desc":"内容文本框",
+            "desc":"",
             "pos":{ "x":495, "y":0 },
             "size":{ "w":160, "h":30 },
             "font":{
@@ -156,7 +143,7 @@
             }
         },
         "endtime":{
-            "desc":"内容文本框",
+            "desc":"",
             "pos":{ "x":655, "y":0 },
             "size":{ "w":315, "h":30 },
             "font":{
@@ -173,7 +160,7 @@
     },
     "testitemlenX":100,
     "testData":{
-        "desc":"测试数据",
+        "desc":"",
         "stat":"complete",
         "totalCount":10,
         "datas":[

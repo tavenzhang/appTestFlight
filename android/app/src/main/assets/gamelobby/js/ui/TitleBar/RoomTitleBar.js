@@ -37,25 +37,22 @@ var RoomTitleBar = /** @class */ (function (_super) {
             var bg = Tools.addSprite(this, this.conf.bg);
         }
         this.initTitle(this.conf.title);
-        if (this.conf.btnback) {
-            this.initSetting(this.conf.btnback);
-        }
-        if (this.conf.btnback2) {
-            var b2 = new MyButton();
-            b2.init(this.conf.btnback2, this, this.onSettingClick);
-            b2.pos(this.conf.btnback2.pos.x, this.conf.btnback2.pos.y);
-            this.addChild(b2);
+        if (this.conf.btns) {
+            this.initButtons(this.conf.btns);
         }
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
-    RoomTitleBar.prototype.initSetting = function (conf) {
-        if (!conf) {
-            return;
+    RoomTitleBar.prototype.initButtons = function (conf) {
+        this.arr_btns = new Array();
+        for (var i = 0; i < conf.length; i++) {
+            var cf = conf[i];
+            var btn = new MyButton();
+            btn.setQuery(cf.cmd);
+            btn.init(cf, this, this.onEventClick);
+            btn.pos(cf.pos.x, cf.pos.y);
+            this.addChild(btn);
+            this.arr_btns.push(btn);
         }
-        this.btn_setting = new MyButton();
-        this.btn_setting.init(this.conf.btnback, this, this.onSettingClick);
-        this.btn_setting.pos(this.conf.btnback.pos.x, this.conf.btnback.pos.y);
-        this.addChild(this.btn_setting);
     };
     RoomTitleBar.prototype.initTitle = function (conf) {
         if (!conf) {
@@ -64,9 +61,36 @@ var RoomTitleBar = /** @class */ (function (_super) {
         var sp = Tools.addSprite(this, conf);
     };
     //点击设置按钮
-    RoomTitleBar.prototype.onSettingClick = function (e) {
-        //返回大厅
-        LayaMain.getInstance().initLobby();
+    RoomTitleBar.prototype.onEventClick = function (e) {
+        var btn = e;
+        try {
+            var cmd = btn.getQuery();
+            switch (cmd) {
+                case "backlobby":
+                    //返回大厅
+                    LayaMain.getInstance().initLobby();
+                    break;
+                case "custom":
+                    Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
+                    break;
+                case "notice":
+                    //活动
+                    AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention());
+                    AttentionDialog.obj.show();
+                    break;
+                case "quit":
+                    //返回
+                    PostMHelp.goBack({ token: Common.access_token });
+                    break;
+                case "setting":
+                    var conf = ConfObjRead.getConfSetting();
+                    SettingPad.showPad(Laya.stage, conf, this, this.setCallback);
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (e) { }
     };
     RoomTitleBar.prototype.setCallback = function (e) {
     };

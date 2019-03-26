@@ -120,6 +120,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0.8"
+        // SUB_TYPE       :  1 写死1 当聚道主包
         manifestPlaceholders = [
                 JPUSH_APPKEY: "",
                 APP_CHANNEL : "default"
@@ -135,7 +136,9 @@ android {
                                    UMENG_CHANNEL  : "developer-default",
                                    PLAT_ID        :  PLAT_ID,
                                    PLAT_CH        :  PLAT_CH,
-                                   SUB_TYPE       :  SUB_TYPE
+                                   SUB_TYPE       :  SUB_TYPE,
+                                   APP_DOWNLOAD_VERSION : APP_DOWNLOAD_VERSION
+
         ]
         buildConfigField("String", "UMENG_KEY", "\"${UMENG_KEY}\"")
         buildConfigField("String", "WECHAT_KEY", "\"${WECHAT_KEY}\"")
@@ -165,13 +168,15 @@ android {
                     UMENG_CHANNEL  : "developer-default",
                     PLAT_ID        : PLAT_ID,
                     PLAT_CH        : PLAT_CH,
-                    SUB_TYPE       : SUB_TYPE
+                    SUB_TYPE       : SUB_TYPE,
+                    APP_DOWNLOAD_VERSION : APP_DOWNLOAD_VERSION
             ]
             dimension "color"
+            buildConfigField("String", "UMENG_KEY", "\"${UMENG_KEY}\"")
+            buildConfigField("String", "WECHAT_KEY", "\"${WECHAT_KEY}\"")
+            buildConfigField("String", "WECHAT_SECRET_KEY", "\"${WECHAT_SECRET_KEY}\"")
         }
     }
-
-
 
     signingConfigs {
         release {
@@ -207,7 +212,7 @@ android {
 //            def outputFile = output.outputFile
 //            if (outputFile != null && outputFile.name.endsWith('.apk')) {
 //                def fileName = ""
-//                def apkName = APK_NAME + ""
+//                def apkName = APK_FILE_NAME + ""
 //                def affSuffix = AFF_CODE ? "_${AFF_CODE}" : ""
 //                if (apkName != null && !apkName.isEmpty()) {
 //                    fileName = "${apkName}" + affSuffix + ".apk"
@@ -227,6 +232,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-keep-awake')
     compile project(':react-native-picker')
     compile project(':react-native-zip-archive')
     compile project(':react-native-vector-icons')

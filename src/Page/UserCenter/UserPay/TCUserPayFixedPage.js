@@ -29,19 +29,19 @@ import LoadingSpinnerOverlay from "../../../Common/View/LoadingSpinnerOverlay";
 import JXHelper from "../../../Common/JXHelper/JXHelper";
 import {userPay} from "../../asset/images";
 import payHelper from './PayHelper'
-import {ASSET_Theme} from "../../asset";
+import {ASSET_Images, ASSET_Theme} from "../../asset";
+import TCImage from "../../../Common/View/image/TCImage";
 
 
 /**
  * 银行充值
  */
-
 export default class TCUserPayFixedPage extends Component {
 
     moneyData = []
     constructor(props) {
         super(props)
-        this.moneyData = this.props.data.fixedAmount;
+        this.moneyData = this.props.data.fixedAmount.slice(0);
         this.ds = new ListView.DataSource({
             rowHasChanged: (row1, row2) => row1 !== row2
         });
@@ -54,12 +54,12 @@ export default class TCUserPayFixedPage extends Component {
 
     render() {
         return (
-            <ScrollView style={ASSET_Theme.gameUIStyle.subViewContainStye}>
-                <View style={{paddingTop: 10, paddingLeft: 10, paddingBottom: 5, flexDirection: 'row'}}>
+            <ScrollView style={[ASSET_Theme.gameUIStyle.subViewContainStye,{backgroundColor:"#3FCDFD"}]}>
+                <View style={{paddingTop: 10, paddingLeft: 10, paddingBottom: 5, flexDirection: 'row',backgroundColor:"#3999CB"}}>
                     <Text style={styles.payTip}>请选择充值金额 (如有问题，请联系</Text>
                     <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}}
                                       onPress={() => this.onlineService()}>
-                        <Text style={[styles.payTip, {color: '#4292cd'}]}>在线客服</Text>
+                        <Text style={[styles.payTip, {color: 'red'}]}>在线客服</Text>
                     </TouchableOpacity>
                     <Text style={styles.payTip}>)</Text>
                 </View>
@@ -78,7 +78,9 @@ export default class TCUserPayFixedPage extends Component {
                 <LoadingSpinnerOverlay
                     ref={component => this._partModalLoadingSpinnerOverLay = component}
                     modal={true}
-                    marginTop={64}/>
+                    marginTop={64}
+                    marginLeft={64}
+                />
             </ScrollView>
         )
     }
@@ -108,7 +110,13 @@ export default class TCUserPayFixedPage extends Component {
                 })
             }}>
             <View>
-                <Text style={styles.moneyTxtStyle}>{rowData}元</Text>
+                <TCImage source={ASSET_Images.gameUI.btnPayNormal} style={{width:80}}/>
+                <View style={{
+                    position: "absolute", alignItems: "center", justifyContent: "center", width: 80,
+                    height: 40,
+                }}>
+                    <Text style={styles.moneyTxtStyle}>{rowData}元</Text>
+                </View>
             </View>
         </TouchableOpacity>)
     }
@@ -162,28 +170,25 @@ const styles = StyleSheet.create({
     moneyStyle: {
         justifyContent: 'center',
         height: 40,
-        width: width / 3,
         alignItems: 'center',
         marginTop: 10,
+        margin:1
     },
     moneyTxtStyle: {
-        color: payTxtColor.moneyUnChecked,
-        backgroundColor: payTxtColor.moneyChecked,
-        borderRadius: 5,
+        color: "#8BCFCC",
         fontSize: Size.default,
-        width: width / 4 - 10,
         textAlign: 'center',
         paddingTop: 10,
         paddingBottom: 10
     },
     payTip: {
-        color: listViewTxtColor.title,
+        color: "white",
         fontSize: Size.default,
     },
     listViewStyle: {
         flexWrap: 'wrap',
         flexDirection: 'row',
-        width: width,
+        width: height+80,
         height: height,
     }, emptyTip: {
         justifyContent: 'center',

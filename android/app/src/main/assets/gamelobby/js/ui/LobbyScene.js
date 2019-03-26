@@ -67,11 +67,14 @@ var LobbyScene = /** @class */ (function (_super) {
         }
         LobbyScene.IS_PLAYED_MUSIC = true;
         Laya.loader.load([{ url: ConfObjRead.getConfMusic().src }], new Laya.Handler(this, function () {
-            Debug.trace("player bg music");
+            // Debug.trace( "player bg music" );
             // Laya.timer.once( 3000 , this , ()=>{
             //     Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
             // } );
-            Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+            if (SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1) >= 1) //开关
+             {
+                Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+            }
         }));
     };
     LobbyScene.prototype.OnAvatorScrollOut = function (e) {

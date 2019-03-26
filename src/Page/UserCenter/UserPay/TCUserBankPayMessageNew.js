@@ -416,7 +416,7 @@ const styles = StyleSheet.create({
         fontSize: Size.default,
     },
     itemStyle: {
-        width: width,
+        width: 420,
         minHeight: 40,
         flexDirection: 'row',
         backgroundColor: indexBgColor.itemBg,
@@ -453,13 +453,13 @@ const styles = StyleSheet.create({
     },
     itemBtnTxtStyle: {
         width: 53,
-        height: 26,
+        height: 20,
         color: copyBtnStyle.txtColor,
         borderWidth: 1,
         borderColor: copyBtnStyle.borderColor,
         borderRadius: 5,
         textAlign: 'center',
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
     },
     itemRightStyle: {
         marginRight: 12,

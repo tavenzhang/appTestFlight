@@ -273,8 +273,8 @@ const styles = StyleSheet.create({
     },
     inputKeyStyle: {
         backgroundColor: '#EBEBEB',
-        height: Dimensions.get('window').height / 2.6 / 4,
-        width: Dimensions.get('window').width / 3,
+        height: Dimensions.get('window').height / 2.6 / 4 +20,
+        width: Dimensions.get('window').width / 4.2,
         padding: 0.5,
     },
     inputKeyContainer: {

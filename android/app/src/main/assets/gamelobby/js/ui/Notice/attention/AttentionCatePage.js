@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 var AttentionCatePage = /** @class */ (function (_super) {
     __extends(AttentionCatePage, _super);
     function AttentionCatePage() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super.call(this) || this;
         _this.downPos = {
             "x": 0,
             "y": 0
@@ -78,7 +78,7 @@ var AttentionCatePage = /** @class */ (function (_super) {
     };
     //修改当前索引页面
     AttentionCatePage.prototype.changeNotice = function (noticeid) {
-        Debug.trace("AttentionCatePage.changeNotice:" + noticeid);
+        // Debug.trace("AttentionCatePage.changeNotice:"+noticeid);
         this.curShowNoticeId = noticeid;
         this.updateTab();
     };

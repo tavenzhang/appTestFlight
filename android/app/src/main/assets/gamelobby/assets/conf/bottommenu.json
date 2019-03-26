@@ -1,5 +1,4 @@
 {
-    "desc":"底部菜单组,v2版大厅，不要底部菜单，所以此处可以删除",
     "pos":{ "x":0, "y":650 },
     "scrollout":{
         "pos":{ "x":0, "y":900 }
@@ -8,7 +7,7 @@
     "showinlobby":false,
     "menus":[
         {
-            "desc":"规则",
+            "desc":"",
             "cmd":"rule",
             "pos":{ "x":497, "y":44 },
             "src":[
@@ -17,10 +16,10 @@
             "size":{ "w":82, "h":87 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/Click.mp3"
+            "sfx":"assets/raw/click.mp3"
         },
         {
-            "desc":"战绩",
+            "desc":"",
             "cmd":"history",
             "pos":{ "x":647, "y":44 },
             "src":[
@@ -29,10 +28,10 @@
             "size":{ "w":82, "h":87 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/Click.mp3"                
+            "sfx":"assets/raw/click.mp3"                
         },
         {
-            "desc":"设置",
+            "desc":"",
             "cmd":"setting",
             "pos":{ "x":797, "y":44 },
             "src":[
@@ -41,7 +40,7 @@
             "size":{ "w":82, "h":87 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/Click.mp3"
+            "sfx":"assets/raw/click.mp3"
         }
     ]
 }

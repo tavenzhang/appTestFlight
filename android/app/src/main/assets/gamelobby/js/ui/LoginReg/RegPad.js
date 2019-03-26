@@ -360,7 +360,8 @@ var RegPad = /** @class */ (function (_super) {
             password: ePwd,
             hash: RegPad.reghash,
             validateCode: yanzheng,
-            webUniqueCode: deviceId
+            webUniqueCode: deviceId,
+            affCode: AppData.NATIVE_DATA.affCode
         };
         if (yaoqing) {
             RegPad.request_data.affCode = yaoqing;

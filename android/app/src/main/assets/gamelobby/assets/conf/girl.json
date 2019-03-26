@@ -1,5 +1,5 @@
 {
-    "pos":{"x":0,"y":0},
+    "pos":{"x":0,"y":18},
     "moveAction":false,
     "content":{
         "pos":{"x":0,"y":40},
@@ -81,19 +81,90 @@
                         }
                     }
                 }
+            },
+            {
+                "bgX":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":320},
+                        "textPath":"./assets/ui/animation/human_bg/human_bg.png",
+                        "animPath":"./assets/ui/animation/human_bg/human_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelay":2000,
+                        "stopHide":{
+                            "value":true
+                        }
+                    }
+                },
+                "gg":{
+                    "src":"./assets/ui/scrollpad/img_renwu03.png",
+                    "pos":{"x":0,"y":-10}
+                },
+                "frontX":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":300},
+                        "textPath":"./assets/ui/animation/human_fr/card_bg.png",
+                        "animPath":"./assets/ui/animation/human_fr/card_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelayX":0,
+                        "stopHide":{
+                            "value":true
+                        }
+                    }
+                }
+            },
+            {
+                "bgX":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":320},
+                        "textPath":"./assets/ui/animation/human_bg/human_bg.png",
+                        "animPath":"./assets/ui/animation/human_bg/human_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelay":2000,
+                        "stopHide":{
+                            "value":true
+                        }
+                    }
+                },
+                "gg":{
+                    "src":"./assets/ui/scrollpad/img_renwu04.png",
+                    "pos":{"x":0,"y":-10}
+                },
+                "frontX":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":300},
+                        "textPath":"./assets/ui/animation/human_fr/card_bg.png",
+                        "animPath":"./assets/ui/animation/human_fr/card_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelayX":0,
+                        "stopHide":{
+                            "value":true
+                        }
+                    }
+                }
             }
         ],
         "girl":{
-            "maxMoveX":150,
+            "maxMoveX":300,
+            "tweenName":"circOut",
             "duration":500,
             "autoPercent":0.5,
             "initpos":{"x":0,"y":0},
             "left":{ "x":-300, "y":0 },
-            "right":{ "x":300, "y":0 }
+            "right":{ "x":300, "y":0 },
+            "sfxright":"assets/raw/flopright.mp3",
+            "sfxleft":"assets/raw/flopleft.mp3"
         }
     },
     "tabsItem":{
-        "desc":"轮播焦点展示按钮,只定一个首坐标，根据数量居中对齐",
+        "desc":"",
         "bswitch":false,
         "defaultId":1,
         "pos":{ "x":215, "y":640 },
@@ -104,13 +175,13 @@
             "pos":{ "x":650, "y":210 }
         },
         "switch":{
-            "desc":"切换开关",
+            "desc":"",
             "pos":{ "x":0, "y":0 },
             "src":[
                 "./assets/ui/scrollpad/img_lunbo2.png",
                 "./assets/ui/scrollpad/img_lunbo1.png"
             ],
-            "sfx":"assets/raw/Click.mp3",
+            "sfx":"assets/raw/click.mp3",
             "bClick":false
         }
     }

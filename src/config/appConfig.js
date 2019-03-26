@@ -3,16 +3,17 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://38fo28gk.czdelong.com',
-    base2: 'https://38fo28gk.fdk800.com',
-    base3: 'https://38fo28gk.jdzdingli.com',
-    base4: 'https://hosobw29.czdelong.com',
-    base5: 'https://hosobw29.jdzdingli.com',
-    base6: 'https://hosobw29.fdk800.com',
-    base7: 'https://www.vdfrtw654qefhj.com',
+    base1: 'https://www.diwudalu.com',
+    base2: 'https://www.diwudalu.com',
+    base3: 'https://www.diwudalu.com',
+    base4: 'https://www.diwudalu.com',
+    base5: 'https://www.diwudalu.com',
+    base6: 'https://www.diwudalu.com',
+    base7: 'https://www.diwudalu.com',
 }
 
-export let configAppId = "1146"
+
+export let configAppId = "5"
 
 
 export const AppConfig = {
@@ -26,13 +27,20 @@ export const AppConfig = {
         appDomainBase.base4,
         appDomainBase.base5,
         appDomainBase.base6
-    ]
+    ],
+    checkUpdateDomains:[
+        "https://www.ba2d16.com",
+        "https://www.aa2d16.com",
+        "https://www.ca2d16.com"
+    ],
 }
 
 
-export const MyAppName = '梦想游戏';
+export const MyAppName = '博博乐';
 
-export const versionHotFix = 'mx-aw7-3';
+export const versionHotFix = 'bbl_3_25';
+
+export const MyOwnerPlatName= 'uat彩票';
 
 export const safeguardDomain = [
     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
@@ -40,46 +48,27 @@ export const safeguardDomain = [
 
 
 export const platInfo = {
-    loginDomain:"https://38fo28gk.czdelong.com",
-    gameDomain:"https://yw8txj2e.pgzlwx.com",
+    //loginDomain:"https://0365cai.cc",
+    loginDomain: "https://webplatform.psxiaohe.com",
+    //  gameDomain:"https://dk3nuq7v.zhdisi.com",
+     gameDomain: "https://webplatform.psxiaohe.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.hkbaoxian188.com/game/mxaw7"
+        release_server: "https://download.hkbaoxian188.com/game/release/uat"
     },
     platId: configAppId,
-
-    channel: {
-        c_1: {
-            jpushKey: "e9f6454032a3f4936d80a82f",
-            jpush_channel: "",
-            umengKey: "5b9f7642f43e486308000111",
-            umengChanel:"1",
-            flurry_ios:"TYFQRDDBJC5HKBJMRYP5",
-            flurry_android:"BGZ8YFQ22PMPF87KCCBW"
-        },
-        c_2: {jpushKey: "",
-            jpush_channel: "",
-            umengKey: "",
-            umengChanel:"1",
-            flurry_ios:"",
-            flurry_android:""
-        },
-        c_3: {jpushKey: "",
-            jpush_channel: "",
-            umengKey: "",
-            umengChanel:"1",
-            flurry_ios:"",
-            flurry_android:""
-        },
-    }
+    brand: "uat01",
+    channel: {}
 }
+
 
 export const affCodeList = {
     ios: {
-        '2.9.6': 'mxaw7_ios'
+        '2.9.6': 'uat_ios'
     },
     android: {
-        '2.10.11': 'mxaw7_android'
+        '2.10.11': 'uat_android'
     }
 };
+

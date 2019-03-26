@@ -66,12 +66,12 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     
     WKWebViewConfiguration* config = [[WKWebViewConfiguration alloc] init];
     config.processPool = processPool;
+    config.mediaTypesRequiringUserActionForPlayback = false;
     WKUserContentController* userController = [[WKUserContentController alloc]init];
     [userController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"reactNative"];
     config.userContentController = userController;
-    [config.preferences setValue:@(true) forKey:@"allowFileAccessFromFileURLs"];
-    //[config.preferences setValue:@(true) forKey:@"allowUniversalAccessFromFileURLs"];
-    
+    [config.preferences setValue:@"TRUE" forKey:@"allowFileAccessFromFileURLs"];
+    [config setValue:@"TRUE" forKey:@"allowUniversalAccessFromFileURLs"];
     _webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:config];
     _webView.UIDelegate = self;
     _webView.navigationDelegate = self;
@@ -322,11 +322,23 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     // Only works for iOS 9+. So iOS 8 will simply ignore those two values
     NSString *file = [RCTConvert NSString:source[@"file"]];
     NSString *allowingReadAccessToURL = [RCTConvert NSString:source[@"allowingReadAccessToURL"]];
+    NSString *param = [RCTConvert NSString:source[@"param"]];
     
     if (file && [_webView respondsToSelector:@selector(loadFileURL:allowingReadAccessToURL:)]) {
+      //NSString *urlStr = [NSString stringWithFormat:@"%@%@?%@", host_url, baseurl, postURL];
+    //  urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+     // NSURL *url = [NSURL URLWithString:urlStr];
+ 
       NSURL *fileURL = [RCTConvert NSURL:file];
+      NSString * urlStr = [fileURL absoluteString];
+      if(param){
+          urlStr =[NSString stringWithFormat:@"%@%@", urlStr,param];
+      }
+      urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+      NSURL *newFile = [NSURL URLWithString:urlStr];
+     // NSURL *newFile = [NSURL URLWithString:@"?tave=11" relativeToURL:fileURL];
       NSURL *baseURL = [RCTConvert NSURL:allowingReadAccessToURL];
-      [_webView loadFileURL:fileURL allowingReadAccessToURL:baseURL];
+      [_webView loadFileURL:newFile allowingReadAccessToURL:baseURL];
       return;
     }
     

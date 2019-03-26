@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     AsyncStorage,
     AppState, StatusBar,
-    WebView
+    NativeModules
 } from 'react-native';
 
 import Moment from 'moment'
@@ -19,10 +19,10 @@ import G_Config from '../../Common/Global/G_Config'
 import App from '../Route/App';
 import Orientation from 'react-native-orientation';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
-import SplashScreen from 'react-native-splash-screen'
+
 import {width, Size} from '../asset/game/themeComponet'
 import StartUpHelper from './StartUpHelper'
-
+import KeepAwake from 'react-native-keep-awake';
 
 
 let retryTimes = 0
@@ -45,6 +45,11 @@ export default class Enter extends Component {
     }
 
     componentWillMount(){
+
+        if(NativeModules.KCKeepAwake&&KeepAwake.activate){
+            TW_Store.appStore.keepAwake=true;
+            KeepAwake.activate();
+        }
         //SplashScreen.hide();
     }
 
@@ -268,8 +273,7 @@ export default class Enter extends Component {
                 // if (G_IS_IOS) {
                 //     NativeModules.JDHelper.resetLoadModleForJS(true)
                 // }
-                TW_Log("checking update--start");
-                this.hotFixStore.syncMessage = '获取到更新，正在疯狂加载...';
+                this.hotFixStore.syncMessage = 'app更新，正在疯狂加载...';
                 this.hotFixStore.updateFinished = false;
                 this.storeLog({hotfixDomainAccess: true});
 
@@ -338,33 +342,28 @@ export default class Enter extends Component {
         let progressView
         if (this.hotFixStore.progress) {
             progressView = (
-                <Text style={{color:"yellow",marginVertical:10}}>
+                <Text style={{color:"#ffcc33",marginVertical:10}}>
                     正在下载({parseFloat(this.hotFixStore.progress.receivedBytes / 1024 / 1024).toFixed(2)}M/{parseFloat(this.hotFixStore.progress.totalBytes / 1024 / 1024).toFixed(2)}M) {(parseFloat(this.hotFixStore.progress.receivedBytes / this.hotFixStore.progress.totalBytes).toFixed(2) * 100).toFixed(1)}%</Text>
             )
         } else {
             return null;
-            // return (<View style={{flex: 1}}>
-            //
-            //     <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-            //         <Text style={{fontSize: Size.font16}}>{this.hotFixStore.syncMessage}</Text>
-            //     </View>
-            //     <Text style={{
-            //         fontSize: Size.font13,
-            //         color: '#ff0000',
-            //         marginBottom: 10,
-            //         width: width,
-            //         textAlign: 'center'
-            //     }}>{'版本号:' + TW_Store.appStore.versionHotFix + '  ' + (G_IS_IOS? 'iOS' : '安卓') + ':' + TW_Store.appStore.appVersion+TW_Store.appStore.getPlatInfo()}</Text>
-            // </View>)
         }
         return (
-                <View style={{justifyContent: 'center', alignItems: 'center', width: JX_PLAT_INFO.SCREEN_W,height:JX_PLAT_INFO.SCREEN_H, flex: 1,position:"absolute"}}>
-                    <Text style={{fontSize: Size.font16,color:"white"}}>{this.hotFixStore.syncMessage}</Text>
+                <View pointerEvents={"none"} style={{justifyContent: 'center',
+                    alignItems: 'center', width: JX_PLAT_INFO.SCREEN_W,height:JX_PLAT_INFO.SCREEN_H, flex: 1,position:"absolute",
+                    }}>
+                    <View style={{backgroundColor:"rgba(10,10,10,0.5)", paddingHorizontal:60, paddingVertical:15,
+                        borderRadius: 10}}>
+                        <View style={{}}>
+                            <Text style={{fontSize: Size.font16,color:"#99ffff", fontWeight:"bold"}}>{this.hotFixStore.syncMessage}</Text>
+                        </View>
+
                     {progressView}
                     <Progress.Bar
-                        color={"yellow"}
+                        color={"#ffcc33"}
                         progress={(this.hotFixStore.progress.receivedBytes / this.hotFixStore.progress.totalBytes).toFixed(2)}
                         width={200}/>
+                    </View>
                 </View>
 
         )

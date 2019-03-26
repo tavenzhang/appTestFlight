@@ -1,39 +1,35 @@
 {
-    "desc":"注册登录",
+    "desc":"",
     "bgscene":{
-        "desc":"场景背景",
+        "desc":"",
         "src":"./assets/ui/login/bgScene.jpg",
         "pos":{ "x":0, "y":0 }
     },
     "custom":{
-        "desc":"客服按钮",
+        "desc":"",
         "pos":{ "x":1250, "y":70 },
         "src":[
             "./assets/ui/mine/btn_custom.png"
         ],
         "size":{ "w":82, "h":87 },
-        "sfx":"assets/raw/Click.mp3",
+        "sfx":"assets/raw/click.mp3",
         "maxScale":{"x":1.05,"y":1.05},
         "normalScale":{"x":1,"y":1}
     },
     "login":{
-        "desc":"登录",
+        "desc":"",
         "pos":{ "x":291, "y":0 },
-        "size":{
-            "desc":"大背景尺寸,要半透明的",
-            "w":1334,
-            "h":750
-        },
+        "size":{ "desc":"", "w":1334, "h":750 },
         "logo":{
             "src":"./brand/login_logo.png",
             "pos":{ "x":15, "y":0 }
         },
         "bg":{
-            "desc":"内容背景 纵向拉伸的",
+            "desc":"",
             "src":"./assets/ui/login/bgLogin.png",
             "pos":{ "x":0, "y":130 },
             "shine":{
-                "desc":"射灯",
+                "desc":"",
                 "pos":{"x":0,"y":0},
                 "stars":[
                     {
@@ -126,7 +122,7 @@
             }
         },
         "touchout":{
-            "desc":"是否点按外部触发鼠标事件",
+            "desc":"",
             "value":false
         },
         "name":{
@@ -173,13 +169,13 @@
             }
         },
         "btnreg":{
-            "desc":"注册按钮",
+            "desc":"",
             "pos":{ "x":190, "y":635 },
             "src":[
                 "./assets/ui/login/btn_reg.png"
             ],
             "size":{ "w":295, "h":125 },
-            "sfx":"assets/raw/Click.mp3",
+            "sfx":"assets/raw/click.mp3",
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1}
         },
@@ -188,13 +184,13 @@
             "pos":{ "x":40, "y":690 }
         },
         "btnlogin":{
-            "desc":"登录按钮",
+            "desc":"",
             "pos":{ "x":563, "y":635 },
             "src":[
                 "./assets/ui/login/btn_login.png"
             ],
             "size":{ "w":295, "h":125 },
-            "sfx":"assets/raw/Click.mp3",
+            "sfx":"assets/raw/click.mp3",
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1}
         },
@@ -204,30 +200,24 @@
         }
     },
     "reg":{
-        "desc":"注册",
+        "desc":"",
         "pos":{ "x":291, "y":25 },
-        "size":{
-            "desc":"大背景尺寸,要半透明的",
-            "w":1334,
-            "h":750
-        },
-        "mask":{
-            "alpha":0.6
-        },
+        "size":{ "desc":"", "w":1334, "h":750 },
+        "mask":{ "alpha":0.6 },
         "bg":{
-            "desc":"内容背景 纵向拉伸的",
+            "desc":"",
             "src":"./assets/ui/login/bgReg.png",
             "pos":{ "x":0, "y":0 }
         },
         "title":{
-            "desc":"标题",
+            "desc":"",
             "lb":{
                 "src":"./assets/ui/login/regTitle.png",
                 "pos":{ "x":270, "y":25 }
             }
         },
         "touchout":{
-            "desc":"是否点按外部触发鼠标事件",
+            "desc":"",
             "value":false
         },
         "name":{
@@ -436,24 +426,24 @@
             }
         },
         "btnclose":{
-            "desc":"关闭按钮",
+            "desc":"",
             "pos":{ "x":725, "y":30 },
             "src":[
                 "./assets/ui/dialog/btn_touxiang_guangbi.png"
             ],
             "size":{ "w":76, "h":77 },
-            "sfx":"assets/raw/Click.mp3",
+            "sfx":"assets/raw/close.mp3",
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1}
         },
         "btnok":{
-            "desc":"注册按钮",
+            "desc":"",
             "pos":{ "x":390, "y":650 },
             "src":[
                 "./assets/ui/login/btn_ok.png"
             ],
             "size":{ "w":213, "h":89 },
-            "sfx":"assets/raw/Click.mp3",
+            "sfx":"assets/raw/click.mp3",
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1}
         }

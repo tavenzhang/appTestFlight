@@ -11,97 +11,68 @@
 	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
 	<meta name="renderer" content="webkit"/>
 	
-	<!-- IOS 主屏幕应用全屏 -->
 	<meta name='apple-mobile-web-app-capable' content='yes' />
-	<!-- IOS默認的時間、電池、供應商等信息 -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<meta name="format-detection" content="telephone=no">
-
-	<!-- 安卓 主屏幕应用全屏 -->
 	<meta name="mobile-web-app-capable" content="yes" />
-	
-
-	<!-- force webkit on 360 -->
 	<meta name="renderer" content="webkit"/>
 	<meta name="force-rendering" content="webkit"/>
-
-	<!-- force full screen on some browser -->
 	<meta name='full-screen' content='yes' />
 	<meta name='x5-fullscreen' content='true' />
 	<meta name='360-fullscreen' content='true' />
-
 	<meta name="laya" screenorientation ="landscape"/>
-
-	<!-- force edge on IE -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-	<!-- windows phone 点击无高光 -->
 	<meta name="msapplication-tap-highlight" content="no">
-
-
 	<meta http-equiv='expires' content='0' />
 	<meta http-equiv="Cache-Control" content="no-siteapp"/>
-
-	<!-- uc强制竖屏 -->
 	<meta name="screen-orientation" content="landscape">
-	<!-- QQ强制竖屏 -->
 	<meta name="x5-orientation" content="landscape">
-	<!-- UC强制全屏 -->
 	<meta name="full-screen" content="yes">
-	<!-- QQ强制全屏 -->
 	<meta name="x5-fullscreen" content="true">
-	<!-- UC应用模式 -->
 	<meta name="browsermode" content="application">
-	<!-- QQ应用模式 -->
 	<meta name="x5-page-mode" content="app">
 	
-	<!-- 适应移动端end -->
-
-	<!--<script type="text/javascript" src="libthird/require.js"></script>-->
-
 	<link href="style/loading.css" rel="stylesheet" type="text/css"/>
 	<link href="style/safarifull.css" rel="stylesheet" type="text/css"/>
-	<!--<link href="style/cursor.css" rel="stylesheet" type="text/css"/>-->
 	
-	<!-- <script type="text/javascript" src="libthird/jquery-3.3.1.min.js"></script> -->
 	<script type="text/javascript" src="libthird/screenfull.min.js"></script>
-
 	<script type="text/javascript" src="libthird/react-native-bcrypt/dist/bcrypt.js"></script>
 	<script type="text/javascript" src="libthird/Base65.js"></script>
-
 	<script type="text/javascript" src="libthird/react-native-rsa/lib/jsbn.js"></script>
 	<script type="text/javascript" src="libthird/react-native-rsa/lib/rng.js"></script>
-
 	<script type="text/javascript" src="libthird/react-native-rsa/lib/rsa.js"></script>
-
 	<script type="text/javascript" src="libthird/SecretUtils.js"></script>
 
 </head>
 
 <body class="bod">
-
-	<div class="LoadingRotation div_loading" id="loaddiv">
-		<!-- <div class="div_txt rotate90div"> -->
-			<!-- <span class="loading">疯狂加载中....请稍后</span> -->
-		<!-- </div> -->
-	</div>
+	<div class="LoadingRotation div_loading" id="loaddiv"></div>
 	
-	<div class='safariMask' id="safariMask">
-		<div class="shoushi"></div>
-		<!-- <div class="text"> -->
-		  <!-- <p style="color: #ffffff"><font size="2">向上滑动全屏游戏</font></p> -->
-		<!-- </div>> -->
-	</div>
+	<script type="text/javascript">
+		var sAppData = {
+			"IS_NATIVE_APP":false,
+			"NATIVE_DATA":{},
+			"isAtHome":true,
+			"testStr":"test",
+			"isAndroidHack":false
+		};
+	</script>
 	
 	<script type="text/javascript" src="libthird/vconsole.min.js"></script>
 	<script>
 		var bDebugPlatform = "web";
 		var bDebug = true;
-		//初始化vConsole
+		var sScaleMode = "showall";//"fixedwidth";//"noborder";//"showall";
+		var bShowStat = false;
+		var sPubRes = "../pubres/assets/lobby/";
+		//"exactfit","fixedauto","fixedheight","fixedwidth","scalefull","noborder","noscale","showall"
+		
 		function initVconsole()
 		{
-			// 初始化vConsole
+			bDebug = true;
+			bShowStat=true
 			window.vConsole = new window.VConsole({
-			defaultPlugins: ['system', 'network', 'element', 'storage'], // 可以在此设定要默认加载的面板
+			defaultPlugins: ['system', 'network', 'element', 'storage'],
 			maxLogNumber: 1000,
 			// disableLogScrolling: true,
 			onReady: function() {
@@ -111,13 +82,9 @@
 				console.log('on clearLog');
 			}
 			});
-
-			console.info('KOT CODES web-socket test for json buf');
 		}
-
 		// initVconsole();
 
-		//加载代码完毕，开始进入loading
 		function loadJsOver()
 		{
 			var loading = document.getElementById("loaddiv");
@@ -154,6 +121,7 @@
 	<!--删除标签，ide不会自动添加js文件，请谨慎操作-->
 	<!--jsfile--startTag-->
 	<script src="js/net/NetManager.js"></script>
+	<script src="js/common/ToolsApp.js"></script>
 	<script src="js/common/Tools.js"></script>
 	<script src="js/common/SaveManager.js"></script>
 	<script src="js/common/PostMHelp.js"></script>
@@ -164,7 +132,6 @@
 	<script src="js/common/ConfObjRead.js"></script>
 	<script src="js/common/Common.js"></script>
 	<script src="js/common/ColorTool.js"></script>
-	<script src="js/common/AppData.js"></script>
 	<script src="js/HtmlCompnents/SeanHtmlEncode.js"></script>
 	<script src="js/HtmlCompnents/SeanHtmlDecode.js"></script>
 	<script src="js/HtmlCompnents/SeanAttributeNode.js"></script>
@@ -198,7 +165,11 @@
 	<script src="js/ui/Bottom/BottomMenus.js"></script>
 	<script src="js/ui/GamePanel/GameItem.js"></script>
 	<script src="js/ui/GamePanel/GamePanel.js"></script>
+	<script src="js/ui/GamePanel/MoveContent.js"></script>
 	<script src="js/ui/GamePanel/PageArrow.js"></script>
+	<script src="js/ui/GamePanel/UpdateMsgHandle.js"></script>
+	<script src="js/ui/Girls/Girl.js"></script>
+	<script src="js/ui/Girls/GirlManager.js"></script>
 	<script src="js/ui/Help/HelpPad.js"></script>
 	<script src="js/ui/Highscore/Highscore.js"></script>
 	<script src="js/ui/History/HistoryDialog.js"></script>
@@ -227,8 +198,6 @@
 	<script src="js/ui/Setting/SettingPad.js"></script>
 	<script src="js/ui/TitleBar/RoomTitleBar.js"></script>
 	<script src="js/ui/TitleBar/UITitleBar.js"></script>
-	<script src="js/ui/ad/Girl.js"></script>
-	<script src="js/ui/ad/GirlManager.js"></script>
 	<script src="js/ui/avator/AccountCenter.js"></script>
 	<script src="js/ui/avator/Avator.js"></script>
 	<script src="js/ui/avator/AvatorPad.js"></script>

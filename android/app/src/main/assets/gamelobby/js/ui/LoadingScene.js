@@ -22,12 +22,11 @@ var LoadingScene = /** @class */ (function (_super) {
     //开始加载
     LoadingScene.prototype.initLoading = function () {
         Loading.getObj(this, this, this.onLoaded, "./assets/ui/loading/conf/loadconf.json", "./assets/ui/loading/conf/assets_lobby.json").show(true);
-        Debug.trace("init loading");
-        try {
-            window['loadJsOver']();
-        }
-        catch (e) {
-        }
+        // Debug.trace("init loading");
+        //输出颜色矩阵
+        // ColorTool.getInstance().targetsChangeColor(0xfe8bff);//0x8bebff);//0xe2ff8b);//0xffcd8b);
+        // var color1 = ColorTool.getInstance().getColorMatrix();
+        // Debug.trace(color1);
     };
     LoadingScene.prototype.removeLoading = function () {
         Loading.obj.destroy(true);
@@ -48,7 +47,7 @@ var LoadingScene = /** @class */ (function (_super) {
         // //从url中读取Token
         var urlToken = Tools.getQueryVariable("token");
         //从url中获取业主id 如果是app 会通过app 传送clientID
-        if (!Common.IS_NATIVE_APP) {
+        if (!AppData.IS_NATIVE_APP) {
             if (urlToken != undefined && urlToken.length != 0) {
                 this.temp_token = urlToken;
             }
@@ -81,13 +80,13 @@ var LoadingScene = /** @class */ (function (_super) {
         //Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
         if (this.temp_token.length <= 0 || this.status == 1 || Common.confObj.testLogin) {
             //没有token存档的情况下，直接进入登录场景
-            Debug.trace("ConfObjRead.getConfUrl()---- LayaMain.getInstance().initLogin()");
+            // Debug.trace("ConfObjRead.getConfUrl()---- LayaMain.getInstance().initLogin()")
             LayaMain.getInstance().initLogin();
         }
         else {
             //检查该token是否可用，可用，直接进入大厅
             //不可用，进入登录
-            Debug.trace("ConfObjRead.getConfUrl()----  this.requestTokenTest(this.temp_token)");
+            // Debug.trace("ConfObjRead.getConfUrl()----  this.requestTokenTest(this.temp_token)")
             this.requestTokenTest(this.temp_token);
         }
         // LayaMain.getInstance().initLogin();
@@ -95,7 +94,7 @@ var LoadingScene = /** @class */ (function (_super) {
         // var testGameData = {
         //     alias:"zjh",
         //     gameType:"ROUND",
-        //     icon:"/assets/ui/game/img_dating_youxi_01.png",
+        //     icon:"/assets/ui/game/icon_zjh.png",
         //     id:10,
         //     jumpUrl:false,
         //     minEntry:0,
@@ -117,6 +116,8 @@ var LoadingScene = /** @class */ (function (_super) {
     LoadingScene.prototype.responseInfo = function (s, stat, hr) {
         Debug.trace("Loading userinfo stat:" + stat);
         Debug.trace(s);
+        // Debug.trace("LoadingScene.responseInfo userinfo stat:"+stat);
+        // Debug.trace(s);
         if (stat == "complete") {
             //正确了
             Common.userInfo = s;
@@ -126,27 +127,27 @@ var LoadingScene = /** @class */ (function (_super) {
             if (!Common.clientId) {
                 Common.clientId = Common.userInfo.userBalance.clientId;
             }
-            Debug.trace("loading initLobby");
+            // Debug.trace("loading initLobby");
             //启动检测重连
             this.checkReconnect();
             // LayaMain.getInstance().initLobby();
         }
         else {
             //出错了
-            Debug.trace("loading initLogin");
+            // Debug.trace("loading initLogin");
             LayaMain.getInstance().initLogin();
         }
     };
     //检查重连需求
     LoadingScene.prototype.checkReconnect = function () {
-        var url = ConfObjRead.getConfUrl().url.lobbyurl +
+        var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.reconnect +
             "?access_token=" + Common.access_token;
         NetManager.getObj().HttpConnect(url, this, this.checkReconnectOk);
     };
     LoadingScene.prototype.checkReconnectOk = function (s, stat, hr) {
-        Debug.trace('checkReconnectOk stat:' + stat);
-        Debug.trace(s);
+        // Debug.trace('checkReconnectOk stat:'+stat);        
+        // Debug.trace(s);
         // Debug.trace("checkReconnectOk hr:");
         // Debug.trace(hr);
         if (stat == "complete") {
@@ -180,6 +181,7 @@ var LoadingScene = /** @class */ (function (_super) {
     //检查当前是否从游戏返回大厅，是的话就要进入房间列表
     LoadingScene.prototype.checkBackFromGame = function () {
         var gameId = Tools.getQueryVariable("gameId");
+        // var alias = Tools.getQueryVariable( "alias" );
         var alias = Tools.getQueryVariable("alias");
         // Debug.trace("LoadingScene.checkBackFromGame gameId:"+gameId+" alias:"+alias);
         if (Common.gameId > 0) {

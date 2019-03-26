@@ -251,4 +251,27 @@ RCT_EXPORT_METHOD(auth:(NSInteger)platform completion:(RCTResponseSenderBlock)co
   }];
   
 }
+
+RCT_EXPORT_METHOD(isWechatEnabled :(RCTResponseSenderBlock)completion){
+  NSArray *URLTypesArr = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"];
+  NSDictionary *AppSecretDic = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AppSecret"];
+  NSString *umengKeyString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UmengKey"];
+  NSString *weixinKeyString = @"";
+  NSString *weixinKeyAppSecret = @"";
+  
+  for(NSDictionary *urlTypes in  URLTypesArr){
+    if([[urlTypes objectForKey:@"CFBundleURLName"] isEqualToString:@"weixin"]){
+      NSArray *weixinKey = [urlTypes objectForKey:@"CFBundleURLSchemes"];
+      weixinKeyString = @"";
+      weixinKeyAppSecret = [AppSecretDic objectForKey:@"weixin"];
+      if(weixinKey.count > 0){
+        weixinKeyString = weixinKey[0];
+      }
+      break;
+    }
+  }
+  
+  completion(@[[NSNumber numberWithBool:weixinKeyString.length > 0 && weixinKeyAppSecret.length > 0 && umengKeyString.length > 0]]);
+  return;
+}
 @end

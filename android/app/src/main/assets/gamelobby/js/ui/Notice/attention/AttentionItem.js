@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 var AttentionItem = /** @class */ (function (_super) {
     __extends(AttentionItem, _super);
     function AttentionItem() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        return _super.call(this) || this;
     }
     AttentionItem.prototype.init = function (root, conf, sortid) {
         //配置
@@ -73,7 +73,7 @@ var AttentionItem = /** @class */ (function (_super) {
             // }
             if (this.lb_title) {
                 this.lb_title.color = this.conf.txtTitleContent.font.color;
-                Debug.trace("AttentionItem.setChoosed 1 b:" + b + " color:" + this.lb_title.color);
+                // Debug.trace("AttentionItem.setChoosed 1 b:"+b+" color:"+this.lb_title.color);
             }
         }
         else {
@@ -83,7 +83,7 @@ var AttentionItem = /** @class */ (function (_super) {
             // }
             if (this.lb_title) {
                 this.lb_title.color = this.conf.txtTitleContent.unchoose.color;
-                Debug.trace("AttentionItem.setChoosed 0 b:" + b + " color:" + this.lb_title.color);
+                // Debug.trace("AttentionItem.setChoosed 0 b:"+b+" color:"+this.lb_title.color);
             }
         }
     };

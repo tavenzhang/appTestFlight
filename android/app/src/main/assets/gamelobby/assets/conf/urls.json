@@ -1,19 +1,19 @@
 {
-    "urlsit":{
+    "url":{
         
-        "home":"http://106games.com/gamelobby/home.html",
-        "backlobby":"http://106games.com/gamelobby/index.html",
-        "apihome":"http://106games.com/api/v1",
+        "home":"http://sit.106games.com/gamelobby/home.html",
+        "backlobby":"http://sit.106games.com/gamelobby/index.html",
+        "apihome":"http://sit.106games.com/api/v1",
 
-        "g_account":"http://106games.com/g_recharge/?module=account",
-        "g_recharge":"http://106games.com/g_recharge/?module=recharge",
-        "g_redraw":"http://106games.com/g_recharge/?module=redraw",
-        "g_custom":"http://106games.com/g_recharge/?module=custom",
+        "g_account":"http://sit.106games.com/g_recharge/?module=account",
+        "g_recharge":"http://sit.106games.com/g_recharge/?module=recharge",
+        "g_redraw":"http://sit.106games.com/g_recharge/?module=redraw",
+        "g_custom":"http://sit.106games.com/g_recharge/?module=custom",
         
         "testcustomurl":"https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"
 
     },
-    "url":{
+    "urldev":{
         
         "home":"http://game.dev02.com/gamelobby/home.html",
         "backlobby":"http://game.dev02.com/gamelobby/index.html",

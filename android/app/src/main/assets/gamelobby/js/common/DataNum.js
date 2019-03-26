@@ -27,7 +27,7 @@ var DataNum = /** @class */ (function (_super) {
         this.arr_sp_num = new Array();
     };
     DataNum.prototype.setNum = function (num) {
-        Debug.trace("DataNum.setNum:" + num);
+        // Debug.trace("DataNum.setNum:"+num);
         this.num = num;
         this.releaseNum();
         this.createNum();

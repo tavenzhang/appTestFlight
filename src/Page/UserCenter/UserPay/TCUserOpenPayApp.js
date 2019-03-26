@@ -64,7 +64,11 @@ export default class TCUserOpenPayApp {
      * 打开支付宝
      */
     openAlipay() {
-        NativeModules.TCOpenOtherAppHelper.openAlipay();
+        if(G_IS_IOS){
+            this.linkingApp("alipay:// ", "支付宝")
+        }else{
+            NativeModules.TCOpenOtherAppHelper.openAlipay();
+        }
     }
 
     linkingApp(url, payType) {

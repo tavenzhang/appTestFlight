@@ -2,21 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>PLAT_ID</key>
+	<string>5</string>
+	<key>PLAT_CH</key>
+	<string>1</string>
+	<key>APP_DOWNLOAD_VERSION</key>
+	<string>1.0</string>
 	<key>Affcode</key>
-	<string>""</string>
-	<key>AppSecret</key>
-	<dict>
-		<key>weixin</key>
-		<string>67de54808bba55e934e3126f3e607a42</string>
-	</dict>
+	<string></string>
+	<key>JPushKey</key>
+	<string></string>
+	<key>UmengKey</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>梦想棋牌</string>
+	<string>博博乐</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.card.bbl</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -24,26 +29,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2.2</string>
+	<string>2.0.14</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>weixin</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>wx39520c48b4a7dc64</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleVersion</key>
 	<string>6</string>
-	<key>Channel</key>
-	<string>1</string>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
 	<key>Fabric</key>
@@ -112,14 +102,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>需要您的同意,才能访问相机</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>camera</string>
+	<string>需要您的同意,才能添加到相册</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>camera</string>
-	<key>PlatId</key>
-	<string>1146</string>
+	<string>需要您的同意,才能访问相册</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>

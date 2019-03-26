@@ -2,7 +2,7 @@
 #
 .DS_Store
 package-lock.json
-
+*Podfile.lock
 # Xcode
 #
 build/
