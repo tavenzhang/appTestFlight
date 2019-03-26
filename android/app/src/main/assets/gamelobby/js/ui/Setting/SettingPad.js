@@ -18,8 +18,7 @@ var SettingPad = /** @class */ (function (_super) {
         _this.downPos = {
             "x": 0,
             "y": 0
-        }; //按下的坐标
-        //当前各种值
+        };
         _this.b_music_switch = 1;
         _this.f_music_value = 1;
         _this.b_sfx_switch = 1;
@@ -65,58 +64,33 @@ var SettingPad = /** @class */ (function (_super) {
         this.alphabg.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
-        //背景图
         this.initBg(this.conf.bg);
-        //标题
         this.initTitle(this.conf.title);
-        //关闭按钮
         if (this.conf.close) {
             this.close = new MyButton();
             this.close.init(this.conf.close, this, this.onClose);
             this.close.pos(this.conf.close.pos.x, this.conf.close.pos.y);
             this.addChild(this.close);
         }
-        //初始化音乐开关
         this.initMusicSwitch(this.conf.musicswitch);
-        //初始化音效开关
         this.initSfxSwitch(this.conf.sfxswitch);
-        //初始化音乐项目
         this.initMusicItem(this.conf.musicbar);
-        //初始化音效项目
         this.initSfxItem(this.conf.sfxbar);
-        //分隔符
         this.initGridline(this.conf.line);
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
-    //背景
     SettingPad.prototype.initBg = function (conf) {
-        //大背景
-        // this.sp_bg = new Laya.Sprite();
-        // this.sp_bg.pos(conf.pos.x,conf.pos.y);
-        // this.addChild(this.sp_bg);
-        // Tools.scaleSpriteV(
-        //         this.sp_bg,
-        //         conf.src,
-        //         conf.size.spliceV);
-        //如果有注册点
-        // if( conf.pivot )
-        // {
-        //     this.sp_bg.pivot(conf.pivot.x,conf.pivot.y);
-        // }
         this.sp_bg = Tools.addSprite(this, conf);
-        //如果有前景
         if (conf.front) {
             this.sp_front = new Laya.Sprite();
             this.sp_front.pos(conf.front.pos.x, conf.front.pos.y);
             this.addChild(this.sp_front);
             Tools.scaleSpriteHV(this.sp_front, conf.front.src, conf.front.size.spliceHV);
-            //如果有注册点
             if (conf.pivot) {
                 this.sp_front.pivot(conf.pivot.x, conf.pivot.y);
             }
         }
     };
-    //标题
     SettingPad.prototype.initTitle = function (conf) {
         if (!conf) {
             return;
@@ -130,37 +104,27 @@ var SettingPad = /** @class */ (function (_super) {
             this.addChild(this.sp_title_lb);
         }
     };
-    //音乐项目
     SettingPad.prototype.initMusicItem = function (conf) {
         if (!conf) {
             return;
         }
-        // var musicIcon = Tools.newSprite(conf.icon);
-        // this.addChild(musicIcon);
         if (conf.icon) {
             var mIcon = Tools.addSprite(this, conf.icon);
         }
-        // var lb_music = Tools.newSprite(conf.label);
-        // this.addChild(lb_music);
         if (conf.label) {
             var lb = Tools.addSprite(this, conf.label);
         }
-        //拖拉滚动条
         this.musicbar = new MyDragPgBarFront();
         this.musicbar.init(conf.dragbar, this, this.onMusicValueChange);
         this.addChild(this.musicbar);
         this.musicbar.setValue(Laya.SoundManager.musicVolume);
     };
-    //音乐拖拉条值改变
     SettingPad.prototype.onMusicValueChange = function (s) {
         var v = s.value;
         var vs = v.toFixed(2);
         var vf = parseFloat(vs);
-        // Debug.trace("onMusicValueChange:"+vf);
-        // Debug.trace(s.value);
         if (vf <= 0.01) {
             vf = 0;
-            //关闭
             this.switchMusic.setOn(0);
         }
         else {
@@ -170,43 +134,31 @@ var SettingPad = /** @class */ (function (_super) {
         }
         Laya.SoundManager.setMusicVolume(vf);
         this.f_music_value = vf;
-        //如果有的话，回调出去
         if (this.caller && this.callback) {
             this.callback.apply(this.caller, ["onMusicVolumeChange", vf]);
         }
     };
-    //音效项目
     SettingPad.prototype.initSfxItem = function (conf) {
         if (!conf) {
             return;
         }
-        // var icon = Tools.newSprite(conf.icon);
-        // this.addChild(icon);
         if (conf.icon) {
             var icon = Tools.addSprite(this, conf.icon);
         }
-        // var lb = Tools.newSprite(conf.label);
-        // this.addChild(lb);
         if (conf.label) {
             var lb = Tools.addSprite(this, conf.label);
         }
-        //拖拉滚动条
         this.sfxbar = new MyDragPgBarFront();
         this.sfxbar.init(conf.dragbar, this, this.onSfxValueChange);
         this.addChild(this.sfxbar);
         this.sfxbar.setValue(Laya.SoundManager.soundVolume);
     };
-    //音效拖拉条值改变
     SettingPad.prototype.onSfxValueChange = function (s) {
         var v = s.value;
         var vs = v.toFixed(2);
         var vf = parseFloat(vs);
-        // Debug.trace("onSfxValueChange:"+vf);
-        // Debug.trace(s.value);
         if (vf <= 0.01) {
             vf = 0;
-            //关闭
-            // Debug.trace('sfx value change setOn 0');
             this.switchSfx.setOn(0);
         }
         else {
@@ -216,12 +168,10 @@ var SettingPad = /** @class */ (function (_super) {
         }
         Laya.SoundManager.setSoundVolume(vf);
         this.f_sfx_value = vf;
-        //如果有的话，回调出去
         if (this.caller && this.callback) {
             this.callback.apply(this.caller, ["onSfxVolumeChange", vf]);
         }
     };
-    //分隔符
     SettingPad.prototype.initGridline = function (conf) {
         if (!conf) {
             return;
@@ -229,17 +179,14 @@ var SettingPad = /** @class */ (function (_super) {
         var line = Tools.newSprite(conf);
         this.addChild(line);
     };
-    //音乐开关
     SettingPad.prototype.initMusicSwitch = function (conf) {
         if (!conf) {
             return;
         }
         if (conf.label) {
             var lb = Tools.addSprite(this, conf.label);
-            // this.addChild(lb);
         }
-        //switch开关
-        this.switchMusic = new MySwitchBtn(); //new MyDragSwitch();
+        this.switchMusic = new MySwitchBtn();
         this.switchMusic.init(conf.switch, this, this.onMusicSwitchClick);
         this.addChild(this.switchMusic);
         if (Laya.SoundManager.musicVolume > 0) {
@@ -249,11 +196,8 @@ var SettingPad = /** @class */ (function (_super) {
             this.switchMusic.setOn(0, false);
         }
     };
-    //点击音乐切换按钮
     SettingPad.prototype.onMusicSwitchClick = function (s) {
         var _this = this;
-        // Debug.trace("onMusicSwitchClick:"+s.iSwitchId);
-        //设定音乐音量为0
         if (s.iSwitchId == 0) {
             this.b_music_switch = 0;
             Common.lastMusicVolume = Laya.SoundManager.musicVolume;
@@ -266,8 +210,6 @@ var SettingPad = /** @class */ (function (_super) {
             if (this.musicbar) {
                 this.musicbar.setValue(Common.lastMusicVolume);
             }
-            //音乐按钮打开，开始播放   //Modified by Jelly on 2018.12.26   //Laya.SoundManager.playMusic(Common.confObj.music.src);
-            // Laya.SoundManager.playMusic(Common.confObj.music.src);
             Laya.loader.load([{ url: ConfObjRead.getConfMusic().src }], new Laya.Handler(this, function () {
                 // Debug.trace( "player bg music" );
                 Laya.timer.once(100, _this, function () {
@@ -275,22 +217,18 @@ var SettingPad = /** @class */ (function (_super) {
                 });
             }));
         }
-        //如果有的话，回调出去
         if (this.caller && this.callback) {
             this.callback.apply(this.caller, ["onMusicSwitch", s.iSwitchId]);
         }
     };
-    //音效开关
     SettingPad.prototype.initSfxSwitch = function (conf) {
         if (!conf) {
             return;
         }
         if (conf.label) {
             var lb = Tools.addSprite(this, conf.label);
-            // this.addChild(lb);
         }
-        //switch开关
-        this.switchSfx = new MySwitchBtn(); //new MyDragSwitch();
+        this.switchSfx = new MySwitchBtn();
         this.switchSfx.init(conf.switch, this, this.onSfxSwitchClick);
         this.addChild(this.switchSfx);
         if (Laya.SoundManager.soundMuted) {
@@ -302,10 +240,7 @@ var SettingPad = /** @class */ (function (_super) {
             this.switchSfx.setOn(1, false);
         }
     };
-    //点击音乐切换按钮
     SettingPad.prototype.onSfxSwitchClick = function (s) {
-        // Debug.trace("onSfxSwitchClick:"+s.iSwitchId);
-        //设定音效音量为0
         if (s.iSwitchId == 0) {
             this.b_sfx_switch = 0;
             Common.lastSoundVolume = Laya.SoundManager.soundVolume;
@@ -325,17 +260,13 @@ var SettingPad = /** @class */ (function (_super) {
                 this.sfxbar.setValue(Common.lastSoundVolume);
             }
         }
-        //如果有的话，回调出去
         if (this.caller && this.callback) {
             this.callback.apply(this.caller, ["onSfxSwitch", s.iSwitchId]);
         }
     };
-    //鼠标响应
     SettingPad.prototype.onMouseEvent = function (e) {
         var x = e.stageX;
         var y = e.stageY;
-        // Debug.trace('onMouseEvent e:');
-        // Debug.trace(e);
         switch (e.type) {
             case Laya.Event.MOUSE_DOWN:
                 this.bDrag = true;
@@ -374,7 +305,6 @@ var SettingPad = /** @class */ (function (_super) {
     SettingPad.prototype.onClose = function (s) {
         // Debug.trace("SettingPad onClose 1:");
         // Debug.trace(SaveManager.getObj().mtObj);
-        //保存当前的设置内容
         SaveManager.getObj().save(SaveManager.KEY_MUSIC_SWITCH, this.b_music_switch);
         SaveManager.getObj().save(SaveManager.KEY_MUSIC_VL, this.f_music_value);
         SaveManager.getObj().save(SaveManager.KEY_SFX_SWITCH, this.b_sfx_switch);

@@ -124,9 +124,9 @@ export default class App extends Component {
        // return false;
         const routers = this.navigator.state.routes;
         if (routers&&routers.length > 1) {
-            if(TW_OnBackHomeJs){
-                TW_OnBackHomeJs();
-            }
+            // if(TW_OnValueJSHome){
+            //     TW_OnValueJSHome();
+            // }
             TW_NavHelp.goBack()
             return true;
         }

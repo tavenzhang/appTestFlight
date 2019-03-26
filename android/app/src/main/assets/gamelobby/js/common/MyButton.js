@@ -171,6 +171,7 @@ var MyButton = /** @class */ (function (_super) {
         else {
             this.scaleBtn(this.conf.maxScale);
         }
+        // Tools.setSpriteGlowFilter(this.btn_ui,ConfObjRead.getConfCommon().glowfilter);
         if (this.actionDown) {
             this.doClick();
         }
@@ -185,6 +186,7 @@ var MyButton = /** @class */ (function (_super) {
         var t = Laya.loader.getRes(Tools.getSrc(this.res[0]));
         this.redraw(t);
         this.scaleBtn(this.conf.normalScale);
+        // Tools.clearSpriteFilter(this.btn_ui);
     };
     MyButton.prototype.onBtnOut = function (s) {
         this.releaseBtn();

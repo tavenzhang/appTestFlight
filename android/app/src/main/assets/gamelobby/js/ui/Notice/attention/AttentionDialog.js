@@ -101,7 +101,6 @@ var AttentionDialog = /** @class */ (function (_super) {
             var fur = Tools.addSprite(this, this.conf.fu.right);
         }
     };
-    //按数据显示公告
     AttentionDialog.prototype.showAttention = function (data) {
         // Debug.trace("showAttention data:");
         // Debug.trace(data);
@@ -117,7 +116,6 @@ var AttentionDialog = /** @class */ (function (_super) {
             // this.attentionPage.setData(data);
         }
     };
-    //刷新分类数据的未读数量
     AttentionDialog.prototype.refreshDataUnread = function (cateid) {
         // Debug.trace("cateid:"+cateid);
         var num = 0;
@@ -142,7 +140,6 @@ var AttentionDialog = /** @class */ (function (_super) {
         }
         return num;
     };
-    //修改当前索引页面
     AttentionDialog.prototype.changeTab = function (cateid) {
         // Debug.trace("AttentionDialog.changeTab id:"+cateid);
         this.showAttention(null);
@@ -150,20 +147,18 @@ var AttentionDialog = /** @class */ (function (_super) {
         this.updateTab();
     };
     AttentionDialog.prototype.updateTab = function () {
-        //所有按钮组全部不显示
+        Debug.trace("AttentionDialog.updateTab curTabCateId:" + this.curTabCateId);
         // for( var a in this.arr_btns_content )
         for (var a = 0; a < this.arr_btns_content.length; a++) {
             var b = this.arr_btns_content[a];
             if (b.data.noticeCate == this.curTabCateId) {
                 b.visible = true;
-                //对应内容也里显示当前默认内容
                 b.showDefaultNotice();
             }
             else {
                 b.visible = false;
             }
         }
-        //所有分类按钮都未点击，除了当前这个
         // for( var c in this.arr_cate_btns )
         for (var c = 0; c < this.arr_cate_btns.length; c++) {
             var d = this.arr_cate_btns[c];
@@ -305,8 +300,8 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.responsePop = function (s, stat, hr) {
         // Debug.trace("AttentionDialog.responsePop stat:"+stat);
-        // Debug.trace("AttentionDialog.responsePop s:");
-        // Debug.trace(s);
+        Debug.trace("AttentionDialog.responsePop s:");
+        Debug.trace(s);
         // Debug.trace("AttentionDialog.responsePop hr:");
         // Debug.trace(hr);
         /*
@@ -355,8 +350,8 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.responseAttention = function (s, stat, hr) {
         // Debug.trace("AttentionDialog.responseAttention stat:"+stat);
-        // Debug.trace("AttentionDialog.responseAttention s:");
-        // Debug.trace(s);
+        Debug.trace("AttentionDialog.responseAttention s:");
+        Debug.trace(s);
         // Debug.trace("AttentionDialog.responseAttention hr:");
         // Debug.trace(hr);
         /*

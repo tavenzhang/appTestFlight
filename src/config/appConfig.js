@@ -38,7 +38,7 @@ export const AppConfig = {
 
 export const MyAppName = '博博乐';
 
-export const versionHotFix = 'bbl_3_23';
+export const versionHotFix = 'bbl_3_25';
 
 export const MyOwnerPlatName= 'uat彩票';
 
@@ -59,18 +59,16 @@ export const platInfo = {
     },
     platId: configAppId,
     brand: "uat01",
-    channel: {
-
-    }
+    channel: {}
 }
 
 
 export const affCodeList = {
     ios: {
-        '2.9.6': '365_ios'
+        '2.9.6': 'uat_ios'
     },
     android: {
-        '2.10.11': '365_android'
+        '2.10.11': 'uat_android'
     }
 };
 

@@ -49,6 +49,9 @@ var PopMineMenus = /** @class */ (function (_super) {
     PopMineMenus.prototype.onClickBtn = function (e) {
         var cmd = e.getQuery();
         switch (cmd) {
+            case "agent":
+                AgentPad.showPad(Laya.stage, ConfObjRead.getConfAgentPad());
+                break;
             case "recharge":
                 Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
                 break;
