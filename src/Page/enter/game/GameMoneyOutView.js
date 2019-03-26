@@ -183,6 +183,11 @@ export default class GameMoneyOutView extends Component {
         }
     }
 
+    RoundNum=(num, length)=> {
+        var number = Math.round(num * Math.pow(10, length)) / Math.pow(10, length);
+        return number;
+    }
+
 
     getTextWithdraw() {
         let num = this.userWithdrawStore.withdrawModel.aggregateBetRequirements - this.userWithdrawStore.withdrawModel.aggregateBets;
