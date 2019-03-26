@@ -4,6 +4,7 @@ import {
     StyleSheet,
     View,
     WebView,
+    KeyboardAvoidingView
 } from 'react-native';
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
@@ -228,27 +229,28 @@ export default class XXWebView extends Component {
                                           onLoadStart={this.onLoadStart}
 
                         /> :
-                        <WebView
-                            originWhitelist={['*']}
-                            ref="myWebView"
-                            automaticallyAdjustContentInsets={true}
-                            style={styles.webView}
-                            source={source}
-                            injectedJavaScript={injectJs}
-                            javaScriptEnabled={true}
-                            domStorageEnabled={true}
-                            decelerationRate="normal"
-                            // startInLoadingState={true}
-                             renderLoading={this.onRenderLoadingView}
-                            onNavigationStateChange={this.onNavigationStateChange}
-                            onLoadStart={this.onLoadStart}
-                            allowFileAccess={true}
-                            onError={this.onError}
-                            onMessage={this.onMessage}
-                            onLoadEnd={this.onLoadEnd}
-                        />
+                        <KeyboardAvoidingView style={{flex:1}} behavior="padding">
+                            <WebView
+                                originWhitelist={['*']}
+                                ref="myWebView"
+                                automaticallyAdjustContentInsets={true}
+                                style={styles.webView}
+                                source={source}
+                                injectedJavaScript={injectJs}
+                                javaScriptEnabled={true}
+                                domStorageEnabled={true}
+                                decelerationRate="normal"
+                                // startInLoadingState={true}
+                                renderLoading={this.onRenderLoadingView}
+                                onNavigationStateChange={this.onNavigationStateChange}
+                                onLoadStart={this.onLoadStart}
+                                allowFileAccess={true}
+                                onError={this.onError}
+                                onMessage={this.onMessage}
+                                onLoadEnd={this.onLoadEnd}
+                            />
+                        </KeyboardAvoidingView>
                 }
-
             </View>
         );
     }
@@ -444,9 +446,10 @@ export default class XXWebView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#000000"
+        backgroundColor: "white"
     },
     webView: {
+        flex: 1,
         backgroundColor: "#000000"
     }
 });
