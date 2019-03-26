@@ -40,22 +40,16 @@ var ScrollBar = /** @class */ (function (_super) {
     ScrollBar.prototype.reset = function (width, totalWidth) {
         this.width = width;
         this.totalWidth = totalWidth;
-        //根据当前总宽度和可视宽度的变化，来刷新进度条的长短
-        // Debug.trace('width:'+this.width+" tw:"+this.totalWidth);
         var wp = this.width / this.totalWidth;
-        // Debug.trace('wp:'+wp);
         var ftw = wp * this.conf.bg.size.w;
-        // Debug.trace('ftw:'+ftw);
         if (this.showinsmall) {
             if (ftw > this.conf.bg.size.w) {
                 ftw = this.conf.bg.size.w;
             }
         }
-        //ftw 必须是大于0的数字，才可以重设其宽度
         if (this.totalWidth > 0 && ftw <= this.conf.bg.size.w) {
             this.scrollbar_bg.visible = true;
             this.scrollbar_ft.visible = true;
-            // Debug.trace('ftw > 0 ='+ftw);
             this.scrollbar_ft.graphics.clear();
             Tools.scaleSprite(this.scrollbar_ft, this.conf.ft.src, this.conf.ft.size.splice, ftw);
         }
@@ -77,11 +71,7 @@ var ScrollBar = /** @class */ (function (_super) {
         Laya.timer.frameLoop(1, this, this.fadeIn);
     };
     ScrollBar.prototype.fadeIn = function () {
-        // this.alpha += this.conf.fadeAlpha;
         this.setMyAlpha(this.alpha + this.conf.fadeAlpha);
-        // this.scrollbar_bg.alpha = this.alpha;
-        // this.scrollbar_ft.alpha = this.alpha;
-        // Debug.trace("fadeIn alpha:"+this.alpha);
         if (this.alpha >= 1) {
             this.alpha = 1;
             Laya.timer.clear(this, this.fadeIn);
@@ -89,13 +79,10 @@ var ScrollBar = /** @class */ (function (_super) {
     };
     ScrollBar.prototype.moveEnd = function () {
         this.clearTimer();
-        // Debug.trace("ScrollBar moveEnd:"+this.alpha);
         Laya.timer.frameLoop(1, this, this.fadeOut);
     };
     ScrollBar.prototype.fadeOut = function () {
-        // this.alpha -= this.conf.fadeAlpha;
         this.setMyAlpha(this.alpha - this.conf.fadeAlpha);
-        // Debug.trace("fadeOut alpha:"+this.alpha);
         if (this.alpha <= 0) {
             this.alpha = 0;
             Laya.timer.clear(this, this.fadeOut);
@@ -106,7 +93,6 @@ var ScrollBar = /** @class */ (function (_super) {
         this.scrollbar_bg.alpha = this.alpha;
         this.scrollbar_ft.alpha = this.alpha;
     };
-    //清除所有我的定时器
     ScrollBar.prototype.clearTimer = function () {
         Laya.timer.clear(this, this.fadeIn);
         Laya.timer.clear(this, this.fadeOut);

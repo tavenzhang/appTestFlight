@@ -1,0 +1,57 @@
+{
+    "alphabg":{
+        "color":"#000000",
+        "alpha":0.3,
+        "size":{
+            "w":1334,
+            "h":750
+        },
+        "pos":{
+            "x":0,
+            "y":0
+        }
+    },
+    "pos":{
+        "x":0,
+        "y":120
+    },
+    "touchout":{
+        "value":false
+    },
+    "bg":{
+        "src":"",
+        "pos":{
+            "x":0,
+            "y":0
+        }
+    },
+    "lbTest":{
+        "desc":"",
+        "pos":{ "x":0, "y":0 },
+        "size":{ "w":600, "h":50 },
+        "font":{
+            "text":"tab",
+            "borderColor":"#ff0000",
+            "color":"#bbae7a",
+            "size":19,
+            "name":"x",
+            "align":"right",
+            "valign":"top",
+            "wrap":false
+        }
+    },
+    "menus":[
+        {
+            "desc":"",
+            "cmd":"agentinfo",
+            "pos":{ "x":0, "y":0 },
+            "src":[
+                "./assets/ui/agent/img_daili_anniudi.png"
+            ],
+            "size":{ "w":244, "h":96 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3"
+        }
+    ]
+}

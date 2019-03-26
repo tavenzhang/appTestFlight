@@ -1,0 +1,50 @@
+{
+    "alphabg":{
+        "color":"#000000",
+        "alpha":0.3,
+        "size":{
+            "w":1334,
+            "h":750
+        },
+        "pos":{
+            "x":0,
+            "y":0
+        }
+    },
+    "touchout":{
+        "value":false
+    },
+    "bg":{
+        "src":"",
+        "pos":{
+            "x":0,
+            "y":0
+        }
+    },
+    "close":{
+        "desc":"",
+        "pos":{ "x":1187, "y":90 },
+        "src":[
+            "./assets/ui/dialog/btn_touxiang_guangbi.png"
+        ],
+        "size":{ "w":76, "h":77 },
+        "sfx":"assets/raw/close.mp3",
+        "maxScale":{"x":1.05,"y":1.05},
+        "normalScale":{"x":1,"y":1}
+    },
+    "lbTest":{
+        "desc":"",
+        "pos":{ "x":0, "y":0 },
+        "size":{ "w":600, "h":50 },
+        "font":{
+            "text":"content",
+            "borderColor":"#ff0000",
+            "color":"#bbae7a",
+            "size":19,
+            "name":"x",
+            "align":"right",
+            "valign":"top",
+            "wrap":false
+        }
+    }
+}

@@ -175,12 +175,18 @@ var Tools = /** @class */ (function () {
         // Debug.trace(o2+"-"+len+" s3:"+s3);
         return s1 + rep + s3;
     };
-    //以自加载Image来构建帮助页面内容
     Tools.newImage = function (conf) {
         var img = new Laya.Image(conf.href);
         img.pos(conf.pos.x, conf.pos.y);
         img.size(conf.size.w, conf.size.h);
         return img;
+    };
+    Tools.addAnimation = function (node, conf) {
+        var anim = new MyBoneAnim();
+        anim.init(conf);
+        node.addChild(anim);
+        anim.playAnim(0, true);
+        return anim;
     };
     Tools.addSprite = function (node, conf) {
         if (!conf) {
@@ -190,7 +196,6 @@ var Tools = /** @class */ (function () {
         node.addChild(sp);
         return sp;
     };
-    //根据配置构造Sprite
     Tools.newSprite = function (conf) {
         var sp = new Laya.Sprite();
         if (conf.src) {
@@ -754,10 +759,23 @@ var Tools = /** @class */ (function () {
         }
         return str;
     };
+    Tools.setSpriteBlurFilter = function (sp, conf) {
+        var filter = new Laya.BlurFilter();
+        filter.strength = conf.strength;
+        sp.filters = [filter];
+    };
+    Tools.setSpriteGlowFilter = function (sp, conf) {
+        var filter = new Laya.GlowFilter(conf.color, conf.blur, conf.offx, conf.offy);
+        //("#ffff00", 10, 0, 0);
+        sp.filters = [filter];
+    };
     Tools.setSpriteGrayFilter = function (sp) {
         var grayscaleMat = [0.3086, 0.6094, 0.0820, 0, 0, 0.3086, 0.6094, 0.0820, 0, 0, 0.3086, 0.6094, 0.0820, 0, 0, 0, 0, 0, 1, 0];
-        var grayscaleFilter = new Laya.ColorFilter(grayscaleMat);
-        sp.filters = [grayscaleFilter];
+        var filter = new Laya.ColorFilter(grayscaleMat);
+        sp.filters = [filter];
+    };
+    Tools.clearSpriteFilter = function (sp) {
+        sp.filters = null;
     };
     Tools.isNumber = function (v) {
         if (typeof (v) === "number" && v !== Infinity && !isNaN(v)) {
