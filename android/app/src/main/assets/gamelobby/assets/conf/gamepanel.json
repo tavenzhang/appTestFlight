@@ -53,12 +53,7 @@
         },
         "jumpNum":3
     },
-    "flip":{
-        "desc":"箭头点击之后，一次翻动的列数及x坐标偏移值",
-        "onetime":3,
-        "offsetx":0,
-        "movex":0
-    },
+    "flip":{ "desc":"", "onetime":3, "offsetx":0, "movex":0 },
     "gameitemdefault":{
         "desc":"图标",
         "number":5,
@@ -132,7 +127,7 @@
         "dragendoffset":2,
         "moveddis":50,
         "goonLoopDelay":10,
-        "durationGoon":1000,
+        "durationGoon":500,
         "goonOffsetMin":0.1,
         "tweenGoonName":"circOut",
 

@@ -1,0 +1,11 @@
+{
+    "desc":"",
+    "pos":{ "x":291, "y":80 },
+    "size":{ "desc":"", "w":1334, "h":750 },
+    "mask":{ "desc":"", "alpha":0.6 },
+    "bg":{
+        "desc":"",
+        "src":"./assets/ui/notice/bgBig.png",
+        "pos":{ "x":0, "y":40 }
+    }
+}

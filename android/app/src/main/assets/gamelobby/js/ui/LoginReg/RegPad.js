@@ -11,9 +11,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-/*
-注册界面
-*/
 var RegPad = /** @class */ (function (_super) {
     __extends(RegPad, _super);
     function RegPad() {
@@ -51,17 +48,12 @@ var RegPad = /** @class */ (function (_super) {
         this.caller = caller;
         this.callback = callback;
         this.initAlphaBg();
-        //背景图
         this.initBg();
-        //标题
         this.initTitle();
-        //内容输入框
         this.initContent();
-        //动作按钮
         this.initBtns();
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
-    //登录注册按钮
     RegPad.prototype.initBtns = function () {
         if (this.conf.btnclose) {
             this.btnclose = new MyButton();
@@ -76,7 +68,6 @@ var RegPad = /** @class */ (function (_super) {
             this.addChild(this.btnok);
         }
     };
-    //输入框内容
     RegPad.prototype.initContent = function () {
         if (this.conf.name) {
             var sp = new Laya.Sprite();
@@ -85,6 +76,7 @@ var RegPad = /** @class */ (function (_super) {
             var lb = Tools.addSprite(sp, this.conf.name.label);
             var inputbg = Tools.addSprite(sp, this.conf.name.inputbg);
             this.inputName = Tools.addInput(sp, this.conf.name.input);
+            this.inputName.on(Laya.Event.INPUT, this, this.onNameKey);
             var star = Tools.addLabels(sp, this.conf.name.star);
         }
         if (this.conf.pwd) {
@@ -112,7 +104,7 @@ var RegPad = /** @class */ (function (_super) {
             var lb = Tools.addSprite(this.sp_yanzhengma, this.conf.yanzhengma.label);
             var inputbg = Tools.addSprite(this.sp_yanzhengma, this.conf.yanzhengma.inputbg);
             this.inputYanzhengma = Tools.addInput(this.sp_yanzhengma, this.conf.yanzhengma.input);
-            // this.inputYanzhengma.on(Laya.Event.FOCUS,this,this.onYanzhengmaFocus);
+            this.inputYanzhengma.on(Laya.Event.FOCUS, this, this.onYanzhengmaInputFocus);
             var star = Tools.addLabels(this.sp_yanzhengma, this.conf.yanzhengma.star);
             this.imgYanzhengma = this.newYanzhengma(this.sp_yanzhengma, this.conf.yanzhengma.image);
         }
@@ -133,6 +125,13 @@ var RegPad = /** @class */ (function (_super) {
             this.inputPhone = Tools.addInput(sp, this.conf.phone.input);
         }
     };
+    RegPad.prototype.onNameKey = function (e) {
+        var name = e;
+        var tx = name.text;
+        var ntx = tx.toLowerCase();
+        // Debug.trace("RegPad.onNameKey tx:"+tx+" ntx:"+ntx);
+        name.text = ntx;
+    };
     RegPad.prototype.clearYanzhengma = function (node) {
         // if( this.imgYanzhengma )
         // {
@@ -142,7 +141,12 @@ var RegPad = /** @class */ (function (_super) {
         //     this.imgYanzhengma = null;
         // }
     };
-    //新的验证码图片对象
+    RegPad.prototype.onYanzhengmaInputFocus = function (e) {
+        // Debug.trace("RegPad.onYanzhengmaInputFocus e:");
+        // Debug.trace(e);
+        // var inputText:Laya.TextInput = e as Laya.TextInput;
+        // inputText.text = "";
+    };
     RegPad.prototype.newYanzhengmaY = function (node, conf) {
         var img;
         if (this.imgYanzhengma) {
@@ -168,7 +172,6 @@ var RegPad = /** @class */ (function (_super) {
         // node.addChild(img);
         return img;
     };
-    //test
     RegPad.prototype.onYZMLoaded = function (sp, url, w, h) {
         // Debug.trace("RegPad.onYZMLoaded e:");
         // Debug.trace(e);
@@ -189,7 +192,6 @@ var RegPad = /** @class */ (function (_super) {
                 return this.newYanzhengma_juedui(node, conf);
         }
     };
-    //image加载模式
     RegPad.prototype.newYanzhengma_xiangdui = function (node, conf) {
         var img;
         if (this.imgYanzhengma) {
@@ -241,13 +243,11 @@ var RegPad = /** @class */ (function (_super) {
         // node.addChild(img);
         return img;
     };
-    //验证码获取焦点
     RegPad.prototype.onYanzhengmaFocus = function (node) {
         this.clearYanzhengma(node);
         // Debug.trace("focus on yanzhengma");
         this.imgYanzhengma = this.newYanzhengma(node, this.conf.yanzhengma.image);
     };
-    //半透明背景
     RegPad.prototype.initAlphaBg = function () {
         if (this.conf.mask) {
             var alphabg = new Laya.Sprite();
@@ -260,13 +260,11 @@ var RegPad = /** @class */ (function (_super) {
             alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
         }
     };
-    //背景
     RegPad.prototype.initBg = function () {
         if (this.conf.bg) {
             var sp_bg = Tools.addSprite(this, this.conf.bg);
         }
     };
-    //标题
     RegPad.prototype.initTitle = function () {
         if (this.conf.title) {
             if (this.conf.title.bg) {
@@ -299,32 +297,26 @@ var RegPad = /** @class */ (function (_super) {
         if (this.inputPhone) {
             phone = this.inputPhone.text;
         }
-        //检查是否填写内容
         if (name.length <= 0
             || pwd.length <= 0
             || pwdconfirm.length <= 0) 
         // || phone.length <= 0 )
         {
-            //有东西没填
-            Toast.showToast("请填写完整注册信息");
+            Toast.showToast(this.conf.textNoValue);
             return;
         }
-        //检查两次密码是否相同
         if (pwd != pwdconfirm) {
-            Toast.showToast("两次输入的密码不一致，请重新输入");
+            Toast.showToast(this.conf.textPwdUnsame);
             this.inputPwd.text = "";
             this.inputConfirmPwd.text = "";
             return;
         }
-        //检查
         LayaMain.getInstance().showCircleLoading(true);
-        //发起注册请求
         this.requestReg(name, pwd, yanzhengma, yaoqingma, phone);
     };
     RegPad.prototype.onCloseClick = function (s) {
         this.hide();
     };
-    //获取hash值
     RegPad.prototype.getHash = function (hash) {
         RegPad.reghash = hash;
         RegPad.request_data.hash = RegPad.reghash;
@@ -382,9 +374,10 @@ var RegPad = /** @class */ (function (_super) {
         if (stat == "complete") {
             //注册成功
             Toast.showToast("注册成功，请返回登录");
-            //自动填写用户名到登录界面
             LoginPad.getObj().setUserName(RegPad.request_data.username);
-            //关闭注册界面
+            var pwd = this.inputPwd.text;
+            LoginPad.getObj().setPassword(pwd);
+            LoginPad.getObj().onLoginClick(null);
             RegPad.obj.onCloseClick(null);
         }
         else {

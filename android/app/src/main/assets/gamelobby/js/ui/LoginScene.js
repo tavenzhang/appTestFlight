@@ -23,25 +23,19 @@ var LoginScene = /** @class */ (function (_super) {
         LoginScene.obj = null;
         _super.prototype.destroy.call(this, b);
     };
-    //载入完毕
     LoginScene.prototype.onLoaded = function () {
         LoginScene.obj = this;
-        //背景
         var bg = Tools.addSprite(this, ConfObjRead.getConfLogin().bgscene);
-        //在背景上绘制闪烁的灯
         var sp_shine = new Shining();
         sp_shine.init(ConfObjRead.getConfLogin().login.bg.shine);
         this.addChild(sp_shine);
-        //客服按钮
         if (!AppData.isAndroidHack) {
             var custom = new MyButton();
             custom.init(ConfObjRead.getConfLogin().custom, this, this.onCustomClick);
             custom.pos(ConfObjRead.getConfLogin().custom.pos.x, ConfObjRead.getConfLogin().custom.pos.y);
             this.addChild(custom);
         }
-        //登录
         var login = LoginPad.showPad(this, ConfObjRead.getConfLogin().login);
-        //注册
         // var reg = RegPad.showPad(this,ConfObjRead.getConfLogin().reg);
     };
     LoginScene.prototype.onCustomClick = function (e) {

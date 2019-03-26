@@ -1,6 +1,48 @@
 var ConfObjRead = /** @class */ (function () {
     function ConfObjRead() {
     }
+    ConfObjRead.getConfAgentDialogAddUser = function () {
+        if (ConfObjRead.agentAdduserObj) {
+            return ConfObjRead.agentAdduserObj;
+        }
+        ConfObjRead.agentAdduserObj = Laya.Loader.getRes("./assets/conf/agent/agentadduser.json");
+        return ConfObjRead.agentAdduserObj;
+    };
+    ConfObjRead.getConfAgentContent = function () {
+        if (ConfObjRead.agentCtObj) {
+            return ConfObjRead.agentCtObj;
+        }
+        ConfObjRead.agentCtObj = Laya.Loader.getRes("./assets/conf/agent/agentct.json");
+        return ConfObjRead.agentCtObj;
+    };
+    ConfObjRead.getConfAgentTab = function () {
+        if (ConfObjRead.agentTabObj) {
+            return ConfObjRead.agentTabObj;
+        }
+        ConfObjRead.agentTabObj = Laya.Loader.getRes("./assets/conf/agent/agenttab.json");
+        return ConfObjRead.agentTabObj;
+    };
+    ConfObjRead.getConfAgentTitle = function () {
+        if (ConfObjRead.agentTitleObj) {
+            return ConfObjRead.agentTitleObj;
+        }
+        ConfObjRead.agentTitleObj = Laya.Loader.getRes("./assets/conf/agent/agenttitle.json");
+        return ConfObjRead.agentTitleObj;
+    };
+    ConfObjRead.getConfAgentPad = function () {
+        if (ConfObjRead.agentPadObj) {
+            return ConfObjRead.agentPadObj;
+        }
+        ConfObjRead.agentPadObj = Laya.Loader.getRes("./assets/conf/agent/agentpad.json");
+        return ConfObjRead.agentPadObj;
+    };
+    ConfObjRead.getConfAgent = function () {
+        if (ConfObjRead.agentObj) {
+            return ConfObjRead.agentObj;
+        }
+        ConfObjRead.agentObj = Laya.Loader.getRes("./assets/conf/agent/agent.json");
+        return ConfObjRead.agentObj;
+    };
     ConfObjRead.getConfAccountCenter = function () {
         if (ConfObjRead.accenterObj) {
             return ConfObjRead.accenterObj;
@@ -332,6 +374,12 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.musicObj = Laya.Loader.getRes("./assets/conf/music.json");
         return ConfObjRead.musicObj;
     };
+    ConfObjRead.agentAdduserObj = null;
+    ConfObjRead.agentCtObj = null;
+    ConfObjRead.agentTabObj = null;
+    ConfObjRead.agentTitleObj = null;
+    ConfObjRead.agentPadObj = null;
+    ConfObjRead.agentObj = null;
     ConfObjRead.accenterObj = null;
     ConfObjRead.girlObj = null;
     ConfObjRead.dataNumObj = null;

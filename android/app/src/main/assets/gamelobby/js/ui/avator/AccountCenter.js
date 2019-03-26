@@ -241,6 +241,9 @@ var AccountCenter = /** @class */ (function (_super) {
         if (!this.data) {
             this.data = { "avatorId": 1, "userId": "123456" };
         }
+        if (!this.data.avatorId) {
+            this.data.avatorId = 1;
+        }
         var id = parseInt(this.data.avatorId); //.headerIndex);
         this.setIcon(id);
         // this.setId(this.data.userId);
@@ -266,7 +269,7 @@ var AccountCenter = /** @class */ (function (_super) {
     //设置头像编号
     AccountCenter.prototype.setIcon = function (id) {
         // this.cur_icon_id = id;
-        Debug.trace("AccountCenter.setIcon id:" + id);
+        // Debug.trace("AccountCenter.setIcon id:"+id);
         if (this.sp_icon) {
             this.drawIcon(id);
         }
