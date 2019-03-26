@@ -1,46 +1,15 @@
+##博博乐棋牌-官方包app下载地址规则
+iOS：
+https://download.{业主下载域名}/ios/{业主品牌代号}/app.html?app=1&sub=bbl
+android：
+https://download.{业主下载域名}/bbl/{业主品牌代号}_bbl_release.apk
 
-#### 说明
+例如
+超会赢棋牌
+iOS： https://download.jinkuangjia.com/ios/chyqp/app.html?app=1&sub=bbl
+安卓：https://download.jinkuangjia.com/bbl/chyqp_bbl_release.apk
 
-### 1、热更新相关信息
-第一处 跟上一个版本的该文件一样保持不变：
-`AppConfig.js`
-{
-  appName: '106彩票',
-  clientId: '7',
-  trendChartDomains: 'http://trend.106caipiao.com',
-  allowFontScaling: true,
-  domains: [
-    'https://www.xiyiji923.com',
-    'https://www.shouye032.com',
-    'https://www.ganxidian892.com'
-  ],
-  backupDomains: [
-    'https://www.wangzhe789.com',
-    'https://www.shouye032.com',
-    'https://www.zhuceliang324.com'
-  ]
-} 
-里面的信息会整合好共享给你们，若有更新会及时通知
 
-### 2、AppDelegate
-`AppDelegate.h`
-static NSString * const JDNight = @"night"; // 这里等与night就只会加载上架壳 上线前请改成其他任意字符串
-
-`AppDelegate.m`
-//这个方法返回 热更新开关的域名 不同厅主的开关域名不一样
-```objective-c
-+(NSArray *)getBBQArray {
-#pragma mark ⚽︎ ❤️❤️❤️ ⚽︎ 一定要返回一组正确请求地址
-  return @[@"https://www.c-3.cc",
-           @"https://www.c-6.cc",
-           @"https://www.c-8.cc"];
-}
-```
-
-我们会以该接口返回的bbq字段 含有 @"SueL" 字符作为已开启APP的标志 请求参数包括：appId、版本号、设备类型
-如需修改 可以在 AppDelegate+JDBase.m 中修改
-demo配置示例接口：
-https://www.c-8.cc/code/user/apps?appId=com.998.p1&version=2.0.14&appType=IOS
 
 运行说明: 
 基于RN 0.53 版本搭建

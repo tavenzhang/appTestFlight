@@ -1,11 +1,8 @@
 import {TabNavigator, StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
-import {UIManager, StatusBar,Text,View,ToastAndroid,BackHandler} from 'react-native';
+import {UIManager, StatusBar,Text,View,ToastAndroid,BackHandler,ScrollView} from 'react-native';
 import {Provider} from 'mobx-react'
-import {unzip} from 'react-native-zip-archive'
 import NavigationService from './NavigationService'
-import RNFS from "react-native-fs";
-import FlurryAnalytics from 'react-native-flurry-analytics';
 import rootStore from "../../Data/store/RootStore";
 import {observer} from 'mobx-react/native';
 const appStores = {
@@ -81,28 +78,19 @@ export default class App extends Component {
         if(KeyboardManager&&KeyboardManager.setToolbarPreviousNextButtonEnable){
             KeyboardManager.setToolbarPreviousNextButtonEnable(true);
         }
-
         StatusBar.setHidden(true);
-        let cData = platInfo.channel[`c_${TW_Store.appStore.channel}`];
-        TW_Log("cData--------"+TW_Store.appStore.channel,cData)
-        cData = cData ? cData:platInfo.channel.c_1;
 
-        TN_StartJPush(cData.jpushKey,cData.jpush_channel);
-      //   FlurryAnalytics.startSession(G_IS_IOS ? cData.flurry_ios:cData.flurry_android);;
         if (!G_IS_IOS) {
-            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
+            BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
-        TN_START_Fabric()
-        TN_START_SHARE("111","222");
-        TN_StartUMeng(cData.umengKey, cData.umengChanel)
-
-        // TN_CodePush_ASEET((data)=>{
-        //    // this.setState({aseets:data})
-        //     this.checkFile(data);
-        // })
 
     }
 
+    componentWillUnmount(): void {
+        if (!G_IS_IOS) {
+            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+    }
 
 
     render() {
@@ -116,13 +104,13 @@ export default class App extends Component {
                             this.navigator=navigatorRef;
                         }}
                     />
-                    {TW_Store.bblStore.isDebugApp ? <Text
+                    {TW_Store.bblStore.isDebugApp ? <ScrollView  style={{ position: "absolute",}}><Text
                         style={{
                             color: "yellow",
-                            position: "absolute",
+
                             fontWeight:"bold"
-                        }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.saveVersionM)}` +
-                    `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text> : null}
+                        }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
+                    `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
                     <CommonBoxLayer/>
                     <GameUIView/>
                     {/*<LoadingView/>*/}
@@ -132,9 +120,13 @@ export default class App extends Component {
     }
 
     onBackAndroid = () => {
-        return false;
+        TW_Log("onBackAndroid----",this.navigator);
+       // return false;
         const routers = this.navigator.state.routes;
         if (routers&&routers.length > 1) {
+            if(TW_OnBackHomeJs){
+                TW_OnBackHomeJs();
+            }
             TW_NavHelp.goBack()
             return true;
         }

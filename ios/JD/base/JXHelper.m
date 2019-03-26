@@ -21,6 +21,23 @@ RCT_EXPORT_METHOD(getAffCode:(RCTResponseSenderBlock)callback)
   callback(@[str]);
 }
 
+RCT_EXPORT_METHOD(getAppInfo:(RCTResponseSenderBlock)callback)
+{
+  NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
+  NSString *jsonString = nil;
+  if ([NSJSONSerialization isValidJSONObject:tempInfoDict])
+  {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tempInfoDict options:NSJSONWritingPrettyPrinted error:&error];
+    jsonString =[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    if (error) {
+      NSLog(@"Error:%@" , error);
+    }else{
+      callback(@[jsonString]);
+    }
+  }
+}
+
 + (NSString *)getAffCode{
   NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
   NSString *Affcode = [tempInfoDict objectForKey:@"Affcode"];

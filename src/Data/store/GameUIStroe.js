@@ -91,13 +91,14 @@ export default class GameUIStroe {
     }
     @action
     getGustUrl(){
-        let  url = TW_Store.bblStore.urlDomain+ config.api.gameCuest.replace("#0",TW_Store.appStore.clindId);
+        let  url = TW_Store.bblStore.gameDomain+ config.api.gameCuest.replace("#0",TW_Store.appStore.clindId);
         NetUitls.getUrlAndParamsAndCallback(url, null, (ret) => {
             //{"content":{"pcCusService":"https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"},
             if(ret.rs){
                 this.gustWebUrl = ret.content.pcCusService;
             }
         },10,false,false);
-
     }
+
+
 }

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bbl.gmchy">
+    package="com.jd">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -83,6 +83,9 @@
         <meta-data
             android:name="SUB_TYPE"
             android:value="${SUB_TYPE}" />
+        <meta-data
+                android:name="APP_DOWNLOAD_VERSION"
+                android:value="${APP_DOWNLOAD_VERSION}" />
 
         <!-- Ushare -->
         <activity

@@ -267,19 +267,10 @@ var Tools = /** @class */ (function () {
     //跳转到指定地址
     Tools.jump2url = function (url) {
         try {
-            var au = url; //Tools.filterUrl2rewrite(Tools.whichRewrite(),url);
+            var au = url;
             var enUrl = encodeURI(au);
             au = enUrl;
-            // if( Common.confObj.openblank.value == 1 )
-            // {
-            //     window.open(au);
-            // }else{
-            // if(Common.IS_NATIVE_APP){
             PostMHelp.jumpToUrl({ au: au });
-            // }else{
-            //     window.location.href = au;
-            // }
-            // }
         }
         catch (e) {
         }
@@ -300,23 +291,17 @@ var Tools = /** @class */ (function () {
     Tools.jump2game = function (urls) {
         try {
             var url = urls;
-            // Debug.trace("Tools jump2game url:"+url);
             var ginfo = Common.getCurGameInfo();
             var backurl = ConfObjRead.getConfUrl().url.backlobby;
             var mainUrl = Tools.getCurFullPath();
-            // Debug.trace("Tools.jump2game mainUrl:"+mainUrl);
             var hostUrl = Tools.getCurHost(mainUrl);
             //将url前头的../去掉
             var dir = Tools.filterGameDir(urls);
-            var jumpUrl = hostUrl + "/" + dir;
+            // var jumpUrl = hostUrl+"/"+dir;
+            var jumpUrl = ToolsApp.getGameJumpUrl(hostUrl, dir);
             Debug.trace("Tools.jump2game jumpUrl:" + jumpUrl);
-            if (AppData.IS_NATIVE_APP) {
-                jumpUrl = "/" + dir;
-            }
             var jobj = {};
-            // Debug.trace("Tools.jump2game create jobj");
             if (ginfo && ginfo.alias) {
-                // Debug.trace("Tools jump2game0 alias:"+ginfo.alias+" backUrl:"+backurl);
                 if (ginfo.alias == "zjh") {
                     backurl = backurl + "?gameId=" + Common.gameId + "&alias=" + ginfo.alias;
                 }
@@ -327,7 +312,6 @@ var Tools = /** @class */ (function () {
                     "name": "" //"炸金花"
                 };
             }
-            // Debug.trace("Tools jump2game1 alias:"+ginfo.alias+" backUrl:"+backurl);
             jobj = {
                 "token": Common.access_token,
                 "httpUrl": ConfObjRead.getConfUrl().url.apihome,
@@ -338,7 +322,9 @@ var Tools = /** @class */ (function () {
                 "alias": ginfo.alias,
                 "name": ginfo.name,
                 "clientId": Common.clientId,
-                "mainUrl": mainUrl
+                "mainUrl": mainUrl,
+                "usergateway": AppData.NATIVE_DATA.loginDomain,
+                "gamecenter": AppData.NATIVE_DATA.gameDomain
             };
             // Debug.trace("Tools.jump2game jobj:");
             // Debug.trace(jobj);
@@ -351,19 +337,10 @@ var Tools = /** @class */ (function () {
             Debug.trace("Tools.jump2game url:" + au);
             //需要关闭声音等暂停操作
             LayaMain.getInstance().onGamePause();
-            // if(Common.IS_NATIVE_APP){
             PostMHelp.jumpToGame({ "payload": au });
-            // }else{
-            // if( Common.confObj.openblank.value == 1 )
-            // {
-            //     window.open(au);
-            // }else{
-            // window.location.href = au;
-            // }
-            // }
         }
         catch (e) {
-            //Debug.trace(e);
+            Debug.trace(e);
         }
     };
     //检查字符串是否存在
@@ -389,29 +366,17 @@ var Tools = /** @class */ (function () {
         //}
         return "." + instr;
     };
-    //跳转到扩展模块
     Tools.jump2module = function (url, type) {
         try {
-            // var curl = ConfObjRead.getConfUrl().url.testcustomurl;
-            // if( Common.userInfo && Common.userInfo.customUrl )
-            // {
-            //     curl = Common.userInfo.customUrl;
-            // }
-            // Debug.trace("Common.userInfo:");
-            // Debug.trace(Common.userInfo);
             var jobj = {
                 "token": Common.access_token,
                 "httpUrl": ConfObjRead.getConfUrl().url.apihome,
-                // "clientId":Common.userInfo.userBalance.clientId,
                 "clientId": Common.clientId,
-                // "cid":Common.userInfo.userBalance.clientId,
-                "backUrl": ConfObjRead.getConfUrl().url.backlobby //,
-                // "mainUrl":ConfObjRead.getConfUrl().url.backlobby,
-                // "customUrl":curl
+                "backUrl": ConfObjRead.getConfUrl().url.backlobby
             };
             var b = new MyBase64();
             var param = b.encode(JSON.stringify(jobj));
-            var au = url; // + "?jumpData="+ param;
+            var au = url;
             if (Tools.isHaveString("?", url)) {
                 au = url + "&jumpData=" + param;
             }
@@ -420,46 +385,31 @@ var Tools = /** @class */ (function () {
             }
             var enUrl = encodeURI(au);
             au = enUrl;
-            // Debug.trace("jump2module:"+au);
-            // Debug.trace(jobj);
-            //Add by Jelly 设定死 
-            // if(Common.IS_NATIVE_APP)
-            if (1 + 1 == 2) {
-                //这里都需要使用postMessage Modify by Jelly on 2018.12.27
-                //Add by Jelly on 2018.12.27
-                switch (type) {
-                    case "account":
-                        PostMHelp.game_account(jobj);
-                        break;
-                    case "custom":
-                        PostMHelp.game_custom(jobj);
-                        break;
-                    case "recharge":
-                        PostMHelp.game_recharge(jobj);
-                        break;
-                    case "redraw":
-                        PostMHelp.game_redraw(jobj);
-                        break;
-                    case "share":
-                        PostMHelp.game_share(jobj);
-                        break;
-                }
-                // PostMHelp.jupmToUrl({jobj,au})
-            }
-            else {
-                window.location.href = au;
+            switch (type) {
+                case "account":
+                    PostMHelp.game_account(jobj);
+                    break;
+                case "custom":
+                    PostMHelp.game_custom(jobj);
+                    break;
+                case "recharge":
+                    PostMHelp.game_recharge(jobj);
+                    break;
+                case "redraw":
+                    PostMHelp.game_redraw(jobj);
+                    break;
+                case "share":
+                    PostMHelp.game_share(jobj);
+                    break;
             }
         }
         catch (e) {
             Debug.trace(e);
         }
     };
-    //载入指定路径的js代码
-    //这种方式会重写整个页面，加到head标签里面
     Tools.loadJavaScript = function (src) {
         document.write("<scr" + "ipt src='" + src + "' loader='laya'></scr" + 'ipt>');
     };
-    //按规则缩放精灵,wid - 目标总宽度
     Tools.scaleSprite = function (sp, src, conf, wid) {
         if (wid === void 0) { wid = 0; }
         var lw = conf.lw;
@@ -475,49 +425,37 @@ var Tools = /** @class */ (function () {
         }
         var tw = texture.width;
         var th = texture.height;
-        // sp.graphics.drawTexture(texture,0,0,tw,th);
         var x1, y1, w1, h1;
         x1 = 0;
         y1 = 0;
-        w1 = lw; //x1 + lx;
+        w1 = lw;
         h1 = th;
-        // Debug.trace('x1:'+x1+" y1:"+y1+" w1:"+w1+" h1:"+h1);
-        // sp.graphics.drawTexture(texture,x1,y1,w1,h1);
         var texLeft = Laya.Texture.createFromTexture(texture, x1, y1, w1, h1);
         sp.graphics.drawTexture(texLeft, x1, y1, texLeft.width, texLeft.height);
         var x2, y2, w2, h2;
         x2 = tw - rw;
         y2 = 0;
-        w2 = rw; //x2 + (rx-cx);
+        w2 = rw;
         h2 = th;
-        // Debug.trace('x2:'+x2+" y2:"+y2+" w2:"+w2+" h2:"+h2);
         var texRight = Laya.Texture.createFromTexture(texture, x2, y2, w2, h2);
         var drawX, drawY, drawW, drawH;
         drawX = x1 + w1 + midw;
         drawY = y2;
         drawW = texRight.width;
         drawH = texRight.height;
-        // Debug.trace('drawX:'+drawX+" drawY:"+drawY+" drawW:"+drawW+" drawH:"+drawH);
-        sp.graphics.drawTexture(texRight, drawX, //750,
-        drawY, //0,
-        drawW, drawH);
+        sp.graphics.drawTexture(texRight, drawX, drawY, drawW, drawH);
         var x_c, y_c, w_c, h_c;
         x_c = lw;
         y_c = 0;
         w_c = tw - lw - rw;
         h_c = th;
-        // Debug.trace("xc:"+x_c+" yc:"+y_c+" wc:"+w_c+" hc:"+h_c);
         var texCenter = Laya.Texture.createFromTexture(texture, x_c, y_c, w_c, h_c);
         drawX = w1;
         drawY = y_c;
         drawW = midw;
         drawH = texRight.height;
-        // Debug.trace('drawX:'+drawX+" drawY:"+drawY+" drawW:"+drawW+" drawH:"+drawH);
-        sp.graphics.drawTexture(texCenter, drawX, drawY, drawW, //texCenter.width,//
-        drawH);
-        // sp.graphics.drawTexture(texture,x2,y2,w2,h2);
+        sp.graphics.drawTexture(texCenter, drawX, drawY, drawW, drawH);
     };
-    //按规则缩放精灵V向 hei - 目标总高度
     Tools.scaleSpriteV = function (sp, src, conf, hei) {
         if (hei === void 0) { hei = 0; }
         var th = conf.th;
@@ -527,13 +465,10 @@ var Tools = /** @class */ (function () {
         if (hei != 0) {
             midh = Math.floor(hei) - th - bh;
         }
-        // Debug.trace("Tools.scaleSpriteV src:"+src);
         var texture = Laya.loader.getRes(Tools.getSrc(src));
         if (!texture) {
             return;
         }
-        // Debug.trace("Tools.scaleSpriteV texture:");
-        // Debug.trace(texture);
         var txw = texture.width;
         var txh = texture.height;
         var x1, y1, w1, h1;
@@ -541,7 +476,6 @@ var Tools = /** @class */ (function () {
         y1 = 0;
         w1 = txw;
         h1 = th;
-        // Debug.trace('x1:'+x1+" y1:"+y1+" w1:"+w1+" h1:"+h1);
         var tex1 = Laya.Texture.createFromTexture(texture, x1, y1, w1, h1);
         sp.graphics.drawTexture(tex1, x1, y1, tex1.width, tex1.height);
         var x2, y2, w2, h2;
@@ -549,31 +483,25 @@ var Tools = /** @class */ (function () {
         y2 = txh - bh;
         w2 = txw;
         h2 = bh;
-        // Debug.trace('x2:'+x2+" y2:"+y2+" w2:"+w2+" h2:"+h2);
         var tex2 = Laya.Texture.createFromTexture(texture, x2, y2, w2, h2);
         var drawX, drawY, drawW, drawH;
         drawX = x1;
         drawY = y1 + h1 + midh;
         drawW = tex2.width;
         drawH = tex2.height;
-        // Debug.trace('drawX:'+drawX+" drawY:"+drawY+" drawW:"+drawW+" drawH:"+drawH);
         sp.graphics.drawTexture(tex2, drawX, drawY, drawW, drawH);
         var x_c, y_c, w_c, h_c;
         x_c = 0;
         y_c = th;
         w_c = txw;
         h_c = mh;
-        // Debug.trace("xc:"+x_c+" yc:"+y_c+" wc:"+w_c+" hc:"+h_c);
         var texCenter = Laya.Texture.createFromTexture(texture, x_c, y_c, w_c, h_c);
         drawX = x_c;
         drawY = y_c;
         drawW = txw;
         drawH = midh;
-        // Debug.trace('drawX:'+drawX+" drawY:"+drawY+" drawW:"+drawW+" drawH:"+drawH);
         sp.graphics.drawTexture(texCenter, drawX, drawY, drawW, drawH);
-        //从当前sp绘制图像中，抽出texture
     };
-    //按规则缩放精灵V向 hei - 目标总高度
     Tools.scaleSpriteHV = function (sp, src, confHV, wid, hei) {
         if (wid === void 0) { wid = 0; }
         if (hei === void 0) { hei = 0; }
@@ -583,13 +511,11 @@ var Tools = /** @class */ (function () {
         }
         var txw = texture.width;
         var txh = texture.height;
-        //left top
         var x0, y0, w0, h0;
         x0 = 0;
         y0 = 0;
         w0 = confHV.lw;
         h0 = confHV.th;
-        // Debug.trace('x1:'+x1+" y1:"+y1+" w1:"+w1+" h1:"+h1);
         var tex0 = Laya.Texture.createFromTexture(texture, x0, y0, w0, h0);
         var drawX0, drawY0, drawW0, drawH0;
         drawX0 = 0;
@@ -597,13 +523,11 @@ var Tools = /** @class */ (function () {
         drawW0 = w0;
         drawH0 = h0;
         sp.graphics.drawTexture(tex0, drawX0, drawY0, drawW0, drawH0);
-        // right top
         var x1, y1, w1, h1;
         x1 = confHV.lw + confHV.cw;
         y1 = 0;
         w1 = confHV.rw;
         h1 = confHV.th;
-        // Debug.trace('x1:'+x1+" y1:"+y1+" w1:"+w1+" h1:"+h1);
         var tex1 = Laya.Texture.createFromTexture(texture, x1, y1, w1, h1);
         var drawX1, drawY1, drawW1, drawH1;
         drawX1 = confHV.lw + confHV.cwid;
@@ -611,149 +535,107 @@ var Tools = /** @class */ (function () {
         drawW1 = w1;
         drawH1 = h1;
         sp.graphics.drawTexture(tex1, drawX1, drawY1, drawW1, drawH1);
-        //left bottom
         var x2, y2, w2, h2;
         x2 = 0;
         y2 = confHV.th + confHV.mh;
         w2 = confHV.lw;
         h2 = confHV.bh;
-        // Debug.trace('x2:'+x2+" y2:"+y2+" w2:"+w2+" h2:"+h2);
         var tex2 = Laya.Texture.createFromTexture(texture, x2, y2, w2, h2);
         var drawX2, drawY2, drawW2, drawH2;
         drawX2 = 0;
         drawY2 = confHV.th + confHV.mhei;
         drawW2 = confHV.lw;
         drawH2 = confHV.bh;
-        // Debug.trace('drawX:'+drawX+" drawY:"+drawY+" drawW:"+drawW+" drawH:"+drawH);
         sp.graphics.drawTexture(tex2, drawX2, drawY2, drawW2, drawH2);
         var x3, y3, w3, h3;
         x3 = confHV.lw + confHV.cw;
         y3 = confHV.th + confHV.mh;
         w3 = confHV.rw;
         h3 = confHV.bh;
-        // Debug.trace("xc:"+x_c+" yc:"+y_c+" wc:"+w_c+" hc:"+h_c);
         var tex3 = Laya.Texture.createFromTexture(texture, x3, y3, w3, h3);
         var drawX3, drawY3, drawW3, drawH3;
         drawX3 = confHV.lw + confHV.cwid;
         drawY3 = confHV.th + confHV.mhei;
         drawW3 = confHV.rw;
         drawH3 = confHV.bh;
-        // Debug.trace('drawX:'+drawX+" drawY:"+drawY+" drawW:"+drawW+" drawH:"+drawH);
         sp.graphics.drawTexture(tex3, drawX3, drawY3, drawW3, drawH3);
-        //top center
         var x4, y4, w4, h4;
         x4 = confHV.lw;
         y4 = 0;
         w4 = confHV.cw;
         h4 = confHV.th;
-        // Debug.trace("xc:"+x_c+" yc:"+y_c+" wc:"+w_c+" hc:"+h_c);
         var tex4 = Laya.Texture.createFromTexture(texture, x4, y4, w4, h4);
         var drawX4, drawY4, drawW4, drawH4;
         drawX4 = confHV.lw;
         drawY4 = 0;
         drawW4 = confHV.cwid;
         drawH4 = confHV.th;
-        // Debug.trace('drawX:'+drawX+" drawY:"+drawY+" drawW:"+drawW+" drawH:"+drawH);
         sp.graphics.drawTexture(tex4, drawX4, drawY4, drawW4, drawH4);
-        //bottom center
         var x5, y5, w5, h5;
         x5 = confHV.lw;
         y5 = confHV.th + confHV.mh;
         w5 = confHV.cw;
         h5 = confHV.bh;
-        // Debug.trace("xc:"+x_c+" yc:"+y_c+" wc:"+w_c+" hc:"+h_c);
         var tex5 = Laya.Texture.createFromTexture(texture, x5, y5, w5, h5);
         var drawX5, drawY5, drawW5, drawH5;
         drawX5 = confHV.lw;
         drawY5 = confHV.th + confHV.mhei;
         drawW5 = confHV.cwid;
         drawH5 = confHV.th;
-        // Debug.trace('drawX:'+drawX+" drawY:"+drawY+" drawW:"+drawW+" drawH:"+drawH);
         sp.graphics.drawTexture(tex5, drawX5, drawY5, drawW5, drawH5);
-        //left middle
         this.drawMyTexture(sp, texture, 0, confHV.th, confHV.lw, confHV.mh, 0, confHV.th, confHV.lw, confHV.mhei);
-        //right middle
         this.drawMyTexture(sp, texture, confHV.lw + confHV.cw, confHV.th, confHV.rw, confHV.mh, confHV.lw + confHV.cwid, confHV.th, confHV.rw, confHV.mhei);
-        //center middle
         this.drawMyTexture(sp, texture, confHV.lw, confHV.th, confHV.cw, confHV.mh, confHV.lw, confHV.th, confHV.cwid, confHV.mhei);
     };
-    //指定精灵和texture绘制
     Tools.drawMyTexture = function (sp, texture, x, y, w, h, dx, dy, dw, dh) {
         var tex = Laya.Texture.createFromTexture(texture, x, y, w, h);
         sp.graphics.drawTexture(tex, dx, dy, dw, dh);
     };
-    //通过http完整路径获取头名字
     Tools.getHttpName = function (url) {
         var idx = url.indexOf("://");
         if (idx != -1) {
-            //包含
             var h = url.substring(0, idx);
             return h;
         }
-        else {
-            //不包含
-        }
         return "http";
     };
-    //提取文件名和扩展名
     Tools.getFileNameExt = function (str) {
         var lastPoint = str.lastIndexOf(".");
         var name = str.substring(0, lastPoint);
         var ext = str.substring(lastPoint, str.length);
         return { "name": name, "ext": ext };
     };
-    //提取当前目录地址
     Tools.getCurDirPath = function (str) {
-        //先检查str是否含有http
         var httpIdx = str.indexOf("http");
         if (httpIdx != -1) {
-            //含有，说明是完整路径，就不再拼接了
             return str;
         }
         var url2 = document.URL;
-        // Debug.trace("getCurDirPath url2:"+url2);
-        //在url中找出最后一个斜杠
         var lastEnd = url2.lastIndexOf("/");
-        // Debug.trace("getCurDirPath lastEnd:"+lastEnd);
-        // 提取出最后一个斜杠之前的所有字符串
         var frontStr = url2.substring(0, lastEnd);
-        // Debug.trace("getCurDirPath frontStr:"+frontStr);
         var newurl = "";
-        //如果前面的末尾没有斜杠，后段的开始没有斜杠，中间加一个斜杠。
         if (!this.isHaveXiegang(frontStr, frontStr.length - 1) && !this.isHaveXiegang(str, 0)) {
             newurl = frontStr + "/" + str;
         }
         else {
             newurl = frontStr + str;
         }
-        // Debug.trace('getCurDirPath newurl:'+newurl);
         return newurl;
     };
-    //检查指定位置是否有斜杠
     Tools.isHaveXiegang = function (str, pos) {
         var cut = str.substring(pos, pos + 1);
-        // Debug.trace("isHaveXiegang pos:"+pos+" str:"+str+" cut:"+cut);
         if (cut == "/") {
             return true;
         }
         return false;
     };
-    //提取当前根地址
     Tools.getCurRootPath = function (str) {
-        //先检查str是否含有http
         var httpIdx = str.indexOf("http");
         if (httpIdx != -1) {
-            //含有，说明是完整路径，就不再拼接了
             return str;
         }
-        // var url0 = window.location.href;
-        // var url1 = self.location.href;
         var url2 = document.URL;
-        // var url3 = document.location;
-        // Debug.trace("url0:"+url0);
-        // Debug.trace("url1:"+url1);
         Debug.trace("url2:" + url2);
-        // Debug.trace("url3:"+url3);
         var httpName = Tools.getHttpName(url2);
         Debug.trace("httpName:" + httpName);
         var hostname = location.hostname;
@@ -763,15 +645,11 @@ var Tools = /** @class */ (function () {
         }
         return httpName + "://" + hostname + "/" + str;
     };
-    //获取当前域名
     Tools.getCurHost = function (fullpath) {
         var url4 = window.location.host;
-        // Debug.trace("url4:"+url4);
-        //检查完整路径里面是否有http，有就取出来用
         var idxHttp = fullpath.indexOf("http");
         var idxHttps = fullpath.indexOf("https");
         if (idxHttps == 0) {
-            //直接拼
             return "https://" + url4;
         }
         else if (idxHttp == 0) {
@@ -779,7 +657,6 @@ var Tools = /** @class */ (function () {
         }
         return url4;
     };
-    //提取当前完整路径
     Tools.getCurFullPath = function () {
         var url2 = document.URL;
         // Debug.trace("url2:"+url2);
@@ -789,16 +666,9 @@ var Tools = /** @class */ (function () {
         // Debug.trace("url4:"+url4);
         return url2;
     };
-    //提取当前子游戏模块资源加载地址
     Tools.getResRootPath = function (str) {
-        // var url0 = window.location.href;
-        // var url1 = self.location.href;
         var url2 = document.URL;
-        // var url3 = document.location;
-        // Debug.trace("url0:"+url0);
-        // Debug.trace("url1:"+url1);
         Debug.trace("url2:" + url2);
-        // Debug.trace("url3:"+url3);
         var httpName = Tools.getHttpName(url2);
         Debug.trace("httpName:" + httpName);
         var hostname = location.hostname;
@@ -858,11 +728,8 @@ var Tools = /** @class */ (function () {
         return str;
     }
     */
-    //切分中文字符到数组里
     Tools.substr_cn_2arr = function (str, len) {
-        var s = str; //'我1234567890';
-        // var reg=/.{4}/g;
-        // var reg = eval("/.{"+ len + "}/g");
+        var s = str;
         var reg = new RegExp(".{" + len + "}", "g");
         var rs = new Array();
         try {
@@ -872,9 +739,6 @@ var Tools = /** @class */ (function () {
         catch (e) {
             Debug.trace(e);
         }
-        // alert(rs)
-        // Debug.trace('rs len:'+rs.length);
-        // Debug.trace(rs);
         return rs;
     };
     Tools.substr_cn = function (str, n) {
@@ -890,16 +754,11 @@ var Tools = /** @class */ (function () {
         }
         return str;
     };
-    //给精灵设定灰色滤镜
     Tools.setSpriteGrayFilter = function (sp) {
-        //由 20 个项目（排列成 4 x 5 矩阵）组成的数组，灰图
         var grayscaleMat = [0.3086, 0.6094, 0.0820, 0, 0, 0.3086, 0.6094, 0.0820, 0, 0, 0.3086, 0.6094, 0.0820, 0, 0, 0, 0, 0, 1, 0];
-        //创建一个颜色滤镜对象，灰图
         var grayscaleFilter = new Laya.ColorFilter(grayscaleMat);
-        // 设定灰度
         sp.filters = [grayscaleFilter];
     };
-    //判断变量是否数值
     Tools.isNumber = function (v) {
         if (typeof (v) === "number" && v !== Infinity && !isNaN(v)) {
             return true;
@@ -907,8 +766,8 @@ var Tools = /** @class */ (function () {
         return false;
     };
     /**
-     * 判断字符串是否为空
-     * @param data
+     * 变量是否为空
+     * @param variable
      */
     Tools.isEmpty = function (data) {
         if (data == null || data.length == 0) {
@@ -1213,6 +1072,12 @@ var Tools = /** @class */ (function () {
         if (conf.font.overflow) {
             lb.overflow = conf.font.overflow;
         }
+        if (conf.font.stroke) {
+            lb.stroke = conf.font.stroke;
+        }
+        if (conf.font.strokeColor) {
+            lb.strokeColor = conf.font.strokeColor;
+        }
         return lb;
     };
     Tools.newLabels = function (conf) {
@@ -1279,6 +1144,11 @@ var Tools = /** @class */ (function () {
     //数字限定长度 不足在前面补0
     Tools.FormatNumber = function (num, length) {
         return (Array(length).join('0') + num).slice(-length);
+    };
+    //将数字格式化到小数点后几位
+    Tools.FormatFloatNumber = function (num, len) {
+        var st = Number(num).toFixed(len);
+        return st;
     };
     //金额管制 以万为单位，万以下以元为单位
     Tools.FormatMoney = function (num, len) {

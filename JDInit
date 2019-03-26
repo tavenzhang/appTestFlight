@@ -7,5 +7,5 @@ cp ./Init/CodePush.js ${scriptPath}/node_modules/react-native-code-push/CodePush
 cp -rf ./Init/CRAWKWebView.m ${scriptPath}/node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView/CRAWKWebView.m
 cp -rf ./Init/ReactWebViewManager.java ${scriptPath}/node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/views/webview/ReactWebViewManager.java
 cp -rf ./Init/CodePush.java ${scriptPath}/node_modules/react-native-code-push/android/app/src/main/java/com/microsoft/codepush/react/CodePush.java
-
+cp -rf ./Init/WebView.android.js ${scriptPath}/node_modules/react-native//Libraries/Components/WebView/WebView.android.js
 echo '初始化完毕 可以开始 Xcode -> Run'

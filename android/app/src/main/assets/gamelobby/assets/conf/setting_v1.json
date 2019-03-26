@@ -1,46 +1,22 @@
 {
-    "desc":"设置面板v1",
-    "size":{
-        "desc":"大背景尺寸,要半透明的",
-        "w":1139,
-        "h":640
-    },
-    "mask":{
-        "desc":"大背景半透明度",
-        "alpha":0.6
-    },
-    "pos":{
-        "x":205,
-        "y":106
-    },
+    "desc":"",
+    "size":{ "desc":"", "w":1139, "h":640 },
+    "mask":{ "desc":"", "alpha":0.6 },
+    "pos":{ "x":205, "y":106 },
     "bg":{
-        "desc":"内容背景 纵向拉伸的",
+        "desc":"",
         "src":"./assets/ui/history/img_zhanji_kuangdi_02.png",
         "size":{
             "w":762,
             "h":428,
-            "spliceV":{
-                "th":96,
-                "mh":16,
-                "bh":88,
-                "mhei":244
-            }
+            "spliceV":{ "th":96, "mh":16, "bh":88, "mhei":244}
         },
-        "pos":{
-            "x":0,
-            "y":0
-        },
-        "pivotX":{
-            "x":0,
-            "y":0
-        },
+        "pos":{ "x":0, "y":0 },
+        "pivotX":{ "x":0, "y":0 },
         "front":{
-            "desc":"大背景之上，还有一层前景",
+            "desc":"",
             "src":"./assets/ui/history/img_zhanji_kuangdi_01.png",
-            "pos":{
-                "x":30,
-                "y":94
-            },
+            "pos":{ "x":30, "y":94 },
             "size":{
                 "w":699,
                 "h":290,
@@ -60,22 +36,16 @@
     "title":{
         "bg":{
             "src":"./assets/ui/history/img_zhanji_kuangdi_03.png",
-            "pos":{
-                "x":293,
-                "y":34
-            }
+            "pos":{ "x":293, "y":34 }
         },
         "lb":{
-            "desc":"标题显示的文字",
+            "desc":"",
             "src":"./assets/ui/setting/v1/img_shezhi.png",
-            "pos":{
-                "x":340,
-                "y":40
-            }
+            "pos":{ "x":340, "y":40 }
         }
     },
     "close":{
-        "desc":"关闭按钮",
+        "desc":"",
         "pos":{ "x":700, "y":55 },
         "src":[
             "./assets/ui/history/btn_zhanji_kuangdi_guanbi.png"
@@ -92,18 +62,15 @@
         "maxScale":1.1,
         "normalScale":1
     },
-    "touchout":{
-        "desc":"是否点按外部触发鼠标事件",
-        "value":false
-    },
+    "touchout":{ "desc":"", "value":false},
     "line":{
-        "desc":"分隔线",
+        "desc":"",
         "src":"./assets/ui/setting/v1/img_shezhi_line.png",
         "pos":{ "x":32, "y":300 },
         "size":{ "w":696, "h":13 }
     },
     "musicbar":{
-        "desc":"背景音乐栏目",
+        "desc":"",
         "icon":{
             "src":"./assets/ui/setting/v1/icon_shezhi_yingyue.png",
             "pos":{ "x":80, "y":130 }
@@ -113,7 +80,7 @@
             "pos":{ "x":140, "y":130 }
         },
         "dragbar":{
-            "desc":"拖拉块",
+            "desc":"",
             "pos":{ "x":270, "y":125 },
             "bg":{
                 "src":"./assets/ui/setting/v1/img_shezhi_jingdutiao2.png",
@@ -121,12 +88,7 @@
                 "size":{
                     "w":450,
                     "h":20,
-                    "splice":{
-                        "lw":11,
-                        "cw":6,
-                        "rw":11,
-                        "cwid":428
-                    }
+                    "splice":{ "lw":11, "cw":6, "rw":11, "cwid":428 }
                 }
             },
             "front":{
@@ -141,7 +103,7 @@
         }
     },
     "sfxbar":{
-        "desc":"音效栏目",
+        "desc":"",
         "icon":{
             "src":"./assets/ui/setting/v1/icon_shezhi_yinliang.png",
             "pos":{ "x":80, "y":200 }
@@ -151,7 +113,7 @@
             "pos":{ "x":140, "y":200 }
         },
         "dragbar":{
-            "desc":"拖拉块",
+            "desc":"",
             "pos":{ "x":270, "y":195 },
             "bg":{
                 "src":"./assets/ui/setting/v1/img_shezhi_jingdutiao2.png",
@@ -159,12 +121,7 @@
                 "size":{
                     "w":450,
                     "h":20,
-                    "splice":{
-                        "lw":11,
-                        "cw":6,
-                        "rw":11,
-                        "cwid":428
-                    }
+                    "splice":{ "lw":11, "cw":6, "rw":11, "cwid":428 }
                 }
             },
             "front":{
@@ -179,13 +136,13 @@
         }
     },
     "musicswitch":{
-        "desc":"背景音乐开关",
+        "desc":"",
         "label":{
             "src":"./assets/ui/setting/img_shezhi_yingyue.png",
             "pos":{ "x":80, "y":325 }
         },
         "switch":{
-            "desc":"切换开关",
+            "desc":"",
             "pos":{ "x":180, "y":325 },
             "bg":{
                 "src":"./assets/ui/setting/v1/btn_shezhi_kaiguan01.png",
@@ -201,13 +158,13 @@
         }
     },
     "sfxswitch":{
-        "desc":"音效开关",
+        "desc":"",
         "label":{
             "src":"./assets/ui/setting/img_shezhi_yingxiao.png",
             "pos":{ "x":470, "y":325 }
         },
         "switch":{
-            "desc":"切换开关",
+            "desc":"",
             "pos":{ "x":570, "y":325 },
             "bg":{
                 "src":"./assets/ui/setting/v1/btn_shezhi_kaiguan01.png",

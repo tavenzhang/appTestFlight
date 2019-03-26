@@ -38,7 +38,7 @@ export const AppConfig = {
 
 export const MyAppName = '博博乐';
 
-export const versionHotFix = 'bbl_1_31';
+export const versionHotFix = 'bbl_3_23';
 
 export const MyOwnerPlatName= 'uat彩票';
 
@@ -58,30 +58,9 @@ export const platInfo = {
         release_server: "https://download.hkbaoxian188.com/game/release/uat"
     },
     platId: configAppId,
-
+    brand: "uat01",
     channel: {
-        c_1: {
-            jpushKey: "",
-            jpush_channel: "",
-            umengKey: "",
-            umengChanel:"1",
-            flurry_ios:"uat",
-            flurry_android:"uat"
-        },
-        c_2: {jpushKey: "",
-            jpush_channel: "",
-            umengKey: "",
-            umengChanel:"1",
-            flurry_ios:"uat",
-            flurry_android:"uat"
-        },
-        c_3: {jpushKey: "",
-            jpush_channel: "",
-            umengKey: "",
-            umengChanel:"1",
-            flurry_ios:"uat",
-            flurry_android:"uat"
-        },
+
     }
 }
 
@@ -95,7 +74,3 @@ export const affCodeList = {
     }
 };
 
-export const shareURL={
-    ios:"https://download.imsue.cn/game/app.html?sub=release-uat&app=1&rom=7803",
-    android:"https://download.imsue.cn/game/release/uat/uat.apk?rom=4473",
-}
