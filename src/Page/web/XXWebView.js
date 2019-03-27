@@ -4,7 +4,8 @@ import {
     StyleSheet,
     View,
     WebView,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Keyboard,
 } from 'react-native';
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
@@ -17,6 +18,7 @@ import CodePush from 'react-native-code-push'
 import rootStore from "../../Data/store/RootStore";
 import FileTools from "../../Common/Global/FileTools";
 import JXToast from "../../Common/JXHelper/JXToast";
+import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 
 
 @withMappedNavigationProps()
@@ -27,10 +29,12 @@ export default class XXWebView extends Component {
         this.filtUrlList=["/api/v1/account/webapi/account/users/login","/api/v1/account/webapi/account/users/userWebEncryptRegister"];
         this.state={
             isFail:false,
-            updateList:[]
+            updateList:[],
+            isShowKeyBoard:false
         }
         this.loadQueue=[];
         this.isLoading=false;
+        this.isShow=false;
 
     }
 
@@ -47,12 +51,39 @@ export default class XXWebView extends Component {
                }
             }
             this.onFlushGameData()
-          
         });
-
         TW_Store.bblStore.getAppData();
+        if(!G_IS_IOS){
+            Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+            Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+        }
     }
-    
+    componentWillUnmount(): void {
+        if(!G_IS_IOS){
+            Keyboard.removeListener('keyboardDidShow', this._keyboardDidShow);
+            Keyboard.removeListener('keyboardDidHide', this._keyboardDidHide);
+        }
+    }
+
+
+    componentWillUpdate(nextProps, nextState, nextContext: any): void {
+        G_LayoutAnimaton.configureNext(G_LayoutAnimaton.easeNoCreate)
+    }
+
+    _keyboardDidShow=(event)=>{
+        TW_Log("( _keyboard---_keyboardDidShow" ,event);
+        if(!this.state.isShowKeyBoard){
+            this.setState({isShowKeyBoard:true})
+        }
+    }
+
+    _keyboardDidHide=(event)=>{
+        if(this.state.isShowKeyBoard){
+            this.setState({isShowKeyBoard:false})
+        }
+        TW_Log("( _keyboard---_keyboardDidHide" ,event);
+    }
+
     onFlushGameData=()=>{
         NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionDomain()+"/gameList.json"+"?rom="+Math.random(),null,(rt)=>{
             TW_Log("TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-",rt);
@@ -211,7 +242,7 @@ export default class XXWebView extends Component {
         })}`;
 
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,]}>
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
@@ -229,12 +260,11 @@ export default class XXWebView extends Component {
                                           onLoadStart={this.onLoadStart}
 
                         /> :
-                        <KeyboardAvoidingView style={{flex:1}} behavior="padding">
                             <WebView
                                 originWhitelist={['*']}
                                 ref="myWebView"
                                 automaticallyAdjustContentInsets={true}
-                                style={styles.webView}
+                                style={[styles.webView,{bottom:this.state.isShowKeyBoard ? 100:0}]}
                                 source={source}
                                 injectedJavaScript={injectJs}
                                 javaScriptEnabled={true}
@@ -249,7 +279,7 @@ export default class XXWebView extends Component {
                                 onMessage={this.onMessage}
                                 onLoadEnd={this.onLoadEnd}
                             />
-                        </KeyboardAvoidingView>
+
                 }
             </View>
         );
@@ -446,10 +476,10 @@ export default class XXWebView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white"
+        backgroundColor:"black",
     },
     webView: {
         flex: 1,
-        backgroundColor: "#000000"
+        backgroundColor:"black"
     }
 });
