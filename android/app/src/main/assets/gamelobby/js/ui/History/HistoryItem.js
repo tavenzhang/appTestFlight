@@ -17,7 +17,6 @@ var HistoryItem = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     HistoryItem.prototype.init = function (conf, id) {
-        //配置
         this.conf = conf;
         this.id = id;
         this.lb_id = Tools.newLabel(this.conf.id.font.text, this.conf.id.size.w, this.conf.id.size.h, this.conf.id.font.size, this.conf.id.font.color, this.conf.id.font.align, this.conf.id.font.valign, this.conf.id.font.name, this.conf.id.font.wrap);
@@ -34,19 +33,6 @@ var HistoryItem = /** @class */ (function (_super) {
         this.addChild(this.lb_gameid);
         // this.lb_gameid.visible = false;
         this.lb_gameid.on(Laya.Event.MOUSE_DOWN, this, Tools.copy2clip_win, [this.lb_gameid]);
-        // this.lb_gameid_edit = Tools.newInput(//.newText(
-        //     "",
-        //     this.conf.gameid.size.w,this.conf.gameid.size.h,
-        //     "0,0,0,0",
-        //     this.conf.gameid.font.size,
-        //     this.conf.gameid.font.color,
-        //     this.conf.gameid.font.name,
-        //     this.conf.gameid.font.bold,
-        //     "center",true
-        // );
-        // this.lb_gameid_edit.pos(this.conf.gameid.pos.x,this.conf.gameid.pos.y);
-        // this.addChild(this.lb_gameid_edit);
-        // this.lb_gameid_edit.visible = false;
         this.lb_room = Tools.newLabel(this.conf.room.font.text, this.conf.room.size.w, this.conf.room.size.h, this.conf.room.font.size, this.conf.room.font.color, this.conf.room.font.align, this.conf.room.font.valign, this.conf.room.font.name, this.conf.room.font.wrap);
         if (this.conf.room.font.borderColor) {
             this.lb_room.borderColor = this.conf.room.font.borderColor;
@@ -74,10 +60,6 @@ var HistoryItem = /** @class */ (function (_super) {
         if (this.lb_gameid) {
             this.lb_gameid.text = this.data.gameid; //"111111111";
         }
-        // if( this.lb_gameid_edit )
-        // {
-        //     this.lb_gameid_edit.text = this.data.gameid;
-        // }
         if (this.lb_room) {
             this.lb_room.text = this.data.room; //"xx房";
         }

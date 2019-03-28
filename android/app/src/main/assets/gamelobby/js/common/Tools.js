@@ -1009,6 +1009,12 @@ var Tools = /** @class */ (function () {
         if (conf.prompt) {
             input.prompt = conf.prompt;
         }
+        if (conf.text) {
+            input.text = conf.text;
+        }
+        if (conf.editable) {
+            input.editable = conf.editable.value;
+        }
         node.addChild(input);
         return input;
     };

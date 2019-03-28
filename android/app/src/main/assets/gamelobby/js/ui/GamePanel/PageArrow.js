@@ -30,7 +30,6 @@ var PageArrow = /** @class */ (function (_super) {
     PageArrow.prototype.setPanel = function (p) {
         this.gamepanel = p;
     };
-    //被点击了
     PageArrow.prototype.onClick = function () {
         // Debug.traceObj("PageArrow.onClick");
         // Debug.traceObj(this.conf);

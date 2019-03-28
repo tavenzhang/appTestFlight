@@ -23,14 +23,10 @@ var Stars = /** @class */ (function (_super) {
         for (var i = 0; i < this.conf.starscount; i++) {
             var sp = new Laya.Sprite();
             sp.loadImage(this.conf.src);
-            //随机放大缩小
             var rd_scale_x = Math.random() + this.conf.minScale;
-            // var rd_scale_y = Math.random() + this.conf.minScale;
             sp.scale(rd_scale_x, rd_scale_x);
-            //随机透明度
             var rd_alpha = Math.random() + this.conf.minAlpha;
             sp.alpha = rd_alpha;
-            //随机坐标
             var rd_pos_x = (Math.random() * 99999) % this.conf.maxPosX;
             var rd_pos_y = (Math.random() * 99999) % this.conf.maxPosY;
             sp.pos(rd_pos_x, rd_pos_y);

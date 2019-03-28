@@ -11,9 +11,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-/**
- * 房间列表，图标上的准入牌
- */
 var InScore = /** @class */ (function (_super) {
     __extends(InScore, _super);
     function InScore() {

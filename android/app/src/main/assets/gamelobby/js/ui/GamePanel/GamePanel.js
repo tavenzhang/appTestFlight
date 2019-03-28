@@ -276,12 +276,7 @@ var GamePanel = /** @class */ (function (_super) {
             direct = MoveContent.MOVE_DIRECT_RIGHT;
         }
         var timeSum = this.endDragTime - this.startDragTime;
-        // if( this.conf.movecontent.scrollType == "tween" )
-        // {
-        //     this.sp_ct_move.autoSlips(direct,this.lastScrollSpdX,timeSum);
-        // }else{
         this.sp_ct_move.autoSlip(direct, this.lastScrollSpdX, timeSum);
-        // }
     };
     GamePanel.prototype.onContentEvent = function (obj, mvEvent, mvType, mvDirect) {
         if (mvEvent == MoveContent.MOVE_EVENT_END) {

@@ -269,7 +269,8 @@ var GameItem = /** @class */ (function (_super) {
         this.sStatus = st;
         this.refreshStatus();
     };
-    GameItem.prototype.onStartUpdate = function () {
+    GameItem.prototype.onStartUpdate = function (bPost) {
+        if (bPost === void 0) { bPost = true; }
         if (this.bInUpdate) {
             return;
         }
@@ -290,13 +291,15 @@ var GameItem = /** @class */ (function (_super) {
         }
         this.showProgressText();
         this.refreshUpdateProgress();
-        PostMHelp.startUpdate({ "gameId": this.data.id, "alias": this.data.alias });
+        if (bPost) {
+            PostMHelp.startUpdate({ "gameId": this.data.id, "alias": this.data.alias });
+        }
     };
     GameItem.prototype.onUpdateProgress = function (n) {
         // Debug.trace("GameItem.onUpdateProgress n:"+n+" bInUpdate:"+this.bInUpdate+" status:"+this.sStatus);
         if (this.sStatus != GameItem.STATUS_UPDATE || !this.bInUpdate) {
             this.setStatus(GameItem.STATUS_UPDATE);
-            this.onStartUpdate();
+            this.onStartUpdate(false);
         }
         this.iUpdateProgress = n;
         this.refreshUpdateProgress();

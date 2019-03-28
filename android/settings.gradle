@@ -1,4 +1,6 @@
 rootProject.name = 'JD'
+include ':openinstall-react-native'
+project(':openinstall-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/openinstall-react-native/android')
 include ':react-native-keep-awake'
 project(':react-native-keep-awake').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-keep-awake/android')
 include ':react-native-picker'
@@ -103,4 +105,5 @@ project(':react-native-blur').projectDir = new File(rootProject.projectDir, '../
 include ':react-native-fast-image'
 project(':react-native-fast-image').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fast-image/android')
 
-include ':app'
+project(':react-native-openinstall').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-openinstall/android')
+include ':app', ':react-native-openinstall'

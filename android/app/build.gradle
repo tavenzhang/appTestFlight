@@ -5,6 +5,8 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
+
+	implementation project(":react-native-openinstall")
 //    implementation project(':jcore-react-native')
 //    implementation project(':jpush-react-native')
         // The Fabric Gradle plugin uses an open ended version to react
@@ -232,6 +234,7 @@ android {
 }
 
 dependencies {
+    compile project(':openinstall-react-native')
     compile project(':react-native-keep-awake')
     compile project(':react-native-picker')
     compile project(':react-native-zip-archive')

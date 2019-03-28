@@ -115,16 +115,10 @@ var Common = /** @class */ (function () {
         else {
             Common.normalFont = "xxx";
         }
-        //从配置里面读取
-        //遍历配置，检查哪一项符合当前设备，就用哪一项的字体
-        //for( var k in ConfObjRead.getConfVersion().platform_font)
         var plen = ConfObjRead.getConfVersion().platform_font.length;
         for (var k = 0; k < plen; k++) {
             var pf = ConfObjRead.getConfVersion().platform_font[k];
-            var ps = pf.platform; //数组
-            // var pfont = pf.font;    //字体
-            //如果这个平台数组里，包含了当前设备，那么就用这项配置的字体
-            // for( var m in ps )
+            var ps = pf.platform;
             var pslen = ps.length;
             for (var m = 0; m < pslen; m++) {
                 var pname = ps[m];

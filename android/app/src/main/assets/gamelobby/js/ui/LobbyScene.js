@@ -75,9 +75,6 @@ var LobbyScene = /** @class */ (function (_super) {
         Common.confObj.url = ConfObjRead.getConfUrl().url;
         this.initUI();
     };
-    /**
-     * 开始播放背景音效
-     */
     LobbyScene.IS_PLAYED_MUSIC = false;
     return LobbyScene;
 }(MyScene));

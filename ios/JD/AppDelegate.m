@@ -12,11 +12,14 @@
 #import <WebKit/WebKit.h>
 #import <NSLogger/NSLogger.h>
 #import <Crashlytics/Crashlytics.h>
+#import <OpenInstallSDK.h>
+
 //#import <SplashScreen.h>
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	[OpenInstallSDK initWithDelegate:self];
   
 
   application.applicationIconBadgeNumber = 0;
@@ -61,6 +64,15 @@
            @"https://www.ca2d16.com"];
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+	//openURL2
+	[OpenInstallSDK handLinkURL:url];
+	return YES;
+}
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler{
+	[OpenInstallSDK continueUserActivity:userActivity];
+	return YES;
+}
 @end
 @implementation NSURLRequest(DataController)
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host

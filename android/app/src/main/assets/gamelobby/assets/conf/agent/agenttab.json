@@ -44,14 +44,287 @@
         {
             "desc":"",
             "cmd":"agentinfo",
-            "pos":{ "x":0, "y":0 },
+            "pos":{ "x":122, "y":48 },
             "src":[
                 "./assets/ui/agent/img_daili_anniudi.png"
             ],
             "size":{ "w":244, "h":96 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/click.mp3",
+            "animationSp":{
+                "src":"./assets/ui/agent/btn_daili_xuanzhong.png",
+                "size":{
+                    "w":298,
+                    "h":110
+                },
+                "pos":{
+                    "x":-122,
+                    "y":-55
+                },
+                "posLeft":{
+                    "x":-132,
+                    "y":-55
+                },
+                "duration":100,
+                "tweenName":"backIn",
+                "alpha":1,
+                "alphaLeft":0.5,
+                "animation":{
+                    "textPath":"./assets/ui/animation/agent/btn/btn.png",
+                    "animPath":"./assets/ui/animation/agent/btn/btn.sk",
+                    "playSpeed":1.0,
+                    "loop":true,
+                    "loopdelayX":1000,
+                    "pos":{ "x":149, "y":55 },
+                    "stopHide":{
+                        "value":false
+                    }
+                }
+            },
+            "frontsp":{
+                "desc":"",
+                "switch":{
+                    "desc":"",
+                    "pos":{ "x":-92, "y":-24 },
+                    "src":[
+                        "./assets/ui/agent/img_daili_zi05.png",
+                        "./assets/ui/agent/img_daili_zi010.png"
+                    ],
+                    "sfx":"assets/raw/click.mp3",
+                    "bclick":{
+                        "value":false
+                    }
+                }
+            }
+        },
+        {
+            "desc":"",
+            "cmd":"mychildren",
+            "pos":{ "x":122, "y":148 },
+            "src":[
+                "./assets/ui/agent/img_daili_anniudi.png"
+            ],
+            "size":{ "w":244, "h":96 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3",
+            "animationSp":{
+                "src":"./assets/ui/agent/btn_daili_xuanzhong.png",
+                "size":{
+                    "w":298,
+                    "h":110
+                },
+                "pos":{
+                    "x":-122,
+                    "y":-55
+                },
+                "posLeft":{
+                    "x":-132,
+                    "y":-55
+                },
+                "duration":100,
+                "tweenName":"backIn",
+                "alpha":1,
+                "alphaLeft":0.5,
+                "animation":{
+                    "textPath":"./assets/ui/animation/agent/btn/btn.png",
+                    "animPath":"./assets/ui/animation/agent/btn/btn.sk",
+                    "playSpeed":1.0,
+                    "loop":true,
+                    "loopdelayX":1000,
+                    "pos":{ "x":149, "y":55 },
+                    "stopHide":{
+                        "value":false
+                    }
+                }
+            },
+            "frontsp":{
+                "desc":"",
+                "switch":{
+                    "desc":"",
+                    "pos":{ "x":-92, "y":-24 },
+                    "src":[
+                        "./assets/ui/agent/img_daili_zi04.png",
+                        "./assets/ui/agent/img_daili_zi09.png"
+                    ],
+                    "sfx":"assets/raw/click.mp3",
+                    "bclick":{
+                        "value":false
+                    }
+                }
+            }
+        },
+        {
+            "desc":"",
+            "cmd":"myincome",
+            "pos":{ "x":122, "y":248 },
+            "src":[
+                "./assets/ui/agent/img_daili_anniudi.png"
+            ],
+            "size":{ "w":244, "h":96 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3",
+            "animationSp":{
+                "src":"./assets/ui/agent/btn_daili_xuanzhong.png",
+                "size":{
+                    "w":298,
+                    "h":110
+                },
+                "pos":{
+                    "x":-122,
+                    "y":-55
+                },
+                "posLeft":{
+                    "x":-132,
+                    "y":-55
+                },
+                "duration":100,
+                "tweenName":"backIn",
+                "alpha":1,
+                "alphaLeft":0.5,
+                "animation":{
+                    "textPath":"./assets/ui/animation/agent/btn/btn.png",
+                    "animPath":"./assets/ui/animation/agent/btn/btn.sk",
+                    "playSpeed":1.0,
+                    "loop":true,
+                    "loopdelayX":1000,
+                    "pos":{ "x":149, "y":55 },
+                    "stopHide":{
+                        "value":false
+                    }
+                }
+            },
+            "frontsp":{
+                "desc":"",
+                "switch":{
+                    "desc":"",
+                    "pos":{ "x":-92, "y":-24 },
+                    "src":[
+                        "./assets/ui/agent/img_daili_zi03.png",
+                        "./assets/ui/agent/img_daili_zi08.png"
+                    ],
+                    "sfx":"assets/raw/click.mp3",
+                    "bclick":{
+                        "value":false
+                    }
+                }
+            }
+        },
+        {
+            "desc":"",
+            "cmd":"invation",
+            "pos":{ "x":122, "y":348 },
+            "src":[
+                "./assets/ui/agent/img_daili_anniudi.png"
+            ],
+            "size":{ "w":244, "h":96 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3",
+            "animationSp":{
+                "src":"./assets/ui/agent/btn_daili_xuanzhong.png",
+                "size":{
+                    "w":298,
+                    "h":110
+                },
+                "pos":{
+                    "x":-122,
+                    "y":-55
+                },
+                "posLeft":{
+                    "x":-132,
+                    "y":-55
+                },
+                "duration":100,
+                "tweenName":"backIn",
+                "alpha":1,
+                "alphaLeft":0.5,
+                "animation":{
+                    "textPath":"./assets/ui/animation/agent/btn/btn.png",
+                    "animPath":"./assets/ui/animation/agent/btn/btn.sk",
+                    "playSpeed":1.0,
+                    "loop":true,
+                    "loopdelayX":1000,
+                    "pos":{ "x":149, "y":55 },
+                    "stopHide":{
+                        "value":false
+                    }
+                }
+            },
+            "frontsp":{
+                "desc":"",
+                "switch":{
+                    "desc":"",
+                    "pos":{ "x":-92, "y":-24 },
+                    "src":[
+                        "./assets/ui/agent/img_daili_zi02.png",
+                        "./assets/ui/agent/img_daili_zi07.png"
+                    ],
+                    "sfx":"assets/raw/click.mp3",
+                    "bclick":{
+                        "value":false
+                    }
+                }
+            }
+        },
+        {
+            "desc":"",
+            "cmd":"agentdesc",
+            "pos":{ "x":122, "y":448 },
+            "src":[
+                "./assets/ui/agent/img_daili_anniudi.png"
+            ],
+            "size":{ "w":244, "h":96 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3",
+            "animationSp":{
+                "src":"./assets/ui/agent/btn_daili_xuanzhong.png",
+                "size":{
+                    "w":298,
+                    "h":110
+                },
+                "pos":{
+                    "x":-122,
+                    "y":-55
+                },
+                "posLeft":{
+                    "x":-132,
+                    "y":-55
+                },
+                "duration":100,
+                "tweenName":"backIn",
+                "alpha":1,
+                "alphaLeft":0.5,
+                "animation":{
+                    "textPath":"./assets/ui/animation/agent/btn/btn.png",
+                    "animPath":"./assets/ui/animation/agent/btn/btn.sk",
+                    "playSpeed":1.0,
+                    "loop":true,
+                    "loopdelayX":1000,
+                    "pos":{ "x":149, "y":55 },
+                    "stopHide":{
+                        "value":false
+                    }
+                }
+            },
+            "frontsp":{
+                "desc":"",
+                "switch":{
+                    "desc":"",
+                    "pos":{ "x":-92, "y":-24 },
+                    "src":[
+                        "./assets/ui/agent/img_daili_zi01.png",
+                        "./assets/ui/agent/img_daili_zi06.png"
+                    ],
+                    "sfx":"assets/raw/click.mp3",
+                    "bclick":{
+                        "value":false
+                    }
+                }
+            }
         }
     ]
 }

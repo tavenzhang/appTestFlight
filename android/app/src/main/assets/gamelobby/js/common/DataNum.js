@@ -33,11 +33,14 @@ var DataNum = /** @class */ (function (_super) {
         this.createNum();
     };
     DataNum.prototype.releaseNum = function () {
-        for (var a = 0; a < this.arr_sp_num.length; a++) {
-            var sp = this.arr_sp_num[a];
-            sp.destroy(true);
+        var len = this.arr_sp_num.length;
+        if (len > 0) {
+            for (var a = 0; a < len; a++) {
+                var sp = this.arr_sp_num[a];
+                sp.destroy(true);
+            }
+            this.arr_sp_num.splice(0, len);
         }
-        this.arr_sp_num.splice(0, this.arr_sp_num.length);
     };
     DataNum.prototype.createNum = function () {
         //将数字切分为独立的单个数字

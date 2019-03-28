@@ -41,11 +41,45 @@ var AgentPad = /** @class */ (function (_super) {
     AgentPad.prototype.initContent = function () {
         var tt = new AgentTitle(this, ConfObjRead.getConfAgentTitle());
         this.addChild(tt);
-        var tab = new AgentTab(this, ConfObjRead.getConfAgentTab());
-        this.addChild(tab);
-        // var ct = new AgentTab(this,ConfObjRead.getConfAgentContent());
+        // var ct = new AgentContentInfo(this,ConfObjRead.getConfAgentContentInfo());
         // this.addChild(ct);
+        this.contentpage = new Laya.Sprite();
+        this.addChild(this.contentpage);
+        var tab = new AgentTab(this, ConfObjRead.getConfAgentTab());
+        tab.setListener(this, this.switchTab);
+        this.addChild(tab);
+        if (tab.arr_btns.length > 0) {
+            tab.onClickBtn(tab.arr_btns[this.conf.defaultTabId]);
+        }
         // AgentDialogAddUser.showDialog(this,ConfObjRead.getConfAgentDialogAddUser());
+    };
+    AgentPad.prototype.clearContent = function () {
+        this.contentpage.destroyChildren();
+    };
+    AgentPad.prototype.switchTab = function (target, cmd) {
+        this.clearContent();
+        switch (cmd) {
+            case "agentinfo":
+                var ct1 = new AgentContentInfo(this, ConfObjRead.getConfAgentContentInfo());
+                this.contentpage.addChild(ct1);
+                break;
+            case "mychildren":
+                var ct2 = new AgentContentMyChildren(this, ConfObjRead.getConfAgentContentMyChildren());
+                this.contentpage.addChild(ct2);
+                break;
+            case "myincome":
+                var ct3 = new AgentContentMyIncome(this, ConfObjRead.getConfAgentContentMyIncome());
+                this.contentpage.addChild(ct3);
+                break;
+            case "invation":
+                var ct4 = new AgentContentInvation(this, ConfObjRead.getConfAgentContentInvation());
+                this.contentpage.addChild(ct4);
+                break;
+            case "agentdesc":
+                var ct5 = new AgentContentDesc(this, ConfObjRead.getConfAgentContentDesc());
+                this.contentpage.addChild(ct5);
+                break;
+        }
     };
     return AgentPad;
 }(AgentDialogBase));

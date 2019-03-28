@@ -5,6 +5,7 @@ var ToolsApp = /** @class */ (function () {
         var appData = window["appData"];
         if (appData) {
             window["bDebugPlatform"] = "native";
+            Debug.bDebugPlatform = "native";
             AppData.IS_NATIVE_APP = true;
             AppData.NATIVE_DATA = appData;
             AppData.isAndroidHack = appData.isAndroidHack;

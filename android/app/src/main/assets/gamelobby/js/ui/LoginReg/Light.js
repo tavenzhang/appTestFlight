@@ -20,10 +20,6 @@ var Light = /** @class */ (function (_super) {
     }
     Light.prototype.init = function (conf) {
         this.conf = conf;
-        // Debug.trace("Star.init");
-        // Debug.trace(this.conf);
-        // Debug.trace("Star.init rd:"+rd+" conf:");
-        // Debug.trace(starconf);
         this.sp_light = Tools.addSprite(this, this.conf.sp);
         this.sp_light.pivot(this.conf.sp.pivot.x, this.conf.sp.pivot.y);
         this.sp_light.rotation = this.conf.angleInit;

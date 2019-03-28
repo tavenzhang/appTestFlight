@@ -68,12 +68,6 @@ var MyCircleLoading = /** @class */ (function (_super) {
             }
             this.addChild(this.lb_loading);
         }
-        // this.size(Common.GM_SCREEN_W,Common.GM_SCREEN_H);
-        // Tools.drawRect(this,0,0,Common.GM_SCREEN_W,Common.GM_SCREEN_H,"#ff0000");
-        // this.on(Laya.Event.CLICK,this,this.onMouse);
-        // this.on(Laya.Event.MOUSE_DOWN,this,this.onMouse);
-        // this.on(Laya.Event.MOUSE_UP,this,this.onMouse);
-        // this.on(Laya.Event.MOUSE_MOVE,this,this.onMouse);
         if (this.loadingft) {
             this.startCircle();
         }

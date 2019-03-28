@@ -5,7 +5,7 @@ import {
     View,
     WebView,
     KeyboardAvoidingView,
-    Keyboard,
+    Keyboard, Alert,
 } from 'react-native';
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
@@ -17,9 +17,8 @@ import CodePush from 'react-native-code-push'
 
 import rootStore from "../../Data/store/RootStore";
 import FileTools from "../../Common/Global/FileTools";
-import JXToast from "../../Common/JXHelper/JXToast";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
-
+import OpeninstallModule from 'openinstall-react-native'
 
 @withMappedNavigationProps()
 @observer
@@ -86,7 +85,7 @@ export default class XXWebView extends Component {
 
     onFlushGameData=()=>{
         NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionDomain()+"/gameList.json"+"?rom="+Math.random(),null,(rt)=>{
-            TW_Log("TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-",rt);
+            TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-",rt);
             let newList = rt.content ? rt.content:[];
             let gameM =  TW_Store.dataStore.appGameListM;
             let lastList=[];
@@ -119,7 +118,7 @@ export default class XXWebView extends Component {
 
 
     handleUrl = (url, data) => {
-
+        TW_Log("(FileTools----.gameList-FileTools--handleUrl--url"+url, url);
         if(data){
             let index= url.indexOf("?");
             url = url.substr(index);
@@ -153,7 +152,7 @@ export default class XXWebView extends Component {
             if(this.loadQueue.length>0){
                 downData = this.loadQueue.shift();
             }
-            TW_Log("(TW_DATA_KEY.gameList-FileTools--==this.state.updateList==item" , downData);
+            TW_Log("(FileTools--startLoadGame--==this.state.updateList==item--this.loadQueue.length--last="+this.loadQueue.length , downData);
             if(downData){
                 this.isLoading=true;
                 // JXToast.showShortCenter(`${downData.name} 开始下载！`)
@@ -179,14 +178,14 @@ export default class XXWebView extends Component {
         if(data){
             dataList.push({"alias":ret.param.id,percent:ret.percent})
         }
-        TW_Log("FileTools------onLoadProgress===",ret)
+       // TW_Log("FileTools------onLoadProgress===--this.loadQueue.length=="+ this.loadQueue.length,ret)
         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.updateProgress,{data:dataList}));
     }
 
 
     onLoadZipFish=(ret)=> {
         this.isLoading=false;
-        TW_Log("FileTools------ret===",ret)
+        TW_Log("FileTools----onLoadZipFish--ret===this.loadQueue.length=="+this.loadQueue.length,ret)
         if(ret.rs){
             TW_Store.commonBoxStore.isShow=false;
             let data = TW_Store.dataStore.appGameListM[ret.param.id];
@@ -204,7 +203,6 @@ export default class XXWebView extends Component {
         TW_Log("FileTools------onSaveGameData===",TW_Store.dataStore.appGameListM);
         TW_Data_Store.setItem(TW_DATA_KEY.gameList,JSON.stringify(TW_Store.dataStore.appGameListM))
     }
-
 
 
     render() {
@@ -372,6 +370,12 @@ export default class XXWebView extends Component {
                     let name = message.name ? message.name : "";
                     name = name.toLowerCase();
                     if (name == "111" && message.pwd == "222") {
+                        OpeninstallModule.getInstall(10, map => {
+                            if (map) {
+                                //do your work here
+                            }
+                            Alert.alert('安装回调',JSON.stringify(map))
+                        })
                         TW_Store.bblStore.changeShowDebug(true);
                     }
                     break;

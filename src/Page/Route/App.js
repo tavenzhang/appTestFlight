@@ -1,6 +1,6 @@
 import {TabNavigator, StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
-import {UIManager, StatusBar,Text,View,ToastAndroid,BackHandler,ScrollView} from 'react-native';
+import {UIManager, StatusBar,Text,View,ToastAndroid,BackHandler,ScrollView,Alert} from 'react-native';
 import {Provider} from 'mobx-react'
 import NavigationService from './NavigationService'
 import rootStore from "../../Data/store/RootStore";
@@ -13,7 +13,7 @@ const appStores = {
 import CommonBoxLayer from "../enter/CommonBoxLayer";
 import XXWebView from "../web/XXWebView";
 import TCWebView from "../WebView/TCWebView";
-
+import OpeninstallModule from 'openinstall-react-native'
 
 //用于增加通用navigator view 属性 特殊 处理
 function viewRoutHelp(component) {
@@ -83,6 +83,14 @@ export default class App extends Component {
         if (!G_IS_IOS) {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
+        //该方法用于监听app通过univeral link或scheme拉起后获取唤醒参数
+        this.receiveWakeupListener = map => {
+            if (map) {
+                //do your work here
+            }
+            Alert.alert('拉起回调',JSON.stringify(map))
+        }
+        OpeninstallModule.addWakeUpListener(this.receiveWakeupListener)
 
     }
 
@@ -90,6 +98,7 @@ export default class App extends Component {
         if (!G_IS_IOS) {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
+        OpeninstallModule.removeWakeUpListener(this.receiveWakeupListener)//移除监听
     }
 
 

@@ -36,27 +36,6 @@ var VersionStat = /** @class */ (function (_super) {
         this.sp_bg = Tools.addSprite(this, this.conf.bg);
         this.lb_v = Tools.addLabels(this, this.conf.label);
         this.lb_v.on(Laya.Event.CLICK, this, this.onClickVersion);
-        // this.lb_v = Tools.newLabel(
-        //     this.conf.value,
-        //     this.conf.size.w,this.conf.size.h,
-        //     this.conf.font.size,
-        //     this.conf.font.color,
-        //     this.conf.font.align,
-        //     this.conf.font.valign,
-        //     this.conf.font.name,
-        //     this.conf.font.wrap,
-        //     this.conf.font.underline
-        // );
-        // if( this.conf.font.borderColor )
-        // {
-        //     this.lb_v.borderColor = this.conf.font.borderColor;
-        // }
-        // if( this.conf.font.alpha )
-        // {
-        //     this.lb_v.alpha = this.conf.font.alpha;
-        // }
-        // this.lb_v.pos(this.conf.pos.x,this.conf.pos.y);
-        // this.addChild(this.lb_v);
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
     VersionStat.prototype.onClickVersion = function (e) {

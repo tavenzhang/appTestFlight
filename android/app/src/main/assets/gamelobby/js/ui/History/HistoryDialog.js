@@ -18,7 +18,7 @@ var HistoryDialog = /** @class */ (function (_super) {
         _this.downPos = {
             "x": 0,
             "y": 0
-        }; //按下的坐标
+        };
         return _this;
     }
     HistoryDialog.getObj = function () {
@@ -52,23 +52,15 @@ var HistoryDialog = /** @class */ (function (_super) {
         // this.caller = caller;
         // this.closeCallback = closeCallback;
         this.initAlphaBg();
-        //背景图
         this.initBg(this.conf);
         if (this.conf.contentbg) {
             var bg = Tools.addSprite(this, this.conf.contentbg);
         }
-        //内容背景
-        // this.initContentBg();
-        //标题
         this.initTitle();
-        //表格头
-        // this.sp_table_head = Tools.addSprite(this,this.conf.tablehead.bg);
         this.initTableHead();
-        //内容容器
         this.initContent();
         this.arr_items = new Array();
         this.initCloseBtn();
-        //底部提示文本
         this.initBottomHint();
         this.pos(this.conf.pos.x, this.conf.pos.y);
         // this.setData(data);
@@ -101,7 +93,6 @@ var HistoryDialog = /** @class */ (function (_super) {
         if (this.conf.content.bg) {
             var bg = Tools.addSprite(this.sp_content, this.conf.content.bg);
         }
-        //设置内容容器里，只有部分区域可以渲染和绘制，类似蒙版功能
         this.sp_content.scrollRect = new Laya.Rectangle(this.conf.ctmask.rect.x, this.conf.ctmask.rect.y, this.conf.ctmask.rect.w, this.conf.ctmask.rect.h);
         this.sp_content.size(this.conf.ctmask.rect.w, this.conf.ctmask.rect.h);
         this.sp_content.on(Laya.Event.MOUSE_DOWN, this, this.onMouseEvent);
@@ -168,13 +159,11 @@ var HistoryDialog = /** @class */ (function (_super) {
         //             this.conf.bg.size.splice);
         // }
         this.bg = Tools.addSprite(this, this.conf.bg);
-        //如果有注册点
         // if( this.conf.bg.pivot )
         // {
         //     this.bg.pivot(this.conf.bg.pivot.x,this.conf.bg.pivot.y);
         // }
     };
-    //鼠标响应
     HistoryDialog.prototype.onMouseEvent = function (e) {
         var x = e.stageX;
         var y = e.stageY;
@@ -209,11 +198,9 @@ var HistoryDialog = /** @class */ (function (_super) {
                 break;
         }
     };
-    //移动所有元素，dis 为移动距离
     HistoryDialog.prototype.moveAllItem = function (dis) {
         // Debug.trace('moveAllItem x:'+dis);
         // Debug.trace('totalHeight:'+this.totalHeight+' height:'+this.height);
-        //如果当前的总宽度小于panel的宽度，不能移动
         if (this.totalHeight <= this.height) {
             // Debug.trace('totalHeight < height');
             return;
@@ -234,10 +221,7 @@ var HistoryDialog = /** @class */ (function (_super) {
             nx = this.miny - cx;
         }
         // Debug.trace("minx:"+this.minx+" maxx:"+this.maxx+" nx:"+nx+" cx:"+cx);
-        //遍历所有元素的坐标改变nx
-        // for(var i in this.arr_items)
         for (var i = 0; i < this.arr_items.length; i++) {
-            //在遮罩范围内的，坐标直接改变
             this.arr_items[i].y += nx;
         }
     };
@@ -272,23 +256,11 @@ var HistoryDialog = /** @class */ (function (_super) {
         // Debug.trace(s);
         // Debug.trace(hr);
         if (stat == "complete") {
-            //设置所有参数
-            // lamain.showCircleLoading(false);
-            //构造和添加历史元素
-            // var e = [];
-            // var id = 1;
-            // for( var k in s )
-            // {
-            //     var a = this.newTestData(id);
-            //     e.push(a);
-            //     id++;
-            // }
             if (s.totalCount > 0 && s.datas.length > 0) {
                 this.showEmptyData(false);
                 this.addHistoryItem(this.transData(s.datas));
             }
             else {
-                //数据为空
                 this.showEmptyData(true);
             }
         }
@@ -301,7 +273,6 @@ var HistoryDialog = /** @class */ (function (_super) {
             MyBBLoading.obj.show(false);
         }
     };
-    //显示空数据提示
     HistoryDialog.prototype.showEmptyData = function (b) {
         if (!this.lb_empty) {
             this.lb_empty = Tools.newLabel(this.conf.empty.font.text, this.conf.empty.size.w, this.conf.empty.size.h, this.conf.empty.font.size, this.conf.empty.font.color, this.conf.empty.font.align, this.conf.empty.font.valign, this.conf.empty.font.name, this.conf.empty.font.wrap);
@@ -313,7 +284,6 @@ var HistoryDialog = /** @class */ (function (_super) {
         }
         this.lb_empty.visible = b;
     };
-    //转换数据
     HistoryDialog.prototype.transData = function (da) {
         var d = new Array();
         var id = 1;
@@ -351,7 +321,6 @@ var HistoryDialog = /** @class */ (function (_super) {
         };
         return a;
     };
-    //添加历史纪录条目
     HistoryDialog.prototype.addHistoryItem = function (data) {
         if (this.conf.testitemlen) {
             var id = data.length;
@@ -361,7 +330,6 @@ var HistoryDialog = /** @class */ (function (_super) {
                 id++;
             }
         }
-        //遍历有多少条数据就加多少个条目
         // for( var k in data )
         for (var k = 0; k < data.length; k++) {
             var one = data[k];
@@ -369,7 +337,6 @@ var HistoryDialog = /** @class */ (function (_super) {
             this.addOneItem(one);
         }
     };
-    //添加一条历史纪录
     HistoryDialog.prototype.addOneItem = function (data) {
         // Debug.trace('addOneItem data:');
         // Debug.trace(data);
@@ -380,11 +347,6 @@ var HistoryDialog = /** @class */ (function (_super) {
         // len = this.arr_items.length;
         x = 0;
         ry = y = a.id * (this.conf.item.size.h + this.conf.item.size.gh);
-        //超过遮罩的高度了，全部固定在底部，不再铺开，避免mask超过2048出问题
-        // if( y >= this.conf.ctmask.rect.h )
-        // {
-        //     y = this.conf.ctmask.rect.h;
-        // }
         a.pos(x, y);
         a.setData(data);
         this.sp_content.addChild(a);

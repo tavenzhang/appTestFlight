@@ -31,7 +31,7 @@ export default class FileTools {
                 //let pro = res.bytesWritten / res.contentLength;
                 //  TW_Store.commonBoxStore.curPecent=res.bytesWritten;
                 //  TW_Store.commonBoxStore.totalPecent=res.contentLength;
-                TW_Log("FileTools---progress==",res);
+              //  TW_Log("FileTools---progress==",res);
                 if(onProgress){
                      onProgress({percent:(res.bytesWritten/res.contentLength).toFixed(2),param});
                 }

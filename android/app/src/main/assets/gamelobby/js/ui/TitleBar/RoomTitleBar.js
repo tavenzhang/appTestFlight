@@ -60,26 +60,22 @@ var RoomTitleBar = /** @class */ (function (_super) {
         }
         var sp = Tools.addSprite(this, conf);
     };
-    //点击设置按钮
     RoomTitleBar.prototype.onEventClick = function (e) {
         var btn = e;
         try {
             var cmd = btn.getQuery();
             switch (cmd) {
                 case "backlobby":
-                    //返回大厅
                     LayaMain.getInstance().initLobby();
                     break;
                 case "custom":
                     Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
                     break;
                 case "notice":
-                    //活动
                     AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention());
                     AttentionDialog.obj.show();
                     break;
                 case "quit":
-                    //返回
                     PostMHelp.goBack({ token: Common.access_token });
                     break;
                 case "setting":
@@ -103,9 +99,6 @@ var RoomTitleBar = /** @class */ (function (_super) {
         }, this.conf.duration, Laya.Ease["backIn"], new Laya.Handler(this, this.scrollOutOk));
     };
     RoomTitleBar.prototype.scrollOutOk = function () {
-        // Debug.trace('TitleBar scrollOutOk');
-        //滚动进来之后，告知主界面构造游戏图标
-        // sceneRoot.initGameIcon();
         if (this.caller && this.callback) {
             this.callback.apply(this.caller, [this]);
         }

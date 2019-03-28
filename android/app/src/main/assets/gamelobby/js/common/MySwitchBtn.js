@@ -31,6 +31,9 @@ var MySwitchBtn = /** @class */ (function (_super) {
         this.caller = caller;
         this.btnCallback = callback;
         this.res = this.conf.src;
+        if (this.conf.bclick) {
+            this.bclick = this.conf.bclick.value;
+        }
         if (this.res.length > 0) {
             this.btn_ui = new Laya.Sprite();
             this.btn_ui.loadImage(this.res[0]);
