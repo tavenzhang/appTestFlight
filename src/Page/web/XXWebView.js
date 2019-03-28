@@ -52,16 +52,16 @@ export default class XXWebView extends Component {
             this.onFlushGameData()
         });
         TW_Store.bblStore.getAppData();
-        if(!G_IS_IOS){
-            Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-            Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
-        }
+      //  if(!G_IS_IOS){
+            Keyboard.addListener('keyboardWillShow', this._keyboardDidShow);
+            Keyboard.addListener('keyboardWillHide', this._keyboardDidHide);
+       // }
     }
     componentWillUnmount(): void {
-        if(!G_IS_IOS){
-            Keyboard.removeListener('keyboardDidShow', this._keyboardDidShow);
-            Keyboard.removeListener('keyboardDidHide', this._keyboardDidHide);
-        }
+       // if(!G_IS_IOS){
+            Keyboard.removeListener('keyboardWillShow', this._keyboardDidShow);
+            Keyboard.removeListener('keyboardWillHide', this._keyboardDidHide);
+       // }
     }
 
 
@@ -79,8 +79,11 @@ export default class XXWebView extends Component {
     _keyboardDidHide=(event)=>{
         if(this.state.isShowKeyBoard){
             this.setState({isShowKeyBoard:false})
+            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.onBlur,{}));
         }
         TW_Log("( _keyboard---_keyboardDidHide" ,event);
+
+
     }
 
     onFlushGameData=()=>{
@@ -111,6 +114,7 @@ export default class XXWebView extends Component {
     }
     
     componentDidMount(): void {
+        // 用于android 不需要点击默认播放声音
         if(this.refs.myWebView.getSettings){
             this.refs.myWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
         }

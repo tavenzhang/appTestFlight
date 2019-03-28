@@ -133,6 +133,7 @@ export  default  class BBLStore {
         setrawroot:"setrawroot",//设置声音根目录
         playsoundByFile:"playsound",//通过文件名播放声音
         playmusicByFile:"playmusic",//通过文件名播放背景音乐
+        onBlur:"onBlur"
     }
 
     //bgm.mp3 click.mp3 close.mp3 flopleft.mp3 flopright.mp3 recharge.mp3 rightbottomclose.mp3 showlogo.mp3

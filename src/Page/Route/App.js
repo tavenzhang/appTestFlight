@@ -64,9 +64,9 @@ import UserPayment from '../../Page/UserCenter/UserPay/TCUserPayNew'
 import WechatPublicPage from '../../Page/UserCenter/UserPay/WxPublic/TCUserPayWxPublic'
 import TCUserWithdrawNew from "../UserCenter/UserWithdraw/TCUserWithdraw";
 import GameUIView from "../enter/GameUIView";
-import KeyboardManager from 'react-native-keyboard-manager'
+
 import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
-import LoadingView from "../enter/LoadingView";
+import KeyboardManager from 'react-native-keyboard-manager'
 @observer
 export default class App extends Component {
     constructor(state) {
