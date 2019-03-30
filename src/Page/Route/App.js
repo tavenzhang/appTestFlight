@@ -79,7 +79,6 @@ export default class App extends Component {
             KeyboardManager.setToolbarPreviousNextButtonEnable(true);
         }
         StatusBar.setHidden(true);
-
         if (!G_IS_IOS) {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
@@ -87,11 +86,21 @@ export default class App extends Component {
         this.receiveWakeupListener = map => {
             if (map) {
                 //do your work here
+                Alert.alert('拉起回调',JSON.stringify(map))
             }
-            Alert.alert('拉起回调',JSON.stringify(map))
+
         }
         OpeninstallModule.addWakeUpListener(this.receiveWakeupListener)
 
+    }
+
+    componentDidMount(): void {
+        OpeninstallModule.getInstall(10, map => {
+            if (map) {
+                //do your work here
+            }
+            Alert.alert('安装回调',JSON.stringify(map))
+        })
     }
 
     componentWillUnmount(): void {
@@ -107,6 +116,7 @@ export default class App extends Component {
         return (
             <Provider  {...rootStore} >
                 <View style={{flex: 1, backgroundColor:"black"}}>
+                    {this.addStatusBar()}
                     <MainStackNavigator
                         ref={navigatorRef => {
                             NavigationService.setTopLevelNavigator(navigatorRef)
@@ -116,7 +126,6 @@ export default class App extends Component {
                     {TW_Store.bblStore.isDebugApp ? <ScrollView  style={{ position: "absolute",}}><Text
                         style={{
                             color: "yellow",
-
                             fontWeight:"bold"
                         }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
                     `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
@@ -147,16 +156,17 @@ export default class App extends Component {
         ToastAndroid.show("再按一次退出 ",ToastAndroid.SHORT);
         return true;
     }
-    // addStatusBar() {
-    //    // if (!G_IS_IOS) {
-    //         return (
-    //             <StatusBar
-    //                 hidden={false}
-    //                 animated={true}
-    //                 translucent={true}
-    //                 backgroundColor={'transparent'}
-    //                 barStyle="light-content"/>
-    //         )
-    //    // }
-    // }
+
+    addStatusBar() {
+        if (!G_IS_IOS) {
+            return (
+                <StatusBar
+                    hidden={true}
+                    animated={true}
+                    translucent={true}
+                    backgroundColor={'transparent'}
+                    barStyle="light-content"/>
+            )
+        }
+    }
 }

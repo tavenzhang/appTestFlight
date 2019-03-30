@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
 
-	implementation project(":react-native-openinstall")
+//	implementation project(":react-native-openinstall")
 //    implementation project(':jcore-react-native')
 //    implementation project(':jpush-react-native')
         // The Fabric Gradle plugin uses an open ended version to react

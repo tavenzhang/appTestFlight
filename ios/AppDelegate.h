@@ -23,6 +23,6 @@ static NSString * const JDNight = @"12night";
 - (void *)registUMeng:(NSString *)ukey:(NSString *)channel;
 - (void *)registUMengShare:(NSString *)appId:(NSString *)api;
 +(NSArray *)getBBQArray;
-
+// Override to return a child view controller or nil. If non-nil, that view controller's home indicator auto-hiding will be used. If nil, self is used. Whenever the return value changes, -setNeedsHomeIndicatorAutoHiddenUpdate should be called.
 
 @end

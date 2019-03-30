@@ -4,7 +4,6 @@ import {
     StyleSheet,
     View,
     WebView,
-    KeyboardAvoidingView,
     Keyboard, Alert,
 } from 'react-native';
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
@@ -38,6 +37,7 @@ export default class XXWebView extends Component {
     }
 
     componentWillMount(){
+        TW_Log("(_keyboard-TW_DATA_KEY.gameList-FileTools--==G_IS_IOS== start" + G_IS_IOS);
         TW_OnValueJSHome = this.onEvaleJS;
         TW_Store.bblStore.isLoading=true;
         TW_Store.bblStore.lastGameUrl="";
@@ -52,16 +52,24 @@ export default class XXWebView extends Component {
             this.onFlushGameData()
         });
         TW_Store.bblStore.getAppData();
-      //  if(!G_IS_IOS){
+        TW_Log("(_keyboard-TW_DATA_KEY.gameList-FileTools--==G_IS_IOS== middle" + G_IS_IOS,Keyboard.addListener);
+        if(G_IS_IOS){
             Keyboard.addListener('keyboardWillShow', this._keyboardDidShow);
             Keyboard.addListener('keyboardWillHide', this._keyboardDidHide);
-       // }
+        }else{
+           // android 没有keyboardWillShow 与 keyboardWillHide
+            Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+            Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+        }
     }
     componentWillUnmount(): void {
-       // if(!G_IS_IOS){
+        if(G_IS_IOS){
             Keyboard.removeListener('keyboardWillShow', this._keyboardDidShow);
             Keyboard.removeListener('keyboardWillHide', this._keyboardDidHide);
-       // }
+        }else{
+            Keyboard.removeListener('keyboardDidShow', this._keyboardDidShow);
+            Keyboard.removeListener('keyboardDidHide', this._keyboardDidHide);
+        }
     }
 
 
@@ -374,12 +382,6 @@ export default class XXWebView extends Component {
                     let name = message.name ? message.name : "";
                     name = name.toLowerCase();
                     if (name == "111" && message.pwd == "222") {
-                        OpeninstallModule.getInstall(10, map => {
-                            if (map) {
-                                //do your work here
-                            }
-                            Alert.alert('安装回调',JSON.stringify(map))
-                        })
                         TW_Store.bblStore.changeShowDebug(true);
                     }
                     break;
