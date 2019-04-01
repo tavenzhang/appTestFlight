@@ -72,5 +72,4 @@ include ':ReactAndroid'
 project(':ReactAndroid').projectDir = new File(rootProject.projectDir, '../node_modules/react-native/ReactAndroid')
 
 
-project(':react-native-openinstall').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-openinstall/android')
-include ':app', ':react-native-openinstall'
+include ':app'
