@@ -1,6 +1,3 @@
-/**
- * 颜色工具类
- */
 var ColorTool = /** @class */ (function () {
     function ColorTool() {
         this._targetsValue = 16777215;

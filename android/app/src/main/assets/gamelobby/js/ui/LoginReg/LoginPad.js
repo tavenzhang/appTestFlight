@@ -88,10 +88,6 @@ var LoginPad = /** @class */ (function (_super) {
             this.inputPwd = Tools.addInput(this, this.conf.pwd.input);
         }
     };
-    LoginPad.prototype.onLostFocus = function () {
-        this.inputName.focus = false;
-        this.inputPwd.focus = false;
-    };
     LoginPad.prototype.onNameKey = function (e) {
         var name = e;
         var tx = name.text;

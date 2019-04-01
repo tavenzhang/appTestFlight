@@ -169,9 +169,6 @@ var LayaMain = /** @class */ (function () {
                 case "playmusic":
                     UpdateMsgHandle.playMusic(message.data);
                     break;
-                case "onBlur":
-                    LoginPad.obj.onLostFocus();
-                    break;
             }
         }
     };

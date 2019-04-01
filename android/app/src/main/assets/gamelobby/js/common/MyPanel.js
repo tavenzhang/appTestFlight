@@ -57,18 +57,13 @@ var MyPanel = /** @class */ (function (_super) {
     MyPanel.prototype.addItemChild = function (node) {
         this.items.push(node);
         this.content.addChild(node);
-        //每次添加内容节点的时候，计算出 最左和最右的坐标
-        //最后一个的坐标？其实还是算第一个的坐标
-        //总的内容宽度 = 最后一个坐标 + 内容宽度
         // var tw 
         this.totalWidth = node.x + node.width;
         // if( Common.confObj.debugmode == 1 )
         // {
         //     Debug.trace('addItem nodex:'+node.x+" nodew:"+node.width+" tw:"+this.totalWidth);
         // }
-        //移动到最右侧时，首个坐标 = 总宽度 - 内容层宽度
         this.minx = this.width - this.totalWidth; //tw;
-        //第一个的坐标不得小于0
         this.maxx = 0;
     };
     MyPanel.prototype.clearChildren = function () {
@@ -99,7 +94,6 @@ var MyPanel = /** @class */ (function (_super) {
         }
     };
     MyPanel.prototype.moveAllItem = function (x) {
-        //如果当前的总宽度小于panel的宽度，不能移动
         if (this.totalWidth <= this.width) {
             return;
         }
@@ -124,25 +118,17 @@ var MyPanel = /** @class */ (function (_super) {
             this.items[i].x += nx;
         }
     };
-    //移动到指定id显示出来
     MyPanel.prototype.moveTo = function (id) {
-        //找到对应的节点目前坐标
         var nx = this.items[id].x;
-        //要将该坐标移动到可见范围内
         var rightx = this.width - this.items[id].width;
         var leftx = 0;
-        //先判断该坐标是否在当前可视范围？
         if (nx >= leftx && nx <= rightx) {
-            //在，不管，已经可见了
         }
         else {
-            //不在
             var mvx = 0;
-            //如果该节点在右侧，则使其坐标移动到右一位，需要移动多少？
             if (nx > rightx) {
                 mvx = rightx - nx;
             }
-            //如果该节点在左侧，则使其坐标移动到左一位，需要移动多少？
             else if (nx < leftx) {
                 mvx = leftx - nx;
             }

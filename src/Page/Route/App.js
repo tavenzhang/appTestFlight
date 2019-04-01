@@ -95,12 +95,12 @@ export default class App extends Component {
     }
 
     componentDidMount(): void {
-        OpeninstallModule.getInstall(10, map => {
-            if (map) {
-                //do your work here
-            }
-            Alert.alert('安装回调',JSON.stringify(map))
-        })
+        // OpeninstallModule.getInstall(10, map => {
+        //     if (map) {
+        //         //do your work here
+        //     }
+        //     Alert.alert('安装回调',JSON.stringify(map))
+        // })
     }
 
     componentWillUnmount(): void {

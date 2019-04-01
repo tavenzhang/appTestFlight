@@ -1,29 +1,6 @@
 var Tools = /** @class */ (function () {
     function Tools() {
     }
-    Tools.prototype.Commonructor = function () {
-    };
-    /*
-    getSecretFromUserNamePassword(username, password) {
-        return username.substring(0, 3) + password.substring(0, 3) +
-            username.substring(username.length - 2, username.length) +
-            password.substring(password.length - 2, password.length) +
-            username.length + password.length+(TCUSER_DEVICE_TOKEN?TCUSER_DEVICE_TOKEN:'')
-    }
-
-    encode(username, password, callBack) {
-            Bcrypt.setRandomFallback(this.callBack)
-        var str = this.getSecretFromUserNamePassword(username, password)
-        JXLog('str == '+str)
-
-        Bcrypt.genSalt(6, function (err, salt) {
-            Bcrypt.hash(str, salt, (err, hash) => {
-                callBack(hash.substring(7))
-            })
-        })
-    }
-    */
-    //检查对象是否存在，不存在就抛出异常
     Tools.isAssets = function (a) {
         if (a) {
             return a;
@@ -37,36 +14,27 @@ var Tools = /** @class */ (function () {
             Debug.trace("-------------shawn-----------end------");
         }
     };
-    //将总数拆解，以参数中的固定数字分成若干份
     Tools.splitBetNum = function (num) {
         var args = [];
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
-        //遍历所有种类
         var i = 0;
         var last = num;
         var usedCoins = []; // {};
         for (i = (args.length - 1); i >= 0; i--) {
-            //剩余所有额度，都用当前筹码时，需要的数量
             var ct = Tools.getCountOf(last, args[i]);
-            //如果当前筹码不是最小的一个，那么就要给后面留一半
             if (i == 0) {
-                //否则，是最小一个筹码的时候，需要把所有都用该筹码来展示
                 var u0 = Math.floor(ct);
                 usedCoins["" + args[i]] = u0;
             }
             else {
-                //只取一半，剩下的一半留给后面的筹码用
-                var use = Math.floor(ct / 2); //该种类筹码使用数量
-                var used = use * args[i]; //使用的筹码占用数额
-                last = last - used; //剩余数额，给下一轮用
+                var use = Math.floor(ct / 2);
+                var used = use * args[i];
+                last = last - used;
                 usedCoins["" + args[i]] = use;
             }
         }
-        // Debug.trace("splitBetNum num:"+num+" as:");
-        // Debug.trace(usedCoins);
-        //根据当前的数量参数，生成数组
         var arr = [];
         // for(var a in usedCoins)
         for (var a = 0; a < usedCoins.length; a++) {

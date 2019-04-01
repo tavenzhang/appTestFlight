@@ -17,14 +17,15 @@ import CodePush from 'react-native-code-push'
 import rootStore from "../../Data/store/RootStore";
 import FileTools from "../../Common/Global/FileTools";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
-import OpeninstallModule from 'openinstall-react-native'
 
+const HTTP_GAME_LIST="/gamecenter/player/game/list";
 @withMappedNavigationProps()
 @observer
 export default class XXWebView extends Component {
     constructor(state) {
         super(state)
         this.filtUrlList=["/api/v1/account/webapi/account/users/login","/api/v1/account/webapi/account/users/userWebEncryptRegister"];
+
         this.state={
             isFail:false,
             updateList:[],
@@ -37,7 +38,6 @@ export default class XXWebView extends Component {
     }
 
     componentWillMount(){
-        TW_Log("(_keyboard-TW_DATA_KEY.gameList-FileTools--==G_IS_IOS== start" + G_IS_IOS);
         TW_OnValueJSHome = this.onEvaleJS;
         TW_Store.bblStore.isLoading=true;
         TW_Store.bblStore.lastGameUrl="";
@@ -52,7 +52,7 @@ export default class XXWebView extends Component {
             this.onFlushGameData()
         });
         TW_Store.bblStore.getAppData();
-        TW_Log("(_keyboard-TW_DATA_KEY.gameList-FileTools--==G_IS_IOS== middle" + G_IS_IOS,Keyboard.addListener);
+       // TW_Log("(_keyboard-TW_DATA_KEY.gameList-FileTools--==G_IS_IOS== middle" + G_IS_IOS,Keyboard.addListener);
         if(G_IS_IOS){
             Keyboard.addListener('keyboardWillShow', this._keyboardDidShow);
             Keyboard.addListener('keyboardWillHide', this._keyboardDidHide);
@@ -90,33 +90,53 @@ export default class XXWebView extends Component {
             TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.onBlur,{}));
         }
         TW_Log("( _keyboard---_keyboardDidHide" ,event);
+    }
 
+    onFinishGameList=(gameList)=>{
 
+        TW_Log("( _keyboard---onFinishGameList==" ,gameList);
+        let gameM =  TW_Store.dataStore.appGameListM;
+       // TW_Log("( _keyboard---onFinishGameList==TW_Store.dataStore.appGameListM=" ,gameM);
+        for (let item of gameList){
+            for (let dataKey in TW_Store.dataStore.appGameListM){
+                let temKey =dataKey;
+
+                if(dataKey.indexOf("app_")>-1){
+                     temKey = dataKey.replace("app_","");
+                }
+                if(item.url.indexOf(temKey)>-1){
+                    TW_Store.dataStore.appGameListM[dataKey].alias=TW_Store.dataStore.appGameListM[dataKey].id=item.alias;
+                    TW_Store.dataStore.appGameListM[dataKey].gameName=item.name
+                    TW_Log("( _keyboard---onFinishGameList==dataKey--"+dataKey, TW_Store.dataStore.appGameListM[dataKey]);
+                    break;
+                }
+            }
+        }
+         this.onFlushGameData();
     }
 
     onFlushGameData=()=>{
-        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionDomain()+"/gameList.json"+"?rom="+Math.random(),null,(rt)=>{
-            TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-",rt);
+        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.loginDomain+"/game.json"+"?rom="+Math.random(),null,(rt)=>{
+
             let newList = rt.content ? rt.content:[];
             let gameM =  TW_Store.dataStore.appGameListM;
             let lastList=[];
             for(let item of newList){
-                item.alias=item.id;
-                if(gameM[`${item.alias}`]){
-                    if(gameM[`${item.alias}`].version!=item.version){
-                        gameM[`${item.alias}`]={...gameM[`${item.alias}`],...item,version:gameM[`${item.alias}`].version,bupdate:true,newVersion:item.version}
-                        lastList.push(gameM[`${item.id}`]);
+                let saveItem = gameM[`${item.name}`];
+                if(saveItem){
+                    if(saveItem.current_version!=item.current_version){
+                        gameM[`${item.name}`]={...saveItem,bupdate:true,newVersion:item.current_version};
+                        lastList.push(gameM[`${item.name}`]);
                     }else{
-                        gameM[`${item.alias}`]={...gameM[`${item.alias}`],bupdate:false,...item};
+                        gameM[`${item.name}`]={...saveItem,bupdate:false};
                     }
 
-                }else if(!gameM[`${item.alias}`]){
-                    gameM[`${item.alias}`]={...item,version:"",bupdate:true,newVersion:item.version};
-                    lastList.push(gameM[`${item.id}`]);
+                }else if(!saveItem){
+                    gameM[`${item.name}`]={...item,current_version:"",bupdate:true,newVersion:item.current_version};
+                    lastList.push(gameM[`${item.name}`]);
                 }
-
             }
-
+            TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-",lastList);
             TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:lastList}));
         })
     }
@@ -164,28 +184,26 @@ export default class XXWebView extends Component {
             if(this.loadQueue.length>0){
                 downData = this.loadQueue.shift();
             }
-            TW_Log("(FileTools--startLoadGame--==this.state.updateList==item--this.loadQueue.length--last="+this.loadQueue.length , downData);
+
             if(downData){
                 this.isLoading=true;
                 // JXToast.showShortCenter(`${downData.name} 开始下载！`)
                 let loadUrl = downData.source;
-                if(loadUrl.indexOf("http")>-1){
+                if(loadUrl&&loadUrl.indexOf("http")>-1){
                     loadUrl= loadUrl;
                 }else{
-                    loadUrl = TW_Store.bblStore.gameDomain+"/"+downData.dir+"/"  + downData.dir;
+                    loadUrl = TW_Store.bblStore.gameDomain+"/"+downData.name+"/"  + downData.name;
                 }
+                TW_Log("(FileTools--startLoadGame--==this.state.updateList==item--this.loadQueue.length--loadUrl="+loadUrl , downData);
                 FileTools.downloadFile(loadUrl,TW_Store.bblStore.tempGameZip,downData,this.onLoadZipFish,this.onLoadProgress);
             }
         }
     }
     
     onLoadProgress=(ret)=>{
-        //{
-        //             "gameId":30,        //游戏id-----可选
-        //             "alias":"hhdz",     //游戏别名--------唯一标识，必填
-        //             "percent":0.7       //当前下载进度
+        //{//             "gameId":30,        //游戏id-----可选//             "alias":"hhdz",     //游戏别名--------唯一标识，必填//             "percent":0.7       //当前下载进度
         //         }
-        let data = TW_Store.dataStore.appGameListM[ret.param.id];
+        let data = TW_Store.dataStore.appGameListM[ret.param.name];
         let dataList=[]
         if(data){
             dataList.push({"alias":ret.param.id,percent:ret.percent})
@@ -200,8 +218,8 @@ export default class XXWebView extends Component {
         TW_Log("FileTools----onLoadZipFish--ret===this.loadQueue.length=="+this.loadQueue.length,ret)
         if(ret.rs){
             TW_Store.commonBoxStore.isShow=false;
-            let data = TW_Store.dataStore.appGameListM[ret.param.id];
-            data.version=data.newVersion;
+            let data = TW_Store.dataStore.appGameListM[ret.param.name];
+            data.current_version=data.newVersion;
             data.bupdate =false;
             this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.updateProgress,{data:[{"alias":ret.param.id,percent:1}]}));
             this.onSaveGameData();
@@ -320,8 +338,29 @@ export default class XXWebView extends Component {
                 case "startUpdate":
                     //{action: "startUpdate", gameId: 28, alias: "xywz"}
                     let gameM =  TW_Store.dataStore.appGameListM;
-                     gameData= gameM[`${message.alias}`];
+                    let  retList=[];
+                    for (let dataKey in gameM){
+                        let temKey =dataKey;
+                        if(gameM[dataKey].id==message.alias){
+                            retList.push(gameM[dataKey]);
+                        }
+                    }
+                    TW_Log("gameData----retList-",retList)
+
+                    if(retList.length>1){
+                        for(let item of retList){
+                            if(item.name.indexOf("app">-1)){
+                                gameData =  item;
+                                break;
+                            }
+                        }
+                    }else {
+                        gameData = retList[0]
+                    }
+
+                    // gameData= gameM[`${message.alias}`];
                      TW_Log("gameData-----",gameData)
+                    TW_Log("gameData----message-",message)
                     if(gameData){
                         if(gameData.bupdate) {
                             this.startLoadGame(gameData);
@@ -412,10 +451,16 @@ export default class XXWebView extends Component {
                                 let access_token =TW_GetQueryString("access_token",message.url);
                                 if(access_token&&access_token!=""){
                                     TW_Store.userStore.initLoginToken(access_token);
-                                    this.onFlushGameData();
+                                    //this.onFlushGameData();
                                 }
                                 if(message.url.indexOf("/api/v1/gamecenter/player/user")>-1){
                                     TW_Store.bblStore.avatarData =ret.content
+                                }
+                                if(message.url.indexOf(HTTP_GAME_LIST)>-1){
+                                    if(ret.rs){
+                                        this.onFinishGameList(ret.content.datas)
+                                    }
+
                                 }
                             },10,false,false,true);
                             break;

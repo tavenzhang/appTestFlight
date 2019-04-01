@@ -75,12 +75,9 @@ var Common = /** @class */ (function () {
                 }
             }
             Debug.trace("Common.getCurGameAlias return zjh");
-            return null; //默认为扎金花
+            return null;
         }
         catch (e) {
-            //出错了，没有gameInfo信息。直接进入的游戏房间列表。
-            // Debug.trace("Common.getCurGameAlias e:"+e);
-            // return Common.getAliasFromRoomPanel();
             return null;
         }
     };
