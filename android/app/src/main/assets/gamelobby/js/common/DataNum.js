@@ -11,7 +11,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-//数码管
 var DataNum = /** @class */ (function (_super) {
     __extends(DataNum, _super);
     function DataNum(conf) {
@@ -33,20 +32,20 @@ var DataNum = /** @class */ (function (_super) {
         this.createNum();
     };
     DataNum.prototype.releaseNum = function () {
-        for (var a = 0; a < this.arr_sp_num.length; a++) {
-            var sp = this.arr_sp_num[a];
-            sp.destroy(true);
+        var len = this.arr_sp_num.length;
+        if (len > 0) {
+            for (var a = 0; a < len; a++) {
+                var sp = this.arr_sp_num[a];
+                sp.destroy(true);
+            }
+            this.arr_sp_num.splice(0, len);
         }
-        this.arr_sp_num.splice(0, this.arr_sp_num.length);
     };
     DataNum.prototype.createNum = function () {
-        //将数字切分为独立的单个数字
         var arr_num = Tools.splitString(this.num);
-        //遍历字符串数组
         var id = 0;
         var lastRight = 0;
         for (var a = 0; a < arr_num.length; a++) {
-            //逐个转数字，直接从资源数组中取出对应资源，创建sp
             var str = arr_num[a];
             var src = this.getSrcByKey(str);
             if (src) {
@@ -79,10 +78,8 @@ var DataNum = /** @class */ (function (_super) {
         }
         return null;
     };
-    //获取该数值的宽度
     DataNum.prototype.getWidth = function () {
         var w = 0;
-        //遍历所有数字，累加所有的宽度
         for (var i = 0; i < this.arr_sp_num.length; i++) {
             var sp = this.arr_sp_num[i];
             var wid = sp.width;

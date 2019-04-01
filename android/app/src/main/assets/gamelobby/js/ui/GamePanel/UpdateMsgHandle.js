@@ -38,6 +38,9 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
         }
     };
     UpdateMsgHandle.getGameIndexByAlias = function (alias) {
+        if (!UpdateMsgHandle.updateInitMsg) {
+            return null;
+        }
         for (var i = 0; i < UpdateMsgHandle.updateInitMsg.length; i++) {
             var msg = UpdateMsgHandle.updateInitMsg[i];
             if (msg.alias == alias) {
@@ -47,6 +50,9 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
         return null;
     };
     UpdateMsgHandle.refreshArr = function (progress) {
+        if (!progress) {
+            return null;
+        }
         for (var i = 0; i < progress.length; i++) {
             var gp = progress[i];
             var gi = UpdateMsgHandle.getGameIndexByAlias(gp.alias);
@@ -60,6 +66,9 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
         }
     };
     UpdateMsgHandle.clearInfoByAlias = function (alias) {
+        if (!UpdateMsgHandle.updateInitMsg) {
+            return null;
+        }
         for (var i = 0; i < UpdateMsgHandle.updateInitMsg.length; i++) {
             var obj = UpdateMsgHandle.updateInitMsg[i];
             if (obj.alias == alias) {
@@ -81,7 +90,17 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
             GamePanel.getInstance().onUpdatePercent(data);
         }
     };
+    UpdateMsgHandle.setRawRoot = function (src) {
+        UpdateMsgHandle.raw_root = src;
+    };
+    UpdateMsgHandle.playSound = function (src) {
+        Laya.SoundManager.playSound(UpdateMsgHandle.raw_root + src);
+    };
+    UpdateMsgHandle.playMusic = function (src) {
+        Laya.SoundManager.playMusic(UpdateMsgHandle.raw_root + src);
+    };
     UpdateMsgHandle.updateInitMsg = null;
+    UpdateMsgHandle.raw_root = "./assets/raw/";
     return UpdateMsgHandle;
 }(Laya.Sprite));
 //# sourceMappingURL=UpdateMsgHandle.js.map

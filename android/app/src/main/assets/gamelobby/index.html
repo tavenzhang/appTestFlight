@@ -62,25 +62,25 @@
 	<script>
 		var bDebugPlatform = "web";
 		var bDebug = true;
-		var sScaleMode = "showall";//"fixedwidth";//"noborder";//"showall";
-		var bShowStat = false;
+		var sScaleMode = "showall";//"fixedheight";//"fixedwidth";//"noborder";//"showall";
+		var bShowStat = true;
 		var sPubRes = "../pubres/assets/lobby/";
-		//"exactfit","fixedauto","fixedheight","fixedwidth","scalefull","noborder","noscale","showall"
+		//"exactfit","fixedauto",,"fixedwidth","scalefull","noborder","noscale","showall"
 		
 		function initVconsole()
 		{
 			bDebug = true;
-			bShowStat=true
+			bShowStat=true;
 			window.vConsole = new window.VConsole({
-			defaultPlugins: ['system', 'network', 'element', 'storage'],
-			maxLogNumber: 1000,
-			// disableLogScrolling: true,
-			onReady: function() {
-				console.log('vConsole is ready.');
-			},
-			onClearLog: function() {
-				console.log('on clearLog');
-			}
+				defaultPlugins: ['system', 'network', 'element', 'storage'],
+				maxLogNumber: 1000,
+				// disableLogScrolling: true,
+				onReady: function() {
+					console.log('vConsole is ready.');
+				},
+				onClearLog: function() {
+					console.log('on clearLog');
+				}
 			});
 		}
 		// initVconsole();
@@ -135,6 +135,28 @@
 	<script src="js/HtmlCompnents/SeanHtmlEncode.js"></script>
 	<script src="js/HtmlCompnents/SeanHtmlDecode.js"></script>
 	<script src="js/HtmlCompnents/SeanAttributeNode.js"></script>
+	<script src="js/common/MyButton.js"></script>
+	<script src="js/Agent/AgentButton.js"></script>
+	<script src="js/Agent/AgentComBase.js"></script>
+	<script src="js/Agent/AgentContent.js"></script>
+	<script src="js/Agent/AgentContentDesc.js"></script>
+	<script src="js/Agent/AgentContentInfo.js"></script>
+	<script src="js/Agent/AgentContentInvation.js"></script>
+	<script src="js/Agent/AgentContentMyChildren.js"></script>
+	<script src="js/Agent/AgentContentMyIncome.js"></script>
+	<script src="js/Agent/AgentDialogBase.js"></script>
+	<script src="js/Agent/AgentDialogAddUser.js"></script>
+	<script src="js/Agent/AgentDialogDeleteInvitation.js"></script>
+	<script src="js/Agent/AgentDialogEditAccountType.js"></script>
+	<script src="js/Agent/AgentDialogInviation.js"></script>
+	<script src="js/Agent/AgentInvitationItem.js"></script>
+	<script src="js/Agent/AgentInvitationList.js"></script>
+	<script src="js/Agent/AgentList.js"></script>
+	<script src="js/Agent/AgentListItem.js"></script>
+	<script src="js/Agent/AgentListMyChildren.js"></script>
+	<script src="js/Agent/AgentPad.js"></script>
+	<script src="js/Agent/AgentTab.js"></script>
+	<script src="js/Agent/AgentTitle.js"></script>
 	<script src="js/HtmlCompnents/SeanHtmlString.js"></script>
 	<script src="js/HtmlCompnents/SeanLabel.js"></script>
 	<script src="js/Loading/Loading.js"></script>
@@ -150,7 +172,6 @@
 	<script src="js/common/FireWorks.js"></script>
 	<script src="js/common/LoadingAnim.js"></script>
 	<script src="js/common/MyBoneAnim.js"></script>
-	<script src="js/common/MyButton.js"></script>
 	<script src="js/common/MyDialog.js"></script>
 	<script src="js/common/MyDragPgBar.js"></script>
 	<script src="js/common/MyDragPgBarFront.js"></script>

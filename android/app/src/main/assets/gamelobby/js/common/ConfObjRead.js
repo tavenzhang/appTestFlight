@@ -1,6 +1,132 @@
 var ConfObjRead = /** @class */ (function () {
     function ConfObjRead() {
     }
+    ConfObjRead.getConfAgentChildrenTest = function () {
+        if (ConfObjRead.agenttestdatachildrenObj) {
+            return ConfObjRead.agenttestdatachildrenObj;
+        }
+        ConfObjRead.agenttestdatachildrenObj = Laya.Loader.getRes("./assets/conf/agent/listmychildrentest.json");
+        return ConfObjRead.agenttestdatachildrenObj;
+    };
+    ConfObjRead.getConfAgentListChildren = function () {
+        if (ConfObjRead.agentlistchildrenObj) {
+            return ConfObjRead.agentlistchildrenObj;
+        }
+        ConfObjRead.agentlistchildrenObj = Laya.Loader.getRes("./assets/conf/agent/listmychildren.json");
+        return ConfObjRead.agentlistchildrenObj;
+    };
+    ConfObjRead.getConfAgentDialogAddUser = function () {
+        if (ConfObjRead.agentAdduserObj) {
+            return ConfObjRead.agentAdduserObj;
+        }
+        ConfObjRead.agentAdduserObj = Laya.Loader.getRes("./assets/conf/agent/agentadduser.json");
+        return ConfObjRead.agentAdduserObj;
+    };
+    ConfObjRead.getConfAgentDialogEditAccountType = function () {
+        if (ConfObjRead.agentEditAccountTypeObj) {
+            return ConfObjRead.agentEditAccountTypeObj;
+        }
+        ConfObjRead.agentEditAccountTypeObj = Laya.Loader.getRes("./assets/conf/agent/agenteditaccounttype.json");
+        return ConfObjRead.agentEditAccountTypeObj;
+    };
+    ConfObjRead.getConfAgentInviChildrenTest = function () {
+        if (ConfObjRead.agentInvitestdatachildrenObj) {
+            return ConfObjRead.agentInvitestdatachildrenObj;
+        }
+        ConfObjRead.agentInvitestdatachildrenObj = Laya.Loader.getRes("./assets/conf/agent/listinvichildrentest.json");
+        return ConfObjRead.agentInvitestdatachildrenObj;
+    };
+    ConfObjRead.getConfAgentInvitationChildren = function () {
+        if (ConfObjRead.agentInvilistchildrenObj) {
+            return ConfObjRead.agentInvilistchildrenObj;
+        }
+        ConfObjRead.agentInvilistchildrenObj = Laya.Loader.getRes("./assets/conf/agent/listinvichildren.json");
+        return ConfObjRead.agentInvilistchildrenObj;
+    };
+    ConfObjRead.getConfAgentDialogInvitation = function () {
+        if (ConfObjRead.agentInvitationObj) {
+            return ConfObjRead.agentInvitationObj;
+        }
+        ConfObjRead.agentInvitationObj = Laya.Loader.getRes("./assets/conf/agent/agentinvitation.json");
+        return ConfObjRead.agentInvitationObj;
+    };
+    ConfObjRead.getConfAgentDialogDeleteInvitation = function () {
+        if (ConfObjRead.agentDeleteInvitationObj) {
+            return ConfObjRead.agentDeleteInvitationObj;
+        }
+        ConfObjRead.agentDeleteInvitationObj = Laya.Loader.getRes("./assets/conf/agent/agentdeleteinvitation.json");
+        return ConfObjRead.agentDeleteInvitationObj;
+    };
+    ConfObjRead.getConfAgentContentDesc = function () {
+        if (ConfObjRead.agentCtDescObj) {
+            return ConfObjRead.agentCtDescObj;
+        }
+        ConfObjRead.agentCtDescObj = Laya.Loader.getRes("./assets/conf/agent/agentctdesc.json");
+        return ConfObjRead.agentCtDescObj;
+    };
+    ConfObjRead.getConfAgentContentInvation = function () {
+        if (ConfObjRead.agentCtInvationObj) {
+            return ConfObjRead.agentCtInvationObj;
+        }
+        ConfObjRead.agentCtInvationObj = Laya.Loader.getRes("./assets/conf/agent/agentctinvation.json");
+        return ConfObjRead.agentCtInvationObj;
+    };
+    ConfObjRead.getConfAgentContentMyIncome = function () {
+        if (ConfObjRead.agentCtMyIncomeObj) {
+            return ConfObjRead.agentCtMyIncomeObj;
+        }
+        ConfObjRead.agentCtMyIncomeObj = Laya.Loader.getRes("./assets/conf/agent/agentctmyincome.json");
+        return ConfObjRead.agentCtMyIncomeObj;
+    };
+    ConfObjRead.getConfAgentContentMyChildren = function () {
+        if (ConfObjRead.agentCtMychildrenObj) {
+            return ConfObjRead.agentCtMychildrenObj;
+        }
+        ConfObjRead.agentCtMychildrenObj = Laya.Loader.getRes("./assets/conf/agent/agentctmychildren.json");
+        return ConfObjRead.agentCtMychildrenObj;
+    };
+    ConfObjRead.getConfAgentContentInfo = function () {
+        if (ConfObjRead.agentCtinfoObj) {
+            return ConfObjRead.agentCtinfoObj;
+        }
+        ConfObjRead.agentCtinfoObj = Laya.Loader.getRes("./assets/conf/agent/agentctinfo.json");
+        return ConfObjRead.agentCtinfoObj;
+    };
+    ConfObjRead.getConfAgentContent = function () {
+        if (ConfObjRead.agentCtObj) {
+            return ConfObjRead.agentCtObj;
+        }
+        ConfObjRead.agentCtObj = Laya.Loader.getRes("./assets/conf/agent/agentct.json");
+        return ConfObjRead.agentCtObj;
+    };
+    ConfObjRead.getConfAgentTab = function () {
+        if (ConfObjRead.agentTabObj) {
+            return ConfObjRead.agentTabObj;
+        }
+        ConfObjRead.agentTabObj = Laya.Loader.getRes("./assets/conf/agent/agenttab.json");
+        return ConfObjRead.agentTabObj;
+    };
+    ConfObjRead.getConfAgentTitle = function () {
+        if (ConfObjRead.agentTitleObj) {
+            return ConfObjRead.agentTitleObj;
+        }
+        ConfObjRead.agentTitleObj = Laya.Loader.getRes("./assets/conf/agent/agenttitle.json");
+        return ConfObjRead.agentTitleObj;
+    };
+    ConfObjRead.getConfAgentPad = function () {
+        if (ConfObjRead.agentPadObj) {
+            return ConfObjRead.agentPadObj;
+        }
+        ConfObjRead.agentPadObj = Laya.Loader.getRes("./assets/conf/agent/agentpad.json");
+        return ConfObjRead.agentPadObj;
+    };
+    ConfObjRead.getConfAgent = function () {
+        if (ConfObjRead.agentObj) {
+            return ConfObjRead.agentObj;
+        }
+        ConfObjRead.agentObj = Laya.Loader.getRes("./assets/conf/agent/agent.json");
+        return ConfObjRead.agentObj;
+    };
     ConfObjRead.getConfAccountCenter = function () {
         if (ConfObjRead.accenterObj) {
             return ConfObjRead.accenterObj;
@@ -332,6 +458,24 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.musicObj = Laya.Loader.getRes("./assets/conf/music.json");
         return ConfObjRead.musicObj;
     };
+    ConfObjRead.agenttestdatachildrenObj = null;
+    ConfObjRead.agentlistchildrenObj = null;
+    ConfObjRead.agentAdduserObj = null;
+    ConfObjRead.agentEditAccountTypeObj = null;
+    ConfObjRead.agentInvitestdatachildrenObj = null;
+    ConfObjRead.agentInvilistchildrenObj = null;
+    ConfObjRead.agentInvitationObj = null;
+    ConfObjRead.agentDeleteInvitationObj = null;
+    ConfObjRead.agentCtDescObj = null;
+    ConfObjRead.agentCtInvationObj = null;
+    ConfObjRead.agentCtMyIncomeObj = null;
+    ConfObjRead.agentCtMychildrenObj = null;
+    ConfObjRead.agentCtinfoObj = null;
+    ConfObjRead.agentCtObj = null;
+    ConfObjRead.agentTabObj = null;
+    ConfObjRead.agentTitleObj = null;
+    ConfObjRead.agentPadObj = null;
+    ConfObjRead.agentObj = null;
     ConfObjRead.accenterObj = null;
     ConfObjRead.girlObj = null;
     ConfObjRead.dataNumObj = null;

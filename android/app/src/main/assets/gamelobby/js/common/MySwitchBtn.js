@@ -15,7 +15,7 @@ var MySwitchBtn = /** @class */ (function (_super) {
     __extends(MySwitchBtn, _super);
     function MySwitchBtn() {
         var _this = _super.call(this) || this;
-        _this.bclick = true; //是否可以点击
+        _this.bclick = true;
         _this.iSwitchId = 0;
         _this.query = null;
         return _this;
@@ -31,6 +31,9 @@ var MySwitchBtn = /** @class */ (function (_super) {
         this.caller = caller;
         this.btnCallback = callback;
         this.res = this.conf.src;
+        if (this.conf.bclick) {
+            this.bclick = this.conf.bclick.value;
+        }
         if (this.res.length > 0) {
             this.btn_ui = new Laya.Sprite();
             this.btn_ui.loadImage(this.res[0]);
@@ -46,7 +49,6 @@ var MySwitchBtn = /** @class */ (function (_super) {
             }
         }
         if (this.conf.font) {
-            //文字
             this.btn_name = Tools.newLabel(
             // this.textStr,
             this.conf.font.text, 
@@ -77,13 +79,10 @@ var MySwitchBtn = /** @class */ (function (_super) {
     MySwitchBtn.prototype.showName = function (b) {
         this.btn_name.visible = b;
     };
-    //本按钮被按下了，要干嘛？？
     MySwitchBtn.prototype.onBtnClick = function (s) {
         if (this.bclick) {
             this.switchChange();
-            //去掉点击后的回调
             this.btnCallback.apply(this.caller, [this]);
-            //播放音效
             if (this.conf.sfx) {
                 Laya.SoundManager.playSound(this.conf.sfx);
             }

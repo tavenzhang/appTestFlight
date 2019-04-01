@@ -446,6 +446,8 @@
             "sfx":"assets/raw/click.mp3",
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1}
-        }
+        },
+        "textNoValue":"请填写完整注册信息",
+        "textPwdUnsame":"两次输入的密码不一致，请重新输入"
     }
 }

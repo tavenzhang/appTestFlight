@@ -15,11 +15,10 @@ var AttentionDialog = /** @class */ (function (_super) {
     __extends(AttentionDialog, _super);
     function AttentionDialog() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.curTabCateId = 0; //当前页面公告分类id
-        _this.bRequestStatus = 1; //当前网络请求状态 1=未请求，0=成功，-1=出错
-        //是否需要主动弹出
+        _this.curTabCateId = 0;
+        _this.bRequestStatus = 1;
         _this.bPopAuto = false;
-        _this.iDefaultCate = 0; //默认弹出的时候，展示哪个活动分类
+        _this.iDefaultCate = 0;
         return _this;
     }
     AttentionDialog.getObj = function () {
@@ -61,34 +60,16 @@ var AttentionDialog = /** @class */ (function (_super) {
         this.conf = conf;
         this.data = null; //data;
         this.initAlphaBg();
-        //背景图
         this.initBg(this.conf);
-        //公告内容背景
         this.initNoticeBg();
-        //按钮组
         this.initBtns();
-        //表格头
         this.initTableHead();
-        //公告按钮组
-        // this.arr_btns = new Array();
-        //公告内容组，用于存放公告按钮
         this.arr_btns_content = new Array();
-        //标题背景及宝箱
         this.initFu();
-        //标题
         this.initTitle();
         this.initCloseBtn();
         this.pos(this.conf.pos.x, this.conf.pos.y);
-        //公告界面先隐藏
         this.hide();
-        //测试
-        // this.data = Laya.loader.getRes("./assets/conf/testNoticeData.json");
-        // this.initBtnsContent(this.data);
-        // this.changeTab(this.curTabCate);
-        // var it = this.arr_btns_content[0].arr_btns[0];
-        // this.arr_btns_content[this.curTabCate].changeTab(it.data.noticeid);
-        // this.refreshDataUnread(0);
-        // this.refreshDataUnread(1);
         this.requestPop();
         // this.requestAttention();
         // this.requestRead(10006);
@@ -101,7 +82,6 @@ var AttentionDialog = /** @class */ (function (_super) {
             var fur = Tools.addSprite(this, this.conf.fu.right);
         }
     };
-    //按数据显示公告
     AttentionDialog.prototype.showAttention = function (data) {
         // Debug.trace("showAttention data:");
         // Debug.trace(data);
@@ -117,7 +97,6 @@ var AttentionDialog = /** @class */ (function (_super) {
             // this.attentionPage.setData(data);
         }
     };
-    //刷新分类数据的未读数量
     AttentionDialog.prototype.refreshDataUnread = function (cateid) {
         // Debug.trace("cateid:"+cateid);
         var num = 0;
@@ -142,7 +121,6 @@ var AttentionDialog = /** @class */ (function (_super) {
         }
         return num;
     };
-    //修改当前索引页面
     AttentionDialog.prototype.changeTab = function (cateid) {
         // Debug.trace("AttentionDialog.changeTab id:"+cateid);
         this.showAttention(null);
@@ -150,20 +128,18 @@ var AttentionDialog = /** @class */ (function (_super) {
         this.updateTab();
     };
     AttentionDialog.prototype.updateTab = function () {
-        //所有按钮组全部不显示
+        Debug.trace("AttentionDialog.updateTab curTabCateId:" + this.curTabCateId);
         // for( var a in this.arr_btns_content )
         for (var a = 0; a < this.arr_btns_content.length; a++) {
             var b = this.arr_btns_content[a];
             if (b.data.noticeCate == this.curTabCateId) {
                 b.visible = true;
-                //对应内容也里显示当前默认内容
                 b.showDefaultNotice();
             }
             else {
                 b.visible = false;
             }
         }
-        //所有分类按钮都未点击，除了当前这个
         // for( var c in this.arr_cate_btns )
         for (var c = 0; c < this.arr_cate_btns.length; c++) {
             var d = this.arr_cate_btns[c];
@@ -186,7 +162,6 @@ var AttentionDialog = /** @class */ (function (_super) {
     AttentionDialog.prototype.initBtns = function () {
         var bg = Tools.addSprite(this, this.conf.menulist.bg);
     };
-    //根据数据，初始化对应数量的内容页
     AttentionDialog.prototype.initBtnsContent = function (data) {
         // for( var a in data )
         for (var a = 0; a < data.length; a++) {
@@ -196,9 +171,7 @@ var AttentionDialog = /** @class */ (function (_super) {
             this.arr_btns_content.push(sp_ct);
         }
     };
-    //通过公告分类id，找出对应的公告按钮组内容容器
     AttentionDialog.prototype.getBtnsContentByCate = function (cate) {
-        // for(var a in this.arr_btns_content)
         for (var a = 0; a < this.arr_btns_content.length; a++) {
             var c = this.arr_btns_content[a].data.noticeCate;
             if (c == cate) {
@@ -230,9 +203,7 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.initTableHead = function () {
         var sp_table_head = Tools.addSprite(this, this.conf.tablehead.bg);
-        //表格头的竖线
         var arr_lines = new Array();
-        // for( var k in this.conf.tablehead.headlines.ws )
         for (var k = 0; k < this.conf.tablehead.headlines.ws.length; k++) {
             var w = this.conf.tablehead.headlines.ws[k];
             var len = arr_lines.length;
@@ -252,11 +223,8 @@ var AttentionDialog = /** @class */ (function (_super) {
             this.addChild(oneline);
             arr_lines.push(oneline);
         }
-        //公告分类上的数量提示
         this.arr_tips = new Array();
-        //公告分类tab按钮
         this.arr_cate_btns = new Array();
-        // for( var k in this.conf.tablehead.headlines.labels )
         for (var k = 0; k < this.conf.tablehead.headlines.labels.length; k++) {
             var labelInfo = this.conf.tablehead.headlines.labels[k];
             var lb = new MySwitchBtn();
@@ -274,7 +242,6 @@ var AttentionDialog = /** @class */ (function (_super) {
             this.arr_tips.push(tips);
         }
     };
-    //公告分类按钮被点击之后
     AttentionDialog.prototype.headClick = function (e) {
         // Debug.trace("headClick:");
         // Debug.trace(e);
@@ -290,30 +257,17 @@ var AttentionDialog = /** @class */ (function (_super) {
         var bg = Tools.addSprite(this, this.conf.bg);
         var bgbig = Tools.addSprite(this, this.conf.bgbig);
     };
-    //请求是否需要弹窗
     AttentionDialog.prototype.requestPop = function () {
         this.bRequestStatus = 1;
         LayaMain.getInstance().showCircleLoading();
-        //询问，是否需要弹窗
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.attention_pop +
-            //"?pageSize=20&start=0&access_token="+Common.access_token;
-            // "";
             "?access_token=" + Common.access_token;
         NetManager.getObj().HttpConnect(url, this, this.responsePop);
-        // this.responseInfo(this.conf.testData,this.conf.testData.stat);
     };
     AttentionDialog.prototype.responsePop = function (s, stat, hr) {
-        // Debug.trace("AttentionDialog.responsePop stat:"+stat);
-        // Debug.trace("AttentionDialog.responsePop s:");
-        // Debug.trace(s);
-        // Debug.trace("AttentionDialog.responsePop hr:");
-        // Debug.trace(hr);
-        /*
-        {
-            pop:true
-        }
-        */
+        Debug.trace("AttentionDialog.responsePop s:");
+        Debug.trace(s);
         try {
             this.bPopAuto = s.pop;
             this.iDefaultCate = s.noticeCate;
@@ -326,28 +280,9 @@ var AttentionDialog = /** @class */ (function (_super) {
             // Debug.trace("AttentionDialog.responsePop bPopAuto:"+this.bPopAuto);
         }
         catch (e) { }
-        // if( stat == "complete" )
-        // {
-        // this.data = Laya.loader.getRes("./assets/conf/testNoticeData.json");
-        /*
-        this.initBtnsContent(this.data);
-
-        this.changeTab(this.curTabCate);
-
-        var it = this.arr_btns_content[0].arr_btns[0];
-        this.arr_btns_content[this.curTabCate].changeTab(it.data.noticeid);
-
-        this.refreshDataUnread(0);
-        this.refreshDataUnread(1);
-        */
-        // }else{
-        //     this.bRequestStatus = -1;
-        // }
-        //请求公告列表
         this.requestAttention();
     };
     AttentionDialog.prototype.requestAttention = function () {
-        //询问，是否需要弹窗
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.attention_new +
             "?access_token=" + Common.access_token;
@@ -355,38 +290,12 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.responseAttention = function (s, stat, hr) {
         // Debug.trace("AttentionDialog.responseAttention stat:"+stat);
-        // Debug.trace("AttentionDialog.responseAttention s:");
-        // Debug.trace(s);
-        // Debug.trace("AttentionDialog.responseAttention hr:");
-        // Debug.trace(hr);
-        /*
-        [
-            {
-                noticeCate:0,
-                noticeList[
-                    {
-                        noticeid:10005,
-                        title:"zard",
-                        content:"teste",
-                        author:"20180114",
-                        bread:false
-                    }
-                ],
-                noticeName:"游戏公告"
-            },
-            {
-                noticeCate:1,
-                noticeList[],
-                noticeName:"活动公告"
-            }
-        ]
-        */
+        Debug.trace("AttentionDialog.responseAttention s:");
+        Debug.trace(s);
         if (stat == "complete") {
-            this.data = s; //Laya.loader.getRes("./assets/conf/testNoticeData.json");
+            this.data = s;
             this.initBtnsContent(this.data);
             this.changeTab(this.curTabCateId);
-            // var it = this.arr_btns_content[0].arr_btns[0];
-            // this.arr_btns_content[this.curTabCateId].changeNotice(it.data.noticeid);
             this.refreshDataUnread(0);
             this.refreshDataUnread(1);
             if (this.bPopAuto) {
@@ -401,7 +310,6 @@ var AttentionDialog = /** @class */ (function (_super) {
         }
     };
     AttentionDialog.prototype.requestRead = function (id) {
-        //询问，是否需要弹窗
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.attention_read + id +
             "?access_token=" + Common.access_token;
@@ -415,73 +323,24 @@ var AttentionDialog = /** @class */ (function (_super) {
         );
     };
     AttentionDialog.prototype.responseRead = function (s, stat, hr) {
-        // Debug.trace("AttentionDialog.responseRead stat:"+stat);
-        // Debug.trace("AttentionDialog.responseRead s:");
-        // Debug.trace(s);
-        // Debug.trace("AttentionDialog.responseRead hr:");
-        // Debug.trace(hr);
-        /*
-        {
-            noticeId:10006
-        }
-        */
         if (stat == "complete") {
-            //已读某id
             try {
                 this.setReaded(s.noticeId);
             }
             catch (e) { }
-            // this.data = Laya.loader.getRes("./assets/conf/testNoticeData.json");
-            /*
-            this.initBtnsContent(this.data);
-
-            this.changeTab(this.curTabCate);
-
-            var it = this.arr_btns_content[0].arr_btns[0];
-            this.arr_btns_content[this.curTabCate].changeTab(it.data.noticeid);
-
-            this.refreshDataUnread(0);
-            this.refreshDataUnread(1);
-            */
         }
         else {
         }
     };
-    //查询所有条目，看看哪个的公告id与此相同
     AttentionDialog.prototype.setReaded = function (noticeId) {
-        //遍历按钮内容组
         for (var i = 0; i < this.arr_btns_content.length; i++) {
-            //在一个内容里查按钮
             var cb = this.arr_btns_content[i];
             cb.setReaded(noticeId);
         }
     };
-    //显示空数据提示
-    // public showEmptyData(b:boolean):void
-    // {
-    //     if( !this.lb_empty )
-    //     {
-    //         this.lb_empty = Tools.newLabel(
-    //             this.conf.empty.font.text,
-    //             this.conf.empty.size.w,this.conf.empty.size.h,
-    //             this.conf.empty.font.size,this.conf.empty.font.color,
-    //             this.conf.empty.font.align,this.conf.empty.font.valign,
-    //             this.conf.empty.font.name,this.conf.empty.font.wrap
-    //         );
-    //         if( this.conf.empty.font.borderColor )
-    //         {
-    //             this.lb_empty.borderColor = this.conf.empty.font.borderColor;
-    //         }
-    //         this.lb_empty.pos(this.conf.empty.pos.x,this.conf.empty.pos.y);
-    //         this.addChild(this.lb_empty);
-    //     }
-    //     this.lb_empty.visible = b;
-    // }
-    //转换数据
     AttentionDialog.prototype.transData = function (da) {
         var d = new Array();
         var id = 1;
-        // for( var k in da )
         for (var k = 0; k < da.length; k++) {
             var o = da[k];
             var n = {
@@ -515,7 +374,6 @@ var AttentionDialog = /** @class */ (function (_super) {
         };
         return a;
     };
-    //添加历史纪录条目
     AttentionDialog.prototype.addHistoryItem = function (data) {
         if (this.conf.testitemlen) {
             var id = data.length;
@@ -525,36 +383,16 @@ var AttentionDialog = /** @class */ (function (_super) {
                 id++;
             }
         }
-        //遍历有多少条数据就加多少个条目
-        // for( var k in data )
         for (var k = 0; k < data.length; k++) {
             var one = data[k];
-            // Debug.trace('addHistoryItem k:'+k);
-            // this.addOneItem(one);
         }
     };
     AttentionDialog.prototype.setData = function (data) {
         this.data = data;
-        // if( this.data && this.data.img )
-        // {
-        //     this.setBg(this.data.img);
-        // }
         if (this.data && this.data.notice) {
             // this.lb_content.text = data.notice;
         }
     };
-    // public setBg(src:string):void
-    // {
-    //     Laya.loader.load(src,new Laya.Handler(this,this.bgLoaded));
-    // }
-    // public bgLoaded(e:any):void
-    // {
-    //     this.bg.graphics.clear();
-    // 	this.bg.graphics.drawTexture(e, 0, 0,
-    //         this.bg.width,this.bg.height
-    //         );
-    // 	// this.sp_icon.size(e.width,e.height);
-    // }
     AttentionDialog.prototype.onMouse = function (e) {
         if (this.conf.touchout) {
             if (this.conf.touchout.value && e.type == Laya.Event.MOUSE_DOWN) {

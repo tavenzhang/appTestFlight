@@ -3,16 +3,16 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://38fo28gk.czdelong.com',
-    base2: 'https://38fo28gk.fdk800.com',
-    base3: 'https://38fo28gk.jdzdingli.com',
-    base4: 'https://hosobw29.czdelong.com',
-    base5: 'https://hosobw29.jdzdingli.com',
-    base6: 'https://hosobw29.fdk800.com',
-    base7: 'https://www.vdfrtw654qefhj.com',
+    base1: 'https://pt2kmby3.kwuesw.com',
+    base2: 'https://pt2kmby3.pnldtz.com',
+    base3: 'https://pt2kmby3.pnldtz.com',
+    base4: 'https://pt2kmby3.pnldtz.com',
+    base5: 'https://pt2kmby3.pnldtz.com',
+    base6: 'https://pt2kmby3.pnldtz.com',
+    base7: 'https://pt2kmby3.weygwy.com',
 }
 
-export let configAppId = "1146"
+export let configAppId = "280001"
 
 
 export const AppConfig = {
@@ -30,34 +30,34 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '梦想游戏';
+export const MyAppName = '博必胜游戏';
 
-export const versionHotFix = 'mxqp_3_25';
+export const versionHotFix = 'bbsqp_4_1';
 
 export const safeguardDomain = [
-    "https://37a9aea1be8915f4998443873ec90db0.oss-cn-shenzhen.aliyuncs.com",
-    "https://37a9aea1be8915f4998443873ec90db0.s3-accelerate.amazonaws.com",
-    "https://37a9aea1be8915f4998443873ec90db0.azureedge.net"]
+    "https://a114f532e705020295b89c40b901e127.oss-cn-shenzhen.aliyuncs.com",
+    "https://a114f532e705020295b89c40b901e127.s3-accelerate.amazonaws.com",
+    "https://a114f532e705020295b89c40b901e127.azureedge.net"]
 
 
 export const platInfo = {
-    loginDomain:"https://38fo28gk.czdelong.com",
-    gameDomain:"https://yw8txj2e.pgzlwx.com",
+    loginDomain:"https://pt2kmby3.kwuesw.com",
+    gameDomain:"https://pt2kmby3.kwuesw.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
         release_server: "https://download.hkbaoxian188.com/game/release/mxaw7"
     },
     platId: configAppId,
-    brand: "mxqp",
+    brand: "bbsqp",
     channel: {}
 }
 
 export const affCodeList = {
     ios: {
-        '2.9.6': 'mxaw7_ios'
+        '2.9.6': 'bbsqp_ios'
     },
     android: {
-        '2.10.11': 'mxaw7_android'
+        '2.10.11': 'bbsqp_android'
     }
 };

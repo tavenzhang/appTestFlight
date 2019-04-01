@@ -28,12 +28,8 @@ var LayaMain = /** @class */ (function () {
         Laya.stage.alignV = Laya.Stage.ALIGN_MIDDLE;
         Laya.stage.bgColor = "#000000";
         Laya.stage.on(Laya.Event.RESIZE, this, this.onResize);
-        // if( !AppData.IS_NATIVE_APP )
-        // {
-        //     window.addEventListener("message", this.handleAction,false);
-        // }else{
+        window.addEventListener("message", this.handleAction, false);
         window.document.addEventListener("message", this.handleIFrameAction, false);
-        // }
     }
     LayaMain.getInstance = function () {
         return LayaMain.obj;
@@ -155,7 +151,6 @@ var LayaMain = /** @class */ (function () {
                     if (Avator.obj) {
                         Avator.obj.flushUserInfo();
                     }
-                    break;
                 case "openDebug":
                     window["initVconsole"]();
                     break;
@@ -165,11 +160,23 @@ var LayaMain = /** @class */ (function () {
                 case "updateProgress":
                     UpdateMsgHandle.onUpdateMsg(message.data);
                     break;
+                case "setrawroot":
+                    UpdateMsgHandle.setRawRoot(message.data);
+                    break;
+                case "playsound":
+                    UpdateMsgHandle.playSound(message.data);
+                    break;
+                case "playmusic":
+                    UpdateMsgHandle.playMusic(message.data);
+                    break;
             }
         }
     };
     LayaMain.prototype.onResize = function () {
         ToolsApp.initAppData();
+        if (AppData.IS_NATIVE_APP) {
+            window.removeEventListener("message", this.handleAction, false);
+        }
     };
     LayaMain.prototype.clearChild = function () {
         if (this.sceneLobby) {

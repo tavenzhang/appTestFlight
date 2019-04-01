@@ -17,7 +17,6 @@ var AttentionItem = /** @class */ (function (_super) {
         return _super.call(this) || this;
     }
     AttentionItem.prototype.init = function (root, conf, sortid) {
-        //配置
         this.rootCatePage = root;
         this.conf = conf;
         this.btnswitch = new MySwitchBtn();
@@ -34,14 +33,12 @@ var AttentionItem = /** @class */ (function (_super) {
         this.setChoosed(false);
         // this.setReaded(false);
     };
-    //设定该公告按钮被选中
     AttentionItem.prototype.setOn = function (id) {
         if (id == 0) {
             this.setChoosed(false);
         }
         else if (id == 1) {
             this.setChoosed(true);
-            //请求网络，设定该条目已读
             AttentionDialog.obj.requestRead(this.data.noticeid);
         }
         this.btnswitch.setOn(id);
@@ -91,9 +88,7 @@ var AttentionItem = /** @class */ (function (_super) {
         this.markNew.visible = !b;
         // Debug.trace("b:"+b+" bread:"+this.data.bread+" cateid:"+this.cateId);
         if (b && !this.data.bread) {
-            //通知服务器，已读
             this.data.bread = true;
-            //减少该分类总数
             AttentionDialog.getObj().refreshDataUnread(this.cateId); //this.data.noticeid);
         }
     };

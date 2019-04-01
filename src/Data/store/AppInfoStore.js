@@ -135,7 +135,6 @@ export default class AppInfoStore {
     }
 
     initData=(appInfo)=>{
-        TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.initData====");
         appInfo=appInfo ? appInfo: {PLAT_ID: configAppId, isNative: false};
         //所以的clintId 在此重置
         this.clindId = appInfo.PLAT_ID ? appInfo.PLAT_ID : configAppId;
@@ -152,10 +151,10 @@ export default class AppInfoStore {
         /*** 初始化邀请码*/
         this.userAffCode = this.appInfo.Affcode;
         this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
-        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--this.userAffCode--"+this.userAffCode, appInfo);
+       // TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--this.userAffCode--"+this.userAffCode, appInfo);
         if (G_IS_IOS){
             //ios 动态开启友盟等接口 android 是编译时 决定好了。
-            TW_Log('JX===  appInfo '+this.appInfo.APP_DOWNLOAD_VERSION+"--appInfo.JPushKey=="+this.appInfo.JPushKey,this.appInfo)
+           // TW_Log('JX===  appInfo '+this.appInfo.APP_DOWNLOAD_VERSION+"--appInfo.JPushKey=="+this.appInfo.JPushKey,this.appInfo)
             TN_StartJPush(this.appInfo.JPushKey,'1');
             TN_START_Fabric();
             // TN_START_SHARE("111","222");

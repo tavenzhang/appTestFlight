@@ -52,6 +52,7 @@ export default class BtnPayType extends Component {
     onSelect = () => {
         let {onClick,data} = this.props
         if (onClick) {
+            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
             onClick(data)
         }
     }

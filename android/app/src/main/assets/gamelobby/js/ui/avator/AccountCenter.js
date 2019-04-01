@@ -46,20 +46,14 @@ var AccountCenter = /** @class */ (function (_super) {
         this.data = Common.userInfo; //headicon.data;
         Debug.trace('AccountCenter.init this.data:');
         Debug.trace(this.data);
-        //半透明大背景
         this.initAlphaBg();
-        //背景图
         this.initBg(this.conf.bg);
-        //标题
         if (this.conf.title) {
             var sp_title_lb = Tools.newSprite(this.conf.title.lb);
             this.addChild(sp_title_lb);
         }
-        //当前头像背景
         this.initCurAvator(this.conf.curavator);
-        //初始化按钮组
         this.initBtns(this.conf.btns);
-        //关闭按钮
         if (this.conf.close) {
             this.close = new MyButton();
             this.close.init(this.conf.close, this, this.onClose);
@@ -68,7 +62,6 @@ var AccountCenter = /** @class */ (function (_super) {
         }
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
-    //半透明大背景
     AccountCenter.prototype.initAlphaBg = function () {
         this.alphabg = new Laya.Sprite();
         Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
@@ -79,38 +72,21 @@ var AccountCenter = /** @class */ (function (_super) {
         this.alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
     };
-    //初始化背景
     AccountCenter.prototype.initBg = function (conf) {
         if (!conf) {
             return;
         }
-        // var sp_bg = new Laya.Sprite();
-        // sp_bg.pos(conf.pos.x,conf.pos.y);
-        // this.addChild(sp_bg);
-        // Tools.scaleSpriteV(
-        //         sp_bg,
-        //         conf.src,
-        //         conf.size.spliceV);
-        // //如果有注册点
-        // if( conf.pivot )
-        // {
-        //     sp_bg.pivot(conf.pivot.x,conf.pivot.y);
-        // }
         var sp_bg = Tools.addSprite(this, conf);
     };
-    //初始化当前头像
     AccountCenter.prototype.initCurAvator = function (conf) {
         if (!conf) {
             return;
         }
         if (conf) {
-            //当前头像背景
             if (conf.bg) {
                 var sp_curavator_bg = Tools.addSprite(this, conf.bg);
             }
-            //光晕效果
-            if (conf.title) //标题：当前头像
-             {
+            if (conf.title) {
                 var sp_lb = new Laya.Sprite();
                 sp_lb.loadImage(conf.title.lb.src);
                 sp_lb.pos(conf.title.lb.pos.x, conf.title.lb.pos.y);
@@ -125,11 +101,9 @@ var AccountCenter = /** @class */ (function (_super) {
                 this.addChild(sp_p2);
             }
             if (conf.avator) {
-                //头像背景框
                 if (conf.iconframe) {
                     var iconframe = Tools.addSprite(this, conf.iconframe);
                 }
-                //头像
                 this.sp_icon = new Laya.Sprite();
                 this.sp_icon.loadImage(conf.avator.src);
                 this.sp_icon.pos(conf.avator.pos.x, conf.avator.pos.y);
@@ -138,65 +112,39 @@ var AccountCenter = /** @class */ (function (_super) {
                 var scy = conf.avator.size.h / this.sp_icon.height;
                 this.sp_icon.scale(scx, scy);
             }
-            //玩家id
             if (conf.id) {
-                //id 背景
                 if (conf.id.bg) {
                     var sp_idbg = Tools.newSprite(conf.id.bg);
                     this.addChild(sp_idbg);
-                    // Debug.trace("idbg");
                 }
                 if (conf.id.label) {
                     this.lb_id = Tools.addLabels(this, conf.id.label);
-                    // this.lb_id = Tools.newLabel(
-                    //         "---",
-                    //         conf.id.size.w,conf.id.size.h,
-                    //         conf.id.font.size,
-                    //         conf.id.font.color,
-                    //         conf.id.font.align,conf.id.font.valign,
-                    //         conf.id.font.name,conf.id.font.wordwrap);
-                    // if( conf.id.font.borderColor )
-                    // {
-                    //     this.lb_id.borderColor = conf.id.font.borderColor;
-                    // }
-                    // this.lb_id.pos(conf.id.pos.x,conf.id.pos.y);
-                    // this.addChild(this.lb_id);
                 }
-                // this.setId("123456");
             }
-            //当前金额
             if (conf.money) {
                 if (conf.money.bg) {
                     var sp_idbg = Tools.newSprite(conf.money.bg);
                     this.addChild(sp_idbg);
                 }
                 if (conf.money.label) {
-                    // this.lb_money = Tools.addLabels(this,conf.money.label);
                     var v = Common.userInfo.userBalance.balance;
                     v = Tools.FormatMoney(v, 2);
-                    // this.lb_money.text = v;
                     this.lb_num = new DataNum(ConfObjRead.getConfDataNum());
                     this.addChild(this.lb_num);
                     this.lb_num.setNum(v);
                     this.lb_num.pos(conf.money.label.pos.x, conf.money.label.pos.y);
                 }
             }
-            //确认更换按钮
             if (conf.btnchange) {
                 this.btnchange = new MyButton();
                 this.btnchange.setQuery(conf.btnchange.cmd);
-                this.btnchange.init(conf.btnchange, this, this.onButtonClick); //.onSure);
+                this.btnchange.init(conf.btnchange, this, this.onButtonClick);
                 this.btnchange.pos(conf.btnchange.pos.x, conf.btnchange.pos.y);
                 this.addChild(this.btnchange);
-                //初始进来，不可点
-                // this.btnchange.visible = false;
-                // this.btnchange.setEnabled(false,true);
             }
-            //根据当前数据，改变头像和id
             this.resetIconAndID();
         }
     };
-    //初始化按钮
     AccountCenter.prototype.initBtns = function (conf) {
         for (var i = 0; i < conf.length; i++) {
             var cf = conf[i];
@@ -235,62 +183,47 @@ var AccountCenter = /** @class */ (function (_super) {
     };
     AccountCenter.prototype.setCallback = function () {
     };
-    //重设图标和id
     AccountCenter.prototype.resetIconAndID = function () {
         // this.data.headerIndex = Tools.transNickname2id(this.data.username);
         if (!this.data) {
             this.data = { "avatorId": 1, "userId": "123456" };
+        }
+        if (!this.data.avatorId) {
+            this.data.avatorId = 1;
         }
         var id = parseInt(this.data.avatorId); //.headerIndex);
         this.setIcon(id);
         // this.setId(this.data.userId);
         this.setName(this.data.username);
     };
-    //确认更换头像
-    // public onSure(e:any):void
-    // {
-    //发起请求，修改当前头像id
-    //修改当前头像
-    // AvatorPad.showPad(LobbyScene.getInstance());
-    // }
     AccountCenter.prototype.onSureDis = function (e) {
         // Debug.trace('btn change dis click');
     };
-    //当前按钮有效与否
     AccountCenter.prototype.btnEnable = function (b) {
         if (this.btnchange) {
             this.btnchange.visible = b;
             // this.btnchange.setEnabled(b,true);
         }
     };
-    //设置头像编号
     AccountCenter.prototype.setIcon = function (id) {
         // this.cur_icon_id = id;
-        Debug.trace("AccountCenter.setIcon id:" + id);
+        // Debug.trace("AccountCenter.setIcon id:"+id);
         if (this.sp_icon) {
             this.drawIcon(id);
         }
     };
-    //绘制指定编号的头像
     AccountCenter.prototype.drawIcon = function (id) {
         if (!this.sp_icon) {
             return;
         }
         Debug.trace("AccountCenter.drawIcon id:" + id);
-        //先清除
         this.sp_icon.graphics.clear();
-        //头像编号补齐
         var index = Tools.FormatNumber(id, 2);
-        //拼出头像资源
-        var res = //Common.confObj.titlebar.headicon.picnamehead + 
-         ConfObjRead.getConfAvator().headicon.picnamehead +
+        var res = ConfObjRead.getConfAvator().headicon.picnamehead +
             index +
-            // Common.confObj.titlebar.headicon.picnameend;
             ConfObjRead.getConfAvator().headicon.picnameend;
         Debug.trace("AccountCenter.drawIcon res:" + res);
-        //根据资源取出texture
         var tex = Laya.loader.getRes(Tools.getSrc(res));
-        //绘制新的
         this.sp_icon.graphics.drawTexture(tex, 0, 0);
     };
     AccountCenter.prototype.setName = function (id) {
@@ -304,7 +237,6 @@ var AccountCenter = /** @class */ (function (_super) {
             y: pos.y
         }, 200, Laya.Ease["backIn"]);
     };
-    //点击外部半透明区域
     AccountCenter.prototype.onMouse = function (e) {
         if (this.conf.touchout) {
             if (this.conf.touchout.value && e.type == Laya.Event.MOUSE_DOWN) {

@@ -182,6 +182,7 @@ var GameItem = /** @class */ (function (_super) {
         if (this.data.state == "NORMAL") {
             this.btn_icon.alpha = this.animConf.dAlpha;
             this.btn_icon.setEnabled(true);
+            // Debug.trace("GameItem.setEnable b:"+b+" this.btn_icon.alpha:"+this.btn_icon.alpha);
         }
         else {
             this.sp_anim.alpha = 0;
@@ -254,6 +255,7 @@ var GameItem = /** @class */ (function (_super) {
                 this.sp_anim.visible = true;
                 this.btn_icon.alpha = this.animConf.dAlpha;
                 this.btn_icon.setEnabled(true);
+                // Debug.trace("GameItem.refreshStatus NORMAL btn_icon.alpha:"+this.btn_icon.alpha);
                 break;
             case GameItem.STATUS_PAUSE:
                 this.showPause();
@@ -267,21 +269,38 @@ var GameItem = /** @class */ (function (_super) {
         this.sStatus = st;
         this.refreshStatus();
     };
-    GameItem.prototype.onStartUpdate = function () {
+    GameItem.prototype.onStartUpdate = function (bPost) {
+        if (bPost === void 0) { bPost = true; }
         if (this.bInUpdate) {
             return;
         }
         this.bInUpdate = true;
         this.iUpdateProgress = 0.0;
-        this.sp_anim.visible = false;
-        this.btn_icon.setEnabled(false);
-        this.btn_icon.alpha = 1;
-        this.sp_Update.visible = false;
+        if (this.sp_anim) {
+            this.sp_anim.visible = false;
+        }
+        // Debug.trace("GameItem.onStartUpdate show btn_icon 0");
+        if (this.btn_icon) {
+            this.btn_icon.setEnabled(false);
+            this.btn_icon.alpha = 1;
+            this.btn_icon.visible = true;
+            // Debug.trace("GameItem.onStartUpdate show btn_icon");
+        }
+        if (this.sp_Update) {
+            this.sp_Update.visible = false;
+        }
         this.showProgressText();
         this.refreshUpdateProgress();
-        PostMHelp.startUpdate({ "gameId": this.data.id, "alias": this.data.alias });
+        if (bPost) {
+            PostMHelp.startUpdate({ "gameId": this.data.id, "alias": this.data.alias });
+        }
     };
     GameItem.prototype.onUpdateProgress = function (n) {
+        // Debug.trace("GameItem.onUpdateProgress n:"+n+" bInUpdate:"+this.bInUpdate+" status:"+this.sStatus);
+        if (this.sStatus != GameItem.STATUS_UPDATE || !this.bInUpdate) {
+            this.setStatus(GameItem.STATUS_UPDATE);
+            this.onStartUpdate(false);
+        }
         this.iUpdateProgress = n;
         this.refreshUpdateProgress();
     };

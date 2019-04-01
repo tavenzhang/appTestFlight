@@ -17,9 +17,9 @@ var Girl = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.iMovePercent = 0;
         _this.curMove = 0;
-        _this.moveType = Girl.MOVE_TYPE_IN; //移动类型
-        _this.moveDirect = Girl.MOVE_DIRECT_LEFT; //移动方向
-        _this.bAutogo = false; //是否处于自动弹
+        _this.moveType = Girl.MOVE_TYPE_IN;
+        _this.moveDirect = Girl.MOVE_DIRECT_LEFT;
+        _this.bAutogo = false;
         _this.id = -1;
         _this.caller = null;
         _this.callback = null;
@@ -29,25 +29,21 @@ var Girl = /** @class */ (function (_super) {
         return _this;
     }
     Girl.prototype.init = function () {
-        //背景
         if (this.conf.bg) {
             this.initBg(this.conf.bg);
         }
         if (this.conf.gg) {
             var sp_icon = Tools.addSprite(this, this.conf.gg);
         }
-        //前景
         if (this.conf.front) {
             this.initFront(this.conf.front);
         }
     };
-    //设置侦听
     Girl.prototype.setListener = function (id, caller, callback) {
         this.id = id;
         this.caller = caller;
         this.callback = callback;
     };
-    //初始化背景
     Girl.prototype.initBg = function (conf) {
         if (!conf) {
             return;
@@ -60,7 +56,6 @@ var Girl = /** @class */ (function (_super) {
             anim.playAnim(0, true);
         }
     };
-    //前景
     Girl.prototype.initFront = function (conf) {
         if (!conf) {
             return;
@@ -80,26 +75,17 @@ var Girl = /** @class */ (function (_super) {
         };
         this.pos(x, y);
     };
-    //刷新当前的移动状态
     Girl.prototype.refreshMoveState = function (movex, direct) {
-        //最大移动
         var max = this.confCommon.maxMoveX;
-        //当前移动量
         this.curMove += movex;
         var curAbs = Math.abs(this.curMove);
-        //当前移动量所占百分比
         this.iMovePercent = curAbs / max;
-        //当前的alpha值修改
         this.alpha = 1 - this.iMovePercent;
-        //当前的移动方向
         this.moveDirect = direct;
-        //超过一定比例之后，自动弹
         if (this.iMovePercent >= this.confCommon.autoPercent) {
-            //区分当前移动方向的左右
             var px = 0, py = 0;
             var sfx = "";
             if (direct == Girl.MOVE_DIRECT_RIGHT) {
-                //右移
                 px = this.confCommon.right.x + this.pinit.x;
                 py = this.confCommon.right.y + this.pinit.y;
                 if (this.confCommon.sfxright) {
@@ -107,7 +93,6 @@ var Girl = /** @class */ (function (_super) {
                 }
             }
             else if (direct == Girl.MOVE_DIRECT_LEFT) {
-                //左移
                 px = this.confCommon.left.x + this.pinit.x;
                 py = this.confCommon.left.y + this.pinit.y;
                 if (this.confCommon.sfxleft) {
@@ -115,16 +100,13 @@ var Girl = /** @class */ (function (_super) {
                 }
             }
             this.moveType = Girl.MOVE_TYPE_OUT;
-            //播放滑动音效
             if (sfx.length > 0) {
                 Laya.SoundManager.playSound(sfx);
             }
             this.autoGo(px, py, 0);
         }
     };
-    //移入
     Girl.prototype.moveIn = function (direct) {
-        //将此对象设定到起点
         var startPos;
         switch (direct) {
             case Girl.MOVE_DIRECT_LEFT:
@@ -139,15 +121,11 @@ var Girl = /** @class */ (function (_super) {
         this.moveType = Girl.MOVE_TYPE_IN;
         // Debug.trace("Girl.moveIn id:"+this.id+" autoGo start startPos x:"+startPos.x+" y:"+startPos.y);
         this.pos(startPos.x, startPos.y);
-        //将移动的alpha设定为0
         this.alpha = 0;
         this.visible = true;
-        //开始移动
         this.autoGo(this.pinit.x, this.pinit.y, 1);
     };
-    //回去
     Girl.prototype.moveBack = function () {
-        //当前的移动方向
         switch (this.moveDirect) {
             case Girl.MOVE_DIRECT_LEFT:
                 this.moveDirect = Girl.MOVE_DIRECT_RIGHT;
@@ -159,7 +137,6 @@ var Girl = /** @class */ (function (_super) {
         this.moveType = Girl.MOVE_TYPE_BACK;
         this.autoGo(this.pinit.x, this.pinit.y, 1);
     };
-    //自动移动出去
     Girl.prototype.autoGo = function (xs, ys, alphas) {
         if (this.bAutogo) {
             return;
@@ -173,12 +150,10 @@ var Girl = /** @class */ (function (_super) {
         }, this.confCommon.duration, Laya.Ease[this.confCommon.tweenName], new Laya.Handler(this, this.autoMoveSuc));
         // Debug.trace("Girl.autoGo id:"+this.id+" tween:");
         // Debug.trace(tween);
-        //通知管理，我现在开始自动弹了，不要再控制了
         if (this.callback && this.caller) {
             this.callback.apply(this.caller, [this, Girl.MOVE_EVENT_START, this.moveType, this.moveDirect]);
         }
     };
-    //弹出动画播放完毕，恢复到初始位置
     Girl.prototype.autoMoveSuc = function () {
         this.bAutogo = false;
         // this.reset();
@@ -186,7 +161,6 @@ var Girl = /** @class */ (function (_super) {
             this.callback.apply(this.caller, [this, Girl.MOVE_EVENT_END, this.moveType, this.moveDirect]);
         }
     };
-    //重设该角色
     Girl.prototype.reset = function () {
         this.bAutogo = false;
         this.iMovePercent = 0;

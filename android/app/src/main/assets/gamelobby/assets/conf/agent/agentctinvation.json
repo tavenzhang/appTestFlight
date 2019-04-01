@@ -1,0 +1,202 @@
+{
+    "pos": {
+        "x": 250,
+        "y": 75
+    },
+    "btnInvi": {
+        "desc": "",
+        "pos": {
+            "x": 130,
+            "y": 75
+        },
+        "src": [
+            "./assets/ui/agent/img_daili_shengcheng.png"
+        ],
+        "size": {
+            "w": 208,
+            "h": 56
+        },
+        "sfx": "assets/raw/click.mp3",
+        "maxScale": {
+            "x": 1.05,
+            "y": 1.05
+        },
+        "normalScale": {
+            "x": 1,
+            "y": 1
+        }
+    },
+    "infobar": {
+        "src": "./assets/ui/agent/img_daili_tou_ewm.png",
+        "pos": {
+            "x": 25,
+            "y": 120
+        },
+        "size": {
+            "w": 1014,
+            "h": 50
+        }
+    },
+     "list":{
+        "pos":{
+            "x":36,
+            "y":150
+        },
+        "size":{
+            "w":1010,
+            "h":450
+        },
+        "frameX":{
+            "color":"#ff0000",
+            "alpha":0.5
+        },
+        "item":{
+            "h":50,
+            "gh":10,
+            "bg":{
+                "color":"#ff0000",
+                "alpha":0.1
+            }
+        },
+        "guanxing":true,
+        "xiangpiDis":0,
+        "xiangpiTime":300
+    },
+    "invBlock": {
+        "bg": {
+            "src": "./assets/ui/agent/img_daili_ewm_ditiao.png",
+            "pos": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "size": {
+            "w": 1014,
+            "h": 136
+        },
+        "code": {
+            "pos": {
+                "x": 0,
+                "y": 10
+            },
+            "size": {
+                "w": 220,
+                "h": 126
+            },
+            "font": {
+                "text": "ABCD1234524243267",
+                "size": 26,
+                "color": "#ffba25",
+                "align": "center",
+                "valign": "middle",
+                "name": "Microsoft Yahei Bold",
+                "wrap": true,
+                "underline": false,
+                "borderColorX": "#ff0000",
+                "alpha": 1
+            }
+        },
+        "inputlink": {
+            "skin": "",
+            "pos": {
+                "x": 260,
+                "y": 20
+            },
+            "size": {
+                "w": 400,
+                "h": 40
+            },
+            "sizegrid": "0,0,0,0",
+            "font": "Arial",
+            "fontsize": 34,
+            "bold": false,
+            "color": "#efe8cd",
+            "typeX": "number",
+            "promptX": "http://www.google.com/xxx/yyy/zzz",
+            "text": "http://www.google.com/xxx/yyy/zzz",
+            "editable": {
+                "value": false
+            }
+        },
+        "qr": {
+            "src": "./assets/ui/agent/img_daili_touxiang.png",
+            "pos": {
+                "x": 762,
+                "y": 66
+            },
+            "size": {
+                "w": 98,
+                "h": 98
+            }
+        },
+        "btnCopy": {
+            "desc": "",
+            "pos": {
+                "x": 355,
+                "y": 95
+            },
+            "src": [
+                "./assets/ui/agent/img_daili_fuzhilianjie.png"
+            ],
+            "size": {
+                "w": 198,
+                "h": 72
+            },
+            "sfx": "assets/raw/click.mp3",
+            "maxScale": {
+                "x": 0.75,
+                "y": 0.75
+            },
+            "normalScale": {
+                "x": 0.7,
+                "y": 0.7
+            }
+        },
+        "btnShare": {
+            "desc": "",
+            "pos": {
+                "x": 560,
+                "y": 95
+            },
+            "src": [
+                "./assets/ui/agent/img_daili_weixinfenxiang.png"
+            ],
+            "size": {
+                "w": 198,
+                "h": 72
+            },
+            "sfx": "assets/raw/click.mp3",
+            "maxScale": {
+                "x": 0.75,
+                "y": 0.75
+            },
+            "normalScale": {
+                "x": 0.7,
+                "y": 0.7
+            }
+        },
+        "btnDelete": {
+            "desc": "",
+            "pos": {
+                "x": 915,
+                "y": 70
+            },
+            "src": [
+                "./assets/ui/agent/img_daili_shanchuewm.png"
+            ],
+            "size": {
+                "w": 83,
+                "h": 83
+            },
+            "sfx": "assets/raw/click.mp3",
+            "maxScale": {
+                "x": 1.05,
+                "y": 1.05
+            },
+            "normalScale": {
+                "x": 1,
+                "y": 1
+            }
+        }
+    }
+}

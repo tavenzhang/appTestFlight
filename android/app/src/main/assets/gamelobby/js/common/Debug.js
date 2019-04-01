@@ -60,7 +60,6 @@ var Debug = /** @class */ (function () {
         console.log(ct);
         PostMHelp.Log({ ct: ct, data: data });
     };
-    //是否在debug模式
     Debug.bDebug = window["bDebug"];
     Debug.bDebugPlatform = window["bDebugPlatform"];
     return Debug;

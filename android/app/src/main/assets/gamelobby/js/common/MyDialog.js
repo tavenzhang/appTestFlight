@@ -43,11 +43,9 @@ var MyDialog = /** @class */ (function (_super) {
             this.close.pos(this.conf.close.pos.x, this.conf.close.pos.y);
             this.addChild(this.close);
         }
-        //如果有注册点
         if (this.conf.pivot) {
             this.bg.pivot(this.conf.pivot.x, this.conf.pivot.y);
         }
-        //如果有固定尺寸
         if (this.conf.size) {
             this.scx = this.conf.size.w / this.bg.width;
             this.scy = this.conf.size.h / this.bg.height;

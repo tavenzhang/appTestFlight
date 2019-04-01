@@ -40,8 +40,7 @@ var MineMenus = /** @class */ (function (_super) {
             this.btn_menus = new PopMineMenus();
             this.btn_menus.init(this.conf.menus);
             this.addChild(this.btn_menus);
-            this.btn_menus.show(this.conf.default.bOpen); //初始进来，不显示
-            // Debug.trace("MineMenu.init 2");
+            this.btn_menus.show(this.conf.default.bOpen);
         }
         if (this.conf.switch) {
             // Debug.trace("MineMenu.init 3");
@@ -64,7 +63,6 @@ var MineMenus = /** @class */ (function (_super) {
         // Debug.trace("MineMenu.init 8");
     };
     MineMenus.prototype.clickSwitch = function (e) {
-        //点击后，检查菜单组是否打开？进行切换
         // this.btn_menus.switch();
         Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
     };

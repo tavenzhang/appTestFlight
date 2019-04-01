@@ -49,17 +49,12 @@ var LoginPad = /** @class */ (function (_super) {
         this.caller = caller;
         this.callback = callback;
         this.initAlphaBg();
-        //背景图
         this.initBg();
-        //标题
         this.initTitle();
-        //内容输入框
         this.initContent();
-        //动作按钮
         this.initBtns();
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
-    //登录注册按钮
     LoginPad.prototype.initBtns = function () {
         if (this.conf.btnreg) {
             this.btnreg = new MyButton();
@@ -80,12 +75,12 @@ var LoginPad = /** @class */ (function (_super) {
             var sp = Tools.addSprite(this, this.conf.loginshadow);
         }
     };
-    //输入框内容
     LoginPad.prototype.initContent = function () {
         if (this.conf.name) {
             var lb = Tools.addSprite(this, this.conf.name.label);
             var inputbg = Tools.addSprite(this, this.conf.name.inputbg);
             this.inputName = Tools.addInput(this, this.conf.name.input);
+            this.inputName.on(Laya.Event.INPUT, this, this.onNameKey);
         }
         if (this.conf.pwd) {
             var lb = Tools.addSprite(this, this.conf.pwd.label);
@@ -93,13 +88,23 @@ var LoginPad = /** @class */ (function (_super) {
             this.inputPwd = Tools.addInput(this, this.conf.pwd.input);
         }
     };
-    //设置用户名
+    LoginPad.prototype.onNameKey = function (e) {
+        var name = e;
+        var tx = name.text;
+        var ntx = tx.toLowerCase();
+        // Debug.trace("RegPad.onNameKey tx:"+tx+" ntx:"+ntx);
+        name.text = ntx;
+    };
     LoginPad.prototype.setUserName = function (name) {
         if (this.inputName) {
             this.inputName.text = name;
         }
     };
-    //半透明背景
+    LoginPad.prototype.setPassword = function (pwd) {
+        if (this.inputPwd) {
+            this.inputPwd.text = pwd;
+        }
+    };
     LoginPad.prototype.initAlphaBg = function () {
         if (this.conf.mask) {
             var alphabg = new Laya.Sprite();
@@ -112,7 +117,6 @@ var LoginPad = /** @class */ (function (_super) {
             alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
         }
     };
-    //背景
     LoginPad.prototype.initBg = function () {
         if (!AppData.isAndroidHack) {
             if (this.conf.logo) {
@@ -125,7 +129,6 @@ var LoginPad = /** @class */ (function (_super) {
         // Debug.trace("LoginPad.initBg");
         // Debug.trace(this.conf.bg.shine);
     };
-    //标题
     LoginPad.prototype.initTitle = function () {
         if (this.conf.title) {
             if (this.conf.title.bg) {
@@ -145,9 +148,7 @@ var LoginPad = /** @class */ (function (_super) {
             }
         }
     };
-    //点击登录按钮
     LoginPad.prototype.onLoginClick = function (e) {
-        //从文本框中取出名字、密码
         var name = this.inputName.text;
         var pwd = this.inputPwd.text;
         if (name.length <= 0 || pwd.length <= 0) {
@@ -155,7 +156,6 @@ var LoginPad = /** @class */ (function (_super) {
             return;
         }
         PostMHelp.debugInfo({ name: name, pwd: pwd });
-        //发起网络请求，请求登录
         this.requestLogin(name, pwd);
     };
     LoginPad.prototype.onRegClick = function (e) {
@@ -181,30 +181,8 @@ var LoginPad = /** @class */ (function (_super) {
         Debug.trace("Login Suc stat:" + stat);
         Debug.trace(s);
         LayaMain.getInstance().showCircleLoading(false);
-        /*
-        {
-            "username":"shawn001",
-            "lastSignInIp":"192.168.11.109",
-            "lastSignInAt":"2018-12-17 14:49:26",
-            "oauthRole":"USER",
-            "balance":13210.51,
-            "prizeGroup":1960,
-            "sessionId":"81cf357ee34e4cabd0a4888e",
-            "minMemberPrizeGroup":1900,
-            "oauthToken":{
-                "access_token":"abdbcf78-c7de-41a6-92b2-53333d639fba",
-                "token_type":"bearer",
-                "refresh_token":"eb79fba1-c2f6-4551-be3a-55c23e2c1c4d",
-                "expires_in":259199,
-                "scope":"ui"
-            }
-        }
-        */
-        // Debug.trace("Login suc");
-        // Debug.trace(hr);
         if (stat == "complete") {
-            //保存登录信息
-            var jobj; // = JSON.parse(s);
+            var jobj;
             try {
                 jobj = JSON.parse(s);
             }
@@ -215,11 +193,8 @@ var LoginPad = /** @class */ (function (_super) {
             try {
                 Common.loginInfo = jobj;
                 Common.access_token = jobj.oauthToken.access_token;
-                //存档
                 SaveManager.getObj().save(SaveManager.KEY_TOKEN, Common.access_token);
-                //登录成功，通知容器，当前新token
                 PostMHelp.tokenChange({ "payload": Common.access_token });
-                //登录成功，进入大厅
                 LayaMain.getInstance().initLobby();
             }
             catch (e) {
@@ -227,7 +202,6 @@ var LoginPad = /** @class */ (function (_super) {
             }
         }
         else {
-            //找出错误信息
             var err = hr.http.response;
             if (err) {
                 var obj = JSON.parse(err);
@@ -237,10 +211,6 @@ var LoginPad = /** @class */ (function (_super) {
                 Toast.showToast("未知错误，请联系管理员");
             }
         }
-        // if( MyBBLoading.obj )
-        // {
-        //     MyBBLoading.obj.show(false);
-        // }
     };
     return LoginPad;
 }(Laya.Sprite));

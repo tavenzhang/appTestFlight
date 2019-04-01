@@ -1,0 +1,32 @@
+{
+    "pos":{
+        "x":250,
+        "y":120
+    },
+    "sprites":[
+        {
+            "src":"./assets/ui/agent/img_daili_touxiang.png",
+            "pos":{
+                "x":0,
+                "y":0
+            }
+        }
+    ],
+    "labels":[
+        {
+            "data":"username",
+            "pos":{ "x":300, "y":0 },
+            "size":{ "w":200, "h":50 },
+            "font":{
+                "text":"desc",
+                "borderColorX":"#ff0000",
+                "color":"#bbae7a",
+                "size":19,
+                "name":"x",
+                "align":"left",
+                "valign":"top",
+                "wrap":false
+            }
+        }
+    ]
+}

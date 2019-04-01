@@ -12,5 +12,11 @@
     },
     "resrootX":"",
     "resroot":"",
-    "testLogin":false
+    "testLogin":false,
+    "glowfilter":{
+        "color":"#ffffff",
+        "blur":0,
+        "offx":0,
+        "offy":0
+    }
 }

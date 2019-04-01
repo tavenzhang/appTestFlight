@@ -1,4 +1,6 @@
 rootProject.name = 'JD'
+include ':openinstall-react-native'
+project(':openinstall-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/openinstall-react-native/android')
 include ':react-native-keep-awake'
 project(':react-native-keep-awake').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-keep-awake/android')
 include ':react-native-picker'
@@ -66,41 +68,9 @@ project(':jpush-react-native').projectDir = new File(rootProject.projectDir, '..
 
 //包含ReactAndroid工程
 include ':ReactAndroid'
-
 //指出ReactAndroid工程的地址
 project(':ReactAndroid').projectDir = new File(rootProject.projectDir, '../node_modules/react-native/ReactAndroid')
 
-include ':react-native-fs'
-project(':react-native-fs').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fs/android')
-include ':react-native-image-crop-picker'
-project(':react-native-image-crop-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-crop-picker/android')
-include ':react-native-toast-native'
-project(':react-native-toast-native').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-toast-native/android')
-include ':react-native-shake-event'
-project(':react-native-shake-event').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-shake-event/android')
-include ':react-native-code-push'
-project(':react-native-code-push').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-code-push/android/app')
-include ':react-native-vector-icons'
-project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
-include ':react-native-svg'
-project(':react-native-svg').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-svg/android')
-include ':react-native-splash-screen'
-project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
-include ':react-native-sound'
-project(':react-native-sound').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sound/android')
-include ':react-native-material-kit'
-project(':react-native-material-kit').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-material-kit/android')
-include ':react-native-interactable'
-project(':react-native-interactable').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-interactable/android')
-include ':react-native-image-picker'
-project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
-include ':react-native-fetch-blob'
-project(':react-native-fetch-blob').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fetch-blob/android')
-include ':react-native-device-info'
-project(':react-native-device-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
-include ':react-native-blur'
-project(':react-native-blur').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-blur/android')
-include ':react-native-fast-image'
-project(':react-native-fast-image').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fast-image/android')
 
-include ':app'
+project(':react-native-openinstall').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-openinstall/android')
+include ':app', ':react-native-openinstall'
