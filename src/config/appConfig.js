@@ -42,7 +42,7 @@ export const safeguardDomain = [
 
 export const platInfo = {
     loginDomain:"https://pt2kmby3.kwuesw.com",
-    gameDomain:"https://pt2kmby3.kwuesw.com",
+    gameDomain:"https://kkahzmmn.uqcmqw.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
