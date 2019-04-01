@@ -94,7 +94,6 @@ var MoveContent = /** @class */ (function (_super) {
         this.autoGo(nX, this.y, 1);
     };
     MoveContent.prototype.isCutIcon = function (x, direct) {
-        //遍历所有图标，找出对应x时，最靠近的一个图标，找出其坐标
         var gp = this.parentObj;
         var ilen = gp.items.length;
         var minDis = 999999;
@@ -120,11 +119,6 @@ var MoveContent = /** @class */ (function (_super) {
                 }
             }
         }
-        // if( minObj != null )
-        // {
-        //     Debug.trace("MoveContent.isCutIcon x:"+x+" direct:"+direct+" minDis:"+minDis+" minObj:"+minObj.data.alias);
-        // }
-        // return x;
         var px = (gp.conf.gameitemdefault.btnicon.pos.x + gp.conf.gameitemdefault.pos.x) - minObj.x;
         // Debug.trace("MoveContent.isCutIcon px:"+px);
         return px;
@@ -135,15 +129,6 @@ var MoveContent = /** @class */ (function (_super) {
         var q = ((s - v * t) * 2);
         var h = (t * t);
         var a = q / h;
-        // if( s1 > 0 )
-        // {
-        //     a = a * -1;
-        // }
-        // Debug.trace("MoveContent.getAByS v:"+v+" t:"+t+" s:"+s+" a:"+a);
-        // var q2 = (( s1 - v*t ) * 2);
-        // var h2 = (t*t);
-        // var a2 = q2/h2;
-        // Debug.trace("MoveContent.getAByS v:"+v+" t:"+t+" s:"+s+" a:"+a+" a2:"+a2);
         return a;
     };
     MoveContent.prototype.getA = function (v, t) {
@@ -164,10 +149,6 @@ var MoveContent = /** @class */ (function (_super) {
             return;
         }
         this.bAutogo = true;
-        // var minx = (this.conf.visibleRect.w - this.width);// - this.conf.minxOffsetX;
-        // var maxx = 0;// + this.conf.maxxOffsetX;
-        //启动一个循环
-        //目的地
         var destPos = {
             "x": dx,
             "y": dy
@@ -177,13 +158,9 @@ var MoveContent = /** @class */ (function (_super) {
         // var s1 = this.getS(spdx,t,a1);
         // var dx = this.x + s1;
         // Debug.trace("MoveContent a1:"+a1+" s1:"+s1+" dx:"+dx+" minx:"+minx+" maxx:"+maxx);
-        //起止时间
         // this.startGoonTime = Tools.getTime();
         // this.endGoonTime = this.startGoonTime + this.conf.durationGoon;
         this.goonSpdX = spdx;
-        //在this.conf.durationGoon时间内，要将spdx降低到0
-        //运行次数 = duration/delay
-        //每次需要降低的量 = 总量/次数
         // this.offsetSpdX = Math.abs(this.goonSpdX/( this.conf.durationGoon/this.conf.goonLoopDelay ));
         // if( this.offsetSpdX < this.conf.goonOffsetMin )
         // {
@@ -228,7 +205,6 @@ var MoveContent = /** @class */ (function (_super) {
         }
         Debug.trace("MoveContent.autoGoon spd:" + spdx + " a:" + a + " x:" + dx);
         this.moveTimes = 0;
-        //启动循环
         Laya.timer.loop(this.conf.goonLoopDelay, this, this.goonMove, [spdx, direct, destPos]);
     };
     MoveContent.prototype.goonMove = function (spdx, direct, destPos) {
@@ -239,8 +215,6 @@ var MoveContent = /** @class */ (function (_super) {
         var maxx_ = 0 + this.conf.maxxOffsetX;
         var dx = destPos.x;
         var dy = destPos.y;
-        //每次进来都要计算一下，当前速度该是多少？
-        //移动该速度
         var newX = this.x + this.goonSpdX;
         // this.x += this.goonSpdX;
         this.x = newX;
@@ -271,21 +245,17 @@ var MoveContent = /** @class */ (function (_super) {
         }
     };
     MoveContent.prototype.goonMoveSuc = function (spdx, direct, destPos) {
-        //移动结束
         // Debug.trace("MoveContent.goonMoveSuc");
         this.bAutogo = false;
         Laya.timer.clear(this, this.goonMove);
         this.x = destPos.x;
-        //先检查当前坐标，是否超出了允许范围
         var minx = this.conf.visibleRect.w - this.width;
         var maxx = 0;
         if (this.x < minx) {
-            //向右回弹到minx
             // this.autoGo(minx,this.y,1);
             // this.autoBack(spdx,direct,minx,this.y,1);
         }
         else if (this.x > maxx) {
-            //向左回弹
             // this.autoGo(maxx,this.y,1);
             // this.autoBack(spdx,direct,maxx,this.y,1);
         }

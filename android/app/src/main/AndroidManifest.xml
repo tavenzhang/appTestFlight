@@ -42,6 +42,13 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+			<!-- openinstall scheme -->
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW"/>
+				<category android:name="android.intent.category.DEFAULT"/>
+				<category android:name="android.intent.category.BROWSABLE"/>
+				<data android:scheme="xhmkrq"/>
+			</intent-filter>
         </activity>
 
         <meta-data
@@ -119,5 +126,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+		<meta-data 
+			android:name="com.openinstall.APP_KEY"
+			android:value="xhmkrq"/>
     </application>
 </manifest>

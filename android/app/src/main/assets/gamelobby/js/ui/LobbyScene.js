@@ -35,7 +35,7 @@ var LobbyScene = /** @class */ (function (_super) {
         var msgUrl = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.noticelist +
             "?pageSize=20&start=0&access_token=" + Common.access_token;
-        RunningMsg.getInstance(this, "./assets/conf/runningmsg.json", msgUrl);
+        RunningMsg.getInstance(this, "./assets/conf/runningmsg.json", msgUrl, null, this.runningmsgOver);
         MineMenus.getInstance(this, ConfObjRead.getConfMinemenus());
         if (ConfObjRead.getConfAttention().bAutoShowInLobby) {
             AttentionDialog.showPad(this, ConfObjRead.getConfAttention());
@@ -62,6 +62,7 @@ var LobbyScene = /** @class */ (function (_super) {
     LobbyScene.prototype.titlebarOver = function () {
     };
     LobbyScene.prototype.runningmsgOver = function () {
+        // flushGameList
     };
     LobbyScene.prototype.gamepanelOver = function () {
     };
@@ -75,9 +76,6 @@ var LobbyScene = /** @class */ (function (_super) {
         Common.confObj.url = ConfObjRead.getConfUrl().url;
         this.initUI();
     };
-    /**
-     * 开始播放背景音效
-     */
     LobbyScene.IS_PLAYED_MUSIC = false;
     return LobbyScene;
 }(MyScene));

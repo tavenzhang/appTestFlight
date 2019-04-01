@@ -118,6 +118,7 @@ export  default  class BBLStore {
     @observable
     lastGameUrl = "home";
 
+
     ACT_ENUM = {
         logout:"logout",
         playMusic:"playMusic",
@@ -128,7 +129,35 @@ export  default  class BBLStore {
         flushMoney:"flushMoney",
         gameData:"gameData",
         gamesinfo:"gamesinfo",
-        updateProgress:"updateProgress"
+        updateProgress:"updateProgress",
+        setrawroot:"setrawroot",//设置声音根目录
+        playsoundByFile:"playsound",//通过文件名播放声音
+        playmusicByFile:"playmusic",//通过文件名播放背景音乐
+        onBlur:"onBlur"
+    }
+
+    //bgm.mp3 click.mp3 close.mp3 flopleft.mp3 flopright.mp3 recharge.mp3 rightbottomclose.mp3 showlogo.mp3
+    SOUND_ENUM={
+        bgm:"bgm.mp3",
+        click:"click.mp3",
+        close:"close.mp3",
+        flopleft:"flopleft.mp3",
+        flopright:"flopright.mp3",
+        recharge:"recharge.mp3",
+        rightbottomclose:"rightbottomclose.mp3",
+        showlogo:"showlogo.mp3",
+    }
+
+    @action
+    playSoundByFile(file:String,isMusic=false){
+        if(TW_OnValueJSHome){
+            if(isMusic){
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.playmusicByFile, {data: file}));
+            }else{
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.playsoundByFile, {data: file}));
+            }
+
+        }
 
     }
 

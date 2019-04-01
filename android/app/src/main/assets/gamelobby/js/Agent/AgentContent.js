@@ -21,7 +21,7 @@ var AgentContent = /** @class */ (function (_super) {
         this.initContent();
     };
     AgentContent.prototype.initContent = function () {
-        var lb = Tools.addLabels(this, this.conf.lbTest);
+        // var lb = Tools.addLabels(this,this.conf.lbTest);
     };
     return AgentContent;
 }(AgentComBase));

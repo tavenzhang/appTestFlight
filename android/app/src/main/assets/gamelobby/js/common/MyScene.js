@@ -18,10 +18,6 @@ var MyScene = /** @class */ (function (_super) {
     }
     MyScene.prototype.init = function (conf) {
         this.conf = conf;
-        // this.sp_content = new Laya.Sprite();
-        // this.addChild(this.sp_content);
-        // this.sp_anim = new Laya.Sprite();
-        // this.addChild(this.sp_anim);
     };
     return MyScene;
 }(Laya.Sprite));

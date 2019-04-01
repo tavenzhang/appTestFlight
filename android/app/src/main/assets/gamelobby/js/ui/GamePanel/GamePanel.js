@@ -19,6 +19,8 @@ var GamePanel = /** @class */ (function (_super) {
         _this.bMoved = false;
         _this.downX = 0;
         _this.startDragX = 0;
+        _this.lastMoveX = 0;
+        _this.startDragContentX = 0;
         _this.lastScrollSpdX = 0;
         _this.startDragTime = 0;
         _this.endDragTime = 0;
@@ -170,12 +172,14 @@ var GamePanel = /** @class */ (function (_super) {
             case Laya.Event.MOUSE_DOWN:
                 this.bDrag = true;
                 this.downX = x;
+                this.startDragContentX = this.sp_ct_move.x;
                 this.startDragX = x;
                 this.startDragTime = Tools.getTime();
                 this.sp_ct_move.startMoveDrag();
                 break;
             case Laya.Event.MOUSE_MOVE:
-                if (this.downX > 0 && this.bDrag) {
+                if (this.downX > 0 && this.bDrag) //&& this.isMoving(x,y) )
+                 {
                     var sumx = x - this.downX;
                     this.downX = x;
                     this.bMoved = true;
@@ -187,9 +191,11 @@ var GamePanel = /** @class */ (function (_super) {
             case Laya.Event.MOUSE_UP:
                 if (this.bDrag) {
                     this.endDragTime = Tools.getTime();
-                    // if( this.isMoved(x,y) )
-                    if (this.bMoved == true) {
+                    if (this.bMoved == true && this.isMoved(x, y)) {
                         this.moveEnds(x, y);
+                    }
+                    else {
+                        this.sp_ct_move.x = this.startDragContentX;
                     }
                 }
                 this.downX = 0;
@@ -201,6 +207,11 @@ var GamePanel = /** @class */ (function (_super) {
     GamePanel.prototype.isMoved = function (x, y) {
         var sumx = Math.abs(this.startDragX - x);
         return sumx > this.conf.movecontent.moveddis;
+    };
+    GamePanel.prototype.isMoving = function (x, y) {
+        var sumx = Math.abs(this.lastMoveX - x);
+        this.lastMoveX = x;
+        return sumx > this.conf.movecontent.movingdis;
     };
     GamePanel.prototype.moveAllItem = function (x) {
         if (this.totalWidth <= this.conf.panel.rect.w) {
@@ -276,12 +287,7 @@ var GamePanel = /** @class */ (function (_super) {
             direct = MoveContent.MOVE_DIRECT_RIGHT;
         }
         var timeSum = this.endDragTime - this.startDragTime;
-        // if( this.conf.movecontent.scrollType == "tween" )
-        // {
-        //     this.sp_ct_move.autoSlips(direct,this.lastScrollSpdX,timeSum);
-        // }else{
         this.sp_ct_move.autoSlip(direct, this.lastScrollSpdX, timeSum);
-        // }
     };
     GamePanel.prototype.onContentEvent = function (obj, mvEvent, mvType, mvDirect) {
         if (mvEvent == MoveContent.MOVE_EVENT_END) {
@@ -463,8 +469,9 @@ var GamePanel = /** @class */ (function (_super) {
         }
     };
     GamePanel.prototype.resume = function () {
-        var gi = this.getIconByGameId(Common.gameId);
-        gi.btn_icon.bclick = true;
+        // var gi = this.getIconByGameId(Common.gameId);
+        // gi.btn_icon.bclick = true;
+        this.scrollInContentOk();
     };
     GamePanel.obj = null;
     return GamePanel;

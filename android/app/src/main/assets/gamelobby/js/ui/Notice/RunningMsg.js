@@ -15,13 +15,10 @@ var RunningMsg = /** @class */ (function (_super) {
     __extends(RunningMsg, _super);
     function RunningMsg() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        //排头消息编号
-        _this.sortA = 0; //初始化进来0位消息在显示
+        _this.sortA = 0;
         _this.sortB = 0;
         _this.sortC = 0;
-        //是否处于轮询定时器中
         _this.bInAskTimer = false;
-        //是否在滚动中
         _this.bInScrolling = false;
         return _this;
     }
@@ -50,8 +47,6 @@ var RunningMsg = /** @class */ (function (_super) {
         Laya.loader.load(this.confsrc, Laya.Handler.create(this, this.onConfLoaded, [this.confsrc]), null, Laya.Loader.JSON);
     };
     RunningMsg.prototype.onConfLoaded = function (e) {
-        //加载完毕之后，读取对象
-        // Debug.trace("RunningMsg.onConfLoaded confsrc:"+this.confsrc);
         this.conf = Laya.loader.getRes(this.confsrc);
         if (this.conf) {
             this.create();
@@ -61,21 +56,15 @@ var RunningMsg = /** @class */ (function (_super) {
         }
     };
     RunningMsg.prototype.create = function () {
-        //构造左右的背景
         this.initBg(this.conf.bg);
-        //消息数组和容器
         this.initContent(this.conf.msgcontent);
-        //遮罩
         this.initMask(this.conf.mask);
-        //请求第一次，然后开启定时器，定时轮询是否有公告
         this.requestOnce();
         this.pos(this.conf.pos.x, this.conf.pos.y);
-        //跑马灯初始化完毕
         if (this.caller && this.callback) {
             this.callback.apply(this.caller, [this]);
         }
     };
-    //初始化轮询定时器
     RunningMsg.prototype.initRequestTimer = function (conf) {
         if (this.bInAskTimer) {
             return;
@@ -85,13 +74,11 @@ var RunningMsg = /** @class */ (function (_super) {
         this.bInAskTimer = true;
         Laya.timer.loop(conf.timer, this, this.requestOnce);
     };
-    //关闭轮询
     RunningMsg.prototype.stopRequestTimer = function () {
         // Debug.trace('RunningMsg.stopRequestTimer');
         Laya.timer.clear(this, this.requestOnce);
         this.bInAskTimer = false;
     };
-    //发起一次轮询请求
     RunningMsg.prototype.requestOnce = function () {
         // Debug.trace("RunningMsg.requestOnce url:"+this.url);
         if (this.url.length > 0) {
@@ -111,16 +98,8 @@ var RunningMsg = /** @class */ (function (_super) {
             this.responseOnce(s, "complete", null);
         }
     };
-    //收到一次轮询结果
     RunningMsg.prototype.responseOnce = function (s, stat, hr) {
         if (stat == "complete") {
-            //设置所有参数
-            //有内容？先把之前的内容全部移除掉?
-            //设置滚动文字内容
-            // Debug.trace("RunningMsg.responseOnce");
-            // Debug.trace(s.datas);
-            //如果有消息，就添加，显示消息
-            //如果没有消息就启动定时器轮询消息
             if (s.datas.length > 0) {
                 this.addMsgItems(s.datas);
                 if (this.bInAskTimer) {
@@ -139,7 +118,6 @@ var RunningMsg = /** @class */ (function (_super) {
         if (!conf) {
             return;
         }
-        //有配置背景的情况下，显示背景
         var bg = Tools.newSprite(conf);
         this.addChild(bg);
     };
@@ -155,18 +133,15 @@ var RunningMsg = /** @class */ (function (_super) {
         this.addChild(this.sp_lbcontent);
         // Tools.drawRect(this.sp_lbcontent,0,0,100,100,"#ff0000");
     };
-    //遮罩其实不需要，可以使用scrollrect替代
     RunningMsg.prototype.initMask = function (conf) {
         if (!conf) {
             return;
         }
         this.sp_lbcontent.scrollRect = new Laya.Rectangle(conf.pos.x, conf.pos.y, conf.size.w, conf.size.h);
-        //如果有配置外框颜色，则绘制出外框
         if (conf.frameColor) {
             Tools.drawRectWithAlpha(this.sp_lbcontent, conf.pos.x, conf.pos.y, conf.size.w, conf.size.h, conf.frameColor, conf.frameAlpha);
         }
     };
-    //添加全部消息
     RunningMsg.prototype.addMsgItems = function (data) {
         // Debug.trace("data:");
         // Debug.trace(data);
@@ -174,8 +149,6 @@ var RunningMsg = /** @class */ (function (_super) {
         if (this.conf.request.bTest) {
             whole_str = this.conf.request.emptyMsg;
         }
-        //逐个添加
-        // for( var k in data )
         for (var k = 0; k < data.length; k++) {
             var n = data[k];
             var notice = n['notice'];
@@ -188,7 +161,6 @@ var RunningMsg = /** @class */ (function (_super) {
         else {
             this.addMsgItem(whole_str);
         }
-        //启动定时器循环滚动
         if (!this.bInScrolling) {
             this.startScrollingTimer();
         }
@@ -209,13 +181,11 @@ var RunningMsg = /** @class */ (function (_super) {
         this.lb_msgs.push(lbmsg);
         // Debug.trace("nowhave:"+nowhave+" x:"+lbmsg.x);
     };
-    //移除消息
     RunningMsg.prototype.removeMsg = function (msgItem) {
         var id = msgItem.getId();
         this.lb_msgs.splice(id, 1);
         msgItem.destroy(true);
     };
-    //找出指定消息的右侧坐标
     RunningMsg.prototype.getRightOf = function (id) {
         var lb = this.lb_msgs[id];
         if (!lb) {
@@ -225,7 +195,6 @@ var RunningMsg = /** @class */ (function (_super) {
         var rx = lx + lb.getWidth();
         return rx;
     };
-    //滚动
     RunningMsg.prototype.scrolling = function () {
         try {
             // for(var k in this.lb_msgs)
@@ -233,7 +202,6 @@ var RunningMsg = /** @class */ (function (_super) {
                 var m = this.lb_msgs[k];
                 m.run(this.conf.scrollspd.x);
             }
-            //一次循环完毕，检查所有消息中哪些是死掉的，死掉的删除掉
             for (var k = 0; k < this.lb_msgs.length; k++) {
                 var m = this.lb_msgs[k];
                 if (m.bDie) {
@@ -243,7 +211,6 @@ var RunningMsg = /** @class */ (function (_super) {
             }
         }
         catch (e) { }
-        //检测是否滚动完毕，即，没有任何消息在滚动了，开始定时拉取新消息
         if (this.lb_msgs.length <= 0) {
             this.initRequestTimer(this.conf.request);
         }

@@ -15,8 +15,8 @@ var MyDragSwitch = /** @class */ (function (_super) {
     __extends(MyDragSwitch, _super);
     function MyDragSwitch() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.bclick = true; //是否可以点击
-        _this.iSwitchId = 0; //当前是开还是关？0 关 1 开
+        _this.bclick = true;
+        _this.iSwitchId = 0;
         return _this;
     }
     MyDragSwitch.prototype.init = function (conf, caller, callback) {
@@ -41,16 +41,12 @@ var MyDragSwitch = /** @class */ (function (_super) {
             this.addChild(this.btn_drag);
         }
         this.pos(this.conf.pos.x, this.conf.pos.y);
-        //初始化，默认开
         this.setOn(1, false);
     };
-    //本按钮被按下了，要干嘛？？
     MyDragSwitch.prototype.onBtnClick = function (s) {
         if (this.bclick) {
             this.switchChange();
-            //去掉点击后的回调
             this.btnCallback.apply(this.caller, [this]);
-            //播放音效
             if (this.conf.sfx) {
                 Laya.SoundManager.playSound(this.conf.sfx);
             }
@@ -59,7 +55,6 @@ var MyDragSwitch = /** @class */ (function (_super) {
     MyDragSwitch.prototype.isOn = function () {
         return this.iSwitchId;
     };
-    //开关这个switch按钮，默认使用动画移动
     MyDragSwitch.prototype.setOn = function (n, banim) {
         if (banim === void 0) { banim = false; }
         this.iSwitchId = n;
@@ -81,7 +76,6 @@ var MyDragSwitch = /** @class */ (function (_super) {
             }
         }
     };
-    //移动滑块到哪里
     MyDragSwitch.prototype.moveDragTo = function (pos) {
         var tween = Laya.Tween.to(this.btn_drag, {
             x: pos.x,

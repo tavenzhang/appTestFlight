@@ -18,13 +18,13 @@ var AvatorPad = /** @class */ (function (_super) {
         _this.downPos = {
             "x": 0,
             "y": 0
-        }; //按下的坐标
+        };
         _this.downClickPos = {
             "x": 0,
             "y": 0
         };
-        _this.cur_icon_id = 0; //当前图标id
-        _this.cur_choose_id = -1; //当前选中的id
+        _this.cur_icon_id = 0;
+        _this.cur_choose_id = -1;
         return _this;
     }
     AvatorPad.getObj = function () {
@@ -57,37 +57,27 @@ var AvatorPad = /** @class */ (function (_super) {
         this.data = Common.userInfo; //headicon.data;
         // Debug.trace('this.data:');
         // Debug.trace(this.data);
-        //半透明大背景
         this.initAlphaBg();
-        //背景图
         this.initBg(this.conf.bg);
-        //当前头像背景
         this.initCurAvator(this.conf.curavator);
-        //标题
         var sp_title_lb = Tools.newSprite(this.conf.title.lb);
         this.addChild(sp_title_lb);
-        //内容背景
         if (this.conf.content.bg) {
             var bgcontent = Tools.addSprite(this, this.conf.content.bg);
         }
-        //内容容器
         this.sp_content = new Laya.Sprite();
         this.sp_content.pos(this.conf.content.pos.x, this.conf.content.pos.y);
         this.addChild(this.sp_content);
-        //设置内容容器里，只有部分区域可以渲染和绘制，类似蒙版功能
         this.sp_content.scrollRect = new Laya.Rectangle(this.conf.content.ctmask.x, this.conf.content.ctmask.y, this.conf.content.ctmask.w, this.conf.content.ctmask.h);
         this.sp_content.size(this.conf.content.ctmask.w, this.conf.content.ctmask.h);
         this.sp_content.on(Laya.Event.MOUSE_DOWN, this, this.onMouseEvent);
         this.sp_content.on(Laya.Event.MOUSE_MOVE, this, this.onMouseEvent);
         this.sp_content.on(Laya.Event.MOUSE_UP, this, this.onMouseEvent);
         this.sp_content.on(Laya.Event.MOUSE_OUT, this, this.onMouseEvent);
-        //往内容容器里面添加头像
         this.createAvators();
-        //焦点框
         this.sp_focus = Tools.newSprite(this.conf.content.focus);
         this.sp_content.addChild(this.sp_focus);
         this.sp_focus.visible = false;
-        //关闭按钮
         if (this.conf.close) {
             this.close = new MyButton();
             this.close.init(this.conf.close, this, this.onClose);
@@ -96,7 +86,6 @@ var AvatorPad = /** @class */ (function (_super) {
         }
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
-    //半透明大背景
     AvatorPad.prototype.initAlphaBg = function () {
         this.alphabg = new Laya.Sprite();
         Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
@@ -107,38 +96,21 @@ var AvatorPad = /** @class */ (function (_super) {
         this.alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
     };
-    //初始化背景
     AvatorPad.prototype.initBg = function (conf) {
         if (!conf) {
             return;
         }
-        // var sp_bg = new Laya.Sprite();
-        // sp_bg.pos(conf.pos.x,conf.pos.y);
-        // this.addChild(sp_bg);
-        // Tools.scaleSpriteV(
-        //         sp_bg,
-        //         conf.src,
-        //         conf.size.spliceV);
-        // //如果有注册点
-        // if( conf.pivot )
-        // {
-        //     sp_bg.pivot(conf.pivot.x,conf.pivot.y);
-        // }
         var sp_bg = Tools.addSprite(this, conf);
     };
-    //初始化当前头像
     AvatorPad.prototype.initCurAvator = function (conf) {
         if (!conf) {
             return;
         }
         if (conf) {
-            //当前头像背景
             if (conf.bg) {
                 var sp_curavator_bg = Tools.addSprite(this, conf.bg);
             }
-            //光晕效果
-            if (conf.title) //标题：当前头像
-             {
+            if (conf.title) {
                 var sp_lb = new Laya.Sprite();
                 sp_lb.loadImage(conf.title.lb.src);
                 sp_lb.pos(conf.title.lb.pos.x, conf.title.lb.pos.y);
@@ -153,11 +125,9 @@ var AvatorPad = /** @class */ (function (_super) {
                 this.addChild(sp_p2);
             }
             if (conf.avator) {
-                //头像背景框
                 if (conf.iconframe) {
                     var iconframe = Tools.addSprite(this, conf.iconframe);
                 }
-                //头像
                 this.sp_icon = new Laya.Sprite();
                 this.sp_icon.loadImage(conf.avator.src);
                 this.sp_icon.pos(conf.avator.pos.x, conf.avator.pos.y);
@@ -166,9 +136,7 @@ var AvatorPad = /** @class */ (function (_super) {
                 var scy = conf.avator.size.h / this.sp_icon.height;
                 this.sp_icon.scale(scx, scy);
             }
-            //玩家id
             if (conf.id) {
-                //id 背景
                 if (conf.id.bg) {
                     var sp_idbg = Tools.newSprite(conf.id.bg);
                     this.addChild(sp_idbg);
@@ -176,23 +144,8 @@ var AvatorPad = /** @class */ (function (_super) {
                 }
                 if (conf.id.label) {
                     this.lb_id = Tools.addLabels(this, conf.id.label);
-                    // this.lb_id = Tools.newLabel(
-                    //         "---",
-                    //         conf.id.size.w,conf.id.size.h,
-                    //         conf.id.font.size,
-                    //         conf.id.font.color,
-                    //         conf.id.font.align,conf.id.font.valign,
-                    //         conf.id.font.name,conf.id.font.wordwrap);
-                    // if( conf.id.font.borderColor )
-                    // {
-                    //     this.lb_id.borderColor = conf.id.font.borderColor;
-                    // }
-                    // this.lb_id.pos(conf.id.pos.x,conf.id.pos.y);
-                    // this.addChild(this.lb_id);
                 }
-                // this.setId("123456");
             }
-            //当前金额
             if (conf.money) {
                 if (conf.money.bg) {
                     var sp_idbg = Tools.newSprite(conf.money.bg);
@@ -205,28 +158,23 @@ var AvatorPad = /** @class */ (function (_super) {
                     this.lb_money.text = v;
                 }
             }
-            //确认更换按钮
             if (conf.btnchange) {
                 this.btnchange = new MyButton();
                 this.btnchange.init(conf.btnchange, this, this.onSure);
                 this.btnchange.pos(conf.btnchange.pos.x, conf.btnchange.pos.y);
                 this.addChild(this.btnchange);
-                //初始进来，不可点
                 this.btnchange.visible = false;
-                // this.btnchange.setEnabled(false,true);
             }
             if (conf.btnchangedis) {
                 this.btnchangedis = new MyButton();
                 this.btnchangedis.init(conf.btnchangedis, this, this.onSureDis);
                 this.btnchangedis.pos(conf.btnchangedis.pos.x, conf.btnchangedis.pos.y);
-                this.btnchangedis.bclick = false; //按钮无效，不可点
+                this.btnchangedis.bclick = false;
                 this.addChild(this.btnchangedis);
             }
-            //根据当前数据，改变头像和id
             this.resetIconAndID();
         }
     };
-    //重设图标和id
     AvatorPad.prototype.resetIconAndID = function () {
         // this.data.headerIndex = Tools.transNickname2id(this.data.username);
         if (!this.data) {
@@ -237,10 +185,7 @@ var AvatorPad = /** @class */ (function (_super) {
         // this.setId(this.data.userId);
         this.setName(this.data.username);
     };
-    //确认更换头像
     AvatorPad.prototype.onSure = function (e) {
-        //发起请求，修改当前头像id
-        //修改当前头像
         this.requestAvatorSave(ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.avatorsave +
             "?access_token=" + Common.access_token +
@@ -249,21 +194,16 @@ var AvatorPad = /** @class */ (function (_super) {
     AvatorPad.prototype.saveAvatorSuc = function () {
         if (this.cur_choose_id >= 0) {
             this.setIcon(this.cur_choose_id);
-            //通知titlebar，头像发生改变了
             Common.userInfo.avatorId = Tools.FormatNumber(this.cur_choose_id, 2);
             HeadIcon.refreshAvator();
-            //通知个人中心，刷新头像
             AccountCenter.getObj().setIcon(Common.userInfo.avatorId);
-            //目前没有接口的情况下，把头像数据保存到localStorge
             SaveManager.getObj().save(SaveManager.KEY_SFX_VL, Common.userInfo.avatorId);
-            //设置了图标之后，就又不能点按钮了，因为当前还没有换焦点
             this.btnEnable(false);
         }
     };
     AvatorPad.prototype.onSureDis = function (e) {
         // Debug.trace('btn change dis click');
     };
-    //发起更新请求
     AvatorPad.prototype.requestAvatorSave = function (url) {
         LayaMain.getInstance().showCircleLoading();
         // MySaiziLoading.showPad(this,ConfObjRead.getConfCLoading(),null);
@@ -284,20 +224,16 @@ var AvatorPad = /** @class */ (function (_super) {
             MyBBLoading.obj.show(false);
         }
         if (stat == "complete") {
-            //请求成功，更改头像完成
             this.saveAvatorSuc();
         }
         else {
             if (stat == "error" && hr.http.status == 200) {
-                //成功的
                 this.saveAvatorSuc();
                 return;
             }
-            //请求失败
             Toast.showToast(s);
         }
     };
-    //创建头像
     AvatorPad.prototype.createAvators = function () {
         if (this.conf.content.avators) {
             var id = 0;
@@ -338,12 +274,10 @@ var AvatorPad = /** @class */ (function (_super) {
             }
         }
     };
-    //点击图标
     AvatorPad.prototype.onClickImg = function (spe) {
         if (!spe) {
             return;
         }
-        //点击之后，焦点移动到这个图片上
         var sp = spe; //e.target;
         var pos = {
             "x": this.conf.content.focus.pos.x + sp.x,
@@ -355,12 +289,10 @@ var AvatorPad = /** @class */ (function (_super) {
             }
             this.sp_focus.pos(pos.x, pos.y);
         }
-        //当前点选的id是否与我的id相同？
-        this.cur_choose_id = parseInt(sp.name) + 1; //当前选中的id
+        this.cur_choose_id = parseInt(sp.name) + 1;
         if (!Tools.isNumber(this.cur_choose_id)) {
             this.cur_choose_id = 0;
         }
-        //相同的话，更改按钮不可用
         if (this.cur_choose_id == this.cur_icon_id) {
             this.btnEnable(false);
         }
@@ -368,7 +300,6 @@ var AvatorPad = /** @class */ (function (_super) {
             this.btnEnable(true);
         }
     };
-    //当前按钮有效与否
     AvatorPad.prototype.btnEnable = function (b) {
         if (this.btnchange) {
             this.btnchange.visible = b;
@@ -378,31 +309,22 @@ var AvatorPad = /** @class */ (function (_super) {
             this.btnchangedis.visible = !b;
         }
     };
-    //设置头像编号
     AvatorPad.prototype.setIcon = function (id) {
         this.cur_icon_id = id;
         if (this.sp_icon) {
             this.drawIcon(id);
         }
     };
-    //绘制指定编号的头像
     AvatorPad.prototype.drawIcon = function (id) {
         if (!this.sp_icon) {
             return;
         }
-        //先清除
         this.sp_icon.graphics.clear();
-        //头像编号补齐
         var index = Tools.FormatNumber(id, 2);
-        //拼出头像资源
-        var res = //Common.confObj.titlebar.headicon.picnamehead + 
-         ConfObjRead.getConfAvator().headicon.picnamehead +
+        var res = ConfObjRead.getConfAvator().headicon.picnamehead +
             index +
-            // Common.confObj.titlebar.headicon.picnameend;
             ConfObjRead.getConfAvator().headicon.picnameend;
-        //根据资源取出texture
         var tex = Laya.loader.getRes(Tools.getSrc(res));
-        //绘制新的
         this.sp_icon.graphics.drawTexture(tex, 0, 0);
     };
     AvatorPad.prototype.setId_ = function (id) {
@@ -415,7 +337,6 @@ var AvatorPad = /** @class */ (function (_super) {
             this.lb_id.text = this.conf.curavator.id.label.font.pretext + "" + id;
         }
     };
-    //通过坐标，获取头像对象
     AvatorPad.prototype.getClickImg = function (pos) {
         // for(var k in this.arr_items)
         for (var k = 0; k < this.arr_items.length; k++) {
@@ -426,16 +347,9 @@ var AvatorPad = /** @class */ (function (_super) {
                     return img;
                 }
             }
-            // if( Tools.isCollision(img,pos) )
-            // {
-            //     Debug.trace("getClickImg:");
-            //     Debug.trace(img);
-            //     return img;
-            // }
         }
         return null;
     };
-    //鼠标响应
     AvatorPad.prototype.onMouseEvent = function (e) {
         var x = e.stageX;
         var y = e.stageY;
@@ -467,10 +381,7 @@ var AvatorPad = /** @class */ (function (_super) {
                 break;
             case Laya.Event.MOUSE_OUT:
             case Laya.Event.MOUSE_UP:
-                //松开鼠标的时候，检查是否算是点击
                 var upPos = { x: e.stageX, y: e.stageY };
-                // Debug.trace("downPos x:"+this.downPos.x+" y:"+this.downPos.y);
-                // Debug.trace("upPos x:"+upPos.x+" y:"+upPos.y);
                 if (Tools.isClick(this.downClickPos, upPos)) {
                     // Debug.trace("isClick");
                     this.onClickImg(this.getClickImg(upPos));
@@ -489,42 +400,25 @@ var AvatorPad = /** @class */ (function (_super) {
                 break;
         }
     };
-    //移动完毕，检查当前回退到哪里
     AvatorPad.prototype.moveAllEnd = function () {
         var len = this.arr_items.length;
-        //第一个y坐标如果大于0，则是应该向上回退
         var yHead = this.arr_items[0].y;
-        var miny = this.conf.content.avatorsconf.pos.starty; //0;
-        //最后一个的底部y坐标如果小于最大y值，则是应该向下回退
+        var miny = this.conf.content.avatorsconf.pos.starty;
         var yEnd = this.arr_items[len - 1].y + this.arr_items[len - 1].height;
         var maxy = this.conf.content.ctmask.h - 15;
-        //如果第一个y坐标小于0，且最后一个底部y坐标大于最大y值，则无需回退
-        var backY = 0; //回退尺寸
+        var backY = 0;
         Debug.trace("yHead:" + yHead + " miny:" + miny + " yEnd:" + yEnd + " maxy:" + maxy);
         if (yHead <= miny && yEnd >= maxy) {
-            //无需回退
-            // Debug.trace("0 AvatorPad backY:"+backY);
         }
-        // else if( yHead <= miny && yEnd <= maxy )
-        // {
-        //无需回退
-        // Debug.trace("0 AvatorPad backY:"+backY);
-        // }
         else if (yHead > miny) {
-            //上退
             backY = miny - yHead;
-            // Debug.trace("1 AvatorPad backY:"+backY);
             this.backActionAll(backY);
         }
         else if (yEnd < maxy) {
-            //下退
-            //退的幅度就是当前y坐标与最大值之间的差值
             backY = maxy - yEnd;
-            // Debug.trace("2 AvatorPad backY:"+backY);
             this.backActionAll(backY);
         }
     };
-    //给所有头像，包括焦点，设定回退动画
     AvatorPad.prototype.backActionAll = function (y) {
         // for(var k in this.arr_items)
         for (var k = 0; k < this.arr_items.length; k++) {
@@ -547,41 +441,7 @@ var AvatorPad = /** @class */ (function (_super) {
             y: pos.y
         }, 200, Laya.Ease["backIn"]);
     };
-    //移动所有图标
     AvatorPad.prototype.moveAllIcons = function (x, y) {
-        // var len = this.arr_items.length;
-        // var pHead = {
-        //     "x":this.arr_items[0].x,
-        //     "y":this.arr_items[0].y
-        // };
-        // var pEnd = {
-        //     "x":this.arr_items[len-1].x + this.arr_items[len-1].width,
-        //     "y":this.arr_items[len-1].y + this.arr_items[len-1].height
-        // };
-        // var nyHead = pHead.y + y;
-        // var nyEnd = pEnd.y + y;
-        // Debug.trace("nyHead:"+nyHead+" nyEnd:"+nyEnd);
-        //检查如果y小于0，表示向上，否则向下
-        //向上运动时，最下的y坐标不得小于可视区域底部
-        //向下运动时，最上的y坐标不得大于0
-        // var sumy = 0;
-        // var miny = 0;
-        // var maxy = this.conf.content.ctmask.h;
-        // var my = 0;
-        // Debug.trace("y:"+y+" maxy:"+maxy);
-        // if( y > 0 )
-        // {
-        //向下
-        // sumy = nyHead - miny;
-        // Debug.trace("y > 0 sumy:"+sumy);
-        // }else{
-        //向上
-        // sumy = nyEnd - maxy;
-        // Debug.trace("y < 0 sumy:"+sumy);
-        // }
-        // Debug.trace("sumy:"+sumy);
-        // my = Math.abs(y) > Math.abs(sumy) ? sumy : y;
-        // for( var k in this.arr_items )
         var ailen = this.arr_items.length;
         for (var k = 0; k < ailen; k++) {
             var sp = this.arr_items[k];
@@ -591,7 +451,6 @@ var AvatorPad = /** @class */ (function (_super) {
             this.sp_focus.y += y;
         }
     };
-    //点击外部半透明区域
     AvatorPad.prototype.onMouse = function (e) {
         if (this.conf.touchout) {
             if (this.conf.touchout.value && e.type == Laya.Event.MOUSE_DOWN) {

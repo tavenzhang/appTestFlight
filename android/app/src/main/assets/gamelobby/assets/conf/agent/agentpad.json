@@ -23,7 +23,7 @@
     },
     "close":{
         "desc":"",
-        "pos":{ "x":1187, "y":90 },
+        "pos":{ "x":1280, "y":50 },
         "src":[
             "./assets/ui/agent/btn_com_guanbi.png"
         ],
@@ -31,5 +31,6 @@
         "sfx":"assets/raw/close.mp3",
         "maxScale":{"x":1.05,"y":1.05},
         "normalScale":{"x":1,"y":1}
-    }
+    },
+    "defaultTabId":1
 }

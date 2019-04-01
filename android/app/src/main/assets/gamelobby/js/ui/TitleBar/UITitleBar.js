@@ -36,11 +36,9 @@ var UITitleBar = /** @class */ (function (_super) {
         if (!AppData.isAndroidHack) {
             this.initTitle(this.conf.title);
         }
-        //遍历构造所有按钮
         this.initBtns(this.conf.btns);
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
-    //批量生产按钮
     UITitleBar.prototype.initBtns = function (conf) {
         this.arr_btns = new Array();
         for (var i = 0; i < conf.length; i++) {
@@ -59,7 +57,6 @@ var UITitleBar = /** @class */ (function (_super) {
         }
         var sp = Tools.addSprite(this, conf);
     };
-    //点击按钮
     UITitleBar.prototype.onEventClick = function (e) {
         var btn = e;
         try {
@@ -69,12 +66,10 @@ var UITitleBar = /** @class */ (function (_super) {
                     Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
                     break;
                 case "notice":
-                    //活动
                     AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention());
                     AttentionDialog.obj.show();
                     break;
                 case "quit":
-                    //返回
                     PostMHelp.goBack({ token: Common.access_token });
                     break;
                 case "setting":
@@ -98,9 +93,6 @@ var UITitleBar = /** @class */ (function (_super) {
         }, this.conf.duration, Laya.Ease["backIn"], new Laya.Handler(this, this.scrollOutOk));
     };
     UITitleBar.prototype.scrollOutOk = function () {
-        // Debug.trace('TitleBar scrollOutOk');
-        //滚动进来之后，告知主界面构造游戏图标
-        // sceneRoot.initGameIcon();
         if (this.caller && this.callback) {
             this.callback.apply(this.caller, [this]);
         }

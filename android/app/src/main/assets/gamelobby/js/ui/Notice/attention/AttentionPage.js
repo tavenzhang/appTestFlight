@@ -18,7 +18,7 @@ var AttentionPage = /** @class */ (function (_super) {
         _this.downPos = {
             "x": 0,
             "y": 0
-        }; //按下的坐标
+        };
         _this.bScrollTxt = false;
         _this.prevX = 0;
         _this.prevY = 0;
@@ -43,35 +43,20 @@ var AttentionPage = /** @class */ (function (_super) {
         AttentionPage.obj = this;
         this.conf = conf;
         this.data = data;
-        //内容容器
         this.sp_content = new Laya.Sprite();
         this.addChild(this.sp_content);
         this.title_bg = Tools.addSprite(this.sp_content, this.conf.bgTitle);
-        //标题
         this.lbTitle = Tools.addLabels(this.sp_content, this.conf.lbTitle);
-        //内容容器
-        // this.lbContent = Tools.addLabels(this.sp_content,this.conf.lbContent);
         this.txtContent = Tools.addText(this.sp_content, this.conf.txtContent, this, this.scrollContent);
-        //作者
         this.lbAuthor = Tools.addLabels(this.sp_content, this.conf.lbAuthor);
-        //图片
-        // if( this.data.type == 1 )
-        // {
-        //     this.img = new Laya.Image(this.data.img.src);
-        //     this.img.size(this.data.img.size.w,this.data.img.size.h);
-        //     this.img.pos(this.conf.img.pos.x,this.conf.img.pos.y);
-        //     this.addChild(this.img);
-        // }
         this.setData(data);
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
-    //滚动文本框
     AttentionPage.prototype.scrollContent = function (e) {
         // Debug.trace("AttentionPage.scrollContent");
         // Debug.trace(e);
         switch (e.type) {
             case Laya.Event.MOUSE_DOWN:
-                //按下，开始滚动
                 this.prevX = this.txtContent.mouseX;
                 this.prevY = this.txtContent.mouseY;
                 this.bScrollTxt = true;
@@ -89,13 +74,10 @@ var AttentionPage = /** @class */ (function (_super) {
                 break;
             case Laya.Event.MOUSE_UP:
             case Laya.Event.MOUSE_OUT:
-                //释放，停止滚动
                 this.bScrollTxt = false;
                 break;
         }
-        // this.txtContent.on(Laya.Event.MOUSE_MOVE,this,this.scrollContent)
     };
-    //鼠标响应
     AttentionPage.prototype.onMouseEvent = function (e) {
         var x = e.stageX;
         var y = e.stageY;

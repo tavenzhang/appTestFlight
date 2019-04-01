@@ -177,9 +177,6 @@ var LayaMain = /** @class */ (function () {
         if (AppData.IS_NATIVE_APP) {
             window.removeEventListener("message", this.handleAction, false);
         }
-        else {
-            window.document.removeEventListener("message", this.handleIFrameAction, false);
-        }
     };
     LayaMain.prototype.clearChild = function () {
         if (this.sceneLobby) {

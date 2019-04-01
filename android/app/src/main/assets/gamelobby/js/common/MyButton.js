@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 var MyButton = /** @class */ (function (_super) {
     __extends(MyButton, _super);
     function MyButton() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super.call(this) || this;
         _this.bclick = true;
         _this.actionDown = false;
         return _this;
@@ -57,12 +57,14 @@ var MyButton = /** @class */ (function (_super) {
             this.addChild(this.sp_hint);
             this.sp_hint.visible = false;
         }
-        if (this.conf.frontsrc) {
-            this.sp_label = new Laya.Sprite();
-            this.sp_label.loadImage(this.conf.frontsrc.src);
-            this.sp_label.pos(this.conf.frontsrc.pos.x, this.conf.frontsrc.pos.y);
-            this.addChild(this.sp_label);
-        }
+        // if( this.conf.frontsp )
+        // {
+        // this.sp_label = new Laya.Sprite();
+        // this.sp_label.loadImage(this.conf.frontsrc.src);
+        // this.sp_label.pos(this.conf.frontsrc.pos.x,this.conf.frontsrc.pos.y);
+        // this.addChild( this.sp_label );
+        // 	this.sp_label = Tools.addSprite(this,this.conf.frontsp);
+        // }
         if (this.conf.normalScale) {
             this.scaleBtn(this.conf.normalScale);
         }

@@ -54,4 +54,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':jpush-react-native')
+    compile project(':jcore-react-native')
 }

@@ -28,7 +28,7 @@ var AgentTab = /** @class */ (function (_super) {
             this.arr_btns = new Array();
             for (var a = 0; a < blen; a++) {
                 var btnconf = this.conf.menus[a];
-                var b = new MyButton();
+                var b = new AgentButton();
                 b.init(btnconf, this, this.onClickBtn);
                 b.setQuery(btnconf.cmd);
                 this.addChild(b);
@@ -36,9 +36,31 @@ var AgentTab = /** @class */ (function (_super) {
             }
         }
     };
+    AgentTab.prototype.setListener = function (caller, callback) {
+        this.caller = caller;
+        this.callback = callback;
+    };
     AgentTab.prototype.onClickBtn = function (e) {
-        Debug.trace("AgentTab onClickBtn e:");
-        Debug.trace(e);
+        // Debug.trace("AgentTab onClickBtn e:");
+        // Debug.trace(e);
+        var btn = e;
+        this.onTab(btn);
+        var cmd = btn.getQuery();
+        if (this.caller && this.callback) {
+            this.callback.apply(this.caller, [btn, cmd]);
+        }
+    };
+    AgentTab.prototype.onTab = function (btn) {
+        for (var i = 0; i < this.arr_btns.length; i++) {
+            var ab = this.arr_btns[i];
+            if (ab.getQuery() == btn.getQuery()) {
+                // Debug.trace("AgentTab.onTab btn:"+btn.getQuery());
+                ab.onTab(true);
+            }
+            else {
+                ab.onTab(false);
+            }
+        }
     };
     return AgentTab;
 }(AgentComBase));
