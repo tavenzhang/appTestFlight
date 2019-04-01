@@ -340,7 +340,6 @@ export default class XXWebView extends Component {
                     let gameM =  TW_Store.dataStore.appGameListM;
                     let  retList=[];
                     for (let dataKey in gameM){
-                        let temKey =dataKey;
                         if(gameM[dataKey].id==message.alias){
                             retList.push(gameM[dataKey]);
                         }
@@ -359,8 +358,8 @@ export default class XXWebView extends Component {
                     }
 
                     // gameData= gameM[`${message.alias}`];
-                     TW_Log("gameData-----",gameData)
-                    TW_Log("gameData----message-",message)
+                  //  TW_Log("gameData-----",gameData)
+                   // TW_Log("gameData----message-",message)
                     if(gameData){
                         if(gameData.bupdate) {
                             this.startLoadGame(gameData);
@@ -475,10 +474,9 @@ export default class XXWebView extends Component {
     }
 
     onLoadStart = (event) => {
-        if(G_IS_IOS){
-            SplashScreen.hide();
-        }
-
+        // if(G_IS_IOS){
+        //     SplashScreen.hide();
+        // }
     };
 
 
