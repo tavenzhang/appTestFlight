@@ -29,12 +29,12 @@ export default class XXWebView extends Component {
         this.state={
             isFail:false,
             updateList:[],
-            isShowKeyBoard:false
+
         }
         this.loadQueue=[];
         this.isLoading=false;
         this.isShow=false;
-
+        this.isShowKeyBoard=false
     }
 
     componentWillMount(){
@@ -78,18 +78,26 @@ export default class XXWebView extends Component {
     }
 
     _keyboardDidShow=(event)=>{
-        TW_Log("( _keyboard---_keyboardDidShow" ,event);
-        if(!this.state.isShowKeyBoard){
-            this.setState({isShowKeyBoard:true})
+        //TW_Log("( _keyboard---_keyboardDidShow" ,event);
+        if(!this.isShowKeyBoard){
+            this.isShowKeyBoard =true;
+            if(this.refs.myView){
+                this.refs.myView.setNativeProps({style: {bottom:60}});
+            }
+            //this.setState({isShowKeyBoard:true})
         }
     }
 
     _keyboardDidHide=(event)=>{
-        if(this.state.isShowKeyBoard){
-            this.setState({isShowKeyBoard:false})
+       // TW_Log("( _keyboard---_keyboardDidHide" ,event);
+        if(this.isShowKeyBoard){
+            this.isShowKeyBoard=false
+            if(this.refs.myView){
+                this.refs.myView.setNativeProps({style: {bottom:0}});
+            }
             TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.onBlur,{}));
         }
-        TW_Log("( _keyboard---_keyboardDidHide" ,event);
+
     }
 
     onFinishGameList=(gameList)=>{
@@ -150,7 +158,7 @@ export default class XXWebView extends Component {
 
 
     handleUrl = (url, data) => {
-        TW_Log("(FileTools----.gameList-FileTools--handleUrl--url"+url, url);
+      //  TW_Log("(FileTools----.gameList-FileTools--handleUrl--url"+url, data);
         if(data){
             let index= url.indexOf("?");
             url = url.substr(index);
@@ -160,7 +168,7 @@ export default class XXWebView extends Component {
                     this.startLoadGame()
                 }
             }else{
-                url = TW_Store.dataStore.getGameRootDir()+"/"+data.dir+"/"  + url
+                url = TW_Store.dataStore.getGameRootDir()+"/"+data.name+"/"  + url
             }
 
         }else{
@@ -270,7 +278,7 @@ export default class XXWebView extends Component {
         })}`;
 
         return (
-            <View style={[styles.container,]}>
+            <View style={[styles.container,]} >
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
@@ -288,11 +296,12 @@ export default class XXWebView extends Component {
                                           onLoadStart={this.onLoadStart}
 
                         /> :
+                        <View style={styles.webView}  ref="myView">
                             <WebView
                                 originWhitelist={['*']}
                                 ref="myWebView"
                                 automaticallyAdjustContentInsets={true}
-                                style={[styles.webView,{bottom:this.state.isShowKeyBoard ? 100:0}]}
+                                style={[styles.webView]}
                                 source={source}
                                 injectedJavaScript={injectJs}
                                 javaScriptEnabled={true}
@@ -307,7 +316,7 @@ export default class XXWebView extends Component {
                                 onMessage={this.onMessage}
                                 onLoadEnd={this.onLoadEnd}
                             />
-
+                        </View>
                 }
             </View>
         );
@@ -330,6 +339,8 @@ export default class XXWebView extends Component {
         TW_Log("onMessage===========>>" + this.constructor.name + "\n", message);
         let url = "";
         let gameData=null;
+        let  retList= null;
+        let gameM=null;
         if (message && message.action) {
             switch (message.action) {
                 case "Log":
@@ -337,15 +348,14 @@ export default class XXWebView extends Component {
                     break;
                 case "startUpdate":
                     //{action: "startUpdate", gameId: 28, alias: "xywz"}
-                    let gameM =  TW_Store.dataStore.appGameListM;
-                    let  retList=[];
+                    gameM =  TW_Store.dataStore.appGameListM;
+                    retList=[];
                     for (let dataKey in gameM){
                         if(gameM[dataKey].id==message.alias){
                             retList.push(gameM[dataKey]);
                         }
                     }
                     TW_Log("gameData----retList-",retList)
-
                     if(retList.length>1){
                         for(let item of retList){
                             if(item.name.indexOf("app">-1)){
@@ -356,10 +366,6 @@ export default class XXWebView extends Component {
                     }else {
                         gameData = retList[0]
                     }
-
-                    // gameData= gameM[`${message.alias}`];
-                  //  TW_Log("gameData-----",gameData)
-                   // TW_Log("gameData----message-",message)
                     if(gameData){
                         if(gameData.bupdate) {
                             this.startLoadGame(gameData);
@@ -368,9 +374,17 @@ export default class XXWebView extends Component {
                     break;
                 case "JumpGame":
                     let data =JSON.parse(TW_Base64.decode(this.getJumpData(message.payload)));
-                    let gameData = TW_Store.dataStore.appGameListM[data.alias];
+                    retList=[];
+                    gameM = TW_Store.dataStore.appGameListM;
+                    let gameData =null
+                    for (let gameKey in gameM){
+                        if(gameM[gameKey].id==data.alias){
+                            gameData = gameM[gameKey];
+                        }
+                    }
                     let isNeedLoad=false;
                     let isOrigan =false;
+                    TW_Log("FileTools---------data--isNeedLoad==-url==-----------gameData==",gameData);
                     if(!gameData){
                        // JXToast.showShortCenter(`${data.name} 暂未配置！`)
                         url = this.handleUrl(message.payload,gameData);
