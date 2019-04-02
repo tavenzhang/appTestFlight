@@ -48,10 +48,13 @@ export const safeguardDomain = [
 
 
 export const platInfo = {
+    //loginDomain:"https://0365cai.cc",
     loginDomain: "https://webplatform.psxiaohe.com",
+    //  gameDomain:"https://dk3nuq7v.zhdisi.com",
      gameDomain: "https://webplatform.psxiaohe.com",
 
     zipCheckServer: {
+        debug_server: "http://192.168.14.70:8888",
         release_server: "https://download.hkbaoxian188.com/game/release/uat"
     },
     platId: configAppId,
