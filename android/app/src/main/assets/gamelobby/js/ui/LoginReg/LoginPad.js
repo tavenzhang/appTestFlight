@@ -105,6 +105,10 @@ var LoginPad = /** @class */ (function (_super) {
             this.inputPwd.text = pwd;
         }
     };
+    LoginPad.prototype.butInputText = function () {
+        this.inputName.focus = false;
+        this.inputPwd.focus = false;
+    };
     LoginPad.prototype.initAlphaBg = function () {
         if (this.conf.mask) {
             var alphabg = new Laya.Sprite();

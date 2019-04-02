@@ -80,6 +80,8 @@ export  default  class BBLStore {
     @observable
     jumpData = null;
 
+    @observable
+    debug_release_server = "";
 
     @action
     getVersionDomain() {
@@ -89,9 +91,9 @@ export  default  class BBLStore {
         if(subStrWay.length>0&&subStrWay!="0"){
             isSubWay = true;
         }
-        let versionDomain = this.isDebugApp ? platInfo.zipCheckServer.debug_server: platInfo.zipCheckServer.release_server;
+        let versionDomain = this.isDebugApp ? this.debug_release_server: platInfo.zipCheckServer.release_server;
         if(this.isDebugApp){
-            versionDomain = platInfo.zipCheckServer.debug_server;
+            versionDomain = this.debug_release_server;
         }else{
             if(isSubWay){
                 versionDomain= platInfo.zipCheckServer.release_server+"/qudao"
