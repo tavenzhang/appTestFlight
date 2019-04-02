@@ -158,7 +158,7 @@ export default class XXWebView extends Component {
 
 
     handleUrl = (url, data) => {
-        TW_Log("(FileTools----.gameList-FileTools--handleUrl--url"+url, url);
+      //  TW_Log("(FileTools----.gameList-FileTools--handleUrl--url"+url, data);
         if(data){
             let index= url.indexOf("?");
             url = url.substr(index);
@@ -168,7 +168,7 @@ export default class XXWebView extends Component {
                     this.startLoadGame()
                 }
             }else{
-                url = TW_Store.dataStore.getGameRootDir()+"/"+data.dir+"/"  + url
+                url = TW_Store.dataStore.getGameRootDir()+"/"+data.name+"/"  + url
             }
 
         }else{
@@ -339,6 +339,8 @@ export default class XXWebView extends Component {
         TW_Log("onMessage===========>>" + this.constructor.name + "\n", message);
         let url = "";
         let gameData=null;
+        let  retList= null;
+        let gameM=null;
         if (message && message.action) {
             switch (message.action) {
                 case "Log":
@@ -346,15 +348,14 @@ export default class XXWebView extends Component {
                     break;
                 case "startUpdate":
                     //{action: "startUpdate", gameId: 28, alias: "xywz"}
-                    let gameM =  TW_Store.dataStore.appGameListM;
-                    let  retList=[];
+                    gameM =  TW_Store.dataStore.appGameListM;
+                    retList=[];
                     for (let dataKey in gameM){
                         if(gameM[dataKey].id==message.alias){
                             retList.push(gameM[dataKey]);
                         }
                     }
                     TW_Log("gameData----retList-",retList)
-
                     if(retList.length>1){
                         for(let item of retList){
                             if(item.name.indexOf("app">-1)){
@@ -365,10 +366,6 @@ export default class XXWebView extends Component {
                     }else {
                         gameData = retList[0]
                     }
-
-                    // gameData= gameM[`${message.alias}`];
-                  //  TW_Log("gameData-----",gameData)
-                   // TW_Log("gameData----message-",message)
                     if(gameData){
                         if(gameData.bupdate) {
                             this.startLoadGame(gameData);
@@ -377,9 +374,17 @@ export default class XXWebView extends Component {
                     break;
                 case "JumpGame":
                     let data =JSON.parse(TW_Base64.decode(this.getJumpData(message.payload)));
-                    let gameData = TW_Store.dataStore.appGameListM[data.alias];
+                    retList=[];
+                    gameM = TW_Store.dataStore.appGameListM;
+                    let gameData =null
+                    for (let gameKey in gameM){
+                        if(gameM[gameKey].id==data.alias){
+                            gameData = gameM[gameKey];
+                        }
+                    }
                     let isNeedLoad=false;
                     let isOrigan =false;
+                    TW_Log("FileTools---------data--isNeedLoad==-url==-----------gameData==",gameData);
                     if(!gameData){
                        // JXToast.showShortCenter(`${data.name} 暂未配置！`)
                         url = this.handleUrl(message.payload,gameData);
