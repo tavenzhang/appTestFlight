@@ -73,7 +73,7 @@ public class MainActivity extends ReactActivity {
         // 设置透明状态栏和透明导航栏
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
@@ -92,6 +92,7 @@ public class MainActivity extends ReactActivity {
             SplashScreen.show(this, true);  // here
         }
     }
+
 
     public String readMetaDataByTag(String tag) {
         try {

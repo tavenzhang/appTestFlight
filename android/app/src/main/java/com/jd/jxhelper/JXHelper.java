@@ -211,7 +211,7 @@ public class JXHelper extends ReactContextBaseJavaModule {
         String  channel = MainActivity.instance.readMetaDataByTag("PLAT_CH");
         String  subType = MainActivity.instance.readMetaDataByTag("SUB_TYPE");
         String  appDownloadVersion = MainActivity.instance.readMetaDataByTag("APP_DOWNLOAD_VERSION");
-
+        String  openInstallKey = MainActivity.instance.readMetaDataByTag("com.openinstall.APP_KEY");
         map.putString("versionName",getVersionCode());
         map.putString("Affcode",getAffCode());
         map.putString("applicationId",applicationId);
@@ -219,7 +219,7 @@ public class JXHelper extends ReactContextBaseJavaModule {
         map.putString("PLAT_ID",idStr);
         map.putString("PLAT_CH",channel);
         map.putString("SUB_TYPE",subType);
-
+        map.putString("com.openinstall.APP_KEY",openInstallKey);
         callback.invoke(map);
     }
     public String getAffCode() {

@@ -1,6 +1,12 @@
 rootProject.name = 'JD'
 include ':openinstall-react-native'
 project(':openinstall-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/openinstall-react-native/android')
+
+//包含ReactAndroid工程
+include ':ReactAndroid'
+//指出ReactAndroid工程的地址
+project(':ReactAndroid').projectDir = new File(rootProject.projectDir, '../node_modules/react-native/ReactAndroid')
+
 include ':react-native-keep-awake'
 project(':react-native-keep-awake').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-keep-awake/android')
 include ':react-native-picker'
@@ -66,10 +72,7 @@ include ':jpush-react-native'
 project(':jpush-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/jpush-react-native/android')
 
 
-//包含ReactAndroid工程
-include ':ReactAndroid'
-//指出ReactAndroid工程的地址
-project(':ReactAndroid').projectDir = new File(rootProject.projectDir, '../node_modules/react-native/ReactAndroid')
+
 
 
 include ':app'
