@@ -29,12 +29,12 @@ export default class XXWebView extends Component {
         this.state={
             isFail:false,
             updateList:[],
-            isShowKeyBoard:false
+
         }
         this.loadQueue=[];
         this.isLoading=false;
         this.isShow=false;
-
+        this.isShowKeyBoard=false
     }
 
     componentWillMount(){
@@ -78,18 +78,26 @@ export default class XXWebView extends Component {
     }
 
     _keyboardDidShow=(event)=>{
-        TW_Log("( _keyboard---_keyboardDidShow" ,event);
-        if(!this.state.isShowKeyBoard){
-            this.setState({isShowKeyBoard:true})
+        //TW_Log("( _keyboard---_keyboardDidShow" ,event);
+        if(!this.isShowKeyBoard){
+            this.isShowKeyBoard =true;
+            if(this.refs.myView){
+                this.refs.myView.setNativeProps({style: {bottom:60}});
+            }
+            //this.setState({isShowKeyBoard:true})
         }
     }
 
     _keyboardDidHide=(event)=>{
-        if(this.state.isShowKeyBoard){
-            this.setState({isShowKeyBoard:false})
+       // TW_Log("( _keyboard---_keyboardDidHide" ,event);
+        if(this.isShowKeyBoard){
+            this.isShowKeyBoard=false
+            if(this.refs.myView){
+                this.refs.myView.setNativeProps({style: {bottom:0}});
+            }
             TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.onBlur,{}));
         }
-        TW_Log("( _keyboard---_keyboardDidHide" ,event);
+
     }
 
     onFinishGameList=(gameList)=>{
@@ -270,7 +278,7 @@ export default class XXWebView extends Component {
         })}`;
 
         return (
-            <View style={[styles.container,]}>
+            <View style={[styles.container,]} >
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
@@ -288,11 +296,12 @@ export default class XXWebView extends Component {
                                           onLoadStart={this.onLoadStart}
 
                         /> :
+                        <View style={styles.webView}  ref="myView">
                             <WebView
                                 originWhitelist={['*']}
                                 ref="myWebView"
                                 automaticallyAdjustContentInsets={true}
-                                style={[styles.webView,{bottom:this.state.isShowKeyBoard ? 100:0}]}
+                                style={[styles.webView]}
                                 source={source}
                                 injectedJavaScript={injectJs}
                                 javaScriptEnabled={true}
@@ -307,7 +316,7 @@ export default class XXWebView extends Component {
                                 onMessage={this.onMessage}
                                 onLoadEnd={this.onLoadEnd}
                             />
-
+                        </View>
                 }
             </View>
         );
