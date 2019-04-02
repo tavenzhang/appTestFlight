@@ -128,6 +128,6 @@
         </activity>
 		<meta-data 
 			android:name="com.openinstall.APP_KEY"
-			android:value="xhmkrq"/>
+			android:value="${OPEN_INSTALL_KEY}"/>
     </application>
 </manifest>
