@@ -17,7 +17,7 @@ var AgentInvitationList = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.fatherNode = node;
         _this.conf = conf;
-        _this.sp_content = new Laya.Sprite();
+        _this.sp_content = new MySprite();
         _this.addChild(_this.sp_content);
         if (_this.conf.list.pos) {
             _this.pos(_this.conf.list.pos.x, _this.conf.list.pos.y);
@@ -93,5 +93,5 @@ var AgentInvitationList = /** @class */ (function (_super) {
         Debug.trace(e);
     };
     return AgentInvitationList;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=AgentInvitationList.js.map

@@ -3,6 +3,7 @@
     "src":[
         {"url":"./brand/login_logo.png","type":"IMAGE"},
         {"url":"./brand/lobby_logo.png","type":"IMAGE"},
+        {"url":"./brand/loginchoose_logo.png","type":"IMAGE"},
 
         {"url":"./assets/conf/agent/agent.json","type":"JSON"},
         {"url":"./assets/conf/agent/agentadduser.json","type":"JSON"},
@@ -22,7 +23,15 @@
         {"url":"./assets/conf/agent/listmychildrentest.json","type":"JSON"},
         {"url":"./assets/conf/agent/listinvichildren.json","type":"JSON"},
         {"url":"./assets/conf/agent/listinvichildrentest.json","type":"JSON"},
+        {"url":"./assets/conf/agent/listincome.json","type":"JSON"},
+        {"url":"./assets/conf/agent/listincometest.json","type":"JSON"},
+        {"url":"./assets/conf/agent/listdesc.json","type":"JSON"},
+        {"url":"./assets/conf/agent/listdesctest.json","type":"JSON"},
 
+        {"url":"./assets/conf/login/changepwd.json","type":"JSON"},
+        {"url":"./assets/conf/login/changepwdin.json","type":"JSON"},
+        {"url":"./assets/conf/login/chooselogin.json","type":"JSON"},
+        {"url":"./assets/conf/login/quicklogin.json","type":"JSON"},
 
         {"url":"./assets/conf/accountpad_app_temp.json","type":"JSON"},
         {"url":"./assets/conf/accountpad.json","type":"JSON"},
@@ -74,6 +83,17 @@
         {"url":"./assets/ui/accountcenter/img_zi_yuer.png","type":"IMAGE"},
         {"url":"./assets/ui/accountcenter/img_zi_zhanghao.png","type":"IMAGE"},
         {"url":"./assets/ui/accountcenter/img_zi_zhufu.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/acc_htx.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/acc_xgmm.png","type":"IMAGE"},
+
+        {"url":"./assets/ui/accountcenter/changepwd/bg.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/changepwd/btn_close.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/changepwd/btn_modify.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/changepwd/input_bg.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/changepwd/lb_cfpwd.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/changepwd/lb_inpwd.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/changepwd/lb_opwd.png","type":"IMAGE"},
+        {"url":"./assets/ui/accountcenter/changepwd/sp_title.png","type":"IMAGE"},
 
         {"url":"./assets/ui/agent/img_daili_leixing01.png","type":"IMAGE"},
         {"url":"./assets/ui/agent/img_daili_leixing02.png","type":"IMAGE"},
@@ -118,6 +138,15 @@
         {"url":"./assets/ui/agent/img_daili_tou_zhishu.png","type":"IMAGE"},
         {"url":"./assets/ui/agent/btn_daili_xiugai.png","type":"IMAGE"},
         {"url":"./assets/ui/agent/img_daili_tiaodibian02.png","type":"IMAGE"},
+        {"url":"./assets/ui/agent/img_daili_tou_wdyj.png","type":"IMAGE"},
+        {"url":"./assets/ui/agent/img_daili_leixing01.png","type":"IMAGE"},
+        {"url":"./assets/ui/agent/img_daili_leixing03.png","type":"IMAGE"},
+
+        {"url":"./assets/ui/agent/img_daili_zi_jinri.png","type":"IMAGE"},
+        {"url":"./assets/ui/agent/img_daili_zi_zuori.png","type":"IMAGE"},
+        {"url":"./assets/ui/agent/img_daili_zi_benzhou.png","type":"IMAGE"},
+        {"url":"./assets/ui/agent/img_daili_zi_shangzhou.png","type":"IMAGE"},
+        {"url":"./assets/ui/agent/img_daili_zi_benyue.png","type":"IMAGE"},
 
         {"url":"./assets/ui/agent/numj/img_com_j_dh.png","type":"IMAGE"},
         {"url":"./assets/ui/agent/numj/img_com_j_jh.png","type":"IMAGE"},
@@ -131,6 +160,10 @@
         {"url":"./assets/ui/agent/numj/img_com_j7.png","type":"IMAGE"},
         {"url":"./assets/ui/agent/numj/img_com_j8.png","type":"IMAGE"},
         {"url":"./assets/ui/agent/numj/img_com_j9.png","type":"IMAGE"},
+
+        {"url":"./assets/ui/agent/img_daili_shuoming01.png","type":"IMAGE"},
+        {"url":"./assets/ui/agent/img_daili_shuoming02.png","type":"IMAGE"},
+        {"url":"./assets/ui/agent/img_daili_shuoming03.png","type":"IMAGE"},
 
 
         {"url":"./assets/ui/animation/agent/banner/banner.sk","type":"BUFFER"},
@@ -300,6 +333,32 @@
         {"url":"./assets/ui/login/star01.png","type":"IMAGE"},
         {"url":"./assets/ui/login/star02.png","type":"IMAGE"},
         {"url":"./assets/ui/login/rostar00.png","type":"IMAGE"},
+
+        {"url":"./assets/ui/login/changepwd/1.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/changepwd/2.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/changepwd/3.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/changepwd/4.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/changepwd/5.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/changepwd/6.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/changepwd/7.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/changepwd/8.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/changepwd/eye_00.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/changepwd/10.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/changepwd/eye_01.png","type":"IMAGE"},
+
+        {"url":"./assets/ui/login/chooselogin/btn_accountlogin.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/chooselogin/btn_custom.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/chooselogin/btn_quicklogin.png","type":"IMAGE"},
+
+        {"url":"./assets/ui/login/quicklogin/bg.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/quicklogin/btn_camera.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/quicklogin/btn_login.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/quicklogin/btn_otherway.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/quicklogin/input_bg.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/quicklogin/lbhint.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/quicklogin/lbname.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/quicklogin/lbyzm.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/quicklogin/title.png","type":"IMAGE"},
         
         {"url":"./assets/ui/mine/bgMenus.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/img_dating_gongnengdi.png","type":"IMAGE"},
@@ -308,7 +367,7 @@
         {"url":"./assets/ui/mine/btn_recharge.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/btn_redraw.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/btn_switch.png","type":"IMAGE"},
-
+        
         {"url":"./assets/ui/mine/icon_tixian.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/icon_zhanghu.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/icon_fenxiang.png","type":"IMAGE"},
@@ -319,6 +378,7 @@
         {"url":"./assets/ui/mine/icon_shezhi.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/icon_youjian.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/icon_zhanji.png","type":"IMAGE"},
+        {"url":"./assets/ui/mine/icon_daili.png","type":"IMAGE"},
 
         {"url":"./assets/ui/notice/arrowBtns.png","type":"IMAGE"},
         {"url":"./assets/ui/notice/bgBtns.png","type":"IMAGE"},

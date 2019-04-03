@@ -18,11 +18,11 @@ var DiamonIcon = /** @class */ (function (_super) {
     }
     DiamonIcon.prototype.init = function (conf) {
         this.conf = conf;
-        this.sp_bg = new Laya.Sprite();
+        this.sp_bg = new MySprite();
         this.sp_bg.loadImage(this.conf.bg.src);
         this.sp_bg.pos(this.conf.bg.pos.x, this.conf.bg.pos.y);
         this.addChild(this.sp_bg);
-        this.sp_icon = new Laya.Sprite();
+        this.sp_icon = new MySprite();
         this.sp_icon.loadImage(this.conf.icon.src);
         this.sp_icon.pos(this.conf.icon.pos.x, this.conf.icon.pos.y);
         this.addChild(this.sp_icon);
@@ -48,5 +48,5 @@ var DiamonIcon = /** @class */ (function (_super) {
         // this.lb_num.text = dt.userBalance.balance;
     };
     return DiamonIcon;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=DiamonIcon.js.map

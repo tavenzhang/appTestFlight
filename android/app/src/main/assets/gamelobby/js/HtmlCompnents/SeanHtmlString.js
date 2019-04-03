@@ -98,5 +98,5 @@ var SeanHtmlString = /** @class */ (function (_super) {
         return this.width;
     };
     return SeanHtmlString;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=SeanHtmlString.js.map

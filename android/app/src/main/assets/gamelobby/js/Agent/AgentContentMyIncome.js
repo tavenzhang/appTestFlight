@@ -32,32 +32,81 @@ var AgentContentMyIncome = /** @class */ (function (_super) {
                 Tools.addLabels(this, lbconf);
             }
         }
-        this.arr_btns = new Array();
-        if (this.conf.menus) {
-            var blen = this.conf.menus.length;
+        if (this.conf.switchmenus) {
+            var blen = this.conf.switchmenus.length;
             this.arr_btns = new Array();
             for (var a = 0; a < blen; a++) {
-                var btnconf = this.conf.menus[a];
-                var b = new AgentButton();
-                b.init(btnconf, this, this.onClickBtn);
-                b.setQuery(btnconf.cmd);
-                this.addChild(b);
-                this.arr_btns.push(b);
+                var btnconf = this.conf.switchmenus[a];
+                var sb = new AgentSwitchBtn();
+                sb.init(btnconf.switch, this, this.onSwitchClick);
+                sb.setQuery(btnconf.switch.cmd);
+                sb.initLabels(btnconf);
+                this.addChild(sb);
+                sb.setOn(0);
+                this.arr_btns.push(sb);
+            }
+        }
+        this.list = new AgentListIncome(this, ConfObjRead.getConfAgentListIncome());
+        this.addChild(this.list);
+        this.changeTab(AgentContentMyIncome.TAB_ID_TODAY);
+    };
+    AgentContentMyIncome.prototype.changeTab = function (num) {
+        if (num >= 0 && num < this.arr_btns.length) {
+            var btn = this.arr_btns[num];
+            btn.setOn(1);
+            this.onSwitchClick(btn);
+        }
+    };
+    AgentContentMyIncome.prototype.closeAllSwitch = function () {
+        for (var i = 0; i < this.arr_btns.length; i++) {
+            var sb = this.arr_btns[i];
+            sb.setOn(0);
+        }
+    };
+    AgentContentMyIncome.prototype.onSwitchClick = function (e) {
+        var btn = e;
+        var cmd = btn.getQuery();
+        var bOn = btn.isOn();
+        var bChange = false;
+        // Debug.trace("AgentContentMyIncome.onSwitchClick bOn:"+bOn);
+        if (bOn == 1) {
+            this.closeAllSwitch();
+            btn.setOn(1);
+            bChange = true;
+        }
+        else {
+            btn.setOn(1);
+            bChange = false;
+        }
+        if (bChange) {
+            this.requestList(cmd);
+            switch (cmd) {
+                case "today":
+                    break;
+                case "yesterday":
+                    break;
+                case "thisweek":
+                    break;
+                case "lastweek":
+                    break;
+                case "thismonth":
+                    break;
             }
         }
     };
-    AgentContentMyIncome.prototype.onClickBtn = function (e) {
-        var btn = e;
-        var cmd = btn.getQuery();
-        switch (cmd) {
-            case "copyinvation":
-                break;
-            case "copylink":
-                break;
-            case "share":
-                break;
-        }
+    AgentContentMyIncome.prototype.requestList = function (cmd) {
+        Debug.trace("AgentContentMuIncome.requestList cmd:" + cmd);
+        this.responseList(null, null, null);
     };
+    AgentContentMyIncome.prototype.responseList = function (s, stat, hr) {
+        var db = ConfObjRead.getConfAgentIncomeTest();
+        this.list.setData(db);
+    };
+    AgentContentMyIncome.TAB_ID_TODAY = 0;
+    AgentContentMyIncome.TAB_ID_YESTERDAY = 1;
+    AgentContentMyIncome.TAB_ID_THISWEEK = 2;
+    AgentContentMyIncome.TAB_ID_LASTWEEK = 3;
+    AgentContentMyIncome.TAB_ID_THISMONTH = 4;
     return AgentContentMyIncome;
 }(AgentContent));
 //# sourceMappingURL=AgentContentMyIncome.js.map

@@ -11,6 +11,8 @@ var __assign = (this && this.__assign) || function () {
 };
 var LayaMain = /** @class */ (function () {
     function LayaMain() {
+        this.root_node = null;
+        // public root_node:MySprite = null;
         this.sceneLobby = null;
         this.sceneLoading = null;
         this.sceneRoom = null;
@@ -22,17 +24,38 @@ var LayaMain = /** @class */ (function () {
         if (window["bShowStat"]) {
             Laya.Stat.show(0, 0);
         }
-        Laya.stage.scaleMode = window["sScaleMode"];
+        Laya.stage.scaleMode = window["sScaleMode"]; //Laya.Stage.SCALE_FIXED_HEIGHT;
         Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
         Laya.stage.alignH = Laya.Stage.ALIGN_CENTER;
         Laya.stage.alignV = Laya.Stage.ALIGN_MIDDLE;
         Laya.stage.bgColor = "#000000";
         Laya.stage.on(Laya.Event.RESIZE, this, this.onResize);
-        window.addEventListener("message", this.handleAction, false);
         window.document.addEventListener("message", this.handleIFrameAction, false);
+        this.root_node = new Laya.View();
+        // this.root_node = new MySprite();
+        this.root_node.centerX = 0;
+        this.root_node.centerY = 0;
+        this.root_node.pos(0, 0);
+        this.root_node.size(Common.GM_SCREEN_W, Common.GM_SCREEN_H);
+        Laya.stage.addChild(this.root_node);
     }
     LayaMain.getInstance = function () {
         return LayaMain.obj;
+    };
+    LayaMain.prototype.onResize = function () {
+        ToolsApp.initAppData();
+        // let rate = Laya.stage.width/Laya.stage.height;
+        // Debug.trace("LayaMain.onResize rate:"+rate);
+        // if(rate>2)
+        // {
+        //     this.root_node.width = Laya.stage.width;
+        // }
+        // else{
+        //     this.root_node.width = Laya.stage.width+100;
+        // }
+    };
+    LayaMain.prototype.getRootNode = function () {
+        return this.root_node;
     };
     LayaMain.prototype.handleAction = function (e) {
         try {
@@ -170,15 +193,9 @@ var LayaMain = /** @class */ (function () {
                     UpdateMsgHandle.playMusic(message.data);
                     break;
                 case "onBlur":
-                    LoginPad.obj.butInputText();
+                    LoginPad.obj.lostFocusInputText();
                     break;
             }
-        }
-    };
-    LayaMain.prototype.onResize = function () {
-        ToolsApp.initAppData();
-        if (AppData.IS_NATIVE_APP) {
-            window.removeEventListener("message", this.handleAction, false);
         }
     };
     LayaMain.prototype.clearChild = function () {
@@ -202,19 +219,19 @@ var LayaMain = /** @class */ (function () {
             this.cloading.destroy(true);
             this.cloading = null;
         }
-        var clen = Laya.stage._childs.length;
+        var clen = LayaMain.getInstance().getRootNode()._childs.length;
         for (var k = 0; k < clen; k++) {
-            var obj = Laya.stage._childs[k];
+            var obj = LayaMain.getInstance().getRootNode()._childs[k];
             Laya.timer.clearAll(obj);
         }
-        Laya.stage.removeChildren();
+        LayaMain.getInstance().getRootNode().removeChildren();
     };
     LayaMain.prototype.initLoading = function () {
         this.clearChild();
         if (this.sceneLoading == null) {
             this.sceneLoading = new LoadingScene();
             this.sceneLoading.initLoading();
-            Laya.stage.addChild(this.sceneLoading);
+            LayaMain.getInstance().getRootNode().addChild(this.sceneLoading);
         }
     };
     LayaMain.prototype.initLogin = function () {
@@ -222,7 +239,7 @@ var LayaMain = /** @class */ (function () {
         if (this.sceneLogin == null) {
             this.sceneLogin = new LoginScene();
             this.sceneLogin.onLoaded();
-            Laya.stage.addChild(this.sceneLogin);
+            LayaMain.getInstance().getRootNode().addChild(this.sceneLogin);
         }
     };
     LayaMain.prototype.initLobby = function () {
@@ -230,7 +247,7 @@ var LayaMain = /** @class */ (function () {
         if (this.sceneLobby == null) {
             this.sceneLobby = new LobbyScene();
             this.sceneLobby.onLoaded(null);
-            Laya.stage.addChild(this.sceneLobby);
+            LayaMain.getInstance().getRootNode().addChild(this.sceneLobby);
         }
     };
     LayaMain.prototype.initRoom = function (data) {
@@ -238,7 +255,7 @@ var LayaMain = /** @class */ (function () {
         if (this.sceneRoom == null) {
             this.sceneRoom = new RoomScene();
             this.sceneRoom.onLoaded(data);
-            Laya.stage.addChild(this.sceneRoom);
+            LayaMain.getInstance().getRootNode().addChild(this.sceneRoom);
         }
     };
     LayaMain.prototype.requestEnd = function (stat, msg) {
@@ -248,30 +265,37 @@ var LayaMain = /** @class */ (function () {
                 if (Avator.obj.bRequestStatus == 1) {
                     bSucAll = false;
                 }
+                Debug.trace("LayaMain.requestEnd Avator:" + Avator.obj.bRequestStatus);
             }
             if (GamePanel.obj) {
                 if (GamePanel.obj.bRequestStatus == 1) {
                     bSucAll = false;
                 }
+                Debug.trace("LayaMain.requestEnd GamePanel:" + GamePanel.obj.bRequestStatus);
             }
             if (AttentionDialog.obj) {
                 if (AttentionDialog.obj.bRequestStatus == 1) {
                     bSucAll = false;
                 }
+                Debug.trace("LayaMain.requestEnd AttentionDialog:" + AttentionDialog.obj.bRequestStatus);
             }
             if (RoomPanel.obj) {
                 if (RoomPanel.obj.bRequestStatus == 1) {
                     bSucAll = false;
                 }
+                Debug.trace("LayaMain.requestEnd RoomPanel:" + RoomPanel.obj.bRequestStatus);
             }
+            Debug.trace("LayaMain.requestEnd bSucAll:" + bSucAll);
             if (bSucAll) {
                 this.showCircleLoading(false);
             }
         }
         else if (stat == "error") {
+            Debug.trace("LayaMain.requestEnd stat error");
             this.showCircleLoading(false);
             NoticeDialog.showPad(msg, ConfObjRead.getConfNoticeDialog(), this, this.requestError);
         }
+        Debug.trace("LayaMain.requestEnd");
     };
     LayaMain.prototype.requestError = function () {
         LayaMain.getInstance().initLogin();
@@ -282,7 +306,7 @@ var LayaMain = /** @class */ (function () {
         if (b && !this.cloading) {
             this.cloading = MyBBLoading.getObj(true);
             this.cloading.zOrder = 99999;
-            Laya.stage.addChild(this.cloading);
+            LayaMain.getInstance().getRootNode().addChild(this.cloading);
         }
         if (!b) {
             if (this.cloading) {

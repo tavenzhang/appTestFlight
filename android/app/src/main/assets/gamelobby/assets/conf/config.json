@@ -13,10 +13,25 @@
     "resrootX":"",
     "resroot":"",
     "testLogin":false,
-    "glowfilter":{
-        "color":"#ffffff",
-        "blur":0,
+    "btn":{
+        "maxScale":{"x":0.9,"y":0.9},
+        "normalScale":{"x":1,"y":1},
+        "glowfilterY":{
+            "color":"#ffffff",
+            "blur":0,
+            "offx":0,
+            "offy":0
+        }
+    },
+    "glowfilterX":{
+        "color":"#ffe42d",
+        "blur":50,
         "offx":0,
         "offy":0
+    },
+    "btest":{
+        "stepAdd":1,
+        "totalNum":5,
+        "delayTime":1000
     }
 }

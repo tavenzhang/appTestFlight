@@ -275,6 +275,7 @@ export default class XXWebView extends Component {
             loginDomain:TW_Store.bblStore.loginDomain+"/api/v1/account",
             gameDomain:TW_Store.bblStore.gameDomain+"/api/v1/gamecenter",
             affCode:TW_Store.appStore.userAffCode,
+            isDebug:TW_IS_DEBIG,
         })}`;
 
         return (

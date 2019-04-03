@@ -22,7 +22,7 @@ var Toast = /** @class */ (function (_super) {
     Toast.prototype.init = function (conf) {
         this.conf = conf;
         Toast.obj = this;
-        this.bg = new Laya.Sprite();
+        this.bg = new MySprite();
         this.bg.pos(this.conf.bg.pos.x, this.conf.bg.pos.y);
         this.addChild(this.bg);
         Tools.scaleSpriteV(this.bg, this.conf.bg.src, this.conf.bg.size.spliceV);
@@ -42,7 +42,7 @@ var Toast = /** @class */ (function (_super) {
         if (!Toast.obj) {
             var a = new Toast();
             a.init(ConfObjRead.getConfToast());
-            Laya.stage.addChild(a);
+            LayaMain.getInstance().getRootNode().addChild(a);
             // Toast.obj.zOrder = Common.IDX_TOP_TOAST;
         }
         Toast.obj.show(str);
@@ -94,5 +94,5 @@ var Toast = /** @class */ (function (_super) {
         Toast.obj = null;
     };
     return Toast;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=Toast.js.map

@@ -29,9 +29,8 @@ var PgBarSaizi = /** @class */ (function (_super) {
         this.anim_saizi.interval = this.conf.anim.interval;
         this.anim_saizi.index = this.conf.anim.index;
         this.anim_saizi.play();
-        this.anim_saizi.pos(this.conf.anim.pos.x, this.conf.anim.pos.y); //Laya.stage.width / 2, Laya.stage.height / 2);
+        this.anim_saizi.pos(this.conf.anim.pos.x, this.conf.anim.pos.y);
         this.addChild(this.anim_saizi);
-        // Debug.trace(this.anim_saizi);
     };
     return PgBarSaizi;
 }(PgBar));

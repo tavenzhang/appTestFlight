@@ -20,5 +20,5 @@ var Highscore = /** @class */ (function (_super) {
         this.conf = conf;
     };
     return Highscore;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=Highscore.js.map

@@ -102,5 +102,5 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
     UpdateMsgHandle.updateInitMsg = null;
     UpdateMsgHandle.raw_root = "./assets/raw/";
     return UpdateMsgHandle;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=UpdateMsgHandle.js.map

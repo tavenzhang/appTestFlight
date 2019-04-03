@@ -32,7 +32,7 @@ var RechargeHintPad = /** @class */ (function (_super) {
             o.init(ConfObjRead.getConfNoMoney());
             o.caller = caller;
             o.callback = callback;
-            Laya.stage.addChild(o);
+            LayaMain.getInstance().getRootNode().addChild(o);
         }
         RechargeHintPad.obj.show(str);
     };
@@ -51,13 +51,13 @@ var RechargeHintPad = /** @class */ (function (_super) {
         this.lb_content.text = "";
         this.visible = false;
         RechargeHintPad.obj = null;
-        Laya.stage.removeChild(this);
+        LayaMain.getInstance().getRootNode().removeChild(this);
         this.destroy(true);
     };
     RechargeHintPad.prototype.init = function (conf) {
         RechargeHintPad.obj = this;
         this.conf = conf;
-        this.alphabg = new Laya.Sprite();
+        this.alphabg = new MySprite();
         Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
         this.addChild(this.alphabg);
         this.alphabg.size(this.conf.size.w, this.conf.size.h);
@@ -67,7 +67,7 @@ var RechargeHintPad = /** @class */ (function (_super) {
         this.alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
         this.bg = Tools.addSprite(this, this.conf.bg);
         this.sp_title_lb = Tools.addSprite(this, this.conf.title.lb);
-        this.sp_content = new Laya.Sprite();
+        this.sp_content = new MySprite();
         this.sp_content.pos(this.conf.content.pos.x, this.conf.content.pos.y);
         this.addChild(this.sp_content);
         if (this.conf.content.label) {
@@ -138,5 +138,5 @@ var RechargeHintPad = /** @class */ (function (_super) {
         }
     };
     return RechargeHintPad;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=RechargeHintPad.js.map

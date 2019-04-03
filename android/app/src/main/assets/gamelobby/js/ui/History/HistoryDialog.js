@@ -28,7 +28,7 @@ var HistoryDialog = /** @class */ (function (_super) {
         if (!HistoryDialog.obj) {
             var o = new HistoryDialog();
             o.init(ConfObjRead.getConfHistorypad(), gid);
-            Laya.stage.addChild(o);
+            LayaMain.getInstance().getRootNode().addChild(o);
         }
         // HistoryDialog.obj.show(b);
     };
@@ -40,7 +40,7 @@ var HistoryDialog = /** @class */ (function (_super) {
         // this.lb_content.text = "";
         this.visible = false;
         HistoryDialog.obj = null;
-        Laya.stage.removeChild(this);
+        LayaMain.getInstance().getRootNode().removeChild(this);
         this.destroy(true);
         // lamain.restoreLoaderPath();
     };
@@ -84,7 +84,7 @@ var HistoryDialog = /** @class */ (function (_super) {
         }
     };
     HistoryDialog.prototype.initContent = function () {
-        this.sp_content = new Laya.Sprite();
+        this.sp_content = new MySprite();
         this.sp_content.pos(this.conf.content.pos.x, this.conf.content.pos.y);
         this.addChild(this.sp_content);
         if (this.conf.ctmask.color) {
@@ -105,20 +105,20 @@ var HistoryDialog = /** @class */ (function (_super) {
             return;
         }
         if (this.conf.title.bg) {
-            this.sp_title_bg = new Laya.Sprite();
+            this.sp_title_bg = new MySprite();
             this.sp_title_bg.loadImage(this.conf.title.bg.src);
             this.sp_title_bg.pos(this.conf.title.bg.pos.x, this.conf.title.bg.pos.y);
             this.addChild(this.sp_title_bg);
         }
         if (this.conf.title.lb) {
-            this.sp_title_lb = new Laya.Sprite();
+            this.sp_title_lb = new MySprite();
             this.sp_title_lb.loadImage(this.conf.title.lb.src);
             this.sp_title_lb.pos(this.conf.title.lb.pos.x, this.conf.title.lb.pos.y);
             this.addChild(this.sp_title_lb);
         }
     };
     HistoryDialog.prototype.initAlphaBg = function () {
-        this.alphabg = new Laya.Sprite();
+        this.alphabg = new MySprite();
         Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
         this.addChild(this.alphabg);
         this.alphabg.size(this.conf.size.w, this.conf.size.h);
@@ -128,7 +128,7 @@ var HistoryDialog = /** @class */ (function (_super) {
         this.alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
     };
     HistoryDialog.prototype.initTableHead = function () {
-        // this.sp_table_head = new Laya.Sprite();
+        // this.sp_table_head = new MySprite();
         // this.sp_table_head.pos(this.conf.tablehead.bg.pos.x,this.conf.tablehead.bg.pos.y);
         // this.addChild(this.sp_table_head);
         // if( this.conf.tablehead.bg.size && this.conf.tablehead.bg.size.spliceV )
@@ -143,7 +143,7 @@ var HistoryDialog = /** @class */ (function (_super) {
         this.sp_table_head = Tools.addSprite(this, this.conf.tablehead.bg);
     };
     HistoryDialog.prototype.initBg = function (conf) {
-        // this.bg = new Laya.Sprite();
+        // this.bg = new MySprite();
         // this.bg.loadImage(this.conf.bg.src);
         // this.bg.pos(this.conf.bg.pos.x,this.conf.bg.pos.y);
         // this.addChild(this.bg);
@@ -265,8 +265,6 @@ var HistoryDialog = /** @class */ (function (_super) {
             }
         }
         else {
-            // lamain.showCircleLoading(false);
-            // MySaiziLoading.showPad(false);//true,"loading...",true,ConfObjRead.getConfSaiziLoading(),Laya.stage);
             Toast.showToast(s);
         }
         if (MyBBLoading.obj) {
@@ -390,5 +388,5 @@ var HistoryDialog = /** @class */ (function (_super) {
         this.visible = b;
     };
     return HistoryDialog;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=HistoryDialog.js.map

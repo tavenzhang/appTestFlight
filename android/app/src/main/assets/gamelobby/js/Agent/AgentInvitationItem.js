@@ -53,7 +53,7 @@ var AgentInvitationItem = /** @class */ (function (_super) {
                 Laya.Tween.to(this._qr, { scaleX: scalesx, scaleY: scalesy }, 80, Laya.Ease.backOut, null, 80);
                 break;
             case this._delBtn:
-                AgentDialogDeleteInvitation.showDialog(Laya.stage, ConfObjRead.getConfAgentDialogDeleteInvitation());
+                AgentDialogDeleteInvitation.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogDeleteInvitation());
                 break;
         }
     };
@@ -61,5 +61,5 @@ var AgentInvitationItem = /** @class */ (function (_super) {
         this.data = d;
     };
     return AgentInvitationItem;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=AgentInvitationItem.js.map

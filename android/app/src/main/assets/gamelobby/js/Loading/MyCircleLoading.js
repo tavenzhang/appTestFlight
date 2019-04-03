@@ -35,7 +35,7 @@ var MyCircleLoading = /** @class */ (function (_super) {
         // var w = Const.GM_SCREEN_W;
         // var h = Const.GM_SCREEN_H;
         if (this.conf.mask && bshowalpha) {
-            this.alpha_bg = new Laya.Sprite();
+            this.alpha_bg = new MySprite();
             Tools.drawRectWithAlpha(this.alpha_bg, this.conf.mask.pos.x, this.conf.mask.pos.y, this.conf.mask.size.w, this.conf.mask.size.h, this.conf.mask.color, this.conf.mask.alpha);
             this.alpha_bg.pos(this.conf.pos.x * -1, this.conf.pos.y * -1);
             this.addChild(this.alpha_bg);
@@ -47,14 +47,14 @@ var MyCircleLoading = /** @class */ (function (_super) {
             // this.bg.on(Laya.Event.MOUSE_OVER,this,this.onMouse);
         }
         if (this.conf.lbg) {
-            this.loadingbg = new Laya.Sprite();
+            this.loadingbg = new MySprite();
             this.loadingbg.loadImage(this.conf.lbg.src);
             this.loadingbg.pos(this.conf.lbg.pos.x, this.conf.lbg.pos.y);
             this.loadingbg.pivot(this.conf.lbg.pivot.x, this.conf.lbg.pivot.y);
             this.addChild(this.loadingbg);
         }
         if (this.conf.lft) {
-            this.loadingft = new Laya.Sprite();
+            this.loadingft = new MySprite();
             this.loadingft.loadImage(this.conf.lft.src);
             this.loadingft.pos(this.conf.lft.pos.x, this.conf.lft.pos.y);
             this.loadingft.pivot(this.conf.lft.pivot.x, this.conf.lft.pivot.y);
@@ -111,5 +111,5 @@ var MyCircleLoading = /** @class */ (function (_super) {
         }
     };
     return MyCircleLoading;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MyCircleLoading.js.map

@@ -35,7 +35,7 @@ var AgentDialogDeleteInvitation = /** @class */ (function (_super) {
         _super.prototype.destroy.call(this, b);
     };
     AgentDialogDeleteInvitation.prototype.init = function (node, conf) {
-        var container = AgentDialogDeleteInvitation.container = new Laya.Sprite();
+        var container = AgentDialogDeleteInvitation.container = new MySprite();
         _super.prototype.init.call(this, node, conf);
         this.size(this.conf.bg.size.w, this.conf.bg.size.h);
         this.initContent();

@@ -44,7 +44,7 @@ var GirlManager = /** @class */ (function (_super) {
     GirlManager.prototype.init = function (conf) {
         GirlManager.obj = this;
         this.conf = conf;
-        this.sp_content = new Laya.Sprite();
+        this.sp_content = new MySprite();
         this.sp_content.pos(this.conf.content.pos.x, this.conf.content.pos.y);
         this.addChild(this.sp_content);
         this.sp_content.scrollRect = new Laya.Rectangle(this.conf.content.rect.x, this.conf.content.rect.y, this.conf.content.rect.w, this.conf.content.rect.h);
@@ -70,7 +70,7 @@ var GirlManager = /** @class */ (function (_super) {
         if (!conf.bswitch) {
             return;
         }
-        var fcontent = new Laya.Sprite();
+        var fcontent = new MySprite();
         fcontent.pos(conf.pos.x, conf.pos.y);
         this.addChild(fcontent);
         var gw = conf.jianju.w;
@@ -179,7 +179,7 @@ var GirlManager = /** @class */ (function (_super) {
             }
             for (var k = 0; k < alen; k++) {
                 var a_src = this.conf.content.girls[k];
-                var sp_icon = new Girl(a_src, this.conf.content.girl); //new Laya.Sprite();
+                var sp_icon = new Girl(a_src, this.conf.content.girl); //new MySprite();
                 // sp_icon.loadImage(a_src);
                 var w = sp_icon.width;
                 var h = sp_icon.height;
@@ -311,5 +311,5 @@ var GirlManager = /** @class */ (function (_super) {
         }
     };
     return GirlManager;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=GirlManager.js.map

@@ -53,12 +53,12 @@ var GamePanel = /** @class */ (function (_super) {
         this.caller = caller;
         this.callback = callback;
         if (this.conf.panel.showbg) {
-            this.panel_bg = new Laya.Sprite();
+            this.panel_bg = new MySprite();
             this.addChild(this.panel_bg);
             Tools.drawRectWithAlpha(this.panel_bg, this.conf.panel.content.pos.x, this.conf.panel.content.pos.y, this.conf.panel.content.size.w, this.conf.panel.content.size.h, this.conf.panel.showbg.color, this.conf.panel.showbg.alpha);
         }
         this.size(this.conf.panel.content.size.w, this.conf.panel.content.size.h);
-        this.sp_content = new Laya.Sprite();
+        this.sp_content = new MySprite();
         this.sp_content.pos(this.conf.panel.content.pos.x, this.conf.panel.content.pos.y);
         this.sp_content.size(this.conf.panel.content.size.w, this.conf.panel.content.size.h);
         this.addChild(this.sp_content);
@@ -92,7 +92,7 @@ var GamePanel = /** @class */ (function (_super) {
     };
     GamePanel.prototype.createGirl = function () {
         if (!this.sp_girl && this.conf.girl) {
-            this.sp_girl = new Laya.Sprite();
+            this.sp_girl = new MySprite();
             this.sp_girl.loadImage(this.conf.girl.src);
             this.addChild(this.sp_girl);
             this.sp_girl.pos(this.conf.girl.hidepos.x, this.conf.girl.hidepos.y);
@@ -326,6 +326,8 @@ var GamePanel = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseGameList);
     };
     GamePanel.prototype.responseGameList = function (s, stat, hr) {
+        Debug.trace("GamePanel.responseGameList:");
+        Debug.trace(s);
         if (stat == "complete") {
             Common.gameInfo = s.datas;
             var ilen = this.items.length;
@@ -475,5 +477,5 @@ var GamePanel = /** @class */ (function (_super) {
     };
     GamePanel.obj = null;
     return GamePanel;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=GamePanel.js.map

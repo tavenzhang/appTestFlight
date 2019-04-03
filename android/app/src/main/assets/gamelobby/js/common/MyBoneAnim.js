@@ -89,5 +89,5 @@ var MyBoneAnim = /** @class */ (function (_super) {
     };
     MyBoneAnim.obj = null;
     return MyBoneAnim;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MyBoneAnim.js.map

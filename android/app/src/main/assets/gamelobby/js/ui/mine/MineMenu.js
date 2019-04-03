@@ -68,5 +68,5 @@ var MineMenus = /** @class */ (function (_super) {
     };
     MineMenus.obj = null;
     return MineMenus;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MineMenu.js.map

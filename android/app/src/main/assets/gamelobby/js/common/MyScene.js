@@ -20,5 +20,5 @@ var MyScene = /** @class */ (function (_super) {
         this.conf = conf;
     };
     return MyScene;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MyScene.js.map

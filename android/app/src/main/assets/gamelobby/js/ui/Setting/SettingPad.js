@@ -34,10 +34,8 @@ var SettingPad = /** @class */ (function (_super) {
         if (!SettingPad.obj) {
             var o = new SettingPad();
             o.init(conf, caller, callback);
-            // Laya.stage.addChild(o);
             node.addChild(o);
         }
-        // SettingPad.obj.show(b);
     };
     SettingPad.prototype.destroy = function (b) {
         SettingPad.obj = null;
@@ -47,7 +45,7 @@ var SettingPad = /** @class */ (function (_super) {
         // this.lb_content.text = "";
         this.visible = false;
         SettingPad.obj = null;
-        Laya.stage.removeChild(this);
+        LayaMain.getInstance().getRootNode().removeChild(this);
         this.destroy(true);
         // lamain.restoreLoaderPath();
     };
@@ -56,7 +54,7 @@ var SettingPad = /** @class */ (function (_super) {
         this.conf = conf;
         this.caller = caller;
         this.callback = callback;
-        this.alphabg = new Laya.Sprite();
+        this.alphabg = new MySprite();
         Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
         this.addChild(this.alphabg);
         this.alphabg.size(this.conf.size.w, this.conf.size.h);
@@ -82,7 +80,7 @@ var SettingPad = /** @class */ (function (_super) {
     SettingPad.prototype.initBg = function (conf) {
         this.sp_bg = Tools.addSprite(this, conf);
         if (conf.front) {
-            this.sp_front = new Laya.Sprite();
+            this.sp_front = new MySprite();
             this.sp_front.pos(conf.front.pos.x, conf.front.pos.y);
             this.addChild(this.sp_front);
             Tools.scaleSpriteHV(this.sp_front, conf.front.src, conf.front.size.spliceHV);
@@ -315,5 +313,5 @@ var SettingPad = /** @class */ (function (_super) {
         this.hide();
     };
     return SettingPad;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=SettingPad.js.map

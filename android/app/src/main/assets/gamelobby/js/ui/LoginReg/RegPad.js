@@ -25,22 +25,18 @@ var RegPad = /** @class */ (function (_super) {
         if (!RegPad.obj) {
             var o = new RegPad();
             o.init(conf, caller, callback);
-            // Laya.stage.addChild(o);
             node.addChild(o);
         }
-        // RegPad.obj.show(b);
     };
     RegPad.prototype.destroy = function (b) {
         RegPad.obj = null;
         _super.prototype.destroy.call(this, b);
     };
     RegPad.prototype.hide = function () {
-        // this.lb_content.text = "";
         this.visible = false;
         RegPad.obj = null;
-        Laya.stage.removeChild(this);
+        LayaMain.getInstance().getRootNode().removeChild(this);
         this.destroy(true);
-        // lamain.restoreLoaderPath();
     };
     RegPad.prototype.init = function (conf, caller, callback) {
         RegPad.obj = this;
@@ -70,7 +66,7 @@ var RegPad = /** @class */ (function (_super) {
     };
     RegPad.prototype.initContent = function () {
         if (this.conf.name) {
-            var sp = new Laya.Sprite();
+            var sp = new MySprite();
             sp.pos(this.conf.name.pos.x, this.conf.name.pos.y);
             this.addChild(sp);
             var lb = Tools.addSprite(sp, this.conf.name.label);
@@ -80,7 +76,7 @@ var RegPad = /** @class */ (function (_super) {
             var star = Tools.addLabels(sp, this.conf.name.star);
         }
         if (this.conf.pwd) {
-            var sp = new Laya.Sprite();
+            var sp = new MySprite();
             sp.pos(this.conf.pwd.pos.x, this.conf.pwd.pos.y);
             this.addChild(sp);
             var lb = Tools.addSprite(sp, this.conf.pwd.label);
@@ -89,7 +85,7 @@ var RegPad = /** @class */ (function (_super) {
             var star = Tools.addLabels(sp, this.conf.pwd.star);
         }
         if (this.conf.pwdconfirm) {
-            var sp = new Laya.Sprite();
+            var sp = new MySprite();
             sp.pos(this.conf.pwdconfirm.pos.x, this.conf.pwdconfirm.pos.y);
             this.addChild(sp);
             var lb = Tools.addSprite(sp, this.conf.pwdconfirm.label);
@@ -98,7 +94,7 @@ var RegPad = /** @class */ (function (_super) {
             var star = Tools.addLabels(sp, this.conf.pwdconfirm.star);
         }
         if (this.conf.yanzhengma) {
-            this.sp_yanzhengma = new Laya.Sprite();
+            this.sp_yanzhengma = new MySprite();
             this.sp_yanzhengma.pos(this.conf.yanzhengma.pos.x, this.conf.yanzhengma.pos.y);
             this.addChild(this.sp_yanzhengma);
             var lb = Tools.addSprite(this.sp_yanzhengma, this.conf.yanzhengma.label);
@@ -109,7 +105,7 @@ var RegPad = /** @class */ (function (_super) {
             this.imgYanzhengma = this.newYanzhengma(this.sp_yanzhengma, this.conf.yanzhengma.image);
         }
         if (this.conf.yaoqingma) {
-            var sp = new Laya.Sprite();
+            var sp = new MySprite();
             sp.pos(this.conf.yaoqingma.pos.x, this.conf.yaoqingma.pos.y);
             this.addChild(sp);
             var lb = Tools.addSprite(sp, this.conf.yaoqingma.label);
@@ -117,7 +113,7 @@ var RegPad = /** @class */ (function (_super) {
             this.inputYaoqingma = Tools.addInput(sp, this.conf.yaoqingma.input);
         }
         if (this.conf.phone) {
-            var sp = new Laya.Sprite();
+            var sp = new MySprite();
             sp.pos(this.conf.phone.pos.x, this.conf.phone.pos.y);
             this.addChild(sp);
             var lb = Tools.addSprite(sp, this.conf.phone.label);
@@ -144,7 +140,7 @@ var RegPad = /** @class */ (function (_super) {
     RegPad.prototype.onYanzhengmaInputFocus = function (e) {
         // Debug.trace("RegPad.onYanzhengmaInputFocus e:");
         // Debug.trace(e);
-        // var inputText:Laya.TextInput = e as Laya.TextInput;
+        // var inputText:MyTextInput = e as MyTextInput;
         // inputText.text = "";
     };
     RegPad.prototype.newYanzhengmaY = function (node, conf) {
@@ -153,7 +149,7 @@ var RegPad = /** @class */ (function (_super) {
             img = this.imgYanzhengma;
         }
         else {
-            img = new Laya.Sprite();
+            img = new MySprite();
             img.on(Laya.Event.CLICK, this, this.onYanzhengmaFocus, [node]);
             img.pos(conf.pos.x, conf.pos.y);
             img.size(conf.size.w, conf.size.h);
@@ -184,7 +180,6 @@ var RegPad = /** @class */ (function (_super) {
         img.graphics.drawTexture(t, 0, 0, w, h);
     };
     RegPad.prototype.newYanzhengma = function (node, conf) {
-        //根据当前路径类型来
         switch (Common.pathType) {
             case Common.PATH_TYPE_XD:
                 return this.newYanzhengma_xiangdui(node, conf);
@@ -250,7 +245,7 @@ var RegPad = /** @class */ (function (_super) {
     };
     RegPad.prototype.initAlphaBg = function () {
         if (this.conf.mask) {
-            var alphabg = new Laya.Sprite();
+            var alphabg = new MySprite();
             Tools.drawRectWithAlpha(alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
             this.addChild(alphabg);
             alphabg.size(this.conf.size.w, this.conf.size.h);
@@ -373,11 +368,22 @@ var RegPad = /** @class */ (function (_super) {
         // Debug.trace(hr);
         if (stat == "complete") {
             //注册成功
-            Toast.showToast("注册成功，请返回登录");
-            LoginPad.getObj().setUserName(RegPad.request_data.username);
-            var pwd = this.inputPwd.text;
-            LoginPad.getObj().setPassword(pwd);
-            LoginPad.getObj().onLoginClick(null);
+            // Toast.showToast("注册成功，请返回登录");
+            // LoginPad.getObj().setUserName( RegPad.request_data.username );
+            // var pwd = this.inputPwd.text;
+            // LoginPad.getObj().setPassword( pwd );
+            // LoginPad.getObj().onLoginClick(null);
+            var jobj;
+            try {
+                jobj = JSON.parse(s);
+            }
+            catch (e) {
+                Debug.trace(e);
+                jobj = s;
+            }
+            Common.access_token = jobj.oauthToken.access_token;
+            SaveManager.getObj().save(SaveManager.KEY_TOKEN, Common.access_token);
+            LayaMain.getInstance().initLobby();
             RegPad.obj.onCloseClick(null);
         }
         else {
@@ -389,7 +395,6 @@ var RegPad = /** @class */ (function (_super) {
             catch (e) {
                 Debug.trace("error===" + err, hr.http);
             }
-            //出现任何错误，自动刷新验证码
             this.onYanzhengmaFocus(this.sp_yanzhengma);
         }
         if (MyBBLoading.obj) {
@@ -399,5 +404,5 @@ var RegPad = /** @class */ (function (_super) {
     RegPad.request_header = {};
     RegPad.request_data = {};
     return RegPad;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=RegPad.js.map

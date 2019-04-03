@@ -56,12 +56,18 @@
 			"testStr":"test",
 			"isAndroidHack":false
 		};
+
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+		
 	</script>
 	
 	<script type="text/javascript" src="libthird/vconsole.min.js"></script>
 	<script>
 		var bDebugPlatform = "web";
-		var bDebug = false;
+		var bDebug = true;
 		var sScaleMode = "showall";//"fixedheight";//"fixedwidth";//"noborder";//"showall";
 		var bShowStat = false;
 		var sPubRes = "../pubres/assets/lobby/";
@@ -135,6 +141,7 @@
 	<script src="js/HtmlCompnents/SeanHtmlEncode.js"></script>
 	<script src="js/HtmlCompnents/SeanHtmlDecode.js"></script>
 	<script src="js/HtmlCompnents/SeanAttributeNode.js"></script>
+	<script src="js/common/MySprite.js"></script>
 	<script src="js/common/MyButton.js"></script>
 	<script src="js/Agent/AgentButton.js"></script>
 	<script src="js/Agent/AgentComBase.js"></script>
@@ -152,12 +159,16 @@
 	<script src="js/Agent/AgentInvitationItem.js"></script>
 	<script src="js/Agent/AgentInvitationList.js"></script>
 	<script src="js/Agent/AgentList.js"></script>
+	<script src="js/Agent/AgentListIncome.js"></script>
 	<script src="js/Agent/AgentListItem.js"></script>
 	<script src="js/Agent/AgentListMyChildren.js"></script>
 	<script src="js/Agent/AgentPad.js"></script>
+	<script src="js/common/MySwitchBtn.js"></script>
+	<script src="js/Agent/AgentSwitchBtn.js"></script>
 	<script src="js/Agent/AgentTab.js"></script>
 	<script src="js/Agent/AgentTitle.js"></script>
 	<script src="js/HtmlCompnents/SeanHtmlString.js"></script>
+	<script src="js/common/MyLabel.js"></script>
 	<script src="js/HtmlCompnents/SeanLabel.js"></script>
 	<script src="js/Loading/Loading.js"></script>
 	<script src="js/Loading/LoadingModule.js"></script>
@@ -178,7 +189,7 @@
 	<script src="js/common/MyDragSwitch.js"></script>
 	<script src="js/common/MyPanel.js"></script>
 	<script src="js/common/MyScene.js"></script>
-	<script src="js/common/MySwitchBtn.js"></script>
+	<script src="js/common/MyTextInput.js"></script>
 	<script src="js/common/ProgressPie.js"></script>
 	<script src="js/ui/Bg/Stars.js"></script>
 	<script src="js/ui/Bg/UIBg.js"></script>
@@ -197,8 +208,11 @@
 	<script src="js/ui/History/HistoryItem.js"></script>
 	<script src="js/ui/LoadingScene.js"></script>
 	<script src="js/ui/LobbyScene.js"></script>
+	<script src="js/ui/LoginReg/ChangePwd.js"></script>
+	<script src="js/ui/LoginReg/ChooseLogin.js"></script>
 	<script src="js/ui/LoginReg/Light.js"></script>
 	<script src="js/ui/LoginReg/LoginPad.js"></script>
+	<script src="js/ui/LoginReg/QuickLogin.js"></script>
 	<script src="js/ui/LoginReg/RegPad.js"></script>
 	<script src="js/ui/LoginReg/Shining.js"></script>
 	<script src="js/ui/LoginReg/Star.js"></script>

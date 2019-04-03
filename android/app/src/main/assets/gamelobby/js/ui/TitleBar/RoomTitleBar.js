@@ -80,7 +80,7 @@ var RoomTitleBar = /** @class */ (function (_super) {
                     break;
                 case "setting":
                     var conf = ConfObjRead.getConfSetting();
-                    SettingPad.showPad(Laya.stage, conf, this, this.setCallback);
+                    SettingPad.showPad(LayaMain.getInstance().getRootNode(), conf, this, this.setCallback);
                     break;
                 default:
                     break;
@@ -105,5 +105,5 @@ var RoomTitleBar = /** @class */ (function (_super) {
     };
     RoomTitleBar.obj = null;
     return RoomTitleBar;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=RoomTitleBar.js.map

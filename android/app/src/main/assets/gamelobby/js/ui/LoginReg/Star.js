@@ -50,5 +50,5 @@ var Star = /** @class */ (function (_super) {
         }
     };
     return Star;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=Star.js.map

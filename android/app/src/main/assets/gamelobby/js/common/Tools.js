@@ -165,7 +165,7 @@ var Tools = /** @class */ (function () {
         return sp;
     };
     Tools.newSprite = function (conf) {
-        var sp = new Laya.Sprite();
+        var sp = new MySprite();
         if (conf.src) {
             sp.loadImage(conf.src);
             // Tools.addSpriteLoadListener(sp,conf,this,this.spriteLoaded);
@@ -965,7 +965,56 @@ var Tools = /** @class */ (function () {
         // return ""+m+":"+s+":"+ss;
         return m_s + ":" + s_s + ":" + ss_s;
     };
-    //往node里面添加一个input
+    Tools.addMyTextInput = function (node, conf) {
+        var ti = new MyTextInput();
+        if (conf.skin) {
+            ti.skin = conf.skin;
+        }
+        if (conf.size) {
+            ti.size(conf.size.w, conf.size.h);
+        }
+        if (conf.sizegrid) {
+            ti.sizeGrid = conf.sizegrid; //"0,40,0,40";  //背景图边距
+        }
+        if (conf.font) {
+            ti.font = conf.font;
+        }
+        else {
+            ti.font = Common.normalFont;
+        }
+        if (conf.fontsize) {
+            ti.fontSize = conf.fontsize;
+        }
+        if (conf.bold) {
+            ti.bold = conf.bold;
+        }
+        if (conf.color) {
+            ti.color = conf.color;
+        }
+        if (conf.align) {
+            ti.align = conf.align;
+        }
+        if (conf.underline) {
+            ti.underline = conf.underline;
+        }
+        if (conf.pos) {
+            ti.pos(conf.pos.x, conf.pos.y);
+        }
+        if (conf.type) {
+            ti.type = conf.type;
+        }
+        if (conf.prompt) {
+            ti.prompt = conf.prompt;
+        }
+        if (conf.text) {
+            ti.text = conf.text;
+        }
+        if (conf.editable) {
+            ti.editable = conf.editable.value;
+        }
+        node.addChild(ti);
+        return ti;
+    };
     Tools.addInput = function (node, conf) {
         // Debug.trace("addInput conf:");
         // Debug.trace(conf);
@@ -995,7 +1044,7 @@ var Tools = /** @class */ (function () {
         if (bold === void 0) { bold = false; }
         if (align === void 0) { align = "left"; }
         if (underline === void 0) { underline = false; }
-        var ti = new Laya.TextInput();
+        var ti = new MyTextInput();
         ti.skin = skin;
         ti.size(w, h); // ti.size(300, 50);
         // 数据格式："上边距,右边距,下边距,左边距,是否重复填充(值为0：不重复填充，1：重复填充)"，以逗号分隔。 例如："4,4,4,4,1"
@@ -1006,7 +1055,6 @@ var Tools = /** @class */ (function () {
         ti.color = color; //"#606368";
         ti.align = align;
         ti.underline = underline;
-        // Laya.stage.addChild(ti);
         return ti;
     };
     //添加一个文本框
@@ -1045,8 +1093,6 @@ var Tools = /** @class */ (function () {
         txt.leading = leading;
         txt.align = align;
         txt.valign = valign;
-        // txt.x = x;//Laya.stage.width - txt.textWidth >> 1;
-        // txt.y = y;//Laya.stage.height - txt.textHeight >> 1;
         if (scrollCaller && scrollCallback) {
             txt.on(Laya.Event.MOUSE_DOWN, scrollCaller, scrollCallback);
             txt.on(Laya.Event.MOUSE_UP, scrollCaller, scrollCallback);
@@ -1088,7 +1134,7 @@ var Tools = /** @class */ (function () {
         if (font === void 0) { font = "Microsoft YaHei"; }
         if (wordWrap === void 0) { wordWrap = true; }
         if (underline === void 0) { underline = false; }
-        var lb = new Laya.Label();
+        var lb = new MyLabel();
         lb.font = Common.normalFont; //font;
         lb.text = text;
         lb.fontSize = fontSize;
@@ -1235,7 +1281,7 @@ var Tools = /** @class */ (function () {
     };
     //生成一个Sprite的剪影
     Tools.newSketch = function (sp, x, y, w, h) {
-        var sp_mask = new Laya.Sprite();
+        var sp_mask = new MySprite();
         Tools.drawRect(sp_mask, x, y, w, h, "#000000");
         sp_mask.mask = sp;
         return sp_mask;

@@ -203,5 +203,5 @@ var Loading = /** @class */ (function (_super) {
     };
     Loading.obj = null;
     return Loading;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=Loading.js.map

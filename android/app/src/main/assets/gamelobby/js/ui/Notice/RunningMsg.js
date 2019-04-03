@@ -126,7 +126,7 @@ var RunningMsg = /** @class */ (function (_super) {
             return;
         }
         this.lb_msgs = new Array();
-        this.sp_lbcontent = new Laya.Sprite();
+        this.sp_lbcontent = new MySprite();
         this.sp_lbcontent.pos(this.conf.msgcontent.pos.x, this.conf.msgcontent.pos.y);
         this.sp_lbcontent.size(this.conf.msgcontent.size.w, this.conf.msgcontent.size.h);
         // this.sp_lbcontent = Tools.newSprite(conf);
@@ -225,5 +225,5 @@ var RunningMsg = /** @class */ (function (_super) {
     };
     RunningMsg.obj = null;
     return RunningMsg;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=RunningMsg.js.map

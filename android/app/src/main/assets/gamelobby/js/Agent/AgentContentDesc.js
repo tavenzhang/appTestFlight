@@ -18,43 +18,51 @@ var AgentContentDesc = /** @class */ (function (_super) {
     }
     AgentContentDesc.prototype.initContent = function () {
         _super.prototype.initContent.call(this);
+        this.sp_content = new MySprite();
+        this.addChild(this.sp_content);
+        if (this.conf.size) {
+            this.size(this.conf.size.w, this.conf.size.h);
+            this.sp_content.size(this.conf.size.w, this.conf.size.h);
+            this.scrollRect = new Laya.Rectangle(0, 0, this.conf.size.w, this.conf.size.h);
+            this.on(Laya.Event.MOUSE_DOWN, this, this.onMouseEvent);
+        }
         if (this.conf.sprites) {
+            var h = 0;
             var len = this.conf.sprites.length;
             for (var i = 0; i < len; i++) {
                 var spconf = this.conf.sprites[i];
-                Tools.addSprite(this, spconf);
+                if (spconf.type == "list") {
+                    var li = new AgentList(this.sp_content, ConfObjRead.getConfListDesc());
+                    this.sp_content.addChild(li);
+                    li.setData(ConfObjRead.getConfListDescTest());
+                    h += li.height;
+                }
+                else if (spconf.type == "listbottom") {
+                    var spb = Tools.addSprite(this.sp_content, spconf);
+                    spb.y = h;
+                    h += spb.height;
+                }
+                else {
+                    var sp = Tools.addSprite(this.sp_content, spconf);
+                    h += sp.height;
+                }
             }
-        }
-        if (this.conf.labels) {
-            var len = this.conf.labels.length;
-            for (var i = 0; i < len; i++) {
-                var lbconf = this.conf.labels[i];
-                Tools.addLabels(this, lbconf);
-            }
-        }
-        this.arr_btns = new Array();
-        if (this.conf.menus) {
-            var blen = this.conf.menus.length;
-            this.arr_btns = new Array();
-            for (var a = 0; a < blen; a++) {
-                var btnconf = this.conf.menus[a];
-                var b = new AgentButton();
-                b.init(btnconf, this, this.onClickBtn);
-                b.setQuery(btnconf.cmd);
-                this.addChild(b);
-                this.arr_btns.push(b);
-            }
+            this.sp_content.size(this.conf.size.w, h);
+            Debug.trace("AgentContentDesc.initContent h:" + h);
         }
     };
-    AgentContentDesc.prototype.onClickBtn = function (e) {
-        var btn = e;
-        var cmd = btn.getQuery();
-        switch (cmd) {
-            case "copyinvation":
-                break;
-            case "copylink":
-                break;
-            case "share":
+    AgentContentDesc.prototype.onMouseEvent = function (e) {
+        var x = e.stageX;
+        switch (e.type) {
+            case Laya.Event.MOUSE_DOWN:
+                var max = this.conf.size.h - this.sp_content.height;
+                // Debug.trace("AgentContentDesc.onMouseEvent max:"+max);
+                if (max < 0) {
+                    this.sp_content.startDrag(new Laya.Rectangle(0, max, 0, Math.abs(max)), this.conf.guanxing, this.conf.xiangpiDis, this.conf.xiangpiTime, null, true, 0.92);
+                }
+                else {
+                    this.sp_content.startDrag(new Laya.Rectangle(0, 0, 0, 0), this.conf.guanxing, this.conf.xiangpiDis, this.conf.xiangpiTime, null, true, 0.92);
+                }
                 break;
         }
     };

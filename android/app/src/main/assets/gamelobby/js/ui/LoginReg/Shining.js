@@ -43,5 +43,5 @@ var Shining = /** @class */ (function (_super) {
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
     return Shining;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=Shining.js.map

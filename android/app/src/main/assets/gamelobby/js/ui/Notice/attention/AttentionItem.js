@@ -93,5 +93,5 @@ var AttentionItem = /** @class */ (function (_super) {
         }
     };
     return AttentionItem;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=AttentionItem.js.map

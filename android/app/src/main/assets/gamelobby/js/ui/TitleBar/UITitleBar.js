@@ -74,7 +74,7 @@ var UITitleBar = /** @class */ (function (_super) {
                     break;
                 case "setting":
                     var conf = ConfObjRead.getConfSetting();
-                    SettingPad.showPad(Laya.stage, conf, this, this.setCallback);
+                    SettingPad.showPad(LayaMain.getInstance().getRootNode(), conf, this, this.setCallback);
                     break;
                 default:
                     break;
@@ -99,5 +99,5 @@ var UITitleBar = /** @class */ (function (_super) {
     };
     UITitleBar.obj = null;
     return UITitleBar;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=UITitleBar.js.map

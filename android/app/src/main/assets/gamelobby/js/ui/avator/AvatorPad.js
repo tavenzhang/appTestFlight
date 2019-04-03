@@ -37,17 +37,15 @@ var AvatorPad = /** @class */ (function (_super) {
     AvatorPad.showPad = function (node) {
         if (!AvatorPad.obj) {
             var o = new AvatorPad();
-            o.init(ConfObjRead.getConfAvatorPad()); //Common.confObj.avatorpad);//,hi);
-            // Laya.stage.addChild(o);
+            o.init(ConfObjRead.getConfAvatorPad());
             node.addChild(o);
         }
-        // AvatorPad.obj.show(b);
     };
     AvatorPad.prototype.hide = function () {
         // this.lb_content.text = "";
         this.visible = false;
         AvatorPad.obj = null;
-        Laya.stage.removeChild(this);
+        LayaMain.getInstance().getRootNode().removeChild(this);
         this.destroy(true);
         // lamain.restoreLoaderPath();
     };
@@ -65,7 +63,7 @@ var AvatorPad = /** @class */ (function (_super) {
         if (this.conf.content.bg) {
             var bgcontent = Tools.addSprite(this, this.conf.content.bg);
         }
-        this.sp_content = new Laya.Sprite();
+        this.sp_content = new MySprite();
         this.sp_content.pos(this.conf.content.pos.x, this.conf.content.pos.y);
         this.addChild(this.sp_content);
         this.sp_content.scrollRect = new Laya.Rectangle(this.conf.content.ctmask.x, this.conf.content.ctmask.y, this.conf.content.ctmask.w, this.conf.content.ctmask.h);
@@ -87,7 +85,7 @@ var AvatorPad = /** @class */ (function (_super) {
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
     AvatorPad.prototype.initAlphaBg = function () {
-        this.alphabg = new Laya.Sprite();
+        this.alphabg = new MySprite();
         Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
         this.addChild(this.alphabg);
         this.alphabg.size(this.conf.size.w, this.conf.size.h);
@@ -111,15 +109,15 @@ var AvatorPad = /** @class */ (function (_super) {
                 var sp_curavator_bg = Tools.addSprite(this, conf.bg);
             }
             if (conf.title) {
-                var sp_lb = new Laya.Sprite();
+                var sp_lb = new MySprite();
                 sp_lb.loadImage(conf.title.lb.src);
                 sp_lb.pos(conf.title.lb.pos.x, conf.title.lb.pos.y);
                 this.addChild(sp_lb);
-                var sp_p1 = new Laya.Sprite();
+                var sp_p1 = new MySprite();
                 sp_p1.loadImage(conf.title.point1.src);
                 sp_p1.pos(conf.title.point1.pos.x, conf.title.point1.pos.y);
                 this.addChild(sp_p1);
-                var sp_p2 = new Laya.Sprite();
+                var sp_p2 = new MySprite();
                 sp_p2.loadImage(conf.title.point2.src);
                 sp_p2.pos(conf.title.point2.pos.x, conf.title.point2.pos.y);
                 this.addChild(sp_p2);
@@ -128,7 +126,7 @@ var AvatorPad = /** @class */ (function (_super) {
                 if (conf.iconframe) {
                     var iconframe = Tools.addSprite(this, conf.iconframe);
                 }
-                this.sp_icon = new Laya.Sprite();
+                this.sp_icon = new MySprite();
                 this.sp_icon.loadImage(conf.avator.src);
                 this.sp_icon.pos(conf.avator.pos.x, conf.avator.pos.y);
                 this.addChild(this.sp_icon);
@@ -249,7 +247,7 @@ var AvatorPad = /** @class */ (function (_super) {
             for (var k = 0; k < alen; k++) {
                 var a_src = this.conf.content.avators[k];
                 // Debug.trace(k+' a_arc:'+a_src);
-                var sp_icon = new Laya.Sprite();
+                var sp_icon = new MySprite();
                 sp_icon.name = "" + id;
                 sp_icon.loadImage(a_src);
                 this.sp_content.addChild(sp_icon);
@@ -463,5 +461,5 @@ var AvatorPad = /** @class */ (function (_super) {
         this.hide();
     };
     return AvatorPad;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=AvatorPad.js.map

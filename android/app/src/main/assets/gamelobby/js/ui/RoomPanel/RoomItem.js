@@ -128,7 +128,7 @@ var RoomItem = /** @class */ (function (_super) {
                 status = this.data.iBusy;
             }
             if (status >= 0) {
-                this.sp_status = new Laya.Sprite();
+                this.sp_status = new MySprite();
                 this.sp_status.loadImage(this.conf.statusNormal.status[status]);
                 this.sp_status.pos(this.conf.statusNormal.pos.x, this.conf.statusNormal.pos.y);
                 this.addChild(this.sp_status);
@@ -136,5 +136,5 @@ var RoomItem = /** @class */ (function (_super) {
         }
     };
     return RoomItem;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=RoomItem.js.map

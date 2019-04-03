@@ -48,5 +48,5 @@ var RunMsgItem = /** @class */ (function (_super) {
         }
     };
     return RunMsgItem;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=RunMsgItem.js.map

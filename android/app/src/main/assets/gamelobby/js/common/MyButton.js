@@ -31,7 +31,7 @@ var MyButton = /** @class */ (function (_super) {
         this.btnCallback = callback;
         this.res = this.conf.src;
         if (this.res.length > 0) {
-            this.btn_ui = new Laya.Sprite();
+            this.btn_ui = new MySprite();
             this.btn_ui.pos(0, 0);
             this.addChild(this.btn_ui);
             this.onResLoaded();
@@ -51,7 +51,7 @@ var MyButton = /** @class */ (function (_super) {
             this.addChild(this.btn_name);
         }
         if (this.conf.hint) {
-            this.sp_hint = new Laya.Sprite();
+            this.sp_hint = new MySprite();
             this.sp_hint.loadImage(this.conf.hint.src);
             this.sp_hint.pos(this.conf.hint.pos.x, this.conf.hint.pos.y);
             this.addChild(this.sp_hint);
@@ -59,7 +59,7 @@ var MyButton = /** @class */ (function (_super) {
         }
         // if( this.conf.frontsp )
         // {
-        // this.sp_label = new Laya.Sprite();
+        // this.sp_label = new MySprite();
         // this.sp_label.loadImage(this.conf.frontsrc.src);
         // this.sp_label.pos(this.conf.frontsrc.pos.x,this.conf.frontsrc.pos.y);
         // this.addChild( this.sp_label );
@@ -173,7 +173,9 @@ var MyButton = /** @class */ (function (_super) {
         else {
             this.scaleBtn(this.conf.maxScale);
         }
-        // Tools.setSpriteGlowFilter(this.btn_ui,ConfObjRead.getConfCommon().glowfilter);
+        if (ConfObjRead.getConfCommon().btn.glowfilter) {
+            Tools.setSpriteGlowFilter(this.btn_ui, ConfObjRead.getConfCommon().glowfilter);
+        }
         if (this.actionDown) {
             this.doClick();
         }
@@ -188,7 +190,9 @@ var MyButton = /** @class */ (function (_super) {
         var t = Laya.loader.getRes(Tools.getSrc(this.res[0]));
         this.redraw(t);
         this.scaleBtn(this.conf.normalScale);
-        // Tools.clearSpriteFilter(this.btn_ui);
+        if (ConfObjRead.getConfCommon().btn.glowfilter) {
+            Tools.clearSpriteFilter(this.btn_ui);
+        }
     };
     MyButton.prototype.onBtnOut = function (s) {
         this.releaseBtn();
@@ -216,5 +220,5 @@ var MyButton = /** @class */ (function (_super) {
         this.redraw(t);
     };
     return MyButton;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MyButton.js.map

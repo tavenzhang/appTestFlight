@@ -35,8 +35,34 @@ var LoginScene = /** @class */ (function (_super) {
             custom.pos(ConfObjRead.getConfLogin().custom.pos.x, ConfObjRead.getConfLogin().custom.pos.y);
             this.addChild(custom);
         }
+        // ChooseLogin.showPad(this,ConfObjRead.getConfLoginChoose(),this,this.onClickChoose);
         var login = LoginPad.showPad(this, ConfObjRead.getConfLogin().login);
         // var reg = RegPad.showPad(this,ConfObjRead.getConfLogin().reg);
+    };
+    LoginScene.prototype.onClickChoose = function (cmd) {
+        switch (cmd) {
+            case "quicklogin":
+                ChooseLogin.getObj().destroy(true);
+                QuickLogin.showPad(this, ConfObjRead.getConfLoginQuick(), this, this.otherWay);
+                break;
+            case "accountlogin":
+                ChooseLogin.getObj().destroy(true);
+                LoginPad.showPad(this, ConfObjRead.getConfLogin().login, this, this.otherWay);
+                break;
+        }
+    };
+    LoginScene.prototype.otherWay = function (cmd) {
+        switch (cmd) {
+            case "other":
+                if (QuickLogin.getObj()) {
+                    QuickLogin.getObj().destroy(true);
+                }
+                if (LoginPad.getObj()) {
+                    LoginPad.getObj().destroy(true);
+                }
+                ChooseLogin.showPad(this, ConfObjRead.getConfLoginChoose(), this, this.onClickChoose);
+                break;
+        }
     };
     LoginScene.prototype.onCustomClick = function (e) {
         Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");

@@ -172,5 +172,5 @@ var MyDragPgBarFront = /** @class */ (function (_super) {
         this.moveDrag(mx);
     };
     return MyDragPgBarFront;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MyDragPgBarFront.js.map

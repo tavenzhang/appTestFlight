@@ -47,7 +47,7 @@ var RoomPanel = /** @class */ (function (_super) {
         this.bRequestStatus = 1;
         this.caller = caller;
         this.callback = callback;
-        this.sp_content = new Laya.Sprite();
+        this.sp_content = new MySprite();
         this.sp_content.pos(this.conf.panel.content.pos.x, this.conf.panel.content.pos.y);
         this.addChild(this.sp_content);
         if (this.conf.panel.showbg) {
@@ -172,6 +172,8 @@ var RoomPanel = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseRoomList);
     };
     RoomPanel.prototype.responseRoomList = function (s, stat, hr) {
+        Debug.trace("RoomPanel.responseRoomList:");
+        Debug.trace(s);
         if (stat == "complete") {
             this.roomInfo = s;
             this.addGameItems(this.roomInfo.datas);
@@ -220,5 +222,5 @@ var RoomPanel = /** @class */ (function (_super) {
     };
     RoomPanel.obj = null;
     return RoomPanel;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=RoomPanel.js.map

@@ -35,7 +35,7 @@ var MySwitchBtn = /** @class */ (function (_super) {
             this.bclick = this.conf.bclick.value;
         }
         if (this.res.length > 0) {
-            this.btn_ui = new Laya.Sprite();
+            this.btn_ui = new MySprite();
             this.btn_ui.loadImage(this.res[0]);
             this.btn_ui.pos(0, 0);
             this.addChild(this.btn_ui);
@@ -119,5 +119,5 @@ var MySwitchBtn = /** @class */ (function (_super) {
     MySwitchBtn.prototype.onBtnOut = function (s) {
     };
     return MySwitchBtn;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MySwitchBtn.js.map

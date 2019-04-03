@@ -45,5 +45,5 @@ var Light = /** @class */ (function (_super) {
         }
     };
     return Light;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=Light.js.map
