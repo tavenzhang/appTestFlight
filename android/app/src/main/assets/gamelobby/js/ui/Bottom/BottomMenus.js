@@ -59,7 +59,7 @@ var BottomMenus = /** @class */ (function (_super) {
                 HelpPad.showPad("");
                 break;
             case "setting":
-                SettingPad.showPad(Laya.stage, ConfObjRead.getConfSetting(), this, this.setCallback);
+                SettingPad.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSetting(), this, this.setCallback);
                 break;
         }
     };
@@ -92,5 +92,5 @@ var BottomMenus = /** @class */ (function (_super) {
     BottomMenus.bClickFullscreen = false;
     BottomMenus.obj = null;
     return BottomMenus;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=BottomMenus.js.map

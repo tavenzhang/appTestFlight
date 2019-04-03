@@ -51,13 +51,13 @@ var GameItem = /** @class */ (function (_super) {
             this.sp_hot = Tools.addSprite(this, this.conf.hot);
             this.setHot(false);
         }
-        this.sp_pie = new Laya.Sprite();
+        this.sp_pie = new MySprite();
         this.sp_pie.pos(0, 0);
         this.addChild(this.sp_pie);
         this.size(this.conf.btnicon.size.w, this.conf.btnicon.size.h);
         this.pivot(this.conf.btnicon.size.w / 2, this.conf.btnicon.size.h / 2);
         if (this.conf.showbg) {
-            var showbg = new Laya.Sprite();
+            var showbg = new MySprite();
             this.addChild(showbg);
             Tools.drawRectWithAlpha(showbg, this.x, this.y, this.conf.btnicon.size.w, this.conf.btnicon.size.h, this.conf.showbg.color, this.conf.showbg.alpha);
         }
@@ -353,5 +353,5 @@ var GameItem = /** @class */ (function (_super) {
     GameItem.STATUS_COMING = "coming";
     GameItem.STATUS_ONLINE = "online";
     return GameItem;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=GameItem.js.map

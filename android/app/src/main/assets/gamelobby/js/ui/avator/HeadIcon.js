@@ -89,5 +89,5 @@ var HeadIcon = /** @class */ (function (_super) {
         }
     };
     return HeadIcon;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=HeadIcon.js.map

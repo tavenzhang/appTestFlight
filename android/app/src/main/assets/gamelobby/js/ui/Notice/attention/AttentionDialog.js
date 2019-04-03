@@ -29,11 +29,8 @@ var AttentionDialog = /** @class */ (function (_super) {
             var o = new AttentionDialog();
             o.init(conf);
             o.fatherNode = node;
-            // Laya.stage.addChild(o);
             node.addChild(o);
-            // Debug.trace("notice showPad");
         }
-        // AttentionDialog.obj.show(b);
     };
     AttentionDialog.prototype.destroy = function (b) {
         AttentionDialog.obj = null;
@@ -49,9 +46,8 @@ var AttentionDialog = /** @class */ (function (_super) {
         // this.lb_content.text = "";
         this.visible = false;
         AttentionDialog.obj = null;
-        Laya.stage.removeChild(this);
+        LayaMain.getInstance().getRootNode().removeChild(this);
         this.destroy(true);
-        // lamain.restoreLoaderPath();
     };
     AttentionDialog.prototype.init = function (conf) {
         AttentionDialog.obj = this;
@@ -192,7 +188,7 @@ var AttentionDialog = /** @class */ (function (_super) {
         }
     };
     AttentionDialog.prototype.initAlphaBg = function () {
-        this.alphabg = new Laya.Sprite();
+        this.alphabg = new MySprite();
         Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
         this.addChild(this.alphabg);
         this.alphabg.size(this.conf.size.w, this.conf.size.h);
@@ -217,7 +213,7 @@ var AttentionDialog = /** @class */ (function (_super) {
                 posx = this.conf.tablehead.bg.pos.x + w + lastX;
             }
             var y = this.conf.tablehead.headlines.wy;
-            var oneline = new Laya.Sprite();
+            var oneline = new MySprite();
             oneline.loadImage(this.conf.tablehead.headlines.src);
             oneline.pos(posx, y);
             this.addChild(oneline);
@@ -409,5 +405,5 @@ var AttentionDialog = /** @class */ (function (_super) {
         this.visible = b;
     };
     return AttentionDialog;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=AttentionDialog.js.map

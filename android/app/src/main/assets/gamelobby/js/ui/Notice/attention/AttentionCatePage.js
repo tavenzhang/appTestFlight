@@ -28,7 +28,7 @@ var AttentionCatePage = /** @class */ (function (_super) {
         this.data = data;
         this.myParentArrowNode = p;
         this.cateId = this.data.noticeCate;
-        this.sp_content = new Laya.Sprite();
+        this.sp_content = new MySprite();
         this.sp_content.pos(this.conf.content.pos.x, this.conf.content.pos.y);
         this.addChild(this.sp_content);
         if (this.conf.content.color) {
@@ -192,5 +192,5 @@ var AttentionCatePage = /** @class */ (function (_super) {
         }, 200, Laya.Ease["backIn"]);
     };
     return AttentionCatePage;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=AttentionCatePage.js.map

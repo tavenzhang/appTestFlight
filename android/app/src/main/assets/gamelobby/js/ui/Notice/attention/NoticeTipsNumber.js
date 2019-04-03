@@ -41,5 +41,5 @@ var NoticeTipsNumber = /** @class */ (function (_super) {
         this.query = a;
     };
     return NoticeTipsNumber;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=NoticeTipsNumber.js.map

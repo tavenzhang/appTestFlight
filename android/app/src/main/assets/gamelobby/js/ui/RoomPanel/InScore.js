@@ -18,11 +18,11 @@ var InScore = /** @class */ (function (_super) {
     }
     InScore.prototype.init = function (conf, num_minscore) {
         this.conf = conf;
-        this.sp_bg = new Laya.Sprite();
+        this.sp_bg = new MySprite();
         this.sp_bg.loadImage(this.conf.bg.src);
         this.addChild(this.sp_bg);
         this.sp_bg.pos(this.conf.bg.pos.x, this.conf.bg.pos.y);
-        // this.sp_arrow = new Laya.Sprite();
+        // this.sp_arrow = new MySprite();
         // this.sp_arrow.loadImage(this.conf.arrow.src);
         // this.addChild(this.sp_arrow);
         // this.sp_arrow.pos(this.conf.arrow.pos.x,this.conf.arrow.pos.y);
@@ -37,5 +37,5 @@ var InScore = /** @class */ (function (_super) {
         this.lb.text = num;
     };
     return InScore;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=InScore.js.map

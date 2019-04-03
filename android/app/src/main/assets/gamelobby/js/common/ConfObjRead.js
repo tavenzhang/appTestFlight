@@ -1,6 +1,34 @@
 var ConfObjRead = /** @class */ (function () {
     function ConfObjRead() {
     }
+    ConfObjRead.getConfListDescTest = function () {
+        if (ConfObjRead.agentlistdesctestObj) {
+            return ConfObjRead.agentlistdesctestObj;
+        }
+        ConfObjRead.agentlistdesctestObj = Laya.Loader.getRes("./assets/conf/agent/listdesctest.json");
+        return ConfObjRead.agentlistdesctestObj;
+    };
+    ConfObjRead.getConfListDesc = function () {
+        if (ConfObjRead.agentlistdescObj) {
+            return ConfObjRead.agentlistdescObj;
+        }
+        ConfObjRead.agentlistdescObj = Laya.Loader.getRes("./assets/conf/agent/listdesc.json");
+        return ConfObjRead.agentlistdescObj;
+    };
+    ConfObjRead.getConfAgentIncomeTest = function () {
+        if (ConfObjRead.agenttestdataincomeObj) {
+            return ConfObjRead.agenttestdataincomeObj;
+        }
+        ConfObjRead.agenttestdataincomeObj = Laya.Loader.getRes("./assets/conf/agent/listincometest.json");
+        return ConfObjRead.agenttestdataincomeObj;
+    };
+    ConfObjRead.getConfAgentListIncome = function () {
+        if (ConfObjRead.agentlistincomeObj) {
+            return ConfObjRead.agentlistincomeObj;
+        }
+        ConfObjRead.agentlistincomeObj = Laya.Loader.getRes("./assets/conf/agent/listincome.json");
+        return ConfObjRead.agentlistincomeObj;
+    };
     ConfObjRead.getConfAgentChildrenTest = function () {
         if (ConfObjRead.agenttestdatachildrenObj) {
             return ConfObjRead.agenttestdatachildrenObj;
@@ -430,6 +458,41 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.animObj = Laya.Loader.getRes("./assets/conf/animations.json");
         return ConfObjRead.animObj;
     };
+    ConfObjRead.getConfChangePwdIn = function () {
+        if (ConfObjRead.changpwdinObj) {
+            return ConfObjRead.changpwdinObj;
+        }
+        ConfObjRead.changpwdinObj = Laya.Loader.getRes("./assets/conf/login/changepwdin.json");
+        return ConfObjRead.changpwdinObj;
+    };
+    ConfObjRead.getConfChangePwd = function () {
+        if (ConfObjRead.changpwdObj) {
+            return ConfObjRead.changpwdObj;
+        }
+        ConfObjRead.changpwdObj = Laya.Loader.getRes("./assets/conf/login/changepwd.json");
+        return ConfObjRead.changpwdObj;
+    };
+    ConfObjRead.getConfLoginQuick = function () {
+        if (ConfObjRead.loginquickObj) {
+            return ConfObjRead.loginquickObj;
+        }
+        ConfObjRead.loginquickObj = Laya.Loader.getRes("./assets/conf/login/quicklogin.json");
+        return ConfObjRead.loginquickObj;
+    };
+    ConfObjRead.getConfLoginChoose = function () {
+        if (ConfObjRead.loginchooseObj) {
+            return ConfObjRead.loginchooseObj;
+        }
+        ConfObjRead.loginchooseObj = Laya.Loader.getRes("./assets/conf/login/chooselogin.json");
+        return ConfObjRead.loginchooseObj;
+    };
+    ConfObjRead.getConfLoginOther = function () {
+        if (ConfObjRead.loginotherObj) {
+            return ConfObjRead.loginotherObj;
+        }
+        ConfObjRead.loginotherObj = Laya.Loader.getRes("./assets/conf/loginother.json");
+        return ConfObjRead.loginotherObj;
+    };
     ConfObjRead.getConfLogin = function () {
         if (ConfObjRead.loginObj) {
             return ConfObjRead.loginObj;
@@ -458,6 +521,10 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.musicObj = Laya.Loader.getRes("./assets/conf/music.json");
         return ConfObjRead.musicObj;
     };
+    ConfObjRead.agentlistdesctestObj = null;
+    ConfObjRead.agentlistdescObj = null;
+    ConfObjRead.agenttestdataincomeObj = null;
+    ConfObjRead.agentlistincomeObj = null;
     ConfObjRead.agenttestdatachildrenObj = null;
     ConfObjRead.agentlistchildrenObj = null;
     ConfObjRead.agentAdduserObj = null;
@@ -509,6 +576,11 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.betMenuObj = null;
     ConfObjRead.roadObj = null;
     ConfObjRead.animObj = null;
+    ConfObjRead.changpwdinObj = null;
+    ConfObjRead.changpwdObj = null;
+    ConfObjRead.loginquickObj = null;
+    ConfObjRead.loginchooseObj = null;
+    ConfObjRead.loginotherObj = null;
     ConfObjRead.loginObj = null;
     ConfObjRead.uibgObj = null;
     ConfObjRead.dealerObj = null;

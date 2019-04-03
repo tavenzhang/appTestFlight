@@ -53,5 +53,5 @@ var SeanLabel = /** @class */ (function (_super) {
         return f;
     };
     return SeanLabel;
-}(Laya.Label));
+}(MyLabel));
 //# sourceMappingURL=SeanLabel.js.map

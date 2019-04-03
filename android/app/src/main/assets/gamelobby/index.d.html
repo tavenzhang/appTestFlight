@@ -59,13 +59,18 @@
 			"isAndroidHack":false
 		};
 
+		history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+
 	</script>
 	
 	<script type="text/javascript" src="libthird/vconsole.min.js"></script>
 	<script>
 		
 		var bDebugPlatform = "web";
-		var bDebug = false;
+		var bDebug = true;
 		var sScaleMode = "showall";
 		var bShowStat = false;
 		var sPubRes = "../pubres/assets/lobby/";

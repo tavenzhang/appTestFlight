@@ -19,7 +19,7 @@ var PopMineMenus = /** @class */ (function (_super) {
     PopMineMenus.prototype.init = function (conf) {
         this.conf = conf;
         if (this.conf.alphabg) {
-            this.alpha_bg = new Laya.Sprite();
+            this.alpha_bg = new MySprite();
             Tools.drawRectWithAlpha(this.alpha_bg, this.conf.alphabg.pos.x, this.conf.alphabg.pos.y, this.conf.alphabg.size.w, this.conf.alphabg.size.h, this.conf.alphabg.color, this.conf.alphabg.alpha);
             this.alpha_bg.pos(this.conf.pos.x * -1, this.conf.pos.y * -1);
             this.addChild(this.alpha_bg);
@@ -50,7 +50,7 @@ var PopMineMenus = /** @class */ (function (_super) {
         var cmd = e.getQuery();
         switch (cmd) {
             case "agent":
-                AgentPad.showPad(Laya.stage, ConfObjRead.getConfAgentPad());
+                AgentPad.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentPad());
                 break;
             case "recharge":
                 Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
@@ -60,7 +60,7 @@ var PopMineMenus = /** @class */ (function (_super) {
                 break;
             case "setting":
                 // SettingPad.showPad(LobbyScene.getInstance(),ConfObjRead.getConfSetting(),this,this.setCallback);
-                SettingPad.showPad(Laya.stage, ConfObjRead.getConfSetting(), this, this.setCallback);
+                SettingPad.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSetting(), this, this.setCallback);
                 break;
             case "notice":
                 AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention());
@@ -91,5 +91,5 @@ var PopMineMenus = /** @class */ (function (_super) {
         }
     };
     return PopMineMenus;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=PopMineMenus.js.map

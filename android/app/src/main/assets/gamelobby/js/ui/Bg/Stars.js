@@ -18,10 +18,10 @@ var Stars = /** @class */ (function (_super) {
     }
     Stars.prototype.init = function (conf) {
         this.conf = conf;
-        this.sp_content = new Laya.Sprite();
+        this.sp_content = new MySprite();
         this.addChild(this.sp_content);
         for (var i = 0; i < this.conf.starscount; i++) {
-            var sp = new Laya.Sprite();
+            var sp = new MySprite();
             sp.loadImage(this.conf.src);
             var rd_scale_x = Math.random() + this.conf.minScale;
             sp.scale(rd_scale_x, rd_scale_x);
@@ -37,5 +37,5 @@ var Stars = /** @class */ (function (_super) {
         this.sp_content.x += nx;
     };
     return Stars;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=Stars.js.map

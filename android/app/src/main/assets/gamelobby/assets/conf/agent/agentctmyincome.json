@@ -5,20 +5,20 @@
     },
     "sprites":[
         {
-            "src":"./assets/ui/agent/img_daili_touxiang.png",
+            "src":"./assets/ui/agent/img_daili_tou_wdyj.png",
             "pos":{
-                "x":0,
-                "y":0
+                "x":36,
+                "y":82
             }
         }
     ],
-    "labels":[
+    "labelsX":[
         {
             "data":"username",
             "pos":{ "x":300, "y":0 },
             "size":{ "w":200, "h":50 },
             "font":{
-                "text":"myincome",
+                "text":"mychildren",
                 "borderColorX":"#ff0000",
                 "color":"#bbae7a",
                 "size":19,
@@ -26,6 +26,124 @@
                 "align":"left",
                 "valign":"top",
                 "wrap":false
+            }
+        }
+    ],
+    "inputSearchX":{
+        "skinX":"./assets/ui/agent/img_daili_sousuodi.png",
+        "pos":{ "x":43, "y":18 },
+        "size":{ "w":300, "h":40 },
+        "sizegrid":"0,0,0,0",
+        "font":"Arial",
+        "fontsize":30,
+        "bold":false,
+        "color":"#9cc5d8",
+        "typeX":"number",
+        "prompt":"请输入代理的用户名",
+        "textX":"http://www.google.com/xxx/yyy/zzz",
+        "editable":{
+            "value":true
+        }
+    },
+    "switchmenus":[
+        {
+            "label":{
+                "pos":{ "x":65, "y":10 },
+                "src":"./assets/ui/agent/img_daili_zi_jinri.png"
+            },
+            "switch":{
+                "cmd":"today",
+                "pos":{ "x":36, "y":8 },
+                "src":[
+                    "./assets/ui/agent/img_daili_leixing01.png",
+                    "./assets/ui/agent/img_daili_leixing03.png"
+                ],
+                "sfx":"assets/raw/click.mp3"
+            },
+            "extern":{
+                "pos":{ "x":5, "y":5 },
+                "size":{"w":47,"h":48},
+                "src":"./assets/ui/agent/img_daili_leixing02.png"
+            }
+        },
+        {
+            "label":{
+                "pos":{ "x":65, "y":10 },
+                "src":"./assets/ui/agent/img_daili_zi_zuori.png"
+            },
+            "switch":{
+                "cmd":"yesterday",
+                "pos":{ "x":243, "y":8 },
+                "src":[
+                    "./assets/ui/agent/img_daili_leixing01.png",
+                    "./assets/ui/agent/img_daili_leixing03.png"
+                ],
+                "sfx":"assets/raw/click.mp3"
+            },
+            "extern":{
+                "pos":{ "x":5, "y":5 },
+                "size":{"w":47,"h":48},
+                "src":"./assets/ui/agent/img_daili_leixing02.png"
+            }
+        },
+        {
+            "label":{
+                "pos":{ "x":65, "y":10 },
+                "src":"./assets/ui/agent/img_daili_zi_benzhou.png"
+            },
+            "switch":{
+                "cmd":"thisweek",
+                "pos":{ "x":450, "y":8 },
+                "src":[
+                    "./assets/ui/agent/img_daili_leixing01.png",
+                    "./assets/ui/agent/img_daili_leixing03.png"
+                ],
+                "sfx":"assets/raw/click.mp3"
+            },
+            "extern":{
+                "pos":{ "x":5, "y":5 },
+                "size":{"w":47,"h":48},
+                "src":"./assets/ui/agent/img_daili_leixing02.png"
+            }
+        },
+        {
+            "label":{
+                "pos":{ "x":65, "y":10 },
+                "src":"./assets/ui/agent/img_daili_zi_shangzhou.png"
+            },
+            "switch":{
+                "cmd":"lastweek",
+                "pos":{ "x":657, "y":8 },
+                "src":[
+                    "./assets/ui/agent/img_daili_leixing01.png",
+                    "./assets/ui/agent/img_daili_leixing03.png"
+                ],
+                "sfx":"assets/raw/click.mp3"
+            },
+            "extern":{
+                "pos":{ "x":5, "y":5 },
+                "size":{"w":47,"h":48},
+                "src":"./assets/ui/agent/img_daili_leixing02.png"
+            }
+        },
+        {
+            "label":{
+                "pos":{ "x":65, "y":10 },
+                "src":"./assets/ui/agent/img_daili_zi_benyue.png"
+            },
+            "switch":{
+                "cmd":"thismonth",
+                "pos":{ "x":864, "y":8 },
+                "src":[
+                    "./assets/ui/agent/img_daili_leixing01.png",
+                    "./assets/ui/agent/img_daili_leixing03.png"
+                ],
+                "sfx":"assets/raw/click.mp3"
+            },
+            "extern":{
+                "pos":{ "x":5, "y":5 },
+                "size":{"w":47,"h":48},
+                "src":"./assets/ui/agent/img_daili_leixing02.png"
             }
         }
     ]

@@ -17,28 +17,25 @@ var AgentList = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.fatherNode = node;
         _this.conf = conf;
-        _this.sp_content = new Laya.Sprite();
+        _this.sp_content = new MySprite();
         _this.addChild(_this.sp_content);
         if (_this.conf.list.pos) {
             _this.pos(_this.conf.list.pos.x, _this.conf.list.pos.y);
         }
         if (_this.conf.list.size) {
-            _this.size(_this.conf.list.size.w, _this.conf.list.size.h);
-            // this.sp_content.scrollRect = new Laya.Rectangle(
-            //     0,0,
-            //     this.conf.list.size.w,this.conf.list.size.h
-            // );
-            _this.scrollRect = new Laya.Rectangle(0, 0, _this.conf.list.size.w, _this.conf.list.size.h);
+            if (!_this.conf.list.bshowall) {
+                _this.size(_this.conf.list.size.w, _this.conf.list.size.h);
+                _this.scrollRect = new Laya.Rectangle(0, 0, _this.conf.list.size.w, _this.conf.list.size.h);
+            }
         }
         if (_this.conf.list.frame) {
             Tools.drawRectWithAlpha(_this, 0, 0, _this.conf.list.size.w, _this.conf.list.size.h, _this.conf.list.frame.color, _this.conf.list.frame.alpha);
         }
         _this.arr_items = new Array();
-        _this.on(Laya.Event.MOUSE_DOWN, _this, _this.onMouseEvent);
+        if (!_this.conf.list.bshowall) {
+            _this.on(Laya.Event.MOUSE_DOWN, _this, _this.onMouseEvent);
+        }
         return _this;
-        // this.on(Laya.Event.MOUSE_UP,this,this.onMouseEvent);
-        // this.on(Laya.Event.MOUSE_MOVE,this,this.onMouseEvent);
-        // this.on(Laya.Event.MOUSE_OUT,this,this.onMouseEvent);
     }
     AgentList.prototype.onMouseEvent = function (e) {
         var x = e.stageX;
@@ -78,6 +75,9 @@ var AgentList = /** @class */ (function (_super) {
             h += item.height;
         }
         this.sp_content.size(this.conf.list.size.w, h);
+        if (this.conf.list.bshowall) {
+            this.size(this.conf.list.size.w, h);
+        }
     };
     AgentList.prototype.addItem = function (d) {
         // Debug.trace("AgentList.addItem d:");
@@ -114,10 +114,10 @@ var AgentList = /** @class */ (function (_super) {
         var cmd = btn.getQuery();
         switch (cmd) {
             case "modify":
-                AgentDialogEditAccountType.showDialog(Laya.stage, ConfObjRead.getConfAgentDialogEditAccountType());
+                AgentDialogEditAccountType.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogEditAccountType());
                 break;
         }
     };
     return AgentList;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=AgentList.js.map

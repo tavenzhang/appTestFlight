@@ -29,7 +29,7 @@ var MyDragPgBar = /** @class */ (function (_super) {
         this.initBg();
     };
     MyDragPgBar.prototype.initBg = function () {
-        this.sp_bg = new Laya.Sprite();
+        this.sp_bg = new MySprite();
         Tools.scaleSprite(this.sp_bg, this.conf.bg.src, this.conf.bg.size.splice);
         this.sp_bg.pos(this.conf.bg.pos.x, this.conf.bg.pos.y);
         this.sp_bg.size(this.conf.bg.size.w, this.conf.bg.size.h);
@@ -168,5 +168,5 @@ var MyDragPgBar = /** @class */ (function (_super) {
         this.moveDrag(mx);
     };
     return MyDragPgBar;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MyDragPgBar.js.map

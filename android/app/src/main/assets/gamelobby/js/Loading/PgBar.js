@@ -26,7 +26,7 @@ var PgBar = /** @class */ (function (_super) {
     };
     PgBar.prototype.initBg = function () {
         if (this.conf.bg) {
-            this.bg = new Laya.Sprite();
+            this.bg = new MySprite();
             this.addChild(this.bg);
             if (this.conf.bg.src.length > 0) {
                 Laya.loader.load(this.conf.bg.src, Laya.Handler.create(this, this.onLoadedBg));
@@ -37,7 +37,7 @@ var PgBar = /** @class */ (function (_super) {
             }
         }
         if (this.conf.front) {
-            this.front = new Laya.Sprite();
+            this.front = new MySprite();
             this.addChild(this.front);
             if (this.conf.front.src.length > 0) {
                 Laya.loader.load(this.conf.front.src, Laya.Handler.create(this, this.onLoadedFront));
@@ -169,5 +169,5 @@ var PgBar = /** @class */ (function (_super) {
         this.sp_effect.x = this.sp_effect_initx + this.conf.effect.offset.x + px;
     };
     return PgBar;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=PgBar.js.map

@@ -27,25 +27,22 @@ var HelpPad = /** @class */ (function (_super) {
     HelpPad.showPad = function (gname) {
         if (!HelpPad.obj) {
             var o = new HelpPad();
-            o.init(ConfObjRead.getConfHelppad()); //Common.confObj.helppad);
-            Laya.stage.addChild(o);
-            o.setData(); //Common.getHelpDataByGameName(gname));
+            o.init(ConfObjRead.getConfHelppad());
+            LayaMain.getInstance().getRootNode().addChild(o);
+            o.setData();
         }
     };
     HelpPad.prototype.hide = function () {
         this.visible = false;
         HelpPad.obj = null;
-        Laya.stage.removeChild(this);
+        LayaMain.getInstance().getRootNode().removeChild(this);
         this.destroy(true);
-        // lamain.restoreLoaderPath();
     };
     HelpPad.prototype.init = function (conf) {
         HelpPad.obj = this;
         this.conf = conf;
-        this.data = null; //data;
-        // this.caller = caller;
-        // this.closeCallback = closeCallback;
-        this.alphabg = new Laya.Sprite();
+        this.data = null;
+        this.alphabg = new MySprite();
         Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
         this.addChild(this.alphabg);
         this.alphabg.size(this.conf.size.w, this.conf.size.h);
@@ -56,7 +53,7 @@ var HelpPad = /** @class */ (function (_super) {
         this.initBg(this.conf.bg);
         this.initTitle(this.conf.title);
         this.initTableHead(this.conf.tablehead);
-        this.sp_content = new Laya.Sprite();
+        this.sp_content = new MySprite();
         this.sp_content.pos(this.conf.content.pos.x, this.conf.content.pos.y);
         this.addChild(this.sp_content);
         this.sp_content.scrollRect = new Laya.Rectangle(this.conf.content.rect.x, this.conf.content.rect.y, this.conf.content.rect.w, this.conf.content.rect.h);
@@ -86,7 +83,7 @@ var HelpPad = /** @class */ (function (_super) {
         }
     };
     HelpPad.prototype.newRuleContent = function (node, conf) {
-        var sp = new Laya.Sprite();
+        var sp = new MySprite();
         node.addChild(sp);
         var tempArr = [];
         var id = 0;
@@ -100,7 +97,7 @@ var HelpPad = /** @class */ (function (_super) {
                     y = tempArr[id - 1].y + tempArr[id - 1].height;
                 }
             }
-            var cp = new Laya.Sprite();
+            var cp = new MySprite();
             cp.loadImage(c);
             cp.pos(x, y);
             sp.addChild(cp);
@@ -126,11 +123,11 @@ var HelpPad = /** @class */ (function (_super) {
         if (!conf) {
             return;
         }
-        // this.sp_title_bg = new Laya.Sprite();
+        // this.sp_title_bg = new MySprite();
         // this.sp_title_bg.loadImage(conf.bg.src);
         // this.sp_title_bg.pos(conf.bg.pos.x,conf.bg.pos.y);
         // this.addChild(this.sp_title_bg);
-        this.sp_title_lb = new Laya.Sprite();
+        this.sp_title_lb = new MySprite();
         this.sp_title_lb.loadImage(conf.lb.src);
         this.sp_title_lb.pos(conf.lb.pos.x, conf.lb.pos.y);
         this.addChild(this.sp_title_lb);
@@ -166,7 +163,7 @@ var HelpPad = /** @class */ (function (_super) {
                 posx = conf.bg.pos.x + w + lastX;
             }
             var y = conf.headlines.wy;
-            var oneline = new Laya.Sprite();
+            var oneline = new MySprite();
             oneline.loadImage(conf.headlines.src);
             oneline.pos(posx, y);
             this.addChild(oneline);
@@ -391,5 +388,5 @@ var HelpPad = /** @class */ (function (_super) {
         this.tabChange(0, 0);
     };
     return HelpPad;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=HelpPad.js.map

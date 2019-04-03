@@ -176,5 +176,5 @@ var Girl = /** @class */ (function (_super) {
     Girl.MOVE_EVENT_START = "start";
     Girl.MOVE_EVENT_END = "end";
     return Girl;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=Girl.js.map

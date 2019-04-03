@@ -35,7 +35,7 @@ var AttentionPage = /** @class */ (function (_super) {
         // this.lb_content.text = "";
         this.visible = false;
         AttentionPage.obj = null;
-        Laya.stage.removeChild(this);
+        LayaMain.getInstance().getRootNode().removeChild(this);
         this.destroy(true);
         // lamain.restoreLoaderPath();
     };
@@ -43,7 +43,7 @@ var AttentionPage = /** @class */ (function (_super) {
         AttentionPage.obj = this;
         this.conf = conf;
         this.data = data;
-        this.sp_content = new Laya.Sprite();
+        this.sp_content = new MySprite();
         this.addChild(this.sp_content);
         this.title_bg = Tools.addSprite(this.sp_content, this.conf.bgTitle);
         this.lbTitle = Tools.addLabels(this.sp_content, this.conf.lbTitle);
@@ -174,5 +174,5 @@ var AttentionPage = /** @class */ (function (_super) {
         this.visible = b;
     };
     return AttentionPage;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=AttentionPage.js.map

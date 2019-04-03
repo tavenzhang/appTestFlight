@@ -37,7 +37,7 @@ var AgentDialogEditAccountType = /** @class */ (function (_super) {
         _super.prototype.destroy.call(this, b);
     };
     AgentDialogEditAccountType.prototype.init = function (node, conf) {
-        var container = AgentDialogEditAccountType.container = new Laya.Sprite();
+        var container = AgentDialogEditAccountType.container = new MySprite();
         _super.prototype.init.call(this, node, conf);
         this.size(this.conf.bg.size.w, this.conf.bg.size.h);
         this.initContent();

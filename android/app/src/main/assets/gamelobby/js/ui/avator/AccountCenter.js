@@ -14,7 +14,9 @@ var __extends = (this && this.__extends) || (function () {
 var AccountCenter = /** @class */ (function (_super) {
     __extends(AccountCenter, _super);
     function AccountCenter() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.iClickNum = 0;
+        return _this;
     }
     AccountCenter.getObj = function () {
         return AccountCenter.obj;
@@ -35,7 +37,7 @@ var AccountCenter = /** @class */ (function (_super) {
         // this.lb_content.text = "";
         this.visible = false;
         AccountCenter.obj = null;
-        Laya.stage.removeChild(this);
+        LayaMain.getInstance().getRootNode().removeChild(this);
         this.destroy(true);
         // lamain.restoreLoaderPath();
     };
@@ -51,19 +53,37 @@ var AccountCenter = /** @class */ (function (_super) {
         if (this.conf.title) {
             var sp_title_lb = Tools.newSprite(this.conf.title.lb);
             this.addChild(sp_title_lb);
+            if (ConfObjRead.getConfCommon().btest) {
+                // Debug.trace("AccountCenter.title event w:"+sp_title_lb.width+" h:"+sp_title_lb.height+" x:"+sp_title_lb.x+" y:"+sp_title_lb.y);
+                sp_title_lb.on(Laya.Event.CLICK, this, this.onClickTitle);
+            }
         }
         this.initCurAvator(this.conf.curavator);
         this.initBtns(this.conf.btns);
         if (this.conf.close) {
-            this.close = new MyButton();
-            this.close.init(this.conf.close, this, this.onClose);
-            this.close.pos(this.conf.close.pos.x, this.conf.close.pos.y);
-            this.addChild(this.close);
+            this.btnclose = new MyButton();
+            this.btnclose.init(this.conf.close, this, this.onClose);
+            this.btnclose.pos(this.conf.close.pos.x, this.conf.close.pos.y);
+            this.addChild(this.btnclose);
         }
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
+    AccountCenter.prototype.onClickTitle = function (e) {
+        // Debug.trace("AccountCenter.onClickBg "+this.iClickNum);
+        this.iClickNum += ConfObjRead.getConfCommon().btest.stepAdd;
+        if (this.iClickNum >= ConfObjRead.getConfCommon().btest.totalNum) {
+            this.iClickNum = 0;
+            this.onClose(null);
+            LayaMain.getInstance().loginOut();
+        }
+        Laya.timer.clear(this, this.clearClick);
+        Laya.timer.once(ConfObjRead.getConfCommon().btest.delayTime, this, this.clearClick);
+    };
+    AccountCenter.prototype.clearClick = function () {
+        this.iClickNum = 0;
+    };
     AccountCenter.prototype.initAlphaBg = function () {
-        this.alphabg = new Laya.Sprite();
+        this.alphabg = new MySprite();
         Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
         this.addChild(this.alphabg);
         this.alphabg.size(this.conf.size.w, this.conf.size.h);
@@ -87,15 +107,15 @@ var AccountCenter = /** @class */ (function (_super) {
                 var sp_curavator_bg = Tools.addSprite(this, conf.bg);
             }
             if (conf.title) {
-                var sp_lb = new Laya.Sprite();
+                var sp_lb = new MySprite();
                 sp_lb.loadImage(conf.title.lb.src);
                 sp_lb.pos(conf.title.lb.pos.x, conf.title.lb.pos.y);
                 this.addChild(sp_lb);
-                var sp_p1 = new Laya.Sprite();
+                var sp_p1 = new MySprite();
                 sp_p1.loadImage(conf.title.point1.src);
                 sp_p1.pos(conf.title.point1.pos.x, conf.title.point1.pos.y);
                 this.addChild(sp_p1);
-                var sp_p2 = new Laya.Sprite();
+                var sp_p2 = new MySprite();
                 sp_p2.loadImage(conf.title.point2.src);
                 sp_p2.pos(conf.title.point2.pos.x, conf.title.point2.pos.y);
                 this.addChild(sp_p2);
@@ -104,7 +124,7 @@ var AccountCenter = /** @class */ (function (_super) {
                 if (conf.iconframe) {
                     var iconframe = Tools.addSprite(this, conf.iconframe);
                 }
-                this.sp_icon = new Laya.Sprite();
+                this.sp_icon = new MySprite();
                 this.sp_icon.loadImage(conf.avator.src);
                 this.sp_icon.pos(conf.avator.pos.x, conf.avator.pos.y);
                 this.addChild(this.sp_icon);
@@ -164,7 +184,7 @@ var AccountCenter = /** @class */ (function (_super) {
             case "setting":
                 // Debug.trace("AccountCenter.onButtonClick setting");
                 // SettingPad.showPad(LobbyScene.getInstance(),ConfObjRead.getConfSetting(),this,this.setCallback);
-                SettingPad.showPad(Laya.stage, ConfObjRead.getConfSetting(), this, this.setCallback);
+                SettingPad.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSetting(), this, this.setCallback);
                 break;
             case "account":
                 // Debug.trace("AccountCenter.onButtonClick account");
@@ -177,9 +197,19 @@ var AccountCenter = /** @class */ (function (_super) {
                 LayaMain.getInstance().loginOut();
                 break;
             case "changeicon":
-                AvatorPad.showPad(Laya.stage); //LobbyScene.getInstance());
+                AvatorPad.showPad(LayaMain.getInstance().getRootNode()); //LobbyScene.getInstance());
+                break;
+            case "changepwd":
+                ChangePwd.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdIn());
+                // Debug.trace("AccountCenter.changepwd:");
+                // Debug.trace(ChangePwd.getObj());
+                ChangePwd.getObj().setSucListener(this, this.changePwdSuc);
                 break;
         }
+    };
+    AccountCenter.prototype.changePwdSuc = function (e) {
+        LayaMain.getInstance().loginOut();
+        Toast.showToast(ConfObjRead.getConfChangePwdIn().textChanged);
     };
     AccountCenter.prototype.setCallback = function () {
     };
@@ -249,5 +279,5 @@ var AccountCenter = /** @class */ (function (_super) {
         this.hide();
     };
     return AccountCenter;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=AccountCenter.js.map

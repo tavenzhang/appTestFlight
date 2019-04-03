@@ -60,20 +60,24 @@
                 "maxScale":{"x":1.02,"y":1.02},
                 "normalScale":{"x":1,"y":1},
                 "sfx":"assets/raw/click.mp3"
-            },
+            }
+        ]
+    },
+    "bak":[
+        {},
             {
                 "desc":"",
                 "cmd":"agent",
                 "pos":{ "x":760, "y":700 },
                 "src":[
-                    "./assets/ui/mine/icon_zhanghu.png"
+                    "./assets/ui/mine/icon_daili.png"
                 ],
                 "size":{ "w":76, "h":90 },
                 "maxScale":{"x":1.02,"y":1.02},
                 "normalScale":{"x":1,"y":1},
                 "sfx":"assets/raw/click.mp3"
             }
-        ]
-    },
+        
+    ],
     "default":{ "desc":"", "bOpen":true}
 }

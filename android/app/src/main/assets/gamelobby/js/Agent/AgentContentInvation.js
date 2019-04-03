@@ -18,7 +18,7 @@ var AgentContentInvation = /** @class */ (function (_super) {
     }
     AgentContentInvation.prototype.initContent = function () {
         _super.prototype.initContent.call(this);
-        this.sp_content = new Laya.Sprite();
+        this.sp_content = new MySprite();
         this.addChild(this.sp_content);
         // container.graphics.drawTexture(container, 200, 300);
         this.btnGenInvi = new MyButton();
@@ -56,7 +56,7 @@ var AgentContentInvation = /** @class */ (function (_super) {
     //         this.sp_content.size(this.conf.list.size.w, h);
     //     }
     AgentContentInvation.prototype.onClickBtn = function (e) {
-        AgentDialogInvitation.showDialog(Laya.stage, ConfObjRead.getConfAgentDialogInvitation());
+        AgentDialogInvitation.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogInvitation());
     };
     return AgentContentInvation;
 }(AgentContent));

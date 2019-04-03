@@ -20,5 +20,5 @@ var AgentListItem = /** @class */ (function (_super) {
         this.data = d;
     };
     return AgentListItem;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=AgentListItem.js.map

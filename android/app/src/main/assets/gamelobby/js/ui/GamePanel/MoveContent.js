@@ -119,7 +119,19 @@ var MoveContent = /** @class */ (function (_super) {
                 }
             }
         }
-        var px = (gp.conf.gameitemdefault.btnicon.pos.x + gp.conf.gameitemdefault.pos.x) - minObj.x;
+        var px = 0;
+        if (minObj == null) {
+            if (ilen > 0) {
+                minObj = gp.items[0];
+                px = (gp.conf.gameitemdefault.btnicon.pos.x + gp.conf.gameitemdefault.pos.x) - minObj.x;
+            }
+            else {
+                px = (gp.conf.gameitemdefault.btnicon.pos.x + gp.conf.gameitemdefault.pos.x);
+            }
+        }
+        else {
+            px = (gp.conf.gameitemdefault.btnicon.pos.x + gp.conf.gameitemdefault.pos.x) - minObj.x;
+        }
         // Debug.trace("MoveContent.isCutIcon px:"+px);
         return px;
     };
@@ -302,5 +314,5 @@ var MoveContent = /** @class */ (function (_super) {
     MoveContent.MOVE_EVENT_START = "start";
     MoveContent.MOVE_EVENT_END = "end";
     return MoveContent;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MoveContent.js.map

@@ -30,7 +30,7 @@ var UIBg = /** @class */ (function (_super) {
     };
     UIBg.prototype.init = function (conf) {
         this.conf = conf;
-        this.bg = new Laya.Sprite();
+        this.bg = new MySprite();
         this.bg.loadImage(this.conf.src);
         this.bg.pos(this.conf.pos.x, this.conf.pos.y);
         this.addChild(this.bg);
@@ -53,5 +53,5 @@ var UIBg = /** @class */ (function (_super) {
     };
     UIBg.obj = null;
     return UIBg;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=UIBg.js.map

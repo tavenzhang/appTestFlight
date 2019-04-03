@@ -82,5 +82,5 @@ var HistoryItem = /** @class */ (function (_super) {
         }
     };
     return HistoryItem;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=HistoryItem.js.map

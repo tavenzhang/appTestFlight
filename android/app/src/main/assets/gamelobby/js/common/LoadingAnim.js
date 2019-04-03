@@ -62,5 +62,5 @@ var LoadingAnim = /** @class */ (function (_super) {
         return this.visible;
     };
     return LoadingAnim;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=LoadingAnim.js.map

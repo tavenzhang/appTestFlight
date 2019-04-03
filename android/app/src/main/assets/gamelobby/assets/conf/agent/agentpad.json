@@ -32,5 +32,5 @@
         "maxScale":{"x":1.05,"y":1.05},
         "normalScale":{"x":1,"y":1}
     },
-    "defaultTabId":1
+    "defaultTabId":0
 }

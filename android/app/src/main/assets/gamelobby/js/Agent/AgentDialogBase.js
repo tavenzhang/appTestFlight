@@ -26,6 +26,10 @@ var AgentDialogBase = /** @class */ (function (_super) {
             this.pos(this.conf.pos.x, this.conf.pos.y);
         }
     };
+    AgentDialogBase.prototype.setCloseListener = function (c_caller, c_callback) {
+        this.close_caller = c_caller;
+        this.close_callback = c_callback;
+    };
     AgentDialogBase.prototype.initClose = function () {
         if (!this.conf.close) {
             return;
@@ -35,8 +39,14 @@ var AgentDialogBase = /** @class */ (function (_super) {
         close.pos(this.conf.close.pos.x, this.conf.close.pos.y);
         this.addChild(close);
     };
-    AgentDialogBase.prototype.onClose = function (s) {
+    AgentDialogBase.prototype.onClose = function (s, bcallback) {
+        if (bcallback === void 0) { bcallback = true; }
         this.destroy(true);
+        if (bcallback) {
+            if (this.close_caller && this.close_callback) {
+                this.close_callback.apply(this.close_caller, [this]);
+            }
+        }
     };
     AgentDialogBase.prototype.initBg = function () {
         if (!this.conf.bg) {
@@ -46,7 +56,7 @@ var AgentDialogBase = /** @class */ (function (_super) {
     };
     AgentDialogBase.prototype.initAlphaBg = function () {
         if (this.conf.alphabg) {
-            var alphabg = new Laya.Sprite();
+            var alphabg = new MySprite();
             Tools.drawRectWithAlpha(alphabg, 0, 0, this.conf.alphabg.size.w, this.conf.alphabg.size.h, this.conf.alphabg.color, this.conf.alphabg.alpha);
             this.addChild(alphabg);
             alphabg.size(this.conf.alphabg.size.w, this.conf.alphabg.size.h);
@@ -64,5 +74,5 @@ var AgentDialogBase = /** @class */ (function (_super) {
         }
     };
     return AgentDialogBase;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=AgentDialogBase.js.map

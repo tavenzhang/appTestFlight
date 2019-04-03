@@ -154,5 +154,5 @@ var LoadingModule = /** @class */ (function (_super) {
     };
     ;
     return LoadingModule;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=LoadingModule.js.map

@@ -48,10 +48,8 @@ var MySaiziLoading = /** @class */ (function (_super) {
     MySaiziLoading.prototype.hide = function () {
         this.visible = false;
         MySaiziLoading.obj = null;
-        // Laya.stage.removeChild(this);
         this.father.removeChild(this);
         this.destroy(true);
-        // lamain.restoreLoaderPath();
     };
     MySaiziLoading.prototype.show = function (b) {
         if (b === void 0) { b = true; }
@@ -66,16 +64,13 @@ var MySaiziLoading = /** @class */ (function (_super) {
         this.onloadedAnim(null);
     };
     MySaiziLoading.prototype.onloadedAnim = function (s) {
-        // Debug.trace('PgBarSaizi onloadedAnim s:');
-        // Debug.trace(s);
         this.anim_saizi = new Laya.Animation();
         this.anim_saizi.loadAtlas(this.conf.anim.src);
         this.anim_saizi.interval = this.conf.anim.interval;
         this.anim_saizi.index = this.conf.anim.index;
         this.anim_saizi.play();
-        this.anim_saizi.pos(this.conf.anim.pos.x, this.conf.anim.pos.y); //Laya.stage.width / 2, Laya.stage.height / 2);
+        this.anim_saizi.pos(this.conf.anim.pos.x, this.conf.anim.pos.y);
         this.addChild(this.anim_saizi);
-        // Debug.trace(this.anim_saizi);
     };
     return MySaiziLoading;
 }(MyCircleLoading));

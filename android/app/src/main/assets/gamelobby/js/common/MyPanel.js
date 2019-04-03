@@ -27,7 +27,7 @@ var MyPanel = /** @class */ (function (_super) {
         this.width = this.conf.content.size.w;
         this.height = this.conf.content.size.h;
         this.items = new Array();
-        this.content = new Laya.Sprite();
+        this.content = new MySprite();
         this.addChild(this.content);
         this.content.size(this.width, this.height);
         this.content.pos(this.conf.content.pos.x, this.conf.content.pos.y);
@@ -44,7 +44,7 @@ var MyPanel = /** @class */ (function (_super) {
         this.on(Laya.Event.MOUSE_MOVE, this, this.moveContent);
         this.on(Laya.Event.MOUSE_UP, this, this.moveContent);
         this.on(Laya.Event.MOUSE_OUT, this, this.moveContent);
-        this.mask = new Laya.Sprite();
+        this.mask = new MySprite();
         // this.addChild(this.mask);
         this.mask.size(this.width, this.height);
         Tools.drawRect(this.mask, 0, 0, this.width, this.height, "#ff00ff");
@@ -136,5 +136,5 @@ var MyPanel = /** @class */ (function (_super) {
         }
     };
     return MyPanel;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MyPanel.js.map

@@ -119,13 +119,14 @@
                         "pos":{"x":1080,"y":-20}
                     }
                 ]
-            }
+            },
+            "btest":true
         },
         "touchout":{
             "desc":"",
             "value":false
         },
-        "name":{
+        "nameX":{
             "label":{
                 "src":"./assets/ui/login/lb_name_login.png",
                 "pos":{ "x":125, "y":310 }
@@ -146,7 +147,7 @@
                 "prompt":"请输入用户名"
             }
         },
-        "pwd":{
+        "pwdX":{
             "label":{
                 "src":"./assets/ui/login/lb_pwd_login.png",
                 "pos":{ "x":125, "y":410 }
@@ -166,6 +167,132 @@
                 "color":"#ffffff",
                 "type":"password",
                 "prompt":"请输入密码"
+            }
+        },
+        "inputpad":{
+            "pos":{
+                "x":0,
+                "y":20
+            },
+            "name":{
+                "pos":{"x":0,"y":100},
+                "label":{
+                    "src":"./assets/ui/login/lb_name.png",
+                    "pos":{ "x":70, "y":140 }
+                },
+                "inputbg":{
+                    "src":"./assets/ui/login/inputbgReg.png",
+                    "pos":{ "x":230, "y":130 }
+                },
+                "input":{
+                    "skin":"",
+                    "pos":{ "x":245, "y":140 },
+                    "size":{"w":420,"h":50},
+                    "sizegrid":"0,0,0,0",
+                    "font":"Arial",
+                    "fontsize":24,
+                    "bold":false,
+                    "color":"#ffffff",
+                    "prompt":"请输入用户名（4-11位字母和数字）"
+                },
+                "star":{
+                    "pos":{ "x":685, "y":160 },
+                    "size":{ "w":20, "h":20 },
+                    "font":{
+                        "text":"*",
+                        "size":28,
+                        "color":"#ff0000",
+                        "align":"center",
+                        "valign":"middle",
+                        "name":"Microsoft Yahei Bold",
+                        "wrap":false,
+                        "underline":false,
+                        "borderColorX":"#ff0000",
+                        "alpha":1
+                    }
+                }
+            },
+            "pwd":{
+                "pos":{"x":0,"y":100},
+                "label":{
+                    "src":"./assets/ui/login/lb_pwd.png",
+                    "pos":{ "x":70, "y":220 }
+                },
+                "inputbg":{
+                    "src":"./assets/ui/login/inputbgReg.png",
+                    "pos":{ "x":230, "y":210 }
+                },
+                "input":{
+                    "skin":"",
+                    "pos":{ "x":245, "y":220 },
+                    "size":{"w":420,"h":50},
+                    "sizegrid":"0,0,0,0",
+                    "font":"Arial",
+                    "fontsize":24,
+                    "bold":false,
+                    "color":"#ffffff",
+                    "type":"password",
+                    "prompt":"请输入密码（6-15位字母和数字）"
+                },
+                "star":{
+                    "pos":{ "x":685, "y":240 },
+                    "size":{ "w":20, "h":20 },
+                    "font":{
+                        "text":"*",
+                        "size":28,
+                        "color":"#ff0000",
+                        "align":"center",
+                        "valign":"middle",
+                        "name":"Microsoft Yahei Bold",
+                        "wrap":false,
+                        "underline":false,
+                        "borderColorX":"#ff0000",
+                        "alpha":1
+                    }
+                }
+            },
+            "yanzhengma":{
+                "pos":{"x":0,"y":20},
+                "label":{
+                    "src":"./assets/ui/login/lb_varcode.png",
+                    "pos":{ "x":70, "y":380 }
+                },
+                "inputbg":{
+                    "src":"./assets/ui/login/inputbgReg.png",
+                    "pos":{ "x":230, "y":370 }
+                },
+                "input":{
+                    "skin":"",
+                    "pos":{ "x":245, "y":380 },
+                    "size":{"w":220,"h":50},
+                    "sizegrid":"0,0,0,0",
+                    "font":"Arial",
+                    "fontsize":24,
+                    "bold":false,
+                    "color":"#ffffff",
+                    "typeX":"number",
+                    "prompt":"请输入验证码"
+                },
+                "star":{
+                    "pos":{ "x":685, "y":400 },
+                    "size":{ "w":20, "h":20 },
+                    "font":{
+                        "text":"*",
+                        "size":28,
+                        "color":"#ff0000",
+                        "align":"center",
+                        "valign":"middle",
+                        "name":"Microsoft Yahei Bold",
+                        "wrap":false,
+                        "underline":false,
+                        "borderColorX":"#ff0000",
+                        "alpha":1
+                    }
+                },
+                "image":{
+                    "pos":{ "x":520, "y":385 },
+                    "size":{ "w":150, "h":40 }
+                }
             }
         },
         "btnreg":{
@@ -239,7 +366,7 @@
                 "fontsize":24,
                 "bold":false,
                 "color":"#ffffff",
-                "prompt":"请输入用户名（4-12位字母和数字）"
+                "prompt":"请输入用户名（4-11位字母和数字）"
             },
             "star":{
                 "pos":{ "x":685, "y":160 },

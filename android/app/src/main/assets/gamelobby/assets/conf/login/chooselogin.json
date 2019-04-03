@@ -1,0 +1,37 @@
+{
+    "pos":{ "x":0, "y":0 },
+    "bg":{
+        "src":"",
+        "pos":{ "x":0, "y":0 }
+    },
+    "sprites":[
+        {
+            "src":"./brand/loginchoose_logo.png",
+            "pos":{ "x":51, "y":21 }
+        }
+    ],
+    "menus":[
+        {
+            "cmd":"quicklogin",
+            "pos":{ "x":419, "y":646 },
+            "src":[
+                "./assets/ui/login/chooselogin/btn_quicklogin.png"
+            ],
+            "size":{ "w":282, "h":92 },
+            "maxScale":{"x":1.05,"y":1.05},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3"
+        },
+        {
+            "cmd":"accountlogin",
+            "pos":{ "x":917, "y":646 },
+            "src":[
+                "./assets/ui/login/chooselogin/btn_accountlogin.png"
+            ],
+            "size":{ "w":282, "h":92 },
+            "maxScale":{"x":1.05,"y":1.05},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3"
+        }
+    ]
+}

@@ -32,7 +32,6 @@ var AgentContentMyChildren = /** @class */ (function (_super) {
                 Tools.addLabels(this, lbconf);
             }
         }
-        this.arr_btns = new Array();
         if (this.conf.menus) {
             var blen = this.conf.menus.length;
             this.arr_btns = new Array();
@@ -67,7 +66,7 @@ var AgentContentMyChildren = /** @class */ (function (_super) {
             case "search":
                 break;
             case "adduser":
-                AgentDialogAddUser.showDialog(Laya.stage, ConfObjRead.getConfAgentDialogAddUser());
+                AgentDialogAddUser.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogAddUser());
                 break;
         }
     };

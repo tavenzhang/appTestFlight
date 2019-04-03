@@ -24,7 +24,7 @@ var MyDragSwitch = /** @class */ (function (_super) {
         this.caller = caller;
         this.btnCallback = callback;
         if (this.conf.bg) {
-            this.btn_ui = new Laya.Sprite();
+            this.btn_ui = new MySprite();
             this.btn_ui.loadImage(this.conf.bg.src);
             this.btn_ui.pos(this.conf.bg.pos.x, this.conf.bg.pos.y);
             this.addChild(this.btn_ui);
@@ -94,5 +94,5 @@ var MyDragSwitch = /** @class */ (function (_super) {
         this.setOn(this.iSwitchId);
     };
     return MyDragSwitch;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MyDragSwitch.js.map

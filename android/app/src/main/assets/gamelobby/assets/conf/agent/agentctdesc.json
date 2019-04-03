@@ -1,32 +1,37 @@
 {
     "pos":{
-        "x":250,
-        "y":120
+        "x":290,
+        "y":112
+    },
+    "size":{
+        "w":1015,
+        "h":600
+    },
+    "drag":{
+        "guanxing":0,
+        "xiangpiDis":0,
+        "xiangpiTime":300
     },
     "sprites":[
         {
-            "src":"./assets/ui/agent/img_daili_touxiang.png",
-            "pos":{
-                "x":0,
-                "y":0
-            }
-        }
-    ],
-    "labels":[
+            "src":"./assets/ui/agent/img_daili_shuoming01.png",
+            "pos":{ "x":0, "y":0 },
+            "size":{"w":1015,"h":356}
+        },
         {
-            "data":"username",
-            "pos":{ "x":300, "y":0 },
-            "size":{ "w":200, "h":50 },
-            "font":{
-                "text":"desc",
-                "borderColorX":"#ff0000",
-                "color":"#bbae7a",
-                "size":19,
-                "name":"x",
-                "align":"left",
-                "valign":"top",
-                "wrap":false
-            }
+            "src":"./assets/ui/agent/img_daili_shuoming02.png",
+            "pos":{ "x":0, "y":356 },
+            "size":{"w":1015,"h":106}
+        },
+        {
+            "type":"list",
+            "pos":{"x":0,"h":462}
+        },
+        {
+            "type":"listbottom",
+            "src":"./assets/ui/agent/img_daili_shuoming03.png",
+            "pos":{ "x":0, "y":462 },
+            "size":{"w":1015,"h":1108}
         }
     ]
 }

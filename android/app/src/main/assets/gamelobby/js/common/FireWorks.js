@@ -74,5 +74,5 @@ var FireWorks = /** @class */ (function (_super) {
         tg.filters = [redfilter];
     };
     return FireWorks;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=FireWorks.js.map

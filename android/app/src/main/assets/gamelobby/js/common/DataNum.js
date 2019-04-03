@@ -88,5 +88,5 @@ var DataNum = /** @class */ (function (_super) {
         return w;
     };
     return DataNum;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=DataNum.js.map

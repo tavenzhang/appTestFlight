@@ -36,5 +36,5 @@ var AgentComBase = /** @class */ (function (_super) {
         this.data = data;
     };
     return AgentComBase;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=AgentComBase.js.map

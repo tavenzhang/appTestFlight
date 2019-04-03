@@ -54,5 +54,5 @@ var PageArrow = /** @class */ (function (_super) {
         Laya.Ease[this.conf.left.easeName], new Laya.Handler(this, this.leftOk));
     };
     return PageArrow;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=PageArrow.js.map

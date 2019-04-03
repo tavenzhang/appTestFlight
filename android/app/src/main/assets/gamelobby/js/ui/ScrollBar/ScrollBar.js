@@ -20,7 +20,7 @@ var ScrollBar = /** @class */ (function (_super) {
         this.conf = conf;
         this.showinsmall = this.conf.showinsmall;
         if (!this.scrollbar_bg) {
-            this.scrollbar_bg = new Laya.Sprite();
+            this.scrollbar_bg = new MySprite();
             // this.scrollbar_bg.loadImage(this.conf.bg.src);
             this.addChild(this.scrollbar_bg);
             this.scrollbar_bg.pos(this.conf.bg.pos.x, this.conf.bg.pos.y);
@@ -29,7 +29,7 @@ var ScrollBar = /** @class */ (function (_super) {
             Tools.scaleSprite(this.scrollbar_bg, this.conf.bg.src, this.conf.bg.size.splice);
         }
         if (!this.scrollbar_ft) {
-            this.scrollbar_ft = new Laya.Sprite();
+            this.scrollbar_ft = new MySprite();
             // this.scrollbar_ft.loadImage(this.conf.ft.src);
             this.addChild(this.scrollbar_ft);
             this.scrollbar_ft.pos(this.conf.ft.pos.x, this.conf.ft.pos.y);
@@ -98,5 +98,5 @@ var ScrollBar = /** @class */ (function (_super) {
         Laya.timer.clear(this, this.fadeOut);
     };
     return ScrollBar;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=ScrollBar.js.map

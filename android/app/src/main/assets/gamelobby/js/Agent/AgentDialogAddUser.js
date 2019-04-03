@@ -37,7 +37,7 @@ var AgentDialogAddUser = /** @class */ (function (_super) {
         _super.prototype.destroy.call(this, b);
     };
     AgentDialogAddUser.prototype.init = function (node, conf) {
-        var container = AgentDialogAddUser.container = new Laya.Sprite();
+        var container = AgentDialogAddUser.container = new MySprite();
         _super.prototype.init.call(this, node, conf);
         this.size(this.conf.bg.size.w, this.conf.bg.size.h);
         this.initContent();

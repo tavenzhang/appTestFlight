@@ -43,7 +43,7 @@ var AgentPad = /** @class */ (function (_super) {
         this.addChild(tt);
         // var ct = new AgentContentInfo(this,ConfObjRead.getConfAgentContentInfo());
         // this.addChild(ct);
-        this.contentpage = new Laya.Sprite();
+        this.contentpage = new MySprite();
         this.addChild(this.contentpage);
         var tab = new AgentTab(this, ConfObjRead.getConfAgentTab());
         tab.setListener(this, this.switchTab);

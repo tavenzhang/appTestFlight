@@ -39,6 +39,7 @@ var Avator = /** @class */ (function (_super) {
         this.conf = conf;
         Avator.obj = this;
         this.bRequestStatus = 1;
+        Debug.trace("Avator.init bRequestStatus:" + this.bRequestStatus);
         this.caller = caller;
         this.callback = callback;
         this.initBg(this.conf.bg);
@@ -97,10 +98,11 @@ var Avator = /** @class */ (function (_super) {
         }
     };
     Avator.prototype.onClickAvator = function (e) {
-        AccountCenter.showPad(Laya.stage);
+        AccountCenter.showPad(LayaMain.getInstance().getRootNode());
     };
     Avator.prototype.requestUserInfo = function (url) {
         this.bRequestStatus = 1;
+        Debug.trace("Avator.requestUserInfo bRequestStatus:" + this.bRequestStatus);
         if (!this.isFlushMoney) {
             LayaMain.getInstance().showCircleLoading();
         }
@@ -115,23 +117,22 @@ var Avator = /** @class */ (function (_super) {
         if (stat == "complete") {
             Common.userInfo = s;
             Common.setLoginPlatform(s.loginPlatform);
-            if (!this.isFlushMoney) {
-                this.requestUserAvator(ConfObjRead.getConfUrl().url.apihome +
-                    ConfObjRead.getConfUrl().cmd.avatorget +
-                    "?access_token=" + Common.access_token);
-            }
-            else {
-                this.coinIcon.setData(Common.userInfo);
-            }
+            // if( !this.isFlushMoney )
+            // {
+            this.requestUserAvator(ConfObjRead.getConfUrl().url.apihome +
+                ConfObjRead.getConfUrl().cmd.avatorget +
+                "?access_token=" + Common.access_token);
+            // }else{
+            //      this.coinIcon.setData(Common.userInfo);
+            // }
         }
         else {
             this.bRequestStatus = -1;
+            Debug.trace("Avator.responseUserInfo bRequestStatus:" + this.bRequestStatus);
         }
     };
     Avator.prototype.requestUserAvator = function (url) {
-        // Debug.trace("Avator.requestUserAvator show");
         LayaMain.getInstance().showCircleLoading();
-        // MyBBLoading.showPad(Laya.stage,ConfObjRead.getConfCLoading(),null);
         var header = [
             // "Content-Type","application/json",
             // "Accept","*/*"
@@ -141,8 +142,8 @@ var Avator = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseUserAvator, header, null, "get", "json");
     };
     Avator.prototype.responseUserAvator = function (s, stat, hr) {
-        // Debug.trace("responseUserAvator stat:"+stat);
-        // Debug.trace(s);
+        Debug.trace("Avator.responseUserAvator stat:" + stat);
+        Debug.trace(s);
         if (stat == "complete") {
             // Debug.trace("responseUserAvator:");
             // Debug.trace(s);
@@ -186,5 +187,5 @@ var Avator = /** @class */ (function (_super) {
     };
     Avator.obj = null;
     return Avator;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=Avator.js.map

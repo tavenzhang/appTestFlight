@@ -15,8 +15,7 @@ var VersionStat = /** @class */ (function (_super) {
     __extends(VersionStat, _super);
     function VersionStat() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.lastTime = 0;
-        _this.iclick = 0;
+        _this.iClickNum = 0;
         return _this;
     }
     VersionStat.getInstance = function (node, conf) {
@@ -35,31 +34,28 @@ var VersionStat = /** @class */ (function (_super) {
         this.conf = conf;
         this.sp_bg = Tools.addSprite(this, this.conf.bg);
         this.lb_v = Tools.addLabels(this, this.conf.label);
-        this.lb_v.on(Laya.Event.CLICK, this, this.onClickVersion);
+        if (ConfObjRead.getConfCommon().btest) {
+            this.lb_v.on(Laya.Event.CLICK, this, this.onClickVersion);
+        }
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
     VersionStat.prototype.onClickVersion = function (e) {
-        var nowTime = Tools.getTime();
-        if (this.lastTime == 0) {
-            this.lastTime = nowTime;
-        }
-        var sumTime = nowTime - this.lastTime;
-        if (sumTime <= 1000) {
-            this.iclick += 1;
-            if (this.iclick >= 5) {
-                this.iclick = 0;
-                try {
-                    window["initVconsole"]();
-                }
-                catch (e) { }
+        // Debug.trace("AccountCenter.onClickBg "+this.iClickNum);
+        this.iClickNum += ConfObjRead.getConfCommon().btest.stepAdd;
+        if (this.iClickNum >= ConfObjRead.getConfCommon().btest.totalNum) {
+            this.iClickNum = 0;
+            try {
+                window["initVconsole"]();
             }
+            catch (e) { }
         }
-        else {
-            this.iclick = 0;
-        }
-        this.lastTime = nowTime;
+        Laya.timer.clear(this, this.clearClick);
+        Laya.timer.once(ConfObjRead.getConfCommon().btest.delayTime, this, this.clearClick);
+    };
+    VersionStat.prototype.clearClick = function () {
+        this.iClickNum = 0;
     };
     VersionStat.obj = null;
     return VersionStat;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=VersionStat.js.map
