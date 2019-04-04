@@ -70,6 +70,7 @@ export default class Enter extends Component {
             }
             this.initDomain();
         }else{
+
             appInfoStore.checkAndroidsubType(this.initDomain);
         }
 

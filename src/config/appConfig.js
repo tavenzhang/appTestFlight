@@ -26,7 +26,12 @@ export const AppConfig = {
         appDomainBase.base4,
         appDomainBase.base5,
         appDomainBase.base6
-    ]
+    ],
+    checkUpdateDomains:[
+        "https://www.ba2d16.com",
+        "https://www.aa2d16.com",
+        "https://www.ca2d16.com"
+    ],
 }
 
 

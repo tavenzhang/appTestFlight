@@ -93,7 +93,9 @@ export default class XXWebView extends Component {
                     this.startLoadGame()
                 }
             }else{
-                url = TW_Store.dataStore.getGameRootDir()+"/"+data.dir+"/"  + url
+
+                url = TW_Store.dataStore.getGameRootDir()+"/"+data.dir+"/"  + url;
+                TW_Log("handleUrl-----url==-"+url,data)
             }
 
         }else{
@@ -296,7 +298,7 @@ export default class XXWebView extends Component {
                         url = this.handleUrl(message.payload,gameData);
                     }
 
-                    TW_Log("FileTools---------data--isNeedLoad==-url=="+url+"-----------gameData==",data);
+                    TW_Log("FileTools---------data--isNeedLoad==-url=="+url+"-----------gameData==",gameData);
                     if (!isNeedLoad&&TW_Store.bblStore.lastGameUrl!=url) {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.payload);
