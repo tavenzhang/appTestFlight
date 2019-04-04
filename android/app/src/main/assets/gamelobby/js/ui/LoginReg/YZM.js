@@ -29,18 +29,21 @@ var YZM = /** @class */ (function (_super) {
                 return this.newYanzhengma_juedui(node, conf);
         }
     };
+    YZM.prototype.refresh = function () {
+        this.onYanzhengmaFocus(this.fatherNode);
+    };
     YZM.prototype.onYanzhengmaFocus = function (node) {
         this.clearYanzhengma(node);
         // Debug.trace("focus on yanzhengma");
-        this.imgYanzhengma = this.newYanzhengma(node, this.conf.inputpad.yanzhengma.image);
+        this.imgYanzhengma = this.newYanzhengma(node, this.conf);
     };
     YZM.prototype.clearYanzhengma = function (node) {
-        if (this.imgYanzhengma) {
-            // Debug.trace("clear yanzhengmna");
-            node.removeChild(this.imgYanzhengma);
-            this.imgYanzhengma.destroy(true);
-            this.imgYanzhengma = null;
-        }
+        // if( this.imgYanzhengma )
+        // {
+        //     node.removeChild(this.imgYanzhengma);
+        //     this.imgYanzhengma.destroy(true);
+        //     this.imgYanzhengma = null;
+        // }
     };
     YZM.prototype.newYanzhengma_xiangdui = function (node, conf) {
         var img;
@@ -57,9 +60,9 @@ var YZM = /** @class */ (function (_super) {
         this.yanzhengma_root = Math.random();
         // img.pos(conf.pos.x,conf.pos.y);
         // img.size(conf.size.w,conf.size.h);
-        Debug.trace("RegPad.newYanzhengma root:" + this.yanzhengma_root);
+        // Debug.trace("RegPad.newYanzhengma root:"+this.yanzhengma_root);
         var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.yanzhengma_root;
-        Debug.trace("RegPad.newYanzhengma url:" + url);
+        // Debug.trace("RegPad.newYanzhengma url:"+url);
         img.skin = url;
         // img.on(Laya.Event.CLICK,this,this.onYanzhengmaFocus,[node]);
         // node.addChild(img);
@@ -92,6 +95,10 @@ var YZM = /** @class */ (function (_super) {
         // img.on(Laya.Event.CLICK,this,this.onYanzhengmaFocus,[node]);
         // node.addChild(img);
         return img;
+    };
+    YZM.prototype.getRandomRoot = function () {
+        Debug.trace("YZM.getRandomRoot:" + this.yanzhengma_root);
+        return "" + this.yanzhengma_root;
     };
     YZM.PATH_TYPE_XD = 0;
     YZM.PATH_TYPE_JD = 1;

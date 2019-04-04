@@ -72,5 +72,37 @@
     "bak":[
         {}
     ],
-    "yzm":{}
+    "yzm":{},
+    "inputs":[
+        {
+            "data":"username",
+            "pos":{ "x":530, "y":318 },
+            "size":{ "w":381, "h":50 },
+            "sizegrid":"0,0,0,200",
+            "font":"Arial",
+            "fontsize":30,
+            "bold":false,
+            "color":"#aadbf7",
+            "type":"text",
+            "prompt":"4-11位字母和数字",
+            "editable":{
+                "value":false
+            }
+        },
+        {
+            "data":"yanzhengma",
+            "pos":{ "x":530, "y":410 },
+            "size":{ "w":220, "h":50 },
+            "sizegrid":"0,0,0,30",
+            "font":"Arial",
+            "fontsize":30,
+            "bold":false,
+            "color":"#aadbf7",
+            "type":"text",
+            "prompt":"请输入验证码",
+            "editable":{
+                "value":true
+            }
+        }
+    ]
 }

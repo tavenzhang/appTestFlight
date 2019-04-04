@@ -52,6 +52,9 @@
         "userreg":"/account/webapi/account/users/userWebEncryptRegister",
         "changepwd":"/account/webapi/account/users/change/encryptPassword",
 
+        "prequicklogin":"/account/webapi/account/users/preFastLogin",
+        "quicklogin":"/account/webapi/account/users/fastLogin",
+
         "gamelist":"/gamecenter/player/game/list",
         "noticelist":"/gamecenter/player/notice/list",
         "roomlist":"/gamecenter/player/room/list",
