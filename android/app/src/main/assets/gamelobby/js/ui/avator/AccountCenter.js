@@ -208,6 +208,7 @@ var AccountCenter = /** @class */ (function (_super) {
         }
     };
     AccountCenter.prototype.changePwdSuc = function (e) {
+        this.destroy(true);
         LayaMain.getInstance().loginOut();
         Toast.showToast(ConfObjRead.getConfChangePwdIn().textChanged);
     };

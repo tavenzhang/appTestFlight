@@ -36,6 +36,8 @@
         {"url":"./assets/conf/login/loginother.json","type":"JSON"},
         {"url":"./assets/conf/login/yzm_quicklogin.json","type":"JSON"},
 
+        {"url":"./assets/conf/common/config_app.json","type":"JSON"},
+
         {"url":"./assets/conf/accountpad_app_temp.json","type":"JSON"},
         {"url":"./assets/conf/accountpad.json","type":"JSON"},
         {"url":"./assets/conf/accountpad_app.json","type":"JSON"},

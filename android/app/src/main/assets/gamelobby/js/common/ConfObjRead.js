@@ -250,7 +250,19 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.commonObj) {
             return ConfObjRead.commonObj;
         }
-        ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/config.json");
+        if (AppData.IS_NATIVE_APP) {
+            // if( !AppData.isAndroidHack )
+            // {
+            //     ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config_app_temp.json");
+            // }else{
+            ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config_app.json");
+            // ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/config.json");
+            // }
+        }
+        else {
+            ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/config.json");
+            // ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config_app.json");
+        }
         return ConfObjRead.commonObj;
     };
     ConfObjRead.getConfUrl = function () {

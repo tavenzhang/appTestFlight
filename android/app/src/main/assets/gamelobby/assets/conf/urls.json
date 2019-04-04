@@ -53,7 +53,7 @@
         "changepwd":"/account/webapi/account/users/change/encryptPassword",
 
         "prequicklogin":"/account/webapi/account/users/preFastLogin",
-        "quicklogin":"/account/webapi/account/users/fastLogin",
+        "quicklogin":"/account/webapi/account/users/fastLogin?checkHash=false",
 
         "gamelist":"/gamecenter/player/game/list",
         "noticelist":"/gamecenter/player/notice/list",

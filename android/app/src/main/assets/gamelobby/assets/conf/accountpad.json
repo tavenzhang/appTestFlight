@@ -134,6 +134,10 @@
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
             "sfx":"assets/raw/click.mp3"
+        }
+    ],
+    "back":[
+        {
         },
         {
             "desc":"",
@@ -143,44 +147,6 @@
                 "./assets/ui/accountcenter/acc_xgmm.png"
             ],
             "size":{ "w":233, "h":65 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
-        }
-    ],
-    "btnsX":[
-        {
-            "desc":"",
-            "cmd":"setting",
-            "pos":{ "x":340, "y":600 },
-            "src":[
-                "./assets/ui/accountcenter/btn_setting.png"
-            ],
-            "size":{ "w":297, "h":108 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
-        },
-        {
-            "desc":"",
-            "cmd":"account",
-            "pos":{ "x":665, "y":605 },
-            "src":[
-                "./assets/ui/accountcenter/btn_zhanghuxinxi.png"
-            ],
-            "size":{ "w":297, "h":101 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
-        },
-        {
-            "desc":"",
-            "cmd":"logout",
-            "pos":{ "x":990, "y":600 },
-            "src":[
-                "./assets/ui/accountcenter/btn_qiehuanzhanghao.png"
-            ],
-            "size":{ "w":297, "h":102 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
             "sfx":"assets/raw/click.mp3"

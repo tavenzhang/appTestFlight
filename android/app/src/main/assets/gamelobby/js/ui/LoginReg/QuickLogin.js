@@ -161,7 +161,7 @@ var QuickLogin = /** @class */ (function (_super) {
             ConfObjRead.getConfUrl().cmd.quicklogin;
         LayaMain.getInstance().showCircleLoading(true);
         // Debug.trace("QuickLogin.requestLogin name:"+name+" pwd:"+pwd+" yzm:"+yzm);
-        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*", "device_token", MyUid.getUid()];
         var ePwd = window['SecretUtils'].rsaEncodePWD(pwd);
         // Debug.trace("QuickLogin.requestLogin ePwd:"+ePwd);
         // Debug.trace(this);
