@@ -14,7 +14,9 @@ var __extends = (this && this.__extends) || (function () {
 var QuickLogin = /** @class */ (function (_super) {
     __extends(QuickLogin, _super);
     function QuickLogin() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.yzm = null;
+        return _this;
     }
     QuickLogin.getObj = function () {
         return QuickLogin.obj;
@@ -57,6 +59,11 @@ var QuickLogin = /** @class */ (function (_super) {
                 this.addChild(b);
                 this.arr_btns.push(b);
             }
+        }
+        if (this.conf.yzm) {
+            this.yzm = new YZM();
+            this.yzm.init(this, ConfObjRead.getConfYZM());
+            this.addChild(this.yzm);
         }
     };
     QuickLogin.prototype.onClickBtn = function (e) {

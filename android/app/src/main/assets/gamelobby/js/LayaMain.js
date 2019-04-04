@@ -265,37 +265,37 @@ var LayaMain = /** @class */ (function () {
                 if (Avator.obj.bRequestStatus == 1) {
                     bSucAll = false;
                 }
-                Debug.trace("LayaMain.requestEnd Avator:" + Avator.obj.bRequestStatus);
+                // Debug.trace("LayaMain.requestEnd Avator:"+Avator.obj.bRequestStatus);
             }
             if (GamePanel.obj) {
                 if (GamePanel.obj.bRequestStatus == 1) {
                     bSucAll = false;
                 }
-                Debug.trace("LayaMain.requestEnd GamePanel:" + GamePanel.obj.bRequestStatus);
+                // Debug.trace("LayaMain.requestEnd GamePanel:"+GamePanel.obj.bRequestStatus);
             }
             if (AttentionDialog.obj) {
                 if (AttentionDialog.obj.bRequestStatus == 1) {
                     bSucAll = false;
                 }
-                Debug.trace("LayaMain.requestEnd AttentionDialog:" + AttentionDialog.obj.bRequestStatus);
+                // Debug.trace("LayaMain.requestEnd AttentionDialog:"+AttentionDialog.obj.bRequestStatus);
             }
             if (RoomPanel.obj) {
                 if (RoomPanel.obj.bRequestStatus == 1) {
                     bSucAll = false;
                 }
-                Debug.trace("LayaMain.requestEnd RoomPanel:" + RoomPanel.obj.bRequestStatus);
+                // Debug.trace("LayaMain.requestEnd RoomPanel:"+RoomPanel.obj.bRequestStatus);
             }
-            Debug.trace("LayaMain.requestEnd bSucAll:" + bSucAll);
+            // Debug.trace("LayaMain.requestEnd bSucAll:"+bSucAll);
             if (bSucAll) {
                 this.showCircleLoading(false);
             }
         }
         else if (stat == "error") {
-            Debug.trace("LayaMain.requestEnd stat error");
+            // Debug.trace("LayaMain.requestEnd stat error");
             this.showCircleLoading(false);
             NoticeDialog.showPad(msg, ConfObjRead.getConfNoticeDialog(), this, this.requestError);
         }
-        Debug.trace("LayaMain.requestEnd");
+        // Debug.trace("LayaMain.requestEnd");
     };
     LayaMain.prototype.requestError = function () {
         LayaMain.getInstance().initLogin();

@@ -6,8 +6,8 @@
     },
     "sprites":[
         {
-            "src":"./brand/login_logo.png",
-            "pos":{ "x":377, "y":14 }
+            "src":"./brand/loginquick_logo.png",
+            "pos":{ "x":344, "y":30 }
         },
         {
             "src":"./assets/ui/login/quicklogin/title.png",
@@ -56,20 +56,21 @@
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
             "sfx":"assets/raw/click.mp3"
-        }
-    ],
-    "bak":[
-        {},
+        },
         {
             "cmd":"camera",
-            "pos":{ "x":965.5, "y":658.5 },
+            "pos":{ "x":965.5, "y":524.5 },
             "src":[
-                "./assets/ui/login/quicklogin/btn_otherway.png"
+                "./assets/ui/login/quicklogin/btn_camera.png"
             ],
             "size":{ "w":81, "h":71 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
             "sfx":"assets/raw/click.mp3"
         }
-    ]
+    ],
+    "bak":[
+        {}
+    ],
+    "yzm":{}
 }

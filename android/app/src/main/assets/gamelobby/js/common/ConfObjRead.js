@@ -479,6 +479,13 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.loginquickObj = Laya.Loader.getRes("./assets/conf/login/quicklogin.json");
         return ConfObjRead.loginquickObj;
     };
+    ConfObjRead.getConfYZM = function () {
+        if (ConfObjRead.yzmObj) {
+            return ConfObjRead.yzmObj;
+        }
+        ConfObjRead.yzmObj = Laya.Loader.getRes("./assets/conf/login/yzm_quicklogin.json");
+        return ConfObjRead.yzmObj;
+    };
     ConfObjRead.getConfLoginChoose = function () {
         if (ConfObjRead.loginchooseObj) {
             return ConfObjRead.loginchooseObj;
@@ -490,7 +497,7 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.loginotherObj) {
             return ConfObjRead.loginotherObj;
         }
-        ConfObjRead.loginotherObj = Laya.Loader.getRes("./assets/conf/loginother.json");
+        ConfObjRead.loginotherObj = Laya.Loader.getRes("./assets/conf/login/loginother.json");
         return ConfObjRead.loginotherObj;
     };
     ConfObjRead.getConfLogin = function () {
@@ -579,6 +586,7 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.changpwdinObj = null;
     ConfObjRead.changpwdObj = null;
     ConfObjRead.loginquickObj = null;
+    ConfObjRead.yzmObj = null;
     ConfObjRead.loginchooseObj = null;
     ConfObjRead.loginotherObj = null;
     ConfObjRead.loginObj = null;

@@ -47,7 +47,7 @@ var LoginScene = /** @class */ (function (_super) {
                 break;
             case "accountlogin":
                 ChooseLogin.getObj().destroy(true);
-                LoginPad.showPad(this, ConfObjRead.getConfLogin().login, this, this.otherWay);
+                LoginPad.showPad(this, ConfObjRead.getConfLoginOther(), this, this.otherWay);
                 break;
         }
     };

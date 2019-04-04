@@ -4,6 +4,7 @@
         {"url":"./brand/login_logo.png","type":"IMAGE"},
         {"url":"./brand/lobby_logo.png","type":"IMAGE"},
         {"url":"./brand/loginchoose_logo.png","type":"IMAGE"},
+        {"url":"./brand/loginquick_logo.png","type":"IMAGE"},
 
         {"url":"./assets/conf/agent/agent.json","type":"JSON"},
         {"url":"./assets/conf/agent/agentadduser.json","type":"JSON"},
@@ -32,6 +33,8 @@
         {"url":"./assets/conf/login/changepwdin.json","type":"JSON"},
         {"url":"./assets/conf/login/chooselogin.json","type":"JSON"},
         {"url":"./assets/conf/login/quicklogin.json","type":"JSON"},
+        {"url":"./assets/conf/login/loginother.json","type":"JSON"},
+        {"url":"./assets/conf/login/yzm_quicklogin.json","type":"JSON"},
 
         {"url":"./assets/conf/accountpad_app_temp.json","type":"JSON"},
         {"url":"./assets/conf/accountpad.json","type":"JSON"},

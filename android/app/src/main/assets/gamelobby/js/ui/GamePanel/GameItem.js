@@ -324,8 +324,18 @@ var GameItem = /** @class */ (function (_super) {
             UpdateMsgHandle.clearInfoByAlias(this.data.alias);
         }
     };
+    GameItem.prototype.showObj = function (obj) {
+        if (obj.alpha != 1) {
+            obj.alpha = 1;
+        }
+        if (obj.visible != true) {
+            obj.visible = true;
+        }
+    };
     GameItem.prototype.renderPercent = function (bottomH, topH) {
         var btn = this.btn_icon.btn_ui;
+        this.showObj(this.btn_icon);
+        this.showObj(btn);
         var texLight = Laya.loader.getRes(this.icon_src);
         var src_gray = this.getGraySrc(this.icon_src);
         var texGray = Laya.loader.getRes(src_gray);
