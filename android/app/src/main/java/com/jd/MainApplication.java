@@ -9,11 +9,12 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.RNFetchBlob.RNFetchBlobPackage;
+import com.dylanvann.fastimage.FastImageViewPackage;
 import com.jd.invokenative.DplusReactPackage;
 import com.jd.invokenative.RNUMConfigure;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.crashlytics.android.Crashlytics;
-import com.dylanvann.fastimage.FastImageViewPackage;
+
 import com.facebook.react.ReactApplication;
 import com.openinstall.openinstallLibrary.OpeninstallReactPackage;
 import com.corbt.keepawake.KCKeepAwakePackage;
