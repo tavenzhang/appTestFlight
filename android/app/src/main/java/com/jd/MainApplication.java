@@ -185,12 +185,12 @@ public class MainApplication extends Application implements ReactApplication {
     }
 
     private void initUmeng() {
-        String umengKey = BuildConfig.UMENG_KEY;
+//        String umengKey = BuildConfig.UMENG_KEY;
         String wechatKey = BuildConfig.WECHAT_KEY;
         String wechatSecretKey = BuildConfig.WECHAT_SECRET_KEY;
 
-        RNUMConfigure.init(this, umengKey, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-//        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
+//        RNUMConfigure.init(this, umengKey, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
         UMConfigure.setLogEnabled(BuildConfig.DEBUG);
         UMConfigure.setEncryptEnabled(true);
 
