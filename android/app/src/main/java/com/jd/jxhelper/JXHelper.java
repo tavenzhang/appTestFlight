@@ -1,11 +1,14 @@
 package com.jd.jxhelper;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 
 import com.facebook.react.bridge.Arguments;
@@ -32,11 +35,17 @@ import cn.jpush.android.data.JPushLocalNotification;
 
 
 public class JXHelper extends ReactContextBaseJavaModule {
+    private static final String KEY_UUID = "uuid";
+    private static final String KEY_RANDOM_UUID = "random_uuid";
     Context context;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     public JXHelper(ReactApplicationContext reactContext) {
         super(reactContext);
         this.context = reactContext;
+        pref = context.getSharedPreferences("Device", 0);
+        editor = pref.edit();
     }
 
     @Override
@@ -87,20 +96,61 @@ public class JXHelper extends ReactContextBaseJavaModule {
         JPushInterface.addLocalNotification(this.context, ln);
     }
 
+//    @ReactMethod
+//    public void getCFUUID(Callback resultCallback) {
+//        TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+//      //  String szImei = TelephonyMgr.getDeviceId();
+//        String res = null;
+////        try {
+////            res = UUID.nameUUIDFromBytes(szImei.getBytes("utf8")).toString();
+////        } catch (Exception e) {
+////        }
+////        if (res == null) {
+////            res = UUID.randomUUID().toString();
+////        }
+//        res = UUID.randomUUID().toString();
+//        resultCallback.invoke("deviceId", res);
+//    }
+
     @ReactMethod
     public void getCFUUID(Callback resultCallback) {
-        TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-      //  String szImei = TelephonyMgr.getDeviceId();
-        String res = null;
-//        try {
-//            res = UUID.nameUUIDFromBytes(szImei.getBytes("utf8")).toString();
-//        } catch (Exception e) {
-//        }
-//        if (res == null) {
-//            res = UUID.randomUUID().toString();
-//        }
-        res = UUID.randomUUID().toString();
-        resultCallback.invoke("deviceId", res);
+        resultCallback.invoke("deviceId", getCFUUID());
+    }
+
+    public String getCFUUID() {
+        String storedUuid = pref.getString(KEY_UUID, null);
+        String storedRandomUuid = pref.getString(KEY_RANDOM_UUID, null);
+        String randomUuid = UUID.randomUUID().toString();
+        boolean isGranted = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
+
+        if (storedUuid != null && storedUuid != "") {
+            return storedUuid;
+        } else {
+            if (isGranted) {
+                TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                String szImei = TelephonyMgr.getDeviceId();
+                String res = null;
+                try {
+                    res = UUID.nameUUIDFromBytes(szImei.getBytes("utf8")).toString();
+                } catch (Exception e) {
+                }
+                if (res == null) {
+                    res = randomUuid;
+                }
+
+                editor.putString(KEY_UUID, res);
+                editor.commit();
+                return res;
+            } else {
+                if (storedRandomUuid != null && storedRandomUuid != "") {
+                    return storedRandomUuid;
+                } else {
+                    editor.putString(KEY_RANDOM_UUID, randomUuid);
+                    editor.commit();
+                    return randomUuid;
+                }
+            }
+        }
     }
 
     @ReactMethod
