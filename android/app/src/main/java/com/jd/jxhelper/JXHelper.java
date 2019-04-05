@@ -44,6 +44,8 @@ public class JXHelper extends ReactContextBaseJavaModule {
     public JXHelper(ReactApplicationContext reactContext) {
         super(reactContext);
         this.context = reactContext;
+        pref = context.getSharedPreferences("Device", 0);
+        editor = pref.edit();
     }
 
     @Override
