@@ -128,6 +128,23 @@ var RegPad = /** @class */ (function (_super) {
         // Debug.trace("RegPad.onNameKey tx:"+tx+" ntx:"+ntx);
         name.text = ntx;
     };
+    RegPad.prototype.lostFocusInputText = function () {
+        if (this.inputName) {
+            this.inputName.focus = false;
+        }
+        if (this.inputPwd) {
+            this.inputPwd.focus = false;
+        }
+        if (this.inputYaoqingma) {
+            this.inputYaoqingma.focus = false;
+        }
+        if (this.inputConfirmPwd) {
+            this.inputConfirmPwd.focus = false;
+        }
+        if (this.inputYanzhengma) {
+            this.inputYanzhengma.focus = false;
+        }
+    };
     RegPad.prototype.clearYanzhengma = function (node) {
         // if( this.imgYanzhengma )
         // {

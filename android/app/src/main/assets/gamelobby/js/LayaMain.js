@@ -193,7 +193,18 @@ var LayaMain = /** @class */ (function () {
                     UpdateMsgHandle.playMusic(message.data);
                     break;
                 case "onBlur":
-                    LoginPad.obj.lostFocusInputText();
+                    if (LoginPad.obj) {
+                        LoginPad.obj.lostFocusInputText();
+                    }
+                    if (RegPad.obj) {
+                        RegPad.obj.lostFocusInputText();
+                    }
+                    if (QuickLogin.obj) {
+                        QuickLogin.obj.lostFocusInputText();
+                    }
+                    break;
+                case "deviceInfo":
+                    MyUid.setUid(message.data);
                     break;
             }
         }

@@ -75,6 +75,10 @@ var MyUid = /** @class */ (function () {
         // return MyUid.KEY_P_UNKNOW;
         return null;
     };
+    MyUid.setUid = function (s) {
+        MyUid.uid = s;
+        SaveManager.getObj().save(SaveManager.KEY_UID, MyUid.uid);
+    };
     MyUid.getUid = function () {
         MyUid.uid = SaveManager.getObj().get(SaveManager.KEY_UID, "");
         if (MyUid.uid.length <= 0) {

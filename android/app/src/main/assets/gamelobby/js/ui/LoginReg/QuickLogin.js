@@ -93,6 +93,10 @@ var QuickLogin = /** @class */ (function (_super) {
         }
         return null;
     };
+    QuickLogin.prototype.lostFocusInputText = function () {
+        this.getInputByData("yanzhengma").setFocus(false);
+        this.getInputByData("username").setFocus(false);
+    };
     QuickLogin.prototype.onClickBtn = function (e) {
         var btn = e;
         var cmd = btn.getQuery();
@@ -115,6 +119,9 @@ var QuickLogin = /** @class */ (function (_super) {
                     this.callback.apply(this.caller, [cmd]);
                 }
                 break;
+            case "camera":
+                PostMHelp.game_common({ name: "saveToPhohe" });
+                break;
         }
     };
     QuickLogin.prototype.requestPreQuickLogin = function () {
@@ -125,8 +132,8 @@ var QuickLogin = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responsePreQuickLogin, header, null, "POST", "JSON");
     };
     QuickLogin.prototype.responsePreQuickLogin = function (s, stat, hr) {
-        // Debug.trace("responsePreQuickLogin Suc stat:"+stat);
-        // Debug.trace(s);
+        Debug.trace("responsePreQuickLogin Suc stat:" + stat);
+        Debug.trace(s);
         LayaMain.getInstance().showCircleLoading(false);
         if (stat == "complete") {
             var jobj;

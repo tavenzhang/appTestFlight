@@ -17,6 +17,7 @@ import CodePush from 'react-native-code-push'
 import rootStore from "../../Data/store/RootStore";
 import FileTools from "../../Common/Global/FileTools";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
+import Tools from "../../Common/View/Tools";
 
 const HTTP_GAME_LIST="/gamecenter/player/game/list";
 @withMappedNavigationProps()
@@ -78,7 +79,7 @@ export default class XXWebView extends Component {
     }
 
     _keyboardDidShow=(event)=>{
-        //TW_Log("( _keyboard---_keyboardDidShow" ,event);
+        TW_Log("( _keyboard---_keyboardDidShow" ,event);
         if(!this.isShowKeyBoard){
             this.isShowKeyBoard =true;
             if(this.refs.myView){
@@ -89,7 +90,7 @@ export default class XXWebView extends Component {
     }
 
     _keyboardDidHide=(event)=>{
-       // TW_Log("( _keyboard---_keyboardDidHide" ,event);
+        TW_Log("( _keyboard---_keyboardDidHide" ,event);
         if(this.isShowKeyBoard){
             this.isShowKeyBoard=false
             if(this.refs.myView){
@@ -346,6 +347,13 @@ export default class XXWebView extends Component {
             switch (message.action) {
                 case "Log":
                     // TW_Log("game---ct=="+message.ct,message.data);
+                    break;
+                case "game_common":
+                    switch (message.name) {
+                        case "saveToPhohe":
+                            Tools.onSaveScreenPhone
+                            break;
+                    }
                     break;
                 case "startUpdate":
                     //{action: "startUpdate", gameId: 28, alias: "xywz"}

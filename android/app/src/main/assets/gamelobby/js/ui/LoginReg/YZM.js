@@ -53,6 +53,7 @@ var YZM = /** @class */ (function (_super) {
         else {
             img = new Laya.Image();
             img.on(Laya.Event.CLICK, this, this.onYanzhengmaFocus, [node]);
+            Debug.trace("YZM.newYznzhengma x:" + conf.pos.x + " y:" + conf.pos.y);
             img.pos(conf.pos.x, conf.pos.y);
             img.size(conf.size.w, conf.size.h);
             node.addChild(img);

@@ -35,8 +35,17 @@ var LoginScene = /** @class */ (function (_super) {
             custom.pos(ConfObjRead.getConfLogin().custom.pos.x, ConfObjRead.getConfLogin().custom.pos.y);
             this.addChild(custom);
         }
-        // ChooseLogin.showPad(this,ConfObjRead.getConfLoginChoose(),this,this.onClickChoose);
-        var login = LoginPad.showPad(this, ConfObjRead.getConfLogin().login);
+        switch (ConfObjRead.getConfLogin().loginui) {
+            case "choose":
+                ChooseLogin.showPad(this, ConfObjRead.getConfLoginChoose(), this, this.onClickChoose);
+                break;
+            case "account":
+                LoginPad.showPad(this, ConfObjRead.getConfLogin().login);
+                break;
+            default:
+                LoginPad.showPad(this, ConfObjRead.getConfLogin().login);
+                break;
+        }
         // var reg = RegPad.showPad(this,ConfObjRead.getConfLogin().reg);
     };
     LoginScene.prototype.onClickChoose = function (cmd) {

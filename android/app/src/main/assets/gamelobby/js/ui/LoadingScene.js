@@ -26,7 +26,7 @@ var LoadingScene = /** @class */ (function (_super) {
         Tools.addFullScreenListener();
     };
     LoadingScene.prototype.onLoaded = function (s) {
-        Common.confObj = Laya.loader.getRes("./assets/conf/config.json");
+        Common.confObj = Laya.loader.getRes("./assets/conf/common/config.json");
         Common.getNormalFontByDevice();
         Debug.trace("LoadingScene.onLoaded font:" + Common.normalFont);
         this.temp_token = SaveManager.getObj().get(SaveManager.KEY_TOKEN, "");

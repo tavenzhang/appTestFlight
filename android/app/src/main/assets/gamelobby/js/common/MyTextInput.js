@@ -21,6 +21,10 @@ var MyTextInput = /** @class */ (function (_super) {
     MyTextInput.prototype.setDataName = function (dn) {
         this.dataName = dn;
     };
+    MyTextInput.prototype.setFocus = function (state) {
+        this.focus = state;
+        Debug.trace("MyTextInput---", state);
+    };
     return MyTextInput;
 }(Laya.TextInput));
 //# sourceMappingURL=MyTextInput.js.map

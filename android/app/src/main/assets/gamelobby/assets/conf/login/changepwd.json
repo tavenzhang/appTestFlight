@@ -73,8 +73,8 @@
     "switchmenus":[
         {
             "cmd":"newpwd",
-            "pos":{ "x":880, "y":353 },
-            "size":{"w":41,"h":23},
+            "pos":{ "x":880, "y":343 },
+            "size":{"w":41,"h":50},
             "src":[
                 "./assets/ui/login/changepwd/eye_00.png",
                 "./assets/ui/login/changepwd/eye_01.png"
@@ -83,7 +83,7 @@
         },
         {
             "cmd":"confirmpwd",
-            "pos":{ "x":880, "y":428 },
+            "pos":{ "x":880, "y":418 },
             "src":[
                 "./assets/ui/login/changepwd/eye_00.png",
                 "./assets/ui/login/changepwd/eye_01.png"

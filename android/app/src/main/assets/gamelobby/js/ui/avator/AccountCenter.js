@@ -15,6 +15,7 @@ var AccountCenter = /** @class */ (function (_super) {
     __extends(AccountCenter, _super);
     function AccountCenter() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.iCPWDClickNum = 0;
         _this.iClickNum = 0;
         return _this;
     }
@@ -53,8 +54,7 @@ var AccountCenter = /** @class */ (function (_super) {
         if (this.conf.title) {
             var sp_title_lb = Tools.newSprite(this.conf.title.lb);
             this.addChild(sp_title_lb);
-            if (ConfObjRead.getConfCommon().btest) {
-                // Debug.trace("AccountCenter.title event w:"+sp_title_lb.width+" h:"+sp_title_lb.height+" x:"+sp_title_lb.x+" y:"+sp_title_lb.y);
+            if (ConfObjRead.getConfCommon().btestaccount) {
                 sp_title_lb.on(Laya.Event.CLICK, this, this.onClickTitle);
             }
         }
@@ -68,16 +68,29 @@ var AccountCenter = /** @class */ (function (_super) {
         }
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
+    AccountCenter.prototype.onClickAvator = function (e) {
+        this.iCPWDClickNum += ConfObjRead.getConfCommon().btestchangepwd.stepAdd;
+        if (this.iCPWDClickNum >= ConfObjRead.getConfCommon().btestchangepwd.totalNum) {
+            this.iCPWDClickNum = 0;
+            ChangePwd.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdIn());
+            ChangePwd.getObj().setSucListener(this, this.changePwdSuc);
+        }
+        Laya.timer.clear(this, this.clearAvator);
+        Laya.timer.once(ConfObjRead.getConfCommon().btestchangepwd.delayTime, this, this.clearAvator);
+    };
+    AccountCenter.prototype.clearAvator = function () {
+        this.iCPWDClickNum = 0;
+    };
     AccountCenter.prototype.onClickTitle = function (e) {
         // Debug.trace("AccountCenter.onClickBg "+this.iClickNum);
-        this.iClickNum += ConfObjRead.getConfCommon().btest.stepAdd;
-        if (this.iClickNum >= ConfObjRead.getConfCommon().btest.totalNum) {
+        this.iClickNum += ConfObjRead.getConfCommon().btestaccount.stepAdd;
+        if (this.iClickNum >= ConfObjRead.getConfCommon().btestaccount.totalNum) {
             this.iClickNum = 0;
             this.onClose(null);
             LayaMain.getInstance().loginOut();
         }
         Laya.timer.clear(this, this.clearClick);
-        Laya.timer.once(ConfObjRead.getConfCommon().btest.delayTime, this, this.clearClick);
+        Laya.timer.once(ConfObjRead.getConfCommon().btestaccount.delayTime, this, this.clearClick);
     };
     AccountCenter.prototype.clearClick = function () {
         this.iClickNum = 0;
@@ -131,6 +144,9 @@ var AccountCenter = /** @class */ (function (_super) {
                 var scx = conf.avator.size.w / this.sp_icon.width;
                 var scy = conf.avator.size.h / this.sp_icon.height;
                 this.sp_icon.scale(scx, scy);
+                if (ConfObjRead.getConfCommon().btestchangepwd) {
+                    this.sp_icon.on(Laya.Event.CLICK, this, this.onClickAvator);
+                }
             }
             if (conf.id) {
                 if (conf.id.bg) {
@@ -201,8 +217,6 @@ var AccountCenter = /** @class */ (function (_super) {
                 break;
             case "changepwd":
                 ChangePwd.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdIn());
-                // Debug.trace("AccountCenter.changepwd:");
-                // Debug.trace(ChangePwd.getObj());
                 ChangePwd.getObj().setSucListener(this, this.changePwdSuc);
                 break;
         }

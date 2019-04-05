@@ -104,7 +104,10 @@ var LoginPad = /** @class */ (function (_super) {
                 var inputbg = Tools.addSprite(this.sp_yanzhengma, this.conf.inputpad.yanzhengma.inputbg);
                 this.inputYanzhengma = Tools.addInput(this.sp_yanzhengma, this.conf.inputpad.yanzhengma.input);
                 this.inputYanzhengma.on(Laya.Event.FOCUS, this, this.onYanzhengmaInputFocus);
-                this.imgYanzhengma = this.newYanzhengma(this.sp_yanzhengma, this.conf.inputpad.yanzhengma.image);
+                // this.imgYanzhengma = this.newYanzhengma(this.sp_yanzhengma,this.conf.inputpad.yanzhengma.image);
+                this.yzmObj = new YZM();
+                this.yzmObj.init(this, this.conf.inputpad.yanzhengma.image);
+                this.addChild(this.yzmObj);
             }
         }
         if (this.conf.menus) {
@@ -120,81 +123,25 @@ var LoginPad = /** @class */ (function (_super) {
             }
         }
     };
-    LoginPad.prototype.newYanzhengma = function (node, conf) {
-        switch (Common.pathType) {
-            case Common.PATH_TYPE_XD:
-                return this.newYanzhengma_xiangdui(node, conf);
-            default:
-                return this.newYanzhengma_juedui(node, conf);
-        }
-    };
-    LoginPad.prototype.onYanzhengmaFocus = function (node) {
-        this.clearYanzhengma(node);
-        // Debug.trace("focus on yanzhengma");
-        this.imgYanzhengma = this.newYanzhengma(node, this.conf.inputpad.yanzhengma.image);
-    };
+    // public newYanzhengma(node:any,conf:any):Laya.Image
+    // {
+    //     switch( Common.pathType )
+    //     {
+    //         case Common.PATH_TYPE_XD:
+    //         return this.newYanzhengma_xiangdui(node,conf);
+    //         default:
+    //         return this.newYanzhengma_juedui(node,conf);
+    //     }
+    // }
+    // public onYanzhengmaFocus(node:any):void
+    // {
+    //     this.clearYanzhengma(node);
+    // Debug.trace("focus on yanzhengma");
+    //     this.imgYanzhengma = this.newYanzhengma(node,this.conf.inputpad.yanzhengma.image);
+    // }
     LoginPad.prototype.refreshYanzhengma = function () {
-        this.onYanzhengmaFocus(this.sp_yanzhengma);
-    };
-    LoginPad.prototype.clearYanzhengma = function (node) {
-        // if( this.imgYanzhengma )
-        // {
-        //     Debug.trace("clear yanzhengmna");
-        //     node.removeChild(this.imgYanzhengma);
-        //     this.imgYanzhengma.destroy(true);
-        //     this.imgYanzhengma = null;
-        // }
-    };
-    LoginPad.prototype.newYanzhengma_xiangdui = function (node, conf) {
-        var img;
-        if (this.imgYanzhengma) {
-            img = this.imgYanzhengma;
-        }
-        else {
-            img = new Laya.Image();
-            img.on(Laya.Event.CLICK, this, this.onYanzhengmaFocus, [node]);
-            img.pos(conf.pos.x, conf.pos.y);
-            img.size(conf.size.w, conf.size.h);
-            node.addChild(img);
-        }
-        this.yanzhengma_root = Math.random();
-        // img.pos(conf.pos.x,conf.pos.y);
-        // img.size(conf.size.w,conf.size.h);
-        Debug.trace("RegPad.newYanzhengma root:" + this.yanzhengma_root);
-        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.yanzhengma_root;
-        Debug.trace("RegPad.newYanzhengma url:" + url);
-        img.skin = url;
-        // img.on(Laya.Event.CLICK,this,this.onYanzhengmaFocus,[node]);
-        // node.addChild(img);
-        return img;
-    };
-    LoginPad.prototype.newYanzhengma_juedui = function (node, conf) {
-        var img;
-        if (this.imgYanzhengma) {
-            img = this.imgYanzhengma;
-        }
-        else {
-            img = new Laya.Image();
-            img.on(Laya.Event.CLICK, this, this.onYanzhengmaFocus, [node]);
-            img.pos(conf.pos.x, conf.pos.y);
-            img.size(conf.size.w, conf.size.h);
-            node.addChild(img);
-        }
-        this.yanzhengma_root = Math.random();
-        // img.pos(conf.pos.x,conf.pos.y);
-        // img.size(conf.size.w,conf.size.h);
-        Debug.trace("RegPad.newYanzhengma root:" + this.yanzhengma_root);
-        var url = Tools.getCurHost(Tools.getCurFullPath()); //+"/";
-        var ext = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.yanzhengma_root;
-        if (ext.indexOf("../") == 0) {
-            ext = ext.substr(3, ext.length);
-        }
-        url = url + ext;
-        Debug.trace("RegPad.newYanzhengma url:" + url);
-        img.skin = url;
-        // img.on(Laya.Event.CLICK,this,this.onYanzhengmaFocus,[node]);
-        // node.addChild(img);
-        return img;
+        // this.onYanzhengmaFocus(this.sp_yanzhengma);
+        this.yzmObj.refresh();
     };
     LoginPad.prototype.onYanzhengmaInputFocus = function (e) {
         // Debug.trace("RegPad.onYanzhengmaInputFocus e:");
@@ -225,8 +172,15 @@ var LoginPad = /** @class */ (function (_super) {
         }
     };
     LoginPad.prototype.lostFocusInputText = function () {
-        this.inputName.focus = false;
-        this.inputPwd.focus = false;
+        if (this.inputName) {
+            this.inputName.focus = false;
+        }
+        if (this.inputPwd) {
+            this.inputPwd.focus = false;
+        }
+        if (this.inputYanzhengma) {
+            this.inputYanzhengma.focus = false;
+        }
     };
     LoginPad.prototype.initAlphaBg = function () {
         if (this.conf.mask) {
@@ -326,7 +280,7 @@ var LoginPad = /** @class */ (function (_super) {
         LayaMain.getInstance().showCircleLoading(true);
         var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
         var ePwd = window['SecretUtils'].rsaEncodePWD(pwd);
-        var swebUniqueCode = "" + this.yanzhengma_root;
+        var swebUniqueCode = "" + this.yzmObj.yanzhengma_root;
         var data = {
             username: name,
             password: ePwd,
@@ -375,7 +329,8 @@ var LoginPad = /** @class */ (function (_super) {
             else {
                 Toast.showToast("未知错误，请联系管理员");
             }
-            this.onYanzhengmaFocus(this.sp_yanzhengma);
+            // this.onYanzhengmaFocus(this.sp_yanzhengma);
+            this.yzmObj.refresh();
         }
     };
     LoginPad.prototype.changePwdSuc = function (e) {

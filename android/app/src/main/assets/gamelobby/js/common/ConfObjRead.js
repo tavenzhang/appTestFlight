@@ -161,14 +161,14 @@ var ConfObjRead = /** @class */ (function () {
         }
         if (AppData.IS_NATIVE_APP) {
             if (AppData.isAndroidHack) {
-                ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad_app_temp.json");
+                ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountcenter/accountpad_app_temp.json");
             }
             else {
-                ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad_app.json");
+                ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountcenter/accountpad_app.json");
             }
         }
         else {
-            ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountpad.json");
+            ConfObjRead.accenterObj = Laya.Loader.getRes("./assets/conf/accountcenter/accountpad.json");
         }
         return ConfObjRead.accenterObj;
     };
@@ -256,12 +256,10 @@ var ConfObjRead = /** @class */ (function () {
             //     ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config_app_temp.json");
             // }else{
             ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config_app.json");
-            // ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/config.json");
             // }
         }
         else {
-            ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/config.json");
-            // ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config_app.json");
+            ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config.json");
         }
         return ConfObjRead.commonObj;
     };
@@ -516,7 +514,7 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.loginObj) {
             return ConfObjRead.loginObj;
         }
-        ConfObjRead.loginObj = Laya.Loader.getRes("./assets/conf/loginreg.json");
+        ConfObjRead.loginObj = Laya.Loader.getRes("./assets/conf/login/loginreg.json");
         return ConfObjRead.loginObj;
     };
     ConfObjRead.getConfUiBg = function () {

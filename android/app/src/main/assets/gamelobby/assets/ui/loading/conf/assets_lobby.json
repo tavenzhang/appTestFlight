@@ -35,12 +35,14 @@
         {"url":"./assets/conf/login/quicklogin.json","type":"JSON"},
         {"url":"./assets/conf/login/loginother.json","type":"JSON"},
         {"url":"./assets/conf/login/yzm_quicklogin.json","type":"JSON"},
+        {"url":"./assets/conf/login/loginreg.json","type":"JSON"},
 
         {"url":"./assets/conf/common/config_app.json","type":"JSON"},
 
-        {"url":"./assets/conf/accountpad_app_temp.json","type":"JSON"},
-        {"url":"./assets/conf/accountpad.json","type":"JSON"},
-        {"url":"./assets/conf/accountpad_app.json","type":"JSON"},
+        {"url":"./assets/conf/accountcenter/accountpad_app_temp.json","type":"JSON"},
+        {"url":"./assets/conf/accountcenter/accountpad_app.json","type":"JSON"},
+        {"url":"./assets/conf/accountcenter/accountpad.json","type":"JSON"},
+        
         {"url":"./assets/conf/attention.json","type":"JSON"},
         {"url":"./assets/conf/avator.json","type":"JSON"},
         {"url":"./assets/conf/avator_app.json","type":"JSON"},
@@ -49,7 +51,7 @@
         {"url":"./assets/conf/bgbig.json","type":"JSON"},
         {"url":"./assets/conf/bottommenu.json","type":"JSON"},
         {"url":"./assets/conf/cloading.json","type":"JSON"},
-        {"url":"./assets/conf/config.json","type":"JSON"},
+        {"url":"./assets/conf/common/config.json","type":"JSON"},
         {"url":"./assets/conf/datanum.json","type":"JSON"},
         {"url":"./assets/conf/gameiconanim.json","type":"JSON"},
         {"url":"./assets/conf/gamepanel.json","type":"JSON"},
@@ -58,7 +60,7 @@
         {"url":"./assets/conf/helppad.json","type":"JSON"},
         {"url":"./assets/conf/history.json","type":"JSON"},
         {"url":"./assets/conf/libhtml.json","type":"JSON"},
-        {"url":"./assets/conf/loginreg.json","type":"JSON"},
+        
         {"url":"./assets/conf/minemenus.json","type":"JSON"},
         {"url":"./assets/conf/minemenus_app.json","type":"JSON"},
         {"url":"./assets/conf/minemenus_app_temp.json","type":"JSON"},
