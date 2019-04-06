@@ -128,7 +128,6 @@ var GameItem = /** @class */ (function (_super) {
     GameItem.prototype.onLaunchGame = function () {
         Common.gameId = this.data.id;
         Common.wsUrl = this.data.url;
-        Debug.trace("GameItem.onClickItem this.sStatus:--this.conf.sfx"+this.conf.sfx);
         if (this.conf.sfx) {
             Laya.SoundManager.playSound(this.conf.sfx);
         }
@@ -312,7 +311,7 @@ var GameItem = /** @class */ (function (_super) {
         if (this.lb_update) {
             var pct = this.iUpdateProgress * 100;
             var spct = Tools.FormatFloatNumber(pct, 2);
-            this.lb_update.text = this.conf.updateText.font.pretext + spct + this.conf.updateText.font.endtext;
+            this.lb_update.text = Tools.getStringByKey(this.conf.updateText.font.pretext) + spct + Tools.getStringByKey(this.conf.updateText.font.endtext);
         }
         if (this.iUpdateProgress >= 1) {
             if (this.lb_update) {

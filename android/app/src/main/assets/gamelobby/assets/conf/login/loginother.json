@@ -126,7 +126,7 @@
             "fontsize":24,
             "bold":false,
             "color":"#ffffff",
-            "prompt":"请输入用户名"
+            "prompt":"username_prompt"
         }
     },
     "pwdX":{
@@ -148,7 +148,7 @@
             "bold":false,
             "color":"#ffffff",
             "type":"password",
-            "prompt":"请输入密码"
+            "prompt":"pwd_prompt"
         }
     },
     "inputpad":{
@@ -175,7 +175,7 @@
                 "fontsize":24,
                 "bold":false,
                 "color":"#ffffff",
-                "prompt":"请输入用户名（4-12位字母和数字）"
+                "prompt":"username_login_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":160 },
@@ -214,7 +214,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "type":"password",
-                "prompt":"请输入密码（6-15位字母和数字）"
+                "prompt":"pwd_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":240 },
@@ -253,7 +253,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "typeX":"number",
-                "prompt":"请输入验证码"
+                "prompt":"yzm_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":400 },

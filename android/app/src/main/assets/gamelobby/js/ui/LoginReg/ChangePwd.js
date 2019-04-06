@@ -16,26 +16,32 @@ var ChangePwd = /** @class */ (function (_super) {
     function ChangePwd() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ChangePwd.getObj = function () {
-        return ChangePwd.obj;
-    };
-    ChangePwd.showPad = function (node, conf, caller, callback) {
-        if (caller === void 0) { caller = null; }
-        if (callback === void 0) { callback = null; }
-        if (!ChangePwd.obj) {
-            var o = new ChangePwd();
-            o.init(node, conf);
-            o.setCloseListener(caller, callback);
-            node.addChild(o);
-        }
-        // ChangePwd.obj.show(b);
-    };
+    // public static getObj():ChangePwd
+    // {
+    //     return ChangePwd.obj;
+    // }
+    // public static showPad(
+    //     node:any,conf:any,caller:any=null,callback:any=null):void
+    // {
+    //     if( !ChangePwd.obj )
+    //     {
+    //         var o = new ChangePwd();
+    //         o.init(node,conf);
+    //         o.setCloseListener(caller,callback);
+    //         node.addChild(o);
+    //     }
+    // }
+    // public destroy(b:boolean):void
+    // {
+    //     ChangePwd.obj = null;
+    //     super.destroy(b);
+    // }
     ChangePwd.prototype.setSucListener = function (caller, callback) {
         this.sucCaller = caller;
         this.sucCallback = callback;
     };
     ChangePwd.prototype.init = function (node, conf) {
-        ChangePwd.obj = this;
+        // ChangePwd.obj = this;
         _super.prototype.init.call(this, node, conf);
         this.initContent();
     };
@@ -122,10 +128,6 @@ var ChangePwd = /** @class */ (function (_super) {
                 break;
         }
     };
-    ChangePwd.prototype.destroy = function (b) {
-        ChangePwd.obj = null;
-        _super.prototype.destroy.call(this, b);
-    };
     ChangePwd.prototype.onClose = function (s, bcallback) {
         if (bcallback === void 0) { bcallback = true; }
         _super.prototype.onClose.call(this, s, bcallback);
@@ -201,6 +203,11 @@ var ChangePwd = /** @class */ (function (_super) {
         //     LoginPad.getObj().refreshYanzhengma();
         //     Toast.showToast(this.conf.textChanged);
         // }
+        if (Common.loginType == Common.TYPE_LOGIN_QK) {
+            SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, newpwd);
+            Common.loginInfo.strongPwd = true;
+            SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+        }
     };
     return ChangePwd;
 }(AgentDialogBase));

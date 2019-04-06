@@ -72,8 +72,7 @@ var AccountCenter = /** @class */ (function (_super) {
         this.iCPWDClickNum += ConfObjRead.getConfCommon().btestchangepwd.stepAdd;
         if (this.iCPWDClickNum >= ConfObjRead.getConfCommon().btestchangepwd.totalNum) {
             this.iCPWDClickNum = 0;
-            ChangePwd.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdIn());
-            ChangePwd.getObj().setSucListener(this, this.changePwdSuc);
+            this.changePwd();
         }
         Laya.timer.clear(this, this.clearAvator);
         Laya.timer.once(ConfObjRead.getConfCommon().btestchangepwd.delayTime, this, this.clearAvator);
@@ -216,15 +215,47 @@ var AccountCenter = /** @class */ (function (_super) {
                 AvatorPad.showPad(LayaMain.getInstance().getRootNode()); //LobbyScene.getInstance());
                 break;
             case "changepwd":
-                ChangePwd.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdIn());
-                ChangePwd.getObj().setSucListener(this, this.changePwdSuc);
+                this.changePwd();
                 break;
         }
     };
-    AccountCenter.prototype.changePwdSuc = function (e) {
+    AccountCenter.prototype.changePwd = function () {
+        if (Common.loginType == Common.TYPE_LOGIN_QK) {
+            this.showChangePwdQk();
+        }
+        else {
+            this.showChangePwd();
+        }
+    };
+    AccountCenter.prototype.showChangePwd = function () {
+        ChangePwdNormal.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdIn());
+        ChangePwdNormal.getObj().setSucListener(this, this.onChangePwdSuc);
+    };
+    AccountCenter.prototype.onChangePwdSuc = function (e) {
         this.destroy(true);
         LayaMain.getInstance().loginOut();
         Toast.showToast(ConfObjRead.getConfChangePwdIn().textChanged);
+    };
+    AccountCenter.prototype.showChangePwdQk = function () {
+        ChangePwdQk.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdQk(), this, this.onChangePwdQkCancel);
+        ChangePwdQk.getObj().setSucListener(this, this.onChangePwdQkSuc);
+        var pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
+        ChangePwdQk.getObj().setOldPwd(pwd);
+    };
+    AccountCenter.prototype.onChangePwdQkCancel = function () {
+        // ChangePwdQk.getObj().destroy(true);
+        // ChangePwdQk.showPad(LayaMain.getInstance().getRootNode(),ConfObjRead.getConfChangePwdQk(),this,this.onChangePwdQkCancel);
+    };
+    AccountCenter.prototype.onChangePwdQkSuc = function (e) {
+        ChangePwdQk.getObj().destroy(true);
+        this.destroy(true);
+        var npwd = e;
+        Debug.trace("AttentionDialog.onChangePwdSuc");
+        Common.loginInfo.strongPwd = true;
+        SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
+        SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+        LayaMain.getInstance().loginOut();
+        Toast.showToast(ConfObjRead.getConfChangePwdQk().textChanged);
     };
     AccountCenter.prototype.setCallback = function () {
     };
@@ -273,7 +304,7 @@ var AccountCenter = /** @class */ (function (_super) {
     };
     AccountCenter.prototype.setName = function (id) {
         if (this.lb_id) {
-            this.lb_id.text = this.conf.curavator.id.label.font.pretext + "" + id;
+            this.lb_id.text = Tools.getStringByKey(this.conf.curavator.id.label.font.pretext) + "" + id;
         }
     };
     AccountCenter.prototype.setAction = function (sp, pos) {

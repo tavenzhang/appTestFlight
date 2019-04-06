@@ -84,7 +84,7 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"text",
-            "prompt":"4-11位字母和数字",
+            "prompt":"username_login_prompt",
             "editable":{
                 "value":false
             }
@@ -99,7 +99,7 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"text",
-            "prompt":"请输入验证码",
+            "prompt":"yzm_prompt",
             "editable":{
                 "value":true
             }

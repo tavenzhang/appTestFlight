@@ -5,6 +5,7 @@
         {"url":"./brand/lobby_logo.png","type":"IMAGE"},
         {"url":"./brand/loginchoose_logo.png","type":"IMAGE"},
         {"url":"./brand/loginquick_logo.png","type":"IMAGE"},
+        {"url":"./brand/loginchoose_bg.jpg","type":"IMAGE"},
 
         {"url":"./assets/conf/agent/agent.json","type":"JSON"},
         {"url":"./assets/conf/agent/agentadduser.json","type":"JSON"},
@@ -38,21 +39,25 @@
         {"url":"./assets/conf/login/yzm_quicklogin.json","type":"JSON"},
         {"url":"./assets/conf/login/loginreg.json","type":"JSON"},
 
-        {"url":"./assets/conf/common/config_app.json","type":"JSON"},
+        
 
         {"url":"./assets/conf/accountcenter/accountpad_app_temp.json","type":"JSON"},
         {"url":"./assets/conf/accountcenter/accountpad_app.json","type":"JSON"},
         {"url":"./assets/conf/accountcenter/accountpad.json","type":"JSON"},
         
         {"url":"./assets/conf/attention.json","type":"JSON"},
-        {"url":"./assets/conf/avator.json","type":"JSON"},
-        {"url":"./assets/conf/avator_app.json","type":"JSON"},
-        {"url":"./assets/conf/avator_app_temp.json","type":"JSON"},
-        {"url":"./assets/conf/avatorpad.json","type":"JSON"},
+        {"url":"./assets/conf/avator/avator.json","type":"JSON"},
+        {"url":"./assets/conf/avator/avator_app.json","type":"JSON"},
+        {"url":"./assets/conf/avator/avator_app_temp.json","type":"JSON"},
+        {"url":"./assets/conf/avator/avatorpad.json","type":"JSON"},
         {"url":"./assets/conf/bgbig.json","type":"JSON"},
-        {"url":"./assets/conf/bottommenu.json","type":"JSON"},
         {"url":"./assets/conf/cloading.json","type":"JSON"},
+        
         {"url":"./assets/conf/common/config.json","type":"JSON"},
+        {"url":"./assets/conf/common/config_app.json","type":"JSON"},
+
+        {"url":"./assets/conf/text/textconf.json","type":"JSON"},
+
         {"url":"./assets/conf/datanum.json","type":"JSON"},
         {"url":"./assets/conf/gameiconanim.json","type":"JSON"},
         {"url":"./assets/conf/gamepanel.json","type":"JSON"},
@@ -62,6 +67,7 @@
         {"url":"./assets/conf/history.json","type":"JSON"},
         {"url":"./assets/conf/libhtml.json","type":"JSON"},
         
+        {"url":"./assets/conf/bottommenus/bottommenu.json","type":"JSON"},
         {"url":"./assets/conf/bottommenus/minemenus.json","type":"JSON"},
         {"url":"./assets/conf/bottommenus/minemenus_app.json","type":"JSON"},
         {"url":"./assets/conf/bottommenus/minemenus_app_temp.json","type":"JSON"},
@@ -75,9 +81,9 @@
         {"url":"./assets/conf/setting_v1.json","type":"JSON"},
         {"url":"./assets/conf/setting.json","type":"JSON"},
         {"url":"./assets/conf/testNoticeData.json","type":"JSON"},
-        {"url":"./assets/conf/titlebar.json","type":"JSON"},
-        {"url":"./assets/conf/titlebar_app.json","type":"JSON"},
-        {"url":"./assets/conf/titlebar_app_temp.json","type":"JSON"},
+        {"url":"./assets/conf/titlebar/titlebar.json","type":"JSON"},
+        {"url":"./assets/conf/titlebar/titlebar_app.json","type":"JSON"},
+        {"url":"./assets/conf/titlebar/titlebar_app_temp.json","type":"JSON"},
         {"url":"./assets/conf/toast.json","type":"JSON"},
         {"url":"./assets/conf/urls.json","type":"JSON"},
         {"url":"./assets/conf/version.json","type":"JSON"},
@@ -323,7 +329,6 @@
 
         {"url":"./assets/ui/login/bgLogin.png","type":"IMAGE"},
         {"url":"./assets/ui/login/bgReg.png","type":"IMAGE"},
-        {"url":"./assets/ui/login/bgScene.jpg","type":"IMAGE"},
         {"url":"./assets/ui/login/btn_login.png","type":"IMAGE"},
         {"url":"./assets/ui/login/btn_ok.png","type":"IMAGE"},
         {"url":"./assets/ui/login/btn_reg.png","type":"IMAGE"},

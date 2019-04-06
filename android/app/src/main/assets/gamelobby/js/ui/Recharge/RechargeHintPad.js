@@ -39,7 +39,7 @@ var RechargeHintPad = /** @class */ (function (_super) {
     RechargeHintPad.prototype.show = function (str) {
         if (this.lb_content) {
             if (str == null) {
-                this.lb_content.text = this.conf.content.label.font.text;
+                this.lb_content.text = Tools.getStringByKey(this.conf.content.label.font.text);
             }
             else {
                 this.lb_content.text = str;

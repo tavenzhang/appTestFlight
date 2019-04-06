@@ -13,7 +13,7 @@
     "txt":{
         "size":{ "w":1334, "h":30 },
         "font":{
-            "text":"登录中...",
+            "text":"txt_loading",
             "size":20,
             "color":"#00ff00"
         },

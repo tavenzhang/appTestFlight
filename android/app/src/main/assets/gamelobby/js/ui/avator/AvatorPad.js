@@ -327,12 +327,12 @@ var AvatorPad = /** @class */ (function (_super) {
     };
     AvatorPad.prototype.setId_ = function (id) {
         if (this.lb_id) {
-            this.lb_id.text = this.conf.curavator.id.label.font.pretext + "" + id;
+            this.lb_id.text = Tools.getStringByKey(this.conf.curavator.id.label.font.pretext) + "" + id;
         }
     };
     AvatorPad.prototype.setName = function (id) {
         if (this.lb_id) {
-            this.lb_id.text = this.conf.curavator.id.label.font.pretext + "" + id;
+            this.lb_id.text = Tools.getStringByKey(this.conf.curavator.id.label.font.pretext) + "" + id;
         }
     };
     AvatorPad.prototype.getClickImg = function (pos) {

@@ -425,6 +425,8 @@ var AttentionDialog = /** @class */ (function (_super) {
         Common.loginInfo.strongPwd = true;
         SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
         SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+        Toast.showToast(ConfObjRead.getConfChangePwdQk().textChanged);
+        LayaMain.getInstance().loginOut();
     };
     return AttentionDialog;
 }(MySprite));

@@ -52,7 +52,7 @@ var Toast = /** @class */ (function (_super) {
         _super.prototype.destroy.call(this, b);
     };
     Toast.prototype.show = function (str) {
-        this.label.text = str;
+        this.label.text = Tools.getStringByKey(str);
         this.visible = true;
         // this.visible = false;
         // Debug.trace("this.label.align:"+this.label.valign);

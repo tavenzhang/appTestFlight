@@ -139,7 +139,7 @@ var AttentionPage = /** @class */ (function (_super) {
         //     this.lbContent.text = this.data.content;
         // }
         if (this.txtContent) {
-            this.txtContent.text = this.conf.txtContent.pretext + this.data.content;
+            this.txtContent.text = Tools.getStringByKey(this.conf.txtContent.pretext) + this.data.content;
         }
         if (this.lbAuthor) {
             this.lbAuthor.text = this.data.author;

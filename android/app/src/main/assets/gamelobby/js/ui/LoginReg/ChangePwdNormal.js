@@ -11,36 +11,32 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var ChangePwdQk = /** @class */ (function (_super) {
-    __extends(ChangePwdQk, _super);
-    function ChangePwdQk() {
+var ChangePwdNormal = /** @class */ (function (_super) {
+    __extends(ChangePwdNormal, _super);
+    function ChangePwdNormal() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ChangePwdQk.getObj = function () {
-        return ChangePwdQk.obj;
+    ChangePwdNormal.getObj = function () {
+        return ChangePwdNormal.obj;
     };
-    ChangePwdQk.showPad = function (node, conf, caller, callback) {
+    ChangePwdNormal.showPad = function (node, conf, caller, callback) {
         if (caller === void 0) { caller = null; }
         if (callback === void 0) { callback = null; }
-        if (!ChangePwdQk.obj) {
-            var o = new ChangePwdQk();
+        if (!ChangePwdNormal.obj) {
+            var o = new ChangePwdNormal();
             o.init(node, conf);
             o.setCloseListener(caller, callback);
             node.addChild(o);
         }
     };
-    ChangePwdQk.prototype.destroy = function (b) {
-        ChangePwdQk.obj = null;
+    ChangePwdNormal.prototype.destroy = function (b) {
+        ChangePwdNormal.obj = null;
         _super.prototype.destroy.call(this, b);
     };
-    ChangePwdQk.prototype.init = function (node, conf) {
-        ChangePwdQk.obj = this;
+    ChangePwdNormal.prototype.init = function (node, conf) {
+        ChangePwdNormal.obj = this;
         _super.prototype.init.call(this, node, conf);
     };
-    ChangePwdQk.prototype.setOldPwd = function (pwd) {
-        var o = this.getInputByData("oldpwd");
-        o.text = pwd;
-    };
-    return ChangePwdQk;
+    return ChangePwdNormal;
 }(ChangePwd));
-//# sourceMappingURL=ChangePwdQk.js.map
+//# sourceMappingURL=ChangePwdNormal.js.map

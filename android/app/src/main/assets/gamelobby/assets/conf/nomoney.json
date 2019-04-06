@@ -24,7 +24,7 @@
             "pos":{ "x":390, "y":250 },
             "size":{ "w":560, "h":215 },
             "font":{
-                "text":"帐号余额不足，请前往充值！",
+                "text":"txt_nomoney",
                 "size":28,
                 "color":"#9cc5d8",
                 "align":"center",

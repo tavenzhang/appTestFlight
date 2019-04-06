@@ -68,13 +68,13 @@ var HistoryItem = /** @class */ (function (_super) {
                 var v = this.data.earn;
                 v = Tools.FormatMoney(v, 2);
                 this.lb_earn.color = this.conf.earn.font.color;
-                this.lb_earn.text = this.conf.earn.font.pretext + v; //"￥100.56";
+                this.lb_earn.text = Tools.getStringByKey(this.conf.earn.font.pretext) + v; //"￥100.56";
             }
             else {
                 var v2 = Math.abs(this.data.earn);
                 v = Tools.FormatMoney(v2, 2);
                 this.lb_earn.color = this.conf.earn.font.colorReduce;
-                this.lb_earn.text = this.conf.earn.font.pretextReduce + v; //"￥100.56";
+                this.lb_earn.text = Tools.getStringByKey(this.conf.earn.font.pretextReduce) + v; //"￥100.56";
             }
         }
         if (this.lb_endtime) {

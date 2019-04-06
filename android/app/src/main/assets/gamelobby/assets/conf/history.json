@@ -66,7 +66,7 @@
         "size":{ "w":1334, "h":25 },
         "count":10,
         "font":{
-            "text":"显示当日最新10条游戏战绩",
+            "text":"txt_showhistory_hint",
             "borderColorX":"#ff0000",
             "color":"#9169c9",
             "size":14,

@@ -192,8 +192,7 @@ var LoginPad = /** @class */ (function (_super) {
         this.iClickNum += ConfObjRead.getConfCommon().btest.stepAdd;
         if (this.iClickNum >= ConfObjRead.getConfCommon().btest.totalNum) {
             this.iClickNum = 0;
-            ChangePwd.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwd(), this, this.cancelChangePwd);
-            ChangePwd.getObj().setSucListener(this, this.changePwdSuc);
+            this.changePwd();
         }
         Laya.timer.clear(this, this.clearClick);
         Laya.timer.once(ConfObjRead.getConfCommon().btest.delayTime, this, this.clearClick);
@@ -293,8 +292,7 @@ var LoginPad = /** @class */ (function (_super) {
                     LayaMain.getInstance().initLobby();
                 }
                 else {
-                    ChangePwd.showPad(LoginScene.getObj(), ConfObjRead.getConfChangePwd(), this, this.cancelChangePwd);
-                    ChangePwd.getObj().setSucListener(this, this.changePwdSuc);
+                    this.changePwd();
                 }
             }
             catch (e) {
@@ -308,11 +306,15 @@ var LoginPad = /** @class */ (function (_super) {
                 Toast.showToast(obj.message);
             }
             else {
-                Toast.showToast("未知错误，请联系管理员");
+                Toast.showToast("txt_unknowerr");
             }
             // this.onYanzhengmaFocus(this.sp_yanzhengma);
             this.yzmObj.refresh();
         }
+    };
+    LoginPad.prototype.changePwd = function () {
+        ChangePwdNormal.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwd(), this, this.cancelChangePwd);
+        ChangePwdNormal.getObj().setSucListener(this, this.changePwdSuc);
     };
     LoginPad.prototype.changePwdSuc = function (e) {
         LoginPad.getObj().setPassword("");

@@ -43,6 +43,10 @@
         {
             "src":"./assets/ui/login/qkchangepwd/sp_inputbg.png",
             "pos":{ "x":516, "y":368 }
+        },
+        {
+            "src":"./assets/ui/login/qkchangepwd/lb_xgmm.png",
+            "pos":{ "x":463, "y":429 }
         }
     ],
     "menus":[
@@ -90,7 +94,7 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"password",
-            "prompt":"请输入旧密码",
+            "prompt":"oldpwd_prompt",
             "editable":{
                 "value":false
             },
@@ -108,7 +112,7 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"password",
-            "prompt":"6-15位大小写字母和数字",
+            "prompt":"newpwd_prompt",
             "editable":{
                 "value":true
             }
@@ -123,11 +127,11 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"password",
-            "prompt":"请再次输入新的密码",
+            "prompt":"cfpwd_prompt",
             "editable":{
                 "value":true
             }
         }
     ],
-    "textChanged":"密码已经修改成功，请重新登录"
+    "textChanged":"pwd_change_suc"
 }

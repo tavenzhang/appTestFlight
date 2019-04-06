@@ -17,15 +17,15 @@ var Debug = /** @class */ (function () {
     };
     Debug.trace = function (ct, data) {
         if (data === void 0) { data = {}; }
-        // if (!Debug.bDebug) {
-        //     return;
-        // }
-        // if (Debug.bDebugPlatform == "web") {
-        //     Debug.traceWeb(ct);
-        // }
-        // else {
+        if (!Debug.bDebug) {
+            return;
+        }
+        if (Debug.bDebugPlatform == "web") {
+            Debug.traceWeb(ct);
+        }
+        else {
             PostMHelp.Log({ ct: ct, data: data });
-       // }
+        }
     };
     Debug.traceWeb = function (ct, data) {
         if (data === void 0) { data = {}; }
