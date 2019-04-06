@@ -3,25 +3,22 @@
 <plist version="1.0">
 <dict>
 	<key>APP_DOWNLOAD_VERSION</key>
-	<string>1.0</string>
-	<key>PLAT_CH</key>
-	<string>1</string>
-	<key>PLAT_ID</key>
-	<string>5</string>
+	<string>2.0</string>
 	<key>Affcode</key>
 	<string></string>
-	<key>UmengKey</key>
-	<string></string>
-	<key>com.openinstall.APP_KEY</key>
-	<string>xhmkrq</string>
+	<key>AppSecret</key>
+	<dict>
+		<key>weixin</key>
+		<string>7b3751bd90925a6246f38d595a23d792</string>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>博博乐</string>
+	<string>博必胜</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.bbl.bbsqp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -41,22 +38,18 @@
 			<string>openinstall</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>xhmkrq</string>
+				<string>vcrgm3</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>xhmk</string>
+				<string>wx22123f736864abb8</string>
 			</array>
-		</dict>
-		<dict>
-			<key>CFBundleIdentifier</key>
-			<string></string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
@@ -159,13 +152,12 @@
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UTImportedTypeDeclarations</key>
-	<array>
-		<dict/>
-	</array>
+	<key>UmengKey</key>
+	<string>5ca324bd3fc1957e620006af</string>
 </dict>
 </plist>
