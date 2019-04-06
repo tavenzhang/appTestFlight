@@ -422,14 +422,14 @@ var ConfObjRead = /** @class */ (function () {
         }
         if (AppData.IS_NATIVE_APP) {
             if (!AppData.isAndroidHack) {
-                ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus_app.json");
+                ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/bottommenus/minemenus_app.json");
             }
             else {
-                ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus_app_temp.json");
+                ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/bottommenus/minemenus_app_temp.json");
             }
         }
         else {
-            ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/minemenus.json");
+            ConfObjRead.minemenuObj = Laya.Loader.getRes("./assets/conf/bottommenus/minemenus.json");
         }
         return ConfObjRead.minemenuObj;
     };
@@ -467,6 +467,13 @@ var ConfObjRead = /** @class */ (function () {
         }
         ConfObjRead.animObj = Laya.Loader.getRes("./assets/conf/animations.json");
         return ConfObjRead.animObj;
+    };
+    ConfObjRead.getConfChangePwdQk = function () {
+        if (ConfObjRead.changpwdqkObj) {
+            return ConfObjRead.changpwdqkObj;
+        }
+        ConfObjRead.changpwdqkObj = Laya.Loader.getRes("./assets/conf/login/changepwdqk.json");
+        return ConfObjRead.changpwdqkObj;
     };
     ConfObjRead.getConfChangePwdIn = function () {
         if (ConfObjRead.changpwdinObj) {
@@ -593,6 +600,7 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.betMenuObj = null;
     ConfObjRead.roadObj = null;
     ConfObjRead.animObj = null;
+    ConfObjRead.changpwdqkObj = null;
     ConfObjRead.changpwdinObj = null;
     ConfObjRead.changpwdObj = null;
     ConfObjRead.loginquickObj = null;

@@ -1,6 +1,6 @@
 {
     "pos":{"x":0,"y":0},
-    "switch":{
+    "switchX":{
         "desc":"",
         "pos":{ "x":1200, "y":706.5 },
         "src":[
@@ -36,25 +36,13 @@
             "pos":{ "x":8, "y":672 },
             "size":{ "w":1326, "h":78 }
         },
-        "btns":[
+        "btnsX":[
             {
                 "desc":"",
                 "cmd":"redraw",
-                "pos":{ "x":1000, "y":700 },
+                "pos":{ "x":1140, "y":700 },
                 "src":[
                     "./assets/ui/mine/icon_tixian.png"
-                ],
-                "size":{ "w":76, "h":90 },
-                "maxScale":{"x":1.02,"y":1.02},
-                "normalScale":{"x":1,"y":1},
-                "sfx":"assets/raw/click.mp3"
-            },
-            {
-                "desc":"",
-                "cmd":"account",
-                "pos":{ "x":880, "y":700 },
-                "src":[
-                    "./assets/ui/mine/icon_zhanghu.png"
                 ],
                 "size":{ "w":76, "h":90 },
                 "maxScale":{"x":1.02,"y":1.02},
@@ -63,24 +51,5 @@
             }
         ]
     },
-    "bak":[
-        {},
-            {
-                "desc":"",
-                "cmd":"agent",
-                "pos":{ "x":760, "y":700 },
-                "src":[
-                    "./assets/ui/mine/icon_daili.png"
-                ],
-                "size":{ "w":76, "h":90 },
-                "maxScale":{"x":1.02,"y":1.02},
-                "normalScale":{"x":1,"y":1},
-                "sfx":"assets/raw/click.mp3"
-            }
-<<<<<<< HEAD:bin/assets/conf/minemenus.json
-        
-=======
->>>>>>> release:bin/assets/conf/bottommenus/minemenus.json
-    ],
-    "default":{ "desc":"", "bOpen":true}
+    "default":{ "desc":"", "bOpen":true }
 }

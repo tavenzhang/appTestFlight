@@ -14,10 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 var QuickLogin = /** @class */ (function (_super) {
     __extends(QuickLogin, _super);
     function QuickLogin() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.quick_username = "";
-        _this.quick_pwd = "";
-        return _this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     QuickLogin.getObj = function () {
         return QuickLogin.obj;
@@ -40,7 +37,16 @@ var QuickLogin = /** @class */ (function (_super) {
         QuickLogin.obj = this;
         _super.prototype.init.call(this, conf);
         this.initContent();
-        this.requestPreQuickLogin();
+        this.quick_username = SaveManager.getObj().get(SaveManager.KEY_QK_USERNAME, "");
+        this.quick_pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "");
+        Debug.trace("QuickLogin.init username:" + this.quick_username + " pwd:" + this.quick_pwd);
+        if (this.quick_username.length <= 0) {
+            this.requestPreQuickLogin();
+        }
+        else {
+            this.getInputByData("username").text = this.quick_username;
+            this.getInputByData("yanzhengma").text = "";
+        }
     };
     QuickLogin.prototype.initContent = function () {
         if (this.conf.sprites) {
@@ -108,7 +114,7 @@ var QuickLogin = /** @class */ (function (_super) {
                         Toast.showToast("请正确输入验证码");
                         return;
                     }
-                    // Debug.trace(this);
+                    Debug.trace(this);
                     // Debug.trace(this.yzmObj);
                     this.requestLogin(this.quick_username, this.quick_pwd, tYzm, this.yzmObj.getRandomRoot());
                 }
@@ -164,10 +170,10 @@ var QuickLogin = /** @class */ (function (_super) {
         }
     };
     QuickLogin.prototype.requestLogin = function (name, pwd, yzm, yzmRoot) {
+        Debug.trace("QuickLogin.requestLogin name:" + name + " pwd:" + pwd + " yzm:" + yzm);
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.quicklogin;
         LayaMain.getInstance().showCircleLoading(true);
-        // Debug.trace("QuickLogin.requestLogin name:"+name+" pwd:"+pwd+" yzm:"+yzm);
         var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*", "device_token", MyUid.getUid()];
         var ePwd = window['SecretUtils'].rsaEncodePWD(pwd);
         // Debug.trace("QuickLogin.requestLogin ePwd:"+ePwd);
@@ -184,11 +190,24 @@ var QuickLogin = /** @class */ (function (_super) {
         var jd = JSON.stringify(data);
         Debug.trace("QuickLogin.requestLogin jd:");
         Debug.trace(jd);
+        /*
+        {"username":"4qiq98cp497","password":"NTllZWI4MDMzM2RiOGU4YmYwNGEwYmY3NWZkMjE0Mzk0ZmVjZmMyNDMwODVkZDhmY2Y3MjkyZTgwNTU3ZTFmOGQ0YjdmZWIyYTg4YzkwNWZhYTBjODVkYjc3NWE5YWNiN2Y5N2QyZTYzMGJlMGFkM2JjNWM2ZWI3M2FhNmFhZWFhMWZlNzFhMWU5OWZhZWE2YmFkMDdiYjcwNWYwZGVmNzU2ODY1M2IwNTlkYWJjMTIxZTc1ZjE1ODUyYjJhMDJkODE2N2ZiMTI3ODllNThjZjQwOTI2YTFiNzdlYTg4MDlhZjZkZDM5ZWQzYTliMTU5ZjU5ZDY2NGYwMDA2YTVmMA==","validateCode":"156182","webUniqueCode":"0.5893284448232594"}
+        */
         NetManager.getObj().HttpConnect(url, this, this.responseLogin, header, jd, "POST", "JSON");
     };
     QuickLogin.prototype.responseLogin = function (s, stat, hr) {
         Debug.trace("responseLogin Suc stat:" + stat);
         Debug.trace(s);
+        /*
+        {
+            "username":"4qiq98cp497",
+            "lastSignInIp":"192.168.11.109","oauthRole":"AGENT","balance":0.0,"prizeGroup":1950,"sessionId":"fe6886f334873ab4f2b97c83","minMemberPrizeGroup":1901,
+            "strongPwd":true,
+            "loginCheckInfo":{"success":true},
+            "oauthToken":{
+                "access_token":"085af771-1914-4642-b6b9-a11e6a825887",
+                "token_type":"bearer","refresh_token":"879076d0-28a6-44ad-9da5-e3588332f899","expires_in":259199,"scope":"ui"}}
+        */
         LayaMain.getInstance().showCircleLoading(false);
         if (stat == "complete") {
             var jobj;
@@ -201,16 +220,21 @@ var QuickLogin = /** @class */ (function (_super) {
             }
             try {
                 Common.loginInfo = jobj;
+                Common.loginType = Common.TYPE_LOGIN_QK;
                 Common.access_token = jobj.oauthToken.access_token;
                 SaveManager.getObj().save(SaveManager.KEY_TOKEN, Common.access_token);
                 PostMHelp.tokenChange({ "payload": Common.access_token });
-                if (jobj.strongPwd) {
-                    LayaMain.getInstance().initLobby();
-                }
-                else {
-                    // ChangePwd.showPad(LoginScene.getObj(),ConfObjRead.getConfChangePwd(),this,this.cancelChangePwd);
-                    // ChangePwd.getObj().setSucListener(this,this.changePwdSuc);
-                }
+                SaveManager.getObj().save(SaveManager.KEY_QK_USERNAME, this.quick_username);
+                SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, this.quick_pwd);
+                SaveManager.getObj().save(SaveManager.KEY_LOGIN_TYPE, Common.loginType);
+                SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+                // if( jobj.strongPwd )
+                // {
+                LayaMain.getInstance().initLobby();
+                // }else{
+                // ChangePwd.showPad(LoginScene.getObj(),ConfObjRead.getConfChangePwd(),this,this.cancelChangePwd);
+                // ChangePwd.getObj().setSucListener(this,this.changePwdSuc);
+                // }
             }
             catch (e) {
                 Debug.trace(e);

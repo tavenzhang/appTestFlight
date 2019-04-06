@@ -103,7 +103,7 @@ var LoginPad = /** @class */ (function (_super) {
                 var lb = Tools.addSprite(this.sp_yanzhengma, this.conf.inputpad.yanzhengma.label);
                 var inputbg = Tools.addSprite(this.sp_yanzhengma, this.conf.inputpad.yanzhengma.inputbg);
                 this.inputYanzhengma = Tools.addInput(this.sp_yanzhengma, this.conf.inputpad.yanzhengma.input);
-                this.inputYanzhengma.on(Laya.Event.FOCUS, this, this.onYanzhengmaInputFocus);
+                // this.inputYanzhengma.on(Laya.Event.FOCUS,this,this.onYanzhengmaInputFocus);
                 // this.imgYanzhengma = this.newYanzhengma(this.sp_yanzhengma,this.conf.inputpad.yanzhengma.image);
                 this.yzmObj = new YZM();
                 this.yzmObj.init(this, this.conf.inputpad.yanzhengma.image);
@@ -123,31 +123,9 @@ var LoginPad = /** @class */ (function (_super) {
             }
         }
     };
-    // public newYanzhengma(node:any,conf:any):Laya.Image
-    // {
-    //     switch( Common.pathType )
-    //     {
-    //         case Common.PATH_TYPE_XD:
-    //         return this.newYanzhengma_xiangdui(node,conf);
-    //         default:
-    //         return this.newYanzhengma_juedui(node,conf);
-    //     }
-    // }
-    // public onYanzhengmaFocus(node:any):void
-    // {
-    //     this.clearYanzhengma(node);
-    // Debug.trace("focus on yanzhengma");
-    //     this.imgYanzhengma = this.newYanzhengma(node,this.conf.inputpad.yanzhengma.image);
-    // }
     LoginPad.prototype.refreshYanzhengma = function () {
         // this.onYanzhengmaFocus(this.sp_yanzhengma);
         this.yzmObj.refresh();
-    };
-    LoginPad.prototype.onYanzhengmaInputFocus = function (e) {
-        // Debug.trace("RegPad.onYanzhengmaInputFocus e:");
-        // Debug.trace(e);
-        // var inputText:MyTextInput = e as MyTextInput;
-        // inputText.text = "";
     };
     LoginPad.prototype.onNameKey = function (e) {
         var name = e;
@@ -306,7 +284,10 @@ var LoginPad = /** @class */ (function (_super) {
             try {
                 Common.loginInfo = jobj;
                 Common.access_token = jobj.oauthToken.access_token;
+                Common.loginType = Common.TYPE_LOGIN_ACCOUNT;
                 SaveManager.getObj().save(SaveManager.KEY_TOKEN, Common.access_token);
+                SaveManager.getObj().save(SaveManager.KEY_LOGIN_TYPE, Common.loginType);
+                SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
                 PostMHelp.tokenChange({ "payload": Common.access_token });
                 if (jobj.strongPwd) {
                     LayaMain.getInstance().initLobby();

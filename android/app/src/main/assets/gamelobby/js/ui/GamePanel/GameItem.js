@@ -128,6 +128,7 @@ var GameItem = /** @class */ (function (_super) {
     GameItem.prototype.onLaunchGame = function () {
         Common.gameId = this.data.id;
         Common.wsUrl = this.data.url;
+        Debug.trace("GameItem.onClickItem this.sStatus:--this.conf.sfx"+this.conf.sfx);
         if (this.conf.sfx) {
             Laya.SoundManager.playSound(this.conf.sfx);
         }

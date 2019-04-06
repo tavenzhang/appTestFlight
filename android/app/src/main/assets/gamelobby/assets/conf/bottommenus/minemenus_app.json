@@ -17,9 +17,7 @@
             "loop":true,
             "loopdelay":1000,
             "pos":{ "x":1247, "y":710 },
-            "stopHide":{
-                "value":true
-            }
+            "stopHide":{ "value":true }
         },
         "alpha":0
     },
@@ -37,7 +35,7 @@
             "size":{ "w":1326, "h":78 }
         },
         "btns":[
-            {
+           {
                 "desc":"",
                 "cmd":"redraw",
                 "pos":{ "x":1000, "y":700 },
@@ -60,27 +58,20 @@
                 "maxScale":{"x":1.02,"y":1.02},
                 "normalScale":{"x":1,"y":1},
                 "sfx":"assets/raw/click.mp3"
-            }
-        ]
-    },
-    "bak":[
-        {},
+            },
             {
                 "desc":"",
-                "cmd":"agent",
+                "cmd":"share",
                 "pos":{ "x":760, "y":700 },
                 "src":[
-                    "./assets/ui/mine/icon_daili.png"
+                    "./assets/ui/mine/icon_fenxiang.png"
                 ],
                 "size":{ "w":76, "h":90 },
                 "maxScale":{"x":1.02,"y":1.02},
                 "normalScale":{"x":1,"y":1},
                 "sfx":"assets/raw/click.mp3"
             }
-<<<<<<< HEAD:bin/assets/conf/minemenus.json
-        
-=======
->>>>>>> release:bin/assets/conf/bottommenus/minemenus.json
-    ],
-    "default":{ "desc":"", "bOpen":true}
+        ]
+    },
+    "default":{ "desc":"", "bOpen":true }
 }

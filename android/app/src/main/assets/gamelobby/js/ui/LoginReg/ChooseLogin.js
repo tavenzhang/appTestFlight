@@ -14,7 +14,9 @@ var __extends = (this && this.__extends) || (function () {
 var ChooseLogin = /** @class */ (function (_super) {
     __extends(ChooseLogin, _super);
     function ChooseLogin() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.iClickNum = 0;
+        return _this;
     }
     ChooseLogin.getObj = function () {
         return ChooseLogin.obj;
@@ -43,7 +45,12 @@ var ChooseLogin = /** @class */ (function (_super) {
             var len = this.conf.sprites.length;
             for (var i = 0; i < len; i++) {
                 var spconf = this.conf.sprites[i];
-                Tools.addSprite(this, spconf);
+                var sp = Tools.addSprite(this, spconf);
+                if (spconf.cmd) {
+                    if (ConfObjRead.getConfCommon().btestclearstorge) {
+                        sp.on(Laya.Event.CLICK, this, this.onClickTest);
+                    }
+                }
             }
         }
         if (this.conf.menus) {
@@ -58,6 +65,18 @@ var ChooseLogin = /** @class */ (function (_super) {
                 this.arr_btns.push(b);
             }
         }
+    };
+    ChooseLogin.prototype.onClickTest = function (e) {
+        this.iClickNum += ConfObjRead.getConfCommon().btestclearstorge.stepAdd;
+        if (this.iClickNum >= ConfObjRead.getConfCommon().btestclearstorge.totalNum) {
+            this.iClickNum = 0;
+            SaveManager.getObj().clearAll();
+        }
+        Laya.timer.clear(this, this.clearClick);
+        Laya.timer.once(ConfObjRead.getConfCommon().btestclearstorge.delayTime, this, this.clearClick);
+    };
+    ChooseLogin.prototype.clearClick = function () {
+        this.iClickNum = 0;
     };
     ChooseLogin.prototype.onClickBtn = function (e) {
         var btn = e;

@@ -270,7 +270,7 @@ export default class XXWebView extends Component {
             taven: "isOk",
             clientId: TW_Store.appStore.clindId,
             force: force ? "1" : "0",
-            urlJSON: TW_Store.bblStore.urlJSON,
+            urlJSON: TW_Store.bblStore.getUriConfig(),
             isAndroidHack:TW_Store.appStore.isInAnroidHack,
 
             loginDomain:TW_Store.bblStore.loginDomain+"/api/v1/account",
@@ -351,7 +351,7 @@ export default class XXWebView extends Component {
                 case "game_common":
                     switch (message.name) {
                         case "saveToPhohe":
-                            Tools.onSaveScreenPhone
+                            Tools.onSaveScreenPhone();
                             break;
                     }
                     break;
@@ -414,7 +414,7 @@ export default class XXWebView extends Component {
                             isGame: true,
                             isOrigan
                         })
-                        this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic),{});
+                       // this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic),{});
                         //this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;

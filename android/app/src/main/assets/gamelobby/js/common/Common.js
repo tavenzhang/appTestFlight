@@ -4,7 +4,11 @@ var Common = /** @class */ (function () {
     Common.changePathType = function (n) {
         Common.pathType = n;
     };
-    //是否能进入游戏
+    Common.emptyLoginInfo = function () {
+        return {
+            "strongPwd": true
+        };
+    };
     Common.canGoinGame = function (roomData) {
         var zhunru = roomData.roomConfig.minScore; // * 100000;
         var balance = Common.userInfo.userBalance.balance;
@@ -142,6 +146,10 @@ var Common = /** @class */ (function () {
     Common.PATH_TYPE_XD = 0;
     Common.PATH_TYPE_JD = 1;
     Common.pathType = Common.PATH_TYPE_XD;
+    Common.TYPE_LOGIN_UNKNOW = 0;
+    Common.TYPE_LOGIN_QK = 1;
+    Common.TYPE_LOGIN_ACCOUNT = 2;
+    Common.loginType = 0;
     //当前登录用户令牌
     Common.access_token = "";
     //当前用户是否全新登录

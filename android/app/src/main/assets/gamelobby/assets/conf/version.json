@@ -31,7 +31,7 @@
         "pos":{"x":0,"y":8},
         "size":{ "w":200, "h":40 },
         "font":{
-            "text":"版本号:3.0322",
+            "text":"版本号:3.0405",
             "fontsize":20,
             "color":"#5adaec",
             "align":"center",

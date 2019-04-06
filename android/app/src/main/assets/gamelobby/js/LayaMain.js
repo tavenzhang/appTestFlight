@@ -31,6 +31,7 @@ var LayaMain = /** @class */ (function () {
         Laya.stage.bgColor = "#000000";
         Laya.stage.on(Laya.Event.RESIZE, this, this.onResize);
         window.document.addEventListener("message", this.handleIFrameAction, false);
+        // window.addEventListener("message", this.handleIFrameAction,false);
         this.root_node = new Laya.View();
         // this.root_node = new MySprite();
         this.root_node.centerX = 0;
@@ -117,6 +118,8 @@ var LayaMain = /** @class */ (function () {
         catch (e) { }
     };
     LayaMain.prototype.handleIFrameAction = function (e) {
+        Debug.trace("handleIFrameAction e:");
+        Debug.trace(e);
         var data = e.data;
         LayaMain.getInstance().onAppPostMessgae(data);
     };
@@ -206,6 +209,10 @@ var LayaMain = /** @class */ (function () {
                 case "deviceInfo":
                     MyUid.setUid(message.data);
                     break;
+                case "lobbyResume":
+                    Debug.trace("LayaMain.handleAction in case");
+                    lamain.onGameResume();
+                    break;
             }
         }
     };
@@ -256,6 +263,8 @@ var LayaMain = /** @class */ (function () {
     LayaMain.prototype.initLobby = function () {
         this.clearChild();
         if (this.sceneLobby == null) {
+            Common.loginType = SaveManager.getObj().get(SaveManager.KEY_LOGIN_TYPE, Common.TYPE_LOGIN_UNKNOW);
+            Common.loginInfo = SaveManager.getObj().get(SaveManager.KEY_LOGIN_INFO, Common.emptyLoginInfo());
             this.sceneLobby = new LobbyScene();
             this.sceneLobby.onLoaded(null);
             LayaMain.getInstance().getRootNode().addChild(this.sceneLobby);

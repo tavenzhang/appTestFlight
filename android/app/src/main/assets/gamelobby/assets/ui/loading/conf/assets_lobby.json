@@ -31,6 +31,7 @@
 
         {"url":"./assets/conf/login/changepwd.json","type":"JSON"},
         {"url":"./assets/conf/login/changepwdin.json","type":"JSON"},
+        {"url":"./assets/conf/login/changepwdqk.json","type":"JSON"},
         {"url":"./assets/conf/login/chooselogin.json","type":"JSON"},
         {"url":"./assets/conf/login/quicklogin.json","type":"JSON"},
         {"url":"./assets/conf/login/loginother.json","type":"JSON"},
@@ -61,9 +62,9 @@
         {"url":"./assets/conf/history.json","type":"JSON"},
         {"url":"./assets/conf/libhtml.json","type":"JSON"},
         
-        {"url":"./assets/conf/minemenus.json","type":"JSON"},
-        {"url":"./assets/conf/minemenus_app.json","type":"JSON"},
-        {"url":"./assets/conf/minemenus_app_temp.json","type":"JSON"},
+        {"url":"./assets/conf/bottommenus/minemenus.json","type":"JSON"},
+        {"url":"./assets/conf/bottommenus/minemenus_app.json","type":"JSON"},
+        {"url":"./assets/conf/bottommenus/minemenus_app_temp.json","type":"JSON"},
         {"url":"./assets/conf/music.json","type":"JSON"},
         {"url":"./assets/conf/nomoney.json","type":"JSON"},
         {"url":"./assets/conf/notice.json","type":"JSON"},
@@ -367,6 +368,15 @@
         {"url":"./assets/ui/login/quicklogin/lbyzm.png","type":"IMAGE"},
         {"url":"./assets/ui/login/quicklogin/title.png","type":"IMAGE"},
         
+        {"url":"./assets/ui/login/qkchangepwd/btn_close.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/qkchangepwd/btn_xg.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/qkchangepwd/lb_cfpwd.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/qkchangepwd/lb_inputpwd.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/qkchangepwd/lb_title.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/qkchangepwd/lb_xgmm.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/qkchangepwd/sp_bg.png","type":"IMAGE"},
+        {"url":"./assets/ui/login/qkchangepwd/sp_inputbg.png","type":"IMAGE"},
+
         {"url":"./assets/ui/mine/bgMenus.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/img_dating_gongnengdi.png","type":"IMAGE"},
         {"url":"./assets/ui/mine/btn_account.png","type":"IMAGE"},

@@ -42,20 +42,22 @@ export  default  class BBLStore {
     // "lobbyurl":"http://192.168.1.93:8091/api/v1",
     // "rooturl":"http://192.168.1.93:8091/api/v1"
 
-    @observable
-    urlJSON={
-        url:{
-            "home":`${platInfo.gameDomain}/g_lobby/home.html`,
-            "backlobby":`${platInfo.gameDomain}/g_lobby/index.html`,
-            "apihome":`${platInfo.gameDomain}/api/v1`,
+    @action
+    getUriConfig(){{
+        return {
+            url: {
+                "home": `${this.gameDomain}/g_lobby/home.html`,
+                "backlobby": `${this.gameDomain}/g_lobby/index.html`,
+                "apihome": `${this.gameDomain}/api/v1`,
 
-            "g_account":"../g_recharge/?module=account",
-            "g_recharge":"../g_recharge/?module=recharge",
-            "g_redraw":"../g_recharge/?module=redraw",
-            "g_custom":"../g_recharge/?module=custom",
-            "testcustomurl":"https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"
-        },
-    }
+                "g_account": "../g_recharge/?module=account",
+                "g_recharge": "../g_recharge/?module=recharge",
+                "g_redraw": "../g_recharge/?module=redraw",
+                "g_custom": "../g_recharge/?module=custom",
+                "testcustomurl": "https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"
+            },
+        }
+    }}
 
     @observable
     menuJson={
@@ -158,9 +160,7 @@ export  default  class BBLStore {
             }else{
                 TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.playsoundByFile, {data: file}));
             }
-
         }
-
     }
 
     @action

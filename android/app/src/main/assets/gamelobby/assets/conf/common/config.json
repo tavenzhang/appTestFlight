@@ -34,6 +34,11 @@
         "totalNum":5,
         "delayTime":1000
     },
+    "btestclearstorge":{
+        "stepAdd":1,
+        "totalNum":5,
+        "delayTime":1000
+    },
     "btestaccountX":{
         "stepAdd":1,
         "totalNum":5,

@@ -16,6 +16,11 @@ var SaveManager = /** @class */ (function () {
         this.refreshSaveObj();
         this.initSetting();
     };
+    SaveManager.prototype.clearAll = function () {
+        Laya.LocalStorage.clear();
+        this.refreshSaveObj();
+        Debug.trace("SaveManager.clearAll-----------");
+    };
     SaveManager.prototype.initSetting = function () {
         var b_music_switch = this.get(SaveManager.KEY_MUSIC_SWITCH, 1);
         var f_music_value = this.get(SaveManager.KEY_MUSIC_VL, 1);
@@ -67,6 +72,10 @@ var SaveManager = /** @class */ (function () {
         }
         return def;
     };
+    SaveManager.KEY_QK_USERNAME = "qk_username";
+    SaveManager.KEY_QK_PASSWORD = "qk_password";
+    SaveManager.KEY_LOGIN_TYPE = "loginType";
+    SaveManager.KEY_LOGIN_INFO = "loginInfo";
     SaveManager.KEY_MUSIC_VL = "music"; //0...1
     SaveManager.KEY_MUSIC_SWITCH = "music_switch"; //0/1
     SaveManager.KEY_SFX_VL = "sound"; //0....1

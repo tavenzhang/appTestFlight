@@ -1012,6 +1012,9 @@ var Tools = /** @class */ (function () {
         if (conf.editable) {
             ti.editable = conf.editable.value;
         }
+        if (conf.visible) {
+            ti.visible = conf.visible.value;
+        }
         node.addChild(ti);
         return ti;
     };

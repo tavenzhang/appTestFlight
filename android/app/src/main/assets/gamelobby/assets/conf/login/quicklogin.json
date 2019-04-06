@@ -56,7 +56,10 @@
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
             "sfx":"assets/raw/click.mp3"
-        },
+        }
+    ],
+    "bak":[
+        {},
         {
             "cmd":"camera",
             "pos":{ "x":965.5, "y":524.5 },
@@ -68,9 +71,6 @@
             "normalScale":{"x":1,"y":1},
             "sfx":"assets/raw/click.mp3"
         }
-    ],
-    "bak":[
-        {}
     ],
     "yzm":{},
     "inputs":[

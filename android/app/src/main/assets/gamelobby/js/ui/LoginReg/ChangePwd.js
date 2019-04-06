@@ -115,7 +115,10 @@ var ChangePwd = /** @class */ (function (_super) {
         // Debug.trace("ChangePwd.onClickBtn cmd:"+cmd);
         switch (cmd) {
             case "ok":
-                this.requestChange();
+                var pwd = this.getInputByData("oldpwd").text;
+                var newpwd = this.getInputByData("newpwd").text;
+                var confirmpwd = this.getInputByData("confirmpwd").text;
+                this.requestChange(pwd, newpwd, confirmpwd);
                 break;
         }
     };
@@ -128,11 +131,11 @@ var ChangePwd = /** @class */ (function (_super) {
         _super.prototype.onClose.call(this, s, bcallback);
         this.destroy(true);
     };
-    ChangePwd.prototype.requestChange = function () {
+    ChangePwd.prototype.requestChange = function (pwds, newpwds, cfpwd) {
         try {
-            var pwd = this.getInputByData("oldpwd").text;
-            var newpwd = this.getInputByData("newpwd").text;
-            var confirmpwd = this.getInputByData("confirmpwd").text;
+            var pwd = pwds; //this.getInputByData("oldpwd").text;
+            var newpwd = newpwds; //this.getInputByData("newpwd").text;
+            var confirmpwd = cfpwd; //this.getInputByData("confirmpwd").text;
             if (pwd.length <= 0 || newpwd.length <= 0 || confirmpwd.length <= 0) {
                 Toast.showToast("请正确输入各项内容");
                 return;
@@ -164,7 +167,7 @@ var ChangePwd = /** @class */ (function (_super) {
         LayaMain.getInstance().showCircleLoading(false);
         var err = hr.http.status;
         if (err == 204) {
-            this.changeSuc();
+            this.changeSuc(this.getInputByData("newpwd").text);
             this.onClose(null, false);
         }
         else {
@@ -187,9 +190,9 @@ var ChangePwd = /** @class */ (function (_super) {
             catch (e) { }
         }
     };
-    ChangePwd.prototype.changeSuc = function () {
+    ChangePwd.prototype.changeSuc = function (newpwd) {
         if (this.sucCaller && this.sucCallback) {
-            this.sucCallback.apply(this.sucCaller);
+            this.sucCallback.apply(this.sucCaller, [newpwd]);
         }
         // else
         // {

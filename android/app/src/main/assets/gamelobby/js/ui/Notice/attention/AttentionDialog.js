@@ -297,6 +297,9 @@ var AttentionDialog = /** @class */ (function (_super) {
             if (this.bPopAuto) {
                 this.show();
             }
+            else {
+                this.showChangePwd();
+            }
             this.bRequestStatus = 0;
             LayaMain.getInstance().requestEnd(stat, "");
         }
@@ -400,9 +403,28 @@ var AttentionDialog = /** @class */ (function (_super) {
         this.showDialog(false);
         // this.closeCallback.apply(this.caller,[this]);
         this.remove();
+        this.showChangePwd();
     };
     AttentionDialog.prototype.showDialog = function (b) {
         this.visible = b;
+    };
+    AttentionDialog.prototype.showChangePwd = function () {
+        Debug.trace("AttentionDialog.showChangePwd Common.loginType:" + Common.loginType + " Common.loginInfo.strongPwd:" + Common.loginInfo.strongPwd);
+        if (Common.loginType == Common.TYPE_LOGIN_QK) {
+            if (!Common.loginInfo.strongPwd) {
+                ChangePwdQk.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdQk());
+                ChangePwdQk.getObj().setSucListener(this, this.onChangePwdSuc);
+                var pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
+                ChangePwdQk.getObj().setOldPwd(pwd);
+            }
+        }
+    };
+    AttentionDialog.prototype.onChangePwdSuc = function (e) {
+        var npwd = e;
+        Debug.trace("AttentionDialog.onChangePwdSuc");
+        Common.loginInfo.strongPwd = true;
+        SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
+        SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
     };
     return AttentionDialog;
 }(MySprite));
