@@ -3,17 +3,17 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://www.diwudalu.com',
-    base2: 'https://www.diwudalu.com',
-    base3: 'https://www.diwudalu.com',
-    base4: 'https://www.diwudalu.com',
-    base5: 'https://www.diwudalu.com',
-    base6: 'https://www.diwudalu.com',
-    base7: 'https://www.diwudalu.com',
+    base1: 'http://192.168.1.93:7500',
+    base2: 'http://192.168.1.93:7500',
+    base3: 'http://192.168.1.93:7500',
+    base4: 'http://192.168.1.93:7500',
+    base5: 'http://192.168.1.93:7500',
+    base6: 'http://192.168.1.93:7500',
+    base7: 'http://192.168.1.93:7500',
 }
 
 
-export let configAppId = "5"
+export let configAppId = "31"
 
 
 export const AppConfig = {
@@ -38,9 +38,9 @@ export const AppConfig = {
 
 export const MyAppName = '博博乐';
 
-export const versionHotFix = 'bbl_3_25';
+export const versionHotFix = 'bbl_3_23';
 
-export const MyOwnerPlatName= 'uat彩票';
+export const MyOwnerPlatName= 'sit';
 
 export const safeguardDomain = [
     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
@@ -48,27 +48,29 @@ export const safeguardDomain = [
 
 
 export const platInfo = {
-    //loginDomain:"https://0365cai.cc",
-    loginDomain: "https://webplatform.psxiaohe.com",
+    //loginDomain:"https://0365cai.cc",http://192.168.1.93:8091
+    loginDomain: "http://192.168.1.93:8091",
     //  gameDomain:"https://dk3nuq7v.zhdisi.com",
-     gameDomain: "https://webplatform.psxiaohe.com",
+    gameDomain: "http://sit.106games.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.hkbaoxian188.com/game/release/uat"
+        release_server: "https://download.hkbaoxian188.com/game/release/sit"
     },
     platId: configAppId,
-    brand: "uat01",
-    channel: {}
+    brand: "sit01",
+    channel: {
+
+    }
 }
 
 
 export const affCodeList = {
     ios: {
-        '2.9.6': 'uat_ios'
+        '2.9.6': 'sit_ios'
     },
     android: {
-        '2.10.11': 'uat_android'
+        '2.10.11': 'sit_android'
     }
 };
 
