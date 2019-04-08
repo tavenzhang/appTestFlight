@@ -72,6 +72,7 @@ export default class AppInfoStore {
 
     callInitFuc=null;
 
+    @observable
     isInitPlat=false;
 
     applicationId = "";
@@ -84,7 +85,9 @@ export default class AppInfoStore {
 
     //tag 用于更新一次
     updateflag = false;
-
+    //app 最新版本
+    @observable
+    latestNativeVersion = "2.0";
 
 
 

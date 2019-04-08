@@ -59,8 +59,8 @@
         {"url":"./assets/conf/text/textconf.json","type":"JSON"},
 
         {"url":"./assets/conf/datanum.json","type":"JSON"},
-        {"url":"./assets/conf/gameiconanim.json","type":"JSON"},
-        {"url":"./assets/conf/gamepanel.json","type":"JSON"},
+        {"url":"./assets/conf/gamepanel/gameiconanim.json","type":"JSON"},
+        {"url":"./assets/conf/gamepanel/gamepanel.json","type":"JSON"},
         {"url":"./assets/conf/girl.json","type":"JSON"},
         {"url":"./assets/conf/girl_app.json","type":"JSON"},
         {"url":"./assets/conf/helppad.json","type":"JSON"},
@@ -85,8 +85,8 @@
         {"url":"./assets/conf/titlebar/titlebar_app.json","type":"JSON"},
         {"url":"./assets/conf/titlebar/titlebar_app_temp.json","type":"JSON"},
         {"url":"./assets/conf/toast.json","type":"JSON"},
-        {"url":"./assets/conf/urls.json","type":"JSON"},
-        {"url":"./assets/conf/version.json","type":"JSON"},
+        {"url":"./assets/conf/common/urls.json","type":"JSON"},
+        {"url":"./assets/conf/common/version.json","type":"JSON"},
 
         {"url":"./assets/ui/accountcenter/btn_genghuantouxiang.png","type":"IMAGE"},
         {"url":"./assets/ui/accountcenter/btn_qiehuanzhanghao.png","type":"IMAGE"},

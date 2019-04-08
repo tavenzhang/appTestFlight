@@ -31,7 +31,7 @@ var LayaMain = /** @class */ (function () {
         Laya.stage.bgColor = "#000000";
         Laya.stage.on(Laya.Event.RESIZE, this, this.onResize);
         window.document.addEventListener("message", this.handleIFrameAction, false);
-        // window.addEventListener("message", this.handleIFrameAction,false);
+        window.addEventListener("message", this.handleIFrameAction, false);
         this.root_node = new Laya.View();
         // this.root_node = new MySprite();
         this.root_node.centerX = 0;
@@ -45,6 +45,9 @@ var LayaMain = /** @class */ (function () {
     };
     LayaMain.prototype.onResize = function () {
         ToolsApp.initAppData();
+        if (AppData.IS_NATIVE_APP) {
+            window.removeEventListener("message", this.handleIFrameAction, false);
+        }
         // let rate = Laya.stage.width/Laya.stage.height;
         // Debug.trace("LayaMain.onResize rate:"+rate);
         // if(rate>2)

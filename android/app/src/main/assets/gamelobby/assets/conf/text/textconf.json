@@ -107,6 +107,14 @@
         {
             "key":"txt_unknowerr",
             "value":"未知错误，请联系管理员"
+        },
+        {
+            "key":"txt_yixiazai",
+            "value":"已下载"
+        },
+        {
+            "key":"txt_percent",
+            "value":"%"
         }
     ]
 }
