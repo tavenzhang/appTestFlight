@@ -146,7 +146,7 @@ var MyDragPgBar = /** @class */ (function (_super) {
         try {
             if (this.lb_info) {
                 this.lb_info.color = this.conf.info.font.color;
-                this.lb_info.text = info;
+                this.lb_info.text = Tools.getStringByKey(info);
             }
         }
         catch (e) {

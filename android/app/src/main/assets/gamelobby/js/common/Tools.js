@@ -651,56 +651,6 @@ var Tools = /** @class */ (function () {
         }
         return httpName + "://" + hostname + "/" + str;
     };
-    //使用哪个rewrite地址
-    /*
-    public static whichRewrite_():any
-    {
-        var hostname = location.hostname;
-        var port:string = location.port;
-
-        // Debug.trace('hostname:'+hostname+" port:"+port);
-        if( port == "90" )// || port == "8900" )
-        {
-            //dev 环境
-            return Common.confObj.rewrite90;
-        }else if( port == "89" )// || port == "8900" )
-        {
-            //sit load module
-            return Common.confObj.rewrite89;
-        }else if( port == "88" )// || port == "8900" )
-        {
-            //sit lobby v2
-            return Common.confObj.rewrite88;
-        }else if( port == "8900" )
-        {
-            //sit lobby v2 local
-            return Common.confObj.rewrite8900;
-        }
-
-        //sit 环境
-        return Common.confObj.rewrite;
-    }
-    */
-    /*
-    //将任意一个路径转换为可用地址
-    public static filterUrl2rewrite(arr:any,str:string):string
-    {
-        //Common.confObj.rewrite
-        //遍历所有需要rewrite的路径
-        for( var k in arr )
-        {
-            var one = arr[k];
-
-            if( str.indexOf(one.origin) != -1 )
-            {
-                //包含原生地址，需要替换
-                return str.replace(one.origin,one.rewrite);
-            }
-        }
-
-        return str;
-    }
-    */
     Tools.substr_cn_2arr = function (str, len) {
         var s = str;
         var reg = new RegExp(".{" + len + "}", "g");
@@ -965,6 +915,25 @@ var Tools = /** @class */ (function () {
         // return ""+m+":"+s+":"+ss;
         return m_s + ":" + s_s + ":" + ss_s;
     };
+    Tools.getStringByKey = function (key) {
+        try {
+            var language = ConfObjRead.getConfCommon().language;
+            var arr = ConfObjRead.getConfText();
+            var curLang = arr[language];
+            var len = curLang.length;
+            // Debug.trace("Tools.getStringByKey key:"+key+" lang:"+language+" len:"+len);
+            // Debug.trace(curLang);
+            for (var i = 0; i < len; i++) {
+                var obj = curLang[i];
+                if (obj.key == key) {
+                    return obj.value;
+                }
+            }
+        }
+        catch (e) {
+        }
+        return key;
+    };
     Tools.addMyTextInput = function (node, conf) {
         var ti = new MyTextInput();
         if (conf.skin) {
@@ -1004,10 +973,10 @@ var Tools = /** @class */ (function () {
             ti.type = conf.type;
         }
         if (conf.prompt) {
-            ti.prompt = conf.prompt;
+            ti.prompt = Tools.getStringByKey(conf.prompt);
         }
         if (conf.text) {
-            ti.text = conf.text;
+            ti.text = Tools.getStringByKey(conf.text);
         }
         if (conf.editable) {
             ti.editable = conf.editable.value;
@@ -1027,10 +996,10 @@ var Tools = /** @class */ (function () {
             input.type = conf.type;
         }
         if (conf.prompt) {
-            input.prompt = conf.prompt;
+            input.prompt = Tools.getStringByKey(conf.prompt);
         }
         if (conf.text) {
-            input.text = conf.text;
+            input.text = Tools.getStringByKey(conf.text);
         }
         if (conf.editable) {
             input.editable = conf.editable.value;
@@ -1084,7 +1053,7 @@ var Tools = /** @class */ (function () {
         if (scrollCaller === void 0) { scrollCaller = null; }
         if (scrollCallback === void 0) { scrollCallback = null; }
         var txt = new Laya.Text();
-        txt.text = str;
+        txt.text = Tools.getStringByKey(str);
         // txt.width = width;
         txt.size(width, height);
         txt.fontSize = fontsize;
@@ -1139,7 +1108,7 @@ var Tools = /** @class */ (function () {
         if (underline === void 0) { underline = false; }
         var lb = new MyLabel();
         lb.font = Common.normalFont; //font;
-        lb.text = text;
+        lb.text = Tools.getStringByKey(text);
         lb.fontSize = fontSize;
         lb.color = fontColor;
         lb.underline = underline;

@@ -147,7 +147,7 @@ var PgBar = /** @class */ (function (_super) {
         var cur = this.value; ///100;
         var pvalue = cur * 100;
         var ppv = pvalue.toFixed(2);
-        this.lb_percent.text = pretext + ppv + " % ";
+        this.lb_percent.text = Tools.getStringByKey(pretext) + ppv + " % ";
         this.scaleFront(cur);
         if (this.value >= 1) //00 )
          {

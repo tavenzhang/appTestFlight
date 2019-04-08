@@ -79,7 +79,7 @@ export default class XXWebView extends Component {
     }
 
     _keyboardDidShow=(event)=>{
-        TW_Log("( _keyboard---_keyboardDidShow" ,event);
+       // TW_Log("( _keyboard---_keyboardDidShow" ,event);
         if(!this.isShowKeyBoard){
             this.isShowKeyBoard =true;
             if(this.refs.myView){
@@ -90,7 +90,7 @@ export default class XXWebView extends Component {
     }
 
     _keyboardDidHide=(event)=>{
-        TW_Log("( _keyboard---_keyboardDidHide" ,event);
+       // TW_Log("( _keyboard---_keyboardDidHide" ,event);
         if(this.isShowKeyBoard){
             this.isShowKeyBoard=false
             if(this.refs.myView){
@@ -352,6 +352,9 @@ export default class XXWebView extends Component {
                     switch (message.name) {
                         case "saveToPhohe":
                             Tools.onSaveScreenPhone();
+                            break;
+                        case "loginout":
+                            TW_Store.userStore.exitAppToLoginPage();
                             break;
                     }
                     break;

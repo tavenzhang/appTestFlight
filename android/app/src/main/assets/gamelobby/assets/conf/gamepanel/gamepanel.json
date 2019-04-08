@@ -1,0 +1,188 @@
+{
+    "pos":{ "x":0, "y":120 },
+    "girlX":{
+        "src":"./assets/ui/game/img_dating_renwu.png",
+        "pos":{ "x":0, "y":0 },
+        "size":{"w":392,"h":606},
+        "hidepos":{ "x":-800, "y":0 },
+        "durationIn":500,
+        "durationOut":500
+    },
+    "panel":{
+        "content":{
+            "pos":{ "x":430, "y":0 },
+            "posX":{ "x":225, "y":0 },
+            "hidepos":{ "x":0, "y":0 },
+            "durationIn":500,
+            "durationOut":1000,
+            "size":{ "w":1334, "h":550 }
+        },
+        "bmask":{
+            "desc":"",
+            "value":true
+        },
+        "rect":{ "x":0, "y":0, "w":902, "h":550 },
+        "showbgX":{
+            "desc":"",
+            "color":"#ff0000",
+            "alpha":0.5
+        }
+    },
+    "arrow":{
+        "desc":"",
+        "src":"./assets/ui/game/arrow_00.png",
+        "pos":{ "x":1250, "y":260 }
+    },
+    "pagearrow":{
+        "desc":"",
+        "pos":{"x":1255,"y":260},
+        "src":{
+            "src":"./assets/ui/game/arrow_00.png",
+            "pos":{ "x":0, "y":0 }
+        },
+        "bclick":true,
+        "right":{
+            "pos":{ "x":3, "y":0 },
+            "easeName":"backIn",
+            "duration":400
+        },
+        "left":{
+            "pos":{ "x":-3, "y":0 },
+            "easeName":"backIn",
+            "duration":400
+        },
+        "jumpNum":3
+    },
+    "flip":{ "desc":"", "onetime":3, "offsetx":0, "movex":0 },
+    "gameitemdefault":{
+        "number":5,
+        "pos":{ "x":-30, "y":30 },
+        "showbgX":{
+            "color":"#ff0000",
+            "alpha":0.5
+        },
+        "btnicon":{
+            "pos":{ "x":135, "y":110 },
+            "src":[
+                "./assets/ui/game/defaulticon.png"
+            ],
+            "size":{ "w":244, "h":202, "gw":30, "gh":30, "offsetx":100 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/flopright.mp3",
+            "grayext":"_gray"
+        },
+        "dutimer":1,
+        "lastR":10,
+        "stepR":10,
+        "nowStartAngle":0,
+        "stepAngle":30,
+        "maxR":1000,
+        "drawcenter":{ "x":87.5, "y":87.5 },
+        "sfx":"assets/raw/flopright.mp3",
+        "actionOnClick":true,
+        "statePause":{
+            "desc":"PAUSE状态呈现方式",
+            "src":"./assets/ui/game/img_dating_whz.png",
+            "pos":{ "x":54, "y":110 },
+            "size":{ "w":159, "h":62 }
+        },
+        "stateComing":{
+            "desc":"PAUSE状态呈现方式",
+            "src":"./assets/ui/game/img_dating_jingqingqidai.png",
+            "pos":{ "x":30, "y":110 },
+            "size":{ "w":209, "h":62 }
+        },
+        "hot":{
+            "src":"./assets/ui/game/icon_hot.png",
+            "pos":{ "x":170, "y":30 }
+        },
+        "spupdate":{
+            "src":"./assets/ui/game/img_gengxing_baishi.png",
+            "pos":{ "x":170, "y":30 }
+        },
+        "updateText":{
+            "size":{ "w":244, "h":35 },
+            "font":{
+                "pretext":"txt_yixiazai",
+                "endtext":"txt_percent",
+                "size":26,
+                "color":"#ccff00",
+                "align":"center",
+                "valign":"middle",
+                "borderColorX":"#ff0000",
+                "name":"x",
+                "wordwrap":false,
+                "stroke":2,
+                "strokeColor":"112653"
+            },
+            "pos":{ "x":15, "y":190 }
+        }
+    },
+    "movecontent":{
+        "scrollType":"tween1",
+        "fps":60,
+        "dragendoffset":2,
+        "moveddis":20,
+        "movingdis":1,
+        "goonLoopDelay":10,
+        "durationGoon":500,
+        "goonOffsetMin":0.1,
+        "tweenGoonName":"circOut",
+
+        "duration":1000,
+        "tweenNameX":"backOut",
+        "tweenName":"circOut",
+
+        "pos":{
+            "init":{"x":0,"y":0}
+        },
+        "visibleRect":{
+            "x":0,"y":0,"w":910,"h":550
+        },
+        "itembgX":{
+            "desc":"",
+            "color":"#ffff00",
+            "alpha":0.5
+        },
+        "desc_jump":"",
+        "jumpspd":-5,
+        "jumptime":1000,
+        "jumpspds":-110,
+        "jumptimes":200,
+        "desc_offset":"",
+        "minxOffsetX":200,
+        "maxxOffsetX":200
+    },
+    "scrollbarX":{
+        "bg":{
+            "src":"./assets/ui/progress/img_fangjian_jingdu01.png",
+            "srcX":"./assets/ui/progress/10.png",
+            "pos":{ "x":0, "y":395 },
+            "size":{
+                "w":550,
+                "h":0,
+                "splice":{ "lw":4, "cw":10, "rw":4, "cwid":542 }
+            }
+        },
+        "ft":{
+            "src":"./assets/ui/progress/img_fangjian_jingdu02.png",
+            "srcX":"./assets/ui/progress/10.png",
+            "pos":{ "x":0, "y":396 },
+            "size":{
+                "w":55,
+                "h":0,
+                "splice":{ "lw":4, "cw":10, "rw":4, "cwid":47 }
+            }
+        },
+        "showinsmall":false,
+        "fadeAlpha":0.1
+    },
+    "scrollcom":{
+        "desc":"",
+        "spdpoolcount":10,
+        "goondis":200,
+        "duration":1500
+    },
+    "testItemLenX":51
+}

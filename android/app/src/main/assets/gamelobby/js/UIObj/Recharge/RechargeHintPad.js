@@ -11,9 +11,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var NoticeDialog = /** @class */ (function (_super) {
-    __extends(NoticeDialog, _super);
-    function NoticeDialog() {
+var RechargeHintPad = /** @class */ (function (_super) {
+    __extends(RechargeHintPad, _super);
+    function RechargeHintPad() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.downPos = {
             "x": 0,
@@ -21,45 +21,41 @@ var NoticeDialog = /** @class */ (function (_super) {
         };
         return _this;
     }
-    NoticeDialog.getObj = function () {
-        return NoticeDialog.obj;
+    RechargeHintPad.getObj = function () {
+        return RechargeHintPad.obj;
     };
-    NoticeDialog.showPad = function (str, conf, caller, callback) {
+    RechargeHintPad.showPad = function (str, caller, callback) {
         if (caller === void 0) { caller = null; }
         if (callback === void 0) { callback = null; }
-        if (!NoticeDialog.obj) {
-            var o = new NoticeDialog();
-            o.init(conf);
+        if (!RechargeHintPad.obj) {
+            var o = new RechargeHintPad();
+            o.init(ConfObjRead.getConfNoMoney());
             o.caller = caller;
             o.callback = callback;
             LayaMain.getInstance().getRootNode().addChild(o);
         }
-        NoticeDialog.obj.show(str);
+        RechargeHintPad.obj.show(str);
     };
-    NoticeDialog.prototype.show = function (str) {
+    RechargeHintPad.prototype.show = function (str) {
         if (this.lb_content) {
             if (str == null) {
                 this.lb_content.text = Tools.getStringByKey(this.conf.content.label.font.text);
             }
             else {
-                this.lb_content.text = Tools.getStringByKey(str);
+                this.lb_content.text = str;
             }
         }
         this.visible = true;
     };
-    NoticeDialog.prototype.destroy = function (b) {
-        NoticeDialog.obj = null;
-        _super.prototype.destroy.call(this, b);
-    };
-    NoticeDialog.prototype.hide = function () {
+    RechargeHintPad.prototype.hide = function () {
         this.lb_content.text = "";
         this.visible = false;
-        NoticeDialog.obj = null;
+        RechargeHintPad.obj = null;
         LayaMain.getInstance().getRootNode().removeChild(this);
         this.destroy(true);
     };
-    NoticeDialog.prototype.init = function (conf) {
-        NoticeDialog.obj = this;
+    RechargeHintPad.prototype.init = function (conf) {
+        RechargeHintPad.obj = this;
         this.conf = conf;
         this.alphabg = new MySprite();
         Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
@@ -99,25 +95,16 @@ var NoticeDialog = /** @class */ (function (_super) {
         }
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
-    NoticeDialog.prototype.onMouseEvent = function (e) {
+    RechargeHintPad.prototype.onMouseEvent = function (e) {
         var x = e.stageX;
         var y = e.stageY;
-        // Debug.trace('onMouseEvent e:');
-        // Debug.trace(e);
         switch (e.type) {
             case Laya.Event.MOUSE_DOWN:
                 this.bDrag = true;
                 this.downPos.x = x;
                 this.downPos.y = y;
-                // this.scrollbar.moveStart();
                 break;
             case Laya.Event.MOUSE_MOVE:
-                // if( this.downPos.x > 0 )
-                // {
-                //     var sumx = x - this.downPos.x;
-                //     this.downPos.x = x;
-                // this.moveAllItem(sumx);
-                // }
                 if (this.downPos.y > 0) {
                     var sumy = y - this.downPos.y;
                     this.downPos.y = y;
@@ -128,29 +115,28 @@ var NoticeDialog = /** @class */ (function (_super) {
                 this.downPos.x = 0;
                 this.downPos.y = 0;
                 this.bDrag = false;
-                // this.scrollbar.moveEnd();
                 break;
         }
     };
-    NoticeDialog.prototype.onMouse = function (e) {
+    RechargeHintPad.prototype.onMouse = function (e) {
         if (this.conf.touchout) {
             if (this.conf.touchout.value && e.type == Laya.Event.MOUSE_DOWN) {
                 this.onClose(null);
             }
         }
     };
-    NoticeDialog.prototype.onClose = function (s) {
+    RechargeHintPad.prototype.onClose = function (s) {
         this.hide();
         if (this.caller && this.callback) {
             this.callback.apply(this.caller, [this]);
         }
     };
-    NoticeDialog.prototype.onRecharge = function (s) {
-        this.hide();
+    RechargeHintPad.prototype.onRecharge = function (s) {
+        Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
         if (this.caller && this.callback) {
             this.callback.apply(this.caller, [this]);
         }
     };
-    return NoticeDialog;
+    return RechargeHintPad;
 }(MySprite));
-//# sourceMappingURL=NoticeDialog.js.map
+//# sourceMappingURL=RechargeHintPad.js.map
