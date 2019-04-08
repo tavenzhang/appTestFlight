@@ -23,7 +23,7 @@ var Debug = /** @class */ (function () {
         if (Debug.bDebugPlatform == "web") {
             Debug.traceWeb(ct);
         }
-        else {
+        if (AppData.IS_NATIVE_APP) {
             PostMHelp.Log({ ct: ct, data: data });
         }
     };

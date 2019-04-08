@@ -83,6 +83,7 @@ var LayaMain = /** @class */ (function () {
     };
     LayaMain.prototype.loginOut = function () {
         Debug.trace("LayaMain.loginOut");
+        PostMHelp.game_common({ name: "loginout" });
         SaveManager.getObj().save(SaveManager.KEY_TOKEN, "");
         this.initLogin();
     };

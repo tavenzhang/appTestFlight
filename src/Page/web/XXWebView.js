@@ -353,6 +353,9 @@ export default class XXWebView extends Component {
                         case "saveToPhohe":
                             Tools.onSaveScreenPhone();
                             break;
+                        case "loginout":
+                            TW_Store.userStore.exitAppToLoginPage();
+                            break;
                     }
                     break;
                 case "startUpdate":
