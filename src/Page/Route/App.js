@@ -67,6 +67,7 @@ import GameUIView from "../enter/GameUIView";
 
 import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
 import KeyboardManager from 'react-native-keyboard-manager'
+import {JX_PLAT_INFO} from "../asset";
 @observer
 export default class App extends Component {
     constructor(state) {
@@ -123,7 +124,7 @@ export default class App extends Component {
                             this.navigator=navigatorRef;
                         }}
                     />
-                    {TW_Store.bblStore.isDebugApp ? <ScrollView  style={{ position: "absolute",}}><Text
+                    {TW_Store.bblStore.isDebugApp ? <ScrollView  style={{ position: "absolute", height:JX_PLAT_INFO.SCREEN_H}}><Text
                         style={{
                             color: "yellow",
                             fontWeight:"bold"

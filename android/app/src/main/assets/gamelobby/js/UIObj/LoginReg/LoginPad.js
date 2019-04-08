@@ -232,12 +232,12 @@ var LoginPad = /** @class */ (function (_super) {
         var name = this.inputName.text;
         var pwd = this.inputPwd.text;
         var yzm = this.inputYanzhengma.text;
+        PostMHelp.debugInfo({ name: name, pwd: pwd });
         var verify = Tools.verifyLogin(name, pwd, yzm);
         if (!verify.bRight) {
             Toast.showToast(Tools.getStringByKey(verify.msg));
             return;
         }
-        PostMHelp.debugInfo({ name: name, pwd: pwd });
         this.requestLogin(name, pwd, yzm);
     };
     LoginPad.prototype.onRegClick = function (e) {
