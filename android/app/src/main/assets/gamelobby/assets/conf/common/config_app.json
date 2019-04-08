@@ -39,5 +39,6 @@
         "totalNum":5,
         "delayTime":1000
     },
-    "language":"zh_cn"
+    "language":"zh_cn",
+    "unknow_err":"txt_unknowerr"
 }

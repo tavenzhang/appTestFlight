@@ -1,0 +1,38 @@
+{
+    "pos":{ "x":480, "y":98 },
+    "scrollspd":{ "x":1, "y":0 },
+    "bg":{
+        "src":"./assets/ui/notice/bgRunningmsg.png",
+        "pos":{ "x":0, "y":5 }
+    },
+    "msgcontent":{
+        "size":{ "w":400, "h":50 },
+        "pos":{ "x":110, "y":0 },
+        "label":{
+            "desc":"",
+            "font":{
+                "text":"---",
+                "size":26,
+                "color":"#efe8cd",
+                "align":"left",
+                "valign":"middle",
+                "name":"x",
+                "wrap":false
+            },
+            "size":{ "w":0, "h":0 },
+            "pos":{ "x":0, "y":6 }
+        }
+    },
+    "mask":{
+        "pos":{ "x":0, "y":0 },
+        "size":{ "w":400, "h":50 },
+        "frameColorX":"#ff0000",
+        "frameAlpha":0.3
+    },
+    "request":{
+        "desc":"",
+        "timer":10000,
+        "bTest":false,
+        "emptyMsg":"<p><span style='color: #F2F2F2;'>未<strong>正</strong></span><span style='color: #FFFFFF;'><strong>确</strong></span><span style='color: #D8D8D8;'><em><strong>设定</strong></em></span><span style='color: #F2F2F2;'><em></em><span style='text-decoration: underline;'><em><strong>滚动</strong></em></span></span><span style='color: #FF0000;'><span style='text-decoration: underline;'><em>消息</em></span><span style='font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; text-decoration: underline;'><em>拉</em></span><span style='font-family: 隶书, SimLi;'><span style='text-decoration: underline;'><em><span style='text-decoration: underline;'></span></em><em>取</em>地址</span>，</span></span><span style='color: #C3D69B;'><span style='font-size: 24px; font-family: 隶书, SimLi;'>请正确</span><span style='font-size: 24px;'><span style='font-family: 隶书, SimLi;'></span><span style='font-size: 24px; color: #FF0000;'>填写</span></span></span></p>"
+    }
+}

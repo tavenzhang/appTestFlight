@@ -35,7 +35,7 @@ var LobbyScene = /** @class */ (function (_super) {
         var msgUrl = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.noticelist +
             "?pageSize=20&start=0&access_token=" + Common.access_token;
-        RunningMsg.getInstance(this, "./assets/conf/runningmsg.json", msgUrl, null, this.runningmsgOver);
+        RunningMsg.getInstance(this, "./assets/conf/scrollmsg/runningmsg.json", msgUrl, null, this.runningmsgOver);
         MineMenus.getInstance(this, ConfObjRead.getConfMinemenus());
         if (ConfObjRead.getConfAttention().bAutoShowInLobby) {
             Debug.trace("LobbyScene.initUI auto");

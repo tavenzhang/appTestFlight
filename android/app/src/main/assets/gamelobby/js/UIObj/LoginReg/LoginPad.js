@@ -35,12 +35,10 @@ var LoginPad = /** @class */ (function (_super) {
         _super.prototype.destroy.call(this, b);
     };
     LoginPad.prototype.hide = function () {
-        // this.lb_content.text = "";
         this.visible = false;
         LoginPad.obj = null;
         LayaMain.getInstance().getRootNode().removeChild(this);
         this.destroy(true);
-        // lamain.restoreLoaderPath();
     };
     LoginPad.prototype.init = function (conf, caller, callback) {
         LoginPad.obj = this;
@@ -234,12 +232,9 @@ var LoginPad = /** @class */ (function (_super) {
         var name = this.inputName.text;
         var pwd = this.inputPwd.text;
         var yzm = this.inputYanzhengma.text;
-        if (name.length <= 0 || pwd.length <= 0) {
-            Toast.showToast("请正确输入用户名及密码");
-            return;
-        }
-        if (yzm.length <= 0) {
-            Toast.showToast("请正确输入验证码");
+        var verify = Tools.verifyLogin(name, pwd, yzm);
+        if (!verify.bRight) {
+            Toast.showToast(Tools.getStringByKey(verify.msg));
             return;
         }
         PostMHelp.debugInfo({ name: name, pwd: pwd });
@@ -306,7 +301,7 @@ var LoginPad = /** @class */ (function (_super) {
                 Toast.showToast(obj.message);
             }
             else {
-                Toast.showToast("txt_unknowerr");
+                Toast.showToast(Tools.getStringByKey(ConfObjRead.getConfCommon().unknow_err));
             }
             // this.onYanzhengmaFocus(this.sp_yanzhengma);
             this.yzmObj.refresh();
@@ -320,7 +315,7 @@ var LoginPad = /** @class */ (function (_super) {
         LoginPad.getObj().setPassword("");
         LoginPad.getObj().setYanzhengma("");
         LoginPad.getObj().refreshYanzhengma();
-        Toast.showToast(ConfObjRead.getConfChangePwd().textChanged);
+        Toast.showToast(Tools.getStringByKey(ConfObjRead.getConfChangePwd().textChanged));
     };
     LoginPad.prototype.cancelChangePwd = function (e) {
         Debug.trace("LoginPad.cancelChangePwd:");

@@ -177,10 +177,10 @@ var ConfObjRead = /** @class */ (function () {
             return ConfObjRead.girlObj;
         }
         if (AppData.IS_NATIVE_APP) {
-            ConfObjRead.girlObj = Laya.Loader.getRes("./assets/conf/girl_app.json");
+            ConfObjRead.girlObj = Laya.Loader.getRes("./assets/conf/girls/girl_app.json");
         }
         else {
-            ConfObjRead.girlObj = Laya.Loader.getRes("./assets/conf/girl.json");
+            ConfObjRead.girlObj = Laya.Loader.getRes("./assets/conf/girls/girl.json");
         }
         return ConfObjRead.girlObj;
     };
@@ -188,14 +188,14 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.dataNumObj) {
             return ConfObjRead.dataNumObj;
         }
-        ConfObjRead.dataNumObj = Laya.Loader.getRes("./assets/conf/datanum.json");
+        ConfObjRead.dataNumObj = Laya.Loader.getRes("./assets/conf/common/datanum.json");
         return ConfObjRead.dataNumObj;
     };
     ConfObjRead.getConfHtmlLabel = function () {
         if (ConfObjRead.htmlObj) {
             return ConfObjRead.htmlObj;
         }
-        ConfObjRead.htmlObj = Laya.Loader.getRes("./assets/conf/libhtml.json");
+        ConfObjRead.htmlObj = Laya.Loader.getRes("./assets/conf/scrollmsg/libhtml.json");
         return ConfObjRead.htmlObj;
     };
     ConfObjRead.getGameIconAnim = function () {
@@ -243,7 +243,7 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.runningmsgObj) {
             return ConfObjRead.runningmsgObj;
         }
-        ConfObjRead.runningmsgObj = Laya.Loader.getRes("./assets/conf/runningmsg.json");
+        ConfObjRead.runningmsgObj = Laya.Loader.getRes("./assets/conf/scrollmsg/runningmsg.json");
         return ConfObjRead.runningmsgObj;
     };
     ConfObjRead.getConfText = function () {
@@ -293,7 +293,7 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.roomlistObj) {
             return ConfObjRead.roomlistObj;
         }
-        ConfObjRead.roomlistObj = Laya.Loader.getRes("./assets/conf/roompanel.json");
+        ConfObjRead.roomlistObj = Laya.Loader.getRes("./assets/conf/roompanel/roompanel.json");
         return ConfObjRead.roomlistObj;
     };
     ConfObjRead.getConfAvator = function () {
@@ -324,56 +324,56 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.settingpadObj) {
             return ConfObjRead.settingpadObj;
         }
-        ConfObjRead.settingpadObj = Laya.Loader.getRes("./assets/conf/setting.json");
+        ConfObjRead.settingpadObj = Laya.Loader.getRes("./assets/conf/setting/setting.json");
         return ConfObjRead.settingpadObj;
     };
     ConfObjRead.getConfAttention = function () {
         if (ConfObjRead.attentionObj) {
             return ConfObjRead.attentionObj;
         }
-        ConfObjRead.attentionObj = Laya.Loader.getRes("./assets/conf/attention.json");
+        ConfObjRead.attentionObj = Laya.Loader.getRes("./assets/conf/notice/attention.json");
         return ConfObjRead.attentionObj;
     };
     ConfObjRead.getConfNoticeDialog = function () {
         if (ConfObjRead.noticeDialogObj) {
             return ConfObjRead.noticeDialogObj;
         }
-        ConfObjRead.noticeDialogObj = Laya.Loader.getRes("./assets/conf/NoticeDialog.json");
+        ConfObjRead.noticeDialogObj = Laya.Loader.getRes("./assets/conf/notice/NoticeDialog.json");
         return ConfObjRead.noticeDialogObj;
     };
     ConfObjRead.getConfHelppad = function () {
         if (ConfObjRead.room_helpObj) {
             return ConfObjRead.room_helpObj;
         }
-        ConfObjRead.room_helpObj = Laya.Loader.getRes("./assets/conf/helppad.json");
+        ConfObjRead.room_helpObj = Laya.Loader.getRes("./assets/conf/uiobj/helppad.json");
         return ConfObjRead.room_helpObj;
     };
     ConfObjRead.getConfNoMoney = function () {
         if (ConfObjRead.nomoneyObj) {
             return ConfObjRead.nomoneyObj;
         }
-        ConfObjRead.nomoneyObj = Laya.Loader.getRes("./assets/conf/nomoney.json");
+        ConfObjRead.nomoneyObj = Laya.Loader.getRes("./assets/conf/uiobj/nomoney.json");
         return ConfObjRead.nomoneyObj;
     };
     ConfObjRead.getConfToast = function () {
         if (ConfObjRead.room_toastObj) {
             return ConfObjRead.room_toastObj;
         }
-        ConfObjRead.room_toastObj = Laya.Loader.getRes("./assets/conf/toast.json");
+        ConfObjRead.room_toastObj = Laya.Loader.getRes("./assets/conf/uiobj/toast.json");
         return ConfObjRead.room_toastObj;
     };
     ConfObjRead.getConfCLoading = function () {
         if (ConfObjRead.room_saiziObj) {
             return ConfObjRead.room_saiziObj;
         }
-        ConfObjRead.room_saiziObj = Laya.Loader.getRes("./assets/conf/cloading.json");
+        ConfObjRead.room_saiziObj = Laya.Loader.getRes("./assets/conf/uiobj/cloading.json");
         return ConfObjRead.room_saiziObj;
     };
     ConfObjRead.getConfHistorypad = function () {
         if (ConfObjRead.room_historyObj) {
             return ConfObjRead.room_historyObj;
         }
-        ConfObjRead.room_historyObj = Laya.Loader.getRes("./assets/conf/history.json");
+        ConfObjRead.room_historyObj = Laya.Loader.getRes("./assets/conf/uiobj/history.json");
         return ConfObjRead.room_historyObj;
     };
     ConfObjRead.getConfBottommenu = function () {
@@ -387,7 +387,7 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.room_noticeObj) {
             return ConfObjRead.room_noticeObj;
         }
-        ConfObjRead.room_noticeObj = Laya.Loader.getRes("./assets/conf/notice.json");
+        ConfObjRead.room_noticeObj = Laya.Loader.getRes("./assets/conf/notice/notice.json");
         return ConfObjRead.room_noticeObj;
     };
     ConfObjRead.getConfTitlebar = function () {
@@ -411,7 +411,7 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.rmttbObj) {
             return ConfObjRead.rmttbObj;
         }
-        ConfObjRead.rmttbObj = Laya.Loader.getRes("./assets/conf/roomtitlebar.json");
+        ConfObjRead.rmttbObj = Laya.Loader.getRes("./assets/conf/roompanel/roomtitlebar.json");
         return ConfObjRead.rmttbObj;
     };
     ConfObjRead.getRoombgConf = function () {
@@ -540,7 +540,7 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.uibgObj) {
             return ConfObjRead.uibgObj;
         }
-        ConfObjRead.uibgObj = Laya.Loader.getRes("./assets/conf/bgbig.json");
+        ConfObjRead.uibgObj = Laya.Loader.getRes("./assets/conf/common/bgbig.json");
         return ConfObjRead.uibgObj;
     };
     ConfObjRead.getDealerConf = function () {
@@ -554,7 +554,7 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.musicObj && ConfObjRead.musicObj) {
             return ConfObjRead.musicObj;
         }
-        ConfObjRead.musicObj = Laya.Loader.getRes("./assets/conf/music.json");
+        ConfObjRead.musicObj = Laya.Loader.getRes("./assets/conf/common/music.json");
         return ConfObjRead.musicObj;
     };
     ConfObjRead.agentlistdesctestObj = null;

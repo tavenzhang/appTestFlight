@@ -17,7 +17,9 @@ function getAvailableDomain (domains,callback) {
               isFinish = true;
               let content= rt.content;
               content.allowAppUpdate=true;
-              // if(content.trendChartDomains&&content.trendChartDomains.length>0){
+             // TW_Log("callback-------content.trendChartDomains[0]-"+content.trendChartDomains[0],content.trendChartDomains);
+              // if(content.trendChartDomains&&content.trendChartDomains.length>0&&content.trendChartDomains[0]!=""){
+              //     TW_Log("callback-------content.trendChartDomains[0]-exist"+content.trendChartDomains[0],content.trendChartDomains);
               //     TW_Store.bblStore.loginDomain =TW_Store.bblStore.gameDomain=content.trendChartDomains[0]
               // }
               AsyncStorage.setItem('cacheDomain', JSON.stringify({

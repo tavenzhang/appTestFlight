@@ -2,7 +2,7 @@
     "zh_cn":[
         {
             "key":"txt_version",
-            "value":"版本号:3.0405"
+            "value":"版本号:3.0408.518"
         },
         {
             "key":"username_prompt",
@@ -14,11 +14,35 @@
         },
         {
             "key":"pwd_prompt",
-            "value":"密码（6～15位字母或数字）"
+            "value":"6~15位字母或数字"
         },
         {
-            "key":"username_ck_err",
+            "key":"username_ck_err_reg",
             "value":"用户名校验失败，请输入4～11位字母和数字，至少含有一个字母"
+        },
+        {
+            "key":"username_ck_err_login",
+            "value":"用户名校验失败，请输入4～12位字母和数字，至少含有一个字母"
+        },
+        {
+            "key":"username_login_regexp",
+            "value":"^[a-zA-Z0-9_]{4,12}$"
+        },
+        {
+            "key":"username_reg_regexp",
+            "value":"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z_]{4,11}$"
+        },
+        {
+            "key":"username_reg_regexp1",
+            "value":"^[a-zA-Z0-9_]{4,11}$"
+        },
+        {
+            "key":"pwd_regexp",
+            "value":"^[^ \n]{6,15}$"
+        },
+        {
+            "key":"yzm_regexp",
+            "value":"^[0-9]{6,6}$"
         },
         {
             "key":"pwd_ck_err",
@@ -29,12 +53,24 @@
             "value":"重复密码校验失败，请重复输入一样的密码"
         },
         {
+            "key":"cfpwd_err",
+            "value":"重复密码校验失败，请重复输入一样的密码"
+        },
+        {
             "key":"oldpwd_prompt",
             "value":"请输入旧密码"
         },
         {
+            "key":"oldpwd_err",
+            "value":"旧密码校验错误，请重新输入"
+        },
+        {
             "key":"newpwd_prompt",
-            "value":"新密码（6～15位字母或数字）"
+            "value":"6~15位字母或数字"
+        },
+        {
+            "key":"newpwd_ck_err",
+            "value":"密码格式错误，请输入6～15位字母或数字组成的密码"
         },
         {
             "key":"cfpwd_prompt",
@@ -49,6 +85,10 @@
             "value":"请输入验证码"
         },
         {
+            "key":"yzm_ck_err",
+            "value":"请正确输入验证码"
+        },
+        {
             "key":"yqm_prompt",
             "value":"邀请码只能是字母或数字（选填）"
         },
@@ -56,18 +96,12 @@
             "key":"mobile_prompt",
             "value":"请输入手机号"
         },
-        {
-            "key":"oldpwd_err",
-            "value":"旧密码校验错误，请重新输入"
-        },
+        
         {
             "key":"newpwd_err",
             "value":"密码格式错误，请输入6～15位字母或数字组成的密码"
         },
-        {
-            "key":"cfpwd_err",
-            "value":"重复密码校验失败，请重复输入一样的密码"
-        },
+        
         {
             "key":"username_login_rule",
             "value":"4~12位长度校验，用户名兼容老用户注册的账户，不做英文+数字组合校验，不支持输入特殊字符"

@@ -309,20 +309,25 @@ var RegPad = /** @class */ (function (_super) {
         if (this.inputPhone) {
             phone = this.inputPhone.text;
         }
-        if (name.length <= 0
-            || pwd.length <= 0
-            || pwdconfirm.length <= 0) 
-        // || phone.length <= 0 )
-        {
-            Toast.showToast(this.conf.textNoValue);
+        var verify = Tools.verifyReg(name, pwd, pwdconfirm, yanzhengma);
+        if (!verify.bRight) {
+            Toast.showToast(Tools.getStringByKey(verify.msg));
             return;
         }
-        if (pwd != pwdconfirm) {
-            Toast.showToast(this.conf.textPwdUnsame);
-            this.inputPwd.text = "";
-            this.inputConfirmPwd.text = "";
-            return;
-        }
+        // if( name.length <= 0 
+        // || pwd.length <= 0 
+        // || pwdconfirm.length <= 0 )
+        // {
+        //     Toast.showToast(this.conf.textNoValue);
+        //     return;
+        // }
+        // if( pwd != pwdconfirm )
+        // {
+        //     Toast.showToast(this.conf.textPwdUnsame);
+        //     this.inputPwd.text = "";
+        //     this.inputConfirmPwd.text = "";
+        //     return;
+        // }
         LayaMain.getInstance().showCircleLoading(true);
         this.requestReg(name, pwd, yanzhengma, yaoqingma, phone);
     };
@@ -401,7 +406,7 @@ var RegPad = /** @class */ (function (_super) {
             Common.access_token = jobj.oauthToken.access_token;
             SaveManager.getObj().save(SaveManager.KEY_TOKEN, Common.access_token);
             LayaMain.getInstance().initLobby();
-            RegPad.obj.onCloseClick(null);
+            this.onCloseClick(null);
         }
         else {
             var err = hr.http.response;

@@ -176,7 +176,12 @@ export default class XXWebView extends Component {
             if (url && url.indexOf("../") > -1) {
                 url = url.replace("../", "");
             }
-            url = TW_Store.bblStore.gameDomain  + url
+            if(TW_Store.appStore.clindId=="31"){
+                url = TW_Store.bblStore.loginDomain  + url
+            }else{
+                url = TW_Store.bblStore.gameDomain  + url
+            }
+
         }
        
         return `${url}&app=${G_IS_IOS ? "ios":"android"}`;
