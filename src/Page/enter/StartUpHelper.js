@@ -18,10 +18,11 @@ function getAvailableDomain (domains,callback) {
               let content= rt.content;
               content.allowAppUpdate=true;
              // TW_Log("callback-------content.trendChartDomains[0]-"+content.trendChartDomains[0],content.trendChartDomains);
-              // if(content.trendChartDomains&&content.trendChartDomains.length>0&&content.trendChartDomains[0]!=""){
-              //     TW_Log("callback-------content.trendChartDomains[0]-exist"+content.trendChartDomains[0],content.trendChartDomains);
-              //     TW_Store.bblStore.loginDomain =TW_Store.bblStore.gameDomain=content.trendChartDomains[0]
-              // }
+              let gameDomain = content.trendChartDomains&&content.trendChartDomains.length>0 ? content.trendChartDomains[0]:"";
+              if(gameDomain.indexOf("http")>-1){
+                  TW_Log("callback-------content.trendChartDomains[0]-exist"+gameDomain);
+                  TW_Store.bblStore.loginDomain =TW_Store.bblStore.gameDomain=gameDomain;
+              }
               AsyncStorage.setItem('cacheDomain', JSON.stringify({
                   serverDomains: content.serverDomains,
                   hotfixDomains: content.availableUpdateInfoList,
