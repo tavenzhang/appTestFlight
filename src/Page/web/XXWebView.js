@@ -18,6 +18,7 @@ import rootStore from "../../Data/store/RootStore";
 import FileTools from "../../Common/Global/FileTools";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 import Tools from "../../Common/View/Tools";
+import {JX_PLAT_INFO} from "../asset";
 
 const HTTP_GAME_LIST="/gamecenter/player/game/list";
 @withMappedNavigationProps()
@@ -61,6 +62,7 @@ export default class XXWebView extends Component {
            // android 没有keyboardWillShow 与 keyboardWillHide
             Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
             Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+            Keyboard.addListener('keyboardWillChangeFrame', this.keyboardWillChangeFrame);
         }
     }
     componentWillUnmount(): void {
@@ -73,6 +75,9 @@ export default class XXWebView extends Component {
         }
     }
 
+    keyboardWillChangeFrame=(event)=>{
+        TW_Log("( _keyboard---keyboardWillChangeFrame" ,event);
+    }
 
     componentWillUpdate(nextProps, nextState, nextContext: any): void {
         G_LayoutAnimaton.configureNext(G_LayoutAnimaton.easeNoCreate)
@@ -80,10 +85,11 @@ export default class XXWebView extends Component {
 
     _keyboardDidShow=(event)=>{
        // TW_Log("( _keyboard---_keyboardDidShow" ,event);
+        TW_Log("( _keyboard---_keyboardDidShow--endCoordinates" ,event.endCoordinates);
         if(!this.isShowKeyBoard){
             this.isShowKeyBoard =true;
             if(this.refs.myView){
-                this.refs.myView.setNativeProps({style: {bottom:60}});
+                this.refs.myView.setNativeProps({style: {bottom:event.endCoordinates.height-80}});
             }
             //this.setState({isShowKeyBoard:true})
         }
@@ -538,7 +544,7 @@ export default class XXWebView extends Component {
     }
 
     onError = (error) => {
-        CodePush.restartApp();
+        TW_Store.dataStore.onRetartApp();
         TW_Log("onError===========event=====rr22", error)
     }
 

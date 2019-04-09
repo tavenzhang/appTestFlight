@@ -47,6 +47,7 @@ var LoginScene = /** @class */ (function (_super) {
                 break;
         }
         // var reg = RegPad.showPad(this,ConfObjRead.getConfLogin().reg);
+        VersionStat.getInstance(this, ConfObjRead.getConfVersion());
     };
     LoginScene.prototype.onClickChoose = function (cmd) {
         switch (cmd) {

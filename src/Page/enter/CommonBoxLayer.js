@@ -32,9 +32,9 @@ export default class CommonBoxLayer extends Component {
         let percent =(store.curPecent/store.totalPecent).toFixed(2);
         if(store.isShow){
             return (<View style={styles.container} pointerEvents={"none"}>
-                <View style={{paddingHorizontal:30, paddingVertical:40, borderRadius: 20,backgroundColor:"white", justifyContent:"center",
+                <View style={{paddingHorizontal:30, paddingVertical:40, borderRadius: 20,backgroundColor:'rgba(0, 100, 100, 0.5)', justifyContent:"center",
                     alignItems:"center"}}>
-                    <Text style={{color:"blue", textAlign: "center",marginBottom:15}}>{store.txtHint+"\n"+parseInt(percent*100)+"%"}</Text>
+                    <Text style={{color:"yellow", textAlign: "center",marginBottom:15}}>{store.txtHint+"\n"+parseInt(percent*100)+"%"}</Text>
                     <Progress.Bar
                         progress={percent}
                         width={200}/>

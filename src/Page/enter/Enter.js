@@ -288,7 +288,9 @@ export default class Enter extends Component {
                         downloadTime = Moment().format('X') - downloadTime
                         this.storeLog({downloadStatus: true, downloadTime: downloadTime});
                         localPackage.install(CodePush.InstallMode.IMMEDIATE).then(() => {
-                            this.storeLog({updateStatus: true})
+                            this.storeLog({updateStatus: true});
+                            //如果正在下载大厅文件，关闭大厅当前的下载
+                            TW_Store.dataStore.clearCurrentDownJob();
                             CodePush.notifyAppReady().then(() => {
                                 // this.setUpdateFinished()
                             })
