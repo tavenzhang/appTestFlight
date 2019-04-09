@@ -62,7 +62,6 @@ export default class XXWebView extends Component {
            // android 没有keyboardWillShow 与 keyboardWillHide
             Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
             Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
-            Keyboard.addListener('keyboardWillChangeFrame', this.keyboardWillChangeFrame);
         }
     }
     componentWillUnmount(): void {
@@ -73,10 +72,6 @@ export default class XXWebView extends Component {
             Keyboard.removeListener('keyboardDidShow', this._keyboardDidShow);
             Keyboard.removeListener('keyboardDidHide', this._keyboardDidHide);
         }
-    }
-
-    keyboardWillChangeFrame=(event)=>{
-        TW_Log("( _keyboard---keyboardWillChangeFrame" ,event);
     }
 
     componentWillUpdate(nextProps, nextState, nextContext: any): void {

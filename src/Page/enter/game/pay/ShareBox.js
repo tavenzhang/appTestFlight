@@ -80,6 +80,7 @@ export default class ShareBox extends Component {
                 <TCImage source={ASSET_Images.gameShare.boxBg} />
                 <TCButtonImg
                     imgSource={ASSET_Images.gameUI.btnClose}
+                    isClose={true}
                     onClick={onClose}
                     btnStyle={{ position: 'absolute', right: 0, top: 0 }}
                 />
