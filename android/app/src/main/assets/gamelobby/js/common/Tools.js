@@ -1076,6 +1076,7 @@ var Tools = /** @class */ (function () {
             return err;
         }
         if (newpwd != cfpwd) {
+            err.bRight = false;
             err.msg = "cfpwd_err";
             return err;
         }

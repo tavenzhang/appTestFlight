@@ -6,7 +6,7 @@ export default class CommonBoxStore {
     spinState = {visible: false, isModal: false, overStyle: {}, style: {}, margeTop: 0}
 
     @observable
-    txtHint = "检查到资源变更 \n正在下载中... 完成后将自动重启!";
+    txtHint = "检查到大厅变更 \n 正在下载中..." +G_IS_IOS ? "完成后将自动重启!":"";
 
     @observable
     curPecent = 0;

@@ -203,7 +203,10 @@ export default class DataStore {
                 this.log+="==>onSaveVersionM--=start";
                 this.onSaveVersionM(this.content,false,()=>{
                     this.log+="==>onSaveVersionM--=end";
-                    CodePush.restartApp();
+                    if(G_IS_IOS){
+                        CodePush.restartApp();
+                    }
+
                 });
 
             })
