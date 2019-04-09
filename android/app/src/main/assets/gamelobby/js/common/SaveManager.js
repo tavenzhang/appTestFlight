@@ -74,6 +74,7 @@ var SaveManager = /** @class */ (function () {
     };
     SaveManager.KEY_QK_USERNAME = "qk_username";
     SaveManager.KEY_QK_PASSWORD = "qk_password";
+    SaveManager.KEY_QK_PWD_CHANGED = "qk_pwd_changed";
     SaveManager.KEY_LOGIN_TYPE = "loginType";
     SaveManager.KEY_LOGIN_INFO = "loginInfo";
     SaveManager.KEY_MUSIC_VL = "music"; //0...1

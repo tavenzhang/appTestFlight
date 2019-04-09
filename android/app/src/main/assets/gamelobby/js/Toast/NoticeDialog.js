@@ -39,10 +39,10 @@ var NoticeDialog = /** @class */ (function (_super) {
     NoticeDialog.prototype.show = function (str) {
         if (this.lb_content) {
             if (str == null) {
-                this.lb_content.text = this.conf.content.label.font.text;
+                this.lb_content.text = Tools.getStringByKey(this.conf.content.label.font.text);
             }
             else {
-                this.lb_content.text = str;
+                this.lb_content.text = Tools.getStringByKey(str);
             }
         }
         this.visible = true;

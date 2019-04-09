@@ -14,7 +14,8 @@ class  TCButtonCommon extends PureComponent {
         text: PropTypes.any,//按钮文本
         txtstyle: PropTypes.any,//文本样式
         txtstyleDisabled: PropTypes.any,//文本不可用样式
-        onClick: PropTypes.any//按钮点击事件
+        onClick: PropTypes.any,//按钮点击事件
+        isClose:PropTypes.any
     };
 
     static defaultProps = {
@@ -24,14 +25,20 @@ class  TCButtonCommon extends PureComponent {
         text: 'button',
         txtstyle: null,
         txtstyleDisabled: null,
-        onClick: null
+        onClick: null,
+        isClose:false
     }
 
 
     onClick=()=> {
-        let {onClick} = this.props
+        let {onClick,isClose} = this.props
        if(onClick){
-           TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click)
+           if(isClose){
+               TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.close);
+           }else{
+               TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
+           }
+
            onClick()
        }
     }
@@ -114,7 +121,8 @@ export  class TCButtonImg extends PureComponent {
         onClick: PropTypes.any,//按钮点击事件
         text: PropTypes.any,//按钮文本
         textStyle:PropTypes.any,
-        isHorizon:PropTypes.bool
+        isHorizon:PropTypes.bool,
+        isClose:PropTypes.bool,
     };
 
     static defaultProps = {
@@ -125,12 +133,13 @@ export  class TCButtonImg extends PureComponent {
         imgSourceDisable:null,
         onClick: null,
         text:null,
-        isHorizon:true
+        isHorizon:true,
+        isClose:false
     }
 
 
     render() {
-        let {disabled,text, imgSource, isHorizon,btnStyle,textStyle,imgStyle,imgSourceDisabled, imgStyleDisable} = this.props;
+        let {disabled,text,imgSource, isHorizon,btnStyle,textStyle,imgStyle,imgSourceDisabled, imgStyleDisable} = this.props;
         let myImgSourceDisabled = imgSourceDisabled ? imgSourceDisabled:imgSource;
         return (
             <TCButtonCommon  {...this.props} containStyles={btnStyle}>

@@ -92,6 +92,7 @@ export default class GameUserInfoView extends Component {
             <TCImage source={ASSET_Images.gameUI.persionText}
                      style={{position: "absolute", right: 205, top: 20}}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
+                         isClose={true}
                          onClick={() => TW_Store.gameUIStroe.isShowUserInfo = false}
                          btnStyle={{position: "absolute", right: 0, top: 10}}/>
 

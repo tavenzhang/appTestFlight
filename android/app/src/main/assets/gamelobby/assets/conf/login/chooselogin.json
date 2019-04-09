@@ -4,7 +4,7 @@
         "src":"",
         "pos":{ "x":0, "y":0 }
     },
-    "sprites":[
+    "spritesX":[
         {
             "src":"./brand/loginchoose_logo.png",
             "pos":{ "x":51, "y":21 },

@@ -2,7 +2,7 @@
     "loginui":"choose",
     "bgscene":{
         "desc":"",
-        "src":"./assets/ui/login/bgScene.jpg",
+        "src":"./brand/loginchoose_bg.jpg",
         "pos":{ "x":0, "y":0 }
     },
     "custom":{
@@ -144,7 +144,7 @@
                 "fontsize":24,
                 "bold":false,
                 "color":"#ffffff",
-                "prompt":"请输入用户名"
+                "prompt":"username_prompt"
             }
         },
         "pwdX":{
@@ -166,7 +166,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "type":"password",
-                "prompt":"请输入密码"
+                "prompt":"pwd_prompt"
             }
         },
         "inputpad":{
@@ -193,7 +193,7 @@
                     "fontsize":24,
                     "bold":false,
                     "color":"#ffffff",
-                    "prompt":"请输入用户名（4-12位字母和数字）"
+                    "prompt":"username_login_prompt"
                 },
                 "star":{
                     "pos":{ "x":685, "y":160 },
@@ -232,7 +232,7 @@
                     "bold":false,
                     "color":"#ffffff",
                     "type":"password",
-                    "prompt":"请输入密码（6-15位字母和数字）"
+                    "prompt":"pwd_prompt"
                 },
                 "star":{
                     "pos":{ "x":685, "y":240 },
@@ -271,7 +271,7 @@
                     "bold":false,
                     "color":"#ffffff",
                     "typeX":"number",
-                    "prompt":"请输入验证码"
+                    "prompt":"yzm_prompt"
                 },
                 "star":{
                     "pos":{ "x":685, "y":400 },
@@ -366,7 +366,7 @@
                 "fontsize":24,
                 "bold":false,
                 "color":"#ffffff",
-                "prompt":"请输入用户名（4-11位字母和数字）"
+                "prompt":"username_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":160 },
@@ -405,7 +405,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "type":"password",
-                "prompt":"请输入密码（6-15位字母和数字）"
+                "prompt":"pwd_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":240 },
@@ -444,7 +444,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "type":"password",
-                "prompt":"请再次输入密码"
+                "prompt":"cfpwd_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":320 },
@@ -483,7 +483,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "typeX":"number",
-                "prompt":"请输入验证码"
+                "prompt":"yzm_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":400 },
@@ -526,7 +526,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "typeX":"number",
-                "prompt":"邀请码只能是字母或数字（选填）"
+                "prompt":"yqm_prompt"
             }
         },
         "phoneX":{
@@ -549,7 +549,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "typeX":"number",
-                "prompt":"请输入手机号"
+                "prompt":"mobile_prompt"
             }
         },
         "btnclose":{
@@ -574,7 +574,7 @@
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1}
         },
-        "textNoValue":"请填写完整注册信息",
-        "textPwdUnsame":"两次输入的密码不一致，请重新输入"
+        "textNoValue":"reginfo_unfull",
+        "textPwdUnsame":"cfpwd_err"
     }
 }
