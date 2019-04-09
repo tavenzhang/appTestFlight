@@ -211,6 +211,7 @@ var Laya=window.Laya=(function(window,document){
 
 (function(window,document,Laya){
 	var __un=Laya.un,__uns=Laya.uns,__static=Laya.static,__class=Laya.class,__getset=Laya.getset,__newvec=Laya.__newvec;
+
 Laya.interface('laya.runtime.IMarket');
 Laya.interface('laya.filters.IFilter');
 Laya.interface('laya.display.ILayout');
@@ -16730,7 +16731,6 @@ var Sprite=(function(_super){
 	]);
 	return Sprite;
 })(Node)
-
 
 /**
 *@private
