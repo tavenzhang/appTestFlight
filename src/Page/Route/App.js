@@ -67,6 +67,7 @@ import GameUIView from "../enter/GameUIView";
 
 import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
 import KeyboardManager from 'react-native-keyboard-manager'
+import {JX_PLAT_INFO} from "../asset";
 @observer
 export default class App extends Component {
     constructor(state) {
@@ -83,14 +84,14 @@ export default class App extends Component {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
         //该方法用于监听app通过univeral link或scheme拉起后获取唤醒参数
-        this.receiveWakeupListener = map => {
-            if (map) {
-                //do your work here
-                Alert.alert('拉起回调',JSON.stringify(map))
-            }
-
-        }
-        OpeninstallModule.addWakeUpListener(this.receiveWakeupListener)
+        // this.receiveWakeupListener = map => {
+        //     if (map) {
+        //         //do your work here
+        //         Alert.alert('拉起回调',JSON.stringify(map))
+        //     }
+        //
+        // }
+        // OpeninstallModule.addWakeUpListener(this.receiveWakeupListener)
 
     }
 
@@ -107,7 +108,7 @@ export default class App extends Component {
         if (!G_IS_IOS) {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
-        OpeninstallModule.removeWakeUpListener(this.receiveWakeupListener)//移除监听
+       // OpeninstallModule.removeWakeUpListener(this.receiveWakeupListener)//移除监听
     }
 
 
@@ -123,7 +124,7 @@ export default class App extends Component {
                             this.navigator=navigatorRef;
                         }}
                     />
-                    {TW_Store.bblStore.isDebugApp ? <ScrollView  style={{ position: "absolute",}}><Text
+                    {TW_Store.bblStore.isDebugApp ? <ScrollView  style={{ position: "absolute", height:JX_PLAT_INFO.SCREEN_H}}><Text
                         style={{
                             color: "yellow",
                             fontWeight:"bold"

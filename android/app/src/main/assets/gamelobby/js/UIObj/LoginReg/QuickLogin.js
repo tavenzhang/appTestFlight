@@ -39,7 +39,7 @@ var QuickLogin = /** @class */ (function (_super) {
         this.initContent();
         this.quick_username = SaveManager.getObj().get(SaveManager.KEY_QK_USERNAME, "");
         this.quick_pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "");
-        Debug.trace("QuickLogin.init username:" + this.quick_username + " pwd:" + this.quick_pwd);
+        // Debug.trace("QuickLogin.init username:"+this.quick_username+" pwd:"+this.quick_pwd);
         if (this.quick_username.length <= 0) {
             this.requestPreQuickLogin();
         }
@@ -110,11 +110,18 @@ var QuickLogin = /** @class */ (function (_super) {
             case "login":
                 try {
                     var tYzm = this.getInputByData("yanzhengma").text;
-                    if (tYzm.length <= 0) {
-                        Toast.showToast("请正确输入验证码");
+                    var verify = Tools.verifyQuickLogin(tYzm);
+                    if (!verify.bRight) {
+                        Toast.showToast(Tools.getStringByKey(verify.msg));
+                        this.yzmObj.refresh();
                         return;
                     }
-                    Debug.trace(this);
+                    // if( tYzm.length <= 0 )
+                    // {
+                    //     Toast.showToast("请正确输入验证码");
+                    //     return;
+                    // }
+                    // Debug.trace(this);
                     // Debug.trace(this.yzmObj);
                     this.requestLogin(this.quick_username, this.quick_pwd, tYzm, this.yzmObj.getRandomRoot());
                 }
@@ -165,7 +172,7 @@ var QuickLogin = /** @class */ (function (_super) {
                 Toast.showToast(obj.message);
             }
             else {
-                Toast.showToast("未知错误，请联系管理员");
+                Toast.showToast(Tools.getStringByKey(ConfObjRead.getConfCommon().unknow_err)); //"未知错误，请联系管理员");
             }
         }
     };
@@ -247,7 +254,7 @@ var QuickLogin = /** @class */ (function (_super) {
                 Toast.showToast(obj.message);
             }
             else {
-                Toast.showToast("未知错误，请联系管理员");
+                Toast.showToast(Tools.getStringByKey(ConfObjRead.getConfCommon().unknow_err)); //"未知错误，请联系管理员");
             }
             this.yzmObj.refresh();
         }

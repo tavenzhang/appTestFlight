@@ -102,7 +102,10 @@ var RegPad = /** @class */ (function (_super) {
             this.inputYanzhengma = Tools.addInput(this.sp_yanzhengma, this.conf.yanzhengma.input);
             this.inputYanzhengma.on(Laya.Event.FOCUS, this, this.onYanzhengmaInputFocus);
             var star = Tools.addLabels(this.sp_yanzhengma, this.conf.yanzhengma.star);
-            this.imgYanzhengma = this.newYanzhengma(this.sp_yanzhengma, this.conf.yanzhengma.image);
+            // this.imgYanzhengma = this.newYanzhengma(this.sp_yanzhengma,this.conf.yanzhengma.image);
+            this.yzmObj = new YZM();
+            this.yzmObj.init(this, this.conf.yanzhengma.image);
+            this.addChild(this.yzmObj);
         }
         if (this.conf.yaoqingma) {
             var sp = new MySprite();
@@ -160,31 +163,6 @@ var RegPad = /** @class */ (function (_super) {
         // var inputText:MyTextInput = e as MyTextInput;
         // inputText.text = "";
     };
-    RegPad.prototype.newYanzhengmaY = function (node, conf) {
-        var img;
-        if (this.imgYanzhengma) {
-            img = this.imgYanzhengma;
-        }
-        else {
-            img = new MySprite();
-            img.on(Laya.Event.CLICK, this, this.onYanzhengmaFocus, [node]);
-            img.pos(conf.pos.x, conf.pos.y);
-            img.size(conf.size.w, conf.size.h);
-            node.addChild(img);
-        }
-        this.yanzhengma_root = Math.random();
-        // img.pos(conf.pos.x,conf.pos.y);
-        // img.size(conf.size.w,conf.size.h);
-        Debug.trace("RegPad.newYanzhengma root:" + this.yanzhengma_root);
-        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.yanzhengma_root;
-        Debug.trace("RegPad.newYanzhengma url:" + url);
-        Laya.loader.load(url, Laya.Handler.create(this, this.onYZMLoaded, [img, url, conf.size.w, conf.size.h]));
-        // img.skin = url;
-        // img.loadImage(url);
-        // img.on(Laya.Event.CLICK,this,this.onYanzhengmaFocus,[node]);
-        // node.addChild(img);
-        return img;
-    };
     RegPad.prototype.onYZMLoaded = function (sp, url, w, h) {
         // Debug.trace("RegPad.onYZMLoaded e:");
         // Debug.trace(e);
@@ -195,70 +173,6 @@ var RegPad = /** @class */ (function (_super) {
         Debug.trace("RegPad.onYZMLoaded t:");
         Debug.trace(t);
         img.graphics.drawTexture(t, 0, 0, w, h);
-    };
-    RegPad.prototype.newYanzhengma = function (node, conf) {
-        switch (Common.pathType) {
-            case Common.PATH_TYPE_XD:
-                return this.newYanzhengma_xiangdui(node, conf);
-            default:
-                return this.newYanzhengma_juedui(node, conf);
-        }
-    };
-    RegPad.prototype.newYanzhengma_xiangdui = function (node, conf) {
-        var img;
-        if (this.imgYanzhengma) {
-            img = this.imgYanzhengma;
-        }
-        else {
-            img = new Laya.Image();
-            img.on(Laya.Event.CLICK, this, this.onYanzhengmaFocus, [node]);
-            img.pos(conf.pos.x, conf.pos.y);
-            img.size(conf.size.w, conf.size.h);
-            node.addChild(img);
-        }
-        this.yanzhengma_root = Math.random();
-        // img.pos(conf.pos.x,conf.pos.y);
-        // img.size(conf.size.w,conf.size.h);
-        Debug.trace("RegPad.newYanzhengma root:" + this.yanzhengma_root);
-        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.yanzhengma_root;
-        Debug.trace("RegPad.newYanzhengma url:" + url);
-        img.skin = url;
-        // img.on(Laya.Event.CLICK,this,this.onYanzhengmaFocus,[node]);
-        // node.addChild(img);
-        return img;
-    };
-    RegPad.prototype.newYanzhengma_juedui = function (node, conf) {
-        var img;
-        if (this.imgYanzhengma) {
-            img = this.imgYanzhengma;
-        }
-        else {
-            img = new Laya.Image();
-            img.on(Laya.Event.CLICK, this, this.onYanzhengmaFocus, [node]);
-            img.pos(conf.pos.x, conf.pos.y);
-            img.size(conf.size.w, conf.size.h);
-            node.addChild(img);
-        }
-        this.yanzhengma_root = Math.random();
-        // img.pos(conf.pos.x,conf.pos.y);
-        // img.size(conf.size.w,conf.size.h);
-        Debug.trace("RegPad.newYanzhengma root:" + this.yanzhengma_root);
-        var url = Tools.getCurHost(Tools.getCurFullPath()); //+"/";
-        var ext = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.yanzhengma_root;
-        if (ext.indexOf("../") == 0) {
-            ext = ext.substr(3, ext.length);
-        }
-        url = url + ext;
-        Debug.trace("RegPad.newYanzhengma url:" + url);
-        img.skin = url;
-        // img.on(Laya.Event.CLICK,this,this.onYanzhengmaFocus,[node]);
-        // node.addChild(img);
-        return img;
-    };
-    RegPad.prototype.onYanzhengmaFocus = function (node) {
-        this.clearYanzhengma(node);
-        // Debug.trace("focus on yanzhengma");
-        this.imgYanzhengma = this.newYanzhengma(node, this.conf.yanzhengma.image);
     };
     RegPad.prototype.initAlphaBg = function () {
         if (this.conf.mask) {
@@ -309,18 +223,10 @@ var RegPad = /** @class */ (function (_super) {
         if (this.inputPhone) {
             phone = this.inputPhone.text;
         }
-        if (name.length <= 0
-            || pwd.length <= 0
-            || pwdconfirm.length <= 0) 
-        // || phone.length <= 0 )
-        {
-            Toast.showToast(this.conf.textNoValue);
-            return;
-        }
-        if (pwd != pwdconfirm) {
-            Toast.showToast(this.conf.textPwdUnsame);
-            this.inputPwd.text = "";
-            this.inputConfirmPwd.text = "";
+        var verify = Tools.verifyReg(name, pwd, pwdconfirm, yanzhengma);
+        if (!verify.bRight) {
+            Toast.showToast(Tools.getStringByKey(verify.msg));
+            this.yzmObj.refresh();
             return;
         }
         LayaMain.getInstance().showCircleLoading(true);
@@ -341,7 +247,7 @@ var RegPad = /** @class */ (function (_super) {
     RegPad.prototype.requestReg = function (name, pwd, yanzheng, yaoqing, phone) {
         var ePwd = window['SecretUtils'].rsaEncodePWD(pwd);
         // Debug.trace("pwd:"+pwd+" ePwd:"+ePwd);
-        var deviceId = "" + this.yanzhengma_root; //MyUid.getUid();
+        var deviceId = "" + this.yzmObj.yanzhengma_root;
         // Debug.trace("deviceId:"+deviceId);
         var sPhone = {};
         if (phone) {
@@ -401,7 +307,7 @@ var RegPad = /** @class */ (function (_super) {
             Common.access_token = jobj.oauthToken.access_token;
             SaveManager.getObj().save(SaveManager.KEY_TOKEN, Common.access_token);
             LayaMain.getInstance().initLobby();
-            RegPad.obj.onCloseClick(null);
+            this.onCloseClick(null);
         }
         else {
             var err = hr.http.response;
@@ -412,7 +318,7 @@ var RegPad = /** @class */ (function (_super) {
             catch (e) {
                 Debug.trace("error===" + err, hr.http);
             }
-            this.onYanzhengmaFocus(this.sp_yanzhengma);
+            this.yzmObj.refresh();
         }
         if (MyBBLoading.obj) {
             MyBBLoading.obj.show(false);

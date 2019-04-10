@@ -42,6 +42,7 @@ export default class GameGuestView extends Component {
         return (<View style={styles.container} pointerEvents={pointerEvents}>
             <TCImage source={ASSET_Images.gameUI.guestBg}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
+                         isClose={true}
                          onClick={() => TW_Store.gameUIStroe.isShowGuest = false}
                          btnStyle={{position: "absolute", right: 0, top: 0}}/>
             <View style={{position: "absolute",}}>

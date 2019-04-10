@@ -114,7 +114,7 @@ export default class AppInfoStore {
 
     checkAppInfoUpdate=(oldData=null)=>{
         TN_GetAppInfo((data) => {
-            TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==data=",data);
+           // TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==data=",data);
             if(data){
                 let appInfo ={};
                 if(G_IS_IOS){

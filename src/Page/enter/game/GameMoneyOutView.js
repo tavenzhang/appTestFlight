@@ -46,6 +46,7 @@ export default class GameMoneyOutView extends Component {
             <TCImage source={ASSET_Images.gameUI.titleMoneyOut}
                      style={{position: "absolute", right: 208, top: 28}}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
+                         isClose={true}
                          onClick={() => TW_Store.gameUIStroe.isShowWithDraw = false}
                          btnStyle={{position: "absolute", right: 0, top:10}}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnOut}

@@ -22,7 +22,7 @@ var RunMsgItem = /** @class */ (function (_super) {
     RunMsgItem.prototype.init = function (p, conf, text) {
         this.rmp = p;
         this.conf = conf;
-        this.html_msg = new SeanHtmlString(text, "./assets/conf/libhtml.json");
+        this.html_msg = new SeanHtmlString(text, "./assets/conf/scrollmsg/libhtml.json");
         this.html_msg.pos(this.conf.pos.x, this.conf.pos.y);
         this.addChild(this.html_msg);
         // Debug.trace("RunMsgItem.init html_msg:");

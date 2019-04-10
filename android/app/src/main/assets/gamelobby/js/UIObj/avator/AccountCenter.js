@@ -241,7 +241,10 @@ var AccountCenter = /** @class */ (function (_super) {
         ChangePwdNormal.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdIn());
         ChangePwdNormal.getObj().setSucListener(this, this.onChangePwdQkSuc);
         var pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
-        ChangePwdNormal.getObj().setOldPwd(pwd);
+        var bchangepwd = SaveManager.getObj().get(SaveManager.KEY_QK_PWD_CHANGED, false);
+        if (!bchangepwd) {
+            ChangePwdNormal.getObj().setOldPwd(pwd);
+        }
         // ChangePwdQk.showPad(LayaMain.getInstance().getRootNode(),ConfObjRead.getConfChangePwdQk(),this,this.onChangePwdQkCancel);
         // ChangePwdQk.getObj().setSucListener(this,this.onChangePwdQkSuc);
         // var pwd:string = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD,"123456");
@@ -258,6 +261,7 @@ var AccountCenter = /** @class */ (function (_super) {
         // Debug.trace("AttentionDialog.onChangePwdSuc");
         Common.loginInfo.strongPwd = true;
         SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
+        SaveManager.getObj().save(SaveManager.KEY_QK_PWD_CHANGED, true);
         SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
         LayaMain.getInstance().loginOut();
         Toast.showToast(ConfObjRead.getConfChangePwdQk().textChanged);

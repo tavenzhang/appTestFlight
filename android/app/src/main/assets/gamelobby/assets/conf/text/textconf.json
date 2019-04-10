@@ -2,39 +2,99 @@
     "zh_cn":[
         {
             "key":"txt_version",
-            "value":"版本号:3.0405"
+            "value":"版本号:3.0409.1736"
         },
         {
             "key":"username_prompt",
-            "value":"用户名（4～11位字母和数字）"
+            "value":"用户名(4～11位字母和数字)"
         },
         {
             "key":"username_login_prompt",
-            "value":"用户名（4～12位字母和数字）"
+            "value":"用户名(4～12位字母和数字)"
         },
         {
             "key":"pwd_prompt",
-            "value":"密码（6～15位字母或数字）"
+            "value":"6~15位字母或数字"
         },
         {
-            "key":"username_ck_err",
-            "value":"用户名校验失败，请输入4～11位字母和数字，至少含有一个字母"
+            "key":"username_ck_err_reg",
+            "value":"用户名错误(4～11位数字和字母)"
         },
+        {
+            "key":"username_ck_err_login",
+            "value":"用户名错误(4～12位数字和字母)"
+        },
+        {
+            "key":"username_login_regexp",
+            "value":"^[a-zA-Z0-9_]{4,12}$"
+        },
+        {
+            "key":"username_reg_regexp",
+            "value":"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z_]{4,11}$"
+        },
+        {
+            "key":"username_reg_regexp1",
+            "value":"^[a-zA-Z0-9_]{4,11}$"
+        },
+        {
+            "key":"pwd_regexp",
+            "value":"^[^ \n]{6,15}$"
+        },
+        {
+            "key":"yzm_regexp",
+            "value":"^[0-9]{6,6}$"
+        },
+        {
+            "key":"username_plsinput",
+            "value":"请输入用户名"
+        },
+        {
+            "key":"pwd_plsinput",
+            "value":"请输入密码"
+        },
+        {
+            "key":"pwdagain_plsinput",
+            "value":"请再次输入密码"
+        },
+        {
+            "key":"yzm_plsinput",
+            "value":"请输入验证码"
+        },        
         {
             "key":"pwd_ck_err",
-            "value":"密码格式错误，请输入6～15位字母或数字组成的密码"
+            "value":"密码格式错误,请输入6～15位字母或数字组成的密码"
         },
         {
             "key":"cfpwd_ck_err",
-            "value":"重复密码校验失败，请重复输入一样的密码"
+            "value":"重复密码校验失败,请重复输入一样的密码"
+        },
+        {
+            "key":"cfpwd_err",
+            "value":"重复密码校验失败,请重复输入一样的密码"
         },
         {
             "key":"oldpwd_prompt",
             "value":"请输入旧密码"
         },
         {
+            "key":"oldpwd_err",
+            "value":"旧密码校验错误,请重新输入"
+        },
+        {
+            "key":"newpwd_plsinput",
+            "value":"请输入新密码"
+        },
+        {
+            "key":"newpwdagain_plsinput",
+            "value":"请再次输入新密码"
+        },
+        {
             "key":"newpwd_prompt",
-            "value":"新密码（6～15位字母或数字）"
+            "value":"6~15位字母或数字"
+        },
+        {
+            "key":"newpwd_ck_err",
+            "value":"密码格式错误,请输入6～15位字母或数字组成的密码"
         },
         {
             "key":"cfpwd_prompt",
@@ -42,51 +102,49 @@
         },
         {
             "key":"pwd_change_suc",
-            "value":"密码已经修改成功，请重新登录"
+            "value":"密码已经修改成功,请重新登录"
         },
         {
             "key":"yzm_prompt",
             "value":"请输入验证码"
         },
         {
+            "key":"yzm_ck_err",
+            "value":"请正确输入验证码"
+        },
+        {
             "key":"yqm_prompt",
-            "value":"邀请码只能是字母或数字（选填）"
+            "value":"邀请码只能是字母或数字(选填)"
         },
         {
             "key":"mobile_prompt",
             "value":"请输入手机号"
         },
-        {
-            "key":"oldpwd_err",
-            "value":"旧密码校验错误，请重新输入"
-        },
+        
         {
             "key":"newpwd_err",
-            "value":"密码格式错误，请输入6～15位字母或数字组成的密码"
+            "value":"密码格式错误,请输入6～15位字母或数字组成的密码"
         },
-        {
-            "key":"cfpwd_err",
-            "value":"重复密码校验失败，请重复输入一样的密码"
-        },
+        
         {
             "key":"username_login_rule",
-            "value":"4~12位长度校验，用户名兼容老用户注册的账户，不做英文+数字组合校验，不支持输入特殊字符"
+            "value":"4~12位长度校验,用户名兼容老用户注册的账户,不做英文+数字组合校验,不支持输入特殊字符"
         },
         {
             "key":"pwd_login_rule",
-            "value":"6~15位长度校验，不做大小写英文字母+数字组合校验，支持的特殊符号中，不支持空格、换行及中文汉字，前后端需屏蔽"
+            "value":"6~15位长度校验,不做大小写英文字母+数字组合校验,支持的特殊符号中,不支持空格、换行及中文汉字,前后端需屏蔽"
         },
         {
             "key":"username_reg_rule",
-            "value":"4~11位字母和数字组成的账户，至少输入一个字母，不支持输入特殊字符"
+            "value":"4~11位字母和数字组成的账户,至少输入一个字母,不支持输入特殊字符"
         },
         {
             "key":"pwd_reg_rule",
-            "value":"6~15位长度校验，不做大小写英文字母+数字组合校验，支持的特殊符号中，不支持空格、换行及中文汉字，前后端需屏蔽"
+            "value":"6~15位长度校验,不做大小写英文字母+数字组合校验,支持的特殊符号中,不支持空格、换行及中文汉字,前后端需屏蔽"
         },
         {
             "key":"pwd_change_rule",
-            "value":"6~15位长度校验，不做大小写英文字母+数字组合校验，支持的特殊符号中，不支持空格、换行及中文汉字，前后端需屏蔽"
+            "value":"6~15位长度校验,不做大小写英文字母+数字组合校验,支持的特殊符号中,不支持空格、换行及中文汉字,前后端需屏蔽"
         },
         {
             "key":"reginfo_unfull",
@@ -102,11 +160,11 @@
         },
         {
             "key":"txt_nomoney",
-            "value":"帐号余额不足，请前往充值！"
+            "value":"帐号余额不足,请前往充值！"
         },
         {
             "key":"txt_unknowerr",
-            "value":"未知错误，请联系管理员"
+            "value":"未知错误,请联系管理员"
         },
         {
             "key":"txt_yixiazai",

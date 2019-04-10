@@ -80,6 +80,7 @@ export default class GameMoneyInView extends Component {
         return (<View style={styles.container} pointerEvents={pointerEvents}>
             <TCImage source={ASSET_Images.gameUI.moneyInBg}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
+                         isClose={true}
                          onClick={() => {
                              TW_Store.gameUIStroe.isShowAddPayView = false}}
                          btnStyle={{position: "absolute", right: 0, top: 10}}/>

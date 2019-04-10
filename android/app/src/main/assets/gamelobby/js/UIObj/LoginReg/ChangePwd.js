@@ -16,26 +16,6 @@ var ChangePwd = /** @class */ (function (_super) {
     function ChangePwd() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    // public static getObj():ChangePwd
-    // {
-    //     return ChangePwd.obj;
-    // }
-    // public static showPad(
-    //     node:any,conf:any,caller:any=null,callback:any=null):void
-    // {
-    //     if( !ChangePwd.obj )
-    //     {
-    //         var o = new ChangePwd();
-    //         o.init(node,conf);
-    //         o.setCloseListener(caller,callback);
-    //         node.addChild(o);
-    //     }
-    // }
-    // public destroy(b:boolean):void
-    // {
-    //     ChangePwd.obj = null;
-    //     super.destroy(b);
-    // }
     ChangePwd.prototype.setSucListener = function (caller, callback) {
         this.sucCaller = caller;
         this.sucCallback = callback;
@@ -124,6 +104,11 @@ var ChangePwd = /** @class */ (function (_super) {
                 var pwd = this.getInputByData("oldpwd").text;
                 var newpwd = this.getInputByData("newpwd").text;
                 var confirmpwd = this.getInputByData("confirmpwd").text;
+                var verify = Tools.verifyChangePw(pwd, newpwd, confirmpwd);
+                if (!verify.bRight) {
+                    Toast.showToast(Tools.getStringByKey(verify.msg));
+                    return;
+                }
                 this.requestChange(pwd, newpwd, confirmpwd);
                 break;
         }
@@ -138,14 +123,16 @@ var ChangePwd = /** @class */ (function (_super) {
             var pwd = pwds; //this.getInputByData("oldpwd").text;
             var newpwd = newpwds; //this.getInputByData("newpwd").text;
             var confirmpwd = cfpwd; //this.getInputByData("confirmpwd").text;
-            if (pwd.length <= 0 || newpwd.length <= 0 || confirmpwd.length <= 0) {
-                Toast.showToast("请正确输入各项内容");
-                return;
-            }
-            if (newpwd != confirmpwd) {
-                Toast.showToast("两次输入的新密码不相同");
-                return;
-            }
+            // if( pwd.length <= 0 || newpwd.length <= 0 || confirmpwd.length <= 0 )
+            // {
+            //     Toast.showToast("请正确输入各项内容");
+            //     return;
+            // }
+            // if( newpwd != confirmpwd )
+            // {
+            //     Toast.showToast("两次输入的新密码不相同");
+            //     return;
+            // }
             var url = ConfObjRead.getConfUrl().url.apihome +
                 ConfObjRead.getConfUrl().cmd.changepwd +
                 "?access_token=" + Common.access_token;

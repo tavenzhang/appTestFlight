@@ -9966,6 +9966,18 @@ var AsynDialog=(function(_super){
 })(Dialog)
 
 
+//shawn
+//class laya.display.RelativeSprite extends laya.ui.Component
+var RelativeSprite=(function(_super){
+	function RelativeSprite(){
+		RelativeSprite.__super.call(this);;
+	}
+
+	__class(RelativeSprite,'laya.ui.RelativeSprite',_super);
+	return RelativeSprite;
+})(Component)
+
+
 	Laya.__init([View]);
 })(window,document,Laya);
 

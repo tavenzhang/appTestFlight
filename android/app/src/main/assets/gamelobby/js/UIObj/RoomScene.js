@@ -24,7 +24,7 @@ var RoomScene = /** @class */ (function (_super) {
         var msgUrl = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.noticelist +
             "?pageSize=20&start=0&access_token=" + Common.access_token;
-        RunningMsg.getInstance(this, "./assets/conf/runningmsg.json", msgUrl);
+        RunningMsg.getInstance(this, "./assets/conf/scrollmsg/runningmsg.json", msgUrl);
         RoomPanel.getInstance(this, ConfObjRead.getConfRoomPanel(), gamedata, this, this.roompanelOver);
         BottomMenus.getInstance(this, ConfObjRead.getConfBottommenu());
     };
