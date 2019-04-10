@@ -4,6 +4,7 @@ import {
     StyleSheet,
     View,
     WebView,
+    Keyboard, Alert,
 } from 'react-native';
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
@@ -15,24 +16,31 @@ import CodePush from 'react-native-code-push'
 
 import rootStore from "../../Data/store/RootStore";
 import FileTools from "../../Common/Global/FileTools";
-import JXToast from "../../Common/JXHelper/JXToast";
+import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
+import Tools from "../../Common/View/Tools";
+import {JX_PLAT_INFO} from "../asset";
 
-
+const HTTP_GAME_LIST="/gamecenter/player/game/list";
 @withMappedNavigationProps()
 @observer
 export default class XXWebView extends Component {
     constructor(state) {
         super(state)
         this.filtUrlList=["/api/v1/account/webapi/account/users/login","/api/v1/account/webapi/account/users/userWebEncryptRegister"];
+
         this.state={
             isFail:false,
-            updateList:[]
+            updateList:[],
+
         }
         this.loadQueue=[];
         this.isLoading=false;
+        this.isShow=false;
+        this.isShowKeyBoard=false
     }
 
     componentWillMount(){
+        TW_OnValueJSHome = this.onEvaleJS;
         TW_Store.bblStore.isLoading=true;
         TW_Store.bblStore.lastGameUrl="";
         TW_Data_Store.getItem(TW_DATA_KEY.gameList, (err, ret) => {
@@ -44,38 +52,107 @@ export default class XXWebView extends Component {
                }
             }
             this.onFlushGameData()
-          
         });
         TW_Store.bblStore.getAppData();
+       // TW_Log("(_keyboard-TW_DATA_KEY.gameList-FileTools--==G_IS_IOS== middle" + G_IS_IOS,Keyboard.addListener);
+        if(G_IS_IOS){
+            Keyboard.addListener('keyboardWillShow', this._keyboardDidShow);
+            Keyboard.addListener('keyboardWillHide', this._keyboardDidHide);
+        }else{
+           // android 没有keyboardWillShow 与 keyboardWillHide
+            Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+            Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+        }
     }
-    
+    componentWillUnmount(): void {
+        if(G_IS_IOS){
+            Keyboard.removeListener('keyboardWillShow', this._keyboardDidShow);
+            Keyboard.removeListener('keyboardWillHide', this._keyboardDidHide);
+        }else{
+            Keyboard.removeListener('keyboardDidShow', this._keyboardDidShow);
+            Keyboard.removeListener('keyboardDidHide', this._keyboardDidHide);
+        }
+    }
+
+    componentWillUpdate(nextProps, nextState, nextContext: any): void {
+        G_LayoutAnimaton.configureNext(G_LayoutAnimaton.easeNoCreate)
+    }
+
+    _keyboardDidShow=(event)=>{
+       // TW_Log("( _keyboard---_keyboardDidShow" ,event);
+        TW_Log("( _keyboard---_keyboardDidShow--endCoordinates" ,event.endCoordinates);
+        if(!this.isShowKeyBoard){
+            this.isShowKeyBoard =true;
+            if(this.refs.myView){
+                this.refs.myView.setNativeProps({style: {bottom:event.endCoordinates.height-80}});
+            }
+            //this.setState({isShowKeyBoard:true})
+        }
+    }
+
+    _keyboardDidHide=(event)=>{
+       // TW_Log("( _keyboard---_keyboardDidHide" ,event);
+        if(this.isShowKeyBoard){
+            this.isShowKeyBoard=false
+            if(this.refs.myView){
+                this.refs.myView.setNativeProps({style: {bottom:0}});
+            }
+            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.onBlur,{}));
+        }
+
+    }
+
+    onFinishGameList=(gameList)=>{
+
+        TW_Log("( _keyboard---onFinishGameList==" ,gameList);
+        let gameM =  TW_Store.dataStore.appGameListM;
+       // TW_Log("( _keyboard---onFinishGameList==TW_Store.dataStore.appGameListM=" ,gameM);
+        for (let item of gameList){
+            for (let dataKey in TW_Store.dataStore.appGameListM){
+                let temKey =dataKey;
+
+                if(dataKey.indexOf("app_")>-1){
+                     temKey = dataKey.replace("app_","");
+                }
+                if(item.url.indexOf(temKey)>-1){
+                    TW_Store.dataStore.appGameListM[dataKey].alias=TW_Store.dataStore.appGameListM[dataKey].id=item.alias;
+                    TW_Store.dataStore.appGameListM[dataKey].gameName=item.name
+                    TW_Log("( _keyboard---onFinishGameList==dataKey--"+dataKey, TW_Store.dataStore.appGameListM[dataKey]);
+                    break;
+                }
+            }
+        }
+         this.onFlushGameData();
+    }
+
     onFlushGameData=()=>{
-        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionDomain()+"/gameList.json"+"?rom="+Math.random(),null,(rt)=>{
-            TW_Log("TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-",rt);
+        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.loginDomain+"/game.json"+"?rom="+Math.random(),null,(rt)=>{
+
             let newList = rt.content ? rt.content:[];
             let gameM =  TW_Store.dataStore.appGameListM;
             let lastList=[];
             for(let item of newList){
-                item.alias=item.id;
-                if(gameM[`${item.alias}`]){
-                    if(gameM[`${item.alias}`].version!=item.version){
-                        gameM[`${item.alias}`]={...gameM[`${item.alias}`],...item,version:gameM[`${item.alias}`].version,bupdate:true,newVersion:item.version}
-                        lastList.push(gameM[`${item.id}`]);
+                let saveItem = gameM[`${item.name}`];
+                if(saveItem){
+                    if(saveItem.current_version!=item.current_version){
+                        gameM[`${item.name}`]={...saveItem,bupdate:true,newVersion:item.current_version};
+                        lastList.push(gameM[`${item.name}`]);
                     }else{
-                        gameM[`${item.alias}`]={...gameM[`${item.alias}`],bupdate:false,...item};
+                        gameM[`${item.name}`]={...saveItem,bupdate:false};
                     }
 
-                }else if(!gameM[`${item.alias}`]){
-                    gameM[`${item.alias}`]={...item,version:"",bupdate:true,newVersion:item.version};
-                    lastList.push(gameM[`${item.id}`]);
+                }else if(!saveItem){
+                    gameM[`${item.name}`]={...item,current_version:"",bupdate:true,newVersion:item.current_version};
+                    lastList.push(gameM[`${item.name}`]);
                 }
-
             }
-            this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:lastList}));
+            TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-",lastList);
+            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:lastList}));
         })
     }
     
     componentDidMount(): void {
+        // 用于android 不需要点击默认播放声音
         if(this.refs.myWebView.getSettings){
             this.refs.myWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
         }
@@ -83,7 +160,7 @@ export default class XXWebView extends Component {
 
 
     handleUrl = (url, data) => {
-
+      //  TW_Log("(FileTools----.gameList-FileTools--handleUrl--url"+url, data);
         if(data){
             let index= url.indexOf("?");
             url = url.substr(index);
@@ -93,14 +170,19 @@ export default class XXWebView extends Component {
                     this.startLoadGame()
                 }
             }else{
-                url = TW_Store.dataStore.getGameRootDir()+"/"+data.dir+"/"  + url
+                url = TW_Store.dataStore.getGameRootDir()+"/"+data.name+"/"  + url
             }
 
         }else{
             if (url && url.indexOf("../") > -1) {
                 url = url.replace("../", "");
             }
-            url = TW_Store.bblStore.gameDomain  + url
+            if(TW_Store.appStore.clindId=="31"){
+                url = TW_Store.bblStore.loginDomain  + url
+            }else{
+                url = TW_Store.bblStore.gameDomain  + url
+            }
+
         }
        
         return `${url}&app=${G_IS_IOS ? "ios":"android"}`;
@@ -117,44 +199,42 @@ export default class XXWebView extends Component {
             if(this.loadQueue.length>0){
                 downData = this.loadQueue.shift();
             }
-            TW_Log("(TW_DATA_KEY.gameList-FileTools--==this.state.updateList==item" , downData);
+
             if(downData){
                 this.isLoading=true;
                 // JXToast.showShortCenter(`${downData.name} 开始下载！`)
                 let loadUrl = downData.source;
-                if(loadUrl.indexOf("http")>-1){
+                if(loadUrl&&loadUrl.indexOf("http")>-1){
                     loadUrl= loadUrl;
                 }else{
-                    loadUrl = TW_Store.bblStore.gameDomain+"/"+downData.dir+"/"  + downData.dir;
+                    loadUrl = TW_Store.bblStore.gameDomain+"/"+downData.name+"/"  + downData.name;
                 }
+                TW_Log("(FileTools--startLoadGame--==this.state.updateList==item--this.loadQueue.length--loadUrl="+loadUrl , downData);
                 FileTools.downloadFile(loadUrl,TW_Store.bblStore.tempGameZip,downData,this.onLoadZipFish,this.onLoadProgress);
             }
         }
     }
     
     onLoadProgress=(ret)=>{
-        //{
-        //             "gameId":30,        //游戏id-----可选
-        //             "alias":"hhdz",     //游戏别名--------唯一标识，必填
-        //             "percent":0.7       //当前下载进度
+        //{//             "gameId":30,        //游戏id-----可选//             "alias":"hhdz",     //游戏别名--------唯一标识，必填//             "percent":0.7       //当前下载进度
         //         }
-        let data = TW_Store.dataStore.appGameListM[ret.param.id];
+        let data = TW_Store.dataStore.appGameListM[ret.param.name];
         let dataList=[]
         if(data){
             dataList.push({"alias":ret.param.id,percent:ret.percent})
         }
-        TW_Log("FileTools------onLoadProgress===",ret)
+       // TW_Log("FileTools------onLoadProgress===--this.loadQueue.length=="+ this.loadQueue.length,ret)
         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.updateProgress,{data:dataList}));
     }
 
 
     onLoadZipFish=(ret)=> {
         this.isLoading=false;
-        TW_Log("FileTools------ret===",ret)
+        TW_Log("FileTools----onLoadZipFish--ret===this.loadQueue.length=="+this.loadQueue.length,ret)
         if(ret.rs){
             TW_Store.commonBoxStore.isShow=false;
-            let data = TW_Store.dataStore.appGameListM[ret.param.id];
-            data.version=data.newVersion;
+            let data = TW_Store.dataStore.appGameListM[ret.param.name];
+            data.current_version=data.newVersion;
             data.bupdate =false;
             this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.updateProgress,{data:[{"alias":ret.param.id,percent:1}]}));
             this.onSaveGameData();
@@ -168,7 +248,6 @@ export default class XXWebView extends Component {
         TW_Log("FileTools------onSaveGameData===",TW_Store.dataStore.appGameListM);
         TW_Data_Store.setItem(TW_DATA_KEY.gameList,JSON.stringify(TW_Store.dataStore.appGameListM))
     }
-
 
 
     render() {
@@ -197,16 +276,17 @@ export default class XXWebView extends Component {
             taven: "isOk",
             clientId: TW_Store.appStore.clindId,
             force: force ? "1" : "0",
-            urlJSON: TW_Store.bblStore.urlJSON,
+            urlJSON: TW_Store.bblStore.getUriConfig(),
             isAndroidHack:TW_Store.appStore.isInAnroidHack,
 
             loginDomain:TW_Store.bblStore.loginDomain+"/api/v1/account",
             gameDomain:TW_Store.bblStore.gameDomain+"/api/v1/gamecenter",
             affCode:TW_Store.appStore.userAffCode,
+            isDebug:TW_IS_DEBIG,
         })}`;
 
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,]} >
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
@@ -224,27 +304,28 @@ export default class XXWebView extends Component {
                                           onLoadStart={this.onLoadStart}
 
                         /> :
-                        <WebView
-                            originWhitelist={['*']}
-                            ref="myWebView"
-                            automaticallyAdjustContentInsets={true}
-                            style={styles.webView}
-                            source={source}
-                            injectedJavaScript={injectJs}
-                            javaScriptEnabled={true}
-                            domStorageEnabled={true}
-                            decelerationRate="normal"
-                            // startInLoadingState={true}
-                             renderLoading={this.onRenderLoadingView}
-                            onNavigationStateChange={this.onNavigationStateChange}
-                            onLoadStart={this.onLoadStart}
-                            allowFileAccess={true}
-                            onError={this.onError}
-                            onMessage={this.onMessage}
-                            onLoadEnd={this.onLoadEnd}
-                        />
+                        <View style={styles.webView}  ref="myView">
+                            <WebView
+                                originWhitelist={['*']}
+                                ref="myWebView"
+                                automaticallyAdjustContentInsets={true}
+                                style={[styles.webView]}
+                                source={source}
+                                injectedJavaScript={injectJs}
+                                javaScriptEnabled={true}
+                                domStorageEnabled={true}
+                                decelerationRate="normal"
+                                // startInLoadingState={true}
+                                renderLoading={this.onRenderLoadingView}
+                                onNavigationStateChange={this.onNavigationStateChange}
+                                onLoadStart={this.onLoadStart}
+                                allowFileAccess={true}
+                                onError={this.onError}
+                                onMessage={this.onMessage}
+                                onLoadEnd={this.onLoadEnd}
+                            />
+                        </View>
                 }
-
             </View>
         );
     }
@@ -266,16 +347,43 @@ export default class XXWebView extends Component {
         TW_Log("onMessage===========>>" + this.constructor.name + "\n", message);
         let url = "";
         let gameData=null;
+        let  retList= null;
+        let gameM=null;
         if (message && message.action) {
             switch (message.action) {
                 case "Log":
                     // TW_Log("game---ct=="+message.ct,message.data);
                     break;
+                case "game_common":
+                    switch (message.name) {
+                        case "saveToPhohe":
+                            Tools.onSaveScreenPhone();
+                            break;
+                        case "loginout":
+                            TW_Store.userStore.exitAppToLoginPage();
+                            break;
+                    }
+                    break;
                 case "startUpdate":
                     //{action: "startUpdate", gameId: 28, alias: "xywz"}
-                    let gameM =  TW_Store.dataStore.appGameListM;
-                     gameData= gameM[`${message.alias}`];
-                     TW_Log("gameData-----",gameData)
+                    gameM =  TW_Store.dataStore.appGameListM;
+                    retList=[];
+                    for (let dataKey in gameM){
+                        if(gameM[dataKey].id==message.alias){
+                            retList.push(gameM[dataKey]);
+                        }
+                    }
+                    TW_Log("gameData----retList-",retList)
+                    if(retList.length>1){
+                        for(let item of retList){
+                            if(item.name.indexOf("app">-1)){
+                                gameData =  item;
+                                break;
+                            }
+                        }
+                    }else {
+                        gameData = retList[0]
+                    }
                     if(gameData){
                         if(gameData.bupdate) {
                             this.startLoadGame(gameData);
@@ -284,9 +392,17 @@ export default class XXWebView extends Component {
                     break;
                 case "JumpGame":
                     let data =JSON.parse(TW_Base64.decode(this.getJumpData(message.payload)));
-                    let gameData = TW_Store.dataStore.appGameListM[data.alias];
+                    retList=[];
+                    gameM = TW_Store.dataStore.appGameListM;
+                    let gameData =null
+                    for (let gameKey in gameM){
+                        if(gameM[gameKey].id==data.alias){
+                            gameData = gameM[gameKey];
+                        }
+                    }
                     let isNeedLoad=false;
                     let isOrigan =false;
+                    TW_Log("FileTools---------data--isNeedLoad==-url==-----------gameData==",gameData);
                     if(!gameData){
                        // JXToast.showShortCenter(`${data.name} 暂未配置！`)
                         url = this.handleUrl(message.payload,gameData);
@@ -307,7 +423,7 @@ export default class XXWebView extends Component {
                             isGame: true,
                             isOrigan
                         })
-                        this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic),{});
+                       // this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic),{});
                         //this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
@@ -348,14 +464,15 @@ export default class XXWebView extends Component {
                             for (let item of this.filtUrlList){
                                 let myIndex = myUrl.indexOf(item);
                                 TW_Log("myUrl------"+myIndex+"--myUrl=="+myUrl,item);
-                                if(myIndex>1){
+                                if(myIndex>-1){
+                                    //针对几个特殊接口  使用platInfo.loginDomain
                                     myUrl= platInfo.loginDomain+ myUrl.substring(myIndex);
-                                    TW_Log("myUrl------last="+myUrl);
+                                   // TW_Log("myUrl------last="+myUrl);
                                     break;
                                 }
                             }
                             NetUitls.postUrlAndParamsAndCallback(myUrl,JSON.parse(message.data), (ret) => {
-                                TW_Log("---home--http---game--postUrlAndParamsAndCallback>url="+message.url, ret);
+                                //TW_Log("---home--http---game--postUrlAndParamsAndCallback>url="+message.url, ret);
                                 this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
                             },10,false,false,null,true)
                             break
@@ -365,10 +482,16 @@ export default class XXWebView extends Component {
                                 let access_token =TW_GetQueryString("access_token",message.url);
                                 if(access_token&&access_token!=""){
                                     TW_Store.userStore.initLoginToken(access_token);
-                                    this.onFlushGameData();
+                                    //this.onFlushGameData();
                                 }
                                 if(message.url.indexOf("/api/v1/gamecenter/player/user")>-1){
                                     TW_Store.bblStore.avatarData =ret.content
+                                }
+                                if(message.url.indexOf(HTTP_GAME_LIST)>-1){
+                                    if(ret.rs){
+                                        this.onFinishGameList(ret.content.datas)
+                                    }
+
                                 }
                             },10,false,false,true);
                             break;
@@ -383,10 +506,9 @@ export default class XXWebView extends Component {
     }
 
     onLoadStart = (event) => {
-        if(G_IS_IOS){
-            SplashScreen.hide();
-        }
-
+        // if(G_IS_IOS){
+        //     SplashScreen.hide();
+        // }
     };
 
 
@@ -417,7 +539,7 @@ export default class XXWebView extends Component {
     }
 
     onError = (error) => {
-        CodePush.restartApp();
+        TW_Store.dataStore.onRetartApp();
         TW_Log("onError===========event=====rr22", error)
     }
 
@@ -439,9 +561,10 @@ export default class XXWebView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#000000"
+        backgroundColor:"black",
     },
     webView: {
-        backgroundColor: "#000000"
+        flex: 1,
+        backgroundColor:"black"
     }
 });

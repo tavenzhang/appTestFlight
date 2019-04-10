@@ -1,29 +1,6 @@
 var Tools = /** @class */ (function () {
     function Tools() {
     }
-    Tools.prototype.Commonructor = function () {
-    };
-    /*
-    getSecretFromUserNamePassword(username, password) {
-        return username.substring(0, 3) + password.substring(0, 3) +
-            username.substring(username.length - 2, username.length) +
-            password.substring(password.length - 2, password.length) +
-            username.length + password.length+(TCUSER_DEVICE_TOKEN?TCUSER_DEVICE_TOKEN:'')
-    }
-
-    encode(username, password, callBack) {
-            Bcrypt.setRandomFallback(this.callBack)
-        var str = this.getSecretFromUserNamePassword(username, password)
-        JXLog('str == '+str)
-
-        Bcrypt.genSalt(6, function (err, salt) {
-            Bcrypt.hash(str, salt, (err, hash) => {
-                callBack(hash.substring(7))
-            })
-        })
-    }
-    */
-    //检查对象是否存在，不存在就抛出异常
     Tools.isAssets = function (a) {
         if (a) {
             return a;
@@ -37,36 +14,27 @@ var Tools = /** @class */ (function () {
             Debug.trace("-------------shawn-----------end------");
         }
     };
-    //将总数拆解，以参数中的固定数字分成若干份
     Tools.splitBetNum = function (num) {
         var args = [];
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
-        //遍历所有种类
         var i = 0;
         var last = num;
         var usedCoins = []; // {};
         for (i = (args.length - 1); i >= 0; i--) {
-            //剩余所有额度，都用当前筹码时，需要的数量
             var ct = Tools.getCountOf(last, args[i]);
-            //如果当前筹码不是最小的一个，那么就要给后面留一半
             if (i == 0) {
-                //否则，是最小一个筹码的时候，需要把所有都用该筹码来展示
                 var u0 = Math.floor(ct);
                 usedCoins["" + args[i]] = u0;
             }
             else {
-                //只取一半，剩下的一半留给后面的筹码用
-                var use = Math.floor(ct / 2); //该种类筹码使用数量
-                var used = use * args[i]; //使用的筹码占用数额
-                last = last - used; //剩余数额，给下一轮用
+                var use = Math.floor(ct / 2);
+                var used = use * args[i];
+                last = last - used;
                 usedCoins["" + args[i]] = use;
             }
         }
-        // Debug.trace("splitBetNum num:"+num+" as:");
-        // Debug.trace(usedCoins);
-        //根据当前的数量参数，生成数组
         var arr = [];
         // for(var a in usedCoins)
         for (var a = 0; a < usedCoins.length; a++) {
@@ -175,12 +143,18 @@ var Tools = /** @class */ (function () {
         // Debug.trace(o2+"-"+len+" s3:"+s3);
         return s1 + rep + s3;
     };
-    //以自加载Image来构建帮助页面内容
     Tools.newImage = function (conf) {
         var img = new Laya.Image(conf.href);
         img.pos(conf.pos.x, conf.pos.y);
         img.size(conf.size.w, conf.size.h);
         return img;
+    };
+    Tools.addAnimation = function (node, conf) {
+        var anim = new MyBoneAnim();
+        anim.init(conf);
+        node.addChild(anim);
+        anim.playAnim(0, true);
+        return anim;
     };
     Tools.addSprite = function (node, conf) {
         if (!conf) {
@@ -190,9 +164,8 @@ var Tools = /** @class */ (function () {
         node.addChild(sp);
         return sp;
     };
-    //根据配置构造Sprite
     Tools.newSprite = function (conf) {
-        var sp = new Laya.Sprite();
+        var sp = new MySprite();
         if (conf.src) {
             sp.loadImage(conf.src);
             // Tools.addSpriteLoadListener(sp,conf,this,this.spriteLoaded);
@@ -226,12 +199,6 @@ var Tools = /** @class */ (function () {
         sp.scale(sx, sy);
         return true;
     };
-    // public static addSpriteLoadListener(sp:any,conf:any,caller:any,callback:any):void
-    // {
-    // }
-    // public static spriteLoaded():void
-    // {
-    // }
     //检测当前平台
     Tools.platformInfo = function () {
         var u = navigator.userAgent;
@@ -678,56 +645,6 @@ var Tools = /** @class */ (function () {
         }
         return httpName + "://" + hostname + "/" + str;
     };
-    //使用哪个rewrite地址
-    /*
-    public static whichRewrite_():any
-    {
-        var hostname = location.hostname;
-        var port:string = location.port;
-
-        // Debug.trace('hostname:'+hostname+" port:"+port);
-        if( port == "90" )// || port == "8900" )
-        {
-            //dev 环境
-            return Common.confObj.rewrite90;
-        }else if( port == "89" )// || port == "8900" )
-        {
-            //sit load module
-            return Common.confObj.rewrite89;
-        }else if( port == "88" )// || port == "8900" )
-        {
-            //sit lobby v2
-            return Common.confObj.rewrite88;
-        }else if( port == "8900" )
-        {
-            //sit lobby v2 local
-            return Common.confObj.rewrite8900;
-        }
-
-        //sit 环境
-        return Common.confObj.rewrite;
-    }
-    */
-    /*
-    //将任意一个路径转换为可用地址
-    public static filterUrl2rewrite(arr:any,str:string):string
-    {
-        //Common.confObj.rewrite
-        //遍历所有需要rewrite的路径
-        for( var k in arr )
-        {
-            var one = arr[k];
-
-            if( str.indexOf(one.origin) != -1 )
-            {
-                //包含原生地址，需要替换
-                return str.replace(one.origin,one.rewrite);
-            }
-        }
-
-        return str;
-    }
-    */
     Tools.substr_cn_2arr = function (str, len) {
         var s = str;
         var reg = new RegExp(".{" + len + "}", "g");
@@ -754,10 +671,23 @@ var Tools = /** @class */ (function () {
         }
         return str;
     };
+    Tools.setSpriteBlurFilter = function (sp, conf) {
+        var filter = new Laya.BlurFilter();
+        filter.strength = conf.strength;
+        sp.filters = [filter];
+    };
+    Tools.setSpriteGlowFilter = function (sp, conf) {
+        var filter = new Laya.GlowFilter(conf.color, conf.blur, conf.offx, conf.offy);
+        //("#ffff00", 10, 0, 0);
+        sp.filters = [filter];
+    };
     Tools.setSpriteGrayFilter = function (sp) {
         var grayscaleMat = [0.3086, 0.6094, 0.0820, 0, 0, 0.3086, 0.6094, 0.0820, 0, 0, 0.3086, 0.6094, 0.0820, 0, 0, 0, 0, 0, 1, 0];
-        var grayscaleFilter = new Laya.ColorFilter(grayscaleMat);
-        sp.filters = [grayscaleFilter];
+        var filter = new Laya.ColorFilter(grayscaleMat);
+        sp.filters = [filter];
+    };
+    Tools.clearSpriteFilter = function (sp) {
+        sp.filters = null;
     };
     Tools.isNumber = function (v) {
         if (typeof (v) === "number" && v !== Infinity && !isNaN(v)) {
@@ -979,7 +909,270 @@ var Tools = /** @class */ (function () {
         // return ""+m+":"+s+":"+ss;
         return m_s + ":" + s_s + ":" + ss_s;
     };
-    //往node里面添加一个input
+    Tools.isRightUserName = function (content, err_key) {
+        if (err_key === void 0) { err_key = null; }
+        var err = {
+            "bRight": false,
+            "msg": "username_ck_err"
+        };
+        if (err_key != null) {
+            err.msg = err_key;
+        }
+        var reg = new RegExp(Tools.getStringByKey("username_regexp"));
+        if (reg.test(content)) {
+            err.bRight = true;
+        }
+        return err;
+    };
+    Tools.isRightUserNameReg = function (content, err_key) {
+        if (err_key === void 0) { err_key = null; }
+        var err = {
+            "bRight": false,
+            "msg": "username_ck_err"
+        };
+        if (err_key != null) {
+            err.msg = err_key;
+        }
+        var reg = new RegExp(Tools.getStringByKey("username_reg_regexp"));
+        if (reg.test(content)) {
+            err.bRight = true;
+        }
+        return err;
+    };
+    Tools.isRightPwd = function (content, err_key) {
+        if (err_key === void 0) { err_key = null; }
+        var err = {
+            "bRight": false,
+            "msg": "pwd_ck_err"
+        };
+        if (err_key != null) {
+            err.msg = err_key;
+        }
+        var reg = new RegExp(Tools.getStringByKey("pwd_regexp"));
+        if (reg.test(content)) {
+            err.bRight = true;
+        }
+        return err;
+    };
+    Tools.isRightYzm = function (content, err_key) {
+        if (err_key === void 0) { err_key = null; }
+        var err = {
+            "bRight": false,
+            "msg": "yzm_ck_err"
+        };
+        if (err_key != null) {
+            err.msg = err_key;
+        }
+        var reg = new RegExp(Tools.getStringByKey("yzm_regexp"));
+        if (reg.test(content)) {
+            err.bRight = true;
+        }
+        return err;
+    };
+    Tools.isRightInput = function (label, content, err_key) {
+        if (err_key === void 0) { err_key = null; }
+        var err = {
+            "bRight": false,
+            "msg": "txt_unknowerr"
+        };
+        if (err_key != null) {
+            err.msg = err_key;
+        }
+        switch (label) {
+            case Tools.INPUT_LABEL_USERNAME:
+                return Tools.isRightUserName(content, err_key);
+            case Tools.INPUT_LABEL_PWD:
+                return Tools.isRightPwd(content, err_key);
+            case Tools.INPUT_LABEL_YZM:
+                return Tools.isRightYzm(content, err_key);
+            default:
+                return err;
+        }
+    };
+    Tools.verifyQuickLogin = function (yzm) {
+        var err = {
+            "bRight": false,
+            "msg": "txt_unknowerr"
+        };
+        var yzm_verify = Tools.isRightInput(Tools.INPUT_LABEL_YZM, yzm);
+        if (yzm_verify.bRight) {
+            err.bRight = true;
+            return err;
+        }
+        else {
+            err = yzm_verify;
+        }
+        return err;
+        // Toast.showToast(Tools.getStringByKey(yzm_verify.msg));
+    };
+    Tools.regTest = function (content, regexp, msg, nullmsg) {
+        var err = {
+            "bRight": false,
+            "msg": "txt_unknowerr"
+        };
+        if (content.length <= 0) {
+            err.msg = nullmsg;
+            return err;
+        }
+        var reg = new RegExp(Tools.getStringByKey(regexp));
+        if (reg.test(content)) {
+            err.bRight = true;
+        }
+        else {
+            err.msg = msg;
+        }
+        return err;
+    };
+    Tools.verifyLogin = function (name, pwd, yzm) {
+        var err = {
+            "bRight": false,
+            "msg": "txt_unknowerr"
+        };
+        err = Tools.regTest(name, "username_login_regexp", "username_ck_err_login", "username_plsinput");
+        if (!err.bRight) {
+            return err;
+        }
+        err = Tools.regTest(pwd, "pwd_regexp", "pwd_ck_err", "pwd_plsinput");
+        if (!err.bRight) {
+            return err;
+        }
+        err = Tools.regTest(yzm, "yzm_regexp", "yzm_ck_err", "yzm_plsinput");
+        if (!err.bRight) {
+            return err;
+        }
+        return err;
+    };
+    Tools.verifyReg = function (name, pwd, cfpwd, yzm) {
+        var err = {
+            "bRight": false,
+            "msg": "txt_unknowerr"
+        };
+        err = Tools.regTest(name, "username_reg_regexp", "username_ck_err_reg", "username_plsinput");
+        if (!err.bRight) {
+            return err;
+        }
+        err = Tools.regTest(pwd, "pwd_regexp", "pwd_ck_err", "pwd_plsinput");
+        if (!err.bRight) {
+            return err;
+        }
+        if (cfpwd.length <= 0) {
+            err.bRight = false;
+            err.msg = "pwdagain_plsinput";
+            return err;
+        }
+        if (pwd != cfpwd) {
+            err.bRight = false;
+            err.msg = "cfpwd_ck_err";
+            return err;
+        }
+        err = Tools.regTest(yzm, "yzm_regexp", "yzm_ck_err", "yzm_plsinput");
+        if (!err.bRight) {
+            return err;
+        }
+        return err;
+    };
+    Tools.verifyChangePw = function (oldpwd, newpwd, cfpwd) {
+        var err = {
+            "bRight": false,
+            "msg": "txt_unknowerr"
+        };
+        err = Tools.regTest(oldpwd, "pwd_regexp", "oldpwd_err", "oldpwd_prompt");
+        if (!err.bRight) {
+            return err;
+        }
+        err = Tools.regTest(newpwd, "pwd_regexp", "newpwd_ck_err", "newpwd_plsinput");
+        if (!err.bRight) {
+            return err;
+        }
+        if (cfpwd.length <= 0) {
+            err.bRight = false;
+            err.msg = "newpwdagain_plsinput";
+            return err;
+        }
+        if (newpwd != cfpwd) {
+            err.bRight = false;
+            err.msg = "cfpwd_err";
+            return err;
+        }
+        // err = Tools.regTest(cfpwd,"pwd_regexp","cfpwd_ck_err");
+        // if( !err.bRight )
+        // {
+        //     return err;
+        // }
+        return err;
+    };
+    Tools.getStringByKey = function (key) {
+        try {
+            var language = ConfObjRead.getConfCommon().language;
+            var arr = ConfObjRead.getConfText();
+            var curLang = arr[language];
+            var len = curLang.length;
+            // Debug.trace("Tools.getStringByKey key:"+key+" lang:"+language+" len:"+len);
+            // Debug.trace(curLang);
+            for (var i = 0; i < len; i++) {
+                var obj = curLang[i];
+                if (obj.key == key) {
+                    return obj.value;
+                }
+            }
+        }
+        catch (e) {
+        }
+        return key;
+    };
+    Tools.addMyTextInput = function (node, conf) {
+        var ti = new MyTextInput();
+        if (conf.skin) {
+            ti.skin = conf.skin;
+        }
+        if (conf.size) {
+            ti.size(conf.size.w, conf.size.h);
+        }
+        if (conf.sizegrid) {
+            ti.sizeGrid = conf.sizegrid; //"0,40,0,40";  //背景图边距
+        }
+        if (conf.font) {
+            ti.font = conf.font;
+        }
+        else {
+            ti.font = Common.normalFont;
+        }
+        if (conf.fontsize) {
+            ti.fontSize = conf.fontsize;
+        }
+        if (conf.bold) {
+            ti.bold = conf.bold;
+        }
+        if (conf.color) {
+            ti.color = conf.color;
+        }
+        if (conf.align) {
+            ti.align = conf.align;
+        }
+        if (conf.underline) {
+            ti.underline = conf.underline;
+        }
+        if (conf.pos) {
+            ti.pos(conf.pos.x, conf.pos.y);
+        }
+        if (conf.type) {
+            ti.type = conf.type;
+        }
+        if (conf.prompt) {
+            ti.prompt = Tools.getStringByKey(conf.prompt);
+        }
+        if (conf.text) {
+            ti.text = Tools.getStringByKey(conf.text);
+        }
+        if (conf.editable) {
+            ti.editable = conf.editable.value;
+        }
+        if (conf.visible) {
+            ti.visible = conf.visible.value;
+        }
+        node.addChild(ti);
+        return ti;
+    };
     Tools.addInput = function (node, conf) {
         // Debug.trace("addInput conf:");
         // Debug.trace(conf);
@@ -989,7 +1182,13 @@ var Tools = /** @class */ (function () {
             input.type = conf.type;
         }
         if (conf.prompt) {
-            input.prompt = conf.prompt;
+            input.prompt = Tools.getStringByKey(conf.prompt);
+        }
+        if (conf.text) {
+            input.text = Tools.getStringByKey(conf.text);
+        }
+        if (conf.editable) {
+            input.editable = conf.editable.value;
         }
         node.addChild(input);
         return input;
@@ -1003,7 +1202,7 @@ var Tools = /** @class */ (function () {
         if (bold === void 0) { bold = false; }
         if (align === void 0) { align = "left"; }
         if (underline === void 0) { underline = false; }
-        var ti = new Laya.TextInput();
+        var ti = new MyTextInput();
         ti.skin = skin;
         ti.size(w, h); // ti.size(300, 50);
         // 数据格式："上边距,右边距,下边距,左边距,是否重复填充(值为0：不重复填充，1：重复填充)"，以逗号分隔。 例如："4,4,4,4,1"
@@ -1014,7 +1213,6 @@ var Tools = /** @class */ (function () {
         ti.color = color; //"#606368";
         ti.align = align;
         ti.underline = underline;
-        // Laya.stage.addChild(ti);
         return ti;
     };
     //添加一个文本框
@@ -1041,7 +1239,7 @@ var Tools = /** @class */ (function () {
         if (scrollCaller === void 0) { scrollCaller = null; }
         if (scrollCallback === void 0) { scrollCallback = null; }
         var txt = new Laya.Text();
-        txt.text = str;
+        txt.text = Tools.getStringByKey(str);
         // txt.width = width;
         txt.size(width, height);
         txt.fontSize = fontsize;
@@ -1053,8 +1251,6 @@ var Tools = /** @class */ (function () {
         txt.leading = leading;
         txt.align = align;
         txt.valign = valign;
-        // txt.x = x;//Laya.stage.width - txt.textWidth >> 1;
-        // txt.y = y;//Laya.stage.height - txt.textHeight >> 1;
         if (scrollCaller && scrollCallback) {
             txt.on(Laya.Event.MOUSE_DOWN, scrollCaller, scrollCallback);
             txt.on(Laya.Event.MOUSE_UP, scrollCaller, scrollCallback);
@@ -1096,9 +1292,9 @@ var Tools = /** @class */ (function () {
         if (font === void 0) { font = "Microsoft YaHei"; }
         if (wordWrap === void 0) { wordWrap = true; }
         if (underline === void 0) { underline = false; }
-        var lb = new Laya.Label();
+        var lb = new MyLabel();
         lb.font = Common.normalFont; //font;
-        lb.text = text;
+        lb.text = Tools.getStringByKey(text);
         lb.fontSize = fontSize;
         lb.color = fontColor;
         lb.underline = underline;
@@ -1243,7 +1439,7 @@ var Tools = /** @class */ (function () {
     };
     //生成一个Sprite的剪影
     Tools.newSketch = function (sp, x, y, w, h) {
-        var sp_mask = new Laya.Sprite();
+        var sp_mask = new MySprite();
         Tools.drawRect(sp_mask, x, y, w, h, "#000000");
         sp_mask.mask = sp;
         return sp_mask;
@@ -1449,6 +1645,9 @@ var Tools = /** @class */ (function () {
         }
         input.remove();
     };
+    Tools.INPUT_LABEL_USERNAME = "username";
+    Tools.INPUT_LABEL_PWD = "pwd";
+    Tools.INPUT_LABEL_YZM = "yzm";
     //当前要复制到剪贴板的内容
     Tools.copy_content = "";
     return Tools;

@@ -15,7 +15,6 @@ var MyDragPgBarFront = /** @class */ (function (_super) {
     __extends(MyDragPgBarFront, _super);
     function MyDragPgBarFront() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        //当前的值
         _this.value = 0;
         _this.downPos = {
             "x": 0,
@@ -30,32 +29,19 @@ var MyDragPgBarFront = /** @class */ (function (_super) {
         this.initBg();
     };
     MyDragPgBarFront.prototype.initBg = function () {
-        //背景
         this.sp_bg = Tools.addSprite(this, this.conf.bg);
-        // this.sp_bg = new Laya.Sprite();
-        // if( this.conf.bg.size.splice )
-        // {
-        //     Tools.scaleSprite(this.sp_bg,this.conf.bg.src,this.conf.bg.size.splice);
-        // }
-        // this.sp_bg.pos(this.conf.bg.pos.x,this.conf.bg.pos.y);
-        // this.sp_bg.size(this.conf.bg.size.w,this.conf.bg.size.h);
-        // this.addChild(this.sp_bg);
-        //背景需要点击事件
         this.sp_bg.on(Laya.Event.MOUSE_DOWN, this, this.onMouseDownBar);
         this.sp_bg.on(Laya.Event.MOUSE_MOVE, this, this.onMouseDownBar);
         this.sp_bg.on(Laya.Event.MOUSE_OUT, this, this.onMouseDownBar);
         this.sp_bg.on(Laya.Event.MOUSE_UP, this, this.onMouseDownBar);
-        //前景
         this.sp_front = Tools.newSprite(this.conf.front);
         this.addChild(this.sp_front);
         this.sp_front.visible = false;
-        //是否显示进度百分比
         if (this.conf.percent) {
             this.lb_percent = Tools.newLabel(this.conf.percent.font.text, this.conf.percent.size.w, this.conf.percent.size.h, this.conf.percent.font.size, this.conf.percent.font.color, this.conf.percent.font.align, this.conf.percent.font.valign, this.conf.percent.font.name, this.conf.percent.font.wrap, this.conf.percent.font.underline);
             this.lb_percent.pos(this.conf.percent.pos.x, this.conf.percent.pos.y);
             this.addChild(this.lb_percent);
         }
-        //信息
         if (this.conf.info) {
             this.lb_info = Tools.newLabel(this.conf.info.font.text, this.conf.info.size.w, this.conf.info.size.h, this.conf.info.font.size, this.conf.info.font.color, this.conf.info.font.align, this.conf.info.font.valign, this.conf.info.font.name, this.conf.info.font.wrap, this.conf.info.font.underline);
             this.lb_info.pos(this.conf.info.pos.x, this.conf.info.pos.y);
@@ -64,7 +50,6 @@ var MyDragPgBarFront = /** @class */ (function (_super) {
             }
             this.addChild(this.lb_info);
         }
-        //拖动块
         this.sp_drag = Tools.newSprite(this.conf.drag);
         this.addChild(this.sp_drag);
         // this.sp_drag.on(Laya.Event.CLICK, this, this.onBtnClick);
@@ -75,17 +60,13 @@ var MyDragPgBarFront = /** @class */ (function (_super) {
         this.sp_drag.on(Laya.Event.DRAG_MOVE, this, this.onDragMove);
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
-    //鼠标点击在进度条上任意位置
     MyDragPgBarFront.prototype.onMouseDownBar = function (e) {
         // var x = e.stageX;
-        //获取当前鼠标点击在该精灵的哪个位置
         var tx = this.sp_bg.mouseX;
         // Debug.trace("targetX:"+tx);
         // Debug.trace(tx);
         // Debug.trace('stageX:'+x);
-        //总的长度
         var tlen = this.sp_bg.width;
-        //当前所占百分比
         var p = tx / tlen;
         switch (e.type) {
             case Laya.Event.MOUSE_DOWN:
@@ -105,7 +86,6 @@ var MyDragPgBarFront = /** @class */ (function (_super) {
         }
         // this.setValue(p);
     };
-    //鼠标事件
     MyDragPgBarFront.prototype.onMouseEvent = function (e) {
         var x = e.stageX;
         switch (e.type) {
@@ -116,26 +96,11 @@ var MyDragPgBarFront = /** @class */ (function (_super) {
                 var max = this.conf.bg.size.w; // - this.sp_drag.width;
                 this.sp_drag.startDrag(new Laya.Rectangle(0, 0, max, 0), false, 0, 300, null, true, 0.92);
                 break;
-            // case Laya.Event.MOUSE_MOVE:
-            //     if( this.downPos.x > 0 )
-            //     {
-            //         var sumx = x - this.downPos.x;
-            //         this.downPos.x = x;
-            // this.moveDrag(sumx);
-            //     }
-            // break;
-            // case Laya.Event.MOUSE_OUT:
-            // case Laya.Event.MOUSE_UP:
-            // this.downPos.x = 0;
-            // this.bDrag = false;
-            // Debug.trace("mouse up");
-            // break;
         }
     };
-    //移动拖拽块
     MyDragPgBarFront.prototype.moveDrag = function (x) {
         var cx = this.sp_drag.x;
-        var max = this.conf.bg.size.w; // - this.sp_drag.width;
+        var max = this.conf.bg.size.w;
         var nx = cx + x;
         if (nx < this.conf.drag.pos.x) {
             nx = this.conf.drag.pos.x;
@@ -153,66 +118,47 @@ var MyDragPgBarFront = /** @class */ (function (_super) {
             }
         }
         this.sp_drag.x = nx;
-        if (this.sp_front.visible) //前景可见的情况下，刷新绘制区域
-         {
+        if (this.sp_front.visible) {
             var cw = this.sp_drag.x - this.conf.bg.pos.x + this.sp_drag.width / 2;
             var ch = this.sp_front.height;
             var scx = this.conf.front.osize.w / this.conf.front.size.w;
             var nw = cw * scx;
-            //刷新前景的显示区域
-            this.sp_front.scrollRect = new Laya.Rectangle(0, 0, 
-            // cw,ch
-            nw, ch);
-            //发生变化之后，设置值
+            this.sp_front.scrollRect = new Laya.Rectangle(0, 0, nw, ch);
             var movex = this.sp_drag.x - this.conf.drag.pos.x;
             var px = movex / max;
-            // var nw = px * this.conf.bg.size.w;
-            // Debug.trace("cw:"+cw+" movex:"+movex+" px:"+px+" nw:"+nw);
             this.resetValue(px);
         }
     };
-    //拖动过程中
     MyDragPgBarFront.prototype.onDragMove = function (e) {
-        var max = this.conf.bg.size.w; // - this.sp_drag.width;
-        //检查当前坐标，刷新绘制区域
-        if (this.sp_front.visible) //前景可见的情况下，刷新绘制区域
-         {
+        var max = this.conf.bg.size.w;
+        if (this.sp_front.visible) {
             var cw = this.sp_drag.x - this.conf.bg.pos.x + this.sp_drag.width / 2;
             var ch = this.sp_front.height;
             var scx = this.conf.front.osize.w / this.conf.front.size.w;
             var nw = cw * scx;
-            //刷新前景的显示区域
-            this.sp_front.scrollRect = new Laya.Rectangle(0, 0, 
-            // cw,ch
-            nw, ch);
-            //发生变化之后，设置值
+            this.sp_front.scrollRect = new Laya.Rectangle(0, 0, nw, ch);
             var movex = this.sp_drag.x - this.conf.drag.pos.x;
             var px = movex / max;
             this.resetValue(px);
         }
     };
-    //一般信息
     MyDragPgBarFront.prototype.info = function (info) {
         try {
             if (this.lb_info) {
                 this.lb_info.color = this.conf.info.font.color;
-                this.lb_info.text = info;
+                this.lb_info.text = Tools.getStringByKey(info);
             }
         }
         catch (e) {
         }
     };
-    //自主设置
     MyDragPgBarFront.prototype.resetValue = function (v) {
         this.value = v;
-        // var ppv = v.toFixed(2); //保留小数点后2位
-        //加载完毕，回调
+        // var ppv = v.toFixed(2);
         this.callback.apply(this.caller, [this]);
     };
-    //外面 设置进度
     MyDragPgBarFront.prototype.setValue = function (v) {
         this.value = v;
-        //根据值，计算百分比
         // Debug.trace('setValue to :'+v);
         var max = this.conf.bg.size.w; // - this.sp_drag.width;
         // var movex = this.sp_drag.x - this.conf.drag.pos.x;
@@ -226,5 +172,5 @@ var MyDragPgBarFront = /** @class */ (function (_super) {
         this.moveDrag(mx);
     };
     return MyDragPgBarFront;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MyDragPgBarFront.js.map

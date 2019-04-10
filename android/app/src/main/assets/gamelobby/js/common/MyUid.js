@@ -1,7 +1,6 @@
 var MyUid = /** @class */ (function () {
     function MyUid() {
     }
-    //获得当前的所有运行平台
     MyUid.getPlatforms = function () {
         var rs = [];
         if (Laya.Browser.onWP) {
@@ -63,7 +62,6 @@ var MyUid = /** @class */ (function () {
         }
         return rs;
     };
-    //提取其中一个平台出来使用
     MyUid.getPlatform = function () {
         if (Laya.Browser.onPC) {
             return MyUid.KEY_P_PC;
@@ -77,14 +75,14 @@ var MyUid = /** @class */ (function () {
         // return MyUid.KEY_P_UNKNOW;
         return null;
     };
-    //提取当前得uid
+    MyUid.setUid = function (s) {
+        MyUid.uid = s;
+        SaveManager.getObj().save(SaveManager.KEY_UID, MyUid.uid);
+    };
     MyUid.getUid = function () {
-        //从存档里面去读取
         MyUid.uid = SaveManager.getObj().get(SaveManager.KEY_UID, "");
         if (MyUid.uid.length <= 0) {
-            //没有得话，立刻生成一个
             MyUid.createUid();
-            //立刻保存
             SaveManager.getObj().save(SaveManager.KEY_UID, MyUid.uid);
         }
         // Debug.trace("getUid:"+MyUid.uid);
@@ -106,7 +104,6 @@ var MyUid = /** @class */ (function () {
         // Debug.trace('dc:'+dc);
     };
     MyUid.uid = "";
-    //各种平台关键字
     MyUid.KEY_P_MOBILE = "MOBILE";
     MyUid.KEY_P_PC = "PC";
     MyUid.KEY_P_MAC = "MAC";
@@ -125,9 +122,8 @@ var MyUid = /** @class */ (function () {
     MyUid.KEY_P_WX = "WX";
     MyUid.KEY_P_LIMIXIU = "LIMIXIU";
     MyUid.KEY_P_MINIGAME = "MINIGAME";
-    MyUid.KEY_P_WAP = "WAP"; //彩票平台下发
+    MyUid.KEY_P_WAP = "WAP";
     MyUid.KEY_P_UNKNOW = "UNKNOW";
-    //当前获得的所有平台信息
     MyUid.platforms = null;
     return MyUid;
 }());

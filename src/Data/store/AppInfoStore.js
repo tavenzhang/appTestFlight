@@ -72,6 +72,7 @@ export default class AppInfoStore {
 
     callInitFuc=null;
 
+    @observable
     isInitPlat=false;
 
     applicationId = "";
@@ -84,7 +85,9 @@ export default class AppInfoStore {
 
     //tag 用于更新一次
     updateflag = false;
-
+    //app 最新版本
+    @observable
+    latestNativeVersion = "2.0";
 
 
 
@@ -111,7 +114,7 @@ export default class AppInfoStore {
 
     checkAppInfoUpdate=(oldData=null)=>{
         TN_GetAppInfo((data) => {
-            TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==data=",data);
+           // TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==data=",data);
             if(data){
                 let appInfo ={};
                 if(G_IS_IOS){
@@ -135,7 +138,6 @@ export default class AppInfoStore {
     }
 
     initData=(appInfo)=>{
-        TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.initData====");
         appInfo=appInfo ? appInfo: {PLAT_ID: configAppId, isNative: false};
         //所以的clintId 在此重置
         this.clindId = appInfo.PLAT_ID ? appInfo.PLAT_ID : configAppId;
@@ -152,10 +154,10 @@ export default class AppInfoStore {
         /*** 初始化邀请码*/
         this.userAffCode = this.appInfo.Affcode;
         this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
-        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--this.userAffCode--"+this.userAffCode, appInfo);
+       // TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--this.userAffCode--"+this.userAffCode, appInfo);
         if (G_IS_IOS){
             //ios 动态开启友盟等接口 android 是编译时 决定好了。
-            TW_Log('JX===  appInfo '+this.appInfo.APP_DOWNLOAD_VERSION+"--appInfo.JPushKey=="+this.appInfo.JPushKey,this.appInfo)
+           // TW_Log('JX===  appInfo '+this.appInfo.APP_DOWNLOAD_VERSION+"--appInfo.JPushKey=="+this.appInfo.JPushKey,this.appInfo)
             TN_StartJPush(this.appInfo.JPushKey,'1');
             TN_START_Fabric();
             // TN_START_SHARE("111","222");
@@ -184,32 +186,47 @@ export default class AppInfoStore {
 
     checkUpdate(initDomain){
         let checkUpdateDemain =  AppConfig.checkUpdateDomains;
-        for(var i = 0;i<checkUpdateDemain.length;i++){
-            NetUitls.getUrlAndParamsAndCallback(checkUpdateDemain[i]+'/code/user/apps',{
-                appId: this.applicationId,
-                version: this.appVersion,
-                appType: 'ANDROID',
-                owner:MyOwnerPlatName
-            },res=>{
-                if(res.rs){
-                    if(!this.updateflag)
-                    {
-                        //tag 用于更新一次
-                        this.updateflag = true;
-                        let response =res;
-                        let resCheck =response.content.bbq && response.content.bbq.indexOf("SueL") != -1;
-                        TW_Log("appInfo--================/code/user/apps--response--resCheck--"+resCheck+"--MyOwnerPlatName--"+MyOwnerPlatName,response)
-                        if (resCheck) {//允许更新
-                            this.isInAnroidHack =false;
-                            TW_Store.hotFixStore.allowUpdate = true;
-                        }
-                        initDomain();
-                    }
+
+        if(checkUpdateDemain)
+        {
+            this.isReqiestTing=true;
+            setTimeout(()=>{
+                if(this.isReqiestTing){
+                    // 如果 4秒还没有数据返回，强制初始化。 NetUitls 的timeOut 不靠谱
+                    initDomain();
                 }
-            })
+            },4000)
+            for(var i = 0;i<checkUpdateDemain.length;i++){
+                let url=checkUpdateDemain[i]+'/code/user/apps';
+                NetUitls.getUrlAndParamsAndCallback(url,
+                    {
+                        appId: this.applicationId,
+                        version: this.appVersion,
+                        appType: 'ANDROID',
+                        owner:MyOwnerPlatName
+                    },res=>{
+                        this.isReqiestTing=false;
+                        if(res.rs){
+                            if(!this.updateflag)
+                            {
+                                //tag 用于更新一次
+                                this.updateflag = true;
+                                let response =res;
+                                let resCheck =response.content.bbq && response.content.bbq.indexOf("SueL") != -1;
+                                TW_Log("appInfo--================/code/user/apps--response--resCheck--"+resCheck+"--MyOwnerPlatName--"+MyOwnerPlatName,response)
+                                if (resCheck) {//允许更新
+                                    this.isInAnroidHack =false;
+                                    TW_Store.hotFixStore.allowUpdate = true;
+                                }
+                                initDomain();
+                            }
+                        }
+                    },3000)
+            }
+        }else{
+            initDomain();
         }
     }
-
 
 
     regCallInitFuc(callBack){

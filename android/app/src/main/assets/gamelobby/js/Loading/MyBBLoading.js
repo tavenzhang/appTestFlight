@@ -65,21 +65,10 @@ var MyBBLoading = /** @class */ (function (_super) {
         if (this.loadingft) {
             this.loadingft.visible = false;
         }
-        //先加载动画资源
         this.onloadedAnim(null);
         this.startLoading();
     };
     MyBBLoading.prototype.onloadedAnim = function (s) {
-        // this.anim_saizi = new Laya.Animation();
-        // this.anim_saizi.loadAtlas(this.conf.anim.src); // 加载图集动画
-        // this.anim_saizi.interval = this.conf.anim.interval;//30; // 设置播放间隔（单位：毫秒）
-        // this.anim_saizi.index = this.conf.anim.index;//1; // 当前播放索引
-        // this.anim_saizi.play(); // 播放图集动画
-        // this.anim_saizi.pos(
-        //     this.conf.anim.pos.x,
-        //     this.conf.anim.pos.y
-        // );
-        // this.addChild(this.anim_saizi);
         this.sp_bbl = Tools.addSprite(this, this.conf.iconshow);
     };
     return MyBBLoading;

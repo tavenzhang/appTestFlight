@@ -1,27 +1,10 @@
 import { NativeModules } from 'react-native';
 
 //所有的本地 native 接口聚集到此 方便维护
-// global.TN_GetPlatInfo = (callBack: func) => {
-//     if (G_IS_IOS) {
-//         if (NativeModules.JDHelper.getPlatInfo) {
-//             NativeModules.JDHelper.getPlatInfo(callBack);
-//         } else {
-//             callBack();
-//         }
-//     } else {
-//         if (NativeModules.JXHelper.getPlatInfo) {
-//             NativeModules.JXHelper.getPlatInfo(callBack);
-//         } else {
-//             callBack();
-//         }
-//     }
-// };
-
-//所有的本地 native 接口聚集到此 方便维护
 global.TN_GetAppInfo = (callBack: func) => {
-        if (NativeModules.JXHelper.getAppInfo) {
-            NativeModules.JXHelper.getAppInfo(callBack);
-        }
+    if (NativeModules.JXHelper.getAppInfo) {
+        NativeModules.JXHelper.getAppInfo(callBack);
+    }
 };
 
 global.TN_Notification = (title = '', body = {}) => {
@@ -81,19 +64,6 @@ global.TN_START_SHARE = (
     }
 };
 
-global.TN_START_SHARE = (
-    appId = 'wx4705de7e82fa978f',
-    api = '67de54808bba55e934e3126f3e607a42'
-) => {
-    if (G_IS_IOS) {
-        NativeModules.JDHelper.startUMengShare &&
-            NativeModules.JDHelper.startUMengShare(appId, api);
-    } else {
-        NativeModules.JXHelper.startUMengShare &&
-            NativeModules.JXHelper.startUMengShare(appId, api);
-    }
-};
-
 global.TN_IsWechatEnabled = (callBack: func) => {
     NativeModules.UMShareModule.isWechatEnabled(callBack);
 };
@@ -108,7 +78,20 @@ global.TN_WechatShare = (text, image, url, title, isPyq) => {
     platform为平台id，id对照表与授权相同
     callback中code为错误码，当为200时，标记成功。message为错误信息
     */
-    NativeModules.UMShareModule.share(text, image, url, title, isPyq? 3:2, (code, message) => {});
+    if (url) {
+        const prefix = 'http://';
+        if (url.substr(0, prefix.length) !== prefix) {
+            url = prefix + url;
+        }
+    }
+    NativeModules.UMShareModule.share(
+        text,
+        image,
+        url,
+        title,
+        isPyq ? 3 : 2,
+        (code, message) => {}
+    );
 };
 
 global.TN_UMShareModule = NativeModules.UMShareModule;

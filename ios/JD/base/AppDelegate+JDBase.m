@@ -21,6 +21,8 @@
 #import "AFNetworking.h"
 #import "WTSafeGuard.h"
 #import <UMShare/UMShare.h>
+#import "MyViewController.h"
+
 
 // 特殊标识字符
 static NSString * const JDSpecialStr = @"SueL";
@@ -99,7 +101,7 @@ static Boolean  IsFirtReuest = YES;
     self.isLoadForJS = YES;
    // [self rquestHttpData];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    UIViewController *rootViewController = [UIViewController new];
+    MyViewController *rootViewController = [MyViewController new];
     [self loadReactNativeController];
     rootViewController.view = self.rootView;
     rootViewController.view.backgroundColor = [UIColor whiteColor];
@@ -111,7 +113,7 @@ static Boolean  IsFirtReuest = YES;
 - (void)loadReactNativeController{
   NSURL *jsCodeLocation;
 #ifdef DEBUG
-  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [NSURL URLWithString:@"http://192.168.14.113:8081/index.bundle?platform=ios&dev=true"];
 #else
   jsCodeLocation = [CodePush bundleURL];
 #endif

@@ -1,6 +1,6 @@
 import {TabNavigator, StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
-import {UIManager, StatusBar,Text,View,ToastAndroid,BackHandler,ScrollView} from 'react-native';
+import {UIManager, StatusBar,Text,View,ToastAndroid,BackHandler,ScrollView,Alert} from 'react-native';
 import {Provider} from 'mobx-react'
 import NavigationService from './NavigationService'
 import rootStore from "../../Data/store/RootStore";
@@ -13,7 +13,7 @@ const appStores = {
 import CommonBoxLayer from "../enter/CommonBoxLayer";
 import XXWebView from "../web/XXWebView";
 import TCWebView from "../WebView/TCWebView";
-
+import OpeninstallModule from 'openinstall-react-native'
 
 //用于增加通用navigator view 属性 特殊 处理
 function viewRoutHelp(component) {
@@ -64,9 +64,10 @@ import UserPayment from '../../Page/UserCenter/UserPay/TCUserPayNew'
 import WechatPublicPage from '../../Page/UserCenter/UserPay/WxPublic/TCUserPayWxPublic'
 import TCUserWithdrawNew from "../UserCenter/UserWithdraw/TCUserWithdraw";
 import GameUIView from "../enter/GameUIView";
-import KeyboardManager from 'react-native-keyboard-manager'
+
 import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
-import LoadingView from "../enter/LoadingView";
+import KeyboardManager from 'react-native-keyboard-manager'
+import {JX_PLAT_INFO} from "../asset";
 @observer
 export default class App extends Component {
     constructor(state) {
@@ -79,17 +80,35 @@ export default class App extends Component {
             KeyboardManager.setToolbarPreviousNextButtonEnable(true);
         }
         StatusBar.setHidden(true);
-
         if (!G_IS_IOS) {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
+        //该方法用于监听app通过univeral link或scheme拉起后获取唤醒参数
+        // this.receiveWakeupListener = map => {
+        //     if (map) {
+        //         //do your work here
+        //         Alert.alert('拉起回调',JSON.stringify(map))
+        //     }
+        //
+        // }
+        // OpeninstallModule.addWakeUpListener(this.receiveWakeupListener)
 
+    }
+
+    componentDidMount(): void {
+        // OpeninstallModule.getInstall(10, map => {
+        //     if (map) {
+        //         //do your work here
+        //     }
+        //     Alert.alert('安装回调',JSON.stringify(map))
+        // })
     }
 
     componentWillUnmount(): void {
         if (!G_IS_IOS) {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
+       // OpeninstallModule.removeWakeUpListener(this.receiveWakeupListener)//移除监听
     }
 
 
@@ -98,16 +117,16 @@ export default class App extends Component {
         return (
             <Provider  {...rootStore} >
                 <View style={{flex: 1, backgroundColor:"black"}}>
+                    {this.addStatusBar()}
                     <MainStackNavigator
                         ref={navigatorRef => {
                             NavigationService.setTopLevelNavigator(navigatorRef)
                             this.navigator=navigatorRef;
                         }}
                     />
-                    {TW_Store.bblStore.isDebugApp ? <ScrollView  style={{ position: "absolute",}}><Text
+                    {TW_Store.bblStore.isDebugApp ? <ScrollView  style={{ position: "absolute", height:JX_PLAT_INFO.SCREEN_H}}><Text
                         style={{
                             color: "yellow",
-
                             fontWeight:"bold"
                         }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
                     `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
@@ -124,9 +143,9 @@ export default class App extends Component {
        // return false;
         const routers = this.navigator.state.routes;
         if (routers&&routers.length > 1) {
-            if(TW_OnBackHomeJs){
-                TW_OnBackHomeJs();
-            }
+            // if(TW_OnValueJSHome){
+            //     TW_OnValueJSHome();
+            // }
             TW_NavHelp.goBack()
             return true;
         }
@@ -138,16 +157,17 @@ export default class App extends Component {
         ToastAndroid.show("再按一次退出 ",ToastAndroid.SHORT);
         return true;
     }
-    // addStatusBar() {
-    //    // if (!G_IS_IOS) {
-    //         return (
-    //             <StatusBar
-    //                 hidden={false}
-    //                 animated={true}
-    //                 translucent={true}
-    //                 backgroundColor={'transparent'}
-    //                 barStyle="light-content"/>
-    //         )
-    //    // }
-    // }
+
+    addStatusBar() {
+        if (!G_IS_IOS) {
+            return (
+                <StatusBar
+                    hidden={true}
+                    animated={true}
+                    translucent={true}
+                    backgroundColor={'transparent'}
+                    barStyle="light-content"/>
+            )
+        }
+    }
 }

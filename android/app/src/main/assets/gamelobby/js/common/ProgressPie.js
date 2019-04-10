@@ -22,13 +22,13 @@ var ProgressPie = /** @class */ (function (_super) {
         return _this;
     }
     ProgressPie.prototype.init = function () {
-        this.bg0 = new Laya.Sprite();
+        this.bg0 = new MySprite();
         this.bg0.loadImage("./assets/ui/img_game_progress_02.png");
         this.addChild(this.bg0);
-        this.sp_mask = new Laya.Sprite();
+        this.sp_mask = new MySprite();
         this.drawPie(this.startAngle, this.endAngle, 102, 102, 102);
         // this.addChild(this.sp_mask);
-        this.bgProgress = new Laya.Sprite();
+        this.bgProgress = new MySprite();
         this.bgProgress.loadImage("./assets/ui/img_game_progress_01.png");
         this.bgProgress.pivot(102, 102);
         this.bgProgress.pos(102, 102);
@@ -72,5 +72,5 @@ var ProgressPie = /** @class */ (function (_super) {
         }
     };
     return ProgressPie;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=ProgressPie.js.map

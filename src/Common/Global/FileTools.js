@@ -31,7 +31,7 @@ export default class FileTools {
                 //let pro = res.bytesWritten / res.contentLength;
                 //  TW_Store.commonBoxStore.curPecent=res.bytesWritten;
                 //  TW_Store.commonBoxStore.totalPecent=res.contentLength;
-                TW_Log("FileTools---progress==",res);
+                //TW_Log("FileTools---progress==",res);
                 if(onProgress){
                      onProgress({percent:(res.bytesWritten/res.contentLength).toFixed(2),param});
                 }
@@ -73,13 +73,13 @@ export default class FileTools {
         unzip(srcZip,  destDir)
             .then((path) => {
                 if(onSucFuc){
-                    Toast.showShortCenter(param.name+" 准备完成");
+                    Toast.showShortCenter(param.gameName+" 准备完成");
                     onSucFuc({rs:true,param})
                 }
                 TW_Log(`FileTools-- unzip completed at------ ${path}`);
             })
             .catch((error) => {
-                 Toast.showShortCenter(param.name+" 解压失败");
+                 Toast.showShortCenter(param.gameName+" 解压失败");
                 if(onSucFuc){
                     onSucFuc({rs:false,param})
                 }

@@ -23,7 +23,7 @@ var Debug = /** @class */ (function () {
         if (Debug.bDebugPlatform == "web") {
             Debug.traceWeb(ct);
         }
-        else {
+        if (AppData.IS_NATIVE_APP) {
             PostMHelp.Log({ ct: ct, data: data });
         }
     };
@@ -60,7 +60,6 @@ var Debug = /** @class */ (function () {
         console.log(ct);
         PostMHelp.Log({ ct: ct, data: data });
     };
-    //是否在debug模式
     Debug.bDebug = window["bDebug"];
     Debug.bDebugPlatform = window["bDebugPlatform"];
     return Debug;

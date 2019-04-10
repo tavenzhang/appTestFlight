@@ -1,0 +1,37 @@
+{
+    "pos":{
+        "x":290,
+        "y":112
+    },
+    "size":{
+        "w":1015,
+        "h":600
+    },
+    "drag":{
+        "guanxing":0,
+        "xiangpiDis":0,
+        "xiangpiTime":300
+    },
+    "sprites":[
+        {
+            "src":"./assets/ui/agent/img_daili_shuoming01.png",
+            "pos":{ "x":0, "y":0 },
+            "size":{"w":1015,"h":356}
+        },
+        {
+            "src":"./assets/ui/agent/img_daili_shuoming02.png",
+            "pos":{ "x":0, "y":356 },
+            "size":{"w":1015,"h":106}
+        },
+        {
+            "type":"list",
+            "pos":{"x":0,"h":462}
+        },
+        {
+            "type":"listbottom",
+            "src":"./assets/ui/agent/img_daili_shuoming03.png",
+            "pos":{ "x":0, "y":462 },
+            "size":{"w":1015,"h":1108}
+        }
+    ]
+}

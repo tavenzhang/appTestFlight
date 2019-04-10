@@ -37,9 +37,11 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '超会盈游戏';
+export const MyAppName = '超会赢棋牌';
+export const MyOwnerPlatName= '超会赢棋牌';
 
 export const versionHotFix = 'chy_3_25';
+
 
 export const safeguardDomain = [
     'https://cea4eca650d71bd9d552b4cf38e05702.oss-cn-shenzhen.aliyuncs.com',

@@ -1,0 +1,27 @@
+{
+    "list":{
+        "pos":{
+            "x":25,
+            "y":174
+        },
+        "size":{
+            "w":1015,
+            "h":480
+        },
+        "frameX":{
+            "color":"#ff0000",
+            "alpha":0.5
+        },
+        "item":{
+            "h":50,
+            "gh":10,
+            "bg":{
+                "color":"#ff0000",
+                "alpha":0.1
+            }
+        },
+        "guanxing":true,
+        "xiangpiDis":0,
+        "xiangpiTime":300
+    }
+}
