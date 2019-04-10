@@ -135,6 +135,7 @@ export default class GamePayStepOne extends Component {
 
     onInputChage=(money)=>{
         this.setState({money: money})
+        TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click)
         payHelper.money = money;
         this.userPayStore.inputMoney = money;
     }

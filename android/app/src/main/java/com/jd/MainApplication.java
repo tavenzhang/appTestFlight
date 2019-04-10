@@ -1,6 +1,7 @@
 package com.jd;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -9,12 +10,14 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.RNFetchBlob.RNFetchBlobPackage;
+import com.dylanvann.fastimage.FastImageViewPackage;
 import com.jd.invokenative.DplusReactPackage;
 import com.jd.invokenative.RNUMConfigure;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.crashlytics.android.Crashlytics;
-import com.dylanvann.fastimage.FastImageViewPackage;
+
 import com.facebook.react.ReactApplication;
+import com.openinstall.openinstallLibrary.OpeninstallReactPackage;
 import com.corbt.keepawake.KCKeepAwakePackage;
 import com.beefe.picker.PickerViewPackage;
 import com.github.yamill.orientation.OrientationPackage;
@@ -85,7 +88,8 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new KCKeepAwakePackage(),
+                    new OpeninstallReactPackage(),
+                    new KCKeepAwakePackage(),
                     new PickerViewPackage(),
                     new OrientationPackage(),
                     new RNZipArchivePackage(),
@@ -166,9 +170,6 @@ public class MainApplication extends Application implements ReactApplication {
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
         JPushInterface.init(this);
         // 友盟配置
-        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
-        UMConfigure.setLogEnabled(BuildConfig.DEBUG);
-        UMConfigure.setEncryptEnabled(true);
         initUmeng();
     }
 
@@ -188,8 +189,11 @@ public class MainApplication extends Application implements ReactApplication {
         String wechatKey = BuildConfig.WECHAT_KEY;
         String wechatSecretKey = BuildConfig.WECHAT_SECRET_KEY;
 
-//        UMConfigure.setLogEnabled(BuildConfig.DEBUG);
 //        RNUMConfigure.init(this, umengKey, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
+        UMConfigure.setLogEnabled(BuildConfig.DEBUG);
+        UMConfigure.setEncryptEnabled(true);
+
         PlatformConfig.setWeixin(wechatKey, wechatSecretKey);
 //        豆瓣RENREN平台目前只能在服务器端配置
 //        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");

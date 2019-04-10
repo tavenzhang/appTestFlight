@@ -92,6 +92,7 @@ export default class GameUserInfoView extends Component {
             <TCImage source={ASSET_Images.gameUI.persionText}
                      style={{position: "absolute", right: 205, top: 20}}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
+                         isClose={true}
                          onClick={() => TW_Store.gameUIStroe.isShowUserInfo = false}
                          btnStyle={{position: "absolute", right: 0, top: 10}}/>
 
@@ -100,10 +101,10 @@ export default class GameUserInfoView extends Component {
             </View>:<TCButtonImg imgSource={ASSET_Images.gameUI.btnOk}
                                         btnStyle={{position: "absolute", right: 200, top: 260}} onClick={this.onAddBank}/>}
 
-            <TCButtonImg onClick={() => {
+            { isHaveCard ? null:<TCButtonImg onClick={() => {
                 this.setState({isPwdOpen: !this.state.isPwdOpen});
             }} imgSource={this.state.isPwdOpen ? ASSET_Images.gameUI.pwdOpen : ASSET_Images.gameUI.pwdClose}
-                         btnStyle={{position: "absolute", right: 50, top: 235}}/>
+                         btnStyle={{position: "absolute", right: 50, top: 235}}/>}
             <View style={{position: "absolute", left: 120, top: 153}} pointerEvents={isHaveCard ? "none" : "auto"}>
                 <TCTextInput viewStyle={{}} value={this.state.inputRealName} onChangeText={(text) => {
                     this.setState({inputRealName: text})

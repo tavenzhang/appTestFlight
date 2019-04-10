@@ -40,6 +40,8 @@ export default class DataStore {
 
     @observable
     appData={};
+    //下载jobId
+    currentDownId=1;
 
 
     @action
@@ -137,7 +139,17 @@ export default class DataStore {
 
     }
 
+    clearCurrentDownJob=()=>{
+         RNFS.stopDownload(this.currentDownId);
+        TW_Store.commonBoxStore.isShow=false;
+    }
+
+    onRetartApp =()=>{
+        CodePush.restartApp();
+    }
+
     downloadFile=(formUrl,downloadDest)=> {
+        this.clearCurrentDownJob();
         this.downloadDest= downloadDest;
         formUrl=formUrl+"?rodom="+Math.random();
         TW_Log("versionBBL---downloadFile=="+formUrl);
@@ -166,7 +178,10 @@ export default class DataStore {
         try {
             const ret = RNFS.downloadFile(options);
             this.log+="==>downloadFile-="+options;
+            this.currentDownId = ret ? ret.jobId:0;
+            TW_Log("downloadFile---------start- this.currentDownId-"+ this.currentDownId,ret);
             ret.promise.then(res => {
+                TW_Log("downloadFile---------start-lastest---",ret);
                 TW_Log('versionBBL---downloadFile---sucess file://' + downloadDest,res);
                // this.log+="==>downloadFile--promise="+JSON.stringify(res)+"---state--"+res.statusCode;
                 if(`${res.statusCode}`!="404"){
@@ -203,7 +218,10 @@ export default class DataStore {
                 this.log+="==>onSaveVersionM--=start";
                 this.onSaveVersionM(this.content,false,()=>{
                     this.log+="==>onSaveVersionM--=end";
-                    CodePush.restartApp();
+                    if(G_IS_IOS){
+                        this.onRetartApp();
+                    }
+                    TW_Store.commonBoxStore.isShow=false;
                 });
 
             })

@@ -72,6 +72,11 @@ var PostMHelp = /** @class */ (function () {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "game_share" }, data)), "*");
     };
+    //添加通用action 处理 免得越来越多
+    PostMHelp.game_common = function (data) {
+        if (data === void 0) { data = {}; }
+        window.top.postMessage(JSON.stringify(__assign({ action: "game_common" }, data)), "*");
+    };
     return PostMHelp;
 }());
 //# sourceMappingURL=PostMHelp.js.map

@@ -1,0 +1,168 @@
+{
+    "pos":{ "x":0, "y":0 },
+    "size":{
+        "desc":"",
+        "w":1334,
+        "h":750
+    },
+    "bg":{
+        "src":"./assets/ui/dialog/img_touxiang_dadi.png",
+        "pos":{ "x":139.5, "y":53 }
+    },
+    "mask":{
+        "desc":"",
+        "alpha":0.6
+    },
+    "title":{
+        "lb":{
+            "src":"./assets/ui/rule/title.png",
+            "pos":{ "x":580, "y":76 }
+        }
+    },
+    "tablehead":{
+        "desc":"",
+        "bg":{
+            "src":"./assets/ui/rule/bgTitle.png",
+            "pos":{ "x":180, "y":140 }
+        },
+        "headlines":{
+            "desc":"",
+            "src":"./assets/ui/rule/vlineTitle.png",
+            "ws":[
+                240,244,242
+            ],
+            "wy":140,
+            "labels":[
+                {
+                    "switch":{
+                        "desc":"",
+                        "pos":{ "x":180, "y":140 },
+                        "src":[
+                            "./assets/ui/rule/btn_paixing_00.png",
+                            "./assets/ui/rule/btn_paixing_01.png"
+                        ],
+                        "sfx":"assets/raw/click.mp3",
+                        "size":{"w":240,"h":55}
+                    }
+                },
+                {
+                    "switch":{
+                        "desc":"",
+                        "pos":{ "x":422, "y":140 },
+                        "src":[
+                            "./assets/ui/rule/btn_wanfa_00.png",
+                            "./assets/ui/rule/btn_wanfa_01.png"
+                        ],
+                        "sfx":"assets/raw/click.mp3"
+                    }
+                },
+                {
+                    "switch":{
+                        "desc":"",
+                        "pos":{ "x":664, "y":140 },
+                        "src":[
+                            "./assets/ui/rule/btn_jiesuan_00.png",
+                            "./assets/ui/rule/btn_jiesuan_01.png"
+                        ],
+                        "sfx":"assets/raw/click.mp3"
+                    }
+                },
+                {
+                    "switch":{
+                        "desc":"",
+                        "pos":{ "x":911, "y":140 },
+                        "src":[
+                            "./assets/ui/rule/btn_guanyu_00.png",
+                            "./assets/ui/rule/btn_guanyu_01.png"
+                        ],
+                        "sfx":"assets/raw/click.mp3"
+                    }
+                }
+            ]
+        },
+        "focus":{
+            "src":"./assets/ui/rule/img_guize_xuanzhong.png",
+            "pos":[
+                { "x":32, "y":96 },
+                { "x":202, "y":96 },
+                { "x":372, "y":96 },
+                { "x":543, "y":96 }
+            ],
+            "size":[
+                { "w":168, "h":50 },
+                { "w":168, "h":50 },
+                { "w":168, "h":50 },
+                { "w":181, "h":50 }
+            ]
+        }
+    },
+    "contentbg":{
+        "src":"./assets/ui/rule/bgContent.png",
+        "pos":{ "x":180, "y":140 }
+    },
+    "content":{
+        "pos":{ "x":200, "y":205 },
+        "rect":{
+            "desc":"",
+            "x":0,
+            "y":0,
+            "w":972,
+            "h":420
+        }
+    },
+    "defaultItemConfs":[
+        {
+            "desc":"",
+            "pos":{ "x":5, "y":5 },
+            "href":[
+                "./assets/ui/rule/ct_paixing.png",
+                "./assets/ui/rule/ct_paixing2.png"
+            ]
+        },
+        {
+            "desc":"",
+            "pos":{ "x":5, "y":5 },
+            "href":[
+                "./assets/ui/rule/ct_wanfa.png"
+            ]
+        },
+        {
+            "desc":"",
+            "pos":{ "x":5, "y":5 },
+            "href":[
+                "./assets/ui/rule/ct_jiesuan.png"
+            ]
+        },
+        {
+            "desc":"",
+            "pos":{ "x":5, "y":-10 },
+            "href":[
+                "./assets/ui/rule/ct_guanyu.png"
+            ]
+        }
+    ],
+    "close":{
+        "desc":"",
+        "pos":{ "x":1167, "y":84 },
+        "src":[
+            "./assets/ui/dialog/btn_touxiang_guangbi.png"
+        ],
+        "size":{ "w":76, "h":77 },
+        "sfx":"assets/raw/close.mp3",
+        "maxScale":{"x":1.05,"y":1.05},
+        "normalScale":{"x":1,"y":1}
+    },
+    "touchout":{
+        "desc":"",
+        "value":false
+    },
+    "slip":{
+        "desc0":"",
+        "slipdis":100,
+        "desc1":"",
+        "slipdistime":1000,
+        "duration":500,
+        "poshideleft":{ "x":-400, "y":0 },
+        "poshideright":{ "x":800, "y":0 }
+    }        
+}

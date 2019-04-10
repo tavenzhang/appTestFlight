@@ -48,35 +48,23 @@ var MyBoneAnim = /** @class */ (function (_super) {
         this.mArmature = this.mFactory.buildArmature();
         this.mArmature.x = this.conf.pos.x;
         this.mArmature.y = this.conf.pos.y;
-        this.mArmature.playbackRate(this.conf.playSpeed); //播放速度 默认 1 
-        // if( this.conf.loop )
-        // {
-        //     this.mArmature.play(0,true);
-        // }else{
-        //     this.mArmature.play(0,false);
-        //     this.mArmature.on(Laya.Event.STOPPED,this,this.animationStop);
-        // }
+        this.mArmature.playbackRate(this.conf.playSpeed);
         this.mArmature.on(Laya.Event.STOPPED, this, this.animationStop);
         this.addChild(this.mArmature);
     };
-    //设置播放速度
     MyBoneAnim.prototype.setPlaySpd = function (spd) {
         this.mArmature.playbackRate(spd);
     };
-    //动画播放完毕
     MyBoneAnim.prototype.animationStop = function () {
-        //播放完毕后干嘛？等服务器发牌
         this.stopAnim();
         if (this.caller && this.callback) {
             this.callback.apply(this.caller, [this.data]);
         }
-        //如果有循环间隔
         if (this.conf.loopdelay) {
             // Debug.trace("animationStop once playAgain");
             Laya.timer.once(this.conf.loopdelay, this, this.playAgain);
         }
     };
-    //时间间隔到了，重新播放一次
     MyBoneAnim.prototype.playAgain = function () {
         // Debug.trace("playAgain");
         this.playAnim(0, true);
@@ -90,7 +78,6 @@ var MyBoneAnim = /** @class */ (function (_super) {
         }
     };
     MyBoneAnim.prototype.playAnim = function (n, b) {
-        //如果是有循环播放间隔的
         if (this.conf.loopdelay) {
             // Debug.trace("playAnim have loopdelay");
             this.mArmature.play(0, false);
@@ -102,5 +89,5 @@ var MyBoneAnim = /** @class */ (function (_super) {
     };
     MyBoneAnim.obj = null;
     return MyBoneAnim;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MyBoneAnim.js.map

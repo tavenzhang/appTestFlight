@@ -1,0 +1,144 @@
+{
+    "pos":{ "x":0, "y":0 },
+    "alphabg": {
+        "color": "#000000",
+        "alpha": 0.3,
+        "size": { "w": 1334, "h": 750 },
+        "pos": { "x": 0, "y": 0 }
+    },
+    "touchout": {
+        "value": false
+    },
+    "bg":{
+        "src":"./assets/ui/accountcenter/changepwd/bg.png",
+        "pos":{ "x":303, "y":111 }
+    },
+    "close": {
+        "pos": { "x": 987.5, "y": 159 },
+        "src": [
+            "./assets/ui/accountcenter/changepwd/btn_close.png"
+        ],
+        "size": { "w": 61, "h": 64 },
+        "sfx": "assets/raw/close.mp3",
+        "maxScale": { "x": 1.05, "y": 1.05 },
+        "normalScale": { "x": 1, "y": 1 }
+    },
+    "sprites":[
+        {
+            "src":"./assets/ui/accountcenter/changepwd/sp_title.png",
+            "pos":{ "x":405, "y":143 }
+        },
+        {
+            "src":"./assets/ui/accountcenter/changepwd/lb_opwd.png",
+            "pos":{ "x":385, "y":267 }
+        },
+        {
+            "src":"./assets/ui/accountcenter/changepwd/lb_inpwd.png",
+            "pos":{ "x":364, "y":343 }
+        },
+        {
+            "src":"./assets/ui/accountcenter/changepwd/lb_cfpwd.png",
+            "pos":{ "x":363, "y":416 }
+        },
+        {
+            "src":"./assets/ui/accountcenter/changepwd/input_bg.png",
+            "pos":{ "x":516, "y":260 }
+        },
+        {
+            "src":"./assets/ui/accountcenter/changepwd/input_bg.png",
+            "pos":{ "x":516, "y":335 }
+        },
+        {
+            "src":"./assets/ui/accountcenter/changepwd/input_bg.png",
+            "pos":{ "x":516, "y":409 }
+        }
+    ],
+    "menus":[
+        {
+            "cmd":"ok",
+            "pos":{ "x":667, "y":532 },
+            "src":[
+                "./assets/ui/accountcenter/changepwd/btn_modify.png"
+            ],
+            "size":{ "w":262, "h":76 },
+            "maxScale":{"x":1.05,"y":1.05},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/click.mp3"
+        }
+    ],
+    "switchmenus":[
+        {
+            "cmd":"newpwd",
+            "pos":{ "x":880, "y":337 },
+            "size":{"w":41,"h":50},
+            "src":[
+                "./assets/ui/login/changepwd/eye_00.png",
+                "./assets/ui/login/changepwd/eye_01.png"
+            ],
+            "sfx":"assets/raw/click.mp3"
+        },
+        {
+            "cmd":"confirmpwd",
+            "pos":{ "x":880, "y":411 },
+            "src":[
+                "./assets/ui/login/changepwd/eye_00.png",
+                "./assets/ui/login/changepwd/eye_01.png"
+            ],
+            "sfx":"assets/raw/click.mp3"
+        }
+    ],
+    "inputs":[
+        {
+            "data":"oldpwd",
+            "skinX":"./assets/ui/login/changepwd/10.png",
+            "pos":{ "x":530, "y":267 },
+            "size":{ "w":381, "h":50 },
+            "sizegrid":"0,0,0,200",
+            "font":"Arial",
+            "fontsize":30,
+            "bold":false,
+            "color":"#aadbf7",
+            "type":"password",
+            "prompt":"oldpwd_prompt",
+            "textX":"http://www.google.com/xxx/yyy/zzz",
+            "editable":{
+                "value":true
+            }
+        },
+        {
+            "data":"newpwd",
+            "skinX":"./assets/ui/login/changepwd/10.png",
+            "pos":{ "x":530, "y":342 },
+            "size":{ "w":381, "h":50 },
+            "sizegrid":"0,0,0,30",
+            "font":"Arial",
+            "fontsize":30,
+            "bold":false,
+            "color":"#aadbf7",
+            "type":"password",
+            "prompt":"newpwd_prompt",
+            "textX":"http://www.google.com/xxx/yyy/zzz",
+            "editable":{
+                "value":true
+            }
+        },
+        {
+            "data":"confirmpwd",
+            "skinX":"./assets/ui/login/changepwd/10.png",
+            "pos":{ "x":530, "y":417 },
+            "size":{ "w":381, "h":50 },
+            "sizegrid":"0,0,0,0",
+            "font":"Arial",
+            "fontsize":30,
+            "bold":false,
+            "color":"#aadbf7",
+            "type":"password",
+            "prompt":"cfpwd_prompt",
+            "textX":"http://www.google.com/xxx/yyy/zzz",
+            "editable":{
+                "value":true
+            }
+        }
+    ],
+    "textChanged":"pwd_change_suc"
+}

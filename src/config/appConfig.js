@@ -27,7 +27,7 @@ export const AppConfig = {
         appDomainBase.base5,
         appDomainBase.base6
     ],
-    checkUpdateDomains:[
+     checkUpdateDomains:[
         "https://www.ba2d16.com",
         "https://www.aa2d16.com",
         "https://www.ca2d16.com"
@@ -35,9 +35,11 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '梦想游戏';
+export const MyAppName = '梦想棋牌';
 
-export const versionHotFix = 'mxqp_3_23';
+export const versionHotFix = 'mxqp_3_25';
+
+export const MyOwnerPlatName= '梦想棋牌';
 
 export const safeguardDomain = [
     "https://37a9aea1be8915f4998443873ec90db0.oss-cn-shenzhen.aliyuncs.com",

@@ -4,7 +4,11 @@ var Common = /** @class */ (function () {
     Common.changePathType = function (n) {
         Common.pathType = n;
     };
-    //是否能进入游戏
+    Common.emptyLoginInfo = function () {
+        return {
+            "strongPwd": true
+        };
+    };
     Common.canGoinGame = function (roomData) {
         var zhunru = roomData.roomConfig.minScore; // * 100000;
         var balance = Common.userInfo.userBalance.balance;
@@ -75,12 +79,9 @@ var Common = /** @class */ (function () {
                 }
             }
             Debug.trace("Common.getCurGameAlias return zjh");
-            return null; //默认为扎金花
+            return null;
         }
         catch (e) {
-            //出错了，没有gameInfo信息。直接进入的游戏房间列表。
-            // Debug.trace("Common.getCurGameAlias e:"+e);
-            // return Common.getAliasFromRoomPanel();
             return null;
         }
     };
@@ -115,16 +116,10 @@ var Common = /** @class */ (function () {
         else {
             Common.normalFont = "xxx";
         }
-        //从配置里面读取
-        //遍历配置，检查哪一项符合当前设备，就用哪一项的字体
-        //for( var k in ConfObjRead.getConfVersion().platform_font)
         var plen = ConfObjRead.getConfVersion().platform_font.length;
         for (var k = 0; k < plen; k++) {
             var pf = ConfObjRead.getConfVersion().platform_font[k];
-            var ps = pf.platform; //数组
-            // var pfont = pf.font;    //字体
-            //如果这个平台数组里，包含了当前设备，那么就用这项配置的字体
-            // for( var m in ps )
+            var ps = pf.platform;
             var pslen = ps.length;
             for (var m = 0; m < pslen; m++) {
                 var pname = ps[m];
@@ -151,6 +146,10 @@ var Common = /** @class */ (function () {
     Common.PATH_TYPE_XD = 0;
     Common.PATH_TYPE_JD = 1;
     Common.pathType = Common.PATH_TYPE_XD;
+    Common.TYPE_LOGIN_UNKNOW = 0;
+    Common.TYPE_LOGIN_QK = 1;
+    Common.TYPE_LOGIN_ACCOUNT = 2;
+    Common.loginType = 0;
     //当前登录用户令牌
     Common.access_token = "";
     //当前用户是否全新登录

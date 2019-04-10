@@ -59,6 +59,11 @@
 			"isAndroidHack":false
 		};
 
+		history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+
 	</script>
 	
 	<script type="text/javascript" src="libthird/vconsole.min.js"></script>
@@ -73,6 +78,8 @@
 		
 		function initVconsole()
 		{
+			bDebug = true;
+			bShowStat=true;
 			window.vConsole = new window.VConsole({
 			defaultPlugins: ['system', 'network', 'element', 'storage'],
 			maxLogNumber: 1000,

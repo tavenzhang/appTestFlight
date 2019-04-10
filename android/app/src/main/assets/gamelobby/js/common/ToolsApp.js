@@ -4,10 +4,10 @@ var ToolsApp = /** @class */ (function () {
     ToolsApp.initAppData = function () {
         var appData = window["appData"];
         if (appData) {
-            window["bDebugPlatform"] = "native";
             AppData.IS_NATIVE_APP = true;
             AppData.NATIVE_DATA = appData;
             AppData.isAndroidHack = appData.isAndroidHack;
+            Debug.bDebug = appData.isDebug;
             if ("" + appData.clientId == "5") {
                 window["initVconsole"]();
             }

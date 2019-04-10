@@ -46,13 +46,13 @@ var LoadingAnim = /** @class */ (function (_super) {
         }
         var endstr = this.str_show_end[this.frameId];
         var str = this.str_show_head + endstr;
-        this.lb_loading.text = str;
+        this.lb_loading.text = Tools.getStringByKey(str);
     };
     LoadingAnim.prototype.setText = function (str) {
         this.str_show_head = str;
         var endstr = this.str_show_end[this.frameId];
         var str = this.str_show_head + endstr;
-        this.lb_loading.text = str;
+        this.lb_loading.text = Tools.getStringByKey(str);
     };
     LoadingAnim.prototype.show = function (b) {
         this.visible = b;
@@ -62,5 +62,5 @@ var LoadingAnim = /** @class */ (function (_super) {
         return this.visible;
     };
     return LoadingAnim;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=LoadingAnim.js.map

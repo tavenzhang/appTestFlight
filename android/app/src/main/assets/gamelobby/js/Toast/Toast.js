@@ -22,14 +22,13 @@ var Toast = /** @class */ (function (_super) {
     Toast.prototype.init = function (conf) {
         this.conf = conf;
         Toast.obj = this;
-        this.bg = new Laya.Sprite();
+        this.bg = new MySprite();
         this.bg.pos(this.conf.bg.pos.x, this.conf.bg.pos.y);
         this.addChild(this.bg);
         Tools.scaleSpriteV(this.bg, this.conf.bg.src, this.conf.bg.size.spliceV);
         if (this.conf.bg.pivot) {
             this.bg.pivot(this.conf.bg.pivot.x, this.conf.bg.pivot.y);
         }
-        //提示文本
         this.label = Tools.newLabel("toast text", this.conf.label.size.w, this.conf.label.size.h, this.conf.label.fontsize, this.conf.label.fontcolor, this.conf.label.align, this.conf.label.valign, this.conf.label.fontname, this.conf.label.wordwrap, this.conf.label.underline);
         this.label.pos(this.conf.label.pos.x, this.conf.label.pos.y);
         this.label.valign = "middle";
@@ -43,7 +42,7 @@ var Toast = /** @class */ (function (_super) {
         if (!Toast.obj) {
             var a = new Toast();
             a.init(ConfObjRead.getConfToast());
-            Laya.stage.addChild(a);
+            LayaMain.getInstance().getRootNode().addChild(a);
             // Toast.obj.zOrder = Common.IDX_TOP_TOAST;
         }
         Toast.obj.show(str);
@@ -53,13 +52,10 @@ var Toast = /** @class */ (function (_super) {
         _super.prototype.destroy.call(this, b);
     };
     Toast.prototype.show = function (str) {
-        this.label.text = str;
+        this.label.text = Tools.getStringByKey(str);
         this.visible = true;
         // this.visible = false;
         // Debug.trace("this.label.align:"+this.label.valign);
-        //添加定时器，以便消失
-        // Laya.timer.once(this.conf.dutimer, this, this.move2close);
-        //移动进来之后再定时关闭
         if (this.conf.bAnimStart) {
             this.posOut();
             this.moveIn();
@@ -80,7 +76,6 @@ var Toast = /** @class */ (function (_super) {
     Toast.prototype.moveInSuc = function () {
         Laya.timer.once(this.conf.dutimer, this, this.move2close);
     };
-    //移动关闭
     Toast.prototype.move2close = function () {
         if (this.conf.bAnimEnd) {
             var tween = Laya.Tween.to(this, {
@@ -92,7 +87,6 @@ var Toast = /** @class */ (function (_super) {
             this.hide();
         }
     };
-    //关闭
     Toast.prototype.hide = function () {
         this.label.text = "";
         this.visible = false;
@@ -100,5 +94,5 @@ var Toast = /** @class */ (function (_super) {
         Toast.obj = null;
     };
     return Toast;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=Toast.js.map

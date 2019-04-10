@@ -25,14 +25,14 @@ var MyDialog = /** @class */ (function (_super) {
         this.closeCallback = closeCallback;
         var w = Common.GM_SCREEN_W;
         var h = Common.GM_SCREEN_H;
-        this.alphabg = new Laya.Sprite();
+        this.alphabg = new MySprite();
         Tools.drawRectWithAlpha(this.alphabg, 0, 0, w, h, "#000000", Common.confObj.mask.alpha);
         this.addChild(this.alphabg);
         this.alphabg.size(w, h);
         this.alphabg.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
-        this.bg = new Laya.Sprite();
+        this.bg = new MySprite();
         this.bg.loadImage(this.conf.bg.src);
         this.bg.pos(this.conf.pos.x, this.conf.pos.y);
         // this.bg.graphics.alpha(1);
@@ -43,11 +43,9 @@ var MyDialog = /** @class */ (function (_super) {
             this.close.pos(this.conf.close.pos.x, this.conf.close.pos.y);
             this.addChild(this.close);
         }
-        //如果有注册点
         if (this.conf.pivot) {
             this.bg.pivot(this.conf.pivot.x, this.conf.pivot.y);
         }
-        //如果有固定尺寸
         if (this.conf.size) {
             this.scx = this.conf.size.w / this.bg.width;
             this.scy = this.conf.size.h / this.bg.height;
@@ -72,5 +70,5 @@ var MyDialog = /** @class */ (function (_super) {
         this.visible = b;
     };
     return MyDialog;
-}(Laya.Sprite));
+}(MySprite));
 //# sourceMappingURL=MyDialog.js.map
