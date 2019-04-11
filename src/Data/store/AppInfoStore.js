@@ -149,7 +149,7 @@ export default class AppInfoStore {
         if(url&&url.length>0){
             if(this.APP_DOWNLOAD_VERSION!=this.latestNativeVersion){
                 Alert.alert(
-                    '检测到app 重大升级',
+                    '检测到版本升级，请重新下载！',
                     '',
                     [
                         {text: '前往下载', onPress: () =>{
