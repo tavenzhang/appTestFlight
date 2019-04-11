@@ -115,7 +115,7 @@ export default class DataStore {
                 }
                 TW_Log("TW_DATA_KEY.versionBBL  this.content" ,  this.content);
                 this.log+="==>TW_Store.dataStore.isAppUnZip="+TW_Store.dataStore.isAppUnZip;
-                if(TW_Store.dataStore.isAppUnZip){
+                if(TW_Store.dataStore.isAppUnZip&&!TW_IS_DEBIG){
                     if(this.homeVersionM.versionNum!=content.versionNum){
                             this.downloadFile(zipSrc,rootStore.bblStore.tempZipDir);
                         }

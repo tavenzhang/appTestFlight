@@ -57,7 +57,6 @@ export const platInfo = {
     },
     platId: configAppId,
     brand: "bbsqp",
-    channel: {}
 }
 
 export const affCodeList = {

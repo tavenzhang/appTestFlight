@@ -1,5 +1,5 @@
 import {observable,action} from 'mobx'
-import {NativeModules, Platform} from "react-native";
+import {NativeModules, Alert,Platform} from "react-native";
 import CodePush from 'react-native-code-push'
 import {
     configAppId,
@@ -12,6 +12,7 @@ import {
 
 import {UpDateHeadAppId} from "../../Common/Network/TCRequestConfig";
 import NetUitls from "../../Common/Network/TCRequestUitls";
+import TCUserOpenPayApp from "../../Page/UserCenter/UserPay/TCUserOpenPayApp";
 
 /**
  * 用于初始化项目信息
@@ -85,9 +86,13 @@ export default class AppInfoStore {
 
     //tag 用于更新一次
     updateflag = false;
+
     //app 最新版本
     @observable
     latestNativeVersion = "2.0";
+
+    //app 当前版本
+    APP_DOWNLOAD_VERSION="1.0";
 
 
 
@@ -113,6 +118,7 @@ export default class AppInfoStore {
     }
 
     checkAppInfoUpdate=(oldData=null)=>{
+        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION--checkAppInfoUpdate", this.APP_DOWNLOAD_VERSION);
         TN_GetAppInfo((data) => {
            // TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==data=",data);
             if(data){
@@ -122,7 +128,7 @@ export default class AppInfoStore {
                 }else{
                     appInfo =data;
                 }
-                TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==appInfo----=",appInfo);
+               // TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==appInfo----=",appInfo);
                 let dataString= JSON.stringify(appInfo)
                 if(oldData){
                     if(oldData!=dataString){
@@ -133,8 +139,36 @@ export default class AppInfoStore {
                     this.initData(appInfo);
                     TW_Data_Store.setItem(TW_DATA_KEY.platData, data);
                 }
+                this.APP_DOWNLOAD_VERSION=this.appInfo.APP_DOWNLOAD_VERSION;
+                this.APP_DOWNLOAD_VERSION = this.APP_DOWNLOAD_VERSION ? this.APP_DOWNLOAD_VERSION:"1.0";
             }
         });
+    }
+
+    onShowDownAlert=(url)=>{
+        if(url&&url.length>0){
+            if(this.APP_DOWNLOAD_VERSION!=this.latestNativeVersion){
+                //清除所有的缓存数据 方便app升级
+                TW_Data_Store.clear();
+                Alert.alert(
+                    '检测到版本升级，请重新下载安装！',
+                    '',
+                    [
+                        {text: '前往下载', onPress: () =>{
+                                TCUserOpenPayApp.linkingWeb(url);
+                                TW_Log("onShowDownAlert-----url=="+url);
+                                setTimeout(()=>{
+                                    this.onShowDownAlert(url)
+                                },1000)
+
+                            }},
+                    ],
+                    {cancelable: false}
+                );
+
+            }
+        }
+
     }
 
     initData=(appInfo)=>{
@@ -163,6 +197,8 @@ export default class AppInfoStore {
             // TN_START_SHARE("111","222");
             TN_StartUMeng(this.appInfo.UmengKey, this.appInfo.Affcode)
         }
+
+        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION", this.APP_DOWNLOAD_VERSION);
     }
 
 
