@@ -12,6 +12,7 @@ import {
 
 import {UpDateHeadAppId} from "../../Common/Network/TCRequestConfig";
 import NetUitls from "../../Common/Network/TCRequestUitls";
+import TCUserOpenPayApp from "../../Page/UserCenter/UserPay/TCUserOpenPayApp";
 
 /**
  * 用于初始化项目信息
@@ -88,7 +89,7 @@ export default class AppInfoStore {
 
     //app 最新版本
     @observable
-    latestNativeVersion = "3.0";
+    latestNativeVersion = "2.0";
 
     //app 当前版本
     APP_DOWNLOAD_VERSION="1.0"
@@ -144,28 +145,24 @@ export default class AppInfoStore {
         });
     }
 
-    onShowDownAlert=()=>{
-        if(this.APP_DOWNLOAD_VERSION!=this.latestNativeVersion){
-            Alert.alert(
-                '检测到app 重大升级',
-                '',
-                [
-                    {text: '前往下载', onPress: () =>{
-                            this.onShowDownAlert()
+    onShowDownAlert=(url)=>{
+        if(url&&url.length>0){
+            if(this.APP_DOWNLOAD_VERSION!=this.latestNativeVersion){
+                Alert.alert(
+                    '检测到app 重大升级',
+                    '',
+                    [
+                        {text: '前往下载', onPress: () =>{
+                                TCUserOpenPayApp.linkingWeb(url);
+                                this.onShowDownAlert(url)
+                            }},
+                    ],
+                    {cancelable: false}
+                );
 
-                        }},
-                ],
-                {cancelable: false}
-            );
-
-            // Alert.alert(
-            //     '检测到app重大升级',
-            //     '检测到app重大升级',
-            //     [
-            //         {text: '前往下载', onPress: () => console.log('Ask me later pressed')},
-            //     ],
-            // );
+            }
         }
+
     }
 
     initData=(appInfo)=>{

@@ -203,10 +203,16 @@ export  default  class BBLStore {
                 this.shareURL.ios=this.shareData.iosShareUrl;
                 this.shareURL.android=this.shareData.androidShareUrl;
                 downUrl = G_IS_IOS ? this.shareData.iosDownloadUrl:this.shareData.androidDownloadUrl;
-               // TW_Store.appStore.onShowDownAlert(downUrl);
+                downUrl = downUrl ? downUrl:"";
+                if(downUrl.indexOf("?")>-1){
+                    downUrl = downUrl+"?random="+Math.random();
+                }else{
+                    downUrl = downUrl+"&random="+Math.random();
+                }
+                TW_Store.appStore.onShowDownAlert(downUrl);
             }
             //let downUrl =  iosDownloadUrl
-           // TW_Log("---getUrlAndParamsAndCallback--getAppData--downUrl=="+downUrl,ret.content);
+            TW_Log("---getUrlAndParamsAndCallback--getAppData--downUrl=="+downUrl,ret.content);
         },10,false,false);
     }
 
