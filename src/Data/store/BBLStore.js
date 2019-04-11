@@ -205,9 +205,9 @@ export  default  class BBLStore {
                 downUrl = G_IS_IOS ? this.shareData.iosDownloadUrl:this.shareData.androidDownloadUrl;
                 downUrl = downUrl ? downUrl:"";
                 if(downUrl.indexOf("?")>-1){
-                    downUrl = downUrl+"?random="+Math.random();
-                }else{
                     downUrl = downUrl+"&random="+Math.random();
+                }else{
+                    downUrl = downUrl+"?random="+Math.random();
                 }
                 TW_Store.appStore.onShowDownAlert(downUrl);
             }
