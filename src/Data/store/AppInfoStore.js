@@ -92,7 +92,7 @@ export default class AppInfoStore {
     latestNativeVersion = "2.0";
 
     //app 当前版本
-    APP_DOWNLOAD_VERSION="1.0"
+    APP_DOWNLOAD_VERSION="1.0";
 
 
 
@@ -149,7 +149,7 @@ export default class AppInfoStore {
         if(url&&url.length>0){
             if(this.APP_DOWNLOAD_VERSION!=this.latestNativeVersion){
                 Alert.alert(
-                    '检测到版本升级，请重新下载！',
+                    '检测到版本升级，请重新下载安装！',
                     '',
                     [
                         {text: '前往下载', onPress: () =>{
