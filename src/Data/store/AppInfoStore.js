@@ -154,7 +154,11 @@ export default class AppInfoStore {
                     [
                         {text: '前往下载', onPress: () =>{
                                 TCUserOpenPayApp.linkingWeb(url);
-                                this.onShowDownAlert(url)
+                                TW_Log("onShowDownAlert-----url=="+url);
+                                setTimeout(()=>{
+                                    this.onShowDownAlert(url)
+                                },1000)
+
                             }},
                     ],
                     {cancelable: false}
