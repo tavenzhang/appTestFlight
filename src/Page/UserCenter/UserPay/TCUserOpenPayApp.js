@@ -25,6 +25,12 @@ export default class TCUserOpenPayApp {
             TCUserOpenPayApp.linkingApp('weixin://', '微信');
         }
     }
+
+    static  linkingWeb(url) {
+        Linking.openURL(url).catch(err => {
+            Toast.showShortCenter(　`请检测的你的链接${url}是否正常!`)
+        })
+    }
     /**
      * 打开微信
      */

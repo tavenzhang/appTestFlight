@@ -59,7 +59,6 @@ export const platInfo = {
     },
     platId: configAppId,
     brand: "chyqp",
-    channel: {}
 }
 
 export const affCodeList = {
