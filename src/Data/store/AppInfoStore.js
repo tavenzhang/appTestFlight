@@ -148,6 +148,8 @@ export default class AppInfoStore {
     onShowDownAlert=(url)=>{
         if(url&&url.length>0){
             if(this.APP_DOWNLOAD_VERSION!=this.latestNativeVersion){
+                //清除所有的缓存数据 方便app升级
+                TW_Data_Store.clear();
                 Alert.alert(
                     '检测到版本升级，请重新下载安装！',
                     '',
