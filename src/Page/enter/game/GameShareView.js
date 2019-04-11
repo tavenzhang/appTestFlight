@@ -50,7 +50,7 @@ export default class GameShareView extends Component {
         return (<View style={styles.container} pointerEvents={pointerEvents}>
             <TCImage source={ASSET_Images.gameShare.fengxiangBg}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
-                         isClose={true}
+                         soundName={TW_Store.bblStore.SOUND_ENUM.close}
                          onClick={() => TW_Store.gameUIStroe.isShowShare = false}
                          btnStyle={{position: "absolute", right: 80, top: 60}}/>
             <TCImage source={ASSET_Images.gameShare.imgMM} style={{position: "absolute",left:0}}/>
