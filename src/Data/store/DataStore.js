@@ -27,7 +27,7 @@ export default class DataStore {
     targetAppDir = G_IS_IOS ? DocumentDirectoryPath + "/gamelobby" : `file:///${DocumentDirectoryPath}/gamelobby`;
 
     @observable
-    homeVersionM={name:"home",versionNum:"1",baseVersion:"1",source:"",isFlush:false};
+    homeVersionM={name:"home",versionNum:"091554802719",baseVersion:"1",source:"",isFlush:false};
 
     @observable
     appGameListM={};
@@ -115,7 +115,7 @@ export default class DataStore {
                 }
                 TW_Log("TW_DATA_KEY.versionBBL  this.content" ,  this.content);
                 this.log+="==>TW_Store.dataStore.isAppUnZip="+TW_Store.dataStore.isAppUnZip;
-                if(TW_Store.dataStore.isAppUnZip){
+                if(TW_Store.dataStore.isAppUnZip&&!TW_IS_DEBIG){
                     if(this.homeVersionM.versionNum!=content.versionNum){
                             this.downloadFile(zipSrc,rootStore.bblStore.tempZipDir);
                         }

@@ -14,7 +14,9 @@ var PostMHelp = /** @class */ (function () {
     }
     PostMHelp.Log = function (data) {
         if (data === void 0) { data = {}; }
-        window.top.postMessage(JSON.stringify(__assign({ action: "Log" }, data)), "*");
+        try {
+            window.top.postMessage(JSON.stringify(__assign({action: "Log"}, data)), "*");
+        }  catch (e) { }
     };
     PostMHelp.tokenChange = function (data) {
         if (data === void 0) { data = {}; }

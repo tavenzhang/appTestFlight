@@ -1,5 +1,5 @@
 import {observable,action} from 'mobx'
-import {NativeModules, Platform} from "react-native";
+import {NativeModules, Alert,Platform} from "react-native";
 import CodePush from 'react-native-code-push'
 import {
     configAppId,
@@ -85,9 +85,13 @@ export default class AppInfoStore {
 
     //tag 用于更新一次
     updateflag = false;
+
     //app 最新版本
     @observable
-    latestNativeVersion = "2.0";
+    latestNativeVersion = "3.0";
+
+    //app 当前版本
+    APP_DOWNLOAD_VERSION="1.0"
 
 
 
@@ -113,6 +117,7 @@ export default class AppInfoStore {
     }
 
     checkAppInfoUpdate=(oldData=null)=>{
+        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION--checkAppInfoUpdate", this.APP_DOWNLOAD_VERSION);
         TN_GetAppInfo((data) => {
            // TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==data=",data);
             if(data){
@@ -122,7 +127,7 @@ export default class AppInfoStore {
                 }else{
                     appInfo =data;
                 }
-                TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==appInfo----=",appInfo);
+               // TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==appInfo----=",appInfo);
                 let dataString= JSON.stringify(appInfo)
                 if(oldData){
                     if(oldData!=dataString){
@@ -133,6 +138,26 @@ export default class AppInfoStore {
                     this.initData(appInfo);
                     TW_Data_Store.setItem(TW_DATA_KEY.platData, data);
                 }
+                this.APP_DOWNLOAD_VERSION=this.appInfo.APP_DOWNLOAD_VERSION;
+                this.APP_DOWNLOAD_VERSION = this.APP_DOWNLOAD_VERSION ? this.APP_DOWNLOAD_VERSION:"1.0";
+                // if(this.APP_DOWNLOAD_VERSION!=this.latestNativeVersion){
+                //     Alert.alert(
+                //         '检测到app 重大升级',
+                //         '',
+                //         [
+                //             {text: '前往下载', onPress: () => console.log('Ask me later pressed')},
+                //         ],
+                //         {cancelable: false}
+                //     );
+                //
+                //     // Alert.alert(
+                //     //     '检测到app重大升级',
+                //     //     '检测到app重大升级',
+                //     //     [
+                //     //         {text: '前往下载', onPress: () => console.log('Ask me later pressed')},
+                //     //     ],
+                //     // );
+                // }
             }
         });
     }
@@ -163,6 +188,8 @@ export default class AppInfoStore {
             // TN_START_SHARE("111","222");
             TN_StartUMeng(this.appInfo.UmengKey, this.appInfo.Affcode)
         }
+
+        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION", this.APP_DOWNLOAD_VERSION);
     }
 
 
