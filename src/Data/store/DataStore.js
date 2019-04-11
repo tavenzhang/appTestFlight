@@ -27,7 +27,7 @@ export default class DataStore {
     targetAppDir = G_IS_IOS ? DocumentDirectoryPath + "/gamelobby" : `file:///${DocumentDirectoryPath}/gamelobby`;
 
     @observable
-    homeVersionM={name:"home",versionNum:"091554802719",baseVersion:"1",source:"",isFlush:false};
+    homeVersionM={name:"home",versionNum:"1",baseVersion:"1",source:"",isFlush:false};
 
     @observable
     appGameListM={};

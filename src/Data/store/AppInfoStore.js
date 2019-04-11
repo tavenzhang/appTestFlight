@@ -140,26 +140,32 @@ export default class AppInfoStore {
                 }
                 this.APP_DOWNLOAD_VERSION=this.appInfo.APP_DOWNLOAD_VERSION;
                 this.APP_DOWNLOAD_VERSION = this.APP_DOWNLOAD_VERSION ? this.APP_DOWNLOAD_VERSION:"1.0";
-                // if(this.APP_DOWNLOAD_VERSION!=this.latestNativeVersion){
-                //     Alert.alert(
-                //         '检测到app 重大升级',
-                //         '',
-                //         [
-                //             {text: '前往下载', onPress: () => console.log('Ask me later pressed')},
-                //         ],
-                //         {cancelable: false}
-                //     );
-                //
-                //     // Alert.alert(
-                //     //     '检测到app重大升级',
-                //     //     '检测到app重大升级',
-                //     //     [
-                //     //         {text: '前往下载', onPress: () => console.log('Ask me later pressed')},
-                //     //     ],
-                //     // );
-                // }
             }
         });
+    }
+
+    onShowDownAlert=()=>{
+        if(this.APP_DOWNLOAD_VERSION!=this.latestNativeVersion){
+            Alert.alert(
+                '检测到app 重大升级',
+                '',
+                [
+                    {text: '前往下载', onPress: () =>{
+                            this.onShowDownAlert()
+
+                        }},
+                ],
+                {cancelable: false}
+            );
+
+            // Alert.alert(
+            //     '检测到app重大升级',
+            //     '检测到app重大升级',
+            //     [
+            //         {text: '前往下载', onPress: () => console.log('Ask me later pressed')},
+            //     ],
+            // );
+        }
     }
 
     initData=(appInfo)=>{

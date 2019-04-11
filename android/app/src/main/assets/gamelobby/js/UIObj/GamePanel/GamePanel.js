@@ -253,15 +253,26 @@ var GamePanel = /** @class */ (function (_super) {
         if (sumx <= 0) {
             if (newx <= minx) {
                 var sumLeft = Math.abs(minx - newx);
-                nx = nx / (sumLeft / this.conf.movecontent.dragendoffset);
+                if (sumLeft != 0) {
+                    nx = nx / (sumLeft / this.conf.movecontent.dragendoffset);
+                }
+                else {
+                    nx = 0;
+                }
             }
         }
         else if (sumx > 0) {
             if (newx >= maxx) {
                 var sumRight = Math.abs(maxx - newx);
-                nx = nx / (sumRight / this.conf.movecontent.dragendoffset);
+                if (sumRight != 0) {
+                    nx = nx / (sumRight / this.conf.movecontent.dragendoffset);
+                }
+                else {
+                    nx = 0;
+                }
             }
         }
+        // Debug.trace("GamePanel.moveGameItems sumx:"+sumx+" nx:"+nx+" newx:"+newx+" minx:"+minx+" maxx:"+maxx);
         this.sp_ct_move.x += nx;
         this.lastScrollSpdX = nx;
         var bHave = this.isHaveGameIcons();

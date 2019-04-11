@@ -50,5 +50,6 @@
         "delayTime":1000
     },
     "language":"zh_cn",
+    "languageY":"en",
     "unknow_err":"txt_unknowerr"
 }

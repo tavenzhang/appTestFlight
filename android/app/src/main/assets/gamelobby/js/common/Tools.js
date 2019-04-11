@@ -1005,11 +1005,15 @@ var Tools = /** @class */ (function () {
         return err;
         // Toast.showToast(Tools.getStringByKey(yzm_verify.msg));
     };
-    Tools.regTest = function (content, regexp, msg) {
+    Tools.regTest = function (content, regexp, msg, nullmsg) {
         var err = {
             "bRight": false,
             "msg": "txt_unknowerr"
         };
+        if (content.length <= 0) {
+            err.msg = nullmsg;
+            return err;
+        }
         var reg = new RegExp(Tools.getStringByKey(regexp));
         if (reg.test(content)) {
             err.bRight = true;
@@ -1024,15 +1028,15 @@ var Tools = /** @class */ (function () {
             "bRight": false,
             "msg": "txt_unknowerr"
         };
-        err = Tools.regTest(name, "username_login_regexp", "username_ck_err_login");
+        err = Tools.regTest(name, "username_login_regexp", "username_ck_err_login", "username_plsinput");
         if (!err.bRight) {
             return err;
         }
-        err = Tools.regTest(pwd, "pwd_regexp", "pwd_ck_err");
+        err = Tools.regTest(pwd, "pwd_regexp", "pwd_ck_err", "pwd_plsinput");
         if (!err.bRight) {
             return err;
         }
-        err = Tools.regTest(yzm, "yzm_regexp", "yzm_ck_err");
+        err = Tools.regTest(yzm, "yzm_regexp", "yzm_ck_err", "yzm_plsinput");
         if (!err.bRight) {
             return err;
         }
@@ -1043,12 +1047,17 @@ var Tools = /** @class */ (function () {
             "bRight": false,
             "msg": "txt_unknowerr"
         };
-        err = Tools.regTest(name, "username_reg_regexp", "username_ck_err_reg");
+        err = Tools.regTest(name, "username_reg_regexp", "username_ck_err_reg", "username_plsinput");
         if (!err.bRight) {
             return err;
         }
-        err = Tools.regTest(pwd, "pwd_regexp", "pwd_ck_err");
+        err = Tools.regTest(pwd, "pwd_regexp", "pwd_ck_err", "pwd_plsinput");
         if (!err.bRight) {
+            return err;
+        }
+        if (cfpwd.length <= 0) {
+            err.bRight = false;
+            err.msg = "pwdagain_plsinput";
             return err;
         }
         if (pwd != cfpwd) {
@@ -1056,7 +1065,7 @@ var Tools = /** @class */ (function () {
             err.msg = "cfpwd_ck_err";
             return err;
         }
-        err = Tools.regTest(yzm, "yzm_regexp", "yzm_ck_err");
+        err = Tools.regTest(yzm, "yzm_regexp", "yzm_ck_err", "yzm_plsinput");
         if (!err.bRight) {
             return err;
         }
@@ -1067,12 +1076,17 @@ var Tools = /** @class */ (function () {
             "bRight": false,
             "msg": "txt_unknowerr"
         };
-        err = Tools.regTest(oldpwd, "pwd_regexp", "oldpwd_err");
+        err = Tools.regTest(oldpwd, "pwd_regexp", "oldpwd_err", "oldpwd_prompt");
         if (!err.bRight) {
             return err;
         }
-        err = Tools.regTest(newpwd, "pwd_regexp", "newpwd_ck_err");
+        err = Tools.regTest(newpwd, "pwd_regexp", "newpwd_ck_err", "newpwd_plsinput");
         if (!err.bRight) {
+            return err;
+        }
+        if (cfpwd.length <= 0) {
+            err.bRight = false;
+            err.msg = "newpwdagain_plsinput";
             return err;
         }
         if (newpwd != cfpwd) {
@@ -1080,10 +1094,11 @@ var Tools = /** @class */ (function () {
             err.msg = "cfpwd_err";
             return err;
         }
-        err = Tools.regTest(cfpwd, "pwd_regexp", "cfpwd_ck_err");
-        if (!err.bRight) {
-            return err;
-        }
+        // err = Tools.regTest(cfpwd,"pwd_regexp","cfpwd_ck_err");
+        // if( !err.bRight )
+        // {
+        //     return err;
+        // }
         return err;
     };
     Tools.getStringByKey = function (key) {

@@ -113,6 +113,7 @@ var QuickLogin = /** @class */ (function (_super) {
                     var verify = Tools.verifyQuickLogin(tYzm);
                     if (!verify.bRight) {
                         Toast.showToast(Tools.getStringByKey(verify.msg));
+                        this.yzmObj.refresh();
                         return;
                     }
                     // if( tYzm.length <= 0 )

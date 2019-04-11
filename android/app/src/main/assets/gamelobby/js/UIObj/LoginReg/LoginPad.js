@@ -236,6 +236,7 @@ var LoginPad = /** @class */ (function (_super) {
         var verify = Tools.verifyLogin(name, pwd, yzm);
         if (!verify.bRight) {
             Toast.showToast(Tools.getStringByKey(verify.msg));
+            this.yzmObj.refresh();
             return;
         }
         this.requestLogin(name, pwd, yzm);
