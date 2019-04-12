@@ -196,14 +196,23 @@ export  default  class BBLStore {
     @action
     getAppData(){
         let  url = TW_Store.bblStore.gameDomain+ config.api.gameShareDown.replace("#0",platInfo.brand);
+        let downUrl="";
         NetUitls.getUrlAndParamsAndCallback(url, null, (ret) => {
             if(ret.rs&&ret.content){
                 this.shareData = ret.content;
                 this.shareURL.ios=this.shareData.iosShareUrl;
                 this.shareURL.android=this.shareData.androidShareUrl;
+                downUrl = G_IS_IOS ? this.shareData.iosDownloadUrl:this.shareData.androidDownloadUrl;
+                downUrl = downUrl ? downUrl:"";
+                if(downUrl.indexOf("?")>-1){
+                    downUrl = downUrl+"&random="+Math.random();
+                }else{
+                    downUrl = downUrl+"?random="+Math.random();
+                }
+                TW_Store.appStore.onShowDownAlert(downUrl);
             }
-            TW_Log("---getUrlAndParamsAndCallback--getAppData--",ret.content)
-
+            //let downUrl =  iosDownloadUrl
+            TW_Log("---getUrlAndParamsAndCallback--getAppData--downUrl=="+downUrl,ret.content);
         },10,false,false);
     }
 

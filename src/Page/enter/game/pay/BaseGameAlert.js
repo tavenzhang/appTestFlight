@@ -46,7 +46,7 @@ export default class BaseGameAlert extends Component {
             <TouchableWithoutFeedback>
                 <View style={{position: "absolute", right: 30, top: 20, width: 60, height: 30,}}>
                     <TCButtonImg imgSource={ASSET_Images.gameUI.btn_fanhui}
-                                 isClose={true}
+                                 soundName={TW_Store.bblStore.SOUND_ENUM.close}
                                  onClick={() => {
                                      onClose();
                                  }}

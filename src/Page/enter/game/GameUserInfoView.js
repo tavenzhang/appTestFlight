@@ -92,7 +92,7 @@ export default class GameUserInfoView extends Component {
             <TCImage source={ASSET_Images.gameUI.persionText}
                      style={{position: "absolute", right: 205, top: 20}}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
-                         isClose={true}
+                         soundName={TW_Store.bblStore.SOUND_ENUM.close}
                          onClick={() => TW_Store.gameUIStroe.isShowUserInfo = false}
                          btnStyle={{position: "absolute", right: 0, top: 10}}/>
 
@@ -226,6 +226,7 @@ export default class GameUserInfoView extends Component {
             <TCImage source={ASSET_Images.gameUI.bindPhoneBg}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
                          btnStyle={{position: "absolute", right: 0, top: 10}}
+                         soundName={TW_Store.bblStore.SOUND_ENUM.close}
                          onClick={() => {
                              this.setState({isShowPhone: false})
                          }}/>
