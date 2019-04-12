@@ -175,7 +175,7 @@
                 "fontsize":24,
                 "bold":false,
                 "color":"#ffffff",
-                "prompt":"username_login_prompt"
+                "prompt":"login_username_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":160 },
@@ -214,7 +214,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "type":"password",
-                "prompt":"pwd_prompt"
+                "prompt":"login_pwd_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":240 },
@@ -253,7 +253,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "typeX":"number",
-                "prompt":"yzm_prompt"
+                "prompt":"login_yzm_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":400 },
@@ -284,7 +284,7 @@
             "./assets/ui/login/btn_reg.png"
         ],
         "size":{ "w":295, "h":125 },
-        "sfx":"assets/raw/click.mp3",
+        "sfx":"assets/raw/enterPanelClick.mp3",
         "maxScale":{"x":1.05,"y":1.05},
         "normalScale":{"x":1,"y":1}
     },
@@ -317,7 +317,7 @@
             "size":{ "w":222, "h":64 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         }
     ]
 }

@@ -20,10 +20,7 @@
     "headicon":{
         "btnicon":{
             "desc":"",
-            "pos":{
-                "x":75,
-                "y":55
-            },
+            "pos":{ "x":75, "y":55 },
             "src":[
                 "./assets/ui/avator/default.jpg"
             ],
@@ -37,7 +34,7 @@
             "size":{ "w":90, "h":90 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         },
         "iconframe":{
             "src":"./assets/ui/avator/avatorFrame.png",
@@ -129,7 +126,7 @@
                 "loopdelay":2000,
                 "pos":{ "x":0, "y":0 }
             },
-            "sfx":"assets/raw/recharge.mp3"
+            "sfx":"assets/raw/enterbuyClick.mp3"
         }
     },
     "diamoniconX":{

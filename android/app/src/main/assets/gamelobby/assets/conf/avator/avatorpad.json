@@ -1,16 +1,8 @@
 {
     "pos":{ "x":0, "y":0 },
-    "size":{
-        "desc":"",
-        "w":1334,
-        "h":750
-    },
-    "mask":{
-        "desc":"",
-        "alpha":0.6
-    },
+    "size":{ "w":1334, "h":750 },
+    "mask":{ "alpha":0.6 },
     "bg":{
-        "desc":"",
         "src":"./assets/ui/dialog/img_touxiang_dadi.png",
         "pos":{ "x":139.5, "y":53 },
         "pivotX":{ "x":0, "y":0 }

@@ -9967,13 +9967,112 @@ var AsynDialog=(function(_super){
 
 
 //shawn
-//class laya.display.RelativeSprite extends laya.ui.Component
+//class laya.ui.RelativeSprite extends laya.ui.Component
 var RelativeSprite=(function(_super){
 	function RelativeSprite(){
-		RelativeSprite.__super.call(this);;
+		RelativeSprite.__super.call(this);
 	}
 
 	__class(RelativeSprite,'laya.ui.RelativeSprite',_super);
+	var __proto=RelativeSprite.prototype;
+	__proto.getChildrenWidth=function(){
+		var right=0;
+		var len=this._childs.length;
+		for(var i=0;i < len;i++){
+			var cx=this._childs[i].x;
+			var cw=this._childs[i].width;
+			var cright=cx+cw;
+			if(cright > right){
+				right=cright;
+			}
+		}
+		return right;
+	}
+
+	__proto.getChildrenHeight=function(){
+		var bottom=0;
+		var len=this._childs.length;
+		for(var i=0;i < len;i++){
+			var cx=this._childs[i].x;
+			var ch=this._childs[i].height;
+			var cb=cx+ch;
+			if(cb > bottom){
+				bottom=cb;
+			}
+		}
+		return bottom;
+	}
+
+	__proto.getMinValue=function(a,b,c){
+		var obj={};
+		var min=0;
+		var id=-1;
+		if (a < b){
+			if (a < c){
+				min=a;
+				id=0;
+				}else {
+				min=c;
+				id=2;
+			}
+			}else {
+			if (b < c){
+				min=b;
+				id=1;
+				}else {
+				min=c;
+				id=2;
+			}
+		}
+		obj.id=id;
+		obj.value=min;
+		return obj;
+	}
+
+	__proto.changeSize=function(){
+		var w=this.getChildrenWidth();
+		var h=this.getChildrenHeight();
+		var dX=this.x;
+		var dY=this.y;
+		var dScreenW=Laya.stage.designWidth;
+		var dScreenH=Laya.stage.designHeight;
+		var dCenterX=Laya.stage.designWidth/2;
+		var dCenterY=Laya.stage.designHeight/2;
+		var dW=this.width;
+		var dH=this.height;
+		var sumLeft=dX;
+		var sumRight=(dScreenW-dW-dX);
+		var sumCenterX=Math.abs(dScreenW/2-(dX+dW/2));
+		var minX=this.getMinValue(sumLeft,sumRight,sumCenterX);
+		switch(minX.id){
+			case 0:
+				this.left=minX.value;
+				break ;
+			case 1:
+				this.right=minX.value;
+				break ;
+			default :
+				this.centerX=minX.value;
+				break ;
+			};
+		var sumTop=dY;
+		var sumBottom=dScreenH-dH-dY;
+		var sumCenterY=Math.abs(dScreenH/2-(dY+dH/2));
+		var minY=this.getMinValue(sumTop,sumBottom,sumCenterY);
+		switch(minY.id){
+			case 0:
+				this.top=minY.value;
+				break ;
+			case 1:
+				this.bottom=minY.value;
+				break ;
+			default :
+				this.centerY=minY.value;
+				break ;
+			}
+		_super.prototype.changeSize.call(this);
+	}
+
 	return RelativeSprite;
 })(Component)
 

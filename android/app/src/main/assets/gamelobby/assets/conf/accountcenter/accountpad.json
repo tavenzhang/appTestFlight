@@ -89,7 +89,7 @@
                 "./assets/ui/accountcenter/acc_htx.png"
             ],
             "size":{ "w":233, "h":65},
-            "sfx":"assets/raw/click.mp3",
+            "sfx":"assets/raw/enterPanelClick.mp3",
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1}
         }
@@ -121,7 +121,7 @@
             "size":{ "w":297, "h":108 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         },
         {
             "desc":"",
@@ -133,7 +133,7 @@
             "size":{ "w":297, "h":101 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         }
     ],
     "back":[
@@ -149,7 +149,7 @@
             "size":{ "w":233, "h":65 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         }
     ]
 }

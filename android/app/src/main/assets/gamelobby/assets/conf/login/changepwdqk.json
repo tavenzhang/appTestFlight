@@ -94,7 +94,7 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"password",
-            "prompt":"oldpwd_prompt",
+            "prompt":"changepwd_oldpwd_prompt",
             "editable":{
                 "value":false
             },
@@ -112,7 +112,7 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"password",
-            "prompt":"newpwd_prompt",
+            "prompt":"changepwd_newpwd_prompt",
             "editable":{
                 "value":true
             }
@@ -127,11 +127,11 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"password",
-            "prompt":"cfpwd_prompt",
+            "prompt":"changepwd_cfpwd_prompt",
             "editable":{
                 "value":true
             }
         }
     ],
-    "textChanged":"pwd_change_suc"
+    "textChanged":"changepwd_suc_relogin"
 }

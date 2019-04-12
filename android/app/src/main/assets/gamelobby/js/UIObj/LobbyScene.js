@@ -42,21 +42,23 @@ var LobbyScene = /** @class */ (function (_super) {
             AttentionDialog.showPad(this, ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_AUTO);
         }
     };
+    // public static IS_PLAYED_MUSIC:boolean = false;
     LobbyScene.initBgMusic = function () {
-        if (LobbyScene.IS_PLAYED_MUSIC) {
-            return;
+        // if( LobbyScene.IS_PLAYED_MUSIC )
+        // {
+        //     return;
+        // }
+        // LobbyScene.IS_PLAYED_MUSIC = true;
+        // Laya.loader.load( [{url:ConfObjRead.getConfMusic().src}] , new Laya.Handler( this , ()=>{
+        // Debug.trace( "player bg music" );
+        // Laya.timer.once( 3000 , this , ()=>{
+        //     Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+        // } );
+        if (SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1) >= 1) //开关
+         {
+            Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
         }
-        LobbyScene.IS_PLAYED_MUSIC = true;
-        Laya.loader.load([{ url: ConfObjRead.getConfMusic().src }], new Laya.Handler(this, function () {
-            // Debug.trace( "player bg music" );
-            // Laya.timer.once( 3000 , this , ()=>{
-            //     Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
-            // } );
-            if (SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1) >= 1) //开关
-             {
-                Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
-            }
-        }));
+        // } ) );
     };
     LobbyScene.prototype.OnAvatorScrollOut = function (e) {
     };
@@ -77,7 +79,6 @@ var LobbyScene = /** @class */ (function (_super) {
         Common.confObj.url = ConfObjRead.getConfUrl().url;
         this.initUI();
     };
-    LobbyScene.IS_PLAYED_MUSIC = false;
     return LobbyScene;
 }(MyScene));
 //# sourceMappingURL=LobbyScene.js.map

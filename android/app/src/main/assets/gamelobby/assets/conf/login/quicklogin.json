@@ -55,7 +55,7 @@
             "size":{ "w":222, "h":64 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         }
     ],
     "bak":[
@@ -84,7 +84,7 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"text",
-            "prompt":"username_login_prompt",
+            "prompt":"qklogin_username_prompt",
             "editable":{
                 "value":false
             }
@@ -99,7 +99,7 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"text",
-            "prompt":"yzm_prompt",
+            "prompt":"qklogin_yzm_prompt",
             "editable":{
                 "value":true
             }

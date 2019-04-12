@@ -12,7 +12,7 @@
             "./assets/ui/mine/btn_custom.png"
         ],
         "size":{ "w":82, "h":87 },
-        "sfx":"assets/raw/click.mp3",
+        "sfx":"assets/raw/enterPanelClick.mp3",
         "maxScale":{"x":1.05,"y":1.05},
         "normalScale":{"x":1,"y":1}
     },
@@ -170,10 +170,7 @@
             }
         },
         "inputpad":{
-            "pos":{
-                "x":0,
-                "y":20
-            },
+            "pos":{ "x":0, "y":20 },
             "name":{
                 "pos":{"x":0,"y":100},
                 "label":{
@@ -193,7 +190,7 @@
                     "fontsize":24,
                     "bold":false,
                     "color":"#ffffff",
-                    "prompt":"username_login_prompt"
+                    "prompt":"login_username_prompt"
                 },
                 "star":{
                     "pos":{ "x":685, "y":160 },
@@ -232,7 +229,7 @@
                     "bold":false,
                     "color":"#ffffff",
                     "type":"password",
-                    "prompt":"pwd_prompt"
+                    "prompt":"login_pwd_prompt"
                 },
                 "star":{
                     "pos":{ "x":685, "y":240 },
@@ -271,7 +268,7 @@
                     "bold":false,
                     "color":"#ffffff",
                     "typeX":"number",
-                    "prompt":"yzm_prompt"
+                    "prompt":"login_yzm_prompt"
                 },
                 "star":{
                     "pos":{ "x":685, "y":400 },
@@ -302,7 +299,7 @@
                 "./assets/ui/login/btn_reg.png"
             ],
             "size":{ "w":295, "h":125 },
-            "sfx":"assets/raw/click.mp3",
+            "sfx":"assets/raw/enterPanelClick.mp3",
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1}
         },
@@ -366,7 +363,7 @@
                 "fontsize":24,
                 "bold":false,
                 "color":"#ffffff",
-                "prompt":"username_prompt"
+                "prompt":"reg_username_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":160 },
@@ -405,7 +402,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "type":"password",
-                "prompt":"pwd_prompt"
+                "prompt":"reg_pwd_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":240 },
@@ -444,7 +441,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "type":"password",
-                "prompt":"cfpwd_prompt"
+                "prompt":"reg_cfpwd_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":320 },
@@ -483,7 +480,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "typeX":"number",
-                "prompt":"yzm_prompt"
+                "prompt":"reg_yzm_prompt"
             },
             "star":{
                 "pos":{ "x":685, "y":400 },
@@ -526,7 +523,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "typeX":"number",
-                "prompt":"yqm_prompt"
+                "prompt":"reg_yqm_prompt"
             }
         },
         "phoneX":{
@@ -549,7 +546,7 @@
                 "bold":false,
                 "color":"#ffffff",
                 "typeX":"number",
-                "prompt":"mobile_prompt"
+                "prompt":"reg_mobile_prompt"
             }
         },
         "btnclose":{
@@ -574,7 +571,7 @@
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1}
         },
-        "textNoValue":"reginfo_unfull",
-        "textPwdUnsame":"cfpwd_err"
+        "textNoValue":"reg_err_info_notfull",
+        "textPwdUnsame":"reg_err_cfpwd_notsame"
     }
 }

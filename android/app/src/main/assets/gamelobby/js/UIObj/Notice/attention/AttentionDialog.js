@@ -89,11 +89,21 @@ var AttentionDialog = /** @class */ (function (_super) {
             this.attentionPage.destroy(true);
             this.attentionPage = null;
         }
+        if (this.luckydrawPage) {
+            this.removeChild(this.luckydrawPage);
+            this.luckydrawPage.destroy(true);
+            this.luckydrawPage = null;
+        }
         if (data) {
             this.attentionPage = new AttentionPage();
             this.attentionPage.init(this.conf.attention, data);
             this.addChild(this.attentionPage);
             // this.attentionPage.setData(data);
+            if (this.conf.attention.luckydrawpage) {
+                this.luckydrawPage = new LuckyDrawPage();
+                this.luckydrawPage.init(this.conf.attention, data);
+                this.addChild(this.luckydrawPage);
+            }
         }
     };
     AttentionDialog.prototype.refreshDataUnread = function (cateid) {
@@ -420,6 +430,9 @@ var AttentionDialog = /** @class */ (function (_super) {
         if (this.openType == AttentionDialog.TYPE_OPEN_MANUAL) {
             return;
         }
+        if (Common.numShowChangePwdQk > 0) {
+            return;
+        }
         // Debug.trace("AttentionDialog.showChangePwd Common.loginType:"+Common.loginType+" Common.loginInfo.strongPwd:"+Common.loginInfo.strongPwd);
         if (Common.loginType == Common.TYPE_LOGIN_QK) {
             if (!Common.loginInfo.strongPwd) {
@@ -427,6 +440,7 @@ var AttentionDialog = /** @class */ (function (_super) {
                 ChangePwdQk.getObj().setSucListener(this, this.onChangePwdSuc);
                 var pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
                 ChangePwdQk.getObj().setOldPwd(pwd);
+                Common.numShowChangePwdQk += 1;
             }
         }
     };
