@@ -220,6 +220,10 @@ export default class DataStore {
                     this.log+="==>onSaveVersionM--=end";
                     if(G_IS_IOS){
                         this.onRetartApp();
+                    }else{
+                        setTimeout(()=>{
+                            this.onRetartApp(); //android 的文件解压读写延迟比较大，延迟5秒
+                        },5000)
                     }
                     TW_Store.commonBoxStore.isShow=false;
                 });
