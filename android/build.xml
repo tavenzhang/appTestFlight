@@ -10,8 +10,9 @@
 <!-- 如还未安装ant，在terminal执行 $brew install ant -->
 
 <project>
+    <property file="gradle.properties"/>
     <property name="defaultPackageName" value="com.jd" />
-    <property name="newPackageName" value="com.xxx" />
+    <property name="newPackageName" value="${APP_ID}" />
 
     <script language="javascript">
         var defaultPackageName = project.getProperty("defaultPackageName");
