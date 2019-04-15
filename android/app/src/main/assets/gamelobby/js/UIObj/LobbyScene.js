@@ -56,6 +56,7 @@ var LobbyScene = /** @class */ (function (_super) {
         // } );
         if (SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1) >= 1) //开关
          {
+            Debug.trace("LobbyScene.initBgMusic playMusic");
             Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
         }
         // } ) );

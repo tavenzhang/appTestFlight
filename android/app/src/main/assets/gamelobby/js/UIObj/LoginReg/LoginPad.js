@@ -294,12 +294,12 @@ var LoginPad = /** @class */ (function (_super) {
                 SaveManager.getObj().save(SaveManager.KEY_LOGIN_TYPE, Common.loginType);
                 SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
                 PostMHelp.tokenChange({ "payload": Common.access_token });
-                if (jobj.strongPwd) {
-                    LayaMain.getInstance().initLobby();
-                }
-                else {
-                    this.changePwd();
-                }
+                // if( jobj.strongPwd )
+                // {
+                LayaMain.getInstance().initLobby();
+                // }else{
+                //     this.changePwd();
+                // }
             }
             catch (e) {
                 Debug.trace(e);

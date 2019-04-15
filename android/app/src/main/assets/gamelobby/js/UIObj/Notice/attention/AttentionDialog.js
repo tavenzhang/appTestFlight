@@ -436,10 +436,11 @@ var AttentionDialog = /** @class */ (function (_super) {
         // Debug.trace("AttentionDialog.showChangePwd Common.loginType:"+Common.loginType+" Common.loginInfo.strongPwd:"+Common.loginInfo.strongPwd);
         if (Common.loginType == Common.TYPE_LOGIN_QK) {
             if (!Common.loginInfo.strongPwd) {
-                ChangePwdQk.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdQk());
-                ChangePwdQk.getObj().setSucListener(this, this.onChangePwdSuc);
-                var pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
-                ChangePwdQk.getObj().setOldPwd(pwd);
+                //cancel
+                // ChangePwdQk.showPad(LayaMain.getInstance().getRootNode(),ConfObjRead.getConfChangePwdQk());
+                // ChangePwdQk.getObj().setSucListener(this,this.onChangePwdSuc);
+                // var pwd:string = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD,"123456");
+                // ChangePwdQk.getObj().setOldPwd(pwd);
                 Common.numShowChangePwdQk += 1;
             }
         }

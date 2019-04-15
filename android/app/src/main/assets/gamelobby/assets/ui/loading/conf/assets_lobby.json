@@ -524,6 +524,19 @@
 
         {"url":"./assets/ui/toast/img_com_tips_176.png","type":"IMAGE"},
 
-        {"url":"./assets/ui/version/bgVersion.png","type":"IMAGE"}
+        {"url":"./assets/ui/version/bgVersion.png","type":"IMAGE"},
+
+        {"url":"assets/raw/bgm.mp3","type":"SOUND"},
+        {"url":"assets/raw/click.mp3","type":"SOUND"},
+        {"url":"assets/raw/close.mp3","type":"SOUND"},
+        {"url":"assets/raw/enterbuyClick.mp3","type":"SOUND"},
+        {"url":"assets/raw/enterGameClick.mp3","type":"SOUND"},
+        {"url":"assets/raw/enterPanelClick.mp3","type":"SOUND"},
+        {"url":"assets/raw/flopleft.mp3","type":"SOUND"},
+        {"url":"assets/raw/flopright.mp3","type":"SOUND"},
+        {"url":"assets/raw/recharge.mp3","type":"SOUND"},
+        {"url":"assets/raw/returnLobbyClick.mp3","type":"SOUND"},
+        {"url":"assets/raw/rightbottomclose.mp3","type":"SOUND"},
+        {"url":"assets/raw/showlogo.mp3","type":"SOUND"}
     ]
 }
