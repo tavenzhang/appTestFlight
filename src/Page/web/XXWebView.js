@@ -262,13 +262,14 @@ export default class XXWebView extends Component {
 
         if (!G_IS_IOS) {
             source = {
-                uri: TW_Store.dataStore.getHomeWebUri(),
+                uri: TW_Store.dataStore.getHomeWebUri()+"?app=true",
+
             };
         }
-
-       if(TW_IS_DEBIG){
-            source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-        }
+       //
+       // if(TW_IS_DEBIG){
+       //      source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+       //  }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({
