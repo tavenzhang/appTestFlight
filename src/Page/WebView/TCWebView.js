@@ -256,7 +256,7 @@ export default class TCWebView extends Component {
         TW_Log("onEvaleJS---onBackHomeJs--",onEvaleJS)
         if (onEvaleJS) {
             onEvaleJS(this.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
-            onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.playMusic));
+            onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.lobbyResume));
            // onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.flushMoney));
         }
         
