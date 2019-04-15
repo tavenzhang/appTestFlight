@@ -15,7 +15,7 @@
 
     <property name="defaultPackageName" value="${androidManifest.manifest.package}" />
     <property name="newPackageName" value="${APP_ID}" />
-    <echo>本包名：${defaultPackageName}，新包名：${defaultPackageName}</echo>
+    <echo>本包名：${defaultPackageName}，新包名：${newPackageName}</echo>
 
     <script language="javascript">
         var defaultPackageName = project.getProperty("defaultPackageName");
