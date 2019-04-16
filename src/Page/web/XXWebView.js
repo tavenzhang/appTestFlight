@@ -492,8 +492,8 @@ export default class XXWebView extends Component {
                                     if(ret.rs){
                                         this.onFinishGameList(ret.content.datas)
                                     }
-
                                 }
+
                             },10,false,false,true);
                             break;
                         case "put":
