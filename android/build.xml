@@ -11,8 +11,12 @@
 
 
 <project>
-    <property name="defaultPackageName" value="com.jd" />
-    <property name="newPackageName" value="com.bbl.cgbbsqp" />
+    <property file="gradle.properties"/>
+    <xmlproperty collapseAttributes="true" file="app/src/main/AndroidManifest.xml" prefix="androidManifest" />
+
+    <property name="defaultPackageName" value="${androidManifest.manifest.package}" />
+    <property name="newPackageName" value="${APP_ID}" />
+    <echo>本包名：${defaultPackageName}，新包名：${newPackageName}</echo>
 
     <script language="javascript">
         var defaultPackageName = project.getProperty("defaultPackageName");
@@ -34,6 +38,7 @@
         </move>
         <echo>移动src里的包至${newPackagePath}</echo>
     </target>
+
     <target name="gen-R">
         <exec executable="${aapt}" failonerror="true">
             <arg value="package" />
