@@ -24,6 +24,9 @@ var PageArrow = /** @class */ (function (_super) {
         if (this.conf.bclick) {
             this.sp_arrow.on(Laya.Event.CLICK, this, this.onClick);
         }
+        if (this.conf.src.scale) {
+            this.scale(this.conf.src.scale.x, this.conf.src.scale.y);
+        }
         this.pos(this.conf.pos.x, this.conf.pos.y);
         this.leftOk();
     };
@@ -31,10 +34,11 @@ var PageArrow = /** @class */ (function (_super) {
         this.gamepanel = p;
     };
     PageArrow.prototype.onClick = function () {
+        Laya.SoundManager.playSound(this.conf.sfx);
         // Debug.traceObj("PageArrow.onClick");
         // Debug.traceObj(this.conf);
         // this.gamepanel.flip(1);
-        this.gamepanel.flipNext(this.conf.jumpNum);
+        this.gamepanel.flipNext(this.conf.jumpNum, this);
     };
     PageArrow.prototype.leftOk = function () {
         // Laya.timer.frameLoop(this.conf.framedelay,this,this.loop);

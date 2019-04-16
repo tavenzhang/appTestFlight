@@ -78,7 +78,7 @@ var LoadingScene = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseInfo);
     };
     LoadingScene.prototype.responseInfo = function (s, stat, hr) {
-        Debug.trace("Loading userinfo stat:" + stat);
+        Debug.trace("Loading userinfobalance stat:" + stat);
         Debug.trace(s);
         // Debug.trace("LoadingScene.responseInfo userinfo stat:"+stat);
         // Debug.trace(s);
@@ -91,6 +91,7 @@ var LoadingScene = /** @class */ (function (_super) {
             }
             this.checkReconnect();
             // LayaMain.getInstance().initLobby();
+            // this.requestUserInfo(Common.access_token);
         }
         else {
             // Debug.trace("loading initLogin");

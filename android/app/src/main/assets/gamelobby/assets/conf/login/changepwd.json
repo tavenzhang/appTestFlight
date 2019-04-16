@@ -103,7 +103,7 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"password",
-            "prompt":"oldpwd_prompt",
+            "prompt":"changepwd_oldpwd_prompt",
             "textX":"http://www.google.com/xxx/yyy/zzz",
             "editable":{
                 "value":true
@@ -120,7 +120,7 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"password",
-            "prompt":"newpwd_prompt",
+            "prompt":"changepwd_newpwd_prompt",
             "textX":"http://www.google.com/xxx/yyy/zzz",
             "editable":{
                 "value":true
@@ -137,12 +137,12 @@
             "bold":false,
             "color":"#aadbf7",
             "type":"password",
-            "prompt":"cfpwd_prompt",
+            "prompt":"changepwd_cfpwd_prompt",
             "textX":"http://www.google.com/xxx/yyy/zzz",
             "editable":{
                 "value":true
             }
         }
     ],
-    "textChanged":"pwd_change_suc"
+    "textChanged":"changepwd_suc_relogin"
 }

@@ -14,7 +14,9 @@ var __extends = (this && this.__extends) || (function () {
 var LoginScene = /** @class */ (function (_super) {
     __extends(LoginScene, _super);
     function LoginScene() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.iClickNum = 0;
+        return _this;
     }
     LoginScene.getObj = function () {
         return LoginScene.obj;
@@ -26,6 +28,9 @@ var LoginScene = /** @class */ (function (_super) {
     LoginScene.prototype.onLoaded = function () {
         LoginScene.obj = this;
         var bg = Tools.addSprite(this, ConfObjRead.getConfLogin().bgscene);
+        if (ConfObjRead.getConfCommon().btestclearstorge) {
+            bg.on(Laya.Event.CLICK, this, this.onClickTest);
+        }
         var sp_shine = new Shining();
         sp_shine.init(ConfObjRead.getConfLogin().login.bg.shine);
         this.addChild(sp_shine);
@@ -76,6 +81,18 @@ var LoginScene = /** @class */ (function (_super) {
     };
     LoginScene.prototype.onCustomClick = function (e) {
         Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
+    };
+    LoginScene.prototype.onClickTest = function (e) {
+        this.iClickNum += ConfObjRead.getConfCommon().btestclearstorge.stepAdd;
+        if (this.iClickNum >= ConfObjRead.getConfCommon().btestclearstorge.totalNum) {
+            this.iClickNum = 0;
+            SaveManager.getObj().clearAll();
+        }
+        Laya.timer.clear(this, this.clearClick);
+        Laya.timer.once(ConfObjRead.getConfCommon().btestclearstorge.delayTime, this, this.clearClick);
+    };
+    LoginScene.prototype.clearClick = function () {
+        this.iClickNum = 0;
     };
     LoginScene.obj = null;
     return LoginScene;

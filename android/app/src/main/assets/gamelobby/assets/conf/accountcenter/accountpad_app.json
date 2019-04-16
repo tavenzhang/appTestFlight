@@ -1,14 +1,7 @@
 {
     "pos":{ "x":0, "y":0 },
-    "size":{
-        "desc":"",
-        "w":1334,
-        "h":750
-    },
-    "mask":{
-        "desc":"",
-        "alpha":0.6
-    },
+    "size":{ "w":1334, "h":750},
+    "mask":{ "alpha":0.6 },
     "bg":{
         "desc":"",
         "src":"./assets/ui/accountcenter/img_gerenzhongx_di.png",
@@ -88,7 +81,7 @@
                 "./assets/ui/accountcenter/acc_htx.png"
             ],
             "size":{ "w":233, "h":65},
-            "sfx":"assets/raw/click.mp3",
+            "sfx":"assets/raw/enterPanelClick.mp3",
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1}
         }
@@ -120,7 +113,7 @@
             "size":{ "w":297, "h":108 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         },
         {
             "desc":"",
@@ -132,7 +125,7 @@
             "size":{ "w":297, "h":101 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         },
         {
             "desc":"",
@@ -144,7 +137,7 @@
             "size":{ "w":297, "h":102 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         },
         {
             "desc":"",
@@ -156,7 +149,7 @@
             "size":{ "w":233, "h":65 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         }
     ]
 }

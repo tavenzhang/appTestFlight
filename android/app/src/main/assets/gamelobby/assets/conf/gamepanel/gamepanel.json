@@ -51,7 +51,30 @@
             "easeName":"backIn",
             "duration":400
         },
-        "jumpNum":3
+        "jumpNum":5,
+        "sfx":"assets/raw/click.mp3"
+    },
+    "pagearrowleft":{
+        "desc":"",
+        "pos":{"x":500,"y":260},
+        "src":{
+            "src":"./assets/ui/game/arrow_00.png",
+            "pos":{ "x":0, "y":0 },
+            "scale":{"x":-1,"y":1}
+        },
+        "bclick":true,
+        "right":{
+            "pos":{ "x":3, "y":0 },
+            "easeName":"backIn",
+            "duration":400
+        },
+        "left":{
+            "pos":{ "x":-3, "y":0 },
+            "easeName":"backIn",
+            "duration":400
+        },
+        "jumpNum":7,
+        "sfx":"assets/raw/click.mp3"
     },
     "flip":{ "desc":"", "onetime":3, "offsetx":0, "movex":0 },
     "gameitemdefault":{
@@ -69,7 +92,7 @@
             "size":{ "w":244, "h":202, "gw":30, "gh":30, "offsetx":100 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/flopright.mp3",
+            "sfx":"assets/raw/enterGameClick.mp3",
             "grayext":"_gray"
         },
         "dutimer":1,

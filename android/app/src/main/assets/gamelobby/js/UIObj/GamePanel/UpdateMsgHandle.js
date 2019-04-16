@@ -97,6 +97,7 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
         Laya.SoundManager.playSound(UpdateMsgHandle.raw_root + src);
     };
     UpdateMsgHandle.playMusic = function (src) {
+        Debug.trace("UpdateMsgHandle.playMusic");
         Laya.SoundManager.playMusic(UpdateMsgHandle.raw_root + src);
     };
     UpdateMsgHandle.updateInitMsg = null;

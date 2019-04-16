@@ -53,7 +53,11 @@ export default class TCWebView extends Component {
         let myUrl = this.state.uri;
         let tempIndex = myUrl.indexOf("?");
         let myParam = myUrl.substr(tempIndex);
-        let newUrl=  myUrl.substring(0,tempIndex)+"index.html";
+         let homePre= myUrl.substring(0,tempIndex);
+         if(homePre.lastIndexOf("/")!=0){
+             homePre+="/";
+         }
+        let newUrl=  homePre+"index.html";
         TW_Log("myUrl------------------------myParam--"+myParam+"-\n-newUrl----"+newUrl)
 
         let source = {
@@ -256,7 +260,7 @@ export default class TCWebView extends Component {
         TW_Log("onEvaleJS---onBackHomeJs--",onEvaleJS)
         if (onEvaleJS) {
             onEvaleJS(this.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
-            onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.playMusic));
+            onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.lobbyResume));
            // onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.flushMoney));
         }
         

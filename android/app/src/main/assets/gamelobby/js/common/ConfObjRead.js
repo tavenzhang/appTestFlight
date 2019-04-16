@@ -341,6 +341,20 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.noticeDialogObj = Laya.Loader.getRes("./assets/conf/notice/NoticeDialog.json");
         return ConfObjRead.noticeDialogObj;
     };
+    ConfObjRead.getConfNoticeDialogLuckytDraw = function () {
+        if (ConfObjRead.noticeDialogLuckyDrawObj) {
+            return ConfObjRead.noticeDialogLuckyDrawObj;
+        }
+        ConfObjRead.noticeDialogLuckyDrawObj = Laya.Loader.getRes("./assets/conf/notice/luckydraw.json");
+        return ConfObjRead.noticeDialogLuckyDrawObj;
+    };
+    ConfObjRead.getConfNoticeDialogSpinner = function () {
+        if (ConfObjRead.noticeDialogSpinnerObj) {
+            return ConfObjRead.noticeDialogSpinnerObj;
+        }
+        ConfObjRead.noticeDialogSpinnerObj = Laya.Loader.getRes("./assets/conf/notice/spinner.json");
+        return ConfObjRead.noticeDialogSpinnerObj;
+    };
     ConfObjRead.getConfHelppad = function () {
         if (ConfObjRead.room_helpObj) {
             return ConfObjRead.room_helpObj;
@@ -596,6 +610,8 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.settingpadObj = null;
     ConfObjRead.attentionObj = null;
     ConfObjRead.noticeDialogObj = null;
+    ConfObjRead.noticeDialogLuckyDrawObj = null;
+    ConfObjRead.noticeDialogSpinnerObj = null;
     ConfObjRead.room_helpObj = null;
     ConfObjRead.nomoneyObj = null;
     ConfObjRead.room_toastObj = null;

@@ -266,6 +266,11 @@ var LoginPad = /** @class */ (function (_super) {
     LoginPad.prototype.responseLogin = function (s, stat, hr) {
         Debug.trace("Login Suc stat:" + stat);
         Debug.trace(s);
+        /*
+        {
+            "username":"shawn001",
+            "lastSignInIp":"192.168.11.109","lastSignInAt":"2019-04-10 11:57:53","oauthRole":"USER","balance":74884.51,"prizeGroup":1960,"sessionId":"81cf357ee34e4cabd0a4888e","minMemberPrizeGroup":1901,"strongPwd":true,"loginCheckInfo":{"success":true},"commissionMode":"PRIZE_GROUP","oauthToken":{"access_token":"43777b0a-1e19-49c6-a463-8538a32873a0","token_type":"bearer","refresh_token":"9848e3a1-1607-4eb5-a534-ec08c280b173","expires_in":259199,"scope":"ui"}}
+        */
         LayaMain.getInstance().showCircleLoading(false);
         if (stat == "complete") {
             var jobj;
@@ -279,17 +284,22 @@ var LoginPad = /** @class */ (function (_super) {
             try {
                 Common.loginInfo = jobj;
                 Common.access_token = jobj.oauthToken.access_token;
-                Common.loginType = Common.TYPE_LOGIN_ACCOUNT;
+                if (this.isQuickAccount(jobj.username)) {
+                    Common.loginType = Common.TYPE_LOGIN_QK;
+                }
+                else {
+                    Common.loginType = Common.TYPE_LOGIN_ACCOUNT;
+                }
                 SaveManager.getObj().save(SaveManager.KEY_TOKEN, Common.access_token);
                 SaveManager.getObj().save(SaveManager.KEY_LOGIN_TYPE, Common.loginType);
                 SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
                 PostMHelp.tokenChange({ "payload": Common.access_token });
-                if (jobj.strongPwd) {
-                    LayaMain.getInstance().initLobby();
-                }
-                else {
-                    this.changePwd();
-                }
+                // if( jobj.strongPwd )
+                // {
+                LayaMain.getInstance().initLobby();
+                // }else{
+                //     this.changePwd();
+                // }
             }
             catch (e) {
                 Debug.trace(e);
@@ -307,6 +317,13 @@ var LoginPad = /** @class */ (function (_super) {
             // this.onYanzhengmaFocus(this.sp_yanzhengma);
             this.yzmObj.refresh();
         }
+    };
+    LoginPad.prototype.isQuickAccount = function (username) {
+        var uqk = SaveManager.getObj().get(SaveManager.KEY_QK_USERNAME, "");
+        if (username == uqk) {
+            return true;
+        }
+        return false;
     };
     LoginPad.prototype.changePwd = function () {
         ChangePwdNormal.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwd(), this, this.cancelChangePwd);
