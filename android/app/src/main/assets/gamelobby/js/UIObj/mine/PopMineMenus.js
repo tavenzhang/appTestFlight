@@ -63,7 +63,7 @@ var PopMineMenus = /** @class */ (function (_super) {
                 SettingPad.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSetting(), this, this.setCallback);
                 break;
             case "notice":
-                Debug.trace("PopMineMenus.onClickBtn manual");
+                // Debug.trace("PopMineMenus.onClickBtn manual");
                 AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
                 AttentionDialog.obj.show();
                 break;
@@ -110,9 +110,10 @@ var PopMineMenus = /** @class */ (function (_super) {
     };
     PopMineMenus.prototype.onChangePwdSuc = function (e) {
         var npwd = e;
-        // Common.loginInfo.strongPwd = true;
+        Common.loginInfo.strongPwd = true;
         SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
         SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+        SaveManager.getObj().save(SaveManager.KEY_QK_PWD_CHANGED, true);
         var str = Tools.getStringByKey(ConfObjRead.getConfChangePwdQk().textChanged);
         Debug.trace("MineMenu.onChangePwdSuc str:" + str);
         LayaMain.getInstance().loginOut();

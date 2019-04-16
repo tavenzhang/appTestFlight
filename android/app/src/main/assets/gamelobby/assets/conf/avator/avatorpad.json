@@ -78,7 +78,7 @@
                 "./assets/ui/avatorpad/btn_touxiang_queren_01.png"
             ],
             "size":{ "w":209, "h":85},
-            "sfx":"assets/raw/click.mp3",
+            "sfx":"assets/raw/sfx_click.mp3",
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1}
         },
@@ -89,7 +89,7 @@
                 "./assets/ui/avatorpad/btn_touxiang_queren_00.png"
             ],
             "size":{ "w":209, "h":85},
-            "sfx":"assets/raw/click.mp3",
+            "sfx":"assets/raw/sfx_click.mp3",
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1}
         }
@@ -138,7 +138,7 @@
             "./assets/ui/dialog/btn_touxiang_guangbi.png"
         ],
         "size":{ "w":76, "h":77 },
-        "sfx":"assets/raw/close.mp3",
+        "sfx":"assets/raw/sfx_close.mp3",
         "maxScale":{"x":1.05,"y":1.05},
         "normalScale":{"x":1,"y":1}
     },

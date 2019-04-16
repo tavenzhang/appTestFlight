@@ -1273,6 +1273,9 @@ var Tools = /** @class */ (function () {
         if (conf.font.strokeColor) {
             lb.strokeColor = conf.font.strokeColor;
         }
+        if (conf.data) {
+            lb.dataName = conf.data;
+        }
         return lb;
     };
     Tools.newLabels = function (conf) {

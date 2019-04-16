@@ -52,7 +52,7 @@
             "duration":400
         },
         "jumpNum":5,
-        "sfx":"assets/raw/click.mp3"
+        "sfx":"assets/raw/sfx_click.mp3"
     },
     "pagearrowleft":{
         "desc":"",
@@ -74,7 +74,7 @@
             "duration":400
         },
         "jumpNum":7,
-        "sfx":"assets/raw/click.mp3"
+        "sfx":"assets/raw/sfx_click.mp3"
     },
     "flip":{ "desc":"", "onetime":3, "offsetx":0, "movex":0 },
     "gameitemdefault":{

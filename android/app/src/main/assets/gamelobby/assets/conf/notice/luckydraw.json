@@ -24,7 +24,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         },
         "gold": {
             "cmd": "gold",
@@ -44,7 +44,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         },
         "diamond": {
             "cmd": "diamond",
@@ -64,7 +64,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         }
     },
     "info": {
@@ -107,6 +107,25 @@
                 "y": 0
             }
         },
+        "content": {
+            "size": 14.5,
+            "date": "#b7ced8",
+            "silver": "#13d9ae",
+            "gold": "#ffe157",
+            "diamond": "#ac6cd2",
+            "y": 65,
+            "h": 29,
+            "w": [
+                100,
+                96,
+                135
+            ],
+            "type": [
+                "白银轮盘",
+                "黄金轮盘",
+                "钻石轮盘"
+            ]
+        },
         "latest": {
             "src": [
                 "./assets/ui/notice/anjian_zuixinhuojiang_qian.png",
@@ -124,7 +143,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         },
         "mywin": {
             "src": [
@@ -143,28 +162,52 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         }
     },
     "contents": {
         "top": {
-            "font": {
-                "pretext": "",
-                "size": 14.5,
-                "color": "#5ABDE4",
-                "align": "left",
-                "valign": "middle",
-                "borderColorX": "#ff0000",
-                "name": "微软雅黑粗体",
-                "wordwrap": true
+            "current": {
+                "font": {
+                    "pretext": "",
+                    "size": 14.5,
+                    "color": "#5ABDE4",
+                    "align": "left",
+                    "valign": "middle",
+                    "borderColorX": "#ff0000",
+                    "name": "微软雅黑粗体",
+                    "wordwrap": true
+                },
+                "size": {
+                    "w": 342,
+                    "h": 23
+                },
+                "pos": {
+                    "x": 26,
+                    "y": 13
+                },
+                "contents":"当前积分："
             },
-            "size": {
-                "w": 342,
-                "h": 23
-            },
-            "pos": {
-                "x": 26,
-                "y": 13
+            "input": {
+                "font": {
+                    "pretext": "",
+                    "size": 14.5,
+                    "color": "#5ABDE4",
+                    "align": "right",
+                    "valign": "middle",
+                    "borderColorX": "#ff0000",
+                    "name": "微软雅黑粗体",
+                    "wordwrap": true
+                },
+                "size": {
+                    "w": 342,
+                    "h": 23
+                },
+                "pos": {
+                    "x": 26,
+                    "y": 13
+                },
+                "contents":"次日积分（今日投注）："
             }
         },
         "bottom": {
@@ -185,6 +228,10 @@
             "pos": {
                 "x": 26,
                 "y": 377
+            },
+            "contents": {
+                "front": "注：",
+                "back": "积分一次"
             }
         },
         "info": {

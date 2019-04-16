@@ -16,7 +16,10 @@ var Spinner = /** @class */ (function (_super) {
     function Spinner() {
         var _this = _super.call(this) || this;
         _this._lbl = [];
-        _this._light = [];
+        _this.amts = [];
+        _this._light0 = [];
+        _this._light1 = [];
+        _this._lighttime = 200;
         _this.currIdx = 0;
         return _this;
     }
@@ -34,8 +37,10 @@ var Spinner = /** @class */ (function (_super) {
             label.y = this._base.y;
             label.pivot($config.label.pivot.x, $config.label.pivot.y);
             label.rotation = (360 / 8) * i;
-            label.text = (i * 100).toString();
+            label.text = "0";
         }
+        this._lite = Tools.addSprite(this, $config.light);
+        this._lite.visible = false;
         this._frame = Tools.addSprite(this, $config.frame);
         this._pointer = Tools.addSprite(this, $config.pointer);
         this._btn = new MyButton();
@@ -49,14 +54,55 @@ var Spinner = /** @class */ (function (_super) {
             light.pos(lights.pos[i][0], lights.pos[i][1]);
             this.addChild(light);
             light.visible = false;
-            this._light.push(light);
+            i % 2 === 0 ? this._light0.push(light) : this._light1.push(light);
         }
         this.currIdx = 0;
+        this.currIdx = -1;
+        this.isstop = true;
+    };
+    Spinner.prototype.setData = function ($data) {
+        for (var i = 0; i < $data.prizeLevelList.length; i++) {
+            this._lbl[i].text = $data.prizeLevelList[i].toString();
+        }
+        this.amts = $data.prizeLevelList.concat();
+        this.reqPt = $data.requiredPoints;
+    };
+    Spinner.prototype.setResult = function (data) {
+        var idx = [];
+        for (var i = 0; i < this.amts.length; i++) {
+            if (this.amts[i] === data.prizeAmount) {
+                idx.push(i);
+            }
+        }
+        idx = shuffle(idx);
+        function shuffle(array) {
+            var currentIndex = array.length;
+            var temporaryValue, randomIndex;
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+            return array;
+        }
+        this.currIdx = idx[0];
     };
     Spinner.prototype.onClick = function ($e) {
-        this.event("startSpin");
+        this.event("startSpin", this);
+    };
+    Spinner.prototype.start = function () {
+        this.isstop = false;
+        this._btn.setEnabled(false);
+        this._lite.visible = false;
         this.spincounter = 3;
         this.startSpin();
+        Laya.timer.once(0, this, this.startlights, [this._light0], false);
+        Laya.timer.once(this._lighttime, this, this.startlights, [this._light1], false);
     };
     Spinner.prototype.startSpin = function () {
         var r = this._cont.rotation === 0 ? 0 : this._cont.rotation + (360 - this._cont.rotation);
@@ -64,7 +110,7 @@ var Spinner = /** @class */ (function (_super) {
         var time = (r * 1000) / 360;
         Laya.Tween.to(this._cont, { rotation: r }, time, Laya.Ease.linearNone, Laya.Handler.create(this, function () {
             this._cont.rotation = 0;
-            if (this.spincounter <= 0) {
+            if (this.spincounter <= 0 && this.currIdx > -1) {
                 this.stopSpin();
             }
             else {
@@ -73,15 +119,32 @@ var Spinner = /** @class */ (function (_super) {
         }));
         this.spincounter--;
     };
+    Spinner.prototype.startlights = function ($lights) {
+        for (var i = 0; i < $lights.length; i++) {
+            $lights[i].visible = true;
+        }
+        Laya.timer.once(this._lighttime, this, this.stoplights, [$lights], false);
+    };
+    Spinner.prototype.stoplights = function ($lights) {
+        for (var i = 0; i < $lights.length; i++) {
+            $lights[i].visible = false;
+        }
+        if (this.isstop)
+            return;
+        Laya.timer.once(this._lighttime, this, this.startlights, [$lights], false);
+    };
     Spinner.prototype.stopSpin = function () {
-        this.currIdx = 2;
         var target = this.currIdx + 8;
         var r = this._cont.rotation + ((target * 360) / 8);
         var time = (r * 1000) / 360;
-        time += 1000;
-        Laya.Tween.to(this._cont, { rotation: r }, time, Laya.Ease.linearOut, Laya.Handler.create(this, function () {
+        time += 2500;
+        Laya.Tween.to(this._cont, { rotation: r }, time, Laya.Ease.cubicOut, Laya.Handler.create(this, function () {
             this._cont.rotation = r % 360;
             this.event("stopSpin");
+            this._btn.setEnabled(true);
+            this._lite.visible = true;
+            this.currIdx = -1;
+            this.isstop = true;
         }));
     };
     return Spinner;
