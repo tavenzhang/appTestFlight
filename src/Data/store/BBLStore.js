@@ -151,6 +151,7 @@ export  default  class BBLStore {
         recharge:"recharge.mp3",
         rightbottomclose:"rightbottomclose.mp3",
         showlogo:"showlogo.mp3",
+        enterPanelClick:"enterPanelClick.mp3"
     }
 
     @action

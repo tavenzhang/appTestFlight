@@ -82,6 +82,7 @@ export default class GameUserInfoView extends Component {
                                                                      onClick={() => {
                                                                          this.setState({isShowPhone: true})
                                                                      }}
+                                                                     soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                                                      btnStyle={{
                                                                          position: "absolute",
                                                                          right: 50,
