@@ -106,7 +106,7 @@ var PopMineMenus = /** @class */ (function (_super) {
         ChangePwdQk.getObj().setOldPwd(pwd);
     };
     PopMineMenus.prototype.onChangePwdCancel = function (e) {
-        Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
+        Tools.jump2module(ConfObjRead.getConfUrl().url.g_redraw, "redraw");
     };
     PopMineMenus.prototype.onChangePwdSuc = function (e) {
         var npwd = e;
