@@ -9,6 +9,7 @@
 <!-- 3. 安装ant(如还未安装) -->
 <!-- 如还未安装ant，在terminal执行 $brew install ant -->
 
+
 <project>
     <property file="gradle.properties"/>
     <xmlproperty collapseAttributes="true" file="app/src/main/AndroidManifest.xml" prefix="androidManifest" />
