@@ -15,7 +15,8 @@ class  TCButtonCommon extends PureComponent {
         txtstyle: PropTypes.any,//文本样式
         txtstyleDisabled: PropTypes.any,//文本不可用样式
         onClick: PropTypes.any,//按钮点击事件
-        isClose:PropTypes.any
+        isClose:PropTypes.any,
+        soundName:PropTypes.any,
     };
 
     static defaultProps = {
@@ -26,15 +27,16 @@ class  TCButtonCommon extends PureComponent {
         txtstyle: null,
         txtstyleDisabled: null,
         onClick: null,
-        isClose:false
+        isClose:false,
+        soundName:null
     }
 
 
     onClick=()=> {
-        let {onClick,isClose} = this.props
+        let {onClick,soundName} = this.props
        if(onClick){
-           if(isClose){
-               TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.close);
+           if(soundName&&soundName.length>0){
+               TW_Store.bblStore.playSoundByFile(soundName);
            }else{
                TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
            }
@@ -68,7 +70,8 @@ export default class TCButtonView extends PureComponent {
         text: PropTypes.any,//按钮文本
         txtstyle: PropTypes.any,//文本样式
         txtstyleDisabled: PropTypes.any,//文本不可用样式
-        onClick: PropTypes.any//按钮点击事件
+        onClick: PropTypes.any,//按钮点击事件,
+        soundName:PropTypes.any,
     };
 
     static defaultProps = {
@@ -78,7 +81,7 @@ export default class TCButtonView extends PureComponent {
         text: 'button',
         txtstyle: null,
         txtstyleDisabled: null,
-        onClick: null
+        onClick: null,
     }
 
 
@@ -123,6 +126,8 @@ export  class TCButtonImg extends PureComponent {
         textStyle:PropTypes.any,
         isHorizon:PropTypes.bool,
         isClose:PropTypes.bool,
+        soundName:PropTypes.any,
+
     };
 
     static defaultProps = {
@@ -134,7 +139,8 @@ export  class TCButtonImg extends PureComponent {
         onClick: null,
         text:null,
         isHorizon:true,
-        isClose:false
+        isClose:false,
+        soundName:null
     }
 
 

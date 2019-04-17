@@ -16,7 +16,7 @@
             "w": 208,
             "h": 56
         },
-        "sfx": "assets/raw/click.mp3",
+        "sfx": "assets/raw/sfx_click.mp3",
         "maxScale": {
             "x": 1.05,
             "y": 1.05
@@ -142,7 +142,7 @@
                 "w": 198,
                 "h": 72
             },
-            "sfx": "assets/raw/click.mp3",
+            "sfx": "assets/raw/sfx_click.mp3",
             "maxScale": {
                 "x": 0.75,
                 "y": 0.75
@@ -165,7 +165,7 @@
                 "w": 198,
                 "h": 72
             },
-            "sfx": "assets/raw/click.mp3",
+            "sfx": "assets/raw/sfx_click.mp3",
             "maxScale": {
                 "x": 0.75,
                 "y": 0.75
@@ -188,7 +188,7 @@
                 "w": 83,
                 "h": 83
             },
-            "sfx": "assets/raw/click.mp3",
+            "sfx": "assets/raw/sfx_click.mp3",
             "maxScale": {
                 "x": 1.05,
                 "y": 1.05

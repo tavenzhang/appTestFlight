@@ -257,7 +257,15 @@ export default class NetUitls extends Component {
         result.status = response.status;
         callback(result);
         TW_Log('\n\n*******   ' + map.method + '请求 url:\n' + url + '\nrequestMap = ' + JSON.stringify(map) + '\n\n*******   状态码:' + response.status + '  *******返回结果：  \n' + JSON.stringify(result) + '\n')
+        if(!result.rs){
+            if(result.error&&result.error=="无效token"){
+                if(TW_OnValueJSHome){
+                    TW_Store.userStore.exitAppToLoginPage();
+                    TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.logout));
+                }
 
+            }
+        }
     }
 
     static getServerUrl(url) {

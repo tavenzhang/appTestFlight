@@ -19,7 +19,7 @@
                 "pos":{ "x":0, "y":0 }
             },
             "size":{ "w":72, "h":87 },
-            "sfx":"assets/raw/click.mp3",
+            "sfx":"assets/raw/enterPanelClick.mp3",
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1}
         },
@@ -38,7 +38,7 @@
                 "pos":{ "x":0, "y":0 }
             },
             "size":{ "w":80, "h":91 },
-            "sfx":"assets/raw/click.mp3",
+            "sfx":"assets/raw/enterPanelClick.mp3",
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1}
         },
@@ -57,7 +57,7 @@
                 "pos":{ "x":0, "y":0 }
             },
             "size":{ "w":80, "h":90 },
-            "sfx":"assets/raw/click.mp3",
+            "sfx":"assets/raw/returnLobbyClick.mp3",
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1}
         }

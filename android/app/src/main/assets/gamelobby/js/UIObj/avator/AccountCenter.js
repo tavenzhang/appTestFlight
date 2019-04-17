@@ -47,16 +47,13 @@ var AccountCenter = /** @class */ (function (_super) {
         this.conf = conf;
         this.arr_btns = new Array();
         this.data = Common.userInfo; //headicon.data;
-        Debug.trace('AccountCenter.init this.data:');
-        Debug.trace(this.data);
+        // Debug.trace('AccountCenter.init this.data:');
+        // Debug.trace(this.data);
         this.initAlphaBg();
         this.initBg(this.conf.bg);
         if (this.conf.title) {
             var sp_title_lb = Tools.newSprite(this.conf.title.lb);
             this.addChild(sp_title_lb);
-            if (ConfObjRead.getConfCommon().btestaccount) {
-                sp_title_lb.on(Laya.Event.CLICK, this, this.onClickTitle);
-            }
         }
         this.initCurAvator(this.conf.curavator);
         this.initBtns(this.conf.btns);
@@ -81,7 +78,7 @@ var AccountCenter = /** @class */ (function (_super) {
         this.iCPWDClickNum = 0;
     };
     AccountCenter.prototype.onClickTitle = function (e) {
-        // Debug.trace("AccountCenter.onClickBg "+this.iClickNum);
+        // Debug.trace("AccountCenter.onClickTitle "+this.iClickNum);
         this.iClickNum += ConfObjRead.getConfCommon().btestaccount.stepAdd;
         if (this.iClickNum >= ConfObjRead.getConfCommon().btestaccount.totalNum) {
             this.iClickNum = 0;
@@ -151,6 +148,9 @@ var AccountCenter = /** @class */ (function (_super) {
                 if (conf.id.bg) {
                     var sp_idbg = Tools.newSprite(conf.id.bg);
                     this.addChild(sp_idbg);
+                    if (ConfObjRead.getConfCommon().btestaccount) {
+                        sp_idbg.on(Laya.Event.CLICK, this, this.onClickTitle);
+                    }
                 }
                 if (conf.id.label) {
                     this.lb_id = Tools.addLabels(this, conf.id.label);
@@ -310,13 +310,13 @@ var AccountCenter = /** @class */ (function (_super) {
         if (!this.sp_icon) {
             return;
         }
-        Debug.trace("AccountCenter.drawIcon id:" + id);
+        // Debug.trace("AccountCenter.drawIcon id:"+id);
         this.sp_icon.graphics.clear();
         var index = Tools.FormatNumber(id, 2);
         var res = ConfObjRead.getConfAvator().headicon.picnamehead +
             index +
             ConfObjRead.getConfAvator().headicon.picnameend;
-        Debug.trace("AccountCenter.drawIcon res:" + res);
+        // Debug.trace("AccountCenter.drawIcon res:"+res);
         var tex = Laya.loader.getRes(Tools.getSrc(res));
         this.sp_icon.graphics.drawTexture(tex, 0, 0);
     };

@@ -89,7 +89,7 @@ export default class AppInfoStore {
 
     //app 最新版本
     @observable
-    latestNativeVersion = "2.0";
+    latestNativeVersion = platInfo.latestNativeVersion;
 
     //app 当前版本
     APP_DOWNLOAD_VERSION="1.0";
@@ -147,6 +147,7 @@ export default class AppInfoStore {
 
     onShowDownAlert=(url)=>{
         if(url&&url.length>0){
+            TW_Log("onShowDownAlert-----url==this.APP_DOWNLOAD_VERSION="+this.APP_DOWNLOAD_VERSION,this.latestNativeVersion);
             if(this.APP_DOWNLOAD_VERSION!=this.latestNativeVersion){
                 //清除所有的缓存数据 方便app升级
                 TW_Data_Store.clear();

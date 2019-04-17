@@ -31,7 +31,7 @@ var AttentionDialog = /** @class */ (function (_super) {
             o.init(conf);
             o.fatherNode = node;
             node.addChild(o);
-            Debug.trace("AttentionDialog.showPad openType:" + AttentionDialog.obj.openType);
+            // Debug.trace("AttentionDialog.showPad openType:"+AttentionDialog.obj.openType);
         }
     };
     AttentionDialog.prototype.destroy = function (b) {
@@ -89,11 +89,37 @@ var AttentionDialog = /** @class */ (function (_super) {
             this.attentionPage.destroy(true);
             this.attentionPage = null;
         }
+        if (this.luckydrawPage) {
+            this.removeChild(this.luckydrawPage);
+            this.luckydrawPage.destroy(true);
+            this.luckydrawPage = null;
+        }
+        if (this.sharePage) {
+            this.removeChild(this.sharePage);
+            this.sharePage.destroy(true);
+            this.sharePage = null;
+        }
         if (data) {
-            this.attentionPage = new AttentionPage();
-            this.attentionPage.init(this.conf.attention, data);
-            this.addChild(this.attentionPage);
-            // this.attentionPage.setData(data);
+            switch (data.noticeActivityType) {
+                case "SHARE_DAILY": {
+                    this.sharePage = new SharePage();
+                    this.sharePage.init(this.conf.share, data);
+                    this.addChild(this.sharePage);
+                    break;
+                }
+                case "ROULETTE_DRAW": {
+                    this.luckydrawPage = new LuckyDrawPage();
+                    this.luckydrawPage.init(this.conf.attention, data);
+                    this.addChild(this.luckydrawPage);
+                    break;
+                }
+                default: {
+                    this.attentionPage = new AttentionPage();
+                    this.attentionPage.init(this.conf.attention, data);
+                    this.addChild(this.attentionPage);
+                    // this.attentionPage.setData(data);
+                }
+            }
         }
     };
     AttentionDialog.prototype.refreshDataUnread = function (cateid) {
@@ -122,12 +148,12 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.changeTab = function (cateid) {
         // Debug.trace("AttentionDialog.changeTab id:"+cateid);
-        this.showAttention(null);
+        this.showAttention(this.data[cateid].noticeList[0]);
         this.curTabCateId = cateid;
         this.updateTab();
     };
     AttentionDialog.prototype.updateTab = function () {
-        Debug.trace("AttentionDialog.updateTab curTabCateId:" + this.curTabCateId);
+        // Debug.trace("AttentionDialog.updateTab curTabCateId:"+this.curTabCateId);
         // for( var a in this.arr_btns_content )
         for (var a = 0; a < this.arr_btns_content.length; a++) {
             var b = this.arr_btns_content[a];
@@ -265,8 +291,8 @@ var AttentionDialog = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responsePop);
     };
     AttentionDialog.prototype.responsePop = function (s, stat, hr) {
-        Debug.trace("AttentionDialog.responsePop s:");
-        Debug.trace(s);
+        // Debug.trace("AttentionDialog.responsePop s:");
+        // Debug.trace(s);
         try {
             this.bPopAuto = s.pop;
             this.iDefaultCate = s.noticeCate;
@@ -289,8 +315,8 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.responseAttention = function (s, stat, hr) {
         // Debug.trace("AttentionDialog.responseAttention stat:"+stat);
-        Debug.trace("AttentionDialog.responseAttention s:");
-        Debug.trace(s);
+        // Debug.trace("AttentionDialog.responseAttention s:");
+        // Debug.trace(s);
         if (stat == "complete") {
             this.data = s;
             this.initBtnsContent(this.data);
@@ -331,7 +357,7 @@ var AttentionDialog = /** @class */ (function (_super) {
     AttentionDialog.prototype.responseRead = function (s, stat, hr) {
         if (stat == "complete") {
             try {
-                this.setReaded(s.noticeId);
+                this.setReaded(s.noticeid);
             }
             catch (e) { }
         }
@@ -420,13 +446,18 @@ var AttentionDialog = /** @class */ (function (_super) {
         if (this.openType == AttentionDialog.TYPE_OPEN_MANUAL) {
             return;
         }
+        if (Common.numShowChangePwdQk > 0) {
+            return;
+        }
         // Debug.trace("AttentionDialog.showChangePwd Common.loginType:"+Common.loginType+" Common.loginInfo.strongPwd:"+Common.loginInfo.strongPwd);
         if (Common.loginType == Common.TYPE_LOGIN_QK) {
             if (!Common.loginInfo.strongPwd) {
-                ChangePwdQk.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdQk());
-                ChangePwdQk.getObj().setSucListener(this, this.onChangePwdSuc);
-                var pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
-                ChangePwdQk.getObj().setOldPwd(pwd);
+                //cancel
+                // ChangePwdQk.showPad(LayaMain.getInstance().getRootNode(),ConfObjRead.getConfChangePwdQk());
+                // ChangePwdQk.getObj().setSucListener(this,this.onChangePwdSuc);
+                // var pwd:string = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD,"123456");
+                // ChangePwdQk.getObj().setOldPwd(pwd);
+                Common.numShowChangePwdQk += 1;
             }
         }
     };

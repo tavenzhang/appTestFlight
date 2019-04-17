@@ -262,10 +262,11 @@ export default class XXWebView extends Component {
 
         if (!G_IS_IOS) {
             source = {
-                uri: TW_Store.dataStore.getHomeWebUri(),
+                uri: TW_Store.dataStore.getHomeWebUri()+"?app=true",
+
             };
         }
-
+       //
        if(TW_IS_DEBIG){
             source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
         }
@@ -491,8 +492,8 @@ export default class XXWebView extends Component {
                                     if(ret.rs){
                                         this.onFinishGameList(ret.content.datas)
                                     }
-
                                 }
+
                             },10,false,false,true);
                             break;
                         case "put":

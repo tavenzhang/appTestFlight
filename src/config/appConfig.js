@@ -55,8 +55,9 @@ export const platInfo = {
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.hkbaoxian188.com/game/release/chyqp"
+        release_server: "https://download.hkbaoxian188.com/game/release/chyqp",
     },
+    latestNativeVersion:"2.0",//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
     platId: configAppId,
     brand: "chyqp",
 }

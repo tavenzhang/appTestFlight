@@ -109,6 +109,10 @@ var GameItem = /** @class */ (function (_super) {
         }
     };
     GameItem.prototype.onClickItem = function () {
+        var tmp = (new Date()).getTime();
+        if ((tmp - GameItem.timer) < 200)
+            return;
+        GameItem.timer = tmp;
         // Debug.trace("GameItem.onClickItem this.sStatus:"+this.sStatus);
         switch (this.sStatus) {
             case GameItem.STATUS_PAUSE:
@@ -132,10 +136,11 @@ var GameItem = /** @class */ (function (_super) {
             Laya.SoundManager.playSound(this.conf.sfx);
         }
         if (this.data.jumpUrl) {
-            if (!this.btn_icon.bclick) {
-                return;
-            }
-            this.btn_icon.bclick = false;
+            // if( !this.btn_icon.bclick )
+            // {
+            //     return;
+            // }
+            // this.btn_icon.bclick = false;
             var url = this.data.url;
             Tools.jump2game(url);
         }
@@ -369,6 +374,7 @@ var GameItem = /** @class */ (function (_super) {
     GameItem.STATUS_NORMAL = "normal";
     GameItem.STATUS_COMING = "coming";
     GameItem.STATUS_ONLINE = "online";
+    GameItem.timer = 0;
     return GameItem;
 }(MySprite));
 //# sourceMappingURL=GameItem.js.map

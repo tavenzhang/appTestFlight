@@ -195,7 +195,6 @@ var SettingPad = /** @class */ (function (_super) {
         }
     };
     SettingPad.prototype.onMusicSwitchClick = function (s) {
-        var _this = this;
         if (s.iSwitchId == 0) {
             this.b_music_switch = 0;
             Common.lastMusicVolume = Laya.SoundManager.musicVolume;
@@ -208,12 +207,13 @@ var SettingPad = /** @class */ (function (_super) {
             if (this.musicbar) {
                 this.musicbar.setValue(Common.lastMusicVolume);
             }
-            Laya.loader.load([{ url: ConfObjRead.getConfMusic().src }], new Laya.Handler(this, function () {
-                // Debug.trace( "player bg music" );
-                Laya.timer.once(100, _this, function () {
-                    Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
-                });
-            }));
+            // Laya.loader.load( [{url:ConfObjRead.getConfMusic().src}] , new Laya.Handler( this , ()=>{
+            // Debug.trace( "player bg music" );
+            // Laya.timer.once( 100 , this , ()=>{
+            Debug.trace("SettingPad.playMusic");
+            Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+            // } );
+            // } ) );
         }
         if (this.caller && this.callback) {
             this.callback.apply(this.caller, ["onMusicSwitch", s.iSwitchId]);

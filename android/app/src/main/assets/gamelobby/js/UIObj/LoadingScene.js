@@ -25,12 +25,14 @@ var LoadingScene = /** @class */ (function (_super) {
         Loading.obj.destroy(true);
         Tools.addFullScreenListener();
     };
+    LoadingScene.prototype.onLoaded1 = function (s) {
+    };
     LoadingScene.prototype.onLoaded = function (s) {
         Common.confObj = Laya.loader.getRes("./assets/conf/common/config.json");
         Common.getNormalFontByDevice();
-        Debug.trace("LoadingScene.onLoaded font:" + Common.normalFont);
+        // Debug.trace("LoadingScene.onLoaded font:"+Common.normalFont);
         this.temp_token = SaveManager.getObj().get(SaveManager.KEY_TOKEN, "");
-        Debug.trace("LoadingScene temp_token:" + this.temp_token);
+        // Debug.trace("LoadingScene temp_token:"+this.temp_token);
         this.status = Tools.getQueryVariable("status");
         var urlToken = Tools.getQueryVariable("token");
         if (!AppData.IS_NATIVE_APP) {
@@ -78,8 +80,8 @@ var LoadingScene = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseInfo);
     };
     LoadingScene.prototype.responseInfo = function (s, stat, hr) {
-        Debug.trace("Loading userinfo stat:" + stat);
-        Debug.trace(s);
+        // Debug.trace("Loading userinfobalance stat:"+stat);
+        // Debug.trace(s);
         // Debug.trace("LoadingScene.responseInfo userinfo stat:"+stat);
         // Debug.trace(s);
         if (stat == "complete") {
@@ -91,6 +93,7 @@ var LoadingScene = /** @class */ (function (_super) {
             }
             this.checkReconnect();
             // LayaMain.getInstance().initLobby();
+            // this.requestUserInfo(Common.access_token);
         }
         else {
             // Debug.trace("loading initLogin");
@@ -135,7 +138,7 @@ var LoadingScene = /** @class */ (function (_super) {
         var gameId = Tools.getQueryVariable("gameId");
         var alias = Tools.getQueryVariable("alias");
         if (Common.gameId > 0) {
-            Debug.trace('checkBackFromGame gameId:' + Common.gameId);
+            // Debug.trace('checkBackFromGame gameId:'+Common.gameId);
             var gdata = Common.getGameDataById(Common.gameId);
             if (gdata != null) {
                 LayaMain.getInstance().initRoom(gdata);

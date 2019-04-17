@@ -39,7 +39,7 @@ var Avator = /** @class */ (function (_super) {
         this.conf = conf;
         Avator.obj = this;
         this.bRequestStatus = 1;
-        Debug.trace("Avator.init bRequestStatus:" + this.bRequestStatus);
+        // Debug.trace("Avator.init bRequestStatus:"+this.bRequestStatus);
         this.caller = caller;
         this.callback = callback;
         this.initBg(this.conf.bg);
@@ -102,7 +102,7 @@ var Avator = /** @class */ (function (_super) {
     };
     Avator.prototype.requestUserInfo = function (url) {
         this.bRequestStatus = 1;
-        Debug.trace("Avator.requestUserInfo bRequestStatus:" + this.bRequestStatus);
+        // Debug.trace("Avator.requestUserInfo bRequestStatus:"+this.bRequestStatus);
         if (!this.isFlushMoney) {
             LayaMain.getInstance().showCircleLoading();
         }
@@ -117,11 +117,13 @@ var Avator = /** @class */ (function (_super) {
         if (stat == "complete") {
             Common.userInfo = s;
             Common.setLoginPlatform(s.loginPlatform);
+            this.requestUserInfoCurrent(Common.access_token);
             // if( !this.isFlushMoney )
             // {
-            this.requestUserAvator(ConfObjRead.getConfUrl().url.apihome +
-                ConfObjRead.getConfUrl().cmd.avatorget +
-                "?access_token=" + Common.access_token);
+            // this.requestUserAvator(
+            //     ConfObjRead.getConfUrl().url.apihome+
+            //     ConfObjRead.getConfUrl().cmd.avatorget+
+            //     "?access_token="+Common.access_token);
             // }else{
             //      this.coinIcon.setData(Common.userInfo);
             // }
@@ -129,6 +131,26 @@ var Avator = /** @class */ (function (_super) {
         else {
             this.bRequestStatus = -1;
             Debug.trace("Avator.responseUserInfo bRequestStatus:" + this.bRequestStatus);
+        }
+    };
+    Avator.prototype.requestUserInfoCurrent = function (token) {
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.userinfo +
+            "?access_token=" + token;
+        NetManager.getObj().HttpConnect(url, this, this.responseUserInfoCurrent);
+    };
+    Avator.prototype.responseUserInfoCurrent = function (s, stat, hr) {
+        // Debug.trace("Loading responseUserInfoCurrent stat:"+stat);
+        // Debug.trace(s);
+        if (stat == "complete") {
+            Common.userInfo_current = s;
+            this.requestUserAvator(ConfObjRead.getConfUrl().url.apihome +
+                ConfObjRead.getConfUrl().cmd.avatorget +
+                "?access_token=" + Common.access_token);
+        }
+        else {
+            this.bRequestStatus = -1;
+            Debug.trace("Avator.responseUserInfoCurrent bRequestStatus:" + this.bRequestStatus);
         }
     };
     Avator.prototype.requestUserAvator = function (url) {
@@ -142,8 +164,8 @@ var Avator = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseUserAvator, header, null, "get", "json");
     };
     Avator.prototype.responseUserAvator = function (s, stat, hr) {
-        Debug.trace("Avator.responseUserAvator stat:" + stat);
-        Debug.trace(s);
+        // Debug.trace("Avator.responseUserAvator stat:"+stat);
+        // Debug.trace(s);
         if (stat == "complete") {
             // Debug.trace("responseUserAvator:");
             // Debug.trace(s);

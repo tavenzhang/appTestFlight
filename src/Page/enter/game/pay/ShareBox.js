@@ -92,11 +92,13 @@ export default class ShareBox extends Component {
                         top: 55
                     }}>
                     <TCButtonImg
+                        soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                         imgSource={ASSET_Images.gameShare.btnWX}
                         onClick={this.onClickWechatShare}
                     />
                     <TCButtonImg
                         imgSource={ASSET_Images.gameShare.btPYQ}
+                        soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                         onClick={this.onClickWechatPyqShare}
                         btnStyle={{ marginLeft: 20 }}
                     />
