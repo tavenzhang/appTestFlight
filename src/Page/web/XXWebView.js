@@ -126,7 +126,7 @@ export default class XXWebView extends Component {
     }
 
     onFlushGameData=()=>{
-        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.loginDomain+"/game.json"+"?rom="+Math.random(),null,(rt)=>{
+        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.gameDomain+"/game.json"+"?rom="+Math.random(),null,(rt)=>{
 
             let newList = rt.content ? rt.content:[];
             let gameM =  TW_Store.dataStore.appGameListM;
@@ -483,7 +483,7 @@ export default class XXWebView extends Component {
                                 let access_token =TW_GetQueryString("access_token",message.url);
                                 if(access_token&&access_token!=""){
                                     TW_Store.userStore.initLoginToken(access_token);
-                                    //this.onFlushGameData();
+                                    this.onFlushGameData();
                                 }
                                 if(message.url.indexOf("/api/v1/gamecenter/player/user")>-1){
                                     TW_Store.bblStore.avatarData =ret.content
