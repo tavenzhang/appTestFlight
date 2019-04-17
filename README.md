@@ -144,6 +144,7 @@ Affcode=xxxx // app 邀请码 用于渠道打包
 
 Bundle display name =xxx //app显示名字
 Bundle identifier =xxx //appid 
+AppSecret  //用于微信分享配置
 
 
 
