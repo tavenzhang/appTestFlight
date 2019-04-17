@@ -66,13 +66,13 @@ export const AppConfig = {
     ],
 }
 
-//app 名称
+//app 名称 目前暂不使用
 export const MyAppName = '博博乐';
 
 //app js 业务代码版本
 export const versionHotFix = 'bbl_3_25';
 
-//配合渠道域名 用来 获取 域名的开关等参数
+//配合渠道域名 用来 获取 热更新的开关等参数
 export const MyOwnerPlatName= 'uat彩票';
 
 //备份域名 用来获取  备份的  热更新和游戏域名
