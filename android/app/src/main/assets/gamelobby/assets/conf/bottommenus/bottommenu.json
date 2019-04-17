@@ -16,7 +16,7 @@
             "size":{ "w":82, "h":87 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/sfx_click.mp3"
         },
         {
             "desc":"",
@@ -28,7 +28,7 @@
             "size":{ "w":82, "h":87 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"                
+            "sfx":"assets/raw/sfx_click.mp3"                
         },
         {
             "desc":"",
@@ -40,7 +40,7 @@
             "size":{ "w":82, "h":87 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/sfx_click.mp3"
         }
     ]
 }

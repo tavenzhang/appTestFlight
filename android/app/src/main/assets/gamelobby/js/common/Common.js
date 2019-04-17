@@ -150,6 +150,7 @@ var Common = /** @class */ (function () {
     Common.TYPE_LOGIN_QK = 1;
     Common.TYPE_LOGIN_ACCOUNT = 2;
     Common.loginType = 0;
+    Common.numShowChangePwdQk = 0;
     //当前登录用户令牌
     Common.access_token = "";
     //当前用户是否全新登录

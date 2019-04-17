@@ -37,7 +37,7 @@
             "size":{ "w":71, "h":34 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/sfx_click.mp3"
         }
     },
     "items":[

@@ -143,10 +143,10 @@ export default class App extends Component {
        // return false;
         const routers = this.navigator.state.routes;
         if (routers&&routers.length > 1) {
-            // if(TW_OnValueJSHome){
-            //     TW_OnValueJSHome();
-            // }
-            TW_NavHelp.goBack()
+            if(TW_OnValueJSHome){
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.lobbyResume));
+            }
+            TW_NavHelp.goBack();
             return true;
         }
         let now = new Date().getTime();

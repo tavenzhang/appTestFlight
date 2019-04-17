@@ -115,7 +115,7 @@ export default class DataStore {
                 }
                 TW_Log("TW_DATA_KEY.versionBBL  this.content" ,  this.content);
                 this.log+="==>TW_Store.dataStore.isAppUnZip="+TW_Store.dataStore.isAppUnZip;
-                if(TW_Store.dataStore.isAppUnZip){
+                if(TW_Store.dataStore.isAppUnZip&&!TW_IS_DEBIG){
                     if(this.homeVersionM.versionNum!=content.versionNum){
                             this.downloadFile(zipSrc,rootStore.bblStore.tempZipDir);
                         }
@@ -220,6 +220,10 @@ export default class DataStore {
                     this.log+="==>onSaveVersionM--=end";
                     if(G_IS_IOS){
                         this.onRetartApp();
+                    }else{
+                        setTimeout(()=>{
+                            this.onRetartApp(); //android 的文件解压读写延迟比较大，延迟5秒
+                        },5000)
                     }
                     TW_Store.commonBoxStore.isShow=false;
                 });

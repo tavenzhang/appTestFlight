@@ -989,37 +989,36 @@ var Tools = /** @class */ (function () {
                 return err;
         }
     };
+    Tools.regTest = function (content, regexp, msg, nullmsg) {
+        var err = {
+            "bRight": true,
+            "msg": "txt_unknowerr"
+        };
+        if (content.length <= 0) {
+            err.bRight = false;
+            err.msg = nullmsg;
+            return err;
+        }
+        if (regexp != null) {
+            var reg = new RegExp(Tools.getStringByKey(regexp));
+            if (reg.test(content)) {
+                err.bRight = true;
+            }
+            else {
+                err.bRight = false;
+                err.msg = msg;
+            }
+        }
+        return err;
+    };
     Tools.verifyQuickLogin = function (yzm) {
         var err = {
             "bRight": false,
             "msg": "txt_unknowerr"
         };
-        var yzm_verify = Tools.isRightInput(Tools.INPUT_LABEL_YZM, yzm);
-        if (yzm_verify.bRight) {
-            err.bRight = true;
+        err = Tools.regTest(yzm, null, "", "qklogin_err_yzm_null");
+        if (!err.bRight) {
             return err;
-        }
-        else {
-            err = yzm_verify;
-        }
-        return err;
-        // Toast.showToast(Tools.getStringByKey(yzm_verify.msg));
-    };
-    Tools.regTest = function (content, regexp, msg, nullmsg) {
-        var err = {
-            "bRight": false,
-            "msg": "txt_unknowerr"
-        };
-        if (content.length <= 0) {
-            err.msg = nullmsg;
-            return err;
-        }
-        var reg = new RegExp(Tools.getStringByKey(regexp));
-        if (reg.test(content)) {
-            err.bRight = true;
-        }
-        else {
-            err.msg = msg;
         }
         return err;
     };
@@ -1028,15 +1027,15 @@ var Tools = /** @class */ (function () {
             "bRight": false,
             "msg": "txt_unknowerr"
         };
-        err = Tools.regTest(name, "username_login_regexp", "username_ck_err_login", "username_plsinput");
+        err = Tools.regTest(name, null, "", "login_err_username_null");
         if (!err.bRight) {
             return err;
         }
-        err = Tools.regTest(pwd, "pwd_regexp", "pwd_ck_err", "pwd_plsinput");
+        err = Tools.regTest(pwd, null, "", "login_err_pwd_null");
         if (!err.bRight) {
             return err;
         }
-        err = Tools.regTest(yzm, "yzm_regexp", "yzm_ck_err", "yzm_plsinput");
+        err = Tools.regTest(yzm, null, "", "login_err_yzm_null");
         if (!err.bRight) {
             return err;
         }
@@ -1047,25 +1046,25 @@ var Tools = /** @class */ (function () {
             "bRight": false,
             "msg": "txt_unknowerr"
         };
-        err = Tools.regTest(name, "username_reg_regexp", "username_ck_err_reg", "username_plsinput");
+        err = Tools.regTest(name, "regexp_username_reg", "reg_err_username_format", "reg_err_username_null");
         if (!err.bRight) {
             return err;
         }
-        err = Tools.regTest(pwd, "pwd_regexp", "pwd_ck_err", "pwd_plsinput");
+        err = Tools.regTest(pwd, "regexp_pwd", "reg_err_pwd_format", "reg_err_pwd_null");
         if (!err.bRight) {
             return err;
         }
         if (cfpwd.length <= 0) {
             err.bRight = false;
-            err.msg = "pwdagain_plsinput";
+            err.msg = "reg_err_cfpwd_null";
             return err;
         }
         if (pwd != cfpwd) {
             err.bRight = false;
-            err.msg = "cfpwd_ck_err";
+            err.msg = "reg_err_cfpwd_notsame";
             return err;
         }
-        err = Tools.regTest(yzm, "yzm_regexp", "yzm_ck_err", "yzm_plsinput");
+        err = Tools.regTest(yzm, null, "", "reg_err_yzm_null");
         if (!err.bRight) {
             return err;
         }
@@ -1076,22 +1075,22 @@ var Tools = /** @class */ (function () {
             "bRight": false,
             "msg": "txt_unknowerr"
         };
-        err = Tools.regTest(oldpwd, "pwd_regexp", "oldpwd_err", "oldpwd_prompt");
+        err = Tools.regTest(oldpwd, null, "", "changepwd_err_oldpwd_null");
         if (!err.bRight) {
             return err;
         }
-        err = Tools.regTest(newpwd, "pwd_regexp", "newpwd_ck_err", "newpwd_plsinput");
+        err = Tools.regTest(newpwd, "regexp_pwd", "changepwd_err_newpwd_format", "changepwd_err_newpwd_null");
         if (!err.bRight) {
             return err;
         }
         if (cfpwd.length <= 0) {
             err.bRight = false;
-            err.msg = "newpwdagain_plsinput";
+            err.msg = "changepwd_err_cfpwd_null";
             return err;
         }
         if (newpwd != cfpwd) {
             err.bRight = false;
-            err.msg = "cfpwd_err";
+            err.msg = "changepwd_err_cfpwd_notsame";
             return err;
         }
         // err = Tools.regTest(cfpwd,"pwd_regexp","cfpwd_ck_err");
@@ -1273,6 +1272,9 @@ var Tools = /** @class */ (function () {
         }
         if (conf.font.strokeColor) {
             lb.strokeColor = conf.font.strokeColor;
+        }
+        if (conf.data) {
+            lb.dataName = conf.data;
         }
         return lb;
     };

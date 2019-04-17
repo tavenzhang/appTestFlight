@@ -80,6 +80,12 @@ var GamePanel = /** @class */ (function (_super) {
             this.sp_arrow.setPanel(this);
             this.addChild(this.sp_arrow);
         }
+        if (this.conf.pagearrowleft) {
+            this.sp_arrow_left = new PageArrow();
+            this.sp_arrow_left.init(this.conf.pagearrowleft);
+            this.sp_arrow_left.setPanel(this);
+            this.addChild(this.sp_arrow_left);
+        }
         this.createGirl();
         this.requestGameList(ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.gamelist +
@@ -157,12 +163,20 @@ var GamePanel = /** @class */ (function (_super) {
         var sumx = -1 * x * num;
         this.moveAllItem(sumx);
     };
-    GamePanel.prototype.flipNext = function (num) {
+    GamePanel.prototype.flipNext = function (num, arrowObj) {
         if (this.conf.movecontent.scrollType == "tween") {
-            this.sp_ct_move.autoSlips(MoveContent.MOVE_DIRECT_LEFT, this.conf.movecontent.jumpspds * num, this.conf.movecontent.jumptimes);
+            var spd = this.conf.movecontent.jumpspds * num;
+            if (arrowObj == this.sp_arrow_left) {
+                spd *= -1;
+            }
+            this.sp_ct_move.autoSlips(MoveContent.MOVE_DIRECT_LEFT, spd, this.conf.movecontent.jumptimes);
         }
         else {
-            this.sp_ct_move.autoSlip(MoveContent.MOVE_DIRECT_LEFT, this.conf.movecontent.jumpspd * num, this.conf.movecontent.jumptime);
+            var spd = this.conf.movecontent.jumpspd * num;
+            if (arrowObj == this.sp_arrow_left) {
+                spd *= -1;
+            }
+            this.sp_ct_move.autoSlip(MoveContent.MOVE_DIRECT_LEFT, spd, this.conf.movecontent.jumptime);
         }
     };
     GamePanel.prototype.moveContentEvent = function (e) {
@@ -277,6 +291,8 @@ var GamePanel = /** @class */ (function (_super) {
         this.lastScrollSpdX = nx;
         var bHave = this.isHaveGameIcons();
         this.sp_arrow.visible = bHave;
+        var bHave_left = this.isHaveGameIconsLeft();
+        this.sp_arrow_left.visible = bHave_left;
     };
     GamePanel.prototype.stopDragForce = function () {
         if (this.bDrag) {
@@ -304,6 +320,8 @@ var GamePanel = /** @class */ (function (_super) {
         if (mvEvent == MoveContent.MOVE_EVENT_END) {
             var bHave = this.isHaveGameIcons();
             this.sp_arrow.visible = bHave;
+            var bHave_left = this.isHaveGameIconsLeft();
+            this.sp_arrow_left.visible = bHave_left;
         }
     };
     GamePanel.prototype.moveEnd = function (x) {
@@ -337,8 +355,8 @@ var GamePanel = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseGameList);
     };
     GamePanel.prototype.responseGameList = function (s, stat, hr) {
-        Debug.trace("GamePanel.responseGameList:");
-        Debug.trace(s);
+        // Debug.trace("GamePanel.responseGameList:");
+        // Debug.trace(s);
         if (stat == "complete") {
             Common.gameInfo = s.datas;
             var ilen = this.items.length;
@@ -374,8 +392,8 @@ var GamePanel = /** @class */ (function (_super) {
                 }
             }
         }
-        Debug.trace('addGameItems len:' + dt.length);
-        Debug.trace(dt);
+        // Debug.trace('addGameItems len:'+dt.length);
+        // Debug.trace(dt);
         this.totalWidth = 0;
         for (var i = 0; i < dt.length; i++) {
             var gi = new GameItem();
@@ -411,9 +429,21 @@ var GamePanel = /** @class */ (function (_super) {
         catch (e) { }
         return true;
     };
+    GamePanel.prototype.isHaveGameIconsLeft = function () {
+        // Debug.trace("GamePanel.isHaveGameIconsLeft sp_ct_move.x:"+this.sp_ct_move.x+" maxx:"+this.maxx);
+        try {
+            if (this.sp_ct_move.x >= (this.maxx - (this.conf.gameitemdefault.pos.x + this.conf.gameitemdefault.btnicon.pos.x))) {
+                return false;
+            }
+        }
+        catch (e) { }
+        return true;
+    };
     GamePanel.prototype.resetScrollBar = function () {
         var bHave = this.isHaveGameIcons();
         this.sp_arrow.visible = bHave;
+        var bHave_left = this.isHaveGameIconsLeft();
+        this.sp_arrow_left.visible = bHave_left;
         if (!this.scrollbar && this.conf.scrollbar) {
             this.scrollbar = new ScrollBar();
             this.scrollbar.init(this.conf.scrollbar);

@@ -26,10 +26,12 @@ var AgentContentInfo = /** @class */ (function (_super) {
             }
         }
         if (this.conf.labels) {
+            this.arr_labels = new Array();
             var len = this.conf.labels.length;
             for (var i = 0; i < len; i++) {
                 var lbconf = this.conf.labels[i];
-                Tools.addLabels(this, lbconf);
+                var lb = Tools.addLabels(this, lbconf);
+                this.arr_labels.push(lb);
             }
         }
         this.arr_btns = new Array();
@@ -70,6 +72,7 @@ var AgentContentInfo = /** @class */ (function (_super) {
             this.lbNumYesterday.pos(this.conf.datanumYesterday.pos.x, this.conf.datanumYesterday.pos.y);
             this.lbNumYesterday.setNum("999999");
         }
+        this.requestInfo();
     };
     AgentContentInfo.prototype.onClickBtn = function (e) {
         var btn = e;
@@ -81,6 +84,71 @@ var AgentContentInfo = /** @class */ (function (_super) {
                 break;
             case "share":
                 break;
+        }
+    };
+    AgentContentInfo.prototype.getLabelByDataName = function (dn) {
+        var len = this.arr_labels.length;
+        // Debug.trace("AgentContentInfo.getLabelByDataName dn:"+dn+" len:"+len);
+        for (var i = 0; i < len; i++) {
+            var lb = this.arr_labels[i];
+            if (lb.dataName == dn) {
+                return lb;
+            }
+        }
+        return null;
+    };
+    AgentContentInfo.prototype.setLabelData = function (dn, v) {
+        var lb = this.getLabelByDataName(dn);
+        if (lb) {
+            // Debug.trace("AgentContentInfo.setLabelData dn:"+dn+" v:"+v);
+            lb.text = v;
+        }
+    };
+    AgentContentInfo.prototype.requestInfo = function () {
+        LayaMain.getInstance().showCircleLoading();
+        var header = [
+            // "Content-Type","application/json",
+            // "Accept","*/*"
+            "Accept", "application/json"
+        ];
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.agentinfo +
+            "?access_token=" + Common.access_token;
+        // Debug.trace("requestUserAvator url:"+url);
+        NetManager.getObj().HttpConnect(url, this, this.responseInfo, header, null, "get", "json");
+    };
+    AgentContentInfo.prototype.responseInfo = function (s, stat, hr) {
+        Debug.trace("AgentContentInfo.responseInfo stat:" + stat);
+        Debug.trace(s);
+        if (stat == "complete") {
+            /*
+            newSubMembers:0,
+            newTeamMembers:0,
+            nickname:null,
+            parentName:"default_ga"
+            subMembers:0,
+            teamMembers:0,
+            todayBrokerage:0
+            todaySubBet:0,
+            todayTeamBet:0,
+            "username":"xxxx",
+            yesterdayBrokerage:0
+            */
+            this.setLabelData("username", s.nickname);
+            this.setLabelData("invationid", s.username);
+            this.setLabelData("invationparentid", s.parentName);
+            this.setLabelData("childrenincome", s.todaySubBet);
+            this.setLabelData("brokerage", s.todayBrokerage);
+            this.setLabelData("teampersonnum", s.teamMembers);
+            this.setLabelData("subchildren", s.subMembers);
+            this.setLabelData("todayaddinteam", s.newTeamMembers);
+            this.setLabelData("todayaddmychildren", s.newSubMembers);
+            this.lbNumTeamToday.setNum(s.todayTeamBet);
+            this.lbNumYesterday.setNum(s.yesterdayBrokerage);
+            LayaMain.getInstance().requestEnd(stat, "");
+        }
+        else {
+            LayaMain.getInstance().requestEnd(stat, s);
         }
     };
     return AgentContentInfo;

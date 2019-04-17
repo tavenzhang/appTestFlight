@@ -21,7 +21,7 @@
             "size":{ "w":282, "h":92 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         },
         {
             "cmd":"accountlogin",
@@ -32,7 +32,7 @@
             "size":{ "w":282, "h":92 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         }
     ]
 }

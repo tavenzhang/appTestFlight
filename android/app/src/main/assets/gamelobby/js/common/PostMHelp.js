@@ -25,11 +25,10 @@ var PostMHelp = /** @class */ (function () {
         window.top.postMessage(JSON.stringify(__assign({ action: "startUpdate" }, data)), "*");
     };
     PostMHelp.jumpToGame = function (data) {
+        // try{
+        //       lamain.onGamePause();
+        // }catch(e){}
         if (data === void 0) { data = {}; }
-        try {
-            lamain.onGamePause();
-        }
-        catch (e) { }
         var msg = JSON.stringify(__assign({ action: "game_open_game" }, data));
         window.top.postMessage(msg, "*");
         if (AppData.IS_NATIVE_APP) {

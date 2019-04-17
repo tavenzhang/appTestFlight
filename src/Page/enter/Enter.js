@@ -50,7 +50,6 @@ export default class Enter extends Component {
             TW_Store.appStore.keepAwake=true;
             KeepAwake.activate();
         }
-        //SplashScreen.hide();
     }
 
     onInitAllData=()=>{

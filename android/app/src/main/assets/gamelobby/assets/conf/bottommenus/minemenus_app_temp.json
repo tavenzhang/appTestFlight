@@ -9,7 +9,7 @@
         "size":{ "w":250, "h":175 },
         "maxScale":{"x":1.02,"y":1.02},
         "normalScale":{"x":1,"y":1},
-        "sfx":"assets/raw/recharge.mp3",
+        "sfx":"assets/raw/enterbuyClick.mp3",
         "anim":{
             "textPath":"./assets/ui/animation/shopicon/shopicon.png",
             "animPath":"./assets/ui/animation/shopicon/shopicon.sk",
@@ -47,7 +47,7 @@
                 "size":{ "w":76, "h":90 },
                 "maxScale":{"x":1.02,"y":1.02},
                 "normalScale":{"x":1,"y":1},
-                "sfx":"assets/raw/click.mp3"
+                "sfx":"assets/raw/enterPanelClick.mp3"
             }
         ]
     },

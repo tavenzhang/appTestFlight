@@ -24,14 +24,22 @@ var LayaMain = /** @class */ (function () {
         if (window["bShowStat"]) {
             Laya.Stat.show(0, 0);
         }
+        // try{
+        //     window["initVconsole"]();
+        // }catch(e){}
         Laya.stage.scaleMode = window["sScaleMode"]; //Laya.Stage.SCALE_FIXED_HEIGHT;
         Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
         Laya.stage.alignH = Laya.Stage.ALIGN_CENTER;
         Laya.stage.alignV = Laya.Stage.ALIGN_MIDDLE;
         Laya.stage.bgColor = "#000000";
         Laya.stage.on(Laya.Event.RESIZE, this, this.onResize);
-        window.document.addEventListener("message", this.handleIFrameAction, false);
-        window.addEventListener("message", this.handleIFrameAction, false);
+        var isApp = Tools.getQueryVariable("app");
+        if (isApp) {
+            window.document.addEventListener("message", this.handleIFrameAction, false);
+        }
+        else {
+            window.addEventListener("message", this.handleAction, false);
+        }
         this.root_node = new Laya.View();
         // this.root_node = new MySprite();
         this.root_node.centerX = 0;
@@ -44,12 +52,14 @@ var LayaMain = /** @class */ (function () {
         return LayaMain.obj;
     };
     LayaMain.prototype.onResize = function () {
+        Debug.trace("LayaMain.onResize");
         ToolsApp.initAppData();
-        if (AppData.IS_NATIVE_APP) {
-            window.removeEventListener("message", this.handleIFrameAction, false);
-        }
+        // if( AppData.IS_NATIVE_APP&&AppData.isDebug)
+        // {
+        //      window.document.addEventListener("message", this.handleIFrameAction, false);
+        //      window.removeEventListener("message", this.handleAction,false);
+        // }
         // let rate = Laya.stage.width/Laya.stage.height;
-        // Debug.trace("LayaMain.onResize rate:"+rate);
         // if(rate>2)
         // {
         //     this.root_node.width = Laya.stage.width;
@@ -66,13 +76,13 @@ var LayaMain = /** @class */ (function () {
             Debug.trace("Laya handleAction:");
             Debug.trace(e);
             var obj = JSON.parse(e.data);
-            Debug.trace("Laya handleAction obj:");
-            Debug.trace(obj);
-            Debug.trace("Laya handleAction action:");
-            Debug.trace(obj.action);
+            // Debug.trace("Laya handleAction obj:");
+            // Debug.trace(obj);
+            // Debug.trace("Laya handleAction action:");
+            // Debug.trace(obj.action);
             switch (obj.action) {
                 case "lobbyResume":
-                    Debug.trace("LayaMain.handleAction in case");
+                    Debug.trace("LayaMain.handleAction in case lobbyResume");
                     lamain.onGameResume();
                     break;
                 default:
@@ -88,7 +98,9 @@ var LayaMain = /** @class */ (function () {
         this.initLogin();
     };
     LayaMain.prototype.onGamePause = function () {
+        Debug.trace("LayaMain.onGamePause");
         Laya.SoundManager.setMusicVolume(0);
+        Laya.SoundManager.stopMusic();
         // Laya.SoundManager.setSoundVolume(0);
     };
     LayaMain.prototype.onGameResume = function () {
@@ -99,12 +111,13 @@ var LayaMain = /** @class */ (function () {
             var lmv = SaveManager.getObj().get(SaveManager.KEY_MUSIC_VL, 1);
             var lss = SaveManager.getObj().get(SaveManager.KEY_SFX_SWITCH, 1);
             var lsv = SaveManager.getObj().get(SaveManager.KEY_SFX_VL, 1);
-            Debug.trace("LayaMain.onGameResume save obj:");
-            Debug.trace(SaveManager.getObj().mtObj);
-            Debug.trace("LayaMain.onGameResume music vol:" + lmv + " switch:" + lms + " sound vol:" + lsv + " switch:" + lss);
+            // Debug.trace("LayaMain.onGameResume save obj:");
+            // Debug.trace(SaveManager.getObj().mtObj);
+            // Debug.trace("LayaMain.onGameResume music vol:"+lmv+" switch:"+lms+" sound vol:"+lsv+" switch:"+lss);
             Laya.SoundManager.setMusicVolume(lmv);
             Laya.SoundManager.setSoundVolume(lsv);
             if (lms == 1) {
+                Debug.trace("LayaMain.playMusic");
                 Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
             }
             if (Avator.getInstance()) {
@@ -141,7 +154,7 @@ var LayaMain = /** @class */ (function () {
                     LayaMain.onQuit();
                     break;
                 case "playMusic":
-                    lamain.onGameResume();
+                    // lamain.onGameResume()
                     break;
                 case "stopMusic":
                     Laya.SoundManager.stopAll();
@@ -214,7 +227,7 @@ var LayaMain = /** @class */ (function () {
                     MyUid.setUid(message.data);
                     break;
                 case "lobbyResume":
-                    Debug.trace("LayaMain.handleAction in case");
+                    // Debug.trace("LayaMain.handleAction in case");
                     lamain.onGameResume();
                     break;
             }

@@ -47,9 +47,10 @@ var ChooseLogin = /** @class */ (function (_super) {
                 var spconf = this.conf.sprites[i];
                 var sp = Tools.addSprite(this, spconf);
                 if (spconf.cmd) {
-                    if (ConfObjRead.getConfCommon().btestclearstorge) {
-                        sp.on(Laya.Event.CLICK, this, this.onClickTest);
-                    }
+                    // if( ConfObjRead.getConfCommon().btestclearstorge )
+                    // {
+                    //     sp.on(Laya.Event.CLICK,this,this.onClickTest);
+                    // }
                 }
             }
         }

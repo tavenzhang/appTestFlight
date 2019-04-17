@@ -62,9 +62,40 @@ var MineMenus = /** @class */ (function (_super) {
         this.pos(this.conf.pos.x, this.conf.pos.y);
         // Debug.trace("MineMenu.init 8");
     };
+    MineMenus.prototype.gotoRecharge = function () {
+    };
     MineMenus.prototype.clickSwitch = function (e) {
+        //check changepwd
+        try {
+            if (Common.userInfo_current.needResetPwd) {
+                this.showChangePwd();
+                return;
+            }
+        }
+        catch (e) { }
+        ;
         // this.btn_menus.switch();
         Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
+    };
+    MineMenus.prototype.showChangePwd = function () {
+        ChangePwdQk.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdQk(), this, this.onChangePwdCancel);
+        ChangePwdQk.getObj().setSucListener(this, this.onChangePwdSuc);
+        var pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
+        ChangePwdQk.getObj().setOldPwd(pwd);
+    };
+    MineMenus.prototype.onChangePwdCancel = function (e) {
+        Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
+    };
+    MineMenus.prototype.onChangePwdSuc = function (e) {
+        var npwd = e;
+        Common.loginInfo.strongPwd = true;
+        SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
+        SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+        SaveManager.getObj().save(SaveManager.KEY_QK_PWD_CHANGED, true);
+        var str = Tools.getStringByKey(ConfObjRead.getConfChangePwdQk().textChanged);
+        Debug.trace("MineMenu.onChangePwdSuc str:" + str);
+        LayaMain.getInstance().loginOut();
+        Toast.showToast(str);
     };
     MineMenus.obj = null;
     return MineMenus;

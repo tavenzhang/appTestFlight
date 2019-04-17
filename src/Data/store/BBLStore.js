@@ -137,7 +137,8 @@ export  default  class BBLStore {
         setrawroot:"setrawroot",//设置声音根目录
         playsoundByFile:"playsound",//通过文件名播放声音
         playmusicByFile:"playmusic",//通过文件名播放背景音乐
-        onBlur:"onBlur"
+        onBlur:"onBlur",
+        lobbyResume:"lobbyResume"
     }
 
     //bgm.mp3 click.mp3 close.mp3 flopleft.mp3 flopright.mp3 recharge.mp3 rightbottomclose.mp3 showlogo.mp3
@@ -150,6 +151,7 @@ export  default  class BBLStore {
         recharge:"recharge.mp3",
         rightbottomclose:"rightbottomclose.mp3",
         showlogo:"showlogo.mp3",
+        enterPanelClick:"enterPanelClick.mp3"
     }
 
     @action
@@ -196,14 +198,23 @@ export  default  class BBLStore {
     @action
     getAppData(){
         let  url = TW_Store.bblStore.gameDomain+ config.api.gameShareDown.replace("#0",platInfo.brand);
+        let downUrl="";
         NetUitls.getUrlAndParamsAndCallback(url, null, (ret) => {
             if(ret.rs&&ret.content){
                 this.shareData = ret.content;
                 this.shareURL.ios=this.shareData.iosShareUrl;
                 this.shareURL.android=this.shareData.androidShareUrl;
+                downUrl = G_IS_IOS ? this.shareData.iosDownloadUrl:this.shareData.androidDownloadUrl;
+                downUrl = downUrl ? downUrl:"";
+                if(downUrl.indexOf("?")>-1){
+                    downUrl = downUrl+"&random="+Math.random();
+                }else{
+                    downUrl = downUrl+"?random="+Math.random();
+                }
+                TW_Store.appStore.onShowDownAlert(downUrl);
             }
-            TW_Log("---getUrlAndParamsAndCallback--getAppData--",ret.content)
-
+            //let downUrl =  iosDownloadUrl
+            TW_Log("---getUrlAndParamsAndCallback--getAppData--downUrl=="+downUrl,ret.content);
         },10,false,false);
     }
 

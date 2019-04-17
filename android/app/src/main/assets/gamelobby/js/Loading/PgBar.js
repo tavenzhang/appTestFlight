@@ -38,7 +38,7 @@ var PgBar = /** @class */ (function (_super) {
         }
         if (this.conf.front) {
             this.front = new MySprite();
-            this.addChild(this.front);
+            this.bg.addChild(this.front);
             if (this.conf.front.src.length > 0) {
                 Laya.loader.load(this.conf.front.src, Laya.Handler.create(this, this.onLoadedFront));
             }
@@ -47,6 +47,10 @@ var PgBar = /** @class */ (function (_super) {
                 this.conf.front.rect.w, this.conf.front.rect.h, this.conf.front.rect.r, this.conf.front.rect.fillcolor);
             }
             this.fullw = this.conf.front.rect.w;
+            if (this.conf.effect) {
+                this.sp_effect = Tools.addSprite(this.bg, this.conf.effect);
+                this.sp_effect_initx = this.conf.effect.pos.x;
+            }
         }
         if (this.conf.lbpercent) {
             this.lb_percent = Tools.newLabel(" ", this.conf.lbpercent.size.w, this.conf.lbpercent.size.h, this.conf.lbpercent.fontsize, this.conf.lbpercent.fontcolor, this.conf.lbpercent.align, this.conf.lbpercent.valign, this.conf.lbpercent.wrap, this.conf.lbpercent.underline);
@@ -63,10 +67,6 @@ var PgBar = /** @class */ (function (_super) {
                 this.lb_info.borderColor = this.conf.lbinfo.borderColor;
             }
             this.addChild(this.lb_info);
-        }
-        if (this.conf.effect) {
-            this.sp_effect = Tools.addSprite(this, this.conf.effect);
-            this.sp_effect_initx = this.conf.effect.pos.x;
         }
         // Debug.trace('info x:'+this.lb_info.x+" y:"+this.lb_info.y);
         // Debug.trace('this x:'+this.x+" y:"+this.y);
