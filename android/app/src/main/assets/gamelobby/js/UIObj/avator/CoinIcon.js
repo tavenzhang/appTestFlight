@@ -57,14 +57,6 @@ var CoinIcon = /** @class */ (function (_super) {
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
     CoinIcon.prototype.onBtnClick = function (s) {
-        try {
-            if (Common.userInfo_current.needResetPwd) {
-                this.showChangePwd();
-                return;
-            }
-        }
-        catch (e) { }
-        ;
         Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
     };
     CoinIcon.prototype.setData = function (dt) {
@@ -75,25 +67,6 @@ var CoinIcon = /** @class */ (function (_super) {
         // this.lb_num.text = v;
         // Debug.trace("CoinIcon.setData v:"+v);
         this.lb_num.setNum(v);
-    };
-    CoinIcon.prototype.showChangePwd = function () {
-        ChangePwdQk.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfChangePwdQk(), this, this.onChangePwdCancel);
-        ChangePwdQk.getObj().setSucListener(this, this.onChangePwdSuc);
-        var pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
-        ChangePwdQk.getObj().setOldPwd(pwd);
-    };
-    CoinIcon.prototype.onChangePwdCancel = function (e) {
-        Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
-    };
-    CoinIcon.prototype.onChangePwdSuc = function (e) {
-        var npwd = e;
-        // Common.loginInfo.strongPwd = true;
-        SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
-        SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
-        var str = Tools.getStringByKey(ConfObjRead.getConfChangePwdQk().textChanged);
-        Debug.trace("CoinIcon.onChangePwdSuc str:" + str);
-        LayaMain.getInstance().loginOut();
-        Toast.showToast(str);
     };
     return CoinIcon;
 }(MySprite));

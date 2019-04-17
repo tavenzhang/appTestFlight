@@ -181,7 +181,7 @@
                 "./assets/ui/scrollpad/img_lunbo2.png",
                 "./assets/ui/scrollpad/img_lunbo1.png"
             ],
-            "sfx":"assets/raw/sfx_click.mp3",
+            "sfx":"assets/raw/click.mp3",
             "bClick":false
         }
     }

@@ -38,7 +38,7 @@ var LobbyScene = /** @class */ (function (_super) {
         RunningMsg.getInstance(this, "./assets/conf/scrollmsg/runningmsg.json", msgUrl, null, this.runningmsgOver);
         MineMenus.getInstance(this, ConfObjRead.getConfMinemenus());
         if (ConfObjRead.getConfAttention().bAutoShowInLobby) {
-            // Debug.trace("LobbyScene.initUI auto");
+            Debug.trace("LobbyScene.initUI auto");
             AttentionDialog.showPad(this, ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_AUTO);
         }
     };
@@ -56,7 +56,7 @@ var LobbyScene = /** @class */ (function (_super) {
         // } );
         if (SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1) >= 1) //开关
          {
-            // Debug.trace("LobbyScene.initBgMusic playMusic");
+            Debug.trace("LobbyScene.initBgMusic playMusic");
             Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
         }
         // } ) );

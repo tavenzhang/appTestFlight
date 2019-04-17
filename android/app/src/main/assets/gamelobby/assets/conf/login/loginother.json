@@ -299,7 +299,7 @@
             "./assets/ui/login/btn_login.png"
         ],
         "size":{ "w":295, "h":125 },
-        "sfx":"assets/raw/sfx_click.mp3",
+        "sfx":"assets/raw/click.mp3",
         "maxScale":{"x":1.05,"y":1.05},
         "normalScale":{"x":1,"y":1}
     },

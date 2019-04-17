@@ -52,7 +52,6 @@ var LayaMain = /** @class */ (function () {
         return LayaMain.obj;
     };
     LayaMain.prototype.onResize = function () {
-        Debug.trace("LayaMain.onResize");
         ToolsApp.initAppData();
         // if( AppData.IS_NATIVE_APP&&AppData.isDebug)
         // {
@@ -60,6 +59,7 @@ var LayaMain = /** @class */ (function () {
         //      window.removeEventListener("message", this.handleAction,false);
         // }
         // let rate = Laya.stage.width/Laya.stage.height;
+        // Debug.trace("LayaMain.onResize rate:"+rate);
         // if(rate>2)
         // {
         //     this.root_node.width = Laya.stage.width;

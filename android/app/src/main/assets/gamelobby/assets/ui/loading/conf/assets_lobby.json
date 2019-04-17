@@ -434,7 +434,6 @@
         {"url":"./assets/ui/notice/spinner/lunpan_zuanshi_dipan.png","type":"IMAGE"},
         {"url":"./assets/ui/notice/spinner/lunpan_zuanshi_jiantou.png","type":"IMAGE"},
         {"url":"./assets/ui/notice/spinner/lunpanquan.png","type":"IMAGE"},
-        {"url":"./assets/ui/notice/spinner/wheel-light.png","type":"IMAGE"},
         {"url":"./assets/ui/notice/anjian_baiyinlunpan_hou.png","type":"IMAGE"},
         {"url":"./assets/ui/notice/anjian_baiyinlunpan_qian.png","type":"IMAGE"},
         {"url":"./assets/ui/notice/anjian_huangjinlunpan_hou.png","type":"IMAGE"},
@@ -450,11 +449,6 @@
         {"url":"./assets/ui/notice/huojiang_chuangkou2.png","type":"IMAGE"},
         {"url":"./assets/ui/notice/huojiang_tiaoxing_an.png","type":"IMAGE"},
         {"url":"./assets/ui/notice/huojiang_tiaoxing_liang.png","type":"IMAGE"},
-
-        {"url":"./assets/ui/notice/share/fasonggeipengyou_guan.png","type":"IMAGE"},
-        {"url":"./assets/ui/notice/share/fasongggeipengyou_kai.png","type":"IMAGE"},
-        {"url":"./assets/ui/notice/share/fenxiangpengyouquan_guan.png","type":"IMAGE"},
-        {"url":"./assets/ui/notice/share/fenxiangpengyouquan_kai.png","type":"IMAGE"},
 
         {"url":"./assets/ui/room/bottommenu/btn_history.png","type":"IMAGE"},
         {"url":"./assets/ui/room/bottommenu/btn_redraw.png","type":"IMAGE"},
@@ -533,8 +527,8 @@
         {"url":"./assets/ui/version/bgVersion.png","type":"IMAGE"},
 
         {"url":"assets/raw/bgm.mp3","type":"SOUND"},
-        {"url":"assets/raw/sfx_click.mp3","type":"SOUND"},
-        {"url":"assets/raw/sfx_close.mp3","type":"SOUND"},
+        {"url":"assets/raw/click.mp3","type":"SOUND"},
+        {"url":"assets/raw/close.mp3","type":"SOUND"},
         {"url":"assets/raw/enterbuyClick.mp3","type":"SOUND"},
         {"url":"assets/raw/enterGameClick.mp3","type":"SOUND"},
         {"url":"assets/raw/enterPanelClick.mp3","type":"SOUND"},

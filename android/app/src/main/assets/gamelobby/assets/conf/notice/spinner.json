@@ -17,13 +17,6 @@
                 "y": 168
             }
         },
-        "light": {
-            "src": "./assets/ui/notice/spinner/wheel-light.png",
-            "pos": {
-                "x": 109,
-                "y": 76
-            }
-        },
         "label": {
             "font": {
                 "pretext": "",
@@ -79,7 +72,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/sfx_click.mp3"
+            "sfx": "assets/raw/click.mp3"
         },
         "lights": {
             "src": "./assets/ui/notice/spinner/paomadeng_deng.png",
@@ -169,13 +162,6 @@
                 "y": 168
             }
         },
-        "light": {
-            "src": "./assets/ui/notice/spinner/wheel-light.png",
-            "pos": {
-                "x": 109,
-                "y": 76
-            }
-        },
         "label": {
             "font": {
                 "pretext": "",
@@ -231,7 +217,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/sfx_click.mp3"
+            "sfx": "assets/raw/click.mp3"
         },
         "lights": {
             "src": "./assets/ui/notice/spinner/paomadeng_deng.png",
@@ -321,13 +307,6 @@
                 "y": 168
             }
         },
-        "light": {
-            "src": "./assets/ui/notice/spinner/wheel-light.png",
-            "pos": {
-                "x": 109,
-                "y": 76
-            }
-        },
         "label": {
             "font": {
                 "pretext": "",
@@ -383,7 +362,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/sfx_click.mp3"
+            "sfx": "assets/raw/click.mp3"
         },
         "lights": {
             "src": "./assets/ui/notice/spinner/paomadeng_deng.png",

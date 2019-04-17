@@ -15,7 +15,7 @@
                 "./assets/ui/titlebar/btn_dating_fanhui.png"
             ],
             "size":{ "w":54, "h":55 },
-            "sfx":"assets/raw/sfx_click.mp3",
+            "sfx":"assets/raw/click.mp3",
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1}
         },
@@ -27,7 +27,7 @@
                 "./assets/ui/titlebar/btn_dating_fanhui3.png"
             ],
             "size":{ "w":114, "h":31 },
-            "sfx":"assets/raw/sfx_click.mp3",
+            "sfx":"assets/raw/click.mp3",
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1}
         }

@@ -55,10 +55,6 @@
         "prequicklogin":"/account/webapi/account/users/preFastLogin",
         "quicklogin":"/account/webapi/account/users/fastLogin?checkHash=false",
 
-        "agentinfo":"/gamecenter/player/agent/info",
-        "agentchildren":"/gamecenter/player/agent/sub/list",
-        "agentachievement":"/gamecenter/player/agent/achievement/query",
-
         "gamelist":"/gamecenter/player/game/list",
         "noticelist":"/gamecenter/player/notice/list",
         "roomlist":"/gamecenter/player/room/list",
@@ -75,9 +71,7 @@
 
         "attention_new":"/gamecenter/player/notice/list/new",
         "attention_pop":"/gamecenter/player/notice/pop",
-        "attention_read":"/gamecenter/player/notice/read/",
-        "attention_lottey":"/gamecenter/player/activity/lottery/",
-        "attention_lottey_record":"/gamecenter/player/activity/getlLotteryRecord/"
+        "attention_read":"/gamecenter/player/notice/read/"
     },
     "rsa":{
         "pubkey":"eyJuIjoiODliYzJlZTliOWMzMDZhMGQ4MzVlZDZhN2I5MWJkM2Y1M2M0MjM1ZmQ1MTUyOTM5NWZmNWExYTI1NjI5NzI5NmI0MTdjYzNiMWM4ZTM3ZjFjYjZmMWNkNDE4NmM4NTQ1NGZmNzQ1YWJjYzRmZWVkODEzODM5ZTc3YjZjMWUyOTUwNDhkNTQxNThmMDVmMGRkOWUzOTJjMTk0OTM2NDExZGE1YjlhYzI4MTg0OTVjMzc1NTU1MTAyZGZiZTllYTMyOGEyN2Q5MGM2NWIzZjE2MTQzN2IzYTEzYTczNzE0Mzc0MjdlNzE1NWIxNzkzNWI2YTdjODNmMzQxNTk2OTQxNyIsImUiOiIxMDAwMSJ9"

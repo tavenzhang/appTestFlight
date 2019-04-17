@@ -84,7 +84,7 @@
             "w": 76,
             "h": 77
         },
-        "sfx": "assets/raw/sfx_close.mp3",
+        "sfx": "assets/raw/close.mp3",
         "maxScale": {
             "x": 1.05,
             "y": 1.05
@@ -107,7 +107,7 @@
             "w": 194,
             "h": 66
         },
-        "sfx": "assets/raw/sfx_click.mp3",
+        "sfx": "assets/raw/click.mp3",
         "maxScale": {
             "x": 1.05,
             "y": 1.05
@@ -132,7 +132,7 @@
             "w": 213,
             "h": 89
         },
-        "sfx": "assets/raw/sfx_click.mp3",
+        "sfx": "assets/raw/click.mp3",
         "maxScale": {
             "x": 1.05,
             "y": 1.05

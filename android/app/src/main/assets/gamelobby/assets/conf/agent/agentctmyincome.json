@@ -58,7 +58,7 @@
                     "./assets/ui/agent/img_daili_leixing01.png",
                     "./assets/ui/agent/img_daili_leixing03.png"
                 ],
-                "sfx":"assets/raw/sfx_click.mp3"
+                "sfx":"assets/raw/click.mp3"
             },
             "extern":{
                 "pos":{ "x":5, "y":5 },
@@ -78,7 +78,7 @@
                     "./assets/ui/agent/img_daili_leixing01.png",
                     "./assets/ui/agent/img_daili_leixing03.png"
                 ],
-                "sfx":"assets/raw/sfx_click.mp3"
+                "sfx":"assets/raw/click.mp3"
             },
             "extern":{
                 "pos":{ "x":5, "y":5 },
@@ -98,7 +98,7 @@
                     "./assets/ui/agent/img_daili_leixing01.png",
                     "./assets/ui/agent/img_daili_leixing03.png"
                 ],
-                "sfx":"assets/raw/sfx_click.mp3"
+                "sfx":"assets/raw/click.mp3"
             },
             "extern":{
                 "pos":{ "x":5, "y":5 },
@@ -118,7 +118,7 @@
                     "./assets/ui/agent/img_daili_leixing01.png",
                     "./assets/ui/agent/img_daili_leixing03.png"
                 ],
-                "sfx":"assets/raw/sfx_click.mp3"
+                "sfx":"assets/raw/click.mp3"
             },
             "extern":{
                 "pos":{ "x":5, "y":5 },
@@ -138,7 +138,7 @@
                     "./assets/ui/agent/img_daili_leixing01.png",
                     "./assets/ui/agent/img_daili_leixing03.png"
                 ],
-                "sfx":"assets/raw/sfx_click.mp3"
+                "sfx":"assets/raw/click.mp3"
             },
             "extern":{
                 "pos":{ "x":5, "y":5 },
