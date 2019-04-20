@@ -2,18 +2,19 @@ import React, {
     Platform
 } from 'react-native';
 
+
 export const appDomainBase = {
-    base1: 'https://www.diwudalu.com',
-    base2: 'https://www.diwudalu.com',
-    base3: 'https://www.diwudalu.com',
-    base4: 'https://www.diwudalu.com',
-    base5: 'https://www.diwudalu.com',
-    base6: 'https://www.diwudalu.com',
-    base7: 'https://www.diwudalu.com',
+    base1: 'https://38fo28gk.ewxsg.cn',
+    base2: "https://38fo28gk.jjxzt.cn",
+    base3: "https://38fo28gk.gybye.cn",
+    base4: "https://hosobw29.ewxsg.cn",
+    base5: "https://hosobw29.jjxzt.cn",
+    base6: "https://hosobw29.gybye.cn",
+    base7: "https://hosobw29.gybye.cn",
 }
 
 
-export let configAppId = "5"
+export let configAppId = "1147"
 
 
 export const AppConfig = {
@@ -36,39 +37,35 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '博博乐';
+export const MyAppName = '超会赢棋牌';
+export const MyOwnerPlatName= '超会赢棋牌';
 
-export const versionHotFix = 'bbl_3_25';
+export const versionHotFix = 'chy_3_25';
 
-export const MyOwnerPlatName= 'uat彩票';
 
 export const safeguardDomain = [
-    'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
-    'https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com']
+    'https://cea4eca650d71bd9d552b4cf38e05702.oss-cn-shenzhen.aliyuncs.com',
+    'https://cea4eca650d71bd9d552b4cf38e05702.s3-accelerate.amazonaws.com',
+    'https://cea4eca650d71bd9d552b4cf38e05702.azureedge.net']
 
 
 export const platInfo = {
-    //loginDomain:"https://0365cai.cc",
-    loginDomain: "https://webplatform.psxiaohe.com",
-    //  gameDomain:"https://dk3nuq7v.zhdisi.com",
-     gameDomain: "https://webplatform.psxiaohe.com",
+    loginDomain:"https://38fo28gk.ewxsg.cn",
+    gameDomain:"https://yw8txj2e.shpeisheng1.cn",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.hkbaoxian188.com/game/release/uat"
+        release_server: "https://download.hkbaoxian188.com/game/release/chyqp",
     },
-    platId: configAppId,
-    brand: "uat01",
     latestNativeVersion:"2.0",//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
+    platId: configAppId,
+    brand: "chyqp",
 }
-
 
 export const affCodeList = {
     ios: {
-        '2.9.6': 'uat_ios'
     },
     android: {
-        '2.10.11': 'uat_android'
     }
 };
 
