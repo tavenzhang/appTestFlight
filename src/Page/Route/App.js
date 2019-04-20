@@ -1,6 +1,17 @@
 import {TabNavigator, StackNavigator} from 'react-navigation';
 import React, {Component} from 'react';
-import {UIManager, StatusBar,Text,View,ToastAndroid,BackHandler,ScrollView,Alert} from 'react-native';
+import {
+    UIManager,
+    StatusBar,
+    Text,
+    View,
+    ToastAndroid,
+    BackHandler,
+    ScrollView,
+    Alert,
+    Modal,
+    TouchableWithoutFeedback
+} from 'react-native';
 import {Provider} from 'mobx-react'
 import NavigationService from './NavigationService'
 import rootStore from "../../Data/store/RootStore";
@@ -132,7 +143,6 @@ export default class App extends Component {
                     `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
                     <CommonBoxLayer/>
                     <GameUIView/>
-                    {/*<LoadingView/>*/}
                 </View>
             </Provider>
         )

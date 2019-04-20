@@ -141,6 +141,7 @@ export default class AppInfoStore {
                 }
                 this.APP_DOWNLOAD_VERSION=this.appInfo.APP_DOWNLOAD_VERSION;
                 this.APP_DOWNLOAD_VERSION = this.APP_DOWNLOAD_VERSION ? this.APP_DOWNLOAD_VERSION:"1.0";
+                TW_Store.bblStore.getAppData();
             }
         });
     }
@@ -148,6 +149,7 @@ export default class AppInfoStore {
     onShowDownAlert=(url)=>{
         if(url&&url.length>0){
             if(this.APP_DOWNLOAD_VERSION!=this.latestNativeVersion){
+                TW_Log("onBackAndroid---this.APP_DOWNLOAD_VERSION==-"+this.APP_DOWNLOAD_VERSION,this.latestNativeVersion);
                 //清除所有的缓存数据 方便app升级
                 TW_Data_Store.clear();
                 Alert.alert(
