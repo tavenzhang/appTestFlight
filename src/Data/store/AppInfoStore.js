@@ -147,7 +147,8 @@ export default class AppInfoStore {
     }
 
     onShowDownAlert=(url)=>{
-        if(url&&url.length>0){
+        //处于渠道验证阶段 不需要检测强更新
+        if(url&&url.length>0&&!this.isInAnroidHack){
             TW_Log("onShowDownAlert-----url==this.APP_DOWNLOAD_VERSION="+this.APP_DOWNLOAD_VERSION,this.latestNativeVersion);
             if(this.APP_DOWNLOAD_VERSION!=this.latestNativeVersion){
                 TW_Log("onBackAndroid---this.APP_DOWNLOAD_VERSION==-"+this.APP_DOWNLOAD_VERSION,this.latestNativeVersion);
