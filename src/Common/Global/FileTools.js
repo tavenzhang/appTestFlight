@@ -3,8 +3,8 @@ import {unzip,zip } from 'react-native-zip-archive'
 import RNFS from "react-native-fs";
 import Toast from "../JXHelper/JXToast";
 
-
 export default class FileTools {
+
 
     static  downloadFile(formUrl,downloadDest,param,onSucFuc, onProgress){
 
@@ -24,6 +24,7 @@ export default class FileTools {
                     Toast.showShortCenter("需要下载的游戏文件不存在");
                   // TW_Store.commonBoxStore.isShow=false
                 }
+               // TW_Log("FileTools---progress==param=="+JSON.stringify(param))
 
             },
             progress: (res) => {
@@ -31,9 +32,20 @@ export default class FileTools {
                 //let pro = res.bytesWritten / res.contentLength;
                 //  TW_Store.commonBoxStore.curPecent=res.bytesWritten;
                 //  TW_Store.commonBoxStore.totalPecent=res.contentLength;
-                //TW_Log("FileTools---progress==",res);
+               // TW_Log("FileTools---progress==new==",res);
+
                 if(onProgress){
-                     onProgress({percent:(res.bytesWritten/res.contentLength).toFixed(2),param});
+                    if(res.contentLength>0){
+                        onProgress({percent:(res.bytesWritten/res.contentLength).toFixed(2),param});
+                    }else{
+                        let tempContent = param.name&&param.name.indexOf("app_")>-1 ? 40000000:18000000; //如果读取不到总大小 因为cdn等因素 默认使用18m 到0.99 等待，
+                        //let tempContent=40000000;
+                        let tempPercent =(res.bytesWritten/tempContent).toFixed(2);
+                        tempPercent =  tempPercent >= 0.99 ? 0.99:tempPercent;
+                     //   TW_Log("FileTools---progress= FileTools.tempPercent---=", tempPercent);
+                        onProgress({percent:tempPercent,param});
+                    }
+
                 }
             }
         };
@@ -42,6 +54,7 @@ export default class FileTools {
             this.log+="==>downloadFile-="+options;
             ret.promise.then(res => {
                 TW_Log('FileTools---downloadFile---sucess file://' + downloadDest,res);
+
                 // this.log+="==>downloadFile--promise="+JSON.stringify(res)+"---state--"+res.statusCode;
                 if(`${res.statusCode}`!="404"){
                     FileTools.unzipFile(downloadDest,TW_Store.bblStore.storeDir,onSucFuc,param);
