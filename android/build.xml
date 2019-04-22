@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 用于全局替换为当前项目名称 -->
-<!-- 1. 更改当前包名和新包名 -->
-<!-- 请更换defaultPackageName与newPackageName里的property值 -->
-<!-- defaultPackageName: 当前包名, eg: com.jd -->
-<!-- newPackageName: 新包名, eg: com.tc168.qq -->
-<!-- 2. 执行ant脚本 -->
+<!-- 1. 执行ant脚本 -->
 <!-- 确保旧与新的包名已正确，在terminal执行 $ant build -->
-<!-- 3. 安装ant(如还未安装) -->
+<!-- 2. 安装ant(如还未安装) -->
 <!-- 如还未安装ant，在terminal执行 $brew install ant -->
-
 
 <project>
     <property file="gradle.properties"/>
     <xmlproperty collapseAttributes="true" file="app/src/main/AndroidManifest.xml" prefix="androidManifest" />
 
+    <!-- defaultPackageName(原本的包名)会自动从AndroidManifest里的package获取。如有需要，可以替换你特定的包名。 -->
     <property name="defaultPackageName" value="${androidManifest.manifest.package}" />
+    <!-- newPackageName(新的包名)会自动从gradle.properties里的APP_ID获取。如有需要，可以替换你特定的包名。 -->
     <property name="newPackageName" value="${APP_ID}" />
     <echo>本包名：${defaultPackageName}，新包名：${newPackageName}</echo>
 
