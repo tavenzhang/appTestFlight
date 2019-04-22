@@ -328,7 +328,7 @@ export default class AppInfoStore {
         });
 
         if (this.deviceToken.length === 0) {
-            this.deviceToken = await  this.initDeviceTokenFromNative();
+            this.deviceToken = await this.initDeviceTokenFromNative();
             this.saveDeviceTokenToLocalStore();
         }
     }
@@ -336,10 +336,15 @@ export default class AppInfoStore {
     initDeviceTokenFromNative() {
         return new Promise(resolve => {
             try {
-                NativeModules.JXHelper.getCFUUID(
-                    (err, uuid) => {
-                        resolve(uuid)
-                    })
+                if(G_IS_IOS){
+                    NativeModules.JXHelper.getCFUUID(
+                        (err, uuid) => {
+                            resolve(uuid)
+                        })
+                }else{
+                    const deviceToken =this.getGUIDd();
+                    resolve(deviceToken)
+                }
             }catch (e) {
                 resolve(this.getGUIDd())
             }
