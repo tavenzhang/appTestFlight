@@ -21,7 +21,7 @@ function getAvailableDomain (domains,callback) {
               let gameDomain = content.trendChartDomains&&content.trendChartDomains.length>0 ? content.trendChartDomains[0]:"";
               if(gameDomain.indexOf("http")>-1){
                   TW_Log("callback-------content.trendChartDomains[0]-exist"+gameDomain);
-                  TW_Store.bblStore.loginDomain =TW_Store.bblStore.gameDomain=gameDomain;
+                 // TW_Store.bblStore.loginDomain =TW_Store.bblStore.gameDomain=gameDomain;
               }
               AsyncStorage.setItem('cacheDomain', JSON.stringify({
                   serverDomains: content.serverDomains,
