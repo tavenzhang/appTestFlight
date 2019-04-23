@@ -64,7 +64,7 @@ const MainStackNavigator = StackNavigator({
         gesturesEnabled: false
     }
 })
-import {platInfo} from "../../config/appConfig";
+
 import TCUserDetailMsg from "../UserCenter/user/TCUserDetailMsg";
 import TCUserMessage from "../UserCenter/user/TCUserMessage";
 import TCAddUserInfo from "../UserCenter/user/TCAddUserInfo";
@@ -107,12 +107,7 @@ export default class App extends Component {
     }
 
     componentDidMount(): void {
-        // OpeninstallModule.getInstall(10, map => {
-        //     if (map) {
-        //         //do your work here
-        //     }
-        //     Alert.alert('安装回调',JSON.stringify(map))
-        // })
+
     }
 
     componentWillUnmount(): void {

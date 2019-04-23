@@ -13,7 +13,7 @@ import {
 import {UpDateHeadAppId} from "../../Common/Network/TCRequestConfig";
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import TCUserOpenPayApp from "../../Page/UserCenter/UserPay/TCUserOpenPayApp";
-
+import OpeninstallModule from 'openinstall-react-native'
 /**
  * 用于初始化项目信息
  */
@@ -94,6 +94,8 @@ export default class AppInfoStore {
     //app 当前版本
     APP_DOWNLOAD_VERSION="1.0";
 
+    //openInstallData
+    openInstallData={}
 
 
     init() {
@@ -202,7 +204,15 @@ export default class AppInfoStore {
             TN_StartUMeng(this.appInfo.UmengKey, this.appInfo.Affcode)
         }
 
-        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION", this.APP_DOWNLOAD_VERSION);
+        OpeninstallModule.getInstall(10, map => {
+            if (map) {
+                this.openInstallData=map;
+                if(map.data&&map.data.affcode){
+                    this.userAffCode = map.data.affcode;
+                }
+            }
+        })
+      //  TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION", this.APP_DOWNLOAD_VERSION);
     }
 
 
