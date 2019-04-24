@@ -263,7 +263,6 @@ export default class NetUitls extends Component {
                     TW_Store.userStore.exitAppToLoginPage();
                     TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.logout));
                 }
-
             }
         }
     }
