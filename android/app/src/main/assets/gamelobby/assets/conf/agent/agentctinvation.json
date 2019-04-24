@@ -16,7 +16,7 @@
             "w": 208,
             "h": 56
         },
-        "sfx": "assets/raw/click.mp3",
+        "sfx": "assets/raw/sfx_click.mp3",
         "maxScale": {
             "x": 1.05,
             "y": 1.05
@@ -37,30 +37,30 @@
             "h": 50
         }
     },
-     "list":{
-        "pos":{
-            "x":36,
-            "y":150
+    "list": {
+        "pos": {
+            "x": 36,
+            "y": 150
         },
-        "size":{
-            "w":1010,
-            "h":450
+        "size": {
+            "w": 1010,
+            "h": 450
         },
-        "frameX":{
-            "color":"#ff0000",
-            "alpha":0.5
+        "frameX": {
+            "color": "#ff0000",
+            "alpha": 0.5
         },
-        "item":{
-            "h":50,
-            "gh":10,
-            "bg":{
-                "color":"#ff0000",
-                "alpha":0.1
+        "item": {
+            "h": 50,
+            "gh": 10,
+            "bg": {
+                "color": "#ff0000",
+                "alpha": 0.1
             }
         },
-        "guanxing":true,
-        "xiangpiDis":0,
-        "xiangpiTime":300
+        "guanxing": true,
+        "xiangpiDis": 0,
+        "xiangpiTime": 300
     },
     "invBlock": {
         "bg": {
@@ -119,14 +119,18 @@
             }
         },
         "qr": {
-            "src": "./assets/ui/agent/img_daili_touxiang.png",
-            "pos": {
-                "x": 762,
-                "y": 66
-            },
-            "size": {
-                "w": 98,
-                "h": 98
+            "scales": 1.3,
+            "config": {
+                "pos": {
+                    "x": 718,
+                    "y": 21
+                },
+                "color": "#000000",
+                "size": {
+                    "w": 90,
+                    "h": 90
+                },
+                "level": 3
             }
         },
         "btnCopy": {
@@ -139,10 +143,10 @@
                 "./assets/ui/agent/img_daili_fuzhilianjie.png"
             ],
             "size": {
-                "w": 198,
-                "h": 72
+                "w": 138.6,
+                "h": 54.6
             },
-            "sfx": "assets/raw/click.mp3",
+            "sfx": "assets/raw/sfx_click.mp3",
             "maxScale": {
                 "x": 0.75,
                 "y": 0.75
@@ -162,10 +166,10 @@
                 "./assets/ui/agent/img_daili_weixinfenxiang.png"
             ],
             "size": {
-                "w": 198,
-                "h": 72
+                "w": 138.6,
+                "h": 54.6
             },
-            "sfx": "assets/raw/click.mp3",
+            "sfx": "assets/raw/sfx_click.mp3",
             "maxScale": {
                 "x": 0.75,
                 "y": 0.75
@@ -188,7 +192,7 @@
                 "w": 83,
                 "h": 83
             },
-            "sfx": "assets/raw/click.mp3",
+            "sfx": "assets/raw/sfx_click.mp3",
             "maxScale": {
                 "x": 1.05,
                 "y": 1.05

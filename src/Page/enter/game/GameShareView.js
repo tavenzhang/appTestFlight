@@ -55,20 +55,18 @@ export default class GameShareView extends Component {
                          btnStyle={{position: "absolute", right: 80, top: 60}}/>
             <TCImage source={ASSET_Images.gameShare.imgMM} style={{position: "absolute",left:0}}/>
             {this.state.isIos ?  <TCImage  source={ASSET_Images.gameShare.btnApple}
-                                           soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                            style={{position: "absolute", left:232,top:115}}/>: <TCImage source={ASSET_Images.gameShare.btnAndroid}
-                                                                                                             soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                                                                                              style={{position: "absolute",left:278,top:115}}/> }
 
             <View style={{position: "absolute",left:350,top:150}}>
                 <Text style={{color:"yellow", width:190, height: 20,fontWeight: "bold",textAlign:"center"}}>{this.state.surl}</Text>
                 <View style={{flexDirection:"row", alignItems:"center", marginTop: 15,justifyContent:"space-around"}}>
-                    <TCButtonImg  soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick} imgSource={ASSET_Images.gameShare.btn_Copy} onClick={this.onCopyLink} />
+                    <TCButtonImg  imgSource={ASSET_Images.gameShare.btn_Copy} onClick={this.onCopyLink} />
                     <TCButtonImg  soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}  imgSource={ASSET_Images.gameShare.btn_wxShare} onClick={this.onWxShare}/>
                 </View>
             </View>
-            <TCButtonView onClick={this.onClickIos } text={""} btnStyle={{position: "absolute", width: 45, height: 26,backgroundColor: "transparent",left:232,top:115}}/>
-            <TCButtonView onClick={this.onClickAndroid} text={""} btnStyle={{position: "absolute", width: 45, height: 26,backgroundColor: "transparent",left:278,top:115}}/>
+            <TCButtonView  soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick} onClick={this.onClickIos } text={""} btnStyle={{position: "absolute", width: 45, height: 26,backgroundColor: "transparent",left:232,top:115}}/>
+            <TCButtonView   soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick} onClick={this.onClickAndroid} text={""} btnStyle={{position: "absolute", width: 45, height: 26,backgroundColor: "transparent",left:278,top:115}}/>
             <View style={{position: "absolute",left:252,top:149}}>
                 {this.state.isIos ?  <QRCode size={50} value={this.state.surl}/>:
                     <QRCode  size={50} value={this.state.surl}/>}

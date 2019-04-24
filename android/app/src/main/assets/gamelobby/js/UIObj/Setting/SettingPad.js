@@ -11,6 +11,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/**
+ * 设置面板
+ */
 var SettingPad = /** @class */ (function (_super) {
     __extends(SettingPad, _super);
     function SettingPad() {
@@ -23,6 +26,7 @@ var SettingPad = /** @class */ (function (_super) {
         _this.f_music_value = 1;
         _this.b_sfx_switch = 1;
         _this.f_sfx_value = 1;
+        _this.contentBox = new Laya.Sprite();
         return _this;
     }
     SettingPad.getObj = function () {
@@ -54,35 +58,45 @@ var SettingPad = /** @class */ (function (_super) {
         this.conf = conf;
         this.caller = caller;
         this.callback = callback;
-        this.alphabg = new MySprite();
-        Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
+        //todo:xxx
+        // this.alphabg = new MySprite();
+        // Tools.drawRectWithAlpha(this.alphabg,
+        // 	0,0,
+        // 	this.conf.size.w,this.conf.size.h,
+        //     "#000000",
+        //     this.conf.mask.alpha);
+        // this.addChild(this.alphabg);
+        // this.alphabg.size(this.conf.size.w,this.conf.size.h);
+        // this.alphabg.pos(-this.conf.pos.x,-this.conf.pos.y);
+        this.alphabg = Tools.creatDlgBg();
         this.addChild(this.alphabg);
-        this.alphabg.size(this.conf.size.w, this.conf.size.h);
-        this.alphabg.pos(-this.conf.pos.x, -this.conf.pos.y);
         this.alphabg.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
+        this.addChild(this.contentBox);
         this.initBg(this.conf.bg);
         this.initTitle(this.conf.title);
         if (this.conf.close) {
             this.close = new MyButton();
             this.close.init(this.conf.close, this, this.onClose);
             this.close.pos(this.conf.close.pos.x, this.conf.close.pos.y);
-            this.addChild(this.close);
+            this.contentBox.addChild(this.close);
         }
         this.initMusicSwitch(this.conf.musicswitch);
         this.initSfxSwitch(this.conf.sfxswitch);
         this.initMusicItem(this.conf.musicbar);
         this.initSfxItem(this.conf.sfxbar);
         this.initGridline(this.conf.line);
-        this.pos(this.conf.pos.x, this.conf.pos.y);
+        this.contentBox.pos(this.conf.pos.x, this.conf.pos.y);
+        //todo:xxx
+        // this.pos(this.conf.pos.x,this.conf.pos.y);
     };
     SettingPad.prototype.initBg = function (conf) {
-        this.sp_bg = Tools.addSprite(this, conf);
+        this.sp_bg = Tools.addSprite(this.contentBox, conf);
         if (conf.front) {
             this.sp_front = new MySprite();
             this.sp_front.pos(conf.front.pos.x, conf.front.pos.y);
-            this.addChild(this.sp_front);
+            this.contentBox.addChild(this.sp_front);
             Tools.scaleSpriteHV(this.sp_front, conf.front.src, conf.front.size.spliceHV);
             if (conf.pivot) {
                 this.sp_front.pivot(conf.pivot.x, conf.pivot.y);
@@ -95,11 +109,11 @@ var SettingPad = /** @class */ (function (_super) {
         }
         if (conf.bg) {
             this.sp_title_bg = Tools.newSprite(conf.bg);
-            this.addChild(this.sp_title_bg);
+            this.contentBox.addChild(this.sp_title_bg);
         }
         if (conf.lb) {
             this.sp_title_lb = Tools.newSprite(conf.lb);
-            this.addChild(this.sp_title_lb);
+            this.contentBox.addChild(this.sp_title_lb);
         }
     };
     SettingPad.prototype.initMusicItem = function (conf) {
@@ -107,14 +121,14 @@ var SettingPad = /** @class */ (function (_super) {
             return;
         }
         if (conf.icon) {
-            var mIcon = Tools.addSprite(this, conf.icon);
+            var mIcon = Tools.addSprite(this.contentBox, conf.icon);
         }
         if (conf.label) {
-            var lb = Tools.addSprite(this, conf.label);
+            var lb = Tools.addSprite(this.contentBox, conf.label);
         }
         this.musicbar = new MyDragPgBarFront();
         this.musicbar.init(conf.dragbar, this, this.onMusicValueChange);
-        this.addChild(this.musicbar);
+        this.contentBox.addChild(this.musicbar);
         this.musicbar.setValue(Laya.SoundManager.musicVolume);
     };
     SettingPad.prototype.onMusicValueChange = function (s) {
@@ -141,14 +155,14 @@ var SettingPad = /** @class */ (function (_super) {
             return;
         }
         if (conf.icon) {
-            var icon = Tools.addSprite(this, conf.icon);
+            var icon = Tools.addSprite(this.contentBox, conf.icon);
         }
         if (conf.label) {
-            var lb = Tools.addSprite(this, conf.label);
+            var lb = Tools.addSprite(this.contentBox, conf.label);
         }
         this.sfxbar = new MyDragPgBarFront();
         this.sfxbar.init(conf.dragbar, this, this.onSfxValueChange);
-        this.addChild(this.sfxbar);
+        this.contentBox.addChild(this.sfxbar);
         this.sfxbar.setValue(Laya.SoundManager.soundVolume);
     };
     SettingPad.prototype.onSfxValueChange = function (s) {
@@ -175,18 +189,18 @@ var SettingPad = /** @class */ (function (_super) {
             return;
         }
         var line = Tools.newSprite(conf);
-        this.addChild(line);
+        this.contentBox.addChild(line);
     };
     SettingPad.prototype.initMusicSwitch = function (conf) {
         if (!conf) {
             return;
         }
         if (conf.label) {
-            var lb = Tools.addSprite(this, conf.label);
+            var lb = Tools.addSprite(this.contentBox, conf.label);
         }
         this.switchMusic = new MySwitchBtn();
         this.switchMusic.init(conf.switch, this, this.onMusicSwitchClick);
-        this.addChild(this.switchMusic);
+        this.contentBox.addChild(this.switchMusic);
         if (Laya.SoundManager.musicVolume > 0) {
             this.switchMusic.setOn(1, false);
         }
@@ -224,11 +238,11 @@ var SettingPad = /** @class */ (function (_super) {
             return;
         }
         if (conf.label) {
-            var lb = Tools.addSprite(this, conf.label);
+            var lb = Tools.addSprite(this.contentBox, conf.label);
         }
         this.switchSfx = new MySwitchBtn();
         this.switchSfx.init(conf.switch, this, this.onSfxSwitchClick);
-        this.addChild(this.switchSfx);
+        this.contentBox.addChild(this.switchSfx);
         if (Laya.SoundManager.soundMuted) {
             // Debug.trace('switch sfx setOn 0');
             this.switchSfx.setOn(0, false);

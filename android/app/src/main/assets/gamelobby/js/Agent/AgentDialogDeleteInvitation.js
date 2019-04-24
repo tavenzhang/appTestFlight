@@ -22,12 +22,13 @@ var AgentDialogDeleteInvitation = /** @class */ (function (_super) {
     AgentDialogDeleteInvitation.getObj = function () {
         return AgentDialogDeleteInvitation.obj;
     };
-    AgentDialogDeleteInvitation.showDialog = function (node, conf) {
+    AgentDialogDeleteInvitation.showDialog = function (node, conf, data) {
         if (!AgentDialogDeleteInvitation.obj) {
             var o = new AgentDialogDeleteInvitation();
             // o.size(conf.bg.size.w, conf.bg.size.h);
             o.init(node, conf);
             node.addChild(o);
+            o.data = data;
         }
     };
     AgentDialogDeleteInvitation.prototype.destroy = function (b) {
@@ -91,8 +92,20 @@ var AgentDialogDeleteInvitation = /** @class */ (function (_super) {
             container.addChild(this.btnok);
         }
     };
-    AgentDialogDeleteInvitation.prototype.onRegClick = function (e) {
-        // RegPad.showPad(LoginScene.getObj(), ConfObjRead.getConfLogin().reg);
+    AgentDialogDeleteInvitation.prototype.onRegClick = function (e, bcallback) {
+        if (bcallback === void 0) { bcallback = true; }
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.agent_affiliates +
+            "/" + this.data + "?access_token=" + Common.access_token;
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        NetManager.getObj().HttpConnect(url, this, this.responseChange, header, null, "DELETE", "JSON");
+        this.onClose(e, bcallback);
+    };
+    AgentDialogDeleteInvitation.prototype.responseChange = function (s, stat, hr) {
+        // this.event("delete_invite");
+        AgentPad.getObj().switchTab(null, "invation");
+        this.onClose(null);
+        // console.log("responseChange", s, stat, hr)
     };
     return AgentDialogDeleteInvitation;
 }(AgentDialogBase));

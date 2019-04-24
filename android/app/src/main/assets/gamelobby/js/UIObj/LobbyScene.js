@@ -20,46 +20,59 @@ var LobbyScene = /** @class */ (function (_super) {
     }
     LobbyScene.prototype.destroy = function (b) {
         LobbyScene.obj = null;
+        if (this.view) {
+            this.view.dispose();
+            this.view = null;
+        }
         _super.prototype.destroy.call(this, b);
     };
     LobbyScene.getInstance = function () {
         return LobbyScene.obj;
     };
     LobbyScene.prototype.initUI = function () {
-        UIBg.getInstance(this, ConfObjRead.getConfUiBg());
-        GamePanel.getInstance(this, ConfObjRead.getConfGamepanel(), this, this.gamepanelOver);
-        GirlManager.getInstance(this);
-        UITitleBar.getInstance(this, ConfObjRead.getConfTitlebar(), this, this.titlebarOver);
-        Avator.getInstance(this, ConfObjRead.getConfAvator(), this, this.OnAvatorScrollOut);
-        VersionStat.getInstance(this, ConfObjRead.getConfVersion());
-        var msgUrl = ConfObjRead.getConfUrl().url.apihome +
-            ConfObjRead.getConfUrl().cmd.noticelist +
-            "?pageSize=20&start=0&access_token=" + Common.access_token;
-        RunningMsg.getInstance(this, "./assets/conf/scrollmsg/runningmsg.json", msgUrl, null, this.runningmsgOver);
-        MineMenus.getInstance(this, ConfObjRead.getConfMinemenus());
+        //todo:xxx
+        //大厅背景
+        //UIBg.getInstance( this,ConfObjRead.getConfUiBg() );
+        //游戏列表
+        //GamePanel.getInstance( this,ConfObjRead.getConfGamepanel(), this,this.gamepanelOver);
+        //人物角色
+        // GirlManager.getInstance(this);
+        //右上角按钮组
+        // UITitleBar.getInstance( this, ConfObjRead.getConfTitlebar(), this,this.titlebarOver);
+        //左上角用户信息栏
+        // Avator.getInstance(this,ConfObjRead.getConfAvator(), this,this.OnAvatorScrollOut);
+        //版本号
+        // VersionStat.getInstance(this,ConfObjRead.getConfVersion());
+        // var msgUrl = 
+        //     ConfObjRead.getConfUrl().url.apihome+
+        //     ConfObjRead.getConfUrl().cmd.noticelist+
+        //             "?pageSize=20&start=0&access_token="+Common.access_token;
+        //滚动通告
+        // RunningMsg.getInstance(this,"./assets/conf/scrollmsg/runningmsg.json",msgUrl,null,this.runningmsgOver);
+        //底部菜单
+        // MineMenus.getInstance(this,ConfObjRead.getConfMinemenus());
         if (ConfObjRead.getConfAttention().bAutoShowInLobby) {
-            Debug.trace("LobbyScene.initUI auto");
+            // Debug.trace("LobbyScene.initUI auto");
             AttentionDialog.showPad(this, ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_AUTO);
         }
+        this.view = new view.LobbyView();
+        this.addChild(this.view);
     };
-    // public static IS_PLAYED_MUSIC:boolean = false;
     LobbyScene.initBgMusic = function () {
-        // if( LobbyScene.IS_PLAYED_MUSIC )
-        // {
-        //     return;
-        // }
-        // LobbyScene.IS_PLAYED_MUSIC = true;
-        // Laya.loader.load( [{url:ConfObjRead.getConfMusic().src}] , new Laya.Handler( this , ()=>{
-        // Debug.trace( "player bg music" );
-        // Laya.timer.once( 3000 , this , ()=>{
-        //     Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
-        // } );
-        if (SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1) >= 1) //开关
-         {
-            Debug.trace("LobbyScene.initBgMusic playMusic");
-            Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+        if (LobbyScene.IS_PLAYED_MUSIC) {
+            return;
         }
-        // } ) );
+        LobbyScene.IS_PLAYED_MUSIC = true;
+        Laya.loader.load([{ url: ConfObjRead.getConfMusic().src }], new Laya.Handler(this, function () {
+            // Debug.trace( "player bg music" );
+            // Laya.timer.once( 3000 , this , ()=>{
+            //     Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+            // } );
+            if (SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1) >= 1) //开关
+             {
+                Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+            }
+        }));
     };
     LobbyScene.prototype.OnAvatorScrollOut = function (e) {
     };
@@ -80,6 +93,7 @@ var LobbyScene = /** @class */ (function (_super) {
         Common.confObj.url = ConfObjRead.getConfUrl().url;
         this.initUI();
     };
+    LobbyScene.IS_PLAYED_MUSIC = false;
     return LobbyScene;
 }(MyScene));
 //# sourceMappingURL=LobbyScene.js.map

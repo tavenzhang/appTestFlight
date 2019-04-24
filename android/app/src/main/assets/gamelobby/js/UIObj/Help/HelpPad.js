@@ -42,11 +42,18 @@ var HelpPad = /** @class */ (function (_super) {
         HelpPad.obj = this;
         this.conf = conf;
         this.data = null;
-        this.alphabg = new MySprite();
-        Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
+        //todo:xxx
+        // this.alphabg = new MySprite();
+        // Tools.drawRectWithAlpha(this.alphabg,
+        // 	0,0,
+        // 	this.conf.size.w,this.conf.size.h,
+        //     "#000000",
+        //     this.conf.mask.alpha);
+        // this.addChild(this.alphabg);
+        // this.alphabg.size(this.conf.size.w,this.conf.size.h);
+        // this.alphabg.pos(-this.conf.pos.x,-this.conf.pos.y);
+        this.alphabg = Tools.creatDlgBg();
         this.addChild(this.alphabg);
-        this.alphabg.size(this.conf.size.w, this.conf.size.h);
-        this.alphabg.pos(-this.conf.pos.x, -this.conf.pos.y);
         this.alphabg.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);

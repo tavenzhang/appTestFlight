@@ -59,6 +59,7 @@ var HeadIcon = /** @class */ (function (_super) {
         this.lb_name.pos(conf.pos.x, conf.pos.y);
         this.addChild(this.lb_name);
     };
+    //设置数据
     HeadIcon.prototype.setData = function (dt) {
         this.data = dt;
         var name = dt.username;
@@ -79,6 +80,7 @@ var HeadIcon = /** @class */ (function (_super) {
     HeadIcon.prototype.iconLoaded = function (src, e) {
         this.btn_icon.setRes([src]);
     };
+    //名称
     HeadIcon.prototype.setName = function (name) {
         if (this.lb_name) {
             var showTxt = name;

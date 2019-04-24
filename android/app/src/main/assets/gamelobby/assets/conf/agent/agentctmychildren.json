@@ -1,8 +1,5 @@
 {
-    "pos":{
-        "x":250,
-        "y":120
-    },
+    "pos":{ "x":250, "y":120 },
     "sprites":[
         {
             "src":"./assets/ui/agent/img_daili_sousuodi.png",
@@ -62,7 +59,7 @@
             "size":{ "w":139, "h":53 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/sfx_click.mp3"
         },
         {
             "cmd":"adduser",
@@ -73,7 +70,9 @@
             "size":{ "w":174, "h":56 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/sfx_click.mp3"
         }
-    ]
+    ],
+    "pageSize":200,
+    "txt_inputagentname":"txt_inputagentname"
 }

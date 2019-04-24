@@ -6,6 +6,7 @@
     "bg":{
         "desc":"",
         "src":"./assets/ui/notice/bgBig.png",
-        "pos":{ "x":0, "y":40 }
+        "pos":{ "x":0, "y":40 },
+        "size":{"w":992,"h":468}
     }
 }

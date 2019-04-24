@@ -50,7 +50,7 @@ var NetManager = /** @class */ (function () {
                 header);
             }
             else {
-                hr.send(url, null, 'get', 'json');
+                hr.send(url, null, metod, restype);
             }
             // }
         }

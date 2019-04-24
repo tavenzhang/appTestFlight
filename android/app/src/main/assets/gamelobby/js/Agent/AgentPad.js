@@ -11,6 +11,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/**
+ * 代理中心
+ */
 var AgentPad = /** @class */ (function (_super) {
     __extends(AgentPad, _super);
     function AgentPad() {
@@ -39,15 +42,16 @@ var AgentPad = /** @class */ (function (_super) {
         this.data = data;
     };
     AgentPad.prototype.initContent = function () {
+        this.dlgbox.x = GameUtils.posOffset;
         var tt = new AgentTitle(this, ConfObjRead.getConfAgentTitle());
-        this.addChild(tt);
+        this.dlgbox.addChild(tt);
         // var ct = new AgentContentInfo(this,ConfObjRead.getConfAgentContentInfo());
         // this.addChild(ct);
         this.contentpage = new MySprite();
-        this.addChild(this.contentpage);
+        this.dlgbox.addChild(this.contentpage);
         var tab = new AgentTab(this, ConfObjRead.getConfAgentTab());
         tab.setListener(this, this.switchTab);
-        this.addChild(tab);
+        this.dlgbox.addChild(tab);
         if (tab.arr_btns.length > 0) {
             tab.onClickBtn(tab.arr_btns[this.conf.defaultTabId]);
         }

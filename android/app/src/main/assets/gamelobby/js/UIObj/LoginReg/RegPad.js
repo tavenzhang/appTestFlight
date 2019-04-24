@@ -176,11 +176,18 @@ var RegPad = /** @class */ (function (_super) {
     };
     RegPad.prototype.initAlphaBg = function () {
         if (this.conf.mask) {
-            var alphabg = new MySprite();
-            Tools.drawRectWithAlpha(alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
+            //todo:xxx
+            // var alphabg = new MySprite();
+            // Tools.drawRectWithAlpha(alphabg,
+            //     0,0,
+            //     this.conf.size.w,this.conf.size.h,
+            //     "#000000",
+            //     this.conf.mask.alpha);
+            // this.addChild(alphabg);
+            // alphabg.size(this.conf.size.w,this.conf.size.h);
+            // alphabg.pos(-this.conf.pos.x,-this.conf.pos.y);
+            var alphabg = Tools.creatDlgBg();
             this.addChild(alphabg);
-            alphabg.size(this.conf.size.w, this.conf.size.h);
-            alphabg.pos(-this.conf.pos.x, -this.conf.pos.y);
             alphabg.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
             alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
             alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
@@ -227,6 +234,7 @@ var RegPad = /** @class */ (function (_super) {
         if (!verify.bRight) {
             Toast.showToast(Tools.getStringByKey(verify.msg));
             this.yzmObj.refresh();
+            this.clearAllInput();
             return;
         }
         LayaMain.getInstance().showCircleLoading(true);
@@ -243,6 +251,12 @@ var RegPad = /** @class */ (function (_super) {
         // Debug.trace("jd:"+jd);
         NetManager.getObj().HttpConnect(ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.userreg, RegPad.getObj(), RegPad.getObj().responseInfo, RegPad.request_header, jd, "POST", "JSON");
+    };
+    RegPad.prototype.clearAllInput = function () {
+        this.inputName.text = "";
+        this.inputPwd.text = "";
+        this.inputConfirmPwd.text = "";
+        this.inputYanzhengma.text = "";
     };
     RegPad.prototype.requestReg = function (name, pwd, yanzheng, yaoqing, phone) {
         var ePwd = window['SecretUtils'].rsaEncodePWD(pwd);
@@ -319,6 +333,7 @@ var RegPad = /** @class */ (function (_super) {
                 Debug.trace("error===" + err, hr.http);
             }
             this.yzmObj.refresh();
+            this.clearAllInput();
         }
         if (MyBBLoading.obj) {
             MyBBLoading.obj.show(false);

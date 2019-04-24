@@ -155,10 +155,63 @@ var AgentDialogAddUser = /** @class */ (function (_super) {
                 Laya.Tween.from(this.labelPlayer, { scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backOut);
                 this.checkSelection();
                 break;
-            case this.btnok:
-                break;
+        }
+        if (e === this.btnok) {
+            this.register();
         }
         // RegPad.showPad(LoginScene.getObj(), ConfObjRead.getConfLogin().reg);
+    };
+    AgentDialogAddUser.prototype.register = function () {
+        //      public inputName: MyTextInput;
+        // public inputPwd: MyTextInput;
+        var name = this.inputName.text;
+        if (this.inputPwd.text.length <= 0) {
+            this.inputPwd.text = "123456;";
+        }
+        var pwd = this.inputPwd.text;
+        var err = {
+            "bRight": false,
+            "msg": "txt_unknowerr"
+        };
+        err = Tools.regTest(name, "regexp_username_reg", "reg_err_username_format", "reg_err_username_null");
+        if (!err.bRight) {
+            this.clearInput();
+            return;
+        }
+        err = Tools.regTest(pwd, "regexp_pwd", "reg_err_pwd_format", "reg_err_pwd_null");
+        if (!err.bRight) {
+            this.clearInput();
+            return;
+        }
+        LayaMain.getInstance().showCircleLoading(true);
+        var header = [
+            "Content-Type", "application/json",
+            // "Accept","*/*"
+            "Accept", "application/json"
+        ];
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.createEncryptUser +
+            "?access_token=" + Common.access_token; //+
+        // "&username="+Common.userInfo.username;
+        var type = this.select === 0 ? "AGENT" : "PLAYER";
+        var jobj = {
+            memberType: type,
+            password: window['SecretUtils'].rsaEncodePWD(pwd),
+            username: name,
+            prizeGroup: 1901
+            // "username":Common.userInfo.username
+        };
+        var sjobj = JSON.stringify(jobj);
+        NetManager.getObj().HttpConnect(url, this, this.response, header, sjobj, "post", "json");
+    };
+    AgentDialogAddUser.prototype.response = function (s, stat, hr) {
+        LayaMain.getInstance().showCircleLoading(false);
+        AgentPad.getObj().switchTab(null, "mychildren");
+        console.log(s, stat, hr);
+        this.onClose(null);
+    };
+    AgentDialogAddUser.prototype.clearInput = function () {
+        this.inputName.text = this.inputPwd.text = "";
     };
     AgentDialogAddUser.prototype.checkSelection = function () {
         this.labelAgent.visible = this.btnAgentGlow.visible = this.select === 0;

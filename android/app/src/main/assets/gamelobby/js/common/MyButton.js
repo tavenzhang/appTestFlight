@@ -65,8 +65,10 @@ var MyButton = /** @class */ (function (_super) {
         // this.addChild( this.sp_label );
         // 	this.sp_label = Tools.addSprite(this,this.conf.frontsp);
         // }
-        if (this.conf.normalScale) {
-            this.scaleBtn(this.conf.normalScale);
+        // if( this.conf.normalScale )
+        if (ConfObjRead.getConfCommon().btn.normalScale) {
+            // this.scaleBtn(this.conf.normalScale);
+            this.scaleBtn(ConfObjRead.getConfCommon().btn.normalScale);
         }
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
@@ -171,10 +173,11 @@ var MyButton = /** @class */ (function (_super) {
             }
         }
         else {
-            this.scaleBtn(this.conf.maxScale);
+            // this.scaleBtn(this.conf.maxScale);
+            this.scaleBtn(ConfObjRead.getConfCommon().btn.maxScale);
         }
         if (ConfObjRead.getConfCommon().btn.glowfilter) {
-            Tools.setSpriteGlowFilter(this.btn_ui, ConfObjRead.getConfCommon().glowfilter);
+            Tools.setSpriteGlowFilter(this.btn_ui, ConfObjRead.getConfCommon().btn.glowfilter);
         }
         if (this.actionDown) {
             this.doClick();
@@ -189,7 +192,8 @@ var MyButton = /** @class */ (function (_super) {
     MyButton.prototype.releaseBtn = function () {
         var t = Laya.loader.getRes(Tools.getSrc(this.res[0]));
         this.redraw(t);
-        this.scaleBtn(this.conf.normalScale);
+        // this.scaleBtn(this.conf.normalScale);
+        this.scaleBtn(ConfObjRead.getConfCommon().btn.normalScale);
         if (ConfObjRead.getConfCommon().btn.glowfilter) {
             Tools.clearSpriteFilter(this.btn_ui);
         }

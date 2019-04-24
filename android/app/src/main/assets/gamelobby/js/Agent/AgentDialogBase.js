@@ -14,12 +14,15 @@ var __extends = (this && this.__extends) || (function () {
 var AgentDialogBase = /** @class */ (function (_super) {
     __extends(AgentDialogBase, _super);
     function AgentDialogBase() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.dlgbox = new Laya.Sprite();
+        return _this;
     }
     AgentDialogBase.prototype.init = function (node, conf) {
         this.fatherNode = node;
         this.conf = conf;
         this.initAlphaBg();
+        this.addChild(this.dlgbox);
         this.initBg();
         this.initClose();
         if (this.conf.pos) {
@@ -37,7 +40,7 @@ var AgentDialogBase = /** @class */ (function (_super) {
         var close = new MyButton();
         close.init(this.conf.close, this, this.onClose);
         close.pos(this.conf.close.pos.x, this.conf.close.pos.y);
-        this.addChild(close);
+        this.dlgbox.addChild(close);
     };
     AgentDialogBase.prototype.onClose = function (s, bcallback) {
         if (bcallback === void 0) { bcallback = true; }
@@ -52,15 +55,22 @@ var AgentDialogBase = /** @class */ (function (_super) {
         if (!this.conf.bg) {
             return;
         }
-        var bg = Tools.addSprite(this, this.conf.bg);
+        var bg = Tools.addSprite(this.dlgbox, this.conf.bg);
     };
     AgentDialogBase.prototype.initAlphaBg = function () {
         if (this.conf.alphabg) {
-            var alphabg = new MySprite();
-            Tools.drawRectWithAlpha(alphabg, 0, 0, this.conf.alphabg.size.w, this.conf.alphabg.size.h, this.conf.alphabg.color, this.conf.alphabg.alpha);
+            //todo:xxx
+            // var alphabg:MySprite = new MySprite();
+            // Tools.drawRectWithAlpha(alphabg,
+            //     0,0,
+            //     this.conf.alphabg.size.w,this.conf.alphabg.size.h,
+            //     this.conf.alphabg.color,
+            //     this.conf.alphabg.alpha);
+            // this.addChild(alphabg);
+            // alphabg.size(this.conf.alphabg.size.w,this.conf.alphabg.size.h);
+            // alphabg.pos(-this.conf.alphabg.pos.x,-this.conf.alphabg.pos.y);
+            var alphabg = Tools.creatDlgBg();
             this.addChild(alphabg);
-            alphabg.size(this.conf.alphabg.size.w, this.conf.alphabg.size.h);
-            alphabg.pos(-this.conf.alphabg.pos.x, -this.conf.alphabg.pos.y);
             alphabg.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
             alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
             alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);

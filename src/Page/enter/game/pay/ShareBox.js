@@ -80,6 +80,7 @@ export default class ShareBox extends Component {
                 <TCImage source={ASSET_Images.gameShare.boxBg} />
                 <TCButtonImg
                     imgSource={ASSET_Images.gameUI.btnClose}
+                    soundName={TW_Store.bblStore.SOUND_ENUM.close}
                     isClose={true}
                     onClick={onClose}
                     btnStyle={{ position: 'absolute', right: 0, top: 0 }}

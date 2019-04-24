@@ -1,139 +1,62 @@
 
 hongheidazhan.png
-size: 316,1480
+size: 252,233
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-台子
-  rotate: true
-  xy: 2, 1094
-  size: 222, 148
-  orig: 222, 148
-  offset: 0, 0
-  index: -1
-红黑大战
-  rotate: true
-  xy: 223, 1282
-  size: 196, 55
-  orig: 196, 55
-  offset: 0, 0
-  index: -1
-红黑大战0
+rb_crown
   rotate: false
-  xy: 2, 1318
-  size: 219, 160
-  orig: 219, 160
+  xy: 175, 57
+  size: 75, 58
+  orig: 75, 58
   offset: 0, 0
   index: -1
-红黑大战个_00000
-  rotate: true
-  xy: 152, 1071
-  size: 180, 130
-  orig: 180, 130
-  offset: 0, 0
-  index: -1
-红黑大战个_00002
-  rotate: true
-  xy: 2, 912
-  size: 180, 130
-  orig: 180, 130
-  offset: 0, 0
-  index: -1
-红黑大战个_00004
+rb_chip1
   rotate: false
-  xy: 134, 939
-  size: 180, 130
-  orig: 180, 130
+  xy: 1, 1
+  size: 95, 93
+  orig: 95, 93
   offset: 0, 0
   index: -1
-红黑大战个_00006
+rb_chip2
   rotate: false
-  xy: 134, 807
-  size: 180, 130
-  orig: 180, 130
+  xy: 1, 145
+  size: 86, 86
+  orig: 86, 86
   offset: 0, 0
   index: -1
-红黑大战个_00008
-  rotate: true
-  xy: 2, 730
-  size: 180, 130
-  orig: 180, 130
-  offset: 0, 0
-  index: -1
-红黑大战个_00010
+rb_star
   rotate: false
-  xy: 134, 675
-  size: 180, 130
-  orig: 180, 130
+  xy: 1, 96
+  size: 172, 47
+  orig: 172, 47
   offset: 0, 0
   index: -1
-红黑大战个_00012
-  rotate: true
-  xy: 2, 548
-  size: 180, 130
-  orig: 180, 130
-  offset: 0, 0
-  index: -1
-红黑大战个_00014
+rb_banner
   rotate: false
-  xy: 134, 543
-  size: 180, 130
-  orig: 180, 130
+  xy: 89, 145
+  size: 98, 56
+  orig: 98, 56
   offset: 0, 0
   index: -1
-红黑大战个_00016
-  rotate: true
-  xy: 2, 366
-  size: 180, 130
-  orig: 180, 130
-  offset: 0, 0
-  index: -1
-红黑大战个_00018
+rb-name
   rotate: false
-  xy: 134, 411
-  size: 180, 130
-  orig: 180, 130
+  xy: 98, 1
+  size: 148, 54
+  orig: 148, 54
   offset: 0, 0
   index: -1
-红黑大战个_00020
+rb_texture
   rotate: false
-  xy: 134, 279
-  size: 180, 130
-  orig: 180, 130
+  xy: 89, 203
+  size: 101, 27
+  orig: 101, 27
   offset: 0, 0
   index: -1
-红黑大战个_00022
-  rotate: true
-  xy: 2, 184
-  size: 180, 130
-  orig: 180, 130
-  offset: 0, 0
-  index: -1
-红黑大战个_00024
+Sl_02
   rotate: false
-  xy: 134, 147
-  size: 180, 130
-  orig: 180, 130
-  offset: 0, 0
-  index: -1
-红黑大战个_00026
-  rotate: true
-  xy: 2, 2
-  size: 180, 130
-  orig: 180, 130
-  offset: 0, 0
-  index: -1
-红黑大战个_00028
-  rotate: false
-  xy: 134, 15
-  size: 180, 130
-  orig: 180, 130
-  offset: 0, 0
-  index: -1
-红黑大战筹码
-  rotate: false
-  xy: 152, 1253
-  size: 69, 63
-  orig: 69, 63
+  xy: 189, 117
+  size: 41, 43
+  orig: 41, 43
   offset: 0, 0
   index: -1

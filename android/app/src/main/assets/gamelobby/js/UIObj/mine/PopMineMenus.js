@@ -19,11 +19,23 @@ var PopMineMenus = /** @class */ (function (_super) {
     PopMineMenus.prototype.init = function (conf) {
         this.conf = conf;
         if (this.conf.alphabg) {
-            this.alpha_bg = new MySprite();
-            Tools.drawRectWithAlpha(this.alpha_bg, this.conf.alphabg.pos.x, this.conf.alphabg.pos.y, this.conf.alphabg.size.w, this.conf.alphabg.size.h, this.conf.alphabg.color, this.conf.alphabg.alpha);
-            this.alpha_bg.pos(this.conf.pos.x * -1, this.conf.pos.y * -1);
+            //todo:xxx
+            // this.alpha_bg = new MySprite();
+            // Tools.drawRectWithAlpha(this.alpha_bg,
+            //     this.conf.alphabg.pos.x,
+            //     this.conf.alphabg.pos.y,
+            //     this.conf.alphabg.size.w,
+            //     this.conf.alphabg.size.h,
+            //     this.conf.alphabg.color,
+            //     this.conf.alphabg.alpha);
+            // this.alpha_bg.pos(this.conf.pos.x*-1,this.conf.pos.y*-1);
+            // this.addChild(this.alpha_bg);
+            // this.alpha_bg.size(
+            //     this.conf.alphabg.size.w,
+            //     this.conf.alphabg.size.h
+            // );
+            this.alpha_bg = Tools.creatDlgBg();
             this.addChild(this.alpha_bg);
-            this.alpha_bg.size(this.conf.alphabg.size.w, this.conf.alphabg.size.h);
             this.alpha_bg.on(Laya.Event.CLICK, this, this.onMouse);
         }
         if (this.conf.bg) {
@@ -63,7 +75,7 @@ var PopMineMenus = /** @class */ (function (_super) {
                 SettingPad.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSetting(), this, this.setCallback);
                 break;
             case "notice":
-                Debug.trace("PopMineMenus.onClickBtn manual");
+                // Debug.trace("PopMineMenus.onClickBtn manual");
                 AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
                 AttentionDialog.obj.show();
                 break;
@@ -110,9 +122,10 @@ var PopMineMenus = /** @class */ (function (_super) {
     };
     PopMineMenus.prototype.onChangePwdSuc = function (e) {
         var npwd = e;
-        // Common.loginInfo.strongPwd = true;
+        Common.loginInfo.strongPwd = true;
         SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
         SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+        SaveManager.getObj().save(SaveManager.KEY_QK_PWD_CHANGED, true);
         var str = Tools.getStringByKey(ConfObjRead.getConfChangePwdQk().textChanged);
         Debug.trace("MineMenu.onChangePwdSuc str:" + str);
         LayaMain.getInstance().loginOut();

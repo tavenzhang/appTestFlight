@@ -66,13 +66,13 @@ export const AppConfig = {
     ],
 }
 
-//app 名称
+//app 名称 目前暂不使用
 export const MyAppName = '博博乐';
 
 //app js 业务代码版本
 export const versionHotFix = 'bbl_3_25';
 
-//配合渠道域名 用来 获取 域名的开关等参数
+//配合渠道域名 用来 获取 热更新的开关等参数
 export const MyOwnerPlatName= 'uat彩票';
 
 //备份域名 用来获取  备份的  热更新和游戏域名
@@ -128,6 +128,24 @@ WECHAT_KEY=wx39520c48b4a7dc64   //微信分享相关 key
 WECHAT_SECRET_KEY=67de54808bba55e934e3126f3e607a42 //微信分享相关 SECRET_KEY 
 APP_DOWNLOAD_VERSION=2.0     //用于app 强制更新 于js 种platInfo的 latestNativeVersion 配合
 OPEN_INSTALL_KEY=xhmkrq     //用于第三方sdk OPEN_INSTALL_KEY的 key
+
+
+ios Info.plist关键参数  ios没有特殊SUB_TYPE 包 
+
+APP_DOWNLOAD_VERSION     //用于app 强制更新 于js 种platInfo的 latestNativeVersion 配合
+PLAT_ID： //平台唯一id， 会覆盖js 的 configAppId，用于获取域名的唯一id，
+PLAT_CH=1  //渠道id，用于 渠道 子包 的区分
+UMENG_KEY=5b9f7642f43e486308000111   //友盟key
+JPUSH_KEY=e9f6454032a3f4936d80a82f  //极光key
+
+com.openinstall.APP_KEY=xhmkrq     //用于第三方sdk OPEN_INSTALL_KEY的 key
+
+Affcode=xxxx // app 邀请码 用于渠道打包
+
+Bundle display name =xxx //app显示名字
+Bundle identifier =xxx //appid 
+AppSecret  //用于微信分享配置
+
 
 
 

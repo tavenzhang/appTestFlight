@@ -14,7 +14,9 @@ var __extends = (this && this.__extends) || (function () {
 var AgentContentMyIncome = /** @class */ (function (_super) {
     __extends(AgentContentMyIncome, _super);
     function AgentContentMyIncome() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.iDataStart = 0;
+        return _this;
     }
     AgentContentMyIncome.prototype.initContent = function () {
         _super.prototype.initContent.call(this);
@@ -48,6 +50,7 @@ var AgentContentMyIncome = /** @class */ (function (_super) {
         }
         this.list = new AgentListIncome(this, ConfObjRead.getConfAgentListIncome());
         this.addChild(this.list);
+        this.iDataStart = 0;
         this.changeTab(AgentContentMyIncome.TAB_ID_TODAY);
     };
     AgentContentMyIncome.prototype.changeTab = function (num) {
@@ -79,34 +82,100 @@ var AgentContentMyIncome = /** @class */ (function (_super) {
             bChange = false;
         }
         if (bChange) {
-            this.requestList(cmd);
             switch (cmd) {
                 case "today":
+                    this.requestList(this.conf.pageSize, this.iDataStart, AgentContentMyIncome.RQ_TYPE_TODAY);
                     break;
                 case "yesterday":
+                    this.requestList(this.conf.pageSize, this.iDataStart, AgentContentMyIncome.RQ_TYPE_YESTERDAY);
                     break;
                 case "thisweek":
+                    this.requestList(this.conf.pageSize, this.iDataStart, AgentContentMyIncome.RQ_TYPE_WEEK);
                     break;
                 case "lastweek":
+                    this.requestList(this.conf.pageSize, this.iDataStart, AgentContentMyIncome.RQ_TYPE_LASTWEEK);
                     break;
                 case "thismonth":
+                    this.requestList(this.conf.pageSize, this.iDataStart, AgentContentMyIncome.RQ_TYPE_MONTH);
                     break;
             }
         }
     };
-    AgentContentMyIncome.prototype.requestList = function (cmd) {
-        Debug.trace("AgentContentMuIncome.requestList cmd:" + cmd);
-        this.responseList(null, null, null);
+    AgentContentMyIncome.prototype.requestList = function (pageSize, start, dateType) {
+        LayaMain.getInstance().showCircleLoading();
+        var header = [
+            // "Content-Type","application/json",
+            // "Accept","*/*"
+            "Accept", "application/json"
+        ];
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.agentachievement +
+            "?access_token=" + Common.access_token +
+            "&username=" + Common.userInfo.username +
+            "&start=" + start +
+            "&pageSize=" + pageSize +
+            "&dateType=" + dateType;
+        //"?access_token="+Common.access_token
+        Debug.trace("AgentContentMyIncome.requestList url:" + url);
+        NetManager.getObj().HttpConnect(url, this, this.responseList, header, null, "get", "json");
     };
     AgentContentMyIncome.prototype.responseList = function (s, stat, hr) {
-        var db = ConfObjRead.getConfAgentIncomeTest();
-        this.list.setData(db);
+        Debug.trace("AgentContentMyIncome.responseList stat:" + stat);
+        Debug.trace(s);
+        LayaMain.getInstance().showCircleLoading(false);
+        if (stat == "complete") {
+            try {
+                var jobj = s;
+                this.list.setData(this.transData(jobj.datas));
+            }
+            catch (e) { }
+        }
+        else {
+            var resp = hr.http.response;
+            try {
+                var jobj = JSON.parse(resp);
+                var err = jobj.message;
+                Toast.showToast(err);
+            }
+            catch (e) { }
+        }
+    };
+    AgentContentMyIncome.prototype.transData = function (arr) {
+        /*
+        brokerage: 288.32
+        directCount: 1
+        subBet: 616
+        teamBet: 0
+        teamCount: 4
+        userId: 368089
+        username: "agth01"
+        */
+        var rs = [];
+        var len = arr.length;
+        for (var i = 0; i < len; i++) {
+            var obj = arr[i];
+            var o = {
+                "username": obj.username,
+                "childrenincome": obj.subBet,
+                "teamincome": obj.teamBet,
+                "childrennum": obj.directCount,
+                "teamnum": obj.teamCount,
+                "income": obj.brokerage
+            };
+            rs.push(o);
+        }
+        return rs;
     };
     AgentContentMyIncome.TAB_ID_TODAY = 0;
     AgentContentMyIncome.TAB_ID_YESTERDAY = 1;
     AgentContentMyIncome.TAB_ID_THISWEEK = 2;
     AgentContentMyIncome.TAB_ID_LASTWEEK = 3;
     AgentContentMyIncome.TAB_ID_THISMONTH = 4;
+    AgentContentMyIncome.RQ_TYPE_TODAY = "TODAY";
+    AgentContentMyIncome.RQ_TYPE_YESTERDAY = "YESTERDAY";
+    AgentContentMyIncome.RQ_TYPE_WEEK = "WEEK";
+    AgentContentMyIncome.RQ_TYPE_MONTH = "MONTH";
+    AgentContentMyIncome.RQ_TYPE_LASTWEEK = "LAST_WEEK";
     return AgentContentMyIncome;
 }(AgentContent));
 //# sourceMappingURL=AgentContentMyIncome.js.map

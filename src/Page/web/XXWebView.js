@@ -12,13 +12,12 @@ import {observer} from 'mobx-react/native';
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {platInfo} from "../../config/appConfig";
 import SplashScreen from "react-native-splash-screen";
-import CodePush from 'react-native-code-push'
 
 import rootStore from "../../Data/store/RootStore";
 import FileTools from "../../Common/Global/FileTools";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 import Tools from "../../Common/View/Tools";
-import {JX_PLAT_INFO} from "../asset";
+
 
 const HTTP_GAME_LIST="/gamecenter/player/game/list";
 @withMappedNavigationProps()
@@ -53,7 +52,6 @@ export default class XXWebView extends Component {
             }
             this.onFlushGameData()
         });
-        TW_Store.bblStore.getAppData();
        // TW_Log("(_keyboard-TW_DATA_KEY.gameList-FileTools--==G_IS_IOS== middle" + G_IS_IOS,Keyboard.addListener);
         if(G_IS_IOS){
             Keyboard.addListener('keyboardWillShow', this._keyboardDidShow);
@@ -117,8 +115,9 @@ export default class XXWebView extends Component {
                 if(item.url.indexOf(temKey)>-1){
                     TW_Store.dataStore.appGameListM[dataKey].alias=TW_Store.dataStore.appGameListM[dataKey].id=item.alias;
                     TW_Store.dataStore.appGameListM[dataKey].gameName=item.name
-                    TW_Log("( _keyboard---onFinishGameList==dataKey--"+dataKey, TW_Store.dataStore.appGameListM[dataKey]);
-                    break;
+                    //TW_Log("( _keyboard---onFinishGameList==dataKey--"+dataKey, TW_Store.dataStore.appGameListM[dataKey]);
+                }else{
+                   // TW_Log("( _keyboard---onFinishGameList=note=dataKey--"+dataKey, TW_Store.dataStore.appGameListM[dataKey]);
                 }
             }
         }
@@ -126,7 +125,7 @@ export default class XXWebView extends Component {
     }
 
     onFlushGameData=()=>{
-        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.loginDomain+"/game.json"+"?rom="+Math.random(),null,(rt)=>{
+        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.gameDomain+"/game.json"+"?rom="+Math.random(),null,(rt)=>{
 
             let newList = rt.content ? rt.content:[];
             let gameM =  TW_Store.dataStore.appGameListM;
@@ -146,8 +145,36 @@ export default class XXWebView extends Component {
                     lastList.push(gameM[`${item.name}`]);
                 }
             }
-            TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-",lastList);
-            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:lastList}));
+          //  TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-"+JSON.stringify(lastList));
+            //由于运维 添加了一些slot 重复项目。进行优化移除多余
+            let gameList=[];
+             for( let i=0;i<lastList.length;i++){
+                let dataItem =lastList[i];
+                 let tempList=[];
+                for(let dataKey in gameM){
+                    let data =gameM[dataKey];
+                    if(data.alias&&data.alias==dataItem.alias){
+                        tempList.push(data);
+                    }
+                }
+                if(tempList.length>1){
+                    for(let item of tempList){
+                        if(item.name&&item.name.indexOf("app")>-1){
+                           // TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt=tempList=-indexOf",item);
+                            if(item.bupdate){
+                                gameList.push(item);
+                            }
+                            break;
+                        }
+                    }
+                }else {
+                    if(tempList[0]){
+                        gameList.push(tempList[0]);
+                    }
+                }
+             }
+          //  TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==gameList-"+JSON.stringify(gameList));
+            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:gameList}));
         })
     }
     
@@ -267,9 +294,9 @@ export default class XXWebView extends Component {
             };
         }
        //
-       // if(TW_IS_DEBIG){
-       //      source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-       //  }
+       if(TW_IS_DEBIG){
+            source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+        }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({
@@ -374,10 +401,9 @@ export default class XXWebView extends Component {
                             retList.push(gameM[dataKey]);
                         }
                     }
-                    TW_Log("gameData----retList-",retList)
                     if(retList.length>1){
                         for(let item of retList){
-                            if(item.name.indexOf("app">-1)){
+                            if(item.name&&item.name.indexOf("app")>-1){
                                 gameData =  item;
                                 break;
                             }
@@ -385,6 +411,7 @@ export default class XXWebView extends Component {
                     }else {
                         gameData = retList[0]
                     }
+                    TW_Log("gameData----retList-gameData",gameData)
                     if(gameData){
                         if(gameData.bupdate) {
                             this.startLoadGame(gameData);
@@ -403,7 +430,6 @@ export default class XXWebView extends Component {
                     }
                     let isNeedLoad=false;
                     let isOrigan =false;
-                    TW_Log("FileTools---------data--isNeedLoad==-url==-----------gameData==",gameData);
                     if(!gameData){
                        // JXToast.showShortCenter(`${data.name} 暂未配置！`)
                         url = this.handleUrl(message.payload,gameData);
@@ -483,7 +509,7 @@ export default class XXWebView extends Component {
                                 let access_token =TW_GetQueryString("access_token",message.url);
                                 if(access_token&&access_token!=""){
                                     TW_Store.userStore.initLoginToken(access_token);
-                                    //this.onFlushGameData();
+                                   // this.onFlushGameData();
                                 }
                                 if(message.url.indexOf("/api/v1/gamecenter/player/user")>-1){
                                     TW_Store.bblStore.avatarData =ret.content

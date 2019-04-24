@@ -25,6 +25,11 @@ var MyBoneAnim = /** @class */ (function (_super) {
     };
     MyBoneAnim.prototype.destroy = function (b) {
         MyBoneAnim.obj = null;
+        if (this.mFactory)
+            this.mFactory.off(Laya.Event.COMPLETE, this, this.parseComplete);
+        if (this.mArmature)
+            this.mArmature.off(Laya.Event.STOPPED, this, this.animationStop);
+        this.stopAnim();
         _super.prototype.destroy.call(this, b);
     };
     MyBoneAnim.prototype.setListener = function (caller, callback, data) {
@@ -76,6 +81,8 @@ var MyBoneAnim = /** @class */ (function (_super) {
         else {
             this.visible = false;
         }
+        if (this.mArmature)
+            this.mArmature.stop();
     };
     MyBoneAnim.prototype.playAnim = function (n, b) {
         if (this.conf.loopdelay) {

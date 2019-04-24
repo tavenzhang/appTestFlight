@@ -2,7 +2,7 @@
     "zh_cn":[
         {
             "key":"txt_version",
-            "value":"版本号:3.0415.1648"
+            "value":"版本号:3.5.0422.1116"
         },
 
 
@@ -198,6 +198,14 @@
         {
             "key":"txt_percent",
             "value":"%"
+        },
+        {
+            "key":"txt_notagent",
+            "value":"您现在还不是代理，请联系客服申请"
+        },
+        {
+            "key":"txt_inputagentname",
+            "value":"请正确输入代理的用户名"
         }
     ]
 }
