@@ -1,3 +1,4 @@
+// import View=laya.ui.View;
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -11,6 +12,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+// import Dialog=laya.ui.Dialog;
+// module ui {
+//  export class CheckoutFramePageUI extends View {
 var AgentDialogInvitation = /** @class */ (function (_super) {
     __extends(AgentDialogInvitation, _super);
     function AgentDialogInvitation() {
@@ -22,11 +26,12 @@ var AgentDialogInvitation = /** @class */ (function (_super) {
     AgentDialogInvitation.getObj = function () {
         return AgentDialogInvitation.obj;
     };
-    AgentDialogInvitation.showDialog = function (node, conf) {
+    AgentDialogInvitation.showDialog = function (node, conf, $parent) {
         if (!AgentDialogInvitation.obj) {
             var o = new AgentDialogInvitation();
             // o.size(conf.bg.size.w, conf.bg.size.h);
             o.init(node, conf);
+            o.parent = $parent;
             node.addChild(o);
         }
     };
@@ -75,6 +80,8 @@ var AgentDialogInvitation = /** @class */ (function (_super) {
         Tools.addSprite(container, this.conf.pattern);
         var inputbg = Tools.addSprite(container, this.conf.name.inputbg);
         this.inputCode = Tools.addInput(container, this.conf.name.input);
+        this.inputCode.on(Laya.Event.INPUT, this, this.onInput);
+        this.inputCode.maxChars = 12;
     };
     AgentDialogInvitation.prototype.initBtns = function () {
         var container = AgentDialogInvitation.container;
@@ -88,9 +95,37 @@ var AgentDialogInvitation = /** @class */ (function (_super) {
         this.btnInvi.init(this.conf.btnInvi, this, this.onRegClick);
         this.btnInvi.pos(this.conf.btnInvi.pos.x, this.conf.btnInvi.pos.y);
         container.addChild(this.btnInvi);
+        this.btnInvi.visible = false;
+        this.btnok.visible = false;
+    };
+    AgentDialogInvitation.prototype.onInput = function () {
+        //  this.btnInvi.visible = this.inputCode.text.length > 3;
+        this.inputCode.text = this.inputCode.text.replace(/[^a-z0-9]/gi, '');
+        this.btnok.visible = this.inputCode.text.length > 3;
     };
     AgentDialogInvitation.prototype.onRegClick = function (e) {
-        // RegPad.showPad(LoginScene.getObj(), ConfObjRead.getConfLogin().reg);
+        if (this.inputCode.text.length < 4) {
+            return;
+        }
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.agent_affiliates +
+            "?access_token=" + Common.access_token;
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        var data = {
+            affCode: this.inputCode.text,
+            memberType: "AGENT",
+            prizeGroup: 1901,
+            status: "ON"
+        };
+        var jd = JSON.stringify(data);
+        NetManager.getObj().HttpConnect(url, this, this.responseChange, header, jd, "POST", "JSON");
+    };
+    AgentDialogInvitation.prototype.responseChange = function (s, stat, hr) {
+        // this.event("createInviteSucess");
+        // console.log(this.parent)
+        AgentPad.getObj().switchTab(null, "invation");
+        this.onClose(null);
+        // console.log("responseChange", s, stat, hr)
     };
     return AgentDialogInvitation;
 }(AgentDialogBase));

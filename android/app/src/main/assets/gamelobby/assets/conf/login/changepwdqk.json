@@ -19,7 +19,7 @@
             "./assets/ui/login/qkchangepwd/btn_close.png"
         ],
         "size": { "w": 61, "h": 64 },
-        "sfx": "assets/raw/close.mp3",
+        "sfx": "assets/raw/sfx_close.mp3",
         "maxScale": { "x": 1.05, "y": 1.05 },
         "normalScale": { "x": 1, "y": 1 }
     },
@@ -59,7 +59,7 @@
             "size":{ "w":262, "h":76 },
             "maxScale":{"x":1.05,"y":1.05},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/sfx_click.mp3"
         }
     ],
     "switchmenus":[
@@ -71,7 +71,7 @@
                 "./assets/ui/login/changepwd/eye_00.png",
                 "./assets/ui/login/changepwd/eye_01.png"
             ],
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/sfx_click.mp3"
         },
         {
             "cmd":"confirmpwd",
@@ -80,7 +80,7 @@
                 "./assets/ui/login/changepwd/eye_00.png",
                 "./assets/ui/login/changepwd/eye_01.png"
             ],
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/sfx_click.mp3"
         }
     ],
     "inputs":[

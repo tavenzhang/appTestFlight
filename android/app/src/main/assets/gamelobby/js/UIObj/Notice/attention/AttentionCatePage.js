@@ -69,6 +69,12 @@ var AttentionCatePage = /** @class */ (function (_super) {
         this.updateTab();
     };
     AttentionCatePage.prototype.updateTab = function () {
+        if (this.curShowNoticeId === undefined) {
+            var d = this.arr_btns[0];
+            AttentionDialog.getObj().showAttention(d.data);
+            d.setOn(1);
+            return;
+        }
         for (var c = 0; c < this.arr_btns.length; c++) {
             var d = this.arr_btns[c];
             // Debug.trace("updateTab d:");
@@ -192,5 +198,5 @@ var AttentionCatePage = /** @class */ (function (_super) {
         }, 200, Laya.Ease["backIn"]);
     };
     return AttentionCatePage;
-}(MySprite));
+}(Laya.View));
 //# sourceMappingURL=AttentionCatePage.js.map

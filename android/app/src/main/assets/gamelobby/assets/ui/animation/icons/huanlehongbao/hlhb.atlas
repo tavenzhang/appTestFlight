@@ -1,83 +1,76 @@
 
 hlhb.png
-size: 725,230
+size: 506,257
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-切图/huanlehongbao
-  rotate: true
-  xy: 152, 54
-  size: 174, 162
-  orig: 174, 162
-  offset: 0, 0
-  index: -1
-切图/saizi
+hl_l
   rotate: false
-  xy: 481, 100
-  size: 190, 128
-  orig: 190, 128
+  xy: 379, 1
+  size: 87, 111
+  orig: 87, 111
   offset: 0, 0
   index: -1
-切图/光效存放/红包流光_00001
+hl_r
   rotate: false
-  xy: 152, 2
-  size: 90, 50
-  orig: 90, 50
+  xy: 279, 1
+  size: 98, 121
+  orig: 98, 121
   offset: 0, 0
   index: -1
-切图/光效存放/红包流光_00003
+hl_chip1
   rotate: false
-  xy: 244, 2
-  size: 90, 50
-  orig: 90, 50
+  xy: 459, 114
+  size: 45, 35
+  orig: 45, 35
   offset: 0, 0
   index: -1
-切图/光效存放/红包流光_00005
-  rotate: true
-  xy: 673, 138
-  size: 90, 50
-  orig: 90, 50
-  offset: 0, 0
-  index: -1
-切图/光效存放/红包流光_00007
-  rotate: true
-  xy: 673, 46
-  size: 90, 50
-  orig: 90, 50
-  offset: 0, 0
-  index: -1
-切图/光效存放/红包流光_00009
-  rotate: true
-  xy: 530, 8
-  size: 90, 50
-  orig: 90, 50
-  offset: 0, 0
-  index: -1
-切图/光效存放/红包流光_00011
-  rotate: true
-  xy: 582, 8
-  size: 90, 50
-  orig: 90, 50
-  offset: 0, 0
-  index: -1
-切图/光效存放/黄色放射背景光
+hl_chip2
   rotate: false
-  xy: 316, 65
-  size: 163, 163
-  orig: 163, 163
+  xy: 364, 223
+  size: 59, 32
+  orig: 59, 32
   offset: 0, 0
   index: -1
-切图/台子
-  rotate: true
-  xy: 2, 6
-  size: 222, 148
-  orig: 222, 148
-  offset: 0, 0
-  index: -1
-切图/欢乐红包
+hl_chip3
   rotate: false
-  xy: 336, 8
-  size: 192, 55
-  orig: 192, 55
+  xy: 468, 151
+  size: 32, 25
+  orig: 32, 25
+  offset: 0, 0
+  index: -1
+hl_chip4
+  rotate: false
+  xy: 364, 187
+  size: 62, 34
+  orig: 62, 34
+  offset: 0, 0
+  index: -1
+hl_f
+  rotate: false
+  xy: 279, 124
+  size: 178, 61
+  orig: 178, 61
+  offset: 0, 0
+  index: -1
+hl_cloud00
+  rotate: false
+  xy: 428, 187
+  size: 59, 35
+  orig: 59, 35
+  offset: 0, 0
+  index: -1
+hl_cloud01
+  rotate: false
+  xy: 279, 187
+  size: 83, 44
+  orig: 83, 44
+  offset: 0, 0
+  index: -1
+xing
+  rotate: false
+  xy: 1, 1
+  size: 276, 238
+  orig: 276, 238
   offset: 0, 0
   index: -1

@@ -31,7 +31,8 @@ var MyBBLoading = /** @class */ (function (_super) {
             var conf = ConfObjRead.getConfCLoading();
             var o = new MyBBLoading();
             o.init(conf, d.tips, d.bShowBg);
-            o.pos(conf.pos.x, conf.pos.y);
+            o.iconbox.pos(conf.pos.x, conf.pos.y);
+            // o.pos(conf.pos.x,conf.pos.y);//todo:xxx
             // node.addChild(o);
             // o.father = node;
             o.createSaizi();
@@ -69,6 +70,7 @@ var MyBBLoading = /** @class */ (function (_super) {
         this.startLoading();
     };
     MyBBLoading.prototype.onloadedAnim = function (s) {
+        this.conf.iconshow.pos.y = 300;
         this.sp_bbl = Tools.addSprite(this, this.conf.iconshow);
     };
     return MyBBLoading;

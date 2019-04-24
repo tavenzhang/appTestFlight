@@ -25,10 +25,14 @@ var MyDialog = /** @class */ (function (_super) {
         this.closeCallback = closeCallback;
         var w = Common.GM_SCREEN_W;
         var h = Common.GM_SCREEN_H;
-        this.alphabg = new MySprite();
-        Tools.drawRectWithAlpha(this.alphabg, 0, 0, w, h, "#000000", Common.confObj.mask.alpha);
+        //todo:xxx
+        // this.alphabg = new MySprite();
+        // Tools.drawRectWithAlpha(this.alphabg,
+        // 	0,0,
+        // 	w,h,"#000000",Common.confObj.mask.alpha);
+        // this.alphabg.size(w,h);
+        this.alphabg = Tools.creatDlgBg();
         this.addChild(this.alphabg);
-        this.alphabg.size(w, h);
         this.alphabg.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);

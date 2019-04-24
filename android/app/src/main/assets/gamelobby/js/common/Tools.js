@@ -678,11 +678,26 @@ var Tools = /** @class */ (function () {
     };
     Tools.setSpriteGlowFilter = function (sp, conf) {
         var filter = new Laya.GlowFilter(conf.color, conf.blur, conf.offx, conf.offy);
-        //("#ffff00", 10, 0, 0);
+        sp.filters = [filter];
+        // Tools.setSpriteWhiteFilter(sp,conf);
+    };
+    Tools.setSpriteWhiteFilter = function (sp, conf) {
+        var grayscaleMat = [
+            1, 0, 0, 0, 0,
+            1, 0, 0, 0, 0,
+            1, 0, 0, 0, 0,
+            0, 0, 0, 0, 1
+        ];
+        var filter = new Laya.ColorFilter(grayscaleMat);
         sp.filters = [filter];
     };
     Tools.setSpriteGrayFilter = function (sp) {
-        var grayscaleMat = [0.3086, 0.6094, 0.0820, 0, 0, 0.3086, 0.6094, 0.0820, 0, 0, 0.3086, 0.6094, 0.0820, 0, 0, 0, 0, 0, 1, 0];
+        var grayscaleMat = [
+            0.3086, 0.6094, 0.0820, 0, 0,
+            0.3086, 0.6094, 0.0820, 0, 0,
+            0.3086, 0.6094, 0.0820, 0, 0,
+            0, 0, 0, 1, 0
+        ];
         var filter = new Laya.ColorFilter(grayscaleMat);
         sp.filters = [filter];
     };
@@ -807,6 +822,19 @@ var Tools = /** @class */ (function () {
             // sp.graphics.alpha(1);
             sp.graphics.setAlpha(1);
         }
+    };
+    /**
+     * 创建弹窗背景
+     * 用于替代drawRectWithAlpha方法
+     * @param alp
+     */
+    Tools.creatDlgBg = function (alp) {
+        if (alp === void 0) { alp = 0.6; }
+        var sp = new MySprite();
+        sp.autoSize = true;
+        sp.graphics.drawRect(0, 0, Laya.stage.width, Laya.stage.height, "#000000");
+        sp.alpha = alp;
+        return sp;
     };
     //绘制圆角矩形，自定义路径
     Tools.RoundRect = function (sp, x, y, w, h, r, fillcolor, alpha) {
@@ -1273,6 +1301,9 @@ var Tools = /** @class */ (function () {
         if (conf.font.strokeColor) {
             lb.strokeColor = conf.font.strokeColor;
         }
+        if (conf.data) {
+            lb.dataName = conf.data;
+        }
         return lb;
     };
     Tools.newLabels = function (conf) {
@@ -1532,7 +1563,7 @@ var Tools = /** @class */ (function () {
     };
     Tools.screenFull = function (e) {
         // Debug.trace('screenFull e:');
-        if (BottomMenus.bClickFullscreen) {
+        if (TempData.bClickFullscreen) {
             //检查当前是否全屏状态
             var bFull = false;
             try {
@@ -1549,7 +1580,7 @@ var Tools = /** @class */ (function () {
             catch (e) {
                 Debug.trace(e);
             }
-            BottomMenus.bClickFullscreen = false;
+            TempData.bClickFullscreen = false;
         }
         //同时要复制字符串内容到剪贴板
         // Debug.trace('copy string:'+Tools.copy_content);
@@ -1559,7 +1590,7 @@ var Tools = /** @class */ (function () {
         }
     };
     Tools.doFullscreen = function () {
-        BottomMenus.bClickFullscreen = true;
+        TempData.bClickFullscreen = true;
     };
     //复制到剪贴板
     Tools.copy2clip_win = function (lb) {

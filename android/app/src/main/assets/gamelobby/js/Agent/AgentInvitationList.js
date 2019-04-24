@@ -77,6 +77,13 @@ var AgentInvitationList = /** @class */ (function (_super) {
             this.sp_content.addChild(item);
             this.arr_items.push(item);
             h += item.height;
+            item.once("delete_invite", this, this.onDeleteInvite);
+            if (dlen === 1) {
+                item.disableDelete();
+            }
+            else {
+                item.enableDelete();
+            }
         }
         this.sp_content.size(this.conf.list.size.w, h);
     };
@@ -91,6 +98,9 @@ var AgentInvitationList = /** @class */ (function (_super) {
     AgentInvitationList.prototype.onClickItem = function (e) {
         Debug.trace("AgentList.onClickItem e:");
         Debug.trace(e);
+    };
+    AgentInvitationList.prototype.onDeleteInvite = function () {
+        // refresh new list
     };
     return AgentInvitationList;
 }(MySprite));

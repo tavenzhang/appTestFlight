@@ -76,6 +76,7 @@ export default class GameMoneyOutView extends Component {
                 <TCTextInput value={this.userWithdrawStore.money}
                              viewStyle={{
                                  borderBottomWidth: 1, borderBottomColor: "#9cc5d8",
+                                 // backgroundColor:"red",
                                  justifyContent: "center", alignItems: "center", width: 150
                              }}
                              inputStyle={{textAlign: "center", backgroundColor: "yellow"}}
@@ -351,8 +352,12 @@ const styles = StyleSheet.create({
     },
     inputStyle: {
         fontSize: 13,
+        textAlign:"center",
+        width: 150,
         fontWeight: "bold",
-        color: "#efe8cd"
+        color: "#efe8cd",
+        // backgroundColor:"yellow",
+        height:20
     },
 
 });

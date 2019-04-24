@@ -52,7 +52,7 @@
             "duration":400
         },
         "jumpNum":5,
-        "sfx":"assets/raw/click.mp3"
+        "sfx":"assets/raw/sfx_click.mp3"
     },
     "pagearrowleft":{
         "desc":"",
@@ -74,7 +74,7 @@
             "duration":400
         },
         "jumpNum":7,
-        "sfx":"assets/raw/click.mp3"
+        "sfx":"assets/raw/sfx_click.mp3"
     },
     "flip":{ "desc":"", "onetime":3, "offsetx":0, "movex":0 },
     "gameitemdefault":{
@@ -102,7 +102,7 @@
         "stepAngle":30,
         "maxR":1000,
         "drawcenter":{ "x":87.5, "y":87.5 },
-        "sfx":"assets/raw/flopright.mp3",
+        "sfxX":"assets/raw/flopright.mp3",
         "actionOnClick":true,
         "statePause":{
             "desc":"PAUSE状态呈现方式",

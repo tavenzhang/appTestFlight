@@ -31,7 +31,7 @@ var UIBg = /** @class */ (function (_super) {
     UIBg.prototype.init = function (conf) {
         this.conf = conf;
         this.bg = new MySprite();
-        this.bg.loadImage(this.conf.src);
+        this.bg.loadImage(this.conf.src, 0, 0, Laya.stage.width);
         this.bg.pos(this.conf.pos.x, this.conf.pos.y);
         this.addChild(this.bg);
         if (this.conf.stars) {

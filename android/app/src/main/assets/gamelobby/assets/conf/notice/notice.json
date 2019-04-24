@@ -35,7 +35,7 @@
             "pos":{ "x":0, "y":0 }
         },
         "size":{ "w":20, "h":20 },
-        "sfx":"assets/raw/close.mp3"
+        "sfx":"assets/raw/sfx_close.mp3"
     },
     "touchout":{"desc":"","value":true},
     "pos":{ "x":284, "y":160 }

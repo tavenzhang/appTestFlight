@@ -45,7 +45,7 @@
             "./assets/ui/dialog/btn_touxiang_guangbi.png"
         ],
         "size":{ "w":76, "h":77 },
-        "sfx":"assets/raw/close.mp3",
+        "sfx":"assets/raw/sfx_close.mp3",
         "maxScale":{ "x":1.05,"y":1.05},
         "normalScale":{ "x":1.0,"y":1.0}
     },
@@ -74,7 +74,7 @@
                 },
                 "label":{
                     "desc":"",
-                    "pos":{ "x":0, "y":2 },
+                    "pos":{ "x":0, "y":0 },
                     "size":{ "w":23, "h":23 },
                     "font":{
                         "text":"123",
@@ -83,7 +83,7 @@
                         "size":12,
                         "name":"x",
                         "align":"center",
-                        "valign":"top",
+                        "valign":"middle",
                         "wrap":false
                     }
                 }
@@ -92,8 +92,7 @@
                 {
                     "switch":{
                         "desc":"",
-                        "posY":{ "x":426, "y":140 },
-                        "pos":{ "x":180, "y":152 },
+                        "pos":{ "x":426, "y":152 },
                         "srcX":[
                             "./assets/ui/notice/btn_yxgg_00.png",
                             "./assets/ui/notice/btn_yxgg_01.png"
@@ -109,8 +108,7 @@
                 {
                     "switch":{
                         "desc":"",
-                        "posX":{ "x":180, "y":140 },
-                        "pos":{ "x":426, "y":152 },
+                        "pos":{ "x":180, "y":152 },
                         "src":[
                             "./assets/ui/notice/btn_yxgg_00.png",
                             "./assets/ui/notice/btn_yxgg_01.png"
@@ -320,6 +318,47 @@
         },
         "luckydrawpageX":{
             "bshow":false
+        }
+    },
+    "share":{
+        "pos":{"x":425,"y":210},
+        "share":{
+            "src": [
+                "./assets/ui/notice/share/fenxiangpengyouquan_guan.png",
+                "./assets/ui/notice/share/fenxiangpengyouquan_kai.png"
+            ],
+            "pos": {
+                "x": 180,
+                "y": 325
+            },
+            "maxScale": {
+                "x": 1.02,
+                "y": 1.02
+            },
+            "normalScale": {
+                "x": 1,
+                "y": 1
+            },
+            "sfx": "assets/raw/sfx_click.mp3"
+        },
+        "send":{
+            "src": [
+                "./assets/ui/notice/share/fasonggeipengyou_guan.png",
+                "./assets/ui/notice/share/fasongggeipengyou_kai.png"
+            ],
+            "pos": {
+                "x": 322,
+                "y": 325
+            },
+            "maxScale": {
+                "x": 1.02,
+                "y": 1.02
+            },
+            "normalScale": {
+                "x": 1,
+                "y": 1
+            },
+            "sfx": "assets/raw/sfx_click.mp3"
         }
     }
 }

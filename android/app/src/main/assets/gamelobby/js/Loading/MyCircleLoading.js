@@ -18,6 +18,7 @@ var MyCircleLoading = /** @class */ (function (_super) {
         _this.tips = "";
         _this.dots = ".";
         _this.dotCount = 1;
+        _this.iconbox = new Laya.Sprite();
         return _this;
     }
     MyCircleLoading.prototype.destroy = function (b) {
@@ -35,30 +36,42 @@ var MyCircleLoading = /** @class */ (function (_super) {
         // var w = Const.GM_SCREEN_W;
         // var h = Const.GM_SCREEN_H;
         if (this.conf.mask && bshowalpha) {
-            this.alpha_bg = new MySprite();
-            Tools.drawRectWithAlpha(this.alpha_bg, this.conf.mask.pos.x, this.conf.mask.pos.y, this.conf.mask.size.w, this.conf.mask.size.h, this.conf.mask.color, this.conf.mask.alpha);
-            this.alpha_bg.pos(this.conf.pos.x * -1, this.conf.pos.y * -1);
+            //todo:xxx
+            // this.alpha_bg = new MySprite();
+            // Tools.drawRectWithAlpha(this.alpha_bg,
+            //     this.conf.mask.pos.x,
+            //     this.conf.mask.pos.y,
+            //     this.conf.mask.size.w,
+            //     this.conf.mask.size.h,
+            //     this.conf.mask.color,
+            //     this.conf.mask.alpha);
+            // this.alpha_bg.pos(this.conf.pos.x*-1,this.conf.pos.y*-1);
+            // this.alpha_bg.size(
+            //     this.conf.mask.size.w,
+            //     this.conf.mask.size.h
+            // );
+            this.alpha_bg = Tools.creatDlgBg();
             this.addChild(this.alpha_bg);
-            this.alpha_bg.size(this.conf.mask.size.w, this.conf.mask.size.h);
             this.alpha_bg.on(Laya.Event.CLICK, this, this.onMouse);
             this.alpha_bg.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
             this.alpha_bg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
             this.alpha_bg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
             // this.bg.on(Laya.Event.MOUSE_OVER,this,this.onMouse);
         }
+        this.addChild(this.iconbox);
         if (this.conf.lbg) {
             this.loadingbg = new MySprite();
             this.loadingbg.loadImage(this.conf.lbg.src);
             this.loadingbg.pos(this.conf.lbg.pos.x, this.conf.lbg.pos.y);
             this.loadingbg.pivot(this.conf.lbg.pivot.x, this.conf.lbg.pivot.y);
-            this.addChild(this.loadingbg);
+            this.iconbox.addChild(this.loadingbg);
         }
         if (this.conf.lft) {
             this.loadingft = new MySprite();
             this.loadingft.loadImage(this.conf.lft.src);
             this.loadingft.pos(this.conf.lft.pos.x, this.conf.lft.pos.y);
             this.loadingft.pivot(this.conf.lft.pivot.x, this.conf.lft.pivot.y);
-            this.addChild(this.loadingft);
+            this.iconbox.addChild(this.loadingft);
         }
         if (this.conf.txt) {
             this.lb_loading = Tools.newLabel(str, this.conf.txt.size.w, this.conf.txt.size.h, this.conf.txt.font.size, this.conf.txt.font.color);
@@ -66,7 +79,7 @@ var MyCircleLoading = /** @class */ (function (_super) {
             if (this.conf.txt.borderColor) {
                 this.lb_loading.borderColor = this.conf.txt.borderColor;
             }
-            this.addChild(this.lb_loading);
+            this.iconbox.addChild(this.lb_loading);
         }
         if (this.loadingft) {
             this.startCircle();

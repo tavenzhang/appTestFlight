@@ -60,11 +60,7 @@
                 "maxScale":{"x":1.02,"y":1.02},
                 "normalScale":{"x":1,"y":1},
                 "sfx":"assets/raw/enterPanelClick.mp3"
-            }
-        ]
-    },
-    "bak":[
-        {},
+            },
             {
                 "desc":"",
                 "cmd":"agent",
@@ -77,6 +73,10 @@
                 "normalScale":{"x":1,"y":1},
                 "sfx":"assets/raw/enterPanelClick.mp3"
             }
+        ]
+    },
+    "bak":[
+        {}
     ],
     "default":{ "desc":"", "bOpen":true}
 }

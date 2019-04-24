@@ -31,7 +31,7 @@ var AttentionDialog = /** @class */ (function (_super) {
             o.init(conf);
             o.fatherNode = node;
             node.addChild(o);
-            Debug.trace("AttentionDialog.showPad openType:" + AttentionDialog.obj.openType);
+            // Debug.trace("AttentionDialog.showPad openType:"+AttentionDialog.obj.openType);
         }
     };
     AttentionDialog.prototype.destroy = function (b) {
@@ -59,6 +59,8 @@ var AttentionDialog = /** @class */ (function (_super) {
         this.conf = conf;
         this.data = null; //data;
         this.initAlphaBg();
+        this.container = new Laya.View();
+        this.addChild(this.container);
         this.initBg(this.conf);
         this.initNoticeBg();
         this.initBtns();
@@ -68,6 +70,8 @@ var AttentionDialog = /** @class */ (function (_super) {
         this.initTitle();
         this.initCloseBtn();
         this.pos(this.conf.pos.x, this.conf.pos.y);
+        this.container.centerX = Laya.stage.width / 2;
+        this.container.centerY = Laya.stage.height / 2;
         this.hide();
         this.requestPop();
         // this.requestAttention();
@@ -75,10 +79,10 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.initFu = function () {
         if (this.conf.fu && this.conf.fu.left) {
-            var ful = Tools.addSprite(this, this.conf.fu.left);
+            var ful = Tools.addSprite(this.container, this.conf.fu.left);
         }
         if (this.conf.fu && this.conf.fu.right) {
-            var fur = Tools.addSprite(this, this.conf.fu.right);
+            var fur = Tools.addSprite(this.container, this.conf.fu.right);
         }
     };
     AttentionDialog.prototype.showAttention = function (data) {
@@ -94,15 +98,31 @@ var AttentionDialog = /** @class */ (function (_super) {
             this.luckydrawPage.destroy(true);
             this.luckydrawPage = null;
         }
+        if (this.sharePage) {
+            this.removeChild(this.sharePage);
+            this.sharePage.destroy(true);
+            this.sharePage = null;
+        }
         if (data) {
-            this.attentionPage = new AttentionPage();
-            this.attentionPage.init(this.conf.attention, data);
-            this.addChild(this.attentionPage);
-            // this.attentionPage.setData(data);
-            if (this.conf.attention.luckydrawpage) {
-                this.luckydrawPage = new LuckyDrawPage();
-                this.luckydrawPage.init(this.conf.attention, data);
-                this.addChild(this.luckydrawPage);
+            switch (data.noticeActivityType) {
+                case "SHARE_DAILY": {
+                    this.sharePage = new SharePage();
+                    this.sharePage.init(this.conf.share, data);
+                    this.container.addChild(this.sharePage);
+                    break;
+                }
+                case "ROULETTE_DRAW": {
+                    this.luckydrawPage = new LuckyDrawPage();
+                    this.luckydrawPage.init(this.conf.attention, data);
+                    this.container.addChild(this.luckydrawPage);
+                    break;
+                }
+                default: {
+                    this.attentionPage = new AttentionPage();
+                    this.attentionPage.init(this.conf.attention, data);
+                    this.container.addChild(this.attentionPage);
+                    // this.attentionPage.setData(data);
+                }
             }
         }
     };
@@ -132,12 +152,12 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.changeTab = function (cateid) {
         // Debug.trace("AttentionDialog.changeTab id:"+cateid);
-        this.showAttention(null);
+        this.showAttention(this.data[cateid].noticeList[0]);
         this.curTabCateId = cateid;
         this.updateTab();
     };
     AttentionDialog.prototype.updateTab = function () {
-        Debug.trace("AttentionDialog.updateTab curTabCateId:" + this.curTabCateId);
+        // Debug.trace("AttentionDialog.updateTab curTabCateId:"+this.curTabCateId);
         // for( var a in this.arr_btns_content )
         for (var a = 0; a < this.arr_btns_content.length; a++) {
             var b = this.arr_btns_content[a];
@@ -165,18 +185,18 @@ var AttentionDialog = /** @class */ (function (_super) {
             this.close = new MyButton();
             this.close.init(this.conf.close, this, this.onClose);
             this.close.pos(this.conf.close.pos.x, this.conf.close.pos.y);
-            this.addChild(this.close);
+            this.container.addChild(this.close);
         }
     };
     AttentionDialog.prototype.initBtns = function () {
-        var bg = Tools.addSprite(this, this.conf.menulist.bg);
+        var bg = Tools.addSprite(this.container, this.conf.menulist.bg);
     };
     AttentionDialog.prototype.initBtnsContent = function (data) {
         // for( var a in data )
         for (var a = 0; a < data.length; a++) {
             var sp_ct = new AttentionCatePage();
-            sp_ct.init(this.conf.menulist, data[a], this);
-            this.addChild(sp_ct);
+            sp_ct.init(this.conf.menulist, data[a], this.container);
+            this.container.addChild(sp_ct);
             this.arr_btns_content.push(sp_ct);
         }
     };
@@ -194,24 +214,31 @@ var AttentionDialog = /** @class */ (function (_super) {
             return;
         }
         if (this.conf.title.bg) {
-            var sp_title_bg = Tools.addSprite(this, this.conf.title.bg);
+            var sp_title_bg = Tools.addSprite(this.container, this.conf.title.bg);
         }
         if (this.conf.title.lb) {
-            var sp_title_lb = Tools.addSprite(this, this.conf.title.lb);
+            var sp_title_lb = Tools.addSprite(this.container, this.conf.title.lb);
         }
     };
     AttentionDialog.prototype.initAlphaBg = function () {
-        this.alphabg = new MySprite();
-        Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
+        //todo:xxx
+        // this.alphabg = new MySprite();
+        // Tools.drawRectWithAlpha(this.alphabg,
+        // 	0,0,
+        // 	this.conf.size.w,this.conf.size.h,
+        //     "#000000",
+        //     this.conf.mask.alpha);
+        // this.addChild(this.alphabg);
+        // this.alphabg.size(this.conf.size.w,this.conf.size.h);
+        // this.alphabg.pos(-this.conf.pos.x,-this.conf.pos.y);
+        this.alphabg = Tools.creatDlgBg();
         this.addChild(this.alphabg);
-        this.alphabg.size(this.conf.size.w, this.conf.size.h);
-        this.alphabg.pos(-this.conf.pos.x, -this.conf.pos.y);
         this.alphabg.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
     };
     AttentionDialog.prototype.initTableHead = function () {
-        var sp_table_head = Tools.addSprite(this, this.conf.tablehead.bg);
+        var sp_table_head = Tools.addSprite(this.container, this.conf.tablehead.bg);
         var arr_lines = new Array();
         for (var k = 0; k < this.conf.tablehead.headlines.ws.length; k++) {
             var w = this.conf.tablehead.headlines.ws[k];
@@ -229,7 +256,7 @@ var AttentionDialog = /** @class */ (function (_super) {
             var oneline = new MySprite();
             oneline.loadImage(this.conf.tablehead.headlines.src);
             oneline.pos(posx, y);
-            this.addChild(oneline);
+            this.container.addChild(oneline);
             arr_lines.push(oneline);
         }
         this.arr_tips = new Array();
@@ -240,7 +267,7 @@ var AttentionDialog = /** @class */ (function (_super) {
             lb.init(labelInfo.switch, this, this.headClick);
             // lb.setQuery(k);
             lb.setQuery(labelInfo.id);
-            this.addChild(lb);
+            this.container.addChild(lb);
             lb.setOn(0, false);
             this.arr_cate_btns.push(lb);
             var tips = new NoticeTipsNumber();
@@ -259,12 +286,12 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.initNoticeBg = function () {
         if (this.conf.contentbg) {
-            var bgct = Tools.addSprite(this, this.conf.contentbg);
+            var bgct = Tools.addSprite(this.container, this.conf.contentbg);
         }
     };
     AttentionDialog.prototype.initBg = function (conf) {
-        var bg = Tools.addSprite(this, this.conf.bg);
-        var bgbig = Tools.addSprite(this, this.conf.bgbig);
+        var bg = Tools.addSprite(this.container, this.conf.bg);
+        var bgbig = Tools.addSprite(this.container, this.conf.bgbig);
     };
     AttentionDialog.prototype.requestPop = function () {
         this.bRequestStatus = 1;
@@ -275,8 +302,8 @@ var AttentionDialog = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responsePop);
     };
     AttentionDialog.prototype.responsePop = function (s, stat, hr) {
-        Debug.trace("AttentionDialog.responsePop s:");
-        Debug.trace(s);
+        // Debug.trace("AttentionDialog.responsePop s:");
+        // Debug.trace(s);
         try {
             this.bPopAuto = s.pop;
             this.iDefaultCate = s.noticeCate;
@@ -299,8 +326,8 @@ var AttentionDialog = /** @class */ (function (_super) {
     };
     AttentionDialog.prototype.responseAttention = function (s, stat, hr) {
         // Debug.trace("AttentionDialog.responseAttention stat:"+stat);
-        Debug.trace("AttentionDialog.responseAttention s:");
-        Debug.trace(s);
+        // Debug.trace("AttentionDialog.responseAttention s:");
+        // Debug.trace(s);
         if (stat == "complete") {
             this.data = s;
             this.initBtnsContent(this.data);
@@ -341,7 +368,7 @@ var AttentionDialog = /** @class */ (function (_super) {
     AttentionDialog.prototype.responseRead = function (s, stat, hr) {
         if (stat == "complete") {
             try {
-                this.setReaded(s.noticeId);
+                this.setReaded(s.noticeid);
             }
             catch (e) { }
         }

@@ -95,7 +95,8 @@ export default class AppInfoStore {
     APP_DOWNLOAD_VERSION="1.0";
 
     //openInstallData
-    openInstallData={}
+    @observable
+    openInstallData={appKey:"",data:null}
 
 
     init() {
@@ -124,7 +125,7 @@ export default class AppInfoStore {
         TN_GetAppInfo((data) => {
            // TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==data=",data);
             if(data){
-                let appInfo ={};
+                let appInfo ={};3
                 if(G_IS_IOS){
                     appInfo = JSON.parse(data);
                 }else{
@@ -194,6 +195,7 @@ export default class AppInfoStore {
         /*** 初始化邀请码*/
         this.userAffCode = this.appInfo.Affcode;
         this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
+        this.openInstallData.appKey = this.appInfo["com.openinstall.APP_KEY"];
        // TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--this.userAffCode--"+this.userAffCode, appInfo);
         if (G_IS_IOS){
             //ios 动态开启友盟等接口 android 是编译时 决定好了。
@@ -206,11 +208,12 @@ export default class AppInfoStore {
 
         OpeninstallModule.getInstall(10, map => {
             if (map) {
-                this.openInstallData=map;
+                this.openInstallData.data=map;
                 if(map.data&&map.data.affcode){
                     this.userAffCode = map.data.affcode;
                 }
             }
+            TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====openInstallData====appKey-"+this.openInstallData.appKey, this.openInstallData);
         })
       //  TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION", this.APP_DOWNLOAD_VERSION);
     }
