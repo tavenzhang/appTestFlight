@@ -223,7 +223,7 @@ export default class DataStore {
                     }else{
                         setTimeout(()=>{
                             this.onRetartApp(); //android 的文件解压读写延迟比较大，延迟5秒
-                        },5000)
+                        },4000)
                     }
                     TW_Store.commonBoxStore.isShow=false;
                 });
