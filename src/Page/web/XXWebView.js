@@ -507,7 +507,7 @@ export default class XXWebView extends Component {
                             NetUitls.getUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
                                 this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
                                 let access_token =TW_GetQueryString("access_token",message.url);
-                                if(access_token&&access_token!=""){
+                                if(ret.rs&&access_token&&access_token!=""){
                                     TW_Store.userStore.initLoginToken(access_token);
                                    // this.onFlushGameData();
                                 }
