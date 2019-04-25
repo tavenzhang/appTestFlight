@@ -53,10 +53,12 @@ var view;
                 this.effectBar.y = this.eslider.y + this.eslider.height / 2;
                 //音乐
                 var mv = Laya.SoundManager.musicVolume * 100;
+                mv = GameUtils.borderValue(mv, 0, 100);
                 this.mslider.value = mv;
                 this.musicBar.x = this.mslider.x + this.mslider.width * (mv / 100);
                 //音效
                 var ev = Laya.SoundManager.soundVolume * 100;
+                ev = GameUtils.borderValue(ev, 0, 100);
                 this.eslider.value = ev;
                 this.effectBar.x = this.eslider.x + this.eslider.width * (ev / 100);
             };
@@ -84,21 +86,7 @@ var view;
                 //音效切换开关
                 EventManager.addTouchScaleListener(this.effectBtn, this, function () {
                     SoundPlayer.clickSound();
-                    _this.effectSwith.switch = !_this.effectSwith.switch;
-                    if (_this.effectSwith.switch) { //打开
-                        Common.bSoundSwitch = true;
-                        Laya.SoundManager.soundMuted = false;
-                        Laya.SoundManager.soundVolume = Common.lastSoundVolume;
-                        var v = Common.lastSoundVolume * 100;
-                        _this.eslider.value = v;
-                    }
-                    else {
-                        Common.lastSoundVolume = Laya.SoundManager.soundVolume;
-                        Common.bSoundSwitch = false;
-                        Laya.SoundManager.soundMuted = true;
-                        Laya.SoundManager.soundVolume = 0;
-                        _this.eslider.value = 0;
-                    }
+                    _this.switchEffect();
                 });
                 //音乐滑块事件
                 this.musicBar.on(Laya.Event.MOUSE_DOWN, this, this.downMusicBar);
@@ -108,6 +96,23 @@ var view;
                 this.effectBar.on(Laya.Event.MOUSE_DOWN, this, this.downEffectBar);
                 this.effectBar.on(Laya.Event.DRAG_MOVE, this, this.dragEffectBar);
                 this.eslider.on(Laya.Event.CHANGE, this, this.effectSliderChange);
+            };
+            SettingDlg.prototype.switchEffect = function () {
+                this.effectSwith.switch = !this.effectSwith.switch;
+                if (this.effectSwith.switch) { //打开
+                    Common.bSoundSwitch = true;
+                    Laya.SoundManager.soundMuted = false;
+                    Laya.SoundManager.soundVolume = Common.lastSoundVolume;
+                    var v = Common.lastSoundVolume * 100;
+                    this.eslider.value = v;
+                }
+                else {
+                    Common.lastSoundVolume = Laya.SoundManager.soundVolume;
+                    Common.bSoundSwitch = false;
+                    Laya.SoundManager.soundMuted = true;
+                    Laya.SoundManager.soundVolume = 0;
+                    this.eslider.value = 0;
+                }
             };
             SettingDlg.prototype.musicSliderChange = function () {
                 this.musicBar.x = this.mslider.x + this.mslider.width * (this.mslider.value / 100);

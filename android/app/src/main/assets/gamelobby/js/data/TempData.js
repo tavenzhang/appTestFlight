@@ -18,6 +18,10 @@ var ResConfig = /** @class */ (function () {
     ResConfig.getHeadSkinByID = function (id) {
         return "touxiang/img_touxiang_" + id + ".jpg";
     };
+    /**
+     * 游戏当前版本号
+     */
+    ResConfig.versions = "版本号：4.0424.2154";
     return ResConfig;
 }());
 //# sourceMappingURL=TempData.js.map

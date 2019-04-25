@@ -26,6 +26,8 @@ var LayaMain = /** @class */ (function () {
          * 设置点击弹框背景后不关闭弹窗
          */
         UIConfig.closeDialogOnSide = false;
+        //设置游戏版本号
+        ResConfig.versions = "版本号：4.0425.1714";
         Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_HEIGHT;
         Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
         Laya.stage.bgColor = "#000000";
@@ -122,7 +124,6 @@ var LayaMain = /** @class */ (function () {
         LayaMain.getInstance().onAppPostMessgae(data);
     };
     LayaMain.prototype.onAppPostMessgae = function (data) {
-        var _this = this;
         var message = null;
         try {
             message = JSON.parse(data);
@@ -174,6 +175,7 @@ var LayaMain = /** @class */ (function () {
                     break;
                 case "flushMoney":
                     EventManager.dispath(EventType.FLUSH_USERINFO);
+                    break;
                 //todo:xxx
                 // if(Avator.obj)
                 // {
@@ -197,8 +199,7 @@ var LayaMain = /** @class */ (function () {
                 case "playmusic":
                     UpdateMsgHandle.playMusic(message.data);
                     break;
-                case "onBlur":
-                    var curfocus_1 = Laya.stage.focus;
+                case "onBlur": //失去焦点
                     if (LoginPad.obj) {
                         LoginPad.obj.lostFocusInputText();
                     }
@@ -208,10 +209,10 @@ var LayaMain = /** @class */ (function () {
                     if (QuickLogin.obj) {
                         QuickLogin.obj.lostFocusInputText();
                     }
-                    //todo:解决ios键盘收回时没有声音(未生效)
-                    Laya.timer.once(350, this, function () {
-                        Laya.stage.focus = curfocus_1 || _this.getRootNode();
-                        console.error("play-sound-atinput");
+                    //派发失去焦点事件
+                    EventManager.dispath(EventType.BLUR_NATIVE);
+                    Laya.timer.once(300, this, function () {
+                        Laya.stage.event(Laya.Event.MOUSE_DOWN);
                     });
                     break;
                 case "deviceInfo":

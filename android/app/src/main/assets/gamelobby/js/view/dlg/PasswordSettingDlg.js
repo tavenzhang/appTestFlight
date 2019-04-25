@@ -42,10 +42,13 @@ var view;
                 }
                 this.newTxt1.type = "password";
                 this.newTxt2.type = "password";
+                this.oldTxt.type = "password";
                 this.initSwitchBtn();
                 this.initEvents();
             };
             PasswordSettingDlg.prototype.initSwitchBtn = function () {
+                this.txtOldSwitch = new dlg_1.SwitchButton(this.lookOldBtn, "ui/setPassword/eye_01.png", "ui/setPassword/eye_00.png");
+                this.txtOldSwitch.switch = false;
                 this.txtSwitch1 = new dlg_1.SwitchButton(this.lookBtn1, "ui/setPassword/eye_01.png", "ui/setPassword/eye_00.png");
                 this.txtSwitch1.switch = false;
                 this.txtSwitch2 = new dlg_1.SwitchButton(this.lookBtn2, "ui/setPassword/eye_01.png", "ui/setPassword/eye_00.png");
@@ -84,6 +87,18 @@ var view;
                     _this.newTxt2.type = _this.txtSwitch2.switch ? "input" : "password";
                     _this.newTxt2.focus = true;
                 });
+                EventManager.addTouchScaleListener(this.lookOldBtn, this, function () {
+                    SoundPlayer.clickSound();
+                    _this.txtOldSwitch.switch = !_this.txtOldSwitch.switch;
+                    _this.oldTxt.type = _this.txtOldSwitch.switch ? "input" : "password";
+                    _this.oldTxt.focus = true;
+                });
+                EventManager.register(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
+            };
+            PasswordSettingDlg.prototype.lostFocusInputText = function () {
+                this.oldTxt.focus = false;
+                this.newTxt1.focus = false;
+                this.newTxt2.focus = false;
             };
             PasswordSettingDlg.prototype.requestChange = function (pwd, newpwd, confirmpwd) {
                 try {
@@ -142,6 +157,7 @@ var view;
                 }
             };
             PasswordSettingDlg.prototype.onClosed = function (type) {
+                EventManager.removeEvent(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
                 EventManager.removeAllEvents(this);
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);

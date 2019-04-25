@@ -155,7 +155,7 @@ var EventManager = /** @class */ (function () {
     /**
      * 防止按钮重复点击的时间间隔
      */
-    EventManager.delayClickTime = 1000;
+    EventManager.delayClickTime = 500;
     return EventManager;
 }());
 var CustomObj = /** @class */ (function () {
@@ -199,6 +199,11 @@ var EventType = /** @class */ (function () {
     EventType.RESIZE = "resize";
     EventType.FLUSH_USERINFO = "flushUserInfo";
     EventType.FLUSH_HEADICON = "flushHeadIcon";
+    /**
+     * 失去焦点通知
+     * 收到此通知后要将输入文本的焦点设为false,以解决ios系统点击键盘的Done按钮后界面收不回来
+     */
+    EventType.BLUR_NATIVE = "blurNative";
     return EventType;
 }());
 //# sourceMappingURL=EventManager.js.map

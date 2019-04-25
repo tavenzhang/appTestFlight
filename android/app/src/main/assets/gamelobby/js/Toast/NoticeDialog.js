@@ -32,7 +32,8 @@ var NoticeDialog = /** @class */ (function (_super) {
             o.init(conf);
             o.caller = caller;
             o.callback = callback;
-            LayaMain.getInstance().getRootNode().addChild(o);
+            o.zOrder = Dialog.manager.zOrder + 1;
+            Laya.stage.addChild(o); //todo:待拼界面
         }
         NoticeDialog.obj.show(str);
     };

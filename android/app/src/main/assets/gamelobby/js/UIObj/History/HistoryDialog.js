@@ -274,9 +274,7 @@ var HistoryDialog = /** @class */ (function (_super) {
         else {
             Toast.showToast(s);
         }
-        if (MyBBLoading.obj) {
-            MyBBLoading.obj.show(false);
-        }
+        LayaMain.getInstance().showCircleLoading(false);
     };
     HistoryDialog.prototype.showEmptyData = function (b) {
         if (!this.lb_empty) {

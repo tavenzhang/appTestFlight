@@ -27,7 +27,8 @@ var view;
             this.mouseThrough = true; //设置可穿透
             //用户信息
             this.infoView = new UserInfoView(this);
-            this.verTxt.text = "版本号：4.0424.1819";
+            //版本号
+            this.verTxt.text = ResConfig.versions;
             var msgUrl = ConfObjRead.getConfUrl().url.apihome +
                 ConfObjRead.getConfUrl().cmd.noticelist +
                 "?pageSize=20&start=0&access_token=" +
@@ -37,6 +38,8 @@ var view;
         };
         PublicView.prototype.runningmsgOver = function () { };
         PublicView.prototype.dispose = function () {
+            if (RunningMsg.obj)
+                RunningMsg.obj.destroy(true);
             if (this.infoView) {
                 this.infoView.dispose();
                 this.infoView = null;

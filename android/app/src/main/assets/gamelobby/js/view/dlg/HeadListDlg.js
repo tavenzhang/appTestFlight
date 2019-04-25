@@ -26,7 +26,7 @@ var view;
                 /**
                  * 头像图标总数
                  */
-                _this.totalIcon = 18;
+                _this.totalIcon = 12;
                 _this.curIconID = "01";
                 _this.initView();
                 return _this;
@@ -77,9 +77,6 @@ var view;
             };
             HeadListDlg.prototype.responseHeadSave = function (s, stat, hr) {
                 LayaMain.getInstance().showCircleLoading(false);
-                if (MyBBLoading.obj) {
-                    MyBBLoading.obj.show(false);
-                }
                 if (stat == "complete") {
                     this.saveHeadSucce();
                 }
