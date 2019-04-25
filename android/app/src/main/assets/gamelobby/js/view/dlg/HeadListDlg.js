@@ -76,6 +76,7 @@ var view;
                 "json");
             };
             HeadListDlg.prototype.responseHeadSave = function (s, stat, hr) {
+                LayaMain.getInstance().showCircleLoading(false);
                 if (MyBBLoading.obj) {
                     MyBBLoading.obj.show(false);
                 }

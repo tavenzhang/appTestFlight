@@ -760,6 +760,7 @@ var PageLogin = /** @class */ (function (_super) {
                     PostMHelp.tokenChange({ "payload": Common.access_token });
                     // if( jobj.strongPwd )
                     // {
+                    PageManager.Get().DestoryCurrentView();
                     LayaMain.getInstance().initLobby();
                     // } else {
                     //     //this.ShowChangePasswordPanel();

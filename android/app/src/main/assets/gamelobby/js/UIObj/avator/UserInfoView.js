@@ -21,8 +21,6 @@ var UserInfoView = /** @class */ (function () {
         EventManager.addTouchScaleListener(this.view.headIcon, this, function () {
             SoundPlayer.enterPanelSound();
             view.dlg.MyCenterDlg.show();
-            //todo:xxx
-            // AccountCenter.showPad(LayaMain.getInstance().getRootNode());
         }, null, 1);
         EventManager.register(EventType.FLUSH_USERINFO, this, this.flushUserInfo);
         EventManager.register(EventType.FLUSH_HEADICON, this, this.flushHeadIcon);
@@ -112,8 +110,9 @@ var UserInfoView = /** @class */ (function () {
         this.view.goldAnim.addChild(anim);
         anim.playAnim(0, true);
         this.view.addBtn.visible = !AppData.isAndroidHack;
+        //充值
         EventManager.addTouchScaleListener(this.view.addBtn, this, function () {
-            SoundPlayer.enterbuySound();
+            SoundPlayer.enterPanelSound();
             Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
         });
         //金币显示

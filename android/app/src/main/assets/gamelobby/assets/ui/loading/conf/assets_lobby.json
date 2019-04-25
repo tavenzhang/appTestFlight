@@ -842,6 +842,14 @@
             "type": "IMAGE"
         },
         {
+            "url": "./assets/ui/game/icon_brnn.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_brnn_gray.png",
+            "type": "IMAGE"
+        },
+        {
             "url": "./assets/ui/animation/icons/baihualuoshen/icon_baihua.png",
             "type": "IMAGE"
         },
@@ -951,6 +959,14 @@
         },
         {
             "url": "./assets/ui/animation/icons/caishenjiadao/csjd.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/bairenniuniu/brnn.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/bairenniuniu/brnn.sk",
             "type": "BUFFER"
         },
         {

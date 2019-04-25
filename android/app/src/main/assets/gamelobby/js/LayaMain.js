@@ -50,6 +50,7 @@ var LayaMain = /** @class */ (function () {
             window.removeEventListener("message", this.handleIFrameAction, false);
         }
         EventManager.dispath(EventType.RESIZE);
+        PostMHelp.game_common({ name: "onGameInit" });
     };
     LayaMain.prototype.getRootNode = function () {
         return this.root_node;
@@ -75,7 +76,7 @@ var LayaMain = /** @class */ (function () {
         catch (e) { }
     };
     /**
-     * 退出登录
+     * 退出到登录界面
      */
     LayaMain.prototype.loginOut = function () {
         Debug.trace("LayaMain.loginOut");
@@ -111,20 +112,17 @@ var LayaMain = /** @class */ (function () {
                 GamePanel.getInstance().resume();
             }
             catch (e) { }
-            try {
-                RoomPanel.getInstance().resume();
-            }
-            catch (e) { }
         }
         catch (e) { }
     };
     LayaMain.prototype.handleIFrameAction = function (e) {
-        Debug.trace("handleIFrameAction e:");
-        Debug.trace(e);
+        //  Debug.trace("handleIFrameAction e:");
+        // Debug.trace(e);
         var data = e.data;
         LayaMain.getInstance().onAppPostMessgae(data);
     };
     LayaMain.prototype.onAppPostMessgae = function (data) {
+        var _this = this;
         var message = null;
         try {
             message = JSON.parse(data);
@@ -200,6 +198,7 @@ var LayaMain = /** @class */ (function () {
                     UpdateMsgHandle.playMusic(message.data);
                     break;
                 case "onBlur":
+                    var curfocus_1 = Laya.stage.focus;
                     if (LoginPad.obj) {
                         LoginPad.obj.lostFocusInputText();
                     }
@@ -209,6 +208,11 @@ var LayaMain = /** @class */ (function () {
                     if (QuickLogin.obj) {
                         QuickLogin.obj.lostFocusInputText();
                     }
+                    //todo:解决ios键盘收回时没有声音(未生效)
+                    Laya.timer.once(350, this, function () {
+                        Laya.stage.focus = curfocus_1 || _this.getRootNode();
+                        console.error("play-sound-atinput");
+                    });
                     break;
                 case "deviceInfo":
                     MyUid.setUid(message.data);
@@ -264,12 +268,14 @@ var LayaMain = /** @class */ (function () {
         }
     };
     LayaMain.prototype.initLogin = function () {
-        this.clearChild();
-        if (this.sceneLogin == null) {
-            this.sceneLogin = new LoginScene();
-            this.sceneLogin.onLoaded();
-            LayaMain.getInstance().getRootNode().addChild(this.sceneLogin);
-        }
+        this.loginOut();
+        return; //todo:xxx
+        // this.clearChild();
+        // if (this.sceneLogin == null) {
+        //     this.sceneLogin = new LoginScene();
+        //     this.sceneLogin.onLoaded();
+        //     LayaMain.getInstance().getRootNode().addChild(this.sceneLogin);
+        // }
     };
     LayaMain.prototype.initLobby = function () {
         this.clearChild();

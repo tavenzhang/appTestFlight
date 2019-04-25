@@ -32,7 +32,6 @@ var view;
             this.resize();
         };
         RoomListView.prototype.initEvents = function () {
-            var _this = this;
             //返回大厅
             EventManager.addTouchScaleListener(this.backBtn, this, function () {
                 SoundPlayer.returnLobbySound();
@@ -51,7 +50,7 @@ var view;
             //设置
             EventManager.addTouchScaleListener(this.settingBtn, this, function () {
                 SoundPlayer.clickSound();
-                SettingPad.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSetting(), _this, null);
+                view.dlg.SettingDlg.show();
             });
         };
         RoomListView.prototype.setCallback = function (e) { };
