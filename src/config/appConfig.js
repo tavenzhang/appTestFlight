@@ -36,7 +36,7 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '博博乐';
+export const MyAppName = '博博乐sit';
 
 export const versionHotFix = 'bbl_3_23';
 
@@ -53,13 +53,16 @@ export const platInfo = {
     //  gameDomain:"https://dk3nuq7v.zhdisi.com",
     gameDomain: "http://192.168.1.93:8091",
 
+    downDomain:"https://download.ouzhoufangchanwang.com",
+
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.ouzhoufangchanwang.com/game/release/sit"
+        release_server: "/game/release/sit"
     },
     platId: configAppId,
     brand: "106",
-    latestNativeVersion:"2.0",//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
+    latestNativeVersion:{ios:"2.0",android:"2.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
+
 }
 
 
