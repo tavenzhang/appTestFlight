@@ -228,7 +228,9 @@ export default class NetUitls extends Component {
                 if (response.status === 401) {
                    // userStore.isLogin = false
                     result = {"rs": false, "error": '无效token', "status": response.status, duration: duration, "message": response.message}
-                    Toast.showShortCenter('登录状态过期，请重新登录！')
+                    if(TW_Store.userStore.isLogin){
+                        Toast.showShortCenter('登录状态过期，请重新登录！')
+                    }
                     //NavigationService.tokenIsError();
                     result.rs = false;
                     callback(result);
@@ -258,12 +260,15 @@ export default class NetUitls extends Component {
         callback(result);
         TW_Log('\n\n*******   ' + map.method + '请求 url:\n' + url + '\nrequestMap = ' + JSON.stringify(map) + '\n\n*******   状态码:' + response.status + '  *******返回结果：  \n' + JSON.stringify(result) + '\n')
         if(!result.rs){
-            if(result.error&&result.error=="无效token"&&TW_Store.userStore.access_token!=""){
-                if(TW_OnValueJSHome){
-                    TW_Store.userStore.exitAppToLoginPage();
-                    TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.logout));
-                }
-            }
+            TW_Log("无效token====TW_Store.userStore.access_token=="+TW_Store.userStore.access_token,TW_Store.userStore)
+            // if(result.error&&result.error=="无效token"&&TW_Store.userStore.access_token!=""){
+            //     if(TW_OnValueJSHome){
+            //         Toast.showShortCenter('登录状态过期，请重新登录！');
+            //         TW_Store.userStore.exitAppToLoginPage();
+            //         TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.logout));
+            //         TW_Log("无效token====TW_Store.userStore.access_token==after"+TW_Store.userStore.access_token,result)
+            //     }
+            // }
         }
     }
 

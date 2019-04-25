@@ -202,8 +202,8 @@ export  default  class BBLStore {
         NetUitls.getUrlAndParamsAndCallback(url, null, (ret) => {
             if(ret.rs&&ret.content){
                 this.shareData = ret.content;
-                this.shareURL.ios=this.shareData.iosShareUrl;
-                this.shareURL.android=this.shareData.androidShareUrl;
+                this.shareURL.ios=this.shareData.iosShareUrl ? this.shareData.iosShareUrl:" ";
+                this.shareURL.android=this.shareData.androidShareUrl ? this.shareData.androidShareUrl:" ";
                 downUrl = G_IS_IOS ? this.shareData.iosDownloadUrl:this.shareData.androidDownloadUrl;
                 downUrl = downUrl ? downUrl:"";
                 if(downUrl.indexOf("?")>-1){
