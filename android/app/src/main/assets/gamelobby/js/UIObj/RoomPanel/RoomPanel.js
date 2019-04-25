@@ -172,8 +172,7 @@ var RoomPanel = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseRoomList);
     };
     RoomPanel.prototype.responseRoomList = function (s, stat, hr) {
-        Debug.trace("RoomPanel.responseRoomList:");
-        Debug.trace(s);
+        LayaMain.getInstance().showCircleLoading(false);
         if (stat == "complete") {
             this.roomInfo = s;
             this.addGameItems(this.roomInfo.datas);

@@ -335,6 +335,7 @@ var RegPad = /** @class */ (function (_super) {
             this.yzmObj.refresh();
             this.clearAllInput();
         }
+        LayaMain.getInstance().showCircleLoading(false);
         if (MyBBLoading.obj) {
             MyBBLoading.obj.show(false);
         }

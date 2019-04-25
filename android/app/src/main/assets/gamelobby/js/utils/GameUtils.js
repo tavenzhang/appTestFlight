@@ -26,6 +26,19 @@ var GameUtils = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * 限制num的取值区间
+     * @param cur
+     * @param min
+     * @param max
+     */
+    GameUtils.borderValue = function (cur, min, max) {
+        if (cur > max)
+            cur = max;
+        else if (cur < min)
+            cur = min;
+        return cur;
+    };
     //最小和最大间隔(用于需要全屏适配的ui)
     GameUtils.minGap = 28;
     GameUtils.maxGap = 78;

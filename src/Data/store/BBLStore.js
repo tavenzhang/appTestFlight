@@ -93,14 +93,14 @@ export  default  class BBLStore {
         if(subStrWay.length>0&&subStrWay!="0"){
             isSubWay = true;
         }
-        let versionDomain = this.isDebugApp ? this.debug_release_server: platInfo.zipCheckServer.release_server;
+        let versionDomain = this.isDebugApp ? this.debug_release_server: (platInfo.downDomain+platInfo.zipCheckServer.release_server);
         if(this.isDebugApp){
             versionDomain = this.debug_release_server;
         }else{
             if(isSubWay){
-                versionDomain= platInfo.zipCheckServer.release_server+"/qudao"
+                versionDomain= platInfo.downDomain+platInfo.zipCheckServer.release_server+"/qudao"
             }else{
-                versionDomain= platInfo.zipCheckServer.release_server
+                versionDomain= platInfo.downDomain+platInfo.zipCheckServer.release_server
             }
 
         }
@@ -108,7 +108,7 @@ export  default  class BBLStore {
         if(TW_Store.appStore.isInAnroidHack){
             versionDomain+="/isInAnroidHack"
         }
-
+        //TW_Log("versionDomain----getVersionDomain---",versionDomain)
         //对于android hack 包。 故意使用不存在路径
        return versionDomain;
     }

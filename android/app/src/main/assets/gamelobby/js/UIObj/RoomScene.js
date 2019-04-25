@@ -56,6 +56,9 @@ var RoomScene = /** @class */ (function (_super) {
             this.view.dispose();
             this.view = null;
         }
+        if (RoomPanel.obj) {
+            RoomPanel.obj.destroy(true);
+        }
         _super.prototype.destroy.call(this, bl);
     };
     return RoomScene;

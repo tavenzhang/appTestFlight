@@ -89,7 +89,7 @@ export default class AppInfoStore {
 
     //app 最新版本
     @observable
-    latestNativeVersion = platInfo.latestNativeVersion;
+    latestNativeVersion = G_IS_IOS ?  platInfo.latestNativeVersion.ios:platInfo.latestNativeVersion.android;
 
     //app 当前版本
     APP_DOWNLOAD_VERSION="1.0";

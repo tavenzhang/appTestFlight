@@ -32,9 +32,16 @@ var PageLogin = /** @class */ (function (_super) {
         _this.btn_phone.visible = false;
         _this.btn_webchat.visible = false;
         _this.btn_service.visible = false;
+        /**
+         * 业主可替换的图标，需要动态加载
+         */
+        _this.sp_log.alpha = 0;
+        _this.sp_log.skin = "./brand/login_icon.png";
+        Laya.Tween.to(_this.sp_log, { delay: 300, alpha: 1 }, 600);
         var isload = cmd == null ? false : cmd == 'isloaded';
         //开始加载数据
         _this.startLoading(isload);
+        EventManager.register(EventType.BLUR_NATIVE, _this, _this.lostFocusInputText);
         return _this;
     }
     /**
@@ -234,6 +241,29 @@ var PageLogin = /** @class */ (function (_super) {
         //显示登陆面板
         this.panel.visible = true;
     };
+    /**
+     * 让输入文本失去焦点
+     * 用于解决ios系统点击输入后按Done界面不下来的问题
+     */
+    PageLogin.prototype.lostFocusInputText = function () {
+        if (this.in_account)
+            this.in_account.focus = false;
+        if (this.in_code)
+            this.in_code.focus = false;
+        if (this.in_pwd)
+            this.in_pwd.focus = false;
+        if (this.in_phone)
+            this.in_phone.focus = false;
+        if (this.in_put_password)
+            this.in_put_password.focus = false;
+        if (this.in_check_password)
+            this.in_check_password.focus = false;
+    };
+    PageLogin.prototype.destroy = function (vl) {
+        EventManager.removeEvent(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
+        EventManager.removeAllEvents(this);
+        _super.prototype.destroy.call(this, vl);
+    };
     ////////////////////////////////////////////////////////////////////
     /**
      * 隐藏全部登陆面板的UI
@@ -350,6 +380,9 @@ var PageLogin = /** @class */ (function (_super) {
                     }
                     that.in_account.text = jobj.username;
                     that.password = jobj.password;
+                    if (that.in_account.text.length > 2) { //即时保存，防止切换登录方式时不断刷新用户名的bug
+                        SaveManager.getObj().save(SaveManager.KEY_QK_USERNAME, that.in_account.text);
+                    }
                 }
                 else {
                     var err = hr.http.response;

@@ -32,7 +32,7 @@ var RunningMsg = /** @class */ (function (_super) {
             var a = new RunningMsg();
             a.noticeSp = node;
             a.init(confsrc, url, caller, callback);
-            // node.addChild(a);//debug
+            RunningMsg.obj = a;
         }
         return RunningMsg.obj;
     };
@@ -181,10 +181,10 @@ var RunningMsg = /** @class */ (function (_super) {
         // this.sp_lbcontent.addChild(lbmsg);
         this.noticeSp.addChild(lbmsg);
         if (nowhave <= 0) {
-            lbmsg.pos(this.conf.msgcontent.label.pos.x + this.conf.mask.size.w, this.conf.msgcontent.label.pos.y);
+            lbmsg.pos(this.conf.msgcontent.label.pos.x + this.conf.mask.size.w, 3);
         }
         else {
-            lbmsg.pos(this.lb_msgs[nowhave - 1].x + this.lb_msgs[nowhave - 1].getWidth(), this.conf.msgcontent.label.pos.y);
+            lbmsg.pos(this.lb_msgs[nowhave - 1].x + this.lb_msgs[nowhave - 1].getWidth(), 3);
         }
         this.lb_msgs.push(lbmsg);
         // Debug.trace("nowhave:"+nowhave+" x:"+lbmsg.x);
