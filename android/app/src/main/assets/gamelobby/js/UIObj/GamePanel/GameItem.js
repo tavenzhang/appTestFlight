@@ -109,10 +109,6 @@ var GameItem = /** @class */ (function (_super) {
         }
     };
     GameItem.prototype.onClickItem = function () {
-        var tmp = (new Date()).getTime();
-        if ((tmp - GameItem.timer) < 200)
-            return;
-        GameItem.timer = tmp;
         // Debug.trace("GameItem.onClickItem this.sStatus:"+this.sStatus);
         switch (this.sStatus) {
             case GameItem.STATUS_PAUSE:
@@ -135,9 +131,10 @@ var GameItem = /** @class */ (function (_super) {
         if (this.conf.sfx) {
             Laya.SoundManager.playSound(this.conf.sfx);
         }
-        if (this.data.jumpUrl) {
-            // if( !this.btn_icon.bclick )
-            // {
+        if (this.data.jumpUrl) //跳转到游戏
+         {
+            //todo:待优化
+            // if (!this.btn_icon.bclick) {
             //     return;
             // }
             // this.btn_icon.bclick = false;
@@ -181,6 +178,8 @@ var GameItem = /** @class */ (function (_super) {
             this.sp_anim.init(this.animConf);
             this.addChild(this.sp_anim);
             this.sp_anim.playAnim(0, true);
+            //
+            this.btn_icon.alpha = 0;
         }
     };
     GameItem.prototype.setEnable = function (b) {
@@ -374,7 +373,6 @@ var GameItem = /** @class */ (function (_super) {
     GameItem.STATUS_NORMAL = "normal";
     GameItem.STATUS_COMING = "coming";
     GameItem.STATUS_ONLINE = "online";
-    GameItem.timer = 0;
     return GameItem;
 }(MySprite));
 //# sourceMappingURL=GameItem.js.map

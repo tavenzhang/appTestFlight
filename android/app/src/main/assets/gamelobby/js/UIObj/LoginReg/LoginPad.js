@@ -160,11 +160,18 @@ var LoginPad = /** @class */ (function (_super) {
     };
     LoginPad.prototype.initAlphaBg = function () {
         if (this.conf.mask) {
-            var alphabg = new MySprite();
-            Tools.drawRectWithAlpha(alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
+            //todo:xxx
+            // var alphabg = new MySprite();
+            // Tools.drawRectWithAlpha(alphabg,
+            //     0,0,
+            //     this.conf.size.w,this.conf.size.h,
+            //     "#000000",
+            //     this.conf.mask.alpha);
+            // this.addChild(alphabg);
+            // alphabg.size(this.conf.size.w,this.conf.size.h);
+            // alphabg.pos(-this.conf.pos.x,-this.conf.pos.y);
+            var alphabg = Tools.creatDlgBg();
             this.addChild(alphabg);
-            alphabg.size(this.conf.size.w, this.conf.size.h);
-            alphabg.pos(-this.conf.pos.x, -this.conf.pos.y);
             alphabg.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
             alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
             alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);

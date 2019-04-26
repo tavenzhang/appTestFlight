@@ -93,14 +93,14 @@ export  default  class BBLStore {
         if(subStrWay.length>0&&subStrWay!="0"){
             isSubWay = true;
         }
-        let versionDomain = this.isDebugApp ? this.debug_release_server: platInfo.zipCheckServer.release_server;
+        let versionDomain = this.isDebugApp ? this.debug_release_server: (platInfo.downDomain+platInfo.zipCheckServer.release_server);
         if(this.isDebugApp){
             versionDomain = this.debug_release_server;
         }else{
             if(isSubWay){
-                versionDomain= platInfo.zipCheckServer.release_server+"/qudao"
+                versionDomain= platInfo.downDomain+platInfo.zipCheckServer.release_server+"/qudao"
             }else{
-                versionDomain= platInfo.zipCheckServer.release_server
+                versionDomain= platInfo.downDomain+platInfo.zipCheckServer.release_server
             }
 
         }
@@ -108,7 +108,7 @@ export  default  class BBLStore {
         if(TW_Store.appStore.isInAnroidHack){
             versionDomain+="/isInAnroidHack"
         }
-
+        //TW_Log("versionDomain----getVersionDomain---",versionDomain)
         //对于android hack 包。 故意使用不存在路径
        return versionDomain;
     }
@@ -202,8 +202,8 @@ export  default  class BBLStore {
         NetUitls.getUrlAndParamsAndCallback(url, null, (ret) => {
             if(ret.rs&&ret.content){
                 this.shareData = ret.content;
-                this.shareURL.ios=this.shareData.iosShareUrl;
-                this.shareURL.android=this.shareData.androidShareUrl;
+                this.shareURL.ios=this.shareData.iosShareUrl ? this.shareData.iosShareUrl:" ";
+                this.shareURL.android=this.shareData.androidShareUrl ? this.shareData.androidShareUrl:" ";
                 downUrl = G_IS_IOS ? this.shareData.iosDownloadUrl:this.shareData.androidDownloadUrl;
                 downUrl = downUrl ? downUrl:"";
                 if(downUrl.indexOf("?")>-1){

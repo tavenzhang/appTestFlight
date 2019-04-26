@@ -65,24 +65,24 @@
                 "fontcolor":"#25b17b",
                 "errorcolor":"#25b17b",
                 "fontsize":24,
-                "align":"right",
+                "align":"left",
                 "valign":"middle",
                 "wrap":false,
                 "underline":false,
-                "size":{ "w":200, "h":30 },
-                "pos":{ "x":467, "y":0 }
+                "pos":{ "x":567, "y":0 },
+                "size":{ "w":200, "h":30 }
             },
             "lbpercent":{
                 "desc":"加载进度百分比展示字符",
                 "pretext":"",
                 "fontsize":24,
                 "fontcolor":"#0eff96",
-                "align":"left",
+                "align":"right",
                 "valign":"middle",
                 "wrap":false,
                 "underline":false,
                 "borderColorX":"#ff0000",
-                "pos":{ "x":667, "y":0 },
+                "pos":{ "x":567, "y":0 },
                 "size":{ "w":200, "h":30 }
             },
             "bg":{
@@ -102,7 +102,8 @@
             },
             "front":{
                 "src":"./assets/ui/loading/progressbar.png",
-                "pos":{ "x":244.5, "y":40 },
+                "posX":{ "x":244.5, "y":40 },
+                "pos":{ "x":0, "y":0 },
                 "rect":{ "w":840, "h":17, "r":2, "fillcolor":"#00ff00" },
                 "size":{
                     "w":840,
@@ -117,7 +118,8 @@
             },
             "effect":{
                 "src":"./assets/ui/loading/barEffect.png",
-                "pos":{ "x":244.5, "y":40 },
+                "posX":{ "x":244.5, "y":40 },
+                "pos":{ "x":0, "y":0 },
                 "size":{"w":35,"h":17},
                 "offset":{"x":5,"y":0}
             },

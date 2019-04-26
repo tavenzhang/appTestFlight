@@ -12,13 +12,12 @@ import {observer} from 'mobx-react/native';
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {platInfo} from "../../config/appConfig";
 import SplashScreen from "react-native-splash-screen";
-import CodePush from 'react-native-code-push'
 
 import rootStore from "../../Data/store/RootStore";
 import FileTools from "../../Common/Global/FileTools";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 import Tools from "../../Common/View/Tools";
-import {JX_PLAT_INFO} from "../asset";
+
 
 const HTTP_GAME_LIST="/gamecenter/player/game/list";
 @withMappedNavigationProps()
@@ -431,7 +430,6 @@ export default class XXWebView extends Component {
                     }
                     let isNeedLoad=false;
                     let isOrigan =false;
-                    TW_Log("FileTools---------data--isNeedLoad==-url==-----------gameData==",gameData);
                     if(!gameData){
                        // JXToast.showShortCenter(`${data.name} 暂未配置！`)
                         url = this.handleUrl(message.payload,gameData);
@@ -509,9 +507,9 @@ export default class XXWebView extends Component {
                             NetUitls.getUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
                                 this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
                                 let access_token =TW_GetQueryString("access_token",message.url);
-                                if(access_token&&access_token!=""){
+                                if(ret.rs&&access_token&&access_token!=""){
                                     TW_Store.userStore.initLoginToken(access_token);
-                                    this.onFlushGameData();
+                                   // this.onFlushGameData();
                                 }
                                 if(message.url.indexOf("/api/v1/gamecenter/player/user")>-1){
                                     TW_Store.bblStore.avatarData =ret.content

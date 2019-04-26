@@ -62,15 +62,15 @@ var UITitleBar = /** @class */ (function (_super) {
         try {
             var cmd = btn.getQuery();
             switch (cmd) {
-                case "custom":
+                case "custom": //客服
                     Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
                     break;
-                case "notice":
+                case "notice": //活动
                     Debug.trace("UITitleBar.onEventClick manual");
                     AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
                     AttentionDialog.obj.show();
                     break;
-                case "quit":
+                case "quit": //返回
                     PostMHelp.goBack({ token: Common.access_token });
                     break;
                 case "setting":

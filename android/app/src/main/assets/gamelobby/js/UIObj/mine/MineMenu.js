@@ -88,9 +88,10 @@ var MineMenus = /** @class */ (function (_super) {
     };
     MineMenus.prototype.onChangePwdSuc = function (e) {
         var npwd = e;
-        // Common.loginInfo.strongPwd = true;
+        Common.loginInfo.strongPwd = true;
         SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
         SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+        SaveManager.getObj().save(SaveManager.KEY_QK_PWD_CHANGED, true);
         var str = Tools.getStringByKey(ConfObjRead.getConfChangePwdQk().textChanged);
         Debug.trace("MineMenu.onChangePwdSuc str:" + str);
         LayaMain.getInstance().loginOut();

@@ -1,17 +1,5 @@
 {
     "pos":{ "x":0, "y":0 },
-    "label":{
-        "size":{ "w":1334, "h":50 },
-        "pos":{ "x":0, "y":330 },
-        "borderColorX":"#ff0000",
-        "fontsize":30,
-        "fontcolor":"#ffedb8",
-        "align":"center",
-        "valign":"middle",
-        "fontname":"Arail",
-        "wordwrap":false,
-        "underline":false
-    },
     "bg":{
         "src":"./assets/ui/toast/img_com_tips_176.png",
         "pos":{ "x":81, "y":250 },
@@ -19,6 +7,21 @@
             "w":1172,
             "h":227,
             "spliceV":{ "th":67, "mh":2, "bh":8, "mhei":150 }
+        },
+        "label":{
+            "sizeX":{ "w":1334, "h":50 },
+            "posX":{ "x":0, "y":330 },
+            
+            "size":{ "w":1172, "h":170 },
+            "pos":{ "x":0, "y":50 },
+            "borderColorX":"#ff0000",
+            "fontsize":30,
+            "fontcolor":"#ffedb8",
+            "align":"center",
+            "valign":"top",
+            "fontname":"Arail",
+            "wordwrap":true,
+            "underline":false
         }
     },
     "bgcolor":"#000000",

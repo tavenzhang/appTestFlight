@@ -39,7 +39,7 @@ var Avator = /** @class */ (function (_super) {
         this.conf = conf;
         Avator.obj = this;
         this.bRequestStatus = 1;
-        Debug.trace("Avator.init bRequestStatus:" + this.bRequestStatus);
+        // Debug.trace("Avator.init bRequestStatus:"+this.bRequestStatus);
         this.caller = caller;
         this.callback = callback;
         this.initBg(this.conf.bg);
@@ -102,7 +102,7 @@ var Avator = /** @class */ (function (_super) {
     };
     Avator.prototype.requestUserInfo = function (url) {
         this.bRequestStatus = 1;
-        Debug.trace("Avator.requestUserInfo bRequestStatus:" + this.bRequestStatus);
+        // Debug.trace("Avator.requestUserInfo bRequestStatus:"+this.bRequestStatus);
         if (!this.isFlushMoney) {
             LayaMain.getInstance().showCircleLoading();
         }
@@ -140,8 +140,8 @@ var Avator = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseUserInfoCurrent);
     };
     Avator.prototype.responseUserInfoCurrent = function (s, stat, hr) {
-        Debug.trace("Loading responseUserInfoCurrent stat:" + stat);
-        Debug.trace(s);
+        // Debug.trace("Loading responseUserInfoCurrent stat:"+stat);
+        // Debug.trace(s);
         if (stat == "complete") {
             Common.userInfo_current = s;
             this.requestUserAvator(ConfObjRead.getConfUrl().url.apihome +
@@ -164,8 +164,8 @@ var Avator = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseUserAvator, header, null, "get", "json");
     };
     Avator.prototype.responseUserAvator = function (s, stat, hr) {
-        Debug.trace("Avator.responseUserAvator stat:" + stat);
-        Debug.trace(s);
+        // Debug.trace("Avator.responseUserAvator stat:"+stat);
+        // Debug.trace(s);
         if (stat == "complete") {
             // Debug.trace("responseUserAvator:");
             // Debug.trace(s);

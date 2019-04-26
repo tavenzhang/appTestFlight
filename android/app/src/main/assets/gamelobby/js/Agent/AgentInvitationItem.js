@@ -18,6 +18,7 @@ var AgentInvitationItem = /** @class */ (function (_super) {
     }
     AgentInvitationItem.prototype.init = function (conf) {
         Tools.addSprite(this, conf.bg);
+        this.conf = conf;
         this._code = Tools.newLabel(conf.code.font.text, conf.code.size.w, conf.code.size.h, conf.code.font.size, conf.code.font.color, conf.code.font.align, conf.code.font.valign, conf.code.font.name, conf.code.font.wrap, conf.code.font.underline);
         this._code.pos(conf.code.pos.x, conf.code.pos.y);
         this.addChild(this._code);
@@ -36,29 +37,40 @@ var AgentInvitationItem = /** @class */ (function (_super) {
         this._delBtn.init(conf.btnDelete, this, this.onClickBtn);
         this._delBtn.pos(conf.btnDelete.pos.x, conf.btnDelete.pos.y);
         this.addChild(this._delBtn);
-        this._qr = Tools.newSprite(conf.qr);
-        this.addChild(this._qr);
-        this._qr.pivot(this._qr.width / 2, this._qr.height / 2);
-        this._qr.on(Laya.Event.MOUSE_DOWN, this, this.onClickBtn);
     };
     AgentInvitationItem.prototype.onClickBtn = function (e) {
         var btn = e;
+        console.log(e);
         switch (btn) {
             case this._qr:
-                var scalesx = this._qr.scaleX;
-                var scalesy = this._qr.scaleY;
-                var scalestoX = this._qr.scaleX + .05;
-                var scalestoY = this._qr.scaleY + .05;
-                Laya.Tween.to(this._qr, { scaleX: scalestoX, scaleY: scalestoY }, 80);
-                Laya.Tween.to(this._qr, { scaleX: scalesx, scaleY: scalesy }, 80, Laya.Ease.backOut, null, 80);
+                // let scalesx: number = this._qr.scaleX;
+                // let scalesy: number = this._qr.scaleY;
+                // let scalestoX: number = this._qr.scaleX + .05;
+                // let scalestoY: number = this._qr.scaleY + .05;
+                // Laya.Tween.to(this._qr, { scaleX: scalestoX, scaleY: scalestoY }, 80)
+                // Laya.Tween.to(this._qr, { scaleX: scalesx, scaleY: scalesy }, 80, Laya.Ease.backOut, null, 80);
                 break;
             case this._delBtn:
-                AgentDialogDeleteInvitation.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogDeleteInvitation());
+                AgentDialogDeleteInvitation.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogDeleteInvitation(), this.data.id);
                 break;
         }
     };
     AgentInvitationItem.prototype.setData = function (d) {
         this.data = d;
+        this._code.text = d.affCode;
+        d.url = this.conf.qr.test;
+        if (d.url) {
+            var sp = this._qr = qr.QRCode.create(d.url, this.conf.qr.config.color, this.conf.qr.config.size.w, this.conf.qr.config.size.h, this.conf.qr.config.level);
+            sp.pos(this.conf.qr.config.pos.x, this.conf.qr.config.pos.y);
+            this.addChild(sp);
+            // this._qr.on(Laya.Event.CLICK, this, this.onClickBtn);
+        }
+    };
+    AgentInvitationItem.prototype.enableDelete = function () {
+        this._delBtn.visible = true;
+    };
+    AgentInvitationItem.prototype.disableDelete = function () {
+        this._delBtn.visible = false;
     };
     return AgentInvitationItem;
 }(MySprite));

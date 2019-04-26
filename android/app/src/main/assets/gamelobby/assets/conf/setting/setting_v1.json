@@ -58,7 +58,7 @@
             "pos":{ "x":0, "y":0 }
         },
         "size":{ "w":47, "h":47 },
-        "sfx":"assets/raw/close.mp3",
+        "sfx":"assets/raw/sfx_close.mp3",
         "maxScale":1.1,
         "normalScale":1
     },
@@ -154,7 +154,7 @@
                 "posoff":{ "x":60, "y":0 }
             },
             "duration":100,
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/sfx_click.mp3"
         }
     },
     "sfxswitch":{
@@ -176,7 +176,7 @@
                 "posoff":{ "x":60, "y":0 }
             },
             "duration":100,
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/sfx_click.mp3"
         }
     }
 }

@@ -13,6 +13,8 @@
 #import <NSLogger/NSLogger.h>
 #import <Crashlytics/Crashlytics.h>
 #import <OpenInstallSDK.h>
+#import <SplashScreen.h>
+
 
 //#import <SplashScreen.h>
 @implementation AppDelegate
@@ -31,10 +33,12 @@ JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
   self.launchOptions = launchOptions;
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   [self loadRootController];
- // [self testLoadNative];
- // [self startLog];
   [self.window makeKeyAndVisible];
-//  [SplashScreen show];
+  [SplashScreen show];
+  
+  
+  // [self testLoadNative];
+  // [self startLog];
   return YES;
 }
 

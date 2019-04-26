@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>com.openinstall.APP_KEY</key>
+    	<string></string>
 	<key>PlatId</key>
 	<string>1146</string>
 	<key>PLAT_CH</key>
@@ -19,6 +21,7 @@
 		<key>weixin</key>
 		<string>83d8da4ee42b89e05409daf68c1eb3dc</string>
 	</dict>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

@@ -11,6 +11,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/**
+ * 头像列表选取弹框
+ */
 var AvatorPad = /** @class */ (function (_super) {
     __extends(AvatorPad, _super);
     function AvatorPad() {
@@ -85,11 +88,17 @@ var AvatorPad = /** @class */ (function (_super) {
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
     AvatorPad.prototype.initAlphaBg = function () {
-        this.alphabg = new MySprite();
-        Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
+        //todo:xxx
+        // this.alphabg = new MySprite();
+        // Tools.drawRectWithAlpha(this.alphabg,
+        // 	0,0,
+        // 	this.conf.size.w,this.conf.size.h,
+        //     "#000000",
+        //     this.conf.mask.alpha);
+        // this.alphabg.size(this.conf.size.w,this.conf.size.h);
+        // this.alphabg.pos(-this.conf.pos.x,-this.conf.pos.y);
+        this.alphabg = Tools.creatDlgBg();
         this.addChild(this.alphabg);
-        this.alphabg.size(this.conf.size.w, this.conf.size.h);
-        this.alphabg.pos(-this.conf.pos.x, -this.conf.pos.y);
         this.alphabg.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
@@ -193,7 +202,9 @@ var AvatorPad = /** @class */ (function (_super) {
         if (this.cur_choose_id >= 0) {
             this.setIcon(this.cur_choose_id);
             Common.userInfo.avatorId = Tools.FormatNumber(this.cur_choose_id, 2);
-            HeadIcon.refreshAvator();
+            EventManager.dispath(EventType.FLUSH_HEADICON, Common.userInfo.avatorId);
+            //todo:xxx
+            // HeadIcon.refreshAvator();
             AccountCenter.getObj().setIcon(Common.userInfo.avatorId);
             SaveManager.getObj().save(SaveManager.KEY_SFX_VL, Common.userInfo.avatorId);
             this.btnEnable(false);

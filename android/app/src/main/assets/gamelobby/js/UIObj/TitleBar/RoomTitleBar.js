@@ -72,7 +72,7 @@ var RoomTitleBar = /** @class */ (function (_super) {
                     Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
                     break;
                 case "notice":
-                    Debug.trace("RoomTitleBar.onEventClick manual");
+                    // Debug.trace("RoomTitleBar.onEventClick manual");
                     AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
                     AttentionDialog.obj.show();
                     break;

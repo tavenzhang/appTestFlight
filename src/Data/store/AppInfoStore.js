@@ -13,7 +13,7 @@ import {
 import {UpDateHeadAppId} from "../../Common/Network/TCRequestConfig";
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import TCUserOpenPayApp from "../../Page/UserCenter/UserPay/TCUserOpenPayApp";
-
+import OpeninstallModule from 'openinstall-react-native'
 /**
  * 用于初始化项目信息
  */
@@ -89,11 +89,14 @@ export default class AppInfoStore {
 
     //app 最新版本
     @observable
-    latestNativeVersion = platInfo.latestNativeVersion;
+    latestNativeVersion = G_IS_IOS ?  platInfo.latestNativeVersion.ios:platInfo.latestNativeVersion.android;
 
     //app 当前版本
     APP_DOWNLOAD_VERSION="1.0";
 
+    //openInstallData
+    @observable
+    openInstallData={appKey:"",data:null}
 
 
     init() {
@@ -122,7 +125,7 @@ export default class AppInfoStore {
         TN_GetAppInfo((data) => {
            // TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==data=",data);
             if(data){
-                let appInfo ={};
+                let appInfo ={};3
                 if(G_IS_IOS){
                     appInfo = JSON.parse(data);
                 }else{
@@ -192,6 +195,7 @@ export default class AppInfoStore {
         /*** 初始化邀请码*/
         this.userAffCode = this.appInfo.Affcode;
         this.callInitFuc = this.callInitFuc ? this.callInitFuc() : null;
+        this.openInstallData.appKey = this.appInfo["com.openinstall.APP_KEY"];
        // TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====appInfo--this.userAffCode--"+this.userAffCode, appInfo);
         if (G_IS_IOS){
             //ios 动态开启友盟等接口 android 是编译时 决定好了。
@@ -202,7 +206,16 @@ export default class AppInfoStore {
             TN_StartUMeng(this.appInfo.UmengKey, this.appInfo.Affcode)
         }
 
-        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION", this.APP_DOWNLOAD_VERSION);
+        OpeninstallModule.getInstall(10, map => {
+            if (map) {
+                this.openInstallData.data=map;
+                if(map.data&&map.data.affcode){
+                    this.userAffCode = map.data.affcode;
+                }
+            }
+            TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====openInstallData====appKey-"+this.openInstallData.appKey, this.openInstallData);
+        })
+      //  TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION", this.APP_DOWNLOAD_VERSION);
     }
 
 
@@ -328,7 +341,7 @@ export default class AppInfoStore {
         });
 
         if (this.deviceToken.length === 0) {
-            this.deviceToken = await  this.initDeviceTokenFromNative();
+            this.deviceToken = await this.initDeviceTokenFromNative();
             this.saveDeviceTokenToLocalStore();
         }
     }
@@ -336,10 +349,15 @@ export default class AppInfoStore {
     initDeviceTokenFromNative() {
         return new Promise(resolve => {
             try {
-                NativeModules.JXHelper.getCFUUID(
-                    (err, uuid) => {
-                        resolve(uuid)
-                    })
+                if(G_IS_IOS){
+                    NativeModules.JXHelper.getCFUUID(
+                        (err, uuid) => {
+                            resolve(uuid)
+                        })
+                }else{
+                    const deviceToken =this.getGUIDd();
+                    resolve(deviceToken)
+                }
             }catch (e) {
                 resolve(this.getGUIDd())
             }
