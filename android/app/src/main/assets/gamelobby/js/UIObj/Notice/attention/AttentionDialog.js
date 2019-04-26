@@ -277,6 +277,8 @@ var AttentionDialog = /** @class */ (function (_super) {
             lb.addChild(tips);
             this.arr_tips.push(tips);
         }
+        this.arr_cate_btns[0].visible = false;
+        arr_lines[1].visible = false;
     };
     AttentionDialog.prototype.headClick = function (e) {
         // Debug.trace("headClick:");
