@@ -38,6 +38,9 @@ var PageLogin = /** @class */ (function (_super) {
         _this.sp_log.alpha = 0;
         _this.sp_log.skin = "./brand/login_icon.png";
         Laya.Tween.to(_this.sp_log, { delay: 300, alpha: 1 }, 600);
+        //渠道包屏蔽
+        if (AppData.isAndroidHack)
+            _this.sp_log.visible = false;
         var isload = cmd == null ? false : cmd == 'isloaded';
         //开始加载数据
         _this.startLoading(isload);

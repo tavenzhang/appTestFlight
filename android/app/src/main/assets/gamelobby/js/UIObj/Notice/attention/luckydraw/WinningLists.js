@@ -19,6 +19,9 @@ var WinningLists = /** @class */ (function (_super) {
     WinningLists.prototype.init = function ($config) {
         this._header = Tools.newSprite($config.bg);
         this.addChild(this._header);
+        this._recordNew = Tools.newSprite($config.new);
+        this.addChild(this._recordNew);
+        this._recordNew.alpha = 0;
         this._btnLatest = new MyButton();
         this._btnLatest.init($config.latest, this, this.onClick);
         this._btnLatest.pos($config.latest.pos.x, $config.latest.pos.y);
@@ -63,7 +66,9 @@ var WinningLists = /** @class */ (function (_super) {
         }
         this.getList();
     };
-    WinningLists.prototype.getList = function () {
+    WinningLists.prototype.getList = function ($update) {
+        if ($update === void 0) { $update = false; }
+        this._isUpdate = $update;
         var url = ConfObjRead.getConfUrl().url.apihome;
         url += ConfObjRead.getConfUrl().cmd.attention_lottery_record;
         url += "?access_token=" + Common.access_token;
@@ -81,8 +86,28 @@ var WinningLists = /** @class */ (function (_super) {
                 this._recordMine.setData(s);
                 break;
         }
+        if (!this._isUpdate)
+            return;
+        var focus = true;
+        if (this._currIdx === 1 && s.prizeAmount === 0) {
+            focus = false;
+        }
+        if (focus) {
+            Laya.Tween.to(this._recordNew, { alpha: 1 }, 500, null, new Laya.Handler(this, this.fadeComplete));
+        }
         // this.targetSpinner.setResult(s)
         // this.targetSpinner = undefined;
+    };
+    WinningLists.prototype.fadeComplete = function () {
+        Laya.Tween.to(this._recordNew, { alpha: 0 }, 500);
+    };
+    WinningLists.prototype.disable = function () {
+        this._btnLatest.mouseEnabled = false;
+        this._btnMyList.mouseEnabled = false;
+    };
+    WinningLists.prototype.enable = function () {
+        this._btnLatest.mouseEnabled = true;
+        this._btnMyList.mouseEnabled = true;
     };
     return WinningLists;
 }(Laya.Sprite));

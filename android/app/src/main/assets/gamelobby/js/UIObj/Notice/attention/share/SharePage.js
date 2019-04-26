@@ -50,9 +50,22 @@ var SharePage = /** @class */ (function (_super) {
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
     SharePage.prototype.onClick = function ($e) {
-        if (this.limit > 0) {
-            this.limit--;
+        // if (this.limit > 0) {
+        //     this.limit--;
+        switch ($e) {
+            case this.share:
+                PostMHelp.game_common({ "do": "share", "type": "circle", "param": this.data });
+                SharePageNotice.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSharePageNoticeDialog(), "circle");
+                break;
+            case this.send:
+                PostMHelp.game_common({ "do": "share", "type": "friend", "param": this.data });
+                SharePageNotice.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSharePageNoticeDialog(), "friend");
+                break;
         }
+        // }
+        // else {
+        //     SharePageNotice.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSharePageNoticeDialog(), "empty");
+        // }
     };
     SharePage.prototype.setData = function (data) {
         this.limit = data.noticeShare.upperLimit;
@@ -63,6 +76,7 @@ var SharePage = /** @class */ (function (_super) {
             this.addChildAt(img, 0);
             img.pos(0, 0);
         }));
+        this.data = data;
     };
     return SharePage;
 }(MySprite));

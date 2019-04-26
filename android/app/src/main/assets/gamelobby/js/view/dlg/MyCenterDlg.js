@@ -34,6 +34,7 @@ var view;
                 dlg.popup(false, true);
             };
             MyCenterDlg.prototype.initView = function () {
+                this.accBtn.visible = !AppData.isAndroidHack;
                 this.showMoney();
                 this.setHeadIcon();
                 this.showUserName();

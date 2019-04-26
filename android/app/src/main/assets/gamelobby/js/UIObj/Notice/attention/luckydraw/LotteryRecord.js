@@ -32,6 +32,7 @@ var LotteryRecord = /** @class */ (function (_super) {
             var list = this.lists[i];
             if ($data[i]) {
                 list.setData($data[i]);
+                list.visible = true;
             }
             else {
                 list.visible = false;

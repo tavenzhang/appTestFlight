@@ -55,7 +55,7 @@
             "./assets/ui/dialog/btn_recharge.png"
         ],
         "size":{ "w":209, "h":85 },
-        "sfx":"assets/raw/enterbuyClick.mp3",
+        "sfx":"assets/raw/enterPanelClick.mp3",
         "maxScale":{"x":1.05,"y":1.05},
         "normalScale":{"x":1,"y":1}
     },

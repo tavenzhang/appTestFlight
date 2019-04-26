@@ -1,89 +1,73 @@
 {
-    "url":{
-        
-        "home":"http://sit.106games.com/gamelobby/home.html",
-        "backlobby":"http://sit.106games.com/gamelobby/index.html",
-        "apihome":"http://sit.106games.com/api/v1",
-        "apihomeX":"http://sport.wap.com/api/v1",
-
-        "g_account":"http://sit.106games.com/g_recharge/?module=account",
-        "g_recharge":"http://sit.106games.com/g_recharge/?module=recharge",
-        "g_redraw":"http://sit.106games.com/g_recharge/?module=redraw",
-        "g_custom":"http://sit.106games.com/g_recharge/?module=custom",
-        
-        "testcustomurl":"https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"
-
+    "url": {
+        "home": "http://sit.106games.com/gamelobby/home.html",
+        "backlobby": "http://sit.106games.com/gamelobby/index.html",
+        "apihome": "http://sit.106games.com/api/v1",
+        "apihomeX": "http://sport.wap.com/api/v1",
+        "g_account": "http://sit.106games.com/g_recharge/?module=account",
+        "g_recharge": "http://sit.106games.com/g_recharge/?module=recharge",
+        "g_redraw": "http://sit.106games.com/g_recharge/?module=redraw",
+        "g_custom": "http://sit.106games.com/g_recharge/?module=custom",
+        "testcustomurl": "https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"
     },
-    "urldev":{
-        
-        "home":"http://game.dev02.com/gamelobby/home.html",
-        "backlobby":"http://game.dev02.com/gamelobby/index.html",
-        "apihomeX":"http://106wap.dev01.com/api/v1",
-        "apihome":"http://game.dev02.com/api/v1",
-
-        "g_account":"http://game.dev02.com/g_recharge/?module=account",
-        "g_recharge":"http://game.dev02.com/g_recharge/?module=recharge",
-        "g_redraw":"http://game.dev02.com/g_recharge/?module=redraw",
-        "g_custom":"http://game.dev02.com/g_recharge/?module=custom",
-        
-        "testcustomurl":"https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"
-
+    "urldev": {
+        "home": "http://game.dev02.com/gamelobby/home.html",
+        "backlobby": "http://game.dev02.com/gamelobby/index.html",
+        "apihomeX": "http://106wap.dev01.com/api/v1",
+        "apihome": "http://game.dev02.com/api/v1",
+        "g_account": "http://game.dev02.com/g_recharge/?module=account",
+        "g_recharge": "http://game.dev02.com/g_recharge/?module=recharge",
+        "g_redraw": "http://game.dev02.com/g_recharge/?module=redraw",
+        "g_custom": "http://game.dev02.com/g_recharge/?module=custom",
+        "testcustomurl": "https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"
     },
-    "url1":{
-
-        "home":"../gamelobby/home.html",
-        "backlobby":"../gamelobby/index.html",
-        "apihome":"/api/v1",
-
-        "g_account":"../g_recharge/?module=account",
-        "g_recharge":"../g_recharge/?module=recharge",
-        "g_redraw":"../g_recharge/?module=redraw",
-        "g_custom":"../g_recharge/?module=custom",
-        
-        "testcustomurl":"https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"
+    "url1": {
+        "home": "../gamelobby/home.html",
+        "backlobby": "../gamelobby/index.html",
+        "apihome": "/api/v1",
+        "g_account": "../g_recharge/?module=account",
+        "g_recharge": "../g_recharge/?module=recharge",
+        "g_redraw": "../g_recharge/?module=redraw",
+        "g_custom": "../g_recharge/?module=custom",
+        "testcustomurl": "https://vp8.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=80002762&configID=2931&k=1"
     },
-    
-    "cmd":{
-        "userinfobalance":"/account/webapi/operate/users",
-        "userinfo":"/account/webapi/account/users/current",
-        "userloginX":"/account/webapi/account/users/login",
-        "userlogin":"/account/webapi/account/users/webEncryptLogin?checkHash=false",
-        "userregX":"/account/webapi/account/users/registerNewUser",
-        "userreg":"/account/webapi/account/users/userWebEncryptRegister",
-        "changepwd":"/account/webapi/account/users/change/encryptPassword",
+    "cmd": {
+        "userinfobalance": "/account/webapi/operate/users",
+        "userinfo": "/account/webapi/account/users/current",
+        "userloginX": "/account/webapi/account/users/login",
+        "userlogin": "/account/webapi/account/users/webEncryptLogin?checkHash=false",
+        "userregX": "/account/webapi/account/users/registerNewUser",
+        "userreg": "/account/webapi/account/users/userWebEncryptRegister",
+        "changepwd": "/account/webapi/account/users/change/encryptPassword",
         "createEncryptUser":"/account/webapi/account/users/createEncryptUser",
-
-        "prequicklogin":"/account/webapi/account/users/preFastLogin",
-        "quicklogin":"/account/webapi/account/users/fastLogin?checkHash=false",
-
-        "agentinfo":"/gamecenter/player/agent/info",
-        "agentchildren":"/gamecenter/player/agent/sub/list",
-        "agentachievement":"/gamecenter/player/agent/achievement/query",
-        "agent_affiliates":"/account/webapi/team/affiliates",
-
-        "agentinvation":"/account/webapi/team/affiliates/list",
-
-        "gamelist":"/gamecenter/player/game/list",
-        "noticelist":"/gamecenter/player/notice/list",
-        "roomlist":"/gamecenter/player/room/list",
-        "reconnect":"/gamecenter/player/user/online",
-        "history":"/gamecenter/player/game/history",
-        "avatorsave":"/gamecenter/player/user/save",
-        "avatorget":"/gamecenter/player/user",
-
-        "yanzhengmaX":"/account/webapi/account/validateCode/getValidatePic?webUniqueCode=0.12461293856329014",
-        "yanzhengma":"/account/webapi/account/validateCode/getValidatePic?webUniqueCode=",
-        "customapi":"/api/v1/cms/internal/mobile/31/otherSetting/pcCusService?clientId=31&keys=pcCusService,bankCardLogoUrlPrefix",
-
-        "testClientId":31,
-
-        "attention_new":"/gamecenter/player/notice/list/new",
-        "attention_pop":"/gamecenter/player/notice/pop",
-        "attention_read":"/gamecenter/player/notice/read/",
-        "attention_lottery":"/gamecenter/player/activity/lottery/",
-        "attention_lottery_record":"/gamecenter/player/activity/getLotteryRecord"
+        "prequicklogin": "/account/webapi/account/users/preFastLogin",
+        "quicklogin": "/account/webapi/account/users/fastLogin?checkHash=false",
+        "agentinfo": "/gamecenter/player/agent/info",
+        "agentchildren": "/gamecenter/player/agent/sub/list",
+        "agentachievement": "/gamecenter/player/agent/achievement/query",
+        "agent_affiliates": "/account/webapi/team/affiliates",
+        "agentinvation": "/account/webapi/team/affiliates/list",
+        "agentbrokerage": "/gamecenter/player/agent/commission/rule",
+        "gamelist": "/gamecenter/player/game/list",
+        "noticelist": "/gamecenter/player/notice/list",
+        "roomlist": "/gamecenter/player/room/list",
+        "reconnect": "/gamecenter/player/user/online",
+        "history": "/gamecenter/player/game/history",
+        "avatorsave": "/gamecenter/player/user/save",
+        "avatorget": "/gamecenter/player/user",
+        "yanzhengmaX": "/account/webapi/account/validateCode/getValidatePic?webUniqueCode=0.12461293856329014",
+        "yanzhengma": "/account/webapi/account/validateCode/getValidatePic?webUniqueCode=",
+        "customapi": "/api/v1/cms/internal/mobile/31/otherSetting/pcCusService?clientId=31&keys=pcCusService,bankCardLogoUrlPrefix",
+        "testClientId": 31,
+        "attention_new": "/gamecenter/player/notice/list/new",
+        "attention_pop": "/gamecenter/player/notice/pop",
+        "attention_read": "/gamecenter/player/notice/read/",
+        "attention_lottery": "/gamecenter/player/activity/lottery",
+        "attention_lottery_record": "/gamecenter/player/activity/getLotteryRecord",
+        "user_bet_info":"/gamecenter/player/activity/userBetInfo",
+        "update_user":"/account/webapi/account/users/"
     },
-    "rsa":{
-        "pubkey":"eyJuIjoiODliYzJlZTliOWMzMDZhMGQ4MzVlZDZhN2I5MWJkM2Y1M2M0MjM1ZmQ1MTUyOTM5NWZmNWExYTI1NjI5NzI5NmI0MTdjYzNiMWM4ZTM3ZjFjYjZmMWNkNDE4NmM4NTQ1NGZmNzQ1YWJjYzRmZWVkODEzODM5ZTc3YjZjMWUyOTUwNDhkNTQxNThmMDVmMGRkOWUzOTJjMTk0OTM2NDExZGE1YjlhYzI4MTg0OTVjMzc1NTU1MTAyZGZiZTllYTMyOGEyN2Q5MGM2NWIzZjE2MTQzN2IzYTEzYTczNzE0Mzc0MjdlNzE1NWIxNzkzNWI2YTdjODNmMzQxNTk2OTQxNyIsImUiOiIxMDAwMSJ9"
+    "rsa": {
+        "pubkey": "eyJuIjoiODliYzJlZTliOWMzMDZhMGQ4MzVlZDZhN2I5MWJkM2Y1M2M0MjM1ZmQ1MTUyOTM5NWZmNWExYTI1NjI5NzI5NmI0MTdjYzNiMWM4ZTM3ZjFjYjZmMWNkNDE4NmM4NTQ1NGZmNzQ1YWJjYzRmZWVkODEzODM5ZTc3YjZjMWUyOTUwNDhkNTQxNThmMDVmMGRkOWUzOTJjMTk0OTM2NDExZGE1YjlhYzI4MTg0OTVjMzc1NTU1MTAyZGZiZTllYTMyOGEyN2Q5MGM2NWIzZjE2MTQzN2IzYTEzYTczNzE0Mzc0MjdlNzE1NWIxNzkzNWI2YTdjODNmMzQxNTk2OTQxNyIsImUiOiIxMDAwMSJ9"
     }
 }
