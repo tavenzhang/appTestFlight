@@ -45,14 +45,14 @@ var LuckyDrawPage = /** @class */ (function (_super) {
         this._goldS = new Spinner();
         this.addChild(this._goldS);
         this._goldS.init(ConfObjRead.getConfNoticeDialogSpinner().gold);
-        this._silverS.id = 2;
+        this._goldS.id = 2;
         this._goldS.on("startSpin", this, this.onStartSpin);
         this._goldS.on("stopSpin", this, this.onStopSpin);
         this._goldS.visible = false;
         this._diamondS = new Spinner();
         this.addChild(this._diamondS);
         this._diamondS.init(ConfObjRead.getConfNoticeDialogSpinner().diamond);
-        this._silverS.id = 3;
+        this._diamondS.id = 3;
         this._diamondS.on("startSpin", this, this.onStartSpin);
         this._diamondS.on("stopSpin", this, this.onStopSpin);
         this._diamondS.visible = false;
@@ -82,10 +82,27 @@ var LuckyDrawPage = /** @class */ (function (_super) {
         this._topInputT = Tools.addLabels(this, datas.contents.top.input);
         this._bottomT = Tools.addLabels(this, datas.contents.bottom);
         this._infoT = Tools.addLabels(this, datas.contents.info);
-        this._topCurrentT.text = datas.contents.top.current.contents + " " + this.data.userPoint + " ";
-        this._topInputT.text = datas.contents.top.input.contents + " " + this.data.userInput + " ";
+        // this._topCurrentT.text = `${datas.contents.top.current.contents} ${this.data.userPoint} `;
+        // this._topInputT.text = `${datas.contents.top.input.contents} ${this.data.userInput} `;
         this.setData(data);
         this.pos(this.conf.pos.x, this.conf.pos.y);
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        url += ConfObjRead.getConfUrl().cmd.user_bet_info;
+        url += "?access_token=" + Common.access_token;
+        var header = [
+            // "Content-Type",
+            //  "application/json; charset=utf-8",
+            "Accept", "*/*"
+        ];
+        NetManager.getObj().HttpConnect(url, this, this.returnBetInfo, header, null, "put", "json");
+    };
+    LuckyDrawPage.prototype.returnBetInfo = function (s, stat) {
+        try {
+            this._havPt = s.userPoint;
+            this._topCurrentT.text = this.config.contents.top.current.contents + " " + s.userPoint + " ";
+            this._topInputT.text = this.config.contents.top.input.contents + " " + s.userInput + " ";
+        }
+        catch (error) { }
     };
     LuckyDrawPage.prototype.onClick = function ($e) {
         this._silverS.visible = false;
@@ -110,36 +127,44 @@ var LuckyDrawPage = /** @class */ (function (_super) {
     LuckyDrawPage.prototype.onStartSpin = function ($spinner) {
         if (this._havPt - $spinner.reqPt >= 0) {
             this._havPt -= $spinner.reqPt;
+            this._topCurrentT.text = this.config.contents.top.current.contents + " " + this._havPt + " ";
             $spinner.start();
             this.targetSpinner = $spinner;
             this._btnSilver.mouseEnabled = false;
             this._btnGold.mouseEnabled = false;
             this._btnDiamond.mouseEnabled = false;
+            this._lists.disable();
             var url = ConfObjRead.getConfUrl().url.apihome;
             url += ConfObjRead.getConfUrl().cmd.attention_lottery;
             url += "?access_token=" + Common.access_token;
-            url += "&noticeId=" + this.data.noticeid;
-            url += "&rouletteLevel=" + $spinner.id;
+            // url += `&noticeId=${this.data.noticeid}`;
+            // url += `&rouletteLevel=${$spinner.id}`;
             var header = [
-                // "Content-Type","application/json",
-                // "Accept","*/*"
-                "Accept", "application/json"
+                "Content-Type", "application/json",
+                "Accept", "*/*"
+                // "Accept", "application/json"
             ];
-            NetManager.getObj().HttpConnect(url, this, this.returnPrizeInfo, header, null, "get", "json");
+            var jobj = {
+                noticeId: this.data.noticeid,
+                rouletteLevel: $spinner.id
+                // "username":Common.userInfo.username
+            };
+            var sjobj = JSON.stringify(jobj);
+            NetManager.getObj().HttpConnect(url, this, this.returnPrizeInfo, header, sjobj, "put", "json");
         }
     };
     LuckyDrawPage.prototype.onStopSpin = function () {
         this._btnSilver.mouseEnabled = true;
         this._btnGold.mouseEnabled = true;
         this._btnDiamond.mouseEnabled = true;
+        this._lists.enable();
+        this._lists.getList(true);
     };
     LuckyDrawPage.prototype.setData = function (data) {
         var spinners = [this._silverS, this._goldS, this._diamondS];
         for (var i = 0; i < data.lotteryList.length; i++) {
             spinners[i].setData(data.lotteryList[i]);
         }
-        this._topCurrentT.text = this.config.contents.top.current.contents + " " + data.userPoint + " ";
-        this._topInputT.text = this.config.contents.top.input.contents + " " + data.userInput + " ";
         this._bottomT.text = "" + this.config.contents.bottom.contents.front + this._silverS.reqPt + " " + this.config.contents.bottom.contents.back;
         var startDate = this.beforeLast(data.startTime, " ").split("-");
         var startTime = this.beforeLast(this.afterLast(data.startTime, " "), ":");
@@ -151,7 +176,7 @@ var LuckyDrawPage = /** @class */ (function (_super) {
         this._infoT.text += endData[0].substr(2) + "\u5E74" + parseInt(endData[1]) + "\u6708" + parseInt(endData[2]) + "\u65E5";
         this._infoT.text += endTime;
         this._infoT.text += "\n\n" + this.diff_times(data.endTime, data.startTime);
-        this._infoT.text += "\n\n" + data.content;
+        this._infoT.text += "\n\n" + this.config.info.contents;
     };
     LuckyDrawPage.prototype.beforeLast = function (p_string, p_char) {
         if (p_string === null) {
@@ -175,7 +200,9 @@ var LuckyDrawPage = /** @class */ (function (_super) {
         return p_string.substr(idx);
     };
     LuckyDrawPage.prototype.diff_times = function (date2, date1) {
-        var msec = new Date(date2).getTime() - new Date(date1).getTime();
+        var today = new Date();
+        // var msec = new Date(date2).getTime() - new Date(date1).getTime();
+        var msec = new Date(date2).getTime() - today.getTime();
         var mins = Math.floor(msec / 60000);
         var hrs = Math.floor(mins / 60);
         var days = Math.floor(hrs / 24);
@@ -187,7 +214,7 @@ var LuckyDrawPage = /** @class */ (function (_super) {
         var diffmins = (diffDays === "" && diffHours === "" && mins <= 0) ? "" : mins + "分钟";
         return diffDays + diffHours + diffmins;
     };
-    LuckyDrawPage.prototype.returnPrizeInfo = function (s, stat) {
+    LuckyDrawPage.prototype.returnPrizeInfo = function (s, stat, hr) {
         this.targetSpinner.setResult(s);
         this.targetSpinner = undefined;
     };

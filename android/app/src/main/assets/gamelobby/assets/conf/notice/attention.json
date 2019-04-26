@@ -242,7 +242,7 @@
         }
     },
     "attention":{
-        "pos":{"x":430,"y":200},
+        "pos":{"x":425,"y":210},
         "bgTitle":{
             "src":"./assets/ui/notice/bgNoticeTitle.png",
             "pos":{"x":115,"y":20}

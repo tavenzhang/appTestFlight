@@ -341,6 +341,13 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.noticeDialogObj = Laya.Loader.getRes("./assets/conf/notice/NoticeDialog.json");
         return ConfObjRead.noticeDialogObj;
     };
+    ConfObjRead.getConfSharePageNoticeDialog = function () {
+        if (ConfObjRead.sharePageDialogObj) {
+            return ConfObjRead.sharePageDialogObj;
+        }
+        ConfObjRead.sharePageDialogObj = Laya.Loader.getRes("./assets/conf/notice/SharePageNotice.json");
+        return ConfObjRead.sharePageDialogObj;
+    };
     ConfObjRead.getConfNoticeDialogLuckytDraw = function () {
         if (ConfObjRead.noticeDialogLuckyDrawObj) {
             return ConfObjRead.noticeDialogLuckyDrawObj;
@@ -610,6 +617,7 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.settingpadObj = null;
     ConfObjRead.attentionObj = null;
     ConfObjRead.noticeDialogObj = null;
+    ConfObjRead.sharePageDialogObj = null;
     ConfObjRead.noticeDialogLuckyDrawObj = null;
     ConfObjRead.noticeDialogSpinnerObj = null;
     ConfObjRead.room_helpObj = null;

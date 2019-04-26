@@ -35,11 +35,11 @@
     "close": {
         "desc": "",
         "pos": {
-            "x": 725,
-            "y": 40
+            "x": 710,
+            "y": 56
         },
         "src": [
-            "./assets/ui/dialog/btn_touxiang_guangbi.png"
+            "./assets/ui/agent/btn_com_guanbi.png"
         ],
         "size": {
             "w": 76,
@@ -177,7 +177,7 @@
             "font": "Arial",
             "fontsize": 26,
             "bold": false,
-            "color": "#369cc5d8",
+            "color": "#9cc5d8",
             "prompt": "请输入用户名"
         }
     },
@@ -210,7 +210,7 @@
             "font": "Arial",
             "fontsize": 26,
             "bold": false,
-            "color": "#369cc5d8",
+            "color": "#9cc5d8",
             "type": "password",
             "prompt": "请输入密码"
         }
@@ -226,12 +226,10 @@
         "desc": "",
         "pos": {
             "x": 378.5,
-            "x-des": "272 +(w/2)",
-            "y": 432.5,
-            "y-des": "388 +(h/2))"
+            "y": 426.5
         },
         "src": [
-            "./assets/ui/login/btn_ok.png"
+            "./assets/ui/agent/btn_com_queren.png"
         ],
         "size": {
             "w": 213,

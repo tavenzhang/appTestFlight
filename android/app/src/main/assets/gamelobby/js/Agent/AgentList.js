@@ -114,7 +114,7 @@ var AgentList = /** @class */ (function (_super) {
         var cmd = btn.getQuery();
         switch (cmd) {
             case "modify":
-                AgentDialogEditAccountType.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogEditAccountType());
+                AgentDialogEditAccountType.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogEditAccountType(), btn.parent.data);
                 break;
         }
     };
