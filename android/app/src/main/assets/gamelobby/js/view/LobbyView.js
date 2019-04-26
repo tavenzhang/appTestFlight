@@ -79,6 +79,10 @@ var view;
         };
         //底部菜单按钮
         LobbyView.prototype.initBottomMenu = function () {
+            if (AppData.isAndroidHack) {
+                this.btn_tx.visible = false;
+                this.shopSp.visible = false;
+            }
             //充值动画
             var vo = new AnimVo();
             vo.textPath = "./assets/ui/animation/shopicon/shopicon.png";

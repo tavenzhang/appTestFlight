@@ -126,7 +126,7 @@
                 "loopdelay":2000,
                 "pos":{ "x":0, "y":0 }
             },
-            "sfx":"assets/raw/enterbuyClick.mp3"
+            "sfx":"assets/raw/enterPanelClick.mp3"
         }
     }
 }

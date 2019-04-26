@@ -11,6 +11,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var AgentData = {
+    appShareUrl: ""
+};
 var AgentContentInfo = /** @class */ (function (_super) {
     __extends(AgentContentInfo, _super);
     function AgentContentInfo() {
@@ -118,36 +121,13 @@ var AgentContentInfo = /** @class */ (function (_super) {
         }
     };
     AgentContentInfo.prototype.showQrcode = function (agentInfo, invationInfo) {
-        var url = "";
-        if (AppData.IS_NATIVE_APP) {
-            url = agentInfo.appShareUrl;
-        }
-        else {
-            url = agentInfo.wapShareUrl;
-        }
+        var url = AgentData.appShareUrl = agentInfo.appShareUrl;
         var inva = "";
         if (invationInfo.length > 0) {
-            /*
-            {
-                "createdTime": "2017-06-03 14:28:26",
-                "updatedTime": "2018-06-25 10:08:40",
-                "id": 313,
-                "userId": 368075,
-                "brand": "106",
-                "username": "agone01",
-                "memberType": "AGENT",
-                "prizeGroup": 1958,
-                "affCode": "lucky01",
-                "status": "ON",
-                "operatorId": 31,
-                "operatorName": "admin",
-                "countUser": 1
-            }
-            */
             inva = invationInfo[0].affCode;
         }
         this.inputLink.text = url + "?affCode=" + inva;
-        var sp = qr.QRCode.create(url, this.conf.qrcode.config.color, this.conf.qrcode.config.size.w, this.conf.qrcode.config.size.h, this.conf.qrcode.config.level);
+        var sp = qr.QRCode.create(this.inputLink.text, this.conf.qrcode.config.color, this.conf.qrcode.config.size.w, this.conf.qrcode.config.size.h, this.conf.qrcode.config.level);
         sp.pos(this.conf.qrcode.config.pos.x, this.conf.qrcode.config.pos.y);
         this.qrcode.addChild(sp);
     };
@@ -223,6 +203,9 @@ var AgentContentInfo = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseInvationCode, header, sjobj, "post", "json");
     };
     AgentContentInfo.prototype.responseInvationCode = function (s, stat, hr) {
+        // Debug.trace("AgentContentInfo.responseInvationCode stat:" + stat);
+        // Debug.trace(s);
+        // Debug.trace(hr)
         LayaMain.getInstance().showCircleLoading(false);
         if (stat == "complete") {
             this.invationInfo = s.datas;

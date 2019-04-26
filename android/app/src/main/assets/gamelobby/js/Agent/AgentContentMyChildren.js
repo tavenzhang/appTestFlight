@@ -97,12 +97,12 @@ var AgentContentMyChildren = /** @class */ (function (_super) {
             "&start=" + start +
             "&username=" + username;
         //"?access_token="+Common.access_token
-        Debug.trace("AgentContentMyIncome.requestList url:" + url);
+        Debug.trace("AgentContentMyChildren.requestList url:" + url);
         NetManager.getObj().HttpConnect(url, this, this.responseList, header, null, "get", "json");
     };
     AgentContentMyChildren.prototype.responseList = function (s, stat, hr) {
-        // Debug.trace("AgentContentMyIncome.responseList stat:"+stat);
-        // Debug.trace(s);
+        Debug.trace("AgentContentMyChildren.responseList stat:" + stat);
+        Debug.trace(s);
         // Debug.trace(hr);
         LayaMain.getInstance().showCircleLoading(false);
         if (stat == "complete") {

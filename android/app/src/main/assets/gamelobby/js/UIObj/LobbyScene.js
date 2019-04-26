@@ -54,6 +54,7 @@ var LobbyScene = /** @class */ (function (_super) {
         if (ConfObjRead.getConfAttention().bAutoShowInLobby) {
             // Debug.trace("LobbyScene.initUI auto");
             AttentionDialog.showPad(this, ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_AUTO);
+            // view.dlg.NoticeDlg.show();
         }
         this.view = new view.LobbyView();
         this.addChild(this.view);

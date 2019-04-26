@@ -1412,6 +1412,14 @@
         {
             "url": "./assets/ui/animation/girl/girl.png",
             "type": "IMAGE"
+        },
+        {
+            "url": "res/atlas/ui/dialogs/panel_common.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/ui/dialogs/panel_notice.atlas",
+            "type": "ATLAS"
         }
     ]
 }

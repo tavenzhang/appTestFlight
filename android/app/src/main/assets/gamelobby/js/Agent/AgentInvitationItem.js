@@ -40,7 +40,6 @@ var AgentInvitationItem = /** @class */ (function (_super) {
     };
     AgentInvitationItem.prototype.onClickBtn = function (e) {
         var btn = e;
-        console.log(e);
         switch (btn) {
             case this._qr:
                 // let scalesx: number = this._qr.scaleX;
@@ -53,14 +52,21 @@ var AgentInvitationItem = /** @class */ (function (_super) {
             case this._delBtn:
                 AgentDialogDeleteInvitation.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogDeleteInvitation(), this.data.id);
                 break;
+            case this._shareBtn:
+                PostMHelp.game_common({ "do": "share", "param": this._link.text });
+                break;
+            case this._copyBtn:
+                PostMHelp.game_common({ "do": "copylink", "param": this._link.text });
+                break;
         }
     };
     AgentInvitationItem.prototype.setData = function (d) {
         this.data = d;
         this._code.text = d.affCode;
-        d.url = this.conf.qr.test;
+        this._link.text = AgentData.appShareUrl + "?affCode=" + d.affCode;
+        d.url = this.conf.qr;
         if (d.url) {
-            var sp = this._qr = qr.QRCode.create(d.url, this.conf.qr.config.color, this.conf.qr.config.size.w, this.conf.qr.config.size.h, this.conf.qr.config.level);
+            var sp = this._qr = qr.QRCode.create(this._link.text, this.conf.qr.config.color, this.conf.qr.config.size.w, this.conf.qr.config.size.h, this.conf.qr.config.level);
             sp.pos(this.conf.qr.config.pos.x, this.conf.qr.config.pos.y);
             this.addChild(sp);
             // this._qr.on(Laya.Event.CLICK, this, this.onClickBtn);

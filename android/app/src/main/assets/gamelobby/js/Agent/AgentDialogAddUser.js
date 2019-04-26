@@ -186,7 +186,7 @@ var AgentDialogAddUser = /** @class */ (function (_super) {
         LayaMain.getInstance().showCircleLoading(true);
         var header = [
             "Content-Type", "application/json",
-            // "Accept","*/*"
+            // "Accept","*/*",
             "Accept", "application/json"
         ];
         var url = ConfObjRead.getConfUrl().url.apihome +
@@ -206,9 +206,24 @@ var AgentDialogAddUser = /** @class */ (function (_super) {
     };
     AgentDialogAddUser.prototype.response = function (s, stat, hr) {
         LayaMain.getInstance().showCircleLoading(false);
-        AgentPad.getObj().switchTab(null, "mychildren");
-        console.log(s, stat, hr);
-        this.onClose(null);
+        // if (stat == "complete") {
+        //     AgentPad.getObj().switchTab(null, "mychildren")
+        //     this.onClose(null);
+        // }
+        // else {
+        if (stat == "error" && hr.http.status == 200) {
+            return;
+        }
+        if (hr.http.status == 204) {
+            AgentPad.getObj().switchTab(null, "mychildren");
+            this.onClose(null);
+        }
+        try {
+            Toast.showToast(JSON.parse(hr.http.response).message);
+        }
+        catch (e) {
+        }
+        // }
     };
     AgentDialogAddUser.prototype.clearInput = function () {
         this.inputName.text = this.inputPwd.text = "";

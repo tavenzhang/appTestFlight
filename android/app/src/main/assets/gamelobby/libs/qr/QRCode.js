@@ -1,5 +1,6 @@
 /**
  * Created by qingzhu on 15/7/1.
+ * modify by bq49 at 20190418 for LayaAir
  */
 var qr;
 (function (qr) {
@@ -28,21 +29,16 @@ var qr;
             return QRCode.draw(_oQRCode, _htOption);
         };
         QRCode.draw = function (m, _htOption) {
-            var sc = new MySprite();
+            var sc = new Laya.Sprite();
             var _htOption = _htOption;
             var nCount = m.getModuleCount();
-            // var nWidth = Math.floor(_htOption.width / nCount);
-            // var nHeight = Math.floor(_htOption.height / nCount);
-            var nWidth = (_htOption.width / nCount);
-            var nHeight = (_htOption.height / nCount);
-            // console.log("nWidth:"+nWidth+" nCount:"+nCount+" towidth:"+nWidth*nCount);
+            var nWidth = _htOption.width / nCount;
+            var nHeight = _htOption.height / nCount;
             for (var row = 0; row < nCount; row++) {
                 for (var col = 0; col < nCount; col++) {
                     var b = m.isDark(row, col);
                     if (b) {
-                        // sc.graphics.beginFill(_htOption.color);
                         sc.graphics.drawRect(col * nWidth, row * nHeight, nWidth, nHeight, _htOption.color);
-                        // sc.graphics.endFill();
                     }
                 }
             }

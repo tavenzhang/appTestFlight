@@ -24,10 +24,11 @@ var AgentDialogEditAccountType = /** @class */ (function (_super) {
     AgentDialogEditAccountType.getObj = function () {
         return AgentDialogEditAccountType.obj;
     };
-    AgentDialogEditAccountType.showDialog = function (node, conf) {
+    AgentDialogEditAccountType.showDialog = function (node, conf, data) {
         if (!AgentDialogEditAccountType.obj) {
             var o = new AgentDialogEditAccountType();
             // o.size(conf.bg.size.w, conf.bg.size.h);
+            o.data = data;
             o.init(node, conf);
             node.addChild(o);
         }
@@ -110,7 +111,9 @@ var AgentDialogEditAccountType = /** @class */ (function (_super) {
         if (this.conf.info) {
             Tools.addSprite(container, this.conf.info);
         }
-        this.lb_content = Tools.newLabel(this.conf.content.user_id.font.text, this.conf.content.user_id.size.w, this.conf.content.user_id.size.h, this.conf.content.user_id.font.size, this.conf.content.user_id.font.color, this.conf.content.user_id.font.align, this.conf.content.user_id.font.valign, this.conf.content.user_id.font.name, this.conf.content.user_id.font.wrap, this.conf.content.user_id.font.underline);
+        this.lb_content = Tools.newLabel(
+        // this.conf.content.user_id.font.text,
+        this.data.username, this.conf.content.user_id.size.w, this.conf.content.user_id.size.h, this.conf.content.user_id.font.size, this.conf.content.user_id.font.color, this.conf.content.user_id.font.align, this.conf.content.user_id.font.valign, this.conf.content.user_id.font.name, this.conf.content.user_id.font.wrap, this.conf.content.user_id.font.underline);
         if (this.conf.content.user_id.font.borderColor) {
             this.lb_content.borderColor = this.conf.content.user_id.font.borderColor;
         }
@@ -155,10 +158,56 @@ var AgentDialogEditAccountType = /** @class */ (function (_super) {
                 Laya.Tween.from(this.labelPlayer, { scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backOut);
                 this.checkSelection();
                 break;
-            case this.btnok:
-                break;
         }
-        // RegPad.showPad(LoginScene.getObj(), ConfObjRead.getConfLogin().reg);
+        if (e === this.btnok) {
+            if (this.select === 0) {
+                this.requestSwitch();
+            }
+            else {
+                this.onClose(null);
+            }
+        }
+    };
+    AgentDialogEditAccountType.prototype.requestSwitch = function () {
+        LayaMain.getInstance().showCircleLoading(true);
+        var header = [
+            "Content-Type", "application/json",
+            // "Accept","*/*",
+            "Accept", "application/json"
+        ];
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.update_user +
+            "?access_token=" + Common.access_token; //+
+        // "&username="+Common.userInfo.username;
+        var jobj = {
+            memberType: "AGENT",
+            username: this.data.username
+            // "username":Common.userInfo.username
+        };
+        var sjobj = JSON.stringify(jobj);
+        console.log(url, jobj);
+        NetManager.getObj().HttpConnect(url, this, this.response, header, sjobj, "put", "json");
+    };
+    AgentDialogEditAccountType.prototype.response = function (s, stat, hr) {
+        LayaMain.getInstance().showCircleLoading(false);
+        // if (stat == "complete") {
+        //     AgentPad.getObj().switchTab(null, "mychildren")
+        //     this.onClose(null);
+        // }
+        // else {
+        if (stat == "error" && hr.http.status == 200) {
+            return;
+        }
+        if (hr.http.status == 204) {
+            AgentPad.getObj().switchTab(null, "mychildren");
+            this.onClose(null);
+        }
+        try {
+            Toast.showToast(JSON.parse(hr.http.response).message);
+        }
+        catch (e) {
+        }
+        // }
     };
     AgentDialogEditAccountType.prototype.checkSelection = function () {
         this.labelAgent.visible = this.btnAgentGlow.visible = this.select === 0;

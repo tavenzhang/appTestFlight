@@ -46,25 +46,29 @@ var LotteryRecordList = /** @class */ (function (_super) {
         this._types = $data.type;
     };
     LotteryRecordList.prototype.setData = function ($data) {
-        this._date.text = this.beforeLast($data.createTime, " ");
-        switch ($data.rouletteLevel) {
-            case 1:
-                this._type.color = this._total.color = this._silverC;
-                this._type.text = this._types[0] || "";
-                break;
-            case 2:
-                this._type.color = this._total.color = this._goldC;
-                this._type.text = this._types[1] || "";
-                break;
-            case 3:
-                this._type.color = this._total.color = this._diamondC;
-                this._type.text = this._types[2] || "";
-                break;
+        try {
+            this._date.text = this.beforeLast($data.createTime, " ");
+            switch ($data.rouletteLevel) {
+                case 1:
+                    this._type.color = this._total.color = this._silverC;
+                    this._type.text = this._types[0];
+                    break;
+                case 2:
+                    this._type.color = this._total.color = this._goldC;
+                    this._type.text = this._types[1];
+                    break;
+                case 3:
+                    this._type.color = this._total.color = this._diamondC;
+                    this._type.text = this._types[2];
+                    break;
+            }
+            this._total.text = $data.prizeAmount;
         }
-        this._total.text = $data.prizeAmount || "";
+        catch (error) {
+        }
     };
     LotteryRecordList.prototype.beforeLast = function (p_string, p_char) {
-        if (p_string === null || p_string == undefined) {
+        if (p_string === null) {
             return '';
         }
         var idx = p_string.lastIndexOf(p_char);

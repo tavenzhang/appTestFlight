@@ -53,6 +53,24 @@ var ui;
 (function (ui) {
     var dlg;
     (function (dlg) {
+        var NoticeDlgUI = /** @class */ (function (_super) {
+            __extends(NoticeDlgUI, _super);
+            function NoticeDlgUI() {
+                return _super.call(this) || this;
+            }
+            NoticeDlgUI.prototype.createChildren = function () {
+                _super.prototype.createChildren.call(this);
+                this.createView(ui.dlg.NoticeDlgUI.uiView);
+            };
+            NoticeDlgUI.uiView = { "type": "Dialog", "props": { "width": 1624, "height": 750 }, "child": [{ "type": "Image", "props": { "skin": "panel_common/img_com_quanping_di.jpg" } }, { "type": "Image", "props": { "y": 85, "x": 0, "skin": "panel_common/img_com_quanping_cedi.png" } }, { "type": "Image", "props": { "width": 482, "skin": "panel_common/img_com_quanping_ce_biaotou.png" } }, { "type": "Image", "props": { "y": 10, "x": -249, "var": "tabs", "skin": "panel_notice/按钮_公告_1.png", "centerX": 0 }, "child": [{ "type": "Image", "props": { "var": "notice", "skin": "panel_notice/按钮_公告_2.png" } }, { "type": "Image", "props": { "y": 0, "x": 231, "var": "game", "skin": "panel_notice/按钮_公告_3.png" } }] }, { "type": "Image", "props": { "y": 2, "x": 1624, "width": 292, "skin": "panel_common/img_com_quanping_guanbi01.png", "pivotX": 292 }, "child": [{ "type": "Image", "props": { "y": 12, "x": 123, "skin": "panel_common/img_com_quanping_guanbi02.png" } }] }] };
+            return NoticeDlgUI;
+        }(Dialog));
+        dlg.NoticeDlgUI = NoticeDlgUI;
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
         var PasswordSettingDlgUI = /** @class */ (function (_super) {
             __extends(PasswordSettingDlgUI, _super);
             function PasswordSettingDlgUI() {
