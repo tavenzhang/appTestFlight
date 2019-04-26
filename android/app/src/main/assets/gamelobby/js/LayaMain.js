@@ -11,62 +11,48 @@ var __assign = (this && this.__assign) || function () {
 };
 var LayaMain = /** @class */ (function () {
     function LayaMain() {
-        this.root_node = null;
-        // public root_node:MySprite = null;
         this.sceneLobby = null;
         this.sceneLoading = null;
         this.sceneRoom = null;
         this.sceneLogin = null;
         this.cloading = null;
         LayaMain.obj = this;
-        Laya.init(Common.GM_SCREEN_W, Common.GM_SCREEN_H, Laya.WebGL);
+        Laya.init(0, Common.GM_SCREEN_H, Laya.WebGL);
         // Laya.URL.rootPath = Laya.URL.basePath + window["sPubRes"];
         if (window["bShowStat"]) {
             Laya.Stat.show(0, 0);
         }
-        // try{
-        //     window["initVconsole"]();
-        // }catch(e){}
-        Laya.stage.scaleMode = window["sScaleMode"]; //Laya.Stage.SCALE_FIXED_HEIGHT;
+        /**
+         * 设置点击弹框背景后不关闭弹窗
+         */
+        UIConfig.closeDialogOnSide = false;
+        //设置游戏版本号
+        ResConfig.versions = "版本号：4.0425.2048";
+        Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_HEIGHT;
         Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
-        Laya.stage.alignH = Laya.Stage.ALIGN_CENTER;
-        Laya.stage.alignV = Laya.Stage.ALIGN_MIDDLE;
         Laya.stage.bgColor = "#000000";
         Laya.stage.on(Laya.Event.RESIZE, this, this.onResize);
-        var isApp = Tools.getQueryVariable("app");
-        if (isApp) {
-            window.document.addEventListener("message", this.handleIFrameAction, false);
-        }
-        else {
-            window.addEventListener("message", this.handleAction, false);
-        }
-        this.root_node = new Laya.View();
-        // this.root_node = new MySprite();
-        this.root_node.centerX = 0;
-        this.root_node.centerY = 0;
-        this.root_node.pos(0, 0);
-        this.root_node.size(Common.GM_SCREEN_W, Common.GM_SCREEN_H);
+        window.document.addEventListener("message", this.handleIFrameAction, false);
+        window.addEventListener("message", this.handleIFrameAction, false);
+        this.root_node = new Laya.Sprite();
         Laya.stage.addChild(this.root_node);
+        PageManager.Get().ShowPage([
+            "res/atlas/ui/res_login.atlas",
+            "./assets/ui/loading/conf/loadconf.json",
+            "./assets/ui/loading/conf/assets_lobby.json"
+        ], PageLogin /*, 'isloaded'*/);
+        // this.initLoading();
     }
     LayaMain.getInstance = function () {
         return LayaMain.obj;
     };
     LayaMain.prototype.onResize = function () {
         ToolsApp.initAppData();
-        // if( AppData.IS_NATIVE_APP&&AppData.isDebug)
-        // {
-        //      window.document.addEventListener("message", this.handleIFrameAction, false);
-        //      window.removeEventListener("message", this.handleAction,false);
-        // }
-        // let rate = Laya.stage.width/Laya.stage.height;
-        // Debug.trace("LayaMain.onResize rate:"+rate);
-        // if(rate>2)
-        // {
-        //     this.root_node.width = Laya.stage.width;
-        // }
-        // else{
-        //     this.root_node.width = Laya.stage.width+100;
-        // }
+        if (AppData.IS_NATIVE_APP) {
+            window.removeEventListener("message", this.handleIFrameAction, false);
+        }
+        EventManager.dispath(EventType.RESIZE);
+        PostMHelp.game_common({ name: "onGameInit" });
     };
     LayaMain.prototype.getRootNode = function () {
         return this.root_node;
@@ -76,13 +62,13 @@ var LayaMain = /** @class */ (function () {
             Debug.trace("Laya handleAction:");
             Debug.trace(e);
             var obj = JSON.parse(e.data);
-            // Debug.trace("Laya handleAction obj:");
-            // Debug.trace(obj);
-            // Debug.trace("Laya handleAction action:");
-            // Debug.trace(obj.action);
+            Debug.trace("Laya handleAction obj:");
+            Debug.trace(obj);
+            Debug.trace("Laya handleAction action:");
+            Debug.trace(obj.action);
             switch (obj.action) {
                 case "lobbyResume":
-                    Debug.trace("LayaMain.handleAction in case lobbyResume");
+                    Debug.trace("LayaMain.handleAction in case");
                     lamain.onGameResume();
                     break;
                 default:
@@ -91,16 +77,19 @@ var LayaMain = /** @class */ (function () {
         }
         catch (e) { }
     };
+    /**
+     * 退出到登录界面
+     */
     LayaMain.prototype.loginOut = function () {
         Debug.trace("LayaMain.loginOut");
         PostMHelp.game_common({ name: "loginout" });
         SaveManager.getObj().save(SaveManager.KEY_TOKEN, "");
-        this.initLogin();
+        Dialog.manager.closeAll();
+        this.clearChild();
+        PageManager.Get().ShowPage(null, PageLogin, 'isloaded');
     };
     LayaMain.prototype.onGamePause = function () {
-        Debug.trace("LayaMain.onGamePause");
         Laya.SoundManager.setMusicVolume(0);
-        Laya.SoundManager.stopMusic();
         // Laya.SoundManager.setSoundVolume(0);
     };
     LayaMain.prototype.onGameResume = function () {
@@ -111,32 +100,26 @@ var LayaMain = /** @class */ (function () {
             var lmv = SaveManager.getObj().get(SaveManager.KEY_MUSIC_VL, 1);
             var lss = SaveManager.getObj().get(SaveManager.KEY_SFX_SWITCH, 1);
             var lsv = SaveManager.getObj().get(SaveManager.KEY_SFX_VL, 1);
-            // Debug.trace("LayaMain.onGameResume save obj:");
-            // Debug.trace(SaveManager.getObj().mtObj);
-            // Debug.trace("LayaMain.onGameResume music vol:"+lmv+" switch:"+lms+" sound vol:"+lsv+" switch:"+lss);
+            Debug.trace("LayaMain.onGameResume save obj:");
+            Debug.trace(SaveManager.getObj().mtObj);
+            Debug.trace("LayaMain.onGameResume music vol:" + lmv + " switch:" + lms + " sound vol:" + lsv + " switch:" + lss);
             Laya.SoundManager.setMusicVolume(lmv);
             Laya.SoundManager.setSoundVolume(lsv);
             if (lms == 1) {
-                Debug.trace("LayaMain.playMusic");
                 Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
             }
-            if (Avator.getInstance()) {
-                Avator.getInstance().flushUserInfo();
-            }
+            //刷新用户信息
+            EventManager.dispath(EventType.FLUSH_USERINFO);
             try {
                 GamePanel.getInstance().resume();
-            }
-            catch (e) { }
-            try {
-                RoomPanel.getInstance().resume();
             }
             catch (e) { }
         }
         catch (e) { }
     };
     LayaMain.prototype.handleIFrameAction = function (e) {
-        Debug.trace("handleIFrameAction e:");
-        Debug.trace(e);
+        //  Debug.trace("handleIFrameAction e:");
+        // Debug.trace(e);
         var data = e.data;
         LayaMain.getInstance().onAppPostMessgae(data);
     };
@@ -154,7 +137,7 @@ var LayaMain = /** @class */ (function () {
                     LayaMain.onQuit();
                     break;
                 case "playMusic":
-                    // lamain.onGameResume()
+                    lamain.onGameResume();
                     break;
                 case "stopMusic":
                     Laya.SoundManager.stopAll();
@@ -191,9 +174,13 @@ var LayaMain = /** @class */ (function () {
                     }
                     break;
                 case "flushMoney":
-                    if (Avator.obj) {
-                        Avator.obj.flushUserInfo();
-                    }
+                    EventManager.dispath(EventType.FLUSH_USERINFO);
+                    break;
+                //todo:xxx
+                // if(Avator.obj)
+                // {
+                //     Avator.obj.flushUserInfo(); 
+                // }
                 case "openDebug":
                     window["initVconsole"]();
                     break;
@@ -212,7 +199,7 @@ var LayaMain = /** @class */ (function () {
                 case "playmusic":
                     UpdateMsgHandle.playMusic(message.data);
                     break;
-                case "onBlur":
+                case "onBlur": //失去焦点
                     if (LoginPad.obj) {
                         LoginPad.obj.lostFocusInputText();
                     }
@@ -222,14 +209,23 @@ var LayaMain = /** @class */ (function () {
                     if (QuickLogin.obj) {
                         QuickLogin.obj.lostFocusInputText();
                     }
+                    //派发失去焦点事件
+                    EventManager.dispath(EventType.BLUR_NATIVE);
+                    Laya.timer.once(300, this, function () {
+                        Laya.stage.event(Laya.Event.MOUSE_DOWN);
+                    });
                     break;
                 case "deviceInfo":
                     MyUid.setUid(message.data);
                     break;
                 case "lobbyResume":
-                    // Debug.trace("LayaMain.handleAction in case");
+                    Debug.trace("LayaMain.handleAction in case");
                     lamain.onGameResume();
                     break;
+                case "showLoading": { //显示/隐藏loading
+                    this.showCircleLoading(Boolean(message.data), 0);
+                    break;
+                }
             }
         }
     };
@@ -254,6 +250,9 @@ var LayaMain = /** @class */ (function () {
             this.cloading.destroy(true);
             this.cloading = null;
         }
+        if (AgentPad.getObj()) {
+            AgentPad.getObj().onClose(null);
+        }
         var clen = LayaMain.getInstance().getRootNode()._childs.length;
         for (var k = 0; k < clen; k++) {
             var obj = LayaMain.getInstance().getRootNode()._childs[k];
@@ -270,12 +269,14 @@ var LayaMain = /** @class */ (function () {
         }
     };
     LayaMain.prototype.initLogin = function () {
-        this.clearChild();
-        if (this.sceneLogin == null) {
-            this.sceneLogin = new LoginScene();
-            this.sceneLogin.onLoaded();
-            LayaMain.getInstance().getRootNode().addChild(this.sceneLogin);
-        }
+        this.loginOut();
+        return; //todo:xxx
+        // this.clearChild();
+        // if (this.sceneLogin == null) {
+        //     this.sceneLogin = new LoginScene();
+        //     this.sceneLogin.onLoaded();
+        //     LayaMain.getInstance().getRootNode().addChild(this.sceneLogin);
+        // }
     };
     LayaMain.prototype.initLobby = function () {
         this.clearChild();
@@ -298,12 +299,16 @@ var LayaMain = /** @class */ (function () {
     LayaMain.prototype.requestEnd = function (stat, msg) {
         var bSucAll = true;
         if (stat == "complete") {
-            if (Avator.obj) {
-                if (Avator.obj.bRequestStatus == 1) {
-                    bSucAll = false;
-                }
-                // Debug.trace("LayaMain.requestEnd Avator:"+Avator.obj.bRequestStatus);
-            }
+            if (TempData.bRequestStatus == 1)
+                bSucAll = false;
+            //todo:xxx
+            // if( Avator.obj )
+            // {
+            //     if( Avator.obj.bRequestStatus == 1 )
+            //     {
+            //         bSucAll = false;
+            //     }
+            // }
             if (GamePanel.obj) {
                 if (GamePanel.obj.bRequestStatus == 1) {
                     bSucAll = false;
@@ -337,23 +342,18 @@ var LayaMain = /** @class */ (function () {
     LayaMain.prototype.requestError = function () {
         LayaMain.getInstance().initLogin();
     };
-    LayaMain.prototype.showCircleLoading = function (b, data) {
+    /**
+     * 显示loading
+     * @param b
+     * @param bgAlpha 背景透明度
+     */
+    LayaMain.prototype.showCircleLoading = function (b, bgAlpha) {
         if (b === void 0) { b = true; }
-        if (data === void 0) { data = null; }
-        if (b && !this.cloading) {
-            this.cloading = MyBBLoading.getObj(true);
-            this.cloading.zOrder = 99999;
-            LayaMain.getInstance().getRootNode().addChild(this.cloading);
-        }
-        if (!b) {
-            if (this.cloading) {
-                this.cloading.hide();
-                this.cloading = null;
-            }
-        }
-        else {
-            this.cloading.show();
-        }
+        if (bgAlpha === void 0) { bgAlpha = 0.5; }
+        if (b)
+            view.LoadingView.show(bgAlpha);
+        else
+            view.LoadingView.hide();
     };
     LayaMain.onQuit = function () {
         SaveManager.getObj().save(SaveManager.KEY_TOKEN, "");
@@ -363,8 +363,8 @@ var LayaMain = /** @class */ (function () {
     return LayaMain;
 }());
 var AppData = window["sAppData"];
+window['loadJsOver']();
 var lamain = new LayaMain();
-lamain.initLoading();
 if (AppData.IS_NATIVE_APP) {
     window.top["receivedMessageFromRN"] = lamain.onAppPostMessgae;
 }

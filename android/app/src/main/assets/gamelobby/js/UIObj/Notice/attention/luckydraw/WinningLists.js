@@ -36,10 +36,53 @@ var WinningLists = /** @class */ (function (_super) {
         }
         this._footer = Tools.newSprite($config.bottom);
         this.addChild(this._footer);
+        this._recordLatest = new LotteryRecord();
+        this.addChild(this._recordLatest);
+        this._recordLatest.init($config.content);
+        this._recordMine = new LotteryRecord();
+        this.addChild(this._recordMine);
+        this._recordMine.init($config.content);
+        this._recordMine.visible = false;
+        this._recordLatest.y = this._recordMine.y = $config.content.y;
+        this._currIdx = 1;
+        this.getList();
     };
     WinningLists.prototype.onClick = function ($e) {
+        var btn = $e;
+        switch (btn) {
+            case this._btnLatest:
+                this._recordLatest.visible = true;
+                this._recordMine.visible = false;
+                this._currIdx = 1;
+                break;
+            case this._btnMyList:
+                this._recordLatest.visible = false;
+                this._recordMine.visible = true;
+                this._currIdx = 2;
+                break;
+        }
+        this.getList();
     };
-    WinningLists.prototype.add = function ($data) {
+    WinningLists.prototype.getList = function () {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        url += ConfObjRead.getConfUrl().cmd.attention_lottery_record;
+        url += "?access_token=" + Common.access_token;
+        url += "&isWho=" + this._currIdx;
+        url += "&noticeId=" + this.noticeId;
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        NetManager.getObj().HttpConnect(url, this, this.returnListInfo, header, null, "get", "json");
+    };
+    WinningLists.prototype.returnListInfo = function (s, stat) {
+        switch (this._currIdx) {
+            case 1:
+                this._recordLatest.setData(s);
+                break;
+            case 2:
+                this._recordMine.setData(s);
+                break;
+        }
+        // this.targetSpinner.setResult(s)
+        // this.targetSpinner = undefined;
     };
     return WinningLists;
 }(Laya.Sprite));

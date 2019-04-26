@@ -26,10 +26,12 @@ var AgentContentInfo = /** @class */ (function (_super) {
             }
         }
         if (this.conf.labels) {
+            this.arr_labels = new Array();
             var len = this.conf.labels.length;
             for (var i = 0; i < len; i++) {
                 var lbconf = this.conf.labels[i];
-                Tools.addLabels(this, lbconf);
+                var lb = Tools.addLabels(this, lbconf);
+                this.arr_labels.push(lb);
             }
         }
         this.arr_btns = new Array();
@@ -70,17 +72,173 @@ var AgentContentInfo = /** @class */ (function (_super) {
             this.lbNumYesterday.pos(this.conf.datanumYesterday.pos.x, this.conf.datanumYesterday.pos.y);
             this.lbNumYesterday.setNum("999999");
         }
+        if (this.conf.notagenttips) {
+            this.notagenttips = new MySprite();
+            this.addChild(this.notagenttips);
+            var sp = Tools.addSprite(this.notagenttips, this.conf.notagenttips.sp);
+            var b = new MyButton();
+            b.init(this.conf.notagenttips.btn, this, this.onClickBtn);
+            b.setQuery(this.conf.notagenttips.btn.cmd);
+            this.notagenttips.addChild(b);
+            this.notagenttips.visible = false;
+        }
+        this.requestInfo();
     };
     AgentContentInfo.prototype.onClickBtn = function (e) {
         var btn = e;
         var cmd = btn.getQuery();
         switch (cmd) {
             case "customservice":
+                Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
                 break;
             case "copylink":
+                PostMHelp.game_common({ "do": "copylink", "param": this.inputLink.text });
                 break;
             case "share":
+                PostMHelp.game_common({ "do": "share", "param": this.inputLink.text });
                 break;
+        }
+    };
+    AgentContentInfo.prototype.getLabelByDataName = function (dn) {
+        var len = this.arr_labels.length;
+        // Debug.trace("AgentContentInfo.getLabelByDataName dn:"+dn+" len:"+len);
+        for (var i = 0; i < len; i++) {
+            var lb = this.arr_labels[i];
+            if (lb.dataName == dn) {
+                return lb;
+            }
+        }
+        return null;
+    };
+    AgentContentInfo.prototype.setLabelData = function (dn, v) {
+        var lb = this.getLabelByDataName(dn);
+        if (lb) {
+            // Debug.trace("AgentContentInfo.setLabelData dn:"+dn+" v:"+v);
+            lb.text = v;
+        }
+    };
+    AgentContentInfo.prototype.showQrcode = function (agentInfo, invationInfo) {
+        var url = "";
+        if (AppData.IS_NATIVE_APP) {
+            url = agentInfo.appShareUrl;
+        }
+        else {
+            url = agentInfo.wapShareUrl;
+        }
+        var inva = "";
+        if (invationInfo.length > 0) {
+            /*
+            {
+                "createdTime": "2017-06-03 14:28:26",
+                "updatedTime": "2018-06-25 10:08:40",
+                "id": 313,
+                "userId": 368075,
+                "brand": "106",
+                "username": "agone01",
+                "memberType": "AGENT",
+                "prizeGroup": 1958,
+                "affCode": "lucky01",
+                "status": "ON",
+                "operatorId": 31,
+                "operatorName": "admin",
+                "countUser": 1
+            }
+            */
+            inva = invationInfo[0].affCode;
+        }
+        this.inputLink.text = url + "?affCode=" + inva;
+        var sp = qr.QRCode.create(url, this.conf.qrcode.config.color, this.conf.qrcode.config.size.w, this.conf.qrcode.config.size.h, this.conf.qrcode.config.level);
+        sp.pos(this.conf.qrcode.config.pos.x, this.conf.qrcode.config.pos.y);
+        this.qrcode.addChild(sp);
+    };
+    AgentContentInfo.prototype.requestInfo = function () {
+        LayaMain.getInstance().showCircleLoading();
+        var header = [
+            // "Content-Type","application/json",
+            // "Accept","*/*"
+            "Accept", "application/json"
+        ];
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.agentinfo +
+            "?access_token=" + Common.access_token;
+        // Debug.trace("requestUserAvator url:"+url);
+        NetManager.getObj().HttpConnect(url, this, this.responseInfo, header, null, "get", "json");
+    };
+    AgentContentInfo.prototype.responseInfo = function (s, stat, hr) {
+        // Debug.trace("AgentContentInfo.responseInfo stat:"+stat);
+        // Debug.trace(s);
+        // Debug.trace(hr);
+        LayaMain.getInstance().showCircleLoading(false);
+        if (stat == "complete") {
+            if (Common.userInfo.userRole != "AGENT") {
+                try {
+                    this.notagenttips.visible = true;
+                }
+                catch (e) { }
+            }
+            this.setLabelData("username", s.nickname);
+            this.setLabelData("invationid", s.username);
+            this.setLabelData("invationparentid", s.parentName);
+            this.setLabelData("childrenincome", s.todaySubBet);
+            this.setLabelData("brokerage", s.todayBrokerage);
+            this.setLabelData("teampersonnum", s.teamMembers);
+            this.setLabelData("subchildren", s.subMembers);
+            this.setLabelData("todayaddinteam", s.newTeamMembers);
+            this.setLabelData("todayaddmychildren", s.newSubMembers);
+            this.lbNumTeamToday.setNum(s.todayTeamBet);
+            this.lbNumYesterday.setNum(s.yesterdayBrokerage);
+            // this.showQrcode(s);
+            this.agentInfo = s;
+            // LayaMain.getInstance().requestEnd(stat,"");
+            this.requestInvationCode();
+        }
+        else {
+            // LayaMain.getInstance().requestEnd(stat,s);
+            var repon = hr.http.response;
+            try {
+                var jobj = JSON.parse(repon);
+                var err = jobj.message;
+                Toast.showToast(err);
+            }
+            catch (e) { }
+            // AgentPad.getObj().onClose(null);
+            // Toast.showToast( s );//Tools.getStringByKey( this.conf.txt_notagent ) );
+        }
+    };
+    AgentContentInfo.prototype.requestInvationCode = function () {
+        LayaMain.getInstance().showCircleLoading();
+        var header = [
+            "Content-Type", "application/json",
+            // "Accept","*/*"
+            "Accept", "application/json"
+        ];
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.agentinvation +
+            "?access_token=" + Common.access_token; //+
+        // "&username="+Common.userInfo.username;
+        var jobj = {
+        // "username":Common.userInfo.username
+        };
+        var sjobj = JSON.stringify(jobj);
+        NetManager.getObj().HttpConnect(url, this, this.responseInvationCode, header, sjobj, "post", "json");
+    };
+    AgentContentInfo.prototype.responseInvationCode = function (s, stat, hr) {
+        LayaMain.getInstance().showCircleLoading(false);
+        if (stat == "complete") {
+            this.invationInfo = s.datas;
+            this.showQrcode(this.agentInfo, this.invationInfo);
+        }
+        else {
+            // LayaMain.getInstance().requestEnd(stat,s);
+            var repon = hr.http.response;
+            try {
+                var jobj = JSON.parse(repon);
+                var err = jobj.message;
+                Toast.showToast(err);
+            }
+            catch (e) { }
+            // AgentPad.getObj().onClose(null);
+            // Toast.showToast( s );//Tools.getStringByKey( this.conf.txt_notagent ) );
         }
     };
     return AgentContentInfo;

@@ -53,11 +53,13 @@ export const platInfo = {
     loginDomain:"https://38fo28gk.ewxsg.cn",
     gameDomain:"https://yw8txj2e.shpeisheng1.cn",
 
+    downDomain:"https://download.hkbaoxian188.com",
+
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "https://download.hkbaoxian188.com/game/release/chyqp",
+        release_server: "/game/release/chyqp",
     },
-    latestNativeVersion:"2.0",//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
+    latestNativeVersion:{ios:"2.0",android:"2.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
     platId: configAppId,
     brand: "chyqp",
 }

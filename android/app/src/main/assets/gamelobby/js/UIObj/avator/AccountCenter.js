@@ -11,6 +11,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/**
+ * 个人中心
+ */
 var AccountCenter = /** @class */ (function (_super) {
     __extends(AccountCenter, _super);
     function AccountCenter() {
@@ -47,8 +50,8 @@ var AccountCenter = /** @class */ (function (_super) {
         this.conf = conf;
         this.arr_btns = new Array();
         this.data = Common.userInfo; //headicon.data;
-        Debug.trace('AccountCenter.init this.data:');
-        Debug.trace(this.data);
+        // Debug.trace('AccountCenter.init this.data:');
+        // Debug.trace(this.data);
         this.initAlphaBg();
         this.initBg(this.conf.bg);
         if (this.conf.title) {
@@ -92,11 +95,18 @@ var AccountCenter = /** @class */ (function (_super) {
         this.iClickNum = 0;
     };
     AccountCenter.prototype.initAlphaBg = function () {
-        this.alphabg = new MySprite();
-        Tools.drawRectWithAlpha(this.alphabg, 0, 0, this.conf.size.w, this.conf.size.h, "#000000", this.conf.mask.alpha);
+        //todo:xxx
+        // this.alphabg = new MySprite();
+        // this.conf.size.w=Laya.stage.width;
+        // Tools.drawRectWithAlpha(this.alphabg,
+        // 	0,0,
+        // 	this.conf.size.w,this.conf.size.h,
+        //     "#000000",
+        //     this.conf.mask.alpha);
+        // this.alphabg.size(this.conf.size.w,this.conf.size.h);
+        // this.alphabg.pos(-this.conf.pos.x,-this.conf.pos.y);
+        this.alphabg = Tools.creatDlgBg();
         this.addChild(this.alphabg);
-        this.alphabg.size(this.conf.size.w, this.conf.size.h);
-        this.alphabg.pos(-this.conf.pos.x, -this.conf.pos.y);
         this.alphabg.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_UP, this, this.onMouse);
         this.alphabg.on(Laya.Event.MOUSE_MOVE, this, this.onMouse);
@@ -211,7 +221,7 @@ var AccountCenter = /** @class */ (function (_super) {
                 this.hide();
                 LayaMain.getInstance().loginOut();
                 break;
-            case "changeicon":
+            case "changeicon": //更换头像
                 AvatorPad.showPad(LayaMain.getInstance().getRootNode()); //LobbyScene.getInstance());
                 break;
             case "changepwd":

@@ -10,12 +10,12 @@ export  const G_LayoutAnimaton={
             // type:LayoutAnimation.Types.easeInEaseOut,
             property: LayoutAnimation.Properties.scaleXY,
             // property:LayoutAnimation.Properties.opacity,
-            springDamping: 0.7,
+            springDamping: 0.8,
         },
         update: {
             type: LayoutAnimation.Types.spring,
             property: LayoutAnimation.Properties.scaleXY,
-            springDamping: 0.8,
+            springDamping: 0.9,
         },
     },
     springNoCreate : {//适用android android

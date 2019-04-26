@@ -96,11 +96,12 @@ var MyUid = /** @class */ (function () {
         // Debug.trace("ua:"+ua);
         // Debug.trace("t:"+t);
         // Debug.trace("str:"+str);
+        var str2 = str.substr(0, 32);
         // MyUid.uid = b64.decode(str);
         // Debug.trace('uid 1:'+MyUid.uid);
-        MyUid.uid = btoa(str);
+        MyUid.uid = btoa(str2);
         // var dc = atob(MyUid.uid);
-        // Debug.trace('uid:'+MyUid.uid);
+        Debug.trace('MyUid.createUid uid:' + MyUid.uid);
         // Debug.trace('dc:'+dc);
     };
     MyUid.uid = "";

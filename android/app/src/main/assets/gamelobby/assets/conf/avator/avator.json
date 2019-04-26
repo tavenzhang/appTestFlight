@@ -64,7 +64,7 @@
         "picnameend":".jpg",
         "pos":{ "x":0, "y":0 },
         "sound":{
-            "src":"assets/raw/click.mp3"
+            "src":"assets/raw/sfx_click.mp3"
         },
         "bStarName":false
     },

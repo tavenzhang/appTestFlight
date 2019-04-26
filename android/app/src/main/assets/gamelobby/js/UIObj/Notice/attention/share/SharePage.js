@@ -14,7 +14,9 @@ var __extends = (this && this.__extends) || (function () {
 var SharePage = /** @class */ (function (_super) {
     __extends(SharePage, _super);
     function SharePage() {
-        return _super.call(this) || this;
+        var _this = _super.call(this) || this;
+        _this.limit = 0;
+        return _this;
     }
     SharePage.getObj = function () {
         return SharePage.obj;
@@ -43,12 +45,24 @@ var SharePage = /** @class */ (function (_super) {
         this.send.init(conf.send, this, this.onClick);
         this.send.pos(conf.send.pos.x, conf.send.pos.y);
         this.addChild(this.send);
+        this.limit = 0;
         this.setData(data);
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
     SharePage.prototype.onClick = function ($e) {
+        if (this.limit > 0) {
+            this.limit--;
+        }
     };
     SharePage.prototype.setData = function (data) {
+        this.limit = data.noticeShare.upperLimit;
+        Laya.loader.load(data.img, Laya.Handler.create(this, function () {
+            var t = Laya.loader.getRes(data.img);
+            var img = new Laya.Sprite();
+            img.graphics.drawTexture(t, 0, 0);
+            this.addChildAt(img, 0);
+            img.pos(0, 0);
+        }));
     };
     return SharePage;
 }(MySprite));

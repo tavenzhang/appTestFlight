@@ -11,6 +11,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/**
+ * 大厅滚动消息
+ */
 var RunningMsg = /** @class */ (function (_super) {
     __extends(RunningMsg, _super);
     function RunningMsg() {
@@ -27,8 +30,9 @@ var RunningMsg = /** @class */ (function (_super) {
         if (callback === void 0) { callback = null; }
         if (!RunningMsg.obj) {
             var a = new RunningMsg();
+            a.noticeSp = node;
             a.init(confsrc, url, caller, callback);
-            node.addChild(a);
+            RunningMsg.obj = a;
         }
         return RunningMsg.obj;
     };
@@ -56,11 +60,12 @@ var RunningMsg = /** @class */ (function (_super) {
         }
     };
     RunningMsg.prototype.create = function () {
-        this.initBg(this.conf.bg);
-        this.initContent(this.conf.msgcontent);
-        this.initMask(this.conf.mask);
+        // this.initBg( this.conf.bg );
+        // this.initContent(this.conf.msgcontent);//debug
+        // this.initMask( this.conf.mask );
+        this.noticeSp.scrollRect = new Laya.Rectangle(0, 0, this.noticeSp.width, this.noticeSp.height);
         this.requestOnce();
-        this.pos(this.conf.pos.x, this.conf.pos.y);
+        // this.pos(this.conf.pos.x,this.conf.pos.y);
         if (this.caller && this.callback) {
             this.callback.apply(this.caller, [this]);
         }
@@ -166,17 +171,20 @@ var RunningMsg = /** @class */ (function (_super) {
         }
     };
     RunningMsg.prototype.addMsgItem = function (text) {
+        if (!this.lb_msgs)
+            this.lb_msgs = [];
         var nowhave = this.lb_msgs.length;
         // Debug.trace('RunningMsg.addMsgItem text:'+text);
         var lbmsg = new RunMsgItem();
         lbmsg.init(this, this.conf.msgcontent.label, text);
         lbmsg.setId(nowhave);
-        this.sp_lbcontent.addChild(lbmsg);
+        // this.sp_lbcontent.addChild(lbmsg);
+        this.noticeSp.addChild(lbmsg);
         if (nowhave <= 0) {
-            lbmsg.pos(this.conf.msgcontent.label.pos.x + this.conf.mask.size.w, this.conf.msgcontent.label.pos.y);
+            lbmsg.pos(this.conf.msgcontent.label.pos.x + this.conf.mask.size.w, 3);
         }
         else {
-            lbmsg.pos(this.lb_msgs[nowhave - 1].x + this.lb_msgs[nowhave - 1].getWidth(), this.conf.msgcontent.label.pos.y);
+            lbmsg.pos(this.lb_msgs[nowhave - 1].x + this.lb_msgs[nowhave - 1].getWidth(), 3);
         }
         this.lb_msgs.push(lbmsg);
         // Debug.trace("nowhave:"+nowhave+" x:"+lbmsg.x);

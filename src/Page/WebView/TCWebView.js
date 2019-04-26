@@ -54,10 +54,15 @@ export default class TCWebView extends Component {
         let tempIndex = myUrl.indexOf("?");
         let myParam = myUrl.substr(tempIndex);
          let homePre= myUrl.substring(0,tempIndex);
-         if(homePre.lastIndexOf("/")!=0){
+         let lastStr= homePre.substr(homePre.length-1)
+        TW_Log("homePre.lastIndexOf-"+homePre.lastIndexOf("/"),lastStr)
+         if(lastStr!="/"){
              homePre+="/";
          }
         let newUrl=  homePre+"index.html";
+         if(TW_Store.appStore.clindId=='31'){
+             myParam+="&time="+Math.random()*9999;
+         }
         TW_Log("myUrl------------------------myParam--"+myParam+"-\n-newUrl----"+newUrl)
 
         let source = {

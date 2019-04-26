@@ -25,8 +25,6 @@ var RunMsgItem = /** @class */ (function (_super) {
         this.html_msg = new SeanHtmlString(text, "./assets/conf/scrollmsg/libhtml.json");
         this.html_msg.pos(this.conf.pos.x, this.conf.pos.y);
         this.addChild(this.html_msg);
-        // Debug.trace("RunMsgItem.init html_msg:");
-        // Debug.trace(this.html_msg);
     };
     RunMsgItem.prototype.setId = function (id) {
         this.id = id;

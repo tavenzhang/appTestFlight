@@ -138,8 +138,17 @@ var AttentionPage = /** @class */ (function (_super) {
         // {
         //     this.lbContent.text = this.data.content;
         // }
+        var test = '<p><span style="color: rgba(100,2000,0,0.65);background-color: rgb(255,255,255);font-size: 14px;font-family: Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol;">测试富文本编辑器</span>&nbsp;</p><p style="text-align:center;"><span style="color: rgba(0,0,0,0.65);background-color: rgb(255,255,255);font-size: 14px;font-family: Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol;">测试富文本编辑器</span>&nbsp;&nbsp;</p><p style="text-align:right;"><span style="color: rgba(0,0,0,0.65);background-color: rgb(255,255,255);font-size: 14px;font-family: Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol;">测试富文本编辑器</span>&nbsp;</p><p style="text-align:justify;"><span style="color: rgba(0,0,0,0.65);background-color: rgb(255,255,255);font-size: 14px;font-family: Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol;">测试富文本编辑器</span>&nbsp;&nbsp;&nbsp;</p><p><span style="color: rgb(226,80,65);background-color: rgb(255,255,255);font-size: 14px;font-family: Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol;">测试富文本编辑器</span><span style="color: rgb(226,80,65);">  </span></p><p><a href="http://www.baiud.com" target="_self"><span style="color: rgba(0,0,0,0.65);background-color: rgb(255,255,255);font-size: 14px;font-family: Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol;">测试富文本编辑器 </span></a>&nbsp;&nbsp;</p><p>😀</p><p></p>';
         if (this.txtContent) {
-            this.txtContent.text = Tools.getStringByKey(this.conf.txtContent.pretext) + this.data.content;
+            // this.txtContent.text = Tools.getStringByKey(this.conf.txtContent.pretext)+this.data.content;
+            console.log("geg", Tools.getStringByKey(this.conf.txtContent.pretext));
+            console.log("content", this.data.content);
+            this.txtHtmlText = new SeanHtmlString(test, "./assets/conf/scrollmsg/libhtml.json");
+            this.sp_content.addChild(this.txtHtmlText);
+            this.txtHtmlText.pos(this.conf.txtContent.pos.x, this.conf.txtContent.pos.y);
+            this.txtHtmlText.size(this.conf.txtContent.size.w, this.conf.txtContent.size.h);
+            //    if(this.data.content ) this.txtHtmlText.innerHTML = test;
+            this.txtHtmlText.on(Laya.Event.LINK, this, this.onLink);
         }
         if (this.lbAuthor) {
             this.lbAuthor.text = this.data.author;
@@ -158,6 +167,10 @@ var AttentionPage = /** @class */ (function (_super) {
             }
         }
     };
+    AttentionPage.prototype.onLink = function (data) {
+        Laya.Browser.window.location.href = data;
+        console.log("click click", data);
+    };
     AttentionPage.prototype.onMouse = function (e) {
         if (this.conf.touchout) {
             if (this.conf.touchout.value && e.type == Laya.Event.MOUSE_DOWN) {
@@ -174,5 +187,5 @@ var AttentionPage = /** @class */ (function (_super) {
         this.visible = b;
     };
     return AttentionPage;
-}(MySprite));
+}(Laya.View));
 //# sourceMappingURL=AttentionPage.js.map

@@ -41,7 +41,7 @@
                             "./assets/ui/rule/btn_paixing_00.png",
                             "./assets/ui/rule/btn_paixing_01.png"
                         ],
-                        "sfx":"assets/raw/click.mp3",
+                        "sfx":"assets/raw/sfx_click.mp3",
                         "size":{"w":240,"h":55}
                     }
                 },
@@ -53,7 +53,7 @@
                             "./assets/ui/rule/btn_wanfa_00.png",
                             "./assets/ui/rule/btn_wanfa_01.png"
                         ],
-                        "sfx":"assets/raw/click.mp3"
+                        "sfx":"assets/raw/sfx_click.mp3"
                     }
                 },
                 {
@@ -64,7 +64,7 @@
                             "./assets/ui/rule/btn_jiesuan_00.png",
                             "./assets/ui/rule/btn_jiesuan_01.png"
                         ],
-                        "sfx":"assets/raw/click.mp3"
+                        "sfx":"assets/raw/sfx_click.mp3"
                     }
                 },
                 {
@@ -75,7 +75,7 @@
                             "./assets/ui/rule/btn_guanyu_00.png",
                             "./assets/ui/rule/btn_guanyu_01.png"
                         ],
-                        "sfx":"assets/raw/click.mp3"
+                        "sfx":"assets/raw/sfx_click.mp3"
                     }
                 }
             ]
@@ -148,7 +148,7 @@
             "./assets/ui/dialog/btn_touxiang_guangbi.png"
         ],
         "size":{ "w":76, "h":77 },
-        "sfx":"assets/raw/close.mp3",
+        "sfx":"assets/raw/sfx_close.mp3",
         "maxScale":{"x":1.05,"y":1.05},
         "normalScale":{"x":1,"y":1}
     },

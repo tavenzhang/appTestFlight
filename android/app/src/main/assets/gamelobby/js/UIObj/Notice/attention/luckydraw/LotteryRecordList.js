@@ -24,11 +24,11 @@ var LotteryRecordList = /** @class */ (function (_super) {
         date.color = $data.date;
         date.align = "center";
         date.width = $data.w[0];
-        date.text = "time";
+        date.text = "";
         var type = this._type = new Laya.Label();
         this.addChild(type);
         type.align = "center";
-        type.text = "type";
+        type.text = "";
         type.width = $data.w[1];
         var total = this._total = new Laya.Label();
         this.addChild(total);
@@ -50,21 +50,21 @@ var LotteryRecordList = /** @class */ (function (_super) {
         switch ($data.rouletteLevel) {
             case 1:
                 this._type.color = this._total.color = this._silverC;
-                this._type.text = this._types[0];
+                this._type.text = this._types[0] || "";
                 break;
             case 2:
                 this._type.color = this._total.color = this._goldC;
-                this._type.text = this._types[1];
+                this._type.text = this._types[1] || "";
                 break;
             case 3:
                 this._type.color = this._total.color = this._diamondC;
-                this._type.text = this._types[2];
+                this._type.text = this._types[2] || "";
                 break;
         }
-        this._total.text = $data.prizeAmount;
+        this._total.text = $data.prizeAmount || "";
     };
     LotteryRecordList.prototype.beforeLast = function (p_string, p_char) {
-        if (p_string === null) {
+        if (p_string === null || p_string == undefined) {
             return '';
         }
         var idx = p_string.lastIndexOf(p_char);

@@ -36,7 +36,6 @@ import cn.jpush.android.data.JPushLocalNotification;
 
 public class JXHelper extends ReactContextBaseJavaModule {
     private static final String KEY_UUID = "uuid";
-    private static final String KEY_RANDOM_UUID = "random_uuid";
     Context context;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -96,22 +95,6 @@ public class JXHelper extends ReactContextBaseJavaModule {
         JPushInterface.addLocalNotification(this.context, ln);
     }
 
-//    @ReactMethod
-//    public void getCFUUID(Callback resultCallback) {
-//        TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-//      //  String szImei = TelephonyMgr.getDeviceId();
-//        String res = null;
-////        try {
-////            res = UUID.nameUUIDFromBytes(szImei.getBytes("utf8")).toString();
-////        } catch (Exception e) {
-////        }
-////        if (res == null) {
-////            res = UUID.randomUUID().toString();
-////        }
-//        res = UUID.randomUUID().toString();
-//        resultCallback.invoke("deviceId", res);
-//    }
-
     @ReactMethod
     public void getCFUUID(Callback resultCallback) {
         resultCallback.invoke("deviceId", getCFUUID());
@@ -119,7 +102,6 @@ public class JXHelper extends ReactContextBaseJavaModule {
 
     public String getCFUUID() {
         String storedUuid = pref.getString(KEY_UUID, null);
-        String storedRandomUuid = pref.getString(KEY_RANDOM_UUID, null);
         String randomUuid = UUID.randomUUID().toString();
         boolean isGranted = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
 
@@ -137,20 +119,18 @@ public class JXHelper extends ReactContextBaseJavaModule {
                 if (res == null) {
                     res = randomUuid;
                 }
-
-                editor.putString(KEY_UUID, res);
-                editor.commit();
+                saveUUIDLocally(res);
                 return res;
             } else {
-                if (storedRandomUuid != null && storedRandomUuid != "") {
-                    return storedRandomUuid;
-                } else {
-                    editor.putString(KEY_RANDOM_UUID, randomUuid);
-                    editor.commit();
-                    return randomUuid;
-                }
+                saveUUIDLocally(randomUuid);
+                return randomUuid;
             }
         }
+    }
+
+    public void saveUUIDLocally(String uuid) {
+        editor.putString(KEY_UUID, uuid);
+        editor.commit();
     }
 
     @ReactMethod

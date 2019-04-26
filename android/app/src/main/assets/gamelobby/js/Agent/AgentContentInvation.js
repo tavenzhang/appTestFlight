@@ -28,35 +28,141 @@ var AgentContentInvation = /** @class */ (function (_super) {
         Tools.addSprite(this, this.conf.infobar);
         this.list = new AgentInvitationList(this, ConfObjRead.getConfAgentInvitationChildren());
         this.addChild(this.list);
-        this.list.setData(this.conf.invBlock, ConfObjRead.getConfAgentInviChildrenTest());
-        // masker.graphics.drawRect(this.conf.masker.pos.x, this.conf.masker.pos.y, this.conf.masker.size.w, this.conf.masker.size.h, 0xff0000);
-        // this.sp_content.x = this.conf.masker.pos.x;
-        // this.sp_content.y = this.conf.masker.pos.y;
-        // this.sp_content.scrollRect = new Laya.Rectangle(
-        //     this.conf.masker.pos.x, this.conf.masker.pos.y, this.conf.masker.size.w, this.conf.masker.size.h
-        // );
-        // masker.graphics.drawTexture()
-        // this.on(Laya.Event.MOUSE_DOWN, this, this.onMouseEvent);
+        // this.list.setData(this.conf.invBlock, ConfObjRead.getConfAgentInviChildrenTest());
+        this.requestInfo();
     };
-    //     public updatelist(): void {
-    //         let total: number = 4;
-    //         let startX: number = this.conf.infobar.pos.x;
-    //         let startY: number = this.conf.infobar.pos.y + this.conf.infobar.size.h + 6;
-    //         let container = this.sp_content;
-    //         var h = 0;
-    //         for (let i: number = 0; i < total; i++) {
-    //             let block: AgentInvitationItem = new AgentInvitationItem();
-    //             container.addChild(block);
-    //             block.init(this.conf.invBlock);
-    //             block.x = startX;
-    //             block.y = i * (this.conf.invBlock.size.h) + startY;
-    //             h + block.height;
-    //         }
-    // console.log("g", this.conf)
-    //         this.sp_content.size(this.conf.list.size.w, h);
-    //     }
+    AgentContentInvation.prototype.requestInfo = function () {
+        LayaMain.getInstance().showCircleLoading();
+        var header = [
+            // "Content-Type","application/json",
+            // "Accept","*/*"
+            "Accept", "application/json"
+        ];
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.agentinfo +
+            "?access_token=" + Common.access_token;
+        // Debug.trace("requestUserAvator url:"+url);
+        NetManager.getObj().HttpConnect(url, this, this.responseInfo, header, null, "get", "json");
+    };
+    AgentContentInvation.prototype.responseInfo = function (s, stat, hr) {
+        // Debug.trace("AgentContentInfo.responseInfo stat:"+stat);
+        // Debug.trace(s);
+        // Debug.trace(hr);
+        LayaMain.getInstance().showCircleLoading(false);
+        if (stat == "complete") {
+            if (Common.userInfo.userRole != "AGENT") {
+                try {
+                    // this.notagenttips.visible = true;
+                }
+                catch (e) { }
+            }
+            // this.setLabelData("username",s.nickname);
+            // this.setLabelData("invationid",s.username);
+            // this.setLabelData("invationparentid",s.parentName);
+            // this.setLabelData("childrenincome",s.todaySubBet);
+            // this.setLabelData("brokerage",s.todayBrokerage);
+            // this.setLabelData("teampersonnum",s.teamMembers);
+            // this.setLabelData("subchildren",s.subMembers);
+            // this.setLabelData("todayaddinteam",s.newTeamMembers);
+            // this.setLabelData("todayaddmychildren",s.newSubMembers);
+            // this.lbNumTeamToday.setNum(s.todayTeamBet);
+            // this.lbNumYesterday.setNum(s.yesterdayBrokerage);
+            // this.showQrcode(s);
+            this.agentInfo = s;
+            // LayaMain.getInstance().requestEnd(stat,"");
+            this.requestInvationCode();
+        }
+        else {
+            // LayaMain.getInstance().requestEnd(stat,s);
+            var repon = hr.http.response;
+            try {
+                var jobj = JSON.parse(repon);
+                var err = jobj.message;
+                Toast.showToast(err);
+            }
+            catch (e) { }
+            // AgentPad.getObj().onClose(null);
+            // Toast.showToast( s );//Tools.getStringByKey( this.conf.txt_notagent ) );
+        }
+    };
+    AgentContentInvation.prototype.requestInvationCode = function () {
+        LayaMain.getInstance().showCircleLoading();
+        var header = [
+            "Content-Type", "application/json",
+            // "Accept","*/*"
+            "Accept", "application/json"
+        ];
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.agentinvation +
+            "?access_token=" + Common.access_token; //+
+        // "&username="+Common.userInfo.username;
+        var jobj = {
+        // "username":Common.userInfo.username
+        };
+        var sjobj = JSON.stringify(jobj);
+        NetManager.getObj().HttpConnect(url, this, this.responseInvationCode, header, sjobj, "post", "json");
+    };
+    AgentContentInvation.prototype.responseInvationCode = function (s, stat, hr) {
+        LayaMain.getInstance().showCircleLoading(false);
+        var url = "";
+        if (stat == "complete") {
+            this.invationInfo = s.datas;
+            this.showQrcode(this.agentInfo, s.datas);
+        }
+        else {
+            // LayaMain.getInstance().requestEnd(stat,s);
+            var repon = hr.http.response;
+            try {
+                var jobj = JSON.parse(repon);
+                var err = jobj.message;
+                Toast.showToast(err);
+            }
+            catch (e) { }
+            // AgentPad.getObj().onClose(null);
+            // Toast.showToast( s );//Tools.getStringByKey( this.conf.txt_notagent ) );
+        }
+    };
+    AgentContentInvation.prototype.showQrcode = function (agentInfo, invationInfo) {
+        var url = "";
+        if (AppData.IS_NATIVE_APP) {
+            url = agentInfo.appShareUrl;
+        }
+        else {
+            url = agentInfo.wapShareUrl;
+        }
+        var inva = "";
+        if (invationInfo.length > 0) {
+            /*
+            {
+                "createdTime": "2017-06-03 14:28:26",
+                "updatedTime": "2018-06-25 10:08:40",
+                "id": 313,
+                "userId": 368075,
+                "brand": "106",
+                "username": "agone01",
+                "memberType": "AGENT",
+                "prizeGroup": 1958,
+                "affCode": "lucky01",
+                "status": "ON",
+                "operatorId": 31,
+                "operatorName": "admin",
+                "countUser": 1
+            }
+            */
+            this.list.setData(this.conf.invBlock, invationInfo);
+            // inva = invationInfo[0].affCode;
+        }
+        //  this._link.text = url += "?affCode=" + this._code.text;
+        // var sp = this._qr = qr.QRCode.create(url, this.conf.qr.config.color, this.conf.qr.config.size.w, this.conf.qr.config.size.h, this.conf.qr.config.level);
+        // sp.pos(this.conf.qr.config.pos.x, this.conf.qr.config.pos.y);
+        // this.addChild(sp);
+        // sp.scaleX = sp.scaleY = this.conf.qr.scales
+        // this.addChild(this._qr);
+        // this._qr.pivot(this.conf.qr.config.size.w / 2, this.conf.qr.config.size.h / 2);
+        // this._qr.on(Laya.Event.MOUSE_DOWN, this, this.onClickBtn);
+    };
     AgentContentInvation.prototype.onClickBtn = function (e) {
-        AgentDialogInvitation.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogInvitation());
+        AgentDialogInvitation.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogInvitation(), this);
     };
     return AgentContentInvation;
 }(AgentContent));

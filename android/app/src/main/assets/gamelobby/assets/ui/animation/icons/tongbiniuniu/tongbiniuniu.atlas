@@ -1,195 +1,167 @@
 
 tongbiniuniu.png
-size: 1587,417
+size: 513,510
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-台子
-  rotate: true
-  xy: 1012, 193
-  size: 222, 148
-  orig: 222, 148
-  offset: 0, 0
-  index: -1
-流光_00000
+tb_back00
   rotate: false
-  xy: 2, 215
-  size: 200, 200
-  orig: 200, 200
+  xy: 1, 241
+  size: 133, 124
+  orig: 133, 124
   offset: 0, 0
   index: -1
-流光_00001
+tb_bstar
   rotate: false
-  xy: 2, 13
-  size: 200, 200
-  orig: 200, 200
+  xy: 279, 1
+  size: 191, 145
+  orig: 191, 145
   offset: 0, 0
   index: -1
-流光_00002
+tb_c1
   rotate: false
-  xy: 204, 215
-  size: 200, 200
-  orig: 200, 200
+  xy: 462, 148
+  size: 42, 52
+  orig: 42, 52
   offset: 0, 0
   index: -1
-流光_00003
+tb_c2
   rotate: false
-  xy: 204, 13
-  size: 200, 200
-  orig: 200, 200
+  xy: 472, 1
+  size: 39, 49
+  orig: 39, 49
   offset: 0, 0
   index: -1
-流光_00004
+tb_c3
   rotate: false
-  xy: 406, 215
-  size: 200, 200
-  orig: 200, 200
+  xy: 458, 205
+  size: 45, 53
+  orig: 45, 53
   offset: 0, 0
   index: -1
-流光_00005
+tb_c4
   rotate: false
-  xy: 406, 13
-  size: 200, 200
-  orig: 200, 200
+  xy: 406, 205
+  size: 50, 54
+  orig: 50, 54
   offset: 0, 0
   index: -1
-流光_00006
+tb_c5
   rotate: false
-  xy: 608, 215
-  size: 200, 200
-  orig: 200, 200
+  xy: 406, 148
+  size: 54, 55
+  orig: 54, 55
   offset: 0, 0
   index: -1
-流光_00007
+tb_chip
   rotate: false
-  xy: 608, 13
-  size: 200, 200
-  orig: 200, 200
+  xy: 1, 425
+  size: 187, 43
+  orig: 187, 43
   offset: 0, 0
   index: -1
-流光_00008
+tb_niuniu
   rotate: false
-  xy: 810, 215
-  size: 200, 200
-  orig: 200, 200
+  xy: 279, 148
+  size: 125, 140
+  orig: 125, 140
   offset: 0, 0
   index: -1
-流光_00009
+tb_closeeye
   rotate: false
-  xy: 810, 13
-  size: 200, 200
-  orig: 200, 200
+  xy: 458, 260
+  size: 28, 27
+  orig: 28, 27
   offset: 0, 0
   index: -1
-通比牛牛
-  rotate: true
-  xy: 1012, 2
-  size: 189, 165
-  orig: 189, 165
-  offset: 0, 0
-  index: -1
-通比牛牛111
-  rotate: true
-  xy: 1162, 226
-  size: 189, 61
-  orig: 189, 61
-  offset: 0, 0
-  index: -1
-金光序列_00000
+tb_f
   rotate: false
-  xy: 1179, 124
-  size: 100, 100
-  orig: 100, 100
+  xy: 318, 290
+  size: 180, 56
+  orig: 180, 56
   offset: 0, 0
   index: -1
-金光序列_00004
+xing
   rotate: false
-  xy: 1179, 22
-  size: 100, 100
-  orig: 100, 100
+  xy: 1, 1
+  size: 276, 238
+  orig: 276, 238
   offset: 0, 0
   index: -1
-金光序列_00006
+mask/tb_08
   rotate: false
-  xy: 1225, 315
-  size: 100, 100
-  orig: 100, 100
+  xy: 1, 470
+  size: 31, 36
+  orig: 180, 56
+  offset: 112, 15
+  index: -1
+mask/tb_04
+  rotate: false
+  xy: 472, 97
+  size: 32, 41
+  orig: 180, 56
+  offset: 27, 13
+  index: -1
+mask/tb_05
+  rotate: false
+  xy: 170, 241
+  size: 32, 40
+  orig: 180, 56
+  offset: 49, 14
+  index: -1
+mask/tb_09
+  rotate: false
+  xy: 235, 241
+  size: 28, 40
+  orig: 180, 56
+  offset: 138, 15
+  index: -1
+mask/tb_11
+  rotate: false
+  xy: 1, 367
+  size: 180, 56
+  orig: 180, 56
   offset: 0, 0
   index: -1
-金光序列_00008
+mask/tb_12
   rotate: false
-  xy: 1281, 213
-  size: 100, 100
-  orig: 100, 100
+  xy: 136, 290
+  size: 180, 56
+  orig: 180, 56
   offset: 0, 0
   index: -1
-金光序列_00010
+mask/tb_07
   rotate: false
-  xy: 1327, 315
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
+  xy: 204, 241
+  size: 29, 40
+  orig: 180, 56
+  offset: 94, 15
   index: -1
-金光序列_00012
+mask/tb_03
   rotate: false
-  xy: 1383, 213
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
+  xy: 472, 52
+  size: 32, 43
+  orig: 180, 56
+  offset: 5, 13
   index: -1
-金光序列_00014
+mask/tb_06
   rotate: false
-  xy: 1429, 315
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
+  xy: 136, 241
+  size: 32, 40
+  orig: 180, 56
+  offset: 69, 14
   index: -1
-金光序列_00016
+mask/tb_02
   rotate: false
-  xy: 1485, 213
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
+  xy: 183, 348
+  size: 13, 43
+  orig: 180, 56
+  offset: 3, 13
   index: -1
-金光序列_00018
+mask/tb_10
   rotate: false
-  xy: 1281, 111
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-金光序列_00020
-  rotate: false
-  xy: 1281, 9
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-金光序列_00022
-  rotate: false
-  xy: 1383, 111
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-金光序列_00024
-  rotate: false
-  xy: 1485, 111
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-金光序列_00026
-  rotate: false
-  xy: 1383, 9
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-金光序列_00028
-  rotate: false
-  xy: 1485, 9
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
+  xy: 34, 470
+  size: 22, 38
+  orig: 180, 56
+  offset: 154, 15
   index: -1

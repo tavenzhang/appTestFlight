@@ -38,7 +38,7 @@ var PageArrow = /** @class */ (function (_super) {
         // Debug.traceObj("PageArrow.onClick");
         // Debug.traceObj(this.conf);
         // this.gamepanel.flip(1);
-        this.gamepanel.flipNext(this.conf.jumpNum, this);
+        this.gamepanel.flipNext(this.conf.jumpNum);
     };
     PageArrow.prototype.leftOk = function () {
         // Laya.timer.frameLoop(this.conf.framedelay,this,this.loop);

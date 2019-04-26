@@ -23,13 +23,7 @@
                 "y":16
             }
         },
-        {
-            "src":"./assets/ui/agent/img_daili_tips.png",
-            "pos":{
-                "x":136,
-                "y":171
-            }
-        },
+        
         {
             "src":"./assets/ui/agent/img_daili_wenxianzi.png",
             "pos":{
@@ -74,7 +68,7 @@
         },
         {
             "data":"invationid",
-            "pos":{ "x":400, "y":70 },
+            "pos":{ "x":420, "y":70 },
             "size":{ "w":200, "h":50 },
             "font":{
                 "text":"111111111",
@@ -89,7 +83,7 @@
         },
         {
             "data":"invationparentid",
-            "pos":{ "x":460, "y":125 },
+            "pos":{ "x":480, "y":125 },
             "size":{ "w":200, "h":50 },
             "font":{
                 "text":"2222222",
@@ -203,7 +197,7 @@
             "size":{ "w":198, "h":72 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/sfx_click.mp3"
         },
         {
             "cmd":"share",
@@ -214,18 +208,7 @@
             "size":{ "w":198, "h":72 },
             "maxScale":{"x":1.02,"y":1.02},
             "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
-        },
-        {
-            "cmd":"customservice",
-            "pos":{ "x":540, "y":192 },
-            "src":[
-                "./assets/ui/agent/img_daili_tips02.png"
-            ],
-            "size":{ "w":101, "h":28 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/click.mp3"
+            "sfx":"assets/raw/sfx_click.mp3"
         }
     ],
     "animations":[
@@ -252,16 +235,19 @@
         "color":"#efe8cd",
         "typeX":"number",
         "promptX":"http://www.google.com/xxx/yyy/zzz",
-        "text":"http://www.google.com/xxx/yyy/zzz",
+        "text":"",
         "editable":{
             "value":false
         }
     },
     "qrcode":{
         "src":"./assets/ui/agent/img_daili_ewm.png",
-        "pos":{
-            "x":39,
-            "y":231
+        "pos":{ "x":39, "y":231 },
+        "config":{
+            "pos":{ "x":22, "y":23 },
+            "color":"#000000",
+            "size":{"w":182,"h":182},
+            "level":3
         }
     },
     "datanumTeamToday":{
@@ -375,5 +361,23 @@
                 "src":"./assets/ui/agent/numj/img_com_j_jh.png"
             }
         ]
+    },
+    "txt_notagent":"txt_notagent",
+    "notagenttips":{
+        "sp":{
+            "src":"./assets/ui/agent/img_daili_tips.png",
+            "pos":{ "x":136, "y":171 }
+        },
+        "btn":{
+            "cmd":"customservice",
+            "pos":{ "x":540, "y":192 },
+            "src":[
+                "./assets/ui/agent/img_daili_tips02.png"
+            ],
+            "size":{ "w":101, "h":28 },
+            "maxScale":{"x":1.02,"y":1.02},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/sfx_click.mp3"
+        }
     }
 }
