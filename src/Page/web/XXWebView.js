@@ -4,12 +4,14 @@ import {
     StyleSheet,
     View,
     WebView,
-    Keyboard, Alert,
+    Keyboard,
+    Clipboard
 } from 'react-native';
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import {observer} from 'mobx-react/native';
 import NetUitls from "../../Common/Network/TCRequestUitls";
+import Toast from "../../Common/JXHelper/JXToast";
 import {platInfo} from "../../config/appConfig";
 import SplashScreen from "react-native-splash-screen";
 
@@ -17,7 +19,7 @@ import rootStore from "../../Data/store/RootStore";
 import FileTools from "../../Common/Global/FileTools";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 import Tools from "../../Common/View/Tools";
-
+import ShareBox from "../../Page/enter/game/pay/ShareBox";
 
 const HTTP_GAME_LIST="/gamecenter/player/game/list";
 @withMappedNavigationProps()
@@ -25,11 +27,14 @@ const HTTP_GAME_LIST="/gamecenter/player/game/list";
 export default class XXWebView extends Component {
     constructor(state) {
         super(state)
+        this.onCloseSharebox = this.onCloseSharebox.bind(this);
         this.filtUrlList=["/api/v1/account/webapi/account/users/login","/api/v1/account/webapi/account/users/userWebEncryptRegister"];
 
         this.state={
             isFail:false,
             updateList:[],
+            sharedUrl: null,
+            isShowSharebox: false
 
         }
         this.loadQueue=[];
@@ -276,10 +281,13 @@ export default class XXWebView extends Component {
         TW_Data_Store.setItem(TW_DATA_KEY.gameList,JSON.stringify(TW_Store.dataStore.appGameListM))
     }
 
+    onCloseSharebox() {
+        this.setState({ isShowSharebox: false})
+    }
 
     render() {
+        const {sharedUrl, isShowSharebox} = this.state;
         let {force} = this.props;
-
         let source = {
             file: TW_Store.dataStore.getHomeWebUri(),
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
@@ -293,8 +301,8 @@ export default class XXWebView extends Component {
 
             };
         }
-       //
-       if(TW_IS_DEBIG){
+
+        if(TW_IS_DEBIG){
             source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
         }
 
@@ -314,7 +322,10 @@ export default class XXWebView extends Component {
         })}`;
 
         return (
-            <View style={[styles.container,]} >
+            <View style={styles.container}>
+                {sharedUrl && isShowSharebox && <View style={styles.viewShareBox}>
+                    <ShareBox onClose={this.onCloseSharebox} url={sharedUrl} />
+                </View>}
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
@@ -365,12 +376,11 @@ export default class XXWebView extends Component {
         // </View>)
     }
 
-
     onMessage = (event) => {
         let message = JSON.parse(event.nativeEvent.data);
         this.onMsgHandle(message);
     }
-
+    
     onMsgHandle = (message) => {
         TW_Log("onMessage===========>>" + this.constructor.name + "\n", message);
         let url = "";
@@ -391,6 +401,17 @@ export default class XXWebView extends Component {
                             TW_Store.userStore.exitAppToLoginPage();
                             break;
                     }
+
+                    switch (message.do) {
+                        case "share":
+                            this.setState({sharedUrl: message.param, isShowSharebox: true})
+                            break;
+                        case "copylink":
+                            Clipboard.setString(message.param);
+                            Toast.showShortCenter("已复制链接!");
+                        break;
+                    }
+                        
                     break;
                 case "startUpdate":
                     //{action: "startUpdate", gameId: 28, alias: "xywz"}
@@ -593,5 +614,16 @@ const styles = StyleSheet.create({
     webView: {
         flex: 1,
         backgroundColor:"black"
+    },
+    viewShareBox: {
+        zIndex: 1000,
+        position: "absolute",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
     }
 });
