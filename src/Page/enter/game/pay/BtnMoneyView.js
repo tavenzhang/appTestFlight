@@ -27,13 +27,15 @@ export default class BtnMoneyView extends Component {
         return (<TouchableOpacity onPress={this.onSelect}>
                 <View style={[{alignItems: "center" ,justifyContent: "center",},style]}>
                     <TCImage  source={isSelect ? ASSET_Images.gameUI.btnMoneyHight : ASSET_Images.gameUI.btnMoneyBg}
-                    style={btnStyle}/>
+                    style={{width: SCREEN_W * 0.2 - 60, height: 40}}
+                    resizeMode={'contain'}
+                    />
                     <View style={{
                         position: "absolute", alignItems: "center" ,justifyContent: "center",
                     }}>
                         <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center",}}>
-                           <Text style={{color:"#fff",fontWeight:"bold", fontSize:12}}>{data}</Text>
-                            <Text style={{color:"#fff",fontWeight:"bold",fontSize:12, marginLeft:2}}>元</Text>
+                           <Text style={{color:"#fff",fontWeight:"bold", fontSize:14}}>{data}</Text>
+                            <Text style={{color:"#fff",fontWeight:"bold",fontSize:14, marginLeft:2}}>元</Text>
                         </View>
                     </View>
                 </View>

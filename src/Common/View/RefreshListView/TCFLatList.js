@@ -56,6 +56,10 @@ export default class TCFlatList extends React.Component {
         this.refs.list. scrollToIndex({index:0,animated:true})
     }
 
+    scrollToOffset =(offset)=>{
+        this.refs.list.scrollToOffset(offset)
+    }
+
     /*
     * 对于固定高度的listItem 可以优化性能
     * */
@@ -67,7 +71,7 @@ export default class TCFlatList extends React.Component {
     render() {
         let {dataS,isHorizon,listEmptyComponent,itemSeparatorComponent,numColumns,
             renderHeader,refreshControl, onFootFlush,renderFooter,extraData,
-            getItemLayout, keyExtractor, initialNumToRender,style, styleContain,onScroll} = this.props;
+            getItemLayout, keyExtractor, initialNumToRender,style, styleContain,onScroll,showsVerticalScrollIndicator = true} = this.props;
 
         return (
                 <FlatList
@@ -90,6 +94,8 @@ export default class TCFlatList extends React.Component {
                     initialNumToRender={initialNumToRender}
                     refreshControl={refreshControl}
                     onScroll={onScroll}
+                    scrollEventThrottle = {100}
+                    showsVerticalScrollIndicator = {showsVerticalScrollIndicator}
                 />
         );
     }

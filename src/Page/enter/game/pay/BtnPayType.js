@@ -29,19 +29,19 @@ export default class BtnPayType extends Component {
     render() {
         let {isSelect,data} = this.props
         return (<TouchableWithoutFeedback onPress={this.onSelect}>
-                <View>
-                    <TCImage source={isSelect ? ASSET_Images.gameUI.btnPayHight : ASSET_Images.gameUI.btnPayNormal}/>
+                <View style={{width:210}}>
+                    <TCImage source={isSelect ? ASSET_Images.gameUI.btnPayHight : ASSET_Images.gameUI.btnPayNormal} style={this.getBtnStyle(isSelect)} resizeMode={'stretch'}/>
                     <View style={{
-                        position: "absolute", alignItems: "center", justifyContent: "center", width: 115,
-                        height: 40,
+                        position: "absolute", alignItems: "center", justifyContent: "center", width: 180,
+                        height: 60,
                     }}>
                         <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center",}}>
                             <TCImage source={this.getPayTypeIcon(data.code)}
-                                     style={{width: 25, height: 25, marginRight: 5}}/>
-                            <View style={{justifyContent:"center", alignItems:"center"}}>
-                            <TCImage source={this.getPayName(data.code)}/>
-                                {this.isFinxePay(data.code) ? <TCImage source={ASSET_Images.gameUI.title_fix}/>:null}
-                            </View>
+                                     style={{width: 180, height: 50, marginRight: 5}} resizeMode={'contain'}/>
+                            {/*<View style={{justifyContent:"center", alignItems:"center"}}>*/}
+                            {/*<TCImage source={this.getPayName(data.code)}/>*/}
+                                {/*{this.isFinxePay(data.code) ? <TCImage source={ASSET_Images.gameUI.title_fix}/>:null}*/}
+                            {/*</View>*/}
                         </View>
                     </View>
                 </View>
@@ -55,6 +55,17 @@ export default class BtnPayType extends Component {
             TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
             onClick(data)
         }
+    }
+
+    getBtnStyle = (isSelect) =>{
+        let btnStyle = {height:60}
+        if(isSelect){
+            btnStyle.width = 210;
+
+        }else{
+            btnStyle.width = 180;
+        }
+        return btnStyle;
     }
 
     isFinxePay=(typeCode)=>{
@@ -73,25 +84,31 @@ export default class BtnPayType extends Component {
      * @returns {XML}
      */
     getPayTypeIcon=(typeCode)=> {
+        TW_Log(`typeCode ${typeCode}`);
+
         switch (typeCode) {
             case 'WX':
+                return ASSET_Images.gameUI.payTypeWx
             case 'FIXED_WX':
+                return ASSET_Images.gameUI.payTypeWxFix
             case 'WX_PUBLIC':
-                return userPay.payTypeWx
+                return ASSET_Images.gameUI.payTypeWxGZH
             case 'FIXED_QQ':
+                return ASSET_Images.gameUI.payTypeQQFix
             case 'QQ':
-                return  userPay.qqPay
+                return  ASSET_Images.gameUI.payTypeQQ
             case 'ZHB':
+                return ASSET_Images.gameUI.payTypeZFB
             case 'FIXED_ZHB':
-                return userPay.payTypeAlipay
+                return ASSET_Images.gameUI.payTypeZFBFix
             case 'JD':
-                return userPay.payTypeJdzf
+                return ASSET_Images.gameUI.payTypeJD
             case 'BANK':
-                return userPay.payTypeBank
+                return ASSET_Images.gameUI.payTypeYhzz
             case 'ONLINEBANK':
-                return userPay.payTypeUnionpay
+                return ASSET_Images.gameUI.payTypeWy
             default:
-                return userPay.payTypeOther
+                return ASSET_Images.gameUI.payTypeYL
         }
     }
 
