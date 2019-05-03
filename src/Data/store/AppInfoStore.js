@@ -206,15 +206,15 @@ export default class AppInfoStore {
             TN_StartUMeng(this.appInfo.UmengKey, this.appInfo.Affcode)
         }
 
-        OpeninstallModule.getInstall(10, map => {
+        OpeninstallModule.getInstall(10, res => {
+            const map = JSON.parse(res.data);
             if (map) {
                 this.openInstallData.data=map;
-                if(map.data&&map.data.affcode){
-                    this.userAffCode = map.data.affcode;
+                if(map&&map.affCode){
+                    this.userAffCode = map.affCode;
                 }
             }
-            TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====openInstallData====appKey-"+this.openInstallData.appKey, this.openInstallData);
-        })
+        });
       //  TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION", this.APP_DOWNLOAD_VERSION);
     }
 
