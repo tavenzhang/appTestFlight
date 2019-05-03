@@ -207,11 +207,13 @@ export default class AppInfoStore {
         }
 
         OpeninstallModule.getInstall(10, res => {
-            const map = JSON.parse(res.data);
-            if (map) {
-                this.openInstallData.data=map;
-                if(map&&map.affCode){
-                    this.userAffCode = map.affCode;
+            if (res.data) {
+                const map = JSON.parse(res.data);
+                if (map) {
+                    this.openInstallData.data=map;
+                    if(map&&map.affCode){
+                        this.userAffCode = map.affCode;
+                    }
                 }
             }
         });
