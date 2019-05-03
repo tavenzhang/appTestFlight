@@ -59,7 +59,7 @@ export default class GameMoneyOutView extends Component {
             <TCImage source={ASSET_Images.gameUI.payOutTypeBank} resizeMode={'contain'} style={{position: "absolute",top:SCREEN_H*0.18+15,width:SCREEN_W*0.20,height:SCREEN_H*0.25,left:30}}/>
             <TCImage source={ASSET_Images.gameUI.payOutTopIcon} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.19,width:40,height:42,left:SCREEN_W*0.29}}/>
             <TCImage source={ASSET_Images.gameUI.payOutMoneyLabel} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.22,width:90,height:25,left:SCREEN_W*0.37}}/>
-            <TCImage source={ASSET_Images.gameUI.question} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.20,width:35,height:35,right:SCREEN_W*0.06}}/>
+            {/*<TCImage source={ASSET_Images.gameUI.question} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.20,width:35,height:35,right:SCREEN_W*0.06}}/>*/}
 
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.49, top: SCREEN_H*0.2}}
                     textStyle={{color: "#ffde00",fontSize:26}} text={this.userWithdrawStore.withdrawModel.totalMoney}/>
@@ -86,9 +86,13 @@ export default class GameMoneyOutView extends Component {
             <TCImage source={ASSET_Images.gameUI.moneyLabelBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H * 0.66,width:SCREEN_W*0.5,height:30,right: 50,}}/>
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.44, top: SCREEN_H*0.66+5}}
                     textStyle={{color: "#fffff1",fontSize:16}} text={this.userWithdrawStore.bank.bankCardNo}/>
-            <TCButtonImg imgSource={ASSET_Images.gameUI.bankBtn}
-                         btnStyle={{position: "absolute",top:SCREEN_H * 0.66+2,right: 40}} imgStyle={{width:SCREEN_W*0.19,height:30}} onClick={()=>{}}
-            />
+            {
+                (!this.userWithdrawStore.bank.bankCardNo||!this.userWithdrawStore.bank.bankCardNo.length)&&<TCButtonImg imgSource={ASSET_Images.gameUI.bankBtn}
+                             btnStyle={{position: "absolute",top:SCREEN_H * 0.66+2,right: 40}} imgStyle={{width:SCREEN_W*0.19,height:30}} onClick={()=>{
+                    TW_Store.gameUIStroe.isShowUserInfo = true;
+                }}
+                />
+            }
 
             <TCButtonImg imgSource={ASSET_Images.gameUI.query}
                          resizeMode={"stretch"}
