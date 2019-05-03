@@ -145,14 +145,14 @@ export  class TCButtonImg extends PureComponent {
 
 
     render() {
-        let {disabled,text,imgSource, isHorizon,btnStyle,textStyle,imgStyle,imgSourceDisabled, imgStyleDisable} = this.props;
+        let {disabled,text,imgSource, isHorizon,btnStyle,textStyle,imgStyle,imgSourceDisabled, imgStyleDisable,resizeMode='contain'} = this.props;
         let myImgSourceDisabled = imgSourceDisabled ? imgSourceDisabled:imgSource;
         return (
             <TCButtonCommon  {...this.props} containStyles={btnStyle}>
                 <View style={{flexDirection:isHorizon ? "row":"column", justifyContent:"center",alignItems:"center"}}>
                 <FastImage style={disabled ? imgStyleDisable:imgStyle}
                            source={disabled ? myImgSourceDisabled:imgSource}
-                           resizeMode={"contain"}/>
+                           resizeMode={resizeMode}/>
                 {text ? <Text style={[styles.text,textStyle]}>{text}</Text>:null}
                 </View>
             </TCButtonCommon>

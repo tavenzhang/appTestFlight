@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, ScrollView, StyleSheet, Text, TextInputComponent, TouchableOpacity, View} from "react-native";
+import {Image, ScrollView, StyleSheet, Text, TextInputComponent, TouchableOpacity, View,ImageBackground} from "react-native";
 
 import {ASSET_Images} from "../../../asset";
 import TCImage from "../../../../Common/View/image/TCImage";
@@ -29,7 +29,8 @@ export default class GamePayStepOne extends Component {
         itemData:PropTypes.any,
         type: PropTypes.any
     }
-
+    isTop = false;
+    isChange = true;
     static defaultProps = {
         type: "",
         itemData:{}
@@ -39,7 +40,9 @@ export default class GamePayStepOne extends Component {
     constructor(prop) {
         super(prop)
         this.state = {
-            money: ""
+            money: "",
+            selectItem:null,
+            showArrow:true
         }
         this.moneyList = [100, 300, 500, 1000, 5000, 10000, 20000, 30000, 40000, 50000]
     }
@@ -48,41 +51,58 @@ export default class GamePayStepOne extends Component {
         setTimeout(()=>{
             this.setState({test:""})
         },1000)
+
     }
+    componentWillReceiveProps(newProps) {
+        this.isChange = newProps.isChange;
+    }
+
 
     render() {
         let {itemData} = this.props;
         let payList = TW_Store.userPayTypeStore.getPayList(itemData.code);
 
         payHelper.props = itemData;
+        let marginTop = itemData.code.indexOf("FIXED") === -1 ? 140:0
+        let height =itemData.code.indexOf("FIXED") === -1 ? SCREEN_H - 200 :SCREEN_H - 80
+        if(this.isChange){
+            this.scrollListToStart();
+        }
         return (<View style={styles.container}>
-            <TCImage source={ASSET_Images.gameUI.stepOneBg1}/>
-
-            <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`} viewStyle={{position: "absolute", right: 30, top: 5,}}
-                         placeholder={"充值无上限,可自行填写金额"}
-                         keyboardType={"numeric"}
-                         inputStyle={[styles.inputStyle, {fontSize: 11}]}
-                         placeholderTextColor={"rgb(132,168,168)"}
-                         maxLength={20}
-
-            />
-            <View style={{position: "absolute", left: 2, top: 28, flexDirection: "row", flexWrap: "wrap", width: 380}}>
-                {this.moneyList.map((item, index) => {
-                    return <BtnMoneyView key={"index" + index} style={{marginHorizontal: 1, marginBottom: 2}}
-                                         data={item}
-                                         onClick={this.onInputChage}
-                                         isSelect={`${item}` == `${this.state.money}`}/>
-                })}
-            </View>
-            <View style={{position: "absolute", top: 90, left: 24}}>
-                {payList&&payList.length > 0 ? <TCFlatList style={{height: 120, marginTop: 12}} dataS={payList}
+            {
+                itemData.code.indexOf("FIXED") === -1 ?(<View>
+                    <TCImage source={ASSET_Images.gameUI.stepOneBg1} style={{width:SCREEN_W - 350,height:25,}} resizeMode={'contain'}/>
+                    <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`} viewStyle={{position: "absolute", right:SCREEN_W*0.34, top: 6,}}
+                                 placeholder={"请输入金额"}
+                                 keyboardType={"numeric"}
+                                 inputStyle={[styles.inputStyle, {fontSize: 14}]}
+                                 placeholderTextColor={"rgb(132,168,168)"}
+                                 maxLength={20}/>
+                    <View style={{position: "absolute", left: 2, top: 28, flexDirection: "row", flexWrap: "wrap", width: SCREEN_W-250}}>
+                        {this.moneyList.map((item, index) => {
+                            return <BtnMoneyView key={"index" + index} style={{marginHorizontal: 1, marginBottom: 2}}
+                                                 data={item}
+                                                 onClick={this.onInputChage}
+                                                 isSelect={`${item}` == `${this.state.money}`}/>
+                        })}
+                    </View>
+                    <TCImage source={ASSET_Images.gameUI.stepOneBg2} style={{width:SCREEN_W - 350,height:25,marginLeft:10,marginTop:90}} resizeMode={'contain'}/>
+                    <TCButtonImg imgSource={ASSET_Images.gameUI.btn_onLine}
+                                 btnStyle={{position: "absolute", right: 150, top: 115,}} imgStyle={{height:25,width:SCREEN_W * 0.1}} onClick={() => {
+                        TW_Store.gameUIStroe.showGusetView();
+                    }}/>
+                </View>):null
+            }
+            <View style={{position: "absolute", top: marginTop, left: 10}}>
+                {payList&&payList.length > 0 ? <TCFlatList ref={"payList"} style={{height: height,marginBottom:10}} dataS={payList}
+                                                           onScroll={this._scroll}
                                                   renderRow={this.onRenderItemView}/> : this.getEmptyTip()}
 
             </View>
-            <TCButtonImg imgSource={ASSET_Images.gameUI.btn_onLine}
-                         btnStyle={{position: "absolute", right: 48, top: 88}} onClick={() => {
-                TW_Store.gameUIStroe.showGusetView();
-            }}/>
+            {
+                this.state.showArrow&&payList&&payList.length > 0&&<TCButtonImg imgSource={ASSET_Images.gameUI.downArrow} btnStyle={{position: "absolute",top:SCREEN_H -115,left:SCREEN_W*0.5-115}} resizeMode={'stretch'}
+                                                       imgStyle={{width:60,height:40}} onClick={()=>this.scrollList() }/>
+            }
             <ModalList
                 show={this.userPayStore.showList}
                 dataList={this.userPayStore.bankList}
@@ -131,7 +151,46 @@ export default class GamePayStepOne extends Component {
         </View>)
     }
 
+    scrollList =()=>{
+        this.refs.payList&&this.refs.payList.scrollToEnd();
+        this.setState({
+            showArrow:false
+        })
+        this.isTop = false;
+    }
 
+    scrollListToStart = ()=>{
+        if(!this.isTop&&this.isChange){
+            this.refs.payList&&this.refs.payList.scrollToTop();
+            this.isTop = true;
+            this.isChange = false;
+        }
+    }
+
+    currentY =10000;
+    _scroll =(event) =>{
+        let y = event.nativeEvent.contentOffset.y;
+        if(this.currentY === 10000){
+            this.currentY = y;
+        }else{
+            let dy = y - this.currentY;
+            if(!this.state.showArrow&&dy<0){
+                this.setState({
+                    showArrow:true
+                })
+                this.isTop = true;
+            }else{
+
+                if(y>SCREEN_H - 60){
+                    this.setState({
+                        showArrow:false
+                    })
+                }
+                this.isTop = false;
+
+            }
+        }
+    }
 
     onInputChage=(money)=>{
         this.setState({money: money})
@@ -149,9 +208,9 @@ export default class GamePayStepOne extends Component {
                 onPress={() => {
                     payHelper.bankApplyFor(bank)
                 }}>
-                <View style={{width: 320, height: 100, justifyContent: "center"}}>
+                <View style={{width: SCREEN_W - 250, height: 120, justifyContent: "center"}}>
                     <TCImage source={ASSET_Images.gameUI.listItemBg}
-                             style={{position: "absolute", width: 350, height: 100}}/>
+                             style={{position: "absolute", width: SCREEN_W - 250, height: 120}}/>
                     <View style={{flexDirection: "row"}}>
                         <Text style={styles.itemLable}>收款银行</Text>
                         <Text style={styles.itemData}>{bank.bankName}</Text>
@@ -170,20 +229,80 @@ export default class GamePayStepOne extends Component {
                     </View>
                 </View>
             </TouchableOpacity>)
-        } else {
+        } else if(itemData.code.indexOf("FIXED")!=-1){
+            let paymentItem = data;
+            let itemHeight = 0;
+            let isSelected = this.state.selectItem != null&&this.state.selectItem.paymentId === paymentItem.paymentId;
+            if(isSelected){
+                let rowCount =parseInt(paymentItem.fixedAmount.length / 5);
+                if(rowCount === 0){
+                    rowCount = 1;
+                }else{
+                    let temp = paymentItem.fixedAmount.length % 5;
+                    if(temp >0){
+                        rowCount +=1;
+                    }
+                }
+                itemHeight = 45 * rowCount;
+            }
+
+            TW_Log("paymentItem---"+this.state.slectedItem);
+            return(
+                (<View style={{width: SCREEN_W - 250,height: 40 + itemHeight, alignItems: "center",marginBottom:5,justifyContent:'center'}}>
+                    <TCImage source={ASSET_Images.gameUI.fixedListItemBg}
+                             style={{position: "absolute", width: SCREEN_W - 250, height: 40 + itemHeight}} resizeMode={"stretch"}/>
+                    <View style={{width: SCREEN_W - 250, height: 40, alignItems: "center", flexDirection: "row",marginBottom:5,justifyContent:'center'}}>
+                    <TCImage source={payHelper.getPayTypeIcon(paymentItem.type)} style={{height: 25, width: 25, marginLeft: 10}}/>
+                        <Text
+                            style={[styles.itemLable, {fontSize: 14,width:SCREEN_W*0.5 - 170}]}>{paymentItem.type ? paymentItem.merchantName : paymentItem.receiptName}</Text>
+                        <View style={{flexDirection:'row',alignItems: "center",}}>
+                            <Text style={{fontSize:14,color:'#ffffff'}}>金额范围</Text>
+                            <TCImage source={ASSET_Images.gameUI.moneyLabelBg}
+                                     style={{width: 100, height: 30,marginLeft:5}} resizeMode={"contain"}/>
+                            <Text style={{position: "absolute", fontSize:14,color:'#ffffff',left:65}}>{`￥ ${paymentItem.minAmount}-${paymentItem.maxAmount}`}</Text>
+                            <TouchableOpacity
+                            onPress={()=>{
+                                   this.setState({
+                                       selectItem:paymentItem
+                                   })
+                            }}
+                            >
+                                <TCImage source={ASSET_Images.gameUI.payExpand}
+                                         style={{width: 30, height: 30,marginLeft:10}} resizeMode={"contain"}/>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                        <View style={{flexDirection:'row',flexWrap:"wrap",width:SCREEN_W - 250,}}>
+                        {
+                            isSelected&&paymentItem.fixedAmount.map((item, index) => {
+                                return <BtnMoneyView key={"index" + index} style={{marginHorizontal: 1, marginBottom: 2}}
+                                                     data={item}
+                                                     onClick={()=>{
+                                                         payHelper.money = item;
+                                                         payHelper.payData = paymentItem;
+                                                         payHelper.applayPay(paymentItem.paymentType, null, () => {
+                                                         })
+                                                     }}
+                                                    />
+                            })
+                        }
+                        </View>
+                </View>)
+            )
+        }else {
             let paymentItem = data;
             TW_Log("paymentItem---",paymentItem)
             return (<TouchableOpacity
                 onPress={() => {
                     this.onPressPay(paymentItem)
-                }}><View style={{width: 320, height: 100, alignItems: "center", flexDirection: "row"}}>
+                }}><View style={{width: SCREEN_W - 250, height: 100, alignItems: "center", flexDirection: "row"}}>
                 <TCImage source={ASSET_Images.gameUI.listItemBg}
-                         style={{position: "absolute", width: 350, height: 100}}/>
+                         style={{position: "absolute", width: SCREEN_W - 250, height: 100}}/>
                 <TCImage source={payHelper.getPayTypeIcon(paymentItem.type)} style={{height: 50, width: 50, marginLeft: 10}}/>
                 <View>
                     <Text
-                        style={[styles.itemLable, {fontSize: 12}]}>{paymentItem.type ? paymentItem.merchantName : paymentItem.receiptName}</Text>
-                    <Text style={[styles.itemData, {fontSize: 10, alignSelf: "center"}]}>{paymentItem.remarks}</Text>
+                        style={[styles.itemLable, {fontSize: 14,width:SCREEN_W - 340}]}>{paymentItem.type ? paymentItem.merchantName : paymentItem.receiptName}</Text>
+                    <Text style={[styles.itemData, {fontSize: 14, alignSelf: "center",marginLeft:10}]}>{paymentItem.remarks}</Text>
                 </View>
             </View></TouchableOpacity>)
 
@@ -292,7 +411,10 @@ export default class GamePayStepOne extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        width:SCREEN_W - 200,
+        height:SCREEN_H - 88
+    },
     inputStyle: {
         fontSize: 11,
         fontWeight: "bold",
@@ -309,16 +431,19 @@ const styles = StyleSheet.create({
         width: 100,
     },
     itemLable: {
-        color: "#efe8cd",
-        width: 100,
-        fontSize: 11,
+        color: "#F9CB46",
+        width: 80,
+        fontSize: 14,
         fontWeight: "bold",
-        marginLeft: 20,
+        marginLeft: 10,
         marginBottom: 4
     },
     itemData: {
         color: "#9cc5d8",
-        fontSize: 11,
+        fontSize: 14,
+        marginRight:50,
+        flexWrap:'wrap',
+        width:SCREEN_W - 340
     },
     itemMainStyle: {
         backgroundColor: payTxtColor.itemMainStyle,
