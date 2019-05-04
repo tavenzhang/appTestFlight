@@ -207,7 +207,7 @@ export default class AppInfoStore {
         }
 
         OpeninstallModule.getInstall(10, res => {
-            if (res.data) {
+            if (res&&res.data) {
                 const map = JSON.parse(res.data);
                 if (map) {
                     this.openInstallData.data=map;
