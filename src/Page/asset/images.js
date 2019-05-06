@@ -231,9 +231,18 @@ export const gameUI = {
     downArrow:require('./game/moneyPay/down_arrow.png'),
     //alet
     uiTitleBg:require('./game/uiTitleBg.png'),
+    uiTitleBg1:require('./game/uiTitleBg1.png'),
     title_fix:require('./game/title_fix.png'),
     btn_fanhui:require('./game/btn_fanhui.png'),
-
+    closeIcon:require('./game/close.png'),
+    czmxIcon:require('./game/czmx_icon.png'),
+    txmxIcon:require('./game/txmx_icon.png'),
+    czmxTip:require('./game/czmx_tip.png'),
+    txmxTip:require('./game/txmx_tip.png'),
+    onlineService:require('./game/online_service.png'),
+    czmxListBg1:require('./game/czmx_list_bg1.png'),
+    czmxListBg2:require('./game/czmx_list_bg2.png'),
+    czmxListBg3:require('./game/czmx_list_bg3.png')
 }
 
 export const gameShare = {
