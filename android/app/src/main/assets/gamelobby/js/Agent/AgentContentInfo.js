@@ -12,7 +12,9 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var AgentData = {
-    appShareUrl: ""
+    appShareUrl: "",
+    role: "",
+    level: 0
 };
 var AgentContentInfo = /** @class */ (function (_super) {
     __extends(AgentContentInfo, _super);
@@ -24,8 +26,24 @@ var AgentContentInfo = /** @class */ (function (_super) {
         if (this.conf.sprites) {
             var len = this.conf.sprites.length;
             for (var i = 0; i < len; i++) {
-                var spconf = this.conf.sprites[i];
-                Tools.addSprite(this, spconf);
+                if (i === 0) {
+                    // avata = spconf;
+                    // avata.alpha = .5;
+                    var frame = new Laya.Image("./assets/ui/avatorpad/img_touxiang_touxiangkuang.png");
+                    this.addChild(frame);
+                    frame.x = this.conf.sprites[i].pos.x - 3;
+                    frame.y = this.conf.sprites[i].pos.y - 2.5;
+                    frame.scale(1.3, 1.3);
+                    var avatar = new Laya.Image(ResConfig.getHeadSkinByID(userData.avatarSkinId));
+                    this.addChild(avatar);
+                    avatar.x = this.conf.sprites[i].pos.x;
+                    avatar.y = this.conf.sprites[i].pos.y;
+                    avatar.scale(1.3, 1.3);
+                }
+                else {
+                    var spconf = this.conf.sprites[i];
+                    Tools.addSprite(this, spconf);
+                }
             }
         }
         if (this.conf.labels) {
@@ -117,7 +135,13 @@ var AgentContentInfo = /** @class */ (function (_super) {
         var lb = this.getLabelByDataName(dn);
         if (lb) {
             // Debug.trace("AgentContentInfo.setLabelData dn:"+dn+" v:"+v);
-            lb.text = v;
+            // console.log("db", dn, v)
+            if (dn === "brokerage" || dn === "childrenincome") {
+                lb.text = v.toFixed(2);
+            }
+            else {
+                lb.text = v;
+            }
         }
     };
     AgentContentInfo.prototype.showQrcode = function (agentInfo, invationInfo) {
@@ -126,7 +150,13 @@ var AgentContentInfo = /** @class */ (function (_super) {
         if (invationInfo.length > 0) {
             inva = invationInfo[0].affCode;
         }
-        this.inputLink.text = url + "?affCode=" + inva;
+        if (AgentData.role === "AGENT") {
+            this.inputLink.text = url + "&affCode=" + inva;
+        }
+        else {
+            this.inputLink.text = url;
+        }
+        view.dlg.AgentDlg.updateSideTab();
         var sp = qr.QRCode.create(this.inputLink.text, this.conf.qrcode.config.color, this.conf.qrcode.config.size.w, this.conf.qrcode.config.size.h, this.conf.qrcode.config.level);
         sp.pos(this.conf.qrcode.config.pos.x, this.conf.qrcode.config.pos.y);
         this.qrcode.addChild(sp);
@@ -156,7 +186,8 @@ var AgentContentInfo = /** @class */ (function (_super) {
                 }
                 catch (e) { }
             }
-            this.setLabelData("username", s.nickname);
+            // this.setLabelData("username", s.nickname);
+            this.setLabelData("username", "");
             this.setLabelData("invationid", s.username);
             this.setLabelData("invationparentid", s.parentName);
             this.setLabelData("childrenincome", s.todaySubBet);
@@ -165,10 +196,12 @@ var AgentContentInfo = /** @class */ (function (_super) {
             this.setLabelData("subchildren", s.subMembers);
             this.setLabelData("todayaddinteam", s.newTeamMembers);
             this.setLabelData("todayaddmychildren", s.newSubMembers);
-            this.lbNumTeamToday.setNum(s.todayTeamBet);
-            this.lbNumYesterday.setNum(s.yesterdayBrokerage);
+            this.lbNumTeamToday.setNum(s.todayTeamBet.toFixed(2));
+            this.lbNumYesterday.setNum(s.yesterdayBrokerage.toFixed(2));
             // this.showQrcode(s);
             this.agentInfo = s;
+            AgentData.role = s.role;
+            AgentData.level = s.level;
             // LayaMain.getInstance().requestEnd(stat,"");
             this.requestInvationCode();
         }
@@ -209,7 +242,12 @@ var AgentContentInfo = /** @class */ (function (_super) {
         LayaMain.getInstance().showCircleLoading(false);
         if (stat == "complete") {
             this.invationInfo = s.datas;
-            this.showQrcode(this.agentInfo, this.invationInfo);
+            if (s.datas.length == 0 && AgentData.role === "AGENT") {
+                this.createDefaultCode();
+            }
+            else {
+                this.showQrcode(this.agentInfo, this.invationInfo);
+            }
         }
         else {
             // LayaMain.getInstance().requestEnd(stat,s);
@@ -223,6 +261,41 @@ var AgentContentInfo = /** @class */ (function (_super) {
             // AgentPad.getObj().onClose(null);
             // Toast.showToast( s );//Tools.getStringByKey( this.conf.txt_notagent ) );
         }
+    };
+    AgentContentInfo.prototype.createDefaultCode = function () {
+        var max = Math.floor(Math.random() * 12) + 4; // returns a random integer from 1 to 10
+        var code = Math.random().toString(36).substr(2, max);
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.agent_affiliates +
+            "?access_token=" + Common.access_token;
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        var data = {
+            affCode: code,
+            memberType: "AGENT",
+            prizeGroup: 1901,
+            status: "ON"
+        };
+        var jd = JSON.stringify(data);
+        NetManager.getObj().HttpConnect(url, this, this.responseChange, header, jd, "POST", "JSON");
+    };
+    AgentContentInfo.prototype.responseChange = function (s, stat, hr) {
+        // this.event("createInviteSucess");
+        // console.log(this.parent)
+        // AgentPad.getObj().switchTab(null, "invation")
+        if (hr.http.status == 204) {
+            //     AgentDialogSucess.showDialog(this.fatherNode, ConfObjRead.getConfAgentDialogDeleteInvitation(), "成功生成邀请码");
+            //     view.dlg.AgentDlg.show("codes");
+            // this.onClose(null)
+            this.requestInvationCode();
+        }
+        try {
+            // this.createDefaultCode();
+            // console.log("failed")
+            Toast.showToast(JSON.parse(hr.http.response).message);
+        }
+        catch (e) {
+        }
+        // console.log("responseChange", s, stat, hr)
     };
     return AgentContentInfo;
 }(AgentContent));

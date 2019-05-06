@@ -70,6 +70,7 @@ var view;
                 SoundPlayer.enterPanelSound();
                 AttentionDialog.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
                 AttentionDialog.obj.show();
+                // view.dlg.NoticeDlg.show(AttentionDialog.TYPE_OPEN_AUTO);
             });
             //客服
             EventManager.addTouchScaleListener(this.serviceBtn, this, function () {
@@ -93,11 +94,16 @@ var view;
             this.czAinm.pos(this.shopSp.width >> 1, this.shopSp.height >> 1);
             this.shopSp.addChild(this.czAinm);
             this.czAinm.playAnim(0, true);
-            this.btn_dl.visible = false; //todo:这次不上
+            // 本次不上分享
+            this.shareBtn.visible = false;
+            this.btn_dl.x = this.shareBtn.x;
+            this.btn_dl.visible = userData.role != "PLAYER";
+            console.log('ttttttttt', userData.role);
             //代理
             EventManager.addTouchScaleListener(this.btn_dl, this, function () {
                 SoundPlayer.enterPanelSound();
-                AgentPad.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentPad());
+                // AgentPad.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentPad());
+                view.dlg.AgentDlg.show("home");
             }, 123);
             //提现
             EventManager.addTouchScaleListener(this.btn_tx, this, function () {

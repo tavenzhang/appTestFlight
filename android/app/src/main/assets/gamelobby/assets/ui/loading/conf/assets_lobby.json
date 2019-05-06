@@ -2,26 +2,6 @@
     "desc": "",
     "src": [
         {
-            "url": "./brand/login_logo.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./brand/lobby_logo.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./brand/loginchoose_logo.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./brand/loginquick_logo.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./brand/loginchoose_bg.jpg",
-            "type": "IMAGE"
-        },
-        {
             "url": "./assets/conf/agent/agent.json",
             "type": "JSON"
         },
@@ -290,6 +270,10 @@
             "type": "IMAGE"
         },
         {
+            "url": "./assets/ui/agent/btn_com_queren.png",
+            "type": "IMAGE"
+        },
+        {
             "url": "./assets/ui/agent/img_daili_dianjixuanma.png",
             "type": "IMAGE"
         },
@@ -471,6 +455,10 @@
         },
         {
             "url": "./assets/ui/agent/numj/img_com_j_dh.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_qian_zhusi_dian2.png",
             "type": "IMAGE"
         },
         {
@@ -850,6 +838,38 @@
             "type": "IMAGE"
         },
         {
+            "url": "./assets/ui/game/icon_28g.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_28g_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/28g/28g.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/28g/28g.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/game/icon_sg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_sg_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/sangong/sg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/sangong/sg.sk",
+            "type": "BUFFER"
+        },
+        {
             "url": "./assets/ui/animation/icons/baihualuoshen/icon_baihua.png",
             "type": "IMAGE"
         },
@@ -1170,6 +1190,14 @@
             "type": "IMAGE"
         },
         {
+            "url": "./assets/ui/animation/notice/popout_com_animation.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/notice/popout_com_animation.png",
+            "type": "IMAGE"
+        },
+        {
             "url": "./assets/ui/notice/arrowBtns.png",
             "type": "IMAGE"
         },
@@ -1414,11 +1442,31 @@
             "type": "IMAGE"
         },
         {
-            "url": "res/atlas/ui/dialogs/panel_common.atlas",
+            "url": "res/atlas/panel_common.atlas",
             "type": "ATLAS"
         },
         {
-            "url": "res/atlas/ui/dialogs/panel_notice.atlas",
+            "url": "res/atlas/panel_notice.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/panel_agent.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/panel_notice/message.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/panel_notice/roullette.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/panel_notice/share.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/panel_notice/roullette/spinner.atlas",
             "type": "ATLAS"
         }
     ]

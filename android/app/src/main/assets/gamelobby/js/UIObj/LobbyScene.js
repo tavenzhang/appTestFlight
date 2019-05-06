@@ -52,12 +52,25 @@ var LobbyScene = /** @class */ (function (_super) {
         //底部菜单
         // MineMenus.getInstance(this,ConfObjRead.getConfMinemenus());
         if (ConfObjRead.getConfAttention().bAutoShowInLobby) {
+            this.requestPop();
             // Debug.trace("LobbyScene.initUI auto");
-            AttentionDialog.showPad(this, ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_AUTO);
-            // view.dlg.NoticeDlg.show();
+            // AttentionDialog.showPad(this, ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_AUTO);
+            // Laya.timer.once(1500, this, view.dlg.NoticeDlg.show, [AttentionDialog.TYPE_OPEN_AUTO]);
         }
         this.view = new view.LobbyView();
         this.addChild(this.view);
+    };
+    LobbyScene.prototype.requestPop = function () {
+        LayaMain.getInstance().showCircleLoading();
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.attention_pop +
+            "?access_token=" + Common.access_token;
+        NetManager.getObj().HttpConnect(url, this, this.responsePop);
+    };
+    LobbyScene.prototype.responsePop = function (s, stat, hr) {
+        if (s.pop) {
+            Laya.timer.once(1000, this, view.dlg.NoticeDlg.show, [AttentionDialog.TYPE_OPEN_AUTO]);
+        }
     };
     LobbyScene.initBgMusic = function () {
         if (LobbyScene.IS_PLAYED_MUSIC) {

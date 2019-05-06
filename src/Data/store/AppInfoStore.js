@@ -48,6 +48,7 @@ export default class AppInfoStore {
      * 设备token
      * @type {string}
      */
+    @observable
     deviceToken = "";
 
     /**

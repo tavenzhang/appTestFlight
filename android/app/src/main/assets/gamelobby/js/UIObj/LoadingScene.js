@@ -91,6 +91,9 @@ var LoadingScene = /** @class */ (function (_super) {
             if (!Common.clientId) {
                 Common.clientId = Common.userInfo.userBalance.clientId;
             }
+            if (s.userRole) {
+                userData.role = s.userRole;
+            }
             this.checkReconnect();
             // LayaMain.getInstance().initLobby();
             // this.requestUserInfo(Common.access_token);

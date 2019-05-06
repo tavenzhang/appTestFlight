@@ -314,7 +314,7 @@ export default class XXWebView extends Component {
             force: force ? "1" : "0",
             urlJSON: TW_Store.bblStore.getUriConfig(),
             isAndroidHack:TW_Store.appStore.isInAnroidHack,
-
+            deviceToken:TW_Store.appStore.deviceToken,
             loginDomain:TW_Store.bblStore.loginDomain+"/api/v1/account",
             gameDomain:TW_Store.bblStore.gameDomain+"/api/v1/gamecenter",
             affCode:TW_Store.appStore.userAffCode,

@@ -23,6 +23,9 @@ var AgentListMyChildren = /** @class */ (function (_super) {
             b.init(this.conf.list.btnmodify, this, this.onClickItem);
             b.setQuery(this.conf.list.btnmodify.cmd);
             sp.addChild(b);
+            if (AgentData.level <= 8) {
+                b.visible = false;
+            }
         }
         return sp;
     };

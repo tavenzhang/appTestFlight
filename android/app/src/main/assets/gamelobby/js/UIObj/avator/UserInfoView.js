@@ -2,6 +2,10 @@
 * 用户信息相关视图：头像框，金币等
 * 替代Avator.ts
 */
+var userData = {
+    avatarSkinId: "",
+    role: ""
+};
 var UserInfoView = /** @class */ (function () {
     function UserInfoView(view) {
         this.isFlushMoney = false;
@@ -28,6 +32,7 @@ var UserInfoView = /** @class */ (function () {
     UserInfoView.prototype.flushHeadIcon = function (id) {
         var url = "touxiang/img_touxiang_" + id + ".jpg";
         this.view.headIcon.skin = url;
+        userData.avatarSkinId = id;
     };
     /**
      * 刷新用户信息
@@ -55,6 +60,9 @@ var UserInfoView = /** @class */ (function () {
             Common.setLoginPlatform(s.loginPlatform);
             var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.avatorget + "?access_token=" + Common.access_token;
             this.requestUserAvator(url);
+            if (s.userRole) {
+                userData.role = s.userRole;
+            }
         }
         else {
             TempData.bRequestStatus = -1;

@@ -40,7 +40,7 @@ var AgentDialogEditAccountType = /** @class */ (function (_super) {
     AgentDialogEditAccountType.prototype.init = function (node, conf) {
         var container = AgentDialogEditAccountType.container = new MySprite();
         _super.prototype.init.call(this, node, conf);
-        this.size(this.conf.bg.size.w, this.conf.bg.size.h);
+        // this.size(this.conf.bg.size.w, this.conf.bg.size.h);
         this.initContent();
         this.initBtns();
         this.addChild(container);
@@ -49,9 +49,10 @@ var AgentDialogEditAccountType = /** @class */ (function (_super) {
         container.height = this.conf.bg.size.h;
         container.pivotX = this.conf.bg.size.w / 2;
         container.pivotY = this.conf.bg.size.h / 2;
-        container.x = this.conf.alphabg.size.w / 2;
-        container.y = this.conf.alphabg.size.h / 2;
+        container.x = Laya.stage.width / 2;
+        container.y = Laya.stage.height / 2;
         Laya.Tween.from(container, { scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backOut);
+        this.centerX = this.centerY = 0;
     };
     AgentDialogEditAccountType.prototype.initClose = function () {
         if (!this.conf.close) {
@@ -185,7 +186,7 @@ var AgentDialogEditAccountType = /** @class */ (function (_super) {
             // "username":Common.userInfo.username
         };
         var sjobj = JSON.stringify(jobj);
-        console.log(url, jobj);
+        // console.log(url, jobj);
         NetManager.getObj().HttpConnect(url, this, this.response, header, sjobj, "put", "json");
     };
     AgentDialogEditAccountType.prototype.response = function (s, stat, hr) {
@@ -199,7 +200,9 @@ var AgentDialogEditAccountType = /** @class */ (function (_super) {
             return;
         }
         if (hr.http.status == 204) {
-            AgentPad.getObj().switchTab(null, "mychildren");
+            // AgentPad.getObj().switchTab(null, "mychildren")
+            view.dlg.AgentDlg.show("affiliates");
+            AgentDialogSucess.showDialog(this.fatherNode, ConfObjRead.getConfAgentDialogDeleteInvitation(), "用户类型修改成功");
             this.onClose(null);
         }
         try {

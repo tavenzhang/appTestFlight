@@ -17,6 +17,24 @@ var ui;
 (function (ui) {
     var dlg;
     (function (dlg) {
+        var AgentDlgUI = /** @class */ (function (_super) {
+            __extends(AgentDlgUI, _super);
+            function AgentDlgUI() {
+                return _super.call(this) || this;
+            }
+            AgentDlgUI.prototype.createChildren = function () {
+                _super.prototype.createChildren.call(this);
+                this.createView(ui.dlg.AgentDlgUI.uiView);
+            };
+            AgentDlgUI.uiView = { "type": "Dialog", "props": { "width": 1624, "height": 750 }, "child": [{ "type": "Image", "props": { "skin": "panel_common/img_com_quanping_di.jpg", "centerY": 0, "centerX": 0 } }, { "type": "Image", "props": { "y": 85, "var": "contentList", "skin": "panel_common/img_com_quanping_cedi.png" }, "child": [{ "type": "Sprite", "props": { "y": -85, "width": 306, "var": "content_tabs", "height": 750 }, "child": [{ "type": "Image", "props": { "y": 127, "x": 305, "var": "tabHome", "skin": "panel_common/img_com_quanping_ce_di.png", "pivotX": 305, "name": "tab0" }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "panel_agent/img_daili_zi05.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 80, "skin": "panel_agent/img_daili_zi010.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }, { "type": "Image", "props": { "y": 237, "x": 305, "var": "tabAffiliates", "skin": "panel_common/img_com_quanping_ce_di.png", "pivotX": 305, "name": "tab1" }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "panel_agent/img_daili_zi04.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 78, "skin": "panel_agent/img_daili_zi09.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }, { "type": "Image", "props": { "y": 346, "x": 305, "var": "tabAchievement", "skin": "panel_common/img_com_quanping_ce_di.png", "pivotX": 305, "name": "tab2" }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "panel_agent/img_daili_zi03.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 80, "skin": "panel_agent/img_daili_zi08.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }, { "type": "Image", "props": { "y": 456, "x": 305, "var": "tabCodes", "skin": "panel_common/img_com_quanping_ce_di.png", "pivotX": 305, "name": "tab3" }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "panel_agent/img_daili_zi02.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 80, "skin": "panel_agent/img_daili_zi07.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }, { "type": "Image", "props": { "y": 456, "x": 305, "var": "tabDescription", "skin": "panel_common/img_com_quanping_ce_di.png", "pivotX": 305, "name": "tab4" }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "panel_agent/img_daili_zi01.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 80, "skin": "panel_agent/img_daili_zi06.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }] }] }, { "type": "Image", "props": { "width": 482, "var": "label", "skin": "panel_common/img_com_quanping_ce_biaotou.png" } }, { "type": "Image", "props": { "y": 2, "x": 1624, "width": 292, "var": "controls", "skin": "panel_common/img_com_quanping_guanbi01.png", "pivotX": 292 }, "child": [{ "type": "Image", "props": { "y": 12, "x": 123, "skin": "panel_common/img_com_quanping_guanbi02.png" } }] }, { "type": "View", "props": { "y": 110, "x": 420, "width": 1035, "var": "contents", "height": 625 } }] };
+            return AgentDlgUI;
+        }(Dialog));
+        dlg.AgentDlgUI = AgentDlgUI;
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
         var HeadListDlgUI = /** @class */ (function (_super) {
             __extends(HeadListDlgUI, _super);
             function HeadListDlgUI() {
@@ -53,16 +71,109 @@ var ui;
 (function (ui) {
     var dlg;
     (function (dlg) {
+        var notice;
+        (function (notice) {
+            var notice_messageUI = /** @class */ (function (_super) {
+                __extends(notice_messageUI, _super);
+                function notice_messageUI() {
+                    return _super.call(this) || this;
+                }
+                notice_messageUI.prototype.createChildren = function () {
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.notice.notice_messageUI.uiView);
+                };
+                notice_messageUI.uiView = { "type": "View", "props": { "width": 1030, "height": 660 }, "child": [{ "type": "Image", "props": { "y": 35, "width": 925, "var": "message", "skin": "panel_notice/message/bg_hdgg_kuang.png", "sizeGrid": "20,20,20,20", "height": 588, "centerX": 0 }, "child": [{ "type": "Image", "props": { "y": 16, "x": 171, "skin": "panel_notice/message/img_hdgg_biaotikuang.png", "centerX": 0 } }, { "type": "Label", "props": { "y": 34, "x": 1, "width": 925, "text": "标题", "name": "title", "fontSize": 30, "font": "Microsoft YaHei", "color": "#ffba25", "centerX": -14, "align": "center" } }, { "type": "Label", "props": { "y": 88, "width": 847, "text": "内容", "padding": "20", "name": "content", "height": 431, "fontSize": 24, "font": "Microsoft YaHei", "color": "#b3d8e3", "centerX": 0, "align": "left" } }, { "type": "Label", "props": { "y": 530, "x": 30, "width": 868, "text": "日期", "name": "date", "height": 42, "fontSize": 24, "font": "Microsoft YaHei", "color": "#b3d8e3", "centerX": -14, "align": "right" } }] }, { "type": "Image", "props": { "width": 1030, "var": "image", "height": 660 } }] };
+                return notice_messageUI;
+            }(View));
+            notice.notice_messageUI = notice_messageUI;
+        })(notice = dlg.notice || (dlg.notice = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var notice;
+        (function (notice) {
+            var notice_shareUI = /** @class */ (function (_super) {
+                __extends(notice_shareUI, _super);
+                function notice_shareUI() {
+                    return _super.call(this) || this;
+                }
+                notice_shareUI.prototype.createChildren = function () {
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.notice.notice_shareUI.uiView);
+                };
+                notice_shareUI.uiView = { "type": "View", "props": { "width": 1030, "height": 660 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "width": 1030, "var": "image", "height": 660 } }, { "type": "Image", "props": { "y": 470, "x": 120, "var": "friend_up", "skin": "panel_notice/share/fasonggeipengyou_guan.png" } }, { "type": "Image", "props": { "y": 470, "x": 120, "var": "friend_down", "skin": "panel_notice/share/fasongggeipengyou_kai.png" } }, { "type": "Image", "props": { "y": 470, "x": 270, "var": "circle_up", "skin": "panel_notice/share/fenxiangpengyouquan_guan.png" } }, { "type": "Image", "props": { "y": 470, "x": 270, "var": "circle_down", "skin": "panel_notice/share/fenxiangpengyouquan_kai.png" } }] };
+                return notice_shareUI;
+            }(View));
+            notice.notice_shareUI = notice_shareUI;
+        })(notice = dlg.notice || (dlg.notice = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var notice;
+        (function (notice) {
+            var roulette;
+            (function (roulette) {
+                var notice_rouletteUI = /** @class */ (function (_super) {
+                    __extends(notice_rouletteUI, _super);
+                    function notice_rouletteUI() {
+                        return _super.call(this) || this;
+                    }
+                    notice_rouletteUI.prototype.createChildren = function () {
+                        View.regComponent("ui.dlg.notice.roulette.rouletteUI", ui.dlg.notice.roulette.rouletteUI);
+                        View.regComponent("Text", laya.display.Text);
+                        _super.prototype.createChildren.call(this);
+                        this.createView(ui.dlg.notice.roulette.notice_rouletteUI.uiView);
+                    };
+                    notice_rouletteUI.uiView = { "type": "Dialog", "props": { "width": 1028, "height": 660 }, "child": [{ "type": "Image", "props": { "y": 28, "x": 556, "width": 457, "skin": "panel_notice/roullette/ui_获奖_1-1.png", "sizeGrid": "20,20,20,20", "height": 240 } }, { "type": "Image", "props": { "y": 26, "x": 556, "skin": "panel_notice/roullette/ui_活动_2.png" } }, { "type": "roulette", "props": { "y": 75, "x": 61, "var": "spinner", "scaleY": 1.5, "scaleX": 1.5, "runtime": "ui.dlg.notice.roulette.rouletteUI" } }, { "type": "Image", "props": { "y": 83, "x": 556, "skin": "panel_notice/roullette/ui_活动_3.png" } }, { "type": "Image", "props": { "y": 295, "x": 556, "width": 457, "skin": "panel_notice/roullette/ui_获奖_1-1.png", "sizeGrid": "20,20,20,20", "height": 350 } }, { "type": "Image", "props": { "y": 293, "x": 556, "skin": "panel_notice/roullette/ui_获奖_3.png" } }, { "type": "Image", "props": { "y": 293, "x": 556, "skin": "panel_notice/roullette/ui_获奖_4.png" } }, { "type": "Image", "props": { "y": 293, "x": 782, "skin": "panel_notice/roullette/ui_获奖_5.png" } }, { "type": "Sprite", "props": { "y": 581, "x": 19 }, "child": [{ "type": "Image", "props": { "skin": "panel_notice/roullette/按钮_轮盘_1.png" } }, { "type": "Image", "props": { "skin": "panel_notice/roullette/按钮_轮盘_按_1.png" } }] }, { "type": "Sprite", "props": { "y": 581, "x": 192 }, "child": [{ "type": "Image", "props": { "skin": "panel_notice/roullette/按钮_轮盘_2.png" } }, { "type": "Image", "props": { "skin": "panel_notice/roullette/按钮_轮盘_按_2.png" } }] }, { "type": "Sprite", "props": { "y": 581, "x": 365 }, "child": [{ "type": "Image", "props": { "skin": "panel_notice/roullette/按钮_轮盘_3.png" } }, { "type": "Image", "props": { "skin": "panel_notice/roullette/按钮_轮盘_按_3.png" } }] }, { "type": "Text", "props": { "y": 26, "x": 19, "width": 102, "text": "当前积分:", "height": 42, "fontSize": 24, "font": "Microsoft YaHei", "color": "#b3d8e3", "align": "left" } }] };
+                    return notice_rouletteUI;
+                }(Dialog));
+                roulette.notice_rouletteUI = notice_rouletteUI;
+            })(roulette = notice.roulette || (notice.roulette = {}));
+        })(notice = dlg.notice || (dlg.notice = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var notice;
+        (function (notice) {
+            var roulette;
+            (function (roulette) {
+                var rouletteUI = /** @class */ (function (_super) {
+                    __extends(rouletteUI, _super);
+                    function rouletteUI() {
+                        return _super.call(this) || this;
+                    }
+                    rouletteUI.prototype.createChildren = function () {
+                        _super.prototype.createChildren.call(this);
+                        this.createView(ui.dlg.notice.roulette.rouletteUI.uiView);
+                    };
+                    rouletteUI.uiView = { "type": "View", "props": { "width": 290, "height": 320 }, "child": [{ "type": "Image", "props": { "y": 171, "x": 145, "skin": "panel_notice/roullette/spinner/lunpanquan.png", "pivotY": 106, "pivotX": 106, "centerY": 11, "centerX": 0 } }, { "type": "Image", "props": { "var": "spinner", "skin": "panel_notice/roullette/spinner/lunpan_yin_dipan.png", "centerY": 0, "centerX": 0 }, "child": [{ "type": "Image", "props": { "y": 101, "x": 126, "skin": "panel_notice/roullette/spinner/lunpan_yin_jiantou.png", "name": "arrow" } }, { "type": "Image", "props": { "y": 133, "x": 102, "skin": "panel_notice/roullette/spinner/lunpan_yin_anjian_hou.png", "name": "btn_down" } }, { "type": "Image", "props": { "y": 133, "x": 102, "skin": "panel_notice/roullette/spinner/lunpan_yin_anjian_qian.png", "name": "btn_up" } }] }] };
+                    return rouletteUI;
+                }(View));
+                roulette.rouletteUI = rouletteUI;
+            })(roulette = notice.roulette || (notice.roulette = {}));
+        })(notice = dlg.notice || (dlg.notice = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
         var NoticeDlgUI = /** @class */ (function (_super) {
             __extends(NoticeDlgUI, _super);
             function NoticeDlgUI() {
                 return _super.call(this) || this;
             }
             NoticeDlgUI.prototype.createChildren = function () {
+                View.regComponent("Text", laya.display.Text);
                 _super.prototype.createChildren.call(this);
                 this.createView(ui.dlg.NoticeDlgUI.uiView);
             };
-            NoticeDlgUI.uiView = { "type": "Dialog", "props": { "width": 1624, "height": 750 }, "child": [{ "type": "Image", "props": { "skin": "panel_common/img_com_quanping_di.jpg" } }, { "type": "Image", "props": { "y": 85, "x": 0, "skin": "panel_common/img_com_quanping_cedi.png" } }, { "type": "Image", "props": { "width": 482, "skin": "panel_common/img_com_quanping_ce_biaotou.png" } }, { "type": "Image", "props": { "y": 10, "x": -249, "var": "tabs", "skin": "panel_notice/按钮_公告_1.png", "centerX": 0 }, "child": [{ "type": "Image", "props": { "var": "notice", "skin": "panel_notice/按钮_公告_2.png" } }, { "type": "Image", "props": { "y": 0, "x": 231, "var": "game", "skin": "panel_notice/按钮_公告_3.png" } }] }, { "type": "Image", "props": { "y": 2, "x": 1624, "width": 292, "skin": "panel_common/img_com_quanping_guanbi01.png", "pivotX": 292 }, "child": [{ "type": "Image", "props": { "y": 12, "x": 123, "skin": "panel_common/img_com_quanping_guanbi02.png" } }] }] };
+            NoticeDlgUI.uiView = { "type": "Dialog", "props": { "width": 1624, "height": 750 }, "child": [{ "type": "Image", "props": { "skin": "panel_common/img_com_quanping_di.jpg", "centerY": 0, "centerX": 0 } }, { "type": "View", "props": { "y": 88, "x": 402, "width": 1030, "var": "contents", "height": 660, "centerY": 43 } }, { "type": "Image", "props": { "y": 85, "var": "contentList", "skin": "panel_common/img_com_quanping_cedi.png" }, "child": [{ "type": "Sprite", "props": { "y": 23, "x": 0, "width": 306, "var": "content_tabs", "height": 642 }, "child": [{ "type": "Image", "props": { "x": 305, "var": "tab_dummy", "skin": "panel_common/img_com_quanping_ce_di.png", "pivotX": 305, "name": "tab_dummy" }, "child": [{ "type": "Label", "props": { "wordWrap": true, "width": 304, "valign": "middle", "text": "公告讯息", "name": "label", "height": 95, "fontSize": 28, "font": "Microsoft YaHei", "color": "#b3d8e3", "align": "center" } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Label", "props": { "y": 8, "x": 0, "wordWrap": true, "width": 304, "valign": "middle", "text": "公告讯息", "name": "label", "height": 95, "fontSize": 28, "font": "Microsoft YaHei", "color": "#ffffff", "align": "center" } }] }, { "type": "Image", "props": { "y": 9, "x": 278, "skin": "panel_notice/markNew.png", "name": "newInd" } }] }] }, { "type": "Image", "props": { "y": 631, "x": 135, "var": "arrow", "skin": "panel_notice/arrowBtns.png" } }] }, { "type": "Image", "props": { "width": 482, "var": "label", "skin": "panel_common/img_com_quanping_ce_biaotou.png" }, "child": [{ "type": "Image", "props": { "y": 27, "x": 171, "skin": "panel_notice/img_hdzx_hdzx.png" } }] }, { "type": "Image", "props": { "y": 10, "var": "tabs", "skin": "panel_notice/按钮_公告_1.png", "centerX": 78 }, "child": [{ "type": "Image", "props": { "var": "tab_notice", "skin": "panel_notice/按钮_公告_2.png" } }, { "type": "Image", "props": { "y": 0, "x": 231, "var": "tab_game", "skin": "panel_notice/按钮_公告_3.png" } }, { "type": "Image", "props": { "y": 19, "x": 218, "var": "notice_counter", "skin": "panel_notice/bgLabel.png", "sizeGrid": "11,11,11,11" }, "child": [{ "type": "Text", "props": { "y": 2, "x": 6, "text": "0", "name": "label", "fontSize": 18, "color": "#ffffff", "align": "left" } }] }, { "type": "Image", "props": { "y": 19, "x": 467, "var": "game_counter", "skin": "panel_notice/bgLabel.png", "sizeGrid": "11,11,11,11" }, "child": [{ "type": "Text", "props": { "y": 2, "x": 6, "text": "0", "name": "label", "fontSize": 18, "color": "#ffffff", "align": "left" } }] }] }, { "type": "Image", "props": { "y": 2, "x": 1624, "width": 292, "var": "controls", "skin": "panel_common/img_com_quanping_guanbi01.png", "pivotX": 292 }, "child": [{ "type": "Image", "props": { "y": 12, "x": 123, "skin": "panel_common/img_com_quanping_guanbi02.png" } }] }] };
             return NoticeDlgUI;
         }(Dialog));
         dlg.NoticeDlgUI = NoticeDlgUI;
@@ -132,7 +243,7 @@ var ui;
             _super.prototype.createChildren.call(this);
             this.createView(ui.LoadingViewUI.uiView);
         };
-        LoadingViewUI.uiView = { "type": "View", "props": { "width": 600, "height": 400 }, "child": [{ "type": "Image", "props": { "var": "logo", "skin": "ui/common/loadingLogo.png", "centerY": 0, "centerX": 0 } }, { "type": "Label", "props": { "width": 195, "var": "infoTxt", "valign": "middle", "height": 30, "fontSize": 20, "color": "#00ff00", "centerY": 70, "centerX": 0, "align": "center" } }] };
+        LoadingViewUI.uiView = { "type": "View", "props": { "width": 600, "height": 400 }, "child": [{ "type": "Image", "props": { "width": 100, "var": "logo", "skin": "ui/common/loadingLogo.png", "height": 100, "centerY": 0, "centerX": 0 } }, { "type": "Label", "props": { "width": 195, "var": "infoTxt", "valign": "middle", "height": 30, "fontSize": 20, "color": "#00ff00", "centerY": 70, "centerX": 0, "alpha": 0, "align": "center" } }] };
         return LoadingViewUI;
     }(View));
     ui.LoadingViewUI = LoadingViewUI;
@@ -147,7 +258,7 @@ var ui;
             _super.prototype.createChildren.call(this);
             this.createView(ui.LobbyViewUI.uiView);
         };
-        LobbyViewUI.uiView = { "type": "View", "props": { "width": 1334, "height": 750 }, "child": [{ "type": "Image", "props": { "var": "bgUI", "skin": "ui/lobby/bg_dating.jpg", "centerY": 0, "centerX": 0 } }, { "type": "Image", "props": { "y": 681, "skin": "ui/lobby/bottombar/img_dating_downbar.png", "right": -6, "sizeGrid": "19,30,30,160" } }, { "type": "Box", "props": { "y": 216, "x": 36, "width": 348, "var": "girlSp", "mouseEnabled": false, "hitTestPrior": false, "height": 540 } }, { "type": "Sprite", "props": { "y": 0, "x": 0, "var": "uibox", "mouseThrough": true } }, { "type": "Sprite", "props": { "y": 0, "x": 0, "var": "iconbox" } }, { "type": "Box", "props": { "y": 17, "width": 230, "var": "TLbox", "right": 0, "height": 109 }, "child": [{ "type": "Image", "props": { "y": 46, "x": 46, "var": "actBtn", "skin": "ui/lobby/icon_dt_hd.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 46, "x": 164, "var": "serviceBtn", "skin": "ui/lobby/icon_dt_kf.png", "anchorY": 0.5, "anchorX": 0.5 } }] }, { "type": "Box", "props": { "y": 324, "width": 129, "var": "moveBtn", "right": 15, "height": 140 }, "child": [{ "type": "Image", "props": { "y": 21, "x": 16, "skin": "ui/lobby/dating_right.png" }, "compId": 27 }] }, { "type": "Box", "props": { "y": 644, "x": 615, "width": 719, "var": "bottomGroup", "height": 106 }, "child": [{ "type": "Image", "props": { "y": 53, "x": 358, "var": "btn_tx", "skin": "ui/lobby/bottombar/icon_dt_tx.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 53, "x": 74, "var": "btn_dl", "skin": "ui/lobby/bottombar/icon_dt_dl.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Sprite", "props": { "y": -25, "x": 456, "width": 257, "var": "shopSp", "height": 132 } }, { "type": "Image", "props": { "y": 53, "x": 225, "var": "shareBtn", "skin": "ui/lobby/bottombar/icon_dt_fx.png", "anchorY": 0.5, "anchorX": 0.5 } }] }], "animations": [{ "nodes": [{ "target": 27, "keyframes": { "x": [{ "value": 0, "tweenMethod": "linearNone", "tween": true, "target": 27, "key": "x", "index": 0 }, { "value": -20, "tweenMethod": "linearNone", "tween": true, "target": 27, "key": "x", "index": 15 }, { "value": 0, "tweenMethod": "linearNone", "tween": true, "target": 27, "key": "x", "index": 30 }] } }], "name": "arrowAnim", "id": 1, "frameRate": 24, "action": 2 }] };
+        LobbyViewUI.uiView = { "type": "View", "props": { "width": 1334, "height": 750 }, "child": [{ "type": "Image", "props": { "var": "bgUI", "skin": "ui/lobby/bg_dating.jpg", "centerY": 0, "centerX": 0 } }, { "type": "Image", "props": { "y": 681, "skin": "ui/lobby/bottombar/img_dating_downbar.png", "right": -6, "sizeGrid": "19,30,30,160" } }, { "type": "Box", "props": { "y": 216, "x": 36, "width": 348, "var": "girlSp", "mouseEnabled": false, "hitTestPrior": false, "height": 540 } }, { "type": "Sprite", "props": { "y": 0, "x": 0, "var": "uibox", "mouseThrough": true } }, { "type": "Sprite", "props": { "y": 0, "x": 0, "var": "iconbox" } }, { "type": "Box", "props": { "width": 230, "var": "TLbox", "right": 0, "height": 109 }, "child": [{ "type": "Image", "props": { "y": 46, "x": 46, "var": "actBtn", "skin": "ui/lobby/icon_dt_hd.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 46, "x": 164, "var": "serviceBtn", "skin": "ui/lobby/icon_dt_kf.png", "anchorY": 0.5, "anchorX": 0.5 } }] }, { "type": "Box", "props": { "y": 324, "width": 129, "var": "moveBtn", "right": 15, "height": 140 }, "child": [{ "type": "Image", "props": { "y": 21, "x": 16, "skin": "ui/lobby/dating_right.png" }, "compId": 27 }] }, { "type": "Box", "props": { "y": 644, "x": 615, "width": 719, "var": "bottomGroup", "height": 106 }, "child": [{ "type": "Image", "props": { "y": 53, "x": 358, "var": "btn_tx", "skin": "ui/lobby/bottombar/icon_dt_tx.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 53, "x": 74, "var": "btn_dl", "skin": "ui/lobby/bottombar/icon_dt_dl.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Sprite", "props": { "y": -25, "x": 456, "width": 257, "var": "shopSp", "height": 132 } }, { "type": "Image", "props": { "y": 53, "x": 225, "var": "shareBtn", "skin": "ui/lobby/bottombar/icon_dt_fx.png", "anchorY": 0.5, "anchorX": 0.5 } }] }], "animations": [{ "nodes": [{ "target": 27, "keyframes": { "x": [{ "value": 0, "tweenMethod": "linearNone", "tween": true, "target": 27, "key": "x", "index": 0 }, { "value": -20, "tweenMethod": "linearNone", "tween": true, "target": 27, "key": "x", "index": 15 }, { "value": 0, "tweenMethod": "linearNone", "tween": true, "target": 27, "key": "x", "index": 30 }] } }], "name": "arrowAnim", "id": 1, "frameRate": 24, "action": 2 }] };
         return LobbyViewUI;
     }(View));
     ui.LobbyViewUI = LobbyViewUI;
@@ -182,6 +293,24 @@ var ui;
         return RoomListViewUI;
     }(View));
     ui.RoomListViewUI = RoomListViewUI;
+})(ui || (ui = {}));
+(function (ui) {
+    var UI;
+    (function (UI) {
+        var GameIconViewUI = /** @class */ (function (_super) {
+            __extends(GameIconViewUI, _super);
+            function GameIconViewUI() {
+                return _super.call(this) || this;
+            }
+            GameIconViewUI.prototype.createChildren = function () {
+                _super.prototype.createChildren.call(this);
+                this.createView(ui.UI.GameIconViewUI.uiView);
+            };
+            GameIconViewUI.uiView = { "type": "View", "props": { "width": 244, "height": 202 }, "child": [{ "type": "Image", "props": { "var": "normIcon", "centerY": 0, "centerX": 0 } }, { "type": "Image", "props": { "y": 10, "x": 10, "var": "grayIcon", "centerY": 0, "centerX": 0 } }, { "type": "Box", "props": { "var": "animbox", "centerY": 0, "centerX": 0 } }, { "type": "Image", "props": { "var": "updateIcon", "top": 0, "skin": "ui/game/gengxing.png", "right": 0 } }, { "type": "Label", "props": { "width": 200, "var": "updateTxt", "text": "label", "height": 32, "fontSize": 26, "color": "#ccff00", "centerX": 0, "bottom": 10, "align": "center" } }, { "type": "Image", "props": { "var": "hotIcon", "top": 30, "skin": "ui/game/icon_hot.png", "right": 10 } }, { "type": "Image", "props": { "var": "expectIcon", "skin": "ui/game/jqqd.png", "centerY": 0, "centerX": 0 } }, { "type": "Image", "props": { "var": "pauseIcon", "skin": "ui/game/weihuzhong.png", "centerY": 0, "centerX": 0 } }] };
+            return GameIconViewUI;
+        }(View));
+        UI.GameIconViewUI = GameIconViewUI;
+    })(UI = ui.UI || (ui.UI = {}));
 })(ui || (ui = {}));
 (function (ui) {
     var UI;

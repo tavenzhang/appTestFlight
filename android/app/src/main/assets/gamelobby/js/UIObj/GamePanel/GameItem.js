@@ -79,6 +79,7 @@ var GameItem = /** @class */ (function (_super) {
     GameItem.prototype.iconLoaded = function (res, s) {
         res = Tools.isHaveHeadPoint(".", res, 1);
         try {
+            this.btn_icon.alpha = 1;
             this.btn_icon.setRes([res]);
         }
         catch (e) { }

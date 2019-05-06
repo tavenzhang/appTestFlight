@@ -140,6 +140,9 @@ var PageLogin = /** @class */ (function (_super) {
                     if (!Common.clientId) {
                         Common.clientId = Common.userInfo.userBalance.clientId;
                     }
+                    if (s.userRole) {
+                        userData.role = s.userRole;
+                    }
                     PageManager.Get().DestoryCurrentView();
                     LayaMain.getInstance().initLobby();
                 }

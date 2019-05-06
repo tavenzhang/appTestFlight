@@ -30,6 +30,25 @@ var AgentContentInvation = /** @class */ (function (_super) {
         this.addChild(this.list);
         // this.list.setData(this.conf.invBlock, ConfObjRead.getConfAgentInviChildrenTest());
         this.requestInfo();
+        this.initFilter();
+        if (AgentData.role != "AGENT") {
+            this.btnGenInvi.mouseEnabled = false;
+            this.btnGenInvi.filters = [this.filter];
+        }
+        else {
+            this.btnGenInvi.mouseEnabled = true;
+            this.btnGenInvi.filters = [];
+        }
+    };
+    AgentContentInvation.prototype.initFilter = function () {
+        var colorMatrix = [
+            0.3086, 0.6094, 0.0820, 0, 0,
+            0.3086, 0.6094, 0.0820, 0, 0,
+            0.3086, 0.6094, 0.0820, 0, 0,
+            0, 0, 0, 1, 0,
+        ];
+        //创建灰色颜色滤镜
+        this.filter = new Laya.ColorFilter(colorMatrix);
     };
     AgentContentInvation.prototype.requestInfo = function () {
         LayaMain.getInstance().showCircleLoading();
@@ -150,6 +169,14 @@ var AgentContentInvation = /** @class */ (function (_super) {
             }
             */
             this.list.setData(this.conf.invBlock, invationInfo);
+            if (invationInfo.length > 9 || AgentData.role != "AGENT") {
+                this.btnGenInvi.mouseEnabled = false;
+                this.btnGenInvi.filters = [this.filter];
+            }
+            else {
+                this.btnGenInvi.mouseEnabled = true;
+                this.btnGenInvi.filters = [];
+            }
             // inva = invationInfo[0].affCode;
         }
         //  this._link.text = url += "?affCode=" + this._code.text;
@@ -162,7 +189,7 @@ var AgentContentInvation = /** @class */ (function (_super) {
         // this._qr.on(Laya.Event.MOUSE_DOWN, this, this.onClickBtn);
     };
     AgentContentInvation.prototype.onClickBtn = function (e) {
-        AgentDialogInvitation.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogInvitation(), this);
+        AgentDialogInvitation.showDialog(this.fatherNode, ConfObjRead.getConfAgentDialogInvitation(), this);
     };
     return AgentContentInvation;
 }(AgentContent));

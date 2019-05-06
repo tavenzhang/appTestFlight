@@ -1,71 +1,80 @@
 {
-    "alphabg":{
-        "color":"#000000",
-        "alpha":0.3,
-        "size":{
-            "w":1334,
-            "h":750
+    "alphabg": {
+        "color": "#000000",
+        "alpha": 0.3,
+        "size": {
+            "w": 1334,
+            "h": 750
         },
-        "pos":{
-            "x":0,
-            "y":0
+        "pos": {
+            "x": 0,
+            "y": 0
         }
     },
-    "touchout":{
-        "value":false
+    "touchout": {
+        "value": false
     },
-    "pos":{
-        "x":0,
-        "y":0
+    "pos": {
+        "x": 0,
+        "y": 0
     },
-    "bg":{
-        "src":"./assets/ui/agent/img_daili_biaotou01.png",
-        "pos":{
-            "x":0,
-            "y":0
+    "bg": {
+        "src": "./assets/ui/agent/img_daili_biaotou01.png",
+        "pos": {
+            "x": 0,
+            "y": 0
         }
     },
-    "lbTest":{
-        "desc":"",
-        "pos":{ "x":0, "y":0 },
-        "size":{ "w":600, "h":50 },
-        "font":{
-            "text":"title",
-            "borderColor":"#ff0000",
-            "color":"#bbae7a",
-            "size":19,
-            "name":"x",
-            "align":"right",
-            "valign":"top",
-            "wrap":false
+    "lbTest": {
+        "desc": "",
+        "pos": {
+            "x": 0,
+            "y": 0
+        },
+        "size": {
+            "w": 600,
+            "h": 50
+        },
+        "font": {
+            "text": "title",
+            "borderColor": "#ff0000",
+            "color": "#bbae7a",
+            "size": 19,
+            "name": "x",
+            "align": "right",
+            "valign": "top",
+            "wrap": false
         }
     },
-    "spritesX":[
+    "spritesX": [
         {
-            "src":"./assets/ui/agent/img_daili_biaotou.png",
-            "pos":{
-                "x":0,
-                "y":0
+            "src": "./assets/ui/agent/img_daili_biaotou.png",
+            "pos": {
+                "x": 0,
+                "y": 0
             }
         },
         {
-            "src":"./assets/ui/agent/img_daili_biaotou02.png",
-            "pos":{
-                "x":100,
-                "y":25
+            "src": "./assets/ui/agent/img_daili_biaotou02.png",
+            "pos": {
+                "x": 100,
+                "y": 25
             }
         }
     ],
-    "animations":[
+    "animations": [
         {
-            "textPath":"./assets/ui/animation/agent/top/daili_page.png",
-            "animPath":"./assets/ui/animation/agent/top/daili_page.sk",
-            "playSpeed":1.0,
-            "loop":true,
-            "loopdelayX":1000,
-            "pos":{ "x":150, "y":50 },
-            "stopHide":{
-                "value":false
+            "textPath": "./assets/ui/animation/agent/top/daili_page.png",
+            "animPath": "./assets/ui/animation/agent/top/daili_page.sk",
+            "playSpeed": 1.0,
+            "loop": true,
+            "loopdelayX": 1000,
+            "pos": {
+                "x": 215,
+                "y": 50
+            },
+            "stopHide": {
+                "value": false
             }
         }
     ]

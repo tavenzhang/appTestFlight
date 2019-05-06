@@ -239,6 +239,38 @@
                     "y": 134
                 }
             }
+        },
+        {
+            "desc": "二八杠",
+            "alias": "erbg",
+            "src": "./assets/ui/game/icon_28g.png",
+            "anim": {
+                "textPath": "./assets/ui/animation/icons/28g/28g.png",
+                "animPath": "./assets/ui/animation/icons/28g/28g.sk",
+                "playSpeed": 0.7,
+                "loop": true,
+                "dAlpha": 0,
+                "pos": {
+                    "x": 134,
+                    "y": 134
+                }
+            }
+        },
+        {
+            "desc": "三公",
+            "alias": "sang",
+            "src": "./assets/ui/game/icon_sg.png",
+            "anim": {
+                "textPath": "./assets/ui/animation/icons/sangong/sg.png",
+                "animPath": "./assets/ui/animation/icons/sangong/sg.sk",
+                "playSpeed": 0.7,
+                "loop": true,
+                "dAlpha": 0,
+                "pos": {
+                    "x": 134,
+                    "y": 134
+                }
+            }
         }
     ],
     "defaultIcon": {

@@ -30,7 +30,8 @@ var AttentionDialog = /** @class */ (function (_super) {
             o.openType = iOpenType;
             o.init(conf);
             o.fatherNode = node;
-            node.addChild(o);
+            // node.addChild(o);
+            Laya.stage.addChild(o);
             // Debug.trace("AttentionDialog.showPad openType:"+AttentionDialog.obj.openType);
         }
     };

@@ -193,7 +193,7 @@
             "desc": "PAUSE状态呈现方式",
             "src": "./assets/ui/game/img_dating_whz.png",
             "pos": {
-                "x": 54,
+                "x": 78,
                 "y": 110
             },
             "size": {
