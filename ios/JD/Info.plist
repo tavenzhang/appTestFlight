@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
- <key>com.openinstall.APP_KEY</key>
-	<string>xhmkrq</string>
+	<key>com.openinstall.APP_KEY</key>
+	<string>k9e92p</string>
 	<key>APP_DOWNLOAD_VERSION</key>
 	<string>2.0</string>
 	<key>PLAT_CH</key>
@@ -14,7 +14,6 @@
 	<string></string>
 	<key>UmengKey</key>
 	<string></string>
-
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -160,7 +159,7 @@
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-        	<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
