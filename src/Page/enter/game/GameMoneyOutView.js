@@ -42,7 +42,7 @@ export default class GameMoneyOutView extends Component {
         let num = this.userWithdrawStore.withdrawModel.aggregateBetRequirements - this.userWithdrawStore.withdrawModel.aggregateBets
 
         return (<View style={styles.container} pointerEvents={pointerEvents}>
-            <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W-20, height:SCREEN_H}} resizeMode={'stretch'}/>
+            <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W, height:SCREEN_H}} resizeMode={'stretch'}/>
             <TCImage source={ASSET_Images.gameUI.titleMoneyOut} style={{position: "absolute",width:SCREEN_W*0.1,height:SCREEN_H*0.06,left:SCREEN_W*0.11,top:SCREEN_H*0.05 - 5}} resizeMode={'contain'}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.payBack}
                          onClick={() => TW_Store.gameUIStroe.isShowWithDraw = false}
@@ -61,7 +61,7 @@ export default class GameMoneyOutView extends Component {
             <TCImage source={ASSET_Images.gameUI.payOutMoneyLabel} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.22,width:90,height:25,left:SCREEN_W*0.37}}/>
             {/*<TCImage source={ASSET_Images.gameUI.question} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.20,width:35,height:35,right:SCREEN_W*0.06}}/>*/}
 
-            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.49, top: SCREEN_H*0.2}}
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.49+20, top: SCREEN_H*0.2}}
                     textStyle={{color: "#ffde00",fontSize:26}} text={this.userWithdrawStore.withdrawModel.totalMoney}/>
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.29, top: SCREEN_H*0.34}}
                     textStyle={{color: "#fffff1",fontSize:20}} text={'有效投注:'}/>

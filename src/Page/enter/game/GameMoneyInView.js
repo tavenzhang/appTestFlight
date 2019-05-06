@@ -82,7 +82,7 @@ export default class GameMoneyInView extends Component {
         }
 
         return (<View style={styles.container} pointerEvents={pointerEvents}>
-            <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W-20, height:SCREEN_H}} resizeMode={'stretch'}/>
+            <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W, height:SCREEN_H}} resizeMode={'stretch'}/>
             {/*<TCImage source={ASSET_Images.gameUI.payTopLeftBg} style={{position: "absolute",width:SCREEN_W*0.35,height:SCREEN_H*0.15}} resizeMode={'contain'}/>*/}
             {/*<TCImage source={ASSET_Images.gameUI.payTopIcon} style={{position: "absolute",width:SCREEN_W*0.08,height:SCREEN_H*0.15,left:SCREEN_W*0.05,top:3}} resizeMode={'stretch'}/>*/}
             <TCImage source={ASSET_Images.gameUI.payTopTxt} style={{position: "absolute",width:SCREEN_W*0.1,height:SCREEN_H*0.06,left:SCREEN_W*0.11,top:SCREEN_H*0.05 - 5}} resizeMode={'contain'}/>

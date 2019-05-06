@@ -18,6 +18,7 @@ import GameMoneyOutView from "./game/GameMoneyOutView";
 import GameMoneyInView from "./game/GameMoneyInView";
 import BaseGameAlert from "./game/pay/BaseGameAlert";
 import GameShareView from "./game/GameShareView";
+import BaseUserAccAlert from "./game/pay/BaseUserAccountAlert";
 
 
 @observer
@@ -115,7 +116,7 @@ class SubGameView extends Component {
                     {TW_Store.gameUIStroe.isShowGuest ? <GameGuestView pointerEvents={isHaveAletView}/> : null}
                     {TW_Store.gameUIStroe.isShowShare ? <GameShareView pointerEvents={isHaveAletView}/> : null}
                     {
-                        gameAlertView.component ? <BaseGameAlert title={gameAlertView.title} onClose={() => {
+                        !gameAlertView.isUserAccount&&gameAlertView.component ? <BaseGameAlert title={gameAlertView.title} onClose={() => {
                             TW_Store.gameUIStroe.hideAlertUI();
                             if (gameAlertView.onBack) {
                                 gameAlertView.onBack();
@@ -124,6 +125,17 @@ class SubGameView extends Component {
                         }>
                             {SubComponet ?  <SubComponet {...gameAlertView.param}/>:null}
                         </BaseGameAlert> : null
+                    }
+                    {
+                        gameAlertView.isUserAccount&&gameAlertView.component ? <BaseUserAccAlert title={gameAlertView.title} onClose={() => {
+                            TW_Store.gameUIStroe.hideAlertUI();
+                            if (gameAlertView.onBack) {
+                                gameAlertView.onBack();
+                            }
+                        }
+                        }>
+                            {SubComponet ?  <SubComponet {...gameAlertView.param}/>:null}
+                        </BaseUserAccAlert> : null
                     }
                 </View>)
         }
