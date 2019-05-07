@@ -147,6 +147,8 @@ export default class AppInfoStore {
                 this.APP_DOWNLOAD_VERSION = this.APP_DOWNLOAD_VERSION ? this.APP_DOWNLOAD_VERSION:"1.0";
                 TW_Store.bblStore.getAppData();
                 OpeninstallModule.getInstall(10, res => {
+                    TW_Store.dataStore.log+="getInstall----"+res.data;
+                    Alert.alert(res);
                     if (res&&res.data) {
                         let map= null;
                         if(typeof res.data === 'object'){
