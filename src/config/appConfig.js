@@ -51,7 +51,7 @@ export const platInfo = {
     //loginDomain:"https://0365cai.cc",http://192.168.1.93:8091
     loginDomain: "http://sit.106games.com",
     //  gameDomain:"https://dk3nuq7v.zhdisi.com",
-    gameDomain: "http://192.168.1.93:8091",
+    gameDomain: "http://sit.106games.com",
 
     downDomain:"https://download.ouzhoufangchanwang.com",
 
