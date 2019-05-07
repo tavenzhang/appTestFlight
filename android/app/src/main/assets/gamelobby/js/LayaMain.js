@@ -27,7 +27,7 @@ var LayaMain = /** @class */ (function () {
          */
         UIConfig.closeDialogOnSide = false;
         //设置游戏版本号
-        ResConfig.versions = "版本号：4.0504.1741";
+        ResConfig.versions = "版本号：4.0507.1539";
         Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_HEIGHT;
         Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
         Laya.stage.bgColor = "#000000";

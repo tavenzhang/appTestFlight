@@ -66,7 +66,7 @@ var view;
                     this.controls.x += buffer - 30;
                     this.label.x += buffer * 2;
                     this.contentList.x = this.label.x;
-                    this.contents.x = this.contentList.x + this.contentList.width - 10;
+                    this.contents.x = this.contentList.x + 318 - 10; //this.contentList.width - 10;
                 }
                 EventManager.addTouchScaleListener(this.controls, this, function () {
                     SoundPlayer.closeSound();

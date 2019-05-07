@@ -80,5 +80,5 @@ var Notice_Share = /** @class */ (function (_super) {
         // }
     };
     return Notice_Share;
-}(ui.dlg.notice.notice_shareUI));
+}(ui.dlg.notice.NoticeShareUI));
 //# sourceMappingURL=Notice_Share.js.map

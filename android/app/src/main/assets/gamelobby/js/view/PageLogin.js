@@ -305,7 +305,6 @@ var PageLogin = /** @class */ (function (_super) {
     PageLogin.prototype.askCode = function () {
         this.rand = Math.random();
         var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.rand;
-        Debug.trace("ConfObjRead.getConfUrl().url.apihome---",url)
         this.sp_img_code.skin = url;
     };
     /**
@@ -369,8 +368,9 @@ var PageLogin = /** @class */ (function (_super) {
         this.in_account.text = SaveManager.getObj().get(SaveManager.KEY_QK_USERNAME, "");
         this.password = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "");
         this.in_code.text = '';
+        console.error("读取到的密码：", this.password);
         //如果本地没有保存快速登陆账号的话, 去服务端拉取
-        if (this.in_account.text.length <= 0) {
+        if (this.in_account.text.length <= 0 || this.password.length < 3) {
             var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
             var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.prequicklogin;
             LayaMain.getInstance().showCircleLoading(true);
@@ -389,6 +389,10 @@ var PageLogin = /** @class */ (function (_super) {
                     that.password = jobj.password;
                     if (that.in_account.text.length > 2) { //即时保存，防止切换登录方式时不断刷新用户名的bug
                         SaveManager.getObj().save(SaveManager.KEY_QK_USERNAME, that.in_account.text);
+                    }
+                    if (that.password.length > 3) {
+                        SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, that.password);
+                        console.error("保存密码>>", that.password); //debug
                     }
                 }
                 else {
@@ -702,11 +706,13 @@ var PageLogin = /** @class */ (function (_super) {
         var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.quicklogin;
         var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*", "device_token", MyUid.getUid()];
         var ePwd = window['SecretUtils'].rsaEncodePWD(this.password);
+        console.error("fast:", this.password, Boolean(window['SecretUtils']), ePwd); //debug
         var data = {
             username: this.in_account.text,
             password: ePwd,
             validateCode: this.in_code.text,
-            webUniqueCode: this.rand
+            webUniqueCode: this.rand,
+            affCode: AppData.NATIVE_DATA.affCode
         };
         var jd = JSON.stringify(data);
         var that = this;

@@ -34,5 +34,5 @@ var Notice_Message = /** @class */ (function (_super) {
         }
     };
     return Notice_Message;
-}(ui.dlg.notice.notice_messageUI));
+}(ui.dlg.notice.NoticeMessageUI));
 //# sourceMappingURL=Notice_Message.js.map
