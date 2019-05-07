@@ -149,20 +149,26 @@ export default class AppInfoStore {
                 OpeninstallModule.getInstall(10, res => {
                     //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
                    // Alert.alert(res);
-                    if (res&&res.data) {
-                        let map= null;
-                        if(typeof res.data === 'object'){
-                            map= res.data;
-                        }else{
-                            map = JSON.parse(res.data);
-                        }
-                        if (map) {
-                            this.openInstallData.data=map;
-                            if(map&&map.affCode){
-                                this.userAffCode = map.affCode;
+                    try {
+                        if (res&&res.data) {
+                            TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
+                            let map= null;
+                            if(typeof res.data === 'object'){
+                                map= res.data;
+                            }else{
+                                map = JSON.parse(res.data);
+                            }
+                            if (map) {
+                                this.openInstallData.data=map;
+                                if(map&&map.affCode){
+                                    this.userAffCode = map.affCode;
+                                }
                             }
                         }
+                    }catch (e) {
+                        TW_Store.dataStore.log+="getInstall---error="+e;
                     }
+
                 });
 
             }
