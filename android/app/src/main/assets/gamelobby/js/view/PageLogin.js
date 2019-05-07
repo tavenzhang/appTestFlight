@@ -305,6 +305,7 @@ var PageLogin = /** @class */ (function (_super) {
     PageLogin.prototype.askCode = function () {
         this.rand = Math.random();
         var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.rand;
+        Debug.trace("ConfObjRead.getConfUrl().url.apihome---",url)
         this.sp_img_code.skin = url;
     };
     /**

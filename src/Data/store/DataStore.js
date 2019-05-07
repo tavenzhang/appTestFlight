@@ -77,21 +77,26 @@ export default class DataStore {
         TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
             let verionM=null;
             this.log+="-->startCheckZipUpdate---=ret--start"+ret
+            TW_Log("startCheckZipUpdate---=ret--start-ret"+ret,ret)
             try{
                 verionM = JSON.parse(ret);
             }catch (error) {
+
+                this.log+="-->startCheckZipUpdate---catch -==-error=="+error;
+            }
+            if(ret&&verionM){
+                this.homeVersionM =verionM;
+                this.log+="-->startCheckZipUpdate---homeVersionM-==-"+JSON.stringify(this.homeVersionM)
+             //   TW_Log("startCheckZipUpdate---homeVersionM=",this.homeVersionM)
+                if(this.isCheckZipUpdate){
+                    this.chectHomeZipUpdate();
+                }
+            }else{
                 this.onSaveVersionM({},false,()=>{
                     if(this.isCheckZipUpdate){
                         this.chectHomeZipUpdate();
                     }
                 });
-            }
-            if(ret&&verionM){
-                this.homeVersionM =verionM;
-                this.log+="-->startCheckZipUpdate---homeVersionM-==-"+JSON.stringify(this.homeVersionM)
-                if(this.isCheckZipUpdate){
-                    this.chectHomeZipUpdate();
-                }
             }
         })
     }

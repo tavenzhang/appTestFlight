@@ -126,7 +126,7 @@ export default class AppInfoStore {
         TN_GetAppInfo((data) => {
            // TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==data=",data);
             if(data){
-                let appInfo ={};3
+                let appInfo ={};
                 if(G_IS_IOS){
                     appInfo = JSON.parse(data);
                 }else{
@@ -146,12 +146,12 @@ export default class AppInfoStore {
                 this.APP_DOWNLOAD_VERSION=this.appInfo.APP_DOWNLOAD_VERSION;
                 this.APP_DOWNLOAD_VERSION = this.APP_DOWNLOAD_VERSION ? this.APP_DOWNLOAD_VERSION:"1.0";
                 TW_Store.bblStore.getAppData();
+                try {
                 OpeninstallModule.getInstall(10, res => {
                     //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
-                   // Alert.alert(res);
-                    try {
+                        TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
                         if (res&&res.data) {
-                            TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
+                            //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
                             let map= null;
                             if(typeof res.data === 'object'){
                                 map= res.data;
@@ -165,11 +165,10 @@ export default class AppInfoStore {
                                 }
                             }
                         }
-                    }catch (e) {
-                        TW_Store.dataStore.log+="getInstall---error="+e;
-                    }
-
                 });
+                }catch (e) {
+                    TW_Store.dataStore.log+="getInstall---error="+e;
+                }
 
             }
         });
