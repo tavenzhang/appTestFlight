@@ -66,6 +66,9 @@ export default class XXWebView extends Component {
             Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
             Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
         }
+        setTimeout(()=>{
+            SplashScreen.hide();
+        },4000)
     }
     componentWillUnmount(): void {
         if(G_IS_IOS){
