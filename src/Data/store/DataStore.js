@@ -80,21 +80,24 @@ export default class DataStore {
             try{
                 verionM = JSON.parse(ret);
             }catch (error) {
-                this.log+="-->startCheckZipUpdate---=catch--"
+                this.onSaveVersionM({},false,()=>{
+                    if(this.isCheckZipUpdate){
+                        this.chectHomeZipUpdate();
+                    }
+                });
             }
-
             if(ret&&verionM){
                 this.homeVersionM =verionM;
-            }
-            this.log+="-->startCheckZipUpdate---=ret-ret---"+JSON.stringify(this.homeVersionM)
-            if(this.isCheckZipUpdate){
-                this.chectHomeZipUpdate();
+                this.log+="-->startCheckZipUpdate---homeVersionM-==-"+JSON.stringify(this.homeVersionM)
+                if(this.isCheckZipUpdate){
+                    this.chectHomeZipUpdate();
+                }
             }
         })
     }
 
     chectHomeZipUpdate=()=>{
-        TW_Log("TW_DATA_KEY.versionBBL start  http ===> "+rootStore.bblStore.getVersionConfig() );
+        TW_Log("TW_DATA_KEY.versionBBL start  http ===> "+rootStore.bblStore.getVersionConfig());
         this.log+="==>getVersionConfig="+rootStore.bblStore.getVersionConfig();
         NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionConfig(),null,(rt)=>{
             TW_Log("TW_DATA_KEY.versionBBL http results== " , rt);

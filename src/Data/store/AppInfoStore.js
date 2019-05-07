@@ -6,7 +6,7 @@ import {
     MyAppName,
     versionHotFix,
     platInfo,
-    affCodeList, AppConfig,
+    AppConfig,
     MyOwnerPlatName
 } from '../../config/appConfig';
 
@@ -122,7 +122,7 @@ export default class AppInfoStore {
     }
 
     checkAppInfoUpdate=(oldData=null)=>{
-        TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION--checkAppInfoUpdate", this.APP_DOWNLOAD_VERSION);
+      //  TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION--checkAppInfoUpdate", this.APP_DOWNLOAD_VERSION);
         TN_GetAppInfo((data) => {
            // TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==data=",data);
             if(data){
@@ -146,6 +146,23 @@ export default class AppInfoStore {
                 this.APP_DOWNLOAD_VERSION=this.appInfo.APP_DOWNLOAD_VERSION;
                 this.APP_DOWNLOAD_VERSION = this.APP_DOWNLOAD_VERSION ? this.APP_DOWNLOAD_VERSION:"1.0";
                 TW_Store.bblStore.getAppData();
+                OpeninstallModule.getInstall(10, res => {
+                    if (res&&res.data) {
+                        let map= null;
+                        if(typeof res.data === 'object'){
+                            map= res.data;
+                        }else{
+                            map = JSON.parse(res.data);
+                        }
+                        if (map) {
+                            this.openInstallData.data=map;
+                            if(map&&map.affCode){
+                                this.userAffCode = map.affCode;
+                            }
+                        }
+                    }
+                });
+
             }
         });
     }
@@ -207,18 +224,6 @@ export default class AppInfoStore {
             TN_StartUMeng(this.appInfo.UmengKey, this.appInfo.Affcode)
         }
 
-        OpeninstallModule.getInstall(10, res => {
-            if (res&&res.data) {
-                const map = JSON.parse(res.data);
-                if (map) {
-                    this.openInstallData.data=map;
-                    if(map&&map.affCode){
-                        this.userAffCode = map.affCode;
-                    }
-                }
-            }
-        });
-      //  TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION", this.APP_DOWNLOAD_VERSION);
     }
 
 
