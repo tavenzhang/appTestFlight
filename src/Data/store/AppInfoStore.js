@@ -148,7 +148,7 @@ export default class AppInfoStore {
                 TW_Store.bblStore.getAppData();
                 OpeninstallModule.getInstall(10, res => {
                     TW_Store.dataStore.log+="getInstall----"+res;
-                    Alert.alert(res);
+                   // Alert.alert(res);
                     if (res&&res.data) {
                         let map= null;
                         if(typeof res.data === 'object'){
