@@ -27,15 +27,15 @@ export default class BaseGameAlert extends Component {
 
 
     render() {
-        let {onClose, title} = this.props;
+        let {onClose, title,accountType} = this.props;
 
-        return (<View style={{position: "absolute", width:SCREEN_W*0.7,height:SCREEN_H*0.9,left:SCREEN_W*0.1}}>
-            <TCImage source={ASSET_Images.gameUI.uiTitleBg1} style={{width:SCREEN_W*0.8,height:SCREEN_H*0.9}} resizeMode={"stretch"}/>
+        return (<View style={{position: "absolute"}}>
+            <TCImage source={ASSET_Images.gameUI.uiTitleBg1} />
             <View style={{
-                 marginTop: 48, width: SCREEN_W*0.74,
+                 marginTop: 35, width: SCREEN_W*0.55,
                 alignSelf: "center",
                 position: "absolute",
-                left:SCREEN_W*0.03
+
             }}>
                 {this.props.children}
             </View>
@@ -45,24 +45,24 @@ export default class BaseGameAlert extends Component {
             {/*}}>*/}
                 {/*<Text style={{color: "#937e7e", fontSize: 18}}>{title}</Text>*/}
             {/*</View>*/}
-            <TCImage source={ASSET_Images.gameUI.czmxIcon} style={{width:60,height:20,position: "absolute", top: 15,left:SCREEN_W*0.35}} resizeMode={"stretch"}/>
+            <TCImage source={accountType==0 ? ASSET_Images.gameUI.txmxIcon :ASSET_Images.gameUI.czmxIcon} style={{position: "absolute", top: 12,left:215}} />
 
             <TouchableWithoutFeedback>
-                <View style={{position: "absolute", left: SCREEN_W*0.74, top: 10, width: 40, height: 40,}}>
+                <View style={{position: "absolute",right:2, top: 5, width: 40, height: 40,}}>
                     <TCButtonImg imgSource={ASSET_Images.gameUI.closeIcon}
                                  soundName={TW_Store.bblStore.SOUND_ENUM.close}
-                                 onClick={() => {
-                                     onClose();
-                                 }}
-                                 imgStyle={{width:35,height:35}}
+                                 onClick={onClose}
                                  btnStyle={{width:35,height:35}}/>
                 </View>
             </TouchableWithoutFeedback>
 
-            <TCImage source={ASSET_Images.gameUI.czmxTip} style={{width:SCREEN_W*0.5,height:20,position: "absolute", top: SCREEN_H*0.8,left:SCREEN_W*0.05}} resizeMode={"stretch"}/>
-            <TCButtonImg imgSource={ASSET_Images.gameUI.onlineService} btnStyle={{position: "absolute", top: SCREEN_H*0.8 - 5,right:0}} imgStyle={{width:SCREEN_W*0.1,height:30,}} resizeMode={"stretch"}
+            <TCImage source={accountType==0 ? ASSET_Images.gameUI.txmxTip:ASSET_Images.gameUI.czmxTip} style={{position: "absolute", bottom:10,left:30}} />
+            <TCButtonImg imgSource={ASSET_Images.gameUI.onlineService} btnStyle={{position: "absolute", bottom:5,right:20}}
                          onClick={()=>{
                              TW_Store.gameUIStroe.showGusetView();
+                             if(onClose){
+                                 onClose()
+                             }
                          }}/>
 
         </View>)

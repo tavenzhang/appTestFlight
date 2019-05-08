@@ -114,7 +114,7 @@ class SubGameView extends Component {
                         </BaseGameAlert> : null
                     }
                     {
-                        gameAlertView.isUserAccount&&gameAlertView.component ? <BaseUserAccAlert title={gameAlertView.title} onClose={() => {
+                        gameAlertView.isUserAccount&&gameAlertView.component ? <BaseUserAccAlert {...gameAlertView.param} title={gameAlertView.title} onClose={() => {
                             TW_Store.gameUIStroe.hideAlertUI();
                             if (gameAlertView.onBack) {
                                 gameAlertView.onBack();
