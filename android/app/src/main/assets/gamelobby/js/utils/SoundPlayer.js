@@ -7,6 +7,9 @@ var SoundPlayer = /** @class */ (function () {
     SoundPlayer.clickSound = function () {
         this.play("assets/raw/click.mp3");
     };
+    SoundPlayer.clicksfxSound = function () {
+        this.play("assets/raw/sfx_click.mp3");
+    };
     SoundPlayer.closeSound = function () {
         this.play("assets/raw/close.mp3");
     };

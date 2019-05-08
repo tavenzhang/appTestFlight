@@ -33,19 +33,9 @@ var view;
                 dlg.game_counter.visible = false;
                 dlg.notice_counter.visible = false;
                 dlg.tab_dummy.visible = false;
-                dlg.popup(false, false);
-                dlg.pop(dlg);
+                dlg.popup(false, true);
+                // dlg.pop(dlg);
                 dlg.requestData();
-            };
-            NoticeDlg.prototype.pop = function (dlg) {
-                dlg.alpha = 1;
-                dlg.y = 0;
-                Laya.Tween.from(dlg, { alpha: 0, y: 20 }, 250);
-            };
-            NoticeDlg.prototype.close = function (type, showEffect) {
-                if (this.y === 0) {
-                    Laya.Tween.to(this, { alpha: 0, y: 20 }, 250, Laya.Ease.linearNone, new Laya.Handler(this, _super.prototype.close, [type, showEffect]));
-                }
             };
             NoticeDlg.prototype.initView = function () {
                 var _this = this;
@@ -58,7 +48,7 @@ var view;
                     this.controls.x += buffer - 30;
                     this.label.x += buffer * 2;
                     this.contentList.x = this.label.x + 40;
-                    this.contents.x = this.contentList.x + this.contentList.width - 10;
+                    this.contents.x = this.contentList.x + 320 - 10; //Fthis.contentList.width - 10;
                 }
                 this.contentList.on(Laya.Event.MOUSE_DOWN, this, this.onScroll);
                 this.contentList.on(Laya.Event.MOUSE_UP, this, this.onScroll);
@@ -79,6 +69,7 @@ var view;
                 }
                 this.loopArrow();
                 this._currentCategoryTab = 1;
+                this.tabs.visible = false;
             };
             NoticeDlg.prototype.loopArrow = function () {
                 this.arrow.y = 620;
@@ -221,8 +212,9 @@ var view;
                         content.setData(data);
                         break;
                     case "ROULETTE_DRAW":
-                        content = new LuckyDrawPage();
-                        content.init(ConfObjRead.getConfAttention().attention, data);
+                        content = new Notice_Roullette();
+                        content.init();
+                        content.setData(data);
                         break;
                     default:
                         // 游戏公告全是文本

@@ -80,28 +80,27 @@ export default class GameMoneyInView extends Component {
         if(!bankitem&&this.userPayStore.payTypeList.length>0){
             bankitem = this.userPayStore.payTypeList[0];
         }
-
+        let fullWithStyle= SCREEN_ISFULL ? {width:SCREEN_W*0.22}:null
         return (<View style={styles.container} pointerEvents={pointerEvents}>
             <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W, height:SCREEN_H}} resizeMode={'stretch'}/>
             {/*<TCImage source={ASSET_Images.gameUI.payTopLeftBg} style={{position: "absolute",width:SCREEN_W*0.35,height:SCREEN_H*0.15}} resizeMode={'contain'}/>*/}
             {/*<TCImage source={ASSET_Images.gameUI.payTopIcon} style={{position: "absolute",width:SCREEN_W*0.08,height:SCREEN_H*0.15,left:SCREEN_W*0.05,top:3}} resizeMode={'stretch'}/>*/}
-            <TCImage source={ASSET_Images.gameUI.payTopTxt} style={{position: "absolute",width:SCREEN_W*0.1,height:SCREEN_H*0.06,left:SCREEN_W*0.11,top:SCREEN_H*0.05 - 5}} resizeMode={'contain'}/>
+            <TCImage source={ASSET_Images.gameUI.payTopTxt} style={{position: "absolute",left:SCREEN_W*0.12,top:13}} resizeMode={'contain'}/>
 
             {/*<TCImage source={ASSET_Images.gameUI.payBackBg} style={{position: "absolute",right: 0, top: 0,width:SCREEN_W*0.25,height:SCREEN_H*0.13}} resizeMode={'stretch'}/>*/}
             <TCButtonImg imgSource={ASSET_Images.gameUI.payBack}
                          onClick={() => TW_Store.gameUIStroe.isShowAddPayView = false}
-                         btnStyle={{position: "absolute", right: 10, top: 5,}} imgStyle={{width:SCREEN_W*0.12,height:SCREEN_H*0.1}}/>
+                         btnStyle={{position: "absolute", right: 29, top: 7,}} />
             <TCButtonImg imgSource={ASSET_Images.gameUI.btn_minxi}
-                         btnStyle={{position: "absolute", right: SCREEN_W*0.15, top: 10}} imgStyle={{width:SCREEN_W*0.20,height:SCREEN_H*0.08}} onClick={()=>TW_Store.gameUIStroe.showChongZhiDetail() }
+                         btnStyle={{position: "absolute", right: 120, top: 10}}  onClick={()=>TW_Store.gameUIStroe.showChongZhiDetail() }
             />
+            <TCImage source={ASSET_Images.gameUI.payTypeBg} style={[{position: "absolute",left:0,bottom: 0, height:SCREEN_H-59},fullWithStyle]} />
 
 
-            <TCImage source={ASSET_Images.gameUI.payTypeBg} style={{position: "absolute",top:SCREEN_H*0.14,left:0,width:SCREEN_W*0.25,height:SCREEN_H}} resizeMode={'stretch'}/>
-
-            <View style={{position: "absolute", top:SCREEN_H*0.20,left:0}}>
+            <View style={{position: "absolute", top:61,left:0,}}>
                 <TCFlatList
                     ref="payTypeList"
-                    style={{height:SCREEN_H - SCREEN_H*0.20}}
+                    style={{height:SCREEN_H - SCREEN_H*0.2,top:10,left:SCREEN_ISFULL ? 15:0}}
                     dataS={ this.userPayStore.payTypeList}
                     renderRow={this.onRenderPayTypeItem}
                     showsVerticalScrollIndicator = {false}
@@ -117,8 +116,8 @@ export default class GameMoneyInView extends Component {
             </View>
             {
                 this.state.showDownArrow&&
-                    <TCButtonImg imgSource={ASSET_Images.gameUI.downArrow} btnStyle={{position: "absolute",bottom:15,left:60}} resizeMode={'stretch'}
-                                 imgStyle={{width:60,height:40}} onClick={()=>this.scrollList() }/>
+                    <TCButtonImg imgSource={ASSET_Images.gameUI.downArrow} btnStyle={{position: "absolute",bottom:15,left:60}}
+                                 onClick={this.scrollList}/>
             }
         </View>)
 
@@ -160,12 +159,9 @@ export default class GameMoneyInView extends Component {
         bankitem= bankitem ? bankitem:{}
         return  <BtnPayType onClick={(data)=>{
            this.setState({selectPayitem:data,isChange:true});
-
          }
         }  isSelect={item.code === bankitem.code} data={item}/>
     }
-
-
 
 
 }

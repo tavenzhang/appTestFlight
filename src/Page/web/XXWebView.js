@@ -306,9 +306,9 @@ export default class XXWebView extends Component {
             };
         }
 
-        if(TW_IS_DEBIG){
-            source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-        }
+        // if(TW_IS_DEBIG){
+        //     source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+        // }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({
@@ -526,7 +526,7 @@ export default class XXWebView extends Component {
                             NetUitls.postUrlAndParamsAndCallback(myUrl,JSON.parse(message.data), (ret) => {
                                 //TW_Log("---home--http---game--postUrlAndParamsAndCallback>url="+message.url, ret);
                                 this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
-                            },10,false,false,null,true)
+                            },10,false,false,null,true,this.onParamHead(message.header))
                             break
                         case "get":
                             NetUitls.getUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
@@ -544,17 +544,31 @@ export default class XXWebView extends Component {
                                         this.onFinishGameList(ret.content.datas)
                                     }
                                 }
-
-                            },10,false,false,true);
+                            },10,false,false,true,this.onParamHead(message.header));
                             break;
                         case "put":
                             NetUitls.putUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
                                 this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
-                            },10,false,true);
+                            },10,false,true,this.onParamHead(message.header));
                             break;
                     }
             }
         }
+    }
+
+    onParamHead=(headDataList)=>{
+        let header = null;
+        if(headDataList&&headDataList.length>0){
+            header={}
+            for(let i=0;i<headDataList.length;i++){
+                if(i%2==0&&headDataList[i+1]){
+                    header[`${headDataList[i]}`]=headDataList[i+1];
+                }
+            }
+            TW_Log("onParamHead----"+headDataList.length,header)
+        }
+
+        return header
     }
 
     onLoadStart = (event) => {

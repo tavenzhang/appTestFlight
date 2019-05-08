@@ -219,7 +219,7 @@ export const gameUI = {
     typeWy:require('./game/moneyPay/type/typeWy.png'),
     typeTrans:require('./game/moneyPay/type/typeTrans.png'),
 
-    //stepOnebg1@2x
+    //stepOnebg1
     stepOneBg1:require('./game/moneyPay/stepOnebg1.png'),
     stepOneBg2:require('./game/moneyPay/stepOnebg2.png'),
 

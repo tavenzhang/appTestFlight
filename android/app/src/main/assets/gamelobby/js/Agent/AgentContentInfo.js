@@ -189,7 +189,7 @@ var AgentContentInfo = /** @class */ (function (_super) {
             // this.setLabelData("username", s.nickname);
             this.setLabelData("username", "");
             this.setLabelData("invationid", s.username);
-            this.setLabelData("invationparentid", s.parentName);
+            this.setLabelData("invationparentid", this.between(s.parentName, "(", ")"));
             this.setLabelData("childrenincome", s.todaySubBet);
             this.setLabelData("brokerage", s.todayBrokerage);
             this.setLabelData("teampersonnum", s.teamMembers);
@@ -217,6 +217,21 @@ var AgentContentInfo = /** @class */ (function (_super) {
             // AgentPad.getObj().onClose(null);
             // Toast.showToast( s );//Tools.getStringByKey( this.conf.txt_notagent ) );
         }
+    };
+    AgentContentInfo.prototype.between = function (p_string, p_start, p_end) {
+        var str = '';
+        if (p_string === null) {
+            return str;
+        }
+        var startIdx = p_string.indexOf(p_start);
+        if (startIdx !== -1) {
+            startIdx += p_start.length; // RM: should we support multiple chars? (or ++startIdx);
+            var endIdx = p_string.indexOf(p_end, startIdx);
+            if (endIdx !== -1) {
+                str = p_string.substr(startIdx, endIdx - startIdx);
+            }
+        }
+        return str;
     };
     AgentContentInfo.prototype.requestInvationCode = function () {
         LayaMain.getInstance().showCircleLoading();

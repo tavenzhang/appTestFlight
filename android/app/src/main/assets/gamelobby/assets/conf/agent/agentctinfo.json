@@ -75,7 +75,7 @@
             "data": "invationid",
             "pos": {
                 "x": 420,
-                "y": 15
+                "y": 25
             },
             "size": {
                 "w": 200,
@@ -96,7 +96,7 @@
             "data": "invationparentid",
             "pos": {
                 "x": 480,
-                "y": 70
+                "y": 75
             },
             "size": {
                 "w": 200,

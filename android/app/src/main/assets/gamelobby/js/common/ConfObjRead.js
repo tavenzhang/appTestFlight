@@ -578,6 +578,12 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.musicObj = Laya.Loader.getRes("./assets/conf/common/music.json");
         return ConfObjRead.musicObj;
     };
+    ConfObjRead.getGameIconConfig = function () {
+        if (!this.gameIconConfig) {
+            this.gameIconConfig = Laya.Loader.getRes("./assets/conf/gameIcons.json");
+        }
+        return this.gameIconConfig;
+    };
     ConfObjRead.agentlistdesctestObj = null;
     ConfObjRead.agentlistdescObj = null;
     ConfObjRead.agenttestdataincomeObj = null;
@@ -648,6 +654,10 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.uibgObj = null;
     ConfObjRead.dealerObj = null;
     ConfObjRead.musicObj = null;
+    /**
+     * 游戏图标配置
+     */
+    ConfObjRead.gameIconConfig = null;
     return ConfObjRead;
 }());
 //# sourceMappingURL=ConfObjRead.js.map

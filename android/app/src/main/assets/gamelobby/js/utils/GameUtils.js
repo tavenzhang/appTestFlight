@@ -27,6 +27,26 @@ var GameUtils = /** @class */ (function () {
         configurable: true
     });
     /**
+     * 获取不同手机端分辨率的位置偏移量(后续将废弃posOffset)
+     * @param min
+     * @param max
+     */
+    GameUtils.getScreencOffset = function (min, max) {
+        var width = 0;
+        //获得屏幕的长宽比
+        var bi = Laya.stage.width / Laya.stage.height;
+        if (bi < 1.777778) {
+            width = min;
+        }
+        else if (bi > 2.165333) {
+            width = max;
+        }
+        else {
+            width = (bi - 1.777778) * (max - min) / (2.165333 - 1.777778) + min;
+        }
+        return width;
+    };
+    /**
      * 限制num的取值区间
      * @param cur
      * @param min
@@ -39,6 +59,27 @@ var GameUtils = /** @class */ (function () {
             cur = min;
         return cur;
     };
+    Object.defineProperty(GameUtils, "isNativeApp", {
+        /**
+         * 判断是否运行在nativeApp
+         */
+        get: function () {
+            return AppData.IS_NATIVE_APP;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(GameUtils, "deviceToken", {
+        /**
+         * 获取设备号
+         */
+        get: function () {
+            var uid = MyUid.getUid();
+            return this.isNativeApp ? (AppData.NATIVE_DATA.deviceToken || uid) : uid;
+        },
+        enumerable: true,
+        configurable: true
+    });
     //最小和最大间隔(用于需要全屏适配的ui)
     GameUtils.minGap = 28;
     GameUtils.maxGap = 78;

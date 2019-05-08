@@ -52,7 +52,7 @@ var LobbyScene = /** @class */ (function (_super) {
         //底部菜单
         // MineMenus.getInstance(this,ConfObjRead.getConfMinemenus());
         if (ConfObjRead.getConfAttention().bAutoShowInLobby) {
-            this.requestPop();
+            // this.requestPop();//临时屏蔽
             // Debug.trace("LobbyScene.initUI auto");
             // AttentionDialog.showPad(this, ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_AUTO);
             // Laya.timer.once(1500, this, view.dlg.NoticeDlg.show, [AttentionDialog.TYPE_OPEN_AUTO]);
@@ -61,7 +61,6 @@ var LobbyScene = /** @class */ (function (_super) {
         this.addChild(this.view);
     };
     LobbyScene.prototype.requestPop = function () {
-        LayaMain.getInstance().showCircleLoading();
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.attention_pop +
             "?access_token=" + Common.access_token;
@@ -98,6 +97,7 @@ var LobbyScene = /** @class */ (function (_super) {
     LobbyScene.prototype.gamepanelOver = function () {
     };
     LobbyScene.prototype.onLoaded = function (s) {
+        Common.access_token = SaveManager.getObj().get(SaveManager.KEY_TOKEN, "");
         if (!Common.access_token) {
             LayaMain.getInstance().initLogin();
             return;
