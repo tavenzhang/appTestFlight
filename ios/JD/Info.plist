@@ -2,19 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
- <key>com.openinstall.APP_KEY</key>
-	<string>k9e92p</string>
 	<key>APP_DOWNLOAD_VERSION</key>
 	<string>2.0</string>
-	<key>PLAT_CH</key>
-	<string>1</string>
-	<key>PLAT_ID</key>
-	<string>5</string>
 	<key>Affcode</key>
 	<string></string>
-	<key>UmengKey</key>
-	<string></string>
-
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -42,7 +33,7 @@
 			<string>openinstall</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>xhmkrq</string>
+				<string>k9e92p</string>
 			</array>
 		</dict>
 		<dict>
@@ -50,7 +41,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>xhmk</string>
+				<string>k9e92p</string>
 			</array>
 		</dict>
 		<dict>
@@ -140,6 +131,10 @@
 	<string>需要您的同意,才能添加到相册</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>需要您的同意,才能访问相册</string>
+	<key>PLAT_CH</key>
+	<string>1</string>
+	<key>PLAT_ID</key>
+	<string>5</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -160,7 +155,7 @@
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-        	<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
@@ -168,5 +163,9 @@
 	<array>
 		<dict/>
 	</array>
+	<key>UmengKey</key>
+	<string></string>
+	<key>com.openinstall.APP_KEY</key>
+	<string>k9e92p</string>
 </dict>
 </plist>

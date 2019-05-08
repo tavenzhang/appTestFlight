@@ -29,15 +29,14 @@ export default class BtnPayType extends Component {
     render() {
         let {isSelect,data} = this.props
         return (<TouchableWithoutFeedback onPress={this.onSelect}>
-                <View style={{width:210}}>
-                    <TCImage source={isSelect ? ASSET_Images.gameUI.btnPayHight : ASSET_Images.gameUI.btnPayNormal} style={this.getBtnStyle(isSelect)} resizeMode={'stretch'}/>
+                <View style={{ justifyContent:"center", alignItems:"center"}}>
+                    <TCImage source={isSelect ? ASSET_Images.gameUI.btnPayHight : ASSET_Images.gameUI.btnPayNormal}  resizeMode={'stretch'}/>
                     <View style={{
-                        position: "absolute", alignItems: "center", justifyContent: "center", width: 180,
-                        height: 60,
+                        position: "absolute", alignItems: "center", justifyContent: "center",
                     }}>
                         <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center",}}>
                             <TCImage source={this.getPayTypeIcon(data.code)}
-                                     style={{width: 180, height: 50, marginRight: 5}} resizeMode={'contain'}/>
+                                     style={{marginRight: 5}}/>
                             {/*<View style={{justifyContent:"center", alignItems:"center"}}>*/}
                             {/*<TCImage source={this.getPayName(data.code)}/>*/}
                                 {/*{this.isFinxePay(data.code) ? <TCImage source={ASSET_Images.gameUI.title_fix}/>:null}*/}
@@ -52,7 +51,7 @@ export default class BtnPayType extends Component {
     onSelect = () => {
         let {onClick,data} = this.props
         if (onClick) {
-            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
+            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.sfx_click);
             onClick(data)
         }
     }

@@ -71,8 +71,8 @@ export default class GamePayStepOne extends Component {
         return (<View style={styles.container}>
             {
                 itemData.code.indexOf("FIXED") === -1 ?(<View>
-                    <TCImage source={ASSET_Images.gameUI.stepOneBg1} style={{width:SCREEN_W - 350,height:25,}} resizeMode={'contain'}/>
-                    <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`} viewStyle={{position: "absolute", right:SCREEN_W*0.34, top: 6,}}
+                    <TCImage source={ASSET_Images.gameUI.stepOneBg1}  resizeMode={'contain'}/>
+                    <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`} viewStyle={{position: "absolute", left:210, top: 6,}}
                                  placeholder={"请输入金额"}
                                  keyboardType={"numeric"}
                                  inputStyle={[styles.inputStyle, {fontSize: 14}]}
@@ -86,9 +86,9 @@ export default class GamePayStepOne extends Component {
                                                  isSelect={`${item}` == `${this.state.money}`}/>
                         })}
                     </View>
-                    <TCImage source={ASSET_Images.gameUI.stepOneBg2} style={{width:SCREEN_W - 350,height:25,marginLeft:10,marginTop:90}} resizeMode={'contain'}/>
+                    <TCImage source={ASSET_Images.gameUI.stepOneBg2} style={{marginTop:90}} resizeMode={'contain'}/>
                     <TCButtonImg imgSource={ASSET_Images.gameUI.btn_onLine}
-                                 btnStyle={{position: "absolute", right: 150, top: 115,}} imgStyle={{height:25,width:SCREEN_W * 0.1}} onClick={() => {
+                                 btnStyle={{position: "absolute", left: 308, top: 115,}} imgStyle={{}} onClick={() => {
                         TW_Store.gameUIStroe.showGusetView();
                     }}/>
                 </View>):null
@@ -101,7 +101,7 @@ export default class GamePayStepOne extends Component {
             </View>
             {
                 this.state.showArrow&&payList&&payList.length > 0&&<TCButtonImg imgSource={ASSET_Images.gameUI.downArrow} btnStyle={{position: "absolute",top:SCREEN_H -115,left:SCREEN_W*0.5-115}} resizeMode={'stretch'}
-                                                       imgStyle={{width:60,height:40}} onClick={()=>this.scrollList() }/>
+                                                       onClick={()=>this.scrollList() }/>
             }
             <ModalList
                 show={this.userPayStore.showList}
@@ -248,7 +248,7 @@ export default class GamePayStepOne extends Component {
 
             TW_Log("paymentItem---"+this.state.slectedItem);
             return(
-                (<View style={{width: SCREEN_W - 250,height: 40 + itemHeight, alignItems: "center",marginBottom:5,justifyContent:'center'}}>
+                (<View style={{width: SCREEN_W - 250,height: 40 + itemHeight,alignItems: "center",marginBottom:5,justifyContent:'center'}}>
                     <TCImage source={ASSET_Images.gameUI.fixedListItemBg}
                              style={{position: "absolute", width: SCREEN_W - 250, height: 40 + itemHeight}} resizeMode={"stretch"}/>
                     <View style={{width: SCREEN_W - 250, height: 40, alignItems: "center", flexDirection: "row",marginBottom:5,justifyContent:'center'}}>
@@ -295,9 +295,9 @@ export default class GamePayStepOne extends Component {
             return (<TouchableOpacity
                 onPress={() => {
                     this.onPressPay(paymentItem)
-                }}><View style={{width: SCREEN_W - 250, height: 100, alignItems: "center", flexDirection: "row"}}>
+                }}><View style={{width: SCREEN_W - 250, height: 110, alignItems: "center", flexDirection: "row"}}>
                 <TCImage source={ASSET_Images.gameUI.listItemBg}
-                         style={{position: "absolute", width: SCREEN_W - 250, height: 100}}/>
+                         style={{position: "absolute", width: SCREEN_W - 250, height: 100}} resizeMode={"contain"}/>
                 <TCImage source={payHelper.getPayTypeIcon(paymentItem.type)} style={{height: 50, width: 50, marginLeft: 10}}/>
                 <View>
                     <Text
