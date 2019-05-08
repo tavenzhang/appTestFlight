@@ -70,7 +70,7 @@ export default class GameUIView extends Component {
     }
 }
 
-
+@observer
 class SubGameView extends Component {
     constructor(props) {
         super(props)

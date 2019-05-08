@@ -55,7 +55,7 @@ export default class GameMoneyOutView extends Component {
 
             <TCImage source={ASSET_Images.gameUI.payOutBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.18,width:SCREEN_W*0.68,height:SCREEN_H*0.76,left:SCREEN_W*0.26}}/>
 
-            <TCImage source={ASSET_Images.gameUI.payTypeSelectBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.18,width:SCREEN_W*0.28,height:SCREEN_H*0.35,left:0}}/>
+            <TCImage source={ASSET_Images.gameUI.payTypeSelectBg} resizeMode={'contain'} style={{position: "absolute",top:SCREEN_H*0.18,width:SCREEN_W*0.28,height:SCREEN_H*0.35,left:0}}/>
             <TCImage source={ASSET_Images.gameUI.payOutTypeBank} resizeMode={'contain'} style={{position: "absolute",top:SCREEN_H*0.18+15,width:SCREEN_W*0.20,height:SCREEN_H*0.25,left:30}}/>
             <TCImage source={ASSET_Images.gameUI.payOutTopIcon} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.19,width:40,height:42,left:SCREEN_W*0.29}}/>
             <TCImage source={ASSET_Images.gameUI.payOutMoneyLabel} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.22,width:90,height:25,left:SCREEN_W*0.37}}/>
@@ -74,24 +74,24 @@ export default class GameMoneyOutView extends Component {
 
 
             <TCImage source={ASSET_Images.gameUI.inputMoneyBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H * 0.46,width:SCREEN_W*0.6,height:60,left: SCREEN_W*0.29,}}/>
-            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.32, top: SCREEN_H * 0.46 +20}}
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.30, top: SCREEN_H * 0.46 +20}}
                     textStyle={{color: "#fffff1",fontSize:20}} text={'提取金额:'}/>
             <TCImage source={ASSET_Images.gameUI.moneyLabelBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H * 0.46+ 20,width:SCREEN_W*0.35,height:30,left: SCREEN_W*0.44,}}/>
-            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.8, top: SCREEN_H * 0.46 +20}}
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.8, top: SCREEN_H * 0.46 +22}}
                     textStyle={{color: "#fffff1",fontSize:20}} text={'元'}/>
 
 
-            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.29, top: SCREEN_H*0.66}}
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.30, top: SCREEN_H*0.66}}
                     textStyle={{color: "#fffff1",fontSize:20}} text={'收款银行'}/>
-            <TCImage source={ASSET_Images.gameUI.moneyLabelBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H * 0.66,width:SCREEN_W*0.5,height:30,right: 50,}}/>
-            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.44, top: SCREEN_H*0.66+5}}
-                    textStyle={{color: "#fffff1",fontSize:16}} text={this.userWithdrawStore.bank.bankCardNo}/>
+
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.48, top: SCREEN_H*0.65+5}}
+                    textStyle={{color: "#fffff1",fontSize:16}} text={this.onFormatBank(this.userWithdrawStore.bank.bankCardNo)}/>
             {
-                (!this.userWithdrawStore.bank.bankCardNo||!this.userWithdrawStore.bank.bankCardNo.length)&&<TCButtonImg imgSource={ASSET_Images.gameUI.bankBtn}
-                             btnStyle={{position: "absolute",top:SCREEN_H * 0.66+2,right: 40}} imgStyle={{width:SCREEN_W*0.19,height:30}} onClick={()=>{
+                (!this.userWithdrawStore.bank.bankCardNo||!this.userWithdrawStore.bank.bankCardNo.length) ?<TCButtonImg imgSource={ASSET_Images.gameUI.bankBtn}
+                             btnStyle={{position: "absolute",top:SCREEN_H * 0.65+2,right: SCREEN_W*0.33}} imgStyle={{width:SCREEN_W*0.19,height:30}} onClick={()=>{
                     TW_Store.gameUIStroe.isShowUserInfo = true;
                 }}
-                />
+                />:  <TCImage source={ASSET_Images.gameUI.moneyLabelBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H * 0.65,width:SCREEN_W*0.46,height:30,right: 100,}}/>
             }
 
             <TCButtonImg imgSource={ASSET_Images.gameUI.query}
@@ -104,11 +104,12 @@ export default class GameMoneyOutView extends Component {
                 justifyContent: "center",
                 alignItems: "center",
                 top:  SCREEN_H * 0.46 + 25,
-                left: SCREEN_W*0.38,
+                left: SCREEN_W*0.45,
             }}>
                 <TCTextInput value={this.userWithdrawStore.money}
                              viewStyle={{
-                                 justifyContent: "center", alignItems: "center", width: SCREEN_W*0.35
+
+
                              }}
                              onChangeText={(num) => {
                                  this.userWithdrawStore.money=num
@@ -116,7 +117,8 @@ export default class GameMoneyOutView extends Component {
                              keyboardType={"numeric"}
                              placeholder={`请输入提取金额 `}
                              maxLength={10}
-                             inputStyle={styles.inputStyle}
+                             inputStyle={[styles.inputStyle,{  width: SCREEN_W*0.34,
+                                }]}
                              placeholderTextColor={"#9cc5d8"}/>
 
                 {/*<Text style={{*/}
@@ -159,6 +161,20 @@ export default class GameMoneyOutView extends Component {
     //     </View>)
     // }
 
+    onFormatBank=(bankNum)=>{
+        let ret ="";
+        if(bankNum&&bankNum.length>0){
+            for(let i=0;i<bankNum.length;i++){
+                let post = i;
+                if(post%4==0){
+                    ret+=" "+bankNum[i];
+                }else{
+                    ret+=bankNum[i]
+                }
+            }
+        }
+        return ret
+    }
     /**
      * 输入密码callback
      * @param res
@@ -391,6 +407,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold",
         color: "#ffde00",
+        textAlign:"center",
         height:20
     },
 

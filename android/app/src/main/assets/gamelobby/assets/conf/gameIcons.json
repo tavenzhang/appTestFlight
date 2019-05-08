@@ -1,0 +1,142 @@
+{
+    "desc": "新游戏图标配置表",
+    "list": [
+        {
+            "desc": "百花洛神",
+            "alias": "bhls",
+            "norm": "./assets/ui/game/icon_game_bhls.png",
+            "gray": "./assets/ui/game/icon_game_bhls_gray.png",
+            "anim_png": "./assets/ui/animation/icons/baihualuoshen/icon_baihua.png",
+            "anim_sk": "./assets/ui/animation/icons/baihualuoshen/icon_baihua.sk"
+        },
+        {
+            "desc": "加勒比梭哈",
+            "alias": "jlbsh",
+            "norm": "./assets/ui/game/icon_jlbsh.png",
+            "gray": "./assets/ui/game/icon_jlbsh_gray.png",
+            "anim_png": "./assets/ui/animation/icons/jialebisuoha/jialebisuoha.png",
+            "anim_sk": "./assets/ui/animation/icons/jialebisuoha/jialebisuoha.sk"
+        },
+        {
+            "desc": "幸运五张",
+            "alias": "xywz",
+            "norm": "./assets/ui/game/icon_xywz.png",
+            "gray": "./assets/ui/game/icon_xywz_gray.png",
+            "anim_png": "./assets/ui/animation/icons/xinyunwuzhang/xy5z.png",
+            "anim_sk": "./assets/ui/animation/icons/xinyunwuzhang/xy5z.sk"
+        },
+        {
+            "desc": "欢乐红包",
+            "alias": "hlhb",
+            "norm": "./assets/ui/game/icon_hlhb.png",
+            "gray": "./assets/ui/game/icon_hlhb_gray.png",
+            "anim_png": "./assets/ui/animation/icons/huanlehongbao/hlhb.png",
+            "anim_sk": "./assets/ui/animation/icons/huanlehongbao/hlhb.sk"
+        },
+        {
+            "desc": "斗地主",
+            "alias": "ddz",
+            "norm": "./assets/ui/game/icon_ddz.png",
+            "gray": "./assets/ui/game/icon_ddz_gray.png",
+            "anim_png": "./assets/ui/animation/icons/doudizhu/ddz.png",
+            "anim_sk": "./assets/ui/animation/icons/doudizhu/ddz.sk"
+        },
+        {
+            "desc": "金狮送财",
+            "alias": "glsm",
+            "norm": "./assets/ui/game/icon_jssc.png",
+            "gray": "./assets/ui/game/icon_jssc_gray.png",
+            "anim_png": "./assets/ui/animation/icons/jinshisongcai/jssc.png",
+            "anim_sk": "./assets/ui/animation/icons/jinshisongcai/jssc.sk"
+        },
+        {
+            "desc": "财神驾到",
+            "alias": "csjd",
+            "norm": "./assets/ui/game/icon_csjd.png",
+            "gray": "./assets/ui/game/icon_csjd_gray.png",
+            "anim_png": "./assets/ui/animation/icons/caishenjiadao/csjd.png",
+            "anim_sk": "./assets/ui/animation/icons/caishenjiadao/csjd.sk"
+        },
+        {
+            "desc": "抢庄牛牛",
+            "alias": "niuniu_qz",
+            "norm": "./assets/ui/game/icon_qznn.png",
+            "gray": "./assets/ui/game/icon_qznn_gray.png",
+            "anim_png": "./assets/ui/animation/icons/qiangzhuangniuniu/qznn.png",
+            "anim_sk": "./assets/ui/animation/icons/qiangzhuangniuniu/qznn.sk"
+        },
+        {
+            "desc": "21点",
+            "alias": "tto",
+            "norm": "./assets/ui/game/icon_bj.png",
+            "gray": "./assets/ui/game/icon_bj_gray.png",
+            "anim_png": "./assets/ui/animation/icons/blackjack/21dian.png",
+            "anim_sk": "./assets/ui/animation/icons/blackjack/21dian.sk"
+        },
+        {
+            "desc": "龙虎斗",
+            "alias": "lhd",
+            "norm": "./assets/ui/game/icon_lhd.png",
+            "gray": "./assets/ui/game/icon_lhd_gray.png",
+            "anim_png": "./assets/ui/animation/icons/longhudou/longhudou.png",
+            "anim_sk": "./assets/ui/animation/icons/longhudou/longhudou.sk"
+        },
+        {
+            "desc": "红黑大战",
+            "alias": "hhdz",
+            "norm": "./assets/ui/game/icon_hhdz.png",
+            "gray": "./assets/ui/game/icon_hhdz_gray.png",
+            "anim_png": "./assets/ui/animation/icons/hongheidazhan/hongheidazhan.png",
+            "anim_sk": "./assets/ui/animation/icons/hongheidazhan/hongheidazhan.sk"
+        },
+        {
+            "desc": "诈金花",
+            "alias": "zjh",
+            "norm": "./assets/ui/game/icon_zjh.png",
+            "gray": "./assets/ui/game/icon_zjh_gray.png",
+            "anim_png": "./assets/ui/animation/icons/zhajinhua/zhajinhua.png",
+            "anim_sk": "./assets/ui/animation/icons/zhajinhua/zhajinhua.sk"
+        },
+        {
+            "desc": "押注牛牛",
+            "alias": "niuniu_yz",
+            "norm": "./assets/ui/game/icon_yznn.png",
+            "gray": "./assets/ui/game/icon_yznn_gray.png",
+            "anim_png": "./assets/ui/animation/icons/yazhuniuniu/yazhuniuniu.png",
+            "anim_sk": "./assets/ui/animation/icons/yazhuniuniu/yazhuniuniu.sk"
+        },
+        {
+            "desc": "通比牛牛",
+            "alias": "niuniu_tb",
+            "norm": "./assets/ui/game/icon_tbnn.png",
+            "gray": "./assets/ui/game/icon_tbnn_gray.png",
+            "anim_png": "./assets/ui/animation/icons/tongbiniuniu/tongbiniuniu.png",
+            "anim_sk": "./assets/ui/animation/icons/tongbiniuniu/tongbiniuniu.sk"
+        },
+        {
+            "desc": "百人牛牛",
+            "alias": "brnn",
+            "norm": "./assets/ui/game/icon_brnn.png",
+            "gray": "./assets/ui/game/icon_brnn_gray.png",
+            "anim_png": "./assets/ui/animation/icons/bairenniuniu/brnn.png",
+            "anim_sk": "./assets/ui/animation/icons/bairenniuniu/brnn.sk"
+        },
+        {
+            "desc": "二八杠",
+            "alias": "erbg",
+            "norm": "./assets/ui/game/icon_28g.png",
+            "gray": "./assets/ui/game/icon_28g_gray.png",
+            "anim_png": "./assets/ui/animation/icons/28g/28g.png",
+            "anim_sk": "./assets/ui/animation/icons/28g/28g.sk"
+        },
+        {
+            "desc": "三公",
+            "alias": "sang",
+            "norm": "./assets/ui/game/icon_sg.png",
+            "gray": "./assets/ui/game/icon_sg_gray.png",
+            "anim_png": "./assets/ui/animation/icons/sangong/sg.png",
+            "anim_sk": "./assets/ui/animation/icons/sangong/sg.sk"
+        }
+    ],
+    "defaultIcon": "ddz"
+}
