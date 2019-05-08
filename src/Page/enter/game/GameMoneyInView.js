@@ -100,7 +100,7 @@ export default class GameMoneyInView extends Component {
             <View style={{position: "absolute", top:61,left:0,}}>
                 <TCFlatList
                     ref="payTypeList"
-                    style={{height:SCREEN_H - SCREEN_H*0.2,top:10,left:SCREEN_ISFULL ? 15:0}}
+                    style={{height:SCREEN_H - SCREEN_H*0.2,top:10,left:SCREEN_ISFULL ? 20:0}}
                     dataS={ this.userPayStore.payTypeList}
                     renderRow={this.onRenderPayTypeItem}
                     showsVerticalScrollIndicator = {false}
