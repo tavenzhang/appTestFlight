@@ -91,7 +91,7 @@ export default class XXWebView extends Component {
         if(!this.isShowKeyBoard){
             this.isShowKeyBoard =true;
             if(this.refs.myView){
-                this.refs.myView.setNativeProps({style: {bottom:event.endCoordinates.height-80}});
+                this.refs.myView.setNativeProps({style: {bottom:event.endCoordinates.height-120}});
             }
             //this.setState({isShowKeyBoard:true})
         }

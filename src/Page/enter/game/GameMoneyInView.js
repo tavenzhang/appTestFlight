@@ -94,7 +94,7 @@ export default class GameMoneyInView extends Component {
             <TCButtonImg imgSource={ASSET_Images.gameUI.btn_minxi}
                          btnStyle={{position: "absolute", right: 120, top: 10}}  onClick={()=>TW_Store.gameUIStroe.showChongZhiDetail() }
             />
-            <TCImage source={ASSET_Images.gameUI.payTypeBg} style={[{position: "absolute",left:0,bottom: 0, height:SCREEN_H-59},fullWithStyle]} />
+            <TCImage source={ASSET_Images.gameUI.payTypeBg} style={[{position: "absolute",left:0,top:SCREEN_H*0.14, height:SCREEN_H-50},fullWithStyle]} />
 
 
             <View style={{position: "absolute", top:61,left:0,}}>
@@ -112,7 +112,7 @@ export default class GameMoneyInView extends Component {
             </View>
 
                 <View style={{position: "absolute", top:60,left:210}}>
-                {bankitem ? <GamePayStepOne itemData={bankitem} isChange={this.state.isChange}/>:null}
+                 <GamePayStepOne itemData={bankitem} isChange={this.state.isChange}/>
             </View>
             {
                 this.state.showDownArrow&&
