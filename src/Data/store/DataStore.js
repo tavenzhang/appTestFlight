@@ -70,13 +70,23 @@ export default class DataStore {
                 }
             }
         });
+        TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
+            let verionM=null;
+            try{
+                verionM = JSON.parse(ret);
+            }catch (error) {
+                this.log+="-->init---catch -==-error=="+error;
+            }
+            if(!verionM){
+                this.onSaveVersionM({},false);
+            }
+        })
     }
 
     @action
     startCheckZipUpdate=()=>{
         TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
             let verionM=null;
-            this.log+="-->startCheckZipUpdate---=ret--start"+ret
             TW_Log("startCheckZipUpdate---=ret--start-ret"+ret,ret)
             try{
                 verionM = JSON.parse(ret);
