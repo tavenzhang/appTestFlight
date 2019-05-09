@@ -40,7 +40,7 @@ export const AppConfig = {
 export const MyAppName = '超会赢棋牌';
 export const MyOwnerPlatName= '超会赢棋牌';
 
-export const versionHotFix = 'chy_5_9';
+export const versionHotFix = 'chy_3_25';
 
 
 export const safeguardDomain = [
