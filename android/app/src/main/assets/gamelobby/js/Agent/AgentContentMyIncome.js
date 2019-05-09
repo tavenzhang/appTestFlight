@@ -52,11 +52,11 @@ var AgentContentMyIncome = /** @class */ (function (_super) {
         this.addChild(this.list);
         this.iDataStart = 0;
         this.changeTab(AgentContentMyIncome.TAB_ID_TODAY);
+        this.mouseEnabled = true;
     };
     AgentContentMyIncome.prototype.changeTab = function (num) {
         if (num >= 0 && num < this.arr_btns.length) {
             var btn = this.arr_btns[num];
-            btn.setOn(1);
             this.onSwitchClick(btn);
         }
     };
@@ -67,7 +67,12 @@ var AgentContentMyIncome = /** @class */ (function (_super) {
         }
     };
     AgentContentMyIncome.prototype.onSwitchClick = function (e) {
+        if (this.isBlock)
+            return;
+        this.mouseEnabled = false;
+        this.isBlock = true;
         var btn = e;
+        btn.setOn(1);
         var cmd = btn.getQuery();
         var bOn = btn.isOn();
         var bChange = false;
@@ -120,6 +125,8 @@ var AgentContentMyIncome = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseList, header, null, "get", "json");
     };
     AgentContentMyIncome.prototype.responseList = function (s, stat, hr) {
+        this.isBlock = false;
+        this.mouseEnabled = true;
         Debug.trace("AgentContentMyIncome.responseList stat:" + stat);
         Debug.trace(s);
         LayaMain.getInstance().showCircleLoading(false);

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>com.openinstall.APP_KEY</key>
-	<string>ig6e7p</string>
+    <string>ig6e7p</string>
 	<key>PlatId</key>
 	<string>1146</string>
 	<key>PLAT_CH</key>
@@ -21,6 +21,7 @@
 		<key>weixin</key>
 		<string>83d8da4ee42b89e05409daf68c1eb3dc</string>
 	</dict>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -36,7 +37,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.1.14</string>
+	<string>2.0.14</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>

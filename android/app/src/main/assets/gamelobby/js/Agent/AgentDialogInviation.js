@@ -42,7 +42,7 @@ var AgentDialogInvitation = /** @class */ (function (_super) {
     AgentDialogInvitation.prototype.init = function (node, conf) {
         var container = AgentDialogInvitation.container = new MySprite();
         _super.prototype.init.call(this, node, conf);
-        this.size(this.conf.bg.size.w, this.conf.bg.size.h);
+        // this.size(this.conf.bg.size.w, this.conf.bg.size.h);
         this.initContent();
         this.initBtns();
         this.addChild(container);
@@ -51,9 +51,10 @@ var AgentDialogInvitation = /** @class */ (function (_super) {
         container.height = this.conf.bg.size.h;
         container.pivotX = this.conf.bg.size.w / 2;
         container.pivotY = this.conf.bg.size.h / 2;
-        container.x = this.conf.alphabg.size.w / 2;
-        container.y = this.conf.alphabg.size.h / 2;
+        container.x = Laya.stage.width / 2;
+        container.y = Laya.stage.height / 2;
         Laya.Tween.from(container, { scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backOut);
+        this.centerX = this.centerY = 0;
     };
     AgentDialogInvitation.prototype.initClose = function () {
         if (!this.conf.close) {
@@ -92,15 +93,20 @@ var AgentDialogInvitation = /** @class */ (function (_super) {
             container.addChild(this.btnok);
         }
         this.btnInvi = new MyButton();
-        this.btnInvi.init(this.conf.btnInvi, this, this.onRegClick);
+        this.btnInvi.init(this.conf.btnInvi, this, this.onGenClick);
         this.btnInvi.pos(this.conf.btnInvi.pos.x, this.conf.btnInvi.pos.y);
         container.addChild(this.btnInvi);
-        this.btnInvi.visible = false;
+        // this.btnInvi.visible = false;
         this.btnok.visible = false;
     };
     AgentDialogInvitation.prototype.onInput = function () {
         //  this.btnInvi.visible = this.inputCode.text.length > 3;
         this.inputCode.text = this.inputCode.text.replace(/[^a-z0-9]/gi, '');
+        this.btnok.visible = this.inputCode.text.length > 3;
+    };
+    AgentDialogInvitation.prototype.onGenClick = function (e) {
+        var max = Math.floor(Math.random() * 12) + 4; // returns a random integer from 1 to 10
+        this.inputCode.text = Math.random().toString(36).substr(2, max);
         this.btnok.visible = this.inputCode.text.length > 3;
     };
     AgentDialogInvitation.prototype.onRegClick = function (e) {
@@ -123,8 +129,17 @@ var AgentDialogInvitation = /** @class */ (function (_super) {
     AgentDialogInvitation.prototype.responseChange = function (s, stat, hr) {
         // this.event("createInviteSucess");
         // console.log(this.parent)
-        AgentPad.getObj().switchTab(null, "invation");
-        this.onClose(null);
+        // AgentPad.getObj().switchTab(null, "invation")
+        if (hr.http.status == 204) {
+            AgentDialogSucess.showDialog(this.fatherNode, ConfObjRead.getConfAgentDialogDeleteInvitation(), "成功生成邀请码");
+            view.dlg.AgentDlg.show("codes");
+            this.onClose(null);
+        }
+        try {
+            Toast.showToast(JSON.parse(hr.http.response).message);
+        }
+        catch (e) {
+        }
         // console.log("responseChange", s, stat, hr)
     };
     return AgentDialogInvitation;

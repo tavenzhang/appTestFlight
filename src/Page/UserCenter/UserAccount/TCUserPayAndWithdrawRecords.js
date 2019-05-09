@@ -83,12 +83,13 @@ export default class TCUserPayAndWithdrawRecords extends Component {
         let {onBack} = this.props
 
         if (this.props.accountType === 1) {
+
             return (
                 <NoDataView
                     ref='NoDataView'
                     titleTip={this.getNodataTip()}
-                    contentTip="大奖不等待，速去押注吧~~"
-                    btnTxt="立即充值"
+                    contentTip=""
+                    btnTxt=""
                     gotoDoing={()=>TW_Store.gameUIStroe.hideAlertUI()}
                 />
             )
@@ -96,7 +97,7 @@ export default class TCUserPayAndWithdrawRecords extends Component {
             return (<NoDataView
                 ref='NoDataView'
                 titleTip={this.getNodataTip()}
-                contentTip="大奖不等待，速去押注吧~"
+                contentTip=""
             />)
         }
     }

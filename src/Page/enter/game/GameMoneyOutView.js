@@ -42,74 +42,112 @@ export default class GameMoneyOutView extends Component {
         let num = this.userWithdrawStore.withdrawModel.aggregateBetRequirements - this.userWithdrawStore.withdrawModel.aggregateBets
 
         return (<View style={styles.container} pointerEvents={pointerEvents}>
-            <TCImage source={ASSET_Images.gameUI.moneyOutBg}/>
-            <TCImage source={ASSET_Images.gameUI.titleMoneyOut}
-                     style={{position: "absolute", right: 208, top: 28}}/>
-            <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
+            <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W, height:SCREEN_H}} resizeMode={'stretch'}/>
+            <TCImage source={ASSET_Images.gameUI.titleMoneyOut} style={{position: "absolute",width:SCREEN_W*0.1,height:SCREEN_H*0.06,left:SCREEN_W*0.11,top:SCREEN_H*0.05 - 5}} resizeMode={'contain'}/>
+            <TCButtonImg imgSource={ASSET_Images.gameUI.payBack}
                          soundName={TW_Store.bblStore.SOUND_ENUM.close}
                          onClick={() => TW_Store.gameUIStroe.isShowWithDraw = false}
-                         btnStyle={{position: "absolute", right: 0, top:10}}/>
+                         btnStyle={{position: "absolute", right: 16, top: 7,}} />
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnOut}
-                         onClick={() => {
-                             TW_Store.gameUIStroe.showTiXianDetail();
-                         }}
-                         btnStyle={{position: "absolute", right: 80, top: 90}}/>
-            <View style={{position: "absolute", left: 160, top: 66,}}>
-                <TCText backgroundStyle={{backgroundColor: "transparent"}} textStyle={{color: "#efe8cd",}}
-                        text={TW_Store.userStore.userName}/>
-                <TCText backgroundStyle={{backgroundColor: "transparent", marginTop:G_IS_IOS ? 12:9}}
-                        textStyle={{color: "#efe8cd",}} text={`${TW_Store.userStore.balance}`}/>
+                         btnStyle={{position: "absolute", right: SCREEN_W*0.15, top: 10}}  onClick={()=>TW_Store.gameUIStroe.showTiXianDetail() }
+            />
+            <TCImage source={ASSET_Images.gameUI.payTypeBg} style={{position: "absolute",top:SCREEN_H*0.14,left:0}} />
+
+
+            <TCImage source={ASSET_Images.gameUI.payOutBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.18,width:SCREEN_W*0.68,height:SCREEN_H*0.76,left:SCREEN_W*0.27}}/>
+
+            <TCImage source={ASSET_Images.gameUI.payTypeSelectBg} resizeMode={'contain'} style={{position: "absolute",top:SCREEN_H*0.18,left:0}}/>
+
+            <TCImage source={ASSET_Images.gameUI.payOutTypeBank}  style={{position: "absolute",top:SCREEN_H*0.18+15,left: SCREEN_ISFULL ? 30:10}}/>
+            <TCImage source={ASSET_Images.gameUI.payOutTypeZFB}   style={{position: "absolute",top:SCREEN_H*0.18+125,left:SCREEN_ISFULL ? 10:-10}}/>
+
+
+
+            <TCImage source={ASSET_Images.gameUI.payOutTopIcon} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.19,width:40,height:42,left:SCREEN_W*0.29}}/>
+            <TCImage source={ASSET_Images.gameUI.payOutMoneyLabel} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.22,width:90,height:25,left:SCREEN_W*0.37}}/>
+            {/*<TCImage source={ASSET_Images.gameUI.question} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.20,width:35,height:35,right:SCREEN_W*0.06}}/>*/}
+
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.50+20, top: SCREEN_H*0.205}}
+                    textStyle={{color: "#ffde00",fontSize:26}} text={this.userWithdrawStore.withdrawModel.totalMoney}/>
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.31, top: SCREEN_H*0.34}}
+                    textStyle={{color: "#fffff1",fontSize:20}} text={'有效投注:'}/>
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.44, top: SCREEN_H*0.34}}
+                    textStyle={{color: "#ffde00",fontSize:20}} text={this.userWithdrawStore.withdrawModel.aggregateBets}/>
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.60, top: SCREEN_H*0.34}}
+                    textStyle={{color: "#fffff1",fontSize:20}} text={'还需投注:'}/>
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.74, top: SCREEN_H*0.34}}
+                    textStyle={{color: "#ffde00",fontSize:20,  textAlign: "left"}} text={num}/>
+
+
+            <TCImage source={ASSET_Images.gameUI.inputMoneyBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H * 0.61,width:SCREEN_W*0.6,height:60,left: SCREEN_W*0.29,}}/>
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.31, top: SCREEN_H * 0.60 +20}}
+                    textStyle={{color: "#fffff1",fontSize:20}} text={'提取金额:'}/>
+            <TCImage source={ASSET_Images.gameUI.moneyLabelBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H * 0.60+ 20,width:SCREEN_W*0.35,height:30,left: SCREEN_W*0.44,}}/>
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.8, top: SCREEN_H * 0.60 +22}}
+                    textStyle={{color: "#fffff1",fontSize:20}} text={'元'}/>
+
+
+            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.31, top: SCREEN_H*0.47}}
+                    textStyle={{color: "#fffff1",fontSize:20}} text={'收款银行:'}/>
+            {
+                (!this.userWithdrawStore.bank.bankCardNo||!this.userWithdrawStore.bank.bankCardNo.length) ?<TCButtonImg imgSource={ASSET_Images.gameUI.bankBtn}
+                             btnStyle={{position: "absolute",top:SCREEN_H * 0.46+2,left: SCREEN_W*0.44}}  onClick={()=>{
+                    TW_Store.gameUIStroe.isShowUserInfo = true;
+                }}
+                />:  <TCText borderRadius={5} backgroundStyle={{backgroundColor:"rgb(209,212,230)", paddingHorizontal: SCREEN_W*0.07,
+                    paddingVertical:2,position: "absolute",  left: SCREEN_W*0.30+120, top: SCREEN_H*0.46+3}}
+                             textStyle={{color: "#353535",fontSize:15,}} text={this.onFormatBank(this.userWithdrawStore.bank.bankCardNo)}/>
+            }
+            <View style={{ position: "absolute",bottom:40,left:SCREEN_W*0.5}}>
+                 {this.getConfirmButton()}
             </View>
 
-            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: 105, top: 126}}
-                    textStyle={{color: "#efe8cd",}} text={this.userWithdrawStore.withdrawModel.aggregateBets}/>
-            <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: 410, top: 126}}
-                    textStyle={{color: "#efe8cd",}} text={num}/>
+
+
             <View style={{
                 flexDirection: "row",
                 position: "absolute",
                 justifyContent: "center",
                 alignItems: "center",
-                top: 213,
-                left: 90,
+                top:  SCREEN_H * 0.60 + 25,
+                left: SCREEN_W*0.45,
             }}>
                 <TCTextInput value={this.userWithdrawStore.money}
                              viewStyle={{
-                                 borderBottomWidth: 1, borderBottomColor: "#9cc5d8",
-                                 // backgroundColor:"red",
-                                 justifyContent: "center", alignItems: "center", width: 150
+
+
                              }}
-                             inputStyle={{textAlign: "center", backgroundColor: "yellow"}}
                              onChangeText={(num) => {
                                  this.userWithdrawStore.money=num
                              }}
                              keyboardType={"numeric"}
-                             placeholder={`请输入提取金额 `} maxLength={10} inputStyle={styles.inputStyle}
+                             placeholder={`请输入提取金额 `}
+                             maxLength={10}
+                             inputStyle={[styles.inputStyle,{  width: SCREEN_W*0.34,
+                                }]}
                              placeholderTextColor={"#9cc5d8"}/>
 
-                <Text style={{
-                    marginLeft: 10,
-                    color: "rgb(132,168,168)",
-                    fontSize: 11
-                }}>{`(${this.getInfoTextView()})`}</Text>
+                {/*<Text style={{*/}
+                    {/*marginLeft: 10,*/}
+                    {/*color: "rgb(132,168,168)",*/}
+                    {/*fontSize: 11*/}
+                {/*}}>{`(${this.getInfoTextView()})`}</Text>*/}
 
             </View>
-            <Text style={{
-                position: "absolute",
-                left: 90,
-                top: 235,
-                fontSize: 12,
-                color: "rgb(132,168,168)",
-                marginLeft: 10
-            }}>{`(最多可提取金额 ${this.userWithdrawStore.withdrawModel.maxWithdrawMoney} 元)`}</Text>
-            {this.getConfirmButton()}
+            {/*<Text style={{*/}
+                {/*position: "absolute",*/}
+                {/*left: 90,*/}
+                {/*top: 235,*/}
+                {/*fontSize: 12,*/}
+                {/*color: "rgb(132,168,168)",*/}
+                {/*marginLeft: 10*/}
+            {/*}}>{`(最多可提取金额 ${this.userWithdrawStore.withdrawModel.maxWithdrawMoney} 元)`}</Text>*/}
+            {/*{this.getConfirmButton()}*/}
 
-            <View style={{position: "absolute",left: 70, top: 155}}>
-                    <Text style={{color: "#efe8cd"}}>{this.userWithdrawStore.bank.bankName}</Text>
-                    <Text style={{color: "rgb(132,168,168)", fontSize:14, marginTop:5}}>{this.userWithdrawStore.bank.bankCardNo}</Text>
-            </View>
-            <TCImage  source={{uri:TW_Store.bblStore.getHeadIcoUrl()}}
-                     style={{position: "absolute", width: 45, height: 46,left: 42, top: 68,}}/>
+            {/*<View style={{position: "absolute",left: 70, top: 155}}>*/}
+                    {/*<Text style={{color: "#efe8cd"}}>{this.userWithdrawStore.bank.bankName}</Text>*/}
+                    {/*<Text style={{color: "rgb(132,168,168)", fontSize:14, marginTop:5}}>{this.userWithdrawStore.bank.bankCardNo}</Text>*/}
+            {/*</View>*/}
 
             <View style={{position: "absolute"}}>
                 <TCWithdrawKeyboardView
@@ -122,6 +160,27 @@ export default class GameMoneyOutView extends Component {
 
     }
 
+    // getPayTypeView =()=>{
+    //     return(<View>
+    //         <TCImage source={ASSET_Images.gameUI.payTypeSelectBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.14,left:0,width:SCREEN_W*0.25,height:SCREEN_H*0.3}}/>
+    //         <TCImage source={ASSET_Images.gameUI.payOutTypeBank} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.14,left:0,width:SCREEN_W*0.25,height:SCREEN_H*0.3}}/>
+    //     </View>)
+    // }
+
+    onFormatBank=(bankNum)=>{
+        let ret ="";
+        if(bankNum&&bankNum.length>0){
+            for(let i=0;i<bankNum.length;i++){
+                let post = i;
+                if(post%4==0){
+                    ret+=" "+bankNum[i];
+                }else{
+                    ret+=bankNum[i]
+                }
+            }
+        }
+        return ret
+    }
     /**
      * 输入密码callback
      * @param res
@@ -326,16 +385,16 @@ export default class GameMoneyOutView extends Component {
      * @returns {XML}
      */
     getConfirmButton = () => {
-        if (this.userWithdrawStore.canWithdraw) {
+        if (this.userWithdrawStore.canWithdraw&&this.userWithdrawStore.bank.bankCardNo&&this.userWithdrawStore.bank.bankCardNo.length>0) {
             return (
-                <TCButtonImg btnStyle={{position: "absolute", right: 200, top: 260}}
-                             imgSource={ASSET_Images.gameUI.btnOk} onClick={this.onOkGetOutMoeny}/>
+                <TCButtonImg imgSource={ASSET_Images.gameUI.query}
+                             resizeMode={"stretch"}
+                             onClick={()=>this.onOkGetOutMoeny()}
+                />
             )
         } else {
             return (
-                <View style={{position: "absolute", right: 220, top: 270}}>
                     <Text style={{color: 'red', fontWeight: 'bold', fontSize: Size.font15}}>您暂时无法提款</Text>
-                </View>
             )
         }
     }
@@ -351,12 +410,10 @@ const styles = StyleSheet.create({
        // backgroundColor: "transparent",
     },
     inputStyle: {
-        fontSize: 13,
-        textAlign:"center",
-        width: 150,
+        fontSize: 18,
         fontWeight: "bold",
-        color: "#efe8cd",
-        // backgroundColor:"yellow",
+        color: "#ffde00",
+        textAlign:"center",
         height:20
     },
 

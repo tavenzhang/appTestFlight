@@ -125,6 +125,7 @@ export const userPay = {
     payTypeUnionpay: require('./pay_icon/wy.png'),
     payTypeOther: require('./pay_icon/unionpay.png'),
     payTypeBank: require('./pay_icon/bank.png'),
+
 }
 
 //账变明细
@@ -168,14 +169,42 @@ export const gameUI = {
     guestBg:require('./game/guest/gusetBg.png'),
     //moneyOut
     titleMoneyOut:require('./game/moneyOut/titleMoneyOut.png'),
-    moneyOutBg:require('./game/moneyOut/menyOutBg.png'),
     btnOut:require('./game/moneyOut/btn_out.png'),
+    payOutTypeBank:require('./game/moneyOut/payOutTypeBank.png'),
+    payOutTypeZFB:require('./game/moneyOut/img_tx_zfb02.png'),
+    payTypeSelectBg:require('./game/moneyOut/payTypeSelectBg.png'),
+    payOutBg:require('./game/moneyOut/payOutBg.png'),
+    payOutTopIcon:require('./game/moneyOut/payOutTopIcon.png'),
+    payOutMoneyLabel:require('./game/moneyOut/moneyLabel.png'),
+    question:require('./game/moneyOut/quesion.png'),
+    inputMoneyBg:require('./game/moneyOut/inputMoneyBg.png'),
+    bankBtn:require('./game/moneyOut/bankbtn.png'),
+    query:require('./game/moneyOut/query.png'),
+    bangNumBg:require('./game/moneyOut/img_tx_bangBg.png'),
     //moneyPay
     moneyInBg:require('./game/moneyPay/moneyInBg.png'),
     btn_onLine:require('./game/moneyPay/btn_guset_online.png'),
     title_pay:require('./game/moneyPay/title_payType.png'),
     title_qr:require('./game/moneyPay/title_qrCode.png'),
     btn_minxi:require('./game/moneyPay/btn_minxi.png'),
+    payTopLeftBg:require('./game/moneyPay/pay_top_left_bg.png'),
+    payBack:require('./game/moneyPay/pay_back.png'),
+    payBackBg:require('./game/moneyPay/pay_back_bg.png'),
+    payTopIcon:require('./game/moneyPay/pay_top_icon.png'),
+    payTopTxt:require('./game/moneyPay/pay_top_txt.png'),
+    //payType
+    payTypeBg:require('./game/moneyPay/pay_type_bg.png'),
+    payTypeWx:require('./game/moneyPay/type/pay_type_wx.png'),
+    payTypeWxFix:require('./game/moneyPay/type/pay_type_wx_fix.png'),
+    payTypeWxGZH:require('./game/moneyPay/type/pay_type_wxgzh.png'),
+    payTypeQQ:require('./game/moneyPay/type/pay_type_qq.png'),
+    payTypeQQFix:require('./game/moneyPay/type/pay_type_qq_fix.png'),
+    payTypeZFB:require('./game/moneyPay/type/pay_type_zfb.png'),
+    payTypeZFBFix:require('./game/moneyPay/type/pay_type_zfb_fix.png'),
+    payTypeYL:require('./game/moneyPay/type/pay_type_yl.png'),
+    payTypeWy:require('./game/moneyPay/type/pay_type_wy.png'),
+    payTypeYhzz:require('./game/moneyPay/type/pay_type_yhzz.png'),
+    payTypeJD:require('./game/moneyPay/type/pay_type_jd.png'),
 
     btnPayNormal:require('./game/moneyPay/btnPayNormal.png'),
     btnPayHight:require('./game/moneyPay/btnPayHight.png'),
@@ -191,14 +220,30 @@ export const gameUI = {
     typeWy:require('./game/moneyPay/type/typeWy.png'),
     typeTrans:require('./game/moneyPay/type/typeTrans.png'),
 
-    //stepOnebg1@2x
+    //stepOnebg1
     stepOneBg1:require('./game/moneyPay/stepOnebg1.png'),
+    stepOneBg2:require('./game/moneyPay/stepOnebg2.png'),
+
     listItemBg:require('./game/moneyPay/listItemBg.png'),
+    fixedListItemBg:require('./game/moneyPay/pay_type_fixed_bg.png'),
+    fixedListItemBg1:require('./game/moneyPay/pay_type_fixed_bg1.png'),
+    moneyLabelBg:require('./game/moneyPay/money_label_bg.png'),
+    payExpand:require('./game/moneyPay/pay_expand.png'),
+    downArrow:require('./game/moneyPay/down_arrow.png'),
     //alet
     uiTitleBg:require('./game/uiTitleBg.png'),
+    uiTitleBg1:require('./game/uiTitleBg1.png'),
     title_fix:require('./game/title_fix.png'),
     btn_fanhui:require('./game/btn_fanhui.png'),
-
+    closeIcon:require('./game/close.png'),
+    czmxIcon:require('./game/czmx_icon.png'),
+    txmxIcon:require('./game/txmx_icon.png'),
+    czmxTip:require('./game/czmx_tip.png'),
+    txmxTip:require('./game/txmx_tip.png'),
+    onlineService:require('./game/online_service.png'),
+    czmxListBg1:require('./game/czmx_list_bg1.png'),
+    czmxListBg2:require('./game/czmx_list_bg2.png'),
+    czmxListBg3:require('./game/czmx_list_bg3.png')
 }
 
 export const gameShare = {

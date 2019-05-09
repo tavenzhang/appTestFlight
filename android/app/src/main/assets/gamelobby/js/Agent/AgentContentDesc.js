@@ -23,7 +23,7 @@ var AgentContentDesc = /** @class */ (function (_super) {
         if (this.conf.size) {
             this.size(this.conf.size.w, this.conf.size.h);
             this.sp_content.size(this.conf.size.w, this.conf.size.h);
-            this.scrollRect = new Laya.Rectangle(0, 0, this.conf.size.w, this.conf.size.h);
+            this.scrollRect = new Laya.Rectangle(0, 0, this.conf.size.w + 20, this.conf.size.h);
             this.on(Laya.Event.MOUSE_DOWN, this, this.onMouseEvent);
         }
         this.requestList();
@@ -75,6 +75,8 @@ var AgentContentDesc = /** @class */ (function (_super) {
                 var spconf = this.conf.sprites[i];
                 if (spconf.type == "list") {
                     var li = new AgentList(this.sp_content, ConfObjRead.getConfListDesc());
+                    li.x = 20;
+                    li.y += 35;
                     this.sp_content.addChild(li);
                     // li.setData(ConfObjRead.getConfListDescTest());
                     li.setData(listData);
@@ -116,7 +118,7 @@ var AgentContentDesc = /** @class */ (function (_super) {
             var obj = arr[i];
             var vobj = {
                 "xh": obj.level,
-                "yjed": this.getMoneyRange(obj),
+                "yjed": this.getMoneyRange(obj, i),
                 "dljb": obj.levelName,
                 "mwyfy": this.getRateMoney(obj),
                 "fybl": obj.rate //"2.5%"
@@ -133,11 +135,14 @@ var AgentContentDesc = /** @class */ (function (_super) {
         rs = parseInt(rs + "");
         return rs + "";
     };
-    AgentContentDesc.prototype.getMoneyRange = function (obj) {
+    AgentContentDesc.prototype.getMoneyRange = function (obj, i) {
         var lower = obj.lower * (this.conf.moneyrangemac);
         var upper = obj.upper * (this.conf.moneyrangemac);
         var pre = this.FormatMoney(lower);
         var f = "≤";
+        if (i == 0) {
+            var f = "<";
+        }
         var x = "X";
         var mid = "";
         var end = this.FormatMoney(upper);
@@ -149,7 +154,7 @@ var AgentContentDesc = /** @class */ (function (_super) {
             mid = x;
         }
         if (upper >= 0) {
-            mid = mid + f; //"≤X≤";
+            mid = mid + "<"; //"≤X≤";
         }
         else {
             // mid = "≤X";

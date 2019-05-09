@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 var AttentionPage = /** @class */ (function (_super) {
     __extends(AttentionPage, _super);
     function AttentionPage() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super.call(this) || this;
         _this.downPos = {
             "x": 0,
             "y": 0

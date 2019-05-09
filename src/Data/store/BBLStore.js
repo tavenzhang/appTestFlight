@@ -138,7 +138,8 @@ export  default  class BBLStore {
         playsoundByFile:"playsound",//通过文件名播放声音
         playmusicByFile:"playmusic",//通过文件名播放背景音乐
         onBlur:"onBlur",
-        lobbyResume:"lobbyResume"
+        lobbyResume:"lobbyResume",
+
     }
 
     //bgm.mp3 click.mp3 close.mp3 flopleft.mp3 flopright.mp3 recharge.mp3 rightbottomclose.mp3 showlogo.mp3
@@ -151,7 +152,9 @@ export  default  class BBLStore {
         recharge:"recharge.mp3",
         rightbottomclose:"rightbottomclose.mp3",
         showlogo:"showlogo.mp3",
-        enterPanelClick:"enterPanelClick.mp3"
+        enterPanelClick:"enterPanelClick.mp3",
+        sfx_click:"sfx_click.mp3",
+        returnLobbyClick:"returnLobbyClick.mp3"
     }
 
     @action

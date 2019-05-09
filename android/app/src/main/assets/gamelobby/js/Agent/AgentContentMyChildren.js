@@ -34,6 +34,7 @@ var AgentContentMyChildren = /** @class */ (function (_super) {
                 Tools.addLabels(this, lbconf);
             }
         }
+        this.initFilter();
         if (this.conf.menus) {
             var blen = this.conf.menus.length;
             this.arr_btns = new Array();
@@ -44,6 +45,12 @@ var AgentContentMyChildren = /** @class */ (function (_super) {
                 b.setQuery(btnconf.cmd);
                 this.addChild(b);
                 this.arr_btns.push(b);
+                if (btnconf.cmd === "adduser") {
+                    if (AgentData.role != "AGENT") {
+                        b.filters = [this.filter];
+                        b.mouseEnabled = false;
+                    }
+                }
             }
         }
         if (this.conf.animations) {
@@ -63,6 +70,16 @@ var AgentContentMyChildren = /** @class */ (function (_super) {
         this.iDataStart = 0;
         this.requestList(this.conf.pageSize, this.iDataStart, Common.userInfo.username);
     };
+    AgentContentMyChildren.prototype.initFilter = function () {
+        var colorMatrix = [
+            0.3086, 0.6094, 0.0820, 0, 0,
+            0.3086, 0.6094, 0.0820, 0, 0,
+            0.3086, 0.6094, 0.0820, 0, 0,
+            0, 0, 0, 1, 0,
+        ];
+        //创建灰色颜色滤镜
+        this.filter = new Laya.ColorFilter(colorMatrix);
+    };
     AgentContentMyChildren.prototype.onClickBtn = function (e) {
         var btn = e;
         var cmd = btn.getQuery();
@@ -75,11 +92,11 @@ var AgentContentMyChildren = /** @class */ (function (_super) {
                     this.requestList(this.conf.pageSize, this.iDataStart, Common.userInfo.username);
                 }
                 else {
-                    this.requestList(this.conf.pageSize, this.iDataStart, username);
+                    this.requestList(this.conf.pageSize, this.iDataStart, username.toLowerCase());
                 }
                 break;
             case "adduser":
-                AgentDialogAddUser.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentDialogAddUser());
+                AgentDialogAddUser.showDialog(this.fatherNode, ConfObjRead.getConfAgentDialogAddUser());
                 break;
         }
     };

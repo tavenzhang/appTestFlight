@@ -39,12 +39,19 @@ var view;
             this._inst = new LoadingView(bgAlpha);
             this._inst.zOrder = Dialog.manager.zOrder + 1;
             Laya.stage.addChild(this._inst);
+            this._inst.rotateLine();
+        };
+        LoadingView.prototype.rotateLine = function () {
+            Laya.Tween.clearTween(this.line);
+            this.line.rotation = 0;
+            Laya.Tween.to(this.line, { rotation: 360 }, 1500, Laya.Ease.linearNone, Laya.Handler.create(this, this.rotateLine));
         };
         /**
          * 隐藏loading
          */
         LoadingView.hide = function () {
             if (this._inst) {
+                Laya.Tween.clearTween(this._inst.line);
                 this._inst.destroy(true);
                 this._inst = null;
             }

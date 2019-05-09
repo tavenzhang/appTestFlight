@@ -51,7 +51,7 @@ export const platInfo = {
     loginDomain:"https://38fo28gk.czdelong.com",
     gameDomain:"https://yw8txj2e.pgzlwx.com",
 
-    downDomain:"https://download.hkbaoxian188.com",
+    downDomain:"https://download.winmeng.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",

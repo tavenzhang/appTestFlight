@@ -204,6 +204,8 @@ var EventType = /** @class */ (function () {
      * 收到此通知后要将输入文本的焦点设为false,以解决ios系统点击键盘的Done按钮后界面收不回来
      */
     EventType.BLUR_NATIVE = "blurNative";
+    //刷新显示代理按钮
+    EventType.FLUSH_AGENCYBTN = "flushAgencyBtn";
     return EventType;
 }());
 //# sourceMappingURL=EventManager.js.map
