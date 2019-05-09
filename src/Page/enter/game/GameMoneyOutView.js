@@ -45,6 +45,7 @@ export default class GameMoneyOutView extends Component {
             <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W, height:SCREEN_H}} resizeMode={'stretch'}/>
             <TCImage source={ASSET_Images.gameUI.titleMoneyOut} style={{position: "absolute",width:SCREEN_W*0.1,height:SCREEN_H*0.06,left:SCREEN_W*0.11,top:SCREEN_H*0.05 - 5}} resizeMode={'contain'}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.payBack}
+                         soundName={TW_Store.bblStore.SOUND_ENUM.returnLobbyClick}
                          onClick={() => TW_Store.gameUIStroe.isShowWithDraw = false}
                          btnStyle={{position: "absolute", right: 16, top: 7,}} />
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnOut}
@@ -58,7 +59,7 @@ export default class GameMoneyOutView extends Component {
             <TCImage source={ASSET_Images.gameUI.payTypeSelectBg} resizeMode={'contain'} style={{position: "absolute",top:SCREEN_H*0.18,left:0}}/>
 
             <TCImage source={ASSET_Images.gameUI.payOutTypeBank}  style={{position: "absolute",top:SCREEN_H*0.18+15,left: SCREEN_ISFULL ? 30:10}}/>
-            <TCImage source={ASSET_Images.gameUI.payOutTypeZFB}   style={{position: "absolute",top:SCREEN_H*0.18+125,left:SCREEN_ISFULL ? 20:10}}/>
+            <TCImage source={ASSET_Images.gameUI.payOutTypeZFB}   style={{position: "absolute",top:SCREEN_H*0.18+125,left:SCREEN_ISFULL ? 10:-10}}/>
 
 
 
@@ -87,10 +88,10 @@ export default class GameMoneyOutView extends Component {
 
 
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.31, top: SCREEN_H*0.47}}
-                    textStyle={{color: "#fffff1",fontSize:20}} text={'收款银行'}/>
+                    textStyle={{color: "#fffff1",fontSize:20}} text={'收款银行:'}/>
             {
                 (!this.userWithdrawStore.bank.bankCardNo||!this.userWithdrawStore.bank.bankCardNo.length) ?<TCButtonImg imgSource={ASSET_Images.gameUI.bankBtn}
-                             btnStyle={{position: "absolute",top:SCREEN_H * 0.46+2,right: SCREEN_W*0.33}}  onClick={()=>{
+                             btnStyle={{position: "absolute",top:SCREEN_H * 0.46+2,left: SCREEN_W*0.44}}  onClick={()=>{
                     TW_Store.gameUIStroe.isShowUserInfo = true;
                 }}
                 />:  <TCText borderRadius={5} backgroundStyle={{backgroundColor:"rgb(209,212,230)", paddingHorizontal: SCREEN_W*0.07,

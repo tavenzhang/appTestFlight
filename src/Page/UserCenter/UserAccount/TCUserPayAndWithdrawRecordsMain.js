@@ -44,7 +44,7 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
     render() {
         let {onBack}=this.props
         return (
-            <View style={{height:SCREEN_H*0.62,marginTop:10}}>
+            <View style={{height:SCREEN_H*0.60,marginTop:10}}>
                 {/*<TCImage source={ASSET_Images.gameUI.czmxListBg1} style={{position: "absolute",width:SCREEN_W*0.74,height:SCREEN_H*0.62}} resizeMode={"stretch"}/>*/}
                 {/*<TCImage source={ASSET_Images.gameUI.czmxListBg2} style={{position: "absolute",width:SCREEN_W*0.74,height:SCREEN_H*0.62}} resizeMode={"stretch"}/>*/}
                 {/*<TCImage source={ASSET_Images.gameUI.czmxListBg3} style={{position: "absolute",width:SCREEN_W*0.74,height:SCREEN_H*0.62}} resizeMode={"stretch"}/>*/}
