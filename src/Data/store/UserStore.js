@@ -14,6 +14,7 @@ import {
     getUserInfo,
     modifyPwd,
 } from '../../Common/Network/TCRequestService'
+import UserWithdrawStore from "./UserWithdrawStore";
 
 
 let base64 = new Base64()
@@ -255,8 +256,8 @@ export default class UserStore {
         this.balance = 0;
         this.phoneNumber = "";
         TW_Store.bankStore.clearBank();
-        TW_Store.userPayTypeStore.clearPlayTypeData()
-
+        TW_Store.userPayTypeStore.clearPlayTypeData();
+        TW_Store.userWithdrawStore = new UserWithdrawStore();
     }
 
 

@@ -66,14 +66,14 @@
         "label_agent_txt": {
             "src": "./assets/ui/agent/img_daili_zi_daili.png",
             "pos": {
-                "x": 272,
+                "x": 210,
                 "y": 130
             }
         },
         "label_player_txt": {
             "src": "./assets/ui/agent/img_daili_zi_wanjia.png",
             "pos": {
-                "x": 470,
+                "x": 210,
                 "y": 130
             }
         },

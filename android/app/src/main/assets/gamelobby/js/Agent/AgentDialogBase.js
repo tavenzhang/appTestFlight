@@ -84,5 +84,5 @@ var AgentDialogBase = /** @class */ (function (_super) {
         }
     };
     return AgentDialogBase;
-}(MySprite));
+}(Laya.View));
 //# sourceMappingURL=AgentDialogBase.js.map

@@ -1,78 +1,117 @@
 {
-    "pos":{ "x":250, "y":120 },
-    "sprites":[
+    "pos": {
+        "x": 250,
+        "y": 120
+    },
+    "sprites": [
         {
-            "src":"./assets/ui/agent/img_daili_sousuodi.png",
-            "pos":{
-                "x":36,
-                "y":10
+            "src": "./assets/ui/agent/img_daili_sousuodi.png",
+            "pos": {
+                "x": 36,
+                "y": 10
             }
         },
         {
-            "src":"./assets/ui/agent/img_daili_tou_zhishu.png",
-            "pos":{
-                "x":36,
-                "y":82
+            "src": "./assets/ui/agent/img_daili_tou_zhishu.png",
+            "pos": {
+                "x": 36,
+                "y": 82
             }
         }
     ],
-    "labelsX":[
+    "labelsX": [
         {
-            "data":"username",
-            "pos":{ "x":300, "y":0 },
-            "size":{ "w":200, "h":50 },
-            "font":{
-                "text":"mychildren",
-                "borderColorX":"#ff0000",
-                "color":"#bbae7a",
-                "size":19,
-                "name":"x",
-                "align":"left",
-                "valign":"top",
-                "wrap":false
+            "data": "username",
+            "pos": {
+                "x": 300,
+                "y": 0
+            },
+            "size": {
+                "w": 200,
+                "h": 50
+            },
+            "font": {
+                "text": "mychildren",
+                "borderColorX": "#ff0000",
+                "color": "#bbae7a",
+                "size": 19,
+                "name": "x",
+                "align": "left",
+                "valign": "top",
+                "wrap": false
             }
         }
     ],
-    "inputSearch":{
-        "skinX":"./assets/ui/agent/img_daili_sousuodi.png",
-        "pos":{ "x":43, "y":18 },
-        "size":{ "w":300, "h":40 },
-        "sizegrid":"0,0,0,0",
-        "font":"Arial",
-        "fontsize":30,
-        "bold":false,
-        "color":"#9cc5d8",
-        "typeX":"number",
-        "prompt":"请输入代理的用户名",
-        "textX":"http://www.google.com/xxx/yyy/zzz",
-        "editable":{
-            "value":true
+    "inputSearch": {
+        "skinX": "./assets/ui/agent/img_daili_sousuodi.png",
+        "pos": {
+            "x": 43,
+            "y": 18
+        },
+        "size": {
+            "w": 300,
+            "h": 40
+        },
+        "sizegrid": "0,0,0,0",
+        "font": "Arial",
+        "fontsize": 30,
+        "bold": false,
+        "color": "#9cc5d8",
+        "typeX": "number",
+        "prompt": "请输入代理的用户名",
+        "textX": "http://www.google.com/xxx/yyy/zzz",
+        "editable": {
+            "value": true
         }
     },
-    "menus":[
+    "menus": [
         {
-            "cmd":"search",
-            "pos":{ "x":420, "y":40 },
-            "src":[
+            "cmd": "search",
+            "pos": {
+                "x": 420,
+                "y": 40
+            },
+            "src": [
                 "./assets/ui/agent/btn_daili_sousuokuang.png"
             ],
-            "size":{ "w":139, "h":53 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/sfx_click.mp3"
+            "size": {
+                "w": 139,
+                "h": 53
+            },
+            "maxScale": {
+                "x": 1.02,
+                "y": 1.02
+            },
+            "normalScale": {
+                "x": 1,
+                "y": 1
+            },
+            "sfx": "assets/raw/sfx_click.mp3"
         },
         {
-            "cmd":"adduser",
-            "pos":{ "x":620, "y":39 },
-            "src":[
+            "cmd": "adduser",
+            "pos": {
+                "x": 620,
+                "y": 39
+            },
+            "src": [
                 "./assets/ui/agent/btn_daili_tianjiayonghu.png"
             ],
-            "size":{ "w":174, "h":56 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/sfx_click.mp3"
+            "size": {
+                "w": 174,
+                "h": 56
+            },
+            "maxScale": {
+                "x": 1.02,
+                "y": 1.02
+            },
+            "normalScale": {
+                "x": 1,
+                "y": 1
+            },
+            "sfx": "assets/raw/sfx_click.mp3"
         }
     ],
-    "pageSize":200,
-    "txt_inputagentname":"txt_inputagentname"
+    "pageSize": 200,
+    "txt_inputagentname": "txt_inputagentname"
 }

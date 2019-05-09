@@ -38,7 +38,7 @@ var AgentDialogDeleteInvitation = /** @class */ (function (_super) {
     AgentDialogDeleteInvitation.prototype.init = function (node, conf) {
         var container = AgentDialogDeleteInvitation.container = new MySprite();
         _super.prototype.init.call(this, node, conf);
-        this.size(this.conf.bg.size.w, this.conf.bg.size.h);
+        // this.size(this.conf.bg.size.w, this.conf.bg.size.h);
         this.initContent();
         this.initBtns();
         this.addChild(container);
@@ -47,9 +47,11 @@ var AgentDialogDeleteInvitation = /** @class */ (function (_super) {
         container.height = this.conf.bg.size.h;
         container.pivotX = this.conf.bg.size.w / 2;
         container.pivotY = this.conf.bg.size.h / 2;
-        container.x = this.conf.alphabg.size.w / 2;
-        container.y = this.conf.alphabg.size.h / 2;
+        container.x = Laya.stage.width / 2;
+        container.y = Laya.stage.height / 2;
         Laya.Tween.from(container, { scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backOut);
+        this.x = this.y = 0;
+        this.centerX = this.centerY = 0;
     };
     AgentDialogDeleteInvitation.prototype.initClose = function () {
         if (!this.conf.close) {
@@ -94,17 +96,21 @@ var AgentDialogDeleteInvitation = /** @class */ (function (_super) {
     };
     AgentDialogDeleteInvitation.prototype.onRegClick = function (e, bcallback) {
         if (bcallback === void 0) { bcallback = true; }
+        LayaMain.getInstance().showCircleLoading(true);
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.agent_affiliates +
             "/" + this.data + "?access_token=" + Common.access_token;
-        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        var header = ["Accept", "*/*"];
         NetManager.getObj().HttpConnect(url, this, this.responseChange, header, null, "DELETE", "JSON");
-        this.onClose(e, bcallback);
+        // this.onClose(e, bcallback);
     };
     AgentDialogDeleteInvitation.prototype.responseChange = function (s, stat, hr) {
+        LayaMain.getInstance().showCircleLoading(false);
         // this.event("delete_invite");
-        AgentPad.getObj().switchTab(null, "invation");
+        // AgentPad.getObj().switchTab(null, "invation")        
+        view.dlg.AgentDlg.show("codes");
         this.onClose(null);
+        AgentDialogSucess.showDialog(this.fatherNode, ConfObjRead.getConfAgentDialogDeleteInvitation(), "邀请码已删除");
         // console.log("responseChange", s, stat, hr)
     };
     return AgentDialogDeleteInvitation;

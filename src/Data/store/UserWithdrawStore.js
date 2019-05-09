@@ -64,11 +64,14 @@ export default class UserWithdrawStore {
             this.freshLoading()
             if (res.rs) {
                 result.status = true;
+                if(res.content&&res.content.dailyWithdrawWithAdminSettingsResult){
+                    this.parseWithdrawSetting(res.content.dailyWithdrawWithAdminSettingsResult);
+                }
                 if (res.content && res.content.bankAccounts.length > 0) {
+
                     res.content.bankAccounts.forEach((b) => {
                         if (b.isDefault) {
                             this.bank = b
-                            this.parseWithdrawSetting(res.content.dailyWithdrawWithAdminSettingsResult)
                             return;
                         }
                     })

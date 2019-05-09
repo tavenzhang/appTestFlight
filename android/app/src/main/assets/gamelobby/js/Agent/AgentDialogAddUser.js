@@ -39,7 +39,7 @@ var AgentDialogAddUser = /** @class */ (function (_super) {
     AgentDialogAddUser.prototype.init = function (node, conf) {
         var container = AgentDialogAddUser.container = new MySprite();
         _super.prototype.init.call(this, node, conf);
-        this.size(this.conf.bg.size.w, this.conf.bg.size.h);
+        // this.size(this.conf.bg.size.w, this.conf.bg.size.h);
         this.initContent();
         this.initBtns();
         this.addChild(container);
@@ -48,9 +48,10 @@ var AgentDialogAddUser = /** @class */ (function (_super) {
         container.height = this.conf.bg.size.h;
         container.pivotX = this.conf.bg.size.w / 2;
         container.pivotY = this.conf.bg.size.h / 2;
-        container.x = this.conf.alphabg.size.w / 2;
-        container.y = this.conf.alphabg.size.h / 2;
+        container.x = Laya.stage.width / 2;
+        container.y = Laya.stage.height / 2;
         Laya.Tween.from(container, { scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backOut);
+        this.centerX = this.centerY = 0;
     };
     AgentDialogAddUser.prototype.initClose = function () {
         if (!this.conf.close) {
@@ -74,37 +75,43 @@ var AgentDialogAddUser = /** @class */ (function (_super) {
         // if (this.conf.label) {
         var container = AgentDialogAddUser.container;
         Tools.addSprite(container, this.conf.label);
-        Tools.addSprite(container, this.conf.type.label_agent_txt);
-        Tools.addSprite(container, this.conf.type.label_player_txt);
+        if (AgentData.level >= 8) {
+            Tools.addSprite(container, this.conf.type.label_player_txt);
+            this.select = 1;
+        }
+        else {
+            Tools.addSprite(container, this.conf.type.label_agent_txt);
+            this.select = 0;
+        }
         // }
         if (this.conf.type) {
             var lb = Tools.addSprite(container, this.conf.type.label);
-            this.btnAgent = Tools.newSprite(this.conf.type.btnAgent);
-            container.addChild(this.btnAgent);
-            this.btnAgent.on(Laya.Event.MOUSE_DOWN, this, this.onRegClick);
-            this.btnAgentGlow = Tools.newSprite(this.conf.type.btn_agent_glow);
-            this.btnAgentGlow.pos(this.conf.type.btn_agent_glow.pos.x, this.conf.type.btn_agent_glow.pos.y);
-            container.addChild(this.btnAgentGlow);
-            this.btnPlayerGlow = Tools.newSprite(this.conf.type.btn_player_glow);
-            this.btnPlayerGlow.pos(this.conf.type.btn_player_glow.pos.x, this.conf.type.btn_player_glow.pos.y);
-            container.addChild(this.btnPlayerGlow);
-            this.btnPlayer = Tools.newSprite(this.conf.type.btnPlayer);
-            container.addChild(this.btnPlayer);
-            this.btnPlayer.on(Laya.Event.MOUSE_DOWN, this, this.onRegClick);
-            this.labelAgent = Tools.newSprite(this.conf.type.label_agent);
-            var w = this.labelAgent.width;
-            var h = this.labelAgent.height;
-            this.labelAgent.pos(this.conf.type.label_agent.pos.x + (w / 2), this.conf.type.label_agent.pos.y + (h / 2));
-            this.labelAgent.pivot(w / 2, h / 2);
-            container.addChild(this.labelAgent);
-            this.labelPlayer = Tools.newSprite(this.conf.type.label_player);
-            var w = this.labelPlayer.width;
-            var h = this.labelPlayer.height;
-            this.labelPlayer.pos(this.conf.type.label_player.pos.x + (w / 2), this.conf.type.label_player.pos.y + (h / 2));
-            this.labelPlayer.pivot(w / 2, h / 2);
-            container.addChild(this.labelPlayer);
+            // this.btnAgent = Tools.newSprite(this.conf.type.btnAgent);
+            // container.addChild(this.btnAgent);
+            // this.btnAgent.on(Laya.Event.MOUSE_DOWN, this, this.onRegClick);
+            // this.btnAgentGlow = Tools.newSprite(this.conf.type.btn_agent_glow);
+            // this.btnAgentGlow.pos(this.conf.type.btn_agent_glow.pos.x, this.conf.type.btn_agent_glow.pos.y);
+            // container.addChild(this.btnAgentGlow);
+            // this.btnPlayerGlow = Tools.newSprite(this.conf.type.btn_player_glow);
+            // this.btnPlayerGlow.pos(this.conf.type.btn_player_glow.pos.x, this.conf.type.btn_player_glow.pos.y);
+            // container.addChild(this.btnPlayerGlow);
+            // this.btnPlayer = Tools.newSprite(this.conf.type.btnPlayer);
+            // container.addChild(this.btnPlayer);
+            // this.btnPlayer.on(Laya.Event.MOUSE_DOWN, this, this.onRegClick);
+            // this.labelAgent = Tools.newSprite(this.conf.type.label_agent);
+            // var w = this.labelAgent.width;
+            // var h = this.labelAgent.height;
+            // this.labelAgent.pos(this.conf.type.label_agent.pos.x + (w / 2), this.conf.type.label_agent.pos.y + (h / 2));
+            // this.labelAgent.pivot(w / 2, h / 2);
+            // container.addChild(this.labelAgent);
+            // this.labelPlayer = Tools.newSprite(this.conf.type.label_player);
+            // var w = this.labelPlayer.width;
+            // var h = this.labelPlayer.height;
+            // this.labelPlayer.pos(this.conf.type.label_player.pos.x + (w / 2), this.conf.type.label_player.pos.y + (h / 2))
+            // this.labelPlayer.pivot(w / 2, h / 2);
+            // container.addChild(this.labelPlayer);
             // console.log(this.btnAgent, this.btnAgent)
-            this.checkSelection();
+            // this.checkSelection();
         }
         if (this.conf.name) {
             var lb = Tools.addSprite(container, this.conf.name.label);
@@ -130,32 +137,32 @@ var AgentDialogAddUser = /** @class */ (function (_super) {
         }
     };
     AgentDialogAddUser.prototype.onRegClick = function (e) {
-        switch (e.currentTarget) {
-            case this.btnAgent:
-                if (this.select === 0) {
-                    return;
-                }
-                this.select = 0;
-                var sound = this.conf.type.btnAgent.sfx;
-                if (sound) {
-                    Laya.SoundManager.playSound(sound);
-                }
-                Laya.Tween.from(this.labelAgent, { scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backOut);
-                this.checkSelection();
-                break;
-            case this.btnPlayer:
-                if (this.select === 1) {
-                    return;
-                }
-                this.select = 1;
-                var sound = this.conf.type.btnAgent.sfx;
-                if (sound) {
-                    Laya.SoundManager.playSound(sound);
-                }
-                Laya.Tween.from(this.labelPlayer, { scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backOut);
-                this.checkSelection();
-                break;
-        }
+        // switch (e.currentTarget) {
+        //     case this.btnAgent:
+        //         if (this.select === 0) {
+        //             return;
+        //         }
+        //         this.select = 0;
+        //         var sound = this.conf.type.btnAgent.sfx
+        //         if (sound) {
+        //             Laya.SoundManager.playSound(sound);
+        //         }
+        //         Laya.Tween.from(this.labelAgent, { scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backOut);
+        //         this.checkSelection();
+        //         break;
+        //     case this.btnPlayer:
+        //         if (this.select === 1) {
+        //             return;
+        //         }
+        //         this.select = 1;
+        //         var sound = this.conf.type.btnAgent.sfx
+        //         if (sound) {
+        //             Laya.SoundManager.playSound(sound);
+        //         }
+        //         Laya.Tween.from(this.labelPlayer, { scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backOut);
+        //         this.checkSelection();
+        //         break;
+        // }
         if (e === this.btnok) {
             this.register();
         }
@@ -166,23 +173,24 @@ var AgentDialogAddUser = /** @class */ (function (_super) {
         // public inputPwd: MyTextInput;
         var name = this.inputName.text;
         if (this.inputPwd.text.length <= 0) {
-            this.inputPwd.text = "123456;";
+            this.inputPwd.text = "123456";
         }
         var pwd = this.inputPwd.text;
         var err = {
             "bRight": false,
             "msg": "txt_unknowerr"
         };
-        err = Tools.regTest(name, "regexp_username_reg", "reg_err_username_format", "reg_err_username_null");
-        if (!err.bRight) {
-            this.clearInput();
-            return;
-        }
-        err = Tools.regTest(pwd, "regexp_pwd", "reg_err_pwd_format", "reg_err_pwd_null");
-        if (!err.bRight) {
-            this.clearInput();
-            return;
-        }
+        // err = Tools.regTest(name, "regexp_username_reg", "reg_err_username_format", "reg_err_username_null");
+        // console.log("Eer", err)
+        // if (!err.bRight) {
+        //     this.clearInput();
+        //     return;
+        // }
+        // err = Tools.regTest(pwd, "regexp_pwd", "reg_err_pwd_format", "reg_err_pwd_null");
+        // if (!err.bRight) {
+        //     this.clearInput();
+        //     return;
+        // }
         LayaMain.getInstance().showCircleLoading(true);
         var header = [
             "Content-Type", "application/json",
@@ -215,8 +223,10 @@ var AgentDialogAddUser = /** @class */ (function (_super) {
             return;
         }
         if (hr.http.status == 204) {
-            AgentPad.getObj().switchTab(null, "mychildren");
+            // AgentPad.getObj().switchTab(null, "mychildren")            
+            view.dlg.AgentDlg.show("affiliates");
             this.onClose(null);
+            AgentDialogSucess.showDialog(this.fatherNode, ConfObjRead.getConfAgentDialogDeleteInvitation(), "开户成功");
         }
         try {
             Toast.showToast(JSON.parse(hr.http.response).message);

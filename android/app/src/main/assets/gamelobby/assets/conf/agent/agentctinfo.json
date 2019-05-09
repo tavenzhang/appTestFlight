@@ -7,8 +7,8 @@
         {
             "src": "./assets/ui/agent/img_daili_touxiang.png",
             "pos": {
-                "x": 60,
-                "y": 0
+                "x": 40,
+                "y": 10
             },
             "size": {
                 "w": 151,
@@ -61,7 +61,7 @@
                 "h": 50
             },
             "font": {
-                "text": "恭喜发财",
+                "text": "",
                 "borderColorX": "#ff0000",
                 "color": "#efe8cd",
                 "size": 34,
@@ -75,14 +75,14 @@
             "data": "invationid",
             "pos": {
                 "x": 420,
-                "y": 70
+                "y": 25
             },
             "size": {
                 "w": 200,
                 "h": 50
             },
             "font": {
-                "text": "111111111",
+                "text": "",
                 "borderColorX": "#ff0000",
                 "color": "#efe8cd",
                 "size": 34,
@@ -96,14 +96,14 @@
             "data": "invationparentid",
             "pos": {
                 "x": 480,
-                "y": 125
+                "y": 75
             },
             "size": {
                 "w": 200,
                 "h": 50
             },
             "font": {
-                "text": "2222222",
+                "text": "",
                 "borderColorX": "#ff0000",
                 "color": "#efe8cd",
                 "size": 34,
@@ -398,6 +398,10 @@
             {
                 "key": "+",
                 "src": "./assets/ui/agent/numj/img_com_j_jh.png"
+            },
+            {
+                "key": ".",
+                "src": "./assets/ui/agent/numj/img_qian_zhusi_dian2.png"
             }
         ]
     },
@@ -454,6 +458,10 @@
             {
                 "key": "+",
                 "src": "./assets/ui/agent/numj/img_com_j_jh.png"
+            },
+            {
+                "key": ".",
+                "src": "./assets/ui/agent/numj/img_qian_zhusi_dian2.png"
             }
         ]
     },

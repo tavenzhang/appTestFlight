@@ -27,7 +27,7 @@ var LayaMain = /** @class */ (function () {
          */
         UIConfig.closeDialogOnSide = false;
         //设置游戏版本号
-        ResConfig.versions = "版本号：4.0426.1619";
+        ResConfig.versions = "版本号：4.0509.2044";
         Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_HEIGHT;
         Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
         Laya.stage.bgColor = "#000000";
@@ -224,6 +224,23 @@ var LayaMain = /** @class */ (function () {
                     break;
                 case "showLoading": { //显示/隐藏loading
                     this.showCircleLoading(Boolean(message.data), 0);
+                    break;
+                }
+                case "showMask": { //显示或隐藏背景遮罩
+                    var bl = Boolean(message.data);
+                    if (bl) {
+                        if (!this.maskbg) {
+                            this.maskbg = new Laya.Sprite();
+                            this.maskbg.graphics.drawRect(0, 0, Laya.stage.width, Laya.stage.height, "#000000");
+                            this.maskbg.alpha = 0.6;
+                            this.maskbg.zOrder = Dialog.manager.zOrder + 1;
+                        }
+                        Laya.stage.addChild(this.maskbg);
+                    }
+                    else {
+                        if (this.maskbg)
+                            this.maskbg.removeSelf();
+                    }
                     break;
                 }
             }

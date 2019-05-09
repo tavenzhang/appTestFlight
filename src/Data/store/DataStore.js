@@ -27,7 +27,7 @@ export default class DataStore {
     targetAppDir = G_IS_IOS ? DocumentDirectoryPath + "/gamelobby" : `file:///${DocumentDirectoryPath}/gamelobby`;
 
     @observable
-    homeVersionM={name:"home",versionNum:"4_26",baseVersion:"1",source:"",isFlush:false};
+    homeVersionM={name:"home",versionNum:"5_9_1",baseVersion:"1",source:"",isFlush:false};
 
     @observable
     appGameListM={};
@@ -70,31 +70,49 @@ export default class DataStore {
                 }
             }
         });
+        TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
+            let verionM=null;
+            try{
+                verionM = JSON.parse(ret);
+            }catch (error) {
+                this.log+="-->init---catch -==-error=="+error;
+            }
+            if(!verionM){
+                this.onSaveVersionM({},false);
+            }
+        })
     }
 
     @action
     startCheckZipUpdate=()=>{
         TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
             let verionM=null;
-            this.log+="-->startCheckZipUpdate---=ret--start"+ret
+            TW_Log("startCheckZipUpdate---=ret--start-ret"+ret,ret)
             try{
                 verionM = JSON.parse(ret);
             }catch (error) {
-                this.log+="-->startCheckZipUpdate---=catch--"
-            }
 
+                this.log+="-->startCheckZipUpdate---catch -==-error=="+error;
+            }
             if(ret&&verionM){
                 this.homeVersionM =verionM;
-            }
-            this.log+="-->startCheckZipUpdate---=ret-ret---"+JSON.stringify(this.homeVersionM)
-            if(this.isCheckZipUpdate){
-                this.chectHomeZipUpdate();
+                this.log+="-->startCheckZipUpdate---homeVersionM-==-"+JSON.stringify(this.homeVersionM)
+             //   TW_Log("startCheckZipUpdate---homeVersionM=",this.homeVersionM)
+                if(this.isCheckZipUpdate){
+                    this.chectHomeZipUpdate();
+                }
+            }else{
+                this.onSaveVersionM({},false,()=>{
+                    if(this.isCheckZipUpdate){
+                        this.chectHomeZipUpdate();
+                    }
+                });
             }
         })
     }
 
     chectHomeZipUpdate=()=>{
-        TW_Log("TW_DATA_KEY.versionBBL start  http ===> "+rootStore.bblStore.getVersionConfig() );
+        TW_Log("TW_DATA_KEY.versionBBL start  http ===> "+rootStore.bblStore.getVersionConfig());
         this.log+="==>getVersionConfig="+rootStore.bblStore.getVersionConfig();
         NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionConfig(),null,(rt)=>{
             TW_Log("TW_DATA_KEY.versionBBL http results== " , rt);
@@ -223,7 +241,7 @@ export default class DataStore {
                     }else{
                         setTimeout(()=>{
                             this.onRetartApp(); //android 的文件解压读写延迟比较大，延迟5秒
-                        },4000)
+                        },8000)
                     }
                     TW_Store.commonBoxStore.isShow=false;
                 });

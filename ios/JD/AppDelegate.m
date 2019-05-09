@@ -34,7 +34,13 @@ JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   [self loadRootController];
   [self.window makeKeyAndVisible];
-  [SplashScreen show];
+  
+  #ifdef DEBUG
+    //do sth.
+  #else
+     [SplashScreen show];
+  #endif
+
   
   
   // [self testLoadNative];

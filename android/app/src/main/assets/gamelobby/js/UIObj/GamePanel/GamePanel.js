@@ -351,8 +351,8 @@ var GamePanel = /** @class */ (function (_super) {
         NetManager.getObj().HttpConnect(url, this, this.responseGameList);
     };
     GamePanel.prototype.responseGameList = function (s, stat, hr) {
-        // Debug.trace("GamePanel.responseGameList:");
-        // Debug.trace(s);
+        Debug.trace("GamePanel.responseGameList:");
+        Debug.trace(s);
         if (stat == "complete") {
             Common.gameInfo = s.datas;
             var ilen = this.items.length;

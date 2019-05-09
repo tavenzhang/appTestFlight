@@ -140,6 +140,9 @@ var PageLogin = /** @class */ (function (_super) {
                     if (!Common.clientId) {
                         Common.clientId = Common.userInfo.userBalance.clientId;
                     }
+                    if (s.userRole) {
+                        userData.role = s.userRole;
+                    }
                     PageManager.Get().DestoryCurrentView();
                     LayaMain.getInstance().initLobby();
                 }
@@ -366,7 +369,7 @@ var PageLogin = /** @class */ (function (_super) {
         this.password = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "");
         this.in_code.text = '';
         //如果本地没有保存快速登陆账号的话, 去服务端拉取
-        if (this.in_account.text.length <= 0) {
+        if (this.in_account.text.length <= 0 || this.password.length < 3) {
             var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
             var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.prequicklogin;
             LayaMain.getInstance().showCircleLoading(true);
@@ -385,6 +388,9 @@ var PageLogin = /** @class */ (function (_super) {
                     that.password = jobj.password;
                     if (that.in_account.text.length > 2) { //即时保存，防止切换登录方式时不断刷新用户名的bug
                         SaveManager.getObj().save(SaveManager.KEY_QK_USERNAME, that.in_account.text);
+                    }
+                    if (that.password.length > 3) {
+                        SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, that.password);
                     }
                 }
                 else {
@@ -702,7 +708,8 @@ var PageLogin = /** @class */ (function (_super) {
             username: this.in_account.text,
             password: ePwd,
             validateCode: this.in_code.text,
-            webUniqueCode: this.rand
+            webUniqueCode: this.rand,
+            affCode: AppData.NATIVE_DATA.affCode
         };
         var jd = JSON.stringify(data);
         var that = this;

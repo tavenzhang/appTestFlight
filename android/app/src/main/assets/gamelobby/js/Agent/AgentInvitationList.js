@@ -88,7 +88,7 @@ var AgentInvitationList = /** @class */ (function (_super) {
         this.sp_content.size(this.conf.list.size.w, h);
     };
     AgentInvitationList.prototype.addItem = function (d, block) {
-        var sp = new AgentInvitationItem();
+        var sp = new AgentInvitationItem(this.fatherNode);
         sp.init(block);
         sp.setData(d);
         sp.size(block.size.w, block.size.h);

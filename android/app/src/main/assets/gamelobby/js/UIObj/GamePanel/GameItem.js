@@ -79,6 +79,7 @@ var GameItem = /** @class */ (function (_super) {
     GameItem.prototype.iconLoaded = function (res, s) {
         res = Tools.isHaveHeadPoint(".", res, 1);
         try {
+            this.btn_icon.alpha = 1;
             this.btn_icon.setRes([res]);
         }
         catch (e) { }
@@ -247,6 +248,9 @@ var GameItem = /** @class */ (function (_super) {
                 this.addChild(this.sp_pause);
             }
             catch (e) { }
+        }
+        if (this.sp_Update) {
+            this.sp_Update.visible = false;
         }
     };
     GameItem.prototype.refreshStatus = function () {
