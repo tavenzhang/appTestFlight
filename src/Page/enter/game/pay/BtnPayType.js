@@ -29,7 +29,7 @@ export default class BtnPayType extends Component {
     render() {
         let {isSelect,data} = this.props
         return (<TouchableWithoutFeedback onPress={this.onSelect}>
-                <View style={{ justifyContent:"center", alignItems:"center"}}>
+                <View style={{ justifyContent:"center", alignItems:"center",height:50}}>
                     <TCImage  source={isSelect ? ASSET_Images.gameUI.btnPayHight : ASSET_Images.gameUI.btnPayNormal}  resizeMode={'stretch'}/>
                     <View style={{
                         position: "absolute", alignItems: "center", justifyContent: "center",
