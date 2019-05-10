@@ -22,7 +22,9 @@ var PageManager = /** @class */ (function () {
         if (cmd === void 0) { cmd = null; }
         var that = this;
         function show() {
-            that.DestoryCurrentView();
+            //销毁上一个页面
+            that.current && that.current.removeSelf();
+            that.current && that.current.destroy(true);
             //实例化新页面
             that.current = new classType(cmd);
             //装载节点

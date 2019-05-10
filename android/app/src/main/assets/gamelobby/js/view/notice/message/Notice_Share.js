@@ -14,9 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 var Notice_Share = /** @class */ (function (_super) {
     __extends(Notice_Share, _super);
     function Notice_Share() {
-        var _this = _super.call(this) || this;
-        _this.limit = 0;
-        return _this;
+        return _super.call(this) || this;
     }
     Notice_Share.prototype.init = function (node) {
         this.node = node;
@@ -29,12 +27,10 @@ var Notice_Share = /** @class */ (function (_super) {
         this.circle_up.on(Laya.Event.MOUSE_DOWN, this, this.onclick);
         this.circle_down.on(Laya.Event.MOUSE_UP, this, this.onclick);
         this.on(Laya.Event.MOUSE_UP, this, this.onclick);
-        this.limit = 0;
     };
     Notice_Share.prototype.setData = function ($data) {
         this.noticeid = $data.noticeid;
         this.image.skin = $data.img;
-        this.limit = $data.noticeShare.upperLimit;
     };
     Notice_Share.prototype.onclick = function ($e) {
         if ($e.type === Laya.Event.MOUSE_DOWN) {
@@ -58,15 +54,7 @@ var Notice_Share = /** @class */ (function (_super) {
                     this.circle_up.visible = true;
                     this.circle_down.visible = false;
                     PostMHelp.game_common({ "do": "share", "type": "friend", "param": this.noticeid });
-                    var message = void 0;
-                    if (this.limit > 0) {
-                        this.limit--;
-                        message = "分享成功，请前往邮件领取奖励";
-                    }
-                    else {
-                        message = "分享成功，请多点和朋友分享乐趣吧";
-                    }
-                    Laya.timer.once(1000, this, AgentDialogSucess.showDialog, [this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), message]);
+                    Laya.timer.once(1000, this, AgentDialogSucess.showDialog, [this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), "分享成功，请多点和朋友分享乐趣吧"]);
                     break;
                 case this.circle_up:
                 case this.circle_down:
@@ -75,15 +63,7 @@ var Notice_Share = /** @class */ (function (_super) {
                     this.circle_up.visible = true;
                     this.circle_down.visible = false;
                     PostMHelp.game_common({ "do": "share", "type": "circle", "param": this.noticeid });
-                    var message2 = void 0;
-                    if (this.limit > 0) {
-                        this.limit--;
-                        message2 = "分享成功，请前往邮件领取奖励";
-                    }
-                    else {
-                        message2 = "分享成功，请多点和朋友分享乐趣吧";
-                    }
-                    Laya.timer.once(1000, this, AgentDialogSucess.showDialog, [this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), message2]);
+                    Laya.timer.once(1000, this, AgentDialogSucess.showDialog, [this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), "分享成功，请前往邮件领取奖励"]);
                     break;
                 default:
                     {

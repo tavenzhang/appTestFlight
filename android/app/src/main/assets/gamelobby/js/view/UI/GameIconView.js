@@ -31,7 +31,7 @@ var view;
             }
             Object.defineProperty(GameIconView.prototype, "alias", {
                 get: function () {
-                    return this.config ? this.config.alias : "";
+                    return this.config ? this.config.alias : this.gameVo.alias;
                 },
                 enumerable: true,
                 configurable: true
@@ -89,7 +89,14 @@ var view;
                 }
             };
             GameIconView.prototype.onStartUpdate = function () {
-                if (!this.isupdating) { //发生游戏下载命令
+                if (!this.isupdating) { //发送游戏下载命令
+                    var data = [
+                        {
+                            "alias": this.gameVo.alias,
+                            "percent": this.progressValue
+                        }
+                    ];
+                    UpdateMsgHandle.onUpdateMsg(data);
                     PostMHelp.startUpdate({ "gameId": this.gameVo.id, "alias": this.gameVo.alias });
                 }
             };
@@ -189,13 +196,6 @@ var view;
                     this.grayRect = new Laya.Rectangle(0, 0, this.grayIcon.width || 200, this.grayIcon.height || 200);
                 this.grayIcon.scrollRect = this.grayRect;
                 this.grayHeight = this.grayRect.height;
-                var data = [
-                    {
-                        "alias": this.gameVo.alias,
-                        "percent": this.progressValue
-                    }
-                ];
-                UpdateMsgHandle.onUpdateMsg(data);
             };
             /**
              * 销毁

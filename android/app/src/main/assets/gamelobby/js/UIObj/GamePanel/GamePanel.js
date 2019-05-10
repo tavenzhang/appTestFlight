@@ -353,7 +353,6 @@ var GamePanel = /** @class */ (function (_super) {
     GamePanel.prototype.responseGameList = function (s, stat, hr) {
         Debug.trace("GamePanel.responseGameList:");
         Debug.trace(s);
-        LayaMain.getInstance().showCircleLoading(false);
         if (stat == "complete") {
             Common.gameInfo = s.datas;
             var ilen = this.items.length;
@@ -365,10 +364,11 @@ var GamePanel = /** @class */ (function (_super) {
             this.items = new Array();
             this.addGameItems(s.datas);
             this.bRequestStatus = 0;
+            LayaMain.getInstance().requestEnd(stat, "");
         }
         else {
             this.bRequestStatus = -1;
-            Toast.showToast(s);
+            LayaMain.getInstance().requestEnd(stat, s);
         }
         this.scrollInGirl();
         this.scrollInContent();

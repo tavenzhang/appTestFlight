@@ -27,8 +27,7 @@ var GameListManager = /** @class */ (function () {
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.gamelist +
             "?pageSize=20&start=0&access_token=" + Common.access_token +
-            "&channel=" +
-            ConfObjRead.getConfVersion().channel +
+            "&channel=" + TempData.channel +
             "&device=" + Common.getLoginPlatform() +
             "&jump=" + Common.bNewlogin;
         HttpRequester.doRequest(url, null, null, this, function (suc, jobj) {
@@ -47,6 +46,7 @@ var GameListManager = /** @class */ (function () {
     GameListManager.prototype.onUpdateMsgInit = function () {
         var _this = this;
         var msgArr = UpdateMsgHandle.updateInitMsg;
+        console.error("游戏更新初始化：", msgArr); //debugxxx
         if (msgArr) {
             msgArr.forEach(function (value) {
                 var icon = _this.getGameIconByAlias(value.alias);
@@ -61,6 +61,7 @@ var GameListManager = /** @class */ (function () {
     };
     GameListManager.prototype.onUpdateProgress = function (data) {
         var _this = this;
+        console.error("游戏更新中：", data); //debugxxx
         if (!data || data.length <= 0)
             return;
         data.forEach(function (value) {

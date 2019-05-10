@@ -72,7 +72,7 @@ var view;
                         Toast.showToast(Tools.getStringByKey(verify.msg));
                         return;
                     }
-                    HttpRequester.setPassWord(pwd, newpwd, confirmpwd, _this, _this.responseChange);
+                    _this.requestChange(pwd, newpwd, confirmpwd);
                 });
                 //输入框密码可见开关
                 EventManager.addTouchScaleListener(this.lookBtn1, this, function () {
@@ -100,9 +100,29 @@ var view;
                 this.newTxt1.focus = false;
                 this.newTxt2.focus = false;
             };
-            PasswordSettingDlg.prototype.responseChange = function (suc, hr) {
+            PasswordSettingDlg.prototype.requestChange = function (pwd, newpwd, confirmpwd) {
+                try {
+                    var url = ConfObjRead.getConfUrl().url.apihome +
+                        ConfObjRead.getConfUrl().cmd.changepwd +
+                        "?access_token=" + Common.access_token;
+                    LayaMain.getInstance().showCircleLoading(true);
+                    var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+                    var ePwd = window['SecretUtils'].rsaEncodePWD(pwd);
+                    var eNpwd = window['SecretUtils'].rsaEncodePWD(newpwd);
+                    var data = {
+                        mode: "PASSWORD",
+                        password: ePwd,
+                        newPassword: eNpwd
+                    };
+                    var jd = JSON.stringify(data);
+                    NetManager.getObj().HttpConnect(url, this, this.responseChange, header, jd, "POST", "JSON");
+                }
+                catch (e) { }
+            };
+            PasswordSettingDlg.prototype.responseChange = function (s, stat, hr) {
                 LayaMain.getInstance().showCircleLoading(false);
-                if (suc) {
+                var err = hr.http.status;
+                if (err == 204) {
                     this.changeSuc(this.newTxt1.text);
                 }
                 else {
@@ -130,6 +150,11 @@ var view;
                 SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
                 LayaMain.getInstance().loginOut();
                 Toast.showToast(ConfObjRead.getConfChangePwdQk().textChanged);
+                if (Common.loginType == Common.TYPE_LOGIN_QK) {
+                    SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, newpwd);
+                    Common.loginInfo.strongPwd = true;
+                    SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+                }
             };
             PasswordSettingDlg.prototype.onClosed = function (type) {
                 EventManager.removeEvent(EventType.BLUR_NATIVE, this, this.lostFocusInputText);

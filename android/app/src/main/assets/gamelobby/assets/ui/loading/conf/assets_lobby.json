@@ -94,6 +94,14 @@
             "type": "JSON"
         },
         {
+            "url": "./assets/conf/login/chooselogin.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/login/quicklogin.json",
+            "type": "JSON"
+        },
+        {
             "url": "./assets/conf/login/loginother.json",
             "type": "JSON"
         },
@@ -131,6 +139,18 @@
         },
         {
             "url": "./assets/conf/common/datanum.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/gamepanel/gameiconanim.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/gamepanel/gamepanel.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/girls/girl.json",
             "type": "JSON"
         },
         {
@@ -190,7 +210,27 @@
             "type": "JSON"
         },
         {
+            "url": "./assets/conf/scrollmsg/runningmsg.json",
+            "type": "JSON"
+        },
+        {
             "url": "./assets/conf/notice/testNoticeData.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/titlebar/titlebar.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/titlebar/titlebar_app.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/titlebar/titlebar_app_temp.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/uiobj/toast.json",
             "type": "JSON"
         },
         {
@@ -227,6 +267,10 @@
         },
         {
             "url": "./assets/ui/agent/btn_com_guanbi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/btn_com_queren.png",
             "type": "IMAGE"
         },
         {
@@ -331,18 +375,6 @@
         },
         {
             "url": "./assets/ui/agent/img_qizhidi.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/agent/btn_com_guanbi.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/agent/btn_com_queren.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/agent/bg_daili_diwen01.png",
             "type": "IMAGE"
         },
         {
@@ -486,6 +518,30 @@
             "type": "IMAGE"
         },
         {
+            "url": "./assets/ui/animation/agent/banner/banner.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/agent/banner/banner.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/agent/btn/btn.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/agent/btn/btn.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/agent/top/daili_page.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/agent/top/daili_page.png",
+            "type": "IMAGE"
+        },
+        {
             "url": "./assets/ui/animation/btn_mine/menu.sk",
             "type": "BUFFER"
         },
@@ -499,6 +555,14 @@
         },
         {
             "url": "./assets/ui/animation/btn_recharge/Reload.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/coins/money_icon.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/coins/money_icon.png",
             "type": "IMAGE"
         },
         {
@@ -523,6 +587,14 @@
         },
         {
             "url": "./assets/ui/animation/liangguang/liangguang.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/shopicon/shopicon.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/shopicon/shopicon.png",
             "type": "IMAGE"
         },
         {
@@ -602,6 +674,322 @@
             "type": "IMAGE"
         },
         {
+            "url": "./assets/ui/game/defaulticon.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/download_00.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/download_01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_jlbsh.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_jlbsh_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_xywz.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_xywz_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_hlhb.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_hlhb_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_ddz.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_ddz_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_bj.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_bj_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_lhd.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_lhd_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_hhdz.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_hhdz_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_zjh.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_zjh_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_yznn.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_yznn_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_tbnn.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_tbnn_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_dzpk.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_dzpk_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_qznn.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_qznn_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_jssc.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_jssc_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_csjd.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_csjd_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_game_bhls.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_game_bhls_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_brnn.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_brnn_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_28g.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_28g_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/28g/28g.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/28g/28g.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/game/icon_sg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_sg_gray.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/sangong/sg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/sangong/sg.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/baihualuoshen/icon_baihua.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/baihualuoshen/icon_baihua.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/jialebisuoha/jialebisuoha.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/jialebisuoha/jialebisuoha.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/xinyunwuzhang/xy5z.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/xinyunwuzhang/xy5z.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/huanlehongbao/hlhb.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/huanlehongbao/hlhb.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/doudizhu/ddz.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/doudizhu/ddz.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/jinshisongcai/jssc.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/jinshisongcai/jssc.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/blackjack/21dian.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/blackjack/21dian.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/longhudou/longhudou.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/longhudou/longhudou.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/hongheidazhan/hongheidazhan.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/hongheidazhan/hongheidazhan.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/zhajinhua/zhajinhua.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/zhajinhua/zhajinhua.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/yazhuniuniu/yazhuniuniu.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/yazhuniuniu/yazhuniuniu.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/tongbiniuniu/tongbiniuniu.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/tongbiniuniu/tongbiniuniu.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/qiangzhuangniuniu/qznn.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/qiangzhuangniuniu/qznn.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/caishenjiadao/csjd.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/caishenjiadao/csjd.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/icons/bairenniuniu/brnn.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/icons/bairenniuniu/brnn.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/game/img_gengxing_baishi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/icon_hot.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/img_dating_jingqingqidai.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/img_dating_renwu.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/img_dating_whz.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/game/img_dating_xinxing.png",
+            "type": "IMAGE"
+        },
+        {
             "url": "./assets/ui/history/bgContent.png",
             "type": "IMAGE"
         },
@@ -615,6 +1003,238 @@
         },
         {
             "url": "./assets/ui/history/titleTable.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/loading/progressbar.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/loading/progressbg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/bgLogin.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/bgReg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/btn_login.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/btn_ok.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/btn_reg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/inputbgLogin.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/inputbgReg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/lb_name.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/lb_name_login.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/lb_phone.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/lb_pwd.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/lb_pwd_login.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/lb_pwdok.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/regTitle.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/star00.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/star01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/star02.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/rostar00.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/chooselogin/btn_accountlogin.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/chooselogin/btn_custom.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/chooselogin/btn_quicklogin.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/quicklogin/bg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/quicklogin/btn_camera.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/quicklogin/btn_login.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/quicklogin/btn_otherway.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/quicklogin/input_bg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/quicklogin/lbhint.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/quicklogin/lbname.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/quicklogin/lbyzm.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/quicklogin/title.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/qkchangepwd/btn_close.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/qkchangepwd/btn_xg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/qkchangepwd/lb_cfpwd.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/qkchangepwd/lb_inputpwd.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/qkchangepwd/lb_title.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/qkchangepwd/lb_xgmm.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/qkchangepwd/sp_bg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/login/qkchangepwd/sp_inputbg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/animation/notice/popout_com_animation.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/notice/popout_com_animation.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/arrowBtns.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/bgBtns.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/bgContent.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/bgLabel.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/bgNoticeTitle.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/bgRunningmsg.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/btn_attention_00.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/btn_attention_01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/btn_hdgg_00.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/btn_hdgg_01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/btn_yxgg_00.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/btn_yxgg_01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/img_com_biaotou.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/fu_01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/img_huodongzhongxing_zi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/notice/markNew.png",
             "type": "IMAGE"
         },
         {
@@ -718,6 +1338,14 @@
             "type": "ATLAS"
         },
         {
+            "url": "./assets/ui/animation/girl/girl.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/ui/animation/girl/girl.png",
+            "type": "IMAGE"
+        },
+        {
             "url": "res/atlas/ui/panel_common.atlas",
             "type": "ATLAS"
         },
@@ -744,18 +1372,6 @@
         {
             "url": "res/atlas/ui/panel_notice/roullette/spinner.atlas",
             "type": "ATLAS"
-        },
-        {
-            "url": "res/atlas/ui/game.atlas",
-            "type": "ATLAS"
-        },
-        {
-            "url": "./assets/ui/animation/loading/xiaoLoding.sk",
-            "type": "BUFFER"
-        },
-        {
-            "url": "./assets/ui/animation/loading/xiaoLoding.png",
-            "type": "IMAGE"
         }
     ]
 }

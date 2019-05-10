@@ -39,32 +39,16 @@ var OutFlag;
 */
 var DragingBox = /** @class */ (function (_super) {
     __extends(DragingBox, _super);
-    /**
-     * 获取实际内容的宽度
-     */
-    // public getContentWidth(): number {
-    //     if (!this.boxBound) this.setDragLen();
-    //     return this.boxBound.width;
-    // }
-    /**
-     * 获取实际内容的高度
-     */
-    // public getContentHight(): number {
-    //     if (!this.boxBound) this.setDragLen();
-    //     return this.boxBound.height;
-    // }
     //end-get/set--------------------------------------------------
     /**
      *
      * @param rect x,y表示当前容器的位置，w,h表示滚动区域大小
      * @param xMove 是否设置为x方向滑动
      */
-    function DragingBox(rect, xMove, loopTime) {
+    function DragingBox(rect, xMove) {
         if (xMove === void 0) { xMove = true; }
-        if (loopTime === void 0) { loopTime = 10; }
         var _this = _super.call(this) || this;
         _this.cbox = new Laya.Sprite();
-        _this.contentSize = 0; //内容的实际大小(宽或高)
         _this.maxStayTime = 4; //最大停留时间
         _this.minSpeed = 1; //最小速度
         _this.maxSpeed = 50; //最大速度
@@ -79,61 +63,64 @@ var DragingBox = /** @class */ (function (_super) {
         _this.pos(rect.x, rect.y);
         _this.size(rect.width, rect.height);
         _this.on(Laya.Event.MOUSE_DOWN, _this, _this.eventHandler);
-        Laya.timer.loop(loopTime, _this, _this.timerHandler);
+        Laya.timer.loop(20, _this, _this.timerHandler);
         return _this;
     }
     //---------------------------------get/set-------------
     DragingBox.prototype.setMinSpeed = function (value) {
-        value = Math.min(this.maxSpeed - 1, value);
-        value = Math.max(1, value);
+        value = Math.max(this.maxSpeed - 1, value);
+        value = Math.min(1, value);
         this.minSpeed = value;
     };
     DragingBox.prototype.setMaxSpeed = function (value) {
-        value = Math.min(100, value);
-        value = Math.max(this.minSpeed + 1, value);
+        value = Math.max(100, value);
+        value = Math.min(this.minSpeed + 1, value);
         this.maxSpeed = value;
     };
     DragingBox.prototype.setMaxStayTime = function (value) {
-        value = Math.min(10, value);
-        value = Math.max(2, value);
+        value = Math.max(10, value);
+        value = Math.min(2, value);
         this.maxStayTime = value;
     };
     DragingBox.prototype.setAddSpeed = function (value) {
-        value = Math.min(100, value);
-        value = Math.max(10, value);
+        value = Math.max(100, value);
+        value = Math.min(10, value);
         this.addSpeed = value;
     };
     DragingBox.prototype.setFriction = function (value) {
-        value = Math.min(0.99, value);
-        value = Math.max(0.2, value);
+        value = Math.max(0.99, value);
+        value = Math.min(0.2, value);
         this.friction = value;
     };
     DragingBox.prototype.setBorderFriction = function (value) {
-        value = Math.min(0.3, value);
-        value = Math.max(0.02, value);
+        value = Math.max(0.3, value);
+        value = Math.min(0.02, value);
         this.borderFriction = value;
     };
     /**
-     * 设置点击回调函数，用于冒泡事件实现子项的点击(所有子项都需要设置mouseEnabled=true)
-     * @param caller
-     * @param callback
+     * 获取实际内容的宽度
      */
-    DragingBox.prototype.setClickCallback = function (caller, callback) {
-        this.caller = caller;
-        this.clickCallback = callback;
-        this.cbox.mouseEnabled = true;
+    DragingBox.prototype.getContentWidth = function () {
+        if (!this.boxBound)
+            this.setDragLen();
+        return this.boxBound.width;
+    };
+    /**
+     * 获取实际内容的高度
+     */
+    DragingBox.prototype.getContentHight = function () {
+        if (!this.boxBound)
+            this.setDragLen();
+        return this.boxBound.height;
     };
     /**
      * 添加显示内容
      * @param node
-     * @param size 内容的大小(横向拖动为宽，纵向为高)
      */
-    DragingBox.prototype.addContent = function (node, size) {
+    DragingBox.prototype.addContent = function (node) {
         this.cbox.addChild(node);
-        this.contentSize += size;
         //坑：获取容器大小需要延迟，否则获取不到
-        // this.timer.once(300, this, this.setDragLen);
-        this.setDragLen();
+        this.timer.once(300, this, this.setDragLen);
     };
     /**
      * 重置滚动区域大小
@@ -223,7 +210,7 @@ var DragingBox = /** @class */ (function (_super) {
             this.runTime = false;
             this.speed = 0;
             if (this.xMove) {
-                Laya.Tween.to(this.cbox, { x: tox }, time, Laya.Ease.circOut, Laya.Handler.create(this, this.tweenEnd));
+                Laya.Tween.to(this.cbox, { y: tox }, time, Laya.Ease.circOut, Laya.Handler.create(this, this.tweenEnd));
             }
             else {
                 Laya.Tween.to(this.cbox, { y: toy }, time, Laya.Ease.circOut, Laya.Handler.create(this, this.tweenEnd));
@@ -296,11 +283,6 @@ var DragingBox = /** @class */ (function (_super) {
                 var time = Laya.Browser.now() - this.startTime;
                 var dist = this.xMove ? (this.startMousePos - evt.stageX) : (this.startMousePos - evt.stageY);
                 this.speed = dist / time * this.addSpeed;
-                //执行click
-                if (time < 300 && Math.abs(dist) < 8) {
-                    if (this.caller && this.clickCallback)
-                        this.clickCallback.apply(this.caller, [evt]);
-                }
                 if (this.speed > 0) {
                     this.moveDir = this.xMove ? MoveDirect.left : MoveDirect.up;
                 }
@@ -345,11 +327,11 @@ var DragingBox = /** @class */ (function (_super) {
         }
     };
     DragingBox.prototype.setDragLen = function () {
-        // this.boxBound = this.cbox.getBounds();
-        // if (this.xMove) this.maxDragLen = this.boxBound.width - this.rollRect.width;
-        // else this.maxDragLen = this.boxBound.height - this.rollRect.height;
-        var rollSize = this.xMove ? this.rollRect.width : this.rollRect.height;
-        this.maxDragLen = this.contentSize - rollSize;
+        this.boxBound = this.cbox.getBounds();
+        if (this.xMove)
+            this.maxDragLen = this.boxBound.width - this.rollRect.width;
+        else
+            this.maxDragLen = this.boxBound.height - this.rollRect.height;
     };
     //统计停留时间
     DragingBox.prototype.countStay = function () {
@@ -517,10 +499,10 @@ var DragingBox = /** @class */ (function (_super) {
     //边界检查
     DragingBox.prototype.checkOut = function () {
         if (this.xMove) {
-            if (this.cbox.x >= 0) {
+            if (this.cbox.x > 0) {
                 this.outFlag = OutFlag.out_left;
             }
-            else if (this.cbox.x <= -this.maxDragLen) {
+            else if (this.cbox.x < -this.maxDragLen) {
                 this.outFlag = OutFlag.out_right;
             }
             else {
@@ -528,10 +510,10 @@ var DragingBox = /** @class */ (function (_super) {
             }
         }
         else {
-            if (this.cbox.y >= 0) {
+            if (this.cbox.y > 0) {
                 this.outFlag = OutFlag.out_up;
             }
-            else if (this.cbox.y <= -this.maxDragLen) {
+            else if (this.cbox.y < -this.maxDragLen) {
                 this.outFlag = OutFlag.out_down;
             }
             else {

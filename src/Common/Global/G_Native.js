@@ -79,9 +79,8 @@ global.TN_WechatShare = (text, image, url, title, isPyq) => {
     callback中code为错误码，当为200时，标记成功。message为错误信息
     */
     if (url) {
-        const prefix = 'http://';
-        if (url.substr(0, prefix.length) !== prefix) {
-            url = prefix + url;
+        if(url.indexOf("http")==-1){
+            url ="http://"+url;
         }
     }
     NativeModules.UMShareModule.share(

@@ -258,7 +258,9 @@ export default class XXWebView extends Component {
         let data = TW_Store.dataStore.appGameListM[ret.param.name];
         let dataList=[]
         if(data){
-            dataList.push({"alias":ret.param.id,percent:ret.percent})
+            if(ret.percent<1){
+                dataList.push({"alias":ret.param.id,percent:ret.percent})
+            }
         }
        // TW_Log("FileTools------onLoadProgress===--this.loadQueue.length=="+ this.loadQueue.length,ret)
         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.updateProgress,{data:dataList}));
@@ -307,9 +309,9 @@ export default class XXWebView extends Component {
             };
         }
 
-        // if(TW_IS_DEBIG){
-        //     source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-        // }
+        if(TW_IS_DEBIG){
+            source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+        }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({
@@ -419,7 +421,7 @@ export default class XXWebView extends Component {
                             Toast.showShortCenter("已复制链接!");
                         break;
                     }
-                        
+
                     break;
                 case "startUpdate":
                     //{action: "startUpdate", gameId: 28, alias: "xywz"}

@@ -148,8 +148,8 @@ var RunningMsg = /** @class */ (function (_super) {
         }
     };
     RunningMsg.prototype.addMsgItems = function (data) {
-        Debug.trace("msgdata:");
-        Debug.trace(data);
+        // Debug.trace("data:");
+        // Debug.trace(data);
         var whole_str = "";
         if (this.conf.request.bTest) {
             whole_str = this.conf.request.emptyMsg;

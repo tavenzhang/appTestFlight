@@ -61,6 +61,7 @@ var LobbyScene = /** @class */ (function (_super) {
         this.addChild(this.view);
     };
     LobbyScene.prototype.requestPop = function () {
+        LayaMain.getInstance().showCircleLoading();
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.attention_pop +
             "?access_token=" + Common.access_token;
@@ -97,7 +98,6 @@ var LobbyScene = /** @class */ (function (_super) {
     LobbyScene.prototype.gamepanelOver = function () {
     };
     LobbyScene.prototype.onLoaded = function (s) {
-        Common.access_token = SaveManager.getObj().get(SaveManager.KEY_TOKEN, "");
         if (!Common.access_token) {
             LayaMain.getInstance().initLogin();
             return;
