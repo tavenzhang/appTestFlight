@@ -19,6 +19,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
         return _this;
     }
     Notice_Roullette.prototype.init = function () {
+        this.wlist = new WinningList2();
     };
     Notice_Roullette.prototype.setData = function ($data) {
         this.noticeid = $data.noticeid;
@@ -53,6 +54,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
         this.spinners.push(spinner);
         spinner.on("reqSpin", this, this.onReqSpin);
         this.initButtons();
+        this.wlist.init(this);
         var url = ConfObjRead.getConfUrl().url.apihome;
         url += ConfObjRead.getConfUrl().cmd.user_bet_info;
         url += "?access_token=" + Common.access_token;
@@ -70,10 +72,9 @@ var Notice_Roullette = /** @class */ (function (_super) {
         this.btnSilver.on(Laya.Event.MOUSE_UP, this, this.onMouse);
         this.btnGold.on(Laya.Event.MOUSE_UP, this, this.onMouse);
         this.btnDiamond.on(Laya.Event.MOUSE_UP, this, this.onMouse);
-        // this.on(Laya.Event.MOUSE_UP, this, this.onMouse);
-        this.btnSilver.getChildAt(1).visible = false;
-        this.btnGold.getChildAt(1).visible = false;
-        this.btnDiamond.getChildAt(1).visible = false;
+        this.btnSilver.on(Laya.Event.MOUSE_OUT, this, this.onMouse);
+        this.btnGold.on(Laya.Event.MOUSE_OUT, this, this.onMouse);
+        this.btnDiamond.on(Laya.Event.MOUSE_OUT, this, this.onMouse);
     };
     Notice_Roullette.prototype.ptRequired = function ($n) {
         this.perPt.text = $n + " \u79EF\u5206\u4E00\u6B21";
@@ -131,6 +132,8 @@ var Notice_Roullette = /** @class */ (function (_super) {
             this.btnSilver.mouseEnabled = false;
             this.btnGold.mouseEnabled = false;
             this.btnDiamond.mouseEnabled = false;
+            this.newtab.mouseEnabled = false;
+            this.mytab.mouseEnabled = false;
             //  this._lists.disable();
             var url = ConfObjRead.getConfUrl().url.apihome;
             url += ConfObjRead.getConfUrl().cmd.attention_lottery;
@@ -153,36 +156,66 @@ var Notice_Roullette = /** @class */ (function (_super) {
     };
     Notice_Roullette.prototype.returnPrizeInfo = function (s, stat, hr) {
         this.targetSpinner.setResult(s);
+        this.targetSpinner.once("stopSpin", this, this.onStopSpin);
         this.targetSpinner = undefined;
     };
+    Notice_Roullette.prototype.onStopSpin = function () {
+        this.btnSilver.mouseEnabled = true;
+        this.btnGold.mouseEnabled = true;
+        this.btnDiamond.mouseEnabled = true;
+        this.newtab.mouseEnabled = true;
+        this.mytab.mouseEnabled = true;
+        this.wlist.getList(true);
+    };
     Notice_Roullette.prototype.onMouse = function ($e) {
-        console.log($e);
         if ($e.type === Laya.Event.MOUSE_DOWN) {
             switch ($e.currentTarget) {
                 case this.btnSilver:
                     this.btnSilver.getChildAt(0).visible = false;
-                    this.btnSilver.getChildAt(1).visible = true;
                     break;
                 case this.btnGold:
                     this.btnGold.getChildAt(0).visible = false;
-                    this.btnGold.getChildAt(1).visible = true;
                     break;
                 case this.btnDiamond:
                     this.btnDiamond.getChildAt(0).visible = false;
-                    this.btnDiamond.getChildAt(1).visible = true;
                     break;
             }
+            this.targetButton = $e.currentTarget;
         }
-        else if ($e.type === Laya.Event.MOUSE_UP) {
+        else if ($e.type === Laya.Event.MOUSE_UP && this.targetButton === $e.currentTarget) {
             switch ($e.currentTarget) {
                 case this.btnSilver:
+                    this.btnSilver.getChildAt(0).visible = true;
+                    this.showSpinner2(1);
                     break;
                 case this.btnGold:
+                    this.btnGold.getChildAt(0).visible = true;
+                    this.showSpinner2(2);
                     break;
                 case this.btnDiamond:
+                    this.btnDiamond.getChildAt(0).visible = true;
+                    this.showSpinner2(3);
                     break;
                 default: {
                 }
+            }
+        }
+        else if ($e.type === Laya.Event.MOUSE_OUT) {
+            this.btnSilver.getChildAt(0).visible = true;
+            this.btnGold.getChildAt(0).visible = true;
+            this.btnDiamond.getChildAt(0).visible = true;
+            this.targetButton = null;
+        }
+    };
+    Notice_Roullette.prototype.showSpinner2 = function ($id) {
+        for (var _i = 0, _a = this.spinners; _i < _a.length; _i++) {
+            var spinner = _a[_i];
+            if (spinner.id === $id) {
+                spinner.show();
+                this.ptRequired(spinner.reqPt);
+            }
+            else {
+                spinner.hide();
             }
         }
     };

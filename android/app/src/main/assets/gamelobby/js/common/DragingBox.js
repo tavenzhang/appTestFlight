@@ -59,8 +59,9 @@ var DragingBox = /** @class */ (function (_super) {
      * @param rect x,y表示当前容器的位置，w,h表示滚动区域大小
      * @param xMove 是否设置为x方向滑动
      */
-    function DragingBox(rect, xMove) {
+    function DragingBox(rect, xMove, loopTime) {
         if (xMove === void 0) { xMove = true; }
+        if (loopTime === void 0) { loopTime = 10; }
         var _this = _super.call(this) || this;
         _this.cbox = new Laya.Sprite();
         _this.contentSize = 0; //内容的实际大小(宽或高)
@@ -78,7 +79,7 @@ var DragingBox = /** @class */ (function (_super) {
         _this.pos(rect.x, rect.y);
         _this.size(rect.width, rect.height);
         _this.on(Laya.Event.MOUSE_DOWN, _this, _this.eventHandler);
-        Laya.timer.loop(20, _this, _this.timerHandler);
+        Laya.timer.loop(loopTime, _this, _this.timerHandler);
         return _this;
     }
     //---------------------------------get/set-------------

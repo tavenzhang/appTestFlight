@@ -249,9 +249,6 @@ var GameItem = /** @class */ (function (_super) {
             }
             catch (e) { }
         }
-        if (this.sp_Update) {
-            this.sp_Update.visible = false;
-        }
     };
     GameItem.prototype.refreshStatus = function () {
         switch (this.sStatus) {

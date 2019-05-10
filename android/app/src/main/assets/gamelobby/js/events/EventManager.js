@@ -204,7 +204,15 @@ var EventType = /** @class */ (function () {
      * 收到此通知后要将输入文本的焦点设为false,以解决ios系统点击键盘的Done按钮后界面收不回来
      */
     EventType.BLUR_NATIVE = "blurNative";
-    //刷新显示代理按钮
+    /**
+     * 游戏更新初始化
+     */
+    EventType.GAME_UPDATE_INIT = "gameUpdateInfo";
+    /**
+     * 游戏更新进度(百分比)
+     */
+    EventType.GAME_UPDATE_PROGRESS = "gameUpdateProgress";
+    //刷新代理按钮的显示
     EventType.FLUSH_AGENCYBTN = "flushAgencyBtn";
     return EventType;
 }());

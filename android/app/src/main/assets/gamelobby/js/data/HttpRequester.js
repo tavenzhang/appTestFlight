@@ -223,7 +223,7 @@ var HttpRequester = /** @class */ (function () {
      */
     HttpRequester.doRequest = function (url, header, jsonStr, caller, callback, method) {
         if (method === void 0) { method = "post"; }
-        //debug-log------------
+        //debugxxx-log------------
         console.error("request:", url);
         console.error("header:", header);
         if (jsonStr)
@@ -253,7 +253,7 @@ var HttpRequester = /** @class */ (function () {
                     Toast.showToast(Tools.getStringByKey(ConfObjRead.getConfCommon().unknow_err));
                 }
             }
-            console.error("response:", jobj);
+            console.error("response:", jobj); //debugxxx
             if (caller && callback)
                 callback.apply(caller, [suc, jobj]);
         }, header, jsonStr, method, "json");

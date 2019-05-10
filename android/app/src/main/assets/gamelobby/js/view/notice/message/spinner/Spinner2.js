@@ -31,14 +31,12 @@ var Spinner2 = /** @class */ (function (_super) {
         spinner.btn_down.on(Laya.Event.MOUSE_UP, this, this.onClick);
         spinner.on(Laya.Event.MOUSE_UP, this, this.onClick);
         spinner.on(Laya.Event.MOUSE_OUT, this, this.onClick);
-        this.prizes = $data.prizeLevelList.splice(0);
+        this.prizes = $data.prizeLevelList;
         this.reqPt = $data.requiredPoints;
         var c = 0;
         for (var i = this.prizes.length - 1; i > -1; i--) {
             var tf = $spinner.spinnerbg.getChildByName("amount" + c);
             tf.text = this.prizes[i];
-            // this.prizes[i] = i;
-            // tf.text = i;
             c++;
         }
         this.isActive = false;

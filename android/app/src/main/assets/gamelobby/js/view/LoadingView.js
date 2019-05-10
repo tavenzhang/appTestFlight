@@ -21,9 +21,6 @@ var view;
         __extends(LoadingView, _super);
         function LoadingView(alp) {
             var _this = _super.call(this) || this;
-            _this.tipStr = "正在加载中";
-            _this.dots = ".";
-            _this.dotTotal = 6;
             _this._alp = alp;
             _this.initView();
             return _this;
@@ -39,19 +36,12 @@ var view;
             this._inst = new LoadingView(bgAlpha);
             this._inst.zOrder = Dialog.manager.zOrder + 1;
             Laya.stage.addChild(this._inst);
-            this._inst.rotateLine();
-        };
-        LoadingView.prototype.rotateLine = function () {
-            Laya.Tween.clearTween(this.line);
-            this.line.rotation = 0;
-            Laya.Tween.to(this.line, { rotation: 360 }, 1500, Laya.Ease.linearNone, Laya.Handler.create(this, this.rotateLine));
         };
         /**
          * 隐藏loading
          */
         LoadingView.hide = function () {
             if (this._inst) {
-                Laya.Tween.clearTween(this._inst.line);
                 this._inst.destroy(true);
                 this._inst = null;
             }
@@ -64,19 +54,15 @@ var view;
             bg.graphics.drawRect(0, 0, Laya.stage.width, Laya.stage.height, "#000000");
             bg.alpha = this._alp;
             this.addChildAt(bg, 0);
-            this.infoTxt.text = this.tipStr;
-            Laya.timer.loop(1000, this, this.dotloop);
-        };
-        LoadingView.prototype.dotloop = function () {
-            this.dots += ".";
-            this.infoTxt.text = this.tipStr + this.dots;
-            if (this.dots.length >= this.dotTotal) {
-                this.dots = ".";
-                this.infoTxt.text = this.tipStr + this.dots;
-            }
+            this.anim = new DragonBoneAnim();
+            this.anim.parseInit({ skUrl: "./assets/ui/animation/loading/xiaoLoding.sk", pngUrl: "./assets/ui/animation/loading/xiaoLoding.png" });
+            this.abox.addChild(this.anim);
         };
         LoadingView.prototype.destroy = function (dc) {
-            Laya.timer.clear(this, this.dotloop);
+            if (this.anim) {
+                this.anim.destroy();
+                this.anim = null;
+            }
             _super.prototype.destroy.call(this, dc);
         };
         return LoadingView;

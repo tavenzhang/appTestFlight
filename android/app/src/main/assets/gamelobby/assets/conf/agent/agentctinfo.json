@@ -288,22 +288,6 @@
             "sfx": "assets/raw/sfx_click.mp3"
         }
     ],
-    "animations": [
-        {
-            "textPath": "./assets/ui/animation/agent/banner/banner.png",
-            "animPath": "./assets/ui/animation/agent/banner/banner.sk",
-            "playSpeed": 1.0,
-            "loop": true,
-            "loopdelayX": 1000,
-            "pos": {
-                "x": 882,
-                "y": 50
-            },
-            "stopHide": {
-                "value": false
-            }
-        }
-    ],
     "inputlink": {
         "skin": "",
         "pos": {

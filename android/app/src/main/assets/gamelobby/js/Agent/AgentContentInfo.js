@@ -68,13 +68,11 @@ var AgentContentInfo = /** @class */ (function (_super) {
                 this.arr_btns.push(b);
             }
         }
-        if (this.conf.animations) {
-            var len = this.conf.animations.length;
-            for (var i = 0; i < len; i++) {
-                var spconf = this.conf.animations[i];
-                Tools.addAnimation(this, spconf);
-            }
-        }
+        var db = this.db = new DragonBoneAnim();
+        db.loadInit({ skUrl: "./assets/ui/animation/agent/banner.sk" });
+        this.addChild(db);
+        db.x = 882;
+        db.y = 50;
         if (this.conf.inputlink) {
             this.inputLink = Tools.addInput(this, this.conf.inputlink);
             this.inputLink.mouseEnabled = false;
@@ -317,6 +315,12 @@ var AgentContentInfo = /** @class */ (function (_super) {
         catch (e) {
         }
         // console.log("responseChange", s, stat, hr)
+    };
+    AgentContentInfo.prototype.destroy = function (destroyChild) {
+        if (this.db) {
+            this.db.destroy(true);
+        }
+        _super.prototype.destroy.call(this, destroyChild);
     };
     return AgentContentInfo;
 }(AgentContent));
