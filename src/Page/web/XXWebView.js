@@ -20,6 +20,7 @@ import FileTools from "../../Common/Global/FileTools";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 import Tools from "../../Common/View/Tools";
 import ShareBox from "../../Page/enter/game/pay/ShareBox";
+import TCUserOpenPayApp from "../UserCenter/UserPay/TCUserOpenPayApp";
 
 const HTTP_GAME_LIST="/gamecenter/player/game/list";
 @withMappedNavigationProps()
@@ -403,6 +404,9 @@ export default class XXWebView extends Component {
                             break;
                         case "loginout":
                             TW_Store.userStore.exitAppToLoginPage();
+                            break;
+                        case "openWeb":
+                            TCUserOpenPayApp.linkingWeb( message.param)
                             break;
                     }
 
