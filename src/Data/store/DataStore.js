@@ -27,7 +27,7 @@ export default class DataStore {
     targetAppDir = G_IS_IOS ? DocumentDirectoryPath + "/gamelobby" : `file:///${DocumentDirectoryPath}/gamelobby`;
 
     @observable
-    homeVersionM={name:"home",versionNum:"4_26",baseVersion:"1",source:"",isFlush:false};
+    homeVersionM={name:"home",versionNum:"5_10",baseVersion:"1",source:"",isFlush:false};
 
     @observable
     appGameListM={};
@@ -70,13 +70,23 @@ export default class DataStore {
                 }
             }
         });
+        TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
+            let verionM=null;
+            try{
+                verionM = JSON.parse(ret);
+            }catch (error) {
+                this.log+="-->init---catch -==-error=="+error;
+            }
+            if(!verionM){
+                this.onSaveVersionM({},false);
+            }
+        })
     }
 
     @action
     startCheckZipUpdate=()=>{
         TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
             let verionM=null;
-            this.log+="-->startCheckZipUpdate---=ret--start"+ret
             TW_Log("startCheckZipUpdate---=ret--start-ret"+ret,ret)
             try{
                 verionM = JSON.parse(ret);
@@ -229,9 +239,9 @@ export default class DataStore {
                     if(G_IS_IOS){
                         this.onRetartApp();
                     }else{
-                        // setTimeout(()=>{
-                        //     this.onRetartApp(); //android 的文件解压读写延迟比较大，延迟5秒
-                        // },4000)
+                        setTimeout(()=>{
+                            this.onRetartApp(); //android 的文件解压读写延迟比较大，延迟5秒
+                        },8000)
                     }
                     TW_Store.commonBoxStore.isShow=false;
                 });

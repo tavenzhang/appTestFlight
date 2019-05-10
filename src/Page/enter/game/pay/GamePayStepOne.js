@@ -89,7 +89,7 @@ export default class GamePayStepOne extends Component {
                     <TCImage source={ASSET_Images.gameUI.stepOneBg2} style={{marginTop:90}} resizeMode={'contain'}/>
                     <TCButtonImg imgSource={ASSET_Images.gameUI.btn_onLine}
                                  btnStyle={{position: "absolute", left: 308, top: 115,}} imgStyle={{}} onClick={() => {
-                        TW_Store.gameUIStroe.showGusetView();
+                        TW_Store.gameUIStroe.showGusetView(true);
                     }}/>
                 </View>):null
             }

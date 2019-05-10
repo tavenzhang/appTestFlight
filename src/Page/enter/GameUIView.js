@@ -70,7 +70,7 @@ export default class GameUIView extends Component {
     }
 }
 
-
+@observer
 class SubGameView extends Component {
     constructor(props) {
         super(props)
@@ -97,9 +97,11 @@ class SubGameView extends Component {
         if(this.state.isShow){
             return (
                 <View style={styles.container}>
-                    {TW_Store.gameUIStroe.isShowUserInfo ? <GameUserInfoView pointerEvents={isHaveAletView}/> : null}
                     {TW_Store.gameUIStroe.isShowWithDraw ? <GameMoneyOutView pointerEvents={isHaveAletView}/> : null}
                     {TW_Store.gameUIStroe.isShowAddPayView ? <GameMoneyInView pointerEvents={isHaveAletView}/> : null}
+                    {gameAlertView&&gameAlertView.component ?  <View style={{width:SCREEN_W, height:SCREEN_H,backgroundColor: "rgba(10,10,10,0.3)",position:"absolute"}}/>:null}
+
+                    {TW_Store.gameUIStroe.isShowUserInfo ? <GameUserInfoView pointerEvents={isHaveAletView}/> : null}
                     {TW_Store.gameUIStroe.isShowGuest ? <GameGuestView pointerEvents={isHaveAletView}/> : null}
                     {TW_Store.gameUIStroe.isShowShare ? <GameShareView pointerEvents={isHaveAletView}/> : null}
                     {
@@ -114,7 +116,7 @@ class SubGameView extends Component {
                         </BaseGameAlert> : null
                     }
                     {
-                        gameAlertView.isUserAccount&&gameAlertView.component ? <BaseUserAccAlert title={gameAlertView.title} onClose={() => {
+                        gameAlertView.isUserAccount&&gameAlertView.component ? <BaseUserAccAlert {...gameAlertView.param} title={gameAlertView.title} onClose={() => {
                             TW_Store.gameUIStroe.hideAlertUI();
                             if (gameAlertView.onBack) {
                                 gameAlertView.onBack();

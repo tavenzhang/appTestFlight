@@ -29,11 +29,11 @@ var AgentContentInfo = /** @class */ (function (_super) {
                 if (i === 0) {
                     // avata = spconf;
                     // avata.alpha = .5;
-                    var frame = new Laya.Image("./assets/ui/avatorpad/img_touxiang_touxiangkuang.png");
+                    var frame = new Laya.Image("ui/userInfo/avatorFrame.png");
                     this.addChild(frame);
-                    frame.x = this.conf.sprites[i].pos.x - 3;
-                    frame.y = this.conf.sprites[i].pos.y - 2.5;
-                    frame.scale(1.3, 1.3);
+                    frame.x = this.conf.sprites[i].pos.x - 5.2;
+                    frame.y = this.conf.sprites[i].pos.y - 5;
+                    frame.scale(1.34, 1.3);
                     var avatar = new Laya.Image(ResConfig.getHeadSkinByID(userData.avatarSkinId));
                     this.addChild(avatar);
                     avatar.x = this.conf.sprites[i].pos.x;
@@ -77,6 +77,7 @@ var AgentContentInfo = /** @class */ (function (_super) {
         }
         if (this.conf.inputlink) {
             this.inputLink = Tools.addInput(this, this.conf.inputlink);
+            this.inputLink.mouseEnabled = false;
         }
         if (this.conf.qrcode) {
             this.qrcode = Tools.addSprite(this, this.conf.qrcode);
@@ -189,7 +190,12 @@ var AgentContentInfo = /** @class */ (function (_super) {
             // this.setLabelData("username", s.nickname);
             this.setLabelData("username", "");
             this.setLabelData("invationid", s.username);
-            this.setLabelData("invationparentid", this.between(s.parentName, "(", ")"));
+            if (s.level === 2 && s.parentName.indexOf("default_ga") != -1) {
+                this.setLabelData("invationparentid", this.between(s.parentName, "(", ")"));
+            }
+            else {
+                this.setLabelData("invationparentid", s.parentName);
+            }
             this.setLabelData("childrenincome", s.todaySubBet);
             this.setLabelData("brokerage", s.todayBrokerage);
             this.setLabelData("teampersonnum", s.teamMembers);

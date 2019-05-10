@@ -153,7 +153,8 @@ export  default  class BBLStore {
         rightbottomclose:"rightbottomclose.mp3",
         showlogo:"showlogo.mp3",
         enterPanelClick:"enterPanelClick.mp3",
-        sfx_click:"sfx_click.mp3"
+        sfx_click:"sfx_click.mp3",
+        returnLobbyClick:"returnLobbyClick.mp3"
     }
 
     @action

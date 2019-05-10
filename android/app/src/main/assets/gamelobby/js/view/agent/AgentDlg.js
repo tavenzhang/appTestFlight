@@ -32,21 +32,21 @@ var view;
                     return;
                 }
                 var dlg = new AgentDlg();
-                dlg.popup(false, false);
-                dlg.pop(dlg);
+                dlg.popup(false, true);
+                // dlg.pop(dlg);
                 // dlg.popup(true, $data === "home");
                 dlg.update($data);
                 dlg.loadTab($data);
                 dlg_1.dialogs.active = dlg;
             };
-            AgentDlg.prototype.pop = function (dlg) {
-                dlg.alpha = 1;
-                dlg.y = 0;
-                Laya.Tween.from(dlg, { alpha: 0, y: 20 }, 250);
-            };
-            AgentDlg.prototype.close = function (type, showEffect) {
-                Laya.Tween.to(this, { alpha: 0, y: 20 }, 250, null, new Laya.Handler(this, _super.prototype.close, [type, showEffect]));
-            };
+            // public pop(dlg): void {
+            //     dlg.alpha = 1;
+            //     dlg.y = 0;
+            //     Laya.Tween.from(dlg, { alpha: 0, y: 20 }, 250);
+            // }
+            // public close(type?: string, showEffect?: boolean): void {
+            //     Laya.Tween.to(this, { alpha: 0, y: 20 }, 250, null, new Laya.Handler(this, super.close, [type, showEffect]));
+            // }
             AgentDlg.updateSideTab = function () {
                 if (AgentData.role === "USER") {
                     // dialogs.active.tabAffiliates.visible = false;
