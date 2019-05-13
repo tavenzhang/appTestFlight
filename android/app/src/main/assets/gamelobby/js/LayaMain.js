@@ -12,10 +12,7 @@ var __assign = (this && this.__assign) || function () {
 var LayaMain = /** @class */ (function () {
     function LayaMain() {
         this.sceneLobby = null;
-        this.sceneLoading = null;
         this.sceneRoom = null;
-        this.sceneLogin = null;
-        this.cloading = null;
         LayaMain.obj = this;
         Laya.init(0, Common.GM_SCREEN_H, Laya.WebGL);
         // Laya.URL.rootPath = Laya.URL.basePath + window["sPubRes"];
@@ -26,8 +23,6 @@ var LayaMain = /** @class */ (function () {
          * 设置点击弹框背景后不关闭弹窗
          */
         UIConfig.closeDialogOnSide = false;
-        //设置游戏版本号
-        ResConfig.versions = "版本号：4.0509.2044";
         Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_HEIGHT;
         Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
         Laya.stage.bgColor = "#000000";
@@ -38,10 +33,10 @@ var LayaMain = /** @class */ (function () {
         Laya.stage.addChild(this.root_node);
         PageManager.Get().ShowPage([
             "res/atlas/ui/res_login.atlas",
-            "./assets/ui/loading/conf/loadconf.json",
-            "./assets/ui/loading/conf/assets_lobby.json"
+            "./assets/conf/assets_lobby.json",
+            "./assets/conf/gameIcons.json",
+            "./assets/conf/config.json"
         ], PageLogin /*, 'isloaded'*/);
-        // this.initLoading();
     }
     LayaMain.getInstance = function () {
         return LayaMain.obj;
@@ -106,10 +101,11 @@ var LayaMain = /** @class */ (function () {
             Laya.SoundManager.setMusicVolume(lmv);
             Laya.SoundManager.setSoundVolume(lsv);
             if (lms == 1) {
-                Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+                Laya.SoundManager.playMusic(ResConfig.musicUrl);
             }
             //刷新用户信息
             EventManager.dispath(EventType.FLUSH_USERINFO);
+            EventManager.dispath(EventType.GAME_UPDATE_INIT);
             try {
                 GamePanel.getInstance().resume();
             }
@@ -118,8 +114,6 @@ var LayaMain = /** @class */ (function () {
         catch (e) { }
     };
     LayaMain.prototype.handleIFrameAction = function (e) {
-        //  Debug.trace("handleIFrameAction e:");
-        // Debug.trace(e);
         var data = e.data;
         LayaMain.getInstance().onAppPostMessgae(data);
     };
@@ -176,18 +170,13 @@ var LayaMain = /** @class */ (function () {
                 case "flushMoney":
                     EventManager.dispath(EventType.FLUSH_USERINFO);
                     break;
-                //todo:xxx
-                // if(Avator.obj)
-                // {
-                //     Avator.obj.flushUserInfo(); 
-                // }
                 case "openDebug":
                     window["initVconsole"]();
                     break;
-                case "gamesinfo":
+                case "gamesinfo": //游戏状态信息
                     UpdateMsgHandle.onInitMsg(message.data);
                     break;
-                case "updateProgress":
+                case "updateProgress": //游戏下载进度更新
                     UpdateMsgHandle.onUpdateMsg(message.data);
                     break;
                 case "setrawroot":
@@ -200,15 +189,6 @@ var LayaMain = /** @class */ (function () {
                     UpdateMsgHandle.playMusic(message.data);
                     break;
                 case "onBlur": //失去焦点
-                    if (LoginPad.obj) {
-                        LoginPad.obj.lostFocusInputText();
-                    }
-                    if (RegPad.obj) {
-                        RegPad.obj.lostFocusInputText();
-                    }
-                    if (QuickLogin.obj) {
-                        QuickLogin.obj.lostFocusInputText();
-                    }
                     //派发失去焦点事件
                     EventManager.dispath(EventType.BLUR_NATIVE);
                     Laya.timer.once(300, this, function () {
@@ -251,21 +231,9 @@ var LayaMain = /** @class */ (function () {
             this.sceneLobby.destroy(true);
             this.sceneLobby = null;
         }
-        if (this.sceneLoading) {
-            this.sceneLoading.destroy(true);
-            this.sceneLoading = null;
-        }
         if (this.sceneRoom) {
             this.sceneRoom.destroy(true);
             this.sceneRoom = null;
-        }
-        if (this.sceneLogin) {
-            this.sceneLogin.destroy(true);
-            this.sceneLogin = null;
-        }
-        if (this.cloading) {
-            this.cloading.destroy(true);
-            this.cloading = null;
         }
         if (AgentPad.getObj()) {
             AgentPad.getObj().onClose(null);
@@ -276,24 +244,10 @@ var LayaMain = /** @class */ (function () {
             Laya.timer.clearAll(obj);
         }
         LayaMain.getInstance().getRootNode().removeChildren();
-    };
-    LayaMain.prototype.initLoading = function () {
-        this.clearChild();
-        if (this.sceneLoading == null) {
-            this.sceneLoading = new LoadingScene();
-            this.sceneLoading.initLoading();
-            LayaMain.getInstance().getRootNode().addChild(this.sceneLoading);
-        }
+        PageManager.Get().DestoryCurrentView();
     };
     LayaMain.prototype.initLogin = function () {
         this.loginOut();
-        return; //todo:xxx
-        // this.clearChild();
-        // if (this.sceneLogin == null) {
-        //     this.sceneLogin = new LoginScene();
-        //     this.sceneLogin.onLoaded();
-        //     LayaMain.getInstance().getRootNode().addChild(this.sceneLogin);
-        // }
     };
     LayaMain.prototype.initLobby = function () {
         this.clearChild();
@@ -313,51 +267,10 @@ var LayaMain = /** @class */ (function () {
             LayaMain.getInstance().getRootNode().addChild(this.sceneRoom);
         }
     };
+    //todo:xxx
     LayaMain.prototype.requestEnd = function (stat, msg) {
-        var bSucAll = true;
-        if (stat == "complete") {
-            if (TempData.bRequestStatus == 1)
-                bSucAll = false;
-            //todo:xxx
-            // if( Avator.obj )
-            // {
-            //     if( Avator.obj.bRequestStatus == 1 )
-            //     {
-            //         bSucAll = false;
-            //     }
-            // }
-            if (GamePanel.obj) {
-                if (GamePanel.obj.bRequestStatus == 1) {
-                    bSucAll = false;
-                }
-                // Debug.trace("LayaMain.requestEnd GamePanel:"+GamePanel.obj.bRequestStatus);
-            }
-            if (AttentionDialog.obj) {
-                if (AttentionDialog.obj.bRequestStatus == 1) {
-                    bSucAll = false;
-                }
-                // Debug.trace("LayaMain.requestEnd AttentionDialog:"+AttentionDialog.obj.bRequestStatus);
-            }
-            if (RoomPanel.obj) {
-                if (RoomPanel.obj.bRequestStatus == 1) {
-                    bSucAll = false;
-                }
-                // Debug.trace("LayaMain.requestEnd RoomPanel:"+RoomPanel.obj.bRequestStatus);
-            }
-            // Debug.trace("LayaMain.requestEnd bSucAll:"+bSucAll);
-            if (bSucAll) {
-                this.showCircleLoading(false);
-            }
-        }
-        else if (stat == "error") {
-            // Debug.trace("LayaMain.requestEnd stat error");
-            this.showCircleLoading(false);
-            NoticeDialog.showPad(msg, ConfObjRead.getConfNoticeDialog(), this, this.requestError);
-        }
-        // Debug.trace("LayaMain.requestEnd");
-    };
-    LayaMain.prototype.requestError = function () {
-        LayaMain.getInstance().initLogin();
+        this.showCircleLoading(false);
+        //old-err-click:LayaMain.getInstance().initLogin();
     };
     /**
      * 显示loading

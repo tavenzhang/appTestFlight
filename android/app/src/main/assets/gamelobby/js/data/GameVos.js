@@ -13,4 +13,14 @@ var AnimVo = /** @class */ (function () {
     }
     return AnimVo;
 }());
+/**
+ * 游戏状态
+ */
+var GameState;
+(function (GameState) {
+    GameState[GameState["NORMAL"] = 0] = "NORMAL";
+    GameState[GameState["PAUSE"] = 1] = "PAUSE";
+    GameState[GameState["EXPECTATION"] = 2] = "EXPECTATION";
+    GameState[GameState["UPDATE"] = 3] = "UPDATE";
+})(GameState || (GameState = {}));
 //# sourceMappingURL=GameVos.js.map

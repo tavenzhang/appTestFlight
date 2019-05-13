@@ -60,24 +60,20 @@ var view;
                 var w2 = Laya.stage.width - this.width;
                 this.x = w2 / 2;
                 this.y = (Laya.stage.height - this.width) / 2;
-                this.controls.x = this.x + this.width;
+                this.control.x = this.x + this.width;
                 if (Laya.stage.width <= 1334) {
                     var buffer = 50;
-                    this.controls.x += buffer - 30;
+                    this.control.x += buffer - 30;
                     this.label.x += buffer * 2;
                     this.contentList.x = this.label.x;
                     this.contents.x = this.contentList.x + 318 - 10; //this.contentList.width - 10;
                 }
-                EventManager.addTouchScaleListener(this.controls, this, function () {
-                    SoundPlayer.closeSound();
+                this.btnComRecords.x = this.control.x - this.control.width - 170;
+                this.btnComRecords.visible = false;
+                EventManager.addTouchScaleListener(this.control, this, function () {
+                    SoundPlayer.returnLobbySound();
                     _this.close(null, false);
                 });
-                var conf = ConfObjRead.getConfAgentTitle();
-                var len = conf.animations.length;
-                for (var i = 0; i < len; i++) {
-                    var spconf = conf.animations[i];
-                    Tools.addAnimation(this.label, spconf);
-                }
             };
             AgentDlg.prototype.update = function ($data) {
                 for (var i = 0; i < 5; i++) {
@@ -118,7 +114,7 @@ var view;
                         this.loadTab("description");
                         break;
                 }
-                Laya.SoundManager.playSound("assets/raw/sfx_click.mp3");
+                SoundPlayer.enterPanelSound();
             };
             AgentDlg.prototype.loadTab = function ($id) {
                 if ($id === "codes")
@@ -147,6 +143,10 @@ var view;
                 this.contents.addChild(content);
             };
             AgentDlg.prototype.onClosed = function (type) {
+                for (var _i = 0, _a = this._tabs; _i < _a.length; _i++) {
+                    var tab = _a[_i];
+                    tab.destroy();
+                }
                 //     Laya.SoundManager.playSound("assets/raw/sfx_close.mp3");
                 EventManager.removeAllEvents(this);
                 dlg_1.dialogs.active = null;

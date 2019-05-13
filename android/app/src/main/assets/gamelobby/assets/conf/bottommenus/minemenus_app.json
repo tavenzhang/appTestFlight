@@ -1,77 +1,151 @@
 {
-    "pos":{"x":0,"y":0},
-    "switch":{
-        "desc":"",
-        "pos":{ "x":1200, "y":706.5 },
-        "src":[
+    "pos": {
+        "x": 0,
+        "y": 0
+    },
+    "switch": {
+        "desc": "",
+        "pos": {
+            "x": 1200,
+            "y": 706.5
+        },
+        "src": [
             "./assets/ui/mine/btn_switch.png"
         ],
-        "size":{ "w":250, "h":175 },
-        "maxScale":{"x":1.02,"y":1.02},
-        "normalScale":{"x":1,"y":1},
-        "sfx":"assets/raw/enterPanelClick.mp3",
-        "anim":{
-            "textPath":"./assets/ui/animation/shopicon/shopicon.png",
-            "animPath":"./assets/ui/animation/shopicon/shopicon.sk",
-            "playSpeed":1.0,
-            "loop":true,
-            "loopdelay":1000,
-            "pos":{ "x":1247, "y":710 },
-            "stopHide":{ "value":true }
+        "size": {
+            "w": 250,
+            "h": 175
         },
-        "alpha":0
+        "maxScale": {
+            "x": 1.02,
+            "y": 1.02
+        },
+        "normalScale": {
+            "x": 1,
+            "y": 1
+        },
+        "sfx": "assets/raw/enterPanelClick.mp3",
+        "anim": {
+            "textPath": "./assets/ui/animation/shopicon/shopicon.png",
+            "animPath": "./assets/ui/animation/shopicon/shopicon.sk",
+            "playSpeed": 1.0,
+            "loop": true,
+            "loopdelay": 1000,
+            "pos": {
+                "x": 1247,
+                "y": 710
+            },
+            "stopHide": {
+                "value": true
+            }
+        },
+        "alpha": 0
     },
-    "menus":{
-        "pos":{ "x":0, "y":0 },
-        "alphabgX":{
-            "pos":{ "x":0, "y":0 },
-            "size":{ "w":1334, "h":750 },
-            "color":"#000000",
-            "alpha":0.0
+    "menus": {
+        "pos": {
+            "x": 0,
+            "y": 0
         },
-        "bg":{
-            "src":"./assets/ui/mine/img_dating_gongnengdi.png",
-            "pos":{ "x":8, "y":672 },
-            "size":{ "w":1326, "h":78 }
+        "alphabgX": {
+            "pos": {
+                "x": 0,
+                "y": 0
+            },
+            "size": {
+                "w": 1334,
+                "h": 750
+            },
+            "color": "#000000",
+            "alpha": 0.0
         },
-        "btns":[
-           {
-                "desc":"",
-                "cmd":"redraw",
-                "pos":{ "x":1000, "y":700 },
-                "src":[
+        "bg": {
+            "src": "./assets/ui/mine/img_dating_gongnengdi.png",
+            "pos": {
+                "x": 8,
+                "y": 672
+            },
+            "size": {
+                "w": 1326,
+                "h": 78
+            }
+        },
+        "btns": [
+            {
+                "desc": "",
+                "cmd": "redraw",
+                "pos": {
+                    "x": 1000,
+                    "y": 700
+                },
+                "src": [
                     "./assets/ui/mine/icon_tixian.png"
                 ],
-                "size":{ "w":76, "h":90 },
-                "maxScale":{"x":1.02,"y":1.02},
-                "normalScale":{"x":1,"y":1},
-                "sfx":"assets/raw/enterPanelClick.mp3"
+                "size": {
+                    "w": 76,
+                    "h": 90
+                },
+                "maxScale": {
+                    "x": 1.02,
+                    "y": 1.02
+                },
+                "normalScale": {
+                    "x": 1,
+                    "y": 1
+                },
+                "sfx": "assets/raw/enterPanelClick.mp3"
             },
             {
-                "desc":"",
-                "cmd":"account",
-                "pos":{ "x":880, "y":700 },
-                "src":[
+                "desc": "",
+                "cmd": "account",
+                "pos": {
+                    "x": 880,
+                    "y": 700
+                },
+                "src": [
                     "./assets/ui/mine/icon_zhanghu.png"
                 ],
-                "size":{ "w":76, "h":90 },
-                "maxScale":{"x":1.02,"y":1.02},
-                "normalScale":{"x":1,"y":1},
-                "sfx":"assets/raw/enterPanelClick.mp3"
+                "size": {
+                    "w": 76,
+                    "h": 90
+                },
+                "maxScale": {
+                    "x": 1.02,
+                    "y": 1.02
+                },
+                "normalScale": {
+                    "x": 1,
+                    "y": 1
+                },
+                "sfx": "assets/raw/enterPanelClick.mp3"
             },
             {
-                "desc":"",
-                "cmd":"share",
-                "pos":{ "x":760, "y":700 },
-                "src":[
+                "desc": "",
+                "cmd": "share",
+                "pos": {
+                    "x": 760,
+                    "y": 700
+                },
+                "src": [
                     "./assets/ui/mine/icon_fenxiang.png"
                 ],
-                "size":{ "w":76, "h":90 },
-                "maxScale":{"x":1.02,"y":1.02},
-                "normalScale":{"x":1,"y":1},
-                "sfx":"assets/raw/sfx_click.mp3"
+                "size": {
+                    "w": 76,
+                    "h": 90
+                },
+                "maxScale": {
+                    "x": 1.02,
+                    "y": 1.02
+                },
+                "normalScale": {
+                    "x": 1,
+                    "y": 1
+                },
+                "sfx": "assets/raw/click.mp3"
             }
         ]
     },
-    "default":{ "desc":"", "bOpen":true }
+    "default": {
+        "desc": "",
+        "bOpen": true
+    }
 }

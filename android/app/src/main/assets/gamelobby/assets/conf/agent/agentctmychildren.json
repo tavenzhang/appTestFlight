@@ -86,7 +86,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/sfx_click.mp3"
+            "sfx": "assets/raw/click.mp3"
         },
         {
             "cmd": "adduser",
@@ -109,7 +109,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/sfx_click.mp3"
+            "sfx": "assets/raw/click.mp3"
         }
     ],
     "pageSize": 200,

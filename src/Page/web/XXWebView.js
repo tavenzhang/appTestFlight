@@ -23,6 +23,7 @@ import ShareBox from "../../Page/enter/game/pay/ShareBox";
 import TCUserOpenPayApp from "../UserCenter/UserPay/TCUserOpenPayApp";
 
 const HTTP_GAME_LIST="/gamecenter/player/game/list";
+
 @withMappedNavigationProps()
 @observer
 export default class XXWebView extends Component {
@@ -35,7 +36,8 @@ export default class XXWebView extends Component {
             isFail:false,
             updateList:[],
             sharedUrl: null,
-            isShowSharebox: false
+            isShowSharebox: false,
+            flash:1
 
         }
         this.loadQueue=[];
@@ -67,10 +69,12 @@ export default class XXWebView extends Component {
             Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
             Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
         }
-        // setTimeout(()=>{
-        //     if()
-        //     SplashScreen.hide();
-        // },4000)
+        setTimeout(()=>{
+           // SplashScreen.hide();
+            TW_Log("(TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash" ,this.state.flash);
+            this.setState({flash:this.state.flash+1});
+
+        },8000);
     }
     componentWillUnmount(): void {
         if(G_IS_IOS){
@@ -94,7 +98,6 @@ export default class XXWebView extends Component {
             if(this.refs.myView){
                 this.refs.myView.setNativeProps({style: {bottom:event.endCoordinates.height-120}});
             }
-            //this.setState({isShowKeyBoard:true})
         }
     }
 
@@ -294,6 +297,7 @@ export default class XXWebView extends Component {
 
     render() {
         const {sharedUrl, isShowSharebox} = this.state;
+        TW_Log("(TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--render" ,this.state);
         let {force} = this.props;
         let source = {
             file: TW_Store.dataStore.getHomeWebUri(),
@@ -305,7 +309,6 @@ export default class XXWebView extends Component {
         if (!G_IS_IOS) {
             source = {
                 uri: TW_Store.dataStore.getHomeWebUri()+"?app=true",
-
             };
         }
 

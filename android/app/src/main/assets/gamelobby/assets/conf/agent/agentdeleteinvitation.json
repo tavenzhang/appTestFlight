@@ -32,23 +32,32 @@
             "y": 23
         }
     },
-    "content":{
-        "desc":"",
-        "pos":{ "x":0, "y":0 },
-        "label":{
-            "pos":{ "x":37, "y":111 },
-            "size":{ "w":682, "h":263 },
-            "font":{
-                "text":"您确定删除这组邀请码？",
-                "size":30,
-                "color":"#9cc5d8",
-                "align":"center",
-                "valign":"middle",
-                "name":"Microsoft Yahei Bold",
-                "wrap":true,
-                "underline":false,
-                "borderColorX":"#ff0000",
-                "alpha":1
+    "content": {
+        "desc": "",
+        "pos": {
+            "x": 0,
+            "y": 0
+        },
+        "label": {
+            "pos": {
+                "x": 37,
+                "y": 111
+            },
+            "size": {
+                "w": 682,
+                "h": 263
+            },
+            "font": {
+                "text": "您确定删除这组邀请码？",
+                "size": 30,
+                "color": "#9cc5d8",
+                "align": "center",
+                "valign": "middle",
+                "name": "Microsoft Yahei Bold",
+                "wrap": true,
+                "underline": false,
+                "borderColorX": "#ff0000",
+                "alpha": 1
             }
         }
     },
@@ -88,7 +97,7 @@
             "w": 213,
             "h": 89
         },
-        "sfx": "assets/raw/sfx_click.mp3",
+        "sfx": "assets/raw/click.mp3",
         "maxScale": {
             "x": 1.05,
             "y": 1.05

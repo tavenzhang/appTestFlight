@@ -99,7 +99,7 @@ class SubGameView extends Component {
                 <View style={styles.container}>
                     {TW_Store.gameUIStroe.isShowWithDraw ? <GameMoneyOutView pointerEvents={isHaveAletView}/> : null}
                     {TW_Store.gameUIStroe.isShowAddPayView ? <GameMoneyInView pointerEvents={isHaveAletView}/> : null}
-                    {(gameAlertView&&gameAlertView.component)||TW_Store.gameUIStroe.isShowUserInfo ?  <View style={{width:SCREEN_W, height:SCREEN_H,backgroundColor: "rgba(10,10,10,0.3)",position:"absolute"}}/>:null}
+                    {(gameAlertView&&gameAlertView.component)||TW_Store.gameUIStroe.isShowUserInfo||TW_Store.gameUIStroe.isShowGuest ?  <View style={{width:SCREEN_W, height:SCREEN_H,backgroundColor: "rgba(10,10,10,0.3)",position:"absolute"}}/>:null}
 
                     {TW_Store.gameUIStroe.isShowUserInfo ? <GameUserInfoView pointerEvents={isHaveAletView}/> : null}
                     {TW_Store.gameUIStroe.isShowGuest ? <GameGuestView pointerEvents={isHaveAletView}/> : null}

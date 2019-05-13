@@ -148,8 +148,9 @@ export default class BankStore {
                 result.status = true;
                 this.showAddBankSuccess = true;
                 this.bankInfo = {...bankInfo,accountNum:bankCardNo};
-
                 TW_Store.userStore.updateUserAllInfo();
+                //刷新提现相关ui
+                TW_Store.userWithdrawStore.initDefaultBank();
                 callback(result);
             } else {
                 result.status = false;

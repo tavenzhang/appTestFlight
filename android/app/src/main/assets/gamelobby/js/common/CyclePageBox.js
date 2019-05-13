@@ -151,9 +151,13 @@ var CyclePageBox = /** @class */ (function (_super) {
         else {
             var time = Laya.Browser.now() - this.downTime;
             if (time < 350) { //点击处理
-                var vo = this.itemList[this.moveIndex];
-                //todo:
-                console.error("当前点击：", this.curIndex);
+                var vo = this.itemList[this.curIndex];
+                if (vo && vo.linkUrl) {
+                    if (GameUtils.isNativeApp)
+                        PostMHelp.game_common({ name: "openWeb", param: vo.linkUrl });
+                    else
+                        window.open(vo.linkUrl);
+                }
             }
         }
         this.moveNum = 0;
