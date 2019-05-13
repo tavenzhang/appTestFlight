@@ -32,7 +32,8 @@ global.TW_DATA_KEY={
     versionBBL:"versionBBL",
     isInitStore:"isInitStore",
     platData:"platData",
-    gameList:"gameList"
+    gameList:"gameList",
+    AFF_CODE:"aff_code"
 }
 
 
