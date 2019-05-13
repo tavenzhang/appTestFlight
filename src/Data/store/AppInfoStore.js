@@ -146,8 +146,15 @@ export default class AppInfoStore {
                 this.APP_DOWNLOAD_VERSION=this.appInfo.APP_DOWNLOAD_VERSION;
                 this.APP_DOWNLOAD_VERSION = this.APP_DOWNLOAD_VERSION ? this.APP_DOWNLOAD_VERSION:"1.0";
                 TW_Store.bblStore.getAppData();
+
                 try {
-                OpeninstallModule.getInstall(10, res => {
+                    TW_Data_Store.getItem(TW_DATA_KEY.AFF_CODE, (err, ret) => {
+                        TW_Log("TN_GetPlatInfo---versionBBL-TW_DATA_KEY.AFF_COD----err=-"+err+"----ret=="+ret,ret);
+                        if(ret&&ret.length>0){
+                            this.userAffCode = ret;
+                        }
+                    })
+                 OpeninstallModule.getInstall(10, res => {
                     //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
                         TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
                         if (res&&res.data) {
@@ -162,6 +169,7 @@ export default class AppInfoStore {
                                 this.openInstallData.data=map;
                                 if(map&&map.affCode){
                                     this.userAffCode = map.affCode;
+                                    TW_Data_Store.setItem(TW_DATA_KEY.AFF_CODE,this.userAffCode);
                                 }
                             }
                         }
