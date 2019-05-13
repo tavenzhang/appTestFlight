@@ -55,7 +55,7 @@ export const platInfo = {
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "/game/release/mxaw7"
+        release_server: "/game/release/mxqp"
     },
     platId: configAppId,
     brand: "mxqp",
