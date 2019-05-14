@@ -25,6 +25,7 @@ import CommonBoxLayer from "../enter/CommonBoxLayer";
 import XXWebView from "../web/XXWebView";
 import TCWebView from "../WebView/TCWebView";
 import OpeninstallModule from 'openinstall-react-native'
+import ExtraDimensions from 'react-native-extra-dimensions-android';
 
 //用于增加通用navigator view 属性 特殊 处理
 function viewRoutHelp(component) {
@@ -93,16 +94,23 @@ export default class App extends Component {
         StatusBar.setHidden(true);
         if (!G_IS_IOS) {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
+            //如果是android 在某些机器获取不到真实的SCREEN_H SCREEN_W 需要如下处理
+            if(ExtraDimensions&&ExtraDimensions.getRealWindowHeight){
+                let rH=ExtraDimensions.getRealWindowHeight();
+                let rW =ExtraDimensions.getRealWindowWidth();
+                SCREEN_H = rH&&rH>0 ? rH:SCREEN_H;
+                SCREEN_W = rW&&rW>0 ? rW:SCREEN_W;
+                TW_Log("ExtraDimensions--getRealWindowHeight--"  + ExtraDimensions.getRealWindowHeight(),SCREEN_H)
+
+                TW_Log("ExtraDimensions--getRealWindowWidth--"  + ExtraDimensions.getRealWindowWidth(),SCREEN_W)
+
+                TW_Log("ExtraDimensions--getSoftMenuBarHeight--"  + ExtraDimensions.getSoftMenuBarHeight())
+                TW_Log("ExtraDimensions--getSmartBarHeight--"  + ExtraDimensions.getSmartBarHeight())
+                TW_Log("ExtraDimensions--isSoftMenuBarEnabled--"  + ExtraDimensions.isSoftMenuBarEnabled())
+            }
         }
-        //该方法用于监听app通过univeral link或scheme拉起后获取唤醒参数
-        // this.receiveWakeupListener = map => {
-        //     if (map) {
-        //         //do your work here
-        //         Alert.alert('拉起回调',JSON.stringify(map))
-        //     }
-        //
-        // }
-        // OpeninstallModule.addWakeUpListener(this.receiveWakeupListener)
+
+
 
     }
 

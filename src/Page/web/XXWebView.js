@@ -38,7 +38,6 @@ export default class XXWebView extends Component {
             sharedUrl: null,
             isShowSharebox: false,
             flash:1
-
         }
         this.loadQueue=[];
         this.isLoading=false;
@@ -76,6 +75,7 @@ export default class XXWebView extends Component {
 
         },8000);
     }
+
     componentWillUnmount(): void {
         if(G_IS_IOS){
             Keyboard.removeListener('keyboardWillShow', this._keyboardDidShow);
@@ -312,9 +312,9 @@ export default class XXWebView extends Component {
             };
         }
 
-        if(TW_IS_DEBIG){
-            source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-        }
+        // if(TW_IS_DEBIG){
+        //     source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+        // }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({
@@ -350,7 +350,7 @@ export default class XXWebView extends Component {
                                           injectedJavaScript={injectJs}
                                           onMessage={this.onMessage}
                                           onLoadEnd={this.onLoadEnd}
-                                          onLoadStart={this.onLoadStart}
+
 
                         /> :
                         <View style={styles.webView}  ref="myView">
@@ -367,7 +367,6 @@ export default class XXWebView extends Component {
                                 // startInLoadingState={true}
                                 renderLoading={this.onRenderLoadingView}
                                 onNavigationStateChange={this.onNavigationStateChange}
-                                onLoadStart={this.onLoadStart}
                                 allowFileAccess={true}
                                 onError={this.onError}
                                 onMessage={this.onMessage}
@@ -381,9 +380,6 @@ export default class XXWebView extends Component {
 
     onRenderLoadingView = () => {
         return null
-        // return (<View style={{flex:1, backgroundColor:"black"}}>
-        //     {G_IS_IOS ?  <LoadingView/>: <LoadingView/>}
-        // </View>)
     }
 
     onMessage = (event) => {
@@ -576,15 +572,9 @@ export default class XXWebView extends Component {
             }
             TW_Log("onParamHead----"+headDataList.length,header)
         }
-
         return header
     }
 
-    onLoadStart = (event) => {
-        // if(G_IS_IOS){
-        //     SplashScreen.hide();
-        // }
-    };
 
 
     onLoadEnd=()=>{

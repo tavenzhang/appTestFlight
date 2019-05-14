@@ -36,7 +36,6 @@ export default class GameUserInfoView extends Component {
             isShowPhone: false,
             phoneNum: "",
         }
-
     }
 
     // componentWillUpdate(nextProps, nextState, nextContext: any): void {
@@ -69,7 +68,7 @@ export default class GameUserInfoView extends Component {
         TW_Log("TW_Store.userStore.phoneNumber--",this.state);
 
         let realName = TW_Store.userStore.realName;
-        let isHaveCard = realName && realName.length > 0;
+        let isHaveCard =this.bankStore.bankInfo.accountNum&&this.bankStore.bankInfo.accountNum.length > 0;
         let pickDataList = [];
         this.bankStore.bankList.bankCodes.map((item, index) => {
             pickDataList.push({name: this.bankStore.bankList.bankNames[index], value: item})
