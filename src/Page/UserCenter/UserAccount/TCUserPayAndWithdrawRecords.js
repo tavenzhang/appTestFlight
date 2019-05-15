@@ -4,7 +4,7 @@
  * Created by Allen on 2016/12/10.
  */
 import React, {Component} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Button, TouchableOpacity, View} from 'react-native';
 import {observer} from 'mobx-react/native'
 import Moment from "moment/moment";
 import NoDataView from '../../../Common/View/TCNoDataView'
@@ -172,6 +172,6 @@ export default class TCUserPayAndWithdrawRecords extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: indexBgColor.mainBg,
-    },
+        backgroundColor: "transparent",
+    }
 });

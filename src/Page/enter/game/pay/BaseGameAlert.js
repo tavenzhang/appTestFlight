@@ -39,7 +39,8 @@ export default class BaseGameAlert extends Component {
             </View>
             <View style={{
                 position: "absolute", top: 24, width: 460, height: 20, justifyContent: "center",
-                alignItems: "center", alignSelf: "center"
+                alignItems: "center",
+                alignSelf: "center"
             }}>
                 <Text style={{color: "#937e7e", fontSize: 18}}>{title}</Text>
             </View>
