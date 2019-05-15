@@ -19,7 +19,6 @@ export default class DataStore {
     isAppUnZip = false;
 
 
-
     @observable
     originAppDir = G_IS_IOS ? (MainBundlePath + '/assets/gamelobby') : "file:///android_asset/gamelobby";
 
@@ -72,7 +71,7 @@ export default class DataStore {
 
 
     loadHomeVerson=()=>{
-        let Url =TW_Store.dataStore.getHomeWebHome()+"/game/assets/conf/version.json";
+        let Url =TW_Store.dataStore.getHomeWebHome()+"/assets/conf/version.json";
         TW_Log("Url-----home---"+rootStore.dataStore.getHomeWebHome()+"\n url=",Url)
         NetUitls.getUrlAndParamsAndCallback("localhost://"+Url,null,(rt)=>{
             if(rt.rs){
@@ -127,19 +126,21 @@ export default class DataStore {
                         zipSrc = rootStore.bblStore.getVersionDomain() + "/" + zipSrc;
                     }
                 }
-                TW_Log("TW_DATA_KEY.versionBBL  this.content--condition=" + (TW_Store.dataStore.isAppUnZip && !TW_IS_DEBIG), this.content);
-                this.log += "==>TW_Store.dataStore.isAppUnZip=" + TW_Store.dataStore.isAppUnZip;
 
-                if (this.isAppUnZip && !TW_IS_DEBIG) {
+                this.log += "==>TW_Store.dataStore.isAppUnZip=" + TW_Store.dataStore.isAppUnZip;
+                TW_Log("TW_DATA_KEY.versionBBL  this.homeVersionM.versionNum =" +this.homeVersionM.versionNum ,content.versionNum);
+                if (this.isAppUnZip) {
                     if (this.homeVersionM.versionNum != content.versionNum) {
+                        TW_Store.gameUpateStore.isNeedUpdate=true;
                         this.downloadFile(zipSrc, rootStore.bblStore.tempZipDir);
                     }else{
-                        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
+                        TW_Store.gameUpateStore.isNeedUpdate=false;
                     }
                 } else {
                     TW_Log("TW_DATA_KEY.versionBBL http results==getWebAction--false ");
                     this.onSaveVersionM({}, true);
-                    TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
+                    TW_Store.gameUpateStore.isNeedUpdate=false;
+
                 }
             }
         })
@@ -180,9 +181,9 @@ export default class DataStore {
                // this.log+="==>downloadFile--begin="+res;
                //{statusCode: 404, headers: {…}, jobId: 1, contentLength: 153
                  if(res.statusCode != 404){
-                     TW_Store.commonBoxStore.isShow=true;
+                     TW_Store.gameUpateStore.isLoading=true;
                  }else{
-                     TW_Store.commonBoxStore.isShow=false
+                     TW_Store.gameUpateStore.isLoading=false;
                  }
 
             },
@@ -190,8 +191,9 @@ export default class DataStore {
                // this.log+="==>progress-="+res;
                // onProgress({percent:(res.bytesWritten/res.contentLength).toFixed(2),param});
                 let percent = (res.bytesWritten / res.contentLength).toFixed(2);
-                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading, {data: {do:"loading",percent}}));
-               // TW_Store.commonBoxStore.curPecent=res.bytesWritten;
+                TW_Log("downloadFile--------progress-TW_Store.gameUpateStore.isNeedUpdate=-",percent);
+                TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading, {data: {do:"loading",percent}}));
+                // TW_Store.commonBoxStore.curPecent=res.bytesWritten;
                 //TW_Store.commonBoxStore.totalPecent=res.contentLength;
             }
         };
@@ -210,7 +212,9 @@ export default class DataStore {
                     this.log+="==>downloadFile--fail--notstart=";
                     TW_Log('versionBBL --downloadFile --下载文件不存在--', formUrl);
                    // TW_Store.commonBoxStore.isShow=false;
-                    TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showGame));
+                    TW_Store.gameUpateStore.isLoading=false;
+                    TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
+
                 }
             }).catch(err => {
                 TW_Log('versionBBL --downloadFile --fail err', err);
@@ -253,7 +257,8 @@ export default class DataStore {
                 TW_Log("versionBBL  解压失败11",error);
                // TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showGame));
             }).finally(()=>{
-                 TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showGame));
+                     TW_Store.gameUpateStore.isLoading=false;
+                     TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
             })
     }
 

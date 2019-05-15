@@ -35,7 +35,7 @@ var LayaMain = /** @class */ (function () {
             "res/atlas/ui/res_login.atlas",
             "./assets/conf/assets_lobby.json",
             "./assets/conf/gameIcons.json",
-            "./assets/conf/config.json"
+            "./assets/conf/version.json"
         ], PageLogin /*, 'isloaded'*/);
     }
     LayaMain.getInstance = function () {

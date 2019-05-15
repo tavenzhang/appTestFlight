@@ -94,6 +94,7 @@ export default class TCWebView extends Component {
                 source={source} onNavigationStateChange={this.onNavigationStateChange}
                                                  onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                                                  style={[styles.webView,{display:dis}]}
+                                                 allowsInlineMediaPlayback={true}
                                                  allowFileAccess={true}
                                                  onError={this.onError}
                                                  startInLoadingState={false}
@@ -107,6 +108,7 @@ export default class TCWebView extends Component {
                 ref="myWebView"
                 useWebKit={true}
                 automaticallyAdjustContentInsets={true}
+                allowsInlineMediaPlayback={true}
                 style={styles.webView}
                 source={source}
                 javaScriptEnabled={true}
@@ -149,7 +151,6 @@ export default class TCWebView extends Component {
 
     onLoadEnd = (event) => {
         TW_Log("onLoadEnd=TCweb==========event=====", event)
-
         TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--"+ TW_Store.bblStore.isLoading, event)
     }
 

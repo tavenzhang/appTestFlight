@@ -32,18 +32,24 @@ var view;
                     return;
                 }
                 var dlg = new AgentDlg();
-                dlg.popup(false, true);
-                // dlg.pop(dlg);
+                dlg.popup(false, false);
+                dlg.pop(dlg);
                 // dlg.popup(true, $data === "home");
                 dlg.update($data);
                 dlg.loadTab($data);
                 dlg_1.dialogs.active = dlg;
             };
-            // public pop(dlg): void {
-            //     dlg.alpha = 1;
-            //     dlg.y = 0;
-            //     Laya.Tween.from(dlg, { alpha: 0, y: 20 }, 250);
-            // }
+            AgentDlg.prototype.pop = function (dlg) {
+                // dlg.alpha = 1;
+                // dlg.y = 0
+                dlg.anchorX = 0.5;
+                dlg.anchorY = 0.5;
+                dlg.x = Laya.stage.width / 2;
+                dlg.y = Laya.stage.height / 2;
+                Laya.Tween.to(dlg, { scaleX: 1.1, scaleY: 1.1 }, 50, Laya.Ease.linearNone, Laya.Handler.create(this, function () {
+                    Laya.Tween.to(dlg, { scaleX: 1, scaleY: 1 }, 120);
+                }));
+            };
             // public close(type?: string, showEffect?: boolean): void {
             //     Laya.Tween.to(this, { alpha: 0, y: 20 }, 250, null, new Laya.Handler(this, super.close, [type, showEffect]));
             // }
@@ -69,11 +75,18 @@ var view;
                     this.contents.x = this.contentList.x + 318 - 10; //this.contentList.width - 10;
                 }
                 this.btnComRecords.x = this.control.x - this.control.width - 170;
-                this.btnComRecords.visible = false;
+                this.btnComRecords.on(Laya.Event.CLICK, this, this.onReqComRecords);
                 EventManager.addTouchScaleListener(this.control, this, function () {
                     SoundPlayer.returnLobbySound();
                     _this.close(null, false);
                 });
+                this.tabDescription.y = this.tabCodes.y;
+                this.tabCodes.visible = false;
+            };
+            AgentDlg.prototype.onReqComRecords = function () {
+                this.comRec = new view.dlg.agent.CommissionRecordsPop();
+                this.comRec.show(this);
+                SoundPlayer.clickSound();
             };
             AgentDlg.prototype.update = function ($data) {
                 for (var i = 0; i < 5; i++) {
@@ -117,8 +130,6 @@ var view;
                 SoundPlayer.enterPanelSound();
             };
             AgentDlg.prototype.loadTab = function ($id) {
-                if ($id === "codes")
-                    return;
                 this.contents.destroyChildren();
                 this.contents.removeChildren();
                 var content;
@@ -133,7 +144,7 @@ var view;
                         content = new AgentContentMyIncome(this, ConfObjRead.getConfAgentContentMyIncome());
                         break;
                     case "codes":
-                        // content = new AgentContentInvation(this, ConfObjRead.getConfAgentContentInvation());
+                        content = new AgentContentInvation(this, ConfObjRead.getConfAgentContentInvation());
                         break;
                     case "description":
                         content = new AgentContentDesc(this, ConfObjRead.getConfAgentContentDesc());

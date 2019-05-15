@@ -17,6 +17,7 @@ global.JXCodePushVersion=""
 global.TW_IS_DEBIG= __DEV__  ? true:false;
 global.TW_Base64=new Base64();
 global.TW_OnValueJSHome=null;
+global.TW_LoaderOnValueJS=()=>{};
 
 import G_Native from "./G_Native.js";
 import  * as animation  from "./G_LayoutAnimaton.js"

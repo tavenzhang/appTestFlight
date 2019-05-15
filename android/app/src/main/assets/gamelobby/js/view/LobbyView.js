@@ -69,6 +69,7 @@ var view;
             //活动
             EventManager.addTouchScaleListener(this.actBtn, this, function () {
                 SoundPlayer.enterPanelSound();
+                //todo:xxx
                 // AttentionDialog.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
                 // AttentionDialog.obj.show();
                 // view.dlg.NoticeDlg.show(AttentionDialog.TYPE_OPEN_AUTO);

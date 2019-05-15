@@ -642,6 +642,10 @@
             "type": "ATLAS"
         },
         {
+            "url": "res/atlas/ui/dialogs/commission.atlas",
+            "type": "ATLAS"
+        },
+        {
             "url": "res/atlas/ui/panel_notice/message.atlas",
             "type": "ATLAS"
         },
@@ -668,6 +672,10 @@
         {
             "url": "./assets/ui/animation/loading/xiaoLoding.png",
             "type": "IMAGE"
+        },
+        {
+            "url": "./assets/conf/config.json",
+            "type": "JSON"
         }
     ]
 }

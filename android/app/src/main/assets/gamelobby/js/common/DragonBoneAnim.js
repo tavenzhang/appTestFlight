@@ -75,11 +75,27 @@ var DragonBoneAnim = /** @class */ (function (_super) {
         }
     };
     /**
-     * 停止播放
+     * 停止播放(停止后不能再恢复)
      */
     DragonBoneAnim.prototype.stop = function () {
         if (this.mArmature) {
             this.mArmature.stop();
+        }
+    };
+    /**
+     * 暂停播放
+     */
+    DragonBoneAnim.prototype.pause = function () {
+        if (this.mArmature) {
+            this.mArmature.paused();
+        }
+    };
+    /**
+     * 恢复播放
+     */
+    DragonBoneAnim.prototype.resume = function () {
+        if (this.mArmature) {
+            this.mArmature.resume();
         }
     };
     DragonBoneAnim.prototype.parseComplete = function () {

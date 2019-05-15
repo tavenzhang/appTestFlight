@@ -54,6 +54,7 @@
         "agent_affiliates": "/account/webapi/team/affiliates",
         "agentinvation": "/account/webapi/team/affiliates/list",
         "agentbrokerage": "/gamecenter/player/agent/commission/rule",
+        "commission_record": "/gamecenter/player/agent/commission/record",
         "gamelist": "/gamecenter/player/game/list",
         "noticelist": "/gamecenter/player/notice/list",
         "roomlist": "/gamecenter/player/room/list",

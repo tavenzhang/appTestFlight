@@ -33,9 +33,20 @@ var view;
                 dlg.game_counter.visible = false;
                 dlg.notice_counter.visible = false;
                 dlg.tab_dummy.visible = false;
-                dlg.popup(false, true);
-                // // dlg.pop(dlg);
+                dlg.popup(false, false);
+                dlg.pop(dlg);
                 dlg.requestData();
+            };
+            NoticeDlg.prototype.pop = function (dlg) {
+                // dlg.alpha = 1;
+                // dlg.y = 0
+                dlg.anchorX = 0.5;
+                dlg.anchorY = 0.5;
+                dlg.x = Laya.stage.width / 2;
+                dlg.y = Laya.stage.height / 2;
+                Laya.Tween.to(dlg, { scaleX: 1.1, scaleY: 1.1 }, 50, Laya.Ease.linearNone, Laya.Handler.create(this, function () {
+                    Laya.Tween.to(dlg, { scaleX: 1, scaleY: 1 }, 120);
+                }));
             };
             NoticeDlg.prototype.initView = function () {
                 var _this = this;
@@ -138,10 +149,10 @@ var view;
                     }
                     target.visible = counter > 0;
                     var label = target.getChildByName("label");
-                    label.text = counter.toString();
+                    // label.text = counter.toString();
                     label.autoSize = true;
                     label.align = "right";
-                    target.width = label.width + 13;
+                    // target.width = label.width + 13;
                 });
             };
             NoticeDlg.prototype.onTabClick = function ($e) {
@@ -184,10 +195,10 @@ var view;
                 var target = this._currentCategoryTab === 0 ? this.game_counter : this.notice_counter;
                 target.visible = counter > 0;
                 var label = target.getChildByName("label");
-                label.text = counter.toString();
+                // label.text = counter.toString();
                 label.autoSize = true;
                 label.align = "right";
-                target.width = label.width + 13;
+                // target.width = label.width + 13;
             };
             NoticeDlg.prototype.loadCategoryTab = function ($id) {
                 this._currentCategoryTab = $id;

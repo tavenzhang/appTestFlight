@@ -51,6 +51,7 @@ var PageLogin = /** @class */ (function (_super) {
         var isload = cmd == null ? false : cmd == 'isloaded';
         //开始加载数据
         _this.startLoading(isload);
+        if(!isload)PostMHelp.initGame();
         return _this;
     }
     /**
@@ -89,6 +90,7 @@ var PageLogin = /** @class */ (function (_super) {
      * 加载结束
      */
     PageLogin.prototype.loadFinish = function () {
+        Common.confObj = ConfObjRead.getConfCommon();
         this.updateGatewayInfo();
         //登陆流程
         this.initLoginProcess();
@@ -206,11 +208,8 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.initLoginProcess = function () {
         var _this = this;
-        Common.confObj = ConfObjRead.getConfCommon();
         //设置游戏版本号
-        ResConfig.versions = "版本号：" + Common.confObj.versions;
-        //测试
-        //Common.confObj.testLogin = true;
+        ResConfig.versions = "版本号：" + ConfObjRead.getVerConfig().versionNum;
         Common.getNormalFontByDevice();
         //token信息
         var temp_token = SaveManager.getObj().get(SaveManager.KEY_TOKEN, "");
@@ -245,7 +244,7 @@ var PageLogin = /** @class */ (function (_super) {
             this.checkLocalFastInfo();
             return;
         }
-        if (temp_token.length <= 0 || status == '1' || Common.confObj.testLogin) {
+        if (temp_token.length <= 0 || status == '1') {
             this.checkLocalFastInfo();
         }
         else {
@@ -713,6 +712,7 @@ var PageLogin = /** @class */ (function (_super) {
                     LayaMain.getInstance().initLobby();
                 }
                 else { //为弱账号，需要验证登录
+                    Toast.showToast("用户名或者密码不正确");
                     _this.selectLoginType(LoginType.Fast);
                 }
             }
@@ -783,6 +783,7 @@ var PageLogin = /** @class */ (function (_super) {
                     _this.in_code.visible = true;
                     _this.sp_img_code.visible = true;
                     _this.isCodeLogin = true;
+                    Toast.showToast("用户名或者密码不正确");
                 }
             }
             else {

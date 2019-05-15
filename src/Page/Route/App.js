@@ -81,6 +81,7 @@ import GameUIView from "../enter/GameUIView";
 import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
 import KeyboardManager from 'react-native-keyboard-manager'
 import {JX_PLAT_INFO} from "../asset";
+import LoadingWebView from "../WebView/LoadingWebView";
 
 @observer
 export default class App extends Component {
@@ -120,7 +121,7 @@ export default class App extends Component {
 
 
     render() {
-
+        TW_Log("onBackAndroid--TW_Store.gameUpateStore.isNeedUpdate--"+TW_Store.gameUpateStore.isNeedUpdate);
         return (
             <Provider  {...rootStore} >
                 <View style={{flex: 1, backgroundColor: "black"}}>
@@ -139,7 +140,8 @@ export default class App extends Component {
                             }}
                             pointerEvents={"none"}>{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
                         `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
-                    <CommonBoxLayer/>
+                    {/*<CommonBoxLayer/>*/}
+                    <LoadingWebView/>
                     <GameUIView/>
                 </View>
             </Provider>

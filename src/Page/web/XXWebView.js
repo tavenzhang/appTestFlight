@@ -294,7 +294,7 @@ export default class XXWebView extends Component {
         TW_Log("(TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--render" ,this.state);
         let {force} = this.props;
         let source = {
-            file: TW_Store.dataStore.getHomeWebUri(),
+            file: TW_Store.gameUpateStore.isLoading ?  "":TW_Store.dataStore.getHomeWebUri(),
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
             allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
             param:"?app=true"
@@ -306,9 +306,9 @@ export default class XXWebView extends Component {
             };
         }
 
-        if(TW_IS_DEBIG){
-            source =  require('./../../../android/app/src/main/assets/gamelobby/game/index.html');
-        }
+        // if(TW_IS_DEBIG){
+        //     source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+        // }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({
@@ -403,6 +403,17 @@ export default class XXWebView extends Component {
                         case "openWeb":
                             TCUserOpenPayApp.linkingWeb( message.param)
                             break;
+                        case "onGameInit":
+                            if(this.timeId){
+                                clearTimeout(this.timeId);
+                            }
+                            this.timeId= setTimeout(()=>{
+                                if(!TW_Store.gameUpateStore.isLoading&&TW_Store.gameUpateStore.isNeedUpdate){
+                                    TW_Store.gameUpateStore.isNeedUpdate=false;
+                                }
+                            },1000)
+
+                            break;
                     }
 
                     switch (message.do) {
@@ -482,7 +493,7 @@ export default class XXWebView extends Component {
                     TW_Store.gameUIStroe.isShowUserInfo =!TW_Store.gameUIStroe.isShowUserInfo;
                     break;
                 case "showGame":
-                    this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showGame));
+                    TW_Store.gameUpateStore.isNeedUpdate=false;
                     break;
                 case  "game_custom":
                     TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
@@ -578,12 +589,10 @@ export default class XXWebView extends Component {
     }
 
 
-
     onLoadEnd=()=>{
         TW_Store.bblStore.isLoading=false;
         SplashScreen.hide();
         this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize,{}));
-
     }
 
 

@@ -27,18 +27,16 @@ var AgentContentInfo = /** @class */ (function (_super) {
             var len = this.conf.sprites.length;
             for (var i = 0; i < len; i++) {
                 if (i === 0) {
-                    // avata = spconf;
-                    // avata.alpha = .5;
-                    var frame = new Laya.Image("ui/userInfo/avatorFrame.png");
-                    this.addChild(frame);
-                    frame.x = this.conf.sprites[i].pos.x - 5.2;
-                    frame.y = this.conf.sprites[i].pos.y - 5;
-                    frame.scale(1.34, 1.3);
                     var avatar = new Laya.Image(ResConfig.getHeadSkinByID(userData.avatarSkinId));
                     this.addChild(avatar);
                     avatar.x = this.conf.sprites[i].pos.x;
                     avatar.y = this.conf.sprites[i].pos.y;
-                    avatar.scale(1.3, 1.3);
+                    avatar.size(146, 146);
+                    var frame = new Laya.Image("ui/userInfo/avatorFrame.png");
+                    this.addChild(frame);
+                    frame.x = this.conf.sprites[i].pos.x - 10;
+                    frame.y = this.conf.sprites[i].pos.y - 5;
+                    frame.size(166, 166);
                 }
                 else {
                     var spconf = this.conf.sprites[i];

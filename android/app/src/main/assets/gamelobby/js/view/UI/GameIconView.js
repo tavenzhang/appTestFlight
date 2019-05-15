@@ -48,7 +48,7 @@ var view;
                 if (this.grayRect)
                     this.grayRect.height = this.grayIcon.height;
                 if (this.anim)
-                    this.anim.stop();
+                    this.anim.pause();
             };
             /**
              * 读取数据
@@ -155,7 +155,7 @@ var view;
                     this.animbox.addChild(this.anim);
                 }
                 else {
-                    this.anim.play();
+                    this.anim.resume();
                 }
                 this.animbox.visible = true;
             };

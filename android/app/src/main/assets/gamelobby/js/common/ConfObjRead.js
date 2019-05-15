@@ -577,6 +577,12 @@ var ConfObjRead = /** @class */ (function () {
         }
         return this.gameIconConfig;
     };
+    ConfObjRead.getVerConfig = function () {
+        if (!this.verConfig) {
+            this.verConfig = Laya.Loader.getRes("./assets/conf/version.json");
+        }
+        return this.verConfig;
+    };
     ConfObjRead.agentlistdesctestObj = null;
     ConfObjRead.agentlistdescObj = null;
     ConfObjRead.agenttestdataincomeObj = null;
@@ -651,6 +657,7 @@ var ConfObjRead = /** @class */ (function () {
      * 游戏图标配置
      */
     ConfObjRead.gameIconConfig = null;
+    ConfObjRead.verConfig = null;
     return ConfObjRead;
 }());
 //# sourceMappingURL=ConfObjRead.js.map
