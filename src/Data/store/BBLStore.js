@@ -139,6 +139,9 @@ export  default  class BBLStore {
         playmusicByFile:"playmusic",//通过文件名播放背景音乐
         onBlur:"onBlur",
         lobbyResume:"lobbyResume",
+        game_loading:"game_loading",
+        showGame:"showGame"
+
 
     }
 

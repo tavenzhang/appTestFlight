@@ -36,10 +36,8 @@ export default class DataStore {
     log="";
 
     @observable
-    isCheckZipUpdate=true;
-
-    @observable
     appData={};
+
     //下载jobId
     currentDownId=1;
 
@@ -64,85 +62,87 @@ export default class DataStore {
             } else {
                 if (`${ret}` == "1") {
                     this.isAppUnZip = true;
-                   this.startCheckZipUpdate();
+                  // this.startCheckZipUpdate();
                 } else {
                     this.copy_assets_to_dir();
                 }
             }
         });
-        TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
-            let verionM=null;
-            try{
-                verionM = JSON.parse(ret);
-            }catch (error) {
-                this.log+="-->init---catch -==-error=="+error;
-            }
-            if(!verionM){
-                this.onSaveVersionM({},false);
+    }
+
+
+    loadHomeVerson=()=>{
+        let Url =TW_Store.dataStore.getHomeWebHome()+"/game/assets/conf/version.json";
+        TW_Log("Url-----home---"+rootStore.dataStore.getHomeWebHome()+"\n url=",Url)
+        NetUitls.getUrlAndParamsAndCallback("localhost://"+Url,null,(rt)=>{
+            if(rt.rs){
+                if(rt.content&&rt.content.versionNum){
+                    this.startCheckZipUpdate(rt.content)
+                }
+            }else{
+                this.startCheckZipUpdate(null)
             }
         })
     }
 
     @action
-    startCheckZipUpdate=()=>{
-        TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
-            let verionM=null;
-            TW_Log("startCheckZipUpdate---=ret--start-ret"+ret,ret)
-            try{
-                verionM = JSON.parse(ret);
-            }catch (error) {
-
-                this.log+="-->startCheckZipUpdate---catch -==-error=="+error;
-            }
-            if(ret&&verionM){
-                this.homeVersionM =verionM;
-                this.log+="-->startCheckZipUpdate---homeVersionM-==-"+JSON.stringify(this.homeVersionM)
-             //   TW_Log("startCheckZipUpdate---homeVersionM=",this.homeVersionM)
-                if(this.isCheckZipUpdate){
-                    this.chectHomeZipUpdate();
+    startCheckZipUpdate=(versionData=null)=>{
+        if(versionData) {
+            this.homeVersionM =versionData;
+            this.checkHomeZipUpdate();
+        }else{
+            TW_Data_Store.getItem(TW_DATA_KEY.versionBBL).then((ret) => {
+                let verionM=null;
+                try{
+                    verionM = JSON.parse(ret);
+                }catch (error) {
+                    this.log+="-->startCheckZipUpdate---catch -==-error=="+error;
                 }
-            }else{
-                this.onSaveVersionM({},false,()=>{
-                    if(this.isCheckZipUpdate){
-                        this.chectHomeZipUpdate();
-                    }
-                });
-            }
-        })
+                if(ret&&verionM){
+                    this.homeVersionM =verionM;
+                    this.log+="-->startCheckZipUpdate---homeVersionM-==-"+JSON.stringify(this.homeVersionM)
+                }
+                this.checkHomeZipUpdate();
+            })
+        }
     }
 
-    chectHomeZipUpdate=()=>{
+    checkHomeZipUpdate=()=>{
         TW_Log("TW_DATA_KEY.versionBBL start  http ===> "+rootStore.bblStore.getVersionConfig());
         this.log+="==>getVersionConfig="+rootStore.bblStore.getVersionConfig();
-        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionConfig(),null,(rt)=>{
-            TW_Log("TW_DATA_KEY.versionBBL http results== " , rt);
-            if(rt.rs){
+        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionConfig(),null,(rt)=> {
+            TW_Log("TW_DATA_KEY.versionBBL http results== ", rt);
+            if (rt.rs) {
                 let content = rt.content;
-                this.content=content;
+                this.content = content;
                 let zipSrc = this.content.source;
-                if(G_IS_IOS){
-                    zipSrc= this.content.source_ios ?  this.content.source_ios:zipSrc;
-                }else{
-                    zipSrc= this.content.source_android ?  this.content.source_android:zipSrc;
+                if (G_IS_IOS) {
+                    zipSrc = this.content.source_ios ? this.content.source_ios : zipSrc;
+                } else {
+                    zipSrc = this.content.source_android ? this.content.source_android : zipSrc;
                 }
-                if(zipSrc){
+                if (zipSrc) {
                     //如果config source 是相对路径 加上 config 域名
-                    if(zipSrc.indexOf("http")==-1){
-                        zipSrc = rootStore.bblStore.getVersionDomain()+"/"+zipSrc;
+                    if (zipSrc.indexOf("http") == -1) {
+                        zipSrc = rootStore.bblStore.getVersionDomain() + "/" + zipSrc;
                     }
                 }
-                TW_Log("TW_DATA_KEY.versionBBL  this.content" ,  this.content);
-                this.log+="==>TW_Store.dataStore.isAppUnZip="+TW_Store.dataStore.isAppUnZip;
-                if(TW_Store.dataStore.isAppUnZip&&!TW_IS_DEBIG){
-                    if(this.homeVersionM.versionNum!=content.versionNum){
-                            this.downloadFile(zipSrc,rootStore.bblStore.tempZipDir);
-                        }
+                TW_Log("TW_DATA_KEY.versionBBL  this.content--condition=" + (TW_Store.dataStore.isAppUnZip && !TW_IS_DEBIG), this.content);
+                this.log += "==>TW_Store.dataStore.isAppUnZip=" + TW_Store.dataStore.isAppUnZip;
+
+                if (this.isAppUnZip && !TW_IS_DEBIG) {
+                    if (this.homeVersionM.versionNum != content.versionNum) {
+                        this.downloadFile(zipSrc, rootStore.bblStore.tempZipDir);
+                    }else{
+                        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
                     }
-                }else{
-                    this.onSaveVersionM({},true);
+                } else {
+                    TW_Log("TW_DATA_KEY.versionBBL http results==getWebAction--false ");
+                    this.onSaveVersionM({}, true);
+                    TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
                 }
             }
-        )
+        })
     }
 
 
@@ -188,9 +188,11 @@ export default class DataStore {
             },
             progress: (res) => {
                // this.log+="==>progress-="+res;
-                //let pro = res.bytesWritten / res.contentLength;
-                TW_Store.commonBoxStore.curPecent=res.bytesWritten;
-                TW_Store.commonBoxStore.totalPecent=res.contentLength;
+               // onProgress({percent:(res.bytesWritten/res.contentLength).toFixed(2),param});
+                let percent = (res.bytesWritten / res.contentLength).toFixed(2);
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading, {data: {do:"loading",percent}}));
+               // TW_Store.commonBoxStore.curPecent=res.bytesWritten;
+                //TW_Store.commonBoxStore.totalPecent=res.contentLength;
             }
         };
         try {
@@ -207,7 +209,8 @@ export default class DataStore {
                 }else{
                     this.log+="==>downloadFile--fail--notstart=";
                     TW_Log('versionBBL --downloadFile --下载文件不存在--', formUrl);
-                    TW_Store.commonBoxStore.isShow=false;
+                   // TW_Store.commonBoxStore.isShow=false;
+                    TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showGame));
                 }
             }).catch(err => {
                 TW_Log('versionBBL --downloadFile --fail err', err);
@@ -236,19 +239,21 @@ export default class DataStore {
                 this.log+="==>onSaveVersionM--=start";
                 this.onSaveVersionM(this.content,false,()=>{
                     this.log+="==>onSaveVersionM--=end";
-                    if(G_IS_IOS){
-                        this.onRetartApp();
-                    }else{
-                        setTimeout(()=>{
-                            this.onRetartApp(); //android 的文件解压读写延迟比较大，延迟5秒
-                        },8000)
-                    }
-                    TW_Store.commonBoxStore.isShow=false;
+                    // if(G_IS_IOS){
+                    //     this.onRetartApp();
+                    // }else{
+                    //     setTimeout(()=>{
+                    //         this.onRetartApp(); //android 的文件解压读写延迟比较大，延迟5秒
+                    //     },8000)
+                    // }
+                    //TW_Store.commonBoxStore.isShow=false;
                 });
-
             })
             .catch((error) => {
                 TW_Log("versionBBL  解压失败11",error);
+               // TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showGame));
+            }).finally(()=>{
+                 TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showGame));
             })
     }
 
@@ -264,7 +269,7 @@ export default class DataStore {
                // this.startCheckZipUpdate();
             }
             this.log+="onSavaCopyState---  this.isAppUnZip="+this.isAppUnZip+"\n"
-            this.startCheckZipUpdate();
+            this.loadHomeVerson();
         })
     }
 

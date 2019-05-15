@@ -68,12 +68,7 @@ export default class XXWebView extends Component {
             Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
             Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
         }
-        setTimeout(()=>{
-           // SplashScreen.hide();
-            TW_Log("(TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash" ,this.state.flash);
-            this.setState({flash:this.state.flash+1});
-
-        },8000);
+        TW_Store.dataStore.loadHomeVerson();
     }
 
     componentWillUnmount(): void {
@@ -222,7 +217,6 @@ export default class XXWebView extends Component {
             }else{
                 url = TW_Store.bblStore.gameDomain  + url
             }
-
         }
        
         return `${url}&app=${G_IS_IOS ? "ios":"android"}`;
@@ -312,9 +306,9 @@ export default class XXWebView extends Component {
             };
         }
 
-        // if(TW_IS_DEBIG){
-        //     source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-        // }
+        if(TW_IS_DEBIG){
+            source =  require('./../../../android/app/src/main/assets/gamelobby/game/index.html');
+        }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({
@@ -487,6 +481,9 @@ export default class XXWebView extends Component {
                 case  "game_account":
                     TW_Store.gameUIStroe.isShowUserInfo =!TW_Store.gameUIStroe.isShowUserInfo;
                     break;
+                case "showGame":
+                    this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showGame));
+                    break;
                 case  "game_custom":
                     TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
                    // TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
@@ -553,6 +550,11 @@ export default class XXWebView extends Component {
                             break;
                         case "put":
                             NetUitls.putUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
+                                this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
+                            },10,false,true,this.onParamHead(message.header));
+                            break;
+                        case "delete":
+                            NetUitls.deleteUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
                                 this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
                             },10,false,true,this.onParamHead(message.header));
                             break;

@@ -16,6 +16,7 @@ import {Provider} from 'mobx-react'
 import NavigationService from './NavigationService'
 import rootStore from "../../Data/store/RootStore";
 import {observer} from 'mobx-react/native';
+
 const appStores = {
     // mainStore: rootStore.mainStore,
     // initAppStore: rootStore.initAppStore,
@@ -34,17 +35,17 @@ function viewRoutHelp(component) {
 
 const Components = {
     XXWebView: viewRoutHelp(XXWebView),
-    WebView:viewRoutHelp(TCWebView),
-    TCUserDetailMsg:viewRoutHelp(TCUserDetailMsg),
-    TCUserMessage:viewRoutHelp(TCUserMessage),
-    TCAddUserInfo:viewRoutHelp(TCAddUserInfo),
-    TCAddPhoneNumberInfo:viewRoutHelp(TCAddPhoneNumberInfo),
-    TCUserPayType:viewRoutHelp(TCUserPayType),
-    UserAcountPay:viewRoutHelp(TCUserPayAndWithdrawRecordsMain),
+    WebView: viewRoutHelp(TCWebView),
+    TCUserDetailMsg: viewRoutHelp(TCUserDetailMsg),
+    TCUserMessage: viewRoutHelp(TCUserMessage),
+    TCAddUserInfo: viewRoutHelp(TCAddUserInfo),
+    TCAddPhoneNumberInfo: viewRoutHelp(TCAddPhoneNumberInfo),
+    TCUserPayType: viewRoutHelp(TCUserPayType),
+    UserAcountPay: viewRoutHelp(TCUserPayAndWithdrawRecordsMain),
     UserPayment: viewRoutHelp(UserPayment),
     WxPublicPage: viewRoutHelp(WechatPublicPage),
-    TCUserWithdrawNew:viewRoutHelp(TCUserWithdrawNew),
-    TCUserBankPayMessageNew:viewRoutHelp(TCUserBankPayMessageNew)
+    TCUserWithdrawNew: viewRoutHelp(TCUserWithdrawNew),
+    TCUserBankPayMessageNew: viewRoutHelp(TCUserBankPayMessageNew)
 }
 
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
@@ -80,6 +81,7 @@ import GameUIView from "../enter/GameUIView";
 import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
 import KeyboardManager from 'react-native-keyboard-manager'
 import {JX_PLAT_INFO} from "../asset";
+
 @observer
 export default class App extends Component {
     constructor(state) {
@@ -88,41 +90,32 @@ export default class App extends Component {
 
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-        if(KeyboardManager&&KeyboardManager.setToolbarPreviousNextButtonEnable){
+        if (KeyboardManager && KeyboardManager.setToolbarPreviousNextButtonEnable) {
             KeyboardManager.setToolbarPreviousNextButtonEnable(true);
         }
         StatusBar.setHidden(true);
         if (!G_IS_IOS) {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
             //如果是android 在某些机器获取不到真实的SCREEN_H SCREEN_W 需要如下处理
-            if(ExtraDimensions&&ExtraDimensions.getRealWindowHeight){
-                let rH=ExtraDimensions.getRealWindowHeight();
-                let rW =ExtraDimensions.getRealWindowWidth();
-                SCREEN_H = rH&&rH>0 ? rH:SCREEN_H;
-                SCREEN_W = rW&&rW>0 ? rW:SCREEN_W;
-                TW_Log("ExtraDimensions--getRealWindowHeight--"  + ExtraDimensions.getRealWindowHeight(),SCREEN_H)
-
-                TW_Log("ExtraDimensions--getRealWindowWidth--"  + ExtraDimensions.getRealWindowWidth(),SCREEN_W)
-
-                TW_Log("ExtraDimensions--getSoftMenuBarHeight--"  + ExtraDimensions.getSoftMenuBarHeight())
-                TW_Log("ExtraDimensions--getSmartBarHeight--"  + ExtraDimensions.getSmartBarHeight())
-                TW_Log("ExtraDimensions--isSoftMenuBarEnabled--"  + ExtraDimensions.isSoftMenuBarEnabled())
+            if (ExtraDimensions && ExtraDimensions.getRealWindowHeight) {
+                let rH = ExtraDimensions.getRealWindowHeight();
+                let rW = ExtraDimensions.getRealWindowWidth();
+                SCREEN_H = rH && rH > 0 ? rH : SCREEN_H;
+                SCREEN_W = rW && rW > 0 ? rW : SCREEN_W;
+                // TW_Log("ExtraDimensions--getRealWindowHeight--"  + ExtraDimensions.getRealWindowHeight(),SCREEN_H)
+                // TW_Log("ExtraDimensions--getRealWindowWidth--"  + ExtraDimensions.getRealWindowWidth(),SCREEN_W)
+                // TW_Log("ExtraDimensions--getSoftMenuBarHeight--"  + ExtraDimensions.getSoftMenuBarHeight())
+                // TW_Log("ExtraDimensions--getSmartBarHeight--"  + ExtraDimensions.getSmartBarHeight())
+                // TW_Log("ExtraDimensions--isSoftMenuBarEnabled--"  + ExtraDimensions.isSoftMenuBarEnabled())
             }
         }
-
-
-
-    }
-
-    componentDidMount(): void {
-
     }
 
     componentWillUnmount(): void {
         if (!G_IS_IOS) {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
-       // OpeninstallModule.removeWakeUpListener(this.receiveWakeupListener)//移除监听
+        // OpeninstallModule.removeWakeUpListener(this.receiveWakeupListener)//移除监听
     }
 
 
@@ -130,20 +123,22 @@ export default class App extends Component {
 
         return (
             <Provider  {...rootStore} >
-                <View style={{flex: 1, backgroundColor:"black"}}>
+                <View style={{flex: 1, backgroundColor: "black"}}>
                     {this.addStatusBar()}
                     <MainStackNavigator
                         ref={navigatorRef => {
                             NavigationService.setTopLevelNavigator(navigatorRef)
-                            this.navigator=navigatorRef;
+                            this.navigator = navigatorRef;
                         }}
                     />
-                    {TW_Store.bblStore.isDebugApp ? <ScrollView  style={{ position: "absolute", height:JX_PLAT_INFO.SCREEN_H}}><Text
-                        style={{
-                            color: "yellow",
-                            fontWeight:"bold"
-                        }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
-                    `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
+                    {TW_Store.bblStore.isDebugApp ?
+                        <ScrollView style={{position: "absolute", height: JX_PLAT_INFO.SCREEN_H}}><Text
+                            style={{
+                                color: "yellow",
+                                fontWeight: "bold"
+                            }}
+                            pointerEvents={"none"}>{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
+                        `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
                     <CommonBoxLayer/>
                     <GameUIView/>
                 </View>
@@ -152,11 +147,11 @@ export default class App extends Component {
     }
 
     onBackAndroid = () => {
-        TW_Log("onBackAndroid----",this.navigator);
-       // return false;
+        TW_Log("onBackAndroid----", this.navigator);
+        // return false;
         const routers = this.navigator.state.routes;
-        if (routers&&routers.length > 1) {
-            if(TW_OnValueJSHome){
+        if (routers && routers.length > 1) {
+            if (TW_OnValueJSHome) {
                 TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.lobbyResume));
             }
             TW_NavHelp.goBack();
@@ -167,7 +162,7 @@ export default class App extends Component {
             return false;//控制权交给原生
         }
         this.lastClickTime = now;
-        ToastAndroid.show("再按一次退出 ",ToastAndroid.SHORT);
+        ToastAndroid.show("再按一次退出 ", ToastAndroid.SHORT);
         return true;
     }
 

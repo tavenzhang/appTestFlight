@@ -131,7 +131,9 @@ export default class NetUitls extends Component {
         this.fetchAsync(url, map, callback,loadingState,isWebHttp)
     }
 
-    static DeleteUrlAndParamsAndCallback(url, params, callback, timeout,loadingState,isWebHttp=false) {
+
+
+    static deleteUrlAndParamsAndCallback(url, params, callback, timeout,loadingState,isWebHttp=false,header=null) {
         url = this.getServerUrl(url)
         let map = _.assignIn(config.mapDelete, {
             body: JSON.stringify(params)
@@ -141,23 +143,14 @@ export default class NetUitls extends Component {
         } else {
             map.timeout = defaultTimeout
         }
-        this.fetchAsync(url, map, callback,loadingState,isWebHttp)
-    }
-
-    static deleteUrlAndParamsAndCallback(url, params, callback, timeout,loadingState,isWebHttp=false) {
-        url = this.getServerUrl(url)
-        let map = _.assignIn(config.mapDelete, {
-            body: JSON.stringify(params)
-        })
-        if (timeout > 0) {
-            map.timeout = timeout
-        } else {
-            map.timeout = defaultTimeout
+        if(header){
+            map.headers={...map.headers,...header}
         }
         this.fetchAsync(url, map, callback,loadingState,isWebHttp)
     }
 
-    static DeleteHttpUrlAndParamsAndCallback(url, params, callback, timeout,loadingState,isWebHttp=false) {
+
+    static deleteHttpUrlAndParamsAndCallback(url, params, callback, timeout,loadingState,isWebHttp=false,header=null) {
         url = this.getServerUrl(url)
         if (typeof params === 'string') {
             url += '/' + params
@@ -169,22 +162,10 @@ export default class NetUitls extends Component {
         } else {
             config.mapDelete.timeout = defaultTimeout
         }
-        this.fetchAsync(url, config.mapDelete, callback,loadingState,isWebHttp)
-    }
-
-    static deleteHttpUrlAndParamsAndCallback(url, params, callback, timeout,loadingState,isWebHttp=false) {
-        url = this.getServerUrl(url)
-        if (typeof params === 'string') {
-            url += '/' + params
-        } else if (params) {
-            url += '?' + queryString.stringify(params)
+        if(header){
+            map.headers={...map.headers,...header}
         }
-        if (timeout > 0) {
-            config.mapDelete.timeout = timeout
-        } else {
-            config.mapDelete.timeout = defaultTimeout
-        }
-        this.fetchAsync(url, config.mapDelete, callback,loadingState,isWebHttp)
+        this.fetchAsync(url, map, callback,loadingState,isWebHttp)
     }
 
     //loadingState = {isModal: false, overStyle: {}, style: {}, margeTop: 0}
@@ -293,6 +274,10 @@ export default class NetUitls extends Component {
     static getServerUrl(url) {
         if (url && (_.startsWith(url, 'http://') || _.startsWith(url, 'https://'))) {
             return url
+        }
+        else if(url&&_.startsWith(url,"localhost://")){
+            url = url.replace("localhost://","");
+            return url;
         }
 
         return TW_Store.appStore.currentDomain  + baseUrl.baseUrl + url
