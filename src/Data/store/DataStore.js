@@ -213,6 +213,7 @@ export default class DataStore {
                     TW_Log('versionBBL --downloadFile --下载文件不存在--', formUrl);
                    // TW_Store.commonBoxStore.isShow=false;
                     TW_Store.gameUpateStore.isLoading=false;
+                    TW_Store.gameUpateStore.isTempExist=true;
                     TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
 
                 }
@@ -258,6 +259,7 @@ export default class DataStore {
                // TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showGame));
             }).finally(()=>{
                      TW_Store.gameUpateStore.isLoading=false;
+                     TW_Store.gameUpateStore.isTempExist=true;
                      TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
             })
     }

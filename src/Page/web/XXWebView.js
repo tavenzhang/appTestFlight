@@ -408,8 +408,9 @@ export default class XXWebView extends Component {
                                 clearTimeout(this.timeId);
                             }
                             this.timeId= setTimeout(()=>{
-                                if(!TW_Store.gameUpateStore.isLoading&&TW_Store.gameUpateStore.isNeedUpdate){
+                                if(TW_Store.gameUpateStore.isNeedUpdate&&TW_Store.gameUpateStore.isTempExist){
                                     TW_Store.gameUpateStore.isNeedUpdate=false;
+                                    TW_Store.gameUpateStore.isTempExist=false;
                                 }
                             },1000)
 
@@ -493,7 +494,11 @@ export default class XXWebView extends Component {
                     TW_Store.gameUIStroe.isShowUserInfo =!TW_Store.gameUIStroe.isShowUserInfo;
                     break;
                 case "showGame":
-                    TW_Store.gameUpateStore.isNeedUpdate=false;
+                    if(TW_Store.gameUpateStore.isTempExist){
+                        TW_Store.gameUpateStore.isNeedUpdate=false;
+                        TW_Store.gameUpateStore.isTempExist=false;
+                    }
+
                     break;
                 case  "game_custom":
                     TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
