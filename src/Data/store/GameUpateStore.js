@@ -17,6 +17,9 @@ export default class GameUpateStore {
     @observable
     isOldHome = false;
 
+    @observable
+    isInSubGame = false;
+
 
 
 }

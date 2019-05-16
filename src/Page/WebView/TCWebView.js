@@ -38,6 +38,7 @@ export default class TCWebView extends Component {
     componentWillMount() {
         TW_Store.bblStore.lastGameUrl = "";
         TW_Store.bblStore.isLoading = true;
+        TW_Store.gameUpateStore.isInSubGame=true;
         TW_OnBackHomeJs=this.onBackHomeJs;
     }
 
@@ -45,6 +46,10 @@ export default class TCWebView extends Component {
         if(this.refs.myWebView.getSettings){
             this.refs.myWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
         }
+    }
+
+    componentWillUnmount(): void {
+        TW_Store.gameUpateStore.isInSubGame=false;
     }
 
 

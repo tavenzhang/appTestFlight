@@ -25,7 +25,7 @@ export default class LoadingWebView extends Component {
             isHide: false,
             uri: url,
         }
-        TW_LoaderOnValueJS = this.onLoadEvalueJS
+        TW_LoaderOnValueJS = this.onLoadEvalueJS;
     }
 
     static defaultProps = {

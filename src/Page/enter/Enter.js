@@ -42,6 +42,7 @@ export default class Enter extends Component {
         this.handleAppStateChange = this.handleAppStateChange.bind(this);
         this.initDomain=this.initDomain.bind(this);
         TW_Store.appStore.regCallInitFuc(this.onInitAllData);
+        this.flage = false
     }
 
     componentWillMount(){
@@ -63,8 +64,24 @@ export default class Enter extends Component {
             JX_PLAT_INFO.SCREEN_W= SCREEN_W = rW && rW > 0 ? rW : SCREEN_W;
             TW_Store.appStore.screenW=rW;
         }
-
+        AppState.addEventListener('change',this._handleAppStateChange);
     }
+
+
+    _handleAppStateChange = (nextAppState)=>{
+        if (nextAppState!= null && nextAppState === 'active') {
+          if (this.flage) {
+              if(!TW_Store.gameUpateStore.isInSubGame){
+                  this.cacheAttempt(true,true,"")
+                  TW_Store.dataStore.loadHomeVerson();
+              }
+            }
+            this.flage = false ;
+        }else if(nextAppState != null && nextAppState === 'background'){
+            this.flage = true;
+        }
+    }
+
 
     onInitAllData=()=>{
         this.initData();
