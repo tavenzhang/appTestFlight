@@ -16,7 +16,7 @@
             "w": 208,
             "h": 56
         },
-        "sfx": "assets/raw/click.mp3",
+        "sfx": "assets/raw/enterPanelClick.mp3",
         "maxScale": {
             "x": 1.05,
             "y": 1.05

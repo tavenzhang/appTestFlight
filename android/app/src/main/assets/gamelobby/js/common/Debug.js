@@ -1,6 +1,28 @@
 var Debug = /** @class */ (function () {
     function Debug() {
     }
+    Object.defineProperty(Debug, "openDebug", {
+        /**是否开启了日志功能 */
+        get: function () {
+            return window["openDebug"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * 用于调试一些容易出错的信息
+     * @param mess
+     * @param parms
+     */
+    Debug.output = function (mess) {
+        var parms = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            parms[_i - 1] = arguments[_i];
+        }
+        if (!this.openDebug)
+            return;
+        console.error(mess, parms);
+    };
     Debug.traceObj = function (ct, data) {
         if (data === void 0) { data = {}; }
         if (!Debug.bDebug) {

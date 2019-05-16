@@ -37,6 +37,10 @@ var view;
                 dlg.pop(dlg);
                 dlg.requestData();
             };
+            NoticeDlg.checkUnread = function () {
+                var dlg = new NoticeDlg();
+                dlg.requestData();
+            };
             NoticeDlg.prototype.pop = function (dlg) {
                 // dlg.alpha = 1;
                 // dlg.y = 0
@@ -49,7 +53,6 @@ var view;
                 }));
             };
             NoticeDlg.prototype.initView = function () {
-                var _this = this;
                 var w2 = Laya.stage.width - this.width;
                 this.x = w2 / 2;
                 this.y = (Laya.stage.height - this.width) / 2;
@@ -68,24 +71,35 @@ var view;
                 this.tab_notice.on(Laya.Event.CLICK, this, this.onTabClick);
                 this.tab_game.on(Laya.Event.CLICK, this, this.onTabClick);
                 this.tab_game.alpha = 0;
-                EventManager.addTouchScaleListener(this.controls, this, function () {
-                    SoundPlayer.returnLobbySound();
-                    _this.close(null, false);
-                });
+                // EventManager.addTouchScaleListener(this.controls, this, () => {
+                // 	console.log("close")
+                // 	SoundPlayer.returnLobbySound();
+                // 	this.close(null, false);
+                // });
+                this.controls.on(Laya.Event.CLICK, this, this.onCloseClick);
                 this.loopArrow();
                 this._currentCategoryTab = 1;
+            };
+            NoticeDlg.prototype.onCloseClick = function () {
+                Laya.Tween.to(this.controls, { scaleX: 1.1, scaleY: 1.1 }, 100, Laya.Ease.linearNone, Laya.Handler.create(this, function () {
+                    SoundPlayer.returnLobbySound();
+                    this.close(null, false);
+                }));
+                // 	this.close(null, false);
             };
             NoticeDlg.prototype.loopArrow = function () {
                 this.arrow.y = 620;
                 Laya.Tween.to(this.arrow, { y: 630 }, 500, Laya.Ease.linearNone, new Laya.Handler(this, this.loopArrow));
             };
             NoticeDlg.prototype.requestData = function () {
+                LayaMain.getInstance().showCircleLoading();
                 var url = ConfObjRead.getConfUrl().url.apihome +
                     ConfObjRead.getConfUrl().cmd.attention_new +
                     "?access_token=" + Common.access_token;
                 NetManager.getObj().HttpConnect(url, this, this.responseAttention);
             };
             NoticeDlg.prototype.responseAttention = function (s, stat, hr) {
+                LayaMain.getInstance().showCircleLoading(false);
                 if (stat == "complete") {
                     this._data = s;
                     this.update(s);
@@ -119,7 +133,7 @@ var view;
                     tab.init(dummy);
                     tab.setData(list[i]);
                     this.content_tabs.addChild(tab);
-                    tab.on(Laya.Event.CLICK, this, this.onSideTabClick);
+                    tab.base.on(Laya.Event.CLICK, this, this.onSideTabClick);
                     var gap = 10;
                     tab.y = (tab.height + gap) * i;
                     tab.y += dummy.y;
@@ -147,6 +161,7 @@ var view;
                             }
                         });
                     }
+                    EventManager.dispath("unreadNotice", counter > 0);
                     target.visible = counter > 0;
                     var label = target.getChildByName("label");
                     // label.text = counter.toString();

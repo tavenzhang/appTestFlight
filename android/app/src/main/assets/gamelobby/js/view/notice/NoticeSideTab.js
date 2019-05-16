@@ -17,7 +17,9 @@ var NoticeSideTab = /** @class */ (function (_super) {
         return _super.call(this) || this;
     }
     NoticeSideTab.prototype.init = function ($image) {
-        var base = new Laya.Image($image.skin);
+        var base = this.base = new Laya.Image($image.skin);
+        base.width = $image.width;
+        base.height = $image.height;
         this.addChild(base);
         this.pos($image.x, $image.y);
         this.size($image.width, $image.height);

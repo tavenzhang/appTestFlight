@@ -66,6 +66,7 @@ var view;
         };
         //右上角按钮
         LobbyView.prototype.initTitleBar = function () {
+            console.log("init title bar");
             //活动
             EventManager.addTouchScaleListener(this.actBtn, this, function () {
                 SoundPlayer.enterPanelSound();
@@ -73,13 +74,24 @@ var view;
                 // AttentionDialog.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
                 // AttentionDialog.obj.show();
                 // view.dlg.NoticeDlg.show(AttentionDialog.TYPE_OPEN_AUTO);
+                console.log("panel click");
                 view.dlg.NoticeDlg.show();
             });
             //客服
             EventManager.addTouchScaleListener(this.serviceBtn, this, function () {
+                console.log("customer click");
                 SoundPlayer.enterPanelSound();
                 Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
             });
+            this.checkUnreadNotice();
+        };
+        LobbyView.prototype.checkUnreadNotice = function () {
+            var alert = this.actBtn.getChildByName("alert");
+            alert.visible = false;
+            EventManager.register("unreadNotice", this, function ($unread) {
+                alert.visible = $unread;
+            });
+            view.dlg.NoticeDlg.checkUnread();
         };
         //底部菜单按钮
         LobbyView.prototype.initBottomMenu = function () {

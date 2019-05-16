@@ -289,7 +289,7 @@ var AgentContentInfo = /** @class */ (function (_super) {
         var data = {
             affCode: code,
             memberType: "AGENT",
-            prizeGroup: 1901,
+            prizeGroup: 1960,
             status: "ON"
         };
         var jd = JSON.stringify(data);

@@ -96,6 +96,7 @@ var HttpRequester = /** @class */ (function () {
             url += ConfObjRead.getConfUrl().cmd.quicklogin;
         if (!Common.gatewayInfo) {
             Toast.showToast("请稍后再试");
+            LayaMain.getInstance().showCircleLoading(false);
             return;
         }
         var header = this.getEncryHeader();
@@ -234,6 +235,7 @@ var HttpRequester = /** @class */ (function () {
                 suc = true;
             }
             else {
+                Debug.output("request-err:", url, header, jsonStr, hr.http);
                 var err = hr.http.response;
                 jobj = hr;
                 if (err) {
@@ -241,7 +243,8 @@ var HttpRequester = /** @class */ (function () {
                     Toast.showToast(obj.message);
                 }
                 else {
-                    Toast.showToast(Tools.getStringByKey(ConfObjRead.getConfCommon().unknow_err));
+                    var info = Tools.getStringByKey(ConfObjRead.getConfCommon().unknow_err);
+                    Toast.showToast(info || "未知错误");
                 }
             }
             if (caller && callback)

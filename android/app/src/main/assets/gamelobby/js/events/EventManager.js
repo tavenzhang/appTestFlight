@@ -77,9 +77,14 @@ var EventManager = /** @class */ (function () {
         if (scale === void 0) { scale = 1.05; }
         if (!target)
             return;
-        target.on(Laya.Event.MOUSE_DOWN, this, this.onScaleTouch);
-        target.on(Laya.Event.MOUSE_OUT, this, this.onScaleTouch);
-        target.on(Laya.Event.MOUSE_UP, this, this.onScaleTouch);
+        if (scale == 1) {
+            target.on(Laya.Event.CLICK, this, this.clickHandler);
+        }
+        else {
+            target.on(Laya.Event.MOUSE_DOWN, this, this.onScaleTouch);
+            target.on(Laya.Event.MOUSE_OUT, this, this.onScaleTouch);
+            target.on(Laya.Event.MOUSE_UP, this, this.onScaleTouch);
+        }
         var arr = this.pool.get(thisobj);
         if (!arr)
             arr = [];
@@ -102,9 +107,13 @@ var EventManager = /** @class */ (function () {
                     arr = null;
                 }
             }
-            target.off(Laya.Event.MOUSE_DOWN, this, this.onScaleTouch);
-            target.off(Laya.Event.MOUSE_OUT, this, this.onScaleTouch);
-            target.off(Laya.Event.MOUSE_UP, this, this.onScaleTouch);
+            if (obj.sclNum == 1)
+                target.off(Laya.Event.CLICK, this, this.clickHandler);
+            else {
+                target.off(Laya.Event.MOUSE_DOWN, this, this.onScaleTouch);
+                target.off(Laya.Event.MOUSE_OUT, this, this.onScaleTouch);
+                target.off(Laya.Event.MOUSE_UP, this, this.onScaleTouch);
+            }
             this.pool.remove(obj);
             obj.dispose();
             obj = null;
@@ -118,6 +127,13 @@ var EventManager = /** @class */ (function () {
                 i--;
             }
         }
+    };
+    EventManager.prototype.clickHandler = function (e) {
+        var btn = e.currentTarget;
+        var obj = this.pool.get(btn);
+        if (!obj)
+            return;
+        obj.callback(e);
     };
     EventManager.prototype.onScaleTouch = function (e) {
         var btn = e.currentTarget;

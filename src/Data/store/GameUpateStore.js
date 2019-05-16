@@ -15,4 +15,5 @@ export default class GameUpateStore {
     isOldHome = false;
 
 
+
 }

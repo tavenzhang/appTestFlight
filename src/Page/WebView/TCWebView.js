@@ -109,7 +109,7 @@ export default class TCWebView extends Component {
                 useWebKit={true}
                 automaticallyAdjustContentInsets={true}
                 allowsInlineMediaPlayback={true}
-                style={styles.webView}
+                style={[styles.webView,{width:TW_Store.appStore.screenW}]}
                 source={source}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}

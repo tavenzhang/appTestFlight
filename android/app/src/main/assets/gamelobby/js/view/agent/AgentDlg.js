@@ -86,7 +86,7 @@ var view;
             AgentDlg.prototype.onReqComRecords = function () {
                 this.comRec = new view.dlg.agent.CommissionRecordsPop();
                 this.comRec.show(this);
-                SoundPlayer.clickSound();
+                SoundPlayer.enterPanelSound();
             };
             AgentDlg.prototype.update = function ($data) {
                 for (var i = 0; i < 5; i++) {

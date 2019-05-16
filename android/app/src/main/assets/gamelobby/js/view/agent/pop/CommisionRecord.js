@@ -39,7 +39,7 @@ var CommisionRecord = /** @class */ (function (_super) {
     CommisionRecord.prototype.setData = function ($data) {
         this.order.text = $data.id;
         this.amount.text = $data.brokerage.toFixed(2);
-        this.time.text = $data.updateTime;
+        this.time.text = $data.createTime;
         switch ($data.state) {
             case "PENDING":
                 this.status.color = "#f9cb46";

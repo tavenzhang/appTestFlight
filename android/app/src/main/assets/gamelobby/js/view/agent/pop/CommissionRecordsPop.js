@@ -80,7 +80,7 @@ var view;
                             break;
                         case this.maxRecords === this._records.length:
                             this.instructions.text = "您无更多提佣记录";
-                            this._list.y < this._minY && Laya.Tween.to(this._list, { y: this._minY }, 100);
+                            this._list.y < this._minY && Laya.Tween.to(this._list, { y: this._minY - 100 }, 100);
                             break;
                         default:
                             this.instructions.text = "请往上拖动以加载更多提佣记录";
@@ -145,13 +145,13 @@ var view;
                             Laya.Tween.to(this._list, { y: 0 }, 100);
                             break;
                         }
-                        case this.listInitY === this._minY && this._list.y < this._minY - (this.contents.height / 2): {
+                        case this.listInitY === this._minY - 100 && this._list.y < this._minY - (this.contents.height / 2): {
                             this.instructions.text = "加载中...";
                             this.requestRecords();
                             break;
                         }
                         case this._list.y < this._minY: {
-                            Laya.Tween.to(this._list, { y: this._minY }, 100);
+                            Laya.Tween.to(this._list, { y: this._minY - 100 }, 100);
                             break;
                         }
                     }

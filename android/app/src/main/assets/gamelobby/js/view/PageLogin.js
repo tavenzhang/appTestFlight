@@ -37,8 +37,6 @@ var PageLogin = /** @class */ (function (_super) {
         _this.btn_phone.visible = false;
         _this.btn_webchat.visible = false;
         _this.btn_service.visible = false;
-        _this.in_put_password.maxChars = 15;
-        _this.in_pwd.maxChars = 15;
         /**
          * 业主可替换的图标，需要动态加载
          */
@@ -51,7 +49,6 @@ var PageLogin = /** @class */ (function (_super) {
         var isload = cmd == null ? false : cmd == 'isloaded';
         //开始加载数据
         _this.startLoading(isload);
-        if(!isload)PostMHelp.initGame();
         return _this;
     }
     /**
@@ -108,7 +105,6 @@ var PageLogin = /** @class */ (function (_super) {
             return;
         }
         HttpRequester.getGatewayInfo(this, function (suc, jobj) {
-            // console.error("gateway:", jobj);//debug
             if (suc) {
                 Common.gatewayInfo = jobj;
                 Common.gatewayInfo.tsDiff = Common.gatewayInfo.ts - Laya.Browser.now();
@@ -116,6 +112,7 @@ var PageLogin = /** @class */ (function (_super) {
                 SaveManager.getObj().save(SaveManager.KEY_GATEWAYINFO, JSON.stringify(Common.gatewayInfo));
             }
             else {
+                Debug.output("init-err:", jobj.http.status);
                 if (jobj.http.status == 428) {
                     _this.gatewayCount++;
                     if (_this.gatewayCount <= 3) {
@@ -139,6 +136,7 @@ var PageLogin = /** @class */ (function (_super) {
         //快速登录
         EventManager.addTouchScaleListener(this.btn_fast, this, function () {
             SoundPlayer.clickSound();
+            _this.loginType = LoginType.Fast;
             _this.doFastLogin();
         });
         //客服
@@ -151,57 +149,65 @@ var PageLogin = /** @class */ (function (_super) {
             SoundPlayer.clickSound();
             _this.checkLocalFastInfo();
         });
-        //开始登录
-        EventManager.addTouchScaleListener(this.btn_login, this, function () {
+        //--------------快捷登录---------------------------
+        //快捷登录确定
+        EventManager.addTouchScaleListener(this.fast_login, this, function () {
             SoundPlayer.clickSound();
-            switch (_this.loginType) {
-                case LoginType.Fast:
-                    _this.doFastLoginWithVC();
-                    break;
-                case LoginType.Account:
-                    _this.isCodeLogin ? _this.doAccountLoginWithVC() : _this.doAccountLogin();
-                    break;
-            }
+            _this.doFastLoginWithVC();
         });
-        //显示密码
-        EventManager.addTouchScaleListener(this.btn_show_pwd, this, function () {
+        EventManager.addTouchScaleListener(this.fast_codePic, this, function () {
             SoundPlayer.clickSound();
-            switch (_this.loginType) {
-                case LoginType.register: { //注册界面
-                    _this.onShowPwd(_this.btn_show_pwd, _this.in_put_password);
-                    break;
-                }
-                case LoginType.Account: { //账户登录界面
-                    _this.onShowPwd(_this.btn_show_pwd, _this.in_pwd);
-                    break;
-                }
-            }
+            _this.askCode();
+        }, null, 1);
+        //--------------账号登录---------------------------
+        //账号登录确定
+        EventManager.addTouchScaleListener(this.acc_login, this, function () {
+            SoundPlayer.clickSound();
+            _this.isCodeLogin ? _this.doAccountLoginWithVC() : _this.doAccountLogin();
         });
-        //注册
-        EventManager.addTouchScaleListener(this.btn_register, this, function () {
+        //切换到注册界面
+        EventManager.addTouchScaleListener(this.acc_regBtn, this, function () {
             SoundPlayer.clickSound();
             _this.loginType = LoginType.register;
             _this.showRegisterView();
         });
+        //账号登录-显示密码
+        EventManager.addTouchScaleListener(this.acc_lookBtn, this, function () {
+            SoundPlayer.clickSound();
+            _this.onShowPwd(_this.acc_lookBtn, _this.acc_pwdTxt);
+        });
+        EventManager.addTouchScaleListener(this.acc_codePic, this, function () {
+            SoundPlayer.clickSound();
+            _this.askCode();
+        }, null, 1);
+        //---------------注册-------------------------------
+        //注册-显示密码1
+        EventManager.addTouchScaleListener(this.reg_lookBtn1, this, function () {
+            SoundPlayer.clickSound();
+            _this.onShowPwd(_this.reg_lookBtn1, _this.reg_pwdTxt1);
+        });
+        //注册-显示密码2
+        EventManager.addTouchScaleListener(this.reg_lookBtn2, this, function () {
+            SoundPlayer.clickSound();
+            _this.onShowPwd(_this.reg_lookBtn2, _this.reg_pwdTxt2);
+        });
         //注册界面返回账号登录界面
-        EventManager.addTouchScaleListener(this.btn_back, this, function () {
+        EventManager.addTouchScaleListener(this.reg_back, this, function () {
             SoundPlayer.clickSound();
             _this.loginType = LoginType.Account;
             _this.hideAllLoginUI();
             _this.showAccountLoginView();
         });
-        //显示密码-注册界面按钮
-        EventManager.addTouchScaleListener(this.btn_show_pwd_1, this, function () {
-            SoundPlayer.clickSound();
-            _this.onShowPwd(_this.btn_show_pwd_1, _this.in_check_password);
-        });
         //开始注册
-        EventManager.addTouchScaleListener(this.btn_ok, this, function () {
+        EventManager.addTouchScaleListener(this.reg_confirm, this, function () {
             SoundPlayer.clickSound();
             _this.doRegisterAccount();
         });
-        //验证码处理 以后每次点击请求
-        this.sp_img_code.on(Laya.Event.CLICK, this, function () { return _this.askCode(); });
+        EventManager.addTouchScaleListener(this.reg_codePic, this, function () {
+            SoundPlayer.clickSound();
+            _this.askCode();
+        }, null, 1);
+        //-------------------------------
     };
     /**
      * 初始化登录流程
@@ -259,6 +265,9 @@ var PageLogin = /** @class */ (function (_super) {
                     if (jobj.userRole) {
                         userData.role = jobj.userRole;
                     }
+                    if (jobj.prizeGroup) {
+                        userData.prizeGroup = jobj.prizeGroup;
+                    }
                     LayaMain.getInstance().initLobby();
                 }
                 else {
@@ -295,6 +304,7 @@ var PageLogin = /** @class */ (function (_super) {
                     }
                     else {
                         console.error("获取到的password异常");
+                        _this.isChangePwd = true;
                     }
                 }
                 _this.showOtherLogin();
@@ -327,11 +337,9 @@ var PageLogin = /** @class */ (function (_super) {
         //暂时使用绿色的图
         //this.btn_fast.skin = 'ui/res_login/btn_dl_kuaijie02.png';
         //隐藏登陆面板
-        this.panel.visible = false;
+        this.hideAllLoginUI();
         //隐藏其他登陆按钮
         this.btn_other_login.visible = false;
-        //提前刷一个验证码
-        //this.askCode();
     };
     /**
      * 选择登陆模式
@@ -368,26 +376,26 @@ var PageLogin = /** @class */ (function (_super) {
                 break;
             default: break;
         }
-        //显示登陆面板
-        this.panel.visible = true;
     };
     /**
      * 让输入文本失去焦点
      * 用于解决ios系统点击输入后按Done界面不下来的问题
      */
     PageLogin.prototype.lostFocusInputText = function () {
-        if (this.in_account)
-            this.in_account.focus = false;
-        if (this.in_code)
-            this.in_code.focus = false;
-        if (this.in_pwd)
-            this.in_pwd.focus = false;
-        if (this.in_phone)
-            this.in_phone.focus = false;
-        if (this.in_put_password)
-            this.in_put_password.focus = false;
-        if (this.in_check_password)
-            this.in_check_password.focus = false;
+        var inputs = [
+            this.fast_nameTxt,
+            this.fast_codeTxt,
+            this.acc_nameTxt,
+            this.acc_pwdTxt,
+            this.acc_codeTxt,
+            this.reg_nameTxt,
+            this.reg_pwdTxt1,
+            this.reg_pwdTxt2,
+            this.reg_codeTxt
+        ];
+        inputs.forEach(function (txt) {
+            txt.focus = false;
+        });
     };
     PageLogin.prototype.destroy = function (vl) {
         EventManager.removeEvent(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
@@ -399,142 +407,54 @@ var PageLogin = /** @class */ (function (_super) {
      * 隐藏全部登陆面板的UI
      */
     PageLogin.prototype.hideAllLoginUI = function () {
-        var all = [
-            this.sp_remark,
-            this.btn_save_pic,
-            this.btn_login,
-            this.btn_register,
-            this.btn_forget,
-            this.btn_show_pwd,
-            this.btn_ok,
-            this.btn_back,
-            this.btn_phone_code,
-            this.in_account,
-            this.in_code,
-            this.in_pwd,
-            this.in_phone,
-            this.sp_img_code,
-            this.sp_code,
-            this.sp_account,
-            this.sp_pwd,
-            this.sp_phone,
-            this.sp_input_password,
-            this.in_put_password,
-            this.sp_check_password,
-            this.in_check_password,
-            this.btn_show_pwd_1,
-        ];
-        all.forEach(function (sp) { return sp.visible = false; });
+        this.panelFast.visible = false;
+        this.panelAccount.visible = false;
+        this.panelRegister.visible = false;
     };
     //刷新验证码
     PageLogin.prototype.askCode = function () {
         this.rand = Math.random();
         var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.yanzhengma + "" + this.rand;
-        this.sp_img_code.skin = url;
+        switch (this.loginType) {
+            case LoginType.Fast:
+                this.fast_codePic.skin = url;
+                break;
+            case LoginType.Account:
+                this.acc_codePic.skin = url;
+                break;
+            case LoginType.register:
+                this.reg_codePic.skin = url;
+                break;
+        }
     };
     /**
      * 快速登陆
      */
     PageLogin.prototype.showFastLoginView = function () {
-        //重置布局
-        //标题
-        this.sp_title.skin = "ui/res_login/img_dl_biaotou03.png";
-        //账号文字
-        this.sp_account.top = 137;
-        this.sp_account.left = 95;
-        //账号输入框
-        this.in_account.top = 129;
-        this.in_account.left = 229;
-        this.in_account.editable = false;
-        this.in_account.mouseEnabled = false;
-        //验证码文字
-        this.sp_code.left = 95;
-        this.sp_code.top = 222;
-        //验证码输入
-        this.in_code.top = 213;
-        this.in_code.left = 229;
-        this.in_code.width = 410;
-        //验证码
-        this.sp_img_code.top = 224;
-        this.sp_img_code.left = 450;
-        //登陆按钮位置
-        this.btn_login.bottom = -124;
-        this.btn_login.centerX = 0;
-        //显示快速使用的UI
-        var all = [
-            this.sp_account,
-            this.in_account,
-            this.sp_code,
-            this.in_code,
-            this.sp_img_code,
-            this.sp_remark,
-            //this.btn_save_pic,
-            this.btn_login,
-        ];
-        all.forEach(function (sp) { return sp.visible = true; });
+        //填充数据
+        this.fast_nameTxt.text = this.fastName;
+        this.fast_codeTxt.text = '';
+        this.panelFast.visible = true;
         //请求第一次
         this.askCode();
-        //填充数据
-        this.in_account.text = this.fastName;
-        this.in_code.text = '';
     };
     /**
      * 账号登陆
      */
     PageLogin.prototype.showAccountLoginView = function () {
-        //重置布局
-        //标题
-        this.sp_title.skin = "ui/res_login/img_dl_biaotou01.png";
-        //登陆按钮位置
-        this.btn_login.bottom = -124;
-        this.btn_login.centerX = 205;
-        //注册按钮位置
-        this.btn_register.bottom = -124;
-        this.btn_register.centerX = -205;
-        //账号文字
-        this.sp_account.top = 119;
-        this.sp_account.left = 95;
-        //账号输入框
-        this.in_account.top = 111;
-        this.in_account.left = 229;
-        this.in_account.editable = true;
-        this.in_account.mouseEnabled = true;
-        //密码文字
-        this.sp_pwd.top = 188;
-        this.sp_pwd.left = 95;
-        //密码输入框
-        this.in_pwd.top = 180;
-        this.in_pwd.left = 229;
-        //验证码文字
-        this.sp_code.left = 95;
-        this.sp_code.top = 257;
-        //验证码输入
-        this.in_code.top = 248;
-        this.in_code.left = 229;
-        this.in_code.width = 410;
-        //验证码
-        this.sp_img_code.top = 260;
-        this.sp_img_code.left = 450;
-        this.btn_show_pwd.skin = 'ui/res_login/btn_dl_yanjing01.png';
-        //显示快速使用的UI
-        var all = [
-            this.sp_account,
-            this.in_account,
-            this.btn_login,
-            this.btn_register,
-            // this.sp_code,
-            // this.in_code,
-            // this.sp_img_code,
-            this.sp_pwd,
-            this.in_pwd,
-            this.btn_show_pwd,
-        ];
-        all.forEach(function (sp) { return sp.visible = true; });
         this.isCodeLogin = false;
         //填充数据
-        this.in_code.text = '';
-        this.in_account.text = '';
-        this.in_pwd.text = '';
+        this.acc_nameTxt.text = '';
+        this.acc_pwdTxt.text = '';
+        this.acc_pwdTxt.type = "password";
+        this.acc_lookBtn.skin = "ui/res_login/btn_dl_yanjing01.png";
+        this.acc_codeTtile.visible = false;
+        this.acc_codeTxt.visible = false;
+        this.acc_codePic.visible = false;
+        this.panelAccount.visible = true;
+        if (this.isChangePwd) {
+            this.acc_nameTxt.text = this.fastName;
+        }
         //请求第一次
         this.askCode();
     };
@@ -559,106 +479,20 @@ var PageLogin = /** @class */ (function (_super) {
     PageLogin.prototype.showRegisterView = function () {
         //隐藏全部UI
         this.hideAllLoginUI();
-        //当前版本只有简单注册 
-        //重置布局
-        //标题
-        this.sp_title.skin = "ui/res_login/img_dl_biaotou04.png";
-        //账号文字
-        this.sp_account.top = 124;
-        this.sp_account.left = 95;
-        //账号输入框
-        this.in_account.top = 116;
-        this.in_account.left = 229;
-        this.in_account.editable = true;
-        this.in_account.mouseEnabled = true;
-        //验证码文字
-        this.sp_code.left = 95;
-        this.sp_code.top = 298;
-        //验证码输入
-        this.in_code.top = 289;
-        this.in_code.left = 229;
-        this.in_code.width = 410;
-        //验证码
-        this.sp_img_code.top = 299;
-        this.sp_img_code.left = 450;
-        //显示密码 
-        this.btn_show_pwd.top = 187;
-        this.btn_show_pwd.left = 582;
-        //显示密码 
-        this.btn_show_pwd_1.top = 242;
-        this.btn_show_pwd.left = 582;
-        this.btn_show_pwd_1.skin = this.btn_show_pwd.skin = 'ui/res_login/btn_dl_yanjing01.png';
-        //显示UI
-        var all = [
-            this.sp_account,
-            this.in_account,
-            this.sp_code,
-            this.in_code,
-            this.sp_img_code,
-            this.btn_ok,
-            this.btn_back,
-            this.sp_input_password,
-            this.sp_check_password,
-            this.in_check_password,
-            this.in_put_password,
-            this.btn_show_pwd,
-            this.btn_show_pwd_1,
-        ];
-        all.forEach(function (sp) { return sp.visible = true; });
-    };
-    /**
-     * 现实修改密码
-     */
-    PageLogin.prototype.showChangePasswordPanel = function () {
-        //隐藏全部UI
-        this.hideAllLoginUI();
-        //重置布局
-        //标题
-        this.sp_title.skin = "ui/res_login/img_dl_biaotou06.png";
+        this.reg_nameTxt.text = "";
+        this.reg_pwdTxt1.text = "";
+        this.reg_pwdTxt2.text = "";
+        this.reg_codeTxt.text = "";
+        this.reg_lookBtn1.skin = this.reg_lookBtn2.skin = "ui/res_login/btn_dl_yanjing01.png";
+        this.reg_pwdTxt1.type = this.reg_pwdTxt2.type = "password";
+        this.panelRegister.visible = true;
+        this.askCode();
     };
     /**
      * 显示忘记密码页面
      */
     PageLogin.prototype.showForgetPasswordPanel = function () {
-        //隐藏全部UI
-        this.hideAllLoginUI();
-        //重置布局
-        //标题
-        this.sp_title.skin = "ui/res_login/img_dl_biaotou05.png";
-        //账号文字
-        this.sp_account.top = 124;
-        this.sp_account.left = 95;
-        //账号输入框
-        this.in_account.top = 116;
-        this.in_account.left = 229;
-        this.in_account.editable = true;
-        this.in_account.mouseEnabled = true;
-        //手机号
-        this.sp_phone.top = 207;
-        this.sp_phone.left = 95;
-        //输入手机号
-        this.in_phone.top = 199;
-        this.in_phone.left = 229;
-        //验证码文字
-        this.sp_code.left = 95;
-        this.sp_code.top = 291;
-        //验证码输入
-        this.in_code.top = 282;
-        this.in_code.left = 229;
-        this.in_code.width = 200;
-        //显示快速使用的UI
-        var all = [
-            this.sp_account,
-            this.in_account,
-            this.sp_phone,
-            this.in_phone,
-            this.btn_ok,
-            this.btn_back,
-            this.sp_code,
-            this.in_code,
-            this.btn_phone_code,
-        ];
-        all.forEach(function (sp) { return sp.visible = true; });
+        //todo:...
     };
     ///////////////////////////////////////////////////////////////////////
     /**
@@ -702,6 +536,11 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.doFastLogin = function () {
         var _this = this;
+        //修改过密码后导致卸载软件再安装软件，然后请求的密码为空，所以这种情况就跳转为账户登录界面
+        if (this.isChangePwd && this.password.length < 2) {
+            this.selectLoginType(LoginType.Account);
+            return;
+        }
         //转圈圈
         LayaMain.getInstance().showCircleLoading(true);
         HttpRequester.fastLogin(this.fastName, this.password, this, function (suc, jobj) {
@@ -729,7 +568,7 @@ var PageLogin = /** @class */ (function (_super) {
     PageLogin.prototype.doFastLoginWithVC = function () {
         var _this = this;
         //效验验证码
-        var code = this.in_code.text;
+        var code = this.fast_codeTxt.text;
         var verify = Tools.verifyQuickLogin(code);
         if (!verify.bRight) {
             Toast.showToast(Tools.getStringByKey(verify.msg));
@@ -766,9 +605,8 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.doAccountLogin = function () {
         var _this = this;
-        var name = this.in_account.text;
-        var pwd = this.in_pwd.text;
-        var yzm = this.in_code.text;
+        var name = this.acc_nameTxt.text;
+        var pwd = this.acc_pwdTxt.text;
         PostMHelp.debugInfo({ name: name, pwd: pwd });
         LayaMain.getInstance().showCircleLoading(true);
         HttpRequester.accountLogin(name, pwd, this, function (suc, jobj) {
@@ -776,12 +614,15 @@ var PageLogin = /** @class */ (function (_super) {
             if (suc) {
                 if (jobj.secureLogin == undefined || jobj.secureLogin == true) { //登录成功
                     _this.saveAccountLoginInfo(jobj);
+                    if (_this.isChangePwd && name == _this.fastName) { //特殊情况出来
+                        SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, pwd);
+                    }
                     LayaMain.getInstance().initLobby();
                 }
                 else { //需要输入验证码
-                    _this.sp_code.visible = true;
-                    _this.in_code.visible = true;
-                    _this.sp_img_code.visible = true;
+                    _this.acc_codePic.visible = true;
+                    _this.acc_codeTtile.visible = true;
+                    _this.acc_codeTxt.visible = true;
                     _this.isCodeLogin = true;
                     Toast.showToast("用户名或者密码不正确");
                 }
@@ -798,9 +639,9 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.doAccountLoginWithVC = function () {
         var _this = this;
-        var name = this.in_account.text;
-        var pwd = this.in_pwd.text;
-        var yzm = this.in_code.text;
+        var name = this.acc_nameTxt.text;
+        var pwd = this.acc_pwdTxt.text;
+        var yzm = this.acc_codeTxt.text;
         var verify = Tools.verifyLogin(name, pwd, yzm);
         if (!verify.bRight) {
             Toast.showToast(Tools.getStringByKey(verify.msg));
@@ -812,6 +653,9 @@ var PageLogin = /** @class */ (function (_super) {
             LayaMain.getInstance().showCircleLoading(false);
             if (suc) {
                 _this.saveAccountLoginInfo(jobj);
+                if (_this.isChangePwd && name == _this.fastName) {
+                    SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, pwd);
+                }
                 LayaMain.getInstance().initLobby();
             }
             else {
@@ -832,29 +676,15 @@ var PageLogin = /** @class */ (function (_super) {
         SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
         PostMHelp.tokenChange({ "payload": Common.access_token });
     };
-    // /**
-    //  * 取消修改密码
-    //  */
-    // public cancelChangePassword() {
-    // }
-    // /**
-    //  * 密码修改成功
-    //  */
-    // public changePassword() {
-    //     this.in_account.text = '';
-    //     this.in_pwd.text = '';
-    //     this.askCode();
-    //     Toast.showToast(Tools.getStringByKey(ConfObjRead.getConfChangePwd().textChanged));
-    // }
     /**
      * 注册账号
      */
     PageLogin.prototype.doRegisterAccount = function () {
         var _this = this;
-        var name = this.in_account.text;
-        var pwd = this.in_put_password.text;
-        var pwdconfirm = this.in_check_password.text;
-        var code = this.in_code.text;
+        var name = this.reg_nameTxt.text;
+        var pwd = this.reg_pwdTxt1.text;
+        var pwdconfirm = this.reg_pwdTxt2.text;
+        var code = this.reg_codeTxt.text;
         var verify = Tools.verifyReg(name, pwd, pwdconfirm, code);
         if (!verify.bRight) {
             Toast.showToast(Tools.getStringByKey(verify.msg));

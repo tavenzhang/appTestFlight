@@ -22,27 +22,28 @@ var view;
             return _this;
         }
         UpdateView.prototype.initView = function () {
-            this.progressTxt.text = "正在检查更新...";
+            this.progressTxt.text = "正在检查游戏是否有更新...";
             this.progress.value = 0;
             this.serviceBtn.on(Laya.Event.CLICK, this, this.serviceClick);
             //
             this.logo.skin = "../brand/login_icon.png";
+            this.on(Laya.Event.RESIZE, this, this.resizeEvent);
+        };
+        UpdateView.prototype.resizeEvent = function () {
+            console.error("view-resize:", this.width, this.serviceBtn.top, this.serviceBtn.right, this.serviceBtn.visible, this.serviceBtn.x, this.serviceBtn.y);
         };
         UpdateView.prototype.serviceClick = function () {
-            console.error("click-客服"); //debugxxx
-            // this.showLoading({ do: "loadFinish" });
             window.top.postMessage(JSON.stringify({ action: "game_custom" }), "*");
         };
         UpdateView.prototype.showLoading = function (data) {
             if (data.do == "loading") {
                 var value = data.percent * 100;
-                this.progressTxt.text = "正在下载更新内容" + value + "%";
+                this.progressTxt.text = "正在下载更新内容" + value.toFixed(0) + "%";
                 this.progress.value = data.percent;
-                console.error("loading:", data.percent); //debugxxx
             }
             else if (data.do == "loadFinish") {
-                console.error("loadFinish"); //debugxxx
                 this.progressTxt.text = "资源加载准备中...";
+                this.progress.value = 0;
                 // if (window["loadGame"]) {
                 // 	window["loadGame"]();
                 // }

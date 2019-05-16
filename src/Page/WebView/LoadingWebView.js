@@ -23,7 +23,6 @@ export default class LoadingWebView extends Component {
         let {url} = this.props;
         this.state = {
             isHide: false,
-            isHttpFail: false,
             uri: url,
         }
         TW_LoaderOnValueJS = this.onLoadEvalueJS
@@ -44,10 +43,10 @@ export default class LoadingWebView extends Component {
 
     render() {
         let newUrl = TW_Store.dataStore.getHomeWebHome() + "/loading/loading.html";
-       if(TW_Store.dataStore.isAppUnZip) {
-
-       }
         let myParam = "";
+        if(TW_Store.dataStore.isAppUnZip) {
+
+        }
         let source = {
             file: newUrl,
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
@@ -67,11 +66,7 @@ export default class LoadingWebView extends Component {
         // if (TW_IS_DEBIG) {
         //     source = require('./../../../android/app/src/main/assets/gamelobby/loading/loading.html');
         // }
-
-        //andorid 显示有点小问题  黑屏处理
-        if (this.state.isHide) {
-            return <View style={{flex: 1, backgroundColor: "black"}}/>
-        }
+        //TW_Log("Loading===========source=====rr22", source)
         let wenConteView = G_IS_IOS ? <WKWebView
                 ref="myWebView"
                 source={source}
@@ -92,7 +87,7 @@ export default class LoadingWebView extends Component {
                 useWebKit={true}
                 automaticallyAdjustContentInsets={true}
                 allowsInlineMediaPlayback={true}
-                style={styles.webView}
+                style={[styles.webView,{width: TW_Store.appStore.screenW}]}
                 source={source}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}
@@ -108,16 +103,7 @@ export default class LoadingWebView extends Component {
             />
         return (
             <View style={styles.container}>
-                {!this.state.isHttpFail ? wenConteView : <View style={{
-                    height: JX_PLAT_INFO.SCREEN_H, justifyContent: "center",
-                    alignItems:
-                        "center"
-                }}>
-                    <TCButtonView btnStyle={{width: 300}} onClick={() => {
-                        TW_NavHelp.popToBack();
-                        setTimeout(this.onBackHomeJs, 1000)
-                    }} text={"返回大厅"}/>
-                </View>}
+                {wenConteView}
             </View>
         );
     }
@@ -217,14 +203,13 @@ const styles = StyleSheet.create({
         flex: 1,
         position: "absolute",
         // zIndex:2000,
-        height: JX_PLAT_INFO.SCREEN_H,
-        width: JX_PLAT_INFO.SCREEN_W,
-        backgroundColor: "yellow",
+        height: SCREEN_H,
+        width: SCREEN_W,
+        backgroundColor: "black",
     },
     webView: {
         marginTop: 0,
-        width: width,
         flex: 1,
-        backgroundColor: "#000000",
+        backgroundColor: "black",
     }
 });

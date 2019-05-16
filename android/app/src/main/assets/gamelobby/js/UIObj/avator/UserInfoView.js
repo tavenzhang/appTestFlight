@@ -4,7 +4,8 @@
 */
 var userData = {
     avatarSkinId: "",
-    role: ""
+    role: "",
+    prizeGroup: 0
 };
 var UserInfoView = /** @class */ (function () {
     function UserInfoView(view) {
@@ -58,6 +59,9 @@ var UserInfoView = /** @class */ (function () {
             this.requestUserInfoCurrent(Common.access_token);
             if (s.userRole) {
                 userData.role = s.userRole;
+            }
+            if (s.prizeGroup) {
+                userData.prizeGroup = s.prizeGroup;
             }
             EventManager.dispath(EventType.FLUSH_AGENCYBTN);
         }
