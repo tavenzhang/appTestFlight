@@ -13,6 +13,7 @@ import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {JX_PLAT_INFO} from "../asset";
 import TCButtonView from "../../Common/View/button/TCButtonView";
 import {observer} from "mobx-react/native";
+import SplashScreen from "react-native-splash-screen";
 
 @observer
 export default class LoadingWebView extends Component {
@@ -43,6 +44,9 @@ export default class LoadingWebView extends Component {
 
     render() {
         let newUrl = TW_Store.dataStore.getHomeWebHome() + "/loading/loading.html";
+       if(TW_Store.dataStore.isAppUnZip) {
+
+       }
         let myParam = "";
         let source = {
             file: newUrl,
@@ -154,6 +158,10 @@ export default class LoadingWebView extends Component {
         }
         //  url = TW_Store.bblStore.homeDomain + "/" + url;
         return url
+    }
+
+    onLoadEnd=()=>{
+       SplashScreen.hide();
     }
 
     onError = (error) => {

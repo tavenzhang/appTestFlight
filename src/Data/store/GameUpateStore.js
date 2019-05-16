@@ -6,11 +6,13 @@ export default class GameUpateStore {
     isLoading = false;
 
     @observable
-    isNeedUpdate = false;
+    isNeedUpdate = true;
 
     @observable
     isTempExist = false;
 
+    @observable
+    isOldHome = false;
 
 
 }

@@ -61,7 +61,7 @@ export default class DataStore {
             } else {
                 if (`${ret}` == "1") {
                     this.isAppUnZip = true;
-                  // this.startCheckZipUpdate();
+                   this.loadHomeVerson();
                 } else {
                     this.copy_assets_to_dir();
                 }
@@ -78,8 +78,10 @@ export default class DataStore {
                 if(rt.content&&rt.content.versionNum){
                     this.startCheckZipUpdate(rt.content)
                 }
+                TW_Store.gameUpateStore.isOldHome=false;
             }else{
                 this.startCheckZipUpdate(null)
+                TW_Store.gameUpateStore.isOldHome=true;
             }
         })
     }

@@ -68,7 +68,7 @@ export default class XXWebView extends Component {
             Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
             Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
         }
-        TW_Store.dataStore.loadHomeVerson();
+
     }
 
     componentWillUnmount(): void {
@@ -294,7 +294,7 @@ export default class XXWebView extends Component {
         TW_Log("(TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--render" ,this.state);
         let {force} = this.props;
         let source = {
-            file: TW_Store.gameUpateStore.isLoading ?  "":TW_Store.dataStore.getHomeWebUri(),
+            file: TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome ?  "":TW_Store.dataStore.getHomeWebUri(),
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
             allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
             param:"?app=true"
@@ -596,7 +596,10 @@ export default class XXWebView extends Component {
 
     onLoadEnd=()=>{
         TW_Store.bblStore.isLoading=false;
-        SplashScreen.hide();
+        if(!TW_Store.gameUpateStore.isNeedUpdate||TW_Store.gameUpateStore.isOldHome){
+            SplashScreen.hide();
+        }
+
         this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize,{}));
     }
 

@@ -142,7 +142,8 @@ export default class App extends Component {
                         `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
                     {/*<CommonBoxLayer/>*/}
                     <LoadingWebView/>
-                    <GameUIView/>
+                    {!TW_Store.gameUpateStore.isOldHome ?  <GameUIView/>:null}
+
                 </View>
             </Provider>
         )

@@ -268,7 +268,7 @@ export default class Enter extends Component {
         });
         CodePush.checkForUpdate(hotfixDeploymentKey).then((update) => {
 
-            TW_Log('==checking update====hotfixDeploymentKey=='+hotfixDeploymentKey, update);
+            TW_Log('==checking update====hotfixDeploymentKey= ='+hotfixDeploymentKey, update);
             if (update !== null) {
                 // if (G_IS_IOS) {
                 //     NativeModules.JDHelper.resetLoadModleForJS(true)
@@ -276,7 +276,7 @@ export default class Enter extends Component {
                 this.hotFixStore.syncMessage = 'app更新，正在疯狂加载...';
                 this.hotFixStore.updateFinished = false;
                 this.storeLog({hotfixDomainAccess: true});
-
+                TW_Store.gameUpateStore.isNeedUpdate=true;
                 if (alreadyInCodePush) return
                 alreadyInCodePush = true
 
