@@ -7,7 +7,6 @@ var GameMain = /** @class */ (function () {
         if (window["initVconsole"]) {
             window["initVconsole"]();
         }
-        Laya.init(0, 750, Laya.WebGL);
         Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_HEIGHT;
         Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
         Laya.stage.bgColor = "#000000";
@@ -18,12 +17,11 @@ var GameMain = /** @class */ (function () {
         Laya.loader.load("res/atlas/update.atlas", Laya.Handler.create(this, this.initView));
     }
     GameMain.prototype.onResize = function () {
-        if (this.view)
-            this.view.width = Laya.stage.width;
+        // if (this.view) this.view.width = Laya.stage.width;
     };
     GameMain.prototype.initView = function () {
         this.view = new view.UpdateView();
-        this.view.width = Laya.stage.width;
+        // this.view.width = Laya.stage.width;
         Laya.stage.addChild(this.view);
         //通知native
         // window.top.postMessage(JSON.stringify({ action: "game_loading", data: { do: "loadInited" } }), "*");

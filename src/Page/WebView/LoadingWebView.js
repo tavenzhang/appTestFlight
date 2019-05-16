@@ -147,7 +147,13 @@ export default class LoadingWebView extends Component {
     }
 
     onLoadEnd=()=>{
-       SplashScreen.hide();
+        if(G_IS_IOS)
+        {
+            SplashScreen.hide();
+        }else{
+            setTimeout(()=>{SplashScreen.hide()},800);
+        }
+
     }
 
     onError = (error) => {

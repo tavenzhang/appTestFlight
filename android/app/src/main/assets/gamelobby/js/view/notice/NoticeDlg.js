@@ -133,7 +133,7 @@ var view;
                     tab.init(dummy);
                     tab.setData(list[i]);
                     this.content_tabs.addChild(tab);
-                    tab.base.on(Laya.Event.CLICK, this, this.onSideTabClick);
+                    tab.on("tabclick", this, this.onSideTabClick);
                     var gap = 10;
                     tab.y = (tab.height + gap) * i;
                     tab.y += dummy.y;
@@ -192,7 +192,7 @@ var view;
                     var tab_1 = _a[_i];
                     tab_1.deactive();
                 }
-                var tab = $e.currentTarget;
+                var tab = $e;
                 tab.active();
                 tab.updateRead();
                 this.updateCurrentTotalReadCounter();
@@ -292,6 +292,13 @@ var view;
                             this.downPos.x = 0;
                             this.downPos.y = 0;
                             this.backAllContent();
+                        }
+                        else {
+                            if ($e.target.name === "btn") {
+                                // this
+                                // console.log($e.target.parent.parent)
+                                this.onSideTabClick($e.target.parent.parent);
+                            }
                         }
                         break;
                     case Laya.Event.MOUSE_MOVE:

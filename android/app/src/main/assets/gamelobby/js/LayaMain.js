@@ -14,7 +14,7 @@ var LayaMain = /** @class */ (function () {
         this.sceneLobby = null;
         this.sceneRoom = null;
         LayaMain.obj = this;
-        Laya.init(0,    Common.GM_SCREEN_H = 750;, Laya.WebGL);
+        Laya.init(0, Common.GM_SCREEN_H, Laya.WebGL);
         // Laya.URL.rootPath = Laya.URL.basePath + window["sPubRes"];
         if (window["bShowStat"]) {
             Laya.Stat.show(0, 0);
