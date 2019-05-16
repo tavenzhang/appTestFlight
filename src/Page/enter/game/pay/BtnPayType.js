@@ -36,6 +36,7 @@ export default class BtnPayType extends Component {
                     }}>
                         <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center",}}>
                             <TCImage source={this.getPayTypeIcon(data.code)}
+                                     soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                      style={{marginRight: 5}}/>
                             {/*<View style={{justifyContent:"center", alignItems:"center"}}>*/}
                             {/*<TCImage source={this.getPayName(data.code)}/>*/}

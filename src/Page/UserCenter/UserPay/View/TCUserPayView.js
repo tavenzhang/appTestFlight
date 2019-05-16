@@ -72,6 +72,7 @@ export default class TCUserPayView extends Component {
     }
 
     onCopy(text) {
+        TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
         Clipboard.setString('' + text);
         Toast.showShortCenter("充值金额已复制！")
     }
