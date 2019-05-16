@@ -382,12 +382,13 @@ export default class XXWebView extends Component {
     }
     
     onMsgHandle = (message) => {
-        TW_Log("onMessage===========>>" + this.constructor.name + "\n", message);
+        TW_Log("onMessage======XXWebView=====>>" + this.constructor.name + "\n", message);
         let url = "";
         let gameData=null;
         let  retList= null;
         let gameM=null;
         if (message && message.action) {
+            TW_Log("onMessage======XXWebView=====>>",message.action);
             switch (message.action) {
                 case "Log":
                     // TW_Log("game---ct=="+message.ct,message.data);
@@ -411,6 +412,7 @@ export default class XXWebView extends Component {
                                 if(TW_Store.gameUpateStore.isNeedUpdate&&TW_Store.gameUpateStore.isTempExist){
                                     TW_Store.gameUpateStore.isNeedUpdate=false;
                                     TW_Store.gameUpateStore.isTempExist=false;
+                                    TW_Store.gameUpateStore.isOldHome=false;
                                 }
                             },1000)
 
@@ -497,6 +499,7 @@ export default class XXWebView extends Component {
                     if(TW_Store.gameUpateStore.isTempExist){
                         TW_Store.gameUpateStore.isNeedUpdate=false;
                         TW_Store.gameUpateStore.isTempExist=false;
+                        TW_Store.gameUpateStore.isOldHome=false
                     }
 
                     break;
@@ -508,6 +511,7 @@ export default class XXWebView extends Component {
                      TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
                     break;
                 case "game_redraw":
+                    TW_Log("onMessage----custom---exitAppToLoginPage")
                     TW_Store.gameUIStroe.isShowWithDraw=!TW_Store.gameUIStroe.isShowWithDraw;
                     break;
                 case "game_back":

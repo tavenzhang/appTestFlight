@@ -141,8 +141,8 @@ export default class App extends Component {
                             pointerEvents={"none"}>{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
                         `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
                     {/*<CommonBoxLayer/>*/}
-                    <LoadingWebView/>
-                    {!TW_Store.gameUpateStore.isOldHome ?  <GameUIView/>:null}
+                    {!TW_Store.gameUpateStore.isOldHome ? <LoadingWebView/>:null}
+                     <GameUIView/>
 
                 </View>
             </Provider>
