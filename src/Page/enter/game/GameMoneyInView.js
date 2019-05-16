@@ -119,7 +119,7 @@ export default class GameMoneyInView extends Component {
             {
                 this.state.showDownArrow&&
                     <TCButtonImg imgSource={ASSET_Images.gameUI.downArrow} btnStyle={{position: "absolute",bottom:15,left:60}}
-                                 soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
+                                 soundName={TW_Store.bblStore.SOUND_ENUM.click}
                                  onClick={this.scrollList}/>
             }
         </View>)

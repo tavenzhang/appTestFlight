@@ -92,6 +92,7 @@ export default class GameMoneyOutView extends Component {
                     textStyle={{color: "#fffff1",fontSize:20}} text={'收款银行:'}/>
             {
                 (!this.userWithdrawStore.bank.bankCardNo||!this.userWithdrawStore.bank.bankCardNo.length) ?<TCButtonImg imgSource={ASSET_Images.gameUI.bankBtn}
+                                                                                                                        soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                              btnStyle={{position: "absolute",top:SCREEN_H * 0.46+2,left: SCREEN_W*0.44}}  onClick={()=>{
                     TW_Store.gameUIStroe.isShowUserInfo = true;
                 }}

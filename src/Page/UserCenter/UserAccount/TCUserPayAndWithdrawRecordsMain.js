@@ -92,6 +92,7 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
                     tabBarInactiveTextColor={shoppingTxtColor.tabTitleNormal}
                     tabBarTextStyle={{fontSize: Size.font15, fontWeight: 'normal', marginTop: 10,}}>
                     <UserAccount onBack={onBack} tabLabel='全部' navigator={this.props.navigator} type={1}
+                                 soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                  accountType={this.props.accountType}/>
                     <UserAccount onBack={onBack}  tabLabel='已完成' navigator={this.props.navigator} type={2}
                                  accountType={this.props.accountType}/>

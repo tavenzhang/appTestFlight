@@ -113,6 +113,7 @@ export default class TCUserPayAndWithdrawRecords extends Component {
     }
 
     pressRow(rowData) {
+        TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick);
         if (this.props.accountType === 2) {
             TW_Store.gameUIStroe.showCommonView("转账详情",TCUserTransferDetails,{orderData: rowData});
             // Helper.pushToUserTransferDetails({

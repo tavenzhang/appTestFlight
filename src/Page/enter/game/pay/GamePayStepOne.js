@@ -269,6 +269,7 @@ export default class GamePayStepOne extends Component {
                             }}
                             >
                                 <TCImage source={ASSET_Images.gameUI.payExpand}
+                                         soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                          style={{width: 30, height: 30,marginLeft:10}} resizeMode={"contain"}/>
                             </TouchableOpacity>
                         </View>
