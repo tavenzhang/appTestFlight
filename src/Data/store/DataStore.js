@@ -6,6 +6,7 @@ import NetUitls from "../../Common/Network/TCRequestUitls";
 import rootStore from "./RootStore";
 import CodePush from 'react-native-code-push'
 
+
 export default class DataStore {
 
     constructor() {
@@ -70,21 +71,52 @@ export default class DataStore {
     }
 
 
-    loadHomeVerson=()=>{
+    async loadHomeVerson(){
         let Url =TW_Store.dataStore.getHomeWebHome()+"/assets/conf/version.json";
-        TW_Log("Url-----home---"+rootStore.dataStore.getHomeWebHome()+"\n url=",Url)
-        NetUitls.getUrlAndParamsAndCallback("localhost://"+Url,null,(rt)=>{
-            this.log+="\ngetHomeWebHome"+JSON.stringify(rt) ;
-            if(rt.rs){
-                if(rt.content&&rt.content.versionNum){
-                    this.startCheckZipUpdate(rt.content)
+        //TW_Log("Url-----home---"+rootStore.dataStore.getHomeWebHome()+"\n url=",Url)
+
+        const target_dir_exist = await RNFS.exists(Url);
+        TW_Log("Url-----home---target_dir_exist="+target_dir_exist,Url);
+        if(target_dir_exist){
+            TW_Store.gameUpateStore.isOldHome=false;
+            RNFS.readFile(Url).then(ret=>{
+                TW_Log("Url-----home--readFile -then-ret-start")
+                let data=ret
+                if(typeof ret === 'object'){
+                    data= ret;
+                }else{
+                    data = JSON.parse(ret);
                 }
-                TW_Store.gameUpateStore.isOldHome=false;
-            }else{
-                this.startCheckZipUpdate(null)
-                TW_Store.gameUpateStore.isOldHome=true;
-            }
-        })
+                TW_Log("Url-----home--readFile -then-ret-end2")
+                this.startCheckZipUpdate(data);
+            }).finally(()=>{
+                TW_Log("Url-----home--readFile -then-ret-finally")
+            })
+        }else{
+            this.startCheckZipUpdate(null)
+            TW_Store.gameUpateStore.isOldHome=true;
+        }
+      //  TW_Log("Url-----home---target_dir_exist="+target_dir_exist,Url);
+
+        // fetch(Url)
+        //     .then(res => res.json())
+        //     .then(json =>  TW_Log("Url-----home---json"+json)).catch((e)=>{
+        //
+        // });
+
+
+        // NetUitls.getUrlAndParamsAndCallback("localhost://"+Url,null,(rt)=>{
+        //     this.log+="\ngetHomeWebHome"+JSON.stringify(rt) ;
+        //     if(rt.rs){
+        //         if(rt.content&&rt.content.versionNum){
+        //             this.startCheckZipUpdate(rt.content)
+        //         }
+        //         TW_Store.gameUpateStore.isOldHome=false;
+        //     }else{
+        //         this.startCheckZipUpdate(null)
+        //         TW_Store.gameUpateStore.isOldHome=true;
+        //     }
+        // })
     }
 
     @action
