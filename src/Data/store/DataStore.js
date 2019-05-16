@@ -87,11 +87,10 @@ export default class DataStore {
                 }else{
                     data = JSON.parse(ret);
                 }
-                TW_Log("Url-----home--readFile -then-ret-end")
+                TW_Log("Url-----home--readFile -then-ret-end2")
                 this.startCheckZipUpdate(data);
             }).finally(()=>{
                 TW_Log("Url-----home--readFile -then-ret-finally")
-
             })
         }else{
             this.startCheckZipUpdate(null)
