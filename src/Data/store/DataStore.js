@@ -168,7 +168,10 @@ export default class DataStore {
                 if (this.isAppUnZip) {
                     if (this.homeVersionM.versionNum != content.versionNum) {
                         TW_Store.gameUpateStore.isNeedUpdate=true;
-                        this.downloadFile(zipSrc, rootStore.bblStore.tempZipDir);
+                        if(!TW_Store.gameUpateStore.isAppDownIng) {
+                            this.downloadFile(zipSrc, rootStore.bblStore.tempZipDir);
+                        }
+
                     }else{
                         TW_Store.gameUpateStore.isNeedUpdate=false;
                     }
@@ -222,14 +225,15 @@ export default class DataStore {
                      TW_Store.gameUpateStore.isLoading=false;
                      TW_Store.gameUpateStore.isNeedUpdate=false;
                  }
-
             },
             progress: (res) => {
                // this.log+="==>progress-="+res;
                // onProgress({percent:(res.bytesWritten/res.contentLength).toFixed(2),param});
                 let percent = (res.bytesWritten / res.contentLength).toFixed(2);
                // TW_Log("downloadFile--------progress-TW_Store.gameUpateStore.isNeedUpdate=-",percent);
-                TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading, {data: {do:"loading",percent}}));
+                if(!TW_Store.gameUpateStore.isAppDownIng){
+                    TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading, {data: {do:"loading",percent}}));
+                }
                 // TW_Store.commonBoxStore.curPecent=res.bytesWritten;
                 //TW_Store.commonBoxStore.totalPecent=res.contentLength;
             }
@@ -244,15 +248,18 @@ export default class DataStore {
                 TW_Log('versionBBL---downloadFile---sucess file://' + downloadDest,res);
                // this.log+="==>downloadFile--promise="+JSON.stringify(res)+"---state--"+res.statusCode;
                 if(`${res.statusCode}`!="404"){
-                    this.unzipNewCourse(downloadDest);
+                    if(!TW_Store.gameUpateStore.isAppDownIng){
+                        this.unzipNewCourse(downloadDest);
+                    }
                 }else{
                     this.log+="==>downloadFile--fail--notstart=";
                     TW_Log('versionBBL --downloadFile --下载文件不存在--', formUrl);
                    // TW_Store.commonBoxStore.isShow=false;
-                    TW_Store.gameUpateStore.isLoading=false;
-                    TW_Store.gameUpateStore.isTempExist=true;
-                    TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
-
+                    if(!TW_Store.gameUpateStore.isAppDownIng){
+                        TW_Store.gameUpateStore.isLoading=false;
+                        TW_Store.gameUpateStore.isTempExist=true;
+                        TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
+                    }
                 }
             }).catch(err => {
                 TW_Log('versionBBL --downloadFile --fail err', err);
@@ -281,14 +288,15 @@ export default class DataStore {
                 this.log+="==>onSaveVersionM--=start";
                 this.onSaveVersionM(this.content,false,()=>{
                     this.log+="==>onSaveVersionM--=end";
-                    // if(G_IS_IOS){
-                    //     this.onRetartApp();
-                    // }else{
-                    //     setTimeout(()=>{
-                    //         this.onRetartApp(); //android 的文件解压读写延迟比较大，延迟5秒
-                    //     },8000)
-                    // }
-                    // TW_Store.commonBoxStore.isShow=false;
+                    if(TW_Store.gameUpateStore.isOldHome){
+                        if(G_IS_IOS){
+                            this.onRetartApp();
+                        }else{
+                            setTimeout(()=>{
+                                this.onRetartApp(); //android 的文件解压读写延迟比较大，延迟5秒
+                            },8000)
+                        }
+                    }
                 });
             })
             .catch((error) => {

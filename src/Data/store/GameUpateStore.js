@@ -9,6 +9,9 @@ export default class GameUpateStore {
     isNeedUpdate = true;
 
     @observable
+    isAppDownIng= false;
+
+    @observable
     isTempExist = false;
 
     @observable

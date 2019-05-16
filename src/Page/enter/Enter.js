@@ -288,6 +288,8 @@ export default class Enter extends Component {
                 this.hotFixStore.updateFinished = false;
                 this.storeLog({hotfixDomainAccess: true});
                 TW_Store.gameUpateStore.isNeedUpdate=true;
+                TW_Store.gameUpateStore.isAppDownIng=true;
+
                 if (alreadyInCodePush) return
                 alreadyInCodePush = true
 
