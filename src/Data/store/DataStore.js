@@ -74,6 +74,7 @@ export default class DataStore {
         let Url =TW_Store.dataStore.getHomeWebHome()+"/assets/conf/version.json";
         TW_Log("Url-----home---"+rootStore.dataStore.getHomeWebHome()+"\n url=",Url)
         NetUitls.getUrlAndParamsAndCallback("localhost://"+Url,null,(rt)=>{
+            this.log+="\ngetHomeWebHome"+JSON.stringify(rt) ;
             if(rt.rs){
                 if(rt.content&&rt.content.versionNum){
                     this.startCheckZipUpdate(rt.content)
