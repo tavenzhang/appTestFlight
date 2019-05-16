@@ -193,7 +193,7 @@ export default class DataStore {
                // this.log+="==>progress-="+res;
                // onProgress({percent:(res.bytesWritten/res.contentLength).toFixed(2),param});
                 let percent = (res.bytesWritten / res.contentLength).toFixed(2);
-                TW_Log("downloadFile--------progress-TW_Store.gameUpateStore.isNeedUpdate=-",percent);
+               // TW_Log("downloadFile--------progress-TW_Store.gameUpateStore.isNeedUpdate=-",percent);
                 TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading, {data: {do:"loading",percent}}));
                 // TW_Store.commonBoxStore.curPecent=res.bytesWritten;
                 //TW_Store.commonBoxStore.totalPecent=res.contentLength;
@@ -253,7 +253,7 @@ export default class DataStore {
                     //         this.onRetartApp(); //android 的文件解压读写延迟比较大，延迟5秒
                     //     },8000)
                     // }
-                    //TW_Store.commonBoxStore.isShow=false;
+                    // TW_Store.commonBoxStore.isShow=false;
                 });
             })
             .catch((error) => {
