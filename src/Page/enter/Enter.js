@@ -125,6 +125,7 @@ export default class Enter extends Component {
         this.timer2 && clearTimeout(this.timer2)
         AppState.removeEventListener('change', this.handleAppStateChange);
         Orientation&&this.orientationDidChange&&Orientation.removeOrientationListener(this.orientationDidChange);
+
     }
 
     render() {
@@ -135,6 +136,7 @@ export default class Enter extends Component {
             //checkView =this.updateFailView()
             checkView = null
         }
+
         // else {
         //     return (<App/>);
         // }

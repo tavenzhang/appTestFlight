@@ -63,6 +63,7 @@ export default class LoadingWebView extends Component {
         if(!visible){
             return null;
         }
+
         // if (TW_IS_DEBIG) {
         //     source = require('./../../../android/app/src/main/assets/gamelobby/loading/loading.html');
         // }
