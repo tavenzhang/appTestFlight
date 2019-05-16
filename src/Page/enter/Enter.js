@@ -127,11 +127,8 @@ export default class Enter extends Component {
         return (<View style={{flex:1}}>
                       <App/>
                      {checkView}
-
               </View>)
     }
-
-
 
 
 
