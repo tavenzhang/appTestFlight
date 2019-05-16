@@ -41,7 +41,6 @@ export default class DataStore {
     //下载jobId
     currentDownId=1;
 
-
     @action
     getGameRootDir(){
        // return G_IS_IOS ? (MainBundlePath + '/assets') : "file:///android_asset";
@@ -56,7 +55,7 @@ export default class DataStore {
     @action
     initAppHomeCheck () {
         TW_Data_Store.getItem(TW_DATA_KEY.isInitStore, (err, ret) => {
-            TW_Log("TW_Data_Store---versionBBL--W_DATA_KEY.isInitStore==err==" + err, ret);
+            TW_Log("TW_Data_Store---versionBBL--W_DATA_KEY.isInitStore==err=3=" + err, ret);
             if (err) {
                 this.copy_assets_to_dir();
             } else {
