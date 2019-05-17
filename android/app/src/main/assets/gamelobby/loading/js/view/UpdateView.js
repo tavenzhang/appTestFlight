@@ -27,10 +27,6 @@ var view;
             this.serviceBtn.on(Laya.Event.CLICK, this, this.serviceClick);
             //
             this.logo.skin = "../brand/login_icon.png";
-            this.on(Laya.Event.RESIZE, this, this.resizeEvent);
-        };
-        UpdateView.prototype.resizeEvent = function () {
-            console.error("view-resize:", this.width, this.serviceBtn.top, this.serviceBtn.right, this.serviceBtn.visible, this.serviceBtn.x, this.serviceBtn.y);
         };
         UpdateView.prototype.serviceClick = function () {
             window.top.postMessage(JSON.stringify({ action: "game_custom" }), "*");
@@ -44,9 +40,6 @@ var view;
             else if (data.do == "loadFinish") {
                 this.progressTxt.text = "资源加载准备中...";
                 this.progress.value = 0;
-                // if (window["loadGame"]) {
-                // 	window["loadGame"]();
-                // }
             }
         };
         return UpdateView;

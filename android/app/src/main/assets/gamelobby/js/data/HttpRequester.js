@@ -94,11 +94,6 @@ var HttpRequester = /** @class */ (function () {
             url += ConfObjRead.getConfUrl().cmd.quicklogin_app;
         else
             url += ConfObjRead.getConfUrl().cmd.quicklogin;
-        if (!Common.gatewayInfo) {
-            Toast.showToast("请稍后再试");
-            LayaMain.getInstance().showCircleLoading(false);
-            return;
-        }
         var header = this.getEncryHeader();
         var ePwd = window['SecretUtils'].rsaEncodePWD(passWord);
         var data = {
