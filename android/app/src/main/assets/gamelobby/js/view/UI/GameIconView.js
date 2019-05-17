@@ -106,6 +106,8 @@ var view;
              * @param state
              */
             GameIconView.prototype.setGameState = function (state) {
+                if (this.gameState == GameState.PAUSE)
+                    return; //维护状态不接受其他状态
                 this.gameState = state;
                 this.resetView();
                 this.hotIcon.visible = this.gameVo.bhot;
@@ -129,6 +131,8 @@ var view;
              * @param value
              */
             GameIconView.prototype.doUpdateProgress = function (value) {
+                if (this.gameState == GameState.PAUSE)
+                    return; //维护状态不接受其他状态
                 if (!this.isupdating || this.updateIcon.visible) {
                     this.showUpdating();
                 }
