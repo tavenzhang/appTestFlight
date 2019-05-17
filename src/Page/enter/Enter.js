@@ -52,18 +52,23 @@ export default class Enter extends Component {
             KeepAwake.activate();
         }
         //如果是android 在某些机器获取不到真实的SCREEN_H SCREEN_W 需要如下处理
-        if (ExtraDimensions && ExtraDimensions.getRealWindowHeight) {
-            // TW_Log("ExtraDimensions--getRealWindowHeight--"  + ExtraDimensions.getRealWindowHeight(),SCREEN_H)
-            // TW_Log("ExtraDimensions--getRealWindowWidth--"  + ExtraDimensions.getRealWindowWidth(),SCREEN_W)
-            // TW_Log("ExtraDimensions--getSoftMenuBarHeight--"  + ExtraDimensions.getSoftMenuBarHeight())
-            // TW_Log("ExtraDimensions--getSmartBarHeight--"  + ExtraDimensions.getSmartBarHeight())
-            // TW_Log("ExtraDimensions--isSoftMenuBarEnabled--"  + ExtraDimensions.isSoftMenuBarEnabled())
-            let rH = ExtraDimensions.getRealWindowHeight();
-            let rW = ExtraDimensions.getRealWindowWidth();
-            JX_PLAT_INFO.SCREEN_H= SCREEN_H = rH && rH > 0 ? rH : SCREEN_H;
-            JX_PLAT_INFO.SCREEN_W= SCREEN_W = rW && rW > 0 ? rW : SCREEN_W;
-            TW_Store.appStore.screenW=rW;
+        try {
+            if (NativeModules.ExtraDimensions) {
+                // TW_Log("ExtraDimensions--getRealWindowHeight--"  + ExtraDimensions.getRealWindowHeight(),SCREEN_H)
+                // TW_Log("ExtraDimensions--getRealWindowWidth--"  + ExtraDimensions.getRealWindowWidth(),SCREEN_W)
+                // TW_Log("ExtraDimensions--getSoftMenuBarHeight--"  + ExtraDimensions.getSoftMenuBarHeight())
+                // TW_Log("ExtraDimensions--getSmartBarHeight--"  + ExtraDimensions.getSmartBarHeight())
+                // TW_Log("ExtraDimensions--isSoftMenuBarEnabled--"  + ExtraDimensions.isSoftMenuBarEnabled())
+                 let rH = ExtraDimensions.getRealWindowHeight();
+                 let rW = ExtraDimensions.getRealWindowWidth();
+                 JX_PLAT_INFO.SCREEN_H= SCREEN_H = rH && rH > 0 ? rH : SCREEN_H;
+                 JX_PLAT_INFO.SCREEN_W= SCREEN_W = rW && rW > 0 ? rW : SCREEN_W;
+                 TW_Store.appStore.screenW=rW;
+            }
+        } catch (e) {
+            TW_Store.dataStore.log+="\nExtraDimensions--error"+e;
         }
+
         AppState.addEventListener('change',this._handleAppStateChange);
     }
 
