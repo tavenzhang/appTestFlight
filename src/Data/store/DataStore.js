@@ -19,7 +19,6 @@ export default class DataStore {
     @observable
     isAppUnZip = false;
 
-
     @observable
     originAppDir = G_IS_IOS ? (MainBundlePath + '/assets/gamelobby') : "file:///android_asset/gamelobby";
 
@@ -41,6 +40,8 @@ export default class DataStore {
     //下载jobId
     currentDownId=1;
 
+
+
     @action
     getGameRootDir(){
        // return G_IS_IOS ? (MainBundlePath + '/assets') : "file:///android_asset";
@@ -55,6 +56,7 @@ export default class DataStore {
     @action
     initAppHomeCheck () {
         TW_Data_Store.getItem(TW_DATA_KEY.isInitStore, (err, ret) => {
+
             TW_Log("TW_Data_Store---versionBBL--W_DATA_KEY.isInitStore==err=3=" + err, ret);
             if (err) {
                 this.copy_assets_to_dir();
@@ -92,8 +94,9 @@ export default class DataStore {
                 TW_Log("Url-----home--readFile -then-ret-finally")
             })
         }else{
-            this.startCheckZipUpdate(null)
             TW_Store.gameUpateStore.isOldHome=true;
+            this.startCheckZipUpdate(null)
+
         }
       //  TW_Log("Url-----home---target_dir_exist="+target_dir_exist,Url);
 
@@ -133,7 +136,7 @@ export default class DataStore {
                 }
                 if(ret&&verionM){
                     this.homeVersionM =verionM;
-                    this.log+="-->startCheckZipUpdate---homeVersionM-==-"+JSON.stringify(this.homeVersionM)
+                    this.log+="-->startCheckZipUpdate----homeVersionM-==-"+JSON.stringify(this.homeVersionM)
                 }
                 this.checkHomeZipUpdate();
             })
@@ -220,9 +223,15 @@ export default class DataStore {
                //{statusCode: 404, headers: {…}, jobId: 1, contentLength: 153
                  if(res.statusCode != 404){
                      TW_Store.gameUpateStore.isLoading=true;
+                     if(TW_Store.gameUpateStore.isOldHome){
+                         TW_Store.commonBoxStore.isShow=true;
+                     }
                  }else{
                      TW_Store.gameUpateStore.isLoading=false;
                      TW_Store.gameUpateStore.isNeedUpdate=false;
+                     if(TW_Store.gameUpateStore.isOldHome){
+                         TW_Store.commonBoxStore.isShow=false;
+                     }
                  }
             },
             progress: (res) => {
@@ -233,8 +242,11 @@ export default class DataStore {
                 if(!TW_Store.gameUpateStore.isAppDownIng){
                     TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading, {data: {do:"loading",percent}}));
                 }
-                // TW_Store.commonBoxStore.curPecent=res.bytesWritten;
-                //TW_Store.commonBoxStore.totalPecent=res.contentLength;
+                if(TW_Store.gameUpateStore.isOldHome){
+                     TW_Store.commonBoxStore.curPecent=res.bytesWritten;
+                     TW_Store.commonBoxStore.totalPecent=res.contentLength;
+                }
+
             }
         };
         try {
@@ -258,6 +270,9 @@ export default class DataStore {
                         TW_Store.gameUpateStore.isLoading=false;
                         TW_Store.gameUpateStore.isTempExist=true;
                         TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
+                    }
+                    if(TW_Store.gameUpateStore.isOldHome){
+                        TW_Store.commonBoxStore.isShow=true;
                     }
                 }
             }).catch(err => {
@@ -305,6 +320,9 @@ export default class DataStore {
                      TW_Store.gameUpateStore.isLoading=false;
                      TW_Store.gameUpateStore.isTempExist=true;
                      TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
+                    if(TW_Store.gameUpateStore.isOldHome){
+                        TW_Store.commonBoxStore.isShow=true;
+                    }
             })
     }
 

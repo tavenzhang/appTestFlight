@@ -95,7 +95,6 @@ export default class LoadingWebView extends Component {
                 decelerationRate="normal"
                 // renderLoading={this.onRenderLoadingView}
                 startInLoadingState={false}
-
                 onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                 allowFileAccess={true}
                 onError={this.onError}
