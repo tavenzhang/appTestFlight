@@ -23,6 +23,9 @@ export default class AppInfoStore {
         this.init();
     }
 
+    @observable
+    screenW= SCREEN_W;
+
     /**
      * 应用名称
      * @type {string}

@@ -36,6 +36,7 @@ var GameListManager = /** @class */ (function () {
                 Debug.trace(jobj);
                 Common.gameInfo = jobj.datas;
                 _this.addGameItems(jobj.datas);
+                Laya.timer.once(500, _this, _this.onUpdateMsgInit);
             }
             else {
                 //...
@@ -46,7 +47,6 @@ var GameListManager = /** @class */ (function () {
     GameListManager.prototype.onUpdateMsgInit = function () {
         var _this = this;
         var msgArr = UpdateMsgHandle.updateInitMsg;
-        console.error("游戏更新初始化：", msgArr); //debugxxx
         if (msgArr) {
             msgArr.forEach(function (value) {
                 var icon = _this.getGameIconByAlias(value.alias);
@@ -61,7 +61,6 @@ var GameListManager = /** @class */ (function () {
     };
     GameListManager.prototype.onUpdateProgress = function (data) {
         var _this = this;
-        console.error("游戏更新中：", data); //debugxxx
         if (!data || data.length <= 0)
             return;
         data.forEach(function (value) {
@@ -86,9 +85,11 @@ var GameListManager = /** @class */ (function () {
             icon.y = (i % 2) * (icon.height + gapY);
             iconGroup.addChild(icon);
             this.iconList.push(icon);
-            contentWidth += (icon.width + gapX) * (i % 2);
         }
-        // contentWidth -= gapX;
+        if (icon) {
+            var count = Math.floor(len / 2) + len % 2;
+            contentWidth = (icon.width + gapX) * count;
+        }
         if (len > 0) {
             //拖动容器的位置和拖动区域大小数据
             var ix = 430;
@@ -157,8 +158,12 @@ var GameListManager = /** @class */ (function () {
      * 销毁
      */
     GameListManager.prototype.destory = function () {
-        this.iconList.forEach(function (value) { return value.destroy(); });
-        this.iconList = null;
+        EventManager.removeEvent(EventType.GAME_UPDATE_INIT, this, this.onUpdateMsgInit);
+        EventManager.removeEvent(EventType.GAME_UPDATE_PROGRESS, this, this.onUpdateProgress);
+        if (this.iconList) {
+            this.iconList.forEach(function (value) { return value.destroy(); });
+            this.iconList = null;
+        }
         if (this.dragBox)
             this.dragBox.destroy();
     };

@@ -1,11 +1,15 @@
 scriptPath=$(cd `dirname $0`; pwd)
 echo 开始执行脚本 请等待...
 cd ${scriptPath}
+
 npm install
 rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json
 cp ./Init/CodePush.js ${scriptPath}/node_modules/react-native-code-push/CodePush.js
 cp -rf ./Init/CRAWKWebView.m ${scriptPath}/node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView/CRAWKWebView.m
+cp -rf ./Init/extra_dim_index.js ${scriptPath}/node_modules/react-native-extra-dimensions-android/index.js
+
 cp -rf ./Init/ReactWebViewManager.java ${scriptPath}/node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/views/webview/ReactWebViewManager.java
 cp -rf ./Init/CodePush.java ${scriptPath}/node_modules/react-native-code-push/android/app/src/main/java/com/microsoft/codepush/react/CodePush.java
 cp -rf ./Init/WebView.android.js ${scriptPath}/node_modules/react-native//Libraries/Components/WebView/WebView.android.js
+react-native link react-native-extra-dimensions-android
 echo '初始化完毕 可以开始 Xcode -> Run'

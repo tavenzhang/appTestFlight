@@ -31,7 +31,7 @@ var view;
             }
             Object.defineProperty(GameIconView.prototype, "alias", {
                 get: function () {
-                    return this.config ? this.config.alias : this.gameVo.alias;
+                    return this.gameVo.alias;
                 },
                 enumerable: true,
                 configurable: true
@@ -48,7 +48,7 @@ var view;
                 if (this.grayRect)
                     this.grayRect.height = this.grayIcon.height;
                 if (this.anim)
-                    this.anim.stop();
+                    this.anim.pause();
             };
             /**
              * 读取数据
@@ -135,6 +135,8 @@ var view;
                 this.refreshUpdateProgress();
             };
             GameIconView.prototype.refreshUpdateProgress = function () {
+                if (!this.progressValue)
+                    this.progressValue = 0;
                 var value = Tools.FormatFloatNumber(this.progressValue * 100, 2);
                 this.updateTxt.text = "已下载 " + value + "%";
                 this.grayRect.height = this.grayHeight * (1 - this.progressValue);
@@ -153,7 +155,7 @@ var view;
                     this.animbox.addChild(this.anim);
                 }
                 else {
-                    this.anim.play();
+                    this.anim.resume();
                 }
                 this.animbox.visible = true;
             };

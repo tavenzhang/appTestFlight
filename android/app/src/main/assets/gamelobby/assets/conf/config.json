@@ -1,0 +1,55 @@
+{
+    "debugmode": 1,
+    "loadmode": {
+        "desc": "",
+        "testnoserver": 1,
+        "testgameurl": "http://106games.com:89/g3/",
+        "value": 1
+    },
+    "openblank": {
+        "desc": "",
+        "value": 0
+    },
+    "resrootX": "",
+    "resroot": "",
+    "testLogin": false,
+    "btn": {
+        "maxScale": {
+            "x": 0.9,
+            "y": 0.9
+        },
+        "normalScale": {
+            "x": 1,
+            "y": 1
+        },
+        "glowfilter": {
+            "color": "#ffffff",
+            "blur": 2,
+            "offx": 0,
+            "offy": 0
+        }
+    },
+    "btest": {
+        "stepAdd": 1,
+        "totalNum": 5,
+        "delayTime": 1000
+    },
+    "btestclearstorge": {
+        "stepAdd": 1,
+        "totalNum": 5,
+        "delayTime": 1000
+    },
+    "btestaccount": {
+        "stepAdd": 1,
+        "totalNum": 5,
+        "delayTime": 1000
+    },
+    "btestchangepwd": {
+        "stepAdd": 1,
+        "totalNum": 5,
+        "delayTime": 1000
+    },
+    "language": "zh_cn",
+    "languageY": "en",
+    "unknow_err": "txt_unknowerr"
+}

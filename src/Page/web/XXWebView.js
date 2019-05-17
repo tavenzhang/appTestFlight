@@ -23,6 +23,7 @@ import ShareBox from "../../Page/enter/game/pay/ShareBox";
 import TCUserOpenPayApp from "../UserCenter/UserPay/TCUserOpenPayApp";
 
 const HTTP_GAME_LIST="/gamecenter/player/game/list";
+
 @withMappedNavigationProps()
 @observer
 export default class XXWebView extends Component {
@@ -35,8 +36,8 @@ export default class XXWebView extends Component {
             isFail:false,
             updateList:[],
             sharedUrl: null,
-            isShowSharebox: false
-
+            isShowSharebox: false,
+            flash:1
         }
         this.loadQueue=[];
         this.isLoading=false;
@@ -67,11 +68,9 @@ export default class XXWebView extends Component {
             Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
             Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
         }
-        // setTimeout(()=>{
-        //     if()
-        //     SplashScreen.hide();
-        // },4000)
+
     }
+
     componentWillUnmount(): void {
         if(G_IS_IOS){
             Keyboard.removeListener('keyboardWillShow', this._keyboardDidShow);
@@ -94,7 +93,6 @@ export default class XXWebView extends Component {
             if(this.refs.myView){
                 this.refs.myView.setNativeProps({style: {bottom:event.endCoordinates.height-120}});
             }
-            //this.setState({isShowKeyBoard:true})
         }
     }
 
@@ -219,7 +217,6 @@ export default class XXWebView extends Component {
             }else{
                 url = TW_Store.bblStore.gameDomain  + url
             }
-
         }
        
         return `${url}&app=${G_IS_IOS ? "ios":"android"}`;
@@ -294,9 +291,17 @@ export default class XXWebView extends Component {
 
     render() {
         const {sharedUrl, isShowSharebox} = this.state;
+        TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
+        let news=TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome;
+        if(!G_IS_IOS){
+            if(news){
+                return null
+            }
+        }
+        TW_Log("TW_DATA_KEY.gameList-FileTools--=gameUpateStore=news=="+news)
         let {force} = this.props;
         let source = {
-            file: TW_Store.dataStore.getHomeWebUri(),
+            file: TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome ?  "":TW_Store.dataStore.getHomeWebUri(),
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
             allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
             param:"?app=true"
@@ -305,13 +310,13 @@ export default class XXWebView extends Component {
         if (!G_IS_IOS) {
             source = {
                 uri: TW_Store.dataStore.getHomeWebUri()+"?app=true",
-
             };
         }
 
-        if(TW_IS_DEBIG){
-            source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-        }
+
+        // if(TW_IS_DEBIG){
+        //     source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+        // }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
         let injectJs = `window.appData=${JSON.stringify({
@@ -347,7 +352,7 @@ export default class XXWebView extends Component {
                                           injectedJavaScript={injectJs}
                                           onMessage={this.onMessage}
                                           onLoadEnd={this.onLoadEnd}
-                                          onLoadStart={this.onLoadStart}
+
 
                         /> :
                         <View style={styles.webView}  ref="myView">
@@ -364,7 +369,6 @@ export default class XXWebView extends Component {
                                 // startInLoadingState={true}
                                 renderLoading={this.onRenderLoadingView}
                                 onNavigationStateChange={this.onNavigationStateChange}
-                                onLoadStart={this.onLoadStart}
                                 allowFileAccess={true}
                                 onError={this.onError}
                                 onMessage={this.onMessage}
@@ -378,9 +382,6 @@ export default class XXWebView extends Component {
 
     onRenderLoadingView = () => {
         return null
-        // return (<View style={{flex:1, backgroundColor:"black"}}>
-        //     {G_IS_IOS ?  <LoadingView/>: <LoadingView/>}
-        // </View>)
     }
 
     onMessage = (event) => {
@@ -389,12 +390,14 @@ export default class XXWebView extends Component {
     }
     
     onMsgHandle = (message) => {
-        TW_Log("onMessage===========>>" + this.constructor.name + "\n", message);
+        TW_Log("onMessage======XXWebView=====>>" + this.constructor.name + "\n", message);
         let url = "";
         let gameData=null;
         let  retList= null;
         let gameM=null;
+
         if (message && message.action) {
+            TW_Log("onMessage======XXWebView=====>>",message.action);
             switch (message.action) {
                 case "Log":
                     // TW_Log("game---ct=="+message.ct,message.data);
@@ -409,6 +412,19 @@ export default class XXWebView extends Component {
                             break;
                         case "openWeb":
                             TCUserOpenPayApp.linkingWeb( message.param)
+                            break;
+                        case "onGameInit":
+                            if(this.timeId){
+                                clearTimeout(this.timeId);
+                            }
+                            this.timeId= setTimeout(()=>{
+                                if(TW_Store.gameUpateStore.isNeedUpdate&&TW_Store.gameUpateStore.isTempExist){
+                                    TW_Store.gameUpateStore.isNeedUpdate=false;
+                                    TW_Store.gameUpateStore.isTempExist=false;
+                                    TW_Store.gameUpateStore.isOldHome=false;
+                                }
+                            },1000)
+
                             break;
                     }
 
@@ -488,6 +504,14 @@ export default class XXWebView extends Component {
                 case  "game_account":
                     TW_Store.gameUIStroe.isShowUserInfo =!TW_Store.gameUIStroe.isShowUserInfo;
                     break;
+                case "showGame":
+                    if(TW_Store.gameUpateStore.isTempExist){
+                        TW_Store.gameUpateStore.isNeedUpdate=false;
+                        TW_Store.gameUpateStore.isTempExist=false;
+                        TW_Store.gameUpateStore.isOldHome=false
+                    }
+
+                    break;
                 case  "game_custom":
                     TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
                    // TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
@@ -496,6 +520,7 @@ export default class XXWebView extends Component {
                      TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
                     break;
                 case "game_redraw":
+                    TW_Log("onMessage----custom---exitAppToLoginPage")
                     TW_Store.gameUIStroe.isShowWithDraw=!TW_Store.gameUIStroe.isShowWithDraw;
                     break;
                 case "game_back":
@@ -557,6 +582,11 @@ export default class XXWebView extends Component {
                                 this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
                             },10,false,true,this.onParamHead(message.header));
                             break;
+                        case "delete":
+                            NetUitls.deleteUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
+                                this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
+                            },10,false,true,this.onParamHead(message.header));
+                            break;
                     }
             }
         }
@@ -573,22 +603,17 @@ export default class XXWebView extends Component {
             }
             TW_Log("onParamHead----"+headDataList.length,header)
         }
-
         return header
     }
-
-    onLoadStart = (event) => {
-        // if(G_IS_IOS){
-        //     SplashScreen.hide();
-        // }
-    };
 
 
     onLoadEnd=()=>{
         TW_Store.bblStore.isLoading=false;
-        SplashScreen.hide();
-        this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize,{}));
+        if(!TW_Store.gameUpateStore.isNeedUpdate||TW_Store.gameUpateStore.isOldHome){
+            SplashScreen.hide();
+        }
 
+        this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize,{}));
     }
 
 

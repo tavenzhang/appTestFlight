@@ -38,6 +38,7 @@ export default class TCWebView extends Component {
     componentWillMount() {
         TW_Store.bblStore.lastGameUrl = "";
         TW_Store.bblStore.isLoading = true;
+        TW_Store.gameUpateStore.isInSubGame=true;
         TW_OnBackHomeJs=this.onBackHomeJs;
     }
 
@@ -45,6 +46,10 @@ export default class TCWebView extends Component {
         if(this.refs.myWebView.getSettings){
             this.refs.myWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
         }
+    }
+
+    componentWillUnmount(): void {
+        TW_Store.gameUpateStore.isInSubGame=false;
     }
 
 
@@ -94,6 +99,7 @@ export default class TCWebView extends Component {
                 source={source} onNavigationStateChange={this.onNavigationStateChange}
                                                  onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                                                  style={[styles.webView,{display:dis}]}
+                                                 allowsInlineMediaPlayback={true}
                                                  allowFileAccess={true}
                                                  onError={this.onError}
                                                  startInLoadingState={false}
@@ -107,7 +113,8 @@ export default class TCWebView extends Component {
                 ref="myWebView"
                 useWebKit={true}
                 automaticallyAdjustContentInsets={true}
-                style={styles.webView}
+                allowsInlineMediaPlayback={true}
+                style={[styles.webView,{width:TW_Store.appStore.screenW}]}
                 source={source}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}
@@ -149,7 +156,6 @@ export default class TCWebView extends Component {
 
     onLoadEnd = (event) => {
         TW_Log("onLoadEnd=TCweb==========event=====", event)
-
         TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--"+ TW_Store.bblStore.isLoading, event)
     }
 

@@ -16,6 +16,7 @@ import {Provider} from 'mobx-react'
 import NavigationService from './NavigationService'
 import rootStore from "../../Data/store/RootStore";
 import {observer} from 'mobx-react/native';
+
 const appStores = {
     // mainStore: rootStore.mainStore,
     // initAppStore: rootStore.initAppStore,
@@ -25,6 +26,7 @@ import CommonBoxLayer from "../enter/CommonBoxLayer";
 import XXWebView from "../web/XXWebView";
 import TCWebView from "../WebView/TCWebView";
 import OpeninstallModule from 'openinstall-react-native'
+import ExtraDimensions from 'react-native-extra-dimensions-android';
 
 //用于增加通用navigator view 属性 特殊 处理
 function viewRoutHelp(component) {
@@ -33,17 +35,17 @@ function viewRoutHelp(component) {
 
 const Components = {
     XXWebView: viewRoutHelp(XXWebView),
-    WebView:viewRoutHelp(TCWebView),
-    TCUserDetailMsg:viewRoutHelp(TCUserDetailMsg),
-    TCUserMessage:viewRoutHelp(TCUserMessage),
-    TCAddUserInfo:viewRoutHelp(TCAddUserInfo),
-    TCAddPhoneNumberInfo:viewRoutHelp(TCAddPhoneNumberInfo),
-    TCUserPayType:viewRoutHelp(TCUserPayType),
-    UserAcountPay:viewRoutHelp(TCUserPayAndWithdrawRecordsMain),
+    WebView: viewRoutHelp(TCWebView),
+    TCUserDetailMsg: viewRoutHelp(TCUserDetailMsg),
+    TCUserMessage: viewRoutHelp(TCUserMessage),
+    TCAddUserInfo: viewRoutHelp(TCAddUserInfo),
+    TCAddPhoneNumberInfo: viewRoutHelp(TCAddPhoneNumberInfo),
+    TCUserPayType: viewRoutHelp(TCUserPayType),
+    UserAcountPay: viewRoutHelp(TCUserPayAndWithdrawRecordsMain),
     UserPayment: viewRoutHelp(UserPayment),
     WxPublicPage: viewRoutHelp(WechatPublicPage),
-    TCUserWithdrawNew:viewRoutHelp(TCUserWithdrawNew),
-    TCUserBankPayMessageNew:viewRoutHelp(TCUserBankPayMessageNew)
+    TCUserWithdrawNew: viewRoutHelp(TCUserWithdrawNew),
+    TCUserBankPayMessageNew: viewRoutHelp(TCUserBankPayMessageNew)
 }
 
 //为所有组件增加增加routName 配合 JX_Compones  用于 通用 pushtoView 跳转 避免使用纯string
@@ -79,6 +81,8 @@ import GameUIView from "../enter/GameUIView";
 import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageNew";
 import KeyboardManager from 'react-native-keyboard-manager'
 import {JX_PLAT_INFO} from "../asset";
+import LoadingWebView from "../WebView/LoadingWebView";
+
 @observer
 export default class App extends Component {
     constructor(state) {
@@ -87,68 +91,59 @@ export default class App extends Component {
 
     componentWillMount() {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-        if(KeyboardManager&&KeyboardManager.setToolbarPreviousNextButtonEnable){
+        if (KeyboardManager && KeyboardManager.setToolbarPreviousNextButtonEnable) {
             KeyboardManager.setToolbarPreviousNextButtonEnable(true);
         }
         StatusBar.setHidden(true);
         if (!G_IS_IOS) {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
-        //该方法用于监听app通过univeral link或scheme拉起后获取唤醒参数
-        // this.receiveWakeupListener = map => {
-        //     if (map) {
-        //         //do your work here
-        //         Alert.alert('拉起回调',JSON.stringify(map))
-        //     }
-        //
-        // }
-        // OpeninstallModule.addWakeUpListener(this.receiveWakeupListener)
-
-    }
-
-    componentDidMount(): void {
-
     }
 
     componentWillUnmount(): void {
         if (!G_IS_IOS) {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
-       // OpeninstallModule.removeWakeUpListener(this.receiveWakeupListener)//移除监听
+        // OpeninstallModule.removeWakeUpListener(this.receiveWakeupListener)//移除监听
     }
 
 
     render() {
-
+        TW_Log("onBackAndroid--TW_Store.gameUpateStore.isNeedUpdate--"+TW_Store.gameUpateStore.isNeedUpdate);
         return (
             <Provider  {...rootStore} >
-                <View style={{flex: 1, backgroundColor:"black"}}>
+                <View style={{flex: 1, backgroundColor: "black"}}>
                     {this.addStatusBar()}
                     <MainStackNavigator
                         ref={navigatorRef => {
                             NavigationService.setTopLevelNavigator(navigatorRef)
-                            this.navigator=navigatorRef;
+                            this.navigator = navigatorRef;
                         }}
                     />
-                    {TW_Store.bblStore.isDebugApp ? <ScrollView  style={{ position: "absolute", height:JX_PLAT_INFO.SCREEN_H}}><Text
-                        style={{
-                            color: "yellow",
-                            fontWeight:"bold"
-                        }} pointerEvents={"none"} >{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
-                    `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
-                    <CommonBoxLayer/>
-                    <GameUIView/>
+                    {TW_Store.bblStore.isDebugApp ?
+                        <ScrollView style={{position: "absolute", height: JX_PLAT_INFO.SCREEN_H}}><Text
+                            style={{
+                                color: "yellow",
+                                fontWeight: "bold"
+                            }}
+                            pointerEvents={"none"}>{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
+                        `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
+                    {!TW_Store.gameUpateStore.isOldHome||TW_Store.gameUpateStore.isAppDownIng ? <LoadingWebView/>:null}
+                    {TW_Store.gameUpateStore.isOldHome ?<CommonBoxLayer/>:null}
+                     <GameUIView/>
+
                 </View>
             </Provider>
+
         )
     }
 
     onBackAndroid = () => {
-        TW_Log("onBackAndroid----",this.navigator);
-       // return false;
+        TW_Log("onBackAndroid----", this.navigator);
+        // return false;
         const routers = this.navigator.state.routes;
-        if (routers&&routers.length > 1) {
-            if(TW_OnValueJSHome){
+        if (routers && routers.length > 1) {
+            if (TW_OnValueJSHome) {
                 TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.lobbyResume));
             }
             TW_NavHelp.goBack();
@@ -159,7 +154,7 @@ export default class App extends Component {
             return false;//控制权交给原生
         }
         this.lastClickTime = now;
-        ToastAndroid.show("再按一次退出 ",ToastAndroid.SHORT);
+        ToastAndroid.show("再按一次退出 ", ToastAndroid.SHORT);
         return true;
     }
 
