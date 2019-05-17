@@ -543,6 +543,11 @@ var PageLogin = /** @class */ (function (_super) {
             this.selectLoginType(LoginType.Account, true);
             return;
         }
+        if (!Common.gatewayInfo) {
+            Toast.showToast("请稍后再试");
+            this.updateGatewayInfo(true);
+            return;
+        }
         //转圈圈
         LayaMain.getInstance().showCircleLoading(true);
         HttpRequester.fastLogin(this.fastName, this.password, this, function (suc, jobj) {
@@ -569,6 +574,11 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.doFastLoginWithVC = function () {
         var _this = this;
+        if (!Common.gatewayInfo) {
+            Toast.showToast("请稍后再试");
+            this.updateGatewayInfo(true);
+            return;
+        }
         //效验验证码
         var code = this.fast_codeTxt.text;
         var verify = Tools.verifyQuickLogin(code);
@@ -607,6 +617,11 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.doAccountLogin = function () {
         var _this = this;
+        if (!Common.gatewayInfo) {
+            Toast.showToast("请稍后再试");
+            this.updateGatewayInfo(true);
+            return;
+        }
         var name = this.acc_nameTxt.text;
         var pwd = this.acc_pwdTxt.text;
         PostMHelp.debugInfo({ name: name, pwd: pwd });
@@ -641,6 +656,11 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.doAccountLoginWithVC = function () {
         var _this = this;
+        if (!Common.gatewayInfo) {
+            Toast.showToast("请稍后再试");
+            this.updateGatewayInfo(true);
+            return;
+        }
         var name = this.acc_nameTxt.text;
         var pwd = this.acc_pwdTxt.text;
         var yzm = this.acc_codeTxt.text;
