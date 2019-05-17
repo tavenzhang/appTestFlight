@@ -1,6 +1,8 @@
 scriptPath=$(cd `dirname $0`; pwd)
 echo 开始执行脚本 请等待...
 cd ${scriptPath}
+npm uninstal react-native-extra-dimensions-android
+npm install react-native-extra-dimensions-android@1.2.5 --save
 npm install
 rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json
 cp ./Init/CodePush.js ${scriptPath}/node_modules/react-native-code-push/CodePush.js
