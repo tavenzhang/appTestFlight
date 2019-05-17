@@ -53,7 +53,7 @@ export default class Enter extends Component {
         }
         //如果是android 在某些机器获取不到真实的SCREEN_H SCREEN_W 需要如下处理
         try {
-            if (ExtraDimensions && ExtraDimensions.getRealWindowHeight) {
+            if (NativeModules.ExtraDimensions) {
                 // TW_Log("ExtraDimensions--getRealWindowHeight--"  + ExtraDimensions.getRealWindowHeight(),SCREEN_H)
                 // TW_Log("ExtraDimensions--getRealWindowWidth--"  + ExtraDimensions.getRealWindowWidth(),SCREEN_W)
                 // TW_Log("ExtraDimensions--getSoftMenuBarHeight--"  + ExtraDimensions.getSoftMenuBarHeight())
