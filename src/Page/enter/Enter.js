@@ -61,9 +61,9 @@ export default class Enter extends Component {
                 // TW_Log("ExtraDimensions--isSoftMenuBarEnabled--"  + ExtraDimensions.isSoftMenuBarEnabled())
                  let rH = ExtraDimensions.getRealWindowHeight();
                  let rW = ExtraDimensions.getRealWindowWidth();
-                // JX_PLAT_INFO.SCREEN_H= SCREEN_H = rH && rH > 0 ? rH : SCREEN_H;
-                // JX_PLAT_INFO.SCREEN_W= SCREEN_W = rW && rW > 0 ? rW : SCREEN_W;
-                // TW_Store.appStore.screenW=rW;
+                 JX_PLAT_INFO.SCREEN_H= SCREEN_H = rH && rH > 0 ? rH : SCREEN_H;
+                 JX_PLAT_INFO.SCREEN_W= SCREEN_W = rW && rW > 0 ? rW : SCREEN_W;
+                 TW_Store.appStore.screenW=rW;
             }
         } catch (e) {
             TW_Store.dataStore.log+="\nExtraDimensions--error"+e;
