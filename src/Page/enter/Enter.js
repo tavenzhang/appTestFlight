@@ -23,7 +23,7 @@ import TopNavigationBar from '../../Common/View/TCNavigationBar';
 import {width, Size} from '../asset/game/themeComponet'
 import StartUpHelper from './StartUpHelper'
 import KeepAwake from 'react-native-keep-awake';
-//import ExtraDimensions from 'react-native-extra-dimensions-android';
+import ExtraDimensions from 'react-native-extra-dimensions-android';
 
 let retryTimes = 0
 let downloadTime = 0
