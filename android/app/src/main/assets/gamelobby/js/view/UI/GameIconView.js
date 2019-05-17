@@ -26,6 +26,7 @@ var view;
                 var _this = _super.call(this) || this;
                 _this.isclick = true;
                 _this.gapTime = 350; //控制点击间隔时间
+                _this.progressValue = 0;
                 _this.resetView();
                 return _this;
             }
@@ -128,7 +129,7 @@ var view;
              * @param value
              */
             GameIconView.prototype.doUpdateProgress = function (value) {
-                if (!this.isupdating) {
+                if (!this.isupdating || this.updateIcon.visible) {
                     this.showUpdating();
                 }
                 this.progressValue = value;

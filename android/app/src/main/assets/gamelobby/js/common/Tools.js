@@ -188,8 +188,8 @@ var Tools = /** @class */ (function () {
         var nw = sp.width;
         var nh = sp.height;
         if (nw <= 0 || nh <= 0) {
-            Debug.trace("Tools.resizeSprite sprite not loaded width and height == 0 sp=");
-            Debug.trace(sp);
+            // Debug.trace("Tools.resizeSprite sprite not loaded width and height == 0 sp=");
+            // Debug.trace(sp);
             return false;
         }
         var pw = w;

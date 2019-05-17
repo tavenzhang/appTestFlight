@@ -20,15 +20,15 @@ var view;
             function NoticeDlg() {
                 var _this = _super.call(this) || this;
                 _this._tabs = [];
-                _this.isDrag = false;
                 _this.downPos = {
                     "x": 0,
                     "y": 0
                 };
+                _this.downPt = new Laya.Point();
                 _this.initView();
                 return _this;
             }
-            NoticeDlg.show = function ($data) {
+            NoticeDlg.show = function () {
                 var dlg = new NoticeDlg();
                 dlg.game_counter.visible = false;
                 dlg.notice_counter.visible = false;
@@ -37,18 +37,22 @@ var view;
                 dlg.pop(dlg);
                 dlg.requestData();
             };
-            NoticeDlg.prototype.pop = function (dlg) {
-                dlg.alpha = 1;
-                dlg.y = 0;
-                Laya.Tween.from(dlg, { alpha: 0, y: 20 }, 250);
+            NoticeDlg.checkUnread = function () {
+                var dlg = new NoticeDlg();
+                dlg.requestData();
             };
-            NoticeDlg.prototype.close = function (type, showEffect) {
-                if (this.y === 0) {
-                    Laya.Tween.to(this, { alpha: 0, y: 20 }, 250, Laya.Ease.linearNone, new Laya.Handler(this, _super.prototype.close, [type, showEffect]));
-                }
+            NoticeDlg.prototype.pop = function (dlg) {
+                // dlg.alpha = 1;
+                // dlg.y = 0
+                dlg.anchorX = 0.5;
+                dlg.anchorY = 0.5;
+                dlg.x = Laya.stage.width / 2;
+                dlg.y = Laya.stage.height / 2;
+                Laya.Tween.to(dlg, { scaleX: 1.1, scaleY: 1.1 }, 50, Laya.Ease.linearNone, Laya.Handler.create(this, function () {
+                    Laya.Tween.to(dlg, { scaleX: 1, scaleY: 1 }, 120);
+                }));
             };
             NoticeDlg.prototype.initView = function () {
-                var _this = this;
                 var w2 = Laya.stage.width - this.width;
                 this.x = w2 / 2;
                 this.y = (Laya.stage.height - this.width) / 2;
@@ -58,7 +62,7 @@ var view;
                     this.controls.x += buffer - 30;
                     this.label.x += buffer * 2;
                     this.contentList.x = this.label.x + 40;
-                    this.contents.x = this.contentList.x + this.contentList.width - 10;
+                    this.contents.x = this.contentList.x + 320 - 10; //Fthis.contentList.width - 10;
                 }
                 this.contentList.on(Laya.Event.MOUSE_DOWN, this, this.onScroll);
                 this.contentList.on(Laya.Event.MOUSE_UP, this, this.onScroll);
@@ -67,37 +71,49 @@ var view;
                 this.tab_notice.on(Laya.Event.CLICK, this, this.onTabClick);
                 this.tab_game.on(Laya.Event.CLICK, this, this.onTabClick);
                 this.tab_game.alpha = 0;
-                EventManager.addTouchScaleListener(this.controls, this, function () {
-                    SoundPlayer.closeSound();
-                    _this.close(null, false);
-                });
-                var conf = ConfObjRead.getConfNotice();
-                var len = conf.animations.length;
-                for (var i = 0; i < len; i++) {
-                    var spconf = conf.animations[i];
-                    Tools.addAnimation(this.label, spconf);
-                }
+                // EventManager.addTouchScaleListener(this.controls, this, () => {
+                // 	console.log("close")
+                // 	SoundPlayer.returnLobbySound();
+                // 	this.close(null, false);
+                // });
+                this.controls.on(Laya.Event.CLICK, this, this.onCloseClick);
                 this.loopArrow();
                 this._currentCategoryTab = 1;
+            };
+            NoticeDlg.prototype.onCloseClick = function () {
+                Laya.Tween.to(this.controls, { scaleX: 1.1, scaleY: 1.1 }, 100, Laya.Ease.linearNone, Laya.Handler.create(this, function () {
+                    SoundPlayer.returnLobbySound();
+                    this.close(null, false);
+                }));
+                // 	this.close(null, false);
             };
             NoticeDlg.prototype.loopArrow = function () {
                 this.arrow.y = 620;
                 Laya.Tween.to(this.arrow, { y: 630 }, 500, Laya.Ease.linearNone, new Laya.Handler(this, this.loopArrow));
             };
             NoticeDlg.prototype.requestData = function () {
+                LayaMain.getInstance().showCircleLoading();
                 var url = ConfObjRead.getConfUrl().url.apihome +
                     ConfObjRead.getConfUrl().cmd.attention_new +
                     "?access_token=" + Common.access_token;
                 NetManager.getObj().HttpConnect(url, this, this.responseAttention);
             };
             NoticeDlg.prototype.responseAttention = function (s, stat, hr) {
+                LayaMain.getInstance().showCircleLoading(false);
                 if (stat == "complete") {
                     this._data = s;
                     this.update(s);
                 }
                 else {
-                    LayaMain.getInstance().requestEnd(stat, s);
-                    this.destroy(true);
+                    // LayaMain.getInstance().requestEnd(stat, s);
+                    // this.destroy(true);
+                    var repon = hr.http.response;
+                    try {
+                        var jobj = JSON.parse(repon);
+                        var err = jobj.message;
+                        Toast.showToast(err);
+                    }
+                    catch (e) { }
                 }
             };
             NoticeDlg.prototype.update = function ($data) {
@@ -117,7 +133,7 @@ var view;
                     tab.init(dummy);
                     tab.setData(list[i]);
                     this.content_tabs.addChild(tab);
-                    tab.on(Laya.Event.CLICK, this, this.onSideTabClick);
+                    // tab.on("tabclick", this, this.onSideTabClick);
                     var gap = 10;
                     tab.y = (tab.height + gap) * i;
                     tab.y += dummy.y;
@@ -145,12 +161,13 @@ var view;
                             }
                         });
                     }
+                    EventManager.dispath("unreadNotice", counter > 0);
                     target.visible = counter > 0;
                     var label = target.getChildByName("label");
-                    label.text = counter.toString();
+                    // label.text = counter.toString();
                     label.autoSize = true;
                     label.align = "right";
-                    target.width = label.width + 13;
+                    // target.width = label.width + 13;
                 });
             };
             NoticeDlg.prototype.onTabClick = function ($e) {
@@ -166,20 +183,19 @@ var view;
                         this.loadCategoryTab(0);
                         break;
                 }
-                Laya.SoundManager.playSound("assets/raw/sfx_click.mp3");
+                SoundPlayer.enterPanelSound();
             };
             NoticeDlg.prototype.onSideTabClick = function ($e) {
-                if (this.isDrag)
-                    return;
+                // if (thidds.isDrag) return;
                 for (var _i = 0, _a = this._tabs; _i < _a.length; _i++) {
                     var tab_1 = _a[_i];
                     tab_1.deactive();
                 }
-                var tab = $e.currentTarget;
+                var tab = $e;
                 tab.active();
                 tab.updateRead();
                 this.updateCurrentTotalReadCounter();
-                Laya.SoundManager.playSound("assets/raw/sfx_click.mp3");
+                SoundPlayer.enterPanelSound();
                 this.loadTab(tab.id);
             };
             NoticeDlg.prototype.updateCurrentTotalReadCounter = function () {
@@ -193,10 +209,10 @@ var view;
                 var target = this._currentCategoryTab === 0 ? this.game_counter : this.notice_counter;
                 target.visible = counter > 0;
                 var label = target.getChildByName("label");
-                label.text = counter.toString();
+                // label.text = counter.toString();
                 label.autoSize = true;
                 label.align = "right";
-                target.width = label.width + 13;
+                // target.width = label.width + 13;
             };
             NoticeDlg.prototype.loadCategoryTab = function ($id) {
                 this._currentCategoryTab = $id;
@@ -210,28 +226,29 @@ var view;
                 this.contents.removeChildren();
                 var data = this._data[this._currentCategoryTab].noticeList[$id];
                 var content;
-                // switch (data.noticeActivityType) {
-                // 	case "NORMAL":
-                // 		content = new Notice_Message();
-                // 		content.setData(data);
-                // 		break;
-                // 	case "SHARE_DAILY":
-                // 		content = new Notice_Share();
-                // 		content.init(this)
-                // 		content.setData(data);
-                // 		break;
-                // 	case "ROULETTE_DRAW":
-                // 		content = new LuckyDrawPage();
-                // 		content.init(ConfObjRead.getConfAttention().attention, data);
-                // 		break;
-                // 	default:
-                // 		// 游戏公告全是文本
-                // 		content = new Notice_Message();
-                // 		content.setData(data);
-                // 		break;
-                // }
-                // content.x = content.y = 0;
-                // this.contents.addChild(content);
+                switch (data.noticeActivityType) {
+                    case "NORMAL":
+                        content = new Notice_Message();
+                        content.setData(data);
+                        break;
+                    case "SHARE_DAILY":
+                        content = new Notice_Share();
+                        content.init(this);
+                        content.setData(data);
+                        break;
+                    case "ROULETTE_DRAW":
+                        content = new Notice_Roullette();
+                        content.init();
+                        content.setData(data);
+                        break;
+                    default:
+                        // 游戏公告全是文本
+                        content = new Notice_Message();
+                        content.setData(data);
+                        break;
+                }
+                content.x = content.y = 0;
+                this.contents.addChild(content);
                 this.requestRead(this._data[this._currentCategoryTab].noticeList[$id].noticeid);
             };
             NoticeDlg.prototype.requestRead = function (id) {
@@ -265,19 +282,27 @@ var view;
                     case Laya.Event.MOUSE_DOWN:
                         this.downPos.x = x;
                         this.downPos.y = y;
+                        this.downTime = Laya.Browser.now();
+                        this.downPt.setTo(x, y);
                         break;
                     case Laya.Event.MOUSE_UP:
-                        if (this.isDrag) {
-                            Laya.timer.once(10, this, function () {
-                                this.isDrag = false;
-                            });
+                        var time = Laya.Browser.now() - this.downTime;
+                        var dist = this.downPt.distance($e.stageX, $e.stageY);
+                        if (time < 300 && dist < 8) {
+                            if ($e.target.name === "btn") {
+                                this.onSideTabClick($e.target.parent.parent);
+                            }
+                        }
+                        else {
+                            // if (this.isDrag) {
+                            // Laya.timer.once(10, this, function () {
+                            // });
                             this.downPos.x = 0;
                             this.downPos.y = 0;
                             this.backAllContent();
                         }
                         break;
                     case Laya.Event.MOUSE_MOVE:
-                        this.isDrag = true;
                         if (this.downPos.y > 0) {
                             var sumy = y - this.downPos.y;
                             this.downPos.y = y;

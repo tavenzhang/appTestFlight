@@ -1,307 +1,427 @@
 {
-    "alphabg":{
-        "color":"#000000",
-        "alpha":0.3,
-        "size":{ "w":1334, "h":750 },
-        "pos":{ "x":0, "y":0 }
-    },
-    "pos":{ "x":0, "y":120 },
-    "touchout":{
-        "value":false
-    },
-    "bg":{
-        "src":"",
-        "pos":{ "x":0, "y":0 }
-    },
-    "lbTest":{
-        "desc":"",
-        "pos":{ "x":0, "y":0 },
-        "size":{ "w":600, "h":50 },
-        "font":{
-            "text":"tab",
-            "borderColor":"#ff0000",
-            "color":"#bbae7a",
-            "size":19,
-            "name":"x",
-            "align":"right",
-            "valign":"top",
-            "wrap":false
+    "alphabg": {
+        "color": "#000000",
+        "alpha": 0.3,
+        "size": {
+            "w": 1334,
+            "h": 750
+        },
+        "pos": {
+            "x": 0,
+            "y": 0
         }
     },
-    "menus":[
+    "pos": {
+        "x": 0,
+        "y": 120
+    },
+    "touchout": {
+        "value": false
+    },
+    "bg": {
+        "src": "",
+        "pos": {
+            "x": 0,
+            "y": 0
+        }
+    },
+    "lbTest": {
+        "desc": "",
+        "pos": {
+            "x": 0,
+            "y": 0
+        },
+        "size": {
+            "w": 600,
+            "h": 50
+        },
+        "font": {
+            "text": "tab",
+            "borderColor": "#ff0000",
+            "color": "#bbae7a",
+            "size": 19,
+            "name": "x",
+            "align": "right",
+            "valign": "top",
+            "wrap": false
+        }
+    },
+    "menus": [
         {
-            "desc":"",
-            "cmd":"agentinfo",
-            "pos":{ "x":122, "y":48 },
-            "src":[
+            "desc": "",
+            "cmd": "agentinfo",
+            "pos": {
+                "x": 122,
+                "y": 48
+            },
+            "src": [
                 "./assets/ui/agent/img_daili_anniudi.png"
             ],
-            "size":{ "w":244, "h":96 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/sfx_click.mp3",
-            "animationSp":{
-                "src":"./assets/ui/agent/btn_daili_xuanzhong.png",
-                "size":{ "w":298, "h":110 },
-                "pos":{ "x":-122, "y":-55 },
-                "posLeft":{ "x":-132, "y":-55 },
-                "duration":100,
-                "tweenName":"backIn",
-                "alpha":1,
-                "alphaLeft":0.5,
-                "animation":{
-                    "textPath":"./assets/ui/animation/agent/btn/btn.png",
-                    "animPath":"./assets/ui/animation/agent/btn/btn.sk",
-                    "playSpeed":1.0,
-                    "loop":true,
-                    "loopdelayX":1000,
-                    "pos":{ "x":149, "y":55 },
-                    "stopHide":{
-                        "value":false
+            "size": {
+                "w": 244,
+                "h": 96
+            },
+            "maxScale": {
+                "x": 1.02,
+                "y": 1.02
+            },
+            "normalScale": {
+                "x": 1,
+                "y": 1
+            },
+            "sfx": "assets/raw/click.mp3",
+            "animationSp": {
+                "src": "./assets/ui/agent/btn_daili_xuanzhong.png",
+                "size": {
+                    "w": 298,
+                    "h": 110
+                },
+                "pos": {
+                    "x": -122,
+                    "y": -55
+                },
+                "posLeft": {
+                    "x": -132,
+                    "y": -55
+                },
+                "duration": 100,
+                "tweenName": "backIn",
+                "alpha": 1,
+                "alphaLeft": 0.5,
+                "animation": {
+                    "textPath": "./assets/ui/animation/agent/btn/btn.png",
+                    "animPath": "./assets/ui/animation/agent/btn/btn.sk",
+                    "playSpeed": 1.0,
+                    "loop": true,
+                    "loopdelayX": 1000,
+                    "pos": {
+                        "x": 149,
+                        "y": 55
+                    },
+                    "stopHide": {
+                        "value": false
                     }
                 }
             },
-            "frontsp":{
-                "desc":"",
-                "switch":{
-                    "desc":"",
-                    "pos":{ "x":-92, "y":-24 },
-                    "size":{ "x":-92, "y":-24 },
-                    "src":[
+            "frontsp": {
+                "desc": "",
+                "switch": {
+                    "desc": "",
+                    "pos": {
+                        "x": -92,
+                        "y": -24
+                    },
+                    "size": {
+                        "x": -92,
+                        "y": -24
+                    },
+                    "src": [
                         "./assets/ui/agent/img_daili_zi05.png",
                         "./assets/ui/agent/img_daili_zi010.png"
                     ],
-                    "sfx":"assets/raw/sfx_click.mp3",
-                    "bclick":{
-                        "value":false
+                    "sfx": "assets/raw/click.mp3",
+                    "bclick": {
+                        "value": false
                     }
                 }
             }
         },
         {
-            "desc":"",
-            "cmd":"mychildren",
-            "pos":{ "x":122, "y":148 },
-            "src":[
+            "desc": "",
+            "cmd": "mychildren",
+            "pos": {
+                "x": 122,
+                "y": 148
+            },
+            "src": [
                 "./assets/ui/agent/img_daili_anniudi.png"
             ],
-            "size":{ "w":244, "h":96 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/sfx_click.mp3",
-            "animationSp":{
-                "src":"./assets/ui/agent/btn_daili_xuanzhong.png",
-                "size":{
-                    "w":298,
-                    "h":110
+            "size": {
+                "w": 244,
+                "h": 96
+            },
+            "maxScale": {
+                "x": 1.02,
+                "y": 1.02
+            },
+            "normalScale": {
+                "x": 1,
+                "y": 1
+            },
+            "sfx": "assets/raw/click.mp3",
+            "animationSp": {
+                "src": "./assets/ui/agent/btn_daili_xuanzhong.png",
+                "size": {
+                    "w": 298,
+                    "h": 110
                 },
-                "pos":{
-                    "x":-122,
-                    "y":-55
+                "pos": {
+                    "x": -122,
+                    "y": -55
                 },
-                "posLeft":{
-                    "x":-132,
-                    "y":-55
+                "posLeft": {
+                    "x": -132,
+                    "y": -55
                 },
-                "duration":100,
-                "tweenName":"backIn",
-                "alpha":1,
-                "alphaLeft":0.5,
-                "animation":{
-                    "textPath":"./assets/ui/animation/agent/btn/btn.png",
-                    "animPath":"./assets/ui/animation/agent/btn/btn.sk",
-                    "playSpeed":1.0,
-                    "loop":true,
-                    "loopdelayX":1000,
-                    "pos":{ "x":149, "y":55 },
-                    "stopHide":{
-                        "value":false
+                "duration": 100,
+                "tweenName": "backIn",
+                "alpha": 1,
+                "alphaLeft": 0.5,
+                "animation": {
+                    "textPath": "./assets/ui/animation/agent/btn/btn.png",
+                    "animPath": "./assets/ui/animation/agent/btn/btn.sk",
+                    "playSpeed": 1.0,
+                    "loop": true,
+                    "loopdelayX": 1000,
+                    "pos": {
+                        "x": 149,
+                        "y": 55
+                    },
+                    "stopHide": {
+                        "value": false
                     }
                 }
             },
-            "frontsp":{
-                "desc":"",
-                "switch":{
-                    "desc":"",
-                    "pos":{ "x":-92, "y":-24 },
-                    "src":[
+            "frontsp": {
+                "desc": "",
+                "switch": {
+                    "desc": "",
+                    "pos": {
+                        "x": -92,
+                        "y": -24
+                    },
+                    "src": [
                         "./assets/ui/agent/img_daili_zi04.png",
                         "./assets/ui/agent/img_daili_zi09.png"
                     ],
-                    "sfx":"assets/raw/sfx_click.mp3",
-                    "bclick":{
-                        "value":false
+                    "sfx": "assets/raw/click.mp3",
+                    "bclick": {
+                        "value": false
                     }
                 }
             }
         },
         {
-            "desc":"",
-            "cmd":"myincome",
-            "pos":{ "x":122, "y":248 },
-            "src":[
+            "desc": "",
+            "cmd": "myincome",
+            "pos": {
+                "x": 122,
+                "y": 248
+            },
+            "src": [
                 "./assets/ui/agent/img_daili_anniudi.png"
             ],
-            "size":{ "w":244, "h":96 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/sfx_click.mp3",
-            "animationSp":{
-                "src":"./assets/ui/agent/btn_daili_xuanzhong.png",
-                "size":{
-                    "w":298,
-                    "h":110
+            "size": {
+                "w": 244,
+                "h": 96
+            },
+            "maxScale": {
+                "x": 1.02,
+                "y": 1.02
+            },
+            "normalScale": {
+                "x": 1,
+                "y": 1
+            },
+            "sfx": "assets/raw/click.mp3",
+            "animationSp": {
+                "src": "./assets/ui/agent/btn_daili_xuanzhong.png",
+                "size": {
+                    "w": 298,
+                    "h": 110
                 },
-                "pos":{
-                    "x":-122,
-                    "y":-55
+                "pos": {
+                    "x": -122,
+                    "y": -55
                 },
-                "posLeft":{
-                    "x":-132,
-                    "y":-55
+                "posLeft": {
+                    "x": -132,
+                    "y": -55
                 },
-                "duration":100,
-                "tweenName":"backIn",
-                "alpha":1,
-                "alphaLeft":0.5,
-                "animation":{
-                    "textPath":"./assets/ui/animation/agent/btn/btn.png",
-                    "animPath":"./assets/ui/animation/agent/btn/btn.sk",
-                    "playSpeed":1.0,
-                    "loop":true,
-                    "loopdelayX":1000,
-                    "pos":{ "x":149, "y":55 },
-                    "stopHide":{
-                        "value":false
+                "duration": 100,
+                "tweenName": "backIn",
+                "alpha": 1,
+                "alphaLeft": 0.5,
+                "animation": {
+                    "textPath": "./assets/ui/animation/agent/btn/btn.png",
+                    "animPath": "./assets/ui/animation/agent/btn/btn.sk",
+                    "playSpeed": 1.0,
+                    "loop": true,
+                    "loopdelayX": 1000,
+                    "pos": {
+                        "x": 149,
+                        "y": 55
+                    },
+                    "stopHide": {
+                        "value": false
                     }
                 }
             },
-            "frontsp":{
-                "desc":"",
-                "switch":{
-                    "desc":"",
-                    "pos":{ "x":-92, "y":-24 },
-                    "src":[
+            "frontsp": {
+                "desc": "",
+                "switch": {
+                    "desc": "",
+                    "pos": {
+                        "x": -92,
+                        "y": -24
+                    },
+                    "src": [
                         "./assets/ui/agent/img_daili_zi03.png",
                         "./assets/ui/agent/img_daili_zi08.png"
                     ],
-                    "sfx":"assets/raw/sfx_click.mp3",
-                    "bclick":{
-                        "value":false
+                    "sfx": "assets/raw/click.mp3",
+                    "bclick": {
+                        "value": false
                     }
                 }
             }
         },
         {
-            "desc":"",
-            "cmd":"invation",
-            "pos":{ "x":122, "y":348 },
-            "src":[
+            "desc": "",
+            "cmd": "invation",
+            "pos": {
+                "x": 122,
+                "y": 348
+            },
+            "src": [
                 "./assets/ui/agent/img_daili_anniudi.png"
             ],
-            "size":{ "w":244, "h":96 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/sfx_click.mp3",
-            "animationSp":{
-                "src":"./assets/ui/agent/btn_daili_xuanzhong.png",
-                "size":{
-                    "w":298,
-                    "h":110
+            "size": {
+                "w": 244,
+                "h": 96
+            },
+            "maxScale": {
+                "x": 1.02,
+                "y": 1.02
+            },
+            "normalScale": {
+                "x": 1,
+                "y": 1
+            },
+            "sfx": "assets/raw/click.mp3",
+            "animationSp": {
+                "src": "./assets/ui/agent/btn_daili_xuanzhong.png",
+                "size": {
+                    "w": 298,
+                    "h": 110
                 },
-                "pos":{
-                    "x":-122,
-                    "y":-55
+                "pos": {
+                    "x": -122,
+                    "y": -55
                 },
-                "posLeft":{
-                    "x":-132,
-                    "y":-55
+                "posLeft": {
+                    "x": -132,
+                    "y": -55
                 },
-                "duration":100,
-                "tweenName":"backIn",
-                "alpha":1,
-                "alphaLeft":0.5,
-                "animation":{
-                    "textPath":"./assets/ui/animation/agent/btn/btn.png",
-                    "animPath":"./assets/ui/animation/agent/btn/btn.sk",
-                    "playSpeed":1.0,
-                    "loop":true,
-                    "loopdelayX":1000,
-                    "pos":{ "x":149, "y":55 },
-                    "stopHide":{
-                        "value":false
+                "duration": 100,
+                "tweenName": "backIn",
+                "alpha": 1,
+                "alphaLeft": 0.5,
+                "animation": {
+                    "textPath": "./assets/ui/animation/agent/btn/btn.png",
+                    "animPath": "./assets/ui/animation/agent/btn/btn.sk",
+                    "playSpeed": 1.0,
+                    "loop": true,
+                    "loopdelayX": 1000,
+                    "pos": {
+                        "x": 149,
+                        "y": 55
+                    },
+                    "stopHide": {
+                        "value": false
                     }
                 }
             },
-            "frontsp":{
-                "desc":"",
-                "switch":{
-                    "desc":"",
-                    "pos":{ "x":-92, "y":-24 },
-                    "src":[
+            "frontsp": {
+                "desc": "",
+                "switch": {
+                    "desc": "",
+                    "pos": {
+                        "x": -92,
+                        "y": -24
+                    },
+                    "src": [
                         "./assets/ui/agent/img_daili_zi02.png",
                         "./assets/ui/agent/img_daili_zi07.png"
                     ],
-                    "sfx":"assets/raw/sfx_click.mp3",
-                    "bclick":{
-                        "value":false
+                    "sfx": "assets/raw/click.mp3",
+                    "bclick": {
+                        "value": false
                     }
                 }
             }
         },
         {
-            "desc":"",
-            "cmd":"agentdesc",
-            "pos":{ "x":122, "y":448 },
-            "src":[
+            "desc": "",
+            "cmd": "agentdesc",
+            "pos": {
+                "x": 122,
+                "y": 448
+            },
+            "src": [
                 "./assets/ui/agent/img_daili_anniudi.png"
             ],
-            "size":{ "w":244, "h":96 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/sfx_click.mp3",
-            "animationSp":{
-                "src":"./assets/ui/agent/btn_daili_xuanzhong.png",
-                "size":{
-                    "w":298,
-                    "h":110
+            "size": {
+                "w": 244,
+                "h": 96
+            },
+            "maxScale": {
+                "x": 1.02,
+                "y": 1.02
+            },
+            "normalScale": {
+                "x": 1,
+                "y": 1
+            },
+            "sfx": "assets/raw/click.mp3",
+            "animationSp": {
+                "src": "./assets/ui/agent/btn_daili_xuanzhong.png",
+                "size": {
+                    "w": 298,
+                    "h": 110
                 },
-                "pos":{
-                    "x":-122,
-                    "y":-55
+                "pos": {
+                    "x": -122,
+                    "y": -55
                 },
-                "posLeft":{
-                    "x":-132,
-                    "y":-55
+                "posLeft": {
+                    "x": -132,
+                    "y": -55
                 },
-                "duration":100,
-                "tweenName":"backIn",
-                "alpha":1,
-                "alphaLeft":0.5,
-                "animation":{
-                    "textPath":"./assets/ui/animation/agent/btn/btn.png",
-                    "animPath":"./assets/ui/animation/agent/btn/btn.sk",
-                    "playSpeed":1.0,
-                    "loop":true,
-                    "loopdelayX":1000,
-                    "pos":{ "x":149, "y":55 },
-                    "stopHide":{
-                        "value":false
+                "duration": 100,
+                "tweenName": "backIn",
+                "alpha": 1,
+                "alphaLeft": 0.5,
+                "animation": {
+                    "textPath": "./assets/ui/animation/agent/btn/btn.png",
+                    "animPath": "./assets/ui/animation/agent/btn/btn.sk",
+                    "playSpeed": 1.0,
+                    "loop": true,
+                    "loopdelayX": 1000,
+                    "pos": {
+                        "x": 149,
+                        "y": 55
+                    },
+                    "stopHide": {
+                        "value": false
                     }
                 }
             },
-            "frontsp":{
-                "desc":"",
-                "switch":{
-                    "desc":"",
-                    "pos":{ "x":-92, "y":-24 },
-                    "src":[
+            "frontsp": {
+                "desc": "",
+                "switch": {
+                    "desc": "",
+                    "pos": {
+                        "x": -92,
+                        "y": -24
+                    },
+                    "src": [
                         "./assets/ui/agent/img_daili_zi01.png",
                         "./assets/ui/agent/img_daili_zi06.png"
                     ],
-                    "sfx":"assets/raw/sfx_click.mp3",
-                    "bclick":{
-                        "value":false
+                    "sfx": "assets/raw/click.mp3",
+                    "bclick": {
+                        "value": false
                     }
                 }
             }

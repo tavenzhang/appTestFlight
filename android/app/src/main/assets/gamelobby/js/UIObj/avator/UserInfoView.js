@@ -4,7 +4,8 @@
 */
 var userData = {
     avatarSkinId: "",
-    role: ""
+    role: "",
+    prizeGroup: 0
 };
 var UserInfoView = /** @class */ (function () {
     function UserInfoView(view) {
@@ -44,9 +45,6 @@ var UserInfoView = /** @class */ (function () {
     UserInfoView.prototype.requestInfo = function () {
         TempData.bRequestStatus = 1;
         var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.userinfobalance + "?access_token=" + Common.access_token;
-        if (!this.isFlushMoney) {
-            LayaMain.getInstance().showCircleLoading();
-        }
         var header = [
             // "Content-Type","application/json",
             // "Accept","*/*"
@@ -58,10 +56,12 @@ var UserInfoView = /** @class */ (function () {
         if (stat == "complete") {
             Common.userInfo = s;
             Common.setLoginPlatform(s.loginPlatform);
-            var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.avatorget + "?access_token=" + Common.access_token;
-            this.requestUserAvator(url);
+            this.requestUserInfoCurrent(Common.access_token);
             if (s.userRole) {
                 userData.role = s.userRole;
+            }
+            if (s.prizeGroup) {
+                userData.prizeGroup = s.prizeGroup;
             }
             EventManager.dispath(EventType.FLUSH_AGENCYBTN);
         }
@@ -70,8 +70,25 @@ var UserInfoView = /** @class */ (function () {
             Debug.trace("Avator.responseUserInfo bRequestStatus:" + TempData.bRequestStatus);
         }
     };
+    UserInfoView.prototype.requestUserInfoCurrent = function (token) {
+        var url = ConfObjRead.getConfUrl().url.apihome +
+            ConfObjRead.getConfUrl().cmd.userinfo +
+            "?access_token=" + token;
+        NetManager.getObj().HttpConnect(url, this, this.responseUserInfoCurrent);
+    };
+    UserInfoView.prototype.responseUserInfoCurrent = function (s, stat, hr) {
+        if (stat == "complete") {
+            Common.userInfo_current = s;
+            this.requestUserAvator(ConfObjRead.getConfUrl().url.apihome +
+                ConfObjRead.getConfUrl().cmd.avatorget +
+                "?access_token=" + Common.access_token);
+        }
+        else {
+            TempData.bRequestStatus = -1;
+            Debug.trace("Avator.responseUserInfoCurrent bRequestStatus:" + TempData.bRequestStatus);
+        }
+    };
     UserInfoView.prototype.requestUserAvator = function (url) {
-        LayaMain.getInstance().showCircleLoading();
         var header = [
             // "Content-Type","application/json",
             // "Accept","*/*"
@@ -80,8 +97,6 @@ var UserInfoView = /** @class */ (function () {
         NetManager.getObj().HttpConnect(url, this, this.responseUserAvator, header, null, "get", "json");
     };
     UserInfoView.prototype.responseUserAvator = function (s, stat, hr) {
-        Debug.trace("Avator.responseUserAvator stat:" + stat);
-        Debug.trace(s);
         if (stat == "complete") {
             Common.userInfo.avatorInfo = s;
             var tempId = Common.userInfo.avatorInfo.avatar;
@@ -93,11 +108,10 @@ var UserInfoView = /** @class */ (function () {
             var aId = SaveManager.getObj().get(SaveManager.KEY_AVATOR_ID, tempId);
             this.readUserInfo(Common.userInfo);
             TempData.bRequestStatus = 0;
-            LayaMain.getInstance().requestEnd(stat, "");
         }
         else {
             TempData.bRequestStatus = -1;
-            LayaMain.getInstance().requestEnd(stat, s);
+            Toast.showToast(s);
         }
     };
     UserInfoView.prototype.readUserInfo = function (data) {
@@ -111,13 +125,9 @@ var UserInfoView = /** @class */ (function () {
     };
     //金币视图
     UserInfoView.prototype.initGoldView = function () {
-        var vo = new AnimVo();
-        vo.textPath = "./assets/ui/animation/coins/money_icon.png";
-        vo.animPath = "./assets/ui/animation/coins/money_icon.sk";
-        var anim = new MyBoneAnim();
-        anim.init(vo);
-        this.view.goldAnim.addChild(anim);
-        anim.playAnim(0, true);
+        this.goldAnim = new DragonBoneAnim();
+        this.goldAnim.loadInit({ skUrl: "./assets/ui/animation/coins/money_icon.sk" });
+        this.view.goldAnim.addChild(this.goldAnim);
         this.view.addBtn.visible = !AppData.isAndroidHack;
         //充值
         EventManager.addTouchScaleListener(this.view.addBtn, this, function () {
@@ -134,6 +144,10 @@ var UserInfoView = /** @class */ (function () {
         EventManager.removeEvent(EventType.FLUSH_USERINFO, this, this.flushUserInfo);
         EventManager.removeEvent(EventType.FLUSH_HEADICON, this, this.flushHeadIcon);
         EventManager.removeAllEvents(this);
+        if (this.goldAnim) {
+            this.goldAnim.destroy();
+            this.goldAnim = null;
+        }
     };
     return UserInfoView;
 }());
