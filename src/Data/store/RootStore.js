@@ -11,6 +11,7 @@ import UserPayTypeStore from "./UserPayTypeStore";
 import UserAccountStore from "./UserAccountStore";
 import UserWithdrawStore from "./UserWithdrawStore";
 import GameUIStroe from "./GameUIStroe";
+import GameUpateStore from "./GameUpateStore";
 //中央store 整合app 状态 需要多页面共享数据的store 请放在此处 方便注入 以及调用。
 class RootStore {
     constructor() {
@@ -25,7 +26,7 @@ class RootStore {
         this.userAccountStore=new UserAccountStore();
         this.userWithdrawStore= new UserWithdrawStore();
         this.gameUIStroe=new GameUIStroe();
-
+        this.gameUpateStore=new GameUpateStore()
     }
 }
 

@@ -58,6 +58,7 @@ export default class BaseGameAlert extends Component {
 
             <TCImage source={accountType==0 ? ASSET_Images.gameUI.txmxTip:ASSET_Images.gameUI.czmxTip} style={{position: "absolute", bottom:10,left:30}} />
             <TCButtonImg imgSource={ASSET_Images.gameUI.onlineService} btnStyle={{position: "absolute", bottom:5,right:20}}
+                         soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                          onClick={()=>{
                              TW_Store.gameUIStroe.showGusetView();
                              if(onClose){

@@ -45,10 +45,11 @@ export default class GameMoneyOutView extends Component {
             <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W, height:SCREEN_H}} resizeMode={'stretch'}/>
             <TCImage source={ASSET_Images.gameUI.titleMoneyOut} style={{position: "absolute",width:SCREEN_W*0.1,height:SCREEN_H*0.06,left:SCREEN_W*0.11,top:SCREEN_H*0.05 - 5}} resizeMode={'contain'}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.payBack}
-                         soundName={TW_Store.bblStore.SOUND_ENUM.close}
+                         soundName={TW_Store.bblStore.SOUND_ENUM.returnLobbyClick}
                          onClick={() => TW_Store.gameUIStroe.isShowWithDraw = false}
                          btnStyle={{position: "absolute", right: 16, top: 7,}} />
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnOut}
+                         soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                          btnStyle={{position: "absolute", right: SCREEN_W*0.15, top: 10}}  onClick={()=>TW_Store.gameUIStroe.showTiXianDetail() }
             />
             <TCImage source={ASSET_Images.gameUI.payTypeBg} style={{position: "absolute",top:SCREEN_H*0.14,left:0}} />
@@ -72,11 +73,11 @@ export default class GameMoneyOutView extends Component {
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.31, top: SCREEN_H*0.34}}
                     textStyle={{color: "#fffff1",fontSize:20}} text={'有效投注:'}/>
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.44, top: SCREEN_H*0.34}}
-                    textStyle={{color: "#ffde00",fontSize:20}} text={this.userWithdrawStore.withdrawModel.aggregateBets}/>
+                    textStyle={{color: "#ffde00",fontSize:20}} text={this.userWithdrawStore.withdrawModel.aggregateBets.toFixed(2)}/>
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.60, top: SCREEN_H*0.34}}
                     textStyle={{color: "#fffff1",fontSize:20}} text={'还需投注:'}/>
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.74, top: SCREEN_H*0.34}}
-                    textStyle={{color: "#ffde00",fontSize:20,  textAlign: "left"}} text={num}/>
+                    textStyle={{color: "#ffde00",fontSize:20,  textAlign: "left"}} text={num.toFixed(2)}/>
 
 
             <TCImage source={ASSET_Images.gameUI.inputMoneyBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H * 0.61,width:SCREEN_W*0.6,height:60,left: SCREEN_W*0.29,}}/>
@@ -91,6 +92,7 @@ export default class GameMoneyOutView extends Component {
                     textStyle={{color: "#fffff1",fontSize:20}} text={'收款银行:'}/>
             {
                 (!this.userWithdrawStore.bank.bankCardNo||!this.userWithdrawStore.bank.bankCardNo.length) ?<TCButtonImg imgSource={ASSET_Images.gameUI.bankBtn}
+                                                                                                                        soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                              btnStyle={{position: "absolute",top:SCREEN_H * 0.46+2,left: SCREEN_W*0.44}}  onClick={()=>{
                     TW_Store.gameUIStroe.isShowUserInfo = true;
                 }}

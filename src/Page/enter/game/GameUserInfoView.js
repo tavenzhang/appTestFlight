@@ -36,7 +36,6 @@ export default class GameUserInfoView extends Component {
             isShowPhone: false,
             phoneNum: "",
         }
-
     }
 
     // componentWillUpdate(nextProps, nextState, nextContext: any): void {
@@ -69,7 +68,7 @@ export default class GameUserInfoView extends Component {
         TW_Log("TW_Store.userStore.phoneNumber--",this.state);
 
         let realName = TW_Store.userStore.realName;
-        let isHaveCard = realName && realName.length > 0;
+        let isHaveCard =this.bankStore.bankInfo.accountNum&&this.bankStore.bankInfo.accountNum.length > 0;
         let pickDataList = [];
         this.bankStore.bankList.bankCodes.map((item, index) => {
             pickDataList.push({name: this.bankStore.bankList.bankNames[index], value: item})
@@ -100,6 +99,7 @@ export default class GameUserInfoView extends Component {
             {isHaveCard ?  <View style={{position: "absolute", right: 150, top: 270}}>
                 <Text style={{color:"#9cc5d8", fontWeight:"bold", fontSize:14}}>如需修改银行卡信息,请联系客服!</Text>
             </View>:<TCButtonImg imgSource={ASSET_Images.gameUI.btnOk}
+                                 soundName={TW_Store.bblStore.SOUND_ENUM.click}
                                         btnStyle={{position: "absolute", right: 200, top: 260}} onClick={this.onAddBank}/>}
 
             { isHaveCard ? null:<TCButtonImg onClick={() => {
@@ -238,6 +238,7 @@ export default class GameUserInfoView extends Component {
                              inputStyle={[styles.inputStyle, {fontSize: 16,}]} placeholderTextColor={"#9cc5d8"}/>
             </View>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnOk}
+                         soundName={TW_Store.bblStore.SOUND_ENUM.click}
                          btnStyle={{position: "absolute", right: 200, top: 260}} onClick={this.registerPhoneInfo}/>
         </View>)
     }

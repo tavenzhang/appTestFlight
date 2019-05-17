@@ -36,6 +36,7 @@ export default class BtnPayType extends Component {
                     }}>
                         <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center",}}>
                             <TCImage source={this.getPayTypeIcon(data.code)}
+                                     soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                      style={{marginRight: 5}}/>
                             {/*<View style={{justifyContent:"center", alignItems:"center"}}>*/}
                             {/*<TCImage source={this.getPayName(data.code)}/>*/}
@@ -51,7 +52,7 @@ export default class BtnPayType extends Component {
     onSelect = () => {
         let {onClick,data} = this.props
         if (onClick) {
-            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.sfx_click);
+            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick);
             onClick(data)
         }
     }
