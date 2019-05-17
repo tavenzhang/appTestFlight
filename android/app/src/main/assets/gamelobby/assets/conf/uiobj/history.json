@@ -1,228 +1,316 @@
 {
-    "pos":{ "x":0, "y":0 },
-    "size":{ "desc":"", "w":1334, "h":750 },
-    "bg":{
-        "desc":"",
-        "src":"./assets/ui/dialog/img_touxiang_dadi.png",
-        "pos":{ "x":139.5, "y":53 }
+    "pos": {
+        "x": 0,
+        "y": 0
     },
-    "mask":{ "desc":"", "alpha":0.6 },
-    "title":{
-        "lb":{
-            "desc":"",
-            "src":"./assets/ui/history/titleName.png",
-            "pos":{ "x":580, "y":76 }
+    "size": {
+        "desc": "",
+        "w": 1334,
+        "h": 750
+    },
+    "bg": {
+        "desc": "",
+        "src": "./assets/ui/dialog/img_touxiang_dadi.png",
+        "pos": {
+            "x": 139.5,
+            "y": 53
         }
     },
-    "close":{
-        "desc":"",
-        "pos":{ "x":1167, "y":84 },
-        "src":[
+    "mask": {
+        "desc": "",
+        "alpha": 0.6
+    },
+    "title": {
+        "lb": {
+            "desc": "",
+            "src": "./assets/ui/history/titleName.png",
+            "pos": {
+                "x": 580,
+                "y": 76
+            }
+        }
+    },
+    "close": {
+        "desc": "",
+        "pos": {
+            "x": 1167,
+            "y": 84
+        },
+        "src": [
             "./assets/ui/dialog/btn_touxiang_guangbi.png"
         ],
-        "size":{ "w":76, "h":77 },
-        "sfx":"assets/raw/sfx_click.mp3",
-        "maxScale":{ "x":1.05,"y":1.05},
-        "normalScale":{ "x":1.0,"y":1.0}
-    },
-    "tablehead":{
-        "desc":"",
-        "bg":{
-            "src":"./assets/ui/history/titleTable.png",
-            "pos":{ "x":180, "y":140 }
+        "size": {
+            "w": 76,
+            "h": 77
+        },
+        "sfx": "assets/raw/click.mp3",
+        "maxScale": {
+            "x": 1.05,
+            "y": 1.05
+        },
+        "normalScale": {
+            "x": 1.0,
+            "y": 1.0
         }
     },
-    "contentbg":{
-        "src":"./assets/ui/history/bgContent.png",
-        "pos":{ "x":180, "y":140 }
-    },
-    "content":{
-        "desc":"",
-        "pos":{ "x":180, "y":215 }
-    },
-    "ctmask":{
-        "desc":"",
-        "rect":{ "desc":"", "x":0, "y":-20, "w":972, "h":415 },
-        "colorX":"ff0000"
-    },
-    "empty":{
-        "desc":"",
-        "size":{ "w":200, "h":50 },
-        "pos":{ "x":580, "y":350 },
-        "font":{
-            "text":"无记录",
-            "borderColorX":"#ff0000",
-            "color":"#9169c9",
-            "size":30,
-            "name":"x",
-            "align":"center",
-            "valign":"top",
-            "wrap":false
+    "tablehead": {
+        "desc": "",
+        "bg": {
+            "src": "./assets/ui/history/titleTable.png",
+            "pos": {
+                "x": 180,
+                "y": 140
+            }
         }
     },
-    "bottomhint":{
-        "desc":"",
-        "pos":{ "x":0, "y":650 },
-        "size":{ "w":1334, "h":25 },
-        "count":10,
-        "font":{
-            "text":"txt_showhistory_hint",
-            "borderColorX":"#ff0000",
-            "color":"#9169c9",
-            "size":14,
-            "name":"x",
-            "align":"center",
-            "valign":"top",
-            "wrap":false
+    "contentbg": {
+        "src": "./assets/ui/history/bgContent.png",
+        "pos": {
+            "x": 180,
+            "y": 140
         }
     },
-    
-    "touchout":{
-        "desc":"",
-        "value":false
+    "content": {
+        "desc": "",
+        "pos": {
+            "x": 180,
+            "y": 215
+        }
     },
-    "item":{
-        "id":{
-            "desc":"",
-            "pos":{ "x":0, "y":0 },
-            "size":{ "w":80, "h":30 },
-            "font":{
-                "borderColorX":"#ff0000",
-                "color":"#9cc5d8",
-                "size":24,
-                "name":"x",
-                "align":"center",
-                "valign":"top",
-                "wrap":false
-            }
+    "ctmask": {
+        "desc": "",
+        "rect": {
+            "desc": "",
+            "x": 0,
+            "y": -20,
+            "w": 972,
+            "h": 415
         },
-        "gameid":{
-            "desc":"",
-            "pos":{ "x":80, "y":0 },
-            "size":{ "w":290, "h":30 },
-            "font":{
-                "borderColorX":"#fff000",
-                "color":"#efe8cd",
-                "size":24,
-                "name":"x",
-                "align":"center",
-                "valign":"middle",
-                "wrap":false,
-                "underline":false
-            }
-        },
-        "room":{
-            "desc":"",
-            "pos":{ "x":370, "y":0 },
-            "size":{ "w":120, "h":30 },
-            "font":{
-                "borderColorX":"#ff00ff",
-                "color":"#9cc5d8",
-                "size":24,
-                "name":"x",
-                "align":"center",
-                "valign":"top",
-                "wrap":false
-            }
-        },
-        "earn":{
-            "desc":"",
-            "pos":{ "x":495, "y":0 },
-            "size":{ "w":160, "h":30 },
-            "font":{
-                "pretext":"+",
-                "pretextReduce":"-",
-                "borderColorX":"#fffff0",
-                "color":"#9ed018",
-                "colorReduce":"#df4218",
-                "size":24,
-                "name":"x",
-                "align":"center",
-                "valign":"top",
-                "wrap":false
-            }
-        },
-        "endtime":{
-            "desc":"",
-            "pos":{ "x":655, "y":0 },
-            "size":{ "w":315, "h":30 },
-            "font":{
-                "borderColorX":"#000000",
-                "color":"#9cc5d8",
-                "size":24,
-                "name":"x",
-                "align":"center",
-                "valign":"top",
-                "wrap":false
-            }
-        },
-        "size":{ "w":0, "h":40, "gh":10 }
+        "colorX": "ff0000"
     },
-    "testitemlenX":100,
-    "testData":{
-        "desc":"",
-        "stat":"complete",
-        "totalCount":10,
-        "datas":[
+    "empty": {
+        "desc": "",
+        "size": {
+            "w": 200,
+            "h": 50
+        },
+        "pos": {
+            "x": 580,
+            "y": 350
+        },
+        "font": {
+            "text": "无记录",
+            "borderColorX": "#ff0000",
+            "color": "#9169c9",
+            "size": 30,
+            "name": "x",
+            "align": "center",
+            "valign": "top",
+            "wrap": false
+        }
+    },
+    "bottomhint": {
+        "desc": "",
+        "pos": {
+            "x": 0,
+            "y": 650
+        },
+        "size": {
+            "w": 1334,
+            "h": 25
+        },
+        "count": 10,
+        "font": {
+            "text": "txt_showhistory_hint",
+            "borderColorX": "#ff0000",
+            "color": "#9169c9",
+            "size": 14,
+            "name": "x",
+            "align": "center",
+            "valign": "top",
+            "wrap": false
+        }
+    },
+    "touchout": {
+        "desc": "",
+        "value": false
+    },
+    "item": {
+        "id": {
+            "desc": "",
+            "pos": {
+                "x": 0,
+                "y": 0
+            },
+            "size": {
+                "w": 80,
+                "h": 30
+            },
+            "font": {
+                "borderColorX": "#ff0000",
+                "color": "#9cc5d8",
+                "size": 24,
+                "name": "x",
+                "align": "center",
+                "valign": "top",
+                "wrap": false
+            }
+        },
+        "gameid": {
+            "desc": "",
+            "pos": {
+                "x": 80,
+                "y": 0
+            },
+            "size": {
+                "w": 290,
+                "h": 30
+            },
+            "font": {
+                "borderColorX": "#fff000",
+                "color": "#efe8cd",
+                "size": 24,
+                "name": "x",
+                "align": "center",
+                "valign": "middle",
+                "wrap": false,
+                "underline": false
+            }
+        },
+        "room": {
+            "desc": "",
+            "pos": {
+                "x": 370,
+                "y": 0
+            },
+            "size": {
+                "w": 120,
+                "h": 30
+            },
+            "font": {
+                "borderColorX": "#ff00ff",
+                "color": "#9cc5d8",
+                "size": 24,
+                "name": "x",
+                "align": "center",
+                "valign": "top",
+                "wrap": false
+            }
+        },
+        "earn": {
+            "desc": "",
+            "pos": {
+                "x": 495,
+                "y": 0
+            },
+            "size": {
+                "w": 160,
+                "h": 30
+            },
+            "font": {
+                "pretext": "+",
+                "pretextReduce": "-",
+                "borderColorX": "#fffff0",
+                "color": "#9ed018",
+                "colorReduce": "#df4218",
+                "size": 24,
+                "name": "x",
+                "align": "center",
+                "valign": "top",
+                "wrap": false
+            }
+        },
+        "endtime": {
+            "desc": "",
+            "pos": {
+                "x": 655,
+                "y": 0
+            },
+            "size": {
+                "w": 315,
+                "h": 30
+            },
+            "font": {
+                "borderColorX": "#000000",
+                "color": "#9cc5d8",
+                "size": 24,
+                "name": "x",
+                "align": "center",
+                "valign": "top",
+                "wrap": false
+            }
+        },
+        "size": {
+            "w": 0,
+            "h": 40,
+            "gh": 10
+        }
+    },
+    "testitemlenX": 100,
+    "testData": {
+        "desc": "",
+        "stat": "complete",
+        "totalCount": 10,
+        "datas": [
             {
-                "orderNo":"123",
-                "roomName":"asdassad",
-                "amount":45654,
-                "endTime":1234567784
+                "orderNo": "123",
+                "roomName": "asdassad",
+                "amount": 45654,
+                "endTime": 1234567784
             },
             {
-                "orderNo":"123",
-                "roomName":"asdassad",
-                "amount":45654,
-                "endTime":1234567784
+                "orderNo": "123",
+                "roomName": "asdassad",
+                "amount": 45654,
+                "endTime": 1234567784
             },
             {
-                "orderNo":"123",
-                "roomName":"asdassad",
-                "amount":45654,
-                "endTime":1234567784
+                "orderNo": "123",
+                "roomName": "asdassad",
+                "amount": 45654,
+                "endTime": 1234567784
             },
             {
-                "orderNo":"123",
-                "roomName":"asdassad",
-                "amount":45654,
-                "endTime":1234567784
+                "orderNo": "123",
+                "roomName": "asdassad",
+                "amount": 45654,
+                "endTime": 1234567784
             },
             {
-                "orderNo":"123",
-                "roomName":"asdassad",
-                "amount":45654,
-                "endTime":1234567784
+                "orderNo": "123",
+                "roomName": "asdassad",
+                "amount": 45654,
+                "endTime": 1234567784
             },
             {
-                "orderNo":"123",
-                "roomName":"asdassad",
-                "amount":45654,
-                "endTime":1234567784
+                "orderNo": "123",
+                "roomName": "asdassad",
+                "amount": 45654,
+                "endTime": 1234567784
             },
             {
-                "orderNo":"123",
-                "roomName":"asdassad",
-                "amount":45654,
-                "endTime":1234567784
+                "orderNo": "123",
+                "roomName": "asdassad",
+                "amount": 45654,
+                "endTime": 1234567784
             },
             {
-                "orderNo":"123",
-                "roomName":"asdassad",
-                "amount":45654,
-                "endTime":1234567784
+                "orderNo": "123",
+                "roomName": "asdassad",
+                "amount": 45654,
+                "endTime": 1234567784
             },
             {
-                "orderNo":"123",
-                "roomName":"asdassad",
-                "amount":45654,
-                "endTime":1234567784
+                "orderNo": "123",
+                "roomName": "asdassad",
+                "amount": 45654,
+                "endTime": 1234567784
             },
             {
-                "orderNo":"123",
-                "roomName":"asdassad",
-                "amount":45654,
-                "endTime":1234567784
+                "orderNo": "123",
+                "roomName": "asdassad",
+                "amount": 45654,
+                "endTime": 1234567784
             }
         ]
     }

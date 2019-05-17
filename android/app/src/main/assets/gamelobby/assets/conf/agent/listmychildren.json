@@ -1,134 +1,182 @@
 {
-    "list":{
-        "pos":{
-            "x":36,
-            "y":150
+    "list": {
+        "pos": {
+            "x": 36,
+            "y": 150
         },
-        "size":{
-            "w":1010,
-            "h":450
+        "size": {
+            "w": 1010,
+            "h": 450
         },
-        "frameX":{
-            "color":"#ff0000",
-            "alpha":0.5
+        "frameX": {
+            "color": "#ff0000",
+            "alpha": 0.5
         },
-        "item":{
-            "h":50,
-            "gh":10,
-            "bg":{
-                "src":"./assets/ui/agent/img_daili_tiaodibian02.png",
-                "pos":{
-                    "x":0,
-                    "y":0
+        "item": {
+            "h": 50,
+            "gh": 10,
+            "bg": {
+                "src": "./assets/ui/agent/img_daili_tiaodibian02.png",
+                "pos": {
+                    "x": 0,
+                    "y": 0
                 },
-                "colorX":"#ff0000",
-                "alpha":0.1
+                "colorX": "#ff0000",
+                "alpha": 0.1
             }
         },
-        "guanxing":true,
-        "xiangpiDis":0,
-        "xiangpiTime":300,
-        "btnmodify":{
-            "cmd":"modify",
-            "pos":{ "x":970.5, "y":23 },
-            "src":[
+        "guanxing": true,
+        "xiangpiDis": 0,
+        "xiangpiTime": 300,
+        "btnmodify": {
+            "cmd": "modify",
+            "pos": {
+                "x": 970.5,
+                "y": 23
+            },
+            "src": [
                 "./assets/ui/agent/btn_daili_xiugai.png"
             ],
-            "size":{ "w":71, "h":34 },
-            "maxScale":{"x":1.02,"y":1.02},
-            "normalScale":{"x":1,"y":1},
-            "sfx":"assets/raw/sfx_click.mp3"
+            "size": {
+                "w": 71,
+                "h": 34
+            },
+            "maxScale": {
+                "x": 1.02,
+                "y": 1.02
+            },
+            "normalScale": {
+                "x": 1,
+                "y": 1
+            },
+            "sfx": "assets/raw/click.mp3"
         }
     },
-    "items":[
+    "items": [
         {
-            "data":"username",
-            "pos":{ "x":0, "y":0 },
-            "size":{ "w":170, "h":50 },
-            "font":{
-                "text":"玩家名字",
-                "borderColorX":"#ff0000",
-                "color":"#9cc5d8",
-                "size":26,
-                "name":"x",
-                "align":"left",
-                "valign":"middle",
-                "wrap":false
+            "data": "username",
+            "pos": {
+                "x": 0,
+                "y": 0
+            },
+            "size": {
+                "w": 170,
+                "h": 50
+            },
+            "font": {
+                "text": "玩家名字",
+                "borderColorX": "#ff0000",
+                "color": "#9cc5d8",
+                "size": 26,
+                "name": "x",
+                "align": "left",
+                "valign": "middle",
+                "wrap": false
             }
         },
         {
-            "data":"usertype",
-            "pos":{ "x":175, "y":0 },
-            "size":{ "w":75, "h":50 },
-            "font":{
-                "text":"代理",
-                "borderColorX":"#ff0000",
-                "color":"#9cc5d8",
-                "size":26,
-                "name":"x",
-                "align":"center",
-                "valign":"middle",
-                "wrap":false
+            "data": "usertype",
+            "pos": {
+                "x": 175,
+                "y": 0
+            },
+            "size": {
+                "w": 75,
+                "h": 50
+            },
+            "font": {
+                "text": "代理",
+                "borderColorX": "#ff0000",
+                "color": "#9cc5d8",
+                "size": 26,
+                "name": "x",
+                "align": "center",
+                "valign": "middle",
+                "wrap": false
             }
         },
         {
-            "data":"income",
-            "pos":{ "x":250, "y":0 },
-            "size":{ "w":220, "h":50 },
-            "font":{
-                "text":"999999999",
-                "borderColorX":"#ff0000",
-                "color":"#ffba25",
-                "size":26,
-                "name":"x",
-                "align":"center",
-                "valign":"middle",
-                "wrap":false
+            "data": "income",
+            "pos": {
+                "x": 250,
+                "y": 0
+            },
+            "size": {
+                "w": 220,
+                "h": 50
+            },
+            "font": {
+                "text": "999999999",
+                "borderColorX": "#ff0000",
+                "color": "#ffba25",
+                "size": 26,
+                "name": "x",
+                "align": "center",
+                "valign": "middle",
+                "wrap": false
             }
         },
         {
-            "data":"teamincome",
-            "pos":{ "x":470, "y":0 },
-            "size":{ "w":225, "h":50 },
-            "font":{
-                "text":"999999999",
-                "borderColorX":"#ff0000",
-                "color":"#ffba25",
-                "size":26,
-                "name":"x",
-                "align":"center",
-                "valign":"middle",
-                "wrap":false
+            "data": "teamincome",
+            "pos": {
+                "x": 470,
+                "y": 0
+            },
+            "size": {
+                "w": 225,
+                "h": 50
+            },
+            "font": {
+                "text": "999999999",
+                "borderColorX": "#ff0000",
+                "color": "#ffba25",
+                "size": 26,
+                "name": "x",
+                "align": "center",
+                "valign": "middle",
+                "wrap": false
             }
         },
         {
-            "data":"childrennum",
-            "pos":{ "x":695, "y":0 },
-            "size":{ "w":120, "h":50 },
-            "font":{
-                "text":"99999",
-                "borderColorX":"#ff0000",
-                "color":"#9cc5d8",
-                "size":26,
-                "name":"x",
-                "align":"center",
-                "valign":"middle",
-                "wrap":false
+            "data": "childrennum",
+            "pos": {
+                "x": 695,
+                "y": 0
+            },
+            "size": {
+                "w": 120,
+                "h": 50
+            },
+            "font": {
+                "text": "99999",
+                "borderColorX": "#ff0000",
+                "color": "#9cc5d8",
+                "size": 26,
+                "name": "x",
+                "align": "center",
+                "valign": "middle",
+                "wrap": false
             }
         },
         {
-            "data":"teamnum",
-            "pos":{ "x":815, "y":0 },
-            "size":{ "w":120, "h":50 },
-            "font":{
-                "text":"99999",
-                "borderColorX":"#ff0000",
-                "color":"#9cc5d8",
-                "size":26,
-                "name":"x",
-                "align":"center",
-                "valign":"middle",
-                "wrap":false
+            "data": "teamnum",
+            "pos": {
+                "x": 815,
+                "y": 0
+            },
+            "size": {
+                "w": 120,
+                "h": 50
+            },
+            "font": {
+                "text": "99999",
+                "borderColorX": "#ff0000",
+                "color": "#9cc5d8",
+                "size": 26,
+                "name": "x",
+                "align": "center",
+                "valign": "middle",
+                "wrap": false
             }
         }
     ]

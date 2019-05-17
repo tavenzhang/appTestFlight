@@ -134,8 +134,7 @@ var RoomPanel = /** @class */ (function (_super) {
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.gamelist +
             "?pageSize=20&start=0&access_token=" + Common.access_token +
-            "&channel=" +
-            ConfObjRead.getConfVersion().channel +
+            "&channel=" + TempData.channel +
             "&device=" + Common.getLoginPlatform() +
             "&jump=" + Common.bNewlogin;
         NetManager.getObj().HttpConnect(url, this, this.responseGameListData);

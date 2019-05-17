@@ -51,17 +51,11 @@ var LobbyScene = /** @class */ (function (_super) {
         // RunningMsg.getInstance(this,"./assets/conf/scrollmsg/runningmsg.json",msgUrl,null,this.runningmsgOver);
         //底部菜单
         // MineMenus.getInstance(this,ConfObjRead.getConfMinemenus());
-        if (ConfObjRead.getConfAttention().bAutoShowInLobby) {
-            // this.requestPop();//临时屏蔽
-            // Debug.trace("LobbyScene.initUI auto");
-            // AttentionDialog.showPad(this, ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_AUTO);
-            // Laya.timer.once(1500, this, view.dlg.NoticeDlg.show, [AttentionDialog.TYPE_OPEN_AUTO]);
-        }
+        this.requestPop();
         this.view = new view.LobbyView();
         this.addChild(this.view);
     };
     LobbyScene.prototype.requestPop = function () {
-        LayaMain.getInstance().showCircleLoading();
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.attention_pop +
             "?access_token=" + Common.access_token;
@@ -77,14 +71,10 @@ var LobbyScene = /** @class */ (function (_super) {
             return;
         }
         LobbyScene.IS_PLAYED_MUSIC = true;
-        Laya.loader.load([{ url: ConfObjRead.getConfMusic().src }], new Laya.Handler(this, function () {
-            // Debug.trace( "player bg music" );
-            // Laya.timer.once( 3000 , this , ()=>{
-            //     Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
-            // } );
+        Laya.loader.load([{ url: ResConfig.musicUrl }], new Laya.Handler(this, function () {
             if (SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1) >= 1) //开关
              {
-                Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
+                Laya.SoundManager.playMusic(ResConfig.musicUrl);
             }
         }));
     };
@@ -98,6 +88,7 @@ var LobbyScene = /** @class */ (function (_super) {
     LobbyScene.prototype.gamepanelOver = function () {
     };
     LobbyScene.prototype.onLoaded = function (s) {
+        Common.access_token = SaveManager.getObj().get(SaveManager.KEY_TOKEN, "");
         if (!Common.access_token) {
             LayaMain.getInstance().initLogin();
             return;

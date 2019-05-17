@@ -16,6 +16,20 @@ var AgentSideTab = /** @class */ (function (_super) {
     function AgentSideTab() {
         return _super.call(this) || this;
     }
+    AgentSideTab.prototype.init = function ($image) {
+        this.tab_on = $image.getChildByName("tab_on");
+        this.tab_on.alpha = 0;
+        var db = this.db = new DragonBoneAnim();
+        db.loadInit({ skUrl: "./assets/ui/animation/agent/btn.sk" });
+        this.tab_on.addChildAt(db, 0);
+        db.x = 180;
+        db.y = 55;
+    };
+    AgentSideTab.prototype.destroy = function () {
+        if (this.db) {
+            this.db.destroy(true);
+        }
+    };
     return AgentSideTab;
 }(DlgSideTab));
 //# sourceMappingURL=AgentSideTab.js.map

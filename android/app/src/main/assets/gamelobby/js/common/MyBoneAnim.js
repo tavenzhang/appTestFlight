@@ -30,6 +30,7 @@ var MyBoneAnim = /** @class */ (function (_super) {
         if (this.mArmature)
             this.mArmature.off(Laya.Event.STOPPED, this, this.animationStop);
         this.stopAnim();
+        Laya.timer.clear(this, this.playAgain);
         _super.prototype.destroy.call(this, b);
     };
     MyBoneAnim.prototype.setListener = function (caller, callback, data) {

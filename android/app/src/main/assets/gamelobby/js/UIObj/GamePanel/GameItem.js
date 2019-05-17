@@ -249,9 +249,6 @@ var GameItem = /** @class */ (function (_super) {
             }
             catch (e) { }
         }
-        if (this.sp_Update) {
-            this.sp_Update.visible = false;
-        }
     };
     GameItem.prototype.refreshStatus = function () {
         switch (this.sStatus) {
@@ -372,11 +369,11 @@ var GameItem = /** @class */ (function (_super) {
         btn.graphics.drawTexture(texLight);
         btn.graphics.restore();
     };
-    GameItem.STATUS_UPDATE = "update";
-    GameItem.STATUS_PAUSE = "pause";
-    GameItem.STATUS_NORMAL = "normal";
-    GameItem.STATUS_COMING = "coming";
-    GameItem.STATUS_ONLINE = "online";
+    GameItem.STATUS_UPDATE = "update"; //更新
+    GameItem.STATUS_PAUSE = "pause"; //维护中
+    GameItem.STATUS_NORMAL = "normal"; //正常状态
+    GameItem.STATUS_COMING = "coming"; //尽请期待
+    GameItem.STATUS_ONLINE = "online"; //在线(表示已下载完成可进入游戏)
     return GameItem;
 }(MySprite));
 //# sourceMappingURL=GameItem.js.map

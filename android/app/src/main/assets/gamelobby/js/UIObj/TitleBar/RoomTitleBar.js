@@ -75,7 +75,7 @@ var RoomTitleBar = /** @class */ (function (_super) {
                     // Debug.trace("RoomTitleBar.onEventClick manual");
                     // AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
                     // AttentionDialog.obj.show();                    
-                    view.dlg.NoticeDlg.show(AttentionDialog.TYPE_OPEN_AUTO);
+                    view.dlg.NoticeDlg.show();
                     break;
                 case "quit":
                     PostMHelp.goBack({ token: Common.access_token });
