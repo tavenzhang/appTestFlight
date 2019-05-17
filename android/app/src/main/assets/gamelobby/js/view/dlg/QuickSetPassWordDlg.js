@@ -90,8 +90,9 @@ var view;
                     SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
                     SaveManager.getObj().save(SaveManager.KEY_QK_PWD_CHANGED, true);
                     SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+                    var str = Tools.getStringByKey(ConfObjRead.getConfChangePwdQk().textChanged);
                     LayaMain.getInstance().loginOut();
-                    Toast.showToast("密码修改成功,请重新登录");
+                    Toast.showToast(str);
                 }
                 else { //失败
                     var response = hr.http.response;

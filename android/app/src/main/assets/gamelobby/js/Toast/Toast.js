@@ -6,8 +6,6 @@ var Toast = /** @class */ (function () {
      * @param str
      */
     Toast.showToast = function (str) {
-        if (!str || str.length < 2)
-            return;
         if (!this.tip) {
             this.tip = new ui.dlg.TipViewUI();
             this.tip.mouseEnabled = false;

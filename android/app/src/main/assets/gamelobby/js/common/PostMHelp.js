@@ -76,10 +76,6 @@ var PostMHelp = /** @class */ (function () {
         if (data === void 0) { data = {}; }
         window.top.postMessage(JSON.stringify(__assign({ action: "game_common" }, data)), "*");
     };
-    //通知loading显示游戏内容
-    PostMHelp.initGame = function () {
-        window.top.postMessage(JSON.stringify({ action: "showGame" }), "*");
-    };
     return PostMHelp;
 }());
 //# sourceMappingURL=PostMHelp.js.map

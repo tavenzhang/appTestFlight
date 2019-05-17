@@ -79,9 +79,6 @@ var MyUid = /** @class */ (function () {
         MyUid.uid = s;
         SaveManager.getObj().save(SaveManager.KEY_UID, MyUid.uid);
     };
-    /**
-     * 获取32位随机码
-     */
     MyUid.getUid = function () {
         MyUid.uid = SaveManager.getObj().get(SaveManager.KEY_UID, "");
         if (MyUid.uid.length <= 0) {

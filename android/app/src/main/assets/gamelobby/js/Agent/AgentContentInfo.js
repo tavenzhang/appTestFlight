@@ -27,16 +27,18 @@ var AgentContentInfo = /** @class */ (function (_super) {
             var len = this.conf.sprites.length;
             for (var i = 0; i < len; i++) {
                 if (i === 0) {
+                    // avata = spconf;
+                    // avata.alpha = .5;
+                    var frame = new Laya.Image("ui/userInfo/avatorFrame.png");
+                    this.addChild(frame);
+                    frame.x = this.conf.sprites[i].pos.x - 5.2;
+                    frame.y = this.conf.sprites[i].pos.y - 5;
+                    frame.scale(1.34, 1.3);
                     var avatar = new Laya.Image(ResConfig.getHeadSkinByID(userData.avatarSkinId));
                     this.addChild(avatar);
                     avatar.x = this.conf.sprites[i].pos.x;
                     avatar.y = this.conf.sprites[i].pos.y;
-                    avatar.size(146, 146);
-                    var frame = new Laya.Image("ui/userInfo/avatorFrame.png");
-                    this.addChild(frame);
-                    frame.x = this.conf.sprites[i].pos.x - 10;
-                    frame.y = this.conf.sprites[i].pos.y - 5;
-                    frame.size(166, 166);
+                    avatar.scale(1.3, 1.3);
                 }
                 else {
                     var spconf = this.conf.sprites[i];
@@ -66,11 +68,13 @@ var AgentContentInfo = /** @class */ (function (_super) {
                 this.arr_btns.push(b);
             }
         }
-        var db = this.db = new DragonBoneAnim();
-        db.loadInit({ skUrl: "./assets/ui/animation/agent/banner.sk" });
-        this.addChild(db);
-        db.x = 882;
-        db.y = 50;
+        if (this.conf.animations) {
+            var len = this.conf.animations.length;
+            for (var i = 0; i < len; i++) {
+                var spconf = this.conf.animations[i];
+                Tools.addAnimation(this, spconf);
+            }
+        }
         if (this.conf.inputlink) {
             this.inputLink = Tools.addInput(this, this.conf.inputlink);
             this.inputLink.mouseEnabled = false;
@@ -289,7 +293,7 @@ var AgentContentInfo = /** @class */ (function (_super) {
         var data = {
             affCode: code,
             memberType: "AGENT",
-            prizeGroup: 1960,
+            prizeGroup: 1901,
             status: "ON"
         };
         var jd = JSON.stringify(data);
@@ -313,12 +317,6 @@ var AgentContentInfo = /** @class */ (function (_super) {
         catch (e) {
         }
         // console.log("responseChange", s, stat, hr)
-    };
-    AgentContentInfo.prototype.destroy = function (destroyChild) {
-        if (this.db) {
-            this.db.destroy(true);
-        }
-        _super.prototype.destroy.call(this, destroyChild);
     };
     return AgentContentInfo;
 }(AgentContent));

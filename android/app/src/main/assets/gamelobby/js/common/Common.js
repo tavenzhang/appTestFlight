@@ -116,9 +116,9 @@ var Common = /** @class */ (function () {
         else {
             Common.normalFont = "xxx";
         }
-        var plen = ResConfig.platform_font.length;
+        var plen = ConfObjRead.getConfVersion().platform_font.length;
         for (var k = 0; k < plen; k++) {
-            var pf = ResConfig.platform_font[k];
+            var pf = ConfObjRead.getConfVersion().platform_font[k];
             var ps = pf.platform;
             var pslen = ps.length;
             for (var m = 0; m < pslen; m++) {
@@ -147,8 +147,8 @@ var Common = /** @class */ (function () {
     Common.PATH_TYPE_JD = 1;
     Common.pathType = Common.PATH_TYPE_XD;
     Common.TYPE_LOGIN_UNKNOW = 0;
-    Common.TYPE_LOGIN_QK = 1; //快速登录类型
-    Common.TYPE_LOGIN_ACCOUNT = 2; //账号登录类型
+    Common.TYPE_LOGIN_QK = 1;
+    Common.TYPE_LOGIN_ACCOUNT = 2;
     Common.loginType = 0;
     Common.numShowChangePwdQk = 0;
     //当前登录用户令牌

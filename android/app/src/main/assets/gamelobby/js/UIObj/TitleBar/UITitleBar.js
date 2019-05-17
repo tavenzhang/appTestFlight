@@ -69,7 +69,7 @@ var UITitleBar = /** @class */ (function (_super) {
                     Debug.trace("UITitleBar.onEventClick manual");
                     // AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
                     // AttentionDialog.obj.show();                    
-                    view.dlg.NoticeDlg.show();
+                    view.dlg.NoticeDlg.show(AttentionDialog.TYPE_OPEN_AUTO);
                     break;
                 case "quit": //返回
                     PostMHelp.goBack({ token: Common.access_token });

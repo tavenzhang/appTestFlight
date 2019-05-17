@@ -1,278 +1,188 @@
 {
-    "pos": {
-        "x": 0,
-        "y": 18
-    },
-    "moveAction": false,
-    "content": {
-        "pos": {
-            "x": 0,
-            "y": 40
+    "pos":{"x":0,"y":18},
+    "moveAction":false,
+    "content":{
+        "pos":{"x":0,"y":40},
+        "rect":{
+            "x":0,
+            "y":0,
+            "w":450,
+            "h":600
         },
-        "rect": {
-            "x": 0,
-            "y": 0,
-            "w": 450,
-            "h": 600
+        "frameX":{
+            "color":"#ff0000",
+            "alpha":0.2
         },
-        "frameX": {
-            "color": "#ff0000",
-            "alpha": 0.2
-        },
-        "girls": [
+        "girls":[
             {
-                "bg": {
-                    "pos": {
-                        "x": 0,
-                        "y": 0
-                    },
-                    "anim": {
-                        "pos": {
-                            "x": 670,
-                            "y": 320
-                        },
-                        "textPath": "./assets/ui/animation/human_bg/human_bg.png",
-                        "animPath": "./assets/ui/animation/human_bg/human_bg.sk",
-                        "playSpeed": 1.0,
-                        "loop": true,
-                        "loopdelay": 2000,
-                        "stopHide": {
-                            "value": true
+                "bg":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":320},
+                        "textPath":"./assets/ui/animation/human_bg/human_bg.png",
+                        "animPath":"./assets/ui/animation/human_bg/human_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelay":2000,
+                        "stopHide":{
+                            "value":true
                         }
                     }
                 },
-                "gg": {
-                    "src": "./assets/ui/scrollpad/img_ren01.png",
-                    "pos": {
-                        "x": 0,
-                        "y": -20
-                    }
+                "gg":{
+                    "src":"./assets/ui/scrollpad/img_ren01.png",
+                    "pos":{"x":0,"y":-20}
                 },
-                "front": {
-                    "pos": {
-                        "x": 0,
-                        "y": 0
-                    },
-                    "anim": {
-                        "pos": {
-                            "x": 670,
-                            "y": 300
-                        },
-                        "textPath": "./assets/ui/animation/human_fr/card_bg.png",
-                        "animPath": "./assets/ui/animation/human_fr/card_bg.sk",
-                        "playSpeed": 1.0,
-                        "loop": true,
-                        "loopdelayX": 0,
-                        "stopHide": {
-                            "value": true
+                "front":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":300},
+                        "textPath":"./assets/ui/animation/human_fr/card_bg.png",
+                        "animPath":"./assets/ui/animation/human_fr/card_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelayX":0,
+                        "stopHide":{
+                            "value":true
                         }
                     }
                 }
             },
             {
-                "bg": {
-                    "pos": {
-                        "x": 0,
-                        "y": 0
-                    },
-                    "anim": {
-                        "pos": {
-                            "x": 670,
-                            "y": 320
-                        },
-                        "textPath": "./assets/ui/animation/human_bg/human_bg.png",
-                        "animPath": "./assets/ui/animation/human_bg/human_bg.sk",
-                        "playSpeed": 1.0,
-                        "loop": true,
-                        "loopdelay": 2000,
-                        "stopHide": {
-                            "value": true
+                "bg":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":320},
+                        "textPath":"./assets/ui/animation/human_bg/human_bg.png",
+                        "animPath":"./assets/ui/animation/human_bg/human_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelay":2000,
+                        "stopHide":{
+                            "value":true
                         }
                     }
                 },
-                "gg": {
-                    "src": "./assets/ui/scrollpad/img_ren02.png",
-                    "pos": {
-                        "x": 0,
-                        "y": -10
-                    }
+                "gg":{
+                    "src":"./assets/ui/scrollpad/img_ren02.png",
+                    "pos":{"x":0,"y":-10}
                 },
-                "front": {
-                    "pos": {
-                        "x": 0,
-                        "y": 0
-                    },
-                    "anim": {
-                        "pos": {
-                            "x": 670,
-                            "y": 300
-                        },
-                        "textPath": "./assets/ui/animation/human_fr/card_bg.png",
-                        "animPath": "./assets/ui/animation/human_fr/card_bg.sk",
-                        "playSpeed": 1.0,
-                        "loop": true,
-                        "loopdelayX": 0,
-                        "stopHide": {
-                            "value": true
+                "front":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":300},
+                        "textPath":"./assets/ui/animation/human_fr/card_bg.png",
+                        "animPath":"./assets/ui/animation/human_fr/card_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelayX":0,
+                        "stopHide":{
+                            "value":true
                         }
                     }
                 }
             },
             {
-                "bgX": {
-                    "pos": {
-                        "x": 0,
-                        "y": 0
-                    },
-                    "anim": {
-                        "pos": {
-                            "x": 670,
-                            "y": 320
-                        },
-                        "textPath": "./assets/ui/animation/human_bg/human_bg.png",
-                        "animPath": "./assets/ui/animation/human_bg/human_bg.sk",
-                        "playSpeed": 1.0,
-                        "loop": true,
-                        "loopdelay": 2000,
-                        "stopHide": {
-                            "value": true
+                "bgX":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":320},
+                        "textPath":"./assets/ui/animation/human_bg/human_bg.png",
+                        "animPath":"./assets/ui/animation/human_bg/human_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelay":2000,
+                        "stopHide":{
+                            "value":true
                         }
                     }
                 },
-                "gg": {
-                    "src": "./assets/ui/scrollpad/img_renwu03.png",
-                    "pos": {
-                        "x": 0,
-                        "y": -10
-                    }
+                "gg":{
+                    "src":"./assets/ui/scrollpad/img_renwu03.png",
+                    "pos":{"x":0,"y":-10}
                 },
-                "frontX": {
-                    "pos": {
-                        "x": 0,
-                        "y": 0
-                    },
-                    "anim": {
-                        "pos": {
-                            "x": 670,
-                            "y": 300
-                        },
-                        "textPath": "./assets/ui/animation/human_fr/card_bg.png",
-                        "animPath": "./assets/ui/animation/human_fr/card_bg.sk",
-                        "playSpeed": 1.0,
-                        "loop": true,
-                        "loopdelayX": 0,
-                        "stopHide": {
-                            "value": true
+                "frontX":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":300},
+                        "textPath":"./assets/ui/animation/human_fr/card_bg.png",
+                        "animPath":"./assets/ui/animation/human_fr/card_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelayX":0,
+                        "stopHide":{
+                            "value":true
                         }
                     }
                 }
             },
             {
-                "bgX": {
-                    "pos": {
-                        "x": 0,
-                        "y": 0
-                    },
-                    "anim": {
-                        "pos": {
-                            "x": 670,
-                            "y": 320
-                        },
-                        "textPath": "./assets/ui/animation/human_bg/human_bg.png",
-                        "animPath": "./assets/ui/animation/human_bg/human_bg.sk",
-                        "playSpeed": 1.0,
-                        "loop": true,
-                        "loopdelay": 2000,
-                        "stopHide": {
-                            "value": true
+                "bgX":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":320},
+                        "textPath":"./assets/ui/animation/human_bg/human_bg.png",
+                        "animPath":"./assets/ui/animation/human_bg/human_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelay":2000,
+                        "stopHide":{
+                            "value":true
                         }
                     }
                 },
-                "gg": {
-                    "src": "./assets/ui/scrollpad/img_renwu04.png",
-                    "pos": {
-                        "x": 0,
-                        "y": -10
-                    }
+                "gg":{
+                    "src":"./assets/ui/scrollpad/img_renwu04.png",
+                    "pos":{"x":0,"y":-10}
                 },
-                "frontX": {
-                    "pos": {
-                        "x": 0,
-                        "y": 0
-                    },
-                    "anim": {
-                        "pos": {
-                            "x": 670,
-                            "y": 300
-                        },
-                        "textPath": "./assets/ui/animation/human_fr/card_bg.png",
-                        "animPath": "./assets/ui/animation/human_fr/card_bg.sk",
-                        "playSpeed": 1.0,
-                        "loop": true,
-                        "loopdelayX": 0,
-                        "stopHide": {
-                            "value": true
+                "frontX":{
+                    "pos":{"x":0,"y":0},
+                    "anim":{
+                        "pos":{"x":670,"y":300},
+                        "textPath":"./assets/ui/animation/human_fr/card_bg.png",
+                        "animPath":"./assets/ui/animation/human_fr/card_bg.sk",
+                        "playSpeed":1.0,
+                        "loop":true,
+                        "loopdelayX":0,
+                        "stopHide":{
+                            "value":true
                         }
                     }
                 }
             }
         ],
-        "girl": {
-            "maxMoveX": 300,
-            "tweenName": "circOut",
-            "duration": 500,
-            "autoPercent": 0.5,
-            "initpos": {
-                "x": 0,
-                "y": 0
-            },
-            "left": {
-                "x": -300,
-                "y": 0
-            },
-            "right": {
-                "x": 300,
-                "y": 0
-            },
-            "sfxright": "assets/raw/flopright.mp3",
-            "sfxleft": "assets/raw/flopleft.mp3"
+        "girl":{
+            "maxMoveX":300,
+            "tweenName":"circOut",
+            "duration":500,
+            "autoPercent":0.5,
+            "initpos":{"x":0,"y":0},
+            "left":{ "x":-300, "y":0 },
+            "right":{ "x":300, "y":0 },
+            "sfxright":"assets/raw/flopright.mp3",
+            "sfxleft":"assets/raw/flopleft.mp3"
         }
     },
-    "tabsItem": {
-        "desc": "",
-        "bswitch": false,
-        "defaultId": 1,
-        "pos": {
-            "x": 215,
-            "y": 640
+    "tabsItem":{
+        "desc":"",
+        "bswitch":false,
+        "defaultId":1,
+        "pos":{ "x":215, "y":640 },
+        "size":{"w":20,"h":26},
+        "jianju":{"w":20,"h":0},
+        "labelX":{
+            "src":"./assets/ui/setting/lb_music.png",
+            "pos":{ "x":650, "y":210 }
         },
-        "size": {
-            "w": 20,
-            "h": 26
-        },
-        "jianju": {
-            "w": 20,
-            "h": 0
-        },
-        "labelX": {
-            "src": "./assets/ui/setting/lb_music.png",
-            "pos": {
-                "x": 650,
-                "y": 210
-            }
-        },
-        "switch": {
-            "desc": "",
-            "pos": {
-                "x": 0,
-                "y": 0
-            },
-            "src": [
+        "switch":{
+            "desc":"",
+            "pos":{ "x":0, "y":0 },
+            "src":[
                 "./assets/ui/scrollpad/img_lunbo2.png",
                 "./assets/ui/scrollpad/img_lunbo1.png"
             ],
-            "sfx": "assets/raw/click.mp3",
-            "bClick": false
+            "sfx":"assets/raw/sfx_click.mp3",
+            "bClick":false
         }
     }
 }

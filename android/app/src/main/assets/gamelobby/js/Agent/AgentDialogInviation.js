@@ -120,7 +120,7 @@ var AgentDialogInvitation = /** @class */ (function (_super) {
         var data = {
             affCode: this.inputCode.text,
             memberType: "AGENT",
-            prizeGroup: 1960,
+            prizeGroup: 1901,
             status: "ON"
         };
         var jd = JSON.stringify(data);

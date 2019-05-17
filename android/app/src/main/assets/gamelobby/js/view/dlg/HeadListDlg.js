@@ -56,7 +56,7 @@ var view;
                 });
                 //更换头像
                 EventManager.addTouchScaleListener(this.changeBtn, this, function () {
-                    SoundPlayer.clickSound();
+                    SoundPlayer.clicksfxSound();
                     _this.requestHeadSave(ConfObjRead.getConfUrl().url.apihome +
                         ConfObjRead.getConfUrl().cmd.avatorsave +
                         "?access_token=" + Common.access_token +

@@ -19,13 +19,11 @@ var Notice_Message = /** @class */ (function (_super) {
     Notice_Message.prototype.setData = function ($data) {
         if ($data.img != "") {
             this.image.visible = true;
-            this.frame.visible = true;
             this.message.visible = false;
             this.image.skin = $data.img;
         }
         else {
             this.image.visible = false;
-            this.frame.visible = false;
             this.message.visible = true;
             var title = this.message.getChildByName("title");
             title.text = $data.title;

@@ -79,7 +79,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         },
         "lights": {
             "src": "./assets/ui/notice/spinner/paomadeng_deng.png",
@@ -231,7 +231,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         },
         "lights": {
             "src": "./assets/ui/notice/spinner/paomadeng_deng.png",
@@ -383,7 +383,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         },
         "lights": {
             "src": "./assets/ui/notice/spinner/paomadeng_deng.png",

@@ -101,7 +101,7 @@ var AgentDialogDeleteInvitation = /** @class */ (function (_super) {
             ConfObjRead.getConfUrl().cmd.agent_affiliates +
             "/" + this.data + "?access_token=" + Common.access_token;
         var header = ["Accept", "*/*"];
-        NetManager.getObj().HttpConnect(url, this, this.responseChange, header, null, "delete", "JSON");
+        NetManager.getObj().HttpConnect(url, this, this.responseChange, header, null, "DELETE", "JSON");
         // this.onClose(e, bcallback);
     };
     AgentDialogDeleteInvitation.prototype.responseChange = function (s, stat, hr) {

@@ -11,9 +11,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-/**
- * 游戏更新管理
- */
 var UpdateMsgHandle = /** @class */ (function (_super) {
     __extends(UpdateMsgHandle, _super);
     function UpdateMsgHandle() {
@@ -36,7 +33,6 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
         //     }
         // ];
         UpdateMsgHandle.updateInitMsg = data;
-        EventManager.dispath(EventType.GAME_UPDATE_INIT);
         if (GamePanel.getInstance()) {
             GamePanel.getInstance().onUpdateMsgInit();
         }
@@ -90,7 +86,6 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
         //     }
         // ];
         UpdateMsgHandle.refreshArr(data);
-        EventManager.dispath(EventType.GAME_UPDATE_PROGRESS, data);
         if (GamePanel.getInstance()) {
             GamePanel.getInstance().onUpdatePercent(data);
         }

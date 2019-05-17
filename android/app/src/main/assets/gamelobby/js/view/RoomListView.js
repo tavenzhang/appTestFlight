@@ -25,6 +25,7 @@ var view;
         }
         RoomListView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
+            this.iconBox.removeSelf();
             this.publicUI = new view.PublicView();
             this.uibox.addChild(this.publicUI);
             this.initEvents();

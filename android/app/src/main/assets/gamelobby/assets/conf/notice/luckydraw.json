@@ -24,7 +24,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         },
         "gold": {
             "cmd": "gold",
@@ -44,7 +44,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         },
         "diamond": {
             "cmd": "diamond",
@@ -64,7 +64,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         }
     },
     "info": {
@@ -151,7 +151,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         },
         "mywin": {
             "src": [
@@ -170,7 +170,7 @@
                 "x": 1,
                 "y": 1
             },
-            "sfx": "assets/raw/click.mp3"
+            "sfx": "assets/raw/sfx_click.mp3"
         }
     },
     "contents": {

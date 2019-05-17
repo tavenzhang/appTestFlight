@@ -78,7 +78,7 @@ var PopMineMenus = /** @class */ (function (_super) {
                 // Debug.trace("PopMineMenus.onClickBtn manual");
                 // AttentionDialog.showPad(LobbyScene.getInstance(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
                 // AttentionDialog.obj.show();
-                view.dlg.NoticeDlg.show();
+                view.dlg.NoticeDlg.show(AttentionDialog.TYPE_OPEN_AUTO);
                 break;
             case "share":
                 Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "share");

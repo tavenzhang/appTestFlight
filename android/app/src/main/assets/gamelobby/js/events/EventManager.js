@@ -23,7 +23,7 @@ var EventManager = /** @class */ (function () {
      * @param data
      */
     EventManager.dispath = function (type, data) {
-        this.eventer.event(type, [data]);
+        this.eventer.event(type, data);
     };
     /**
      * 注册全局事件
@@ -77,14 +77,9 @@ var EventManager = /** @class */ (function () {
         if (scale === void 0) { scale = 1.05; }
         if (!target)
             return;
-        if (scale == 1) {
-            target.on(Laya.Event.CLICK, this, this.clickHandler);
-        }
-        else {
-            target.on(Laya.Event.MOUSE_DOWN, this, this.onScaleTouch);
-            target.on(Laya.Event.MOUSE_OUT, this, this.onScaleTouch);
-            target.on(Laya.Event.MOUSE_UP, this, this.onScaleTouch);
-        }
+        target.on(Laya.Event.MOUSE_DOWN, this, this.onScaleTouch);
+        target.on(Laya.Event.MOUSE_OUT, this, this.onScaleTouch);
+        target.on(Laya.Event.MOUSE_UP, this, this.onScaleTouch);
         var arr = this.pool.get(thisobj);
         if (!arr)
             arr = [];
@@ -107,13 +102,9 @@ var EventManager = /** @class */ (function () {
                     arr = null;
                 }
             }
-            if (obj.sclNum == 1)
-                target.off(Laya.Event.CLICK, this, this.clickHandler);
-            else {
-                target.off(Laya.Event.MOUSE_DOWN, this, this.onScaleTouch);
-                target.off(Laya.Event.MOUSE_OUT, this, this.onScaleTouch);
-                target.off(Laya.Event.MOUSE_UP, this, this.onScaleTouch);
-            }
+            target.off(Laya.Event.MOUSE_DOWN, this, this.onScaleTouch);
+            target.off(Laya.Event.MOUSE_OUT, this, this.onScaleTouch);
+            target.off(Laya.Event.MOUSE_UP, this, this.onScaleTouch);
             this.pool.remove(obj);
             obj.dispose();
             obj = null;
@@ -127,13 +118,6 @@ var EventManager = /** @class */ (function () {
                 i--;
             }
         }
-    };
-    EventManager.prototype.clickHandler = function (e) {
-        var btn = e.currentTarget;
-        var obj = this.pool.get(btn);
-        if (!obj)
-            return;
-        obj.callback(e);
     };
     EventManager.prototype.onScaleTouch = function (e) {
         var btn = e.currentTarget;
@@ -220,15 +204,7 @@ var EventType = /** @class */ (function () {
      * 收到此通知后要将输入文本的焦点设为false,以解决ios系统点击键盘的Done按钮后界面收不回来
      */
     EventType.BLUR_NATIVE = "blurNative";
-    /**
-     * 游戏更新初始化
-     */
-    EventType.GAME_UPDATE_INIT = "gameUpdateInfo";
-    /**
-     * 游戏更新进度(百分比)
-     */
-    EventType.GAME_UPDATE_PROGRESS = "gameUpdateProgress";
-    //刷新代理按钮的显示
+    //刷新显示代理按钮
     EventType.FLUSH_AGENCYBTN = "flushAgencyBtn";
     return EventType;
 }());

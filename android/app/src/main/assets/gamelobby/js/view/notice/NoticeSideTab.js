@@ -17,9 +17,7 @@ var NoticeSideTab = /** @class */ (function (_super) {
         return _super.call(this) || this;
     }
     NoticeSideTab.prototype.init = function ($image) {
-        var base = this.base = new Laya.Image($image.skin);
-        base.width = $image.width;
-        base.height = $image.height;
+        var base = new Laya.Image($image.skin);
         this.addChild(base);
         this.pos($image.x, $image.y);
         this.size($image.width, $image.height);
@@ -34,7 +32,6 @@ var NoticeSideTab = /** @class */ (function (_super) {
         }
         var tab = $image.getChildByName("tab_on");
         var tab_on = this.tab_on = new Laya.Image(tab.skin);
-        tab_on.name = "btn";
         base.addChild(tab_on);
         tab_on.pos(tab.x, tab.y);
         tab_on.size(tab.width, tab.height);
@@ -53,14 +50,7 @@ var NoticeSideTab = /** @class */ (function (_super) {
         this.ind.y = newInd.y;
         base.visible = true;
         this.visible = true;
-        this.tab_on.alpha = 0;
-        this.label2.visible = false;
-        this.tab_on.on(Laya.Event.CLICK, this, this.dispatchClick);
-    };
-    NoticeSideTab.prototype.dispatchClick = function () {
-        Laya.timer.once(12, this, function () {
-            this.event("tabclick", this);
-        });
+        this.tab_on.visible = this.label2.visible = false;
     };
     NoticeSideTab.prototype.setData = function ($data) {
         this.label.text = this.label2.text = $data.title;
@@ -70,13 +60,11 @@ var NoticeSideTab = /** @class */ (function (_super) {
         this.ind.visible = false;
     };
     NoticeSideTab.prototype.active = function () {
-        this.tab_on.alpha = 1;
-        this.label2.visible = true;
+        this.tab_on.visible = this.label2.visible = true;
         _super.prototype.active.call(this);
     };
     NoticeSideTab.prototype.deactive = function () {
-        this.tab_on.alpha = 0;
-        this.label2.visible = false;
+        this.tab_on.visible = this.label2.visible = false;
         _super.prototype.deactive.call(this);
     };
     return NoticeSideTab;

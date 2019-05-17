@@ -1,182 +1,107 @@
 {
-    "pos": {
-        "x": 0,
-        "y": 0
+    "pos":{ "x":0, "y":0 },
+    "bg":{
+        "src":"./assets/ui/login/quicklogin/bg.png",
+        "pos":{ "x":303, "y":205 }
     },
-    "bg": {
-        "src": "./assets/ui/login/quicklogin/bg.png",
-        "pos": {
-            "x": 303,
-            "y": 205
-        }
-    },
-    "sprites": [
+    "sprites":[
         {
-            "src": "./brand/loginquick_logo.png",
-            "pos": {
-                "x": 344,
-                "y": 30
-            }
+            "src":"./brand/loginquick_logo.png",
+            "pos":{ "x":344, "y":30 }
         },
         {
-            "src": "./assets/ui/login/quicklogin/title.png",
-            "pos": {
-                "x": 561,
-                "y": 223
-            }
+            "src":"./assets/ui/login/quicklogin/title.png",
+            "pos":{ "x":561, "y":223 }
         },
         {
-            "src": "./assets/ui/login/quicklogin/lbname.png",
-            "pos": {
-                "x": 383,
-                "y": 325
-            }
+            "src":"./assets/ui/login/quicklogin/lbname.png",
+            "pos":{ "x":383, "y":325 }
         },
         {
-            "src": "./assets/ui/login/quicklogin/lbyzm.png",
-            "pos": {
-                "x": 383,
-                "y": 417
-            }
+            "src":"./assets/ui/login/quicklogin/lbyzm.png",
+            "pos":{ "x":383, "y":417 }
         },
         {
-            "src": "./assets/ui/login/quicklogin/input_bg.png",
-            "pos": {
-                "x": 516,
-                "y": 318
-            }
+            "src":"./assets/ui/login/quicklogin/input_bg.png",
+            "pos":{ "x":516, "y":318 }
         },
         {
-            "src": "./assets/ui/login/quicklogin/input_bg.png",
-            "pos": {
-                "x": 516,
-                "y": 410
-            }
+            "src":"./assets/ui/login/quicklogin/input_bg.png",
+            "pos":{ "x":516, "y":410 }
         },
         {
-            "src": "./assets/ui/login/quicklogin/lbhint.png",
-            "pos": {
-                "x": 500,
-                "y": 498
-            }
+            "src":"./assets/ui/login/quicklogin/lbhint.png",
+            "pos":{ "x":500, "y":498 }
         }
     ],
-    "menus": [
+    "menus":[
         {
-            "cmd": "login",
-            "pos": {
-                "x": 667,
-                "y": 663
-            },
-            "src": [
+            "cmd":"login",
+            "pos":{ "x":667, "y":663 },
+            "src":[
                 "./assets/ui/login/quicklogin/btn_login.png"
             ],
-            "size": {
-                "w": 278,
-                "h": 80
-            },
-            "maxScale": {
-                "x": 1.05,
-                "y": 1.05
-            },
-            "normalScale": {
-                "x": 1,
-                "y": 1
-            },
-            "sfx": "assets/raw/click.mp3"
+            "size":{ "w":278, "h":80 },
+            "maxScale":{"x":1.05,"y":1.05},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/sfx_click.mp3"
         },
         {
-            "cmd": "other",
-            "pos": {
-                "x": 1209,
-                "y": 707
-            },
-            "src": [
+            "cmd":"other",
+            "pos":{ "x":1209, "y":707 },
+            "src":[
                 "./assets/ui/login/quicklogin/btn_otherway.png"
             ],
-            "size": {
-                "w": 222,
-                "h": 64
-            },
-            "maxScale": {
-                "x": 1.05,
-                "y": 1.05
-            },
-            "normalScale": {
-                "x": 1,
-                "y": 1
-            },
-            "sfx": "assets/raw/enterPanelClick.mp3"
+            "size":{ "w":222, "h":64 },
+            "maxScale":{"x":1.05,"y":1.05},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/enterPanelClick.mp3"
         }
     ],
-    "bak": [
+    "bak":[
         {},
         {
-            "cmd": "camera",
-            "pos": {
-                "x": 965.5,
-                "y": 524.5
-            },
-            "src": [
+            "cmd":"camera",
+            "pos":{ "x":965.5, "y":524.5 },
+            "src":[
                 "./assets/ui/login/quicklogin/btn_camera.png"
             ],
-            "size": {
-                "w": 81,
-                "h": 71
-            },
-            "maxScale": {
-                "x": 1.05,
-                "y": 1.05
-            },
-            "normalScale": {
-                "x": 1,
-                "y": 1
-            },
-            "sfx": "assets/raw/click.mp3"
+            "size":{ "w":81, "h":71 },
+            "maxScale":{"x":1.05,"y":1.05},
+            "normalScale":{"x":1,"y":1},
+            "sfx":"assets/raw/sfx_click.mp3"
         }
     ],
-    "yzm": {},
-    "inputs": [
+    "yzm":{},
+    "inputs":[
         {
-            "data": "username",
-            "pos": {
-                "x": 530,
-                "y": 318
-            },
-            "size": {
-                "w": 381,
-                "h": 50
-            },
-            "sizegrid": "0,0,0,200",
-            "font": "Arial",
-            "fontsize": 30,
-            "bold": false,
-            "color": "#aadbf7",
-            "type": "text",
-            "prompt": "qklogin_username_prompt",
-            "editable": {
-                "value": false
+            "data":"username",
+            "pos":{ "x":530, "y":318 },
+            "size":{ "w":381, "h":50 },
+            "sizegrid":"0,0,0,200",
+            "font":"Arial",
+            "fontsize":30,
+            "bold":false,
+            "color":"#aadbf7",
+            "type":"text",
+            "prompt":"qklogin_username_prompt",
+            "editable":{
+                "value":false
             }
         },
         {
-            "data": "yanzhengma",
-            "pos": {
-                "x": 530,
-                "y": 410
-            },
-            "size": {
-                "w": 220,
-                "h": 50
-            },
-            "sizegrid": "0,0,0,30",
-            "font": "Arial",
-            "fontsize": 30,
-            "bold": false,
-            "color": "#aadbf7",
-            "type": "text",
-            "prompt": "qklogin_yzm_prompt",
-            "editable": {
-                "value": true
+            "data":"yanzhengma",
+            "pos":{ "x":530, "y":410 },
+            "size":{ "w":220, "h":50 },
+            "sizegrid":"0,0,0,30",
+            "font":"Arial",
+            "fontsize":30,
+            "bold":false,
+            "color":"#aadbf7",
+            "type":"text",
+            "prompt":"qklogin_yzm_prompt",
+            "editable":{
+                "value":true
             }
         }
     ]

@@ -94,9 +94,6 @@ var LoadingScene = /** @class */ (function (_super) {
             if (s.userRole) {
                 userData.role = s.userRole;
             }
-            if (s.prizeGroup) {
-                userData.prizeGroup = s.prizeGroup;
-            }
             this.checkReconnect();
             // LayaMain.getInstance().initLobby();
             // this.requestUserInfo(Common.access_token);

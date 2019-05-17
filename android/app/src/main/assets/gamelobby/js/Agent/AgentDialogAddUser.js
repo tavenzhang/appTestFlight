@@ -206,7 +206,7 @@ var AgentDialogAddUser = /** @class */ (function (_super) {
             memberType: type,
             password: window['SecretUtils'].rsaEncodePWD(pwd),
             username: name,
-            prizeGroup: 1960
+            prizeGroup: 1901
             // "username":Common.userInfo.username
         };
         var sjobj = JSON.stringify(jobj);

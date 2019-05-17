@@ -76,7 +76,7 @@ var view;
                     if (_this.musicSwith.switch) { //打开
                         var v = Common.lastMusicVolume * 100;
                         _this.mslider.value = v;
-                        Laya.SoundManager.playMusic(ResConfig.musicUrl);
+                        Laya.SoundManager.playMusic(ConfObjRead.getConfMusic().src);
                     }
                     else {
                         Common.lastMusicVolume = Laya.SoundManager.musicVolume;
