@@ -17,20 +17,6 @@ var RoomScene = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     RoomScene.prototype.initUI = function (gamedata) {
-        //todo:xxx
-        // UIBg.getInstance( this,ConfObjRead.getConfUiBg() );
-        // RoomTitleBar.getInstance( this, ConfObjRead.getConfRoomTitlebar(), this,this.titlebarOver);
-        //todo:zzz
-        // Avator.getInstance(this,ConfObjRead.getConfAvator(), this,this.OnAvatorScrollOut);
-        // VersionStat.getInstance(this,ConfObjRead.getConfVersion());
-        // var msgUrl = 
-        //     ConfObjRead.getConfUrl().url.apihome+
-        //     ConfObjRead.getConfUrl().cmd.noticelist+
-        //             "?pageSize=20&start=0&access_token="+Common.access_token;
-        // RunningMsg.getInstance(this,"./assets/conf/scrollmsg/runningmsg.json",msgUrl);
-        // RoomPanel.getInstance(this,ConfObjRead.getConfRoomPanel(),gamedata,this,this.roompanelOver);
-        // BottomMenus.getInstance(this,ConfObjRead.getConfBottommenu());
-        //
         this.view = new view.RoomListView();
         this.addChild(this.view);
         RoomPanel.getInstance(this.view.iconSp, ConfObjRead.getConfRoomPanel(), gamedata, this, this.roompanelOver);

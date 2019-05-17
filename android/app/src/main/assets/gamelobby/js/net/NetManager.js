@@ -116,6 +116,8 @@ var NetManager = /** @class */ (function () {
     NetManager.obj = null;
     NetManager.httpRequestList = new Array();
     NetManager.hisHashUrlList = new Array();
+    NetManager.STATE_COMPLETE = "complete";
+    NetManager.STATE_ERROR = "error";
     return NetManager;
 }());
 //# sourceMappingURL=NetManager.js.map

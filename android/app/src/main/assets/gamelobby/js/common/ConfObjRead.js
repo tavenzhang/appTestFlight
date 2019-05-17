@@ -247,33 +247,26 @@ var ConfObjRead = /** @class */ (function () {
         return ConfObjRead.runningmsgObj;
     };
     ConfObjRead.getConfText = function () {
-        if (ConfObjRead.textObj) {
-            return ConfObjRead.textObj;
-        }
-        if (AppData.IS_NATIVE_APP) {
-            ConfObjRead.textObj = Laya.Loader.getRes("./assets/conf/text/textconf.json");
-        }
-        else {
-            ConfObjRead.textObj = Laya.Loader.getRes("./assets/conf/text/textconf.json");
+        if (!ConfObjRead.textObj) {
+            ConfObjRead.textObj = Laya.Loader.getRes("./assets/conf/textconf.json");
         }
         return ConfObjRead.textObj;
     };
     ConfObjRead.getConfCommon = function () {
-        if (ConfObjRead.commonObj) {
-            return ConfObjRead.commonObj;
+        if (!this.commonObj) {
+            this.commonObj = Laya.Loader.getRes("./assets/conf/config.json");
         }
-        if (AppData.IS_NATIVE_APP) {
-            // if( !AppData.isAndroidHack )
-            // {
-            //     ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config_app_temp.json");
-            // }else{
-            ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config_app.json");
-            // }
-        }
-        else {
-            ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config.json");
-        }
-        return ConfObjRead.commonObj;
+        return this.commonObj;
+        //todo:xxx
+        // if (ConfObjRead.commonObj) {
+        //     return ConfObjRead.commonObj;
+        // }
+        // if (AppData.IS_NATIVE_APP) {
+        //     ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config_app.json");
+        // } else {
+        //     ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config.json");
+        // }
+        // return ConfObjRead.commonObj;
     };
     ConfObjRead.getConfUrl = function () {
         if (ConfObjRead.urlObj) {
@@ -578,6 +571,18 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.musicObj = Laya.Loader.getRes("./assets/conf/common/music.json");
         return ConfObjRead.musicObj;
     };
+    ConfObjRead.getGameIconConfig = function () {
+        if (!this.gameIconConfig) {
+            this.gameIconConfig = Laya.Loader.getRes("./assets/conf/gameIcons.json");
+        }
+        return this.gameIconConfig;
+    };
+    ConfObjRead.getVerConfig = function () {
+        if (!this.verConfig) {
+            this.verConfig = Laya.Loader.getRes("./assets/conf/version.json");
+        }
+        return this.verConfig;
+    };
     ConfObjRead.agentlistdesctestObj = null;
     ConfObjRead.agentlistdescObj = null;
     ConfObjRead.agenttestdataincomeObj = null;
@@ -648,6 +653,11 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.uibgObj = null;
     ConfObjRead.dealerObj = null;
     ConfObjRead.musicObj = null;
+    /**
+     * 游戏图标配置
+     */
+    ConfObjRead.gameIconConfig = null;
+    ConfObjRead.verConfig = null;
     return ConfObjRead;
 }());
 //# sourceMappingURL=ConfObjRead.js.map

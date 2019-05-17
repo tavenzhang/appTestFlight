@@ -50,19 +50,21 @@ var SharePage = /** @class */ (function (_super) {
         this.pos(this.conf.pos.x, this.conf.pos.y);
     };
     SharePage.prototype.onClick = function ($e) {
-        // if (this.limit > 0) {
-        //     this.limit--;
         switch ($e) {
             case this.share:
                 PostMHelp.game_common({ "do": "share", "type": "circle", "param": this.data });
-                SharePageNotice.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSharePageNoticeDialog(), "circle");
                 break;
             case this.send:
                 PostMHelp.game_common({ "do": "share", "type": "friend", "param": this.data });
-                SharePageNotice.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSharePageNoticeDialog(), "friend");
                 break;
         }
-        // }
+        if (this.limit > 0) {
+            this.limit--;
+            SharePageNotice.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSharePageNoticeDialog(), "sucess");
+        }
+        else {
+            SharePageNotice.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSharePageNoticeDialog(), "share_more");
+        }
         // else {
         //     SharePageNotice.showDialog(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfSharePageNoticeDialog(), "empty");
         // }
