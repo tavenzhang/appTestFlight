@@ -278,7 +278,7 @@ export default class GameUserInfoView extends Component {
                     this.setState({inputChangeRelName: text})
                 }} value={this.state.inputChangeRelName} viewStyle={{}} placeholder={"提交修改后,可联系客服火速处理"}
                              maxLength={12}
-                             inputStyle={[styles.inputStyle, {fontSize: 16,}]} placeholderTextColor={"#9cc5d8"}/>
+                             inputStyle={[styles.inputStyle, {fontSize: 16, width:250, height:20}]} placeholderTextColor={"#9cc5d8"}/>
             </View>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnOk}
                          soundName={TW_Store.bblStore.SOUND_ENUM.click}
