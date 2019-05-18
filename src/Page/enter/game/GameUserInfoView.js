@@ -333,10 +333,10 @@ export default class GameUserInfoView extends Component {
             this.setState({inputChangeRelName:"",isShowRealName:false})
             if (res.status) {
                 this.timer = setTimeout(() => {
-                    Toast.showShortCenter("修改已提交，请等待管理员审核!");
+                    Toast.showLongCenter(("修改已提交，请等待管理员审核!");
                  }, 500)
             } else {
-                Toast.showShortCenter(res.message);
+                Toast.showLongCenter(res.message);
             }
         })
     }
