@@ -49,7 +49,7 @@ export default class GameUserInfoView extends Component {
         /**
          * 加载厅主绑卡银行卡列表
          */
-        TW_Store.userStore.freshBalance();
+        TW_Store.userStore.freshBalance(false);
         this.bankStore.initBankList((res) => {
             if (!res.status) {
                 Toast.showShortCenter(res.message);
@@ -333,7 +333,7 @@ export default class GameUserInfoView extends Component {
             this.setState({inputChangeRelName:"",isShowRealName:false})
             if (res.status) {
                 this.timer = setTimeout(() => {
-                    Toast.showLongCenter(("修改已提交，请等待管理员审核!");
+                    Toast.showLongCenter("修改已提交，请等待管理员审核!")
                  }, 500)
             } else {
                 Toast.showLongCenter(res.message);
