@@ -3,7 +3,7 @@ import {
     StyleSheet,
     View,
     Text, TextInput, TouchableOpacity, Image,
-    Picker
+    Picker, Alert
 } from 'react-native'
 import {observer} from 'mobx-react/native';
 import TCImage from "../../../Common/View/image/TCImage";
@@ -17,6 +17,7 @@ import {addPhoneNumber} from "../../../Common/Network/TCRequestService";
 import {inputStyle, listViewTxtColor, Size, width} from "../../resouce/theme";
 import ModalDropdown from "../../UserCenter/user/TCAddUserInfo";
 import Chooser from "../../../Common/View/Chooser";
+import NavigationService from "../../Route/NavigationService";
 
 
 @observer
@@ -34,6 +35,8 @@ export default class GameUserInfoView extends Component {
             inputBrunchAddr: defaultData.bankAddress,
             inputPwd: defaultData.password,
             isShowPhone: false,
+            isShowRealName:false,
+            inputChangeRelName:"",
             phoneNum: "",
         }
     }
@@ -46,12 +49,13 @@ export default class GameUserInfoView extends Component {
         /**
          * 加载厅主绑卡银行卡列表
          */
-        TW_Store.userStore.freshBalance();
+        TW_Store.userStore.freshBalance(false);
         this.bankStore.initBankList((res) => {
             if (!res.status) {
                 Toast.showShortCenter(res.message);
             }
         })
+        TW_Store.bankStore.initUserBank();
     }
 
 
@@ -60,6 +64,7 @@ export default class GameUserInfoView extends Component {
         return (<View style={styles.container} pointerEvents={pointerEvents}>
             {this.getInfoView()}
             {this.state.isShowPhone ? this.getBindPhoneView() : null}
+            {this.state.isShowRealName ? this.getRealNameView():null}
         </View>)
 
     }
@@ -73,20 +78,35 @@ export default class GameUserInfoView extends Component {
         this.bankStore.bankList.bankCodes.map((item, index) => {
             pickDataList.push({name: this.bankStore.bankList.bankNames[index], value: item})
         });
+        let isHavePhone =TW_Store.userStore.phoneNumber;
+        let isHaveRelName = TW_Store.userStore.realName&&TW_Store.userStore.realName.length>0;
 
         return (<View >
             <TCImage source={ASSET_Images.gameUI.personBg}/>
             {
-                TW_Store.userStore.phoneNumber ? null : <TCButtonImg imgSource={ASSET_Images.gameUI.btnPhone}
-                                                                     onClick={() => {
-                                                                         this.setState({isShowPhone: true})
-                                                                     }}
-                                                                     soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
-                                                                     btnStyle={{
-                                                                         position: "absolute",
-                                                                         right: 50,
-                                                                         top: 80
-                                                                     }}/>
+                isHavePhone? null : <TCButtonImg imgSource={ASSET_Images.gameUI.btnPhone}
+                                                                 onClick={() => {
+                                                                     this.setState({isShowPhone: true})
+                                                                 }}
+                                                                 soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
+                                                                 btnStyle={{
+                                                                     position: "absolute",
+                                                                     right: 80,
+                                                                     top: isHaveRelName ? 65:80
+                                                                 }}/>
+
+        }
+            {
+                isHaveRelName ?  <TCButtonImg imgSource={ASSET_Images.gameUI.btnRelName}
+                                                                    onClick={() => {
+                                                                        this.setState({isShowRealName : true})
+                                                                    }}
+                                                                    soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
+                                                                    btnStyle={{
+                                                                        position: "absolute",
+                                                                        right: 80,
+                                                                        top: 92
+                                                                    }}/>:null
             }
 
             <TCImage source={ASSET_Images.gameUI.persionText}
@@ -243,6 +263,30 @@ export default class GameUserInfoView extends Component {
         </View>)
     }
 
+    //修改真实姓名
+    getRealNameView = () => {
+        return (<View style={{position: "absolute"}}>
+            <TCImage source={ASSET_Images.gameUI.btnRelChangeBg}/>
+            <TCButtonImg imgSource={ASSET_Images.gameUI.btnClose}
+                         btnStyle={{position: "absolute", right: 0, top: 10}}
+                         soundName={TW_Store.bblStore.SOUND_ENUM.close}
+                         onClick={() => {
+                             this.setState({isShowRealName: false})
+                         }}/>
+            <View style={{position: "absolute", left: 190, top: 125}}>
+                <TCTextInput onChangeText={(text) => {
+                    this.setState({inputChangeRelName: text})
+                }} value={this.state.inputChangeRelName} viewStyle={{}} placeholder={"提交修改后,可联系客服火速处理"}
+                             maxLength={12}
+                             inputStyle={[styles.inputStyle, {fontSize: 16, width:250, height:20}]} placeholderTextColor={"#9cc5d8"}/>
+            </View>
+            <TCButtonImg imgSource={ASSET_Images.gameUI.btnOk}
+                         soundName={TW_Store.bblStore.SOUND_ENUM.click}
+                         btnStyle={{position: "absolute", right: 200, top: 260}} onClick={this.onChangeRealName}/>
+        </View>)
+    }
+
+
 
     registerPhoneInfo = () => {
 
@@ -269,6 +313,31 @@ export default class GameUserInfoView extends Component {
                         }
                     }
                 }, 500)
+            }
+        })
+    }
+
+    onChangeRealName=()=>{
+
+        let realName = this.state.inputChangeRelName;
+        let reg = /^([\u4e00-\u9fa5]{1}([·•● ]?[\u4e00-\u9fa5]){1,14})$|^[a-zA-Z\s]{4,30}$/
+        if (!realName.match(reg)) {
+            Toast.showShortCenter("您输入的格式错误，请重新输入!")
+            return
+        }
+        if (this.userRealName && this.userRealName == realName) {
+            Toast.showShortCenter("目前真实姓名为：" + this.userRealName)
+            return
+        }
+
+        TW_Store.userStore.changeRealName(realName, (res) => {
+            this.setState({inputChangeRelName:"",isShowRealName:false})
+            if (res.status) {
+                this.timer = setTimeout(() => {
+                    Toast.showLongCenter("修改已提交，请等待管理员审核!")
+                 }, 500)
+            } else {
+                Toast.showLongCenter(res.message);
             }
         })
     }

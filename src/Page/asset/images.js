@@ -157,6 +157,8 @@ export const betIcon = {
 export const gameUI = {
     //useraccout
     btnPhone: require('./game/account/btn_phone.png'),
+    btnRelName: require('./game/account/btnRelName.png'),
+    btnRelChangeBg: require('./game/account/btnRelChangeBg.png'),
     persionText:require('./game/account/persionText.png'),
     personBg:require('./game/account/personBg.png'),
     btnClose:require('./game/account/btnClose.png'),
