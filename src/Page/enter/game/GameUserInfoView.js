@@ -55,6 +55,7 @@ export default class GameUserInfoView extends Component {
                 Toast.showShortCenter(res.message);
             }
         })
+        TW_Store.bankStore.initUserBank();
     }
 
 
