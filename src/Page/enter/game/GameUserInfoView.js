@@ -330,11 +330,10 @@ export default class GameUserInfoView extends Component {
         }
 
         TW_Store.userStore.changeRealName(realName, (res) => {
-            this.setState({inputChangeRelName:""})
+            this.setState({inputChangeRelName:"",isShowRealName:false})
             if (res.status) {
                 this.timer = setTimeout(() => {
                     Toast.showShortCenter("修改已提交，请等待管理员审核!");
-                    this.state.isShowRealName =false;
                  }, 500)
             } else {
                 Toast.showShortCenter(res.message);
