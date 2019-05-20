@@ -20,11 +20,11 @@ var view;
             function NoticeDlg() {
                 var _this = _super.call(this) || this;
                 _this._tabs = [];
-                _this.isDrag = false;
                 _this.downPos = {
                     "x": 0,
                     "y": 0
                 };
+                _this.downPt = new Laya.Point();
                 _this.initView();
                 return _this;
             }
@@ -133,7 +133,7 @@ var view;
                     tab.init(dummy);
                     tab.setData(list[i]);
                     this.content_tabs.addChild(tab);
-                    tab.on("tabclick", this, this.onSideTabClick);
+                    // tab.on("tabclick", this, this.onSideTabClick);
                     var gap = 10;
                     tab.y = (tab.height + gap) * i;
                     tab.y += dummy.y;
@@ -186,8 +186,7 @@ var view;
                 SoundPlayer.enterPanelSound();
             };
             NoticeDlg.prototype.onSideTabClick = function ($e) {
-                if (this.isDrag)
-                    return;
+                // if (thidds.isDrag) return;
                 for (var _i = 0, _a = this._tabs; _i < _a.length; _i++) {
                     var tab_1 = _a[_i];
                     tab_1.deactive();
@@ -283,26 +282,27 @@ var view;
                     case Laya.Event.MOUSE_DOWN:
                         this.downPos.x = x;
                         this.downPos.y = y;
+                        this.downTime = Laya.Browser.now();
+                        this.downPt.setTo(x, y);
                         break;
                     case Laya.Event.MOUSE_UP:
-                        if (this.isDrag) {
-                            Laya.timer.once(10, this, function () {
-                                this.isDrag = false;
-                            });
+                        var time = Laya.Browser.now() - this.downTime;
+                        var dist = this.downPt.distance($e.stageX, $e.stageY);
+                        if (time < 300 && dist < 8) {
+                            if ($e.target.name === "btn") {
+                                this.onSideTabClick($e.target.parent.parent);
+                            }
+                        }
+                        else {
+                            // if (this.isDrag) {
+                            // Laya.timer.once(10, this, function () {
+                            // });
                             this.downPos.x = 0;
                             this.downPos.y = 0;
                             this.backAllContent();
                         }
-                        else {
-                            if ($e.target.name === "btn") {
-                                // this
-                                // console.log($e.target.parent.parent)
-                                this.onSideTabClick($e.target.parent.parent);
-                            }
-                        }
                         break;
                     case Laya.Event.MOUSE_MOVE:
-                        this.isDrag = true;
                         if (this.downPos.y > 0) {
                             var sumy = y - this.downPos.y;
                             this.downPos.y = y;

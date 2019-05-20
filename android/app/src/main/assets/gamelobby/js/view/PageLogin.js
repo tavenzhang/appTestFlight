@@ -344,7 +344,8 @@ var PageLogin = /** @class */ (function (_super) {
     /**
      * 选择登陆模式
      */
-    PageLogin.prototype.selectLoginType = function (type) {
+    PageLogin.prototype.selectLoginType = function (type, comeFast) {
+        if (comeFast === void 0) { comeFast = false; }
         //充值业主图标
         this.sp_log.width = 289;
         this.sp_log.height = 102;
@@ -366,7 +367,7 @@ var PageLogin = /** @class */ (function (_super) {
                 this.showFastLoginView();
                 break;
             case LoginType.Account:
-                this.showAccountLoginView();
+                this.showAccountLoginView(comeFast);
                 break;
             case LoginType.WeChat:
                 this.ShowWeChatLoginPanel();
@@ -441,7 +442,8 @@ var PageLogin = /** @class */ (function (_super) {
     /**
      * 账号登陆
      */
-    PageLogin.prototype.showAccountLoginView = function () {
+    PageLogin.prototype.showAccountLoginView = function (comeFast) {
+        if (comeFast === void 0) { comeFast = false; }
         this.isCodeLogin = false;
         //填充数据
         this.acc_nameTxt.text = '';
@@ -452,7 +454,7 @@ var PageLogin = /** @class */ (function (_super) {
         this.acc_codeTxt.visible = false;
         this.acc_codePic.visible = false;
         this.panelAccount.visible = true;
-        if (this.isChangePwd) {
+        if (this.isChangePwd && comeFast) {
             this.acc_nameTxt.text = this.fastName;
         }
         //请求第一次
@@ -538,7 +540,12 @@ var PageLogin = /** @class */ (function (_super) {
         var _this = this;
         //修改过密码后导致卸载软件再安装软件，然后请求的密码为空，所以这种情况就跳转为账户登录界面
         if (this.isChangePwd && this.password.length < 2) {
-            this.selectLoginType(LoginType.Account);
+            this.selectLoginType(LoginType.Account, true);
+            return;
+        }
+        if (!Common.gatewayInfo) {
+            Toast.showToast("请稍后再试");
+            this.updateGatewayInfo(true);
             return;
         }
         //转圈圈
@@ -567,6 +574,11 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.doFastLoginWithVC = function () {
         var _this = this;
+        if (!Common.gatewayInfo) {
+            Toast.showToast("请稍后再试");
+            this.updateGatewayInfo(true);
+            return;
+        }
         //效验验证码
         var code = this.fast_codeTxt.text;
         var verify = Tools.verifyQuickLogin(code);
@@ -605,6 +617,11 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.doAccountLogin = function () {
         var _this = this;
+        if (!Common.gatewayInfo) {
+            Toast.showToast("请稍后再试");
+            this.updateGatewayInfo(true);
+            return;
+        }
         var name = this.acc_nameTxt.text;
         var pwd = this.acc_pwdTxt.text;
         PostMHelp.debugInfo({ name: name, pwd: pwd });
@@ -639,6 +656,11 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.doAccountLoginWithVC = function () {
         var _this = this;
+        if (!Common.gatewayInfo) {
+            Toast.showToast("请稍后再试");
+            this.updateGatewayInfo(true);
+            return;
+        }
         var name = this.acc_nameTxt.text;
         var pwd = this.acc_pwdTxt.text;
         var yzm = this.acc_codeTxt.text;

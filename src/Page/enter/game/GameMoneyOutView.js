@@ -73,11 +73,11 @@ export default class GameMoneyOutView extends Component {
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.31, top: SCREEN_H*0.34}}
                     textStyle={{color: "#fffff1",fontSize:20}} text={'有效投注:'}/>
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.44, top: SCREEN_H*0.34}}
-                    textStyle={{color: "#ffde00",fontSize:20}} text={this.userWithdrawStore.withdrawModel.aggregateBets}/>
+                    textStyle={{color: "#ffde00",fontSize:20}} text={this.userWithdrawStore.withdrawModel.aggregateBets.toFixed(2)}/>
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.60, top: SCREEN_H*0.34}}
                     textStyle={{color: "#fffff1",fontSize:20}} text={'还需投注:'}/>
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.74, top: SCREEN_H*0.34}}
-                    textStyle={{color: "#ffde00",fontSize:20,  textAlign: "left"}} text={num}/>
+                    textStyle={{color: "#ffde00",fontSize:20,  textAlign: "left"}} text={num.toFixed(2)}/>
 
 
             <TCImage source={ASSET_Images.gameUI.inputMoneyBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H * 0.61,width:SCREEN_W*0.6,height:60,left: SCREEN_W*0.29,}}/>

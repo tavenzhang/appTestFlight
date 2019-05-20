@@ -26,6 +26,7 @@ var view;
                 var _this = _super.call(this) || this;
                 _this.isclick = true;
                 _this.gapTime = 350; //控制点击间隔时间
+                _this.progressValue = 0;
                 _this.resetView();
                 return _this;
             }
@@ -105,6 +106,8 @@ var view;
              * @param state
              */
             GameIconView.prototype.setGameState = function (state) {
+                if (this.gameState == GameState.PAUSE)
+                    return; //维护状态不接受其他状态
                 this.gameState = state;
                 this.resetView();
                 this.hotIcon.visible = this.gameVo.bhot;
@@ -128,7 +131,9 @@ var view;
              * @param value
              */
             GameIconView.prototype.doUpdateProgress = function (value) {
-                if (!this.isupdating) {
+                if (this.gameState == GameState.PAUSE)
+                    return; //维护状态不接受其他状态
+                if (!this.isupdating || this.updateIcon.visible) {
                     this.showUpdating();
                 }
                 this.progressValue = value;

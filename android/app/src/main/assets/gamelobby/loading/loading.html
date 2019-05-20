@@ -46,7 +46,7 @@
 
 
 <body>
-	<script type="text/javascript" src="libthird/vconsole.min.js"></script>
+	<!--<script type="text/javascript" src="libthird/vconsole.min.js"></script>-->
 	<script>
 		var game = document.createElement("iframe");
 		//动态加载游戏内容,默认调整了层级而不是隐藏(如果先隐藏后显示会导致游戏内容显示不全，原因未知)
@@ -64,18 +64,18 @@
 				if (ld) ld.parentNode.removeChild(ld);
 			}
 		}
-		function initVconsole() {
-			window.vConsole = new window.VConsole({
-				defaultPlugins: ['system', 'network', 'element', 'storage'],
-				maxLogNumber: 1000,
-				onReady: function () {
-					console.log('vConsole init');
-				},
-				onClearLog: function () {
-					console.log('on clearLog');
-				}
-			});
-		}
+		// function initVconsole() {
+		// 	window.vConsole = new window.VConsole({
+		// 		defaultPlugins: ['system', 'network', 'element', 'storage'],
+		// 		maxLogNumber: 1000,
+		// 		onReady: function () {
+		// 			console.log('vConsole init');
+		// 		},
+		// 		onClearLog: function () {
+		// 			console.log('on clearLog');
+		// 		}
+		// 	});
+		// }
 	</script>
 	<!--以下引用了常用类库，如果不使用，可以删除-->
 

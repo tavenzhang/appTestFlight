@@ -105,11 +105,6 @@ var LayaMain = /** @class */ (function () {
             }
             //刷新用户信息
             EventManager.dispath(EventType.FLUSH_USERINFO);
-            EventManager.dispath(EventType.GAME_UPDATE_INIT);
-            try {
-                GamePanel.getInstance().resume();
-            }
-            catch (e) { }
         }
         catch (e) { }
     };
@@ -198,7 +193,7 @@ var LayaMain = /** @class */ (function () {
                 case "deviceInfo":
                     MyUid.setUid(message.data);
                     break;
-                case "lobbyResume":
+                case "lobbyResume": //从游戏返回到大厅
                     Debug.trace("LayaMain.handleAction in case");
                     lamain.onGameResume();
                     break;
