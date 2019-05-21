@@ -183,6 +183,9 @@ export default class DataStore {
                     TW_Store.gameUpateStore.isNeedUpdate=false;
 
                 }
+            }else{
+                this.onSaveVersionM({}, true);
+                TW_Store.gameUpateStore.isNeedUpdate=false;
             }
         })
     }
