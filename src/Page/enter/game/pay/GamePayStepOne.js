@@ -72,10 +72,10 @@ export default class GamePayStepOne extends Component {
             {
                 itemData.code.indexOf("FIXED") === -1 ?(<View>
                     <TCImage source={ASSET_Images.gameUI.stepOneBg1}  resizeMode={'contain'}/>
-                    <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`} viewStyle={{position: "absolute", left:210, top: 6,}}
+                    <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`} viewStyle={{position: "absolute", left:180, top: 6,}}
                                  placeholder={"请输入金额"}
                                  keyboardType={"numeric"}
-                                 inputStyle={[styles.inputStyle, {fontSize: 14}]}
+                                 inputStyle={[styles.inputStyle, {fontSize: 14, textAlign:"center"}]}
                                  placeholderTextColor={"rgb(132,168,168)"}
                                  maxLength={20}/>
                     <View style={{position: "absolute", left: 2, top: 28, flexDirection: "row", flexWrap: "wrap", width: SCREEN_W-250}}>
@@ -420,7 +420,8 @@ const styles = StyleSheet.create({
     inputStyle: {
         fontSize: 11,
         fontWeight: "bold",
-        color: "#efe8cd"
+        color: "#efe8cd",
+        width:150
     },
     emptyTip: {
         justifyContent: 'center',
