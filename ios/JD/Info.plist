@@ -2,22 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>com.openinstall.APP_KEY</key>
-	<string>yv9ho8</string>
-	<key>PlatId</key>
-	<string>1147</string>
-	<key>PLAT_CH</key>
-	<string>1</string>
 	<key>APP_DOWNLOAD_VERSION</key>
 	<string>2.0</string>
 	<key>Affcode</key>
 	<string></string>
-	<key>JPushKey</key>
-	<string>bacd6421e8f922f0d9653e1a</string>
-	<key>UmengKey</key>
-	<string>5b9f7642f43e486308000111</string>
-	<key>CFBundleVersion</key>
-	<string>6</string>
 	<key>AppSecret</key>
 	<dict>
 		<key>weixin</key>
@@ -30,7 +18,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.qp.chyqp</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -54,6 +42,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>6</string>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
 	<key>Fabric</key>
@@ -70,6 +60,8 @@
 			</dict>
 		</array>
 	</dict>
+	<key>JPushKey</key>
+	<string>17623298ca6fec5f62b75a17</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
@@ -128,6 +120,10 @@
 	<string>camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>camera</string>
+	<key>PLAT_CH</key>
+	<string>1</string>
+	<key>PlatId</key>
+	<string>1147</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -152,5 +148,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UmengKey</key>
+	<string>5b9f7642f43e486308000111</string>
+	<key>com.openinstall.APP_KEY</key>
+	<string>yv9ho8</string>
 </dict>
 </plist>
