@@ -131,7 +131,7 @@ export default class GameUserInfoView extends Component {
                     this.setState({inputRealName: text})
                 }} placeholder={"请输入持卡人姓名"} inputStyle={styles.inputStyle} placeholderTextColor={"#9cc5d8"}/>
 
-                <TCTextInput value={this.state.inputBankNum}
+                <TCTextInput value={this.onChangeAccountNum(this.state.inputBankNum)}
                              onChangeText={(num) => {
                                  this.setState({inputBankNum: this.onChangeAccountNum(num)})
                              }}
@@ -151,12 +151,12 @@ export default class GameUserInfoView extends Component {
                 </View>
                 <TCTextInput onChangeText={(text) => {
                     this.setState({inputBrunchAddr: text})
-                }} value={this.state.inputBrunchAddr} viewStyle={{marginTop: 6}} placeholder={"请输入省市区"}
+                }} value={this.state.inputBrunchAddr} viewStyle={{marginTop: 9}} placeholder={"请输入省市区"}
                              inputStyle={styles.inputStyle} placeholderTextColor={"#9cc5d8"}/>
                 <TCTextInput onChangeText={(text) => {
                     this.setState({inputPwd: text})
                 }} value={this.state.inputPwd} keyboardType={"numeric"} maxLength={4}
-                             secureTextEntry={!this.state.isPwdOpen} viewStyle={{marginTop:6}}
+                             secureTextEntry={!this.state.isPwdOpen} viewStyle={{marginTop:5}}
                              placeholder={"请设置提现密码"} inputStyle={styles.inputStyle}
                              placeholderTextColor={"#9cc5d8"}/>
 
@@ -355,10 +355,11 @@ const styles = StyleSheet.create({
         zIndex: 150
     },
     inputStyle: {
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: "bold",
         textAlign:"left",
-        color: "#efe8cd"
+        color: "#efe8cd",
+        width:SCREEN_W*2/7
     }
 
 });
