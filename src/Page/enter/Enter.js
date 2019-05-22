@@ -294,6 +294,8 @@ export default class Enter extends Component {
             downloadTime = Moment().format('X')
         }
         this.hotFixStore.progress = progress;
+        TW_Store.gameUpateStore.isNeedUpdate=true;
+        TW_Store.gameUpateStore.isAppDownIng=true;
     }
 
     hotFix(hotfixDeploymentKey) {
@@ -311,13 +313,11 @@ export default class Enter extends Component {
                 this.hotFixStore.syncMessage = 'app更新，正在疯狂加载...';
                 this.hotFixStore.updateFinished = false;
                 this.storeLog({hotfixDomainAccess: true});
-                TW_Store.gameUpateStore.isNeedUpdate=true;
-                TW_Store.gameUpateStore.isAppDownIng=true;
-
                 if (alreadyInCodePush) return
                 alreadyInCodePush = true
-
                 update.download(this.codePushDownloadDidProgress.bind(this)).then((localPackage) => {
+                    TW_Store.gameUpateStore.isNeedUpdate=false;
+                    TW_Store.gameUpateStore.isAppDownIng=false;
                     alreadyInCodePush = false
                     if (localPackage) {
                         this.hotFixStore.syncMessage = '下载完成,开始安装';
