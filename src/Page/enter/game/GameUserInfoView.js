@@ -86,7 +86,9 @@ export default class GameUserInfoView extends Component {
             {
                 isHavePhone? null : <TCButtonImg imgSource={ASSET_Images.gameUI.btnPhone}
                                                                  onClick={() => {
-                                                                     this.setState({isShowPhone: true})
+                                                                     //this.setState({isShowPhone: true})
+                                                                     TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.bindPhone));
+                                                                     TW_Store.gameUIStroe.isShowUserInfo=false;
                                                                  }}
                                                                  soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                                                  btnStyle={{

@@ -23,7 +23,7 @@ import ShareBox from "../../Page/enter/game/pay/ShareBox";
 import TCUserOpenPayApp from "../UserCenter/UserPay/TCUserOpenPayApp";
 
 const HTTP_GAME_LIST="/gamecenter/player/game/list";
-const HTTP_ACCOUNT = "/webapi/account/users/current";
+const HTTP_ACCOUNT="/webapi/account/users/current";
 
 
 @withMappedNavigationProps()
@@ -295,11 +295,15 @@ export default class XXWebView extends Component {
         const {sharedUrl, isShowSharebox} = this.state;
         TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
         let news=TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome;
+
         // if(!G_IS_IOS){
             if(news){
                 return null
             }
       // }
+        if(TW_Store.dataStore.isResCopyed) {
+
+        }
         TW_Log("TW_DATA_KEY.gameList-FileTools--=gameUpateStore=news=="+news)
         let {force} = this.props;
         let source = {

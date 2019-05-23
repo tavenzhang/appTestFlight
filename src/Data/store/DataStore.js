@@ -20,6 +20,9 @@ export default class DataStore {
     isAppInited = false;
 
     @observable
+    isResCopyed = false;
+
+    @observable
     originAppDir = G_IS_IOS ? (MainBundlePath + '/assets/gamelobby') : "file:///android_asset/gamelobby";
 
     @observable
