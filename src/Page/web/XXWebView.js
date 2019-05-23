@@ -621,10 +621,6 @@ export default class XXWebView extends Component {
 
     onLoadEnd=()=>{
         TW_Store.bblStore.isLoading=false;
-        if(!TW_Store.gameUpateStore.isNeedUpdate||TW_Store.gameUpateStore.isOldHome){
-            SplashScreen.hide();
-        }
-
         this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize,{}));
     }
 

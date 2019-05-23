@@ -5,7 +5,7 @@ import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import rootStore from "./RootStore";
 import CodePush from 'react-native-code-push'
-
+import SplashScreen from "react-native-splash-screen";
 
 export default class DataStore {
 
@@ -104,7 +104,7 @@ export default class DataStore {
         }
     }
 
-    
+
     @action
     startCheckZipUpdate=(versionData=null)=>{
         if(versionData) {
@@ -136,9 +136,11 @@ export default class DataStore {
             if(this.isCheckRequesting){
                 this.isCheckRequesting=false;
                 TW_Store.gameUpateStore.isNeedUpdate=false;
+                this.log += "\n==>TW_Store.dataStore.this.isCheckRequesting" + this.isCheckRequesting;
             }
         },3000);
         NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionConfig(),null,(rt)=> {
+            this.log += "\n==>TW_Store.dataStore.this.getUrlAndParamsAndCallbackrt.rs--" + rt.rs;
             this.isCheckRequesting=false;
             TW_Log("TW_DATA_KEY.versionBBL http results== ", rt);
             if (rt.rs) {
@@ -180,6 +182,7 @@ export default class DataStore {
                 this.onSaveVersionM({}, true);
                 TW_Store.gameUpateStore.isNeedUpdate=false;
             }
+            SplashScreen.hide();
         })
     }
 
@@ -330,9 +333,11 @@ export default class DataStore {
             if (err) {
                 TW_Log("versionBBL bbl--- copyFile--onSavaCopyState--error===!", err);
             } else {
-                this.isAppInited = true;
-               // this.startCheckZipUpdate();
-                this.loadHomeVerson();
+                setTimeout(()=>{
+                    this.isAppInited = true;
+                    this.loadHomeVerson();
+                },1500)
+
             }
             this.log+="onSavaCopyState---  this.isAppInited="+this.isAppInited+"\n"
           //  this.loadHomeVerson();
