@@ -17,7 +17,10 @@ export default class DataStore {
     }
 
     @observable
-    isAppUnZip = false;
+    isAppInited = false;
+
+    @observable
+    isResCopyed = false;
 
     @observable
     originAppDir = G_IS_IOS ? (MainBundlePath + '/assets/gamelobby') : "file:///android_asset/gamelobby";
@@ -40,12 +43,14 @@ export default class DataStore {
     //下载jobId
     currentDownId=1;
 
+    @observable
+    isCheckRequesting=false;
 
 
     @action
     getGameRootDir(){
        // return G_IS_IOS ? (MainBundlePath + '/assets') : "file:///android_asset";
-        if(this.isAppUnZip) {
+        if(this.isAppInited) {
             return   G_IS_IOS ? DocumentDirectoryPath  : `file:///${DocumentDirectoryPath}`;
         }
         else{
@@ -56,69 +61,47 @@ export default class DataStore {
     @action
     initAppHomeCheck () {
         TW_Data_Store.getItem(TW_DATA_KEY.isInitStore, (err, ret) => {
-
             TW_Log("TW_Data_Store---versionBBL--W_DATA_KEY.isInitStore==err=3=" + err, ret);
             if (err) {
                 this.copy_assets_to_dir();
             } else {
                 if (`${ret}` == "1") {
-                    this.isAppUnZip = true;
-                   this.loadHomeVerson();
+                    this.isAppInited = true;
+                    this.loadHomeVerson();
                 } else {
                     this.copy_assets_to_dir();
                 }
             }
+
         });
     }
 
 
     async loadHomeVerson(){
         let Url =TW_Store.dataStore.getHomeWebHome()+"/assets/conf/version.json";
-        //TW_Log("Url-----home---"+rootStore.dataStore.getHomeWebHome()+"\n url=",Url)
-
         const target_dir_exist = await RNFS.exists(Url);
         TW_Log("Url-----home---target_dir_exist="+target_dir_exist,Url);
+        this.log+="Url-----home---target_dir_exist="+target_dir_exist;
+        this.log+="\nUrl-----home---target_dir_exist=Url-"+Url;
         if(target_dir_exist){
             TW_Store.gameUpateStore.isOldHome=false;
             RNFS.readFile(Url).then(ret=>{
-                TW_Log("Url-----home--readFile -then-ret-start")
                 let data=ret
                 if(typeof ret === 'object'){
                     data= ret;
                 }else{
-                    data = JSON.parse(ret);
+                    try {
+                        data = JSON.parse(ret);
+                    }catch (e) {
+                        TW_Log("Url-----home--readFile -then-readFile",e)
+                    }
                 }
-                TW_Log("Url-----home--readFile -then-ret-end2")
                 this.startCheckZipUpdate(data);
-            }).finally(()=>{
-                TW_Log("Url-----home--readFile -then-ret-finally")
             })
         }else{
             TW_Store.gameUpateStore.isOldHome=true;
             this.startCheckZipUpdate(null)
-
         }
-      //  TW_Log("Url-----home---target_dir_exist="+target_dir_exist,Url);
-
-        // fetch(Url)
-        //     .then(res => res.json())
-        //     .then(json =>  TW_Log("Url-----home---json"+json)).catch((e)=>{
-        //
-        // });
-
-
-        // NetUitls.getUrlAndParamsAndCallback("localhost://"+Url,null,(rt)=>{
-        //     this.log+="\ngetHomeWebHome"+JSON.stringify(rt) ;
-        //     if(rt.rs){
-        //         if(rt.content&&rt.content.versionNum){
-        //             this.startCheckZipUpdate(rt.content)
-        //         }
-        //         TW_Store.gameUpateStore.isOldHome=false;
-        //     }else{
-        //         this.startCheckZipUpdate(null)
-        //         TW_Store.gameUpateStore.isOldHome=true;
-        //     }
-        // })
     }
 
     @action
@@ -136,17 +119,26 @@ export default class DataStore {
                 }
                 if(ret&&verionM){
                     this.homeVersionM =verionM;
-                    this.log+="-->startCheckZipUpdate----homeVersionM-==-"+JSON.stringify(this.homeVersionM)
                 }
                 this.checkHomeZipUpdate();
             })
         }
+        this.log+="-->startCheckZipUpdate----homeVersionM-==-"+JSON.stringify(this.homeVersionM)
     }
 
     checkHomeZipUpdate=()=>{
-        TW_Log("TW_DATA_KEY.versionBBL start  http ===> "+rootStore.bblStore.getVersionConfig());
+        //TW_Log("TW_DATA_KEY.versionBBL start  http ===> "+rootStore.bblStore.getVersionConfig());
         this.log+="==>getVersionConfig="+rootStore.bblStore.getVersionConfig();
+        this.isCheckRequesting=true;
+        //如果超过3秒还没返回数据 默认不更新
+        setTimeout(()=>{
+            if(this.isCheckRequesting){
+                this.isCheckRequesting=false;
+                TW_Store.gameUpateStore.isNeedUpdate=false;
+            }
+        },3000);
         NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionConfig(),null,(rt)=> {
+            this.isCheckRequesting=false;
             TW_Log("TW_DATA_KEY.versionBBL http results== ", rt);
             if (rt.rs) {
                 let content = rt.content;
@@ -157,6 +149,7 @@ export default class DataStore {
                 } else {
                     zipSrc = this.content.source_android ? this.content.source_android : zipSrc;
                 }
+
                 if (zipSrc) {
                     //如果config source 是相对路径 加上 config 域名
                     if (zipSrc.indexOf("http") == -1) {
@@ -164,16 +157,15 @@ export default class DataStore {
                     }
                 }
 
-                this.log += "==>TW_Store.dataStore.isAppUnZip=" + TW_Store.dataStore.isAppUnZip;
+                this.log += "==>TW_Store.dataStore.isAppInited=" + TW_Store.dataStore.isAppInited;
                 this.log+="\nthis.homeVersionM.versionNum---"+this.homeVersionM.versionNum +"content.versionNum="+content.versionNum;
                 TW_Log("TW_DATA_KEY.versionBBL  this.homeVersionM.versionNum =" +this.homeVersionM.versionNum ,content.versionNum);
-                if (this.isAppUnZip) {
+                if (!TW_IS_DEBIG) {
                     if (this.homeVersionM.versionNum != content.versionNum) {
                         TW_Store.gameUpateStore.isNeedUpdate=true;
                         if(!TW_Store.gameUpateStore.isAppDownIng) {
                             this.downloadFile(zipSrc, rootStore.bblStore.tempZipDir);
                         }
-
                     }else{
                         TW_Store.gameUpateStore.isNeedUpdate=false;
                     }
@@ -183,6 +175,9 @@ export default class DataStore {
                     TW_Store.gameUpateStore.isNeedUpdate=false;
 
                 }
+            }else{
+                this.onSaveVersionM({}, true);
+                TW_Store.gameUpateStore.isNeedUpdate=false;
             }
         })
     }
@@ -334,11 +329,12 @@ export default class DataStore {
             if (err) {
                 TW_Log("versionBBL bbl--- copyFile--onSavaCopyState--error===!", err);
             } else {
-                this.isAppUnZip = true;
+                this.isAppInited = true;
                // this.startCheckZipUpdate();
+                this.loadHomeVerson();
             }
-            this.log+="onSavaCopyState---  this.isAppUnZip="+this.isAppUnZip+"\n"
-            this.loadHomeVerson();
+            this.log+="onSavaCopyState---  this.isAppInited="+this.isAppInited+"\n"
+          //  this.loadHomeVerson();
         })
     }
 
@@ -414,7 +410,7 @@ export default class DataStore {
 
     @action
     getHomeWebUri() {
-        if(this.isAppUnZip){
+        if(this.isAppInited){
             return this.targetAppDir+"/index.html"
         }
         return this.originAppDir+"/index.html"
@@ -422,7 +418,7 @@ export default class DataStore {
 
     @action
     getHomeWebHome() {
-        return (this.isAppUnZip  ? this.targetAppDir:this.originAppDir)
+        return (this.isAppInited  ? this.targetAppDir:this.originAppDir)
     }
 }
 

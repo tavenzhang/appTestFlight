@@ -4,10 +4,5 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
-	<key>com.apple.developer.associated-domains</key>
-	<array>
-		<string>applinks:download.imsue.cn</string>
-		<string>applinks:xhmkrq.openinstall.io</string>
-	</array>
 </dict>
 </plist>

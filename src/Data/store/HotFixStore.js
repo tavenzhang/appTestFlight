@@ -20,6 +20,9 @@ export default class HotFixStore {
 
     //默认允许更新
     allowUpdate = true;
+    //是否静默更新 下次启动剩下
+    @observable
+    isNextAffect=false
 
     @action
     skipUpdate() {
