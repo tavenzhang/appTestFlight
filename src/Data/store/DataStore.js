@@ -104,6 +104,7 @@ export default class DataStore {
         }
     }
 
+    
     @action
     startCheckZipUpdate=(versionData=null)=>{
         if(versionData) {
