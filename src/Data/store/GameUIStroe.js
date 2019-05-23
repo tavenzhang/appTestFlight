@@ -7,6 +7,7 @@ import TCUserBankPayMessageNew from "../../Page/UserCenter/UserPay/TCUserBankPay
 
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
+import TCUserPayAndWithdrawRecordsMainOld from "../../Page/UserCenter/UserAccount/TCUserPayAndWithdrawRecordsMainOld";
 export default class GameUIStroe {
 
     @observable
@@ -41,7 +42,7 @@ export default class GameUIStroe {
             this.gameAlertData={
                 title:"提现明细",
                 isUserAccount:true,
-                component:TCUserPayAndWithdrawRecordsMain,
+                component:TCUserPayAndWithdrawRecordsMainOld,
                 param:{accountType: 0, isBackToTop: true},
                 onBack
             }
@@ -53,7 +54,7 @@ export default class GameUIStroe {
             this.gameAlertData={
                 title:"充值明细",
                 isUserAccount:true,
-                component:TCUserPayAndWithdrawRecordsMain,
+                component:TCUserPayAndWithdrawRecordsMainOld,
                 param:{accountType: 1, isBackToTop: false},
                 onBack
             }
