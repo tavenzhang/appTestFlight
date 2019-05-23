@@ -158,7 +158,11 @@ export default class LoadingWebView extends Component {
     }
 
     onError = (error) => {
-        TW_Log("onError=====TCweb======event=====", error.nativeEvent)
+        TW_Log("onError=====TCweb======event=====", error.nativeEvent);
+        if(G_IS_IOS){
+            SplashScreen.show()
+            TW_Store.dataStore.onRetartApp();
+        }
     }
 
     onShouldStartLoadWithRequest = (event) => {
