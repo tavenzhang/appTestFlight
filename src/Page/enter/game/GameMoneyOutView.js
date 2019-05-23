@@ -43,6 +43,7 @@ export default class GameMoneyOutView extends Component {
 
         return (<View style={styles.container} pointerEvents={pointerEvents}>
             <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W, height:SCREEN_H}} resizeMode={'stretch'}/>
+            <TCImage source={ASSET_Images.gameUI.iconMoneyOut} style={{position: "absolute",width:SCREEN_W*0.08,height:SCREEN_H*0.11,left:SCREEN_W*0.03,top:5}} resizeMode={'stretch'}/>
             <TCImage source={ASSET_Images.gameUI.titleMoneyOut} style={{position: "absolute",width:SCREEN_W*0.1,height:SCREEN_H*0.06,left:SCREEN_W*0.11,top:SCREEN_H*0.05 - 5}} resizeMode={'contain'}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.payBack}
                          soundName={TW_Store.bblStore.SOUND_ENUM.returnLobbyClick}

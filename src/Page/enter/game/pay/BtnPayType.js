@@ -107,6 +107,8 @@ export default class BtnPayType extends Component {
                 return ASSET_Images.gameUI.payTypeYhzz
             case 'ONLINEBANK':
                 return ASSET_Images.gameUI.payTypeWy
+            case 'VIP':
+                return ASSET_Images.gameUI.payTypeVIP
             default:
                 return ASSET_Images.gameUI.payTypeYL
         }

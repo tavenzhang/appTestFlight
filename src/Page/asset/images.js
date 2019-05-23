@@ -171,6 +171,7 @@ export const gameUI = {
     guestBg:require('./game/guest/gusetBg.png'),
     //moneyOut
     titleMoneyOut:require('./game/moneyOut/titleMoneyOut.png'),
+    iconMoneyOut:require('./game/moneyOut/iconMoneyOut.png'),
     btnOut:require('./game/moneyOut/btn_out.png'),
     payOutTypeBank:require('./game/moneyOut/payOutTypeBank.png'),
     payOutTypeZFB:require('./game/moneyOut/img_tx_zfb02.png'),
@@ -207,6 +208,7 @@ export const gameUI = {
     payTypeWy:require('./game/moneyPay/type/pay_type_wy.png'),
     payTypeYhzz:require('./game/moneyPay/type/pay_type_yhzz.png'),
     payTypeJD:require('./game/moneyPay/type/pay_type_jd.png'),
+    payTypeVIP:require('./game/moneyPay/type/pay_type_vip.png'),
 
     btnPayNormal:require('./game/moneyPay/btnPayNormal.png'),
     btnPayHight:require('./game/moneyPay/btnPayHight.png'),
