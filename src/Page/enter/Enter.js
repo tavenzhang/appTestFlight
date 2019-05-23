@@ -357,7 +357,7 @@ export default class Enter extends Component {
                     this.storeLog({downloadStatus: false, message: '下载失败,请重试...'})
                     this.updateFail('下载失败,请重试...')
                 }).finally(()=>{
-                    TW_Store.gameUpateStore.isNeedUpdate=false;
+                    //TW_Store.gameUpateStore.isNeedUpdate=false;
                     TW_Store.gameUpateStore.isAppDownIng=false;
                 })
             }

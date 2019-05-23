@@ -293,15 +293,15 @@ export default class XXWebView extends Component {
         const {sharedUrl, isShowSharebox} = this.state;
         TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
         let news=TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome;
-        if(!G_IS_IOS){
+        // if(!G_IS_IOS){
             if(news){
                 return null
             }
-        }
+      // }
         TW_Log("TW_DATA_KEY.gameList-FileTools--=gameUpateStore=news=="+news)
         let {force} = this.props;
         let source = {
-            file: TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome ?  "":TW_Store.dataStore.getHomeWebUri(),
+            file: TW_Store.dataStore.getHomeWebUri(),
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
             allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
             param:"?app=true"

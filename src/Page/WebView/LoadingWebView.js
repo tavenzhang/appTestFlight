@@ -44,7 +44,7 @@ export default class LoadingWebView extends Component {
     render() {
         let newUrl = TW_Store.dataStore.getHomeWebHome() + "/loading/loading.html";
         let myParam = "";
-        if(TW_Store.dataStore.isAppUnZip) {
+        if(TW_Store.dataStore.isAppInited) {
 
         }
         let source = {
@@ -159,7 +159,8 @@ export default class LoadingWebView extends Component {
 
     onError = (error) => {
         //TW_Log("onError=====TCweb======event=====", error.nativeEvent);
-        TW_Store.gameUpateStore.isNeedUpdate =false;
+        //TW_Store.gameUpateStore.isNeedUpdate =false;
+       // TW_Store.dataStore.onRetartApp();
     }
 
     onShouldStartLoadWithRequest = (event) => {
