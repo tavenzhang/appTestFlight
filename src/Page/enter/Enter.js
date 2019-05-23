@@ -319,9 +319,9 @@ export default class Enter extends Component {
                 }
                 if(versionData){
                     if(versionData.isWeakUpate){
-                        this.hotFixStore.isNextAffect =true;
-                    }else{
                         this.hotFixStore.isNextAffect = versionData.jsVersion==appInfoStore.versionHotFix;
+                    }else{
+                        this.hotFixStore.isNextAffect =false;
                     }
                 }
                 TW_Log('==checkingupdate====hotfixDeploymentKey= versionData='+(versionData==null), versionData);
