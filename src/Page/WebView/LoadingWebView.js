@@ -158,10 +158,8 @@ export default class LoadingWebView extends Component {
     }
 
     onError = (error) => {
-        TW_Log("onError=====TCweb======event=====", error.nativeEvent);
-        if(G_IS_IOS){
-            TW_Store.dataStore.onRetartApp();
-        }
+        //TW_Log("onError=====TCweb======event=====", error.nativeEvent);
+        TW_Store.gameUpateStore.isNeedUpdate =false;
     }
 
     onShouldStartLoadWithRequest = (event) => {
