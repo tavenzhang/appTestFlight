@@ -78,7 +78,7 @@ export default class GameUserInfoView extends Component {
         this.bankStore.bankList.bankCodes.map((item, index) => {
             pickDataList.push({name: this.bankStore.bankList.bankNames[index], value: item})
         });
-        let isHavePhone =TW_Store.userStore.phoneNumber;
+        let isHavePhone =TW_Store.userStore.phoneNumber&&TW_Store.userStore.isCertifiedPhone;
         let isHaveRelName = TW_Store.userStore.realName&&TW_Store.userStore.realName.length>0;
 
         return (<View >
@@ -166,7 +166,7 @@ export default class GameUserInfoView extends Component {
                         text={TW_Store.userStore.userName}/>
                 <TCText backgroundStyle={{backgroundColor: "transparent", marginTop: G_IS_IOS ? 12:8}}
                         textStyle={{color: "#efe8cd",}} text={`${TW_Store.userStore.balance}`}/>
-                {TW_Store.userStore.phoneNumber ?
+                {TW_Store.userStore.phoneNumber&&TW_Store.userStore.isCertifiedPhone ?
                     <View style={{position: "absolute", flexDirection: "row", alignItems: "center", top: 0, left: 140}}>
                         <TCImage source={ASSET_Images.gameUI.titlePhone}/>
                         <TCText backgroundStyle={{backgroundColor: "transparent", marginLeft: 5}}

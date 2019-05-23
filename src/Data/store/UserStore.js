@@ -72,6 +72,9 @@ export default class UserStore {
     //金额是否可见
     @observable moneyIsVisable = true;
 
+    //手机是否验证过
+    @observable isCertifiedPhone = false;
+
 
     constructor() {
        // this.initUserInfo()
@@ -175,6 +178,23 @@ export default class UserStore {
     //     })
     //     this.getSignInData();
     // }
+
+    saveUserInfo(user) {
+
+        this.isLogin = true;
+        this.userName = user.username.toLocaleLowerCase();
+
+        this.prizeGroup = user.prizeGroup;
+        this.minMemberPrizeGroup = user.minMemberPrizeGroup;
+
+        // user.password = base64.encode(this.password);
+        this.realName = user.realname;
+        this.oauthRole = user.oauthRole;
+        this.balance = user.balance;
+        this.isCertifiedPhone =user.certifiedPhone;
+        TW_Log("isCertifiedPhone----"+ this.isCertifiedPhone,user)
+
+    }
 
     //更新用户数据
     updateUserAllInfo() {

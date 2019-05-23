@@ -40,6 +40,8 @@ export default class DataStore {
     //下载jobId
     currentDownId=1;
 
+    @observable
+    isCheckRequesting=false;
 
 
     @action
@@ -119,9 +121,18 @@ export default class DataStore {
     }
 
     checkHomeZipUpdate=()=>{
-        TW_Log("TW_DATA_KEY.versionBBL start  http ===> "+rootStore.bblStore.getVersionConfig());
+        //TW_Log("TW_DATA_KEY.versionBBL start  http ===> "+rootStore.bblStore.getVersionConfig());
         this.log+="==>getVersionConfig="+rootStore.bblStore.getVersionConfig();
+        this.isCheckRequesting=true;
+        //如果超过3秒还没返回数据 默认不更新
+        setTimeout(()=>{
+            if(this.isCheckRequesting){
+                this.isCheckRequesting=false;
+                TW_Store.gameUpateStore.isNeedUpdate=false;
+            }
+        },3000);
         NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionConfig(),null,(rt)=> {
+            this.isCheckRequesting=false;
             TW_Log("TW_DATA_KEY.versionBBL http results== ", rt);
             if (rt.rs) {
                 let content = rt.content;
@@ -132,6 +143,7 @@ export default class DataStore {
                 } else {
                     zipSrc = this.content.source_android ? this.content.source_android : zipSrc;
                 }
+
                 if (zipSrc) {
                     //如果config source 是相对路径 加上 config 域名
                     if (zipSrc.indexOf("http") == -1) {

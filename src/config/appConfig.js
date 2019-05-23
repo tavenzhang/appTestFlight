@@ -53,7 +53,7 @@ export const platInfo = {
     //  gameDomain:"https://dk3nuq7v.zhdisi.com",
     gameDomain: "http://sit.106games.com",
 
-    downDomain:"https://download.ouzhoufangchanwang.com",
+    downDomain:"https://download.jinkuangjia.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
