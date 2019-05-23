@@ -67,11 +67,12 @@ export default class DataStore {
             } else {
                 if (`${ret}` == "1") {
                     this.isAppInited = true;
+                    this.loadHomeVerson();
                 } else {
                     this.copy_assets_to_dir();
                 }
             }
-            this.loadHomeVerson();
+
         });
     }
 
@@ -80,6 +81,8 @@ export default class DataStore {
         let Url =TW_Store.dataStore.getHomeWebHome()+"/assets/conf/version.json";
         const target_dir_exist = await RNFS.exists(Url);
         TW_Log("Url-----home---target_dir_exist="+target_dir_exist,Url);
+        this.log+="Url-----home---target_dir_exist="+target_dir_exist;
+        this.log+="\nUrl-----home---target_dir_exist=Url-"+Url;
         if(target_dir_exist){
             TW_Store.gameUpateStore.isOldHome=false;
             RNFS.readFile(Url).then(ret=>{
@@ -116,11 +119,11 @@ export default class DataStore {
                 }
                 if(ret&&verionM){
                     this.homeVersionM =verionM;
-                    this.log+="-->startCheckZipUpdate----homeVersionM-==-"+JSON.stringify(this.homeVersionM)
                 }
                 this.checkHomeZipUpdate();
             })
         }
+        this.log+="-->startCheckZipUpdate----homeVersionM-==-"+JSON.stringify(this.homeVersionM)
     }
 
     checkHomeZipUpdate=()=>{
@@ -326,8 +329,9 @@ export default class DataStore {
             if (err) {
                 TW_Log("versionBBL bbl--- copyFile--onSavaCopyState--error===!", err);
             } else {
-                //this.isAppInited = true;
+                this.isAppInited = true;
                // this.startCheckZipUpdate();
+                this.loadHomeVerson();
             }
             this.log+="onSavaCopyState---  this.isAppInited="+this.isAppInited+"\n"
           //  this.loadHomeVerson();
