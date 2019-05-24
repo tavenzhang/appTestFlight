@@ -99,11 +99,34 @@ var PageLogin = /** @class */ (function (_super) {
     PageLogin.prototype.loadFinish = function () {
         Common.confObj = ConfObjRead.getConfCommon();
         ResConfig.addTween = Common.confObj.addTween;
+        this.copyNativeAdress();
         this.updateGatewayInfo();
         //登陆流程
         this.initLoginProcess();
         this.initEvents();
         PageLogin.isLoaded = true;
+    };
+    /**
+     * 拷贝native的地址
+     * 注意：native所有http请求必须在这部操作之后
+     */
+    PageLogin.prototype.copyNativeAdress = function () {
+        if (AppData.IS_NATIVE_APP) {
+            var urlJson = AppData.NATIVE_DATA.urlJSON;
+            var localUrlJson = ConfObjRead.getConfUrl();
+            Common.clientId = AppData.NATIVE_DATA.clientId;
+            if (urlJson) {
+                for (var key in urlJson) {
+                    if (localUrlJson[key]) {
+                        for (var subKey in urlJson[key]) {
+                            if (localUrlJson[key][subKey]) {
+                                localUrlJson[key][subKey] = urlJson[key][subKey];
+                            }
+                        }
+                    }
+                }
+            }
+        }
     };
     //获取init-info
     PageLogin.prototype.updateGatewayInfo = function (isError, callback) {
@@ -129,15 +152,17 @@ var PageLogin = /** @class */ (function (_super) {
             else {
                 Debug.output("init-err:", jobj.http.status);
                 LayaMain.getInstance().showCircleLoading(false);
-                Toast.showToast("服务异常,请稍后再试!");
                 if (jobj.http.status == 428) {
                     _this.gatewayCount++;
                     if (_this.gatewayCount <= 3) {
                         _this.updateGatewayInfo(true);
                     }
                     else {
-                        //...
+                        Toast.showToast("服务异常,请稍后再试!");
                     }
+                }
+                else {
+                    Toast.showToast("服务异常,请稍后再试!");
                 }
             }
         });
@@ -253,8 +278,10 @@ var PageLogin = /** @class */ (function (_super) {
             return;
         }
         LayaMain.getInstance().showCircleLoading(true);
-        this.clearCodeTime();
-        this.mp_getcodeBtn.visible = true;
+        if (!Common.gatewayInfo) {
+            this.updateGatewayInfo(true, this.doPhoneLogin);
+            return;
+        }
         HttpRequester.phoneLogin(this.mp_numTxt.text, this.mp_codeTxt.text, this, function (suc, jobj) {
             LayaMain.getInstance().showCircleLoading(false);
             if (suc) {
@@ -315,22 +342,6 @@ var PageLogin = /** @class */ (function (_super) {
             Common.clientId = Tools.getQueryVariable("clientId");
             if (!Common.clientId)
                 Common.clientId = ConfObjRead.getConfUrl().cmd.testClientId;
-        }
-        else { //app端
-            var urlJson = AppData.NATIVE_DATA.urlJSON;
-            var localUrlJson = ConfObjRead.getConfUrl();
-            Common.clientId = AppData.NATIVE_DATA.clientId;
-            if (urlJson) {
-                for (var key in urlJson) {
-                    if (localUrlJson[key]) {
-                        for (var subKey in urlJson[key]) {
-                            if (localUrlJson[key][subKey]) {
-                                localUrlJson[key][subKey] = urlJson[key][subKey];
-                            }
-                        }
-                    }
-                }
-            }
         }
         LobbyScene.initBgMusic();
         if (this.cmd && this.cmd.type) {
