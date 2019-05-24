@@ -26,31 +26,68 @@ var view;
         }
         LobbyView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
+            if (ResConfig.addTween) {
+                this.bgUI.alpha = 0;
+                Laya.Tween.to(this.bgUI, { alpha: 1 }, 800, null, null);
+                this.rightBtn.alpha = 0;
+                Laya.Tween.to(this.rightBtn, { alpha: 1 }, 800, null, null, 800);
+            }
             this.publicUI = new view.PublicView();
             this.uibox.addChild(this.publicUI);
             //游戏列表
             this.gameList = new GameListManager(this.iconbox);
-            this.gameList.rightArrowBtn = this.moveBtn;
+            this.gameList.rightArrowBtn = this.rightBtn;
+            this.gameList.leftArrowBtn = this.leftBtn;
+            this.leftBtn.visible = false;
             this.initGirl();
             //
             this.initTitleBar();
             //
             this.initBottomMenu();
-            HttpRequester.getPlayerMaterialInfo(this, this.initCycelView);
+            this.requestCycelData();
+            HttpRequester.getBindAward(this, function (suc, jobj) {
+                if (suc) {
+                    if (jobj.bind && jobj.reward > 0) {
+                        TempData.bindAward = jobj.reward;
+                    }
+                }
+            });
             this.initEvents();
             this.resize();
         };
         LobbyView.prototype.initEvents = function () {
             var _this = this;
             //箭头按钮
-            EventManager.addTouchScaleListener(this.moveBtn, this, function () {
+            EventManager.addTouchScaleListener(this.rightBtn, this, function () {
                 SoundPlayer.clickSound();
                 if (_this.gameList)
                     _this.gameList.doRightArrow(548);
             }, null, 1);
+            EventManager.addTouchScaleListener(this.leftBtn, this, function () {
+                SoundPlayer.clickSound();
+                if (_this.gameList)
+                    _this.gameList.doLeftArrow(548);
+            }, null, 1);
             //重置大小
             EventManager.register(EventType.RESIZE, this, this.resize);
             EventManager.register(EventType.FLUSH_AGENCYBTN, this, this.showAgencyBtn);
+            EventManager.register(EventType.FLUSH_CYCLEIMAGE, this, this.flushCycleImage);
+            EventManager.register(EventType.BINDPHONE_SUCC, this, this.hideBindBtn);
+            EventManager.register(EventType.GET_USERCURRENT, this, this.checkShowBindBtn);
+        };
+        LobbyView.prototype.checkShowBindBtn = function (binded) {
+            // this.btn_bind.visible = !binded;//临时屏蔽todo:xxx
+        };
+        LobbyView.prototype.hideBindBtn = function () {
+            this.btn_bind.visible = false;
+            this.publicUI.infoView.requestUserInfoCurrent(); //刷新一下状态(todo:全屏个人中心上了可以删除)
+        };
+        LobbyView.prototype.flushCycleImage = function () {
+            Laya.timer.clear(this, this.requestCycelData);
+            Laya.timer.once(60000 * 5, this, this.requestCycelData);
+        };
+        LobbyView.prototype.requestCycelData = function () {
+            HttpRequester.getPlayerMaterialInfo(this, this.initCycelView);
         };
         LobbyView.prototype.showAgencyBtn = function () {
             this.btn_dl.visible = userData.role != "PLAYER";
@@ -58,15 +95,18 @@ var view;
         //left-girl
         LobbyView.prototype.initGirl = function () {
             this.girlAinm = new DragonBoneAnim();
-            this.girlAinm.loadInit({ skUrl: "./assets/ui/animation/girl/girl.sk" });
+            this.girlAinm.loadInit({ skUrl: "./assets/animation/girl/girl.sk" });
             this.girlAinm.scale(-2, 2);
             this.girlSp.addChild(this.girlAinm);
             this.girlAinm.pos(this.girlSp.width >> 1, this.girlSp.height >> 1);
             this.girlSp.mouseEnabled = false;
+            if (ResConfig.addTween) {
+                this.girlAinm.alpha = 0;
+                Laya.Tween.to(this.girlAinm, { alpha: 1 }, 600, null, null, 300);
+            }
         };
         //右上角按钮
         LobbyView.prototype.initTitleBar = function () {
-            console.log("init title bar");
             //活动
             EventManager.addTouchScaleListener(this.actBtn, this, function () {
                 SoundPlayer.enterPanelSound();
@@ -74,12 +114,10 @@ var view;
                 // AttentionDialog.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
                 // AttentionDialog.obj.show();
                 // view.dlg.NoticeDlg.show(AttentionDialog.TYPE_OPEN_AUTO);
-                console.log("panel click");
                 view.dlg.NoticeDlg.show();
             });
             //客服
             EventManager.addTouchScaleListener(this.serviceBtn, this, function () {
-                console.log("customer click");
                 SoundPlayer.enterPanelSound();
                 Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
             });
@@ -99,16 +137,15 @@ var view;
                 this.btn_tx.visible = false;
                 this.shopSp.visible = false;
             }
+            this.btn_bind.visible = false;
             //充值动画
             var vo = {};
-            vo.skUrl = "./assets/ui/animation/shopicon/shopicon.sk";
+            vo.skUrl = "./assets/animation/shopicon/shopicon.sk";
             vo.loopDelay = 3000;
             this.czAinm = new DragonBoneAnim();
             this.czAinm.loadInit(vo);
             this.czAinm.pos(this.shopSp.width >> 1, this.shopSp.height >> 1);
             this.shopSp.addChild(this.czAinm);
-            this.shareBtn.visible = false;
-            this.btn_dl.x = this.shareBtn.x;
             this.showAgencyBtn();
             //代理
             EventManager.addTouchScaleListener(this.btn_dl, this, function () {
@@ -127,10 +164,10 @@ var view;
                     Tools.jump2module(ConfObjRead.getConfUrl().url.g_redraw, "redraw");
                 }
             });
-            //分享
-            EventManager.addTouchScaleListener(this.shareBtn, this, function () {
+            //绑定送金
+            EventManager.addTouchScaleListener(this.btn_bind, this, function () {
                 SoundPlayer.enterPanelSound();
-                Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "share");
+                view.dlg.bindPhone.BindPhoneActiveDlg.show();
             });
             //充值
             EventManager.addTouchScaleListener(this.shopSp, this, function () {
@@ -144,7 +181,7 @@ var view;
             var gap = GameUtils.posOffset;
             this.bottomGroup.right = gap;
             this.TLbox.right = gap;
-            this.moveBtn.right = gap;
+            this.rightBtn.right = gap;
             if (this.gameList)
                 this.gameList.resetView();
         };
@@ -162,22 +199,30 @@ var view;
             }
             if (!arr || arr.length == 0)
                 return;
-            this.cycleView = new CyclePageBox(378, 198);
-            this.cycleView.init(arr, 3000);
-            this.cycleView.pos(GameUtils.posOffset, 506); //GameUtils.getScreencOffset(36, 114)
-            this.addChild(this.cycleView);
+            if (!this.cycleView) {
+                this.cycleView = new CyclePageBox(378, 198);
+                this.cycleView.init(arr, 3000);
+                this.cycleView.pos(GameUtils.posOffset, 506); //GameUtils.getScreencOffset(36, 114)
+                this.addChild(this.cycleView);
+            }
+            else {
+                this.cycleView.flushData(arr);
+            }
         };
-        LobbyView.prototype.gamepanelOver = function () { };
         /**
          * 销毁
          */
         LobbyView.prototype.dispose = function () {
+            Laya.timer.clear(this, this.requestCycelData);
             if (this.publicUI)
                 this.publicUI.dispose();
             if (this.arrowAnim)
                 this.arrowAnim.stop();
+            EventManager.removeEvent(EventType.BINDPHONE_SUCC, this, this.hideBindBtn);
             EventManager.removeEvent(EventType.RESIZE, this, this.resize);
             EventManager.removeEvent(EventType.FLUSH_AGENCYBTN, this, this.showAgencyBtn);
+            EventManager.removeEvent(EventType.FLUSH_CYCLEIMAGE, this, this.flushCycleImage);
+            EventManager.removeEvent(EventType.GET_USERCURRENT, this, this.checkShowBindBtn);
             EventManager.removeAllEvents(this);
             if (this.girlAinm) {
                 this.girlAinm.destroy(true);

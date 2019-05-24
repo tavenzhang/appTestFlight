@@ -33,12 +33,17 @@ var view;
             };
             PasswordSettingDlg.prototype.onOpened = function () {
                 _super.prototype.onOpened.call(this);
-                if (Common.loginType == Common.TYPE_LOGIN_QK) {
+                if (Common.loginType == LoginType.Fast) {
                     var pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
                     var bchangepwd = SaveManager.getObj().get(SaveManager.KEY_QK_PWD_CHANGED, false);
                     if (!bchangepwd) {
                         this.oldTxt.text = pwd;
                     }
+                }
+                else if (Common.loginType == LoginType.Phone) {
+                    var pwd = SaveManager.getObj().get(SaveManager.KEY_PHONEPWD, "");
+                    if (pwd)
+                        this.oldTxt.text = pwd;
                 }
                 this.newTxt1.type = "password";
                 this.newTxt2.type = "password";

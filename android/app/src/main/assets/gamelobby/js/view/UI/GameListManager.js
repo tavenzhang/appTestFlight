@@ -13,6 +13,11 @@ var GameListManager = /** @class */ (function () {
         if (this.dragBox)
             this.dragBox.tweenTo(dist, MoveDirect.left);
     };
+    GameListManager.prototype.doLeftArrow = function (dist) {
+        if (dist === void 0) { dist = 330; }
+        if (this.dragBox)
+            this.dragBox.tweenTo(dist, MoveDirect.right);
+    };
     //重置滑动区域大小
     GameListManager.prototype.resetView = function () {
         if (this.dragBox) {
@@ -79,8 +84,10 @@ var GameListManager = /** @class */ (function () {
         var contentWidth = 0;
         for (var i = 0; i < len; i++) {
             icon = new view.UI.GameIconView();
+            icon.index = i;
             icon.mouseEnabled = true;
             icon.readData(glist[i]);
+            // icon.setGameState(GameState.UPDATE);//debugxxx(用于调试动画位置)
             icon.x = Math.floor(i / 2) * (icon.width + gapX);
             icon.y = (i % 2) * (icon.height + gapY);
             iconGroup.addChild(icon);

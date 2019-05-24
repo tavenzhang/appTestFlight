@@ -56,7 +56,7 @@ var view;
             bg.alpha = this._alp;
             this.addChildAt(bg, 0);
             this.anim = new DragonBoneAnim();
-            this.anim.parseInit({ skUrl: "./assets/ui/animation/loading/xiaoLoding.sk", pngUrl: "./assets/ui/animation/loading/xiaoLoding.png" });
+            this.anim.parseInit({ skUrl: "./assets/animation/loading/xiaoLoding.sk", pngUrl: "./assets/animation/loading/xiaoLoding.png" });
             this.abox.addChild(this.anim);
         };
         LoadingView.prototype.destroy = function (dc) {

@@ -23,6 +23,20 @@ var Debug = /** @class */ (function () {
             return;
         console.error(mess, parms);
     };
+    /**
+     * 用于普通信息调试
+     * @param mess
+     * @param parms
+     */
+    Debug.outputLog = function (mess) {
+        var parms = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            parms[_i - 1] = arguments[_i];
+        }
+        if (!this.openDebug)
+            return;
+        console.log(mess, parms);
+    };
     Debug.traceObj = function (ct, data) {
         if (data === void 0) { data = {}; }
         if (!Debug.bDebug) {
