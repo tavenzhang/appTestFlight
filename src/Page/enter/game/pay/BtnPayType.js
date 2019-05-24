@@ -27,10 +27,12 @@ export default class BtnPayType extends Component {
 
 
     render() {
-        let {isSelect,data} = this.props
+        let {isSelect, data} = this.props
         return (<TouchableWithoutFeedback onPress={this.onSelect}>
-                <View style={{ justifyContent:"center", alignItems:"center",height:50}}>
-                    <TCImage  source={isSelect ? ASSET_Images.gameUI.btnPayHight : ASSET_Images.gameUI.btnPayNormal}  resizeMode={'stretch'}/>
+                <View style={{justifyContent: "center", alignItems: "center", height: 50}}>
+                    <TCImage source={isSelect ? ASSET_Images.gameUI.btnPayHight :
+                        data.code == "VIP" ? ASSET_Images.gameUI.btnPayVIPNormal : ASSET_Images.gameUI.btnPayNormal}
+                             resizeMode={'stretch'}/>
                     <View style={{
                         position: "absolute", alignItems: "center", justifyContent: "center",
                     }}>
@@ -40,7 +42,7 @@ export default class BtnPayType extends Component {
                                      style={{marginRight: 5}}/>
                             {/*<View style={{justifyContent:"center", alignItems:"center"}}>*/}
                             {/*<TCImage source={this.getPayName(data.code)}/>*/}
-                                {/*{this.isFinxePay(data.code) ? <TCImage source={ASSET_Images.gameUI.title_fix}/>:null}*/}
+                            {/*{this.isFinxePay(data.code) ? <TCImage source={ASSET_Images.gameUI.title_fix}/>:null}*/}
                             {/*</View>*/}
                         </View>
                     </View>

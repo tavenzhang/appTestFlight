@@ -186,6 +186,7 @@ export const gameUI = {
     bangNumBg:require('./game/moneyOut/img_tx_bangBg.png'),
     //moneyPay
     moneyInBg:require('./game/moneyPay/moneyInBg.png'),
+    moneyBottomBg:require('./game/moneyPay/moneyBottomBg.png'),
     btn_onLine:require('./game/moneyPay/btn_guset_online.png'),
     title_pay:require('./game/moneyPay/title_payType.png'),
     title_qr:require('./game/moneyPay/title_qrCode.png'),
@@ -212,6 +213,7 @@ export const gameUI = {
 
     btnPayNormal:require('./game/moneyPay/btnPayNormal.png'),
     btnPayHight:require('./game/moneyPay/btnPayHight.png'),
+    btnPayVIPNormal:require('./game/moneyPay/btnPayVIPNormal.png'),
     btnMoneyHight:require('./game/moneyPay/btnMoneyHight.png'),
     btnMoneyBg:require('./game/moneyPay/btnMoneyBg.png'),
     //btn
@@ -229,6 +231,7 @@ export const gameUI = {
     stepOneBg2:require('./game/moneyPay/stepOnebg2.png'),
 
     listItemBg:require('./game/moneyPay/listItemBg.png'),
+    listItemVIPBg:require('./game/moneyPay/listItemVIPBg.png'),
     fixedListItemBg:require('./game/moneyPay/pay_type_fixed_bg.png'),
     fixedListItemBg1:require('./game/moneyPay/pay_type_fixed_bg1.png'),
     moneyLabelBg:require('./game/moneyPay/money_label_bg.png'),
