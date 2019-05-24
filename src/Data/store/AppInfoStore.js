@@ -125,7 +125,6 @@ export default class AppInfoStore {
     }
 
     checkAppInfoUpdate=(oldData=null)=>{
-      //  TW_Log("TN_GetPlatInfo---versionBBL--TW_DATA_KEY.platDat====eeror= this.APP_DOWNLOAD_VERSION--checkAppInfoUpdate", this.APP_DOWNLOAD_VERSION);
         TN_GetAppInfo((data) => {
            // TW_Log("TN_GetPlatInfo---versionBBL--checkAppInfoUpdate.platDat==start==data=",data);
             if(data){

@@ -78,7 +78,7 @@ export default class GameUserInfoView extends Component {
         this.bankStore.bankList.bankCodes.map((item, index) => {
             pickDataList.push({name: this.bankStore.bankList.bankNames[index], value: item})
         });
-        let isHavePhone =TW_Store.userStore.phoneNumber;
+        let isHavePhone =TW_Store.userStore.phoneNumber&&TW_Store.userStore.isCertifiedPhone;
         let isHaveRelName = TW_Store.userStore.realName&&TW_Store.userStore.realName.length>0;
 
         return (<View >
@@ -86,7 +86,9 @@ export default class GameUserInfoView extends Component {
             {
                 isHavePhone? null : <TCButtonImg imgSource={ASSET_Images.gameUI.btnPhone}
                                                                  onClick={() => {
-                                                                     this.setState({isShowPhone: true})
+                                                                     //this.setState({isShowPhone: true})
+                                                                     TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.bindPhone));
+                                                                     TW_Store.gameUIStroe.isShowUserInfo=false;
                                                                  }}
                                                                  soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                                                  btnStyle={{
@@ -131,7 +133,7 @@ export default class GameUserInfoView extends Component {
                     this.setState({inputRealName: text})
                 }} placeholder={"请输入持卡人姓名"} inputStyle={styles.inputStyle} placeholderTextColor={"#9cc5d8"}/>
 
-                <TCTextInput value={this.state.inputBankNum}
+                <TCTextInput value={this.onChangeAccountNum(this.state.inputBankNum)}
                              onChangeText={(num) => {
                                  this.setState({inputBankNum: this.onChangeAccountNum(num)})
                              }}
@@ -151,12 +153,12 @@ export default class GameUserInfoView extends Component {
                 </View>
                 <TCTextInput onChangeText={(text) => {
                     this.setState({inputBrunchAddr: text})
-                }} value={this.state.inputBrunchAddr} viewStyle={{marginTop: 6}} placeholder={"请输入省市区"}
+                }} value={this.state.inputBrunchAddr} viewStyle={{marginTop: 9}} placeholder={"请输入省市区"}
                              inputStyle={styles.inputStyle} placeholderTextColor={"#9cc5d8"}/>
                 <TCTextInput onChangeText={(text) => {
                     this.setState({inputPwd: text})
                 }} value={this.state.inputPwd} keyboardType={"numeric"} maxLength={4}
-                             secureTextEntry={!this.state.isPwdOpen} viewStyle={{marginTop:6}}
+                             secureTextEntry={!this.state.isPwdOpen} viewStyle={{marginTop:5}}
                              placeholder={"请设置提现密码"} inputStyle={styles.inputStyle}
                              placeholderTextColor={"#9cc5d8"}/>
 
@@ -166,7 +168,7 @@ export default class GameUserInfoView extends Component {
                         text={TW_Store.userStore.userName}/>
                 <TCText backgroundStyle={{backgroundColor: "transparent", marginTop: G_IS_IOS ? 12:8}}
                         textStyle={{color: "#efe8cd",}} text={`${TW_Store.userStore.balance}`}/>
-                {TW_Store.userStore.phoneNumber ?
+                {TW_Store.userStore.phoneNumber&&TW_Store.userStore.isCertifiedPhone ?
                     <View style={{position: "absolute", flexDirection: "row", alignItems: "center", top: 0, left: 140}}>
                         <TCImage source={ASSET_Images.gameUI.titlePhone}/>
                         <TCText backgroundStyle={{backgroundColor: "transparent", marginLeft: 5}}
@@ -355,10 +357,11 @@ const styles = StyleSheet.create({
         zIndex: 150
     },
     inputStyle: {
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: "bold",
         textAlign:"left",
-        color: "#efe8cd"
+        color: "#efe8cd",
+        width:SCREEN_W*2/7
     }
 
 });

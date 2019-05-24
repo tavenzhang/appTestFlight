@@ -67,7 +67,7 @@ var AgentContentInfo = /** @class */ (function (_super) {
             }
         }
         var db = this.db = new DragonBoneAnim();
-        db.loadInit({ skUrl: "./assets/ui/animation/agent/banner.sk" });
+        db.loadInit({ skUrl: "./assets/animation/agent/banner.sk" });
         this.addChild(db);
         db.x = 882;
         db.y = 50;

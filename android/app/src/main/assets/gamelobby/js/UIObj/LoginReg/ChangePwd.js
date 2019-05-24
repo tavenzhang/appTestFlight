@@ -190,7 +190,7 @@ var ChangePwd = /** @class */ (function (_super) {
         //     LoginPad.getObj().refreshYanzhengma();
         //     Toast.showToast(this.conf.textChanged);
         // }
-        if (Common.loginType == Common.TYPE_LOGIN_QK) {
+        if (Common.loginType == LoginType.Fast) {
             SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, newpwd);
             Common.loginInfo.strongPwd = true;
             SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);

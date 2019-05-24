@@ -44,9 +44,7 @@ export default class LoadingWebView extends Component {
     render() {
         let newUrl = TW_Store.dataStore.getHomeWebHome() + "/loading/loading.html";
         let myParam = "";
-        if(TW_Store.dataStore.isAppUnZip) {
 
-        }
         let source = {
             file: newUrl,
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
@@ -59,7 +57,7 @@ export default class LoadingWebView extends Component {
             };
         }
 
-        let visible = TW_Store.gameUpateStore.isNeedUpdate ||TW_Store.gameUpateStore.isAppDownIng
+        let visible = TW_Store.gameUpateStore.isNeedUpdate||TW_Store.gameUpateStore.isAppDownIng
         if(!visible){
             return null;
         }
@@ -67,7 +65,7 @@ export default class LoadingWebView extends Component {
         // if (TW_IS_DEBIG) {
         //     source = require('./../../../android/app/src/main/assets/gamelobby/loading/loading.html');
         // }
-
+        //TW_Log("Loading===========source=====rr22", source)
         let wenConteView = G_IS_IOS ? <WKWebView
                 ref="myWebView"
                 source={source}
@@ -95,6 +93,7 @@ export default class LoadingWebView extends Component {
                 decelerationRate="normal"
                 // renderLoading={this.onRenderLoadingView}
                 startInLoadingState={false}
+
                 onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                 allowFileAccess={true}
                 onError={this.onError}
@@ -147,8 +146,7 @@ export default class LoadingWebView extends Component {
     }
 
     onLoadEnd=()=>{
-        if(G_IS_IOS)
-        {
+        if(G_IS_IOS) {
             SplashScreen.hide();
         }else{
             setTimeout(()=>{SplashScreen.hide()},800);
@@ -157,7 +155,9 @@ export default class LoadingWebView extends Component {
     }
 
     onError = (error) => {
-        TW_Log("onError=====TCweb======event=====", error.nativeEvent)
+        //TW_Log("onError=====TCweb======event=====", error.nativeEvent);
+        //TW_Store.gameUpateStore.isNeedUpdate =false;
+       // TW_Store.dataStore.onRetartApp();
     }
 
     onShouldStartLoadWithRequest = (event) => {

@@ -107,7 +107,7 @@ static Boolean  IsFirtReuest = YES;
     rootViewController.view.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
-//    [self JD_OtherSDKInit];
+    [self JD_OtherSDKInit];
 }
 
 - (void)loadReactNativeController{
@@ -153,23 +153,23 @@ static Boolean  IsFirtReuest = YES;
   return data == nil || [data isEqualToString:@""]||[data isEqual:[NSNull null]];
 }
 
-//- (void)JD_OtherSDKInit{
-//  NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
-//  NSString *ukey = [tempInfoDict objectForKey:@"UmengKey"];
-//  NSString *jkey  = [tempInfoDict objectForKey:@"JPushKey"];
-//  NSString *channel = [tempInfoDict objectForKey:@"Channel"];
-//  NSString *tkey = [tempInfoDict objectForKey:@"tkey"];
-//  NSString *bkey = [tempInfoDict objectForKey:@"bkey"];
-//  // 极光推送
-//  if(![self isNotExist:jkey]){
-//    NSLog(@"JD_OtherSDKInit---value %d",![self isNotExist:jkey]);
-//    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
-//    entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
-//    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
-//    [JPUSHService setupWithOption:self.launchOptions appKey:jkey
-//                          channel:nil apsForProduction:true];
-//  }
-//  // 友盟统计
+- (void)JD_OtherSDKInit{
+  NSDictionary *tempInfoDict = [[NSBundle mainBundle] infoDictionary];
+  NSString *ukey = [tempInfoDict objectForKey:@"UmengKey"];
+  NSString *jkey  = [tempInfoDict objectForKey:@"JPushKey"];
+  NSString *channel = [tempInfoDict objectForKey:@"Channel"];
+  NSString *tkey = [tempInfoDict objectForKey:@"tkey"];
+  NSString *bkey = [tempInfoDict objectForKey:@"bkey"];
+  // 极光推送
+  if(![self isNotExist:jkey]){
+    NSLog(@"JD_OtherSDKInit---value %d",![self isNotExist:jkey]);
+    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+    [JPUSHService setupWithOption:self.launchOptions appKey:jkey
+                          channel:nil apsForProduction:true];
+  }
+  // 友盟统计
 //  NSLog(@"JD_OtherSDKInit--ukey-%d",![self isNotExist:ukey]);
 //  if(![self isNotExist:ukey]){
 //    [UMConfigure setLogEnabled:YES];
@@ -187,7 +187,7 @@ static Boolean  IsFirtReuest = YES;
 //      config.blockMonitorTimeout = 1.5;
 //      [Bugly startWithAppId:bkey config:config];
 //    }
-//}
+}
 
 //- (void)resetAppKeyWithDictionary:(NSDictionary *)dic{
 //  if (dic && [dic isKindOfClass:[NSDictionary class]]) {
@@ -220,28 +220,28 @@ static Boolean  IsFirtReuest = YES;
 }
 
 - (void)registAppPush:(NSString *)jkey:(NSString *)channel{
-  if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
-    JPUSHRegisterEntity *entity = [[JPUSHRegisterEntity alloc] init];
-    entity.types = UNAuthorizationOptionAlert | UNAuthorizationOptionBadge |
-    UNAuthorizationOptionSound;
-    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
-  } else if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-    //可以添加自定义categories
-    [JPUSHService
-     registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
-                                         UIUserNotificationTypeSound |
-                                         UIUserNotificationTypeAlert)
-     categories:nil];
-  } else {
-    // iOS 8以前 categories 必须为nil
-    [JPUSHService
-     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                         UIRemoteNotificationTypeSound |
-                                         UIRemoteNotificationTypeAlert)
-     categories:nil];
-  }
-  [JPUSHService setupWithOption:self.launchOptions appKey:jkey
-                        channel:channel apsForProduction:true];
+//  if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+//    JPUSHRegisterEntity *entity = [[JPUSHRegisterEntity alloc] init];
+//    entity.types = UNAuthorizationOptionAlert | UNAuthorizationOptionBadge |
+//    UNAuthorizationOptionSound;
+//    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+//  } else if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+//    //可以添加自定义categories
+//    [JPUSHService
+//     registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+//                                         UIUserNotificationTypeSound |
+//                                         UIUserNotificationTypeAlert)
+//     categories:nil];
+//  } else {
+//    // iOS 8以前 categories 必须为nil
+//    [JPUSHService
+//     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+//                                         UIRemoteNotificationTypeSound |
+//                                         UIRemoteNotificationTypeAlert)
+//     categories:nil];
+//  }
+//  [JPUSHService setupWithOption:self.launchOptions appKey:jkey
+//                        channel:channel apsForProduction:true];
 }
 
 

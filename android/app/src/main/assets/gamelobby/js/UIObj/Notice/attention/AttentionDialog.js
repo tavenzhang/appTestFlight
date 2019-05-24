@@ -464,7 +464,7 @@ var AttentionDialog = /** @class */ (function (_super) {
             return;
         }
         // Debug.trace("AttentionDialog.showChangePwd Common.loginType:"+Common.loginType+" Common.loginInfo.strongPwd:"+Common.loginInfo.strongPwd);
-        if (Common.loginType == Common.TYPE_LOGIN_QK) {
+        if (Common.loginType == LoginType.Fast) {
             if (!Common.loginInfo.strongPwd) {
                 //cancel
                 // ChangePwdQk.showPad(LayaMain.getInstance().getRootNode(),ConfObjRead.getConfChangePwdQk());

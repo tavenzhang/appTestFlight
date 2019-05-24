@@ -23,6 +23,8 @@ import ShareBox from "../../Page/enter/game/pay/ShareBox";
 import TCUserOpenPayApp from "../UserCenter/UserPay/TCUserOpenPayApp";
 
 const HTTP_GAME_LIST="/gamecenter/player/game/list";
+const HTTP_ACCOUNT="/webapi/account/users/current";
+
 
 @withMappedNavigationProps()
 @observer
@@ -133,57 +135,7 @@ export default class XXWebView extends Component {
     }
 
     onFlushGameData=()=>{
-        NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.gameDomain+"/game.json"+"?rom="+Math.random(),null,(rt)=>{
-
-            let newList = rt.content ? rt.content:[];
-            let gameM =  TW_Store.dataStore.appGameListM;
-            let lastList=[];
-            for(let item of newList){
-                let saveItem = gameM[`${item.name}`];
-                if(saveItem){
-                    if(saveItem.current_version!=item.current_version){
-                        gameM[`${item.name}`]={...saveItem,bupdate:true,newVersion:item.current_version};
-                        lastList.push(gameM[`${item.name}`]);
-                    }else{
-                        gameM[`${item.name}`]={...saveItem,bupdate:false};
-                    }
-
-                }else if(!saveItem){
-                    gameM[`${item.name}`]={...item,current_version:"",bupdate:true,newVersion:item.current_version};
-                    lastList.push(gameM[`${item.name}`]);
-                }
-            }
-          //  TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-"+JSON.stringify(lastList));
-            //由于运维 添加了一些slot 重复项目。进行优化移除多余
-            let gameList=[];
-             for( let i=0;i<lastList.length;i++){
-                let dataItem =lastList[i];
-                 let tempList=[];
-                for(let dataKey in gameM){
-                    let data =gameM[dataKey];
-                    if(data.alias&&data.alias==dataItem.alias){
-                        tempList.push(data);
-                    }
-                }
-                if(tempList.length>1){
-                    for(let item of tempList){
-                        if(item.name&&item.name.indexOf("app")>-1){
-                           // TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt=tempList=-indexOf",item);
-                            if(item.bupdate){
-                                gameList.push(item);
-                            }
-                            break;
-                        }
-                    }
-                }else {
-                    if(tempList[0]){
-                        gameList.push(tempList[0]);
-                    }
-                }
-             }
-          //  TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==gameList-"+JSON.stringify(gameList));
-            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:gameList}));
-        })
+        TW_Store.dataStore.onFlushGameData();
     }
     
     componentDidMount(): void {
@@ -291,17 +243,18 @@ export default class XXWebView extends Component {
 
     render() {
         const {sharedUrl, isShowSharebox} = this.state;
-        TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
+       // TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
         let news=TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome;
-        if(!G_IS_IOS){
-            if(news){
+
+
+        if(news){
                 return null
-            }
         }
+
         TW_Log("TW_DATA_KEY.gameList-FileTools--=gameUpateStore=news=="+news)
         let {force} = this.props;
         let source = {
-            file: TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome ?  "":TW_Store.dataStore.getHomeWebUri(),
+            file: TW_Store.dataStore.getHomeWebUri(),
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
             allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
             param:"?app=true"
@@ -510,7 +463,7 @@ export default class XXWebView extends Component {
                         TW_Store.gameUpateStore.isTempExist=false;
                         TW_Store.gameUpateStore.isOldHome=false
                     }
-
+                    TW_Store.gameUpateStore.isCodePushChecking=true;
                     break;
                 case  "game_custom":
                     TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
@@ -575,6 +528,12 @@ export default class XXWebView extends Component {
                                         this.onFinishGameList(ret.content.datas)
                                     }
                                 }
+                                if(message.url.indexOf(HTTP_ACCOUNT)>-1){
+                                    if(ret.rs){
+                                        TW_Store.userStore.saveUserInfo(ret.content)
+                                    }
+                                }
+
                             },10,false,false,true,this.onParamHead(message.header));
                             break;
                         case "put":
@@ -609,10 +568,6 @@ export default class XXWebView extends Component {
 
     onLoadEnd=()=>{
         TW_Store.bblStore.isLoading=false;
-        if(!TW_Store.gameUpateStore.isNeedUpdate||TW_Store.gameUpateStore.isOldHome){
-            SplashScreen.hide();
-        }
-
         this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize,{}));
     }
 
