@@ -64,8 +64,8 @@
     ],
     "animations": [
         {
-            "textPath": "./assets/ui/animation/agent/top/daili_page.png",
-            "animPath": "./assets/ui/animation/agent/top/daili_page.sk",
+            "textPath": "./assets/animation/agent/top/daili_page.png",
+            "animPath": "./assets/animation/agent/top/daili_page.sk",
             "playSpeed": 1.0,
             "loop": true,
             "loopdelayX": 1000,

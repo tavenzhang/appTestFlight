@@ -21,14 +21,14 @@
             },
             "size": {
                 "w": 1015,
-                "h": 356
+                "h": 440
             }
         },
         {
             "src": "./assets/ui/agent/img_daili_shuoming02.png",
             "pos": {
                 "x": 20,
-                "y": 396
+                "y": 480
             },
             "size": {
                 "w": 1015,

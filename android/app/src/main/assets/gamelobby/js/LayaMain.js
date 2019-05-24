@@ -36,7 +36,7 @@ var LayaMain = /** @class */ (function () {
             "./assets/conf/assets_lobby.json",
             "./assets/conf/gameIcons.json",
             "./assets/conf/version.json"
-        ], PageLogin /*, 'isloaded'*/);
+        ], PageLogin);
     }
     LayaMain.getInstance = function () {
         return LayaMain.obj;
@@ -54,16 +54,10 @@ var LayaMain = /** @class */ (function () {
     };
     LayaMain.prototype.handleAction = function (e) {
         try {
-            Debug.trace("Laya handleAction:");
-            Debug.trace(e);
             var obj = JSON.parse(e.data);
-            Debug.trace("Laya handleAction obj:");
-            Debug.trace(obj);
-            Debug.trace("Laya handleAction action:");
-            Debug.trace(obj.action);
+            Debug.outputLog("handleAction:", obj, obj.action, e);
             switch (obj.action) {
                 case "lobbyResume":
-                    Debug.trace("LayaMain.handleAction in case");
                     lamain.onGameResume();
                     break;
                 default:
@@ -75,29 +69,26 @@ var LayaMain = /** @class */ (function () {
     /**
      * 退出到登录界面
      */
-    LayaMain.prototype.loginOut = function () {
-        Debug.trace("LayaMain.loginOut");
+    LayaMain.prototype.loginOut = function (cmd) {
+        if (cmd === void 0) { cmd = null; }
         PostMHelp.game_common({ name: "loginout" });
         SaveManager.getObj().save(SaveManager.KEY_TOKEN, "");
         Dialog.manager.closeAll();
         this.clearChild();
-        PageManager.Get().ShowPage(null, PageLogin, 'isloaded');
+        PageManager.Get().ShowPage(null, PageLogin, cmd);
     };
     LayaMain.prototype.onGamePause = function () {
         Laya.SoundManager.setMusicVolume(0);
         // Laya.SoundManager.setSoundVolume(0);
     };
     LayaMain.prototype.onGameResume = function () {
-        Debug.trace("LayaMain.onGameResume mv:" + Common.lastMusicVolume + " sv:" + Common.lastSoundVolume);
         try {
             SaveManager.getObj().refreshSaveObj();
             var lms = SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1);
             var lmv = SaveManager.getObj().get(SaveManager.KEY_MUSIC_VL, 1);
             var lss = SaveManager.getObj().get(SaveManager.KEY_SFX_SWITCH, 1);
             var lsv = SaveManager.getObj().get(SaveManager.KEY_SFX_VL, 1);
-            Debug.trace("LayaMain.onGameResume save obj:");
-            Debug.trace(SaveManager.getObj().mtObj);
-            Debug.trace("LayaMain.onGameResume music vol:" + lmv + " switch:" + lms + " sound vol:" + lsv + " switch:" + lss);
+            Debug.outputLog("onGameResume:lmv=", lmv, "lms=", lms, "lsv=", lsv, "lss=", lss, "mtobj=", SaveManager.getObj().mtObj);
             Laya.SoundManager.setMusicVolume(lmv);
             Laya.SoundManager.setSoundVolume(lsv);
             if (lms == 1) {
@@ -118,11 +109,11 @@ var LayaMain = /** @class */ (function () {
             message = JSON.parse(data);
         }
         catch (e) {
-            Debug.trace("onAppPostMessgae----error", e);
+            Debug.output("onAppPostMessgae-err:", e);
         }
         if (message && message.action) {
             switch (message.action) {
-                case "logout":
+                case "logout": //退出到登录界面(同一账号登录两台设备时会触发401)
                     LayaMain.onQuit();
                     break;
                 case "playMusic":
@@ -137,7 +128,7 @@ var LayaMain = /** @class */ (function () {
                 case "appData":
                     for (var key in message) {
                         if (AppData[key] != null) {
-                            Debug.trace("onAppPostMessgae----appData--test--key==>" + key + " AppData[key]--isnotExist==" + (AppData[key] == null), message[key]);
+                            Debug.outputLog("appData->key=", key, (AppData[key] == null), message[key]);
                             AppData[key] = message[key];
                         }
                     }
@@ -194,8 +185,8 @@ var LayaMain = /** @class */ (function () {
                     MyUid.setUid(message.data);
                     break;
                 case "lobbyResume": //从游戏返回到大厅
-                    Debug.trace("LayaMain.handleAction in case");
                     lamain.onGameResume();
+                    EventManager.dispath(EventType.FLUSH_CYCLEIMAGE);
                     break;
                 case "showLoading": { //显示/隐藏loading
                     this.showCircleLoading(Boolean(message.data), 0);
@@ -216,6 +207,16 @@ var LayaMain = /** @class */ (function () {
                         if (this.maskbg)
                             this.maskbg.removeSelf();
                     }
+                    break;
+                }
+                case "lifecycle": { //前后台切换通知(1-后台到前台，0-前台到后台)
+                    if (message.data == 1) {
+                        EventManager.dispath(EventType.FLUSH_CYCLEIMAGE);
+                    }
+                    break;
+                }
+                case "bindPhone": { //debug:临时使用，等全屏个人中心上线后可删除
+                    view.dlg.center.BindPhoneDlg.show(); //todo:xxx
                     break;
                 }
             }
@@ -247,7 +248,7 @@ var LayaMain = /** @class */ (function () {
     LayaMain.prototype.initLobby = function () {
         this.clearChild();
         if (this.sceneLobby == null) {
-            Common.loginType = SaveManager.getObj().get(SaveManager.KEY_LOGIN_TYPE, Common.TYPE_LOGIN_UNKNOW);
+            Common.loginType = SaveManager.getObj().get(SaveManager.KEY_LOGIN_TYPE, LoginType.unknown);
             Common.loginInfo = SaveManager.getObj().get(SaveManager.KEY_LOGIN_INFO, Common.emptyLoginInfo());
             this.sceneLobby = new LobbyScene();
             this.sceneLobby.onLoaded(null);

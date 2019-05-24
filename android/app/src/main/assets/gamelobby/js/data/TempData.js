@@ -8,6 +8,7 @@ var TempData = /** @class */ (function () {
     TempData.bClickFullscreen = false;
     //转移至version.json
     TempData.channel = "channel20181016";
+    TempData.bindAward = 0; //绑定送金额度
     return TempData;
 }());
 var ResConfig = /** @class */ (function () {
@@ -51,6 +52,7 @@ var ResConfig = /** @class */ (function () {
         });
         return arr;
     };
+    ResConfig.addTween = true; //大厅元素初始化是否添加淡入动画
     //转移至version.json
     ResConfig.platform_font = [
         {
@@ -66,6 +68,18 @@ var ResConfig = /** @class */ (function () {
             "font": "微软雅黑"
         }
     ];
+    ResConfig.bitConfit_bindPhone = {
+        "0": "ui/bindPhone/bit_font00.png",
+        "1": "ui/bindPhone/bit_font01.png",
+        "2": "ui/bindPhone/bit_font02.png",
+        "3": "ui/bindPhone/bit_font03.png",
+        "4": "ui/bindPhone/bit_font04.png",
+        "5": "ui/bindPhone/bit_font05.png",
+        "6": "ui/bindPhone/bit_font06.png",
+        "7": "ui/bindPhone/bit_font07.png",
+        "8": "ui/bindPhone/bit_font08.png",
+        "9": "ui/bindPhone/bit_font09.png"
+    };
     /**
      * 背景音乐
      */

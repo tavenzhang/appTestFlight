@@ -103,8 +103,9 @@ var DragonBoneAnim = /** @class */ (function (_super) {
         this.mArmature.playbackRate(this._vo.playRate);
         this.addChild(this.mArmature);
         this.mArmature.on(Laya.Event.STOPPED, this, this.playEnd);
-        if (this._vo.autoPlay)
-            this.play();
+        this.play();
+        if (!this._vo.autoPlay)
+            this.pause();
     };
     DragonBoneAnim.prototype.playEnd = function () {
         if (this._vo.loop) {
