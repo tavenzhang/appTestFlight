@@ -702,6 +702,11 @@ var PageLogin = /** @class */ (function (_super) {
         var _this = this;
         var name = this.acc_nameTxt.text;
         var pwd = this.acc_pwdTxt.text;
+        var verify = Tools.verifyLogin(name, pwd, "111");
+        if (!verify.bRight) {
+            Toast.showToast(Tools.getStringByKey(verify.msg));
+            return;
+        }
         PostMHelp.debugInfo({ name: name, pwd: pwd });
         LayaMain.getInstance().showCircleLoading(true);
         if (!Common.gatewayInfo) {
