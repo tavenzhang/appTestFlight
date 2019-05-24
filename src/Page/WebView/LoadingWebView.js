@@ -146,8 +146,7 @@ export default class LoadingWebView extends Component {
     }
 
     onLoadEnd=()=>{
-        if(G_IS_IOS)
-        {
+        if(G_IS_IOS) {
             SplashScreen.hide();
         }else{
             setTimeout(()=>{SplashScreen.hide()},800);
