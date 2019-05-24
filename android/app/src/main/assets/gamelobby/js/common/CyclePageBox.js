@@ -63,14 +63,19 @@ var CyclePageBox = /** @class */ (function (_super) {
         if (this.total > 0)
             this.itemBox.addChild(this.imgList[0]);
         if (this.total > 1) {
-            // this.changeIndex();
             this.addListener();
         }
         else if (this.total == 1) {
-            // this.pointGroup.visible = false;
-            // EventManager.addTouchTapListener(this.itemBox, this, () => {
-            //     ActivityTool.navigateGame(this.itemList[0].appid, this.itemList[0].linkPath);
-            // });
+            this.itemBox.on(Laya.Event.CLICK, this, this.singleHandler);
+        }
+    };
+    CyclePageBox.prototype.singleHandler = function () {
+        var vo = this.itemList[0];
+        if (vo && vo.linkUrl) {
+            if (GameUtils.isNativeApp)
+                PostMHelp.game_common({ name: "openWeb", param: vo.linkUrl });
+            else
+                window.open(vo.linkUrl);
         }
     };
     /**
@@ -81,6 +86,7 @@ var CyclePageBox = /** @class */ (function (_super) {
         if (!itemList || itemList.length == 0)
             return;
         this.off(Laya.Event.MOUSE_DOWN, this, this.touchBeginHandler);
+        this.itemBox.off(Laya.Event.CLICK, this, this.singleHandler);
         this.stopTimer();
         this.imgList.forEach(function (img) {
             img.destroy(true);
@@ -97,6 +103,7 @@ var CyclePageBox = /** @class */ (function (_super) {
     CyclePageBox.prototype.destroy = function (bl) {
         if (bl === void 0) { bl = true; }
         this.off(Laya.Event.MOUSE_DOWN, this, this.touchBeginHandler);
+        this.itemBox.off(Laya.Event.CLICK, this, this.singleHandler);
         this.stopTimer();
         _super.prototype.destroy.call(this, true);
     };
@@ -206,19 +213,6 @@ var CyclePageBox = /** @class */ (function (_super) {
         }));
     };
     CyclePageBox.prototype.changeIndex = function () {
-        // this.pointGroup.removeChildren();
-        // let index: number = this.moveIndex % this.total;
-        // if (index < 0) index = this.total + index;
-        // if (index >= this.total) index = 0;
-        // for (let i = 0; i < this.total; i++) {
-        //     let img: eui.Image;
-        //     if (i == index) {//选中状态
-        //         img = new eui.Image("Common_point2_png");
-        //     } else {
-        //         img = new eui.Image("Common_point1_png");
-        //     }
-        //     this.pointGroup.addChild(img);
-        // }
     };
     return CyclePageBox;
 }(Laya.Sprite));
