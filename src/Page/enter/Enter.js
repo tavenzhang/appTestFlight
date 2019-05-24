@@ -320,6 +320,9 @@ export default class Enter extends Component {
                 if(versionData){
                     if(versionData.isWeakUpate){
                         this.hotFixStore.isNextAffect = versionData.jsVersion==appInfoStore.versionHotFix;
+                        if(!TW_Store.dataStore.isAppInited){
+                            return ;
+                        }
                     }else{
                         this.hotFixStore.isNextAffect =false;
                     }

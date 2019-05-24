@@ -293,7 +293,7 @@ export default class XXWebView extends Component {
 
     render() {
         const {sharedUrl, isShowSharebox} = this.state;
-        TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
+       // TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
         let news=TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome;
 
         // if(!G_IS_IOS){
@@ -621,10 +621,6 @@ export default class XXWebView extends Component {
 
     onLoadEnd=()=>{
         TW_Store.bblStore.isLoading=false;
-        if(!TW_Store.gameUpateStore.isNeedUpdate||TW_Store.gameUpateStore.isOldHome){
-            SplashScreen.hide();
-        }
-
         this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize,{}));
     }
 
