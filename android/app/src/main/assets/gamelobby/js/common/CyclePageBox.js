@@ -66,7 +66,7 @@ var CyclePageBox = /** @class */ (function (_super) {
             this.addListener();
         }
         else if (this.total == 1) {
-            this.itemBox.on(Laya.Event.CLICK, this, this.singleHandler);
+            this.on(Laya.Event.CLICK, this, this.singleHandler);
         }
     };
     CyclePageBox.prototype.singleHandler = function () {
@@ -86,7 +86,7 @@ var CyclePageBox = /** @class */ (function (_super) {
         if (!itemList || itemList.length == 0)
             return;
         this.off(Laya.Event.MOUSE_DOWN, this, this.touchBeginHandler);
-        this.itemBox.off(Laya.Event.CLICK, this, this.singleHandler);
+        this.off(Laya.Event.CLICK, this, this.singleHandler);
         this.stopTimer();
         this.imgList.forEach(function (img) {
             img.destroy(true);
@@ -103,7 +103,7 @@ var CyclePageBox = /** @class */ (function (_super) {
     CyclePageBox.prototype.destroy = function (bl) {
         if (bl === void 0) { bl = true; }
         this.off(Laya.Event.MOUSE_DOWN, this, this.touchBeginHandler);
-        this.itemBox.off(Laya.Event.CLICK, this, this.singleHandler);
+        this.off(Laya.Event.CLICK, this, this.singleHandler);
         this.stopTimer();
         _super.prototype.destroy.call(this, true);
     };
