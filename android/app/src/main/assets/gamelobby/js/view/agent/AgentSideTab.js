@@ -20,7 +20,7 @@ var AgentSideTab = /** @class */ (function (_super) {
         this.tab_on = $image.getChildByName("tab_on");
         this.tab_on.alpha = 0;
         var db = this.db = new DragonBoneAnim();
-        db.loadInit({ skUrl: "./assets/ui/animation/agent/btn.sk" });
+        db.loadInit({ skUrl: "./assets/animation/agent/btn.sk" });
         this.tab_on.addChildAt(db, 0);
         db.x = 180;
         db.y = 55;

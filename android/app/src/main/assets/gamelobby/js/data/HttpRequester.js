@@ -11,9 +11,7 @@ var HttpRequester = /** @class */ (function () {
         var url = ConfObjRead.getConfUrl().url.apihome;
         var api = "/gamecenter/player/material/info" + "?access_token=" + Common.access_token;
         url += api;
-        var header = [
-            "Accept", "application/json"
-        ];
+        var header = ["Accept", "application/json"];
         this.doRequest(url, header, null, caller, callback, "get");
     };
     /**
@@ -207,7 +205,72 @@ var HttpRequester = /** @class */ (function () {
         });
     };
     /**
-     * 开始请求
+     * 获取手机验证码
+     * @param num
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.getPhoneVercode = function (num, type, addToken, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd[type];
+        if (addToken)
+            url += "?access_token=" + Common.access_token;
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        this.doRequest(url, header, num, caller, callback);
+    };
+    /**
+     * 获取绑定送金
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.getBindAward = function (caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.getBindAward;
+        url += "?access_token=" + Common.access_token;
+        var header = ["Accept", "application/json"];
+        this.doRequest(url, header, null, caller, callback, "get");
+    };
+    /**
+     * 手机登录
+     * @param num
+     * @param code
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.phoneLogin = function (num, code, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        if (GameUtils.isNativeApp)
+            url += ConfObjRead.getConfUrl().cmd.phoneLogin_app;
+        else
+            url += ConfObjRead.getConfUrl().cmd.phoneLogin_web;
+        var header = this.getEncryHeader();
+        var data = {
+            affCode: AppData.NATIVE_DATA.affCode,
+            phoneNumber: num,
+            verificationCode: code
+        };
+        var jsonStr = JSON.stringify(data);
+        this.doRequest(url, header, jsonStr, caller, callback);
+    };
+    /**
+     * 绑定手机号
+     * @param num
+     * @param code
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.bindPhone = function (num, code, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        url += ConfObjRead.getConfUrl().cmd.bindPhone;
+        url += "?access_token=" + Common.access_token;
+        var data = {
+            phoneNumber: num,
+            verificationCode: code
+        };
+        var jsonStr = JSON.stringify(data);
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        this.doRequest(url, header, jsonStr, caller, callback);
+    };
+    /**
+     * 开始请求-后续统一走这里方面定位问题
      * @param url
      * @param header
      * @param jsonStr
@@ -218,7 +281,7 @@ var HttpRequester = /** @class */ (function () {
     HttpRequester.doRequest = function (url, header, jsonStr, caller, callback, method) {
         if (method === void 0) { method = "post"; }
         NetManager.getObj().HttpConnect(url, this, function (s, stat, hr) {
-            var suc;
+            var suc = false;
             var jobj;
             if (stat == "complete") {
                 try {
@@ -230,16 +293,23 @@ var HttpRequester = /** @class */ (function () {
                 suc = true;
             }
             else {
-                Debug.output("request-err:", url, header, jsonStr, hr.http);
-                var err = hr.http.response;
+                var status_1 = hr.http.status;
                 jobj = hr;
-                if (err) {
-                    var obj = JSON.parse(err);
-                    Toast.showToast(obj.message);
+                if (status_1 >= 200 && status_1 < 300) { //后端定义204为成功
+                    suc = true;
+                    Debug.output("request-ok:", url, status_1, hr, s);
                 }
                 else {
-                    var info = Tools.getStringByKey(ConfObjRead.getConfCommon().unknow_err);
-                    Toast.showToast(info || "未知错误");
+                    Debug.output("request-err:", url, header, jsonStr, hr.http);
+                    var err = hr.http.response;
+                    if (err) {
+                        var obj = JSON.parse(err);
+                        Toast.showToast(obj.message);
+                    }
+                    else {
+                        var info = Tools.getStringByKey("txt_unknowerr");
+                        Toast.showToast(info || "未知错误");
+                    }
                 }
             }
             if (caller && callback)

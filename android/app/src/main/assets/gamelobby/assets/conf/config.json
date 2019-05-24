@@ -51,5 +51,6 @@
     },
     "language": "zh_cn",
     "languageY": "en",
-    "unknow_err": "txt_unknowerr"
+    "unknow_err": "txt_unknowerr",
+    "addTween": true
 }

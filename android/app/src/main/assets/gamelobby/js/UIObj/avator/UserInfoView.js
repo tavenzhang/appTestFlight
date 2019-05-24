@@ -56,7 +56,7 @@ var UserInfoView = /** @class */ (function () {
         if (stat == "complete") {
             Common.userInfo = s;
             Common.setLoginPlatform(s.loginPlatform);
-            this.requestUserInfoCurrent(Common.access_token);
+            this.requestUserInfoCurrent();
             if (s.userRole) {
                 userData.role = s.userRole;
             }
@@ -70,15 +70,16 @@ var UserInfoView = /** @class */ (function () {
             Debug.trace("Avator.responseUserInfo bRequestStatus:" + TempData.bRequestStatus);
         }
     };
-    UserInfoView.prototype.requestUserInfoCurrent = function (token) {
+    UserInfoView.prototype.requestUserInfoCurrent = function () {
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.userinfo +
-            "?access_token=" + token;
+            "?access_token=" + Common.access_token;
         NetManager.getObj().HttpConnect(url, this, this.responseUserInfoCurrent);
     };
     UserInfoView.prototype.responseUserInfoCurrent = function (s, stat, hr) {
         if (stat == "complete") {
             Common.userInfo_current = s;
+            EventManager.dispath(EventType.GET_USERCURRENT, s.certifiedPhone);
             this.requestUserAvator(ConfObjRead.getConfUrl().url.apihome +
                 ConfObjRead.getConfUrl().cmd.avatorget +
                 "?access_token=" + Common.access_token);
@@ -125,8 +126,9 @@ var UserInfoView = /** @class */ (function () {
     };
     //金币视图
     UserInfoView.prototype.initGoldView = function () {
+        var _this = this;
         this.goldAnim = new DragonBoneAnim();
-        this.goldAnim.loadInit({ skUrl: "./assets/ui/animation/coins/money_icon.sk" });
+        this.goldAnim.loadInit({ skUrl: "./assets/animation/coins/money_icon.sk" });
         this.view.goldAnim.addChild(this.goldAnim);
         this.view.addBtn.visible = !AppData.isAndroidHack;
         //充值
@@ -134,11 +136,29 @@ var UserInfoView = /** @class */ (function () {
             SoundPlayer.enterPanelSound();
             Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
         });
+        //刷新
+        EventManager.addTouchScaleListener(this.view.refreshBtn, this, function () {
+            SoundPlayer.clickSound();
+            _this.refreshMoney();
+        });
         //金币显示
         this.lb_num = new DataNum(ConfObjRead.getConfDataNum());
         this.view.goldUI.addChild(this.lb_num);
         this.lb_num.setNum("0");
         this.lb_num.pos(this.view.goldTxt.x, this.view.goldTxt.y);
+    };
+    UserInfoView.prototype.refreshMoney = function () {
+        var _this = this;
+        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.getMoney + "?access_token=" + Common.access_token;
+        var header = ["Accept", "application/json"];
+        HttpRequester.doRequest(url, header, null, this, function (suc, jobj) {
+            if (suc) {
+                if (_this.lb_num) {
+                    var money = Tools.FormatMoney(jobj.balance, 2);
+                    _this.lb_num.setNum(money);
+                }
+            }
+        }, "get");
     };
     UserInfoView.prototype.dispose = function () {
         EventManager.removeEvent(EventType.FLUSH_USERINFO, this, this.flushUserInfo);

@@ -90,15 +90,11 @@
             "type": "JSON"
         },
         {
-            "url": "./assets/conf/common/config_app.json",
-            "type": "JSON"
-        },
-        {
             "url": "./assets/conf/textconf.json",
             "type": "JSON"
         },
         {
-            "url": "./assets/conf/common/datanum.json",
+            "url": "./assets/conf/datanum.json",
             "type": "JSON"
         },
         {
@@ -118,7 +114,7 @@
             "type": "JSON"
         },
         {
-            "url": "./assets/conf/common/urls.json",
+            "url": "./assets/conf/urls.json",
             "type": "JSON"
         },
         {
@@ -406,35 +402,19 @@
             "type": "IMAGE"
         },
         {
-            "url": "./assets/ui/animation/btn_recharge/Reload.sk",
+            "url": "./assets/animation/btn_recharge/Reload.sk",
             "type": "BUFFER"
         },
         {
-            "url": "./assets/ui/animation/btn_recharge/Reload.png",
+            "url": "./assets/animation/btn_recharge/Reload.png",
             "type": "IMAGE"
         },
         {
-            "url": "./assets/ui/animation/human_bg/human_bg.sk",
+            "url": "./assets/animation/liangguang/liangguang.sk",
             "type": "BUFFER"
         },
         {
-            "url": "./assets/ui/animation/human_bg/human_bg.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/animation/human_fr/card_bg.sk",
-            "type": "BUFFER"
-        },
-        {
-            "url": "./assets/ui/animation/human_fr/card_bg.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/animation/liangguang/liangguang.sk",
-            "type": "BUFFER"
-        },
-        {
-            "url": "./assets/ui/animation/liangguang/liangguang.png",
+            "url": "./assets/animation/liangguang/liangguang.png",
             "type": "IMAGE"
         },
         {
@@ -666,16 +646,20 @@
             "type": "ATLAS"
         },
         {
-            "url": "./assets/ui/animation/loading/xiaoLoding.sk",
+            "url": "./assets/animation/loading/xiaoLoding.sk",
             "type": "BUFFER"
         },
         {
-            "url": "./assets/ui/animation/loading/xiaoLoding.png",
+            "url": "./assets/animation/loading/xiaoLoding.png",
             "type": "IMAGE"
         },
         {
             "url": "./assets/conf/config.json",
             "type": "JSON"
+        },
+        {
+            "url": "./res/atlas/ui/bindPhone.atlas",
+            "type": "ATLAS"
         }
     ]
 }

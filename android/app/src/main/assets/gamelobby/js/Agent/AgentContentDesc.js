@@ -76,7 +76,7 @@ var AgentContentDesc = /** @class */ (function (_super) {
                 if (spconf.type == "list") {
                     var li = new AgentList(this.sp_content, ConfObjRead.getConfListDesc());
                     li.x = 20;
-                    li.y += 35;
+                    li.y += 135;
                     this.sp_content.addChild(li);
                     // li.setData(ConfObjRead.getConfListDescTest());
                     li.setData(listData);

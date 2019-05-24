@@ -90,6 +90,7 @@ var SaveManager = /** @class */ (function () {
     SaveManager.KEY_TOKEN = "token"; //"xxxxxx"
     SaveManager.KEY_API_URL = "httpUrl"; //"xxxxxx"
     SaveManager.KEY_GATEWAYINFO = "gatewayInfo";
+    SaveManager.KEY_PHONEPWD = "phone_pwd"; //手机登录密码
     return SaveManager;
 }());
 //# sourceMappingURL=SaveManager.js.map
