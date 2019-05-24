@@ -26,12 +26,6 @@ var view;
         }
         LobbyView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
-            if (ResConfig.addTween) {
-                this.bgUI.alpha = 0;
-                Laya.Tween.to(this.bgUI, { alpha: 1 }, 800, null, null);
-                this.rightBtn.alpha = 0;
-                Laya.Tween.to(this.rightBtn, { alpha: 1 }, 800, null, null, 800);
-            }
             this.publicUI = new view.PublicView();
             this.uibox.addChild(this.publicUI);
             //游戏列表
@@ -100,10 +94,6 @@ var view;
             this.girlSp.addChild(this.girlAinm);
             this.girlAinm.pos(this.girlSp.width >> 1, this.girlSp.height >> 1);
             this.girlSp.mouseEnabled = false;
-            if (ResConfig.addTween) {
-                this.girlAinm.alpha = 0;
-                Laya.Tween.to(this.girlAinm, { alpha: 1 }, 600, null, null, 300);
-            }
         };
         //右上角按钮
         LobbyView.prototype.initTitleBar = function () {
