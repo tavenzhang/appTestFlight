@@ -351,7 +351,7 @@ export default class XXWebView extends Component {
 
         if (message && message.action) {
             
-            TW_Log("onMessage======XXWebView=====>>",message.action);
+            TW_Log("onMessage======XXWebView=等xx====>>",message.action);
             switch (message.action) {
                 case "Log":
                     // TW_Log("game---ct=="+message.ct,message.data);
