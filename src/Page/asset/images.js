@@ -236,6 +236,7 @@ export const gameUI = {
     fixedListItemBg1:require('./game/moneyPay/pay_type_fixed_bg1.png'),
     moneyLabelBg:require('./game/moneyPay/money_label_bg.png'),
     payExpand:require('./game/moneyPay/pay_expand.png'),
+    payCollapse:require('./game/moneyPay/pay_collapse.png'),
     downArrow:require('./game/moneyPay/down_arrow.png'),
     //alet
     uiTitleBg:require('./game/uiTitleBg.png'),
@@ -250,7 +251,10 @@ export const gameUI = {
     onlineService:require('./game/online_service.png'),
     czmxListBg1:require('./game/czmx_list_bg1.png'),
     czmxListBg2:require('./game/czmx_list_bg2.png'),
-    czmxListBg3:require('./game/czmx_list_bg3.png')
+    czmxListBg3:require('./game/czmx_list_bg3.png'),
+    czmxAll:require('./game/czmx_qb.png'),
+    czmxFail:require('./game/czmx_sb.png'),
+    czmxDone:require('./game/czmx_ywc.png')
 }
 
 export const gameShare = {

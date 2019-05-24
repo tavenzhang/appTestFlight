@@ -116,7 +116,8 @@ export  default  class BBLStore {
         onBlur:"onBlur",
         lobbyResume:"lobbyResume",
         game_loading:"game_loading",
-        showGame:"showGame"
+        showGame:"showGame",
+        bindPhone:"bindPhone"
 
 
     }

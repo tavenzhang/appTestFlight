@@ -38,7 +38,7 @@ export const AppConfig = {
 
 export const MyAppName = '博博乐';
 
-export const versionHotFix = 'bbl_3_25';
+export const versionHotFix = '5.23';
 
 export const MyOwnerPlatName= 'uat彩票';
 
@@ -53,7 +53,7 @@ export const platInfo = {
     //  gameDomain:"https://dk3nuq7v.zhdisi.com",
     gameDomain: "https://webplatform.psxiaohe.com",
 
-    downDomain:"https://download.hkbaoxian188.com",
+    downDomain:"https://download.jinkuangjia.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",

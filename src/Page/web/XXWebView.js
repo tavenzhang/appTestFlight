@@ -23,6 +23,8 @@ import ShareBox from "../../Page/enter/game/pay/ShareBox";
 import TCUserOpenPayApp from "../UserCenter/UserPay/TCUserOpenPayApp";
 
 const HTTP_GAME_LIST="/gamecenter/player/game/list";
+const HTTP_ACCOUNT="/webapi/account/users/current";
+
 
 @withMappedNavigationProps()
 @observer
@@ -291,17 +293,21 @@ export default class XXWebView extends Component {
 
     render() {
         const {sharedUrl, isShowSharebox} = this.state;
-        TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
+       // TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
         let news=TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome;
-        if(!G_IS_IOS){
+
+        // if(!G_IS_IOS){
             if(news){
                 return null
             }
+      // }
+        if(TW_Store.dataStore.isResCopyed) {
+
         }
         TW_Log("TW_DATA_KEY.gameList-FileTools--=gameUpateStore=news=="+news)
         let {force} = this.props;
         let source = {
-            file: TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome ?  "":TW_Store.dataStore.getHomeWebUri(),
+            file: TW_Store.dataStore.getHomeWebUri(),
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
             allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
             param:"?app=true"
@@ -575,6 +581,12 @@ export default class XXWebView extends Component {
                                         this.onFinishGameList(ret.content.datas)
                                     }
                                 }
+                                if(message.url.indexOf(HTTP_ACCOUNT)>-1){
+                                    if(ret.rs){
+                                        TW_Store.userStore.saveUserInfo(ret.content)
+                                    }
+                                }
+
                             },10,false,false,true,this.onParamHead(message.header));
                             break;
                         case "put":
@@ -609,10 +621,6 @@ export default class XXWebView extends Component {
 
     onLoadEnd=()=>{
         TW_Store.bblStore.isLoading=false;
-        if(!TW_Store.gameUpateStore.isNeedUpdate||TW_Store.gameUpateStore.isOldHome){
-            SplashScreen.hide();
-        }
-
         this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize,{}));
     }
 

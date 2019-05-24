@@ -44,9 +44,7 @@ export default class LoadingWebView extends Component {
     render() {
         let newUrl = TW_Store.dataStore.getHomeWebHome() + "/loading/loading.html";
         let myParam = "";
-        if(TW_Store.dataStore.isAppUnZip) {
 
-        }
         let source = {
             file: newUrl,
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
@@ -148,8 +146,7 @@ export default class LoadingWebView extends Component {
     }
 
     onLoadEnd=()=>{
-        if(G_IS_IOS)
-        {
+        if(G_IS_IOS) {
             SplashScreen.hide();
         }else{
             setTimeout(()=>{SplashScreen.hide()},800);
@@ -158,7 +155,9 @@ export default class LoadingWebView extends Component {
     }
 
     onError = (error) => {
-        TW_Log("onError=====TCweb======event=====", error.nativeEvent)
+        //TW_Log("onError=====TCweb======event=====", error.nativeEvent);
+        //TW_Store.gameUpateStore.isNeedUpdate =false;
+       // TW_Store.dataStore.onRetartApp();
     }
 
     onShouldStartLoadWithRequest = (event) => {
