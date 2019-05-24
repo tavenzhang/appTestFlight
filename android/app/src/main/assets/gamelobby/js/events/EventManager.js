@@ -155,11 +155,11 @@ var EventManager = /** @class */ (function () {
             }
             case Laya.Event.MOUSE_UP: {
                 Laya.Tween.to(btn, { scaleX: 1, scaleY: 1 }, 100);
-                obj.isTapBegin = false;
                 var dist = this.downPos.distance(e.stageX, e.stageY);
-                if (dist < 20) { //触发点击事件
+                if (dist < 20 && obj.isTapBegin) { //触发点击事件
                     obj.callback(e);
                 }
+                obj.isTapBegin = false;
                 break;
             }
         }
@@ -230,6 +230,11 @@ var EventType = /** @class */ (function () {
     EventType.GAME_UPDATE_PROGRESS = "gameUpdateProgress";
     //刷新代理按钮的显示
     EventType.FLUSH_AGENCYBTN = "flushAgencyBtn";
+    //刷新轮播图
+    EventType.FLUSH_CYCLEIMAGE = "flushCycleImage";
+    //手机绑定成功
+    EventType.BINDPHONE_SUCC = "bindPhoneSucc";
+    EventType.GET_USERCURRENT = "getUserCurrent";
     return EventType;
 }());
 //# sourceMappingURL=EventManager.js.map

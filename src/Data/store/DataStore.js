@@ -19,8 +19,6 @@ export default class DataStore {
     @observable
     isAppInited = false;
 
-    @observable
-    isResCopyed = false;
 
     @observable
     originAppDir = G_IS_IOS ? (MainBundlePath + '/assets/gamelobby') : "file:///android_asset/gamelobby";
@@ -314,7 +312,6 @@ export default class DataStore {
             })
             .catch((error) => {
                 TW_Log("versionBBL  解压失败11",error);
-               // TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showGame));
             }).finally(()=>{
                      TW_Store.gameUpateStore.isLoading=false;
                      TW_Store.gameUpateStore.isTempExist=true;
@@ -340,7 +337,6 @@ export default class DataStore {
 
             }
             this.log+="onSavaCopyState---  this.isAppInited="+this.isAppInited+"\n"
-          //  this.loadHomeVerson();
         })
     }
 
@@ -412,6 +408,63 @@ export default class DataStore {
                 }
             }
         }
+    }
+
+    @action
+    onFlushGameData(){
+        NetUitls.getUrlAndParamsAndCallback(TW_Store.bblStore.gameDomain+"/game.json"+"?rom="+Math.random(),null,(rt)=>{
+
+            let newList = rt.content ? rt.content:[];
+            let gameM =  TW_Store.dataStore.appGameListM;
+            let lastList=[];
+            for(let item of newList){
+                let saveItem = gameM[`${item.name}`];
+                if(saveItem){
+                    if(saveItem.current_version!=item.current_version){
+                        gameM[`${item.name}`]={...saveItem,bupdate:true,newVersion:item.current_version};
+                        lastList.push(gameM[`${item.name}`]);
+                    }else{
+                        gameM[`${item.name}`]={...saveItem,bupdate:false};
+                    }
+
+                }else if(!saveItem){
+                    gameM[`${item.name}`]={...item,current_version:"",bupdate:true,newVersion:item.current_version};
+                    lastList.push(gameM[`${item.name}`]);
+                }
+            }
+            //  TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==-"+JSON.stringify(lastList));
+            //由于运维 添加了一些slot 重复项目。进行优化移除多余
+            let gameList=[];
+            for( let i=0;i<lastList.length;i++){
+                let dataItem =lastList[i];
+                let tempList=[];
+                for(let dataKey in gameM){
+                    let data =gameM[dataKey];
+                    if(data.alias&&data.alias==dataItem.alias){
+                        tempList.push(data);
+                    }
+                }
+                if(tempList.length>1){
+                    for(let item of tempList){
+                        if(item.name&&item.name.indexOf("app")>-1){
+                            // TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt=tempList=-indexOf",item);
+                            if(item.bupdate){
+                                gameList.push(item);
+                            }
+                            break;
+                        }
+                    }
+                }else {
+                    if(tempList[0]){
+                        gameList.push(tempList[0]);
+                    }
+                }
+            }
+            //  TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==gameList-"+JSON.stringify(gameList));
+            if(TW_OnValueJSHome){
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:gameList}));
+            }
+        })
     }
 
     @action

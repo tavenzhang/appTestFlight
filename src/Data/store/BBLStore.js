@@ -117,7 +117,8 @@ export  default  class BBLStore {
         lobbyResume:"lobbyResume",
         game_loading:"game_loading",
         showGame:"showGame",
-        bindPhone:"bindPhone"
+        bindPhone:"bindPhone",
+        lifecycle:"lifecycle"
 
 
     }

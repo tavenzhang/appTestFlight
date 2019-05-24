@@ -76,14 +76,25 @@ export default class Enter extends Component {
     _handleAppStateChange = (nextAppState)=>{
         if (nextAppState!= null && nextAppState === 'active') {
           if (this.flage) {
+              if(TW_OnValueJSHome){
+                  TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.lifecycle,{data:1}));
+                  TW_Store.dataStore.onFlushGameData();
+              }
               if(!TW_Store.gameUpateStore.isInSubGame){
-                  this.cacheAttempt(true,true,"")
-                  TW_Store.dataStore.loadHomeVerson();
+                  let now = new Date().getTime();
+                  let dim = now - this.lastClickTime
+                  TW_Log("lastClickTime----"+this.lastClickTime+"---dim",dim)
+                  if (dim >= 60000) { //从后台进入前台间隔大于1分钟 才进行大厅与app 更新检测
+                      this.cacheAttempt(true,true,"")
+                      TW_Store.dataStore.loadHomeVerson();
+                  }
               }
             }
             this.flage = false ;
         }else if(nextAppState != null && nextAppState === 'background'){
             this.flage = true;
+            let now = new Date().getTime();
+            this.lastClickTime = now;
         }
     }
 
@@ -306,6 +317,11 @@ export default class Enter extends Component {
             updateStatus: 0
 
         });
+        // if(TW_Store.gameUpateStore.isCodePushChecking){
+        //     setTimeout(()=>{
+        //         TW_Store.gameUpateStore.isCodePushChecking = false;
+        //     })
+        // }
         CodePush.checkForUpdate(hotfixDeploymentKey).then((update) => {
             TW_Log('==checking update====hotfixDeploymentKey= ='+hotfixDeploymentKey, update);
             if (update !== null) {
