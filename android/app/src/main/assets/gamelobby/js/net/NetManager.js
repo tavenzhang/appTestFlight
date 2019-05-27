@@ -110,7 +110,12 @@ var NetManager = /** @class */ (function () {
         // 	}
         // }
         // Debug.trace("http<--------error<====" + ret["responseURL"], ret);
-        callback.apply(caller, [e, 'error', hr]);
+        if (hr.http.status == 204) {
+            callback.apply(caller, [e, 'complete', hr]);
+        }
+        else {
+            callback.apply(caller, [e, 'error', hr]);
+        }
     };
     // public hr:Laya.HttpRequest;
     NetManager.obj = null;

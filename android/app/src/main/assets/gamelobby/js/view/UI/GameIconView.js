@@ -18,7 +18,6 @@ var view;
     (function (UI) {
         /**
          * 游戏图标视图
-         * todo:待实现
          */
         var GameIconView = /** @class */ (function (_super) {
             __extends(GameIconView, _super);
@@ -27,6 +26,7 @@ var view;
                 _this.isclick = true;
                 _this.gapTime = 350; //控制点击间隔时间
                 _this.progressValue = 0;
+                _this.index = 0;
                 _this.resetView();
                 return _this;
             }
@@ -90,7 +90,7 @@ var view;
                 }
             };
             GameIconView.prototype.onStartUpdate = function () {
-                if (!this.isupdating) { //发送游戏下载命令
+                if (!this.isupdating) {
                     var data = [
                         {
                             "alias": this.gameVo.alias,
@@ -98,6 +98,7 @@ var view;
                         }
                     ];
                     UpdateMsgHandle.onUpdateMsg(data);
+                    //发送游戏下载命令
                     PostMHelp.startUpdate({ "gameId": this.gameVo.id, "alias": this.gameVo.alias });
                 }
             };
@@ -156,8 +157,8 @@ var view;
             GameIconView.prototype.showNorm = function () {
                 if (!this.anim) {
                     this.anim = new DragonBoneAnim();
-                    this.anim.loadInit({ skUrl: this.config.anim_sk });
                     this.animbox.addChild(this.anim);
+                    this.anim.loadInit({ skUrl: this.config.anim_sk });
                 }
                 else {
                     this.anim.resume();

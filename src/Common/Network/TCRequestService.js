@@ -241,7 +241,7 @@ export function addFeedBack(params, callback) {
  * @param callback
  */
 export function getPaymentTypeList(callback) {
-    RequestUtils.getUrlAndParamsAndCallback(config.api.paymentTypeList4, null, callback);
+    RequestUtils.getUrlAndParamsAndCallback(config.api.paymentTypeList4, {version:5}, callback);
 }
 
 /**

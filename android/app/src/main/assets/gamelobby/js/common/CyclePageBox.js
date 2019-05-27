@@ -74,6 +74,24 @@ var CyclePageBox = /** @class */ (function (_super) {
         }
     };
     /**
+     * 刷新数据
+     * @param itemList
+     */
+    CyclePageBox.prototype.flushData = function (itemList) {
+        if (!itemList || itemList.length == 0)
+            return;
+        this.off(Laya.Event.MOUSE_DOWN, this, this.touchBeginHandler);
+        this.stopTimer();
+        this.imgList.forEach(function (img) {
+            img.destroy(true);
+        });
+        this.imgList.length = 0;
+        this.itemBox.x = 0;
+        this.itemBox.removeChildren();
+        //
+        this.init(itemList, this.spaceTime);
+    };
+    /**
      * 销毁
      */
     CyclePageBox.prototype.destroy = function (bl) {

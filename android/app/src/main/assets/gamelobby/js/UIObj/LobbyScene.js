@@ -30,27 +30,6 @@ var LobbyScene = /** @class */ (function (_super) {
         return LobbyScene.obj;
     };
     LobbyScene.prototype.initUI = function () {
-        //todo:xxx
-        //大厅背景
-        //UIBg.getInstance( this,ConfObjRead.getConfUiBg() );
-        //游戏列表
-        //GamePanel.getInstance( this,ConfObjRead.getConfGamepanel(), this,this.gamepanelOver);
-        //人物角色
-        // GirlManager.getInstance(this);
-        //右上角按钮组
-        // UITitleBar.getInstance( this, ConfObjRead.getConfTitlebar(), this,this.titlebarOver);
-        //左上角用户信息栏
-        // Avator.getInstance(this,ConfObjRead.getConfAvator(), this,this.OnAvatorScrollOut);
-        //版本号
-        // VersionStat.getInstance(this,ConfObjRead.getConfVersion());
-        // var msgUrl = 
-        //     ConfObjRead.getConfUrl().url.apihome+
-        //     ConfObjRead.getConfUrl().cmd.noticelist+
-        //             "?pageSize=20&start=0&access_token="+Common.access_token;
-        //滚动通告
-        // RunningMsg.getInstance(this,"./assets/conf/scrollmsg/runningmsg.json",msgUrl,null,this.runningmsgOver);
-        //底部菜单
-        // MineMenus.getInstance(this,ConfObjRead.getConfMinemenus());
         this.requestPop();
         this.view = new view.LobbyView();
         this.addChild(this.view);
@@ -77,15 +56,6 @@ var LobbyScene = /** @class */ (function (_super) {
                 Laya.SoundManager.playMusic(ResConfig.musicUrl);
             }
         }));
-    };
-    LobbyScene.prototype.OnAvatorScrollOut = function (e) {
-    };
-    LobbyScene.prototype.titlebarOver = function () {
-    };
-    LobbyScene.prototype.runningmsgOver = function () {
-        // flushGameList
-    };
-    LobbyScene.prototype.gamepanelOver = function () {
     };
     LobbyScene.prototype.onLoaded = function (s) {
         Common.access_token = SaveManager.getObj().get(SaveManager.KEY_TOKEN, "");

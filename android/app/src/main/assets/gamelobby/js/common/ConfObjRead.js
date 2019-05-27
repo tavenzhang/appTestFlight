@@ -188,15 +188,8 @@ var ConfObjRead = /** @class */ (function () {
         if (ConfObjRead.dataNumObj) {
             return ConfObjRead.dataNumObj;
         }
-        ConfObjRead.dataNumObj = Laya.Loader.getRes("./assets/conf/common/datanum.json");
+        ConfObjRead.dataNumObj = Laya.Loader.getRes("./assets/conf/datanum.json");
         return ConfObjRead.dataNumObj;
-    };
-    ConfObjRead.getConfHtmlLabel = function () {
-        if (ConfObjRead.htmlObj) {
-            return ConfObjRead.htmlObj;
-        }
-        ConfObjRead.htmlObj = Laya.Loader.getRes("./assets/conf/scrollmsg/libhtml.json");
-        return ConfObjRead.htmlObj;
     };
     ConfObjRead.getGameIconAnim = function () {
         if (ConfObjRead.giconAnimObj) {
@@ -239,13 +232,6 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.gamepanelObj = Laya.Loader.getRes("./assets/conf/gamepanel/gamepanel.json");
         return ConfObjRead.gamepanelObj;
     };
-    ConfObjRead.getConfRunningmsg = function () {
-        if (ConfObjRead.runningmsgObj) {
-            return ConfObjRead.runningmsgObj;
-        }
-        ConfObjRead.runningmsgObj = Laya.Loader.getRes("./assets/conf/scrollmsg/runningmsg.json");
-        return ConfObjRead.runningmsgObj;
-    };
     ConfObjRead.getConfText = function () {
         if (!ConfObjRead.textObj) {
             ConfObjRead.textObj = Laya.Loader.getRes("./assets/conf/textconf.json");
@@ -257,22 +243,12 @@ var ConfObjRead = /** @class */ (function () {
             this.commonObj = Laya.Loader.getRes("./assets/conf/config.json");
         }
         return this.commonObj;
-        //todo:xxx
-        // if (ConfObjRead.commonObj) {
-        //     return ConfObjRead.commonObj;
-        // }
-        // if (AppData.IS_NATIVE_APP) {
-        //     ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config_app.json");
-        // } else {
-        //     ConfObjRead.commonObj = Laya.Loader.getRes("./assets/conf/common/config.json");
-        // }
-        // return ConfObjRead.commonObj;
     };
     ConfObjRead.getConfUrl = function () {
         if (ConfObjRead.urlObj) {
             return ConfObjRead.urlObj;
         }
-        ConfObjRead.urlObj = Laya.Loader.getRes("./assets/conf/common/urls.json");
+        ConfObjRead.urlObj = Laya.Loader.getRes("./assets/conf/urls.json");
         return ConfObjRead.urlObj;
     };
     ConfObjRead.getConfRoomPad = function () {
@@ -312,13 +288,6 @@ var ConfObjRead = /** @class */ (function () {
         }
         ConfObjRead.room_avatorObj = Laya.Loader.getRes("./assets/conf/avator/avatorpad.json");
         return ConfObjRead.room_avatorObj;
-    };
-    ConfObjRead.getConfSetting = function () {
-        if (ConfObjRead.settingpadObj) {
-            return ConfObjRead.settingpadObj;
-        }
-        ConfObjRead.settingpadObj = Laya.Loader.getRes("./assets/conf/setting/setting.json");
-        return ConfObjRead.settingpadObj;
     };
     ConfObjRead.getConfAttention = function () {
         if (ConfObjRead.attentionObj) {
@@ -369,20 +338,6 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.nomoneyObj = Laya.Loader.getRes("./assets/conf/uiobj/nomoney.json");
         return ConfObjRead.nomoneyObj;
     };
-    ConfObjRead.getConfToast = function () {
-        if (ConfObjRead.room_toastObj) {
-            return ConfObjRead.room_toastObj;
-        }
-        ConfObjRead.room_toastObj = Laya.Loader.getRes("./assets/conf/uiobj/toast.json");
-        return ConfObjRead.room_toastObj;
-    };
-    ConfObjRead.getConfCLoading = function () {
-        if (ConfObjRead.room_saiziObj) {
-            return ConfObjRead.room_saiziObj;
-        }
-        ConfObjRead.room_saiziObj = Laya.Loader.getRes("./assets/conf/uiobj/cloading.json");
-        return ConfObjRead.room_saiziObj;
-    };
     ConfObjRead.getConfHistorypad = function () {
         if (ConfObjRead.room_historyObj) {
             return ConfObjRead.room_historyObj;
@@ -396,30 +351,6 @@ var ConfObjRead = /** @class */ (function () {
         }
         ConfObjRead.room_bottomObj = Laya.Loader.getRes("./assets/conf/bottommenus/bottommenu.json");
         return ConfObjRead.room_bottomObj;
-    };
-    ConfObjRead.getConfNotice = function () {
-        if (ConfObjRead.room_noticeObj) {
-            return ConfObjRead.room_noticeObj;
-        }
-        ConfObjRead.room_noticeObj = Laya.Loader.getRes("./assets/conf/notice/notice.json");
-        return ConfObjRead.room_noticeObj;
-    };
-    ConfObjRead.getConfTitlebar = function () {
-        if (ConfObjRead.room_titlebarObj) {
-            return ConfObjRead.room_titlebarObj;
-        }
-        if (AppData.IS_NATIVE_APP) {
-            if (!AppData.isAndroidHack) {
-                ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar/titlebar_app.json");
-            }
-            else {
-                ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar/titlebar_app_temp.json");
-            }
-        }
-        else {
-            ConfObjRead.room_titlebarObj = Laya.Loader.getRes("./assets/conf/titlebar/titlebar.json");
-        }
-        return ConfObjRead.room_titlebarObj;
     };
     ConfObjRead.getConfRoomTitlebar = function () {
         if (ConfObjRead.rmttbObj) {
@@ -494,82 +425,12 @@ var ConfObjRead = /** @class */ (function () {
         ConfObjRead.animObj = Laya.Loader.getRes("./assets/conf/animations.json");
         return ConfObjRead.animObj;
     };
-    ConfObjRead.getConfChangePwdQk = function () {
-        if (ConfObjRead.changpwdqkObj) {
-            return ConfObjRead.changpwdqkObj;
-        }
-        ConfObjRead.changpwdqkObj = Laya.Loader.getRes("./assets/conf/login/changepwdqk.json");
-        return ConfObjRead.changpwdqkObj;
-    };
-    ConfObjRead.getConfChangePwdIn = function () {
-        if (ConfObjRead.changpwdinObj) {
-            return ConfObjRead.changpwdinObj;
-        }
-        ConfObjRead.changpwdinObj = Laya.Loader.getRes("./assets/conf/login/changepwdin.json");
-        return ConfObjRead.changpwdinObj;
-    };
-    ConfObjRead.getConfChangePwd = function () {
-        if (ConfObjRead.changpwdObj) {
-            return ConfObjRead.changpwdObj;
-        }
-        ConfObjRead.changpwdObj = Laya.Loader.getRes("./assets/conf/login/changepwd.json");
-        return ConfObjRead.changpwdObj;
-    };
-    ConfObjRead.getConfLoginQuick = function () {
-        if (ConfObjRead.loginquickObj) {
-            return ConfObjRead.loginquickObj;
-        }
-        ConfObjRead.loginquickObj = Laya.Loader.getRes("./assets/conf/login/quicklogin.json");
-        return ConfObjRead.loginquickObj;
-    };
-    ConfObjRead.getConfYZM = function () {
-        if (ConfObjRead.yzmObj) {
-            return ConfObjRead.yzmObj;
-        }
-        ConfObjRead.yzmObj = Laya.Loader.getRes("./assets/conf/login/yzm_quicklogin.json");
-        return ConfObjRead.yzmObj;
-    };
-    ConfObjRead.getConfLoginChoose = function () {
-        if (ConfObjRead.loginchooseObj) {
-            return ConfObjRead.loginchooseObj;
-        }
-        ConfObjRead.loginchooseObj = Laya.Loader.getRes("./assets/conf/login/chooselogin.json");
-        return ConfObjRead.loginchooseObj;
-    };
-    ConfObjRead.getConfLoginOther = function () {
-        if (ConfObjRead.loginotherObj) {
-            return ConfObjRead.loginotherObj;
-        }
-        ConfObjRead.loginotherObj = Laya.Loader.getRes("./assets/conf/login/loginother.json");
-        return ConfObjRead.loginotherObj;
-    };
-    ConfObjRead.getConfLogin = function () {
-        if (ConfObjRead.loginObj) {
-            return ConfObjRead.loginObj;
-        }
-        ConfObjRead.loginObj = Laya.Loader.getRes("./assets/conf/login/loginreg.json");
-        return ConfObjRead.loginObj;
-    };
-    ConfObjRead.getConfUiBg = function () {
-        if (ConfObjRead.uibgObj) {
-            return ConfObjRead.uibgObj;
-        }
-        ConfObjRead.uibgObj = Laya.Loader.getRes("./assets/conf/common/bgbig.json");
-        return ConfObjRead.uibgObj;
-    };
     ConfObjRead.getDealerConf = function () {
         if (ConfObjRead.dealerObj) {
             return ConfObjRead.dealerObj;
         }
         ConfObjRead.dealerObj = Laya.Loader.getRes("./assets/conf/dealer.json");
         return ConfObjRead.dealerObj;
-    };
-    ConfObjRead.getConfMusic = function () {
-        if (ConfObjRead.musicObj && ConfObjRead.musicObj) {
-            return ConfObjRead.musicObj;
-        }
-        ConfObjRead.musicObj = Laya.Loader.getRes("./assets/conf/common/music.json");
-        return ConfObjRead.musicObj;
     };
     ConfObjRead.getGameIconConfig = function () {
         if (!this.gameIconConfig) {
@@ -608,10 +469,8 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.accenterObj = null;
     ConfObjRead.girlObj = null;
     ConfObjRead.dataNumObj = null;
-    ConfObjRead.htmlObj = null;
     ConfObjRead.giconAnimObj = null;
     ConfObjRead.gamepanelObj = null;
-    ConfObjRead.runningmsgObj = null;
     ConfObjRead.textObj = null;
     ConfObjRead.commonObj = null;
     ConfObjRead.urlObj = null;
@@ -619,7 +478,6 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.roomlistObj = null;
     ConfObjRead.avatorObj = null;
     ConfObjRead.room_avatorObj = null;
-    ConfObjRead.settingpadObj = null;
     ConfObjRead.attentionObj = null;
     ConfObjRead.noticeDialogObj = null;
     ConfObjRead.sharePageDialogObj = null;
@@ -627,12 +485,8 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.noticeDialogSpinnerObj = null;
     ConfObjRead.room_helpObj = null;
     ConfObjRead.nomoneyObj = null;
-    ConfObjRead.room_toastObj = null;
-    ConfObjRead.room_saiziObj = null;
     ConfObjRead.room_historyObj = null;
     ConfObjRead.room_bottomObj = null;
-    ConfObjRead.room_noticeObj = null;
-    ConfObjRead.room_titlebarObj = null;
     ConfObjRead.rmttbObj = null;
     ConfObjRead.room_bgObj = null;
     ConfObjRead.peoplesObj = null;
@@ -642,17 +496,7 @@ var ConfObjRead = /** @class */ (function () {
     ConfObjRead.betMenuObj = null;
     ConfObjRead.roadObj = null;
     ConfObjRead.animObj = null;
-    ConfObjRead.changpwdqkObj = null;
-    ConfObjRead.changpwdinObj = null;
-    ConfObjRead.changpwdObj = null;
-    ConfObjRead.loginquickObj = null;
-    ConfObjRead.yzmObj = null;
-    ConfObjRead.loginchooseObj = null;
-    ConfObjRead.loginotherObj = null;
-    ConfObjRead.loginObj = null;
-    ConfObjRead.uibgObj = null;
     ConfObjRead.dealerObj = null;
-    ConfObjRead.musicObj = null;
     /**
      * 游戏图标配置
      */

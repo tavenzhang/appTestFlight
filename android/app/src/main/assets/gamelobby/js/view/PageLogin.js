@@ -16,11 +16,12 @@ var __extends = (this && this.__extends) || (function () {
  */
 var LoginType;
 (function (LoginType) {
-    LoginType[LoginType["Fast"] = 0] = "Fast";
-    LoginType[LoginType["WeChat"] = 1] = "WeChat";
-    LoginType[LoginType["Account"] = 2] = "Account";
-    LoginType[LoginType["Phone"] = 3] = "Phone";
-    LoginType[LoginType["register"] = 4] = "register"; //当前处于注册界面
+    LoginType[LoginType["unknown"] = 0] = "unknown";
+    LoginType[LoginType["Fast"] = 1] = "Fast";
+    LoginType[LoginType["WeChat"] = 2] = "WeChat";
+    LoginType[LoginType["Account"] = 3] = "Account";
+    LoginType[LoginType["Phone"] = 4] = "Phone";
+    LoginType[LoginType["register"] = 5] = "register"; //当前处于注册界面
 })(LoginType || (LoginType = {}));
 /**
  * 登陆ui,包含loading
@@ -31,11 +32,21 @@ var PageLogin = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.gatewayCount = 0;
         _this.pb_loading.value = 0;
+        _this.loginBtns = [
+            _this.login_fast,
+            _this.login_account,
+            _this.login_phone
+        ];
+        var btnWidth = _this.loginBtns[0].width;
+        var len = _this.loginBtns.length;
+        var gap = 110;
+        for (var i = 0; i < len; i++) {
+            var btn = _this.loginBtns[i];
+            btn.x = btnWidth / 2 + i * (btnWidth + gap);
+            btn.visible = false;
+        }
+        _this.loginBtnGroup.width = len * btnWidth + (len - 1) * gap;
         //隐藏按钮
-        _this.btn_account.visible = false;
-        _this.btn_fast.visible = false;
-        _this.btn_phone.visible = false;
-        _this.btn_webchat.visible = false;
         _this.btn_service.visible = false;
         /**
          * 业主可替换的图标，需要动态加载
@@ -46,16 +57,15 @@ var PageLogin = /** @class */ (function (_super) {
         //渠道包屏蔽
         if (AppData.isAndroidHack)
             _this.sp_log.visible = false;
-        var isload = cmd == null ? false : cmd == 'isloaded';
+        _this.cmd = cmd;
         //开始加载数据
-        _this.startLoading(isload);
+        _this.startLoading();
         return _this;
     }
     /**
      * 开始加载数据
      */
-    PageLogin.prototype.startLoading = function (isload) {
-        this.isload = isload;
+    PageLogin.prototype.startLoading = function () {
         var conf = Laya.loader.getRes("./assets/conf/assets_lobby.json");
         //过滤数据
         var assets = [];
@@ -68,7 +78,7 @@ var PageLogin = /** @class */ (function (_super) {
         }
         //合并游戏列表相关素材
         // assets = assets.concat(ResConfig.getGameListResConfig());
-        if (isload) {
+        if (PageLogin.isLoaded) {
             this.loadFinish();
         }
         else {
@@ -88,15 +98,18 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.loadFinish = function () {
         Common.confObj = ConfObjRead.getConfCommon();
+        ResConfig.addTween = Common.confObj.addTween;
         this.updateGatewayInfo();
         //登陆流程
         this.initLoginProcess();
         this.initEvents();
+        PageLogin.isLoaded = true;
     };
     //获取init-info
-    PageLogin.prototype.updateGatewayInfo = function (isError) {
+    PageLogin.prototype.updateGatewayInfo = function (isError, callback) {
         var _this = this;
         if (isError === void 0) { isError = false; }
+        if (callback === void 0) { callback = null; }
         var info = SaveManager.getObj().get(SaveManager.KEY_GATEWAYINFO, "");
         if (!isError && info) {
             if (!Common.gatewayInfo)
@@ -110,9 +123,13 @@ var PageLogin = /** @class */ (function (_super) {
                 Common.gatewayInfo.tsDiff = Common.gatewayInfo.ts - Laya.Browser.now();
                 eval(Common.gatewayInfo.sec);
                 SaveManager.getObj().save(SaveManager.KEY_GATEWAYINFO, JSON.stringify(Common.gatewayInfo));
+                if (callback)
+                    callback();
             }
             else {
                 Debug.output("init-err:", jobj.http.status);
+                LayaMain.getInstance().showCircleLoading(false);
+                Toast.showToast("服务异常,请稍后再试!");
                 if (jobj.http.status == 428) {
                     _this.gatewayCount++;
                     if (_this.gatewayCount <= 3) {
@@ -128,17 +145,6 @@ var PageLogin = /** @class */ (function (_super) {
     PageLogin.prototype.initEvents = function () {
         var _this = this;
         EventManager.register(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
-        //账号登录
-        EventManager.addTouchScaleListener(this.btn_account, this, function () {
-            SoundPlayer.clickSound();
-            _this.selectLoginType(LoginType.Account);
-        });
-        //快速登录
-        EventManager.addTouchScaleListener(this.btn_fast, this, function () {
-            SoundPlayer.clickSound();
-            _this.loginType = LoginType.Fast;
-            _this.doFastLogin();
-        });
         //客服
         EventManager.addTouchScaleListener(this.btn_service, this, function () {
             SoundPlayer.clickSound();
@@ -148,6 +154,22 @@ var PageLogin = /** @class */ (function (_super) {
         EventManager.addTouchScaleListener(this.btn_other_login, this, function () {
             SoundPlayer.clickSound();
             _this.checkLocalFastInfo();
+        });
+        //快速登录模式
+        EventManager.addTouchScaleListener(this.login_fast, this, function () {
+            SoundPlayer.clickSound();
+            _this.loginType = LoginType.Fast;
+            _this.doFastLogin();
+        });
+        //账号登录模式
+        EventManager.addTouchScaleListener(this.login_account, this, function () {
+            SoundPlayer.clickSound();
+            _this.selectLoginType(LoginType.Account);
+        });
+        //手机登录模式
+        EventManager.addTouchScaleListener(this.login_phone, this, function () {
+            SoundPlayer.clickSound();
+            _this.selectLoginType(LoginType.Phone);
         });
         //--------------快捷登录---------------------------
         //快捷登录确定
@@ -207,7 +229,72 @@ var PageLogin = /** @class */ (function (_super) {
             SoundPlayer.clickSound();
             _this.askCode();
         }, null, 1);
-        //-------------------------------
+        //----------------手机登录----------------------
+        //获取验证码
+        EventManager.addTouchScaleListener(this.mp_getcodeBtn, this, function () {
+            SoundPlayer.clickSound();
+            _this.getPhoneVerCode();
+        });
+        //确定登录
+        EventManager.addTouchScaleListener(this.mp_login, this, function () {
+            SoundPlayer.clickSound();
+            _this.doPhoneLogin();
+        });
+    };
+    //手机登录
+    PageLogin.prototype.doPhoneLogin = function () {
+        var _this = this;
+        if (this.mp_numTxt.text == "") {
+            Toast.showToast("手机号不能为空");
+            return;
+        }
+        if (this.mp_codeTxt.text == "") {
+            Toast.showToast("验证码不能为空");
+            return;
+        }
+        LayaMain.getInstance().showCircleLoading(true);
+        this.clearCodeTime();
+        this.mp_getcodeBtn.visible = true;
+        HttpRequester.phoneLogin(this.mp_numTxt.text, this.mp_codeTxt.text, this, function (suc, jobj) {
+            LayaMain.getInstance().showCircleLoading(false);
+            if (suc) {
+                if (jobj.certifiedPhone == false) { //这种情况需要跳转到用户登录界面
+                    Toast.showToast("手机号认证失效，请账号登录后重新绑定手机");
+                    _this.selectLoginType(LoginType.Account);
+                    return;
+                }
+                _this.saveLoginInfo(jobj, LoginType.Phone);
+                if (jobj.autoGenPassword) { //手机登录生成的密码(同一个号就第一次有)
+                    SaveManager.getObj().save(SaveManager.KEY_PHONEPWD, jobj.autoGenPassword); //todo:修改密码时要默认这个密码
+                }
+                LayaMain.getInstance().initLobby();
+            }
+        });
+    };
+    //获取手机登录验证码
+    PageLogin.prototype.getPhoneVerCode = function () {
+        if (this.mp_numTxt.text == "") {
+            Toast.showToast("手机号不能为空");
+            return;
+        }
+        this.mp_getcodeBtn.visible = false;
+        this.codeTime = 60;
+        this.mp_timeTxt.text = this.codeTime.toString();
+        Laya.timer.loop(1000, this, this.updateCodeTime);
+        HttpRequester.getPhoneVercode(this.mp_numTxt.text, "phoneLoginVercode", false, this, function (suc, jobj) {
+            //...
+        });
+    };
+    PageLogin.prototype.updateCodeTime = function () {
+        this.codeTime--;
+        this.mp_timeTxt.text = this.codeTime.toString();
+        if (this.codeTime <= 0) {
+            this.clearCodeTime();
+            this.mp_getcodeBtn.visible = true;
+        }
+    };
+    PageLogin.prototype.clearCodeTime = function () {
+        Laya.timer.clear(this, this.updateCodeTime);
     };
     /**
      * 初始化登录流程
@@ -246,14 +333,19 @@ var PageLogin = /** @class */ (function (_super) {
             }
         }
         LobbyScene.initBgMusic();
-        if (this.isload) {
+        if (this.cmd && this.cmd.type) {
+            this.showOtherLogin();
+            this.selectLoginType(LoginType.Phone);
+            return;
+        }
+        if (PageLogin.isLoaded) {
             this.checkLocalFastInfo();
             return;
         }
         if (temp_token.length <= 0 || status == '1') {
             this.checkLocalFastInfo();
         }
-        else {
+        else { //使用token登录
             HttpRequester.loginByToken(temp_token, this, function (suc, jobj) {
                 if (suc) { //登录成功
                     Common.userInfo = jobj;
@@ -325,21 +417,16 @@ var PageLogin = /** @class */ (function (_super) {
         this.sp_log.height = 280;
         this.sp_log.top = 199;
         this.sp_log.left = 486;
-        //临时代码，现在只有2种登陆方式
-        this.btn_fast.centerX = -250;
-        this.btn_account.centerX = 250;
-        //显示4个按钮
-        this.btn_account.visible = true;
-        this.btn_fast.visible = true;
-        // this.btn_phone.visible = true;
-        // this.btn_webchat.visible = true;
-        this.show_btns.play(0, false);
-        //暂时使用绿色的图
-        //this.btn_fast.skin = 'ui/res_login/btn_dl_kuaijie02.png';
         //隐藏登陆面板
         this.hideAllLoginUI();
         //隐藏其他登陆按钮
         this.btn_other_login.visible = false;
+        //显示登录模式按钮
+        this.loginBtns.forEach(function (btn) {
+            btn.visible = true;
+            btn.scale(0, 0);
+            Laya.Tween.to(btn, { scaleX: 1, scaleY: 1 }, 500, Laya.Ease.elasticOut);
+        });
     };
     /**
      * 选择登陆模式
@@ -354,10 +441,7 @@ var PageLogin = /** @class */ (function (_super) {
         //显示其他登陆
         this.btn_other_login.visible = true;
         //隐藏登陆按钮
-        this.btn_account.visible = false;
-        this.btn_fast.visible = false;
-        this.btn_phone.visible = false;
-        this.btn_webchat.visible = false;
+        this.loginBtns.forEach(function (btn) { return btn.visible = false; });
         //隐藏全部登陆的UI
         this.hideAllLoginUI();
         this.loginType = type;
@@ -370,10 +454,10 @@ var PageLogin = /** @class */ (function (_super) {
                 this.showAccountLoginView(comeFast);
                 break;
             case LoginType.WeChat:
-                this.ShowWeChatLoginPanel();
+                this.showWeChatLoginView();
                 break;
             case LoginType.Phone:
-                this.ShowPhoneLoginPanel();
+                this.showPhoneLoginView();
                 break;
             default: break;
         }
@@ -399,6 +483,7 @@ var PageLogin = /** @class */ (function (_super) {
         });
     };
     PageLogin.prototype.destroy = function (vl) {
+        this.clearCodeTime();
         EventManager.removeEvent(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
         EventManager.removeAllEvents(this);
         _super.prototype.destroy.call(this, vl);
@@ -411,6 +496,7 @@ var PageLogin = /** @class */ (function (_super) {
         this.panelFast.visible = false;
         this.panelAccount.visible = false;
         this.panelRegister.visible = false;
+        this.panelPhone.visible = false;
     };
     //刷新验证码
     PageLogin.prototype.askCode = function () {
@@ -463,16 +549,14 @@ var PageLogin = /** @class */ (function (_super) {
     /**
      * 微信登陆
      */
-    PageLogin.prototype.ShowWeChatLoginPanel = function () {
-        //重置布局
-        //显示快速使用的UI
+    PageLogin.prototype.showWeChatLoginView = function () {
+        //todo:...
     };
     /**
      * 手机号登陆
      */
-    PageLogin.prototype.ShowPhoneLoginPanel = function () {
-        //重置布局
-        //显示快速使用的UI
+    PageLogin.prototype.showPhoneLoginView = function () {
+        this.panelPhone.visible = true;
     };
     ///////////////////////////////////////////////////////////////////////
     /**
@@ -543,18 +627,17 @@ var PageLogin = /** @class */ (function (_super) {
             this.selectLoginType(LoginType.Account, true);
             return;
         }
-        if (!Common.gatewayInfo) {
-            Toast.showToast("请稍后再试");
-            this.updateGatewayInfo(true);
-            return;
-        }
         //转圈圈
         LayaMain.getInstance().showCircleLoading(true);
+        if (!Common.gatewayInfo) {
+            this.updateGatewayInfo(true, this.doFastLogin);
+            return;
+        }
         HttpRequester.fastLogin(this.fastName, this.password, this, function (suc, jobj) {
             LayaMain.getInstance().showCircleLoading(false);
             if (suc) { //成功
                 if (jobj.secureLogin == undefined || jobj.secureLogin == true) { //为强账号，可以直接进入大厅
-                    _this.saveFastLoginInfo(jobj);
+                    _this.saveLoginInfo(jobj, LoginType.Fast);
                     LayaMain.getInstance().initLobby();
                 }
                 else { //为弱账号，需要验证登录
@@ -574,11 +657,6 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.doFastLoginWithVC = function () {
         var _this = this;
-        if (!Common.gatewayInfo) {
-            Toast.showToast("请稍后再试");
-            this.updateGatewayInfo(true);
-            return;
-        }
         //效验验证码
         var code = this.fast_codeTxt.text;
         var verify = Tools.verifyQuickLogin(code);
@@ -588,10 +666,14 @@ var PageLogin = /** @class */ (function (_super) {
             return;
         }
         LayaMain.getInstance().showCircleLoading(true);
+        if (!Common.gatewayInfo) {
+            this.updateGatewayInfo(true, this.doFastLoginWithVC);
+            return;
+        }
         HttpRequester.fastLoginWithVC(this.fastName, this.password, code, this.rand, this, function (suc, jobj) {
             LayaMain.getInstance().showCircleLoading(false);
             if (suc) {
-                _this.saveFastLoginInfo(jobj);
+                _this.saveLoginInfo(jobj, LoginType.Fast);
                 LayaMain.getInstance().initLobby();
             }
             else {
@@ -602,35 +684,24 @@ var PageLogin = /** @class */ (function (_super) {
             }
         });
     };
-    //保存快速登录信息
-    PageLogin.prototype.saveFastLoginInfo = function (jobj) {
-        Common.loginInfo = jobj;
-        Common.loginType = Common.TYPE_LOGIN_QK;
-        Common.access_token = jobj.oauthToken.access_token;
-        PostMHelp.tokenChange({ "payload": Common.access_token });
-        SaveManager.getObj().save(SaveManager.KEY_TOKEN, Common.access_token);
-        SaveManager.getObj().save(SaveManager.KEY_LOGIN_TYPE, Common.loginType);
-        SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
-    };
     /**
      * 账号密码登陆
      */
     PageLogin.prototype.doAccountLogin = function () {
         var _this = this;
-        if (!Common.gatewayInfo) {
-            Toast.showToast("请稍后再试");
-            this.updateGatewayInfo(true);
-            return;
-        }
         var name = this.acc_nameTxt.text;
         var pwd = this.acc_pwdTxt.text;
         PostMHelp.debugInfo({ name: name, pwd: pwd });
         LayaMain.getInstance().showCircleLoading(true);
+        if (!Common.gatewayInfo) {
+            this.updateGatewayInfo(true, this.doAccountLogin);
+            return;
+        }
         HttpRequester.accountLogin(name, pwd, this, function (suc, jobj) {
             LayaMain.getInstance().showCircleLoading(false);
             if (suc) {
                 if (jobj.secureLogin == undefined || jobj.secureLogin == true) { //登录成功
-                    _this.saveAccountLoginInfo(jobj);
+                    _this.saveLoginInfo(jobj, LoginType.Account);
                     if (_this.isChangePwd && name == _this.fastName) { //特殊情况出来
                         SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, pwd);
                     }
@@ -656,11 +727,6 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.doAccountLoginWithVC = function () {
         var _this = this;
-        if (!Common.gatewayInfo) {
-            Toast.showToast("请稍后再试");
-            this.updateGatewayInfo(true);
-            return;
-        }
         var name = this.acc_nameTxt.text;
         var pwd = this.acc_pwdTxt.text;
         var yzm = this.acc_codeTxt.text;
@@ -671,10 +737,14 @@ var PageLogin = /** @class */ (function (_super) {
             return;
         }
         LayaMain.getInstance().showCircleLoading(true);
+        if (!Common.gatewayInfo) {
+            this.updateGatewayInfo(true, this.doAccountLoginWithVC);
+            return;
+        }
         HttpRequester.accountLoginWithVC(name, pwd, yzm, this.rand, this, function (suc, jobj) {
             LayaMain.getInstance().showCircleLoading(false);
             if (suc) {
-                _this.saveAccountLoginInfo(jobj);
+                _this.saveLoginInfo(jobj, LoginType.Account);
                 if (_this.isChangePwd && name == _this.fastName) {
                     SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, pwd);
                 }
@@ -688,11 +758,11 @@ var PageLogin = /** @class */ (function (_super) {
             }
         });
     };
-    //保存账户登录信息
-    PageLogin.prototype.saveAccountLoginInfo = function (jobj) {
+    //保存登录信息
+    PageLogin.prototype.saveLoginInfo = function (jobj, type) {
         Common.loginInfo = jobj;
         Common.access_token = jobj.oauthToken.access_token;
-        Common.loginType = Common.TYPE_LOGIN_ACCOUNT;
+        Common.loginType = type;
         SaveManager.getObj().save(SaveManager.KEY_TOKEN, Common.access_token);
         SaveManager.getObj().save(SaveManager.KEY_LOGIN_TYPE, Common.loginType);
         SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
@@ -733,6 +803,7 @@ var PageLogin = /** @class */ (function (_super) {
         //跳转忘记密码UI
         this.showForgetPasswordPanel();
     };
+    PageLogin.isLoaded = false;
     return PageLogin;
 }(ui.UI.Page.LoginUI));
 //# sourceMappingURL=PageLogin.js.map
