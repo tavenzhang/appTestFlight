@@ -71,7 +71,7 @@ export const config = {
 
         getbankList: 'cashmgt/me/cards/list', //用户绑卡银行卡列表
         //获取支付类型列表
-        paymentTypeList4: 'cashmgt/me/payments/nameV4',
+        paymentTypeList4: 'cashmgt/me/payments/name',
         //获取网银支付的银行卡列表
         getPaymentBankList: 'cashmgt/me/paymentbanklist',
 

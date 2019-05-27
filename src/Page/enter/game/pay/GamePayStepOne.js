@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, ScrollView, StyleSheet, Text, TextInputComponent, TouchableOpacity, View,ImageBackground} from "react-native";
+import {Image, Clipboard, ScrollView, StyleSheet, Text, TextInputComponent, TouchableOpacity, View,ImageBackground} from "react-native";
 
 import {ASSET_Images} from "../../../asset";
 import TCImage from "../../../../Common/View/image/TCImage";
@@ -16,7 +16,7 @@ import {copyBtnStyle, indexBgColor, listViewTxtColor, payTxtColor, Size, width} 
 import payHelper from "../../../UserCenter/UserPay/PayHelper";
 import UserPayStore from "../../../../Data/store/UserPayStore";
 import BaseGameAlert from "../GameMoneyInView";
-
+import Toast from '../../../../Common/JXHelper/JXToast';
 import ModalInputDialog from "../../../../Common/View/ModalInputDialog";
 import ModalList from "../../../UserCenter/UserPay/View/ModalList";
 import TCButtonView from "../../../UserCenter/UserPay/TCUserPayNew";
@@ -63,22 +63,31 @@ export default class GamePayStepOne extends Component {
         let payList = TW_Store.userPayTypeStore.getPayList(itemData.code);
 
         payHelper.props = itemData;
-        let marginTop = itemData.code.indexOf("FIXED") === -1 ? 140:0
-        let height =itemData.code.indexOf("FIXED") === -1 ? SCREEN_H - 200 :SCREEN_H - 80
-        if(this.isChange){
+        let marginTop = (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? 140 : 0
+        let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 200 : SCREEN_H - 80
+        if (this.isChange) {
             this.scrollListToStart();
         }
         return (<View style={styles.container}>
             {
-                itemData.code.indexOf("FIXED") === -1 ?(<View>
-                    <TCImage source={ASSET_Images.gameUI.stepOneBg1}  resizeMode={'contain'}/>
-                    <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`} viewStyle={{position: "absolute", left:180, top: 6,}}
+                (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? (<View>
+                    <TCImage source={ASSET_Images.gameUI.stepOneBg1} resizeMode={'contain'}/>
+
+                    <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`}
+                                 viewStyle={{position: "absolute", left: 180, top: 6,}}
                                  placeholder={"请输入金额"}
                                  keyboardType={"numeric"}
-                                 inputStyle={[styles.inputStyle, {fontSize: 14, textAlign:"center"}]}
+                                 inputStyle={[styles.inputStyle, {fontSize: 14, textAlign: "center"}]}
                                  placeholderTextColor={"rgb(132,168,168)"}
                                  maxLength={20}/>
-                    <View style={{position: "absolute", left: 2, top: 28, flexDirection: "row", flexWrap: "wrap", width: SCREEN_W-250}}>
+                    <View style={{
+                        position: "absolute",
+                        left: 2,
+                        top: 28,
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                        width: SCREEN_W - 250
+                    }}>
                         {this.moneyList.map((item, index) => {
                             return <BtnMoneyView key={"index" + index} style={{marginHorizontal: 1, marginBottom: 2}}
                                                  data={item}
@@ -86,23 +95,27 @@ export default class GamePayStepOne extends Component {
                                                  isSelect={`${item}` == `${this.state.money}`}/>
                         })}
                     </View>
-                    <TCImage source={ASSET_Images.gameUI.stepOneBg2} style={{marginTop:90}} resizeMode={'contain'}/>
+                    <TCImage source={ASSET_Images.gameUI.stepOneBg2} style={{marginTop: 90}} resizeMode={'contain'}/>
                     <TCButtonImg imgSource={ASSET_Images.gameUI.btn_onLine}
                                  soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                  btnStyle={{position: "absolute", left: 308, top: 115,}} imgStyle={{}} onClick={() => {
                         TW_Store.gameUIStroe.showGusetView(true);
                     }}/>
-                </View>):null
+                </View>) : null
             }
             <View style={{position: "absolute", top: marginTop, left: 10}}>
-                {payList&&payList.length > 0 ? <TCFlatList ref={"payList"} style={{height: height,marginBottom:10}} dataS={payList}
-                                                           onScroll={this._scroll}
-                                                  renderRow={this.onRenderItemView}/> : this.getEmptyTip()}
+                {payList && payList.length > 0 ?
+                    <TCFlatList ref={"payList"} style={{height: height, marginBottom: 10}} dataS={payList}
+                                onScroll={this._scroll}
+                                renderRow={this.onRenderItemView}/> : this.getEmptyTip()}
 
             </View>
             {
-                this.state.showArrow&&payList&&payList.length > 0&&<TCButtonImg imgSource={ASSET_Images.gameUI.downArrow} btnStyle={{position: "absolute",top:SCREEN_H -115,left:SCREEN_W*0.5-115}} resizeMode={'stretch'}
-                                                       onClick={()=>this.scrollList() }/>
+                this.state.showArrow && payList && payList.length > 0 &&
+                <TCButtonImg imgSource={ASSET_Images.gameUI.downArrow}
+                             btnStyle={{position: "absolute", top: SCREEN_H - 115, left: SCREEN_W * 0.5 - 115}}
+                             resizeMode={'stretch'}
+                             onClick={() => this.scrollList()}/>
             }
             <ModalList
                 show={this.userPayStore.showList}
@@ -122,10 +135,10 @@ export default class GamePayStepOne extends Component {
                     this.userPayStore.showInputName = false
                 }}
                 btnRightClick={(inputData) => {
-                    let {realname,phoneNum,cardNo} = inputData
+                    let {realname, phoneNum, cardNo} = inputData
                     // let reg = /^([\s\u4e00-\u9fa5]{1}([·•● ]?[\s\u4e00-\u9fa5]){1,14})$|^[a-zA-Z\s]{4,30}$/;
                     // if (payHelper.payData.realNameReq && !realname.match(reg)) {
-                    //     Toast.showShortCenter("请输入正确的存款人姓名")
+                    // Toast.showShortCenter("请输入正确的存款人姓名")
                     //     return false;
                     // }
                     // reg = /^134[0-8]\d{7}$|^13[^4]\d{8}$|^14[5-9]\d{8}$|^15[^4]\d{8}$|^16[6]\d{8}$|^17[0-8]\d{8}$|^18[\d]{9}$|^19[8,9]\d{8}$/
@@ -138,9 +151,9 @@ export default class GamePayStepOne extends Component {
                     //     Toast.showShortCenter("请输入正确的银行卡号")
                     //     return false;
                     // }
-                    payHelper.payData.realName = realname?realname:"";
-                    payHelper.payData.mobileNo = phoneNum?phoneNum:"";
-                    payHelper.payData.cardNo = cardNo?cardNo:"";
+                    payHelper.payData.realName = realname ? realname : "";
+                    payHelper.payData.mobileNo = phoneNum ? phoneNum : "";
+                    payHelper.payData.cardNo = cardNo ? cardNo : "";
                     this.userPayStore.showInputName = false;
                     this.gotoPay(payHelper.payData)
 
@@ -201,7 +214,7 @@ export default class GamePayStepOne extends Component {
     }
 
     onRenderItemView = (data, index) => {
-      //  TW_Log("GamePayStepOne---onRenderItemView--" + index, data);
+        //TW_Log("GamePayStepOne---onRenderItemView--" + index, data);
         let {itemData} = this.props;
         if (itemData.code == 'BANK') {
             let bank = data;
@@ -230,6 +243,31 @@ export default class GamePayStepOne extends Component {
                     </View>
                 </View>
             </TouchableOpacity>)
+        } else if (itemData.code == 'VIP') {
+            let vip = data;
+            return (
+                <View style={{width: SCREEN_W - 350, height: 100, justifyContent: "center"}}>
+                    <TCImage source={ASSET_Images.gameUI.listItemVIPBg}
+                             style={{position: "absolute", width: SCREEN_W - 350, height: 80}}/>
+                    <View style={{flexDirection: "row"}}>
+                        <Text style={{color: "#F9CB46", fontSize: 14, fontWeight: "bold", marginLeft: 50, marginBottom: 15,width:100}}>支付宝快捷支付</Text>
+                        <TouchableOpacity
+                            activeOpacity={0.6}
+                            style={{marginLeft: SCREEN_W - 560,
+                                justifyContent: 'center',}}
+                            onPress={() => this.onCopy(vip.methodInfo)}>
+                            <Text style={styles.itemBtnTxtStyle}>复制</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{flexDirection: "row"}}>
+                        <Text style={{color: "#A2E1EE", fontSize: 14, marginLeft:50, marginBottom:10,flexWrap:'wrap'}}>微信帐号：</Text>
+                        <Text style={{color: "#FFFFFF", fontSize: 14}}>{vip.methodInfo}</Text>
+                    </View>
+                    <View style={{flexDirection: "row"}}>
+                        <Text style={{color: "#A2E1EE", fontSize: 14, marginLeft:50, flexWrap:'wrap'}}>需添加好友，请在添加转帐说明输如会员帐号</Text>
+                    </View>
+
+                </View>)
         } else if(itemData.code.indexOf("FIXED")!=-1){
             let paymentItem = data;
             let itemHeight = 0;
@@ -247,7 +285,7 @@ export default class GamePayStepOne extends Component {
                 itemHeight = 45 * rowCount;
             }
 
-            TW_Log("paymentItem---"+this.state.slectedItem);
+            TW_Log("paymentItem---"+this.state.selectedItem);
             return(
                 (<View style={{width: SCREEN_W - 250,height: 40 + itemHeight,alignItems: "center",marginBottom:5,justifyContent:'center'}}>
                     <TCImage source={ASSET_Images.gameUI.fixedListItemBg}
@@ -359,7 +397,15 @@ export default class GamePayStepOne extends Component {
         )
     }
 
-
+    /**
+     * copy
+     * @param text
+     */
+    onCopy(text) {
+        TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
+        Clipboard.setString(text);
+        Toast.showShortCenter("已复制！")
+    }
 
     /**
      * 渲染银行列表
