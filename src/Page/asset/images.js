@@ -249,12 +249,10 @@ export const gameUI = {
     czmxTip:require('./game/czmx_tip.png'),
     txmxTip:require('./game/txmx_tip.png'),
     onlineService:require('./game/online_service.png'),
-    czmxListBg1:require('./game/czmx_list_bg1.png'),
-    czmxListBg2:require('./game/czmx_list_bg2.png'),
-    czmxListBg3:require('./game/czmx_list_bg3.png'),
     czmxAll:require('./game/czmx_qb.png'),
     czmxFail:require('./game/czmx_sb.png'),
-    czmxDone:require('./game/czmx_ywc.png')
+    czmxDone:require('./game/czmx_ywc.png'),
+    img_czmx_dkMenu:require('./game/img_czmx_dkMenu.png'),
 }
 
 export const gameShare = {
