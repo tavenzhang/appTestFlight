@@ -62,7 +62,6 @@ export default class GameMoneyInView extends Component {
     }
 
     componentWillMount(): void {
-
         this.userPayStore.selectPayType((res) => {
             if (res.status) {
                // this.gotoPayPage(item.code);
@@ -83,11 +82,11 @@ export default class GameMoneyInView extends Component {
         let fullWithStyle= SCREEN_ISFULL ? {width:SCREEN_W*0.22}:null
         return (<View style={styles.container} pointerEvents={pointerEvents}>
             <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W, height:SCREEN_H}} resizeMode={'stretch'}/>
-            {/*<TCImage source={ASSET_Images.gameUI.payTopLeftBg} style={{position: "absolute",width:SCREEN_W*0.35,height:SCREEN_H*0.15}} resizeMode={'contain'}/>*/}
-            {/*<TCImage source={ASSET_Images.gameUI.payTopIcon} style={{position: "absolute",width:SCREEN_W*0.08,height:SCREEN_H*0.15,left:SCREEN_W*0.05,top:3}} resizeMode={'stretch'}/>*/}
+            <TCImage source={ASSET_Images.gameUI.payTopLeftBg} style={{position: "absolute",width:SCREEN_W*0.30,height:SCREEN_H*0.15}} resizeMode={'contain'}/>
+            <TCImage source={ASSET_Images.gameUI.payTopIcon} style={{position: "absolute",width:SCREEN_W*0.08,height:SCREEN_H*0.15,left:SCREEN_W*0.02,top:5}} resizeMode={'stretch'}/>
             <TCImage source={ASSET_Images.gameUI.payTopTxt} style={{position: "absolute",left:SCREEN_W*0.12,top:13}} resizeMode={'contain'}/>
-
-            {/*<TCImage source={ASSET_Images.gameUI.payBackBg} style={{position: "absolute",right: 0, top: 0,width:SCREEN_W*0.25,height:SCREEN_H*0.13}} resizeMode={'stretch'}/>*/}
+            <TCImage source={ASSET_Images.gameUI.moneyBottomBg} style={{position: "absolute",right:0,bottom:0}} resizeMode={'contain'}/>
+            <TCImage source={ASSET_Images.gameUI.payBackBg} style={{position: "absolute",right: 0, top: 0,width:SCREEN_W*0.15,height:SCREEN_H*0.12}} resizeMode={'stretch'}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.payBack}
                          onClick={() => TW_Store.gameUIStroe.isShowAddPayView = false}
                          soundName={TW_Store.bblStore.SOUND_ENUM.returnLobbyClick}
@@ -154,7 +153,6 @@ export default class GameMoneyInView extends Component {
 
 
     onRenderPayTypeItem=(item, index)=>{
-
         let bankitem = this.state.selectPayitem;
         if(!bankitem && this.userPayStore.payTypeList.length>0){
             bankitem = this.userPayStore.payTypeList[0];
