@@ -3,13 +3,13 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://1cituv188qp.8vo79h.com',
-    base2: 'https://pb4wxx188qp.8vo79h.com',
-    base3: 'https://5ugcqu188qp.8vo79h.com',
-    base4: 'https://0gqwtu188qp.8vo79h.com',
-    base5: 'https://1cituv188qp.auqiag.com',
-    base6: 'https://pb4wxx188qp.auqiag.com',
-    base7: 'https://1cituv188qp.ayssao.com',
+    base1: 'https://jasf3r188qp.celue20.com',
+    base2: 'https://4fjdhw188qp.celue20.com',
+    base3: 'https://olmr3n188qp.celue20.com',
+    base4: 'https://6shwoa188qp.celue20.com',
+    base5: 'https://jasf3r188qp.costackup.com',
+    base6: 'https://4fjdhw188qp.costackup.com',
+    base7: 'https://jasf3r188qp.lakenkyra.com',
 }
 
 
