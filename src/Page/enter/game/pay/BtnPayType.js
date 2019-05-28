@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {
+    Platform,
     StyleSheet,
     View,
     Text, WebView, TouchableWithoutFeedback
@@ -10,7 +11,6 @@ import {ASSET_Images, JX_PLAT_INFO} from "../../../asset";
 import TCImage from "../../../../Common/View/image/TCImage";
 import PropTypes from "prop-types";
 import {userPay} from "../../../asset/images";
-
 
 @observer
 export default class BtnPayType extends Component {
@@ -28,7 +28,8 @@ export default class BtnPayType extends Component {
 
     render() {
         let {isSelect, data} = this.props
-        let newWidth = (!isSelect && data.code == "VIP") ? 135 : null
+        let buttonVIPWidth = Platform.OS == 'android' ? SCREEN_W * 0.22 : 135
+        let newWidth = (!isSelect && data.code == "VIP") ? buttonVIPWidth : null
         let newAlignment = (!isSelect && data.code == "VIP") ? "flex-end" : "center"
         return (<TouchableWithoutFeedback onPress={this.onSelect}>
                 <View style={{justifyContent: newAlignment, alignItems: newAlignment, height: 50, width: newWidth}}>

@@ -64,7 +64,7 @@ export default class GamePayStepOne extends Component {
 
         payHelper.props = itemData;
         let marginTop = (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? 140 : 0
-        let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 200 : SCREEN_H - 80
+        let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 200 : SCREEN_H - 65
         if (this.isChange) {
             this.scrollListToStart();
         }
@@ -246,25 +246,25 @@ export default class GamePayStepOne extends Component {
         } else if (itemData.code == 'VIP') {
             let vip = data;
             return (
-                <View style={{width: SCREEN_W - 350, height: 100, justifyContent: "center"}}>
+                <View style={{width: SCREEN_W - 250, height: 100, justifyContent: "center"}}>
                     <TCImage source={ASSET_Images.gameUI.listItemVIPBg}
-                             style={{position: "absolute", width: SCREEN_W - 350, height: 80}}/>
+                             style={{position: "absolute", width: SCREEN_W - 250, height: 80}}/>
                     <View style={{flexDirection: "row"}}>
-                        <Text style={{color: "#F9CB46", fontSize: 14, fontWeight: "bold", marginLeft: 50, marginBottom: 15,width:100}}>支付宝快捷支付</Text>
+                        <Text style={{color: "#F9CB46", fontSize: 14, fontWeight: "bold", marginLeft: 50, marginBottom: 12,width:100}}>{vip.merchantName}</Text>
                         <TouchableOpacity
                             activeOpacity={0.6}
-                            style={{marginLeft: SCREEN_W - 560,
+                            style={{marginLeft: SCREEN_W - 480,
                                 justifyContent: 'center',}}
                             onPress={() => this.onCopy(vip.methodInfo)}>
                             <Text style={styles.itemBtnTxtStyle}>复制</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{flexDirection: "row"}}>
-                        <Text style={{color: "#A2E1EE", fontSize: 14, marginLeft:50, marginBottom:10,flexWrap:'wrap'}}>微信帐号：</Text>
+                        <Text style={{color: "#A2E1EE", fontSize: 14, marginLeft:50, marginBottom:6,flexWrap:'wrap'}}>帐号名称：</Text>
                         <Text style={{color: "#FFFFFF", fontSize: 14}}>{vip.methodInfo}</Text>
                     </View>
                     <View style={{flexDirection: "row"}}>
-                        <Text style={{color: "#A2E1EE", fontSize: 14, marginLeft:50, flexWrap:'wrap'}}>需添加好友，请在添加转帐说明输如会员帐号</Text>
+                        <Text style={{color: "#A2E1EE", fontSize: 14, marginLeft:50, flexWrap:'wrap'}}>{vip.remarks}</Text>
                     </View>
 
                 </View>)
