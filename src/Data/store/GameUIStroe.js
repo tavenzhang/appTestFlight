@@ -37,6 +37,7 @@ export default class GameUIStroe {
     };
 
 
+
     @action
     showTiXianDetail(isShow=true,onBack=null) {
             this.gameAlertData={

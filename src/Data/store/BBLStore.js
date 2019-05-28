@@ -118,7 +118,8 @@ export  default  class BBLStore {
         game_loading:"game_loading",
         showGame:"showGame",
         bindPhone:"bindPhone",
-        lifecycle:"lifecycle"
+        lifecycle:"lifecycle",
+        showMask:"showMask"
 
 
     }

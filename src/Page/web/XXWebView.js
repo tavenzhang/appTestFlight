@@ -350,10 +350,9 @@ export default class XXWebView extends Component {
         let gameM=null;
 
         if (message && message.action) {
-            TW_Log("onMessage======XXWebView=====>>",message.action);
             switch (message.action) {
                 case "Log":
-                    // TW_Log("game---ct=="+message.ct,message.data);
+                     TW_Log("game---ct=="+message.ct,message.data);
                     break;
                 case "game_common":
                     switch (message.name) {

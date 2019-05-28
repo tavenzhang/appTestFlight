@@ -41,7 +41,7 @@ export default class GameMoneyOutView extends Component {
         let {pointerEvents}=this.props;
         let num = this.userWithdrawStore.withdrawModel.aggregateBetRequirements - this.userWithdrawStore.withdrawModel.aggregateBets
 
-        return (<View style={styles.container} pointerEvents={pointerEvents}>
+        return (<View style={styles.container}>
             <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W, height:SCREEN_H}} resizeMode={'stretch'}/>
             <TCImage source={ASSET_Images.gameUI.payTopLeftBg} style={{position: "absolute",width:SCREEN_W*0.30,height:SCREEN_H*0.15, left:SCREEN_W*0.0,top:0.01}} resizeMode={'stretch'}/>
             <TCImage source={ASSET_Images.gameUI.iconMoneyOut} style={{position: "absolute",width:SCREEN_W*0.08,height:SCREEN_H*0.11,left:SCREEN_W*0.03,top:5}} resizeMode={'stretch'}/>
