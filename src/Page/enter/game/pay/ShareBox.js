@@ -37,23 +37,13 @@ export default class ShareBox extends Component {
         isShow: false
     };
 
-    componentDidMount() {
+    componentWillMount(): void {
         TN_IsWechatEnabled((isWechatEnabled) => {
-            // if (G_IS_IOS) {
-            //     const umengKey = platInfo.channel[`c_${TW_Store.appStore.channel}`].umengKey;
-            //     const isEnabled = isWechatEnabled && umengKey.length > 0;
-            //     this.setState({ isWechatEnabled: isEnabled });
-            //     this.openPayApp(isEnabled);
-            // } else {
-            //     TN_IsWechatEnabled((isWechatEnabled) => {
-            //         this.setState({ isWechatEnabled });
-            //         this.openPayApp(isWechatEnabled);
-            //     });
-            // }
             this.setState({ isWechatEnabled });
             this.openPayApp(isWechatEnabled);
         });
     }
+
 
     openPayApp(isWechatEnabled) {
         if (!isWechatEnabled) {

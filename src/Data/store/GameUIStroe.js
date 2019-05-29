@@ -37,12 +37,13 @@ export default class GameUIStroe {
     };
 
 
+
     @action
     showTiXianDetail(isShow=true,onBack=null) {
             this.gameAlertData={
                 title:"提现明细",
                 isUserAccount:true,
-                component:TCUserPayAndWithdrawRecordsMainOld,
+                component:TCUserPayAndWithdrawRecordsMain,
                 param:{accountType: 0, isBackToTop: true},
                 onBack
             }
@@ -54,7 +55,7 @@ export default class GameUIStroe {
             this.gameAlertData={
                 title:"充值明细",
                 isUserAccount:true,
-                component:TCUserPayAndWithdrawRecordsMainOld,
+                component:TCUserPayAndWithdrawRecordsMain,
                 param:{accountType: 1, isBackToTop: false},
                 onBack
             }

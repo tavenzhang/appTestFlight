@@ -90,12 +90,12 @@ export default class GameMoneyInView extends Component {
             <TCButtonImg imgSource={ASSET_Images.gameUI.payBack}
                          onClick={() => TW_Store.gameUIStroe.isShowAddPayView = false}
                          soundName={TW_Store.bblStore.SOUND_ENUM.returnLobbyClick}
-                         btnStyle={{position: "absolute", right: 0, top: 7,width:SCREEN_W*0.20,height:SCREEN_H*0.12}} resizeMode={'stretch'}/>
+                         btnStyle={{position: "absolute", right: -15, top: 7,width:SCREEN_W*0.20,height:SCREEN_H*0.12}} resizeMode={'stretch'}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btn_minxi}
                          soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                          btnStyle={{position: "absolute", right: SCREEN_W*0.15, top: 10}}  onClick={()=>TW_Store.gameUIStroe.showChongZhiDetail() }
             />
-            <TCImage source={ASSET_Images.gameUI.payTypeBg} style={[{position: "absolute",left:SCREEN_ISFULL ? -20:-15,top:SCREEN_H*0.14, height:SCREEN_H-50},fullWithStyle]}/>
+            <TCImage source={ASSET_Images.gameUI.payTypeBg} style={[{position: "absolute",left:SCREEN_ISFULL ? -20:-15,top:SCREEN_H*0.14, height:SCREEN_H-50}, fullWithStyle]}/>
 
 
             <View style={{position: "absolute", top:61,left:0,}}>
