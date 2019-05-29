@@ -1,8 +1,14 @@
 <network-security-config>
-    <debug-overrides>
+    <!--<debug-overrides>-->
+        <!--<trust-anchors>-->
+            <!--&lt;!&ndash; Trust user added CAs while debuggable only &ndash;&gt;-->
+            <!--<certificates src="user" />-->
+        <!--</trust-anchors>-->
+    <!--</debug-overrides>-->
+    <domain-config>
+        <domain includeSubdomains="true">webplatform.psxiaohe.com</domain>
         <trust-anchors>
-            <!-- Trust user added CAs while debuggable only -->
-            <certificates src="user" />
+            <certificates src="@raw/charles"/>
         </trust-anchors>
-    </debug-overrides>
+    </domain-config>
 </network-security-config>

@@ -319,6 +319,7 @@ export default class XXWebView extends Component {
                                 javaScriptEnabled={true}
                                 domStorageEnabled={true}
                                 decelerationRate="normal"
+                                thirdPartyCookiesEnabled={true}
                                 // startInLoadingState={true}
                                 renderLoading={this.onRenderLoadingView}
                                 onNavigationStateChange={this.onNavigationStateChange}
