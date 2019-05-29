@@ -3,10 +3,10 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://www.diwudalu.com',
-    base2: 'https://www.diwudalu.com',
-    base3: 'https://www.diwudalu.com',
-    base4: 'https://www.diwudalu.com',
+    base1: 'https://webplatform.psxiaohe.com',
+    base2: 'https://webplatform.psxiaohe.com',
+    base3: 'https://webplatform.psxiaohe.com',
+    base4: 'https://webplatform.psxiaohe.com',
     base5: 'https://www.diwudalu.com',
     base6: 'https://www.diwudalu.com',
     base7: 'https://www.diwudalu.com',
