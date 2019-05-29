@@ -94,10 +94,6 @@
             "type": "JSON"
         },
         {
-            "url": "./assets/conf/datanum.json",
-            "type": "JSON"
-        },
-        {
             "url": "./assets/conf/uiobj/helppad.json",
             "type": "JSON"
         },
@@ -415,58 +411,6 @@
         },
         {
             "url": "./assets/animation/liangguang/liangguang.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_0.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_1.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_2.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_3.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_4.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_5.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_6.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_7.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_8.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_9.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_dian.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_douhao.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_wan.png",
             "type": "IMAGE"
         },
         {

@@ -12,9 +12,6 @@ import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import {observer} from 'mobx-react/native';
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import Toast from "../../Common/JXHelper/JXToast";
-import {platInfo} from "../../config/appConfig";
-import SplashScreen from "react-native-splash-screen";
-
 import FileTools from "../../Common/Global/FileTools";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 import Tools from "../../Common/View/Tools";
@@ -495,16 +492,6 @@ export default class XXWebView extends Component {
                     switch (method) {
                         case "post":
                             let myUrl = message.url;
-                            for (let item of this.filtUrlList){
-                                let myIndex = myUrl.indexOf(item);
-                                TW_Log("myUrl------"+myIndex+"--myUrl=="+myUrl,item);
-                                if(myIndex>-1){
-                                    //针对几个特殊接口  使用platInfo.loginDomain
-                                    myUrl= platInfo.loginDomain+ myUrl.substring(myIndex);
-                                   // TW_Log("myUrl------last="+myUrl);
-                                    break;
-                                }
-                            }
                             NetUitls.postUrlAndParamsAndCallback(myUrl,JSON.parse(message.data), (ret) => {
                                 //TW_Log("---home--http---game--postUrlAndParamsAndCallback>url="+message.url, ret);
                                 this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
