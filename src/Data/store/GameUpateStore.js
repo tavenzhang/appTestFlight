@@ -21,7 +21,7 @@ export default class GameUpateStore {
     isInSubGame = false;
 
     @observable
-    isCodePushChecking = true;
+    isEnteredGame = true;
 
 
 }

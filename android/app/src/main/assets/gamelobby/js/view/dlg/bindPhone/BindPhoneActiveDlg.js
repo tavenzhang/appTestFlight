@@ -37,21 +37,29 @@ var view;
                 };
                 BindPhoneActiveDlg.prototype.initView = function () {
                     var _this = this;
-                    this.bitFont = new BitmapFont(ResConfig.bitConfit_bindPhone);
+                    this.bitFont = new BitmapFont(ResConfig.bitFont_bindPhone);
                     this.numbox.addChild(this.bitFont);
                     this.bitFont.text = TempData.bindAward.toString();
                     this.bitFont.y = this.numbox.height - this.bitFont.height >> 1;
                     this.numbox.width = this.bitFont.width;
                     this.yuan.x = this.numbox.x + this.numbox.width + 6;
+                    var isbind = Common.userInfo_current.certifiedPhone;
+                    if (isbind)
+                        this.bindBtn.skin = "ui/bindPhone/btn_bdsj_ljlq01.png";
                     //
                     EventManager.addTouchScaleListener(this.closeBtn, this, function () {
                         SoundPlayer.closeSound();
                         _this.close(null, true);
                     });
-                    //绑定手机
+                    //绑定手机或领取奖励
                     EventManager.addTouchScaleListener(this.bindBtn, this, function () {
                         SoundPlayer.clickSound();
-                        view.dlg.center.BindPhoneDlg.show();
+                        if (isbind) {
+                            //todo:等待领取接口
+                        }
+                        else {
+                            view.dlg.center.BindPhoneDlg.show();
+                        }
                         _this.close(null, true);
                     });
                     //已经有手机号了(跳转到手机登录界面)

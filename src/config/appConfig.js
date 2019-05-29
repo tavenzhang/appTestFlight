@@ -7,9 +7,9 @@ export const appDomainBase = {
     base2: 'https://webplatform.psxiaohe.com',
     base3: 'https://webplatform.psxiaohe.com',
     base4: 'https://webplatform.psxiaohe.com',
-    base5: 'https://www.diwudalu.com',
-    base6: 'https://www.diwudalu.com',
-    base7: 'https://www.diwudalu.com',
+    base5: 'https://webplatform.psxiaohe.com',
+    base6: 'https://webplatform.psxiaohe.com',
+    base7: 'https://webplatform.psxiaohe.com',
 }
 
 
@@ -48,10 +48,6 @@ export const safeguardDomain = [
 
 
 export const platInfo = {
-    //loginDomain:"https://0365cai.cc",
-    loginDomain: "https://webplatform.psxiaohe.com",
-    //  gameDomain:"https://dk3nuq7v.zhdisi.com",
-    gameDomain: "https://webplatform.psxiaohe.com",
 
     downDomain:"https://download.jinkuangjia.com",
 
@@ -65,12 +61,4 @@ export const platInfo = {
 }
 
 
-export const affCodeList = {
-    ios: {
-        '2.9.6': 'uat_ios'
-    },
-    android: {
-        '2.10.11': 'uat_android'
-    }
-};
 

@@ -1,10 +1,11 @@
 /**
  * 事件管理器
- * 用于添加触摸缩放按钮效果和全局事件管理
+ * 用于添加触摸缩放按钮效果和全局事件管理以及系统事件
  */
 var EventManager = /** @class */ (function () {
     function EventManager() {
         this.pool = new Laya.Dictionary();
+        this.pushPool = new Laya.Dictionary();
         this.downPos = new Laya.Point();
     }
     Object.defineProperty(EventManager, "inst", {
@@ -17,6 +18,19 @@ var EventManager = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * 储存并监听laya引擎事件
+     * @param vo
+     */
+    EventManager.pushEvent = function (target, type, thisObj, callback, args) {
+        var self = EventManager.inst;
+        var arr = self.pushPool.get(thisObj);
+        if (!arr)
+            arr = [];
+        target.on(type, thisObj, callback, args);
+        arr.push({ target: target, type: type, thisobj: thisObj, callback: callback });
+        self.pushPool.set(thisObj, arr);
+    };
     /**
      * 派发全局事件
      * @param type
@@ -33,18 +47,31 @@ var EventManager = /** @class */ (function () {
      */
     EventManager.register = function (type, caller, callback) {
         this.eventer.on(type, caller, callback);
+        EventManager.inst.registerInst(type, caller, callback);
+    };
+    EventManager.prototype.registerInst = function (type, caller, callback) {
+        var arr = this.pool.get(EventManager.eventer);
+        if (!arr)
+            arr = [];
+        var callerList = arr.filter(function (value) { return value.thisobj == caller; });
+        var typeList = callerList ? callerList.filter(function (value) { return value.type == type; }) : null;
+        if (!(typeList && typeList.length > 0)) { //避免重复添加
+            var cobj = new CustomObj(EventManager.eventer, callback, caller, null, 1);
+            cobj.type = type;
+            arr.push(cobj);
+            this.pool.set(EventManager.eventer, arr);
+        }
     };
     /**
-     * 删除全局事件
+     * 删除全局事件(统一调用removeAllEvents方法)
      * @param type
      * @param caller
      * @param callback
      */
-    EventManager.removeEvent = function (type, caller, callback) {
-        if (!caller)
-            return;
-        this.eventer.off(type, caller, callback);
-    };
+    // public static removeEvent(type: string, caller: any, callback: Function) {
+    //     if (!caller) return;
+    //     this.eventer.off(type, caller, callback);
+    // }
     //------------------------
     /**
      * 添加带触摸缩放效果的点击事件
@@ -59,7 +86,7 @@ var EventManager = /** @class */ (function () {
         EventManager.inst.addScaleListener(target, thisobj, listener, params, scale);
     };
     /**
-     * 删除按钮事件
+     * 删除按钮事件(建议统一调用removeAllEvents)
      * @param target
      */
     EventManager.removeBtnEvent = function (target) {
@@ -119,13 +146,37 @@ var EventManager = /** @class */ (function () {
             obj = null;
         }
     };
+    //删除全部事件
     EventManager.prototype.removeAllEvents = function (thisobj) {
         var arr = this.pool.get(thisobj);
         if (arr) {
+            //删除按钮事件
             for (var i = 0; i < arr.length; i++) {
                 this.removeEvent(arr[i]);
                 i--;
             }
+        }
+        //删除对于的全局事件
+        var events = this.pool.get(EventManager.eventer);
+        if (events) {
+            var evts = events.filter(function (value) { return value.thisobj == thisobj; });
+            var cobj = void 0;
+            for (var j = 0; j < evts.length; j++) {
+                cobj = evts[j];
+                if (cobj.thisobj) {
+                    EventManager.eventer.off(cobj.type, cobj.thisobj, cobj.listener);
+                }
+                var id = events.indexOf(cobj);
+                events.splice(id, 1);
+            }
+        }
+        //删除其他事件(laya系统事件)
+        var pushEvts = this.pushPool.get(thisobj);
+        if (pushEvts) {
+            pushEvts.forEach(function (vo) {
+                vo.target.off(vo.type, vo.thisObj, vo.callback);
+            });
+            this.pushPool.remove(thisobj);
         }
     };
     EventManager.prototype.clickHandler = function (e) {
@@ -133,7 +184,7 @@ var EventManager = /** @class */ (function () {
         var obj = this.pool.get(btn);
         if (!obj)
             return;
-        obj.callback(e);
+        obj.docallback(e);
     };
     EventManager.prototype.onScaleTouch = function (e) {
         var btn = e.currentTarget;
@@ -157,7 +208,7 @@ var EventManager = /** @class */ (function () {
                 Laya.Tween.to(btn, { scaleX: 1, scaleY: 1 }, 100);
                 var dist = this.downPos.distance(e.stageX, e.stageY);
                 if (dist < 20 && obj.isTapBegin) { //触发点击事件
-                    obj.callback(e);
+                    obj.docallback(e);
                 }
                 obj.isTapBegin = false;
                 break;
@@ -181,6 +232,7 @@ var CustomObj = /** @class */ (function () {
         this.listener = null;
         this.thisobj = null;
         this.argObject = null;
+        this.type = null;
         this.isclick = true;
         this.target = target;
         this.listener = listener;
@@ -188,7 +240,7 @@ var CustomObj = /** @class */ (function () {
         this.thisobj = thisobj;
         this.argObject = argObject;
     }
-    CustomObj.prototype.callback = function (evt) {
+    CustomObj.prototype.docallback = function (evt) {
         if (!this.isclick)
             return;
         if (this.thisobj && this.listener) {
