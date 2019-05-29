@@ -57,6 +57,9 @@ var PageLogin = /** @class */ (function (_super) {
         //渠道包屏蔽
         if (AppData.isAndroidHack)
             _this.sp_log.visible = false;
+        //设置游戏版本号
+        ResConfig.versions = "Res v " + ConfObjRead.getVerConfig().versionNum;
+        _this.verTxt.text = GameUtils.appVer + "\n" + ResConfig.versions;
         _this.cmd = cmd;
         //开始加载数据
         _this.startLoading();
@@ -328,8 +331,6 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.initLoginProcess = function () {
         var _this = this;
-        //设置游戏版本号
-        ResConfig.versions = "版本号：" + ConfObjRead.getVerConfig().versionNum;
         Common.getNormalFontByDevice();
         //token信息
         var temp_token = SaveManager.getObj().get(SaveManager.KEY_TOKEN, "");
