@@ -80,6 +80,16 @@ var GameUtils = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(GameUtils, "appVer", {
+        /**
+         * 获取app版本号
+         */
+        get: function () {
+            return "App v " + AppData.NATIVE_DATA.appVersion;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * 检查字符串是否为空
      * @param str

@@ -160,6 +160,9 @@ var UserInfoView = /** @class */ (function () {
     };
     UserInfoView.prototype.dispose = function () {
         EventManager.removeAllEvents(this);
+        if (this.bitFont)
+            this.bitFont.destroy();
+        this.bitFont = null;
         if (this.goldAnim) {
             this.goldAnim.destroy();
             this.goldAnim = null;

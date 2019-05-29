@@ -42,10 +42,14 @@ export const versionHotFix = '5.23';
 
 export const MyOwnerPlatName= '188棋牌';
 
-export const safeguardDomain = [
-    'https://7aa58ab0e2988abc6384e8957b567a4c.oss-cn-shenzhen.aliyuncs.com',
-    'https://7aa58ab0e2988abc6384e8957b567a4c.s3-accelerate.amazonaws.com',
-    'https://7aa58ab0e2988abc6384e8957b567a4c.azureedge.net']
+// export const safeguardDomain = [
+//     'https://7aa58ab0e2988abc6384e8957b567a4c.oss-cn-shenzhen.aliyuncs.com',
+//     'https://7aa58ab0e2988abc6384e8957b567a4c.s3-accelerate.amazonaws.com',
+//     'https://7aa58ab0e2988abc6384e8957b567a4c.azureedge.net']
+
+//第三方安全域名base64 key
+export const safeguardKey = 'eyJkIjogWwogICAgJ2h0dHBzOi8vN2FhNThhYjBlMjk4OGFiYzYzODRlODk1N2I1NjdhNGMub3NzLWNuLXNoZW56aGVuLmFsaXl1bmNzLmNvbScsCiAgICAnaHR0cHM6Ly83YWE1OGFiMGUyOTg4YWJjNjM4NGU4OTU3YjU2N2E0Yy5zMy1hY2NlbGVyYXRlLmFtYXpvbmF3cy5jb20nLAogICAgJ2h0dHBzOi8vN2FhNThhYjBlMjk4OGFiYzYzODRlODk1N2I1NjdhNGMuYXp1cmVlZGdlLm5ldCddfQ=='
+
 
 
 export const platInfo = {

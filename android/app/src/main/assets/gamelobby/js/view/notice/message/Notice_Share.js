@@ -103,29 +103,6 @@ var Notice_Share = /** @class */ (function (_super) {
         //         break;
         // }
     };
-    Notice_Share.prototype.shareSucess = function ($type) {
-        var message;
-        if ($type === "friend") {
-            if (this.limit > 0) {
-                this.limit--;
-                message = "分享成功，请前往邮件领取奖励";
-            }
-            else {
-                message = "分享成功，请多点和朋友分享乐趣吧";
-            }
-            AgentDialogSucess.showDialog(this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), message);
-        }
-        else if ($type === "circle") {
-            if (this.limit > 0) {
-                this.limit--;
-                message = "分享成功，请前往邮件领取奖励";
-            }
-            else {
-                message = "分享成功，请多点和朋友分享乐趣吧";
-            }
-            AgentDialogSucess.showDialog(this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), message);
-        }
-    };
     return Notice_Share;
 }(ui.dlg.notice.NoticeShareUI));
 //# sourceMappingURL=Notice_Share.js.map

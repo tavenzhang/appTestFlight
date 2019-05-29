@@ -32,7 +32,7 @@ var view;
             //用户信息
             this.infoView = new UserInfoView(this);
             //版本号
-            this.verTxt.text = ResConfig.versions;
+            this.verTxt.text = GameUtils.appVer + "\n" + ResConfig.versions;
             //滚动通告
             this.initRollView();
             this.setLayout();

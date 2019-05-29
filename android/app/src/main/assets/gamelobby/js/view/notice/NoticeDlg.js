@@ -43,6 +43,7 @@ var view;
                 dlg.popup(false, false);
                 dlg.pop(dlg);
                 dlg.requestData();
+                this.dlg = dlg;
             };
             NoticeDlg.checkUnread = function () {
                 var dlg = new NoticeDlg();
@@ -242,6 +243,7 @@ var view;
                         content = new Notice_Share();
                         content.init(this);
                         content.setData(data);
+                        NoticeDlg.shareLimit = data.noticeShare.upperLimit;
                         break;
                     case "ROULETTE_DRAW":
                         content = new Notice_Roullette();
@@ -368,8 +370,28 @@ var view;
                     y: pos.y
                 }, 200, Laya.Ease["backIn"]);
             };
-            NoticeDlg.prototype.shareSucess = function ($type) {
-                this.contents.getChildAt(0).shareSucess($type);
+            NoticeDlg.shareSucess = function ($type) {
+                var message;
+                if ($type === "friend") {
+                    if (this.shareLimit > 0) {
+                        this.shareLimit--;
+                        message = "分享成功，请前往邮件领取奖励";
+                    }
+                    else {
+                        message = "分享成功，请多点和朋友分享乐趣吧";
+                    }
+                    AgentDialogSucess.showDialog(this.dlg, ConfObjRead.getConfAgentDialogDeleteInvitation(), message);
+                }
+                else if ($type === "circle") {
+                    if (this.shareLimit > 0) {
+                        this.shareLimit--;
+                        message = "分享成功，请前往邮件领取奖励";
+                    }
+                    else {
+                        message = "分享成功，请多点和朋友分享乐趣吧";
+                    }
+                    AgentDialogSucess.showDialog(this.dlg, ConfObjRead.getConfAgentDialogDeleteInvitation(), message);
+                }
             };
             NoticeDlg.prototype.onClosed = function (type) {
                 // Laya.SoundManager.playSound("assets/raw/sfx_close.mp3");
