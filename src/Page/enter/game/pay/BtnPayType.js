@@ -28,14 +28,9 @@ export default class BtnPayType extends Component {
 
     render() {
         let {isSelect, data} = this.props
-        let buttonVIPWidth = Platform.OS == 'android' ? SCREEN_W * 0.22 : 135
-        let newWidth = (!isSelect && data.code == "VIP") ? buttonVIPWidth : null
-        let newAlignment = (!isSelect && data.code == "VIP") ? "flex-end" : "center"
         return (<TouchableWithoutFeedback onPress={this.onSelect}>
-                <View style={{justifyContent: newAlignment, alignItems: newAlignment, height: 50, width: newWidth}}>
-                    <TCImage source={isSelect ? ASSET_Images.gameUI.btnPayHight :
-                        data.code == "VIP" ? ASSET_Images.gameUI.btnPayVIPNormal : ASSET_Images.gameUI.btnPayNormal}
-                             resizeMode={'stretch'}/>
+                <View style={{justifyContent: "center", alignItems: "center", height: 50}}>
+                    <TCImage source={isSelect ? ASSET_Images.gameUI.btnPayHight : ASSET_Images.gameUI.btnPayNormal}/>
                     <View style={{
                         position: "absolute", alignItems: "center", justifyContent: "center",
                     }}>
