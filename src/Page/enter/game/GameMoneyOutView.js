@@ -51,7 +51,7 @@ export default class GameMoneyOutView extends Component {
             <TCButtonImg imgSource={ASSET_Images.gameUI.payBack}
                          soundName={TW_Store.bblStore.SOUND_ENUM.returnLobbyClick}
                          onClick={() => TW_Store.gameUIStroe.isShowWithDraw = false}
-                         btnStyle={{position: "absolute", right: 0, top: 7,width:SCREEN_W*0.20,height:SCREEN_H*0.12}} />
+                         btnStyle={{position: "absolute", right: -15, top: 7,width:SCREEN_W*0.20,height:SCREEN_H*0.12}} />
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnOut}
                          soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                          btnStyle={{position: "absolute", right: SCREEN_W*0.15, top: 10}}  onClick={()=>TW_Store.gameUIStroe.showTiXianDetail() }
