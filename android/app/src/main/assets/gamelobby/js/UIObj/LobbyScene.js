@@ -30,9 +30,22 @@ var LobbyScene = /** @class */ (function (_super) {
         return LobbyScene.obj;
     };
     LobbyScene.prototype.initUI = function () {
+        var _this = this;
         this.requestPop();
-        this.view = new view.LobbyView();
-        this.addChild(this.view);
+        //获取绑定送金相关数据
+        HttpRequester.getBindAward(this, function (suc, jobj) {
+            if (suc) {
+                TempData.isGetBindAward = jobj.receive;
+                TempData.bindOpen = jobj.bind;
+                TempData.bindAward = jobj.reward;
+            }
+            //添加大厅视图
+            _this.view = new view.LobbyView();
+            _this.addChild(_this.view);
+            if (TempData.bindOpen && !TempData.isGetBindAward) {
+                view.dlg.bindPhone.BindPhoneActiveDlg.show();
+            }
+        });
     };
     LobbyScene.prototype.requestPop = function () {
         var url = ConfObjRead.getConfUrl().url.apihome +
@@ -53,6 +66,7 @@ var LobbyScene = /** @class */ (function (_super) {
         Laya.loader.load([{ url: ResConfig.musicUrl }], new Laya.Handler(this, function () {
             if (SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1) >= 1) //开关
              {
+                Laya.SoundManager.musicVolume = 1;
                 Laya.SoundManager.playMusic(ResConfig.musicUrl);
             }
         }));

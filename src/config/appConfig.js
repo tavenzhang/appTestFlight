@@ -49,10 +49,8 @@ export const safeguardDomain = [
 
 
 export const platInfo = {
-    loginDomain: "https://1cituv188qp.8vo79h.com",
-    gameDomain: "https://1cituv188qp.8vo79h.com",
 
-    downDomain:"https://download.jinkuangjia.com",
+    downDomain:"https://download.emkeic.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",

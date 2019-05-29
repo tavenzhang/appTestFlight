@@ -165,8 +165,7 @@ var GameListManager = /** @class */ (function () {
      * 销毁
      */
     GameListManager.prototype.destory = function () {
-        EventManager.removeEvent(EventType.GAME_UPDATE_INIT, this, this.onUpdateMsgInit);
-        EventManager.removeEvent(EventType.GAME_UPDATE_PROGRESS, this, this.onUpdateProgress);
+        EventManager.removeAllEvents(this);
         if (this.iconList) {
             this.iconList.forEach(function (value) { return value.destroy(); });
             this.iconList = null;

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {
+    Platform,
     StyleSheet,
     View,
     Text, WebView, TouchableWithoutFeedback
@@ -10,7 +11,6 @@ import {ASSET_Images, JX_PLAT_INFO} from "../../../asset";
 import TCImage from "../../../../Common/View/image/TCImage";
 import PropTypes from "prop-types";
 import {userPay} from "../../../asset/images";
-
 
 @observer
 export default class BtnPayType extends Component {
@@ -27,10 +27,10 @@ export default class BtnPayType extends Component {
 
 
     render() {
-        let {isSelect,data} = this.props
+        let {isSelect, data} = this.props
         return (<TouchableWithoutFeedback onPress={this.onSelect}>
-                <View style={{ justifyContent:"center", alignItems:"center",height:50}}>
-                    <TCImage  source={isSelect ? ASSET_Images.gameUI.btnPayHight : ASSET_Images.gameUI.btnPayNormal}  resizeMode={'stretch'}/>
+                <View style={{justifyContent: "center", alignItems: "center", height: 50}}>
+                    <TCImage source={isSelect ? ASSET_Images.gameUI.btnPayHight : ASSET_Images.gameUI.btnPayNormal}/>
                     <View style={{
                         position: "absolute", alignItems: "center", justifyContent: "center",
                     }}>
@@ -40,7 +40,7 @@ export default class BtnPayType extends Component {
                                      style={{marginRight: 5}}/>
                             {/*<View style={{justifyContent:"center", alignItems:"center"}}>*/}
                             {/*<TCImage source={this.getPayName(data.code)}/>*/}
-                                {/*{this.isFinxePay(data.code) ? <TCImage source={ASSET_Images.gameUI.title_fix}/>:null}*/}
+                            {/*{this.isFinxePay(data.code) ? <TCImage source={ASSET_Images.gameUI.title_fix}/>:null}*/}
                             {/*</View>*/}
                         </View>
                     </View>
@@ -107,6 +107,8 @@ export default class BtnPayType extends Component {
                 return ASSET_Images.gameUI.payTypeYhzz
             case 'ONLINEBANK':
                 return ASSET_Images.gameUI.payTypeWy
+            case 'VIP':
+                return ASSET_Images.gameUI.payTypeVIP
             default:
                 return ASSET_Images.gameUI.payTypeYL
         }

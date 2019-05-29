@@ -15,7 +15,6 @@ import Toast from "../../Common/JXHelper/JXToast";
 import {platInfo} from "../../config/appConfig";
 import SplashScreen from "react-native-splash-screen";
 
-import rootStore from "../../Data/store/RootStore";
 import FileTools from "../../Common/Global/FileTools";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 import Tools from "../../Common/View/Tools";
@@ -111,7 +110,6 @@ export default class XXWebView extends Component {
     }
 
     onFinishGameList=(gameList)=>{
-
         TW_Log("( _keyboard---onFinishGameList==" ,gameList);
         let gameM =  TW_Store.dataStore.appGameListM;
        // TW_Log("( _keyboard---onFinishGameList==TW_Store.dataStore.appGameListM=" ,gameM);
@@ -211,7 +209,6 @@ export default class XXWebView extends Component {
                 dataList.push({"alias":ret.param.id,percent:ret.percent})
             }
         }
-       // TW_Log("FileTools------onLoadProgress===--this.loadQueue.length=="+ this.loadQueue.length,ret)
         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.updateProgress,{data:dataList}));
     }
 
@@ -245,7 +242,6 @@ export default class XXWebView extends Component {
         const {sharedUrl, isShowSharebox} = this.state;
        // TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
         let news=TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome;
-
 
         if(news){
                 return null
@@ -284,6 +280,7 @@ export default class XXWebView extends Component {
             gameDomain:TW_Store.bblStore.gameDomain+"/api/v1/gamecenter",
             affCode:TW_Store.appStore.userAffCode,
             isDebug:TW_IS_DEBIG,
+            appVersion:TW_Store.appStore.versionHotFix
         })}`;
 
         return (
@@ -300,6 +297,8 @@ export default class XXWebView extends Component {
                                           startInLoadingState={false}
                                           onError={this.onError}
                                           domStorageEnabled={true}
+                                          mediaPlaybackRequiresUserAction={false}
+                                          thirdPartyCookiesEnabled={true}
                                           // renderLoading={this.onRenderLoadingView}
                                           javaScriptEnabled={true}
                                           injectedJavaScript={injectJs}
@@ -315,10 +314,12 @@ export default class XXWebView extends Component {
                                 automaticallyAdjustContentInsets={true}
                                 style={[styles.webView]}
                                 source={source}
+                                mediaPlaybackRequiresUserAction={false}
                                 injectedJavaScript={injectJs}
                                 javaScriptEnabled={true}
                                 domStorageEnabled={true}
                                 decelerationRate="normal"
+                                thirdPartyCookiesEnabled={true}
                                 // startInLoadingState={true}
                                 renderLoading={this.onRenderLoadingView}
                                 onNavigationStateChange={this.onNavigationStateChange}
@@ -350,10 +351,9 @@ export default class XXWebView extends Component {
         let gameM=null;
 
         if (message && message.action) {
-            TW_Log("onMessage======XXWebView=====>>",message.action);
             switch (message.action) {
                 case "Log":
-                    // TW_Log("game---ct=="+message.ct,message.data);
+                     TW_Log("game---ct=="+message.ct,message.data);
                     break;
                 case "game_common":
                     switch (message.name) {
@@ -450,8 +450,6 @@ export default class XXWebView extends Component {
                             isGame: true,
                             isOrigan
                         })
-                       // this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic),{});
-                        //this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: false}));
                     }
                     break;
                 case  "game_account":
@@ -463,7 +461,7 @@ export default class XXWebView extends Component {
                         TW_Store.gameUpateStore.isTempExist=false;
                         TW_Store.gameUpateStore.isOldHome=false
                     }
-                    TW_Store.gameUpateStore.isCodePushChecking=true;
+                    TW_Store.gameUpateStore.isEnteredGame=true;
                     break;
                 case  "game_custom":
                     TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
