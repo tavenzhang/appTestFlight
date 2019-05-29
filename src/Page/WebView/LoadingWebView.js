@@ -62,10 +62,6 @@ export default class LoadingWebView extends Component {
             return null;
         }
 
-        // if (TW_IS_DEBIG) {
-        //     source = require('./../../../android/app/src/main/assets/gamelobby/loading/loading.html');
-        // }
-        //TW_Log("Loading===========source=====rr22", source)
         let wenConteView = G_IS_IOS ? <WKWebView
                 ref="myWebView"
                 source={source}
@@ -93,7 +89,6 @@ export default class LoadingWebView extends Component {
                 decelerationRate="normal"
                 // renderLoading={this.onRenderLoadingView}
                 startInLoadingState={false}
-
                 onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                 allowFileAccess={true}
                 onError={this.onError}
@@ -161,7 +156,6 @@ export default class LoadingWebView extends Component {
     }
 
     onShouldStartLoadWithRequest = (event) => {
-        TW_Log("onShouldStartLoadWithRequest=======TCweb====event=====", event);
         return true;
     };
 

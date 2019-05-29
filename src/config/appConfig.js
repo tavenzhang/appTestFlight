@@ -3,13 +3,13 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'http://192.168.1.93:7500',
-    base2: 'http://192.168.1.93:7500',
-    base3: 'http://192.168.1.93:7500',
-    base4: 'http://192.168.1.93:7500',
-    base5: 'http://192.168.1.93:7500',
-    base6: 'http://192.168.1.93:7500',
-    base7: 'http://192.168.1.93:7500',
+    base1: 'http://sit.106games.com',
+    base2: 'http://sit.106games.com',
+    base3: 'http://sit.106games.com',
+    base4: 'http://sit.106games.com',
+    base5: 'http://sit.106games.com',
+    base6: 'http://sit.106games.com',
+    base7: 'http://sit.106games.com',
 }
 
 
@@ -66,12 +66,4 @@ export const platInfo = {
 }
 
 
-export const affCodeList = {
-    ios: {
-        '2.9.6': 'sit_ios'
-    },
-    android: {
-        '2.10.11': 'sit_android'
-    }
-};
 

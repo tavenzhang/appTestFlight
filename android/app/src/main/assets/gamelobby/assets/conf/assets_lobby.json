@@ -594,15 +594,7 @@
             "type": "ATLAS"
         },
         {
-            "url": "res/atlas/ui/mycenter.atlas",
-            "type": "ATLAS"
-        },
-        {
             "url": "res/atlas/ui/lobby/bottombar.atlas",
-            "type": "ATLAS"
-        },
-        {
-            "url": "res/atlas/ui/setting.atlas",
             "type": "ATLAS"
         },
         {
@@ -659,6 +651,14 @@
         },
         {
             "url": "./res/atlas/ui/bindPhone.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "./res/atlas/ui/fullMyCenter.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "./res/atlas/ui/bitFont/goldFont.atlas",
             "type": "ATLAS"
         }
     ]

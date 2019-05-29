@@ -23,4 +23,13 @@ var GameState;
     GameState[GameState["EXPECTATION"] = 2] = "EXPECTATION";
     GameState[GameState["UPDATE"] = 3] = "UPDATE";
 })(GameState || (GameState = {}));
+/**
+ * 验证码类型
+ */
+var VerCodeType;
+(function (VerCodeType) {
+    VerCodeType[VerCodeType["MSG_LOGIN"] = 0] = "MSG_LOGIN";
+    VerCodeType[VerCodeType["MSG_RESET_PWD"] = 1] = "MSG_RESET_PWD";
+    VerCodeType[VerCodeType["MSG_BIND_MOBILE"] = 2] = "MSG_BIND_MOBILE";
+})(VerCodeType || (VerCodeType = {}));
 //# sourceMappingURL=GameVos.js.map

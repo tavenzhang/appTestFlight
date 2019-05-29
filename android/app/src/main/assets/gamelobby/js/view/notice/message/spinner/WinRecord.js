@@ -8,7 +8,6 @@ var WinRecord = /** @class */ (function () {
         this.total.text = "";
     }
     WinRecord.prototype.setData = function ($data) {
-        this.date.text = this.beforeLast($data.createTime, " ");
         var color;
         var type;
         switch ($data.rouletteLevel) {
@@ -25,14 +24,23 @@ var WinRecord = /** @class */ (function () {
                 type = "钻石轮盘";
                 break;
         }
+        // console.log("set", this.date, this.type, this.total)
+        // try {
+        this.date.text = this.beforeLast($data.createTime, " ");
         this.type.color = this.total.color = color;
         this.type.text = type;
         this.total.text = $data.prizeAmount;
+        // } catch ($e) {
+        // }
     };
     WinRecord.prototype.hide = function () {
-        this.date.text = "";
-        this.type.text = "";
-        this.total.text = "";
+        try {
+            this.date.text = "";
+            this.type.text = "";
+            this.total.text = "";
+        }
+        catch ($e) {
+        }
     };
     WinRecord.prototype.beforeLast = function (p_string, p_char) {
         if (p_string === null) {

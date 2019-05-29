@@ -79,32 +79,23 @@ var view;
                         Toast.showToast(Tools.getStringByKey(verify.msg));
                         return;
                     }
-                    HttpRequester.setPassWord(pwd, newpwd, confirmpwd, _this, _this.requestResult);
+                    HttpRequester.changePassword(pwd, newpwd, true, _this, _this.requestResult);
                 });
                 EventManager.register(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
             };
             QuickSetPassWordDlg.prototype.requestResult = function (suc, hr) {
                 if (suc) { //修改成功
                     var npwd = this.newTxt1.text;
-                    Common.loginInfo.strongPwd = true;
-                    SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
-                    SaveManager.getObj().save(SaveManager.KEY_QK_PWD_CHANGED, true);
-                    SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+                    if (Common.loginType == LoginType.Fast) {
+                        Common.loginInfo.strongPwd = true;
+                        SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
+                        SaveManager.getObj().save(SaveManager.KEY_QK_PWD_CHANGED, true);
+                        SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+                    }
                     LayaMain.getInstance().loginOut();
                     Toast.showToast("密码修改成功,请重新登录");
                 }
                 else { //失败
-                    var response = hr.http.response;
-                    var jobj;
-                    try {
-                        jobj = JSON.parse(response);
-                    }
-                    catch (e) {
-                        Debug.trace(e);
-                        jobj = response;
-                    }
-                    var msg = jobj.message;
-                    Toast.showToast(msg);
                     this.newTxt1.text = "";
                     this.newTxt2.text = "";
                 }
@@ -114,7 +105,6 @@ var view;
                 this.newTxt2.focus = false;
             };
             QuickSetPassWordDlg.prototype.onClosed = function (type) {
-                EventManager.removeEvent(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
                 EventManager.removeAllEvents(this);
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);

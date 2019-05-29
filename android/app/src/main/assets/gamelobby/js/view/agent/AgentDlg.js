@@ -161,7 +161,6 @@ var view;
                 //     Laya.SoundManager.playSound("assets/raw/sfx_close.mp3");
                 EventManager.removeAllEvents(this);
                 dlg_1.dialogs.active = null;
-                // EventManager.removeEvent(EventType.FLUSH_HEADICON, this, this.setHeadIcon);
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);
             };

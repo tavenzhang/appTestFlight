@@ -1,7 +1,7 @@
 
 import { observable,action} from 'mobx'
 import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
-import {platInfo} from "../../config/appConfig";
+import {platInfo,appDomainBase} from "../../config/appConfig";
 import {config} from "../../Common/Network/TCRequestConfig";
 import NetUitls from "../../Common/Network/TCRequestUitls";
 
@@ -11,10 +11,10 @@ import NetUitls from "../../Common/Network/TCRequestUitls";
 export  default  class BBLStore {
 
     @observable
-    gameDomain = platInfo.gameDomain;
+    gameDomain = appDomainBase.base1;
 
     @observable
-    loginDomain = platInfo.loginDomain;
+    loginDomain = appDomainBase.base1;
 
     @observable
     isLoading = true;
@@ -120,7 +120,8 @@ export  default  class BBLStore {
         bindPhone:"bindPhone",
         lifecycle:"lifecycle",
         showMask:"showMask",
-        shareSucess:"shareSucess"
+        shareSucess:"shareSucess",
+        openBindCard:"openBindCard"
 
 
     }

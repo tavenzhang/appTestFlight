@@ -72,11 +72,16 @@
         "update_user": "/account/webapi/account/users/",
         "gatewayInfo": "/ug/systems/security/init/5",
         "getMoney": "/gamecenter/player/user/balance",
-        "phoneLoginVercode": "/account/webapi/account/users/secure/mobileLogin/getMobileVerificationCode",
         "phoneLogin_app": "/account/webapi/account/users/secure/gameAppMobileLogin",
         "phoneLogin_web": "/account/webapi/account/users/secure/gameWebMobileLogin",
-        "bindPhoneVercode": "/account/webapi/account/users/secure/bindingPhone/getMobileVerificationCode",
         "bindPhone": "/gamecenter/player/user/phone/bind",
-        "getBindAward": "/gamecenter/player/user/phoift"
+        "getBindAward": "/gamecenter/player/user/phoift",
+        "getbankList": "/cashmgt/me/cards/list",
+        "getbankCardInfo": "/cashmgt/me/cards/cardsAndWithdrawDetail",
+        "addBankCard": "/account/webapi/account/users/encryptRegister_info",
+        "changePassword": "/account/webapi/account/users/secure/encryptChangePassword",
+        "changePwdWithPhone": "/account/webapi/account/users/secure/encryptChangePasswordWithMobile",
+        "getunAuthorVerCode": "/account/webapi/account/users/secure/unauthorized/getMobileVerificationCode",
+        "getAuthorVerCode": "/account/webapi/account/users/secure/authorized/getMobileVerificationCode"
     }
 }
