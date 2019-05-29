@@ -106,6 +106,7 @@ export default class TCWebView extends Component {
                                                  onMessage={this.onMessage}
                                                  onLoadStart={this.onloadStart}
                                                  onLoadEnd={this.onLoadEnd}
+                                                 thirdPartyCookiesEnabled={true}
                                                  // renderLoading={this.onRenderLoadingView}
 
             /> :
@@ -127,6 +128,7 @@ export default class TCWebView extends Component {
                 onError={this.onError}
                 onMessage={this.onMessage}
                 onLoadEnd={this.onLoadEnd}
+                thirdPartyCookiesEnabled={true}
             />
         return (
             <View style={styles.container}>
