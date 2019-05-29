@@ -50,17 +50,20 @@ export default class ShareBox extends Component {
             Clipboard.setString(this.props.url);
             TCUserOpenPayApp.openWX();
             this.props.onClose();
+            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{type:"friend"}));
         }
     }
 
     onClickWechatShare() {
         const { url } = this.props;
         TN_WechatShare(WECHAT.SHARE_TITLE, null, url, WECHAT.SHARE_MSG, false);
+        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{type:"friend"}));
     }
 
     onClickWechatPyqShare() {
         const { url } = this.props;
         TN_WechatShare(WECHAT.SHARE_TITLE, null, url, WECHAT.SHARE_MSG, true);
+        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{type:"circle"}));
     }
 
     render() {
