@@ -119,7 +119,8 @@ export  default  class BBLStore {
         showGame:"showGame",
         bindPhone:"bindPhone",
         lifecycle:"lifecycle",
-        showMask:"showMask"
+        showMask:"showMask",
+        shareSucess:"shareSucess"
 
 
     }
