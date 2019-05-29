@@ -50,8 +50,7 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
         return (
             <View>
                 <TCImage source={ASSET_Images.gameUI.img_czmx_dkMenu} style={{}}/>
-                <View style={{backgroundColor: "red",position:"absolute"}}>
-
+                <View style={{position:"absolute",width:500}}>
                     <View style={styles.container}>
                         <TouchableOpacity onPress={()=>this.onSelect(0)} style={{flex:1}}>
                             <View style={styles.buttonImg}>
@@ -81,8 +80,8 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.container}>
-                        <UserAccount tabLabel='全部' navigator={this.props.navigator} type={0}
+                    <View style={[styles.container,{marginTop:0}]}>
+                        <UserAccount tabLabel='全部' navigator={this.props.navigator} type={this.state.selectType}
                                      accountType={accountType}/>
                     </View>
                 </View>
@@ -108,7 +107,7 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        backgroundColor:"green",
+       // backgroundColor:"green",
         flex:1
     },
     buttonImg: {

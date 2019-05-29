@@ -18,10 +18,11 @@ function getAvailableDomain (domains,callback) {
               let content= rt.content;
               content.allowAppUpdate=true;
              // TW_Log("callback-------content.trendChartDomains[0]-"+content.trendChartDomains[0],content.trendChartDomains);
-              let gameDomain = content.trendChartDomains&&content.trendChartDomains.length>0 ? content.trendChartDomains[0]:"";
+             // let gameDomain = content.trendChartDomains&&content.trendChartDomains.length>0 ? content.trendChartDomains[0]:"";
+              let gameDomain = domains[i];
               if(gameDomain.indexOf("http")>-1){
                   TW_Log("callback-------content.trendChartDomains[0]-exist"+gameDomain);
-                  if(TW_Store.appStore.clindId!="31"&&TW_Store.appStore.clindId!="5"){ //对于sit uat 环境做特殊处理 使用默认
+                  if(TW_Store.appStore.clindId!="31"){ //对于sit  环境做特殊处理 使用默认
                       TW_Store.bblStore.loginDomain =TW_Store.bblStore.gameDomain=gameDomain;
                   }
 

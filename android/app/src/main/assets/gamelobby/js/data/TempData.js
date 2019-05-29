@@ -9,6 +9,7 @@ var TempData = /** @class */ (function () {
     //转移至version.json
     TempData.channel = "channel20181016";
     TempData.bindAward = 0; //绑定送金额度
+    TempData.isGetBindAward = true; //是否领取过绑定送金奖励
     return TempData;
 }());
 var ResConfig = /** @class */ (function () {
@@ -68,7 +69,10 @@ var ResConfig = /** @class */ (function () {
             "font": "微软雅黑"
         }
     ];
-    ResConfig.bitConfit_bindPhone = {
+    /**
+     * 绑定送金界面位图字体
+     */
+    ResConfig.bitFont_bindPhone = {
         "0": "ui/bindPhone/bit_font00.png",
         "1": "ui/bindPhone/bit_font01.png",
         "2": "ui/bindPhone/bit_font02.png",
@@ -79,6 +83,24 @@ var ResConfig = /** @class */ (function () {
         "7": "ui/bindPhone/bit_font07.png",
         "8": "ui/bindPhone/bit_font08.png",
         "9": "ui/bindPhone/bit_font09.png"
+    };
+    /**
+     * 通用金币位图字体
+     */
+    ResConfig.bitFont_norm = {
+        "0": "ui/bitFont/goldFont/gtxt01.png",
+        "1": "ui/bitFont/goldFont/gtxt02.png",
+        "2": "ui/bitFont/goldFont/gtxt03.png",
+        "3": "ui/bitFont/goldFont/gtxt04.png",
+        "4": "ui/bitFont/goldFont/gtxt05.png",
+        "5": "ui/bitFont/goldFont/gtxt06.png",
+        "6": "ui/bitFont/goldFont/gtxt07.png",
+        "7": "ui/bitFont/goldFont/gtxt08.png",
+        "8": "ui/bitFont/goldFont/gtxt09.png",
+        "9": "ui/bitFont/goldFont/gtxt10.png",
+        ".": "ui/bitFont/goldFont/gtxt11.png",
+        ",": "ui/bitFont/goldFont/gtxt12.png",
+        "万": "ui/bitFont/goldFont/gtxt13.png"
     };
     /**
      * 背景音乐

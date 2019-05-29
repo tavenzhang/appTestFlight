@@ -110,8 +110,10 @@ var Notice_Roullette = /** @class */ (function (_super) {
     };
     Notice_Roullette.prototype.diff_times = function (date2, date1) {
         var today = new Date();
+        var end = new Date(this.convertDateForIos(date2));
         // var msec = new Date(date2).getTime() - new Date(date1).getTime();
-        var msec = new Date(date2).getTime() - today.getTime();
+        //  $data.endTime.replace(' ', 'T')
+        var msec = end.getTime() - today.getTime();
         var mins = Math.floor(msec / 60000);
         var hrs = Math.floor(mins / 60);
         var days = Math.floor(hrs / 24);
@@ -122,6 +124,11 @@ var Notice_Roullette = /** @class */ (function (_super) {
         var diffHours = (diffDays === "" && hrs <= 0) ? "" : hrs + "小时 ";
         var diffmins = (diffDays === "" && diffHours === "" && mins <= 0) ? "" : mins + "分钟 ";
         return diffDays + diffHours + diffmins;
+    };
+    Notice_Roullette.prototype.convertDateForIos = function (date) {
+        var arr = date.split(/[- :]/);
+        date = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
+        return date;
     };
     Notice_Roullette.prototype.onReqSpin = function (spinner) {
         if (this._havePt - spinner.reqPt >= 0) {
@@ -155,6 +162,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
         }
     };
     Notice_Roullette.prototype.returnPrizeInfo = function (s, stat, hr) {
+        this._result = s.prizeAmount;
         this.targetSpinner.setResult(s);
         this.targetSpinner.once("stopSpin", this, this.onStopSpin);
         this.targetSpinner = undefined;
@@ -166,6 +174,9 @@ var Notice_Roullette = /** @class */ (function (_super) {
         this.newtab.mouseEnabled = true;
         this.mytab.mouseEnabled = true;
         this.wlist.getList(true);
+        var message = "\u606D\u559C\u62BD\u4E2D " + this._result + " \u91D1\u5E01\u5956\u52B1\uFF0C\u8BF7\u524D\u5F80\u90AE\u4EF6\u9886\u53D6\u5956\u52B1";
+        AgentDialogSucess.showDialog(this.parent.parent, ConfObjRead.getConfAgentDialogDeleteInvitation(), message);
+        this._result = undefined;
     };
     Notice_Roullette.prototype.onMouse = function ($e) {
         if ($e.type === Laya.Event.MOUSE_DOWN) {

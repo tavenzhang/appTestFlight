@@ -76,8 +76,6 @@ var PageLogin = /** @class */ (function (_super) {
             var v = { url: urls, type: types };
             assets.push(v);
         }
-        //合并游戏列表相关素材
-        // assets = assets.concat(ResConfig.getGameListResConfig());
         if (PageLogin.isLoaded) {
             this.loadFinish();
         }
@@ -97,6 +95,8 @@ var PageLogin = /** @class */ (function (_super) {
      * 加载结束
      */
     PageLogin.prototype.loadFinish = function () {
+        if (!PageLogin.isLoaded)
+            PostMHelp.initGame();
         Common.confObj = ConfObjRead.getConfCommon();
         ResConfig.addTween = Common.confObj.addTween;
         this.copyNativeAdress();
@@ -291,8 +291,8 @@ var PageLogin = /** @class */ (function (_super) {
                     return;
                 }
                 _this.saveLoginInfo(jobj, LoginType.Phone);
-                if (jobj.autoGenPassword) { //手机登录生成的密码(同一个号就第一次有)
-                    SaveManager.getObj().save(SaveManager.KEY_PHONEPWD, jobj.autoGenPassword); //todo:修改密码时要默认这个密码
+                if (jobj.autoGenPassword) { //手机登录生成的密码(同一个号就第一次有),修改密码时要默认这个密码
+                    SaveManager.getObj().save(SaveManager.KEY_PHONEPWD, jobj.autoGenPassword);
                 }
                 LayaMain.getInstance().initLobby();
             }
@@ -308,7 +308,7 @@ var PageLogin = /** @class */ (function (_super) {
         this.codeTime = 60;
         this.mp_timeTxt.text = this.codeTime.toString();
         Laya.timer.loop(1000, this, this.updateCodeTime);
-        HttpRequester.getPhoneVercode(this.mp_numTxt.text, "phoneLoginVercode", false, this, function (suc, jobj) {
+        HttpRequester.getPhoneVercode(this.mp_numTxt.text, false, VerCodeType.MSG_LOGIN, this, function (suc, jobj) {
             //...
         });
     };
@@ -495,7 +495,6 @@ var PageLogin = /** @class */ (function (_super) {
     };
     PageLogin.prototype.destroy = function (vl) {
         this.clearCodeTime();
-        EventManager.removeEvent(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
         EventManager.removeAllEvents(this);
         _super.prototype.destroy.call(this, vl);
     };

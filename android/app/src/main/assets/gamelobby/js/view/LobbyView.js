@@ -39,13 +39,6 @@ var view;
             //
             this.initBottomMenu();
             this.requestCycelData();
-            HttpRequester.getBindAward(this, function (suc, jobj) {
-                if (suc) {
-                    if (jobj.bind && jobj.reward > 0) {
-                        TempData.bindAward = jobj.reward;
-                    }
-                }
-            });
             this.initEvents();
             this.resize();
         };
@@ -70,7 +63,10 @@ var view;
             EventManager.register(EventType.GET_USERCURRENT, this, this.checkShowBindBtn);
         };
         LobbyView.prototype.checkShowBindBtn = function (binded) {
-            // this.btn_bind.visible = !binded;//临时屏蔽todo:xxx
+            if (TempData.bindOpen) {
+                if (!TempData.isGetBindAward)
+                    this.btn_bind.visible = true;
+            }
         };
         LobbyView.prototype.hideBindBtn = function () {
             this.btn_bind.visible = false;
@@ -100,10 +96,6 @@ var view;
             //活动
             EventManager.addTouchScaleListener(this.actBtn, this, function () {
                 SoundPlayer.enterPanelSound();
-                //todo:xxx
-                // AttentionDialog.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
-                // AttentionDialog.obj.show();
-                // view.dlg.NoticeDlg.show(AttentionDialog.TYPE_OPEN_AUTO);
                 view.dlg.NoticeDlg.show();
             });
             //客服
@@ -208,11 +200,6 @@ var view;
                 this.publicUI.dispose();
             if (this.arrowAnim)
                 this.arrowAnim.stop();
-            EventManager.removeEvent(EventType.BINDPHONE_SUCC, this, this.hideBindBtn);
-            EventManager.removeEvent(EventType.RESIZE, this, this.resize);
-            EventManager.removeEvent(EventType.FLUSH_AGENCYBTN, this, this.showAgencyBtn);
-            EventManager.removeEvent(EventType.FLUSH_CYCLEIMAGE, this, this.flushCycleImage);
-            EventManager.removeEvent(EventType.GET_USERCURRENT, this, this.checkShowBindBtn);
             EventManager.removeAllEvents(this);
             if (this.girlAinm) {
                 this.girlAinm.destroy(true);
