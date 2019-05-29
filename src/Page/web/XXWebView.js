@@ -300,6 +300,7 @@ export default class XXWebView extends Component {
                                           startInLoadingState={false}
                                           onError={this.onError}
                                           domStorageEnabled={true}
+                                          thirdPartyCookiesEnabled={true}
                                           // renderLoading={this.onRenderLoadingView}
                                           javaScriptEnabled={true}
                                           injectedJavaScript={injectJs}
@@ -319,6 +320,7 @@ export default class XXWebView extends Component {
                                 javaScriptEnabled={true}
                                 domStorageEnabled={true}
                                 decelerationRate="normal"
+                                thirdPartyCookiesEnabled={true}
                                 // startInLoadingState={true}
                                 renderLoading={this.onRenderLoadingView}
                                 onNavigationStateChange={this.onNavigationStateChange}
