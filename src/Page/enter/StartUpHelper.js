@@ -2,7 +2,10 @@ import { AsyncStorage} from 'react-native'
 import { create } from 'apisauce'
 
 import NetUitls from "../../Common/Network/TCRequestUitls";
-
+import Base64 from "../../Common/JXHelper/Base64";
+import CryptoJS from "crypto-js";
+const pk64 = 'OXcwQkFRRUZBQU9lZGZxNQ=='
+let base64 = new Base64()
 function getAvailableDomain (domains,callback) {
   // 不用检测可访问域名是否在本地缓存，第一次启动肯定不存在。如果设置缓存，其实每次还是要去校验缓存的那条地址能不能访问。
   // 直接进行检测
@@ -11,17 +14,28 @@ function getAvailableDomain (domains,callback) {
   let isFinish =false;
   for (let i = 0; i < domains.length; i++) {
     TW_Log('cacheDomain check= '+domains[i]);
-      NetUitls.getUrlAndParamsAndCallback(`${domains[i]}/api/v1/ip/user/checkIpInfoDomains?clientId=${TW_Store.appStore.clindId}&platform=CG`,null,(rt)=>{
+      NetUitls.getUrlAndParamsAndCallback(`${domains[i]}/api/v1/ip/user/checkIpInfoDomainsEncrypte?clientId=${TW_Store.appStore.clindId}&platform=CG`,null,(rt)=>{
         if(rt.rs){
           if(!isFinish){
               isFinish = true;
-              let content= rt.content;
+             // TW_Log('大王来巡山--content ',rt.content.data);
+              var decodepk64 = base64.decode(pk64)
+              var key = CryptoJS.enc.Utf8.parse(decodepk64)
+              var iv = CryptoJS.enc.Utf8.parse(decodepk64)
+              var decryptedResponseData = CryptoJS.AES.decrypt(rt.content.data, key, {
+                  iv: iv,
+                  mode: CryptoJS.mode.CBC,
+                  padding: CryptoJS.pad.Pkcs7
+              })
+              var decryptedResponseDataJson = JSON.parse(decryptedResponseData.toString(CryptoJS.enc.Utf8));
+              let content=decryptedResponseDataJson;
               content.allowAppUpdate=true;
+              TW_Log('大王来巡山 content==domains[i]--'+domains[i],content)
              // TW_Log("callback-------content.trendChartDomains[0]-"+content.trendChartDomains[0],content.trendChartDomains);
              // let gameDomain = content.trendChartDomains&&content.trendChartDomains.length>0 ? content.trendChartDomains[0]:"";
               let gameDomain = domains[i];
               if(gameDomain.indexOf("http")>-1){
-                  TW_Log("callback-------content.trendChartDomains[0]-exist"+gameDomain);
+                 // TW_Log("callback-------content.trendChartDomains[0]-exist"+gameDomain);
                   if(TW_Store.appStore.clindId!="31"){ //对于sit  环境做特殊处理 使用默认
                       TW_Store.bblStore.loginDomain =TW_Store.bblStore.gameDomain=gameDomain;
                   }
