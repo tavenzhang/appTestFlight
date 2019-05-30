@@ -182,7 +182,7 @@ export default class DataStore {
             }
             setTimeout(()=>{
                 SplashScreen.hide();
-            },500)
+            },1000)
 
         })
     }
