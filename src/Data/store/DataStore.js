@@ -180,7 +180,10 @@ export default class DataStore {
                 this.onSaveVersionM({}, true);
                 TW_Store.gameUpateStore.isNeedUpdate=false;
             }
-            SplashScreen.hide();
+            setTimeout(()=>{
+                SplashScreen.hide();
+            },500)
+
         })
     }
 
