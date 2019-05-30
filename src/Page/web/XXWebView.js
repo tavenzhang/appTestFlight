@@ -354,7 +354,7 @@ export default class XXWebView extends Component {
                     break;
                 case "game_common":
                     switch (message.name) {
-                        case "saveToPhohe":
+                        case "saveToPhone":
                             Tools.onSaveScreenPhone();
                             break;
                         case "loginout":
@@ -384,7 +384,12 @@ export default class XXWebView extends Component {
                             break;
                         case "copylink":
                             Clipboard.setString(message.param);
-                            Toast.showShortCenter("已复制链接!");
+                            if(message.hint&&message.hint.length>0){
+                                Toast.showShortCenter(message.hint);
+                            }else{
+                                Toast.showShortCenter("已复制链接!");
+                            }
+
                         break;
                     }
 
