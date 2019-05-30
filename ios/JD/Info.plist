@@ -3,30 +3,32 @@
 <plist version="1.0">
 <dict>
  <key>com.openinstall.APP_KEY</key>
-	<string>k9e92p</string>
+	<string>em7qd5</string>
 	<key>APP_DOWNLOAD_VERSION</key>
 	<string>2.0</string>
 	<key>PLAT_CH</key>
 	<string>1</string>
 	<key>PLAT_ID</key>
-	<string>5</string>
+	<string>300002</string>
 	<key>Affcode</key>
 	<string></string>
 	<key>UmengKey</key>
-	<string></string>
+	<string>5ceb8d07570df3004a0006ed</string>
+	<key>JPushKey</key>
+	<string>f2bfe33301ad689ccfbea3d3</string>
 	<key>AppSecret</key>
     	<dict>
     		<key>weixin</key>
-    		<string>67de54808bba55e934e3126f3e607a42</string>
-    	</dict>
+    		<string>08cf520363fbd00ef468566f61517e21</string>
+    </dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>QP-UAT</string>
+	<string>188棋牌</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.bbl.gmuat</string>
+	<string>com.bbl.188qp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -46,7 +48,7 @@
 			<string>openinstall</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>k9e92p</string>
+				<string>em7qd5</string>
 			</array>
 		</dict>
 		<dict>
@@ -56,7 +58,7 @@
         			<string>weixin</string>
         			<key>CFBundleURLSchemes</key>
         			<array>
-        				<string>wx4705de7e82fa978f</string>
+        				<string>wx277cfc03f3d2734c</string>
         			</array>
         		</dict>
 	</array>
@@ -78,8 +80,7 @@
 			</dict>
 		</array>
 	</dict>
-	<key>JPushKey</key>
-	<string></string>
+
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
