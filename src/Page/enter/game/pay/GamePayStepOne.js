@@ -407,14 +407,20 @@ export default class GamePayStepOne extends Component {
      */
     getEmptyTip = () => {
 
-        return (
-            <View style={styles.emptyTip}>
-                <Image
-                    source={userPay.noPayData} style={styles.payErrorImg}/>
-                <Text style={{color: listViewTxtColor.content, fontSize: 11}}>该支付方式目前无法使用</Text>
-                <Text style={{color: listViewTxtColor.content, fontSize: 11}}>敬请谅解!请选择其它支付方式!</Text>
-            </View>
-        )
+        let {initedData}=this.props;
+        if(initedData){
+            return (
+                <View style={styles.emptyTip}>
+                    <Image
+                        source={userPay.noPayData} style={styles.payErrorImg}/>
+                    <Text style={{color: listViewTxtColor.content, fontSize: 11}}>该支付方式目前无法使用</Text>
+                    <Text style={{color: listViewTxtColor.content, fontSize: 11}}>敬请谅解!请选择其它支付方式!</Text>
+                </View>
+            )
+        }else {
+            return null
+        }
+
     }
 
     /**

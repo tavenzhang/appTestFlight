@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import {
     StyleSheet,
     View,
-    Text, WebView,
-    TouchableOpacity
 } from 'react-native'
 import {observer} from 'mobx-react/native';
 import TCImage from "../../../Common/View/image/TCImage";
@@ -15,8 +13,6 @@ import TCFlatList from "../../../Common/View/RefreshListView/TCFLatList";
 import GamePayStepOne from "./pay/GamePayStepOne";
 import Toast from "../../../Common/JXHelper/JXToast";
 
-import TCUserPayAndWithdrawRecordsMain from "../../UserCenter/UserAccount/TCUserPayAndWithdrawRecordsMain";
-import BaseGameAlert from "./pay/BaseGameAlert";
 
 @observer
 export default class GameMoneyInView extends Component {
@@ -42,6 +38,7 @@ export default class GameMoneyInView extends Component {
     static defaultProps= {
         viewStyle:{flex:1, justifyContent:"center"},
         isDefaultTextStyle:true,
+        initedData:false,
         inputStyle:{
             fontSize: 14,
         }
@@ -54,7 +51,8 @@ export default class GameMoneyInView extends Component {
             payList:[],
             isShowHistory:false,
             showDownArrow:true,
-            isChange:false
+            isChange:false,
+            initedData:false,
         }
         this.bblStore = TW_Store.bblStore;
         this.userPayStore=TW_Store.userPayTypeStore;
@@ -65,7 +63,7 @@ export default class GameMoneyInView extends Component {
         this.userPayStore.selectPayType((res) => {
             if (res.status) {
                // this.gotoPayPage(item.code);
-                this.setState({test:""})
+                this.setState({initedData:true})
             } else {
                 Toast.showShortCenter(res.message);
             }
@@ -113,7 +111,7 @@ export default class GameMoneyInView extends Component {
             </View>
 
                 <View style={{position: "absolute", top:60,left:210}}>
-                 <GamePayStepOne itemData={bankitem} isChange={this.state.isChange}/>
+                 <GamePayStepOne itemData={bankitem} isChange={this.state.isChange} initedData={this.state.initedData}/>
             </View>
             {
                 this.state.showDownArrow&&
