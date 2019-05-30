@@ -384,7 +384,11 @@ export default class XXWebView extends Component {
                             break;
                         case "copylink":
                             Clipboard.setString(message.param);
-                            Toast.showShortCenter("已复制链接!");
+                            if(message.hint&&message.hint.length>0){
+                                Toast.showShortCenter(message.hint);
+                            }else{
+                                Toast.showShortCenter("已复制链接!");
+                            }
                         break;
                     }
 
