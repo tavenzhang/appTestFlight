@@ -378,7 +378,7 @@ export function applyWithdraw(params, callback) {
  * @param callback
  */
 export function getUserSheetsData(isUserSheet,params, callback) {
-    RequestUtils.PostUrlAndParamsAndCallback(isUserSheet?config.api.getUserSheets:config.api.getGroupSheets, params, callback);
+   // RequestUtils.PostUrlAndParamsAndCallback(isUserSheet?config.api.getUserSheets:config.api.getGroupSheets, params, callback);
 }
 
 
@@ -412,7 +412,7 @@ export function getPlatformBalance(params, callback) {
  * @param callback
  */
 export function platformTransfer(platform, params, callback) {
-    RequestUtils.putUrlAndParamsAndAndPlatformAndCallback(config.api.platformTransfer, platform, params, callback);
+  //  RequestUtils.putUrlAndParamsAndAndPlatformAndCallback(config.api.platformTransfer, platform, params, callback);
 }
 
 /**

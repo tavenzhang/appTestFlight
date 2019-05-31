@@ -114,14 +114,6 @@
             "type": "JSON"
         },
         {
-            "url": "./assets/conf/notice/luckydraw.json",
-            "type": "JSON"
-        },
-        {
-            "url": "./assets/conf/notice/spinner.json",
-            "type": "JSON"
-        },
-        {
             "url": "./assets/ui/agent/img_daili_leixing01.png",
             "type": "IMAGE"
         },

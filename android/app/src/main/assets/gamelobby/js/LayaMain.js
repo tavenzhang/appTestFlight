@@ -154,7 +154,7 @@ var LayaMain = /** @class */ (function () {
                     }
                     break;
                 case "flushMoney":
-                    EventManager.dispath(EventType.FLUSH_USERINFO);
+                    LobbyDataManager.refreshMoney();
                     break;
                 case "openDebug":
                     window["initVconsole"]();
