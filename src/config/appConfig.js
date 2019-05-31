@@ -5,9 +5,9 @@ import React, {
 
 export const appDomainBase = {
     base1: 'https://yw8txj2e.shpeisheng1.cn',
-    base2: "https://38fo28gk.jjxzt.cn",
-    base3: "https://38fo28gk.gybye.cn",
-    base4: "https://hosobw29.ewxsg.cn",
+    base2: "https://yw8txj2e.shpeisheng1.cn",
+    base3: "https://yw8txj2e.shpeisheng1.cn",
+    base4: "https://yw8txj2e.shpeisheng1.cn",
     base5: "https://hosobw29.jjxzt.cn",
     base6: "https://hosobw29.gybye.cn",
     base7: "https://hosobw29.gybye.cn",
