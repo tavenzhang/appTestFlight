@@ -39,13 +39,6 @@ var view;
             //
             this.initBottomMenu();
             this.requestCycelData();
-            HttpRequester.getBindAward(this, function (suc, jobj) {
-                if (suc) {
-                    if (jobj.bind && jobj.reward > 0) {
-                        TempData.bindAward = jobj.reward;
-                    }
-                }
-            });
             this.initEvents();
             this.resize();
         };
@@ -64,24 +57,38 @@ var view;
             }, null, 1);
             //重置大小
             EventManager.register(EventType.RESIZE, this, this.resize);
-            EventManager.register(EventType.FLUSH_AGENCYBTN, this, this.showAgencyBtn);
             EventManager.register(EventType.FLUSH_CYCLEIMAGE, this, this.flushCycleImage);
-            EventManager.register(EventType.BINDPHONE_SUCC, this, this.hideBindBtn);
-            EventManager.register(EventType.GET_USERCURRENT, this, this.checkShowBindBtn);
+            EventManager.register(EventType.GETBINDAWARD_SUCC, this, this.hideBindBtn);
+            EventManager.register(EventType.GETUSER_CURRENT, this, this.checkBindPhone);
+            EventManager.register(EventType.BINDPHONE_INFO, this, this.checkBindPhone);
+            EventManager.register(EventType.GETUSERS_INFO, this, this.showUserInfo);
         };
-        LobbyView.prototype.checkShowBindBtn = function (binded) {
-            // this.btn_bind.visible = !binded;//临时屏蔽todo:xxx
+        LobbyView.prototype.showUserInfo = function () {
+            this.btn_dl.visible = userData.role != "PLAYER";
+            this.publicUI.showUserInfo();
+        };
+        LobbyView.prototype.checkBindPhone = function () {
+            if (!Common.bindPhoneInfo || !Common.userInfo_current)
+                return;
+            var bind = Common.userInfo_current.certifiedPhone;
+            if (TempData.bindOpen) {
+                if ((!TempData.isGetBindAward && bind) || !bind) {
+                    this.btn_bind.visible = true;
+                    view.dlg.bindPhone.BindPhoneActiveDlg.show();
+                }
+            }
         };
         LobbyView.prototype.hideBindBtn = function () {
             this.btn_bind.visible = false;
-            this.publicUI.infoView.requestUserInfoCurrent(); //刷新一下状态(todo:全屏个人中心上了可以删除)
+            LobbyDataManager.refreshMoney();
+            LobbyDataManager.reqUserCurrentInfo();
         };
         LobbyView.prototype.flushCycleImage = function () {
             Laya.timer.clear(this, this.requestCycelData);
             Laya.timer.once(60000 * 5, this, this.requestCycelData);
         };
         LobbyView.prototype.requestCycelData = function () {
-            HttpRequester.getPlayerMaterialInfo(this, this.initCycelView);
+            HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.getCarouselInfo, this, this.initCycelView);
         };
         LobbyView.prototype.showAgencyBtn = function () {
             this.btn_dl.visible = userData.role != "PLAYER";
@@ -100,10 +107,6 @@ var view;
             //活动
             EventManager.addTouchScaleListener(this.actBtn, this, function () {
                 SoundPlayer.enterPanelSound();
-                //todo:xxx
-                // AttentionDialog.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAttention(), AttentionDialog.TYPE_OPEN_MANUAL);
-                // AttentionDialog.obj.show();
-                // view.dlg.NoticeDlg.show(AttentionDialog.TYPE_OPEN_AUTO);
                 view.dlg.NoticeDlg.show();
             });
             //客服
@@ -208,11 +211,6 @@ var view;
                 this.publicUI.dispose();
             if (this.arrowAnim)
                 this.arrowAnim.stop();
-            EventManager.removeEvent(EventType.BINDPHONE_SUCC, this, this.hideBindBtn);
-            EventManager.removeEvent(EventType.RESIZE, this, this.resize);
-            EventManager.removeEvent(EventType.FLUSH_AGENCYBTN, this, this.showAgencyBtn);
-            EventManager.removeEvent(EventType.FLUSH_CYCLEIMAGE, this, this.flushCycleImage);
-            EventManager.removeEvent(EventType.GET_USERCURRENT, this, this.checkShowBindBtn);
             EventManager.removeAllEvents(this);
             if (this.girlAinm) {
                 this.girlAinm.destroy(true);

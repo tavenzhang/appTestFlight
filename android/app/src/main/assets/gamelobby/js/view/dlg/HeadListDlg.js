@@ -153,48 +153,47 @@ var view;
             return HeadListDlg;
         }(ui.dlg.HeadListDlgUI));
         dlg_1.HeadListDlg = HeadListDlg;
-        var HeadIconUI = /** @class */ (function (_super) {
-            __extends(HeadIconUI, _super);
-            function HeadIconUI(id) {
-                var _this = _super.call(this) || this;
-                _this.iconID = id;
-                _this.mouseEnabled = true;
-                _this.initView();
-                return _this;
-            }
-            HeadIconUI.prototype.initView = function () {
-                this.iconbg = new Laya.Image();
-                this.iconbg.skin = "ui/common/img_touxiang_touxiangkuang.png";
-                this.addChild(this.iconbg);
-                this.iconbg.width = 122;
-                this.iconbg.height = 122;
-                this.iconHead = new Laya.Image();
-                this.iconHead.skin = ResConfig.getHeadSkinByID(this.iconID);
-                this.addChild(this.iconHead);
-                this.iconHead.pos(this.iconbg.width - this.iconHead.width >> 1, this.iconbg.height - this.iconHead.height >> 1);
-                this.iconSelecte = new Laya.Image();
-                this.iconSelecte.skin = "ui/common/img_touxiang_xuanzhongkuang.png";
-                this.addChild(this.iconSelecte);
-                this.iconSelecte.width = this.iconbg.width;
-                this.iconSelecte.height = this.iconbg.height;
-                this.iconSelecte.visible = false;
-            };
-            HeadIconUI.prototype.selecteIcon = function (bl) {
-                this.iconSelecte.visible = bl;
-            };
-            Object.defineProperty(HeadIconUI.prototype, "numID", {
-                get: function () {
-                    if (this.iconID.indexOf("0") == 0) {
-                        return Number(this.iconID.substr(1, 1));
-                    }
-                    return Number(this.iconID);
-                },
-                enumerable: true,
-                configurable: true
-            });
-            return HeadIconUI;
-        }(Laya.Sprite));
-        dlg_1.HeadIconUI = HeadIconUI;
+        // export class HeadIconUI extends Laya.Sprite {
+        // 	private iconbg: Laya.Image;
+        // 	private iconHead: Laya.Image;
+        // 	private iconSelecte: Laya.Image;//选中框
+        // 	public iconID: string;
+        // 	constructor(id: string) {
+        // 		super();
+        // 		this.iconID = id;
+        // 		this.mouseEnabled = true;
+        // 		this.initView();
+        // 	}
+        // 	private initView() {
+        // 		this.iconbg = new Laya.Image();
+        // 		this.iconbg.skin = "ui/common/img_touxiang_touxiangkuang.png";
+        // 		this.addChild(this.iconbg);
+        // 		this.iconbg.width = 122;
+        // 		this.iconbg.height = 122;
+        // 		this.iconHead = new Laya.Image();
+        // 		this.iconHead.skin = ResConfig.getHeadSkinByID(this.iconID);
+        // 		this.addChild(this.iconHead);
+        // 		this.iconHead.pos(
+        // 			this.iconbg.width - this.iconHead.width >> 1,
+        // 			this.iconbg.height - this.iconHead.height >> 1
+        // 		)
+        // 		this.iconSelecte = new Laya.Image();
+        // 		this.iconSelecte.skin = "ui/common/img_touxiang_xuanzhongkuang.png";
+        // 		this.addChild(this.iconSelecte);
+        // 		this.iconSelecte.width = this.iconbg.width;
+        // 		this.iconSelecte.height = this.iconbg.height;
+        // 		this.iconSelecte.visible = false;
+        // 	}
+        // 	public selecteIcon(bl: boolean) {
+        // 		this.iconSelecte.visible = bl;
+        // 	}
+        // 	public get numID(): number {
+        // 		if (this.iconID.indexOf("0") == 0) {
+        // 			return Number(this.iconID.substr(1, 1));
+        // 		}
+        // 		return Number(this.iconID);
+        // 	}
+        // }
     })(dlg = view.dlg || (view.dlg = {}));
 })(view || (view = {}));
 //# sourceMappingURL=HeadListDlg.js.map

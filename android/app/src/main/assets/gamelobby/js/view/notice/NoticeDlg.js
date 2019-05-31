@@ -11,6 +11,13 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var AttentionDialog = /** @class */ (function () {
+    function AttentionDialog() {
+    }
+    AttentionDialog.TYPE_OPEN_MANUAL = 1;
+    AttentionDialog.TYPE_OPEN_AUTO = 2;
+    return AttentionDialog;
+}());
 var view;
 (function (view) {
     var dlg;
@@ -36,6 +43,7 @@ var view;
                 dlg.popup(false, false);
                 dlg.pop(dlg);
                 dlg.requestData();
+                this.dlg = dlg;
             };
             NoticeDlg.checkUnread = function () {
                 var dlg = new NoticeDlg();
@@ -65,7 +73,7 @@ var view;
                     this.contents.x = this.contentList.x + 320 - 10; //Fthis.contentList.width - 10;
                 }
                 this.contentList.on(Laya.Event.MOUSE_DOWN, this, this.onScroll);
-                this.contentList.on(Laya.Event.MOUSE_UP, this, this.onScroll);
+                // this.contentList.on(Laya.Event.MOUSE_UP, this, this.onScroll);
                 this.on(Laya.Event.MOUSE_UP, this, this.onScroll);
                 this.contentList.on(Laya.Event.MOUSE_MOVE, this, this.onScroll);
                 this.tab_notice.on(Laya.Event.CLICK, this, this.onTabClick);
@@ -146,7 +154,7 @@ var view;
                     this.loadTab(0);
                 }
                 this.listLen = list.length;
-                this.arrow.visible = list.length > 6;
+                this.arrow.visible = this.enableDrag = list.length > 6;
                 this.updateTotalReadCounter();
             };
             NoticeDlg.prototype.updateTotalReadCounter = function () {
@@ -235,6 +243,7 @@ var view;
                         content = new Notice_Share();
                         content.init(this);
                         content.setData(data);
+                        NoticeDlg.shareLimit = data.noticeShare.upperLimit;
                         break;
                     case "ROULETTE_DRAW":
                         content = new Notice_Roullette();
@@ -303,7 +312,7 @@ var view;
                         }
                         break;
                     case Laya.Event.MOUSE_MOVE:
-                        if (this.downPos.y > 0) {
+                        if (this.downPos.y > 0 && this.enableDrag) {
                             var sumy = y - this.downPos.y;
                             this.downPos.y = y;
                             this.content_tabs.y += sumy;
@@ -361,12 +370,34 @@ var view;
                     y: pos.y
                 }, 200, Laya.Ease["backIn"]);
             };
+            NoticeDlg.shareSucess = function ($type) {
+                var message;
+                if ($type === "friend") {
+                    if (this.shareLimit > 0) {
+                        this.shareLimit--;
+                        message = "分享成功，请前往邮件领取奖励";
+                    }
+                    else {
+                        message = "分享成功，请多点和朋友分享乐趣吧";
+                    }
+                    AgentDialogSucess.showDialog(this.dlg, ConfObjRead.getConfAgentDialogDeleteInvitation(), message);
+                }
+                else if ($type === "circle") {
+                    if (this.shareLimit > 0) {
+                        this.shareLimit--;
+                        message = "分享成功，请前往邮件领取奖励";
+                    }
+                    else {
+                        message = "分享成功，请多点和朋友分享乐趣吧";
+                    }
+                    AgentDialogSucess.showDialog(this.dlg, ConfObjRead.getConfAgentDialogDeleteInvitation(), message);
+                }
+            };
             NoticeDlg.prototype.onClosed = function (type) {
                 // Laya.SoundManager.playSound("assets/raw/sfx_close.mp3");
                 EventManager.removeAllEvents(this);
                 this.tab_notice.off(Laya.Event.CLICK, this, this.onTabClick);
                 this.tab_game.off(Laya.Event.CLICK, this, this.onTabClick);
-                // EventManager.removeEvent(EventType.FLUSH_HEADICON, this, this.setHeadIcon);
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);
             };

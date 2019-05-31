@@ -171,6 +171,7 @@ export const gameUI = {
     guestBg:require('./game/guest/gusetBg.png'),
     //moneyOut
     titleMoneyOut:require('./game/moneyOut/titleMoneyOut.png'),
+    iconMoneyOut:require('./game/moneyOut/iconMoneyOut.png'),
     btnOut:require('./game/moneyOut/btn_out.png'),
     payOutTypeBank:require('./game/moneyOut/payOutTypeBank.png'),
     payOutTypeZFB:require('./game/moneyOut/img_tx_zfb02.png'),
@@ -185,6 +186,7 @@ export const gameUI = {
     bangNumBg:require('./game/moneyOut/img_tx_bangBg.png'),
     //moneyPay
     moneyInBg:require('./game/moneyPay/moneyInBg.png'),
+    moneyBottomBg:require('./game/moneyPay/moneyBottomBg.png'),
     btn_onLine:require('./game/moneyPay/btn_guset_online.png'),
     title_pay:require('./game/moneyPay/title_payType.png'),
     title_qr:require('./game/moneyPay/title_qrCode.png'),
@@ -207,9 +209,11 @@ export const gameUI = {
     payTypeWy:require('./game/moneyPay/type/pay_type_wy.png'),
     payTypeYhzz:require('./game/moneyPay/type/pay_type_yhzz.png'),
     payTypeJD:require('./game/moneyPay/type/pay_type_jd.png'),
+    payTypeVIP:require('./game/moneyPay/type/pay_type_vip.png'),
 
     btnPayNormal:require('./game/moneyPay/btnPayNormal.png'),
     btnPayHight:require('./game/moneyPay/btnPayHight.png'),
+    btnPayVIPNormal:require('./game/moneyPay/btnPayVIPNormal.png'),
     btnMoneyHight:require('./game/moneyPay/btnMoneyHight.png'),
     btnMoneyBg:require('./game/moneyPay/btnMoneyBg.png'),
     //btn
@@ -227,6 +231,7 @@ export const gameUI = {
     stepOneBg2:require('./game/moneyPay/stepOnebg2.png'),
 
     listItemBg:require('./game/moneyPay/listItemBg.png'),
+    listItemVIPBg:require('./game/moneyPay/listItemVIPBg.png'),
     fixedListItemBg:require('./game/moneyPay/pay_type_fixed_bg.png'),
     fixedListItemBg1:require('./game/moneyPay/pay_type_fixed_bg1.png'),
     moneyLabelBg:require('./game/moneyPay/money_label_bg.png'),
@@ -244,12 +249,10 @@ export const gameUI = {
     czmxTip:require('./game/czmx_tip.png'),
     txmxTip:require('./game/txmx_tip.png'),
     onlineService:require('./game/online_service.png'),
-    czmxListBg1:require('./game/czmx_list_bg1.png'),
-    czmxListBg2:require('./game/czmx_list_bg2.png'),
-    czmxListBg3:require('./game/czmx_list_bg3.png'),
     czmxAll:require('./game/czmx_qb.png'),
     czmxFail:require('./game/czmx_sb.png'),
-    czmxDone:require('./game/czmx_ywc.png')
+    czmxDone:require('./game/czmx_ywc.png'),
+    img_czmx_dkMenu:require('./game/img_czmx_dkMenu.png'),
 }
 
 export const gameShare = {

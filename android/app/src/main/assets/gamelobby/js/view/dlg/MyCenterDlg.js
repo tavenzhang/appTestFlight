@@ -100,7 +100,6 @@ var view;
             };
             MyCenterDlg.prototype.onClosed = function (type) {
                 EventManager.removeAllEvents(this);
-                EventManager.removeEvent(EventType.FLUSH_HEADICON, this, this.setHeadIcon);
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);
             };

@@ -20,6 +20,7 @@ import {Size, shoppingTxtColor, indexBgColor, listViewTxtColor} from '../../asse
 import {ASSET_Images, ASSET_Theme} from "../../asset";
 import TCImage from "../../../Common/View/image/TCImage";
 import TCText from "../../../Common/View/widget/TCText";
+import TCButtonView from "../../../Common/View/button/TCButtonView";
 
 export default class TCUserPayAndWithdrawRecordsMain extends Component {
 
@@ -45,105 +46,73 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
     render() {
         let userRecord = TW_Store.userAccountStore.getTransferRecords()
         let {onBack} = this.props
-        let {isSelect,data} = this.props
+        let {isSelect, data, accountType} = this.props
         return (
-            <View style={{height: SCREEN_H * 0.62, marginTop: 10}}>
-                {/*<TCImage source={ASSET_Images.gameUI.czmxListBg1} style={{position: "absolute",width:SCREEN_W*0.74,height:SCREEN_H*0.62}} resizeMode={"stretch"}/>*/}
-                {/*<TCImage source={ASSET_Images.gameUI.czmxListBg2} style={{position: "absolute",width:SCREEN_W*0.74,height:SCREEN_H*0.62}} resizeMode={"stretch"}/>*/}
-                {/*<TCImage source={ASSET_Images.gameUI.czmxListBg3} style={{position: "absolute",width:SCREEN_W*0.74,height:SCREEN_H*0.62}} resizeMode={"stretch"}/>*/}
-
-                {/*<TouchableOpacity onPress={()=>{
-                console.log("====++++11111,"+this.state.selectType)
-                if(this.state.selectType !==0){
-                this.setState({
-                selectType:0
-                })
-                }
-                }}>
-                <Text style={{color: this.state.selectType === 0? "#e9f5fd":"B6B5AE",fontSize:20, left: 35, top: 5}}>全部</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={()=>{
-                console.log("====++++22222,"+this.state.selectType)
-                if(this.state.selectType !==1){
-                this.setState({
-                selectType:1
-                })
-                }
-                }}>
-                <Text style={{color: this.state.selectType === 1? "#e9f5fd":"B6B5AE",fontSize:20, position: "absolute", left: 130, top: 5}}>已完成</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={()=>{
-                console.log("====++++333333,"+this.state.selectType)
-                if(this.state.selectType !==2){
-                this.setState({
-                selectType:2
-                })
-                }
-                }}>
-                <Text style={{color: this.state.selectType === 2? "#e9f5fd":"B6B5AE",fontSize:20, position: "absolute", left: 245, top: 5}}>失败</Text>
-                </TouchableOpacity>*/}
-
-                {/*<ScrollableTabView
-                    renderTabBar={() => <DefaultTabBar style={{height: 45}} textStyle={{marginTop: 30}}/>}
-                    tabBarUnderlineStyle={{backgroundColor: shoppingTxtColor.tabLine, height: 2}}
-                    tabBarBackgroundColor={indexBgColor.itemBg}
-                    locked={true}
-                    initialPage={0}
-                    tabBarActiveTextColor={shoppingTxtColor.tabTitlePressed}
-                    tabBarInactiveTextColor={shoppingTxtColor.tabTitleNormal}
-                    tabBarTextStyle={{fontSize: Size.font15, fontWeight: 'normal', marginTop: 10,}}>
-                    <UserAccount onBack={onBack} tabLabel='全部' navigator={this.props.navigator} type={1}
-                                 accountType={this.props.accountType}/>
-                    <UserAccount onBack={onBack}  tabLabel='已完成' navigator={this.props.navigator} type={2}
-                                 accountType={this.props.accountType}/>
-                    <UserAccount  onBack={onBack} tabLabel='失败' navigator={this.props.navigator} type={3}
-                                 accountType={this.props.accountType}/>
-                </ScrollableTabView>*/}
-
-                <View style={styles.container}>
-                    <TouchableOpacity onPress={this.onSelect}>
-                        <View style={styles.buttonImg}>
-                            <TCImage source={isSelect ? ASSET_Images.gameUI.czmxAll : ASSET_Images.gameUI.czmxAll} />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={this.onSelect}>
-                        <View style={styles.buttonImg}>
-                            <TCImage source={isSelect ? ASSET_Images.gameUI.czmxDone : ASSET_Images.gameUI.czmxDone} />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={this.onSelect}>
-                        <View style={styles.buttonImg}>
-                            <TCImage source={isSelect ? ASSET_Images.gameUI.czmxFail : ASSET_Images.gameUI.czmxFail} />
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.container}>
-                    <UserAccount tabLabel='全部' navigator={this.props.navigator} type={0}
-                                 accountType={this.props.accountType}/>
+            <View>
+                <TCImage source={ASSET_Images.gameUI.img_czmx_dkMenu} style={{}}/>
+                <View style={{position:"absolute",width:500}}>
+                    <View style={styles.container}>
+                        <TouchableOpacity onPress={()=>this.onSelect(0)} style={{flex:1}}>
+                            <View style={styles.buttonImg}>
+                                {
+                                    this.state.selectType == 0 ?
+                                        <TCImage source={ASSET_Images.gameUI.czmxAll}/>:
+                                        <View style={{backgroundColor:"yellow"}}/>
+                                }
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>this.onSelect(1)} style={{flex:1}}>
+                            <View style={styles.buttonImg}>
+                                {
+                                    this.state.selectType == 1 ?
+                                        <TCImage source={ASSET_Images.gameUI.czmxDone}/>:
+                                        <View style={{backgroundColor:"yellow"}}/>
+                                }
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>this.onSelect(2)} style={{flex:1}}>
+                            <View style={styles.buttonImg}>
+                                {
+                                    this.state.selectType == 2 ?
+                                        <TCImage source={ASSET_Images.gameUI.czmxFail}/>:
+                                        <View style={{backgroundColor:"yellow"}}/>
+                                }
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.container,{marginTop:0}]}>
+                        <UserAccount tabLabel='全部' navigator={this.props.navigator} type={this.state.selectType}
+                                     accountType={accountType}/>
+                    </View>
                 </View>
             </View>
+
         );
     };
 
-    onSelect = () => {
-        let {onClick, data} = this.props
-        let UserAccount = this.props
-        if (onClick) {
+    onSelect = (tabIndex) => {
 
-            //accountType={this.props.accountType}
-            onClick(data)
-        }
+        this.setState({selectType: tabIndex})
+        TW_Log("onSelect----",this.state)
+        // let {onClick, data} = this.props
+        // let UserAccount = this.props
+        // if (onClick) {
+        //
+        //     //accountType={this.props.accountType}
+        //     onClick(data)
+        // }
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
+       // backgroundColor:"green",
+        flex:1
     },
-    buttonImg:{
-        justifyContent:"center",
-        alignItems:"center"
+    buttonImg: {
+        // justifyContent: "center",
+        // alignItems: "center",
+
     }
 });

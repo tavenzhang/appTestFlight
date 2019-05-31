@@ -1,12 +1,3 @@
-/*
-* 用户信息相关视图：头像框，金币等
-* 替代Avator.ts
-*/
-var userData = {
-    avatarSkinId: "",
-    role: "",
-    prizeGroup: 0
-};
 var UserInfoView = /** @class */ (function () {
     function UserInfoView(view) {
         this.isFlushMoney = false;
@@ -16,7 +7,6 @@ var UserInfoView = /** @class */ (function () {
     UserInfoView.prototype.initView = function () {
         TempData.bRequestStatus = 1;
         this.view.nameTxt.text = "--";
-        this.view.goldTxt.text = "";
         this.initGoldView();
         this.requestInfo();
         this.initEvents();
@@ -25,7 +15,7 @@ var UserInfoView = /** @class */ (function () {
         //头像点击
         EventManager.addTouchScaleListener(this.view.headIcon, this, function () {
             SoundPlayer.enterPanelSound();
-            view.dlg.MyCenterDlg.show();
+            view.dlg.FullMyCenterDlg.show();
         }, null, 1);
         EventManager.register(EventType.FLUSH_USERINFO, this, this.flushUserInfo);
         EventManager.register(EventType.FLUSH_HEADICON, this, this.flushHeadIcon);
@@ -79,7 +69,7 @@ var UserInfoView = /** @class */ (function () {
     UserInfoView.prototype.responseUserInfoCurrent = function (s, stat, hr) {
         if (stat == "complete") {
             Common.userInfo_current = s;
-            EventManager.dispath(EventType.GET_USERCURRENT, s.certifiedPhone);
+            EventManager.dispath(EventType.GETUSER_CURRENT);
             this.requestUserAvator(ConfObjRead.getConfUrl().url.apihome +
                 ConfObjRead.getConfUrl().cmd.avatorget +
                 "?access_token=" + Common.access_token);
@@ -120,9 +110,8 @@ var UserInfoView = /** @class */ (function () {
         this.view.nameTxt.text = nameStr;
         this.flushHeadIcon(data.avatorId);
         //金币
-        var v = data.userBalance.balance;
-        v = Tools.FormatMoney(v, 2);
-        this.lb_num.setNum(v);
+        var gold = data.userBalance.balance;
+        this.bitFont.text = Tools.FormatMoney(gold, 2);
     };
     //金币视图
     UserInfoView.prototype.initGoldView = function () {
@@ -142,28 +131,28 @@ var UserInfoView = /** @class */ (function () {
             _this.refreshMoney();
         });
         //金币显示
-        this.lb_num = new DataNum(ConfObjRead.getConfDataNum());
-        this.view.goldUI.addChild(this.lb_num);
-        this.lb_num.setNum("0");
-        this.lb_num.pos(this.view.goldTxt.x, this.view.goldTxt.y);
+        this.bitFont = new BitmapFont(ResConfig.bitFont_norm);
+        this.view.fontBox.addChild(this.bitFont);
+        this.bitFont.text = "0";
+        this.bitFont.y = this.view.fontBox.height - this.bitFont.height >> 1;
     };
     UserInfoView.prototype.refreshMoney = function () {
         var _this = this;
-        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.getMoney + "?access_token=" + Common.access_token;
-        var header = ["Accept", "application/json"];
-        HttpRequester.doRequest(url, header, null, this, function (suc, jobj) {
+        HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.flushMoney, this, function (suc, jobj) {
             if (suc) {
-                if (_this.lb_num) {
+                if (_this.bitFont) {
                     var money = Tools.FormatMoney(jobj.balance, 2);
-                    _this.lb_num.setNum(money);
+                    _this.bitFont.text = money;
+                    Common.userInfo.userBalance.balance = jobj.balance;
                 }
             }
-        }, "get");
+        });
     };
     UserInfoView.prototype.dispose = function () {
-        EventManager.removeEvent(EventType.FLUSH_USERINFO, this, this.flushUserInfo);
-        EventManager.removeEvent(EventType.FLUSH_HEADICON, this, this.flushHeadIcon);
         EventManager.removeAllEvents(this);
+        if (this.bitFont)
+            this.bitFont.destroy();
+        this.bitFont = null;
         if (this.goldAnim) {
             this.goldAnim.destroy();
             this.goldAnim = null;

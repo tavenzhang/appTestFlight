@@ -13,6 +13,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 /*
 * 位图字体
+*注意：素材要保持高度一致
+*要设置了text后才能正常获取宽和高
 */
 var BitmapFont = /** @class */ (function (_super) {
     __extends(BitmapFont, _super);

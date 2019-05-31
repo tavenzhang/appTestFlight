@@ -84,8 +84,8 @@ export default class Enter extends Component {
                   let now = new Date().getTime();
                   let dim = now - this.lastClickTime
                   TW_Log("lastClickTime----"+this.lastClickTime+"---dim",dim)
-                  if (dim >= 60000) { //从后台进入前台间隔大于1分钟 才进行大厅与app 更新检测
-                      this.cacheAttempt(true,true,"")
+                  if (dim >= 180000) { //从后台进入前台间隔大于1分钟 才进行大厅与app 更新检测
+                      this.hotFix(TW_Store.hotFixStore.currentDeployKey,true);
                       TW_Store.dataStore.loadHomeVerson();
                   }
               }
@@ -311,7 +311,7 @@ export default class Enter extends Component {
         }
     }
 
-    hotFix(hotfixDeploymentKey) {
+    hotFix(hotfixDeploymentKey,isActiveCheck=false) {
         this.setState({
             syncMessage: '检测更新中...',
             updateStatus: 0
@@ -335,12 +335,21 @@ export default class Enter extends Component {
                 }
                 if(versionData){
                     if(versionData.isWeakUpate){
-                        this.hotFixStore.isNextAffect = versionData.jsVersion==appInfoStore.versionHotFix;
                         if(!TW_Store.dataStore.isAppInited){
+                            //如果是第一次启动app  并且游戏资源拷贝到document 还未完成，5秒后进行重新热更新检测 直接退出函数
+                            setTimeout(()=>{
+                                this.hotFix(TW_Store.hotFixStore.currentDeployKey);
+                            },5000);
                             return ;
                         }
+                        this.hotFixStore.isNextAffect = versionData.jsVersion==appInfoStore.versionHotFix;
                     }else{
                         this.hotFixStore.isNextAffect =false;
+                    }
+                }
+                if(!isActiveCheck){ //如果是app启动进入热更新检测 并且游戏已经进入大厅，则不使用强制更新提示，下次启动生效
+                    if(TW_Store.gameUpateStore.isEnteredGame){
+                        this.hotFixStore.isNextAffect =true;
                     }
                 }
                 TW_Log('==checkingupdate====hotfixDeploymentKey= versionData='+(versionData==null), versionData);

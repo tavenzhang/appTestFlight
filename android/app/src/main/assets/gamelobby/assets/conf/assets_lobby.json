@@ -94,10 +94,6 @@
             "type": "JSON"
         },
         {
-            "url": "./assets/conf/datanum.json",
-            "type": "JSON"
-        },
-        {
             "url": "./assets/conf/uiobj/helppad.json",
             "type": "JSON"
         },
@@ -115,14 +111,6 @@
         },
         {
             "url": "./assets/conf/urls.json",
-            "type": "JSON"
-        },
-        {
-            "url": "./assets/conf/notice/luckydraw.json",
-            "type": "JSON"
-        },
-        {
-            "url": "./assets/conf/notice/spinner.json",
             "type": "JSON"
         },
         {
@@ -418,58 +406,6 @@
             "type": "IMAGE"
         },
         {
-            "url": "./assets/ui/avator/img_qian_zhusi_0.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_1.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_2.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_3.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_4.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_5.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_6.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_7.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_8.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_9.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_dian.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_douhao.png",
-            "type": "IMAGE"
-        },
-        {
-            "url": "./assets/ui/avator/img_qian_zhusi_wan.png",
-            "type": "IMAGE"
-        },
-        {
             "url": "./assets/ui/avatorpad/touxiang.atlas",
             "type": "ATLAS"
         },
@@ -594,15 +530,7 @@
             "type": "ATLAS"
         },
         {
-            "url": "res/atlas/ui/mycenter.atlas",
-            "type": "ATLAS"
-        },
-        {
             "url": "res/atlas/ui/lobby/bottombar.atlas",
-            "type": "ATLAS"
-        },
-        {
-            "url": "res/atlas/ui/setting.atlas",
             "type": "ATLAS"
         },
         {
@@ -659,6 +587,14 @@
         },
         {
             "url": "./res/atlas/ui/bindPhone.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "./res/atlas/ui/fullMyCenter.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "./res/atlas/ui/bitFont/goldFont.atlas",
             "type": "ATLAS"
         }
     ]

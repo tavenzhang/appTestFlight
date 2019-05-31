@@ -41,13 +41,17 @@ export default class GameMoneyOutView extends Component {
         let {pointerEvents}=this.props;
         let num = this.userWithdrawStore.withdrawModel.aggregateBetRequirements - this.userWithdrawStore.withdrawModel.aggregateBets
 
-        return (<View style={styles.container} pointerEvents={pointerEvents}>
+        return (<View style={styles.container}>
             <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W, height:SCREEN_H}} resizeMode={'stretch'}/>
+            <TCImage source={ASSET_Images.gameUI.payTopLeftBg} style={{position: "absolute",width:SCREEN_W*0.30,height:SCREEN_H*0.15, left:SCREEN_W*0.0,top:0.01}} resizeMode={'stretch'}/>
+            <TCImage source={ASSET_Images.gameUI.iconMoneyOut} style={{position: "absolute",width:SCREEN_W*0.08,height:SCREEN_H*0.11,left:SCREEN_W*0.03,top:5}} resizeMode={'stretch'}/>
             <TCImage source={ASSET_Images.gameUI.titleMoneyOut} style={{position: "absolute",width:SCREEN_W*0.1,height:SCREEN_H*0.06,left:SCREEN_W*0.11,top:SCREEN_H*0.05 - 5}} resizeMode={'contain'}/>
+            <TCImage source={ASSET_Images.gameUI.moneyBottomBg} style={{position: "absolute",right:0,bottom:0}} resizeMode={'contain'}/>
+            <TCImage source={ASSET_Images.gameUI.payBackBg} style={{position: "absolute",right: 0, top: 0,width:SCREEN_W*0.20,height:SCREEN_H*0.12}} resizeMode={'stretch'}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.payBack}
                          soundName={TW_Store.bblStore.SOUND_ENUM.returnLobbyClick}
                          onClick={() => TW_Store.gameUIStroe.isShowWithDraw = false}
-                         btnStyle={{position: "absolute", right: 16, top: 7,}} />
+                         btnStyle={{position: "absolute", right: -15, top: 7,width:SCREEN_W*0.20,height:SCREEN_H*0.12}} />
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnOut}
                          soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                          btnStyle={{position: "absolute", right: SCREEN_W*0.15, top: 10}}  onClick={()=>TW_Store.gameUIStroe.showTiXianDetail() }
@@ -94,7 +98,8 @@ export default class GameMoneyOutView extends Component {
                 (!this.userWithdrawStore.bank.bankCardNo||!this.userWithdrawStore.bank.bankCardNo.length) ?<TCButtonImg imgSource={ASSET_Images.gameUI.bankBtn}
                                                                                                                         soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                              btnStyle={{position: "absolute",top:SCREEN_H * 0.46+2,left: SCREEN_W*0.44}}  onClick={()=>{
-                    TW_Store.gameUIStroe.isShowUserInfo = true;
+                    TW_Store.gameUIStroe.isShowWithDraw = false
+                    TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.openBindCard));
                 }}
                 />:  <TCText borderRadius={5} backgroundStyle={{backgroundColor:"rgb(209,212,230)", paddingHorizontal: SCREEN_W*0.07,
                     paddingVertical:2,position: "absolute",  left: SCREEN_W*0.30+120, top: SCREEN_H*0.46+3}}

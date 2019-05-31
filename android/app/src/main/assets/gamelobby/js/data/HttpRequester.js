@@ -5,17 +5,7 @@ var HttpRequester = /** @class */ (function () {
     function HttpRequester() {
     }
     /**
-     * 包括轮播图在内的玩家信息
-     */
-    HttpRequester.getPlayerMaterialInfo = function (caller, callback) {
-        var url = ConfObjRead.getConfUrl().url.apihome;
-        var api = "/gamecenter/player/material/info" + "?access_token=" + Common.access_token;
-        url += api;
-        var header = ["Accept", "application/json"];
-        this.doRequest(url, header, null, caller, callback, "get");
-    };
-    /**
-     * 修改密码
+     * 修改密码-todo:待废弃xxx
      * @param pwd
      * @param newpwd
      * @param confirmpwd
@@ -34,20 +24,12 @@ var HttpRequester = /** @class */ (function () {
                 newPassword: eNpwd
             };
             var jd = JSON.stringify(data);
-            NetManager.getObj().HttpConnect(url, this, function (data, state, hr) {
-                var num = hr.http.status;
-                var suc; //标记是否修改成功
-                if (num == 204)
-                    suc = true;
-                if (caller && callback)
-                    callback.apply(caller, [suc, hr]);
-            }, header, jd, "POST", "JSON");
+            this.doRequest(url, header, jd, caller, callback);
         }
         catch (e) { }
     };
     /**
      * 网关初始化信息
-     * todo:后续相关接口收到428错误时需要重新请求这个接口
      * @param caller
      * @param callback
      */
@@ -206,27 +188,27 @@ var HttpRequester = /** @class */ (function () {
     };
     /**
      * 获取手机验证码
-     * @param num
+     * @param phone
+     * @param isAuthor 是否已授权(未登录前为false)
+     * @param type 验证码使用场景
      * @param caller
      * @param callback
      */
-    HttpRequester.getPhoneVercode = function (num, type, addToken, caller, callback) {
-        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd[type];
-        if (addToken)
+    HttpRequester.getPhoneVercode = function (phone, isAuthor, type, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        if (isAuthor) {
+            url += ConfObjRead.getConfUrl().cmd.getAuthorVerCode;
             url += "?access_token=" + Common.access_token;
+        }
+        else
+            url += ConfObjRead.getConfUrl().cmd.getunAuthorVerCode;
+        var data = {
+            phoneNumber: phone,
+            smsMsgType: VerCodeType[type]
+        };
+        var jd = JSON.stringify(data);
         var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
-        this.doRequest(url, header, num, caller, callback);
-    };
-    /**
-     * 获取绑定送金
-     * @param caller
-     * @param callback
-     */
-    HttpRequester.getBindAward = function (caller, callback) {
-        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.getBindAward;
-        url += "?access_token=" + Common.access_token;
-        var header = ["Accept", "application/json"];
-        this.doRequest(url, header, null, caller, callback, "get");
+        this.doRequest(url, header, jd, caller, callback);
     };
     /**
      * 手机登录
@@ -270,6 +252,93 @@ var HttpRequester = /** @class */ (function () {
         this.doRequest(url, header, jsonStr, caller, callback);
     };
     /**
+     * 添加银行卡
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.addBankCard = function (data, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        url += ConfObjRead.getConfUrl().cmd.addBankCard;
+        url += "?access_token=" + Common.access_token;
+        var jsonStr = JSON.stringify(data);
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        this.doRequest(url, header, jsonStr, caller, callback, "put");
+    };
+    /**
+     * 修改密码(包括登录密码和取款密码)
+     * @param pwd
+     * @param newpwd
+     * @param isSetLoginPwd 是否修改登录密码(否则修改取款密码)
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.changePassword = function (pwd, newpwd, isSetLoginPwd, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        url += ConfObjRead.getConfUrl().cmd.changePassword;
+        url += "?access_token=" + Common.access_token;
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        var ePwd = window['SecretUtils'].rsaEncodePWD(pwd);
+        var eNpwd = window['SecretUtils'].rsaEncodePWD(newpwd);
+        var data = {
+            isWep: !GameUtils.isNativeApp,
+            mode: isSetLoginPwd ? "PASSWORD" : "SECURITY_PASSWORD",
+            oldPassword: ePwd,
+            newPassword: eNpwd
+        };
+        var jd = JSON.stringify(data);
+        this.doRequest(url, header, jd, caller, callback);
+    };
+    /**
+     * 通过手机短信验证修改密码(包括登录密码和取款密码)
+     * @param newpwd
+     * @param phone
+     * @param code
+     * @param setLoginPwd
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.changePasswordWithPhone = function (newpwd, phone, code, setLoginPwd, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        url += ConfObjRead.getConfUrl().cmd.changePwdWithPhone;
+        url += "?access_token=" + Common.access_token;
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        var eNpwd = window['SecretUtils'].rsaEncodePWD(newpwd);
+        var data = {
+            isWep: !GameUtils.isNativeApp,
+            mode: setLoginPwd ? "PASSWORD" : "SECURITY_PASSWORD",
+            newPassword: eNpwd,
+            phoneNumber: phone,
+            verificationCode: code
+        };
+        var jd = JSON.stringify(data);
+        this.doRequest(url, header, jd, caller, callback);
+    };
+    /**
+     * 修改持卡人真实姓名
+     * @param name
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.setRealName = function (name, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        url += ConfObjRead.getConfUrl().cmd.setCardRealName;
+        url += "?realName=" + name;
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*", "Authorization", "bearer " + Common.access_token];
+        this.doRequest(url, header, null, caller, callback, "put");
+    };
+    /**
+     * 通用get类方法
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.getHttpData = function (cmd, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        url += cmd;
+        url += "?access_token=" + Common.access_token;
+        var header = ["Accept", "application/json"];
+        this.doRequest(url, header, null, caller, callback, "get");
+    };
+    /**
      * 开始请求-后续统一走这里方面定位问题
      * @param url
      * @param header
@@ -295,12 +364,16 @@ var HttpRequester = /** @class */ (function () {
             else {
                 var status_1 = hr.http.status;
                 jobj = hr;
-                if (status_1 >= 200 && status_1 < 300) { //后端定义204为成功
+                if (status_1 >= 200 && status_1 < 300) { //后端认为此范围为成功
                     suc = true;
-                    Debug.output("request-ok:", url, status_1, hr, s);
                 }
                 else {
                     Debug.output("request-err:", url, header, jsonStr, hr.http);
+                    if (!GameUtils.isNativeApp && status_1 == 401) {
+                        LayaMain.onQuit();
+                        Toast.showToast("账号被占用,请从新登录");
+                        return;
+                    }
                     var err = hr.http.response;
                     if (err) {
                         var obj = JSON.parse(err);
