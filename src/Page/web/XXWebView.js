@@ -350,7 +350,7 @@ export default class XXWebView extends Component {
         if (message && message.action) {
             switch (message.action) {
                 case "Log":
-                     TW_Log("game---ct=="+message.ct,message.data);
+                    // TW_Log("game---ct=="+message.ct,message.data);
                     break;
                 case "game_common":
                     switch (message.name) {
@@ -526,7 +526,6 @@ export default class XXWebView extends Component {
                             },10,false,false,true,this.onParamHead(message.header));
                             break;
                         case "put":
-
                             NetUitls.putUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
                                 this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
                             },10,false,true,this.onParamHead(message.header));

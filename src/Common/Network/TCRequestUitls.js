@@ -38,7 +38,7 @@ export default class NetUitls extends Component {
         } else if (params) {
             url += '?' + queryString.stringify(params)
         }
-        let map = {...config.mapGet}
+        let map = {...config.mapGet,headers:{...config.mapGet.headers}}; //必须把header 覆写了 否则会重复修改一个header
         if (timeout > 0) {
             map.timeout = timeout
         } else {
@@ -48,26 +48,28 @@ export default class NetUitls extends Component {
         if(header){
             map.headers={...map.headers,...header}
         }
+
         this.fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState,isWebHttp)
     }
 
-    static PostUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState,isWebHttp=false,header=null) {
-        url = this.getServerUrl(url)
-
-        TW_Log(JSON.stringify(config.map))
-        let map = _.assignIn(config.map, {
-            body: dontStringfyBody ? params : JSON.stringify(params),
-        });
-        if (timeout > 0) {
-            map.timeout = timeout
-        } else {
-            map.timeout = defaultTimeout
-        }
-        if(header){
-            map.headers={...map.headers,...header}
-        }
-        this.fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState,isWebHttp)
-    }
+    // static PostUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState,isWebHttp=false,header=null) {
+    //     url = this.getServerUrl(url)
+    //
+    //     TW_Log(JSON.stringify(config.map))
+    //     let map = _.assignIn(config.map, {
+    //         body: dontStringfyBody ? params : JSON.stringify(params),
+    //     });
+    //     let myMap = {...map,headers:map.headers}
+    //     if (timeout > 0) {
+    //         myMap.timeout = timeout
+    //     } else {
+    //         myMap.timeout = defaultTimeout
+    //     }
+    //     if(header){
+    //         myMap.headers={...myMap.headers,...header}
+    //     }
+    //     this.fetchAsync(url, myMap, callback, dontAddHeadersAuthorization,loadingState,isWebHttp)
+    // }
 
     static postUrlAndParamsAndCallback(url, params, callback, timeout, dontAddHeadersAuthorization, dontStringfyBody,loadingState,isWebHttp=false,header=null) {
         url = this.getServerUrl(url)
@@ -76,16 +78,18 @@ export default class NetUitls extends Component {
         let map = _.assignIn(config.map, {
             body: dontStringfyBody ? params : JSON.stringify(params),
         });
+        let myMap = {...map,headers:{...map.headers}}
         if (timeout > 0) {
-            map.timeout = timeout
+            myMap.timeout = timeout
         } else {
-            map.timeout = defaultTimeout
+            myMap.timeout = defaultTimeout
         }
         if(header){
-            map.headers={...map.headers,...header}
+            myMap.headers={...myMap.headers,...header}
         }
-
-        this.fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState,isWebHttp)
+        //TW_Log("---home--http-message-postUrlAndParamsAnd--postUrlAndParamsAndCallback", myMap.headers);
+       // TW_Log("---home--postUrlAndParamsAndCallbackmapPost==",config.map);
+        this.fetchAsync(url, myMap, callback, dontAddHeadersAuthorization,loadingState,isWebHttp)
     }
 
     static putUrlAndParamsAndCallback(url, params, callback, timeout, loadingState, isWebHttp=false,header=null) {
@@ -93,44 +97,20 @@ export default class NetUitls extends Component {
         let map = _.assignIn(config.mapPut, {
             body: JSON.stringify(params)
         })
-
+        let myMap = {...map,headers:{...map.headers}}
         if (timeout > 0) {
-            map.timeout = timeout
+            myMap.timeout = timeout
         } else {
-            map.timeout = defaultTimeout
+            myMap.timeout = defaultTimeout
         }
         if(header){
-            map.headers={...map.headers,...header}
+            myMap.headers={...myMap.headers,...header}
         }
-       // TW_Log("---home--http-message-put--putUrlAndParamsAndCallback", map.headers);
-        this.fetchAsync(url, map, callback,false,loadingState,isWebHttp)
+        TW_Log("---home--http-message-put--putUrlAndParamsAndCallback", myMap.headers);
+        TW_Log("---home--http-message-put--mapPut",config.mapPut);
+        this.fetchAsync(url, myMap, callback,false,loadingState,isWebHttp)
     }
 
-
-    /**
-     * put请求
-     * @param url 请求地址
-     * @param platform 平台
-     * @param params 请求参数
-     * @param callback 请求回调
-     * @param timeout 超时设置
-     */
-    static putUrlAndParamsAndAndPlatformAndCallback(url, platform, params, callback, timeout,loadingState,isWebHttp=false,header=null) {
-        url = this.getServerUrl(url)
-        let map = _.assignIn(config.mapPut, {
-            body: JSON.stringify(params)
-        })
-        if (timeout > 0) {
-            map.timeout = timeout
-        } else {
-            map.timeout = defaultTimeout
-        }
-        map.headers.gamePlatform = platform ? platform : '';
-        if(header){
-            map.headers={...map.headers,...header}
-        }
-        this.fetchAsync(url, map, callback,loadingState,isWebHttp)
-    }
 
 
 
@@ -139,35 +119,18 @@ export default class NetUitls extends Component {
         let map = _.assignIn(config.mapDelete, {
             body: JSON.stringify(params)
         })
+        let myMap = {...map,headers:{...map.headers}}
         if (timeout > 0) {
-            map.timeout = timeout
+            myMap.timeout = timeout
         } else {
-            map.timeout = defaultTimeout
+            myMap.timeout = defaultTimeout
         }
         if(header){
-            map.headers={...map.headers,...header}
+            myMap.headers={...myMap.headers,...header}
         }
-        this.fetchAsync(url, map, callback,loadingState,isWebHttp)
+        this.fetchAsync(url, myMap, callback,loadingState,isWebHttp)
     }
 
-
-    static deleteHttpUrlAndParamsAndCallback(url, params, callback, timeout,loadingState,isWebHttp=false,header=null) {
-        url = this.getServerUrl(url)
-        if (typeof params === 'string') {
-            url += '/' + params
-        } else if (params) {
-            url += '?' + queryString.stringify(params)
-        }
-        if (timeout > 0) {
-            config.mapDelete.timeout = timeout
-        } else {
-            config.mapDelete.timeout = defaultTimeout
-        }
-        if(header){
-            map.headers={...map.headers,...header}
-        }
-        this.fetchAsync(url, map, callback,loadingState,isWebHttp)
-    }
 
     //loadingState = {isModal: false, overStyle: {}, style: {}, margeTop: 0}
     static async fetchAsync(url, map, callback, dontAddHeadersAuthorization,loadingState,isWebHttp=false) {
@@ -262,12 +225,12 @@ export default class NetUitls extends Component {
             let access_token =TW_GetQueryString("access_token",url);
             TW_Log("无效token====TW_Store.userStore.access_token=="+TW_Store.userStore.access_token,access_token);
             if(result.error&&result.error=="无效token"&&TW_Store.userStore.access_token!=""&&access_token==TW_Store.userStore.access_token){
-                if(TW_OnValueJSHome){
-                    Toast.showShortCenter('登录状态过期，请重新登录！');
-                    TW_Store.userStore.exitAppToLoginPage();
-                    TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.logout));
-                    TW_Log("无效token====TW_Store.userStore.access_token==after"+TW_Store.userStore.access_token,result)
-                }
+                // if(TW_OnValueJSHome){
+                //     Toast.showShortCenter('登录状态过期，请重新登录！');
+                //     TW_Store.userStore.exitAppToLoginPage();
+                //     TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.logout));
+                //     TW_Log("无效token====TW_Store.userStore.access_token==after"+TW_Store.userStore.access_token,result)
+                // }
             }
         }
     }

@@ -259,14 +259,13 @@ export default class UserStore {
      */
     @action
     exitAppToLoginPage(callback) {
-       this.access_token="";
-        // userLogOut((res) => {
-        //     if (res.rs) {
-        //         this.clearLoginData();
-        //     }
-        //     callback&&callback(res);
-        // });
-
+        userLogOut((res) => {
+            if (res.rs) {
+                this.clearLoginData();
+            }
+            callback&&callback(res);
+        });
+        this.access_token="";
     }
 
     //清楚登录数据
