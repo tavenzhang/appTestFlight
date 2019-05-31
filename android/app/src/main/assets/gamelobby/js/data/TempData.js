@@ -82,7 +82,8 @@ var ResConfig = /** @class */ (function () {
         "6": "ui/bindPhone/bit_font06.png",
         "7": "ui/bindPhone/bit_font07.png",
         "8": "ui/bindPhone/bit_font08.png",
-        "9": "ui/bindPhone/bit_font09.png"
+        "9": "ui/bindPhone/bit_font09.png",
+        ".": "ui/bindPhone/bit_font10.png"
     };
     /**
      * 通用金币位图字体

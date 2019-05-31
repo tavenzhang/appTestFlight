@@ -526,6 +526,7 @@ export default class XXWebView extends Component {
                             },10,false,false,true,this.onParamHead(message.header));
                             break;
                         case "put":
+
                             NetUitls.putUrlAndParamsAndCallback(message.url, JSON.parse(message.data), (ret) => {
                                 this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.http,{hashUrl:message.hashUrl,...ret}));
                             },10,false,true,this.onParamHead(message.header));

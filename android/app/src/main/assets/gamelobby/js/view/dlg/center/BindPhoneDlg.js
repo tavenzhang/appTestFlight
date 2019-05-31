@@ -75,9 +75,10 @@ var view;
                     HttpRequester.bindPhone(this.numTxt.text, this.codeTxt.text, this, function (suc, jobj) {
                         LayaMain.getInstance().showCircleLoading(false);
                         if (suc) {
-                            EventManager.dispath(EventType.BINDPHONE_SUCC);
+                            TempData.isGetBindAward = true;
                             Toast.showToast("手机绑定成功");
                             _this.close(null, true);
+                            EventManager.dispath(EventType.GETBINDAWARD_SUCC);
                         }
                         else {
                             _this.getCodeBtn.visible = true;

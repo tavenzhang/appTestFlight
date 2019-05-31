@@ -102,6 +102,7 @@ export default class NetUitls extends Component {
         if(header){
             map.headers={...map.headers,...header}
         }
+       // TW_Log("---home--http-message-put--putUrlAndParamsAndCallback", map.headers);
         this.fetchAsync(url, map, callback,false,loadingState,isWebHttp)
     }
 
@@ -312,7 +313,9 @@ function addHeadersAuthorization(map,isWebHttp=false) {
             map.headers.Authorization = '';
         }
     }else{
-        map.headers.Authorization = '';
+        if(!map.headers.Authorization){
+            map.headers.Authorization = '';
+        }
     }
     return map
 }
