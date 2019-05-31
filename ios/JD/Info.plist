@@ -2,31 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
- <key>com.openinstall.APP_KEY</key>
-	<string>k9e92p</string>
+	<key>com.openinstall.APP_KEY</key>
+          <string>vcrgm3</string>
 	<key>APP_DOWNLOAD_VERSION</key>
 	<string>2.0</string>
-	<key>PLAT_CH</key>
-	<string>1</string>
-	<key>PLAT_ID</key>
-	<string>5</string>
 	<key>Affcode</key>
 	<string></string>
-	<key>UmengKey</key>
-	<string></string>
 	<key>AppSecret</key>
-    	<dict>
-    		<key>weixin</key>
-    		<string>67de54808bba55e934e3126f3e607a42</string>
-    	</dict>
+	<dict>
+		<key>weixin</key>
+		<string>7b3751bd90925a6246f38d595a23d792</string>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>QP-UAT</string>
+	<string>博必胜</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.bbl.gmuat</string>
+	<string>com.bbl.cgbbsqp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -46,19 +40,19 @@
 			<string>openinstall</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>k9e92p</string>
+				<string>vcrgm3</string>
 			</array>
 		</dict>
 		<dict>
-        			<key>CFBundleTypeRole</key>
-        			<string>Editor</string>
-        			<key>CFBundleURLName</key>
-        			<string>weixin</string>
-        			<key>CFBundleURLSchemes</key>
-        			<array>
-        				<string>wx4705de7e82fa978f</string>
-        			</array>
-        		</dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx22123f736864abb8</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>6</string>
@@ -160,13 +154,12 @@
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-        	<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UTImportedTypeDeclarations</key>
-	<array>
-		<dict/>
-	</array>
+	<key>UmengKey</key>
+	<string>5ca324bd3fc1957e620006af</string>
+
 </dict>
 </plist>
