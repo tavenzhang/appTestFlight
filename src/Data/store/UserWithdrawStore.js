@@ -42,8 +42,8 @@ export default class UserWithdrawStore {
         maxWithdrawMoney: 0, //最多可提现金额
         newratioOfChargeExempt: 0,//新的手续费计算
         integerWithdrawalAmount: false,//取款是否规定取整数
-        numOfChargeExempt:0 //设置的免费次数
-
+        numOfChargeExempt:0, //设置的免费次数
+        enabledAlipayWithdraw:false //是否允许支付宝出款
     }
 
     @observable
@@ -140,6 +140,7 @@ export default class UserWithdrawStore {
         this.withdrawModel.withdrawSwitch = withdrawSetting.withdrawalSettings.withdrawSwitch
         this.withdrawModel.minimumWithdrawAmount = setting.minimumWithdrawAmount
         this.withdrawModel.integerWithdrawalAmount = withdrawSetting.withdrawalSettings.integerWithdrawalAmount ? withdrawSetting.withdrawalSettings.integerWithdrawalAmount : false;
+        this.withdrawModel.enabledAlipayWithdraw = withdrawSetting.withdrawalSettings.enabledAlipayWithdraw
         this.ratioOfChargeExempt();
         this.getMaxWithdrawMoney(withdrawSetting, setting)
     }
@@ -157,7 +158,7 @@ export default class UserWithdrawStore {
     @computed
     get canWithdraw() {
         if (this.withdrawModel.totalMoney <= 0 || this.withdrawModel.surplusMaxWithdraw <= 0 || this.withdrawModel.surplusSeconds < 0 || this.withdrawModel.surplusWithdrawCount <= 0 || (this.withdrawModel.withdrawSwitch && !this.withdrawModel.sufficeAggregateBetRequirements)) {
-            return false
+            return true
         }
         return true
     }
