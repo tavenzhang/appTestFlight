@@ -119,6 +119,8 @@ var view;
                     else {
                         this.serviceInfo.visible = false;
                         this.openCardBtn.visible = true;
+                        this.setNameBtn.gray = true;
+                        this.setNameBtn.mouseEnabled = false;
                         if (!this.initBankView) {
                             //设置银行卡
                             EventManager.addTouchScaleListener(this.openCardBtn, this, function () {
@@ -187,6 +189,8 @@ var view;
                         this.setCardInfoEditable();
                         this.openCardBtn.visible = false;
                         this.serviceInfo.visible = true;
+                        this.setNameBtn.gray = false;
+                        this.setNameBtn.mouseEnabled = true;
                     }
                 };
                 //提现--------------------------------------------------------
