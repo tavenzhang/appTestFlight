@@ -112,6 +112,7 @@ var view;
                         this.cardNum.text = this.bankCardInfo.bankCardNo;
                         this.subBank.text = this.bankCardInfo.bankAddress;
                         this.bankComb.labelTxt.text = this.bankCardInfo.bankName;
+                        this.setCardInfoEditable();
                         this.serviceInfo.visible = true;
                         this.openCardBtn.visible = false;
                     }
@@ -136,9 +137,23 @@ var view;
                             item_1.labelTxt.text = value.bankName;
                             _this.bankComb.addItem(item_1);
                         });
+                        //修改姓名
+                        EventManager.addTouchScaleListener(this.setNameBtn, this, function () {
+                            SoundPlayer.clickSound();
+                            center.SetRealNameDlg.show();
+                        });
                     }
                     this.yhkView.visible = true;
                     this.initBankView = true;
+                };
+                AccountInfoDlg.prototype.setCardInfoEditable = function () {
+                    this.cardName.mouseEnabled = false;
+                    this.cardNum.mouseEnabled = false;
+                    this.bankComb.mouseEnabled = false;
+                    this.subBank.mouseEnabled = false;
+                    this.cardPwd.mouseEnabled = false;
+                    this.cardPwdLook.visible = false;
+                    this.cardPwd.text = "****";
                 };
                 AccountInfoDlg.prototype.requestAddBankCard = function () {
                     if (!this.checkCardInfos())
@@ -162,14 +177,14 @@ var view;
                 AccountInfoDlg.prototype.responseAddBankCard = function (suc, jobj) {
                     LayaMain.getInstance().showCircleLoading(false);
                     if (suc) {
-                        var str = this.bankCardInfo ? "银行卡修改成功" : "银行卡绑定成功";
-                        Toast.showToast(str);
+                        Toast.showToast("银行卡绑定成功");
                         this.bankCardInfo = {
                             bankAccountName: this.cardName.text,
                             bankCardNo: this.cardNum.text,
                             bankName: this.bankComb.selectLabel,
                             bankAddress: this.subBank.text
                         };
+                        this.setCardInfoEditable();
                         this.openCardBtn.visible = false;
                         this.serviceInfo.visible = true;
                     }
@@ -186,15 +201,19 @@ var view;
                     if (!this.moneyPwdView) {
                         this.moneyPwdView = new view.UI.SetPwdPanel();
                         this.moneyPwdView.pos(this.yhkView.x, this.yhkView.y);
+                        this.moneyPwdView.pwdTxt2.prompt = "请输入提现密码(4位)";
+                        this.moneyPwdView.pwdTxt2.maxChars = 4;
+                        this.moneyPwdView.pwdTxt3.maxChars = 4;
                         this.addChild(this.moneyPwdView);
                     }
                     if (!bindPhone) {
                         this.moneyPwdView.setGrayIndex(1, true);
+                        this.moneyPwdView.checkGroup2.alpha = 0.5;
                     }
                     this.moneyPwdView.selectIndex = 0;
                     if (!this.initDepositPwdView) {
                         //确定修改
-                        EventManager.addTouchScaleListener(this.moneyPwdView.cancelBtn, this, function () {
+                        EventManager.addTouchScaleListener(this.moneyPwdView.okBtn, this, function () {
                             SoundPlayer.clickSound();
                             if (_this.moneyPwdView.isOldPwd) { //旧密码修改
                                 if (!_this.moneyPwdView.checkOldPwdInfos())
@@ -242,6 +261,7 @@ var view;
                             // 快捷账号修改过密码、绑定了手机号：旧密码修改、短息验证修改
                             if (!bindPhone) {
                                 this.loginPwdView.setGrayIndex(1, true);
+                                this.loginPwdView.checkGroup2.alpha = 0.5;
                             }
                             if (!isReset) {
                                 var pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
@@ -257,6 +277,7 @@ var view;
                             // 账号注册登录用户且绑定过手机号：旧密码修改、短信验证修改
                             if (!bindPhone) {
                                 this.loginPwdView.setGrayIndex(1, true);
+                                this.loginPwdView.checkGroup2.alpha = 0.5;
                             }
                             this.loginPwdView.selectIndex = 0;
                             break;
@@ -278,7 +299,7 @@ var view;
                     }
                     if (!this.initLoginPwdView) {
                         //确定修改
-                        EventManager.addTouchScaleListener(this.loginPwdView.cancelBtn, this, function () {
+                        EventManager.addTouchScaleListener(this.loginPwdView.okBtn, this, function () {
                             SoundPlayer.clickSound();
                             if (_this.loginPwdView.isOldPwd) { //旧密码修改
                                 if (!_this.loginPwdView.checkOldPwdInfos())

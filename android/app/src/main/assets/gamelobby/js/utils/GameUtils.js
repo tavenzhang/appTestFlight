@@ -85,7 +85,7 @@ var GameUtils = /** @class */ (function () {
          * 获取app版本号
          */
         get: function () {
-            return "App v " + AppData.NATIVE_DATA.appVersion;
+            return "App " + AppData.NATIVE_DATA.appVersion;
         },
         enumerable: true,
         configurable: true
