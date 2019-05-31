@@ -4,13 +4,13 @@ import React, {
 
 
 export const appDomainBase = {
-    base1: 'https://webplatform.psxiaohe.com',
-    base2: 'https://webplatform.psxiaohe.com',
-    base3: 'https://webplatform.psxiaohe.com',
-    base4: 'https://webplatform.psxiaohe.com',
-    base5: 'https://webplatform.psxiaohe.com',
-    base6: 'https://webplatform.psxiaohe.com',
-    base7: 'https://webplatform.psxiaohe.com',
+    base1: 'https://38fo28gk.ewxsg.cn',
+    base2: "https://38fo28gk.jjxzt.cn",
+    base3: "https://38fo28gk.gybye.cn",
+    base4: "https://hosobw29.ewxsg.cn",
+    base5: "https://hosobw29.jjxzt.cn",
+    base6: "https://hosobw29.gybye.cn",
+    base7: "https://hosobw29.gybye.cn",
 }
 
 
@@ -43,16 +43,9 @@ export const MyOwnerPlatName= '超会赢棋牌';
 export const versionHotFix = 'v6.1';
 
 
-// export const safeguardDomain = [
-//     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
-//     'https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com']
-
-
-//base64key 格式示例
-// {"d":["https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com","https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com"]}
-
 //第三方安全域名base64 key
-export const safeguardKey = 'eyJkIjogWyJodHRwczovLzk4NzY0NWJhMDBhOWIwNDE2YjI1NGYzM2Q5MThlZDY0Lm9zcy1jbi1zaGVuemhlbi5hbGl5dW5jcy5jb20iLCAiaHR0cHM6Ly9jNDBiNmUzZDY2NDU1NmFiNDIzZDNlZWJjMDFhYjJmZC5vc3MtY24tc2hlbnpoZW4uYWxpeXVuY3MuY29tIl19'
+export const safeguardKey = 'eyJkIjogWydodHRwczovL2NlYTRlY2E2NTBkNzFiZDlkNTUyYjRjZjM4ZTA1NzAyLm9zcy1jbi1zaGVuemhlbi5hbGl5dW5jcy5jb20nLAogICAgJ2h0dHBzOi8vY2VhNGVjYTY1MGQ3MWJkOWQ1NTJiNGNmMzhlMDU3MDIuczMtYWNjZWxlcmF0ZS5hbWF6b25hd3MuY29tJywKICAgICdodHRwczovL2NlYTRlY2E2NTBkNzFiZDlkNTUyYjRjZjM4ZTA1NzAyLmF6dXJlZWRnZS5uZXQnXX0='
+
 
 export const platInfo = {
 
@@ -67,5 +60,10 @@ export const platInfo = {
     brand: "chyqp",
 }
 
-
+export const affCodeList = {
+    ios: {
+    },
+    android: {
+    }
+};
 
