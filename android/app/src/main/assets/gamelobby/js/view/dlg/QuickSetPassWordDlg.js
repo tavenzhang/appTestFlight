@@ -37,14 +37,7 @@ var view;
             QuickSetPassWordDlg.prototype.initView = function () {
                 this.newTxt1.type = "password";
                 this.newTxt2.type = "password";
-                this.initSwitchBtn();
                 this.initEvents();
-            };
-            QuickSetPassWordDlg.prototype.initSwitchBtn = function () {
-                this.txtSwitch1 = new dlg_1.SwitchButton(this.lookBtn1, "ui/setPassword/eye_01.png", "ui/setPassword/eye_00.png");
-                this.txtSwitch1.switch = false;
-                this.txtSwitch2 = new dlg_1.SwitchButton(this.lookBtn2, "ui/setPassword/eye_01.png", "ui/setPassword/eye_00.png");
-                this.txtSwitch2.switch = false;
             };
             QuickSetPassWordDlg.prototype.initEvents = function () {
                 var _this = this;
@@ -54,19 +47,6 @@ var view;
                     _this.close(null, true);
                     //关闭时打开提现界面
                     Tools.jump2module(ConfObjRead.getConfUrl().url.g_redraw, "redraw");
-                });
-                //输入框密码可见开关
-                EventManager.addTouchScaleListener(this.lookBtn1, this, function () {
-                    SoundPlayer.clickSound();
-                    _this.txtSwitch1.switch = !_this.txtSwitch1.switch;
-                    _this.newTxt1.type = _this.txtSwitch1.switch ? "input" : "password";
-                    _this.newTxt1.focus = true;
-                });
-                EventManager.addTouchScaleListener(this.lookBtn2, this, function () {
-                    SoundPlayer.clickSound();
-                    _this.txtSwitch2.switch = !_this.txtSwitch2.switch;
-                    _this.newTxt2.type = _this.txtSwitch2.switch ? "input" : "password";
-                    _this.newTxt2.focus = true;
                 });
                 //确定修改按钮
                 EventManager.addTouchScaleListener(this.amendBtn, this, function () {
@@ -79,32 +59,28 @@ var view;
                         Toast.showToast(Tools.getStringByKey(verify.msg));
                         return;
                     }
-                    HttpRequester.setPassWord(pwd, newpwd, confirmpwd, _this, _this.requestResult);
+                    HttpRequester.changePassword(pwd, newpwd, true, _this, _this.requestResult);
                 });
                 EventManager.register(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
+                EventManager.pushEvent(this.lookBtn1, Laya.Event.CHANGE, this, this.togglePwdInput, [this.newTxt1]);
+                EventManager.pushEvent(this.lookBtn2, Laya.Event.CHANGE, this, this.togglePwdInput, [this.newTxt2]);
+            };
+            QuickSetPassWordDlg.prototype.togglePwdInput = function (txt) {
+                GameUtils.onShowPwd(txt);
             };
             QuickSetPassWordDlg.prototype.requestResult = function (suc, hr) {
                 if (suc) { //修改成功
                     var npwd = this.newTxt1.text;
-                    Common.loginInfo.strongPwd = true;
-                    SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
-                    SaveManager.getObj().save(SaveManager.KEY_QK_PWD_CHANGED, true);
-                    SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+                    if (Common.loginType == LoginType.Fast) {
+                        Common.loginInfo.strongPwd = true;
+                        SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
+                        SaveManager.getObj().save(SaveManager.KEY_QK_PWD_CHANGED, true);
+                        SaveManager.getObj().save(SaveManager.KEY_LOGIN_INFO, Common.loginInfo);
+                    }
                     LayaMain.getInstance().loginOut();
                     Toast.showToast("密码修改成功,请重新登录");
                 }
                 else { //失败
-                    var response = hr.http.response;
-                    var jobj;
-                    try {
-                        jobj = JSON.parse(response);
-                    }
-                    catch (e) {
-                        Debug.trace(e);
-                        jobj = response;
-                    }
-                    var msg = jobj.message;
-                    Toast.showToast(msg);
                     this.newTxt1.text = "";
                     this.newTxt2.text = "";
                 }
@@ -114,7 +90,6 @@ var view;
                 this.newTxt2.focus = false;
             };
             QuickSetPassWordDlg.prototype.onClosed = function (type) {
-                EventManager.removeEvent(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
                 EventManager.removeAllEvents(this);
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);

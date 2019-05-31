@@ -137,7 +137,6 @@ var view;
                 Toast.showToast("密码修改成功,请重新登录");
             };
             PasswordSettingDlg.prototype.onClosed = function (type) {
-                EventManager.removeEvent(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
                 EventManager.removeAllEvents(this);
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);

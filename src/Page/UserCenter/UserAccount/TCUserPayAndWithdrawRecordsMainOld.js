@@ -12,7 +12,7 @@ import {
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import ScrollableTabView from '../../../Common/View/ScrollableTab'
 import DefaultTabBar from '../../../Common/View/ScrollableTab/DefaultTabBar'
-import UserAccount from './TCUserPayAndWithdrawRecords'
+import UserAccount from './TCUserPayAndWithdrawRecordsOld'
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import {Size, shoppingTxtColor, indexBgColor, listViewTxtColor} from '../../asset/game/themeComponet'

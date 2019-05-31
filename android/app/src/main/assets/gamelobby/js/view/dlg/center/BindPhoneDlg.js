@@ -38,6 +38,7 @@ var view;
                 BindPhoneDlg.prototype.initView = function () {
                     var _this = this;
                     this.awardTxt.text = this.awardTxt.text.replace("x", TempData.bindAward.toString());
+                    this.awardTxt.visible = TempData.bindOpen;
                     //
                     EventManager.addTouchScaleListener(this.closeBtn, this, function () {
                         SoundPlayer.closeSound();
@@ -53,6 +54,11 @@ var view;
                         SoundPlayer.clickSound();
                         _this.getPhoneVerCode();
                     });
+                    EventManager.register(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
+                };
+                BindPhoneDlg.prototype.lostFocusInputText = function () {
+                    this.numTxt.focus = false;
+                    this.codeTxt.focus = false;
                 };
                 BindPhoneDlg.prototype.doBindPhone = function () {
                     var _this = this;
@@ -69,9 +75,10 @@ var view;
                     HttpRequester.bindPhone(this.numTxt.text, this.codeTxt.text, this, function (suc, jobj) {
                         LayaMain.getInstance().showCircleLoading(false);
                         if (suc) {
-                            EventManager.dispath(EventType.BINDPHONE_SUCC);
+                            TempData.isGetBindAward = true;
                             Toast.showToast("手机绑定成功");
                             _this.close(null, true);
+                            EventManager.dispath(EventType.GETBINDAWARD_SUCC);
                         }
                         else {
                             _this.getCodeBtn.visible = true;
@@ -88,9 +95,7 @@ var view;
                     this.codeTime = 60;
                     this.timeTxt.text = this.codeTime.toString();
                     Laya.timer.loop(1000, this, this.updateCodeTime);
-                    HttpRequester.getPhoneVercode(this.numTxt.text, "bindPhoneVercode", true, this, function (suc, jobj) {
-                        //...
-                    });
+                    HttpRequester.getPhoneVercode(this.numTxt.text, true, VerCodeType.MSG_BIND_MOBILE, null, null);
                 };
                 BindPhoneDlg.prototype.updateCodeTime = function () {
                     this.codeTime--;

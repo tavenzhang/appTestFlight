@@ -57,16 +57,18 @@ var Notice_Share = /** @class */ (function (_super) {
                     this.friend_down.visible = false;
                     this.circle_up.visible = true;
                     this.circle_down.visible = false;
-                    PostMHelp.game_common({ "do": "share", "type": "friend", "param": this.noticeid });
-                    var message = void 0;
-                    if (this.limit > 0) {
-                        this.limit--;
-                        message = "分享成功，请前往邮件领取奖励";
-                    }
-                    else {
-                        message = "分享成功，请多点和朋友分享乐趣吧";
-                    }
-                    Laya.timer.once(1000, this, AgentDialogSucess.showDialog, [this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), message]);
+                    PostMHelp.game_common({ "do": "share", "type": "friend", "param": this.image.skin });
+                    // let message: string;
+                    // if (this.limit > 0) {
+                    //     this.limit--;
+                    //     message = "分享成功，请前往邮件领取奖励";
+                    // }
+                    // else {
+                    //     message = "分享成功，请多点和朋友分享乐趣吧";
+                    // }
+                    // Laya.timer.once(1000, this,
+                    //     AgentDialogSucess.showDialog, [this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), message]
+                    // );
                     break;
                 case this.circle_up:
                 case this.circle_down:
@@ -74,16 +76,18 @@ var Notice_Share = /** @class */ (function (_super) {
                     this.friend_down.visible = false;
                     this.circle_up.visible = true;
                     this.circle_down.visible = false;
-                    PostMHelp.game_common({ "do": "share", "type": "circle", "param": this.noticeid });
-                    var message2 = void 0;
-                    if (this.limit > 0) {
-                        this.limit--;
-                        message2 = "分享成功，请前往邮件领取奖励";
-                    }
-                    else {
-                        message2 = "分享成功，请多点和朋友分享乐趣吧";
-                    }
-                    Laya.timer.once(1000, this, AgentDialogSucess.showDialog, [this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), message2]);
+                    PostMHelp.game_common({ "do": "share", "type": "circle", "param": this.image.skin });
+                    // let message2: string;
+                    // if (this.limit > 0) {
+                    //     this.limit--;
+                    //     message2 = "分享成功，请前往邮件领取奖励";
+                    // }
+                    // else {
+                    //     message2 = "分享成功，请多点和朋友分享乐趣吧";
+                    // }
+                    // Laya.timer.once(1000, this,
+                    //     AgentDialogSucess.showDialog, [this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), message2]
+                    // );
                     break;
                 default:
                     {

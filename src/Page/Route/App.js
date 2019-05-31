@@ -40,7 +40,6 @@ const Components = {
     TCUserMessage: viewRoutHelp(TCUserMessage),
     TCAddUserInfo: viewRoutHelp(TCAddUserInfo),
     TCAddPhoneNumberInfo: viewRoutHelp(TCAddPhoneNumberInfo),
-    TCUserPayType: viewRoutHelp(TCUserPayType),
     UserAcountPay: viewRoutHelp(TCUserPayAndWithdrawRecordsMain),
     UserPayment: viewRoutHelp(UserPayment),
     WxPublicPage: viewRoutHelp(WechatPublicPage),
@@ -71,7 +70,7 @@ import TCUserDetailMsg from "../UserCenter/user/TCUserDetailMsg";
 import TCUserMessage from "../UserCenter/user/TCUserMessage";
 import TCAddUserInfo from "../UserCenter/user/TCAddUserInfo";
 import TCAddPhoneNumberInfo from "../UserCenter/user/TCAddPhoneNumberInfo";
-import TCUserPayType from "../UserCenter/UserPay/TCUserPayType";
+
 import TCUserPayAndWithdrawRecordsMain from "../UserCenter/UserAccount/TCUserPayAndWithdrawRecordsMain";
 import UserPayment from '../../Page/UserCenter/UserPay/TCUserPayNew'
 import WechatPublicPage from '../../Page/UserCenter/UserPay/WxPublic/TCUserPayWxPublic'
@@ -140,7 +139,7 @@ export default class App extends Component {
     }
 
     onBackAndroid = () => {
-        TW_Log("onBackAndroid----", this.navigator);
+        TW_Log("onBackAndroid-- --", this.navigator);
         // return false;
         const routers = this.navigator.state.routes;
         if (routers && routers.length > 1) {

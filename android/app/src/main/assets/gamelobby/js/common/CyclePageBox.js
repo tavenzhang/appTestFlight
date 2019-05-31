@@ -213,6 +213,7 @@ var CyclePageBox = /** @class */ (function (_super) {
         }));
     };
     CyclePageBox.prototype.changeIndex = function () {
+        //改变点点状态
     };
     return CyclePageBox;
 }(Laya.Sprite));

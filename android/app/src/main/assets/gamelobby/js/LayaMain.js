@@ -89,8 +89,8 @@ var LayaMain = /** @class */ (function () {
             var lss = SaveManager.getObj().get(SaveManager.KEY_SFX_SWITCH, 1);
             var lsv = SaveManager.getObj().get(SaveManager.KEY_SFX_VL, 1);
             Debug.outputLog("onGameResume:lmv=", lmv, "lms=", lms, "lsv=", lsv, "lss=", lss, "mtobj=", SaveManager.getObj().mtObj);
-            Laya.SoundManager.setMusicVolume(lmv);
-            Laya.SoundManager.setSoundVolume(lsv);
+            Laya.SoundManager.setMusicVolume(lms);
+            Laya.SoundManager.setSoundVolume(lss);
             if (lms == 1) {
                 Laya.SoundManager.playMusic(ResConfig.musicUrl);
             }
@@ -154,7 +154,7 @@ var LayaMain = /** @class */ (function () {
                     }
                     break;
                 case "flushMoney":
-                    EventManager.dispath(EventType.FLUSH_USERINFO);
+                    LobbyDataManager.refreshMoney();
                     break;
                 case "openDebug":
                     window["initVconsole"]();
@@ -197,8 +197,10 @@ var LayaMain = /** @class */ (function () {
                     if (bl) {
                         if (!this.maskbg) {
                             this.maskbg = new Laya.Sprite();
+                            this.maskbg.mouseEnabled = true;
                             this.maskbg.graphics.drawRect(0, 0, Laya.stage.width, Laya.stage.height, "#000000");
                             this.maskbg.alpha = 0.6;
+                            this.maskbg.size(Laya.stage.width, Laya.stage.height);
                             this.maskbg.zOrder = Dialog.manager.zOrder + 1;
                         }
                         Laya.stage.addChild(this.maskbg);
@@ -215,8 +217,12 @@ var LayaMain = /** @class */ (function () {
                     }
                     break;
                 }
-                case "bindPhone": { //debug:临时使用，等全屏个人中心上线后可删除
-                    view.dlg.center.BindPhoneDlg.show(); //todo:xxx
+                case "openBindCard": { //打开绑定银行卡界面
+                    view.dlg.center.AccountInfoDlg.show();
+                    break;
+                }
+                case "shareSucess": {
+                    view.dlg.NoticeDlg.shareSucess(message.data);
                     break;
                 }
             }
@@ -234,12 +240,12 @@ var LayaMain = /** @class */ (function () {
         if (AgentPad.getObj()) {
             AgentPad.getObj().onClose(null);
         }
-        var clen = LayaMain.getInstance().getRootNode()._childs.length;
+        var clen = this.root_node.numChildren;
         for (var k = 0; k < clen; k++) {
-            var obj = LayaMain.getInstance().getRootNode()._childs[k];
+            var obj = this.root_node.getChildAt(k);
             Laya.timer.clearAll(obj);
         }
-        LayaMain.getInstance().getRootNode().removeChildren();
+        this.root_node.removeChildren();
         PageManager.Get().DestoryCurrentView();
     };
     LayaMain.prototype.initLogin = function () {

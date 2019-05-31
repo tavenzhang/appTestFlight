@@ -131,7 +131,7 @@ class PayHelper {
      */
     applayPay(type, bankCode, callback, bankType) {
 
-        RequestUtils.PostUrlAndParamsAndCallback(config.api.otherPay,
+        RequestUtils.postUrlAndParamsAndCallback(config.api.otherPay,
             {
                 depositor: userStore.realName,
                 paymentId: this.payData.paymentId,

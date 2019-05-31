@@ -50,10 +50,10 @@
 	<script type="text/javascript">
 		var sAppData = {
 			"IS_NATIVE_APP": false,
-			"NATIVE_DATA": {},
+			"NATIVE_DATA": { "appVersion": "0" },
 			"isAtHome": true,
 			"testStr": "test",
-			"isAndroidHack": false
+			"isAndroidHack": false,
 		};
 
 		history.pushState(null, null, document.URL);
@@ -136,6 +136,7 @@
 	<!--删除标签，ide不会自动添加js文件，请谨慎操作-->
 	<!--jsfile--startTag-->
 	<script src="js/view/notice/message/spinner/WinRecord.js"></script>
+	<script src="js/view/UI/TabSelectView.js"></script>
 	<script src="js/view/UI/GameListManager.js"></script>
 	<script src="js/view/PageManager.js"></script>
 	<script src="js/utils/SoundPlayer.js"></script>
@@ -148,6 +149,7 @@
 	<script src="js/common/ToolsApp.js"></script>
 	<script src="js/common/Tools.js"></script>
 	<script src="js/common/SaveManager.js"></script>
+	<script src="js/common/RadioBox.js"></script>
 	<script src="js/common/PostMHelp.js"></script>
 	<script src="js/common/MyUid.js"></script>
 	<script src="js/common/MyPos.js"></script>
@@ -224,18 +226,6 @@
 	<script src="js/UIObj/LoginReg/YZM.js"></script>
 	<script src="js/UIObj/Notice/RunMsgItem.js"></script>
 	<script src="js/UIObj/Notice/RunningMsg.js"></script>
-	<script src="js/UIObj/Notice/attention/AttentionCatePage.js"></script>
-	<script src="js/UIObj/Notice/attention/AttentionDialog.js"></script>
-	<script src="js/UIObj/Notice/attention/AttentionItem.js"></script>
-	<script src="js/UIObj/Notice/attention/AttentionPage.js"></script>
-	<script src="js/UIObj/Notice/attention/NoticeTipsNumber.js"></script>
-	<script src="js/UIObj/Notice/attention/luckydraw/LotteryRecord.js"></script>
-	<script src="js/UIObj/Notice/attention/luckydraw/LotteryRecordList.js"></script>
-	<script src="js/UIObj/Notice/attention/luckydraw/LuckyDrawPage.js"></script>
-	<script src="js/UIObj/Notice/attention/luckydraw/Spinner.js"></script>
-	<script src="js/UIObj/Notice/attention/luckydraw/WinningLists.js"></script>
-	<script src="js/UIObj/Notice/attention/share/SharePage.js"></script>
-	<script src="js/UIObj/Notice/attention/share/SharePageNotice.js"></script>
 	<script src="js/UIObj/Recharge/RechargeHintPad.js"></script>
 	<script src="js/UIObj/RoomPanel/InScore.js"></script>
 	<script src="js/UIObj/RoomPanel/RoomItem.js"></script>
@@ -266,18 +256,27 @@
 	<script src="js/view/PublicView.js"></script>
 	<script src="js/view/RoomListView.js"></script>
 	<script src="js/view/UI/GameIconView.js"></script>
+	<script src="js/view/UI/HeadIconUI.js"></script>
+	<script src="js/view/UI/SetPwdPanel.js"></script>
 	<script src="js/view/agent/AgentDlg.js"></script>
 	<script src="js/view/dlg/DlgSideTab.js"></script>
 	<script src="js/view/agent/AgentSideTab.js"></script>
 	<script src="js/view/agent/pop/CommisionRecord.js"></script>
 	<script src="js/view/agent/pop/CommissionRecordsPop.js"></script>
-	<script src="js/view/bindPhone/BindPhoneActiveDlg.js"></script>
-	<script src="js/view/center/BindPhoneDlg.js"></script>
-	<script src="js/view/dlg/HeadListDlg.js"></script>
-	<script src="js/view/dlg/MyCenterDlg.js"></script>
-	<script src="js/view/dlg/PasswordSettingDlg.js"></script>
+	<script src="js/view/comp/CombBoxView.js"></script>
+	<script src="js/view/comp/CombItemView.js"></script>
+	<script src="js/view/dlg/FullMyCenterDlg.js"></script>
 	<script src="js/view/dlg/QuickSetPassWordDlg.js"></script>
 	<script src="js/view/dlg/SettingDlg.js"></script>
+	<script src="js/view/dlg/SystemDlg.js"></script>
+	<script src="js/view/dlg/bindPhone/BindPhoneActiveDlg.js"></script>
+	<script src="js/view/dlg/center/AccountInfoDlg.js"></script>
+	<script src="js/view/dlg/center/BindAlipayDlg.js"></script>
+	<script src="js/view/dlg/center/BindPhoneDlg.js"></script>
+	<script src="js/view/dlg/center/SetHeadBorderDlg.js"></script>
+	<script src="js/view/dlg/center/SetHeadDlg.js"></script>
+	<script src="js/view/dlg/center/SetNickNameDlg.js"></script>
+	<script src="js/view/dlg/center/SetRealNameDlg.js"></script>
 	<script src="js/view/notice/NoticeDlg.js"></script>
 	<script src="js/view/notice/NoticeSideTab.js"></script>
 	<script src="js/view/notice/message/Notice_Message.js"></script>

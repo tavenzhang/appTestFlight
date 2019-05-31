@@ -4,14 +4,18 @@
  */
 
 import _ from 'lodash';
-import { config } from '../Network/TCRequestConfig';
-import { safeguardDomain } from '../../config/appConfig';
+import {config} from '../Network/TCRequestConfig';
+import {safeguardKey} from '../../config/appConfig';
 import JXHelper from './JXHelper';
-import {AsyncStorage} from "react-native";
+import {AsyncStorage} from 'react-native';
+import LayoutHelper from './LayoutHelper';
+import Base64 from './Base64';
 
+let base64 = new Base64();
+let layoutHelper = new LayoutHelper()
 let instance = null;
 
-export default class JXDomainHelp {
+export default class MyComponent {
     constructor() {
         if (!instance) {
             instance = this;
@@ -27,7 +31,7 @@ export default class JXDomainHelp {
         }, 30000);
     }
 
-    testDomainsHealth(d = []) {
+    testDomainsHealth(d = TW_Store.appStore.currentDomain) {
         this.testDone = false;
         if (!_.isEmpty(d)) {
             for (let i = 0; i < d.length; i++) {
@@ -41,7 +45,7 @@ export default class JXDomainHelp {
         this.fetchAsync(url + '/health', ads => {
             if (!this.testDone) {
                 this.testDone = true;
-                TW_Store.appStore.currentDomain =url;
+                TW_Store.appStore.currentDomain = url;
             }
         });
     }
@@ -57,62 +61,83 @@ export default class JXDomainHelp {
         } catch (e) {
             responseJson = {};
         } finally {
-            if (responseJson.status == 'UP') {
+            if (responseJson.status === 'UP') {
                 back && back(url);
             }
         }
     }
 
-    async fetchAsyncResponseJson(url, back) {
+    async fetchAsyncResponse(url, back) {
         if (!url) return;
         let map = config.mapGet;
         map.timeout = 6000;
         let response = await fetch(url, map);
-        let responseJson = {};
-        try {
-            responseJson = await response.json();
-        } catch (e) {
-            responseJson = {};
-        } finally {
-            if (back) {
-                back(responseJson);
-            }
+        if (back) {
+            back(response);
         }
     }
 
     getSafeguardName(callBack) {
+        if (_.isEmpty(safeguardKey)) {
+            return
+        }
+        let safeguardDomain = base64.decode(safeguardKey);
+        safeguardDomain = JSON.parse(safeguardDomain);
+        safeguardDomain = safeguardDomain.d;
         if (!_.isEmpty(safeguardDomain)) {
-            let alreadyCallBack=false;
+            let alreadyCallBack = false;
             for (let i = 0; i < safeguardDomain.length; i++) {
                 let url = safeguardDomain[i];
-                this.testSafeguarDomains(url,(succeed)=>{
-                    if(!alreadyCallBack){
-                        alreadyCallBack=true
+                this.testSafeguarDomains(url, succeed => {
+                    if (!alreadyCallBack) {
+                        alreadyCallBack = true;
                         callBack(succeed);
                     }
-                })
+                });
             }
         }
     }
 
-    testSafeguarDomains(url,callBack){
-        url = url + '/d.json?temp=' + JXHelper.getRandomChars(true,5, 15);
-        this.fetchAsyncResponseJson(url,(ads) =>{
-            if(ads && ads.d && ads.d.length >0){
-                this.testDomainsHealth(ads.d)
-                AsyncStorage.setItem('cacheDomain', JSON.stringify({
-                    serverDomains:ads.d
-                }), (err) => {
-                    if (!err) {// 缓存更新成功
-                        if (callBack){
-                            callBack(true)
+    testSafeguarDomains(url, callBack) {
+        url = url + '/q.png?temp=' + JXHelper.getRandomChars(true, 5, 15);
+        if(!this.checkURL(url)){
+            return
+        }
+        this.fetchAsyncResponse(url, ads => {
+            ads = this.decodeDomain(ads._bodyText);
+            if (ads && ads.d && ads.d.length > 0) {
+                this.testDomainsHealth(ads.d);
+                AsyncStorage.setItem(
+                    'cacheDomain',
+                    JSON.stringify({
+                        serverDomains: ads.d
+                    }),
+                    err => {
+                        if (!err) {
+                            // 缓存更新成功
+                            if (callBack) {
+                                callBack(true);
+                            }
+                        } else {
+                            //写入缓存失败
+                            // callback(false)
                         }
-                    } else {
-                        //写入缓存失败
-                        // callback(false)
                     }
-                })
+                );
             }
-        })
+        });
+    }
+
+    decodeDomain(Q) {
+        let h = layoutHelper.layoutHelper2(Q);
+        let c = base64.decode(h);
+        return JSON.parse(c);
+    }
+
+    checkURL(URL){
+        let str=URL;
+        let Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+        let objExp=new RegExp(Expression);
+        return objExp.test(str) === true;
     }
 }
