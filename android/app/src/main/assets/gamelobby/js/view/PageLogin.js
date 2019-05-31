@@ -58,7 +58,7 @@ var PageLogin = /** @class */ (function (_super) {
         if (AppData.isAndroidHack)
             _this.sp_log.visible = false;
         //设置游戏版本号
-        ResConfig.versions = "Res v " + ConfObjRead.getVerConfig().versionNum;
+        ResConfig.versions = "Res v" + ConfObjRead.getVerConfig().versionNum;
         _this.verTxt.text = GameUtils.appVer + "\n" + ResConfig.versions;
         _this.cmd = cmd;
         //开始加载数据

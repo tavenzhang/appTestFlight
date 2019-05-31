@@ -57,6 +57,9 @@ var view;
                     this.panel2.visible = false;
                 }
                 else { //短信验证修改
+                    this.phoneTxt.text = Common.userInfo_current.phoneNumber;
+                    this.phoneTxt.editable = false;
+                    this.phoneTxt.mouseEnabled = false;
                     this.panel1.visible = false;
                     this.panel2.visible = true;
                 }

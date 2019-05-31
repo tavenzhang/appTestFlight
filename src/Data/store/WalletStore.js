@@ -130,14 +130,14 @@ class WalletStore {
             transferType: transferType,
             amount: money
         }
-        NetUitls.putUrlAndParamsAndAndPlatformAndCallback(config.api.platformTransfer, platform, params, (res) => {
-            if (res.rs) {
-                // 刷新中心钱包和第三方钱包余额
-                this.getLotteryWalletBalance()
-                this.getOtherWalletBalance(platform)
-            }
-            callback && callback(res);
-        });
+        // NetUitls.putUrlAndParamsAndAndPlatformAndCallback(config.api.platformTransfer, platform, params, (res) => {
+        //     if (res.rs) {
+        //         // 刷新中心钱包和第三方钱包余额
+        //         this.getLotteryWalletBalance()
+        //         this.getOtherWalletBalance(platform)
+        //     }
+        //     callback && callback(res);
+        // });
     }
 
     //----------------------------------------------------------------------------------------------

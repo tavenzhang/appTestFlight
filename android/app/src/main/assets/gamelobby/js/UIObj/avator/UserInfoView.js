@@ -1,12 +1,3 @@
-/*
-* 用户信息相关视图：头像框，金币等
-* 替代Avator.ts
-*/
-var userData = {
-    avatarSkinId: "",
-    role: "",
-    prizeGroup: 0
-};
 var UserInfoView = /** @class */ (function () {
     function UserInfoView(view) {
         this.isFlushMoney = false;
@@ -78,7 +69,7 @@ var UserInfoView = /** @class */ (function () {
     UserInfoView.prototype.responseUserInfoCurrent = function (s, stat, hr) {
         if (stat == "complete") {
             Common.userInfo_current = s;
-            EventManager.dispath(EventType.GET_USERCURRENT, s.certifiedPhone);
+            EventManager.dispath(EventType.GETUSER_CURRENT);
             this.requestUserAvator(ConfObjRead.getConfUrl().url.apihome +
                 ConfObjRead.getConfUrl().cmd.avatorget +
                 "?access_token=" + Common.access_token);
@@ -147,16 +138,15 @@ var UserInfoView = /** @class */ (function () {
     };
     UserInfoView.prototype.refreshMoney = function () {
         var _this = this;
-        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.getMoney + "?access_token=" + Common.access_token;
-        var header = ["Accept", "application/json"];
-        HttpRequester.doRequest(url, header, null, this, function (suc, jobj) {
+        HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.flushMoney, this, function (suc, jobj) {
             if (suc) {
                 if (_this.bitFont) {
                     var money = Tools.FormatMoney(jobj.balance, 2);
                     _this.bitFont.text = money;
+                    Common.userInfo.userBalance.balance = jobj.balance;
                 }
             }
-        }, "get");
+        });
     };
     UserInfoView.prototype.dispose = function () {
         EventManager.removeAllEvents(this);
