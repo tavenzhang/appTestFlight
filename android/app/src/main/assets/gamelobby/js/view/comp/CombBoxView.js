@@ -62,7 +62,6 @@ var view;
                 this.mkmc.y = -this.listH;
                 this.itemList.on(Laya.Event.CLICK, this, this.combListHandler);
                 this.titleBtn.on(Laya.Event.CLICK, this, this.showList);
-                Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.stageDown);
             };
             CombBoxView.prototype.combListHandler = function (e) {
                 if (e.target instanceof comp.CombItemView) {
@@ -79,15 +78,19 @@ var view;
                     Laya.Tween.to(this.mkmc, { y: 0 }, 300, Laya.Ease.cubicOut);
                     this.height = this.viewH;
                     this.isOpen = true;
+                    Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.stageDown);
                 }
                 else {
                     Laya.Tween.to(this.combView, { height: this.titleH }, 300, Laya.Ease.cubicOut);
                     Laya.Tween.to(this.mkmc, { y: -this.listH }, 300, Laya.Ease.cubicOut);
                     this.height = this.titleH;
                     this.isOpen = false;
+                    Laya.stage.off(Laya.Event.MOUSE_DOWN, this, this.stageDown);
                 }
             };
             CombBoxView.prototype.stageDown = function (e) {
+                if (!e)
+                    return;
                 if (this.isOpen) {
                     if (!this.itemList.hitTestPoint(e.stageX, e.stageY)) {
                         this.showList();

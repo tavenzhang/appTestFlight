@@ -57,7 +57,7 @@ var Notice_Share = /** @class */ (function (_super) {
                     this.friend_down.visible = false;
                     this.circle_up.visible = true;
                     this.circle_down.visible = false;
-                    PostMHelp.game_common({ "do": "share", "type": "friend", "param": this.noticeid });
+                    PostMHelp.game_common({ "do": "share", "type": "friend", "param": this.image.skin });
                     // let message: string;
                     // if (this.limit > 0) {
                     //     this.limit--;
@@ -76,7 +76,7 @@ var Notice_Share = /** @class */ (function (_super) {
                     this.friend_down.visible = false;
                     this.circle_up.visible = true;
                     this.circle_down.visible = false;
-                    PostMHelp.game_common({ "do": "share", "type": "circle", "param": this.noticeid });
+                    PostMHelp.game_common({ "do": "share", "type": "circle", "param": this.image.skin });
                     // let message2: string;
                     // if (this.limit > 0) {
                     //     this.limit--;

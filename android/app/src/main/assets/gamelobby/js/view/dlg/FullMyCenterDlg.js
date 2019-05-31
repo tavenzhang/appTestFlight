@@ -41,8 +41,7 @@ var view;
                 this.accTxt.text = info.username;
                 this.setNickBtn.visible = false; //todo:暂未开放
                 var value = info.userBalance.balance;
-                value = Tools.FormatMoney(value, 2);
-                this.moneyTxt.text = value;
+                this.moneyTxt.text = value.toFixed(2);
                 this.bindPhoneBtn.visible = !Boolean(current.certifiedPhone);
                 this.phoneTxt.text = this.bindPhoneBtn.visible ? "未绑定" : current.phoneNumber;
                 this.setHeadIcon();
@@ -52,7 +51,7 @@ var view;
                 this.soundBtn.selected = Boolean(sdx);
                 //events---------------
                 EventManager.addTouchScaleListener(this.backBtn, this, function () {
-                    SoundPlayer.closeSound();
+                    SoundPlayer.returnLobbySound();
                     _this.close(null, true);
                 }, null, 1);
                 //更换头像
@@ -73,12 +72,12 @@ var view;
                 //退出账号
                 EventManager.addTouchScaleListener(this.backAccBtn, this, function () {
                     SoundPlayer.clickSound();
-                    LayaMain.getInstance().loginOut();
+                    dlg_1.SystemDlg.show("确定退出该账号吗？", LayaMain.getInstance(), LayaMain.getInstance().loginOut);
                 });
                 //复制账号
                 EventManager.addTouchScaleListener(this.accCopyBtn, this, function () {
                     SoundPlayer.clickSound();
-                    PostMHelp.game_common({ "do": "copylink", "param": _this.accTxt.text });
+                    PostMHelp.game_common({ "do": "copylink", "param": _this.accTxt.text, "hint": "复制成功" });
                 });
                 //修改昵称
                 EventManager.addTouchScaleListener(this.setNickBtn, this, function () {

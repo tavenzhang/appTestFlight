@@ -284,9 +284,13 @@ var EventType = /** @class */ (function () {
     EventType.FLUSH_AGENCYBTN = "flushAgencyBtn";
     //刷新轮播图
     EventType.FLUSH_CYCLEIMAGE = "flushCycleImage";
-    //手机绑定成功
-    EventType.BINDPHONE_SUCC = "bindPhoneSucc";
-    EventType.GET_USERCURRENT = "getUserCurrent";
+    //绑定手机奖励领取成功
+    EventType.GETBINDAWARD_SUCC = "getBindAwardSucc";
+    EventType.GETUSER_CURRENT = "getUserCurrent";
+    EventType.BINDPHONE_INFO = "bindPhoneInfo";
+    EventType.GETUSERS_INFO = "getUsersInfo";
+    EventType.GETAVATOR_INFO = "getAvatorInfo";
+    EventType.FLUSH_MONEY = "flushMoney";
     return EventType;
 }());
 //# sourceMappingURL=EventManager.js.map

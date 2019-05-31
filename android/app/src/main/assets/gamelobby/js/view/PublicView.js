@@ -29,13 +29,73 @@ var view;
             _super.prototype.createChildren.call(this);
             this.head_oldx = this.headGroup.x;
             this.mouseThrough = true; //设置可穿透
-            //用户信息
-            this.infoView = new UserInfoView(this);
             //版本号
             this.verTxt.text = GameUtils.appVer + "\n" + ResConfig.versions;
+            this.goAnim = new DragonBoneAnim();
+            this.goAnim.loadInit({ skUrl: "./assets/animation/coins/money_icon.sk" });
+            this.goldAnim.addChild(this.goAnim);
+            this.initEvents();
             //滚动通告
             this.initRollView();
             this.setLayout();
+        };
+        PublicView.prototype.initEvents = function () {
+            //头像点击
+            EventManager.addTouchScaleListener(this.headIcon, this, function () {
+                SoundPlayer.enterPanelSound();
+                view.dlg.FullMyCenterDlg.show();
+            }, null, 1);
+            //充值
+            EventManager.addTouchScaleListener(this.addBtn, this, function () {
+                SoundPlayer.enterPanelSound();
+                Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
+            });
+            //刷新
+            EventManager.addTouchScaleListener(this.refreshBtn, this, function () {
+                SoundPlayer.clickSound();
+                LobbyDataManager.refreshMoney();
+            });
+            EventManager.register(EventType.FLUSH_MONEY, this, this.showMoney);
+            EventManager.register(EventType.GETAVATOR_INFO, this, this.showHeadIcon);
+            EventManager.register(EventType.FLUSH_USERINFO, this, this.flushUserInfo);
+            EventManager.register(EventType.FLUSH_HEADICON, this, this.flushHeadIcon);
+        };
+        PublicView.prototype.flushUserInfo = function () {
+            LobbyDataManager.reqUserInfo();
+            LobbyDataManager.reqUserCurrentInfo();
+        };
+        PublicView.prototype.flushHeadIcon = function (id) {
+            var url = "touxiang/img_touxiang_" + id + ".jpg";
+            this.headIcon.skin = url;
+            userData.avatarSkinId = id;
+        };
+        PublicView.prototype.showHeadIcon = function () {
+            var id = Common.userInfo.avatorId;
+            this.flushHeadIcon(id);
+        };
+        PublicView.prototype.showMoney = function () {
+            var data = Common.userInfo;
+            if (!data)
+                return;
+            //金币显示
+            if (!this.bitFont) {
+                this.bitFont = new BitmapFont(ResConfig.bitFont_norm);
+                this.fontBox.addChild(this.bitFont);
+                this.bitFont.text = "0";
+                this.bitFont.y = this.fontBox.height - this.bitFont.height >> 1;
+            }
+            if (data.userBalance) {
+                var gold = data.userBalance.balance;
+                this.bitFont.text = Tools.FormatMoney(gold, 2);
+            }
+        };
+        PublicView.prototype.showUserInfo = function () {
+            this.showMoney();
+            var data = Common.userInfo;
+            if (data) {
+                var nameStr = data.nickname || data.username;
+                this.nameTxt.text = nameStr;
+            }
         };
         //-----------------滚动通告相关-----------------------------
         PublicView.prototype.initRollView = function () {
@@ -123,11 +183,15 @@ var view;
         };
         PublicView.prototype.runningmsgOver = function () { };
         PublicView.prototype.dispose = function () {
+            EventManager.removeAllEvents(this);
             this.stopRequestTimer();
             this.stopRollingTimer();
-            if (this.infoView) {
-                this.infoView.dispose();
-                this.infoView = null;
+            if (this.bitFont)
+                this.bitFont.destroy();
+            this.bitFont = null;
+            if (this.goAnim) {
+                this.goAnim.destroy();
+                this.goAnim = null;
             }
             this.destroy(true);
         };

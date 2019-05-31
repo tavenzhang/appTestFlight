@@ -5,40 +5,6 @@ var HttpRequester = /** @class */ (function () {
     function HttpRequester() {
     }
     /**
-     * 包括轮播图在内的玩家信息
-     */
-    HttpRequester.getPlayerMaterialInfo = function (caller, callback) {
-        var url = ConfObjRead.getConfUrl().url.apihome;
-        var api = "/gamecenter/player/material/info" + "?access_token=" + Common.access_token;
-        url += api;
-        var header = ["Accept", "application/json"];
-        this.doRequest(url, header, null, caller, callback, "get");
-    };
-    /**
-     * 修改密码-todo:待废弃xxx
-     * @param pwd
-     * @param newpwd
-     * @param confirmpwd
-     */
-    HttpRequester.setPassWord = function (pwd, newpwd, confirmpwd, caller, callback) {
-        try {
-            var url = ConfObjRead.getConfUrl().url.apihome;
-            url += ConfObjRead.getConfUrl().cmd.changepwd;
-            url += "?access_token=" + Common.access_token;
-            var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
-            var ePwd = window['SecretUtils'].rsaEncodePWD(pwd);
-            var eNpwd = window['SecretUtils'].rsaEncodePWD(newpwd);
-            var data = {
-                mode: "PASSWORD",
-                password: ePwd,
-                newPassword: eNpwd
-            };
-            var jd = JSON.stringify(data);
-            this.doRequest(url, header, jd, caller, callback);
-        }
-        catch (e) { }
-    };
-    /**
      * 网关初始化信息
      * @param caller
      * @param callback
@@ -221,17 +187,6 @@ var HttpRequester = /** @class */ (function () {
         this.doRequest(url, header, jd, caller, callback);
     };
     /**
-     * 获取绑定送金
-     * @param caller
-     * @param callback
-     */
-    HttpRequester.getBindAward = function (caller, callback) {
-        var url = ConfObjRead.getConfUrl().url.apihome + ConfObjRead.getConfUrl().cmd.getBindAward;
-        url += "?access_token=" + Common.access_token;
-        var header = ["Accept", "application/json"];
-        this.doRequest(url, header, null, caller, callback, "get");
-    };
-    /**
      * 手机登录
      * @param num
      * @param code
@@ -335,6 +290,19 @@ var HttpRequester = /** @class */ (function () {
         this.doRequest(url, header, jd, caller, callback);
     };
     /**
+     * 修改持卡人真实姓名
+     * @param name
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.setRealName = function (name, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        url += ConfObjRead.getConfUrl().cmd.setCardRealName;
+        url += "?realName=" + name;
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*", "Authorization", "bearer " + Common.access_token];
+        this.doRequest(url, header, null, caller, callback, "put");
+    };
+    /**
      * 通用get类方法
      * @param caller
      * @param callback
@@ -377,6 +345,11 @@ var HttpRequester = /** @class */ (function () {
                 }
                 else {
                     Debug.output("request-err:", url, header, jsonStr, hr.http);
+                    if (!GameUtils.isNativeApp && status_1 == 401) {
+                        LayaMain.onQuit();
+                        Toast.showToast("账号被占用,请从新登录");
+                        return;
+                    }
                     var err = hr.http.response;
                     if (err) {
                         var obj = JSON.parse(err);

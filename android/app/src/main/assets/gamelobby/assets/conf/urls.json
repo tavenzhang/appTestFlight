@@ -71,17 +71,20 @@
         "user_bet_info": "/gamecenter/player/activity/userBetInfo",
         "update_user": "/account/webapi/account/users/",
         "gatewayInfo": "/ug/systems/security/init/5",
-        "getMoney": "/gamecenter/player/user/balance",
+        "flushMoney": "/gamecenter/player/user/balance",
         "phoneLogin_app": "/account/webapi/account/users/secure/gameAppMobileLogin",
         "phoneLogin_web": "/account/webapi/account/users/secure/gameWebMobileLogin",
         "bindPhone": "/gamecenter/player/user/phone/bind",
-        "getBindAward": "/gamecenter/player/user/phoift",
+        "getBindInfo": "/gamecenter/player/user/phone",
+        "getBindAward": "/gamecenter/player/user/phone/reward",
         "getbankList": "/cashmgt/me/cards/list",
         "getbankCardInfo": "/cashmgt/me/cards/cardsAndWithdrawDetail",
         "addBankCard": "/account/webapi/account/users/encryptRegister_info",
         "changePassword": "/account/webapi/account/users/secure/encryptChangePassword",
         "changePwdWithPhone": "/account/webapi/account/users/secure/encryptChangePasswordWithMobile",
         "getunAuthorVerCode": "/account/webapi/account/users/secure/unauthorized/getMobileVerificationCode",
-        "getAuthorVerCode": "/account/webapi/account/users/secure/authorized/getMobileVerificationCode"
+        "getAuthorVerCode": "/account/webapi/account/users/secure/authorized/getMobileVerificationCode",
+        "getCarouselInfo": "/gamecenter/player/material/info",
+        "setCardRealName": "/account/webapi/account/users/updateRealName"
     }
 }

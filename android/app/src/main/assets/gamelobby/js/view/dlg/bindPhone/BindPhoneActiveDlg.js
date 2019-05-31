@@ -32,8 +32,11 @@ var view;
                  * 显示入口
                  */
                 BindPhoneActiveDlg.show = function () {
+                    if (BindPhoneActiveDlg.opened)
+                        return;
                     var dlg = new BindPhoneActiveDlg();
                     dlg.popup(false, true);
+                    BindPhoneActiveDlg.opened = true;
                 };
                 BindPhoneActiveDlg.prototype.initView = function () {
                     var _this = this;
@@ -54,8 +57,8 @@ var view;
                     //绑定手机或领取奖励
                     EventManager.addTouchScaleListener(this.bindBtn, this, function () {
                         SoundPlayer.clickSound();
-                        if (isbind) {
-                            //todo:等待领取接口
+                        if (isbind) { //领取绑定送金奖励
+                            HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.getBindAward, _this, _this.responseBindAward);
                         }
                         else {
                             view.dlg.center.BindPhoneDlg.show();
@@ -68,9 +71,18 @@ var view;
                         LayaMain.getInstance().loginOut({ type: LoginType.Phone });
                     }, null, 1);
                 };
+                BindPhoneActiveDlg.prototype.responseBindAward = function (suc, jobj) {
+                    if (suc) {
+                        TempData.isGetBindAward = true;
+                        EventManager.dispath(EventType.GETBINDAWARD_SUCC);
+                        Toast.showToast("奖励已放入余额，若没到账，请手动刷新余额");
+                        this.close(null, true);
+                    }
+                };
                 BindPhoneActiveDlg.prototype.onClosed = function (type) {
                     EventManager.removeAllEvents(this);
                     this.bitFont.destroy();
+                    BindPhoneActiveDlg.opened = false;
                     _super.prototype.onClosed.call(this, type);
                     this.destroy(true);
                 };
