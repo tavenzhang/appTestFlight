@@ -23,9 +23,10 @@ export default class SubGameView extends Component {
 
     render() {
         let isShow = !TW_Store.bblStore.isShowCircle&&TW_Store.bblStore.subGameParams.url!="";
-        return (<View style={{ position: "absolute", width:SCREEN_W, height:SCREEN_H,display: isShow ? "flex":"none"}}>
-            {/*{TW_Store.bblStore.subGameParams.url!="" ? <TWWebGameView {...TW_Store.bblStore.subGameParams}/>:null}*/}
-            <TWWebGameView {...TW_Store.bblStore.subGameParams}/>
+        return (<View  pointerEvents={TW_Store.bblStore.subGameParams.url!="" ? "auto":"none"} style={{ position: "absolute", width:SCREEN_W, height:SCREEN_H,display: isShow ? "flex":"none",
+            backgroundColor: "transparent"}} >
+            {TW_Store.bblStore.subGameParams.url!="" ? <TWWebGameView {...TW_Store.bblStore.subGameParams}/>:null}
+            {/*<TWWebGameView {...TW_Store.bblStore.subGameParams}/>*/}
         </View>)
     }
 
