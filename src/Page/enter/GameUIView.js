@@ -44,6 +44,7 @@ export default class GameUIView extends Component {
             height:SCREEN_H,
             width:SCREEN_W,
             backgroundColor: "rgba(10,10,10,0)",
+            zIndex:10000
         }}><SubGameView/></View>:null)
 
         // if(isShowUi)
