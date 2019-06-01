@@ -23,6 +23,7 @@ export default class TWWebGameView extends Component {
 
     static propTypes = {
         data: PropTypes.func,
+        isShow:false
     }
 
     constructor(state) {
@@ -47,13 +48,18 @@ export default class TWWebGameView extends Component {
     //     G_LayoutAnimaton.configureNext(G_LayoutAnimaton.springWithDelete)
     // }
 
-    componentDidMount(): void {
-    }
+
 
     componentWillUnmount(): void {
        // TW_Store.gameUpateStore.isInSubGame=false;
     }
 
+    componentWillReceiveProps(nextProps, nextContext: any): void {
+        // let {isOrigan,url,isShow}=nextProps;
+        // if(this.refs.myView){
+        //     this.refs.myView.setNativeProps({style: {top:isShow ?0:2000}});
+        // }
+    }
 
     render() {
         let {isOrigan,url}=this.props
@@ -90,11 +96,9 @@ export default class TWWebGameView extends Component {
         }
 
         let dis = TW_Store.bblStore.isLoading ? "none":"flex";
-        TW_Log("TW_Store.bblStore.isLoading---"+TW_Store.bblStore.isLoading,dis);
-        //andorid 显示有点小问题  黑屏处理
-        if (this.state.isHide) {
-            return <View style={{flex: 1, backgroundColor: "black"}}/>
-        }
+
+
+
         let wenConteView = G_IS_IOS ? <WKWebView
                 ref="myWebView"
                 source={source} onNavigationStateChange={this.onNavigationStateChange}
@@ -117,7 +121,7 @@ export default class TWWebGameView extends Component {
                 useWebKit={true}
                 automaticallyAdjustContentInsets={true}
                 allowsInlineMediaPlayback={true}
-                style={[styles.webView,{width:TW_Store.appStore.screenW}]}
+                style={styles.webView}
                 source={source}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}
@@ -133,14 +137,9 @@ export default class TWWebGameView extends Component {
                 thirdPartyCookiesEnabled={true}
             />
         return (
-            <View style={styles.container}>
+            <View style={[styles.container]} >
                 {!this.state.isHttpFail ? wenConteView:<View style={{height:JX_PLAT_INFO.SCREEN_H, justifyContent:"center",
-                    alignItems:
-                "center"}}>
-                    <TCButtonView btnStyle={{width:300}} onClick={()=>{
-                        TW_NavHelp.popToBack();
-                        setTimeout(this.onBackHomeJs, 1000)
-                    }} text={"返回大厅"}/>
+                    alignItems: "center", backgroundColor: "transparent"}}>
                 </View>}
             </View>
         );
@@ -148,13 +147,13 @@ export default class TWWebGameView extends Component {
 
 
 
-
     onLoadEnd = (event) => {
+
         TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--"+ TW_Store.bblStore.isLoading, event)
         setTimeout(()=>{
             TW_Store.bblStore.lastGameUrl = "";
             TW_Store.bblStore.showGameCircle(false);
-        },15000)
+        },G_IS_IOS ? 1000:2500)
 
     }
 
@@ -198,7 +197,7 @@ export default class TWWebGameView extends Component {
                     break;
                 case "game_start": //子游戏准备ok
                     TW_Store.bblStore.lastGameUrl = "";
-                     TW_Store.bblStore.showGameCircle(false);
+                    TW_Store.bblStore.showGameCircle(false);
                     break;
             }
         }
@@ -259,7 +258,6 @@ export default class TWWebGameView extends Component {
             onEvaleJS(this.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.lobbyResume));
         }
-        
     }
 }
 
@@ -267,11 +265,11 @@ export default class TWWebGameView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#000000",
+        backgroundColor: "transparent",
     },
     webView: {
         marginTop: 0,
-        width: width,
-        backgroundColor: "#000000",
+        flex:1,
+        backgroundColor: "transparent"
     }
 });
