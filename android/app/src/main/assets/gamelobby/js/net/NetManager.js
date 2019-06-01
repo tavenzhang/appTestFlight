@@ -32,17 +32,6 @@ var NetManager = /** @class */ (function () {
             hr.once(Laya.Event.PROGRESS, this, this.HttpRequestProgress, [caller, callback, hr]);
             hr.once(Laya.Event.COMPLETE, this, this.HttpRequestComplete, [caller, callback, hr]);
             hr.once(Laya.Event.ERROR, this, this.HttpRequestError, [caller, callback, hr]);
-            // hr.http.timeout = 8000;
-            // let historyUrl = url + "_" + JSON.stringify(header ? header : {}) + "_" + JSON.stringify(data ? data : {});
-            // let isExist = NetManager.hisHashUrlList.indexOf(historyUrl) > -1;
-            // if (isExist)
-            // {
-            // 	Debug.trace("http-------->" + url + "\n---is--Exist repeate===", data);
-            // }
-            // else
-            // {
-            // Debug.trace("http-------->" + url + "\n---data===", data);
-            // NetManager.hisHashUrlList.push(historyUrl)
             if (header) {
                 hr.send(url, data, //null
                 metod, //'get'
@@ -52,7 +41,6 @@ var NetManager = /** @class */ (function () {
             else {
                 hr.send(url, null, metod, restype);
             }
-            // }
         }
     };
     NetManager.prototype.HttpRequestProgress = function (caller, callback, hr, e) {
