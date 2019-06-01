@@ -135,6 +135,7 @@ export default class DataStore {
                 this.isCheckRequesting=false;
                 TW_Store.gameUpateStore.isNeedUpdate=false;
                 this.log += "\n==>TW_Store.dataStore.this.isCheckRequesting" + this.isCheckRequesting;
+                SplashScreen.hide();
             }
         },3000);
         NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionConfig(),null,(rt)=> {
@@ -336,8 +337,7 @@ export default class DataStore {
                 setTimeout(()=>{
                     this.isAppInited = true;
                     this.loadHomeVerson();
-                },1500)
-
+                },G_IS_IOS ? 1500:4000);
             }
             this.log+="onSavaCopyState---  this.isAppInited="+this.isAppInited+"\n"
         })
