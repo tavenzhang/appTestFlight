@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         position: "absolute",
-        // zIndex:2000,
+         zIndex:10002,
         height: SCREEN_H,
         width: SCREEN_W,
         backgroundColor: "black",

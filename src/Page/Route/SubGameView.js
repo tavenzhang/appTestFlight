@@ -5,6 +5,7 @@ import {
 } from 'react-native'
 import {observer} from 'mobx-react/native';
 import TWWebGameView from "../WebView/TWWebGameView";
+import TCButtonView from "../../Common/View/button/TCButtonView";
 
 
 @observer
@@ -23,10 +24,16 @@ export default class SubGameView extends Component {
 
     render() {
         let isShow = !TW_Store.bblStore.isShowCircle&&TW_Store.bblStore.subGameParams.url!="";
-        return (<View  pointerEvents={TW_Store.bblStore.subGameParams.url!="" ? "auto":"none"} style={{ position: "absolute", width:SCREEN_W, height:SCREEN_H,display: isShow ? "flex":"none",
-            backgroundColor: "transparent"}} >
-            {TW_Store.bblStore.subGameParams.url!="" ? <TWWebGameView {...TW_Store.bblStore.subGameParams}/>:null}
-            {/*<TWWebGameView {...TW_Store.bblStore.subGameParams}/>*/}
+        //pointerEvents={TW_Store.bblStore.subGameParams.url!="" ? "auto":"none"}
+        if(this.refs.myView){
+            this.refs.myView.setNativeProps({style: {zIndex:isShow ?999:-999}});
+        }
+        TW_Log("SubGameView--TW_Store.bblStore.isShowCircle---"+TW_Store.bblStore.isShowCircle,TW_Store.bblStore.subGameParams)
+        return (<View pointerEvents={isShow ? "auto":"none"}  style={{
+            position: "absolute", width:SCREEN_W,
+            height: SCREEN_H,
+            backgroundColor: "rgba(10,10,10,0.3)",zIndex:-999}}  ref={"myView"}>
+           <TWWebGameView  {...TW_Store.bblStore.subGameParams}/>
         </View>)
     }
 
