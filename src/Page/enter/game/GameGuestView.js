@@ -31,10 +31,9 @@ export default class GameGuestView extends Component {
 
     componentWillMount(): void {
         if(TW_Store.gameUIStroe.gustWebUrl.length==0){
-            TW_Store.gameUIStroe.getGustUrl();
+            TW_Store.bblStore.getAppData();
         }
     }
-
 
     render() {
         let {pointerEvents}=this.props;
@@ -47,7 +46,6 @@ export default class GameGuestView extends Component {
                          btnStyle={{position: "absolute", right: 0, top: 0}}/>
             <View style={{position: "absolute",}}>
                 {this.getWebView()}
-
             </View>
 
         </View>)

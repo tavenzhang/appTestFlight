@@ -81,6 +81,7 @@ import TCUserBankPayMessageNew from "../UserCenter/UserPay/TCUserBankPayMessageN
 import KeyboardManager from 'react-native-keyboard-manager'
 import {JX_PLAT_INFO} from "../asset";
 import LoadingWebView from "../WebView/LoadingWebView";
+import SubGameView from "./SubGameView";
 
 @observer
 export default class App extends Component {
@@ -129,8 +130,10 @@ export default class App extends Component {
                             pointerEvents={"none"}>{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
                         `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
                     {/*<CommonBoxLayer/>*/}
+                    <SubGameView/>
                     {TW_Store.dataStore.isAppInited &&(!TW_Store.gameUpateStore.isOldHome||TW_Store.gameUpateStore.isAppDownIng) ? <LoadingWebView/>:null}
                      <GameUIView/>
+
 
                 </View>
             </Provider>

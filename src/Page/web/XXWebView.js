@@ -443,7 +443,15 @@ export default class XXWebView extends Component {
                     if (!isNeedLoad&&TW_Store.bblStore.lastGameUrl!=url) {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.payload);
-                        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showMask,{data:true}));
+                        TW_Store.bblStore.showGameCircle();
+                       // TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showLoading,{data:true}));
+                        TW_Store.bblStore.subGameParams = {
+                            url,
+                            onMsgHandle: this.onMsgHandle,
+                            onEvaleJS: this.onEvaleJS,
+                            isGame: true,
+                            isOrigan
+                        }
                        //  TW_NavHelp.pushView(JX_Compones.WebView, {
                        //      url,
                        //      onMsgHandle: this.onMsgHandle,
