@@ -43,9 +43,6 @@ export default class TCWebView extends Component {
     }
 
     componentDidMount(): void {
-        if(this.refs.myWebView.getSettings){
-            this.refs.myWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
-        }
     }
 
     componentWillUnmount(): void {
@@ -69,7 +66,6 @@ export default class TCWebView extends Component {
              myParam+="&time="+Math.random()*9999;
          }
         TW_Log("myUrl------------------------myParam--"+myParam+"-\n-newUrl----"+newUrl)
-
         let source = {
             file: newUrl,
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
@@ -108,7 +104,7 @@ export default class TCWebView extends Component {
                                                  onLoadStart={this.onloadStart}
                                                  onLoadEnd={this.onLoadEnd}
                                                  thirdPartyCookiesEnabled={true}
-                                                 // renderLoading={this.onRenderLoadingView}
+
 
             /> :
             <WebView
@@ -122,7 +118,6 @@ export default class TCWebView extends Component {
                 domStorageEnabled={true}
                 mixedContentMode={"always"}
                 decelerationRate="normal"
-                // renderLoading={this.onRenderLoadingView}
                 startInLoadingState={false}
                 onNavigationStateChange={this.onNavigationStateChange}
                 onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
@@ -214,13 +209,8 @@ export default class TCWebView extends Component {
                     break;
                 case "game_recharge":
                     TW_Store.gameUIStroe.isShowAddPayView=!TW_Store.gameUIStroe.isShowAddPayView;
-                    // if(!TW_Store.appStore.isInAnroidHack){
-                    //     let data = message.jumpData || message.data ||TW_Store.bblStore.jumpData
-                    //     if (data) {
-                    //         url = TW_Store.bblStore.urlDomain + "/g_recharge/?module=recharge&jumpData=" + data;
-                    //         TW_NavHelp.pushView(JX_Compones.WebView, {url, isAddView: true})
-                    //     }
-                    // }
+                    break;
+                case "game_start": //子游戏准备ok
                     break;
             }
         }
@@ -230,7 +220,7 @@ export default class TCWebView extends Component {
         if (url && url.indexOf("../") > -1) {
             url = url.replace("../", "");
         }
-        url = TW_Store.bblStore.homeDomain + "/" + url;
+        url = TW_Store.bblStore.gameDomain + "/" + url;
         return url
     }
 
@@ -276,7 +266,6 @@ export default class TCWebView extends Component {
         if (onEvaleJS) {
             onEvaleJS(this.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.lobbyResume));
-           // onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.flushMoney));
         }
         
     }
