@@ -27,9 +27,9 @@ export default class GameUIView extends Component {
         super(prop);
     }
 
-    componentWillUpdate(nextProps, nextState, nextContext: any): void {
-        G_LayoutAnimaton.configureNext(G_LayoutAnimaton.springNoDelete)
-    }
+    // componentWillUpdate(nextProps, nextState, nextContext: any): void {
+    //     G_LayoutAnimaton.configureNext(G_LayoutAnimaton.springNoDelete)
+    // }
 
 
     render() {
