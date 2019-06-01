@@ -1,0 +1,57 @@
+import React, {Component} from 'react'
+import {
+    StyleSheet,
+    View
+} from 'react-native'
+import {observer} from 'mobx-react/native';
+import TWWebGameView from "../WebView/TWWebGameView";
+
+
+@observer
+export default class SubGameView extends Component {
+
+
+    constructor(state) {
+        super(state)
+        this.state = {}
+    }
+
+    componentWillMount(): void {
+
+    }
+
+
+    render() {
+        let isShow = !TW_Store.bblStore.isShowCircle&&TW_Store.bblStore.subGameParams.url!="";
+        return (<View  pointerEvents={TW_Store.bblStore.subGameParams.url!="" ? "auto":"none"} style={{ position: "absolute", width:SCREEN_W, height:SCREEN_H,display: isShow ? "flex":"none",
+            backgroundColor: "transparent"}} >
+            {TW_Store.bblStore.subGameParams.url!="" ? <TWWebGameView {...TW_Store.bblStore.subGameParams}/>:null}
+            {/*<TWWebGameView {...TW_Store.bblStore.subGameParams}/>*/}
+        </View>)
+    }
+
+
+}
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "transparent",
+        position: "absolute",
+    },
+    inputStyle: {
+        fontSize: 11,
+        fontWeight: "bold",
+        color: "#efe8cd"
+    },
+    webView: {
+        marginTop: 18,
+        height: 250,
+        width: 485,
+        backgroundColor: "transparent",
+    }
+
+});

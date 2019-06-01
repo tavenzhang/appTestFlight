@@ -5,30 +5,6 @@ var HttpRequester = /** @class */ (function () {
     function HttpRequester() {
     }
     /**
-     * 修改密码-todo:待废弃xxx
-     * @param pwd
-     * @param newpwd
-     * @param confirmpwd
-     */
-    HttpRequester.setPassWord = function (pwd, newpwd, confirmpwd, caller, callback) {
-        try {
-            var url = ConfObjRead.getConfUrl().url.apihome;
-            url += ConfObjRead.getConfUrl().cmd.changepwd;
-            url += "?access_token=" + Common.access_token;
-            var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
-            var ePwd = window['SecretUtils'].rsaEncodePWD(pwd);
-            var eNpwd = window['SecretUtils'].rsaEncodePWD(newpwd);
-            var data = {
-                mode: "PASSWORD",
-                password: ePwd,
-                newPassword: eNpwd
-            };
-            var jd = JSON.stringify(data);
-            this.doRequest(url, header, jd, caller, callback);
-        }
-        catch (e) { }
-    };
-    /**
      * 网关初始化信息
      * @param caller
      * @param callback
