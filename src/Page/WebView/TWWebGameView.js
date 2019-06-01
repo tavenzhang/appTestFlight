@@ -154,7 +154,7 @@ export default class TWWebGameView extends Component {
         setTimeout(()=>{
             TW_Store.bblStore.lastGameUrl = "";
             TW_Store.bblStore.showGameCircle(false);
-        },800)
+        },15000)
 
     }
 
@@ -198,7 +198,7 @@ export default class TWWebGameView extends Component {
                     break;
                 case "game_start": //子游戏准备ok
                     TW_Store.bblStore.lastGameUrl = "";
-                   // TW_Store.bblStore.showGameCircle(false);
+                     TW_Store.bblStore.showGameCircle(false);
                     break;
             }
         }
