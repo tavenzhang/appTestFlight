@@ -86,7 +86,7 @@ var view;
                     Tools.jump2game(this.gameVo.url);
                 }
                 else {
-                    LayaMain.getInstance().initRoom(this.gameVo);
+                    Toast.showToast("数据配置异常,无法进入房间");
                 }
             };
             GameIconView.prototype.onStartUpdate = function () {

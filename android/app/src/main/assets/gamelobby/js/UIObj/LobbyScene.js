@@ -147,7 +147,7 @@ var LobbyDataManager = /** @class */ (function () {
                 if (!tempId)
                     tempId = "05";
                 tempId = Tools.FormatNumber(parseInt(tempId), 2);
-                Common.userInfo.avatorId = tempId;
+                Common.avatorInfo.avatorId = tempId;
                 SaveManager.getObj().get(SaveManager.KEY_AVATOR_ID, tempId);
                 EventManager.dispath(EventType.GETAVATOR_INFO);
             }

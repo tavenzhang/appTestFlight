@@ -514,15 +514,7 @@
             "type": "IMAGE"
         },
         {
-            "url": "res/atlas/ui/userInfo.atlas",
-            "type": "ATLAS"
-        },
-        {
             "url": "res/atlas/ui/lobby.atlas",
-            "type": "ATLAS"
-        },
-        {
-            "url": "res/atlas/ui/room.atlas",
             "type": "ATLAS"
         },
         {
@@ -531,10 +523,6 @@
         },
         {
             "url": "res/atlas/ui/lobby/bottombar.atlas",
-            "type": "ATLAS"
-        },
-        {
-            "url": "res/atlas/ui/setPassword.atlas",
             "type": "ATLAS"
         },
         {
@@ -547,10 +535,6 @@
         },
         {
             "url": "res/atlas/ui/panel_agent.atlas",
-            "type": "ATLAS"
-        },
-        {
-            "url": "res/atlas/ui/dialogs/commission.atlas",
             "type": "ATLAS"
         },
         {
@@ -567,10 +551,6 @@
         },
         {
             "url": "res/atlas/ui/panel_notice/roullette/spinner.atlas",
-            "type": "ATLAS"
-        },
-        {
-            "url": "res/atlas/ui/game.atlas",
             "type": "ATLAS"
         },
         {
