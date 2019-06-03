@@ -89,10 +89,10 @@ var view;
                 };
                 //头像保存成功
                 SetHeadDlg.prototype.saveHeadSucce = function () {
-                    Common.userInfo.avatorId = this.chooseIcon.iconID;
-                    SaveManager.getObj().save(SaveManager.KEY_SFX_VL, Common.userInfo.avatorId);
+                    Common.avatorInfo.avatorId = this.chooseIcon.iconID;
+                    SaveManager.getObj().save(SaveManager.KEY_SFX_VL, this.chooseIcon.iconID);
                     this.setHeadIcon();
-                    EventManager.dispath(EventType.FLUSH_HEADICON, Common.userInfo.avatorId);
+                    EventManager.dispath(EventType.FLUSH_HEADICON, this.chooseIcon.iconID);
                 };
                 SetHeadDlg.prototype.creatHeadList = function () {
                     var icon;
@@ -110,7 +110,7 @@ var view;
                     this.itemPanel.x = tox;
                 };
                 SetHeadDlg.prototype.setHeadIcon = function () {
-                    var data = Common.userInfo;
+                    var data = Common.avatorInfo;
                     if (!data) {
                         console.error("data is null", this);
                         return;

@@ -74,7 +74,9 @@ var view;
             if (TempData.bindOpen) {
                 if ((!TempData.isGetBindAward && bind) || !bind) {
                     this.btn_bind.visible = true;
-                    view.dlg.bindPhone.BindPhoneActiveDlg.show();
+                    if (TempData.joinLobbyType == JoinLobbyType.loginJoin) {
+                        view.dlg.bindPhone.BindPhoneActiveDlg.show();
+                    }
                 }
             }
         };

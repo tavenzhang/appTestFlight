@@ -102,6 +102,7 @@ var PageLogin = /** @class */ (function (_super) {
             PostMHelp.initGame();
         Common.confObj = ConfObjRead.getConfCommon();
         ResConfig.addTween = Common.confObj.addTween;
+        TempData.joinLobbyType = JoinLobbyType.loginJoin;
         this.copyNativeAdress();
         this.updateGatewayInfo();
         //登陆流程
@@ -222,25 +223,14 @@ var PageLogin = /** @class */ (function (_super) {
             _this.showRegisterView();
         });
         //账号登录-显示密码
-        EventManager.addTouchScaleListener(this.acc_lookBtn, this, function () {
-            SoundPlayer.clickSound();
-            _this.onShowPwd(_this.acc_lookBtn, _this.acc_pwdTxt);
-        });
+        EventManager.pushEvent(this.acc_lookBtn, Laya.Event.CHANGE, this, this.togglePwdInput, [this.acc_pwdTxt]);
         EventManager.addTouchScaleListener(this.acc_codePic, this, function () {
             SoundPlayer.clickSound();
             _this.askCode();
         }, null, 1);
         //---------------注册-------------------------------
-        //注册-显示密码1
-        EventManager.addTouchScaleListener(this.reg_lookBtn1, this, function () {
-            SoundPlayer.clickSound();
-            _this.onShowPwd(_this.reg_lookBtn1, _this.reg_pwdTxt1);
-        });
-        //注册-显示密码2
-        EventManager.addTouchScaleListener(this.reg_lookBtn2, this, function () {
-            SoundPlayer.clickSound();
-            _this.onShowPwd(_this.reg_lookBtn2, _this.reg_pwdTxt2);
-        });
+        EventManager.pushEvent(this.reg_lookBtn1, Laya.Event.CHANGE, this, this.togglePwdInput, [this.reg_pwdTxt1]);
+        EventManager.pushEvent(this.reg_lookBtn2, Laya.Event.CHANGE, this, this.togglePwdInput, [this.reg_pwdTxt2]);
         //注册界面返回账号登录界面
         EventManager.addTouchScaleListener(this.reg_back, this, function () {
             SoundPlayer.clickSound();
@@ -547,9 +537,7 @@ var PageLogin = /** @class */ (function (_super) {
         this.acc_pwdTxt.text = '';
         this.acc_pwdTxt.type = "password";
         this.acc_lookBtn.skin = "ui/res_login/btn_dl_yanjing01.png";
-        this.acc_codeTtile.visible = false;
-        this.acc_codeTxt.visible = false;
-        this.acc_codePic.visible = false;
+        this.accCodeGroup.visible = false;
         this.panelAccount.visible = true;
         if (this.isChangePwd && comeFast) {
             this.acc_nameTxt.text = this.fastName;
@@ -592,21 +580,8 @@ var PageLogin = /** @class */ (function (_super) {
         //todo:...
     };
     ///////////////////////////////////////////////////////////////////////
-    /**
-     * 显示或者隐藏密码
-     */
-    PageLogin.prototype.onShowPwd = function (btn, pwd) {
-        switch (pwd.type) {
-            case 'text':
-                pwd.type = 'password';
-                btn.skin = 'ui/res_login/btn_dl_yanjing01.png';
-                break;
-            case 'password':
-                pwd.type = 'text';
-                btn.skin = 'ui/res_login/btn_dl_yanjing02.png';
-                break;
-        }
-        pwd.focus = true;
+    PageLogin.prototype.togglePwdInput = function (txt) {
+        GameUtils.onShowPwd(txt);
     };
     /**
      * 客服服务
@@ -724,9 +699,7 @@ var PageLogin = /** @class */ (function (_super) {
                     LayaMain.getInstance().initLobby();
                 }
                 else { //需要输入验证码
-                    _this.acc_codePic.visible = true;
-                    _this.acc_codeTtile.visible = true;
-                    _this.acc_codeTxt.visible = true;
+                    _this.accCodeGroup.visible = true;
                     _this.isCodeLogin = true;
                     Toast.showToast("用户名或者密码不正确");
                 }
