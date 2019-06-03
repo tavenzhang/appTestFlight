@@ -202,6 +202,7 @@ var LayaMain = /** @class */ (function () {
                             this.maskbg.alpha = 0.6;
                             this.maskbg.size(Laya.stage.width, Laya.stage.height);
                             this.maskbg.zOrder = Dialog.manager.zOrder + 1;
+                            this.showCircleLoading(true);
                         }
                         Laya.stage.addChild(this.maskbg);
                     }

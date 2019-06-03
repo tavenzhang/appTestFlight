@@ -35,6 +35,13 @@ export  default  class BBLStore {
     @observable
     versionManger = {name:"home",versionNum:1,source:'gamelobby.zip',isFlush:false}
 
+    @observable
+    subGameParams={
+        url:"",
+        isGame: true
+    }
+    @observable
+    isShowCircle=false;
 
     @action
     getUriConfig(){{
@@ -95,6 +102,13 @@ export  default  class BBLStore {
         return `${this.getVersionDomain()}`+"/game.json?random="+Math.random();
     }
 
+    @action
+    showGameCircle(isShow=true) {
+        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showLoading,{data:isShow}));
+        this.isShowCircle =isShow;
+    }
+
+
     @observable
     lastGameUrl = "home";
 
@@ -121,9 +135,8 @@ export  default  class BBLStore {
         lifecycle:"lifecycle",
         showMask:"showMask",
         shareSucess:"shareSucess",
-        openBindCard:"openBindCard"
-
-
+        openBindCard:"openBindCard",
+        showLoading:"showLoading"
     }
 
     //bgm.mp3 click.mp3 close.mp3 flopleft.mp3 flopright.mp3 recharge.mp3 rightbottomclose.mp3 showlogo.mp3
@@ -182,6 +195,8 @@ export  default  class BBLStore {
     @observable
     shareData={}
 
+
+
     @action
     getAppData(){
         let  url = TW_Store.bblStore.gameDomain+ config.api.gameShareDown.replace("#0",platInfo.brand);
@@ -199,6 +214,7 @@ export  default  class BBLStore {
                     downUrl = downUrl+"?random="+Math.random();
                 }
                 TW_Store.appStore.onShowDownAlert(downUrl);
+                TW_Store.gameUIStroe.gustWebUrl = this.shareData.customerServiceUrl;
             }
             //let downUrl =  iosDownloadUrl
             TW_Log("---getUrlAndParamsAndCallback--getAppData--downUrl=="+downUrl,ret.content);
