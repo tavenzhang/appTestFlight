@@ -44,6 +44,7 @@ export default class XXWebView extends Component {
     }
 
     componentWillMount(){
+        TW_OnValueJSHome = this.onEvaleJS;
         TW_Store.bblStore.isLoading=true;
         TW_Store.bblStore.lastGameUrl="";
         TW_Data_Store.getItem(TW_DATA_KEY.gameList, (err, ret) => {
@@ -68,9 +69,7 @@ export default class XXWebView extends Component {
 
     }
 
-    componentDidMount() {
-        TW_OnValueJSHome = this.onEvaleJS;
-    }
+
 
     componentWillUnmount(): void {
         if(G_IS_IOS){
