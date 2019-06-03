@@ -161,7 +161,7 @@ export default class DataStore {
                 this.log += "==>TW_Store.dataStore.isAppInited=" + TW_Store.dataStore.isAppInited;
                 this.log+="\nthis.homeVersionM.versionNum---"+this.homeVersionM.versionNum +"content.versionNum="+content.versionNum;
                 TW_Log("TW_DATA_KEY.versionBBL  this.homeVersionM.versionNum =" +this.homeVersionM.versionNum ,content.versionNum);
-                if (true) {
+                if (!TW_IS_DEBIG) {
                     if (this.homeVersionM.versionNum != content.versionNum) {
                         TW_Store.gameUpateStore.isNeedUpdate=true;
                         if(!TW_Store.gameUpateStore.isAppDownIng) {
