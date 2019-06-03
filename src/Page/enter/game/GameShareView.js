@@ -41,7 +41,7 @@ export default class GameShareView extends Component {
 
     componentWillMount(): void {
         if(TW_Store.gameUIStroe.gustWebUrl.length==0){
-            TW_Store.gameUIStroe.getGustUrl();
+            TW_Store.bblStore.getAppData();
         }
     }
 

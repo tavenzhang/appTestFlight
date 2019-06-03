@@ -31,7 +31,8 @@ export default class GameGuestView extends Component {
 
     componentWillMount(): void {
         if(TW_Store.gameUIStroe.gustWebUrl.length==0){
-            TW_Store.bblStore.getAppData();
+           // TW_Store.bblStore.getAppData();
+            TW_Store.gameUIStroe.getGustUrl();
         }
     }
 
