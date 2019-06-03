@@ -313,7 +313,7 @@ export default class Enter extends Component {
 
     hotFix(hotfixDeploymentKey,isActiveCheck=false) {
         this.setState({
-            syncMessage: '检测更新中...',
+            syncMessage: '检测更新中....',
             updateStatus: 0
 
         });
@@ -330,7 +330,7 @@ export default class Enter extends Component {
         //     })
         // }
         CodePush.checkForUpdate(hotfixDeploymentKey).then((update) => {
-            TW_Log('==checking update====hotfixDeploymentKey= ='+hotfixDeploymentKey, update);
+            TW_Log('==checking update=d===hotfixDeploymentKey= ='+hotfixDeploymentKey, update);
             if (update !== null) {
                 this.hotFixStore.syncMessage = 'app更新，正在疯狂加载...';
                 let versionData =null;
