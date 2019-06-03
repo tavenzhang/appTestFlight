@@ -9,7 +9,6 @@ export const appDomainBase = {
     base4: 'https://hosobw29.czdelong.com',
     base5: 'https://hosobw29.jdzdingli.com',
     base6: 'https://hosobw29.fdk800.com',
-    base7: 'https://www.vdfrtw654qefhj.com',
 }
 
 export let configAppId = "1146"
