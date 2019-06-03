@@ -82,6 +82,8 @@ export default class MyComponent {
             return
         }
         let safeguardDomain = base64.decode(safeguardKey);
+        TW_Log("getSafeguardName---safeguardKey=="+safeguardKey);
+        TW_Log("getSafeguardName---safeguardDomain=="+safeguardDomain)
         safeguardDomain = JSON.parse(safeguardDomain);
         safeguardDomain = safeguardDomain.d;
         if (!_.isEmpty(safeguardDomain)) {

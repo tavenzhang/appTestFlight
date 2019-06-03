@@ -44,7 +44,6 @@ export default class XXWebView extends Component {
     }
 
     componentWillMount(){
-        TW_OnValueJSHome = this.onEvaleJS;
         TW_Store.bblStore.isLoading=true;
         TW_Store.bblStore.lastGameUrl="";
         TW_Data_Store.getItem(TW_DATA_KEY.gameList, (err, ret) => {
@@ -67,6 +66,10 @@ export default class XXWebView extends Component {
             Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
         }
 
+    }
+
+    componentDidMount() {
+        TW_OnValueJSHome = this.onEvaleJS;
     }
 
     componentWillUnmount(): void {
@@ -585,7 +588,9 @@ export default class XXWebView extends Component {
     onEvaleJS = (data) => {
         let dataStr = JSON.stringify(data);
         dataStr = dataStr ? dataStr : "";
-        this.refs.myWebView.postMessage(dataStr, "*");
+        if(this.refs.myWebView){
+            this.refs.myWebView.postMessage(dataStr, "*");
+        }
         //this.refs.myWebView.evaluateJavaScript(`receivedMessageFromRN(${dataStr})`);
     }
 

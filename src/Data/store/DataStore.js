@@ -70,7 +70,6 @@ export default class DataStore {
                     this.copy_assets_to_dir();
                 }
             }
-
         });
     }
 
@@ -162,7 +161,7 @@ export default class DataStore {
                 this.log += "==>TW_Store.dataStore.isAppInited=" + TW_Store.dataStore.isAppInited;
                 this.log+="\nthis.homeVersionM.versionNum---"+this.homeVersionM.versionNum +"content.versionNum="+content.versionNum;
                 TW_Log("TW_DATA_KEY.versionBBL  this.homeVersionM.versionNum =" +this.homeVersionM.versionNum ,content.versionNum);
-                if (!TW_IS_DEBIG) {
+                if (true) {
                     if (this.homeVersionM.versionNum != content.versionNum) {
                         TW_Store.gameUpateStore.isNeedUpdate=true;
                         if(!TW_Store.gameUpateStore.isAppDownIng) {
@@ -337,7 +336,7 @@ export default class DataStore {
                 setTimeout(()=>{
                     this.isAppInited = true;
                     this.loadHomeVerson();
-                },G_IS_IOS ? 1500:4000);
+                },G_IS_IOS ? 1000:1000);
             }
             this.log+="onSavaCopyState---  this.isAppInited="+this.isAppInited+"\n"
         })
@@ -398,16 +397,18 @@ export default class DataStore {
         if (!target_dir_exist) {
             await RNFS.mkdir(target_dir);
         }
+         TW_Log('andorid--------androdi_copy_assets_to_dir--source_dir',source_dir);
         const items = await RNFS.readDirAssets(source_dir);
         for (let i = 0; i < items.length; i++) {
             const item = items[i];
-            TW_Log('andorid--------androdi_copy_assets_to_dir--items.length--'+items.length, item);
+            TW_Log('andorid--------androdi_copy_assets_to_dir--items.length--'+items.length +"---", item);
             if (item.isDirectory()) {
                 await this.androdi_copy_assets_to_dir(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
             } else {
                 await RNFS.copyFileAssets(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
-                if(item.path&&item.path.indexOf("style/")>-1){
-                    this.onSavaCopyState();
+                if(item.path&&item.path.indexOf("zzzFinish/")>-1){
+                    //　利用zzzFinish来判断是否android拷贝完成
+                       this.onSavaCopyState();
                 }
             }
         }
