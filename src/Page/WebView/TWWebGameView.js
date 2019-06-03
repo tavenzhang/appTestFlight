@@ -10,19 +10,20 @@ import {
 import {width} from '../asset/game/themeComponet'
 import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 
-import {withMappedNavigationProps} from 'react-navigation-props-mapper'
+
 import {JX_PLAT_INFO} from "../asset";
 import TCButtonView from "../../Common/View/button/TCButtonView";
 import {observer} from "mobx-react/native";
 import PropTypes from "prop-types";
+import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 
 
-@withMappedNavigationProps()
 @observer
-export default class TCWebView extends Component {
+export default class TWWebGameView extends Component {
 
     static propTypes = {
         data: PropTypes.func,
+        isShow:false
     }
 
     constructor(state) {
@@ -39,19 +40,26 @@ export default class TCWebView extends Component {
     };
 
     componentWillMount() {
-        TW_Store.bblStore.lastGameUrl = "";
-        TW_Store.bblStore.isLoading = true;
-        TW_Store.gameUpateStore.isInSubGame=true;
+
         TW_OnBackHomeJs=this.onBackHomeJs;
     }
 
-    componentDidMount(): void {
-    }
+    // componentWillUpdate(nextProps, nextState, nextContext: any): void {
+    //     G_LayoutAnimaton.configureNext(G_LayoutAnimaton.springWithDelete)
+    // }
+
+
 
     componentWillUnmount(): void {
-        TW_Store.gameUpateStore.isInSubGame=false;
+       // TW_Store.gameUpateStore.isInSubGame=false;
     }
 
+    componentWillReceiveProps(nextProps, nextContext: any): void {
+        // let {isOrigan,url,isShow}=nextProps;
+        // if(this.refs.myView){
+        //     this.refs.myView.setNativeProps({style: {top:isShow ?0:2000}});
+        // }
+    }
 
     render() {
         let {isOrigan,url}=this.props
@@ -88,11 +96,9 @@ export default class TCWebView extends Component {
         }
 
         let dis = TW_Store.bblStore.isLoading ? "none":"flex";
-        TW_Log("TW_Store.bblStore.isLoading---"+TW_Store.bblStore.isLoading,dis);
-        //andorid 显示有点小问题  黑屏处理
-        if (this.state.isHide) {
-            return <View style={{flex: 1, backgroundColor: "black"}}/>
-        }
+
+
+
         let wenConteView = G_IS_IOS ? <WKWebView
                 ref="myWebView"
                 source={source} onNavigationStateChange={this.onNavigationStateChange}
@@ -115,7 +121,7 @@ export default class TCWebView extends Component {
                 useWebKit={true}
                 automaticallyAdjustContentInsets={true}
                 allowsInlineMediaPlayback={true}
-                style={[styles.webView,{width:TW_Store.appStore.screenW}]}
+                style={styles.webView}
                 source={source}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}
@@ -131,14 +137,9 @@ export default class TCWebView extends Component {
                 thirdPartyCookiesEnabled={true}
             />
         return (
-            <View style={styles.container}>
+            <View style={[styles.container]} >
                 {!this.state.isHttpFail ? wenConteView:<View style={{height:JX_PLAT_INFO.SCREEN_H, justifyContent:"center",
-                    alignItems:
-                "center"}}>
-                    <TCButtonView btnStyle={{width:300}} onClick={()=>{
-                        TW_NavHelp.popToBack();
-                        setTimeout(this.onBackHomeJs, 1000)
-                    }} text={"返回大厅"}/>
+                    alignItems: "center", backgroundColor: "transparent"}}>
                 </View>}
             </View>
         );
@@ -146,9 +147,14 @@ export default class TCWebView extends Component {
 
 
 
-
     onLoadEnd = (event) => {
+
         TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--"+ TW_Store.bblStore.isLoading, event)
+        setTimeout(()=>{
+            TW_Store.bblStore.lastGameUrl = "";
+            TW_Store.bblStore.showGameCircle(false);
+        },G_IS_IOS ? 1000:2500)
+
     }
 
     onloadStart = (event) => {
@@ -182,28 +188,16 @@ export default class TCWebView extends Component {
                     TW_NavHelp.pushView(JX_Compones.WebView, {url})
                     break;
                 case "game_back":
-                    TW_NavHelp.popToBack();
                     this.onBackHomeJs()
-                    break;
-                case  "JumpUrl":
-                    url = this.handleUrl(message.au)
-                    if(TW_Store.appStore.isInAnroidHack){
-                        //如果处于审核状态 只跳用户中心 其他页面不跳转
-                        if(url.indexOf("module=account")>-1){
-                            TW_NavHelp.pushView(JX_Compones.WebView, {url});
-
-                        }else{
-
-                        }
-                    }else{
-                        TW_NavHelp.pushView(JX_Compones.WebView, {url})
-                    }
-
+                    //TW_NavHelp.popToBack();
+                   // this.onBackHomeJs()
                     break;
                 case "game_recharge":
                     TW_Store.gameUIStroe.isShowAddPayView=!TW_Store.gameUIStroe.isShowAddPayView;
                     break;
                 case "game_start": //子游戏准备ok
+                    TW_Store.bblStore.lastGameUrl = "";
+                    TW_Store.bblStore.showGameCircle(false);
                     break;
             }
         }
@@ -255,12 +249,15 @@ export default class TCWebView extends Component {
     onBackHomeJs = () => {
 
         let {onEvaleJS} = this.props
+        TW_Store.bblStore.subGameParams={
+            url:"",
+            isGame: true
+        }
         TW_Log("onEvaleJS---onBackHomeJs--",onEvaleJS)
         if (onEvaleJS) {
             onEvaleJS(this.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.lobbyResume));
         }
-        
     }
 }
 
@@ -268,11 +265,11 @@ export default class TCWebView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#000000",
+        backgroundColor: "transparent",
     },
     webView: {
         marginTop: 0,
-        width: width,
-        backgroundColor: "#000000",
+        flex:1,
+        backgroundColor: "transparent"
     }
 });

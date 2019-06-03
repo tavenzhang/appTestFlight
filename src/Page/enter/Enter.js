@@ -317,6 +317,13 @@ export default class Enter extends Component {
             updateStatus: 0
 
         });
+        if(!TW_Store.dataStore.isAppInited){
+            //如果是第一次启动app  并且游戏资源拷贝到document 还未完成，5秒后进行重新热更新检测 直接退出函数
+            setTimeout(()=>{
+                this.hotFix(TW_Store.hotFixStore.currentDeployKey);
+            },5000);
+            return ;
+        }
         // if(TW_Store.gameUpateStore.isCodePushChecking){
         //     setTimeout(()=>{
         //         TW_Store.gameUpateStore.isCodePushChecking = false;
@@ -335,13 +342,6 @@ export default class Enter extends Component {
                 }
                 if(versionData){
                     if(versionData.isWeakUpate){
-                        if(!TW_Store.dataStore.isAppInited){
-                            //如果是第一次启动app  并且游戏资源拷贝到document 还未完成，5秒后进行重新热更新检测 直接退出函数
-                            setTimeout(()=>{
-                                this.hotFix(TW_Store.hotFixStore.currentDeployKey);
-                            },5000);
-                            return ;
-                        }
                         this.hotFixStore.isNextAffect = versionData.jsVersion==appInfoStore.versionHotFix;
                     }else{
                         this.hotFixStore.isNextAffect =false;
