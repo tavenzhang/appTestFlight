@@ -137,6 +137,19 @@ var Common = /** @class */ (function () {
     Common.setLoginPlatform = function (s) {
         Common.LOGIN_PLATFORM = s;
     };
+    /**
+     * 重置相关数据
+     */
+    Common.resetData = function () {
+        this.userInfo = null;
+        this.userInfo_current = null;
+        this.loginInfo = null;
+        this.avatorInfo = null;
+        this.bindPhoneInfo = null;
+        TempData.bindAward = 0;
+        TempData.isGetBindAward = true;
+        TempData.bindOpen = false;
+    };
     Common.GM_SCREEN_H = 750;
     Common.GM_SCREEN_W = 1334;
     Common.IDX_TOP_LOADING = 9999;

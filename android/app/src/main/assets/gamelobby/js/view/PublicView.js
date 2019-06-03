@@ -70,7 +70,7 @@ var view;
             userData.avatarSkinId = id;
         };
         PublicView.prototype.showHeadIcon = function () {
-            var id = Common.userInfo.avatorId;
+            var id = Common.avatorInfo.avatorId;
             this.flushHeadIcon(id);
         };
         PublicView.prototype.showMoney = function () {

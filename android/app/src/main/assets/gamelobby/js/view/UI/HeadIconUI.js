@@ -25,7 +25,7 @@ var HeadIconUI = /** @class */ (function (_super) {
     }
     HeadIconUI.prototype.initView = function () {
         this.iconbg = new Laya.Image();
-        this.iconbg.skin = "ui/userInfo/avatorFrame.png";
+        this.iconbg.skin = "ui/common/avatorFrame.png";
         this.addChild(this.iconbg);
         this.iconbg.width = 120;
         this.iconbg.height = 120;
