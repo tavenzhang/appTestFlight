@@ -12,7 +12,6 @@ var __assign = (this && this.__assign) || function () {
 var LayaMain = /** @class */ (function () {
     function LayaMain() {
         this.sceneLobby = null;
-        this.sceneRoom = null;
         LayaMain.obj = this;
         Laya.init(0, Common.GM_SCREEN_H, Laya.WebGL);
         // Laya.URL.rootPath = Laya.URL.basePath + window["sPubRes"];
@@ -73,6 +72,7 @@ var LayaMain = /** @class */ (function () {
         if (cmd === void 0) { cmd = null; }
         PostMHelp.game_common({ name: "loginout" });
         SaveManager.getObj().save(SaveManager.KEY_TOKEN, "");
+        Common.resetData();
         Dialog.manager.closeAll();
         this.clearChild();
         PageManager.Get().ShowPage(null, PageLogin, cmd);
@@ -185,6 +185,7 @@ var LayaMain = /** @class */ (function () {
                     MyUid.setUid(message.data);
                     break;
                 case "lobbyResume": //从游戏返回到大厅
+                    TempData.joinLobbyType = JoinLobbyType.gameBank;
                     lamain.onGameResume();
                     EventManager.dispath(EventType.FLUSH_CYCLEIMAGE);
                     break;
@@ -202,7 +203,6 @@ var LayaMain = /** @class */ (function () {
                             this.maskbg.alpha = 0.6;
                             this.maskbg.size(Laya.stage.width, Laya.stage.height);
                             this.maskbg.zOrder = Dialog.manager.zOrder + 1;
-                            this.showCircleLoading(true);
                         }
                         Laya.stage.addChild(this.maskbg);
                     }
@@ -214,6 +214,7 @@ var LayaMain = /** @class */ (function () {
                 }
                 case "lifecycle": { //前后台切换通知(1-后台到前台，0-前台到后台)
                     if (message.data == 1) {
+                        TempData.joinLobbyType = JoinLobbyType.backstage;
                         EventManager.dispath(EventType.FLUSH_CYCLEIMAGE);
                     }
                     break;
@@ -233,10 +234,6 @@ var LayaMain = /** @class */ (function () {
         if (this.sceneLobby) {
             this.sceneLobby.destroy(true);
             this.sceneLobby = null;
-        }
-        if (this.sceneRoom) {
-            this.sceneRoom.destroy(true);
-            this.sceneRoom = null;
         }
         if (AgentPad.getObj()) {
             AgentPad.getObj().onClose(null);
@@ -260,14 +257,6 @@ var LayaMain = /** @class */ (function () {
             this.sceneLobby = new LobbyScene();
             this.sceneLobby.onLoaded(null);
             LayaMain.getInstance().getRootNode().addChild(this.sceneLobby);
-        }
-    };
-    LayaMain.prototype.initRoom = function (data) {
-        this.clearChild();
-        if (this.sceneRoom == null) {
-            this.sceneRoom = new RoomScene();
-            this.sceneRoom.onLoaded(data);
-            LayaMain.getInstance().getRootNode().addChild(this.sceneRoom);
         }
     };
     //todo:xxx

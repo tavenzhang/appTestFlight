@@ -69,6 +69,8 @@ export default class XXWebView extends Component {
 
     }
 
+
+
     componentWillUnmount(): void {
         if(G_IS_IOS){
             Keyboard.removeListener('keyboardWillShow', this._keyboardDidShow);
@@ -354,7 +356,7 @@ export default class XXWebView extends Component {
                     break;
                 case "game_common":
                     switch (message.name) {
-                        case "saveToPhohe":
+                        case "saveToPhone":
                             Tools.onSaveScreenPhone();
                             break;
                         case "loginout":
@@ -389,6 +391,7 @@ export default class XXWebView extends Component {
                             }else{
                                 Toast.showShortCenter("已复制链接!");
                             }
+
                         break;
                     }
 
@@ -584,7 +587,9 @@ export default class XXWebView extends Component {
     onEvaleJS = (data) => {
         let dataStr = JSON.stringify(data);
         dataStr = dataStr ? dataStr : "";
-        this.refs.myWebView.postMessage(dataStr, "*");
+        if(this.refs.myWebView){
+            this.refs.myWebView.postMessage(dataStr, "*");
+        }
         //this.refs.myWebView.evaluateJavaScript(`receivedMessageFromRN(${dataStr})`);
     }
 

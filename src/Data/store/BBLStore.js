@@ -104,7 +104,10 @@ export  default  class BBLStore {
 
     @action
     showGameCircle(isShow=true) {
-        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showLoading,{data:isShow}));
+        if(TW_OnValueJSHome){
+            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showLoading,{data:isShow}));
+        }
+
         this.isShowCircle =isShow;
     }
 
