@@ -115,7 +115,7 @@ var view;
                 }
             };
             FullMyCenterDlg.prototype.setHeadIcon = function () {
-                var data = Common.userInfo;
+                var data = Common.avatorInfo;
                 if (!data) {
                     console.error("userInfo is null", this);
                     return;
