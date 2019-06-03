@@ -102,13 +102,14 @@ export default class Enter extends Component {
     onInitAllData=()=>{
         this.initData();
         this.uploadLog();
-       // AppState.addEventListener('change', this.handleAppStateChange);
         this.timer2 = setTimeout(() => {
             if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
                 this.hotFixStore.skipUpdate();
                 this.reloadAppDomain();
             }
         }, 7 * 1000)
+        this.hotFixStore.skipUpdate();
+        this.reloadAppDomain();
 
         if(G_IS_IOS){
             if(Orientation&&Orientation.lockToLandscapeRight){
@@ -126,7 +127,6 @@ export default class Enter extends Component {
     //域名异常启动介入
     reloadAppDomain(){
         domainsHelper.getSafeguardName((ok)=>{
-            if(ok){
                 //拿到d.json域名初始化
                 this.initDomain();
 
@@ -140,7 +140,6 @@ export default class Enter extends Component {
                     syncMessage: "初始化配置中...",
                     updateStatus: 0,
                 })
-            }
         })
     }
 

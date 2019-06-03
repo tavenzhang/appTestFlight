@@ -336,7 +336,7 @@ export default class DataStore {
                 setTimeout(()=>{
                     this.isAppInited = true;
                     this.loadHomeVerson();
-                },G_IS_IOS ? 1000:1000);
+                },G_IS_IOS ? 1000:2000);
             }
             this.log+="onSavaCopyState---  this.isAppInited="+this.isAppInited+"\n"
         })
@@ -405,7 +405,8 @@ export default class DataStore {
             if (item.isDirectory()) {
                 await this.androdi_copy_assets_to_dir(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
             } else {
-                await RNFS.copyFileAssets(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
+                const fileState =   await RNFS.copyFileAssets(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
+                TW_Log('andorid----androdi_copy_assets-----fileState-== '+fileState, item);
                 if(item.path&&item.path.indexOf("zzzFinish/")>-1){
                     //　利用zzzFinish来判断是否android拷贝完成
                        this.onSavaCopyState();

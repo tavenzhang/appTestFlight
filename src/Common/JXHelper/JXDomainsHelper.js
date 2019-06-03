@@ -82,18 +82,17 @@ export default class MyComponent {
             return
         }
         let safeguardDomain = base64.decode(safeguardKey);
-        TW_Log("getSafeguardName---safeguardKey=="+safeguardKey);
-        TW_Log("getSafeguardName---safeguardDomain=="+safeguardDomain)
         safeguardDomain = JSON.parse(safeguardDomain);
         safeguardDomain = safeguardDomain.d;
         if (!_.isEmpty(safeguardDomain)) {
             let alreadyCallBack = false;
             for (let i = 0; i < safeguardDomain.length; i++) {
                 let url = safeguardDomain[i];
-                this.testSafeguarDomains(url, succeed => {
+                this.testSafeguarDomains(url, isSucceed => {
+                    TW_Log("getSafeguardName---isSucceed=="+isSucceed+"--alreadyCallBack="+alreadyCallBack);
                     if (!alreadyCallBack) {
                         alreadyCallBack = true;
-                        callBack(succeed);
+                        callBack(isSucceed);
                     }
                 });
             }
@@ -102,11 +101,23 @@ export default class MyComponent {
 
     testSafeguarDomains(url, callBack) {
         url = url + '/q.png?temp=' + JXHelper.getRandomChars(true, 5, 15);
+        let ret =this.checkURL(url);
         if(!this.checkURL(url)){
             return
         }
         this.fetchAsyncResponse(url, ads => {
-            ads = this.decodeDomain(ads._bodyText);
+            TW_Log("getSafeguardName---fetchAsyncResponse==url=="+url+"---ads==="+ads,ads);
+            try {
+                ads = this.decodeDomain(ads._bodyText);
+            }
+            catch (e) {
+                if(callBack){
+                    callBack(false);
+                }
+                TW_Log("getSafeguardName---fetchAsyncResponse==url=="+ret+"---ads=catch=="+ads,e);
+            }
+
+            TW_Log("getSafeguardName---fetchAsyncResponse==url=="+ret+"---ads=resutlt=="+ads);
             if (ads && ads.d && ads.d.length > 0) {
                 this.testDomainsHealth(ads.d);
                 AsyncStorage.setItem(
