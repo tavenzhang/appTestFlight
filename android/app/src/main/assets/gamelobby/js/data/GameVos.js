@@ -32,4 +32,13 @@ var VerCodeType;
     VerCodeType[VerCodeType["MSG_RESET_PWD"] = 1] = "MSG_RESET_PWD";
     VerCodeType[VerCodeType["MSG_BIND_MOBILE"] = 2] = "MSG_BIND_MOBILE";
 })(VerCodeType || (VerCodeType = {}));
+/**
+ * 进入大厅类型
+ */
+var JoinLobbyType;
+(function (JoinLobbyType) {
+    JoinLobbyType[JoinLobbyType["loginJoin"] = 0] = "loginJoin";
+    JoinLobbyType[JoinLobbyType["gameBank"] = 1] = "gameBank";
+    JoinLobbyType[JoinLobbyType["backstage"] = 2] = "backstage";
+})(JoinLobbyType || (JoinLobbyType = {}));
 //# sourceMappingURL=GameVos.js.map

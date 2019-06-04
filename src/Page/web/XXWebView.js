@@ -28,7 +28,7 @@ export default class XXWebView extends Component {
     constructor(state) {
         super(state)
         this.onCloseSharebox = this.onCloseSharebox.bind(this);
-        this.filtUrlList=["/api/v1/account/webapi/account/users/login","/api/v1/account/webapi/account/users/userWebEncryptRegister"];
+       // this.filtUrlList=["/api/v1/account/webapi/account/users/login","/api/v1/account/webapi/account/users/userWebEncryptRegister"];
 
         this.state={
             isFail:false,
@@ -69,6 +69,8 @@ export default class XXWebView extends Component {
 
     }
 
+
+
     componentWillUnmount(): void {
         if(G_IS_IOS){
             Keyboard.removeListener('keyboardWillShow', this._keyboardDidShow);
@@ -89,6 +91,7 @@ export default class XXWebView extends Component {
         if(!this.isShowKeyBoard){
             this.isShowKeyBoard =true;
             if(this.refs.myView){
+                TW_Log("( _keyboard---_keyboardDidShow--"+ this.refs.myView.setNativeProps , this.refs.myView);
                 this.refs.myView.setNativeProps({style: {bottom:event.endCoordinates.height-120}});
             }
         }
@@ -302,7 +305,6 @@ export default class XXWebView extends Component {
                                           onMessage={this.onMessage}
                                           onLoadEnd={this.onLoadEnd}
 
-
                         /> :
                         <View style={styles.webView}  ref="myView">
                             <WebView
@@ -354,7 +356,7 @@ export default class XXWebView extends Component {
                     break;
                 case "game_common":
                     switch (message.name) {
-                        case "saveToPhohe":
+                        case "saveToPhone":
                             Tools.onSaveScreenPhone();
                             break;
                         case "loginout":
@@ -389,6 +391,7 @@ export default class XXWebView extends Component {
                             }else{
                                 Toast.showShortCenter("已复制链接!");
                             }
+
                         break;
                     }
 
@@ -444,13 +447,22 @@ export default class XXWebView extends Component {
                     if (!isNeedLoad&&TW_Store.bblStore.lastGameUrl!=url) {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.payload);
-                        TW_NavHelp.pushView(JX_Compones.WebView, {
+                        TW_Store.bblStore.showGameCircle();
+                       // TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showLoading,{data:true}));
+                        TW_Store.bblStore.subGameParams = {
                             url,
                             onMsgHandle: this.onMsgHandle,
                             onEvaleJS: this.onEvaleJS,
                             isGame: true,
                             isOrigan
-                        })
+                        }
+                       //  TW_NavHelp.pushView(JX_Compones.WebView, {
+                       //      url,
+                       //      onMsgHandle: this.onMsgHandle,
+                       //      onEvaleJS: this.onEvaleJS,
+                       //      isGame: true,
+                       //      isOrigan
+                       //  })
                     }
                     break;
                 case  "game_account":
@@ -575,7 +587,9 @@ export default class XXWebView extends Component {
     onEvaleJS = (data) => {
         let dataStr = JSON.stringify(data);
         dataStr = dataStr ? dataStr : "";
-        this.refs.myWebView.postMessage(dataStr, "*");
+        if(this.refs.myWebView){
+            this.refs.myWebView.postMessage(dataStr, "*");
+        }
         //this.refs.myWebView.evaluateJavaScript(`receivedMessageFromRN(${dataStr})`);
     }
 
