@@ -6,7 +6,7 @@ import {observable, action, computed} from "mobx";
 
 import {
     getUserCardsAndWithdrawInfo,
-    applyWithdraw
+    applyWithdraw, getWithdrawSetting
 } from '../../Common/Network/TCRequestService'
 import SecretUtils from '../../Common/JXHelper/SecretUtils'
 
@@ -47,6 +47,13 @@ export default class UserWithdrawStore {
     }
 
     @observable
+    withdrawSetting= {
+        enabledAlipayWithdraw: false, //是否允许支付宝出款
+        hasAlipayCard: false, //是否已绑定支付宝出款卡
+        hasBankCard: false //是否已绑定银行卡
+    }
+
+    @observable
     tipShow = false
     @observable
     money = 0
@@ -78,6 +85,23 @@ export default class UserWithdrawStore {
                 } else {
                     this.setDialogVisible();
                 }
+            } else {
+                result.status = false;
+                result.message = res.message ? res.message : "服务器出错啦!";
+            }
+            callback&&callback(result);
+        })
+    }
+
+    @action
+    initWithdraw(callback) {
+        getUserCardsAndWithdrawInfo((res) => {
+            let result = {}
+            TW_Log("initWithdraw>>Benny---")
+            this.freshLoading()
+            if (res.rs) {
+                result.status = true;
+                result.message ="成功啦";
             } else {
                 result.status = false;
                 result.message = res.message ? res.message : "服务器出错啦!";
