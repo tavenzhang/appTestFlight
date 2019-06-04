@@ -20,26 +20,8 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     UpdateMsgHandle.onInitMsg = function (data) {
-        // data = [
-        //     {
-        //         "gameId":31,
-        //         "alias":"zjh",
-        //         "bupdate":true
-        //     },
-        //     {
-        //         "gameId":30,
-        //         "bupdate":true
-        //     },
-        //     {
-        //         "gameId":29,
-        //         "bupdate":true
-        //     }
-        // ];
         UpdateMsgHandle.updateInitMsg = data;
         EventManager.dispath(EventType.GAME_UPDATE_INIT);
-        if (GamePanel.getInstance()) {
-            GamePanel.getInstance().onUpdateMsgInit();
-        }
     };
     UpdateMsgHandle.getGameIndexByAlias = function (alias) {
         if (!UpdateMsgHandle.updateInitMsg) {
@@ -91,9 +73,6 @@ var UpdateMsgHandle = /** @class */ (function (_super) {
         // ];
         UpdateMsgHandle.refreshArr(data);
         EventManager.dispath(EventType.GAME_UPDATE_PROGRESS, data);
-        if (GamePanel.getInstance()) {
-            GamePanel.getInstance().onUpdatePercent(data);
-        }
     };
     UpdateMsgHandle.setRawRoot = function (src) {
         UpdateMsgHandle.raw_root = src;

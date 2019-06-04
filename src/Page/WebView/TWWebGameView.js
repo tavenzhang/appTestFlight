@@ -23,7 +23,7 @@ export default class TWWebGameView extends Component {
 
     static propTypes = {
         data: PropTypes.func,
-        isShow:false
+        isShow:PropTypes.any
     }
 
     constructor(state) {
