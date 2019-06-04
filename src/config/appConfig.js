@@ -4,10 +4,10 @@ import React, {
 
 
 export const appDomainBase = {
-    base1: 'https://yw8txj2e.shpeisheng1.cn',
-    base2: "https://yw8txj2e.shpeisheng1.cn",
-    base3: "https://yw8txj2e.shpeisheng1.cn",
-    base4: "https://yw8txj2e.shpeisheng1.cn",
+    base1: 'https://38fo28gk.ewxsg.cn',
+    base2: "https://38fo28gk.jjxzt.cn",
+    base3: "https://38fo28gk.gybye.cn",
+    base4: "https://hosobw29.ewxsg.cn",
     base5: "https://hosobw29.jjxzt.cn",
     base6: "https://hosobw29.gybye.cn",
     base7: "https://hosobw29.gybye.cn",
@@ -44,7 +44,7 @@ export const versionHotFix = 'v6.1';
 
 
 //第三方安全域名base64 key
-export const safeguardKey = 'eyJkIjogWydodHRwczovL2NlYTRlY2E2NTBkNzFiZDlkNTUyYjRjZjM4ZTA1NzAyLm9zcy1jbi1zaGVuemhlbi5hbGl5dW5jcy5jb20nLAogICAgJ2h0dHBzOi8vY2VhNGVjYTY1MGQ3MWJkOWQ1NTJiNGNmMzhlMDU3MDIuczMtYWNjZWxlcmF0ZS5hbWF6b25hd3MuY29tJywKICAgICdodHRwczovL2NlYTRlY2E2NTBkNzFiZDlkNTUyYjRjZjM4ZTA1NzAyLmF6dXJlZWRnZS5uZXQnXX0='
+export const safeguardKey = 'ewoJImQiOiBbImh0dHBzOi8vY2VhNGVjYTY1MGQ3MWJkOWQ1NTJiNGNmMzhlMDU3MDIub3NzLWNuLXNoZW56aGVuLmFsaXl1bmNzLmNvbSIsCgkJImh0dHBzOi8vY2VhNGVjYTY1MGQ3MWJkOWQ1NTJiNGNmMzhlMDU3MDIuczMtYWNjZWxlcmF0ZS5hbWF6b25hd3MuY29tIiwKCQkiaHR0cHM6Ly9jZWE0ZWNhNjUwZDcxYmQ5ZDU1MmI0Y2YzOGUwNTcwMi5henVyZWVkZ2UubmV0IgoJXQp9'
 
 
 export const platInfo = {

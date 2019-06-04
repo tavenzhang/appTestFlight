@@ -32,7 +32,7 @@ var AgentContentInfo = /** @class */ (function (_super) {
                     avatar.x = this.conf.sprites[i].pos.x;
                     avatar.y = this.conf.sprites[i].pos.y;
                     avatar.size(146, 146);
-                    var frame = new Laya.Image("ui/userInfo/avatorFrame.png");
+                    var frame = new Laya.Image("ui/common/avatorFrame.png");
                     this.addChild(frame);
                     frame.x = this.conf.sprites[i].pos.x - 10;
                     frame.y = this.conf.sprites[i].pos.y - 5;

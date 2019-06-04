@@ -70,7 +70,6 @@ export default class DataStore {
                     this.copy_assets_to_dir();
                 }
             }
-
         });
     }
 
@@ -135,6 +134,7 @@ export default class DataStore {
                 this.isCheckRequesting=false;
                 TW_Store.gameUpateStore.isNeedUpdate=false;
                 this.log += "\n==>TW_Store.dataStore.this.isCheckRequesting" + this.isCheckRequesting;
+                SplashScreen.hide();
             }
         },3000);
         NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionConfig(),null,(rt)=> {
@@ -336,8 +336,7 @@ export default class DataStore {
                 setTimeout(()=>{
                     this.isAppInited = true;
                     this.loadHomeVerson();
-                },1500)
-
+                },G_IS_IOS ? 1000:2000);
             }
             this.log+="onSavaCopyState---  this.isAppInited="+this.isAppInited+"\n"
         })
@@ -398,16 +397,19 @@ export default class DataStore {
         if (!target_dir_exist) {
             await RNFS.mkdir(target_dir);
         }
+         TW_Log('andorid--------androdi_copy_assets_to_dir--source_dir',source_dir);
         const items = await RNFS.readDirAssets(source_dir);
         for (let i = 0; i < items.length; i++) {
             const item = items[i];
-            TW_Log('andorid--------androdi_copy_assets_to_dir--items.length--'+items.length, item);
+            TW_Log('andorid--------androdi_copy_assets_to_dir--items.length--'+items.length +"---", item);
             if (item.isDirectory()) {
                 await this.androdi_copy_assets_to_dir(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
             } else {
-                await RNFS.copyFileAssets(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
-                if(item.path&&item.path.indexOf("style/")>-1){
-                    this.onSavaCopyState();
+                const fileState =   await RNFS.copyFileAssets(`${source_dir}/${item.name}`, `${target_dir}/${item.name}`);
+                TW_Log('andorid----androdi_copy_assets-----fileState-== '+fileState, item);
+                if(item.path&&item.path.indexOf("zzzFinish/")>-1){
+                    //　利用zzzFinish来判断是否android拷贝完成
+                       this.onSavaCopyState();
                 }
             }
         }
