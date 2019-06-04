@@ -142,7 +142,7 @@ export default class App extends Component {
     }
 
     onBackAndroid = () => {
-        TW_Log("onBackAndroid-- --", this.navigator);
+        TW_Log("onBackAndroid---", this.navigator);
         // return false;
         const routers = this.navigator.state.routes;
         if (routers && routers.length > 1) {
