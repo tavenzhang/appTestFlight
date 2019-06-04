@@ -153,7 +153,7 @@ export default class TWWebGameView extends Component {
         setTimeout(()=>{
             TW_Store.bblStore.lastGameUrl = "";
             TW_Store.bblStore.showGameCircle(false);
-        },G_IS_IOS ? 1000:2500)
+        },G_IS_IOS ? 1000:4000)
 
     }
 
