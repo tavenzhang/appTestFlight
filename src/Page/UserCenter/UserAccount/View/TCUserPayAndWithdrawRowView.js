@@ -203,7 +203,6 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
      */
     getAccountBalance() {
         let balance = this.props.rowData.delta
-        console.log("====Benny,getAccountBalance")
         if (balance < 0) {
             return (<Text style={styles.itemData}>{(balance).toFixed(2)}</Text>)
         } else {

@@ -14,6 +14,7 @@ import {TCTextInput} from "../../../Common/View/TCTextInput";
 import {Size} from "../../resouce/theme";
 import Moment from "moment";
 import TCWithdrawKeyboardView from "../../UserCenter/UserWithdraw/TCWithdrawKeyboardView";
+import GameWithdraw from "./withdraw/GameWithdraw";
 
 @observer
 export default class GameMoneyOutView extends Component {
@@ -24,12 +25,20 @@ export default class GameMoneyOutView extends Component {
         this.userWithdrawStore = TW_Store.userWithdrawStore;
         this.state = {
             inputMoney: "",
-            isShowHistory:false
+            isBankSelected: false,
+            isShowHistory: false,
+            showBankCard:false,
+            showAlipayCard:false
         }
     }
 
     componentWillMount(): void {
         TW_Store.userStore.freshBalance();
+        this.userWithdrawStore.initWithdraw((res) => {
+            if (!res.status) {
+                Toast.showShortCenter(res.message);
+            }
+        })
         this.userWithdrawStore.initDefaultBank((res) => {
             if (!res.status) {
                 Toast.showShortCenter(res.message);
@@ -37,40 +46,108 @@ export default class GameMoneyOutView extends Component {
         })
     }
 
+    renderImage =() => {
+        let imgSource = this.state.isSelected ? ASSET_Images.gameUI.payTypeSelectBg : null
+
+        return (
+           {/* <TCImage source={imgSource}/>*/}
+        );
+    }
+
+    showBank=()=> {
+        this.setState({
+            isBankSelected: true
+        })
+    }
+
+    showAlipay=()=> {
+        this.setState({
+            isBankSelected: false
+        })
+    }
+
     render() {
-        let {pointerEvents}=this.props;
+        let {pointerEvents} = this.props;
         let num = this.userWithdrawStore.withdrawModel.aggregateBetRequirements - this.userWithdrawStore.withdrawModel.aggregateBets
+        this.state.showBankCard=this.userWithdrawStore.withdrawSetting.hasBankCard
+        this.state.showAlipayCard=this.userWithdrawStore.withdrawSetting.hasAlipayCard
 
         return (<View style={styles.container}>
-            <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W, height:SCREEN_H}} resizeMode={'stretch'}/>
-            <TCImage source={ASSET_Images.gameUI.payTopLeftBg} style={{position: "absolute",width:SCREEN_W*0.30,height:SCREEN_H*0.15, left:SCREEN_W*0.0,top:0.01}} resizeMode={'stretch'}/>
-            <TCImage source={ASSET_Images.gameUI.iconMoneyOut} style={{position: "absolute",width:SCREEN_W*0.08,height:SCREEN_H*0.11,left:SCREEN_W*0.03,top:5}} resizeMode={'stretch'}/>
-            <TCImage source={ASSET_Images.gameUI.titleMoneyOut} style={{position: "absolute",width:SCREEN_W*0.1,height:SCREEN_H*0.06,left:SCREEN_W*0.11,top:SCREEN_H*0.05 - 5}} resizeMode={'contain'}/>
-            <TCImage source={ASSET_Images.gameUI.moneyBottomBg} style={{position: "absolute",right:0,bottom:0}} resizeMode={'contain'}/>
-            <TCImage source={ASSET_Images.gameUI.payBackBg} style={{position: "absolute",right: 0, top: 0,width:SCREEN_W*0.20,height:SCREEN_H*0.12}} resizeMode={'stretch'}/>
+            <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{width: SCREEN_W, height: SCREEN_H}}
+                     resizeMode={'stretch'}/>
+            <TCImage source={ASSET_Images.gameUI.payTopLeftBg} style={{
+                position: "absolute",
+                width: SCREEN_W * 0.30,
+                height: SCREEN_H * 0.15,
+                left: SCREEN_W * 0.0,
+                top: 0.01
+            }} resizeMode={'stretch'}/>
+            <TCImage source={ASSET_Images.gameUI.iconMoneyOut} style={{
+                position: "absolute",
+                width: SCREEN_W * 0.08,
+                height: SCREEN_H * 0.11,
+                left: SCREEN_W * 0.03,
+                top: 5
+            }} resizeMode={'stretch'}/>
+            <TCImage source={ASSET_Images.gameUI.titleMoneyOut} style={{
+                position: "absolute",
+                width: SCREEN_W * 0.1,
+                height: SCREEN_H * 0.06,
+                left: SCREEN_W * 0.11,
+                top: SCREEN_H * 0.05 - 5
+            }} resizeMode={'contain'}/>
+            <TCImage source={ASSET_Images.gameUI.moneyBottomBg} style={{position: "absolute", right: 0, bottom: 0}}
+                     resizeMode={'contain'}/>
+            <TCImage source={ASSET_Images.gameUI.payBackBg}
+                     style={{position: "absolute", right: 0, top: 0, width: SCREEN_W * 0.20, height: SCREEN_H * 0.12}}
+                     resizeMode={'stretch'}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.payBack}
                          soundName={TW_Store.bblStore.SOUND_ENUM.returnLobbyClick}
                          onClick={() => TW_Store.gameUIStroe.isShowWithDraw = false}
-                         btnStyle={{position: "absolute", right: -15, top: 7,width:SCREEN_W*0.20,height:SCREEN_H*0.12}} />
+                         btnStyle={{
+                             position: "absolute",
+                             right: -15,
+                             top: 7,
+                             width: SCREEN_W * 0.20,
+                             height: SCREEN_H * 0.12
+                         }}/>
             <TCButtonImg imgSource={ASSET_Images.gameUI.btnOut}
                          soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
-                         btnStyle={{position: "absolute", right: SCREEN_W*0.15, top: 10}}  onClick={()=>TW_Store.gameUIStroe.showTiXianDetail() }
+                         btnStyle={{position: "absolute", right: SCREEN_W * 0.15, top: 10}}
+                         onClick={() => TW_Store.gameUIStroe.showTiXianDetail()}
             />
-            <TCImage source={ASSET_Images.gameUI.payTypeBg} style={{position: "absolute",top:SCREEN_H*0.14,left:0}} />
+            <TCImage source={ASSET_Images.gameUI.payTypeBg}
+                     style={{position: "absolute", top: SCREEN_H * 0.14, left: 0}}/>
 
 
-            <TCImage source={ASSET_Images.gameUI.payOutBg} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.18,width:SCREEN_W*0.68,height:SCREEN_H*0.76,left:SCREEN_W*0.27}}/>
+            <TCImage source={ASSET_Images.gameUI.payOutBg} resizeMode={'stretch'} style={{
+                position: "absolute",
+                top: SCREEN_H * 0.18,
+                width: SCREEN_W * 0.68,
+                height: SCREEN_H * 0.76,
+                left: SCREEN_W * 0.27
+            }}/>
 
-            <TCImage source={ASSET_Images.gameUI.payTypeSelectBg} resizeMode={'contain'} style={{position: "absolute",top:SCREEN_H*0.18,left:0}}/>
+            {/*<TCImage source={ASSET_Images.gameUI.payTypeSelectBg} resizeMode={'contain'} style={{position: "absolute",top:SCREEN_H*0.18,left:0}}/>*/}
 
-            <TCImage source={ASSET_Images.gameUI.payOutTypeBank}  style={{position: "absolute",top:SCREEN_H*0.18+15,left: SCREEN_ISFULL ? 30:10}}/>
-            <TCImage source={ASSET_Images.gameUI.payOutTypeZFB}   style={{position: "absolute",top:SCREEN_H*0.18+125,left:SCREEN_ISFULL ? 10:-10}}/>
+            <TouchableOpacity onPress={this.showBank}
+                              style={{position: "absolute", top: SCREEN_H * 0.18 + 15, left: SCREEN_ISFULL ? 30 : 10}}>
+                <TCImage source={ASSET_Images.gameUI.payOutTypeBank}/>
+            </TouchableOpacity>
 
+            <TouchableOpacity onPress={this.showAlipay}
+                              style={{position: "absolute", top: SCREEN_H * 0.18 + 125, left: SCREEN_ISFULL ? 30 : 10}}>
+                <TCImage source={this.userWithdrawStore.withdrawSetting.enabledAlipayWithdraw ?
+                    ASSET_Images.gameUI.payOutTypeZFB : ASSET_Images.gameUI.payOutTypeZFB_notSupport}/>
+            </TouchableOpacity>
 
+            <View style={{position: "absolute", top:60,left:210}}>
+                <GameWithdraw itemData={this.userWithdrawStore} isBankSelected={this.state.isBankSelected} isShowBank={this.state.showBankCard} isShowAlipay={this.state.showAlipayCard}/>
+            </View>
 
-            <TCImage source={ASSET_Images.gameUI.payOutTopIcon} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.19,width:40,height:42,left:SCREEN_W*0.29}}/>
+            {/*<TCImage source={ASSET_Images.gameUI.payOutTopIcon} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.19,width:40,height:42,left:SCREEN_W*0.29}}/>
             <TCImage source={ASSET_Images.gameUI.payOutMoneyLabel} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.22,width:90,height:25,left:SCREEN_W*0.37}}/>
-            {/*<TCImage source={ASSET_Images.gameUI.question} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.20,width:35,height:35,right:SCREEN_W*0.06}}/>*/}
+            <TCImage source={ASSET_Images.gameUI.question} resizeMode={'stretch'} style={{position: "absolute",top:SCREEN_H*0.20,width:35,height:35,right:SCREEN_W*0.06}}/>
 
             <TCText backgroundStyle={{backgroundColor: "transparent", position: "absolute", left: SCREEN_W*0.50+20, top: SCREEN_H*0.205}}
                     textStyle={{color: "#ffde00",fontSize:26}} text={this.userWithdrawStore.withdrawModel.totalMoney}/>
@@ -134,27 +211,27 @@ export default class GameMoneyOutView extends Component {
                                 }]}
                              placeholderTextColor={"#9cc5d8"}/>
 
-                {/*<Text style={{*/}
-                    {/*marginLeft: 10,*/}
-                    {/*color: "rgb(132,168,168)",*/}
-                    {/*fontSize: 11*/}
-                {/*}}>{`(${this.getInfoTextView()})`}</Text>*/}
+                <Text style={{
+                    marginLeft: 10,
+                    color: "rgb(132,168,168)",
+                    fontSize: 11
+                }}>{`(${this.getInfoTextView()})`}</Text>
 
             </View>
-            {/*<Text style={{*/}
-                {/*position: "absolute",*/}
-                {/*left: 90,*/}
-                {/*top: 235,*/}
-                {/*fontSize: 12,*/}
-                {/*color: "rgb(132,168,168)",*/}
-                {/*marginLeft: 10*/}
-            {/*}}>{`(最多可提取金额 ${this.userWithdrawStore.withdrawModel.maxWithdrawMoney} 元)`}</Text>*/}
-            {/*{this.getConfirmButton()}*/}
+            <Text style={{
+                position: "absolute",
+                left: 90,
+                top: 235,
+                fontSize: 12,
+                color: "rgb(132,168,168)",
+                marginLeft: 10
+            }}>{`(最多可提取金额 ${this.userWithdrawStore.withdrawModel.maxWithdrawMoney} 元)`}</Text>
+            {this.getConfirmButton()}
 
-            {/*<View style={{position: "absolute",left: 70, top: 155}}>*/}
-                    {/*<Text style={{color: "#efe8cd"}}>{this.userWithdrawStore.bank.bankName}</Text>*/}
-                    {/*<Text style={{color: "rgb(132,168,168)", fontSize:14, marginTop:5}}>{this.userWithdrawStore.bank.bankCardNo}</Text>*/}
-            {/*</View>*/}
+            <View style={{position: "absolute",left: 70, top: 155}}>
+                    <Text style={{color: "#efe8cd"}}>{this.userWithdrawStore.bank.bankName}</Text>
+                    <Text style={{color: "rgb(132,168,168)", fontSize:14, marginTop:5}}>{this.userWithdrawStore.bank.bankCardNo}</Text>
+            </View>
 
             <View style={{position: "absolute"}}>
                 <TCWithdrawKeyboardView
@@ -162,7 +239,7 @@ export default class GameMoneyOutView extends Component {
                 callBack={(res) => {
                 this.callback(res)
                 }}/>
-            </View>
+            </View>*/}
         </View>)
 
     }

@@ -95,13 +95,14 @@ export default class UserWithdrawStore {
 
     @action
     initWithdraw(callback) {
-        getUserCardsAndWithdrawInfo((res) => {
+        getWithdrawSetting((res) => {
             let result = {}
-            TW_Log("initWithdraw>>Benny---")
             this.freshLoading()
             if (res.rs) {
                 result.status = true;
-                result.message ="成功啦";
+                this.withdrawSetting.enabledAlipayWithdraw=res.content.enabledAlipayWithdraw
+                this.withdrawSetting.hasBankCard=res.content.hasBankCard
+                this.withdrawSetting.hasAlipayCard=res.content.hasAlipayCard
             } else {
                 result.status = false;
                 result.message = res.message ? res.message : "服务器出错啦!";
@@ -164,7 +165,7 @@ export default class UserWithdrawStore {
         this.withdrawModel.withdrawSwitch = withdrawSetting.withdrawalSettings.withdrawSwitch
         this.withdrawModel.minimumWithdrawAmount = setting.minimumWithdrawAmount
         this.withdrawModel.integerWithdrawalAmount = withdrawSetting.withdrawalSettings.integerWithdrawalAmount ? withdrawSetting.withdrawalSettings.integerWithdrawalAmount : false;
-        this.withdrawModel.enabledAlipayWithdraw = withdrawSetting.withdrawalSettings.enabledAlipayWithdraw
+        this.withdrawModel.enabledAlipayWithdraw = setting.enabledAlipayWithdraw
         this.ratioOfChargeExempt();
         this.getMaxWithdrawMoney(withdrawSetting, setting)
     }
