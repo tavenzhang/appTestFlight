@@ -98,7 +98,6 @@ export default class TWWebGameView extends Component {
         let dis = TW_Store.bblStore.isLoading ? "none":"flex";
 
 
-
         let wenConteView = G_IS_IOS ? <WKWebView
                 ref="myWebView"
                 source={source} onNavigationStateChange={this.onNavigationStateChange}
@@ -153,6 +152,9 @@ export default class TWWebGameView extends Component {
         setTimeout(()=>{
             TW_Store.bblStore.lastGameUrl = "";
             TW_Store.bblStore.showGameCircle(false);
+            if(TW_OnValueJSHome){
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
+            }
         },G_IS_IOS ? 1000:4000)
 
     }
@@ -198,6 +200,9 @@ export default class TWWebGameView extends Component {
                 case "game_start": //子游戏准备ok
                     TW_Store.bblStore.lastGameUrl = "";
                     TW_Store.bblStore.showGameCircle(false);
+                    if(TW_OnValueJSHome){
+                        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
+                    }
                     break;
             }
         }

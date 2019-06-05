@@ -62,7 +62,6 @@
         "avatorget": "/gamecenter/player/user",
         "yanzhengma": "/account/webapi/account/validateCode/getValidatePic?webUniqueCode=",
         "customapi": "/api/v1/cms/internal/mobile/31/otherSetting/pcCusService?clientId=31&keys=pcCusService,bankCardLogoUrlPrefix",
-        "testClientId": 31,
         "attention_new": "/gamecenter/player/notice/list/new",
         "attention_pop": "/gamecenter/player/notice/pop",
         "attention_read": "/gamecenter/player/notice/read/",
@@ -79,12 +78,22 @@
         "getBindAward": "/gamecenter/player/user/phone/reward",
         "getbankList": "/cashmgt/me/cards/list",
         "getbankCardInfo": "/cashmgt/me/cards/cardsAndWithdrawDetail",
-        "addBankCard": "/account/webapi/account/users/encryptRegister_info",
+        "onceBindCard": "/account/webapi/account/users/encryptRegister_info",
         "changePassword": "/account/webapi/account/users/secure/encryptChangePassword",
         "changePwdWithPhone": "/account/webapi/account/users/secure/encryptChangePasswordWithMobile",
         "getunAuthorVerCode": "/account/webapi/account/users/secure/unauthorized/getMobileVerificationCode",
         "getAuthorVerCode": "/account/webapi/account/users/secure/authorized/getMobileVerificationCode",
         "getCarouselInfo": "/gamecenter/player/material/info",
-        "setCardRealName": "/account/webapi/account/users/updateRealName"
+        "setCardRealName": "/account/webapi/account/users/updateRealName",
+        "getMailList": "/gamecenter/player/mail/list",
+        "getMailDetail": "/gamecenter/player/mail/detail/",
+        "receiveMailAward": "/gamecenter/player/mail/receive/",
+        "receiveAllMailAward": "/gamecenter/player/mail/receive/all",
+        "delMail": "/gamecenter/player/mail/del/",
+        "delAllMail": "/gamecenter/player/mail/del/all",
+        "getUnreadMail": "/gamecenter/player/mail/unread",
+        "getCardInfo": "/cashmgt/me/transfer/withdraw/settings",
+        "twiceBindCard": "/cashmgt/me/cards",
+        "share": "/gamecenter/player/activity/share"
     }
 }
