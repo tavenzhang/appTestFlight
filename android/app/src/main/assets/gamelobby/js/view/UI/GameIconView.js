@@ -205,6 +205,18 @@ var view;
                 this.grayIcon.scrollRect = this.grayRect;
                 this.grayHeight = this.grayRect.height;
             };
+            GameIconView.prototype.pause = function () {
+                if (this.animbox.visible) {
+                    if (this.anim)
+                        this.anim.pause();
+                }
+            };
+            GameIconView.prototype.resume = function () {
+                if (this.animbox.visible) {
+                    if (this.anim)
+                        this.anim.resume();
+                }
+            };
             /**
              * 销毁
              */

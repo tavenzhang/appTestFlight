@@ -104,6 +104,24 @@ var ResConfig = /** @class */ (function () {
         "万": "ui/bitFont/goldFont/gtxt13.png"
     };
     /**
+     * 邮件系统金币位图字体
+     */
+    ResConfig.bitFont_mail = {
+        "0": "ui/bitFont/mailFont/mtxt01.png",
+        "1": "ui/bitFont/mailFont/mtxt02.png",
+        "2": "ui/bitFont/mailFont/mtxt03.png",
+        "3": "ui/bitFont/mailFont/mtxt04.png",
+        "4": "ui/bitFont/mailFont/mtxt05.png",
+        "5": "ui/bitFont/mailFont/mtxt06.png",
+        "6": "ui/bitFont/mailFont/mtxt07.png",
+        "7": "ui/bitFont/mailFont/mtxt08.png",
+        "8": "ui/bitFont/mailFont/mtxt09.png",
+        "9": "ui/bitFont/mailFont/mtxt10.png",
+        "x": "ui/bitFont/mailFont/mtxt11.png",
+        ".": "ui/bitFont/mailFont/mtxt12.png",
+        ",": "ui/bitFont/mailFont/mtxt13.png"
+    };
+    /**
      * 背景音乐
      */
     ResConfig.musicUrl = "./assets/raw/bgm_lobby.mp3";

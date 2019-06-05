@@ -20,6 +20,7 @@ var Spinner2 = /** @class */ (function (_super) {
         _this._lighttime = 200;
         _this.lastRot = 0;
         _this.basetime = 1000;
+        _this.isNext = false;
         return _this;
     }
     Spinner2.prototype.setData = function ($spinner, $data) {
@@ -43,6 +44,7 @@ var Spinner2 = /** @class */ (function (_super) {
         }
         this.isActive = false;
         this.currIdx = -1;
+        this.lastRot = 0;
     };
     Spinner2.prototype.setResult = function ($data) {
         var idx = [];
@@ -90,6 +92,7 @@ var Spinner2 = /** @class */ (function (_super) {
             }
             this.spinner.btn_up.visible = true;
             this.spinner.btn_down.visible = false;
+            SoundPlayer.clickSound();
         }
         else if ($e.type === Laya.Event.MOUSE_OUT) {
             this.spinner.btn_up.visible = true;
@@ -118,9 +121,11 @@ var Spinner2 = /** @class */ (function (_super) {
         }
     };
     Spinner2.prototype.startSpin = function () {
-        var r = this.lastRot + 360;
-        Laya.Tween.to(this.spinner.spinnerbg, { rotation: r }, this.basetime, Laya.Ease.linearNone, Laya.Handler.create(this, function () {
-            this.spinner.spinnerbg.rotation = this.lastRot;
+        var r = 360;
+        var time = ((360 - this.lastRot) * this.basetime) / 360;
+        this.spinner.spinnerbg.rotation = this.lastRot;
+        Laya.Tween.to(this.spinner.spinnerbg, { rotation: r }, time, Laya.Ease.linearNone, Laya.Handler.create(this, function () {
+            this.lastRot = 0;
             if (this.counter <= 0 && this.currIdx > -1) {
                 this.stopSpin();
             }
@@ -132,17 +137,18 @@ var Spinner2 = /** @class */ (function (_super) {
     };
     Spinner2.prototype.stopSpin = function () {
         var target = this.currIdx + 1;
-        var r = this.spinner.spinnerbg.rotation + ((target * 360) / 8) + 360;
+        var r = this.spinner.spinnerbg.rotation;
+        r += ((target * 360) / 8) + 360;
         var time = (r * this.basetime) / 360;
         time += 2500;
         Laya.Tween.to(this.spinner.spinnerbg, { rotation: r }, time, Laya.Ease.cubicOut, Laya.Handler.create(this, function () {
-            this.spinner.spinnerbg.rotation = r % 360;
             this.event("stopSpin");
             this.spinner.btn_up.mouseEnabled = true;
             this.spinner.light.visible = true;
             this.currIdx = -1;
             this.lastRot = r % 360;
             this.isActive = false;
+            this.isNext = true;
         }));
     };
     Spinner2.prototype.show = function () {

@@ -181,7 +181,14 @@ var view;
             this.width = Laya.stage.width;
             this.headGroup.x = this.head_oldx + GameUtils.posOffset;
         };
-        PublicView.prototype.runningmsgOver = function () { };
+        PublicView.prototype.pause = function () {
+            if (this.goAnim)
+                this.goAnim.pause();
+        };
+        PublicView.prototype.resume = function () {
+            if (this.goAnim)
+                this.goAnim.resume();
+        };
         PublicView.prototype.dispose = function () {
             EventManager.removeAllEvents(this);
             this.stopRequestTimer();
