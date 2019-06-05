@@ -149,7 +149,7 @@ export default class TWWebGameView extends Component {
     onLoadEnd = (event) => {
 
         TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--"+ TW_Store.bblStore.isLoading, event)
-        setTimeout(()=>{
+        this.timeId=setTimeout(()=>{
             TW_Store.bblStore.lastGameUrl = "";
             TW_Store.bblStore.showGameCircle(false);
             if(TW_OnValueJSHome){
@@ -191,6 +191,7 @@ export default class TWWebGameView extends Component {
                     break;
                 case "game_back":
                     this.onBackHomeJs()
+                    clearTimeout(this.timeId);
                     //TW_NavHelp.popToBack();
                    // this.onBackHomeJs()
                     break;
@@ -198,6 +199,7 @@ export default class TWWebGameView extends Component {
                     TW_Store.gameUIStroe.isShowAddPayView=!TW_Store.gameUIStroe.isShowAddPayView;
                     break;
                 case "game_start": //子游戏准备ok
+                    clearTimeout(this.timeId)
                     TW_Store.bblStore.lastGameUrl = "";
                     TW_Store.bblStore.showGameCircle(false);
                     if(TW_OnValueJSHome){
