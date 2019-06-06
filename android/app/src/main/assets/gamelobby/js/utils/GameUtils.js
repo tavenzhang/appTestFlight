@@ -34,15 +34,17 @@ var GameUtils = /** @class */ (function () {
     GameUtils.getScreencOffset = function (min, max) {
         var width = 0;
         //获得屏幕的长宽比
-        var bi = Laya.stage.width / Laya.stage.height;
-        if (bi < 1.777778) {
+        var scl = Laya.stage.width / Laya.stage.height;
+        var minScl = 1.778666;
+        var maxScl = 2.165333;
+        if (scl <= minScl) {
             width = min;
         }
-        else if (bi > 2.165333) {
+        else if (scl >= maxScl) {
             width = max;
         }
         else {
-            width = (bi - 1.777778) * (max - min) / (2.165333 - 1.777778) + min;
+            width = (scl - minScl) * (max - min) / (maxScl - minScl) + min;
         }
         return width;
     };
@@ -120,7 +122,46 @@ var GameUtils = /** @class */ (function () {
     };
     //最小和最大间隔(用于需要全屏适配的ui)
     GameUtils.minGap = 28;
-    GameUtils.maxGap = 78;
+    GameUtils.maxGap = 78; //安全边距
     return GameUtils;
+}());
+var InnerJumpUtil = /** @class */ (function () {
+    function InnerJumpUtil() {
+    }
+    /**
+     * 游戏内部跳转
+     * @param cmd
+     */
+    InnerJumpUtil.doJump = function (cmd) {
+        if (cmd == undefined)
+            return;
+        switch (cmd) {
+            case InnerJumpCmd.activityCenter: {
+                view.dlg.NoticeDlg.show();
+                break;
+            }
+            case InnerJumpCmd.agentCenter: {
+                view.dlg.AgentDlg.show("home");
+                break;
+            }
+            case InnerJumpCmd.email: {
+                view.dlg.MailboxDlg.show();
+                break;
+            }
+            case InnerJumpCmd.personCenter: {
+                view.dlg.FullMyCenterDlg.show();
+                break;
+            }
+            case InnerJumpCmd.recharge: {
+                Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
+                break;
+            }
+            case InnerJumpCmd.service: {
+                Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
+                break;
+            }
+        }
+    };
+    return InnerJumpUtil;
 }());
 //# sourceMappingURL=GameUtils.js.map

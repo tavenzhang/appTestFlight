@@ -98,7 +98,6 @@ export default class TWWebGameView extends Component {
         let dis = TW_Store.bblStore.isLoading ? "none":"flex";
 
 
-
         let wenConteView = G_IS_IOS ? <WKWebView
                 ref="myWebView"
                 source={source} onNavigationStateChange={this.onNavigationStateChange}
@@ -150,10 +149,13 @@ export default class TWWebGameView extends Component {
     onLoadEnd = (event) => {
 
         TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--"+ TW_Store.bblStore.isLoading, event)
-        setTimeout(()=>{
+        this.timeId=setTimeout(()=>{
             TW_Store.bblStore.lastGameUrl = "";
             TW_Store.bblStore.showGameCircle(false);
-        },G_IS_IOS ? 1000:2500)
+            if(TW_OnValueJSHome){
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
+            }
+        },G_IS_IOS ? 1000:4000)
 
     }
 
@@ -189,6 +191,7 @@ export default class TWWebGameView extends Component {
                     break;
                 case "game_back":
                     this.onBackHomeJs()
+                    clearTimeout(this.timeId);
                     //TW_NavHelp.popToBack();
                    // this.onBackHomeJs()
                     break;
@@ -196,8 +199,12 @@ export default class TWWebGameView extends Component {
                     TW_Store.gameUIStroe.isShowAddPayView=!TW_Store.gameUIStroe.isShowAddPayView;
                     break;
                 case "game_start": //子游戏准备ok
+                    clearTimeout(this.timeId)
                     TW_Store.bblStore.lastGameUrl = "";
                     TW_Store.bblStore.showGameCircle(false);
+                    if(TW_OnValueJSHome){
+                        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
+                    }
                     break;
             }
         }

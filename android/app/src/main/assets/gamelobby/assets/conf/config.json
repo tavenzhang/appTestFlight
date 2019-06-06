@@ -52,5 +52,6 @@
     "language": "zh_cn",
     "languageY": "en",
     "unknow_err": "txt_unknowerr",
-    "addTween": true
+    "addTween": true,
+    "testClientId": 31
 }
