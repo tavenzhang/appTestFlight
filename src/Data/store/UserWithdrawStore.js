@@ -23,6 +23,10 @@ export default class UserWithdrawStore {
     @observable
     bank = {};
 
+    //支付宝卡
+    @observable
+    alipay = {};
+
     @observable
     withdrawModel = {
         totalMoney: 0,//余额
@@ -77,9 +81,11 @@ export default class UserWithdrawStore {
                 if (res.content && res.content.bankAccounts.length > 0) {
 
                     res.content.bankAccounts.forEach((b) => {
-                        if (b.isDefault) {
-                            this.bank = b
-                            return;
+
+                        if(b.bankCode=="ZHB"){
+                            this.alipay=b
+                        }else{
+                            this.bank=b
                         }
                     })
                 } else {
