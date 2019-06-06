@@ -318,6 +318,7 @@ export default class Enter extends Component {
         });
         if(!TW_Store.dataStore.isAppInited){
             //如果是第一次启动app  并且游戏资源拷贝到document 还未完成，5秒后进行重新热更新检测 直接退出函数
+            this.hotFixStore.syncMessage = 'app大厅初始化...'; //防止进入reloadAppDomain
             setTimeout(()=>{
                 this.hotFix(TW_Store.hotFixStore.currentDeployKey);
             },5000);
