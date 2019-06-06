@@ -51,13 +51,11 @@ export default class ShareBox extends Component {
             Clipboard.setString(this.props.url);
             TCUserOpenPayApp.isCanOpen('weixin://',(result)=>{
                 if(result){
-                    TCUserOpenPayApp.openWX();
-                    this.props.onClose();
                     TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{data:"friend"}));
-                }else{
-                    this.props.onClose();
                 }
             })
+            TCUserOpenPayApp.openWX();
+            this.props.onClose();
         }
     }
 
