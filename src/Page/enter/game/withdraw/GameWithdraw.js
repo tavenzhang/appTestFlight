@@ -185,7 +185,7 @@ export default class GameWithdraw extends Component {
                         paddingVertical: 2, position: "absolute", left: SCREEN_W * 0.04 + 120, top: SCREEN_H * 0.32
                     }}
                         textStyle={{color: "#353535", fontSize: 15}}
-                        text={this.onFormatBank(itemData.alipay.bankCardNo)}
+                        text={this.onFormatBank(itemData.bank.bankCardNo)}
                     />)
             }
             <View style={{position: "absolute", bottom: 10, left: SCREEN_W * 0.24}}>

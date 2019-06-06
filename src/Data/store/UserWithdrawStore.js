@@ -19,11 +19,15 @@ export default class UserWithdrawStore {
 
     }
 
-    //默认银行卡
+    //默认支付方式
     @observable
     bank = {};
 
-    //支付宝卡
+    //银行卡
+    @observable
+    bankCard={}
+
+    //支付宝
     @observable
     alipay = {};
 
@@ -85,6 +89,7 @@ export default class UserWithdrawStore {
                         if(b.bankCode=="ZHB"){
                             this.alipay=b
                         }else{
+                            this.bankCard=b
                             this.bank=b
                         }
                     })
