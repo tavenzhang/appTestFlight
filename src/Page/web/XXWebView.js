@@ -282,12 +282,12 @@ export default class XXWebView extends Component {
             isDebug:TW_IS_DEBIG,
             appVersion:TW_Store.appStore.versionHotFix
         })}`;
-
+        TW_Log("targetAppDir-33---isWechatEnabled-his.state--"+(sharedUrl&&isShowSharebox)+"--sharedUrl=="+sharedUrl+"-isShowSharebox-"+isShowSharebox,this.state);
         return (
             <View style={styles.container}>
-                {sharedUrl && isShowSharebox && <View style={styles.viewShareBox}>
+                {isShowSharebox ? <View style={styles.viewShareBox}>
                     <ShareBox onClose={this.onCloseSharebox} url={sharedUrl} />
-                </View>}
+                </View>:null}
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
