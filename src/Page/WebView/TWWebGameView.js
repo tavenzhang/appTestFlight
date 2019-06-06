@@ -40,15 +40,8 @@ export default class TWWebGameView extends Component {
     };
 
     componentWillMount() {
-
         TW_OnBackHomeJs=this.onBackHomeJs;
     }
-
-    // componentWillUpdate(nextProps, nextState, nextContext: any): void {
-    //     G_LayoutAnimaton.configureNext(G_LayoutAnimaton.springWithDelete)
-    // }
-
-
 
     componentWillUnmount(): void {
        // TW_Store.gameUpateStore.isInSubGame=false;
@@ -62,7 +55,7 @@ export default class TWWebGameView extends Component {
     }
 
     render() {
-        let {isOrigan,url}=this.props
+        let {isOrigan,url}=this.props;
         let myUrl = url;
         let tempIndex = myUrl.indexOf("?");
         let myParam = myUrl.substr(tempIndex);
@@ -192,7 +185,7 @@ export default class TWWebGameView extends Component {
                     break;
                 case "game_back":
                     this.onBackHomeJs()
-                    clearTimeout(this.timeId);
+
                     //TW_NavHelp.popToBack();
                    // this.onBackHomeJs()
                     break;
@@ -256,13 +249,9 @@ export default class TWWebGameView extends Component {
     };
 
     onBackHomeJs = () => {
-
-        let {onEvaleJS} = this.props
-        TW_Store.bblStore.subGameParams={
-            url:"",
-            isGame: true
-        }
-        TW_Log("onEvaleJS---onBackHomeJs--",onEvaleJS)
+        let {onEvaleJS} = this.props;
+        TW_Store.bblStore.quitSubGame();
+        clearTimeout(this.timeId);
         if (onEvaleJS) {
             onEvaleJS(this.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.lobbyResume));

@@ -110,6 +110,19 @@ export  default  class BBLStore {
 
         this.isShowCircle =isShow;
     }
+    @action
+    quitSubGame() {
+       this.subGameParams={
+            url:"",
+            isGame: true
+        }
+    }
+
+    @action
+    isInSubGame() {
+       return   this.subGameParams.url&&this.subGameParams.url.length >0;
+
+    }
 
 
     @observable
