@@ -174,7 +174,8 @@ export const gameUI = {
     iconMoneyOut:require('./game/moneyOut/iconMoneyOut.png'),
     btnOut:require('./game/moneyOut/btn_out.png'),
     payOutTypeBank:require('./game/moneyOut/payOutTypeBank.png'),
-    payOutTypeZFB:require('./game/moneyOut/img_tx_zfb02.png'),
+    payOutTypeZFB:require('./game/moneyOut/payOutTypeZFB.png'),
+    payOutTypeZFB_notSupport:require('./game/moneyOut/img_tx_zfb02.png'),
     payTypeSelectBg:require('./game/moneyOut/payTypeSelectBg.png'),
     payOutBg:require('./game/moneyOut/payOutBg.png'),
     payOutTopIcon:require('./game/moneyOut/payOutTopIcon.png'),
@@ -182,6 +183,7 @@ export const gameUI = {
     question:require('./game/moneyOut/quesion.png'),
     inputMoneyBg:require('./game/moneyOut/inputMoneyBg.png'),
     bankBtn:require('./game/moneyOut/bankbtn.png'),
+    zfbBtn:require('./game/moneyOut/zfbbtn.png'),
     query:require('./game/moneyOut/query.png'),
     bangNumBg:require('./game/moneyOut/img_tx_bangBg.png'),
     //moneyPay
