@@ -62,6 +62,7 @@ export const config = {
         banktransfersQueryv3: 'cashmgt/me/transfer/topups/banktransfers/v4', //用户银行卡手工转账确认
         bankList: 'cashmgt/me/transfer/topups/banktransfers/banklist/v2', //获取用户银行卡转账列表
         userWithDraw: 'cashmgt/me/transfer/withdrawals', //用户申请取款
+        getWithdrawSetting:'cashmgt/me/transfer/withdraw/settings', //获取用户提现设定
 
         encryptUserWithDraw: 'cashmgt/me/transfer/withdrawalsV2', //用户申请取款 加密接口
         paymentList: 'cashmgt/me/transfer/topups/payment/listV2', //获取用户的充值方式

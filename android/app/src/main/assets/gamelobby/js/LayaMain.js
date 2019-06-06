@@ -228,6 +228,10 @@ var LayaMain = /** @class */ (function () {
                     view.dlg.center.AccountInfoDlg.show();
                     break;
                 }
+                case "openBindAlipay": { //打开绑定支付宝界面
+                    view.dlg.center.BindAlipayDlg.show();
+                    break;
+                }
                 case "shareSucess": {
                     view.dlg.NoticeDlg.shareSucess(message.data);
                     break;

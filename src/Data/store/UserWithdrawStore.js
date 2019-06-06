@@ -6,7 +6,7 @@ import {observable, action, computed} from "mobx";
 
 import {
     getUserCardsAndWithdrawInfo,
-    applyWithdraw
+    applyWithdraw, getWithdrawSetting
 } from '../../Common/Network/TCRequestService'
 import SecretUtils from '../../Common/JXHelper/SecretUtils'
 
@@ -42,8 +42,15 @@ export default class UserWithdrawStore {
         maxWithdrawMoney: 0, //最多可提现金额
         newratioOfChargeExempt: 0,//新的手续费计算
         integerWithdrawalAmount: false,//取款是否规定取整数
-        numOfChargeExempt:0 //设置的免费次数
+        numOfChargeExempt:0, //设置的免费次数
+        enabledAlipayWithdraw:false //是否允许支付宝出款
+    }
 
+    @observable
+    withdrawSetting= {
+        enabledAlipayWithdraw: false, //是否允许支付宝出款
+        hasAlipayCard: false, //是否已绑定支付宝出款卡
+        hasBankCard: false //是否已绑定银行卡
     }
 
     @observable
@@ -78,6 +85,24 @@ export default class UserWithdrawStore {
                 } else {
                     this.setDialogVisible();
                 }
+            } else {
+                result.status = false;
+                result.message = res.message ? res.message : "服务器出错啦!";
+            }
+            callback&&callback(result);
+        })
+    }
+
+    @action
+    initWithdraw(callback) {
+        getWithdrawSetting((res) => {
+            let result = {}
+            this.freshLoading()
+            if (res.rs) {
+                result.status = true;
+                this.withdrawSetting.enabledAlipayWithdraw=res.content.enabledAlipayWithdraw
+                this.withdrawSetting.hasBankCard=res.content.hasBankCard
+                this.withdrawSetting.hasAlipayCard=res.content.hasAlipayCard
             } else {
                 result.status = false;
                 result.message = res.message ? res.message : "服务器出错啦!";
@@ -140,6 +165,7 @@ export default class UserWithdrawStore {
         this.withdrawModel.withdrawSwitch = withdrawSetting.withdrawalSettings.withdrawSwitch
         this.withdrawModel.minimumWithdrawAmount = setting.minimumWithdrawAmount
         this.withdrawModel.integerWithdrawalAmount = withdrawSetting.withdrawalSettings.integerWithdrawalAmount ? withdrawSetting.withdrawalSettings.integerWithdrawalAmount : false;
+        this.withdrawModel.enabledAlipayWithdraw = setting.enabledAlipayWithdraw
         this.ratioOfChargeExempt();
         this.getMaxWithdrawMoney(withdrawSetting, setting)
     }
@@ -157,7 +183,7 @@ export default class UserWithdrawStore {
     @computed
     get canWithdraw() {
         if (this.withdrawModel.totalMoney <= 0 || this.withdrawModel.surplusMaxWithdraw <= 0 || this.withdrawModel.surplusSeconds < 0 || this.withdrawModel.surplusWithdrawCount <= 0 || (this.withdrawModel.withdrawSwitch && !this.withdrawModel.sufficeAggregateBetRequirements)) {
-            return false
+            return true
         }
         return true
     }
