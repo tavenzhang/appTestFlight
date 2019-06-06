@@ -1,63 +1,42 @@
 import React, {Component} from "react";
 import {
-    Image,
-    Clipboard,
-    ScrollView,
     StyleSheet,
     Text,
-    TextInputComponent,
-    TouchableOpacity,
     View,
-    ImageBackground,
     Alert
 } from "react-native";
 
 import {ASSET_Images} from "../../../asset";
 import TCImage from "../../../../Common/View/image/TCImage";
 import {TCButtonImg} from "../../../../Common/View/button/TCButtonView";
-
 import {TCTextInput} from "../../../../Common/View/TCTextInput";
 import TCText from "../../../../Common/View/widget/TCText";
 import TCWithdrawKeyboardView from "../../../UserCenter/UserWithdraw/TCWithdrawKeyboardView";
 import {observer} from "mobx-react/native";
 
-;
 import PropTypes from "prop-types";
-import TCFlatList from "../../../../Common/View/RefreshListView/TCFLatList";
-import {userPay} from "../../../asset/images";
 import {copyBtnStyle, indexBgColor, listViewTxtColor, payTxtColor, Size, width} from "../../../resouce/theme";
-import payHelper from "../../../UserCenter/UserPay/PayHelper";
-import UserPayStore from "../../../../Data/store/UserPayStore";
-import BaseGameAlert from "../GameMoneyInView";
 import Toast from '../../../../Common/JXHelper/JXToast';
-import ModalInputDialog from "../../../../Common/View/ModalInputDialog";
-import ModalList from "../../../UserCenter/UserPay/View/ModalList";
-import TCButtonView from "../../../UserCenter/UserPay/TCUserPayNew";
-import Moment from "../GameMoneyOutView";
+import Moment from "moment";
 
 @observer
 export default class GameWithdraw extends Component {
-    userPayStore = new UserPayStore();
 
     static propTypes = {
         itemData:PropTypes.any,
         type: PropTypes.any
     }
-    isTop = false;
-    isChange = true;
 
-    isBankSelected=false;
-    isShowBank=false;
-    isShowAlipay=false
+    isBankSelected=true;
     static defaultProps = {
         type: "",
         itemData: {}
     }
 
-
     constructor(prop) {
         super(prop)
         this.state = {
+            num:"",
             money: "",
             selectItem:null,
             showArrow:true
@@ -68,14 +47,11 @@ export default class GameWithdraw extends Component {
         setTimeout(()=>{
             this.setState({test:""})
         },1000)
-
     }
 
     componentWillReceiveProps(newProps) {
         this.isBankSelected = newProps.isBankSelected;
-
     }
-
 
     render() {
         let {itemData} = this.props;
@@ -96,13 +72,13 @@ export default class GameWithdraw extends Component {
                 height: 25,
                 left: SCREEN_W * 0.11
             }}/>
-            <TCImage source={ASSET_Images.gameUI.question} resizeMode={'stretch'} style={{
+            {/*<TCImage source={ASSET_Images.gameUI.question} resizeMode={'stretch'} style={{
                 position: "absolute",
                 top: SCREEN_H * 0.05,
                 width: 35,
                 height: 35,
                 right: SCREEN_W * 0.08
-            }}/>
+            }}/>*/}
 
             <TCText backgroundStyle={{
                 backgroundColor: "transparent",
@@ -202,7 +178,7 @@ export default class GameWithdraw extends Component {
                                  btnStyle={{position: "absolute", top: SCREEN_H * 0.32, left: SCREEN_W * 0.20}}
                                  onClick={() => {
                                      TW_Store.gameUIStroe.isShowWithDraw = false
-                                     TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.openBindCard));
+                                     TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.openBindAlipay));
                                  }}/> : <TCText
                         borderRadius={5} backgroundStyle={{
                         backgroundColor: "rgb(209,212,230)", paddingHorizontal: SCREEN_W * 0.07,
@@ -224,10 +200,12 @@ export default class GameWithdraw extends Component {
                 top: SCREEN_H * 0.45 + 25,
                 left: SCREEN_W * 0.19,
             }}>
-                <TCTextInput value={itemData.money}
+                <TCTextInput value={this.state.num}
+                   /* value={this.state.num}*/
                              viewStyle={{}}
                              onChangeText={(num) => {
-                                 itemData.money = num
+                                 itemData.money = num,
+                                 this.setState({num})
                              }}
                              keyboardType={"numeric"}
                              placeholder={`点击输入 `}
@@ -316,9 +294,10 @@ export default class GameWithdraw extends Component {
             if (!res.status) {
                 Toast.showShortCenter(res.message);
             }else{
-                Toast.showShortCenter('您的提款申请已提交，请耐心等待,如有需要 可以点击明细 查看进度！');
+                Toast.showShortCenter('提现5-10分钟到帐，请耐心等待');
                 itemData.initDefaultBank()
                 // this.tipMsg = '您的提款申请已提交，请耐心等待!'
+                {TW_Store.gameUIStroe.showTiXianDetail()}
             }
         })
     }
@@ -349,6 +328,12 @@ export default class GameWithdraw extends Component {
         }
     }
 
+    clearText=()=>{
+        this.setState(({
+            num:''
+        }))
+    }
+
     RoundNum=(num, length)=> {
         var number = Math.round(num * Math.pow(10, length)) / Math.pow(10, length);
         return number;
@@ -361,7 +346,7 @@ export default class GameWithdraw extends Component {
 
         if (itemData.withdrawModel.surplusFeeWithdrawCount > 0 || itemData.withdrawModel.newratioOfChargeExempt === 0) {
 
-            return "免费提现";
+            return "本次提现免手续费是否确定提现？";
         }
         if (!itemData.withdrawModel.sufficeAggregateBetRequirements && itemData.withdrawModel.ratioOfChargeExempt === 0 && itemData.withdrawModel.numOfChargeExempt === 0) {//打码量不满足时
 
