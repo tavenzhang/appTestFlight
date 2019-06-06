@@ -371,7 +371,9 @@ export default class Enter extends Component {
                         localPackage.install(updateMode).then(() => {
                             this.storeLog({updateStatus: true});
                             //如果正在下载大厅文件，关闭大厅当前的下载
-                            TW_Store.dataStore.clearCurrentDownJob();
+                            if(updateMode==CodePush.InstallMode.IMMEDIATE){
+                                TW_Store.dataStore.clearCurrentDownJob();
+                            }
                             CodePush.notifyAppReady().then(() => {
                                 // this.setUpdateFinished()
                             })
