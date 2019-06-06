@@ -448,7 +448,6 @@ export default class XXWebView extends Component {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.payload);
                         TW_Store.bblStore.showGameCircle();
-                       // TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showLoading,{data:true}));
                         TW_Store.bblStore.subGameParams = {
                             url,
                             onMsgHandle: this.onMsgHandle,

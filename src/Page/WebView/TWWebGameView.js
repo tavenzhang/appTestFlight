@@ -154,6 +154,7 @@ export default class TWWebGameView extends Component {
             TW_Store.bblStore.showGameCircle(false);
             if(TW_OnValueJSHome){
                 TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic,{}));
             }
         },G_IS_IOS ? 1000:4000)
 
@@ -204,6 +205,7 @@ export default class TWWebGameView extends Component {
                     TW_Store.bblStore.showGameCircle(false);
                     if(TW_OnValueJSHome){
                         TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
+                        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic,{}));
                     }
                     break;
             }
