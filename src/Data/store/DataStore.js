@@ -290,15 +290,6 @@ export default class DataStore {
         }
         catch (e) {
             TW_Log("versionBBL---downloadFile--error",error);
-            if(!TW_Store.gameUpateStore.isAppDownIng){
-                TW_Store.gameUpateStore.isLoading=false;
-                TW_Store.gameUpateStore.isTempExist=true;
-                TW_Store.gameUpateStore.isNeedUpdate=false;
-                TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
-            }
-            if(TW_Store.gameUpateStore.isOldHome){
-                TW_Store.commonBoxStore.isShow=true;
-            }
         }
     }
 
