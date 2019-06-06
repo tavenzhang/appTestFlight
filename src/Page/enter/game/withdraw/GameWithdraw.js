@@ -157,7 +157,7 @@ export default class GameWithdraw extends Component {
 
             {
                 (this.isBankSelected) ?
-                    ((!itemData.bank.bankCardNo || !itemData.bank.bankCardNo.length) ?
+                    ((!itemData.withdrawSetting.hasBankCard) ?
                         <TCButtonImg imgSource={ASSET_Images.gameUI.bankBtn}
                                      soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                      btnStyle={{position: "absolute", top: SCREEN_H * 0.32, left: SCREEN_W * 0.20}}
@@ -170,7 +170,7 @@ export default class GameWithdraw extends Component {
                             backgroundColor: "rgb(209,212,230)", paddingHorizontal: SCREEN_W * 0.07,
                             paddingVertical: 2, position: "absolute", left: SCREEN_W * 0.04 + 120, top: SCREEN_H * 0.32
                         }}
-                            textStyle={{color: "#353535", fontSize: 15,}}
+                            textStyle={{color: "#353535", fontSize: 15}}
                             text={this.onFormatBank(itemData.bank.bankCardNo)}
                         />) : ((!itemData.withdrawSetting.hasAlipayCard) ?
                     <TCButtonImg imgSource={ASSET_Images.gameUI.zfbBtn}
@@ -184,8 +184,8 @@ export default class GameWithdraw extends Component {
                         backgroundColor: "rgb(209,212,230)", paddingHorizontal: SCREEN_W * 0.07,
                         paddingVertical: 2, position: "absolute", left: SCREEN_W * 0.04 + 120, top: SCREEN_H * 0.32
                     }}
-                        textStyle={{color: "#353535", fontSize: 15,}}
-                        text={this.onFormatBank(itemData.bank.bankCardNo)}
+                        textStyle={{color: "#353535", fontSize: 15}}
+                        text={this.onFormatBank(itemData.alipay.bankCardNo)}
                     />)
             }
             <View style={{position: "absolute", bottom: 10, left: SCREEN_W * 0.24}}>

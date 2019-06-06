@@ -29,7 +29,7 @@ export default class ShareBox extends Component {
         onClose: PropTypes.func,
         data: PropTypes.any,
         isShow: PropTypes.any,
-        url: PropTypes.string
+        url: PropTypes.any
     };
 
     static defaultProps = {
@@ -39,6 +39,7 @@ export default class ShareBox extends Component {
 
     componentWillMount(): void {
         TN_IsWechatEnabled((isWechatEnabled) => {
+            TW_Log("targetAppDir-33---isWechatEnabled-"+isWechatEnabled);
             this.setState({ isWechatEnabled });
             this.openPayApp(isWechatEnabled);
         });
