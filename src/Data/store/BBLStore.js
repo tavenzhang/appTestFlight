@@ -139,6 +139,7 @@ export  default  class BBLStore {
         showMask:"showMask",
         shareSucess:"shareSucess",
         openBindCard:"openBindCard",
+        openBindAlipay:"openBindAlipay",
         showLoading:"showLoading",
         enterGame:"enterGame"
     }

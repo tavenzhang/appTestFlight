@@ -13,7 +13,7 @@ import WKWebView from "react-native-wkwebview-reborn/WKWebView";
 import {JX_PLAT_INFO} from "../asset";
 import TCButtonView from "../../Common/View/button/TCButtonView";
 import {observer} from "mobx-react/native";
-import SplashScreen from "react-native-splash-screen";
+
 
 @observer
 export default class LoadingWebView extends Component {
@@ -142,11 +142,10 @@ export default class LoadingWebView extends Component {
 
     onLoadEnd=()=>{
         if(G_IS_IOS) {
-            SplashScreen.hide();
+            TW_SplashScreen_HIDE();
         }else{
-            setTimeout(()=>{SplashScreen.hide()},800);
+            setTimeout(()=>{TW_SplashScreen_HIDE()},800);
         }
-
     }
 
     onError = (error) => {
