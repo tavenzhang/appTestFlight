@@ -50,6 +50,7 @@ export default class GameMoneyOutView extends Component {
         this.setState({
             isBankSelected: true
         })
+        this.userWithdrawStore.bank=this.userWithdrawStore.bankCard
     }
 
     showAlipay=()=> {
@@ -57,6 +58,7 @@ export default class GameMoneyOutView extends Component {
             this.setState({
                 isBankSelected: false
             })
+            this.userWithdrawStore.bank=this.userWithdrawStore.alipay
         }
     }
 
@@ -150,7 +152,7 @@ export default class GameMoneyOutView extends Component {
     //     </View>)
     // }
 
-    onFormatBank=(bankNum)=>{
+    /*onFormatBank=(bankNum)=>{
         let ret ="";
         if(bankNum&&bankNum.length>0){
             for(let i=0;i<bankNum.length;i++){
@@ -164,10 +166,10 @@ export default class GameMoneyOutView extends Component {
         }
         return ret
     }
-    /**
+    /!**
      * 输入密码callback
      * @param res
-     */
+     *!/
     callback=(res)=> {
         this.pwd = res
         if (this.pwd.length < 4) {
@@ -187,9 +189,9 @@ export default class GameMoneyOutView extends Component {
         this.applyWithDraw()
     }
 
-    /**
+    /!**
      * 申请提款
-     */
+     *!/
     applyWithDraw=()=> {
         this.userWithdrawStore.applyWithdraw(this.pwd, (res) => {
             if (!res.status) {
@@ -202,10 +204,10 @@ export default class GameMoneyOutView extends Component {
         })
     }
 
-    /**
+    /!**
      * 获取提示文本
      * @returns {XML}
-     */
+     *!/
     getInfoTextView = () => {
         if (this.userWithdrawStore.withdrawModel.surplusMaxWithdraw <= 0) {
             return "您今日出款额度已经用完，请明日再来!";
@@ -248,9 +250,9 @@ export default class GameMoneyOutView extends Component {
     }
 
 
-    /**
+    /!**
      * 验证提款
-     */
+     *!/
     validateWithDraw = () => {
         if (!this.userWithdrawStore.money || this.userWithdrawStore.money.length === 0) {//验证输入金额
             this.postponeShowToast('请输入取款金额!!');
@@ -348,9 +350,9 @@ export default class GameMoneyOutView extends Component {
     }
 
 
-    /**
+    /!**
      * 开启键盘输入密码
-     */
+     *!/
     showWithdrawKeyboard=()=> {
         if (!this.validateWithDraw()) {
             return
@@ -363,10 +365,10 @@ export default class GameMoneyOutView extends Component {
             popView._setMoney(this.userWithdrawStore.money, this.userWithdrawStore.exempt.toFixed(2))
         }
     }
-    /**
+    /!**
      * 获取确认按钮
      * @returns {XML}
-     */
+     *!/
     getConfirmButton = () => {
         if (this.userWithdrawStore.canWithdraw&&this.userWithdrawStore.bank.bankCardNo&&this.userWithdrawStore.bank.bankCardNo.length>0) {
             return (
@@ -380,7 +382,7 @@ export default class GameMoneyOutView extends Component {
                     <Text style={{color: 'red', fontWeight: 'bold', fontSize: Size.font15}}>您暂时无法提款</Text>
             )
         }
-    }
+    }*/
 
 }
 
