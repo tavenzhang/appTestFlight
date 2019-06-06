@@ -108,8 +108,6 @@ export default class Enter extends Component {
                 this.reloadAppDomain();
             }
         }, 7 * 1000)
-        this.hotFixStore.skipUpdate();
-        this.reloadAppDomain();
 
         if(G_IS_IOS){
             if(Orientation&&Orientation.lockToLandscapeRight){
@@ -117,7 +115,6 @@ export default class Enter extends Component {
             }
             this.initDomain();
         }else{
-
             appInfoStore.checkAndroidsubType(this.initDomain);
         }
 
@@ -127,6 +124,8 @@ export default class Enter extends Component {
     //域名异常启动介入
     reloadAppDomain(){
         domainsHelper.getSafeguardName((ok)=>{
+
+            if(ok){
                 //拿到d.json域名初始化
                 this.initDomain();
 
@@ -140,6 +139,10 @@ export default class Enter extends Component {
                     syncMessage: "初始化配置中...",
                     updateStatus: 0,
                 })
+            }else {
+                TW_SplashScreen_HIDE();
+                TW_Store.gameUpateStore.isNeedUpdate=false;
+            }
         })
     }
 

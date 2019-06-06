@@ -125,7 +125,8 @@ export default class LoadingWebView extends Component {
                     // TW_Log("game---ct=="+message.ct,message.data);
                     break;
                 case  "game_custom":
-                    TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest);
+                    TW_Log("onMessage====LoadingWebView======TW_Store.gameUIStroe.showGusetView=", message);
+                    TW_Store.gameUIStroe.showGusetView();
                     // TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
                     break;
             }
