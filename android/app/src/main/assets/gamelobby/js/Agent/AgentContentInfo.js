@@ -14,7 +14,10 @@ var __extends = (this && this.__extends) || (function () {
 var AgentData = {
     appShareUrl: "",
     role: "",
-    level: 0
+    level: 0,
+    todaysPerformance: 0,
+    myPerformanceIndex: 0,
+    customerServiceUrl: ""
 };
 var AgentContentInfo = /** @class */ (function (_super) {
     __extends(AgentContentInfo, _super);
@@ -198,6 +201,8 @@ var AgentContentInfo = /** @class */ (function (_super) {
             this.setLabelData("subchildren", s.subMembers);
             this.setLabelData("todayaddinteam", s.newTeamMembers);
             this.setLabelData("todayaddmychildren", s.newSubMembers);
+            AgentData.customerServiceUrl = s.agentCustomerServiceUrl;
+            AgentData.todaysPerformance = s.todayTeamBet;
             this.lbNumTeamToday.setNum(s.todayTeamBet.toFixed(2));
             this.lbNumYesterday.setNum(s.yesterdayBrokerage.toFixed(2));
             // this.showQrcode(s);

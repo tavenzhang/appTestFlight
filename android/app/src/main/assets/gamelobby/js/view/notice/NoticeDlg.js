@@ -18,6 +18,10 @@ var AttentionDialog = /** @class */ (function () {
     AttentionDialog.TYPE_OPEN_AUTO = 2;
     return AttentionDialog;
 }());
+var NoticeData = {
+    shareId: 0,
+    shareLimit: 0
+};
 var view;
 (function (view) {
     var dlg;
@@ -46,8 +50,8 @@ var view;
                 this.dlg = dlg;
             };
             NoticeDlg.checkUnread = function () {
-                var dlg = new NoticeDlg();
-                dlg.requestData();
+                // let dlg = new NoticeDlg();
+                // dlg.requestData();
             };
             NoticeDlg.prototype.pop = function (dlg) {
                 // dlg.alpha = 1;
@@ -243,7 +247,7 @@ var view;
                         content = new Notice_Share();
                         content.init(this);
                         content.setData(data);
-                        NoticeDlg.shareLimit = data.noticeShare.upperLimit;
+                        NoticeData.shareLimit = data.noticeShare.upperLimit;
                         break;
                     case "ROULETTE_DRAW":
                         content = new Notice_Roullette();
@@ -373,24 +377,55 @@ var view;
             NoticeDlg.shareSucess = function ($type) {
                 var message;
                 if ($type === "friend") {
-                    if (this.shareLimit > 0) {
-                        this.shareLimit--;
-                        message = "分享成功，请前往邮件领取奖励";
+                    if (NoticeData.shareLimit > 0) {
+                        share();
                     }
                     else {
                         message = "分享成功，请多点和朋友分享乐趣吧";
+                        view.dlg.TipsDlg.show(message);
                     }
-                    AgentDialogSucess.showDialog(this.dlg, ConfObjRead.getConfAgentDialogDeleteInvitation(), message);
                 }
                 else if ($type === "circle") {
-                    if (this.shareLimit > 0) {
-                        this.shareLimit--;
-                        message = "分享成功，请前往邮件领取奖励";
+                    if (NoticeData.shareLimit > 0) {
+                        share();
                     }
                     else {
                         message = "分享成功，请多点和朋友分享乐趣吧";
+                        view.dlg.TipsDlg.show(message);
                     }
-                    AgentDialogSucess.showDialog(this.dlg, ConfObjRead.getConfAgentDialogDeleteInvitation(), message);
+                }
+                function share() {
+                    // const cmd = ConfObjRead.getConfUrl().cmd.share + "?noticeId=" + NoticeData.shareId;
+                    // HttpRequester.postHttpData(cmd, null, this, (suc: boolean, jobj: any) => {
+                    // 	if (suc) {
+                    // 		this.shareLimit--;
+                    // 		message = "分享成功，请前往邮件查看";
+                    // 		view.dlg.TipsDlg.show(this.dlg, message);
+                    // 	}
+                    // })
+                    var url = ConfObjRead.getConfUrl().url.apihome;
+                    url += ConfObjRead.getConfUrl().cmd.share + "?noticeId=" + NoticeData.shareId;
+                    url += "&access_token=" + Common.access_token;
+                    var header = [
+                        "Accept", "application/json"
+                    ];
+                    console.log("share", url);
+                    NetManager.getObj().HttpConnect(url, this, function (s, stat, hr) {
+                        console.log("sharecomplete", s, hr);
+                        if (stat == "complete") {
+                            NoticeData.shareLimit--;
+                            message = "分享成功，请前往邮件查看";
+                            view.dlg.TipsDlg.show(message);
+                        }
+                        else if (hr.http.code === 1002) {
+                            message = "分享成功，请多点和朋友分享乐趣吧";
+                            view.dlg.TipsDlg.show(message);
+                        }
+                    }, header, //:any=null,
+                    null, //data:any=null,
+                    "post", //metod:any="get",
+                    "json" //restype:any="json"
+                    );
                 }
             };
             NoticeDlg.prototype.onClosed = function (type) {
