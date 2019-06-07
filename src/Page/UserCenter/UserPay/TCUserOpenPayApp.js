@@ -16,6 +16,15 @@ export default class TCUserOpenPayApp {
     JD_PACKAGE = "com.jingdong.app.mall"
 
 
+    static isCanOpen(url,callBack){
+        Linking.canOpenURL(url).then(supported => {
+            if (supported) {
+                callBack(true)
+            } else {
+                callBack(false)
+            }
+        }).catch((e)=>{  callBack(false)});
+    }
 
     static openWX(){
         // NativeModules.TCOpenOtherAppHelper.openApp("com.tencent.mm", "微信");

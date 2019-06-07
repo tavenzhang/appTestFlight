@@ -144,12 +144,10 @@ export default class App extends Component {
     onBackAndroid = () => {
         TW_Log("onBackAndroid---", this.navigator);
         // return false;
-        const routers = this.navigator.state.routes;
-        if (routers && routers.length > 1) {
-            if (TW_OnValueJSHome) {
-                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.lobbyResume));
+        if (TW_Store.gameUpateStore.isInSubGame) {
+            if (TW_OnBackHomeJs) {
+                TW_OnBackHomeJs()
             }
-            TW_NavHelp.goBack();
             return true;
         }
         let now = new Date().getTime();

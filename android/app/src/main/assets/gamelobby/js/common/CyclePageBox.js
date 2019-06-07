@@ -71,11 +71,19 @@ var CyclePageBox = /** @class */ (function (_super) {
     };
     CyclePageBox.prototype.singleHandler = function () {
         var vo = this.itemList[0];
+        this.openLink(vo);
+    };
+    CyclePageBox.prototype.openLink = function (vo) {
         if (vo && vo.linkUrl) {
-            if (GameUtils.isNativeApp)
-                PostMHelp.game_common({ name: "openWeb", param: vo.linkUrl });
-            else
-                window.open(vo.linkUrl);
+            if (vo.jumpInner) {
+                InnerJumpUtil.doJump(InnerJumpCmd[vo.linkUrl]);
+            }
+            else {
+                if (GameUtils.isNativeApp)
+                    PostMHelp.game_common({ name: "openWeb", param: vo.linkUrl });
+                else
+                    window.open(vo.linkUrl);
+            }
         }
     };
     /**
@@ -112,7 +120,8 @@ var CyclePageBox = /** @class */ (function (_super) {
         this.addTimer();
     };
     CyclePageBox.prototype.addTimer = function () {
-        Laya.timer.loop(this.spaceTime, this, this.doTimer);
+        if (this.total > 1)
+            Laya.timer.loop(this.spaceTime, this, this.doTimer);
     };
     CyclePageBox.prototype.stopTimer = function () {
         Laya.timer.clear(this, this.doTimer);
@@ -177,12 +186,7 @@ var CyclePageBox = /** @class */ (function (_super) {
             var time = Laya.Browser.now() - this.downTime;
             if (time < 350) { //点击处理
                 var vo = this.itemList[this.curIndex];
-                if (vo && vo.linkUrl) {
-                    if (GameUtils.isNativeApp)
-                        PostMHelp.game_common({ name: "openWeb", param: vo.linkUrl });
-                    else
-                        window.open(vo.linkUrl);
-                }
+                this.openLink(vo);
             }
         }
         this.moveNum = 0;

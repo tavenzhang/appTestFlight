@@ -45,6 +45,7 @@ var WinningList2 = /** @class */ (function (_super) {
                 this._currIdx = 1;
                 break;
         }
+        SoundPlayer.enterPanelSound();
         this.getList();
     };
     WinningList2.prototype.getList = function ($update) {

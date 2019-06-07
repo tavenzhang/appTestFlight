@@ -33,10 +33,7 @@ var NetManager = /** @class */ (function () {
             hr.once(Laya.Event.COMPLETE, this, this.HttpRequestComplete, [caller, callback, hr]);
             hr.once(Laya.Event.ERROR, this, this.HttpRequestError, [caller, callback, hr]);
             if (header) {
-                hr.send(url, data, //null
-                metod, //'get'
-                restype, //'json',
-                header);
+                hr.send(url, data, metod, restype, header);
             }
             else {
                 hr.send(url, null, metod, restype);
@@ -44,60 +41,12 @@ var NetManager = /** @class */ (function () {
         }
     };
     NetManager.prototype.HttpRequestProgress = function (caller, callback, hr, e) {
-        // Debug.trace(caller);
-        // Debug.trace(callback);
-        //callback.apply(caller,[e,'progress',hr]);
+        //...
     };
     NetManager.prototype.HttpRequestComplete = function (caller, callback, hr, e) {
-        // let ret = {};
-        // if (hr.http) 
-        // {
-        // 	ret["readyState"] = hr.http.readyState;
-        // 	ret["response"] = hr.http.response;
-        // 	ret["responseText"] = hr.http.responseText;
-        // 	ret["responseType"] = hr.http.responseType
-        // 	ret["responseURL"] = hr.http.responseURL;
-        // 	ret["status"] = hr.http.status;
-        // 	ret["statusText"] = hr.http.statusText;
-        // 	ret["timeout"] = hr.http.timeout;
-        // }
-        // for (let j = 0, len = NetManager.httpRequestList.length; j < len; j++) 
-        // {
-        // 	let item = NetManager.httpRequestList[j];
-        // 	if (item && item.indexOf(hr.http.responseURL) > -1) 
-        // 	{
-        // 		NetManager.httpRequestList.splice(j, 1);
-        // 		break;
-        // 	}
-        // }
-        // Debug.trace("http<--------<====" + ret["responseURL"], ret);
         callback.apply(caller, [e, 'complete', hr]);
     };
     NetManager.prototype.HttpRequestError = function (caller, callback, hr, e) {
-        // Debug.trace(caller);
-        // Debug.trace(callback);
-        // let ret = {};
-        // if (hr.http) 
-        // {
-        // 	ret["readyState"] = hr.http.readyState;
-        // 	ret["response"] = hr.http.response;
-        // 	ret["responseText"] = hr.http.responseText;
-        // 	ret["responseType"] = hr.http.responseType
-        // 	ret["responseURL"] = hr.http.responseURL;
-        // 	ret["status"] = hr.http.status;
-        // 	ret["statusText"] = hr.http.statusText;
-        // 	ret["timeout"] = hr.http.timeout;
-        // }
-        // for (let j = 0, len = NetManager.httpRequestList.length; j < len; j++) 
-        // {
-        // 	let item = NetManager.httpRequestList[j];
-        // 	if (item && item.indexOf(hr.http.responseURL) > -1) 
-        // 	{
-        // 		NetManager.httpRequestList.splice(j, 1);
-        // 		break;
-        // 	}
-        // }
-        // Debug.trace("http<--------error<====" + ret["responseURL"], ret);
         if (hr.http.status == 204) {
             callback.apply(caller, [e, 'complete', hr]);
         }
@@ -107,10 +56,7 @@ var NetManager = /** @class */ (function () {
     };
     // public hr:Laya.HttpRequest;
     NetManager.obj = null;
-    NetManager.httpRequestList = new Array();
-    NetManager.hisHashUrlList = new Array();
-    NetManager.STATE_COMPLETE = "complete";
-    NetManager.STATE_ERROR = "error";
+    NetManager.httpRequestList = [];
     return NetManager;
 }());
 //# sourceMappingURL=NetManager.js.map

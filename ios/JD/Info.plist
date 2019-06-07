@@ -44,15 +44,15 @@
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>weixin</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>wx22123f736864abb8</string>
-			</array>
-		</dict>
+        			<key>CFBundleTypeRole</key>
+        			<string>Editor</string>
+        			<key>CFBundleURLName</key>
+        			<string>weixin</string>
+        			<key>CFBundleURLSchemes</key>
+        			<array>
+        				<string>wx39520c48b4a7dc64</string>
+        			</array>
+        		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>6</string>
