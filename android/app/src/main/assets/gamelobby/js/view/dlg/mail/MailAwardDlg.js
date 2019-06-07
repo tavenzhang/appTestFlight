@@ -41,7 +41,7 @@ var view;
                     this.bitFont.y = this.fontBox.height - this.bitFont.height >> 1;
                     //
                     Laya.timer.frameLoop(1, this, this.frameHandler);
-                    Laya.timer.once(3000, this, function () {
+                    Laya.timer.once(2000, this, function () {
                         Laya.timer.clear(_this, _this.frameHandler);
                         _this.close(null, true);
                     });

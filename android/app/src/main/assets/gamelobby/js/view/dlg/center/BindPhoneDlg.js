@@ -72,7 +72,11 @@ var view;
                     }
                     this.clearCodeTime();
                     LayaMain.getInstance().showCircleLoading(true);
-                    HttpRequester.bindPhone(this.numTxt.text, this.codeTxt.text, this, function (suc, jobj) {
+                    var data = {
+                        phoneNumber: this.numTxt.text,
+                        verificationCode: this.codeTxt.text
+                    };
+                    HttpRequester.postHttpData(ConfObjRead.getConfUrl().cmd.bindPhone, data, this, function (suc, jobj) {
                         LayaMain.getInstance().showCircleLoading(false);
                         if (suc) {
                             TempData.isGetBindAward = true;
