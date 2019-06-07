@@ -142,14 +142,7 @@ export default class TWWebGameView extends Component {
     onLoadEnd = (event) => {
 
         TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--"+ TW_Store.bblStore.isLoading, event)
-        this.timeId=setTimeout(()=>{
-            TW_Store.bblStore.lastGameUrl = "";
-            TW_Store.bblStore.showGameCircle(false);
-            if(TW_OnValueJSHome){
-                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
-                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic,{}));
-            }
-        },G_IS_IOS ? 1000:4000)
+        this.timeId=setTimeout(this.onEnterGame,G_IS_IOS ? 1000:4000)
 
     }
 
@@ -193,18 +186,24 @@ export default class TWWebGameView extends Component {
                     TW_Store.gameUIStroe.isShowAddPayView=!TW_Store.gameUIStroe.isShowAddPayView;
                     break;
                 case "game_start": //子游戏准备ok
-                    clearTimeout(this.timeId)
-                    TW_Store.bblStore.lastGameUrl = "";
-                    TW_Store.bblStore.showGameCircle(false);
-                    if(TW_OnValueJSHome){
-                        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
-                        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic,{}));
-                    }
+                   this.onEnterGame();
                     break;
             }
         }
     }
 
+    onEnterGame=()=>{
+        if(TW_Store.gameUpateStore.isInSubGame){
+            clearTimeout(this.timeId)
+            TW_Store.bblStore.lastGameUrl = "";
+            TW_Store.bblStore.showGameCircle(false);
+            if(TW_OnValueJSHome){
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic,{}));
+            }
+        }
+
+    }
     handleUrl = (url) => {
         if (url && url.indexOf("../") > -1) {
             url = url.replace("../", "");
