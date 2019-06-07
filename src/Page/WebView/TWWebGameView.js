@@ -193,9 +193,9 @@ export default class TWWebGameView extends Component {
     }
 
     onEnterGame=()=>{
-        if(TW_Store.gameUpateStore.isInSubGame){
+        if(!TW_Store.gameUpateStore.isInSubGame){
+            TW_Store.gameUpateStore.isInSubGame=true
             clearTimeout(this.timeId)
-            TW_Store.bblStore.lastGameUrl = "";
             TW_Store.bblStore.showGameCircle(false);
             if(TW_OnValueJSHome){
                 TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));

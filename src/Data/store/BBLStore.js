@@ -116,6 +116,7 @@ export  default  class BBLStore {
             url:"",
             isGame: true
         }
+        TW_Store.gameUpateStore.isInSubGame=false;
     }
 
     @action
