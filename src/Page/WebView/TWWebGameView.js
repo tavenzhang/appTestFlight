@@ -140,17 +140,11 @@ export default class TWWebGameView extends Component {
 
 
     onLoadEnd = (event) => {
-
+        let {isOrigan,url}=this.props;
+        if(url&&url.length>0){
+            this.timeId=setTimeout(this.onEnterGame,G_IS_IOS ? 1000:4000)
+        }
         TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--"+ TW_Store.bblStore.isLoading, event)
-        this.timeId=setTimeout(()=>{
-            TW_Store.bblStore.lastGameUrl = "";
-            TW_Store.bblStore.showGameCircle(false);
-            if(TW_OnValueJSHome){
-                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
-                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic,{}));
-            }
-        },G_IS_IOS ? 1000:4000)
-
     }
 
     onloadStart = (event) => {
@@ -193,18 +187,24 @@ export default class TWWebGameView extends Component {
                     TW_Store.gameUIStroe.isShowAddPayView=!TW_Store.gameUIStroe.isShowAddPayView;
                     break;
                 case "game_start": //子游戏准备ok
-                    clearTimeout(this.timeId)
-                    TW_Store.bblStore.lastGameUrl = "";
-                    TW_Store.bblStore.showGameCircle(false);
-                    if(TW_OnValueJSHome){
-                        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
-                        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic,{}));
-                    }
+                   this.onEnterGame();
                     break;
             }
         }
     }
 
+    onEnterGame=()=>{
+        TW_Store.bblStore.lastGameUrl="";
+        if(!TW_Store.gameUpateStore.isInSubGame){
+            TW_Store.gameUpateStore.isInSubGame=true
+            clearTimeout(this.timeId)
+            TW_Store.bblStore.showGameCircle(false);
+            if(TW_OnValueJSHome){
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic,{}));
+            }
+        }
+    }
     handleUrl = (url) => {
         if (url && url.indexOf("../") > -1) {
             url = url.replace("../", "");
@@ -250,6 +250,7 @@ export default class TWWebGameView extends Component {
 
     onBackHomeJs = () => {
         let {onEvaleJS} = this.props;
+        TW_Store.gameUpateStore.isInSubGame=false;
         TW_Store.bblStore.quitSubGame();
         clearTimeout(this.timeId);
         if (onEvaleJS) {

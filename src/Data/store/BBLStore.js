@@ -85,7 +85,6 @@ export  default  class BBLStore {
             }else{
                 versionDomain= platInfo.downDomain+platInfo.zipCheckServer.release_server
             }
-
         }
         //TW_Store.appStore.isInAnroidHack
         if(TW_Store.appStore.isInAnroidHack){
@@ -116,6 +115,7 @@ export  default  class BBLStore {
             url:"",
             isGame: true
         }
+
     }
 
     @action

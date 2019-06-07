@@ -112,7 +112,7 @@ export default class LoadingWebView extends Component {
                 this.onMsgHandle(message);
             }
         } catch (err) {
-            TW_Log("onMessage===========erro==" + err, event.nativeEvent);
+            TW_Log("onMessage==========6=erro==" + err, event.nativeEvent);
         }
     }
 
