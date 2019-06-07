@@ -209,6 +209,38 @@ var HttpRequester = /** @class */ (function () {
         this.doRequest(url, header, jsonStr, caller, callback);
     };
     /**
+     * 绑定手机号
+     * @param num
+     * @param code
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.bindPhone = function (num, code, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        url += ConfObjRead.getConfUrl().cmd.bindPhone;
+        url += "?access_token=" + Common.access_token;
+        var data = {
+            phoneNumber: num,
+            verificationCode: code
+        };
+        var jsonStr = JSON.stringify(data);
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        this.doRequest(url, header, jsonStr, caller, callback);
+    };
+    /**
+     * 添加银行卡
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.addBankCard = function (data, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        url += ConfObjRead.getConfUrl().cmd.addBankCard;
+        url += "?access_token=" + Common.access_token;
+        var jsonStr = JSON.stringify(data);
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        this.doRequest(url, header, jsonStr, caller, callback, "put");
+    };
+    /**
      * 修改密码(包括登录密码和取款密码)
      * @param pwd
      * @param newpwd
@@ -271,7 +303,7 @@ var HttpRequester = /** @class */ (function () {
         this.doRequest(url, header, null, caller, callback, "put");
     };
     /**
-     * 通用get方式请求
+     * 通用get类方法
      * @param caller
      * @param callback
      */
@@ -281,51 +313,6 @@ var HttpRequester = /** @class */ (function () {
         url += "?access_token=" + Common.access_token;
         var header = ["Accept", "application/json"];
         this.doRequest(url, header, null, caller, callback, "get");
-    };
-    /**
-     * 通用post方式请求
-     */
-    HttpRequester.postHttpData = function (cmd, data, caller, callback) {
-        if (data === void 0) { data = null; }
-        var url = ConfObjRead.getConfUrl().url.apihome;
-        url += cmd;
-        url += "?access_token=" + Common.access_token;
-        var jsonStr = null;
-        if (data)
-            jsonStr = JSON.stringify(data);
-        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
-        this.doRequest(url, header, jsonStr, caller, callback, "post");
-    };
-    /**
-     * 通用delete方式请求
-     * @param cmd
-     * @param caller
-     * @param callback
-     */
-    HttpRequester.deleteHttpData = function (cmd, caller, callback) {
-        var url = ConfObjRead.getConfUrl().url.apihome;
-        url += cmd;
-        url += "?access_token=" + Common.access_token;
-        var header = ["Accept", "application/json"];
-        this.doRequest(url, header, null, caller, callback, "delete");
-    };
-    /**
-     * 通用put方式请求
-     * @param cmd
-     * @param data
-     * @param caller
-     * @param callback
-     */
-    HttpRequester.putHttpData = function (cmd, data, caller, callback) {
-        if (data === void 0) { data = null; }
-        var url = ConfObjRead.getConfUrl().url.apihome;
-        url += cmd;
-        url += "?access_token=" + Common.access_token;
-        var jsonStr = null;
-        if (data)
-            jsonStr = JSON.stringify(data);
-        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
-        this.doRequest(url, header, jsonStr, caller, callback, "put");
     };
     /**
      * 开始请求-后续统一走这里方面定位问题

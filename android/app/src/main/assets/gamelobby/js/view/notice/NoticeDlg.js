@@ -18,9 +18,6 @@ var AttentionDialog = /** @class */ (function () {
     AttentionDialog.TYPE_OPEN_AUTO = 2;
     return AttentionDialog;
 }());
-var NoticeData = {
-    shareId: 0
-};
 var view;
 (function (view) {
     var dlg;
@@ -388,24 +385,13 @@ var view;
                 else if ($type === "circle") {
                     if (this.shareLimit > 0) {
                         this.shareLimit--;
-                        message = "分享成功，请前往邮件查看";
+                        message = "分享成功，请前往邮件领取奖励";
                     }
                     else {
                         message = "分享成功，请多点和朋友分享乐趣吧";
                     }
                     AgentDialogSucess.showDialog(this.dlg, ConfObjRead.getConfAgentDialogDeleteInvitation(), message);
                 }
-                var url = ConfObjRead.getConfUrl().url.apihome +
-                    ConfObjRead.getConfUrl().cmd.share +
-                    "?noticeId=" + NoticeData.shareId;
-                var header = [
-                    "Accept", "application/json"
-                ];
-                NetManager.getObj().HttpConnect(url, this, function () { }, header, //:any=null,
-                null, //data:any=null,
-                "PUT", //metod:any="get",
-                "json" //restype:any="json"
-                );
             };
             NoticeDlg.prototype.onClosed = function (type) {
                 // Laya.SoundManager.playSound("assets/raw/sfx_close.mp3");

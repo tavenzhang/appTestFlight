@@ -38,7 +38,7 @@ var view;
                 var _this = this;
                 this.infoTxt.text = info;
                 EventManager.addTouchScaleListener(this.closeBtn, this, function () {
-                    SoundPlayer.closeSound();
+                    SoundPlayer.clickSound();
                     _this.close(null, true);
                 });
                 EventManager.addTouchScaleListener(this.cancelBtn, this, function () {

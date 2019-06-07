@@ -1,151 +1,581 @@
 {
     "desc": "",
-    "list": [
-        "./assets/conf/agent/agent.json",
-        "./assets/conf/agent/agentadduser.json",
-        "./assets/conf/agent/agentdeleteinvitation.json",
-        "./assets/conf/agent/agenteditaccounttype.json",
-        "./assets/conf/agent/agentinvitation.json",
-        "./assets/conf/agent/agentct.json",
-        "./assets/conf/agent/agentpad.json",
-        "./assets/conf/agent/agenttab.json",
-        "./assets/conf/agent/agenttitle.json",
-        "./assets/conf/agent/agentctinfo.json",
-        "./assets/conf/agent/agentctdesc.json",
-        "./assets/conf/agent/agentctinvation.json",
-        "./assets/conf/agent/agentctmyincome.json",
-        "./assets/conf/agent/agentctmychildren.json",
-        "./assets/conf/agent/listmychildren.json",
-        "./assets/conf/agent/listmychildrentest.json",
-        "./assets/conf/agent/listinvichildren.json",
-        "./assets/conf/agent/listinvichildrentest.json",
-        "./assets/conf/agent/listincome.json",
-        "./assets/conf/agent/listincometest.json",
-        "./assets/conf/agent/listdesc.json",
-        "./assets/conf/agent/listdesctest.json",
-        "./assets/conf/textconf.json",
-        "./assets/conf/uiobj/helppad.json",
-        "./assets/conf/uiobj/history.json",
-        "./assets/conf/uiobj/nomoney.json",
-        "./assets/conf/roompanel/roompanel.json",
-        "./assets/conf/urls.json",
-        "./assets/ui/agent/img_daili_leixing01.png",
-        "./assets/ui/agent/img_daili_leixing02.png",
-        "./assets/ui/agent/img_daili_zi_daili.png",
-        "./assets/ui/agent/img_daili_zi_wanjia.png",
-        "./assets/ui/agent/btn_com_guanbi.png",
-        "./assets/ui/agent/img_daili_dianjixuanma.png",
-        "./assets/ui/agent/btn_daili_xuanzhong.png",
-        "./assets/ui/agent/img_daili_anniudi.png",
-        "./assets/ui/agent/img_daili_biaotou.png",
-        "./assets/ui/agent/img_daili_biaotou01.png",
-        "./assets/ui/agent/img_daili_biaotou02.png",
-        "./assets/ui/agent/img_daili_dadiban.png",
-        "./assets/ui/agent/img_daili_ewm.png",
-        "./assets/ui/agent/img_daili_fuzhi.png",
-        "./assets/ui/agent/img_daili_tips.png",
-        "./assets/ui/agent/img_daili_tips02.png",
-        "./assets/ui/agent/img_daili_touxiang.png",
-        "./assets/ui/agent/img_daili_wenxianzi.png",
-        "./assets/ui/agent/img_daili_wenxianzi02.png",
-        "./assets/ui/agent/img_daili_xinxizi.png",
-        "./assets/ui/agent/img_daili_zi01.png",
-        "./assets/ui/agent/img_daili_zi02.png",
-        "./assets/ui/agent/img_daili_zi03.png",
-        "./assets/ui/agent/img_daili_zi04.png",
-        "./assets/ui/agent/img_daili_zi05.png",
-        "./assets/ui/agent/img_daili_zi06.png",
-        "./assets/ui/agent/img_daili_zi07.png",
-        "./assets/ui/agent/img_daili_zi08.png",
-        "./assets/ui/agent/img_daili_zi09.png",
-        "./assets/ui/agent/img_daili_zi010.png",
-        "./assets/ui/agent/img_qizhidi.png",
-        "./assets/ui/agent/btn_com_guanbi.png",
-        "./assets/ui/agent/btn_com_queren.png",
-        "./assets/ui/agent/bg_daili_diwen01.png",
-        "./assets/ui/agent/img_daili_shengcheng.png",
-        "./assets/ui/agent/img_daili_tou_ewm.png",
-        "./assets/ui/agent/img_daili_fuzhilianjie.png",
-        "./assets/ui/agent/img_daili_shanchuewm.png",
-        "./assets/ui/agent/img_daili_weixinfenxiang.png",
-        "./assets/ui/agent/btn_daili_sousuokuang.png",
-        "./assets/ui/agent/btn_daili_tianjiayonghu.png",
-        "./assets/ui/agent/img_daili_sousuodi.png",
-        "./assets/ui/agent/img_daili_tou_zhishu.png",
-        "./assets/ui/agent/btn_daili_xiugai.png",
-        "./assets/ui/agent/img_daili_tiaodibian02.png",
-        "./assets/ui/agent/img_daili_tou_wdyj.png",
-        "./assets/ui/agent/img_daili_leixing01.png",
-        "./assets/ui/agent/img_daili_leixing03.png",
-        "./assets/ui/agent/img_daili_zi_jinri.png",
-        "./assets/ui/agent/img_daili_zi_zuori.png",
-        "./assets/ui/agent/img_daili_zi_benzhou.png",
-        "./assets/ui/agent/img_daili_zi_shangzhou.png",
-        "./assets/ui/agent/img_daili_zi_benyue.png",
-        "./assets/ui/agent/numj/img_com_j_dh.png",
-        "./assets/ui/agent/numj/img_qian_zhusi_dian2.png",
-        "./assets/ui/agent/numj/img_com_j_jh.png",
-        "./assets/ui/agent/numj/img_com_j0.png",
-        "./assets/ui/agent/numj/img_com_j1.png",
-        "./assets/ui/agent/numj/img_com_j2.png",
-        "./assets/ui/agent/numj/img_com_j3.png",
-        "./assets/ui/agent/numj/img_com_j4.png",
-        "./assets/ui/agent/numj/img_com_j5.png",
-        "./assets/ui/agent/numj/img_com_j6.png",
-        "./assets/ui/agent/numj/img_com_j7.png",
-        "./assets/ui/agent/numj/img_com_j8.png",
-        "./assets/ui/agent/numj/img_com_j9.png",
-        "./assets/ui/agent/img_daili_shuoming01.png",
-        "./assets/ui/agent/img_daili_shuoming02.png",
-        "./assets/ui/agent/img_daili_shuoming03.png",
-        "./assets/animation/btn_recharge/Reload.sk",
-        "./assets/animation/btn_recharge/Reload.png",
-        "./assets/animation/liangguang/liangguang.sk",
-        "./assets/animation/liangguang/liangguang.png",
-        "./assets/ui/avatorpad/touxiang.atlas",
-        "./assets/ui/dialog/bgNotice.png",
-        "./assets/ui/dialog/btn_recharge.png",
-        "./assets/ui/dialog/btn_touxiang_guangbi.png",
-        "./assets/ui/dialog/img_touxiang_dadi.png",
-        "./assets/ui/dialog/lbNotice.png",
-        "./assets/ui/history/bgContent.png",
-        "./assets/ui/history/bottomNotice.png",
-        "./assets/ui/history/titleName.png",
-        "./assets/ui/history/titleTable.png",
-        "./assets/ui/rule/bgContent.png",
-        "./assets/ui/rule/bgTitle.png",
-        "./assets/ui/rule/btn_guanyu_00.png",
-        "./assets/ui/rule/btn_guanyu_01.png",
-        "./assets/ui/rule/btn_jiesuan_00.png",
-        "./assets/ui/rule/btn_jiesuan_01.png",
-        "./assets/ui/rule/btn_paixing_00.png",
-        "./assets/ui/rule/btn_paixing_01.png",
-        "./assets/ui/rule/btn_wanfa_00.png",
-        "./assets/ui/rule/btn_wanfa_01.png",
-        "./assets/ui/rule/ct_guanyu.png",
-        "./assets/ui/rule/ct_jiesuan.png",
-        "./assets/ui/rule/ct_paixing.png",
-        "./assets/ui/rule/ct_paixing2.png",
-        "./assets/ui/rule/ct_wanfa.png",
-        "./assets/ui/rule/title.png",
-        "./assets/ui/rule/vlineTitle.png",
-        "res/atlas/ui/lobby.atlas",
-        "res/atlas/ui/common.atlas",
-        "res/atlas/ui/lobby/bottombar.atlas",
-        "res/atlas/ui/panel_common.atlas",
-        "res/atlas/ui/panel_notice.atlas",
-        "res/atlas/ui/panel_agent.atlas",
-        "res/atlas/ui/panel_notice/message.atlas",
-        "res/atlas/ui/panel_notice/roullette.atlas",
-        "res/atlas/ui/panel_notice/share.atlas",
-        "res/atlas/ui/panel_notice/roullette/spinner.atlas",
-        "./assets/animation/loading/xiaoLoding.sk",
-        "./assets/animation/loading/xiaoLoding.png",
-        "./assets/conf/config.json",
-        "./res/atlas/ui/bindPhone.atlas",
-        "./res/atlas/ui/fullMyCenter.atlas",
-        "./res/atlas/ui/bitFont/goldFont.atlas",
-        "./res/atlas/ui/bitFont/mailFont.atlas",
-        "./res/atlas/ui/mailbox.atlas"
+    "src": [
+        {
+            "url": "./assets/conf/agent/agent.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agentadduser.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agentdeleteinvitation.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agenteditaccounttype.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agentinvitation.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agentct.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agentpad.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agenttab.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agenttitle.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agentctinfo.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agentctdesc.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agentctinvation.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agentctmyincome.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/agentctmychildren.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/listmychildren.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/listmychildrentest.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/listinvichildren.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/listinvichildrentest.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/listincome.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/listincometest.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/listdesc.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/agent/listdesctest.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/textconf.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/uiobj/helppad.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/uiobj/history.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/uiobj/nomoney.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/roompanel/roompanel.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/conf/urls.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_leixing01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_leixing02.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi_daili.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi_wanjia.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/btn_com_guanbi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_dianjixuanma.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/btn_daili_xuanzhong.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_anniudi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_biaotou.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_biaotou01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_biaotou02.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_dadiban.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_ewm.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_fuzhi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_tips.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_tips02.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_touxiang.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_wenxianzi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_wenxianzi02.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_xinxizi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi02.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi03.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi04.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi05.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi06.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi07.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi08.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi09.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi010.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_qizhidi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/btn_com_guanbi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/btn_com_queren.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/bg_daili_diwen01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_shengcheng.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_tou_ewm.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_fuzhilianjie.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_shanchuewm.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_weixinfenxiang.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/btn_daili_sousuokuang.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/btn_daili_tianjiayonghu.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_sousuodi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_tou_zhishu.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/btn_daili_xiugai.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_tiaodibian02.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_tou_wdyj.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_leixing01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_leixing03.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi_jinri.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi_zuori.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi_benzhou.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi_shangzhou.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_zi_benyue.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_com_j_dh.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_qian_zhusi_dian2.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_com_j_jh.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_com_j0.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_com_j1.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_com_j2.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_com_j3.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_com_j4.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_com_j5.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_com_j6.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_com_j7.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_com_j8.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/numj/img_com_j9.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_shuoming01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_shuoming02.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/agent/img_daili_shuoming03.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/animation/btn_recharge/Reload.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/animation/btn_recharge/Reload.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/animation/liangguang/liangguang.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/animation/liangguang/liangguang.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/avatorpad/touxiang.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "./assets/ui/dialog/bgNotice.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/dialog/btn_recharge.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/dialog/btn_touxiang_guangbi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/dialog/img_touxiang_dadi.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/dialog/lbNotice.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/history/bgContent.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/history/bottomNotice.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/history/titleName.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/history/titleTable.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/bgContent.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/bgTitle.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/btn_guanyu_00.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/btn_guanyu_01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/btn_jiesuan_00.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/btn_jiesuan_01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/btn_paixing_00.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/btn_paixing_01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/btn_wanfa_00.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/btn_wanfa_01.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/ct_guanyu.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/ct_jiesuan.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/ct_paixing.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/ct_paixing2.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/ct_wanfa.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/title.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/ui/rule/vlineTitle.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "res/atlas/ui/lobby.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/ui/common.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/ui/lobby/bottombar.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/ui/panel_common.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/ui/panel_notice.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/ui/panel_agent.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/ui/panel_notice/message.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/ui/panel_notice/roullette.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/ui/panel_notice/share.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "res/atlas/ui/panel_notice/roullette/spinner.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "./assets/animation/loading/xiaoLoding.sk",
+            "type": "BUFFER"
+        },
+        {
+            "url": "./assets/animation/loading/xiaoLoding.png",
+            "type": "IMAGE"
+        },
+        {
+            "url": "./assets/conf/config.json",
+            "type": "JSON"
+        },
+        {
+            "url": "./res/atlas/ui/bindPhone.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "./res/atlas/ui/fullMyCenter.atlas",
+            "type": "ATLAS"
+        },
+        {
+            "url": "./res/atlas/ui/bitFont/goldFont.atlas",
+            "type": "ATLAS"
+        }
     ]
 }

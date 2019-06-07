@@ -1,6 +1,9 @@
 var Common = /** @class */ (function () {
     function Common() {
     }
+    Common.changePathType = function (n) {
+        Common.pathType = n;
+    };
     Common.emptyLoginInfo = function () {
         return {
             "strongPwd": true
@@ -20,6 +23,12 @@ var Common = /** @class */ (function () {
     };
     //根据游戏id找出游戏数据
     Common.getGameDataById = function (id) {
+        // Debug.trace("Common getGameDataById:"+id);
+        // Debug.trace("Common.gameInfo.datas:");
+        // Debug.trace(Common.gameInfo.datas);
+        // Debug.trace("Common.gameInfo:");
+        // Debug.trace(Common.gameInfo);
+        // for(var k in Common.gameInfo)
         for (var k = 0; k < Common.gameInfo.length; k++) {
             var o = Common.gameInfo[k]; //.datas[k];
             if (o.id == id) {
@@ -76,6 +85,18 @@ var Common = /** @class */ (function () {
             return null;
         }
     };
+    //从房间列表面板提取游戏数据，返回alias
+    Common.getAliasFromRoomPanel = function () {
+        try {
+            Debug.traceObj("Common.getAliasFromRoomPanel:");
+            Debug.traceObj(RoomPanel.obj);
+            Debug.traceObj(RoomPanel.obj.gamedata);
+            // var s = RoomPanel.obj.gamedata;
+        }
+        catch (e) {
+        }
+        return "";
+    };
     //读取当前默认字体
     Common.getNormalFontByDevice = function () {
         var dv = "";
@@ -125,15 +146,20 @@ var Common = /** @class */ (function () {
         this.loginInfo = null;
         this.avatorInfo = null;
         this.bindPhoneInfo = null;
-        this.cardInfo = null;
-        this.bankInfo = null;
-        this.alipayInfo = null;
         TempData.bindAward = 0;
         TempData.isGetBindAward = true;
         TempData.bindOpen = false;
     };
     Common.GM_SCREEN_H = 750;
     Common.GM_SCREEN_W = 1334;
+    Common.IDX_TOP_LOADING = 9999;
+    Common.IDX_TOP_TOAST = 99999;
+    Common.IDX_TOP_DRAW = 99998;
+    Common.IDX_BELOW_DRAW = 88888;
+    Common.PATH_TYPE_XD = 0;
+    Common.PATH_TYPE_JD = 1;
+    Common.pathType = Common.PATH_TYPE_XD;
+    Common.numShowChangePwdQk = 0;
     //当前登录用户令牌
     Common.access_token = "";
     //当前用户是否全新登录
@@ -162,6 +188,8 @@ var Common = /** @class */ (function () {
     Common.lastSoundVolume = 1;
     //音效开还是关
     Common.bSoundSwitch = true;
+    //帮助配置
+    Common.confHelp = null;
     //默认的字体
     Common.normalFont = null;
     //当前登录设备

@@ -174,7 +174,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
         this.newtab.mouseEnabled = true;
         this.mytab.mouseEnabled = true;
         this.wlist.getList(true);
-        var message = "\u606D\u559C\u62BD\u4E2D " + this._result + " \u91D1\u5E01\u5956\u52B1\uFF0C\u8BF7\u524D\u5F80\u90AE\u4EF6\u67E5\u770B";
+        var message = "\u606D\u559C\u62BD\u4E2D " + this._result + " \u91D1\u5E01\u5956\u52B1\uFF0C\u8BF7\u524D\u5F80\u90AE\u4EF6\u9886\u53D6\u5956\u52B1";
         AgentDialogSucess.showDialog(this.parent.parent, ConfObjRead.getConfAgentDialogDeleteInvitation(), message);
         this._result = undefined;
     };
@@ -198,17 +198,14 @@ var Notice_Roullette = /** @class */ (function (_super) {
                 case this.btnSilver:
                     this.btnSilver.getChildAt(0).visible = true;
                     this.showSpinner2(1);
-                    SoundPlayer.enterPanelSound();
                     break;
                 case this.btnGold:
                     this.btnGold.getChildAt(0).visible = true;
                     this.showSpinner2(2);
-                    SoundPlayer.enterPanelSound();
                     break;
                 case this.btnDiamond:
                     this.btnDiamond.getChildAt(0).visible = true;
                     this.showSpinner2(3);
-                    SoundPlayer.enterPanelSound();
                     break;
                 default: {
                 }

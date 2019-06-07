@@ -187,15 +187,10 @@ var LayaMain = /** @class */ (function () {
                 case "lobbyResume": //从游戏返回到大厅
                     TempData.joinLobbyType = JoinLobbyType.gameBank;
                     lamain.onGameResume();
-                    EventManager.dispath(EventType.GAMETOHALL);
+                    EventManager.dispath(EventType.FLUSH_CYCLEIMAGE);
                     break;
-                case "enterGame": { //进入游戏
-                    EventManager.dispath(EventType.HALLTOGAME);
-                    break;
-                }
                 case "showLoading": { //显示/隐藏loading
-                    var alp = message.alpha || 0;
-                    this.showCircleLoading(Boolean(message.data), alp);
+                    this.showCircleLoading(Boolean(message.data), 0);
                     break;
                 }
                 case "showMask": { //显示或隐藏背景遮罩
@@ -220,16 +215,12 @@ var LayaMain = /** @class */ (function () {
                 case "lifecycle": { //前后台切换通知(1-后台到前台，0-前台到后台)
                     if (message.data == 1) {
                         TempData.joinLobbyType = JoinLobbyType.backstage;
+                        EventManager.dispath(EventType.FLUSH_CYCLEIMAGE);
                     }
-                    EventManager.dispath(EventType.LIFE_CYCLE, message.data);
                     break;
                 }
                 case "openBindCard": { //打开绑定银行卡界面
                     view.dlg.center.AccountInfoDlg.show();
-                    break;
-                }
-                case "openBindAlipay": { //打开绑定支付宝界面
-                    view.dlg.center.BindAlipayDlg.show();
                     break;
                 }
                 case "shareSucess": {

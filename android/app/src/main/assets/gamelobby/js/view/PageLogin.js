@@ -70,12 +70,21 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.startLoading = function () {
         var conf = Laya.loader.getRes("./assets/conf/assets_lobby.json");
+        //过滤数据
+        var assets = [];
+        var srcs = conf.src;
+        for (var i = 0; i < srcs.length; i++) {
+            var urls = Tools.getSrc(srcs[i].url);
+            var types = Tools.getLoadingType(srcs[i].type);
+            var v = { url: urls, type: types };
+            assets.push(v);
+        }
         if (PageLogin.isLoaded) {
             this.loadFinish();
         }
         else {
             //加载数据
-            Laya.loader.load(conf.list, Laya.Handler.create(this, this.loadFinish), Laya.Handler.create(this, this.loadProgress, null, false));
+            Laya.loader.load(assets, Laya.Handler.create(this, this.loadFinish), Laya.Handler.create(this, this.loadProgress, null, false));
         }
     };
     /**
@@ -323,7 +332,7 @@ var PageLogin = /** @class */ (function (_super) {
             }
             Common.clientId = Tools.getQueryVariable("clientId");
             if (!Common.clientId)
-                Common.clientId = ConfObjRead.getConfCommon().testClientId;
+                Common.clientId = ConfObjRead.getConfUrl().cmd.testClientId;
         }
         LobbyScene.initBgMusic();
         if (this.cmd && this.cmd.type) {

@@ -161,16 +161,6 @@ var GameListManager = /** @class */ (function () {
             return arr[0];
         return null;
     };
-    GameListManager.prototype.pause = function () {
-        if (this.iconList) {
-            this.iconList.forEach(function (value) { return value.pause(); });
-        }
-    };
-    GameListManager.prototype.resume = function () {
-        if (this.iconList) {
-            this.iconList.forEach(function (value) { return value.resume(); });
-        }
-    };
     /**
      * 销毁
      */

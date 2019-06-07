@@ -245,9 +245,10 @@ var ConfObjRead = /** @class */ (function () {
         return this.commonObj;
     };
     ConfObjRead.getConfUrl = function () {
-        if (!ConfObjRead.urlObj) {
-            ConfObjRead.urlObj = Laya.Loader.getRes("./assets/conf/urls.json");
+        if (ConfObjRead.urlObj) {
+            return ConfObjRead.urlObj;
         }
+        ConfObjRead.urlObj = Laya.Loader.getRes("./assets/conf/urls.json");
         return ConfObjRead.urlObj;
     };
     ConfObjRead.getConfRoomPad = function () {
