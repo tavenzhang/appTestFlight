@@ -22,7 +22,7 @@ var Agent_Description = /** @class */ (function (_super) {
         this.on(Laya.Event.MOUSE_UP, this, this.onDrag);
         this.on(Laya.Event.MOUSE_MOVE, this, this.onDrag);
         this.isDrag = false;
-        this.customerService.text = AgentData.customerServiceUrl;
+        this.customerService.text = AgentData.customerServiceUrl || "";
         this._minY = -(this.dragObj.height - this.DragArea.height) - 10;
         if (this.customerService.text === "") {
             this.DragArea.y = 0;

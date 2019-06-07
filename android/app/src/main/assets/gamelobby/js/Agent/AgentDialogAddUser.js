@@ -226,7 +226,7 @@ var AgentDialogAddUser = /** @class */ (function (_super) {
             // AgentPad.getObj().switchTab(null, "mychildren")            
             view.dlg.AgentDlg.show("affiliates");
             this.onClose(null);
-            AgentDialogSucess.showDialog(this.fatherNode, ConfObjRead.getConfAgentDialogDeleteInvitation(), "开户成功");
+            view.dlg.TipsDlg.show("开户成功");
         }
         try {
             Toast.showToast(JSON.parse(hr.http.response).message);

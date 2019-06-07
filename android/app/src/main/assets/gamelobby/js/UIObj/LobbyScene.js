@@ -48,6 +48,7 @@ var LobbyScene = /** @class */ (function (_super) {
         LobbyDataManager.reqUserInfo();
         LobbyDataManager.reqUserCurrentInfo();
         LobbyDataManager.reqAvatarInfo();
+        LobbyDataManager.getCardInfo();
     };
     LobbyScene.prototype.requestPop = function () {
         var url = ConfObjRead.getConfUrl().url.apihome +
@@ -163,6 +164,52 @@ var LobbyDataManager = /** @class */ (function () {
                     Common.userInfo.userBalance.balance = jobj.balance;
                     EventManager.dispath(EventType.FLUSH_MONEY);
                 }
+            }
+        });
+    };
+    /**
+     * 获取绑定卡相关信息
+     */
+    LobbyDataManager.getCardInfo = function (caller, callback) {
+        var _this = this;
+        HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.getCardInfo, this, function (suc, jobj) {
+            if (suc) {
+                Common.cardInfo = jobj;
+                if (caller && callback) {
+                    callback.call(caller);
+                }
+            }
+            _this.getCardDetailInfo();
+        });
+    };
+    /**
+     * 获取未读邮件
+     */
+    LobbyDataManager.getUnreadMail = function () {
+        HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.getUnreadMail, this, function (suc, jobj) {
+            if (suc) {
+                EventManager.dispath(EventType.CHECK_UNREADMAIL, jobj);
+            }
+        });
+    };
+    /**
+     * 获取银行卡绑定详细信息
+     * @param caller
+     * @param callback
+     */
+    LobbyDataManager.getCardDetailInfo = function () {
+        HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.getbankCardInfo, this, function (suc, jobj) {
+            if (suc) {
+                var arr = jobj.bankAccounts;
+                arr.forEach(function (value) {
+                    if (value.bankCode == "ZHB") {
+                        Common.alipayInfo = value;
+                    }
+                    else {
+                        Common.bankInfo = value;
+                    }
+                });
+                EventManager.dispath(EventType.GET_BACKCARD_DETAIL);
             }
         });
     };

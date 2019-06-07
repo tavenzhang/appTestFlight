@@ -143,8 +143,7 @@ var view;
                     }
                     else {
                         this.hintGroup.visible = true;
-                        this.delAllBtn.visible = false;
-                        this.getAllBtn.visible = false;
+                        this.resetList();
                     }
                 }
                 LayaMain.getInstance().showCircleLoading(false);
@@ -207,6 +206,7 @@ var view;
             //点击邮件
             MailboxDlg.prototype.itemHandler = function (e) {
                 if (e.target instanceof view.UI.MailItemView) {
+                    SoundPlayer.clickSound();
                     var cur = e.target;
                     this.selectItem(cur);
                 }
