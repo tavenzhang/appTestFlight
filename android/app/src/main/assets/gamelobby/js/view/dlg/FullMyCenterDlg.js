@@ -36,8 +36,6 @@ var view;
             };
             FullMyCenterDlg.prototype.initView = function () {
                 var _this = this;
-                this.titleGroup.left = GameUtils.getScreencOffset(-48, 0);
-                this.backBtn.right = GameUtils.getScreencOffset(-55, 0);
                 var info = Common.userInfo;
                 var current = Common.userInfo_current;
                 this.accTxt.text = info.username;
@@ -46,7 +44,6 @@ var view;
                 this.moneyTxt.text = value.toFixed(2);
                 this.bindPhoneBtn.visible = !Boolean(current.certifiedPhone);
                 this.phoneTxt.text = this.bindPhoneBtn.visible ? "未绑定" : current.phoneNumber;
-                this.getBankCardInfo();
                 this.setHeadIcon();
                 var msc = SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1);
                 this.musicBtn.selected = Boolean(msc);
@@ -59,22 +56,22 @@ var view;
                 }, null, 1);
                 //更换头像
                 EventManager.addTouchScaleListener(this.setHeadBtn, this, function () {
-                    SoundPlayer.enterPanelSound();
+                    SoundPlayer.clickSound();
                     view.dlg.center.SetHeadDlg.show();
                 });
                 // //更换头像框(todo:暂未开放)
                 // EventManager.addTouchScaleListener(this.setBorderBtn, this, () => {
-                // 	SoundPlayer.enterPanelSound();
+                // 	SoundPlayer.clickSound();
                 // 	view.dlg.center.SetHeadBorderDlg.show();
                 // });
                 //账户信息
                 EventManager.addTouchScaleListener(this.accInfoBtn, this, function () {
-                    SoundPlayer.enterPanelSound();
+                    SoundPlayer.clickSound();
                     view.dlg.center.AccountInfoDlg.show();
                 });
                 //退出账号
                 EventManager.addTouchScaleListener(this.backAccBtn, this, function () {
-                    SoundPlayer.enterPanelSound();
+                    SoundPlayer.clickSound();
                     dlg_1.SystemDlg.show("确定退出该账号吗？", LayaMain.getInstance(), LayaMain.getInstance().loginOut);
                 });
                 //复制账号
@@ -84,43 +81,21 @@ var view;
                 });
                 //修改昵称
                 EventManager.addTouchScaleListener(this.setNickBtn, this, function () {
-                    SoundPlayer.enterPanelSound();
+                    SoundPlayer.clickSound();
                     //todo:暂未开放
                 });
                 //绑定手机号
                 EventManager.addTouchScaleListener(this.bindPhoneBtn, this, function () {
-                    SoundPlayer.enterPanelSound();
+                    SoundPlayer.clickSound();
                     if (TempData.bindOpen)
                         view.dlg.bindPhone.BindPhoneActiveDlg.show();
                     else
                         view.dlg.center.BindPhoneDlg.show();
                 });
-                //绑定支付宝
-                EventManager.addTouchScaleListener(this.bindAlipayBtn, this, function () {
-                    SoundPlayer.enterPanelSound();
-                    view.dlg.center.BindAlipayDlg.show();
-                });
                 //头像更新
                 EventManager.register(EventType.FLUSH_HEADICON, this, this.setHeadIcon);
-                EventManager.register(EventType.GET_BACKCARD_DETAIL, this, this.getBankCardInfo);
                 this.soundBtn.on(Laya.Event.CHANGE, this, this.selectSound);
                 this.musicBtn.on(Laya.Event.CHANGE, this, this.selectMusic);
-            };
-            FullMyCenterDlg.prototype.getBankCardInfo = function () {
-                if (Common.alipayInfo) {
-                    this.alipayTxt.text = Common.alipayInfo.bankCardNo;
-                    this.bindAlipayBtn.visible = false;
-                }
-                else {
-                    if (Common.cardInfo.enabledAlipayWithdraw) {
-                        this.alipayTxt.text = "未绑定";
-                        this.bindAlipayBtn.visible = true;
-                    }
-                    else {
-                        this.alipayTxt.text = "暂未开放";
-                        this.bindAlipayBtn.visible = false;
-                    }
-                }
             };
             FullMyCenterDlg.prototype.selectMusic = function () {
                 if (this.musicBtn.selected) { //打开

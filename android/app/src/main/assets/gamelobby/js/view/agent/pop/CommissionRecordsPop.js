@@ -190,7 +190,7 @@ var view;
                     this.destroy(true);
                 };
                 return CommissionRecordsPop;
-            }(ui.dlg.agent.pop.CommissionRecordsUI));
+            }(ui.dlg.pop.CommissionRecordsUI));
             agent.CommissionRecordsPop = CommissionRecordsPop;
         })(agent = dlg.agent || (dlg.agent = {}));
     })(dlg = view.dlg || (view.dlg = {}));

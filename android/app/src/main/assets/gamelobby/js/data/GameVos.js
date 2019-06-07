@@ -1,3 +1,18 @@
+/*
+* 骨骼动画数据模型
+*/
+var AnimVo = /** @class */ (function () {
+    function AnimVo() {
+        this.textPath = "";
+        this.animPath = "";
+        this.playSpeed = 1;
+        this.loop = true;
+        this.loopdelay = 2000;
+        this.pos = { x: 0, y: 0 };
+        this.stopHide = { value: true };
+    }
+    return AnimVo;
+}());
 /**
  * 游戏状态
  */
@@ -26,27 +41,4 @@ var JoinLobbyType;
     JoinLobbyType[JoinLobbyType["gameBank"] = 1] = "gameBank";
     JoinLobbyType[JoinLobbyType["backstage"] = 2] = "backstage";
 })(JoinLobbyType || (JoinLobbyType = {}));
-/**
- * 邮件状态
- */
-var MailState;
-(function (MailState) {
-    MailState[MailState["UNREAD"] = 0] = "UNREAD";
-    MailState[MailState["READ"] = 1] = "READ";
-    MailState[MailState["UNCLAIMED"] = 2] = "UNCLAIMED";
-    MailState[MailState["READUNCLAIMED"] = 3] = "READUNCLAIMED";
-    MailState[MailState["RECEIVE"] = 4] = "RECEIVE";
-})(MailState || (MailState = {}));
-/**
- * 内部跳转命令(用于轮播图)
- */
-var InnerJumpCmd;
-(function (InnerJumpCmd) {
-    InnerJumpCmd[InnerJumpCmd["agentCenter"] = 0] = "agentCenter";
-    InnerJumpCmd[InnerJumpCmd["activityCenter"] = 1] = "activityCenter";
-    InnerJumpCmd[InnerJumpCmd["personCenter"] = 2] = "personCenter";
-    InnerJumpCmd[InnerJumpCmd["recharge"] = 3] = "recharge";
-    InnerJumpCmd[InnerJumpCmd["service"] = 4] = "service";
-    InnerJumpCmd[InnerJumpCmd["email"] = 5] = "email";
-})(InnerJumpCmd || (InnerJumpCmd = {}));
 //# sourceMappingURL=GameVos.js.map

@@ -267,9 +267,6 @@ var EventType = /** @class */ (function () {
     EventType.RESIZE = "resize";
     EventType.FLUSH_USERINFO = "flushUserInfo";
     EventType.FLUSH_HEADICON = "flushHeadIcon";
-    EventType.LIFE_CYCLE = "lifeCycle"; //前后台切换
-    EventType.GAMETOHALL = "gameToHall"; //从游戏返回大厅
-    EventType.HALLTOGAME = "hallToGame"; //进入游戏
     /**
      * 失去焦点通知
      * 收到此通知后要将输入文本的焦点设为false,以解决ios系统点击键盘的Done按钮后界面收不回来
@@ -283,15 +280,17 @@ var EventType = /** @class */ (function () {
      * 游戏更新进度(百分比)
      */
     EventType.GAME_UPDATE_PROGRESS = "gameUpdateProgress";
+    //刷新代理按钮的显示
+    EventType.FLUSH_AGENCYBTN = "flushAgencyBtn";
+    //刷新轮播图
+    EventType.FLUSH_CYCLEIMAGE = "flushCycleImage";
     //绑定手机奖励领取成功
     EventType.GETBINDAWARD_SUCC = "getBindAwardSucc";
     EventType.GETUSER_CURRENT = "getUserCurrent";
     EventType.BINDPHONE_INFO = "bindPhoneInfo";
     EventType.GETUSERS_INFO = "getUsersInfo";
     EventType.GETAVATOR_INFO = "getAvatorInfo";
-    EventType.FLUSH_MONEY = "flushMoney"; //刷新money
-    EventType.CHECK_UNREADMAIL = "checkUnreadMail"; //检查是否有未读邮件
-    EventType.GET_BACKCARD_DETAIL = "getBankCardDetail"; //获取银行卡详细信息
+    EventType.FLUSH_MONEY = "flushMoney";
     return EventType;
 }());
 //# sourceMappingURL=EventManager.js.map

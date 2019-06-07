@@ -48,7 +48,6 @@ var Notice_Share = /** @class */ (function (_super) {
                     this.circle_down.visible = true;
                     break;
             }
-            SoundPlayer.enterPanelSound();
         }
         else if ($e.type === Laya.Event.MOUSE_UP) {
             switch ($e.currentTarget) {
@@ -70,7 +69,6 @@ var Notice_Share = /** @class */ (function (_super) {
                     // Laya.timer.once(1000, this,
                     //     AgentDialogSucess.showDialog, [this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), message]
                     // );
-                    NoticeData.shareId = this.noticeid;
                     break;
                 case this.circle_up:
                 case this.circle_down:
@@ -90,7 +88,6 @@ var Notice_Share = /** @class */ (function (_super) {
                     // Laya.timer.once(1000, this,
                     //     AgentDialogSucess.showDialog, [this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), message2]
                     // );
-                    NoticeData.shareId = this.noticeid;
                     break;
                 default:
                     {

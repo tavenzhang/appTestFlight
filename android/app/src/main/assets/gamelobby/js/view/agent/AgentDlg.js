@@ -76,8 +76,6 @@ var view;
                 }
                 this.btnComRecords.x = this.control.x - this.control.width - 170;
                 this.btnComRecords.on(Laya.Event.CLICK, this, this.onReqComRecords);
-                this.btnComPays.x = this.btnComRecords.x - this.btnComPays.width - 20;
-                this.btnComPays.on(Laya.Event.CLICK, this, this.onReqComPays);
                 EventManager.addTouchScaleListener(this.control, this, function () {
                     SoundPlayer.returnLobbySound();
                     _this.close(null, false);
@@ -88,11 +86,6 @@ var view;
             AgentDlg.prototype.onReqComRecords = function () {
                 this.comRec = new view.dlg.agent.CommissionRecordsPop();
                 this.comRec.show(this);
-                SoundPlayer.enterPanelSound();
-            };
-            AgentDlg.prototype.onReqComPays = function () {
-                this.comPays = new view.dlg.agent.CommissionPayoutPop();
-                this.comPays.show(this);
                 SoundPlayer.enterPanelSound();
             };
             AgentDlg.prototype.update = function ($data) {
@@ -137,7 +130,6 @@ var view;
                 SoundPlayer.enterPanelSound();
             };
             AgentDlg.prototype.loadTab = function ($id) {
-                // this.contents.destroy(true);
                 this.contents.destroyChildren();
                 this.contents.removeChildren();
                 var content;
@@ -155,9 +147,7 @@ var view;
                         content = new AgentContentInvation(this, ConfObjRead.getConfAgentContentInvation());
                         break;
                     case "description":
-                        // content = new AgentContentDesc(this, ConfObjRead.getConfAgentContentDesc());
-                        content = new Agent_Description();
-                        content.init();
+                        content = new AgentContentDesc(this, ConfObjRead.getConfAgentContentDesc());
                         break;
                 }
                 content.x = content.y = 0;
