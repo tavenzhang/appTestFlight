@@ -36,7 +36,9 @@ var view;
                 },
                 set: function (bl) {
                     this._selected = bl;
-                    this.selectPic.visible = bl;
+                    var alp = bl ? 1 : 0;
+                    var time = bl ? 300 : 160;
+                    Laya.Tween.to(this.selectPic, { alpha: alp }, time);
                 },
                 enumerable: true,
                 configurable: true
@@ -66,7 +68,7 @@ var view;
                 this.titleTxt.text = vo.title;
                 this.timeTxt.text = vo.sendTime;
                 this.state = MailState[vo.state];
-                this.selectPic.visible = false;
+                this.selectPic.alpha = 0;
                 this.giftIcon.visible = false;
                 switch (this.state) {
                     case MailState.READ: { //已读(表示没有奖励的邮件)

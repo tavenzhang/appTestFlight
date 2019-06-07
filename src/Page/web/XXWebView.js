@@ -391,8 +391,10 @@ export default class XXWebView extends Component {
                             }else{
                                 Toast.showShortCenter("已复制链接!");
                             }
-
                         break;
+                        case "openDebug":
+                            this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.openDebug,{}));
+                            break;
                     }
 
                     break;
@@ -455,6 +457,7 @@ export default class XXWebView extends Component {
                             isGame: true,
                             isOrigan
                         }
+
                        //  TW_NavHelp.pushView(JX_Compones.WebView, {
                        //      url,
                        //      onMsgHandle: this.onMsgHandle,

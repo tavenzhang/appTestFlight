@@ -20,12 +20,11 @@ var view;
     var LobbyView = /** @class */ (function (_super) {
         __extends(LobbyView, _super);
         function LobbyView() {
-            var _this = _super.call(this) || this;
-            LobbyView.inst = _this;
-            return _this;
+            return _super.call(this) || this;
         }
         LobbyView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
+            //公共部分
             this.publicUI = new view.PublicView();
             this.uibox.addChild(this.publicUI);
             //游戏列表
@@ -33,14 +32,34 @@ var view;
             this.gameList.rightArrowBtn = this.rightBtn;
             this.gameList.leftArrowBtn = this.leftBtn;
             this.leftBtn.visible = false;
-            this.initGirl();
+            //女孩动画
+            this.girlAinm = new DragonBoneAnim();
+            this.girlAinm.loadInit({ skUrl: "./assets/animation/girl/girl.sk" });
+            this.girlAinm.scale(-2, 2);
+            this.girlSp.addChild(this.girlAinm);
+            this.girlAinm.pos(this.girlSp.width >> 1, this.girlSp.height >> 1);
+            this.girlSp.mouseEnabled = false;
             //
-            this.initTitleBar();
-            //
-            this.initBottomMenu();
+            if (AppData.isAndroidHack) {
+                this.btn_tx.visible = false;
+                this.shopSp.visible = false;
+            }
+            this.btn_bind.visible = false;
+            this.mailDot.visible = false;
+            //充值动画
+            var vo = {};
+            vo.skUrl = "./assets/animation/shopicon/shopicon.sk";
+            vo.loopDelay = 3000;
+            this.czAinm = new DragonBoneAnim();
+            this.czAinm.loadInit(vo);
+            this.czAinm.pos(this.shopSp.width >> 1, this.shopSp.height >> 1);
+            this.shopSp.addChild(this.czAinm);
+            this.showAgencyBtn();
+            this.checkUnreadNotice();
             this.requestCycelData();
             this.initEvents();
             this.resize();
+            LobbyDataManager.getUnreadMail();
         };
         LobbyView.prototype.initEvents = function () {
             var _this = this;
@@ -55,13 +74,102 @@ var view;
                 if (_this.gameList)
                     _this.gameList.doLeftArrow(548);
             }, null, 1);
+            //----------------top-btn-------------------
+            //活动
+            EventManager.addTouchScaleListener(this.actBtn, this, function () {
+                SoundPlayer.enterPanelSound();
+                view.dlg.NoticeDlg.show();
+            });
+            //客服
+            EventManager.addTouchScaleListener(this.serviceBtn, this, function () {
+                SoundPlayer.enterPanelSound();
+                Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
+            });
+            //-----------------bottom-btn--------------
+            //邮箱
+            EventManager.addTouchScaleListener(this.btn_mail, this, function () {
+                SoundPlayer.enterPanelSound();
+                view.dlg.MailboxDlg.show();
+            });
+            //代理
+            EventManager.addTouchScaleListener(this.btn_dl, this, function () {
+                SoundPlayer.enterPanelSound();
+                view.dlg.AgentDlg.show("home");
+            }, 123);
+            //提现
+            EventManager.addTouchScaleListener(this.btn_tx, this, function () {
+                SoundPlayer.enterPanelSound();
+                //如果没有修改过密码则需要先修改密码
+                if (Common.userInfo_current && Common.userInfo_current.needResetPwd) {
+                    view.dlg.QuickSetPassWordDlg.show();
+                }
+                else {
+                    Tools.jump2module(ConfObjRead.getConfUrl().url.g_redraw, "redraw");
+                }
+            });
+            //绑定送金
+            EventManager.addTouchScaleListener(this.btn_bind, this, function () {
+                SoundPlayer.enterPanelSound();
+                view.dlg.bindPhone.BindPhoneActiveDlg.show();
+            });
+            //充值
+            EventManager.addTouchScaleListener(this.shopSp, this, function () {
+                SoundPlayer.enterPanelSound();
+                Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
+            }, null, 1);
             //重置大小
             EventManager.register(EventType.RESIZE, this, this.resize);
-            EventManager.register(EventType.FLUSH_CYCLEIMAGE, this, this.flushCycleImage);
             EventManager.register(EventType.GETBINDAWARD_SUCC, this, this.hideBindBtn);
+            EventManager.register(EventType.LIFE_CYCLE, this, this.lifeCycleHandler);
+            EventManager.register(EventType.GAMETOHALL, this, this.gameToHall);
+            EventManager.register(EventType.HALLTOGAME, this, this.hallToGame);
             EventManager.register(EventType.GETUSER_CURRENT, this, this.checkBindPhone);
             EventManager.register(EventType.BINDPHONE_INFO, this, this.checkBindPhone);
             EventManager.register(EventType.GETUSERS_INFO, this, this.showUserInfo);
+            EventManager.register(EventType.CHECK_UNREADMAIL, this, this.checkUnreadMail);
+        };
+        LobbyView.prototype.checkUnreadMail = function (jobj) {
+            var total = jobj.total || 0;
+            this.mailDot.visible = Boolean(total > 0);
+        };
+        LobbyView.prototype.lifeCycleHandler = function (state) {
+            Debug.outputLog("前后台切换：", state);
+            if (state == 0) { //前台到后台
+                this.flushCycleImage();
+            }
+            else {
+                Laya.timer.clear(this, this.requestCycelData);
+            }
+        };
+        LobbyView.prototype.gameToHall = function () {
+            Debug.outputLog("进入大厅，开始播放动画"); //debugxxx
+            Laya.timer.clear(this, this.requestCycelData);
+            //恢复动画播放
+            if (this.girlAinm)
+                this.girlAinm.resume();
+            if (this.czAinm)
+                this.czAinm.resume();
+            if (this.publicUI)
+                this.publicUI.resume();
+            if (this.cycleView)
+                this.cycleView.addTimer();
+            if (this.gameList)
+                this.gameList.resume();
+        };
+        LobbyView.prototype.hallToGame = function () {
+            Debug.outputLog("进入游戏，暂停动画播放"); //debugxxx
+            this.flushCycleImage();
+            //暂停动画播放
+            if (this.girlAinm)
+                this.girlAinm.pause();
+            if (this.czAinm)
+                this.czAinm.pause();
+            if (this.publicUI)
+                this.publicUI.pause();
+            if (this.cycleView)
+                this.cycleView.stopTimer();
+            if (this.gameList)
+                this.gameList.pause();
         };
         LobbyView.prototype.showUserInfo = function () {
             this.btn_dl.visible = userData.role != "PLAYER";
@@ -95,29 +203,7 @@ var view;
         LobbyView.prototype.showAgencyBtn = function () {
             this.btn_dl.visible = userData.role != "PLAYER";
         };
-        //left-girl
-        LobbyView.prototype.initGirl = function () {
-            this.girlAinm = new DragonBoneAnim();
-            this.girlAinm.loadInit({ skUrl: "./assets/animation/girl/girl.sk" });
-            this.girlAinm.scale(-2, 2);
-            this.girlSp.addChild(this.girlAinm);
-            this.girlAinm.pos(this.girlSp.width >> 1, this.girlSp.height >> 1);
-            this.girlSp.mouseEnabled = false;
-        };
-        //右上角按钮
-        LobbyView.prototype.initTitleBar = function () {
-            //活动
-            EventManager.addTouchScaleListener(this.actBtn, this, function () {
-                SoundPlayer.enterPanelSound();
-                view.dlg.NoticeDlg.show();
-            });
-            //客服
-            EventManager.addTouchScaleListener(this.serviceBtn, this, function () {
-                SoundPlayer.enterPanelSound();
-                Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
-            });
-            this.checkUnreadNotice();
-        };
+        //检查是否有新的活动
         LobbyView.prototype.checkUnreadNotice = function () {
             var alert = this.actBtn.getChildByName("alert");
             alert.visible = false;
@@ -125,50 +211,6 @@ var view;
                 alert.visible = $unread;
             });
             view.dlg.NoticeDlg.checkUnread();
-        };
-        //底部菜单按钮
-        LobbyView.prototype.initBottomMenu = function () {
-            if (AppData.isAndroidHack) {
-                this.btn_tx.visible = false;
-                this.shopSp.visible = false;
-            }
-            this.btn_bind.visible = false;
-            //充值动画
-            var vo = {};
-            vo.skUrl = "./assets/animation/shopicon/shopicon.sk";
-            vo.loopDelay = 3000;
-            this.czAinm = new DragonBoneAnim();
-            this.czAinm.loadInit(vo);
-            this.czAinm.pos(this.shopSp.width >> 1, this.shopSp.height >> 1);
-            this.shopSp.addChild(this.czAinm);
-            this.showAgencyBtn();
-            //代理
-            EventManager.addTouchScaleListener(this.btn_dl, this, function () {
-                SoundPlayer.enterPanelSound();
-                // AgentPad.showPad(LayaMain.getInstance().getRootNode(), ConfObjRead.getConfAgentPad());
-                view.dlg.AgentDlg.show("home");
-            }, 123);
-            //提现
-            EventManager.addTouchScaleListener(this.btn_tx, this, function () {
-                SoundPlayer.enterPanelSound();
-                //如果没有修改过密码则需要先修改密码
-                if (Common.userInfo_current && Common.userInfo_current.needResetPwd) {
-                    view.dlg.QuickSetPassWordDlg.show();
-                }
-                else {
-                    Tools.jump2module(ConfObjRead.getConfUrl().url.g_redraw, "redraw");
-                }
-            });
-            //绑定送金
-            EventManager.addTouchScaleListener(this.btn_bind, this, function () {
-                SoundPlayer.enterPanelSound();
-                view.dlg.bindPhone.BindPhoneActiveDlg.show();
-            });
-            //充值
-            EventManager.addTouchScaleListener(this.shopSp, this, function () {
-                SoundPlayer.enterPanelSound();
-                Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
-            }, null, 1);
         };
         //重置屏幕大小
         LobbyView.prototype.resize = function () {
@@ -189,7 +231,7 @@ var view;
                 var urls = data.carousels;
                 arr = [];
                 urls.forEach(function (value) {
-                    arr.push({ url: value.carouselUrl, linkUrl: value.carouselHref });
+                    arr.push({ url: value.carouselUrl, linkUrl: value.carouselHref, jumpInner: value.jumpInner });
                 });
             }
             if (!arr || arr.length == 0)

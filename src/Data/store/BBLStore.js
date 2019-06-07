@@ -85,7 +85,6 @@ export  default  class BBLStore {
             }else{
                 versionDomain= platInfo.downDomain+platInfo.zipCheckServer.release_server
             }
-
         }
         //TW_Store.appStore.isInAnroidHack
         if(TW_Store.appStore.isInAnroidHack){
@@ -116,6 +115,7 @@ export  default  class BBLStore {
             url:"",
             isGame: true
         }
+
     }
 
     @action
@@ -154,7 +154,8 @@ export  default  class BBLStore {
         openBindCard:"openBindCard",
         openBindAlipay:"openBindAlipay",
         showLoading:"showLoading",
-        enterGame:"enterGame"
+        enterGame:"enterGame",
+        openDebug:"openDebug",
     }
 
     //bgm.mp3 click.mp3 close.mp3 flopleft.mp3 flopright.mp3 recharge.mp3 rightbottomclose.mp3 showlogo.mp3

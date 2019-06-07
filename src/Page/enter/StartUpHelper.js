@@ -30,17 +30,18 @@ function getAvailableDomain (domains,callback) {
               var decryptedResponseDataJson = JSON.parse(decryptedResponseData.toString(CryptoJS.enc.Utf8));
               let content=decryptedResponseDataJson;
               content.allowAppUpdate=true;
-              TW_Log('大王来巡山 content==domains[i]--'+domains[i],content)
+              TW_Log('大王来巡山 content==domains[i]--'+domains[i],content);
              // TW_Log("callback-------content.trendChartDomains[0]-"+content.trendChartDomains[0],content.trendChartDomains);
              // let gameDomain = content.trendChartDomains&&content.trendChartDomains.length>0 ? content.trendChartDomains[0]:"";
               let gameDomain = domains[i];
               if(gameDomain.indexOf("http")>-1){
                  // TW_Log("callback-------content.trendChartDomains[0]-exist"+gameDomain);
-                  if(TW_Store.appStore.clindId!="31"||TW_Store.appStore.clindId!="5"){ //对于sit  环境做特殊处理 使用默认
-                      TW_Store.bblStore.loginDomain =TW_Store.bblStore.gameDomain=gameDomain;
+                  if(TW_Store.appStore.clindId!="31"){ //对于sit  环境做特殊处理 使用默认
+                      TW_Store.appStore.currentDomain=TW_Store.bblStore.loginDomain =TW_Store.bblStore.gameDomain=gameDomain;
                   }
 
               }
+              TW_Log('大王来巡山 content==domains[i] loginDomain--'+ TW_Store.bblStore.loginDomain,TW_Store.bblStore.gameDomain);
               AsyncStorage.setItem('cacheDomain', JSON.stringify({
                   serverDomains: content.serverDomains,
                   hotfixDomains: content.availableUpdateInfoList,

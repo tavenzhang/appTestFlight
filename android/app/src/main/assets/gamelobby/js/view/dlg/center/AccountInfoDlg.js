@@ -27,6 +27,7 @@ var view;
                     var _this = _super.call(this) || this;
                     _this.bankCardInfo = null; //银行卡相关信息
                     _this.bankList = null; //银行列表
+                    _this.playSound = true;
                     _this.initView();
                     return _this;
                 }
@@ -43,19 +44,26 @@ var view;
                     this.bankComb.pos(this.bankPos.x, this.bankPos.y);
                     this.bankPos.visible = false;
                     this.yhkView.addChild(this.bankComb);
-                    LayaMain.getInstance().showCircleLoading();
-                    //请求绑定银行卡信息
-                    HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.getbankCardInfo, this, this.responseBankCardInfo);
+                    this.getBankCardInfo();
+                    this.getBankList();
                     this.hideAllPanel();
                     this.tabSelectView = new TabSelectView(this.tabSelect, "./assets/animation/agent/btn.sk");
                     EventManager.addTouchScaleListener(this.closeBtn, this, function () {
                         SoundPlayer.closeSound();
                         _this.close(null, true);
-                    }, null, 1);
+                    });
                     for (var i = 1; i <= 3; i++) {
                         EventManager.addTouchScaleListener(this["tab" + i], this, this.tabHandler, i, 1);
                     }
                     EventManager.register(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
+                    EventManager.register(EventType.GET_BACKCARD_DETAIL, this, this.getBankCardInfo);
+                };
+                AccountInfoDlg.prototype.getBankCardInfo = function () {
+                    if (Common.bankInfo) {
+                        this.bankCardInfo = Common.bankInfo;
+                        if (this.tabId == 1)
+                            this.showBackCardView();
+                    }
                 };
                 AccountInfoDlg.prototype.lostFocusInputText = function () {
                     if (this.tabId == 1) {
@@ -68,10 +76,12 @@ var view;
                 //tab切换
                 AccountInfoDlg.prototype.tabHandler = function (evt, id) {
                     this.tabId = id;
-                    SoundPlayer.clickSound();
+                    if (this.playSound)
+                        SoundPlayer.enterPanelSound();
                     this.tabSelectView.show(this["tab" + id].y);
                     this.tabLabel.skin = "ui/fullMyCenter/img_grzx_cy0" + (id + 6) + ".png";
                     this.hideAllPanel();
+                    this.playSound = true;
                     switch (id) {
                         case 1:
                             this.showBackCardView();
@@ -84,15 +94,10 @@ var view;
                             break;
                     }
                 };
-                AccountInfoDlg.prototype.responseBankCardInfo = function (suc, jobj) {
+                //获取银行列表
+                AccountInfoDlg.prototype.getBankList = function () {
                     var _this = this;
-                    if (suc) {
-                        var arr = jobj.bankAccounts;
-                        if (arr && arr.length > 0) {
-                            this.bankCardInfo = arr[0];
-                        }
-                    }
-                    //请求银行列表
+                    LayaMain.getInstance().showCircleLoading(true);
                     HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.getbankList, this, function (suc, jobj) {
                         LayaMain.getInstance().showCircleLoading(false);
                         if (suc) {
@@ -101,6 +106,7 @@ var view;
                                 _this.bankList.push(jobj[id]);
                             }
                         }
+                        _this.playSound = false;
                         _this.tabHandler(null, 1);
                     });
                 };
@@ -121,11 +127,20 @@ var view;
                         this.openCardBtn.visible = true;
                         this.setNameBtn.gray = true;
                         this.setNameBtn.mouseEnabled = false;
+                        this.cardPwd.prompt = Common.cardInfo.hasAlipayCard ? "请输入提现密码(4位数字)" : "请设置提现密码(4位数字)";
                         if (!this.initBankView) {
                             //设置银行卡
                             EventManager.addTouchScaleListener(this.openCardBtn, this, function () {
                                 SoundPlayer.clickSound();
-                                _this.requestAddBankCard();
+                                if (!_this.checkCardInfos())
+                                    return;
+                                LayaMain.getInstance().showCircleLoading(true);
+                                if (!Common.cardInfo) {
+                                    LobbyDataManager.getCardInfo(_this, _this.checkBindType);
+                                }
+                                else {
+                                    _this.checkBindType();
+                                }
                             });
                         }
                     }
@@ -157,9 +172,16 @@ var view;
                     this.cardPwdLook.visible = false;
                     this.cardPwd.text = "****";
                 };
-                AccountInfoDlg.prototype.requestAddBankCard = function () {
-                    if (!this.checkCardInfos())
-                        return;
+                AccountInfoDlg.prototype.checkBindType = function () {
+                    if (Common.cardInfo.hasAlipayCard) { //如果绑定了支付宝
+                        this.twiceBind();
+                    }
+                    else {
+                        this.onceBind();
+                    }
+                };
+                //首次绑定
+                AccountInfoDlg.prototype.onceBind = function () {
                     var item = this.bankComb.selectItem;
                     var epwd = window['SecretUtils'].rsaEncodePWD(this.cardPwd.text);
                     var data = {
@@ -173,19 +195,35 @@ var view;
                             bankName: this.bankComb.selectLabel
                         }
                     };
-                    LayaMain.getInstance().showCircleLoading(true);
-                    HttpRequester.addBankCard(data, this, this.responseAddBankCard);
+                    HttpRequester.putHttpData(ConfObjRead.getConfUrl().cmd.onceBindCard, data, this, this.responseAddBankCard);
+                };
+                //二次绑定
+                AccountInfoDlg.prototype.twiceBind = function () {
+                    var item = this.bankComb.selectItem;
+                    var epwd = window['SecretUtils'].rsaEncodePWD(this.cardPwd.text);
+                    var data = {
+                        bankAccountName: this.cardName.text,
+                        bankAddress: this.subBank.text,
+                        bankCardNo: this.cardNum.text,
+                        bankCode: item ? item.data.bankCode : "",
+                        bankName: this.bankComb.selectLabel,
+                        securityPassword: epwd
+                    };
+                    HttpRequester.postHttpData(ConfObjRead.getConfUrl().cmd.twiceBindCard, data, this, this.responseAddBankCard);
                 };
                 AccountInfoDlg.prototype.responseAddBankCard = function (suc, jobj) {
                     LayaMain.getInstance().showCircleLoading(false);
                     if (suc) {
                         Toast.showToast("银行卡绑定成功");
+                        var item = this.bankComb.selectItem;
                         this.bankCardInfo = {
                             bankAccountName: this.cardName.text,
                             bankCardNo: this.cardNum.text,
                             bankName: this.bankComb.selectLabel,
-                            bankAddress: this.subBank.text
+                            bankAddress: this.subBank.text,
+                            bankCode: item ? item.data.bankCode : ""
                         };
+                        Common.bankInfo = this.bankCardInfo;
                         this.setCardInfoEditable();
                         this.openCardBtn.visible = false;
                         this.serviceInfo.visible = true;
@@ -193,10 +231,10 @@ var view;
                         this.setNameBtn.mouseEnabled = true;
                     }
                 };
-                //提现--------------------------------------------------------
+                //提现密码--------------------------------------------------------
                 AccountInfoDlg.prototype.showDepositView = function () {
                     var _this = this;
-                    if (!this.bankCardInfo) { //未绑定银行卡
+                    if (!this.bankCardInfo && !Common.alipayInfo) { //未绑定银行卡
                         this.tabHandler(null, 1);
                         Toast.showToast("请先绑定银行卡");
                         return;
@@ -205,9 +243,16 @@ var view;
                     if (!this.moneyPwdView) {
                         this.moneyPwdView = new view.UI.SetPwdPanel();
                         this.moneyPwdView.pos(this.yhkView.x, this.yhkView.y);
-                        this.moneyPwdView.pwdTxt2.prompt = "请输入提现密码(4位)";
+                        this.moneyPwdView.pwdTxt2.prompt = "请输入提现密码(4位数字)";
+                        this.moneyPwdView.pwdTxt4.prompt = "请输入提现密码(4位数字)";
+                        this.moneyPwdView.pwdTxt2.restrict = "0123456789";
+                        this.moneyPwdView.pwdTxt3.restrict = "0123456789";
+                        this.moneyPwdView.pwdTxt4.restrict = "0123456789";
+                        this.moneyPwdView.pwdTxt5.restrict = "0123456789";
                         this.moneyPwdView.pwdTxt2.maxChars = 4;
                         this.moneyPwdView.pwdTxt3.maxChars = 4;
+                        this.moneyPwdView.pwdTxt4.maxChars = 4;
+                        this.moneyPwdView.pwdTxt5.maxChars = 4;
                         this.addChild(this.moneyPwdView);
                     }
                     if (!bindPhone) {
@@ -243,9 +288,8 @@ var view;
                 };
                 AccountInfoDlg.prototype.responseMoneyPwdSeted = function (suc, jobj) {
                     LayaMain.getInstance().showCircleLoading(false);
-                    if (suc) {
-                        Toast.showToast("提现密码修改成功");
-                    }
+                    Toast.showToast("提现密码修改成功");
+                    this.moneyPwdView.clearInput();
                 };
                 //登录密码------------------------------------------------------
                 AccountInfoDlg.prototype.showLoginPwdView = function () {

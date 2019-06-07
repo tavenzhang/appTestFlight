@@ -143,7 +143,7 @@ var view;
             };
             SetPwdPanel.prototype.resetView = function () {
                 this.panel1.visible = false;
-                this.panel1.visible = false;
+                this.panel2.visible = false;
                 this.pwdTxt1.text = this.pwdTxt2.text = this.pwdTxt3.text = "";
                 this.pwdTxt1.type = this.pwdTxt2.type = this.pwdTxt3.type = "password";
                 this.lookBtn1.selected = this.lookBtn2.selected = this.lookBtn3.selected = false;
@@ -154,6 +154,19 @@ var view;
                     this.lookBtn4.selected = this.lookBtn5.selected = false;
                 }
                 this.radiobox.reset();
+            };
+            SetPwdPanel.prototype.clearInput = function () {
+                if (this.radiobox.selectIndex == 0) {
+                    this.pwdTxt1.text = this.pwdTxt2.text = this.pwdTxt3.text = "";
+                    this.pwdTxt1.type = this.pwdTxt2.type = this.pwdTxt3.type = "password";
+                    this.lookBtn1.selected = this.lookBtn2.selected = this.lookBtn3.selected = false;
+                }
+                else {
+                    this.phoneTxt.text = this.codeTxt.text = "";
+                    this.pwdTxt4.text = this.pwdTxt5.text = "";
+                    this.pwdTxt4.type = this.pwdTxt5.type = "password";
+                    this.lookBtn4.selected = this.lookBtn5.selected = false;
+                }
             };
             SetPwdPanel.prototype.destroy = function () {
                 this.clearCodeTime();
