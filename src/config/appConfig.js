@@ -2,18 +2,19 @@ import React, {
     Platform
 } from 'react-native';
 
+
 export const appDomainBase = {
-    base1: 'https://webplatform.psxiaohe.com',
-    base2: 'https://webplatform.psxiaohe.com',
-    base3: 'https://webplatform.psxiaohe.com',
-    base4: 'https://webplatform.psxiaohe.com',
-    base5: 'https://webplatform.psxiaohe.com',
-    base6: 'https://webplatform.psxiaohe.com',
-    base7: 'https://webplatform.psxiaohe.com',
+    base1: 'https://38fo28gk.ewxsg.cn',
+    base2: "https://38fo28gk.jjxzt.cn",
+    base3: "https://38fo28gk.gybye.cn",
+    base4: "https://hosobw29.ewxsg.cn",
+    base5: "https://hosobw29.jjxzt.cn",
+    base6: "https://hosobw29.gybye.cn",
+    base7: "https://hosobw29.gybye.cn",
 }
 
 
-export let configAppId = "5"
+export let configAppId = "1147"
 
 
 export const AppConfig = {
@@ -36,22 +37,15 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '博博乐';
+export const MyAppName = '超会赢棋牌';
+export const MyOwnerPlatName= '超会赢棋牌';
 
 export const versionHotFix = 'v6.1';
 
-export const MyOwnerPlatName= 'uat彩票';
-
-// export const safeguardDomain = [
-//     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
-//     'https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com']
-
-
-//base64key 格式示例
-// {"d":["https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com","https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com"]}
 
 //第三方安全域名base64 key
-export const safeguardKey = 'eyJkIjogWyJodHRwczovLzk4NzY0NWJhMDBhOWIwNDE2YjI1NGYzM2Q5MThlZDY0Lm9zcy1jbi1zaGVuemhlbi5hbGl5dW5jcy5jb20iLCAiaHR0cHM6Ly9jNDBiNmUzZDY2NDU1NmFiNDIzZDNlZWJjMDFhYjJmZC5vc3MtY24tc2hlbnpoZW4uYWxpeXVuY3MuY29tIl19'
+export const safeguardKey = 'ewoJImQiOiBbImh0dHBzOi8vY2VhNGVjYTY1MGQ3MWJkOWQ1NTJiNGNmMzhlMDU3MDIub3NzLWNuLXNoZW56aGVuLmFsaXl1bmNzLmNvbSIsCgkJImh0dHBzOi8vY2VhNGVjYTY1MGQ3MWJkOWQ1NTJiNGNmMzhlMDU3MDIuczMtYWNjZWxlcmF0ZS5hbWF6b25hd3MuY29tIiwKCQkiaHR0cHM6Ly9jZWE0ZWNhNjUwZDcxYmQ5ZDU1MmI0Y2YzOGUwNTcwMi5henVyZWVkZ2UubmV0IgoJXQp9'
+
 
 export const platInfo = {
 
@@ -59,12 +53,17 @@ export const platInfo = {
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "/game/release/uat"
+        release_server: "/game/release/chyqp",
     },
-    platId: configAppId,
-    brand: "uat01",
     latestNativeVersion:{ios:"2.0",android:"2.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
+    platId: configAppId,
+    brand: "chyqp",
 }
 
-
+export const affCodeList = {
+    ios: {
+    },
+    android: {
+    }
+};
 
