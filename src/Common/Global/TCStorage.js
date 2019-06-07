@@ -20,13 +20,13 @@ var storage = new Storage({
     // sync: require('./sync')
 });
 
-storage.load({
-    key: 'TCDefaultDomain'
-}).then(res => {
-    TW_Store.appStore.currentDomain = res
-}).catch(err => {
-    TW_Log(err)
-});
+// storage.load({
+//     key: 'TCDefaultDomain'
+// }).then(res => {
+//     TW_Store.appStore.currentDomain = res
+// }).catch(err => {
+//     TW_Log(err)
+// });
 
 global.TW_DATA_KEY={
     versionBBL:"versionBBL",
