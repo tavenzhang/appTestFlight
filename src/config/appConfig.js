@@ -36,7 +36,7 @@ export const AppConfig = {
 
 export const MyAppName = '梦想棋牌';
 
-export const versionHotFix = 'v6.2';
+export const versionHotFix = 'v6.7';
 
 export const MyOwnerPlatName= '梦想棋牌';
 
