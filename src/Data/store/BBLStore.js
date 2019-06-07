@@ -105,10 +105,23 @@ export  default  class BBLStore {
     @action
     showGameCircle(isShow=true) {
         if(TW_OnValueJSHome){
-            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showLoading,{data:isShow}));
+            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showLoading,{data:isShow,alpha:0.5}));
         }
 
         this.isShowCircle =isShow;
+    }
+    @action
+    quitSubGame() {
+       this.subGameParams={
+            url:"",
+            isGame: true
+        }
+    }
+
+    @action
+    isInSubGame() {
+       return   this.subGameParams.url&&this.subGameParams.url.length >0;
+
     }
 
 
@@ -139,7 +152,9 @@ export  default  class BBLStore {
         showMask:"showMask",
         shareSucess:"shareSucess",
         openBindCard:"openBindCard",
-        showLoading:"showLoading"
+        openBindAlipay:"openBindAlipay",
+        showLoading:"showLoading",
+        enterGame:"enterGame"
     }
 
     //bgm.mp3 click.mp3 close.mp3 flopleft.mp3 flopright.mp3 recharge.mp3 rightbottomclose.mp3 showlogo.mp3

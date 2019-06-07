@@ -108,8 +108,6 @@ export default class Enter extends Component {
                 this.reloadAppDomain();
             }
         }, 7 * 1000)
-        this.hotFixStore.skipUpdate();
-        this.reloadAppDomain();
 
         if(G_IS_IOS){
             if(Orientation&&Orientation.lockToLandscapeRight){
@@ -117,7 +115,6 @@ export default class Enter extends Component {
             }
             this.initDomain();
         }else{
-
             appInfoStore.checkAndroidsubType(this.initDomain);
         }
 
@@ -127,6 +124,8 @@ export default class Enter extends Component {
     //域名异常启动介入
     reloadAppDomain(){
         domainsHelper.getSafeguardName((ok)=>{
+
+            if(ok){
                 //拿到d.json域名初始化
                 this.initDomain();
 
@@ -140,6 +139,10 @@ export default class Enter extends Component {
                     syncMessage: "初始化配置中...",
                     updateStatus: 0,
                 })
+            }else {
+                TW_SplashScreen_HIDE();
+                TW_Store.gameUpateStore.isNeedUpdate=false;
+            }
         })
     }
 
@@ -318,6 +321,7 @@ export default class Enter extends Component {
         });
         if(!TW_Store.dataStore.isAppInited){
             //如果是第一次启动app  并且游戏资源拷贝到document 还未完成，5秒后进行重新热更新检测 直接退出函数
+            this.hotFixStore.syncMessage = 'app大厅初始化...'; //防止进入reloadAppDomain
             setTimeout(()=>{
                 this.hotFix(TW_Store.hotFixStore.currentDeployKey);
             },5000);
@@ -367,7 +371,9 @@ export default class Enter extends Component {
                         localPackage.install(updateMode).then(() => {
                             this.storeLog({updateStatus: true});
                             //如果正在下载大厅文件，关闭大厅当前的下载
-                            TW_Store.dataStore.clearCurrentDownJob();
+                            if(updateMode==CodePush.InstallMode.IMMEDIATE){
+                                TW_Store.dataStore.clearCurrentDownJob();
+                            }
                             CodePush.notifyAppReady().then(() => {
                                 // this.setUpdateFinished()
                                 TW_Store.gameUpateStore.isNeedUpdate=false;
