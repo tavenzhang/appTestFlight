@@ -140,10 +140,11 @@ export default class TWWebGameView extends Component {
 
 
     onLoadEnd = (event) => {
-
+        let {isOrigan,url}=this.props;
+        if(url&&url.length>0){
+            this.timeId=setTimeout(this.onEnterGame,G_IS_IOS ? 1000:4000)
+        }
         TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--"+ TW_Store.bblStore.isLoading, event)
-        this.timeId=setTimeout(()=>this.onEnterGame(),G_IS_IOS ? 1000:4000)
-
     }
 
     onloadStart = (event) => {
@@ -202,7 +203,6 @@ export default class TWWebGameView extends Component {
                 TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic,{}));
             }
         }
-
     }
     handleUrl = (url) => {
         if (url && url.indexOf("../") > -1) {
@@ -249,6 +249,7 @@ export default class TWWebGameView extends Component {
 
     onBackHomeJs = () => {
         let {onEvaleJS} = this.props;
+        TW_Store.gameUpateStore.isInSubGame=false;
         TW_Store.bblStore.quitSubGame();
         clearTimeout(this.timeId);
         if (onEvaleJS) {
