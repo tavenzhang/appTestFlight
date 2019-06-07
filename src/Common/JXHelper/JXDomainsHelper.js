@@ -90,8 +90,11 @@ export default class MyComponent {
                 let url = safeguardDomain[i];
                 this.testSafeguarDomains(url, isSucceed => {
                     TW_Log("getSafeguardName---isSucceed=="+isSucceed+"--alreadyCallBack="+alreadyCallBack);
-                    if (!alreadyCallBack) {
+                    if (!alreadyCallBack&&isSucceed) {
                         alreadyCallBack = true;
+                        callBack(isSucceed);
+                    }else
+                    {
                         callBack(isSucceed);
                     }
                 });

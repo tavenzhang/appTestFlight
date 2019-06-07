@@ -282,12 +282,12 @@ export default class XXWebView extends Component {
             isDebug:TW_IS_DEBIG,
             appVersion:TW_Store.appStore.versionHotFix
         })}`;
-
+        TW_Log("targetAppDir-33---isWechatEnabled-his.state--"+(sharedUrl&&isShowSharebox)+"--sharedUrl=="+sharedUrl+"-isShowSharebox-"+isShowSharebox,this.state);
         return (
             <View style={styles.container}>
-                {sharedUrl && isShowSharebox && <View style={styles.viewShareBox}>
+                {isShowSharebox ? <View style={styles.viewShareBox}>
                     <ShareBox onClose={this.onCloseSharebox} url={sharedUrl} />
-                </View>}
+                </View>:null}
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
@@ -448,7 +448,6 @@ export default class XXWebView extends Component {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.payload);
                         TW_Store.bblStore.showGameCircle();
-                       // TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.showLoading,{data:true}));
                         TW_Store.bblStore.subGameParams = {
                             url,
                             onMsgHandle: this.onMsgHandle,
@@ -594,7 +593,7 @@ export default class XXWebView extends Component {
     }
 
     onError = (error) => {
-        TW_Store.dataStore.onRetartApp();
+       // TW_Store.dataStore.onRetartApp();
         TW_Log("onError===========event=====rr22", error)
     }
 

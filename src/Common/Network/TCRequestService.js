@@ -351,6 +351,14 @@ export function transferRecords(params, callback) {
 }
 
 /**
+ * 获取提现的设定
+ * @param callback
+ */
+export function getWithdrawSetting(callback) {
+    RequestUtils.getUrlAndParamsAndCallback(config.api.getWithdrawSetting, null, callback);
+}
+
+/**
  * 获取银行卡信息和取款信息
  * @param callback
  */
