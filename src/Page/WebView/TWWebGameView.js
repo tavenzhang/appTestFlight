@@ -194,6 +194,7 @@ export default class TWWebGameView extends Component {
     }
 
     onEnterGame=()=>{
+        TW_Store.bblStore.lastGameUrl="";
         if(!TW_Store.gameUpateStore.isInSubGame){
             TW_Store.gameUpateStore.isInSubGame=true
             clearTimeout(this.timeId)
