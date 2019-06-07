@@ -53,16 +53,6 @@
 				<string>wx277cfc03f3d2734c</string>
 			</array>
 		</dict>
-		<dict>
-        			<key>CFBundleTypeRole</key>
-        			<string>Editor</string>
-        			<key>CFBundleURLName</key>
-        			<string>weixin</string>
-        			<key>CFBundleURLSchemes</key>
-        			<array>
-        				<string>wx39520c48b4a7dc64</string>
-        			</array>
-        		</dict>
 	</array>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
