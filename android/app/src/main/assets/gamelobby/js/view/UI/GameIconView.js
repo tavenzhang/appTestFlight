@@ -112,6 +112,7 @@ var view;
                 this.gameState = state;
                 this.resetView();
                 this.hotIcon.visible = this.gameVo.bhot;
+                Debug.outputLog(this.config.desc + "state=" + state); //debugxxx
                 switch (this.gameState) {
                     case GameState.NORMAL:
                         this.showNorm();
@@ -204,6 +205,18 @@ var view;
                     this.grayRect = new Laya.Rectangle(0, 0, this.grayIcon.width || 200, this.grayIcon.height || 200);
                 this.grayIcon.scrollRect = this.grayRect;
                 this.grayHeight = this.grayRect.height;
+            };
+            GameIconView.prototype.pause = function () {
+                if (this.animbox.visible) {
+                    if (this.anim)
+                        this.anim.pause();
+                }
+            };
+            GameIconView.prototype.resume = function () {
+                if (this.animbox.visible) {
+                    if (this.anim)
+                        this.anim.resume();
+                }
             };
             /**
              * 销毁

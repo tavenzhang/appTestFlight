@@ -202,7 +202,7 @@ var AgentDialogEditAccountType = /** @class */ (function (_super) {
         if (hr.http.status == 204) {
             // AgentPad.getObj().switchTab(null, "mychildren")
             view.dlg.AgentDlg.show("affiliates");
-            AgentDialogSucess.showDialog(this.fatherNode, ConfObjRead.getConfAgentDialogDeleteInvitation(), "用户类型修改成功");
+            view.dlg.TipsDlg.show("用户类型修改成功");
             this.onClose(null);
         }
         try {

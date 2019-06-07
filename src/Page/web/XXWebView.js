@@ -455,6 +455,7 @@ export default class XXWebView extends Component {
                             isGame: true,
                             isOrigan
                         }
+
                        //  TW_NavHelp.pushView(JX_Compones.WebView, {
                        //      url,
                        //      onMsgHandle: this.onMsgHandle,

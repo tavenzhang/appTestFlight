@@ -40,7 +40,8 @@ var view;
                     this.parent.on(Laya.Event.MOUSE_UP, this, this.onDrag);
                     this.parent.on(Laya.Event.MOUSE_MOVE, this, this.onDrag);
                     this.isDrag = false;
-                    this.requestPayout();
+                    LayaMain.getInstance().showCircleLoading();
+                    HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.agentbrokerage, this, this.responseInfo);
                 };
                 CommissionPayoutPop.prototype.onClick = function ($e) {
                     switch ($e.currentTarget) {
@@ -97,31 +98,10 @@ var view;
                         }
                     }
                 };
-                CommissionPayoutPop.prototype.requestPayout = function () {
-                    var url = ConfObjRead.getConfUrl().url.apihome +
-                        ConfObjRead.getConfUrl().cmd.agentbrokerage +
-                        "?access_token=" + Common.access_token;
-                    var header = ["Accept", "*/*"];
-                    NetManager.getObj().HttpConnect(url, this, this.responseInfo, header, null, "get", "JSON");
-                    // this.onClose(e, bcallback);
-                };
-                CommissionPayoutPop.prototype.responseInfo = function (s, stat, hr) {
+                CommissionPayoutPop.prototype.responseInfo = function (suc, jobj) {
                     LayaMain.getInstance().showCircleLoading(false);
-                    if (stat == "complete") {
-                        var data = JSON.parse(s).resultObj;
-                        this.generateList(this.transListData(data));
-                    }
-                    else {
-                        // LayaMain.getInstance().requestEnd(stat,s);
-                        var repon = hr.http.response;
-                        try {
-                            var jobj = JSON.parse(repon);
-                            var err = jobj.message;
-                            Toast.showToast(err);
-                        }
-                        catch (e) { }
-                        // AgentPad.getObj().onClose(null);
-                        // Toast.showToast( s );//Tools.getStringByKey( this.conf.txt_notagent ) );
+                    if (suc) {
+                        this.generateList(this.transListData(jobj.resultObj));
                     }
                 };
                 CommissionPayoutPop.prototype.transListData = function (arr) {
