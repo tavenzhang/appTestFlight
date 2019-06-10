@@ -81,7 +81,9 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
         let orderId = this.props.rowData.transactionId.toString()
         return (
 
-            <View style={{width: SCREEN_W - 200, height: 100, alignItems: "center", flexDirection: "row"} }>
+            <View style={{width: SCREEN_W - 250, height: 110, alignItems: "center", flexDirection: "row"} }>
+                <TCImage source={ASSET_Images.gameUI.listItemBg}
+                         style={{position: "absolute", width: SCREEN_W - 250, height: 110}}/>
                 <View style={styles.itemStyle}>
                     <View style={styles.itemLeftStyle}>
                         <Text style={styles.itemLabel}>支付方式：<Text
@@ -95,17 +97,17 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
                         <Text style={styles.itemLabel}>创建时间：<Text
                             style={styles.itemData}>{this.getTime()}</Text>
                         </Text>
-                        <TouchableOpacity
-                            style={{width: 30, height: 30,marginLeft:(SCREEN_W-400) / 2}}
-                            onPress={()=>{this.changeLayout()}}>
-                            <TCImage source={icon}/>
-                        </TouchableOpacity>
-                        <View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' }}>
-                            <Text style={styles.itemBigLabel} >收入：
-                                <Text style={styles.itemData}>{this.props.accountType == 0? this.getPayAndWithdrawMoneyExact() : ""}</Text></Text>
+                        {/*<TouchableOpacity*/}
+                            {/*style={{width: 30, height: 30,marginLeft:(SCREEN_W-400) / 2}}*/}
+                            {/*onPress={()=>{this.changeLayout()}}>*/}
+                            {/*<TCImage source={icon}/>*/}
+                        {/*</TouchableOpacity>*/}
+                        {/*<View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' }}>*/}
+                            {/*<Text style={styles.itemBigLabel} >收入：*/}
+                                {/*<Text style={styles.itemData}>{this.props.accountType == 0? this.getPayAndWithdrawMoneyExact() : ""}</Text></Text>*/}
 
-                            <Text style={styles.itemLabel}>支付金额：<Text style={styles.itemData}>54543</Text></Text>
-                        </View>
+                            {/*<Text style={styles.itemLabel}>支付金额：<Text style={styles.itemData}>54543</Text></Text>*/}
+                        {/*</View>*/}
                     </View>
                     <View style={styles.itemRightStyle}>
                         <Text style={styles.itemLabel}>{this.getType()}: <Text
@@ -273,6 +275,8 @@ const styles = StyleSheet.create({
         //justifyContent:'space-between',
         flexDirection: 'row',
         //backgroundColor: indexBgColor.itemBg,
+        justifyContent:"center",
+        alignItems:"center",
         marginTop: 1
     },
     imgNext: {
