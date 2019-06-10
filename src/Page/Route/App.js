@@ -98,6 +98,16 @@ export default class App extends Component {
         if (!G_IS_IOS) {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
+
+    }
+
+    componentDidMount(): void {
+        OpeninstallModule.getInstall(10, map => {
+            if (map) {
+                //do your work here
+            }
+            TW_Store.dataStore.log+="getInstall---res-安装回调"+JSON.stringify(map);
+        })
     }
 
     componentWillUnmount(): void {

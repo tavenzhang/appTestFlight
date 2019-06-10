@@ -21,6 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	[OpenInstallSDK initWithDelegate:self];
 
 
   application.applicationIconBadgeNumber = 0;
