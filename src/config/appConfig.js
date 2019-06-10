@@ -37,7 +37,7 @@ export const AppConfig = {
 
 export const MyAppName = '博必胜棋牌';
 
-export const MyOwnerPlatName= '博必胜棋牌';
+export const versionHotFix = 'v6.9';
 
 export const versionHotFix = 'v6.1';
 
