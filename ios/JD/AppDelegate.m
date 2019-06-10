@@ -21,8 +21,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	[OpenInstallSDK initWithDelegate:self];
-
 
   application.applicationIconBadgeNumber = 0;
   self.launchOptions = launchOptions;
@@ -36,7 +34,7 @@
      [SplashScreen show];
   #endif
 
-  
+  	[OpenInstallSDK initWithDelegate:self];
   
   // [self testLoadNative];
   // [self startLog];
