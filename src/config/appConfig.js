@@ -40,7 +40,7 @@ export const AppConfig = {
 export const MyAppName = '超会赢棋牌';
 export const MyOwnerPlatName= '超会赢棋牌';
 
-export const versionHotFix = 'v6.1';
+export const versionHotFix = 'v6.9';
 
 
 //第三方安全域名base64 key
