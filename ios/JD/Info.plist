@@ -42,15 +42,15 @@
 			</array>
 		</dict>
 		<dict>
-        			<key>CFBundleTypeRole</key>
-        			<string>Editor</string>
-        			<key>CFBundleURLName</key>
-        			<string>weixin</string>
-        			<key>CFBundleURLSchemes</key>
-        			<array>
-        				<string>wx39520c48b4a7dc64</string>
-        			</array>
-        		</dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx4705de7e82fa978f</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>6</string>
@@ -71,7 +71,7 @@
 		</array>
 	</dict>
 	<key>JPushKey</key>
-	<string></string>
+	<string>d3cef906bdd790ef33132b33</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
@@ -165,7 +165,7 @@
 		<dict/>
 	</array>
 	<key>UmengKey</key>
-	<string></string>
+	<string>5cfdf79a3fc1952bc30010b4</string>
 	<key>com.openinstall.APP_KEY</key>
 	<string>k9e92p</string>
 </dict>
