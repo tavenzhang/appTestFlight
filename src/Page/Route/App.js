@@ -98,7 +98,10 @@ export default class App extends Component {
         if (!G_IS_IOS) {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
+
     }
+
+
 
     componentWillUnmount(): void {
         if (!G_IS_IOS) {
