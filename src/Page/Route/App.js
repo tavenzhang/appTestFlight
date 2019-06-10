@@ -101,14 +101,7 @@ export default class App extends Component {
 
     }
 
-    componentDidMount(): void {
-        OpeninstallModule.getInstall(10, map => {
-            if (map) {
-                //do your work here
-            }
-            TW_Store.dataStore.log+="getInstall---res-安装回调"+JSON.stringify(map);
-        })
-    }
+
 
     componentWillUnmount(): void {
         if (!G_IS_IOS) {
