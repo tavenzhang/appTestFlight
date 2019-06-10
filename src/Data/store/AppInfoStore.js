@@ -151,14 +151,14 @@ export default class AppInfoStore {
 
                 try {
                     TW_Data_Store.getItem(TW_DATA_KEY.AFF_CODE, (err, ret) => {
-                        TW_Log("TN_GetPlatInfo---versionBBL-TW_DATA_KEY.AFF_COD----err=-"+err+"----ret=="+ret,ret);
+                        TW_Store.dataStore.log+="TN_GetPlatInfo---versionBBL-TW_DATA_KEY.AFF_CODd----err=-"+err+"----ret=="+ret+"\n";
                         if(ret&&ret.length>0){
                             this.userAffCode = ret;
                         }
                     })
                  OpeninstallModule.getInstall(10, res => {
                     //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
-                        TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
+                        TW_Store.dataStore.log+="getInstall---res-"+res;
                         if (res&&res.data) {
                             //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
                             let map= null;
