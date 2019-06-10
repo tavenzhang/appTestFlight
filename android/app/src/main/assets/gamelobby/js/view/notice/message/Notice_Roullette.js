@@ -23,6 +23,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
     };
     Notice_Roullette.prototype.setData = function ($data) {
         this.noticeid = $data.noticeid;
+        this.endData = this.convertDateForIos($data.endTime);
         var startDate = this.beforeLast($data.startTime, " ").split("-");
         var startTime = this.beforeLast(this.afterLast($data.startTime, " "), ":");
         var endData = this.beforeLast($data.endTime, " ").split("-");
@@ -131,41 +132,44 @@ var Notice_Roullette = /** @class */ (function (_super) {
         return date;
     };
     Notice_Roullette.prototype.onReqSpin = function (spinner) {
-        if (this._havePt - spinner.reqPt >= 0) {
-            this._havePt -= spinner.reqPt;
-            this.currentPt.text = this._havePt.toString();
-            this.targetSpinner = spinner;
-            spinner.start();
-            this.btnSilver.mouseEnabled = false;
-            this.btnGold.mouseEnabled = false;
-            this.btnDiamond.mouseEnabled = false;
-            this.newtab.mouseEnabled = false;
-            this.mytab.mouseEnabled = false;
-            //  this._lists.disable();
-            var url = ConfObjRead.getConfUrl().url.apihome;
-            url += ConfObjRead.getConfUrl().cmd.attention_lottery;
-            url += "?access_token=" + Common.access_token;
-            // url += `&noticeId=${this.data.noticeid}`;
-            // url += `&rouletteLevel=${$spinner.id}`;
-            var header = [
-                "Content-Type", "application/json",
-                "Accept", "*/*"
-                // "Accept", "application/json"
-            ];
-            var jobj = {
-                noticeId: this.noticeid,
-                rouletteLevel: spinner.id
-                // "username":Common.userInfo.username
-            };
-            var sjobj = JSON.stringify(jobj);
-            NetManager.getObj().HttpConnect(url, this, this.returnPrizeInfo, header, sjobj, "put", "json");
+        var currentDate = new Date();
+        if (currentDate.getTime() > this.endData.getTime()) {
+            this.activitiesEnded();
+            return;
         }
+        if (this._havePt - spinner.reqPt < 0) {
+            view.dlg.TipsDlg.show("您目前不够积分进行抽奖活动");
+            return;
+        }
+        this._havePt -= spinner.reqPt;
+        this.currentPt.text = this._havePt.toString();
+        this.targetSpinner = spinner;
+        spinner.start();
+        this.btnSilver.mouseEnabled = false;
+        this.btnGold.mouseEnabled = false;
+        this.btnDiamond.mouseEnabled = false;
+        this.newtab.mouseEnabled = false;
+        this.mytab.mouseEnabled = false;
+        //  this._lists.disable();
+        var jobj = {
+            noticeId: this.noticeid,
+            rouletteLevel: spinner.id
+            // "username":Common.userInfo.username
+        };
+        HttpRequester.putHttpData(ConfObjRead.getConfUrl().cmd.attention_lottery, jobj, this, this.returnPrizeInfo);
     };
-    Notice_Roullette.prototype.returnPrizeInfo = function (s, stat, hr) {
-        this._result = s.prizeAmount;
-        this.targetSpinner.setResult(s);
+    Notice_Roullette.prototype.returnPrizeInfo = function (suc, jobj) {
+        if (jobj.code) {
+            this.activitiesEnded();
+            return;
+        }
+        this._result = jobj.prizeAmount;
+        this.targetSpinner.setResult(jobj);
         this.targetSpinner.once("stopSpin", this, this.onStopSpin);
         this.targetSpinner = undefined;
+    };
+    Notice_Roullette.prototype.activitiesEnded = function () {
+        view.dlg.TipsDlg.show("轮盘抽奖活动已经结束");
     };
     Notice_Roullette.prototype.onStopSpin = function () {
         this.btnSilver.mouseEnabled = true;
@@ -174,8 +178,8 @@ var Notice_Roullette = /** @class */ (function (_super) {
         this.newtab.mouseEnabled = true;
         this.mytab.mouseEnabled = true;
         this.wlist.getList(true);
-        var message = "\u606D\u559C\u62BD\u4E2D " + this._result + " \u91D1\u5E01\u5956\u52B1\uFF0C\u8BF7\u524D\u5F80\u90AE\u4EF6\u67E5\u770B";
-        AgentDialogSucess.showDialog(this.parent.parent, ConfObjRead.getConfAgentDialogDeleteInvitation(), message);
+        var message = "\u606D\u559C\u62BD\u4E2D" + this._result + "\u91D1\u5E01\u5956\u52B1\uFF0C\u8BF7\u524D\u5F80\u90AE\u4EF6\u67E5\u770B";
+        view.dlg.TipsDlg.show(message);
         this._result = undefined;
     };
     Notice_Roullette.prototype.onMouse = function ($e) {

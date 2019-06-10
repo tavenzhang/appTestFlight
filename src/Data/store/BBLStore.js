@@ -85,7 +85,6 @@ export  default  class BBLStore {
             }else{
                 versionDomain= platInfo.downDomain+platInfo.zipCheckServer.release_server
             }
-
         }
         //TW_Store.appStore.isInAnroidHack
         if(TW_Store.appStore.isInAnroidHack){
@@ -109,6 +108,20 @@ export  default  class BBLStore {
         }
 
         this.isShowCircle =isShow;
+    }
+    @action
+    quitSubGame() {
+       this.subGameParams={
+            url:"",
+            isGame: true
+        }
+
+    }
+
+    @action
+    isInSubGame() {
+       return   this.subGameParams.url&&this.subGameParams.url.length >0;
+
     }
 
 
@@ -139,8 +152,10 @@ export  default  class BBLStore {
         showMask:"showMask",
         shareSucess:"shareSucess",
         openBindCard:"openBindCard",
+        openBindAlipay:"openBindAlipay",
         showLoading:"showLoading",
-        enterGame:"enterGame"
+        enterGame:"enterGame",
+        openDebug:"openDebug",
     }
 
     //bgm.mp3 click.mp3 close.mp3 flopleft.mp3 flopright.mp3 recharge.mp3 rightbottomclose.mp3 showlogo.mp3

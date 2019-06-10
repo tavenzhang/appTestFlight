@@ -20,9 +20,7 @@ var view;
     var LobbyView = /** @class */ (function (_super) {
         __extends(LobbyView, _super);
         function LobbyView() {
-            var _this = _super.call(this) || this;
-            LobbyView.inst = _this;
-            return _this;
+            return _super.call(this) || this;
         }
         LobbyView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
@@ -135,6 +133,7 @@ var view;
             this.mailDot.visible = Boolean(total > 0);
         };
         LobbyView.prototype.lifeCycleHandler = function (state) {
+            Debug.outputLog("前后台切换：", state);
             if (state == 0) { //前台到后台
                 this.flushCycleImage();
             }
@@ -143,6 +142,7 @@ var view;
             }
         };
         LobbyView.prototype.gameToHall = function () {
+            Debug.outputLog("进入大厅，开始播放动画"); //debugxxx
             Laya.timer.clear(this, this.requestCycelData);
             //恢复动画播放
             if (this.girlAinm)
@@ -157,6 +157,7 @@ var view;
                 this.gameList.resume();
         };
         LobbyView.prototype.hallToGame = function () {
+            Debug.outputLog("进入游戏，暂停动画播放"); //debugxxx
             this.flushCycleImage();
             //暂停动画播放
             if (this.girlAinm)

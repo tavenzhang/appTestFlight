@@ -62,16 +62,6 @@ var EventManager = /** @class */ (function () {
             this.pool.set(EventManager.eventer, arr);
         }
     };
-    /**
-     * 删除全局事件(统一调用removeAllEvents方法)
-     * @param type
-     * @param caller
-     * @param callback
-     */
-    // public static removeEvent(type: string, caller: any, callback: Function) {
-    //     if (!caller) return;
-    //     this.eventer.off(type, caller, callback);
-    // }
     //------------------------
     /**
      * 添加带触摸缩放效果的点击事件

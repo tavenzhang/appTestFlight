@@ -51,7 +51,7 @@ var view;
                     EventManager.addTouchScaleListener(this.closeBtn, this, function () {
                         SoundPlayer.closeSound();
                         _this.close(null, true);
-                    }, null, 1);
+                    });
                     for (var i = 1; i <= 3; i++) {
                         EventManager.addTouchScaleListener(this["tab" + i], this, this.tabHandler, i, 1);
                     }
@@ -127,7 +127,7 @@ var view;
                         this.openCardBtn.visible = true;
                         this.setNameBtn.gray = true;
                         this.setNameBtn.mouseEnabled = false;
-                        this.cardPwd.prompt = Common.cardInfo.hasAlipayCard ? "请输入提现密码(4位)" : "请设置提现密码(4位)";
+                        this.cardPwd.prompt = Common.cardInfo.hasAlipayCard ? "请输入提现密码(4位数字)" : "请设置提现密码(4位数字)";
                         if (!this.initBankView) {
                             //设置银行卡
                             EventManager.addTouchScaleListener(this.openCardBtn, this, function () {
@@ -231,7 +231,7 @@ var view;
                         this.setNameBtn.mouseEnabled = true;
                     }
                 };
-                //提现--------------------------------------------------------
+                //提现密码--------------------------------------------------------
                 AccountInfoDlg.prototype.showDepositView = function () {
                     var _this = this;
                     if (!this.bankCardInfo && !Common.alipayInfo) { //未绑定银行卡
@@ -243,9 +243,16 @@ var view;
                     if (!this.moneyPwdView) {
                         this.moneyPwdView = new view.UI.SetPwdPanel();
                         this.moneyPwdView.pos(this.yhkView.x, this.yhkView.y);
-                        this.moneyPwdView.pwdTxt2.prompt = "请输入提现密码(4位)";
+                        this.moneyPwdView.pwdTxt2.prompt = "请输入提现密码(4位数字)";
+                        this.moneyPwdView.pwdTxt4.prompt = "请输入提现密码(4位数字)";
+                        this.moneyPwdView.pwdTxt2.restrict = "0123456789";
+                        this.moneyPwdView.pwdTxt3.restrict = "0123456789";
+                        this.moneyPwdView.pwdTxt4.restrict = "0123456789";
+                        this.moneyPwdView.pwdTxt5.restrict = "0123456789";
                         this.moneyPwdView.pwdTxt2.maxChars = 4;
                         this.moneyPwdView.pwdTxt3.maxChars = 4;
+                        this.moneyPwdView.pwdTxt4.maxChars = 4;
+                        this.moneyPwdView.pwdTxt5.maxChars = 4;
                         this.addChild(this.moneyPwdView);
                     }
                     if (!bindPhone) {
@@ -281,9 +288,8 @@ var view;
                 };
                 AccountInfoDlg.prototype.responseMoneyPwdSeted = function (suc, jobj) {
                     LayaMain.getInstance().showCircleLoading(false);
-                    if (suc) {
-                        Toast.showToast("提现密码修改成功");
-                    }
+                    Toast.showToast("提现密码修改成功");
+                    this.moneyPwdView.clearInput();
                 };
                 //登录密码------------------------------------------------------
                 AccountInfoDlg.prototype.showLoginPwdView = function () {

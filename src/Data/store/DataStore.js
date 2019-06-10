@@ -134,7 +134,7 @@ export default class DataStore {
                 this.isCheckRequesting=false;
                 TW_Store.gameUpateStore.isNeedUpdate=false;
                 this.log += "\n==>TW_Store.dataStore.this.isCheckRequesting" + this.isCheckRequesting;
-                SplashScreen.hide();
+                TW_SplashScreen_HIDE();
             }
         },3000);
         NetUitls.getUrlAndParamsAndCallback(rootStore.bblStore.getVersionConfig(),null,(rt)=> {
@@ -181,7 +181,7 @@ export default class DataStore {
                 TW_Store.gameUpateStore.isNeedUpdate=false;
             }
             setTimeout(()=>{
-                SplashScreen.hide();
+                TW_SplashScreen_HIDE();
             },1000)
 
         })
@@ -235,9 +235,18 @@ export default class DataStore {
                  }
             },
             progress: (res) => {
-               // this.log+="==>progress-="+res;
-               // onProgress({percent:(res.bytesWritten/res.contentLength).toFixed(2),param});
-                let percent = (res.bytesWritten / res.contentLength).toFixed(2);
+                // this.log+="==>progress-="+res;
+                // onProgress({percent:(res.bytesWritten/res.contentLength).toFixed(2),param});
+                let percent = 0;
+                if (res.contentLength > 0) {
+                    percent = (res.bytesWritten / res.contentLength).toFixed(2);
+                } else {
+                    let tempContent = 35000000; //如果读取不到总大小 因为cdn等因素 默认使用18m 到0.99 等待，
+                    //let tempContent=40000000;
+                    let tempPercent = (res.bytesWritten / tempContent).toFixed(2);
+                    percent = tempPercent >= 0.99 ? 0.99 : tempPercent;
+                }
+
                // TW_Log("downloadFile--------progress-TW_Store.gameUpateStore.isNeedUpdate=-",percent);
                 if(!TW_Store.gameUpateStore.isAppDownIng){
                     TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading, {data: {do:"loading",percent}}));
@@ -247,7 +256,8 @@ export default class DataStore {
                      TW_Store.commonBoxStore.totalPecent=res.contentLength;
                 }
 
-            }
+            },
+            readTimeout:7000
         };
         try {
             const ret = RNFS.downloadFile(options);
@@ -268,6 +278,7 @@ export default class DataStore {
                    // TW_Store.commonBoxStore.isShow=false;
                     if(!TW_Store.gameUpateStore.isAppDownIng){
                         TW_Store.gameUpateStore.isLoading=false;
+                        TW_Store.gameUpateStore.isNeedUpdate=false;
                         TW_Store.gameUpateStore.isTempExist=true;
                         TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
                     }
@@ -275,12 +286,18 @@ export default class DataStore {
                         TW_Store.commonBoxStore.isShow=true;
                     }
                 }
-            }).catch(err => {
-                TW_Log('versionBBL --downloadFile --fail err', err);
-            });
+            })
         }
         catch (e) {
-            TW_Log("versionBBL---downloadFile--error",error);
+            if(!TW_Store.gameUpateStore.isAppDownIng){
+                TW_Store.gameUpateStore.isLoading=false;
+                TW_Store.gameUpateStore.isNeedUpdate=false;
+                TW_Store.gameUpateStore.isTempExist=true;
+                TW_LoaderOnValueJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.game_loading,{data:{do:"loadFinish"}}));
+            }
+            if(TW_Store.gameUpateStore.isOldHome){
+                TW_Store.commonBoxStore.isShow=true;
+            }
         }
     }
 

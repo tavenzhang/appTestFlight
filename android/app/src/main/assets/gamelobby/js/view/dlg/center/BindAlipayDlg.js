@@ -34,7 +34,7 @@ var view;
                 };
                 BindAlipayDlg.prototype.initView = function () {
                     var _this = this;
-                    this.pwdTxt.prompt = Common.cardInfo.hasBankCard ? "请输入提现密码(4位)" : "请设置提现密码(4位)";
+                    this.pwdTxt.prompt = Common.cardInfo.hasBankCard ? "请输入提现密码(4位数字)" : "请设置提现密码(4位数字)";
                     EventManager.addTouchScaleListener(this.closeBtn, this, function () {
                         SoundPlayer.closeSound();
                         _this.close(null, true);
@@ -59,6 +59,10 @@ var view;
                             _this.onceBind();
                         }
                     });
+                    EventManager.pushEvent(this.lookBtn, Laya.Event.CHANGE, this, this.togglePwdInput, [this.pwdTxt]);
+                };
+                BindAlipayDlg.prototype.togglePwdInput = function (txt) {
+                    GameUtils.onShowPwd(txt);
                 };
                 //首次绑定
                 BindAlipayDlg.prototype.onceBind = function () {

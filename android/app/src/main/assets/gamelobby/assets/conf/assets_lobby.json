@@ -1,5 +1,5 @@
 {
-    "desc": "",
+    "desc": "预加载资源配置表",
     "list": [
         "./assets/conf/agent/agent.json",
         "./assets/conf/agent/agentadduser.json",

@@ -110,7 +110,7 @@ var AgentDialogDeleteInvitation = /** @class */ (function (_super) {
         // AgentPad.getObj().switchTab(null, "invation")        
         view.dlg.AgentDlg.show("codes");
         this.onClose(null);
-        AgentDialogSucess.showDialog(this.fatherNode, ConfObjRead.getConfAgentDialogDeleteInvitation(), "邀请码已删除");
+        view.dlg.TipsDlg.show("邀请码已删除");
         // console.log("responseChange", s, stat, hr)
     };
     return AgentDialogDeleteInvitation;

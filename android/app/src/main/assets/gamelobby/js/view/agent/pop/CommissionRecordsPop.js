@@ -157,6 +157,7 @@ var view;
                     }
                 };
                 CommissionRecordsPop.prototype.requestRecords = function () {
+                    // HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.agentbrokerage, this, this.responseInfo);
                     var url = ConfObjRead.getConfUrl().url.apihome +
                         ConfObjRead.getConfUrl().cmd.commission_record +
                         "?pageSize=" + this.perUpdate + "&start=" + this._records.length +

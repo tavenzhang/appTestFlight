@@ -103,8 +103,10 @@ var view;
                 //头像更新
                 EventManager.register(EventType.FLUSH_HEADICON, this, this.setHeadIcon);
                 EventManager.register(EventType.GET_BACKCARD_DETAIL, this, this.getBankCardInfo);
-                this.soundBtn.on(Laya.Event.CHANGE, this, this.selectSound);
-                this.musicBtn.on(Laya.Event.CHANGE, this, this.selectMusic);
+                // this.soundBtn.on(Laya.Event.CHANGE, this, this.selectSound);
+                // this.musicBtn.on(Laya.Event.CHANGE, this, this.selectMusic);
+                EventManager.pushEvent(this.soundBtn, Laya.Event.CHANGE, this, this.selectSound);
+                EventManager.pushEvent(this.musicBtn, Laya.Event.CHANGE, this, this.selectMusic);
             };
             FullMyCenterDlg.prototype.getBankCardInfo = function () {
                 if (Common.alipayInfo) {

@@ -232,6 +232,10 @@ var LayaMain = /** @class */ (function () {
                     view.dlg.NoticeDlg.shareSucess(message.data);
                     break;
                 }
+                case "openBindAlipay": { //打开支付宝绑定界面
+                    view.dlg.center.BindAlipayDlg.show();
+                    break;
+                }
             }
         }
     };

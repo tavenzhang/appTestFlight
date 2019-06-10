@@ -293,7 +293,7 @@ var HttpRequester = /** @class */ (function () {
         var jsonStr = null;
         if (data)
             jsonStr = JSON.stringify(data);
-        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*", "Authorization", "bearer " + Common.access_token];
         this.doRequest(url, header, jsonStr, caller, callback, "post");
     };
     /**
@@ -324,7 +324,7 @@ var HttpRequester = /** @class */ (function () {
         var jsonStr = null;
         if (data)
             jsonStr = JSON.stringify(data);
-        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*", "Authorization", "bearer " + Common.access_token];
         this.doRequest(url, header, jsonStr, caller, callback, "put");
     };
     /**
@@ -358,7 +358,7 @@ var HttpRequester = /** @class */ (function () {
                 }
                 else {
                     Debug.output("request-err:", url, header, jsonStr, hr.http);
-                    if (!GameUtils.isNativeApp && status_1 == 401) {
+                    if (status_1 == 401) {
                         LayaMain.onQuit();
                         Toast.showToast("账号被占用,请从新登录");
                         return;

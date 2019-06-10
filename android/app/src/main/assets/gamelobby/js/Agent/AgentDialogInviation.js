@@ -131,7 +131,7 @@ var AgentDialogInvitation = /** @class */ (function (_super) {
         // console.log(this.parent)
         // AgentPad.getObj().switchTab(null, "invation")
         if (hr.http.status == 204) {
-            AgentDialogSucess.showDialog(this.fatherNode, ConfObjRead.getConfAgentDialogDeleteInvitation(), "成功生成邀请码");
+            view.dlg.TipsDlg.show("成功生成邀请码");
             view.dlg.AgentDlg.show("codes");
             this.onClose(null);
         }
