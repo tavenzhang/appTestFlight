@@ -150,15 +150,15 @@ export default class AppInfoStore {
                 TW_Store.bblStore.getAppData();
 
                 try {
-                    TW_Data_Store.getItem(TW_DATA_KEY.AFF_CODE, (err, ret) => {
-                        TW_Log("TN_GetPlatInfo---versionBBL-TW_DATA_KEY.AFF_COD----err=-"+err+"----ret=="+ret,ret);
-                        if(ret&&ret.length>0){
-                            this.userAffCode = ret;
-                        }
-                    })
+                    // TW_Data_Store.getItem(TW_DATA_KEY.AFF_CODE, (err, ret) => {
+                    //     TW_Store.dataStore.log+="TN_GetPlatInfo---versionBBL-TW_DATA_KEY.AFF_CODd----err=-"+err+"----ret=="+ret+"\n";
+                    //     if(ret&&ret.length>0){
+                    //         this.userAffCode = ret;
+                    //     }
+                    // })
                  OpeninstallModule.getInstall(10, res => {
                     //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
-                        TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
+                        TW_Store.dataStore.log+="getInstall---res-"+res;
                         if (res&&res.data) {
                             //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
                             let map= null;
