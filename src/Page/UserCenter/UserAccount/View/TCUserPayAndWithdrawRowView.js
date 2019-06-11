@@ -79,6 +79,7 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
             icon = this.icons['up'];
         }
         let orderId = this.props.rowData.transactionId.toString()
+        let type = this.props.rowData.type
         return (
 
             <View style={{width: SCREEN_W - 250, height: 110, alignItems: "center", flexDirection: "row"} }>
@@ -86,6 +87,9 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
                          style={{position: "absolute", width: SCREEN_W - 250, height: 110}}/>
                 <View style={styles.itemStyle}>
                     <View style={styles.itemLeftStyle}>
+                        <Text style={styles.itemLabel}>{this.getType()}: <Text
+                            style={{color: this.getState()==='失败'?'#ff002a':this.getState()==='已完成'?'#7cfc00':'#FAF421',
+                                fontSize: Size.font14}}>{this.getState()}</Text></Text>
                         <Text style={styles.itemLabel}>支付方式：<Text
                             style={styles.itemData}>{this.getSubType()}</Text>
                         </Text>
@@ -110,14 +114,11 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
                         {/*</View>*/}
                     </View>
                     <View style={styles.itemRightStyle}>
-                        <Text style={styles.itemLabel}>{this.getType()}: <Text
-                            style={styles.itemRedTxt}>{this.getState()}</Text></Text>
-                        <Text style={styles.itemCyanTxt}>{this.getBalance()} 元</Text>
-                        <View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' }}>
-                            <Text style={{color: "#F9CB46", marginTop:30,
-                                fontSize: Size.font14,alignItems: 'flex-end'} }>优惠金额：<Text style={styles.itemData}>54543</Text></Text>
-                            <Text style={styles.itemLabel}>总计金额：<Text style={styles.itemData}>54543</Text></Text>
-                        </View>
+                        <Text style={styles.itemLabel}>{type==='WITHDRAWAL'?'提现金额：':'支付金额'}<Text style={styles.itemData}>{this.getPayAndWithdrawMoneyExact()}元</Text></Text>
+                        <Text style={styles.itemLabel}>{type==='WITHDRAWAL'?'手续费：':'优惠金额'}<Text style={styles.itemData}>{this.getPayAndWithdrawMoneyRebate()}元</Text></Text>
+                        <Text style={{color: "#F9CB46", marginTop:12,
+                            fontSize: Size.font14,alignItems: 'flex-end'}}>总计金额：<Text style={styles.itemCyanTxt}>{this.getPayAndWithdrawMoney()}元</Text></Text>
+
                     </View>
                 </View>
             </View>
@@ -129,55 +130,13 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
         this.setState({ expanded: !this.state.expanded });
     }
 
-    getTime() {
-        return Moment(this.props.rowData.createTime).format("YYYY-MM-DD HH:mm:ss")
-    }
-
-    getType() {
-        return this.props.rowData.typeChineseDisplay
-    }
-
-    getState() {
-        return this.props.rowData.stateChineseDisplay
-    }
-
-    getBalance() {
-        let type = this.props.rowData.type
-        let balance = this.props.rowData.amount
-        if (type === 'WITHDRAWAL') {
-            return (<Text>{'- ' + (balance).toFixed(2)}</Text>)
-        } else if (type === 'TOPUP' || type === 'TOPUP_FOR_CANCEL_WITHDRAWAL') {
-            return (<Text>{'+ ' + (balance).toFixed(2)}</Text>)
-        }
-    }
-
-    getSubType() {
-        return this.props.rowData.subTypeChineseDisplay
-    }
-
-    formatOrderId() {
-        return this.props.rowData.transactionId.toString()
-    }
-
-    onCopy(text) {
-        Clipboard.setString(text);
-        Toast.showShortCenter("已复制！")
-    }
-
-    getLeftRecord(accountType){
-        if(accountType == 0) {
-            return(
-                <View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' }}>
-                    <Text style={styles.itemBigLabel} >收入：
-                        <Text style={styles.itemData}>{this.props.accountType == 0? this.getPayAndWithdrawMoneyExact() : ""}</Text></Text>
-
-                    <Text style={styles.itemLabel}>支付金额：<Text style={styles.itemData}>54543</Text></Text>
-                </View>
-            )
-        }
-    }
+    /**
+     * 用户充值提现转账
+     * @param accountType：0-提现， 1-充值， 2-转账
+     */
     getPayOrWithdraw(accountType){
-        if(accountType == 1){
+        if(accountType == 1)
+        {
             return(
                 <View>
                     <View style={styles.itemStyle}>
@@ -199,12 +158,85 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
         }
     }
 
+    getBalance() {
+        let type = this.props.rowData.type
+        let balance = this.props.rowData.amount
+        if (type === 'WITHDRAWAL') {
+            return (<Text>{'- ' + (balance).toFixed(2)}</Text>)
+        } else if (type === 'TOPUP' || type === 'TOPUP_FOR_CANCEL_WITHDRAWAL') {
+            return (<Text>{'+ ' + (balance).toFixed(2)}</Text>)
+        }
+    }
+
+    /**
+     * 获取指定时间格式
+     * @returns {string}
+     */
+    getTime() {
+        return Moment(this.props.rowData.createTime).format("YYYY-MM-DD HH:mm:ss")
+    }
+
+    /**
+     * 获取账单类型
+     * @returns {*}
+     */
+    getType() {
+        let type = this.props.rowData.type
+        if (type === 'WITHDRAWAL') {
+            return '提现'
+        } else if (type === 'TOPUP') {
+            return '充值'
+        }
+    }
+
+    getState() {
+        return this.props.rowData.stateChineseDisplay
+    }
+
+
+
+    /**
+     * 获取支付方式
+     * @returns {*}
+     */
+    getSubType() {
+        return this.props.rowData.subTypeChineseDisplay
+    }
+
+    /**
+     * 格式化订单号
+     * @returns {string}
+     */
+    formatOrderId() {
+        return this.props.rowData.transactionId.toString()
+    }
+
+    onCopy(text) {
+        Clipboard.setString(text);
+        Toast.showShortCenter("已复制！")
+    }
+
+    getLeftRecord(accountType){
+        if(accountType == 0) {
+            return(
+                <View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' }}>
+                    <Text style={styles.itemBigLabel} >收入：
+                        <Text style={styles.itemData}>{this.props.accountType == 0? this.getPayAndWithdrawMoneyExact() : ""}</Text></Text>
+
+                    <Text style={styles.itemLabel}>支付金额：<Text style={styles.itemData}>54543</Text></Text>
+                </View>
+            )
+        }
+    }
+
+
     /**
      * 获取账单余额
      * @returns {XML}
      */
     getAccountBalance() {
         let balance = this.props.rowData.delta
+
         if (balance < 0) {
             return (<Text style={styles.itemData}>{(balance).toFixed(2)}</Text>)
         } else {
@@ -217,11 +249,15 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
      * @returns {XML}
      */
     getPayAndWithdrawMoney() {
-        if (this.type === 'WITHDRAWAL') {
-            return (<Text style={styles.itemData}>{'- ' + (this.effectiveAmount).toFixed(2)}</Text>)
-        } else if (this.type === 'TOPUP') {
-            return (<Text style={styles.itemData}>{'+ ' + (this.effectiveAmount).toFixed(2)}</Text>)
+        let amount = this.props.rowData.effectiveAmount
+        let type = this.props.rowData.type
+        TW_Log("amount: "+amount)
+        if (type === 'WITHDRAWAL') {
+            return (<Text style={styles.itemData}>{'- ' + (amount).toFixed(2)}</Text>)
+        } else if (type === 'TOPUP') {
+            return (<Text style={styles.itemData}>{'+ ' + (amount).toFixed(2)}</Text>)
         }
+        return amount
     }
 
     /**
@@ -229,10 +265,11 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
      * @returns {XML}
      */
     getPayAndWithdrawMoneyRebate(){
-        let rebate = this.effectiveAmount - this.amount
-        if (this.type === 'WITHDRAWAL') {
+        let rebate = this.props.rowData.effectiveAmount - this.props.rowData.amount
+        let type = this.props.rowData.type
+        if (type === 'WITHDRAWAL') {
             return (<Text style={styles.itemData}>{'- ' + (rebate).toFixed(2)}</Text>)
-        } else if (this.type === 'TOPUP') {
+        } else if (type === 'TOPUP') {
             return (<Text style={styles.itemData}>{'+ ' + (rebate).toFixed(2)}</Text>)
         }
         return rebate
@@ -243,10 +280,11 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
      * @returns {XML}
      */
     getPayAndWithdrawMoneyExact(){
-        let topUp = this.amount
-        if (this.type === 'WITHDRAWAL') {
+        let topUp = this.props.rowData.amount
+        let type = this.props.rowData.type
+        if (type === 'WITHDRAWAL') {
             return (<Text style={styles.itemData}>{'- ' + (topUp).toFixed(2)}</Text>)
-        } else if (this.type === 'TOPUP') {
+        } else if (type === 'TOPUP') {
             return (<Text style={styles.itemData}>{'+ ' + (topUp).toFixed(2)}</Text>)
         }
         return topUp
@@ -314,7 +352,7 @@ const styles = StyleSheet.create({
         fontSize: Size.font14
     }, itemCyanTxt: {
         color: '#dbf9ff',
-        fontSize: Size.font22,
+        fontSize: Size.font14,
         paddingTop: 10
     }, itemBtnStyle: {
         paddingLeft: 0
