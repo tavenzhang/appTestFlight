@@ -3,13 +3,13 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://jasf3r188qp.celue20.com',
-    base2: 'https://4fjdhw188qp.celue20.com',
-    base3: 'https://olmr3n188qp.celue20.com',
-    base4: 'https://6shwoa188qp.celue20.com',
-    base5: 'https://jasf3r188qp.costackup.com',
-    base6: 'https://4fjdhw188qp.costackup.com',
-    base7: 'https://jasf3r188qp.lakenkyra.com',
+    base1: 'https://btni8bzcqp.cdqqs.com',
+    base2: 'https://6uucgazcqp.cdqqs.com',
+    base3: 'https://ignq0hzcqp.cdqqs.com',
+    base4: 'https://5qpogizcqp.cdqqs.com',
+    base5: 'https://btni8bzcqp.bidsbr.com"',
+    base6: 'https://6uucgazcqp.bidsbr.com',
+    base7: 'https://btni8bzcqp.hiheye.com',
 }
 
 
@@ -43,13 +43,12 @@ export const versionHotFix = 'v6.1';
 export const MyOwnerPlatName= '招财棋牌';
 
 // export const safeguardDomain = [
-//     'https://7aa58ab0e2988abc6384e8957b567a4c.oss-cn-shenzhen.aliyuncs.com',
-//     'https://7aa58ab0e2988abc6384e8957b567a4c.s3-accelerate.amazonaws.com',
-//     'https://7aa58ab0e2988abc6384e8957b567a4c.azureedge.net']
+//     'https://092123c5518f263f7442d3c31dc08d74.oss-cn-shenzhen.aliyuncs.com',
+//     'https://092123c5518f263f7442d3c31dc08d74.s3-accelerate.amazonaws.com',
+//     'https://092123c5518f263f7442d3c31dc08d74.azureedge.net']
 
 //第三方安全域名base64 key
-export const safeguardKey = 'ewogICAgImQiOiBbCgkJImh0dHBzOi8vN2FhNThhYjBlMjk4OGFiYzYzODRlODk1N2I1NjdhNGMub3NzLWNuLXNoZW56aGVuLmFsaXl1bmNzLmNvbSIsCgkJImh0dHBzOi8vN2FhNThhYjBlMjk4OGFiYzYzODRlODk1N2I1NjdhNGMuczMtYWNjZWxlcmF0ZS5hbWF6b25hd3MuY29tIiwKCQkiaHR0cHM6IC8vN2FhNThhYjBlMjk4OGFiYzYzODRlODk1N2I1NjdhNGMuYXp1cmVlZGdlLm5ldCIKCV0KfQ=='
-
+export const safeguardKey = 'ewogICAgImQiOlsKICAgICAgICAiaHR0cHM6Ly8wOTIxMjNjNTUxOGYyNjNmNzQ0MmQzYzMxZGMwOGQ3NC5vc3MtY24tc2hlbnpoZW4uYWxpeXVuY3MuY29tIiwKICAgICAgICAiaHR0cHM6Ly8wOTIxMjNjNTUxOGYyNjNmNzQ0MmQzYzMxZGMwOGQ3NC5zMy1hY2NlbGVyYXRlLmFtYXpvbmF3cy5jb20iLAogICAgICAgICJodHRwczovLzA5MjEyM2M1NTE4ZjI2M2Y3NDQyZDNjMzFkYzA4ZDc0LmF6dXJlZWRnZS5uZXQiCiAgICBdCn0='
 
 
 export const platInfo = {
@@ -58,7 +57,7 @@ export const platInfo = {
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "/game/release/188qp"
+        release_server: "/game/release/zcqp"
     },
     platId: configAppId,
     brand: "zcqp",
