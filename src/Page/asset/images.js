@@ -252,8 +252,11 @@ export const gameUI = {
     txmxTip:require('./game/txmx_tip.png'),
     onlineService:require('./game/online_service.png'),
     czmxAll:require('./game/czmx_qb.png'),
+    czmxAll_Normal:require('./game/czmx_qb_normal.png'),
     czmxFail:require('./game/czmx_sb.png'),
+    czmxFail_Normal:require('./game/czmx_sb_normal.png'),
     czmxDone:require('./game/czmx_ywc.png'),
+    czmxDone_Normal:require('./game/czmx_ywc_normal.png'),
     img_czmx_dkMenu:require('./game/img_czmx_dkMenu.png'),
 }
 
