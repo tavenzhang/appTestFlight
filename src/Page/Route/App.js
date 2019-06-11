@@ -83,6 +83,7 @@ import {JX_PLAT_INFO} from "../asset";
 import LoadingWebView from "../WebView/LoadingWebView";
 import SubGameView from "./SubGameView";
 
+
 @observer
 export default class App extends Component {
     constructor(state) {
