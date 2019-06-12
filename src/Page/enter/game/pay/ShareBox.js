@@ -47,7 +47,7 @@ export default class ShareBox extends Component {
 
 
     openPayApp(isWechatEnabled) {
-        let {url,onClose}=this.props;
+        let url=TW_Store.gameUIStroe.shareData
         if (!isWechatEnabled) {
             Clipboard.setString(url);
             TCUserOpenPayApp.isCanOpen('weixin://',(result)=>{
@@ -56,20 +56,18 @@ export default class ShareBox extends Component {
                 }
             })
             TCUserOpenPayApp.openWX();
-            if(onClose){
-                onClose();
-            }
+            TW_Store.gameUIStroe.isShowShare=false;
         }
     }
 
     onClickWechatShare() {
-        const { url } = this.props;
+        let url=TW_Store.gameUIStroe.shareData;
         TN_WechatShare(WECHAT.SHARE_TITLE, null, url, WECHAT.SHARE_MSG, false);
         TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{data:"friend"}));
     }
 
     onClickWechatPyqShare() {
-        const { url } = this.props;
+        let url=TW_Store.gameUIStroe.shareData;
         TN_WechatShare(WECHAT.SHARE_TITLE, null, url, WECHAT.SHARE_MSG, true);
         TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{data:"circle"}));
     }
