@@ -145,7 +145,7 @@ export default class XXWebView extends Component {
 
 
     handleUrl = (url, data) => {
-      //  TW_Log("(FileTools----.gameList-FileTools--handleUrl--url"+url, data);
+        TW_Log("(FileTools----.gameList-FileTools--handleUrl--url"+url, data);
         if(data){
             let index= url.indexOf("?");
             url = url.substr(index);
@@ -417,7 +417,6 @@ export default class XXWebView extends Component {
                     }else {
                         gameData = retList[0]
                     }
-                    TW_Log("gameData----retList-gameData",gameData)
                     if(gameData){
                         if(gameData.bupdate) {
                             this.startLoadGame(gameData);
@@ -431,8 +430,18 @@ export default class XXWebView extends Component {
                     let gameData =null
                     for (let gameKey in gameM){
                         if(gameM[gameKey].id==data.alias){
-                            gameData = gameM[gameKey];
+                            retList.push( gameM[gameKey])
                         }
+                    }
+                    if(retList.length>1){
+                        for(let item of retList){
+                            if(item.name&&item.name.indexOf("app")>-1){
+                                gameData =  item;
+                                break;
+                            }
+                        }
+                    }else {
+                        gameData = retList[0]
                     }
                     let isNeedLoad=false;
                     let isOrigan =false;
@@ -445,7 +454,7 @@ export default class XXWebView extends Component {
                         url = this.handleUrl(message.payload,gameData);
                     }
 
-                    TW_Log("FileTools---------data--isNeedLoad==-url=="+url+"-----------gameData==",data);
+                    TW_Log("FileTools---------data--isNeedLoad==-url=="+url+"----isNeedLoad===--"+isNeedLoad+"-----------gameData==",data);
                     if (!isNeedLoad&&TW_Store.bblStore.lastGameUrl!=url) {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.payload);
@@ -457,14 +466,6 @@ export default class XXWebView extends Component {
                             isGame: true,
                             isOrigan
                         }
-
-                       //  TW_NavHelp.pushView(JX_Compones.WebView, {
-                       //      url,
-                       //      onMsgHandle: this.onMsgHandle,
-                       //      onEvaleJS: this.onEvaleJS,
-                       //      isGame: true,
-                       //      isOrigan
-                       //  })
                     }
                     break;
                 case  "game_account":
@@ -596,7 +597,7 @@ export default class XXWebView extends Component {
     }
 
     onError = (error) => {
-       // TW_Store.dataStore.onRetartApp();
+        TW_Store.dataStore.onRetartApp();
         TW_Log("onError===========event=====rr22", error)
     }
 

@@ -144,7 +144,7 @@ export default class NetUitls extends Component {
         // }
         //记录请求开始时间
         let startTime = Moment();
-      //  TW_Log('http------------------------->' , {url,map})
+        TW_Log('http------------------------->' , {url,map})
         let response = {}
         try {
             //如果需要全局 londing 提示 进行显示 通过 loadingState 可以设置具体样式
