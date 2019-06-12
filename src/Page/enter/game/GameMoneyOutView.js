@@ -51,6 +51,7 @@ export default class GameMoneyOutView extends Component {
             isBankSelected: true
         })
         this.userWithdrawStore.bank=this.userWithdrawStore.bankCard
+        TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick)
     }
 
     showAlipay=()=> {
@@ -59,6 +60,7 @@ export default class GameMoneyOutView extends Component {
                 isBankSelected: false
             })
             this.userWithdrawStore.bank=this.userWithdrawStore.alipay
+            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick)
         }
     }
 
