@@ -22,7 +22,7 @@ export class SoundHelper {
                 });
             } catch (e) {
 
-            }
+            }　
         }
     }
 

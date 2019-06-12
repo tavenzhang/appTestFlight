@@ -47,15 +47,18 @@ export default class ShareBox extends Component {
 
 
     openPayApp(isWechatEnabled) {
+        let {url,onClose}=this.props;
         if (!isWechatEnabled) {
-            Clipboard.setString(this.props.url);
+            Clipboard.setString(url);
             TCUserOpenPayApp.isCanOpen('weixin://',(result)=>{
                 if(result){
                     TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{data:"friend"}));
                 }
             })
             TCUserOpenPayApp.openWX();
-            this.props.onClose();
+            if(onClose){
+                onClose();
+            }
         }
     }
 

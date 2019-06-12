@@ -98,7 +98,7 @@ export default class App extends Component {
         StatusBar.setHidden(true);
         if (!G_IS_IOS) {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
-        }
+        }　　
 
     }
 
