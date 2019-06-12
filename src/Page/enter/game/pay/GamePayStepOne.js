@@ -355,7 +355,8 @@ export default class GamePayStepOne extends Component {
             return (<TouchableOpacity
                 onPress={() => {
                     this.onPressPay(paymentItem)
-                }}><View style={{width: SCREEN_W - 250, height: 110, alignItems: "center", flexDirection: "row"}}>
+                }}>
+                <View style={{width: SCREEN_W - 250, height: 110, alignItems: "center", flexDirection: "row"}}>
                 <TCImage source={ASSET_Images.gameUI.listItemBg}
                          style={{position: "absolute", width: SCREEN_W - 250, height: 100}} resizeMode={"contain"}/>
                 <TCImage source={payHelper.getPayTypeIcon(paymentItem.type)} style={{height: 50, width: 50, marginLeft: 10}}/>
@@ -372,6 +373,7 @@ export default class GamePayStepOne extends Component {
 
     onPressPay = (paymentItem) => {
         TW_Log("GamePayStepOne---paymentItem--payHelper.validMoney--"+payHelper.validMoney(paymentItem, false),paymentItem)
+        TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick)
         if (!payHelper.isFixedPay() && !payHelper.validMoney(paymentItem, false))
             return
         if (this.inputUserName(paymentItem)) {
