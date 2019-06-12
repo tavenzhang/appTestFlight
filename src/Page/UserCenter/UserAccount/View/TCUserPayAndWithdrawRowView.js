@@ -22,6 +22,7 @@ import {Size, width, height, indexBgColor, listViewTxtColor, copyBtnStyle} from 
 import {ASSET_Images} from "../../../asset";
 import TCImage from "../../../../Common/View/image/TCImage";
 import Toast from "../../../../Common/JXHelper/JXToast";
+import {TCButtonImg} from "../../../../Common/View/button/TCButtonView";
 export  default  class TCUserPayAndWithdrawRowView extends Component {
 
     constructor(props) {
@@ -82,14 +83,13 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
         let type = this.props.rowData.type
         return (
 
-            <View style={{width: SCREEN_W - 250, height: 110, alignItems: "center", flexDirection: "row"} }>
+            <View style={{width: SCREEN_W - 250, height: 100, alignItems: "center", flexDirection: "row"} }>
                 <TCImage source={ASSET_Images.gameUI.listItemBg}
-                         style={{position: "absolute", width: SCREEN_W - 250, height: 110}}/>
+                         style={{position: "absolute", width: SCREEN_W - 250, height: 95}} resizeMode={"contain"}/>
                 <View style={styles.itemStyle}>
                     <View style={styles.itemLeftStyle}>
                         <Text style={styles.itemLabel}>{this.getType()}: <Text
-                            style={{color: this.getState()==='失败'?'#ff002a':this.getState()==='已完成'?'#7cfc00':'#FAF421',
-                                fontSize: Size.font14}}>{this.getState()}</Text></Text>
+                            >{this.getState()}</Text></Text>
                         <Text style={styles.itemLabel}>支付方式：<Text
                             style={styles.itemData}>{this.getSubType()}</Text>
                         </Text>
@@ -101,21 +101,10 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
                         <Text style={styles.itemLabel}>创建时间：<Text
                             style={styles.itemData}>{this.getTime()}</Text>
                         </Text>
-                        {/*<TouchableOpacity*/}
-                            {/*style={{width: 30, height: 30,marginLeft:(SCREEN_W-400) / 2}}*/}
-                            {/*onPress={()=>{this.changeLayout()}}>*/}
-                            {/*<TCImage source={icon}/>*/}
-                        {/*</TouchableOpacity>*/}
-                        {/*<View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' }}>*/}
-                            {/*<Text style={styles.itemBigLabel} >收入：*/}
-                                {/*<Text style={styles.itemData}>{this.props.accountType == 0? this.getPayAndWithdrawMoneyExact() : ""}</Text></Text>*/}
-
-                            {/*<Text style={styles.itemLabel}>支付金额：<Text style={styles.itemData}>54543</Text></Text>*/}
-                        {/*</View>*/}
                     </View>
                     <View style={styles.itemRightStyle}>
-                        <Text style={styles.itemLabel}>{type==='WITHDRAWAL'?'提现金额：':'支付金额'}<Text style={styles.itemData}>{this.getPayAndWithdrawMoneyExact()}元</Text></Text>
-                        <Text style={styles.itemLabel}>{type==='WITHDRAWAL'?'手续费：':'优惠金额'}<Text style={styles.itemData}>{this.getPayAndWithdrawMoneyRebate()}元</Text></Text>
+                        <Text style={styles.itemLabel}>{type==='WITHDRAWAL'?'提现金额：':'支付金额：'}<Text style={styles.itemData}>{this.getPayAndWithdrawMoneyExact()}元</Text></Text>
+                        <Text style={styles.itemLabel}>{type==='WITHDRAWAL'?'手续费：':'优惠金额：'}<Text style={styles.itemData}>{this.getPayAndWithdrawMoneyRebate()}元</Text></Text>
                         <Text style={{color: "#F9CB46", marginTop:12,
                             fontSize: Size.font14,alignItems: 'flex-end'}}>总计金额：<Text style={styles.itemCyanTxt}>{this.getPayAndWithdrawMoney()}元</Text></Text>
 
@@ -189,11 +178,20 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
         }
     }
 
+    /**
+     * 获取充值/提现状态
+     * @returns {*}
+     */
     getState() {
-        return this.props.rowData.stateChineseDisplay
+        let state = this.props.rowData.stateChineseDisplay
+        if (state === '失败') {
+            return (<Text style={{color: '#ff002a', fontSize: Size.font14}}>{state}</Text>)
+        } else if (state === '已完成') {
+            return (<Text style={{color: '#7cfc00', fontSize: Size.font14}}>{state}</Text>)
+        } else {
+            return (<Text style={{color: '#FAF421', fontSize: Size.font14}}>{state}</Text>)
+        }
     }
-
-
 
     /**
      * 获取支付方式
@@ -213,22 +211,9 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
 
     onCopy(text) {
         Clipboard.setString(text);
+        TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
         Toast.showShortCenter("已复制！")
     }
-
-    getLeftRecord(accountType){
-        if(accountType == 0) {
-            return(
-                <View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' }}>
-                    <Text style={styles.itemBigLabel} >收入：
-                        <Text style={styles.itemData}>{this.props.accountType == 0? this.getPayAndWithdrawMoneyExact() : ""}</Text></Text>
-
-                    <Text style={styles.itemLabel}>支付金额：<Text style={styles.itemData}>54543</Text></Text>
-                </View>
-            )
-        }
-    }
-
 
     /**
      * 获取账单余额
@@ -253,9 +238,9 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
         let type = this.props.rowData.type
         TW_Log("amount: "+amount)
         if (type === 'WITHDRAWAL') {
-            return (<Text style={styles.itemData}>{'- ' + (amount).toFixed(2)}</Text>)
+            return (<Text>{'- ' + (amount).toFixed(2)}</Text>)
         } else if (type === 'TOPUP') {
-            return (<Text style={styles.itemData}>{'+ ' + (amount).toFixed(2)}</Text>)
+            return (<Text>{'+ ' + (amount).toFixed(2)}</Text>)
         }
         return amount
     }
@@ -361,7 +346,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingTop: 4,
         paddingBottom: 4,
-        paddingLeft: 28,
+        paddingLeft: 128,
         paddingRight: 8,
         borderWidth: 15,
         borderColor: copyBtnStyle.borderColor,

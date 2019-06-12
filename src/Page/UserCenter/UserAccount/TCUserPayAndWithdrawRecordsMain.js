@@ -7,20 +7,11 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    Button,
-    ScrollView, TouchableOpacity, Text, Image
+    TouchableOpacity
 } from 'react-native';
-import TopNavigationBar from '../../../Common/View/TCNavigationBar';
-import ScrollableTabView from '../../../Common/View/ScrollableTab'
-import DefaultTabBar from '../../../Common/View/ScrollableTab/DefaultTabBar'
 import UserAccount from './TCUserPayAndWithdrawRecords'
-import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
-import {Size, shoppingTxtColor, indexBgColor, listViewTxtColor} from '../../asset/game/themeComponet'
 import {ASSET_Images, ASSET_Theme} from "../../asset";
 import TCImage from "../../../Common/View/image/TCImage";
-import TCText from "../../../Common/View/widget/TCText";
-import TCButtonView from "../../../Common/View/button/TCButtonView";
 
 export default class TCUserPayAndWithdrawRecordsMain extends Component {
 
@@ -47,21 +38,22 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
         let {accountType,onBack} = this.props
         return (
             <View >
-                <TCImage source={ASSET_Images.gameUI.img_czmx_dkMenu} />
-                <View style={{position:"absolute"}}>
+                <TCImage style={{position:"absolute", left:0}} source={ASSET_Images.gameUI.img_czmx_dkMenu} />
+                <View style={{position:"absolute", left:0}}>
                     <View style={styles.container}>
+                        { TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick)}
                         <TouchableOpacity onPress={()=>this.onSelect(1)} >
-                            <View style={styles.buttonImg}>
+                            <View>
                                 <TCImage source={ this.state.selectType == 1 ? ASSET_Images.gameUI.czmxAll:ASSET_Images.gameUI.czmxAll_Normal}/>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={()=>this.onSelect(2)} >
-                            <View style={styles.buttonImg}>
+                            <View>
                                 <TCImage source={ this.state.selectType == 2 ? ASSET_Images.gameUI.czmxDone:ASSET_Images.gameUI.czmxDone_Normal}/>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={()=>this.onSelect(3)} >
-                            <View style={styles.buttonImg}>
+                            <View>
                                 <TCImage source={ this.state.selectType == 3? ASSET_Images.gameUI.czmxFail:ASSET_Images.gameUI.czmxFail_Normal}/>
                             </View>
                         </TouchableOpacity>
@@ -83,19 +75,11 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
 
         this.setState({selectType: tabIndex})
         TW_Log("onSelect----",this.state)
-        // let {onClick, data} = this.props
-        // let UserAccount = this.props
-        // if (onClick) {
-        //
-        //     //accountType={this.props.accountType}
-        //     onClick(data)
-        // }
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-
     },
 });

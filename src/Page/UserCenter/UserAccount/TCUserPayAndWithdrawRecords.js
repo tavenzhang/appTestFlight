@@ -103,11 +103,9 @@ export default class TCUserPayAndWithdrawRecords extends Component {
 
     getRenderRow=(rowData, sectionID, rowID)=> {
         return (
-            <TouchableOpacity onPress={() => {
-                this.pressRow(rowData)
-            }}>
+            <View>
                 {this.props.accountType === 2 ? <TransferRow rowData={rowData}/> : <ListRow rowData={rowData}/>}
-            </TouchableOpacity>
+            </View>
         )
     }
 
@@ -159,14 +157,14 @@ export default class TCUserPayAndWithdrawRecords extends Component {
                 callback(res, res.content)
             })
         }
-
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height:185,
-        marginTop:0
+        height: 185,
+        width: 485,
+        marginTop: 0
     }
 });
