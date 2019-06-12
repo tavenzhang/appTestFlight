@@ -597,7 +597,7 @@ export default class XXWebView extends Component {
     }
 
     onError = (error) => {
-        TW_Store.dataStore.onRetartApp();
+       //= TW_Store.dataStore.onRetartApp();
         TW_Log("onError===========event=====rr22", error)
     }
 
