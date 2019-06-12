@@ -17,7 +17,7 @@ global.JXCodePushServerUrl ="";
 global.JXCodePushVersion=""
 global.TW_IS_DEBIG= __DEV__  ? true:false;
 global.TW_Base64=new Base64();
-global.TW_OnValueJSHome=null;
+global.TW_OnValueJSHome=()=>{};
 global.TW_LoaderOnValueJS=()=>{};
 global.TW_OnBackHomeJs=null;
 global.TW_SplashScreen_HIDE=()=>{
