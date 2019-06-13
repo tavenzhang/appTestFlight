@@ -83,19 +83,8 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
      * @returns {number}
      */
     adjustLocation() {
-        if (SCREEN_W > 860) {
-            return 25
-        } else if (SCREEN_W > 850) {
-            return 15
-        } else if (SCREEN_W > 810) {
-            return 0
-        } else if (SCREEN_W > 730) {
-            return -20
-        } else if (SCREEN_W > 660) {
-            return -40
-        }else if (SCREEN_W > 560) {
-            return -75
-        }
+        let widthStandard = 812
+        return ((SCREEN_W - widthStandard) / 16 * 5)
     }
 }
 
