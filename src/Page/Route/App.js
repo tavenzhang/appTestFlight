@@ -139,6 +139,7 @@ export default class App extends Component {
                      <GameUIView/>
 
 
+
                 </View>
             </Provider>
 

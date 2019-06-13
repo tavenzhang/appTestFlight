@@ -1389,9 +1389,9 @@ var Tools = /** @class */ (function () {
             r = tt.substring(0, pointPos + len + 1);
         }
         else {
-            // return num.toFixed(len);
-            var data = "" + Math.floor(num * Math.pow(10, len)) / Math.pow(10, len);
-            return data;
+            return num.toFixed(len);
+            // var data = "" + Math.floor(num * Math.pow(10, len)) / Math.pow(10, len);
+            // return data;
         }
         return r + "万";
     };
