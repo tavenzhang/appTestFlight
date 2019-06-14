@@ -169,6 +169,13 @@ export const gameUI = {
     titlePhone:require('./game/account/titlePhone.png'),
     //guest
     guestBg:require('./game/guest/gusetBg.png'),
+    guestIcon:require('./game/guest/guest_icon.png'),
+    guestOSSelected:require('./game/guest/guest_os_selected.png'),
+    guestOS:require('./game/guest/guest_os.png'),
+    guestQASelected:require('./game/guest/guest_qa_selected.png'),
+    guestQA:require('./game/guest/guest_qa.png'),
+    guestTxt:require('./game/guest/guest_txt.png'),
+    guestBottomBg:require('./game/guest/guestBottomBg.png'),
     //moneyOut
     titleMoneyOut:require('./game/moneyOut/titleMoneyOut.png'),
     iconMoneyOut:require('./game/moneyOut/iconMoneyOut.png'),
