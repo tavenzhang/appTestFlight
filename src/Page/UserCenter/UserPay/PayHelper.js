@@ -359,13 +359,13 @@ class PayHelper {
      * 申请转账
      */
     bankApplyFor(bank) {
+        TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick)
         if (!this.validMoney(bank, true)) {
             return;
         }
         TW_Store.gameUIStroe.showBankPay({amount: this.money, transInfo: bank})
         // TW_NavHelp.pushView(JX_Compones.TCUserBankPayMessageNew,{amount: this.money,
         //     transInfo: bank});
-
     }
 
     clearData() {
