@@ -29,14 +29,14 @@ export default class TCNoDataView extends Component {
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.mainView}>
-                    {
-                        this.props.unNetwork ? (<Image
-                            source={common.noNet}
-                            style={styles.imageStyle}/>) :
-                            (<Image
-                                source={common.noData}
-                                style={styles.imageStyle}/>)
-                    }
+                    {/*{*/}
+                        {/*this.props.unNetwork ? (<Image*/}
+                            {/*source={common.noNet}*/}
+                            {/*style={styles.imageStyle}/>) :*/}
+                            {/*(<Image*/}
+                                {/*source={common.noData}*/}
+                                {/*style={styles.imageStyle}/>)*/}
+                    {/*}*/}
 
                     <Text style={styles.txtTitleStyle}>{this.state.title}</Text>
                     <Text style={styles.txtContentStyle}>{this.props.contentTip}</Text>
@@ -66,19 +66,20 @@ export default class TCNoDataView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: indexBgColor.mainBg,
+        backgroundColor: "transparent",
     }, imageStyle: {
         // marginTop: height * 0.2,
         marginTop:10,
         width: width * 0.3,
         height: height * 0.2,
+        backgroundColor: "transparent",
     }, mainView: {
         flexDirection: 'column',
         flex: 1,
         alignItems: 'center',
     },
     bottomBarButtonStyle: {
-        backgroundColor: buttonStyle.btnBg,
+        backgroundColor: "transparent",
         justifyContent: 'center',
         flexDirection: 'row',
         height: 40,
@@ -89,9 +90,9 @@ const styles = StyleSheet.create({
         marginTop: 20
     }, txtTitleStyle: {
         fontSize: Size.large,
-        color: listViewTxtColor.title,
+        color: '#ff002a',
         fontWeight: 'bold',
-        marginTop: 10
+        marginTop: height*0.2
     }, txtContentStyle: {
         color: listViewTxtColor.content,
         fontSize: Size.default,

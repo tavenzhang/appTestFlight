@@ -43,16 +43,7 @@ export default class TWWebGameView extends Component {
         TW_OnBackHomeJs=this.onBackHomeJs;
     }
 
-    componentWillUnmount(): void {
-       // TW_Store.gameUpateStore.isInSubGame=false;
-    }
 
-    componentWillReceiveProps(nextProps, nextContext: any): void {
-        // let {isOrigan,url,isShow}=nextProps;
-        // if(this.refs.myView){
-        //     this.refs.myView.setNativeProps({style: {top:isShow ?0:2000}});
-        // }
-    }
 
     render() {
         let {isOrigan,url}=this.props;
@@ -149,7 +140,6 @@ export default class TWWebGameView extends Component {
 
     onloadStart = (event) => {
         TW_Store.bblStore.isLoading = false
-        TW_Log("onloadStart==TCweb=========event=====", event)
     }
 
     onMessage = (event) => {

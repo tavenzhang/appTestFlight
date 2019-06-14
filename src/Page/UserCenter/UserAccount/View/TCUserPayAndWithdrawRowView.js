@@ -22,6 +22,7 @@ import {Size, width, height, indexBgColor, listViewTxtColor, copyBtnStyle} from 
 import {ASSET_Images} from "../../../asset";
 import TCImage from "../../../../Common/View/image/TCImage";
 import Toast from "../../../../Common/JXHelper/JXToast";
+import {TCButtonImg} from "../../../../Common/View/button/TCButtonView";
 export  default  class TCUserPayAndWithdrawRowView extends Component {
 
     constructor(props) {
@@ -79,11 +80,16 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
             icon = this.icons['up'];
         }
         let orderId = this.props.rowData.transactionId.toString()
+        let type = this.props.rowData.type
         return (
 
-            <View style={{width: SCREEN_W - 200, height: 100, alignItems: "center", flexDirection: "row"} }>
+            <View style={{width: SCREEN_W - 250, height: 100, alignItems: "center", flexDirection: "row"} }>
+                <TCImage source={ASSET_Images.gameUI.listItemBg}
+                         style={{position: "absolute", width: SCREEN_W - 250, height: 95}} resizeMode={"contain"}/>
                 <View style={styles.itemStyle}>
                     <View style={styles.itemLeftStyle}>
+                        <Text style={styles.itemLabel}>{this.getType()}: <Text
+                            >{this.getState()}</Text></Text>
                         <Text style={styles.itemLabel}>支付方式：<Text
                             style={styles.itemData}>{this.getSubType()}</Text>
                         </Text>
@@ -95,27 +101,13 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
                         <Text style={styles.itemLabel}>创建时间：<Text
                             style={styles.itemData}>{this.getTime()}</Text>
                         </Text>
-                        <TouchableOpacity
-                            style={{width: 30, height: 30,marginLeft:(SCREEN_W-400) / 2}}
-                            onPress={()=>{this.changeLayout()}}>
-                            <TCImage source={icon}/>
-                        </TouchableOpacity>
-                        <View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' }}>
-                            <Text style={styles.itemBigLabel} >收入：
-                                <Text style={styles.itemData}>{this.props.accountType == 0? this.getPayAndWithdrawMoneyExact() : ""}</Text></Text>
-
-                            <Text style={styles.itemLabel}>支付金额：<Text style={styles.itemData}>54543</Text></Text>
-                        </View>
                     </View>
                     <View style={styles.itemRightStyle}>
-                        <Text style={styles.itemLabel}>{this.getType()}: <Text
-                            style={styles.itemRedTxt}>{this.getState()}</Text></Text>
-                        <Text style={styles.itemCyanTxt}>{this.getBalance()} 元</Text>
-                        <View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' }}>
-                            <Text style={{color: "#F9CB46", marginTop:30,
-                                fontSize: Size.font14,alignItems: 'flex-end'} }>优惠金额：<Text style={styles.itemData}>54543</Text></Text>
-                            <Text style={styles.itemLabel}>总计金额：<Text style={styles.itemData}>54543</Text></Text>
-                        </View>
+                        <Text style={styles.itemLabel}>{type==='WITHDRAWAL'?'提现金额：':'支付金额：'}<Text style={styles.itemData}>{this.getPayAndWithdrawMoneyExact()}元</Text></Text>
+                        <Text style={styles.itemLabel}>{type==='WITHDRAWAL'?'手续费：':'优惠金额：'}<Text style={styles.itemData}>{this.getPayAndWithdrawMoneyRebate()}元</Text></Text>
+                        <Text style={{color: "#F9CB46", marginTop:12,
+                            fontSize: Size.font14,alignItems: 'flex-end'}}>总计金额：<Text style={styles.itemCyanTxt}>{this.getPayAndWithdrawMoney()}元</Text></Text>
+
                     </View>
                 </View>
             </View>
@@ -127,55 +119,13 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
         this.setState({ expanded: !this.state.expanded });
     }
 
-    getTime() {
-        return Moment(this.props.rowData.createTime).format("YYYY-MM-DD HH:mm:ss")
-    }
-
-    getType() {
-        return this.props.rowData.typeChineseDisplay
-    }
-
-    getState() {
-        return this.props.rowData.stateChineseDisplay
-    }
-
-    getBalance() {
-        let type = this.props.rowData.type
-        let balance = this.props.rowData.amount
-        if (type === 'WITHDRAWAL') {
-            return (<Text>{'- ' + (balance).toFixed(2)}</Text>)
-        } else if (type === 'TOPUP' || type === 'TOPUP_FOR_CANCEL_WITHDRAWAL') {
-            return (<Text>{'+ ' + (balance).toFixed(2)}</Text>)
-        }
-    }
-
-    getSubType() {
-        return this.props.rowData.subTypeChineseDisplay
-    }
-
-    formatOrderId() {
-        return this.props.rowData.transactionId.toString()
-    }
-
-    onCopy(text) {
-        Clipboard.setString(text);
-        Toast.showShortCenter("已复制！")
-    }
-
-    getLeftRecord(accountType){
-        if(accountType == 0) {
-            return(
-                <View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' }}>
-                    <Text style={styles.itemBigLabel} >收入：
-                        <Text style={styles.itemData}>{this.props.accountType == 0? this.getPayAndWithdrawMoneyExact() : ""}</Text></Text>
-
-                    <Text style={styles.itemLabel}>支付金额：<Text style={styles.itemData}>54543</Text></Text>
-                </View>
-            )
-        }
-    }
+    /**
+     * 用户充值提现转账
+     * @param accountType：0-提现， 1-充值， 2-转账
+     */
     getPayOrWithdraw(accountType){
-        if(accountType == 1){
+        if(accountType == 1)
+        {
             return(
                 <View>
                     <View style={styles.itemStyle}>
@@ -197,12 +147,81 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
         }
     }
 
+    getBalance() {
+        let type = this.props.rowData.type
+        let balance = this.props.rowData.amount
+        if (type === 'WITHDRAWAL') {
+            return (<Text>{'- ' + (balance).toFixed(2)}</Text>)
+        } else if (type === 'TOPUP' || type === 'TOPUP_FOR_CANCEL_WITHDRAWAL') {
+            return (<Text>{'+ ' + (balance).toFixed(2)}</Text>)
+        }
+    }
+
+    /**
+     * 获取指定时间格式
+     * @returns {string}
+     */
+    getTime() {
+        return Moment(this.props.rowData.createTime).format("YYYY-MM-DD HH:mm:ss")
+    }
+
+    /**
+     * 获取账单类型
+     * @returns {*}
+     */
+    getType() {
+        let type = this.props.rowData.type
+        if (type === 'WITHDRAWAL') {
+            return '提现'
+        } else if (type === 'TOPUP') {
+            return '充值'
+        }
+    }
+
+    /**
+     * 获取充值/提现状态
+     * @returns {*}
+     */
+    getState() {
+        let state = this.props.rowData.stateChineseDisplay
+        if (state === '失败') {
+            return (<Text style={{color: '#ff002a', fontSize: Size.font14}}>{state}</Text>)
+        } else if (state === '已完成') {
+            return (<Text style={{color: '#7cfc00', fontSize: Size.font14}}>{state}</Text>)
+        } else {
+            return (<Text style={{color: '#FAF421', fontSize: Size.font14}}>{state}</Text>)
+        }
+    }
+
+    /**
+     * 获取支付方式
+     * @returns {*}
+     */
+    getSubType() {
+        return this.props.rowData.subTypeChineseDisplay
+    }
+
+    /**
+     * 格式化订单号
+     * @returns {string}
+     */
+    formatOrderId() {
+        return this.props.rowData.transactionId.toString()
+    }
+
+    onCopy(text) {
+        Clipboard.setString(text);
+        TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
+        Toast.showShortCenter("已复制！")
+    }
+
     /**
      * 获取账单余额
      * @returns {XML}
      */
     getAccountBalance() {
         let balance = this.props.rowData.delta
+
         if (balance < 0) {
             return (<Text style={styles.itemData}>{(balance).toFixed(2)}</Text>)
         } else {
@@ -215,11 +234,14 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
      * @returns {XML}
      */
     getPayAndWithdrawMoney() {
-        if (this.type === 'WITHDRAWAL') {
-            return (<Text style={styles.itemData}>{'- ' + (this.effectiveAmount).toFixed(2)}</Text>)
-        } else if (this.type === 'TOPUP') {
-            return (<Text style={styles.itemData}>{'+ ' + (this.effectiveAmount).toFixed(2)}</Text>)
+        let amount = this.props.rowData.effectiveAmount
+        let type = this.props.rowData.type
+        if (type === 'WITHDRAWAL') {
+            return (<Text>{'- ' + (amount).toFixed(2)}</Text>)
+        } else if (type === 'TOPUP') {
+            return (<Text>{'+ ' + (amount).toFixed(2)}</Text>)
         }
+        return amount
     }
 
     /**
@@ -227,10 +249,11 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
      * @returns {XML}
      */
     getPayAndWithdrawMoneyRebate(){
-        let rebate = this.effectiveAmount - this.amount
-        if (this.type === 'WITHDRAWAL') {
+        let rebate = this.props.rowData.effectiveAmount - this.props.rowData.amount
+        let type = this.props.rowData.type
+        if (type === 'WITHDRAWAL') {
             return (<Text style={styles.itemData}>{'- ' + (rebate).toFixed(2)}</Text>)
-        } else if (this.type === 'TOPUP') {
+        } else if (type === 'TOPUP') {
             return (<Text style={styles.itemData}>{'+ ' + (rebate).toFixed(2)}</Text>)
         }
         return rebate
@@ -241,10 +264,11 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
      * @returns {XML}
      */
     getPayAndWithdrawMoneyExact(){
-        let topUp = this.amount
-        if (this.type === 'WITHDRAWAL') {
+        let topUp = this.props.rowData.amount
+        let type = this.props.rowData.type
+        if (type === 'WITHDRAWAL') {
             return (<Text style={styles.itemData}>{'- ' + (topUp).toFixed(2)}</Text>)
-        } else if (this.type === 'TOPUP') {
+        } else if (type === 'TOPUP') {
             return (<Text style={styles.itemData}>{'+ ' + (topUp).toFixed(2)}</Text>)
         }
         return topUp
@@ -273,6 +297,8 @@ const styles = StyleSheet.create({
         //justifyContent:'space-between',
         flexDirection: 'row',
         //backgroundColor: indexBgColor.itemBg,
+        justifyContent:"center",
+        alignItems:"center",
         marginTop: 1
     },
     imgNext: {
@@ -310,7 +336,7 @@ const styles = StyleSheet.create({
         fontSize: Size.font14
     }, itemCyanTxt: {
         color: '#dbf9ff',
-        fontSize: Size.font22,
+        fontSize: Size.font14,
         paddingTop: 10
     }, itemBtnStyle: {
         paddingLeft: 0
@@ -319,7 +345,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingTop: 4,
         paddingBottom: 4,
-        paddingLeft: 28,
+        paddingLeft: 128,
         paddingRight: 8,
         borderWidth: 15,
         borderColor: copyBtnStyle.borderColor,
