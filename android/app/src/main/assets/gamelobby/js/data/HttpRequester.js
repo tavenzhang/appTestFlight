@@ -360,7 +360,7 @@ var HttpRequester = /** @class */ (function () {
                     Debug.output("request-err:", url, header, jsonStr, hr.http);
                     if (status_1 == 401) {
                         LayaMain.onQuit();
-                        Toast.showToast("账号被占用,请从新登录");
+                        Toast.showToast("登录过期,请从新登录");
                         return;
                     }
                     var err = hr.http.response;

@@ -19,6 +19,7 @@ import GameMoneyInView from "./game/GameMoneyInView";
 import BaseGameAlert from "./game/pay/BaseGameAlert";
 import GameShareView from "./game/GameShareView";
 import BaseUserAccAlert from "./game/pay/BaseUserAccountAlert";
+import ShareBox from "./game/pay/ShareBox";
 
 
 @observer
@@ -108,7 +109,6 @@ class SubGameView extends Component {
 
                     {TW_Store.gameUIStroe.isShowUserInfo ? <GameUserInfoView pointerEvents={isHaveAletView}/> : null}
                     {TW_Store.gameUIStroe.isShowGuest ? <GameGuestView pointerEvents={isHaveAletView}/> : null}
-                    {TW_Store.gameUIStroe.isShowShare ? <GameShareView pointerEvents={isHaveAletView}/> : null}
                     {
                         !gameAlertView.isUserAccount&&gameAlertView.component ? <BaseGameAlert title={gameAlertView.title} onClose={() => {
                             TW_Store.gameUIStroe.hideAlertUI();
@@ -131,6 +131,7 @@ class SubGameView extends Component {
                             {SubComponet ?  <SubComponet {...gameAlertView.param}/>:null}
                         </BaseUserAccAlert> : null
                     }
+                    {TW_Store.gameUIStroe.isShowShare ? <ShareBox/> : null}
                 </View>)
         }
        else{
