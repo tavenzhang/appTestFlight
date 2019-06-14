@@ -52,6 +52,7 @@ export default class RefreshListView extends Component {
                 footStyle:PropTypes.style,
                 initialNumToRender:PropTypes.any, //初始渲染项目数目
                 keyExtractor:PropTypes.any,
+                style:PropTypes.any
             }
 
 
@@ -65,12 +66,13 @@ export default class RefreshListView extends Component {
         isHorizon:false,
         extraData:null,
         initialNumToRender:10,
+        style:null
     }
 
     constructor(props) {
         super(props)
         this.dataSource = new StateModel()
-        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+        //this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
         this.pageNum = 0
     }
 
@@ -113,7 +115,7 @@ export default class RefreshListView extends Component {
     }
 
     getContentView=()=>{
-        let {isHorizon,keyExtractor,extraData,initialNumToRender,getItemLayout,isAllowRefresh}=this.props;
+        let {isHorizon,keyExtractor,extraData,initialNumToRender,getItemLayout,isAllowRefresh,style}=this.props;
 
         if (this.dataSource.isTimeOut) {
             return (<NoDataView
@@ -131,6 +133,7 @@ export default class RefreshListView extends Component {
                 <FlatList
                     horizontal={isHorizon}
                     ref={"listView"}
+                    style={[style]}
                     getItemLayout={getItemLayout}
                     data={this.dataSource.datas}
                     extraData={extraData}

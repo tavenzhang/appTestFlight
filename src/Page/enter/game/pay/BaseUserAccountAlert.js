@@ -32,9 +32,10 @@ export default class BaseGameAlert extends Component {
         return (<View style={{position: "absolute"}}>
             <TCImage source={ASSET_Images.gameUI.uiTitleBg1} />
             <View style={{
-                 marginTop: 35, width: SCREEN_W*0.55,
+                 marginTop: 43, width: SCREEN_W*0.6,
                 alignSelf: "center",
                 position: "absolute",
+
 
             }}>
                 {this.props.children}

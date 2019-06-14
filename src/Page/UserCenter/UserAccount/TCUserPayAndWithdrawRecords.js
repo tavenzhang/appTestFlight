@@ -1,8 +1,3 @@
-'use strict'
-/**
- * 用户充值提款列表界面
- * Created by Allen on 2016/12/10.
- */
 import React, {Component} from 'react';
 import {StyleSheet, Button, TouchableOpacity, View} from 'react-native';
 import {observer} from 'mobx-react/native'
@@ -16,12 +11,20 @@ import TransferRow from './View/TCUserTransferRowView'
 import UserAccount from "./TCUserPayAndWithdrawRecordsMain";
 import TCUserTransferDetails from "./TCUserTransferDetails";
 import TCUserAccountBillingDetails from "./TCUserAccountBillingDetails";
+import PropTypes from "prop-types";
 
 
 @observer
 export default class TCUserPayAndWithdrawRecords extends Component {
 
-
+    static propTypes : {
+        type:PropTypes.any,
+        accountType:PropTypes.any,
+    }
+    static defaultProps = {
+        type:1,
+     accountType:0
+    }
 
     constructor(props) {
         super(props);
@@ -38,24 +41,20 @@ export default class TCUserPayAndWithdrawRecords extends Component {
     }
 
     render() {
+        TW_Log("TCUserPayAndWithdrawRecords",this.props);
+        let {accountType}=this.props
         return (
             <View style={styles.container}>
                 <RefreshListView
-                    isRenderFooter={this.props.accountType !== 1}
-                    renderRow={(rowData, sectionID, rowID) => {
-                        return this.getRenderRow(rowData, sectionID, rowID)
-                    }}
-                    loadDataFromNet={(pageNum, pageSize, callback) => {
-                        this.loadDataFromNet(pageNum, pageSize, callback)
-                    }}
-                    isNodataView={() => {
-                        return this.getNodataView()
-                    }}/>
+                    isRenderFooter={accountType !== 1}
+                    renderRow={this.getRenderRow}
+                    loadDataFromNet={this.loadDataFromNet}
+                    isNodataView={this.getNodataView}/>
             </View>
         );
     };
 
-    getNodataTip() {
+    getNodataTip=()=> {
         let titleStr = ''
         switch (this.props.accountType) {
             case 0:
@@ -102,42 +101,33 @@ export default class TCUserPayAndWithdrawRecords extends Component {
         }
     }
 
-    getRenderRow(rowData, sectionID, rowID) {
+    getRenderRow=(rowData, sectionID, rowID)=> {
         return (
-            <TouchableOpacity onPress={() => {
-                this.pressRow(rowData)
-            }}>
+            <View>
                 {this.props.accountType === 2 ? <TransferRow rowData={rowData}/> : <ListRow rowData={rowData}/>}
-            </TouchableOpacity>
+            </View>
         )
     }
 
-    pressRow(rowData) {
+    pressRow=(rowData)=>{
         TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick);
         if (this.props.accountType === 2) {
             TW_Store.gameUIStroe.showCommonView("转账详情",TCUserTransferDetails,{orderData: rowData});
-            // Helper.pushToUserTransferDetails({
-            //     orderData: rowData,
-            // })
+
         } else {
             TW_Store.gameUIStroe.showCommonView("账单详情",TCUserAccountBillingDetails,{
                 orderData: rowData,
                 isPayAndWithdrawRecord: true,
                 accountType: this.props.accountType
             });
-            // Helper.pushToUserAcountDetail({
-            //     orderData: rowData,
-            //     isPayAndWithdrawRecord: true,
-            //     accountType: this.props.accountType
-            // })
         }
     }
 
-    getAccountType() {
+    getAccountType=()=> {
         return this.props.accountType === 1 ? 'TOPUP' : 'WITHDRAWAL'
     }
 
-    getState() {
+    getState=()=> {
         switch (this.props.type) {
             case 1:
                 return ''
@@ -148,7 +138,7 @@ export default class TCUserPayAndWithdrawRecords extends Component {
         }
     }
 
-    loadDataFromNet(pageNum, pageSize, callback) {
+    loadDataFromNet=(pageNum, pageSize, callback)=> {
         if (this.props.accountType === 0 || this.props.accountType === 1) {
             this.userAccountStore.getPayAndWithdrawHistory(this.getAccountType(), pageNum, pageSize, this.getState(), (res) => {
                 callback(res, res.content);
@@ -167,13 +157,14 @@ export default class TCUserPayAndWithdrawRecords extends Component {
                 callback(res, res.content)
             })
         }
-
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "transparent",
+        height: 185,
+        width: 485,
+        marginTop: 0
     }
 });

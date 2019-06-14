@@ -27,7 +27,7 @@ const HTTP_ACCOUNT="/webapi/account/users/current";
 export default class XXWebView extends Component {
     constructor(state) {
         super(state)
-        this.onCloseSharebox = this.onCloseSharebox.bind(this);
+       // this.onCloseSharebox = this.onCloseSharebox.bind(this);
        // this.filtUrlList=["/api/v1/account/webapi/account/users/login","/api/v1/account/webapi/account/users/userWebEncryptRegister"];
 
         this.state={
@@ -145,7 +145,7 @@ export default class XXWebView extends Component {
 
 
     handleUrl = (url, data) => {
-      //  TW_Log("(FileTools----.gameList-FileTools--handleUrl--url"+url, data);
+        TW_Log("(FileTools----.gameList-FileTools--handleUrl--url"+url, data);
         if(data){
             let index= url.indexOf("?");
             url = url.substr(index);
@@ -239,7 +239,6 @@ export default class XXWebView extends Component {
     }
 
     render() {
-        const {sharedUrl, isShowSharebox} = this.state;
        // TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
         let news=TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome;
 
@@ -282,12 +281,9 @@ export default class XXWebView extends Component {
             isDebug:TW_IS_DEBIG,
             appVersion:TW_Store.appStore.versionHotFix
         })}`;
-        TW_Log("targetAppDir-33---isWechatEnabled-his.state--"+(sharedUrl&&isShowSharebox)+"--sharedUrl=="+sharedUrl+"-isShowSharebox-"+isShowSharebox,this.state);
+       // TW_Log("targetAppDir-33---isWechatEnabled-his.state--"+(sharedUrl&&isShowSharebox)+"--sharedUrl=="+sharedUrl+"-isShowSharebox-"+isShowSharebox,this.state);
         return (
             <View style={styles.container}>
-                {isShowSharebox ? <View style={styles.viewShareBox}>
-                    <ShareBox onClose={this.onCloseSharebox} url={sharedUrl} />
-                </View>:null}
                 {
                     G_IS_IOS ? <WKWebView ref="myWebView" source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
@@ -382,7 +378,9 @@ export default class XXWebView extends Component {
 
                     switch (message.do) {
                         case "share":
-                            this.setState({sharedUrl: message.param, isShowSharebox: true})
+                            //this.setState({sharedUrl: message.param, isShowSharebox: true});
+                            TW_Store.gameUIStroe.shareData=message.param;
+                            TW_Store.gameUIStroe.isShowShare =true;
                             break;
                         case "copylink":
                             Clipboard.setString(message.param);
@@ -417,7 +415,6 @@ export default class XXWebView extends Component {
                     }else {
                         gameData = retList[0]
                     }
-                    TW_Log("gameData----retList-gameData",gameData)
                     if(gameData){
                         if(gameData.bupdate) {
                             this.startLoadGame(gameData);
@@ -431,8 +428,18 @@ export default class XXWebView extends Component {
                     let gameData =null
                     for (let gameKey in gameM){
                         if(gameM[gameKey].id==data.alias){
-                            gameData = gameM[gameKey];
+                            retList.push( gameM[gameKey])
                         }
+                    }
+                    if(retList.length>1){
+                        for(let item of retList){
+                            if(item.name&&item.name.indexOf("app")>-1){
+                                gameData =  item;
+                                break;
+                            }
+                        }
+                    }else {
+                        gameData = retList[0]
                     }
                     let isNeedLoad=false;
                     let isOrigan =false;
@@ -445,7 +452,7 @@ export default class XXWebView extends Component {
                         url = this.handleUrl(message.payload,gameData);
                     }
 
-                    TW_Log("FileTools---------data--isNeedLoad==-url=="+url+"-----------gameData==",data);
+                    TW_Log("FileTools---------data--isNeedLoad==-url=="+url+"----isNeedLoad===--"+isNeedLoad+"-----------gameData==",data);
                     if (!isNeedLoad&&TW_Store.bblStore.lastGameUrl!=url) {
                         TW_Store.bblStore.lastGameUrl = url;
                         TW_Store.bblStore.jumpData=this.getJumpData(message.payload);
@@ -457,14 +464,6 @@ export default class XXWebView extends Component {
                             isGame: true,
                             isOrigan
                         }
-
-                       //  TW_NavHelp.pushView(JX_Compones.WebView, {
-                       //      url,
-                       //      onMsgHandle: this.onMsgHandle,
-                       //      onEvaleJS: this.onEvaleJS,
-                       //      isGame: true,
-                       //      isOrigan
-                       //  })
                     }
                     break;
                 case  "game_account":
@@ -596,7 +595,7 @@ export default class XXWebView extends Component {
     }
 
     onError = (error) => {
-       // TW_Store.dataStore.onRetartApp();
+      //  TW_Store.dataStore.onRetartApp();
         TW_Log("onError===========event=====rr22", error)
     }
 
