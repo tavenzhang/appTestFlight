@@ -176,6 +176,9 @@ export const gameUI = {
     guestQA:require('./game/guest/guest_qa.png'),
     guestTxt:require('./game/guest/guest_txt.png'),
     guestBottomBg:require('./game/guest/guestBottomBg.png'),
+    guestQABg:require('./game/guest/guest_qa_Bg.png'),
+    guestOSBg:require('./game/guest/guest_os_Bg.png'),
+    guestQuestionAns:require('./game/guest/guest_question_answer.png'),
     //moneyOut
     titleMoneyOut:require('./game/moneyOut/titleMoneyOut.png'),
     iconMoneyOut:require('./game/moneyOut/iconMoneyOut.png'),
