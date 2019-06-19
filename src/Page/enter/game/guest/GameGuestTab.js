@@ -3,7 +3,9 @@ import {
     StyleSheet,
     View,
     ScrollView,
-    WebView
+    WebView,
+    Dimensions,
+    PixelRatio
 } from "react-native";
 
 import {ASSET_Images} from "../../../asset";
@@ -42,6 +44,20 @@ export default class GameGuestTab extends Component {
     }
 
     render() {
+        const widthPercentageToDP = widthPercent => {
+            const screenWidth = Dimensions.get('window').width;
+            // Convert string input to decimal number
+            const elemWidth = parseFloat(widthPercent);
+            return PixelRatio.roundToNearestPixel(screenWidth * elemWidth / 100);
+        };
+
+        const heightPercentageToDP = heightPercent => {
+            const screenHeight = Dimensions.get('window').height;
+            // Convert string input to decimal number
+            const elemHeight = parseFloat(heightPercent);
+            return PixelRatio.roundToNearestPixel(screenHeight * elemHeight / 100);
+        };
+
         return (<View style={styles.container}>
             {
                 (this.isQASelected) ?
@@ -57,24 +73,25 @@ export default class GameGuestTab extends Component {
                                          height: SCREEN_H * 0.80
                                      }}/>
                             <ScrollView
-                                contentContainerStyle={{alignItems: 'center', marginTop:10, marginBottom: 10}}>
+                                contentContainerStyle={{alignItems: 'center', marginTop: 10, marginBottom: 10}}>
                                 <TCImage
                                     source={ASSET_Images.gameUI.guestQuestionAns}
-                                    style={{width:SCREEN_W*0.6}}
+                                    style={{width: SCREEN_W * 0.6}}
                                     resizeMode='contain'/>
                             </ScrollView>
                         </View>
                     ) : (
                         <View style={{
                             position: "absolute",
+                            left: (SCREEN_W - 517) / 2 > 0 ? (SCREEN_W - 517) / 10 : 0,
                             width: SCREEN_W * 0.67,
                             height: SCREEN_H * 0.78,
                         }}>
                             <TCImage source={ASSET_Images.gameUI.guestOSBg} resizeMode={'stretch'}
                                      style={{
                                          position: "absolute",
-                                         width: SCREEN_W * 0.67,
-                                         height: SCREEN_H * 0.80
+                                         width: widthPercentageToDP('57.5%'),
+                                         height: heightPercentageToDP('79%')
                                      }}/>
                             {this.getWebView()}
                         </View>
@@ -88,9 +105,23 @@ export default class GameGuestTab extends Component {
         let source = {
             uri: TW_Store.gameUIStroe.gustWebUrl,
         }
+        const widthPercentageToDP = widthPercent => {
+            const screenWidth = Dimensions.get('window').width;
+            // Convert string input to decimal number
+            const elemWidth = parseFloat(widthPercent);
+            return PixelRatio.roundToNearestPixel(screenWidth * elemWidth / 100);
+        };
+
         return (
             <WebView source={source}
-                     style={styles.webView}
+                     style={{
+                         margin: 13,
+                         marginTop: 21,
+                         marginBottom: 8,
+                         height: 0,
+                         width: widthPercentageToDP('54.5%'),
+                         backgroundColor: "transparent",
+                     }}
                      allowFileAccess={true}
                      startInLoadingState={true}
                      renderLoading={this.onRenderLoadingView}
@@ -114,11 +145,13 @@ const styles = StyleSheet.create({
         width:SCREEN_W - 200,
         height:SCREEN_H - 88
     },
+
     webView: {
-        margin:18,
-        marginBottom:8,
-        height: SCREEN_H * 0.6,
-        width:SCREEN_W * 0.63,
+        margin: 13,
+        marginTop: 21,
+        marginBottom: 8,
+        height: 0,
+        width: SCREEN_W > 750 ? 490 : (SCREEN_W - 200 - 40),
         backgroundColor: "transparent",
     }
 });

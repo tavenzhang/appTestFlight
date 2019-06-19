@@ -100,7 +100,7 @@ export default class GameGuestView extends Component {
                      style={{position: "absolute", top: SCREEN_H * 0.14, left: 0}}/>
             <TouchableOpacity onPress={this.showCustomerService}
                               style={{position: "absolute", top: SCREEN_H * 0.18 + 15, left: SCREEN_ISFULL ? 30 : 10}}>
-                <View style={{justifyContent: "center", alignItems: "center", height: 30}}>
+                <View style={{justifyContent: "center", height: 30}}>
                     <TCImage source={this.state.isQASelected ? ASSET_Images.gameUI.btnPayNormal : ASSET_Images.gameUI.btnPayHight}/>
                     <View style={{position: "absolute", alignItems: "center", justifyContent: "center"}}>
                         <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
@@ -112,7 +112,7 @@ export default class GameGuestView extends Component {
             </TouchableOpacity>
             <TouchableOpacity onPress={this.showQA}
                               style={{position: "absolute", top: SCREEN_H * 0.18 + 70, left: SCREEN_ISFULL ? 30 : 10}}>
-                <View style={{justifyContent: "center", alignItems: "center", height: 30}}>
+                <View style={{justifyContent: "center", height: 30}}>
                     <TCImage source={this.state.isQASelected ? ASSET_Images.gameUI.btnPayHight : ASSET_Images.gameUI.btnPayNormal}/>
                     <View style={{position: "absolute", alignItems: "center", justifyContent: "center"}}>
                         <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
