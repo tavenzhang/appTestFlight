@@ -29,10 +29,11 @@ var GameListManager = /** @class */ (function () {
         var _this = this;
         EventManager.register(EventType.GAME_UPDATE_INIT, this, this.onUpdateMsgInit);
         EventManager.register(EventType.GAME_UPDATE_PROGRESS, this, this.onUpdateProgress);
+        EventManager.register(EventType.JUMP_GAME, this, this.jumpGame);
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.gamelist +
             "?pageSize=20&start=0&access_token=" + Common.access_token +
-            "&channel=" + TempData.channel +
+            "&channel=" + GameData.channel +
             "&device=" + Common.getLoginPlatform() +
             "&jump=" + Common.bNewlogin;
         HttpRequester.doRequest(url, null, null, this, function (suc, jobj) {
@@ -47,6 +48,16 @@ var GameListManager = /** @class */ (function () {
                 //...
             }
         }, "get");
+    };
+    //轮播图跳转到游戏
+    GameListManager.prototype.jumpGame = function (alias) {
+        var icon = this.getGameIconByAlias(alias);
+        if (icon) {
+            icon.doClick();
+            //需要下载的情况
+            if (icon.isDownload)
+                this.dragBox.scrollToItem(icon);
+        }
     };
     //游戏更新相关-----------------
     GameListManager.prototype.onUpdateMsgInit = function () {
@@ -87,7 +98,7 @@ var GameListManager = /** @class */ (function () {
             icon.index = i;
             icon.mouseEnabled = true;
             icon.readData(glist[i]);
-            // icon.setGameState(GameState.UPDATE);//debugxxx(用于调试动画位置)
+            // icon.setGameState(GameState.UPDATE);//用于调试动画位置
             icon.x = Math.floor(i / 2) * (icon.width + gapX);
             icon.y = (i % 2) * (icon.height + gapY);
             iconGroup.addChild(icon);

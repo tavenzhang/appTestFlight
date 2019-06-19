@@ -37,8 +37,8 @@ var view;
                 };
                 BindPhoneDlg.prototype.initView = function () {
                     var _this = this;
-                    this.awardTxt.text = this.awardTxt.text.replace("x", TempData.bindAward.toString());
-                    this.awardTxt.visible = TempData.bindOpen;
+                    this.awardTxt.text = this.awardTxt.text.replace("x", GameData.bindAward.toString());
+                    this.awardTxt.visible = GameData.bindOpen;
                     //
                     EventManager.addTouchScaleListener(this.closeBtn, this, function () {
                         SoundPlayer.closeSound();
@@ -79,7 +79,7 @@ var view;
                     HttpRequester.postHttpData(ConfObjRead.getConfUrl().cmd.bindPhone, data, this, function (suc, jobj) {
                         LayaMain.getInstance().showCircleLoading(false);
                         if (suc) {
-                            TempData.isGetBindAward = true;
+                            GameData.isGetBindAward = true;
                             Toast.showToast("手机绑定成功");
                             _this.close(null, true);
                             EventManager.dispath(EventType.GETBINDAWARD_SUCC);

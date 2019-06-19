@@ -16,6 +16,7 @@ import TCButtonView from "../../Common/View/button/TCButtonView";
 import {observer} from "mobx-react/native";
 import PropTypes from "prop-types";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
+import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
 
 
 @observer
@@ -192,6 +193,9 @@ export default class TWWebGameView extends Component {
             if(TW_OnValueJSHome){
                 TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
                 TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic,{}));
+                if(TW_Store.dataStore.isAppSound){
+                    SoundHelper.pauseMusic();
+                }
             }
         }
     }
@@ -246,6 +250,10 @@ export default class TWWebGameView extends Component {
         if (onEvaleJS) {
             onEvaleJS(this.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.lobbyResume));
+            if(TW_Store.dataStore.isAppSound){
+                SoundHelper.playMusic()
+            }
+
         }
     }
 }
