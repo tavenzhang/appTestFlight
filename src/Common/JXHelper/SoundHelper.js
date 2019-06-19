@@ -4,9 +4,10 @@ import RNFS from "react-native-fs";
 
 const Sound = require('react-native-sound');
 //ar SoundFile = require('../../../android/app/src/main/assets/gamelobby/assets/raw/bgm_lobby.mp3')
-Sound.setActive(true)
-Sound.enableInSilenceMode(true)
-Sound.setCategory('Playback', true)
+// Sound.setActive(true)
+// Sound.enableInSilenceMode(true)
+// Sound.setCategory('Playback', true)
+
 
 export class SoundHelper {
     static  soundleMusic= null
@@ -47,36 +48,32 @@ export class SoundHelper {
                             TW_Store.dataStore.isAppSound = true;
                             s.setSpeed(1);
                             s.setNumberOfLoops(999);
-                            TW_Data_Store.getItem(TW_DATA_KEY.AFF_CODE,(err,ret)=>{
-                                TW_Log("playBgMusic-TW_DATA_KEY--err"+err+"---ret=="+ret,ret);
-                                if(ret==null){
-                                    s.play();
-                                }else{
-                                    if(ret=="1"){
-                                        s.play();
-                                    }else{
-                                        s.stop();
-                                    }
-                                }});
+                            SoundHelper.onPalyMusic();
                         }
                     });
                 }
             } catch (e) {
-                TW_Log("playBgMusic----", e)
+                TW_Log("playBgMusic--catch--", e)
             }
         }
-
     }
+
+
+
 
     static  pauseMusic() {
         TW_Log("playBgMusic---pauseMusic-")
         if(SoundHelper.soundleMusic){
             SoundHelper.soundleMusic.pause();
+            SoundHelper.soundleMusic.setVolume(0.01);
         }
     }
 
     static  playMusic() {
-        SoundHelper.onPalyMusic()
+        if(SoundHelper.soundleMusic){
+            SoundHelper.soundleMusic.play()
+            SoundHelper.soundleMusic.setVolume(1);
+        }
     }
 
     static  onPalyMusic() {
@@ -84,12 +81,12 @@ export class SoundHelper {
         if(SoundHelper.soundleMusic){
             TW_Data_Store.getItem(TW_DATA_KEY.AFF_CODE,(err,ret)=>{
                 if(ret==null){
-                    SoundHelper.soundleMusic.play()
+                    SoundHelper.playMusic()
                 }else{
                     if(ret=="1"){
-                        SoundHelper.soundleMusic.play()
+                        SoundHelper.playMusic()
                     }else{
-                        SoundHelper.soundleMusic.pause();
+                        SoundHelper.pauseMusic()
                     }
                 }
             });
