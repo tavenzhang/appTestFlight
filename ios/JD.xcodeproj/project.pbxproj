@@ -91,7 +91,7 @@
 		952508D221B6BC7900E78AB2 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 952508D121B6BC7800E78AB2 /* libresolv.tbd */; };
 		952508F921B76BF400E78AB2 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9525061921B5009C00E78AB2 /* libRNFS.a */; };
 		95280C2C22BA0C0300A51B6B /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95280BF222B9138F00A51B6B /* libRCTCameraRoll.a */; };
-		95280DFA22BA3F7700A51B6B /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95280DF922BA3F0200A51B6B /* libRNFetchBlob.a */; };
+		95280EF522BA460C00A51B6B /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95280DF922BA3F0200A51B6B /* libRNFetchBlob.a */; };
 		9533A2CA224DC27B00816807 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9533A2C9224DC27B00816807 /* MyViewController.m */; };
 		9543D1C521C0E948006E51DD /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA91DF850E9000B6D8A /* libcxxreact.a */; };
 		9585BA4221CB76660096C6BE /* libSMXCrashlytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9585BA3E21CB765B0096C6BE /* libSMXCrashlytics.a */; };
@@ -866,7 +866,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95280DFA22BA3F7700A51B6B /* libRNFetchBlob.a in Frameworks */,
+				95280EF522BA460C00A51B6B /* libRNFetchBlob.a in Frameworks */,
 				95280C2C22BA0C0300A51B6B /* libRCTCameraRoll.a in Frameworks */,
 				95E1B8AD2248856700C9CE2E /* libKCKeepAwake.a in Frameworks */,
 				950EEEA3222416700011DBE1 /* libRCTBEEPickerManager.a in Frameworks */,

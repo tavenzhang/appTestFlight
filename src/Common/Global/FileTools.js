@@ -117,24 +117,29 @@ export default class FileTools {
     }
 
     static  async  onSaveCameraRoll(base64Img, success = null, fail = null) {
-        if(G_IS_IOS){
-            FileTools.saveCameraRoll(base64Img,success,fail);
-        }else{
-            try {
-                // PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
-                const granted = await PermissionsAndroid.request(
-                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
-                );
-                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                    TW_Log('You can use the WRITE_EXTERNAL_STORAGE');
-                    FileTools.saveCameraRoll(base64Img,success,fail);
-                } else {
-                    Toast.showShortCenter(" 请先允许使用相册功能 才能保存图片!");
+        if(NativeModules.RNFetchBlob){
+            if(G_IS_IOS){
+                FileTools.saveCameraRoll(base64Img,success,fail);
+            }else{
+                try {
+                    // PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
+                    const granted = await PermissionsAndroid.request(
+                        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
+                    );
+                    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                        TW_Log('You can use the WRITE_EXTERNAL_STORAGE');
+                        FileTools.saveCameraRoll(base64Img,success,fail);
+                    } else {
+                        Toast.showShortCenter(" 请先允许使用相册功能 才能保存图片!");
+                    }
+                } catch (err) {
+                    console.warn(err);
                 }
-            } catch (err) {
-                console.warn(err);
             }
+        }else{
+            Toast.showShortCenter("请安装最新版本app 尽快到最新!");
         }
+
 
     }
 
