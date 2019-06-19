@@ -106,7 +106,6 @@ export default class UserStore {
             TW_Store.bankStore.initUserBank();
             TW_Store.userPayTypeStore.initPopUp();
             TW_Store.userPayTypeStore.initPayTypeList();
-            TW_Store.gameUIStroe.getGustUrl();
             TW_Store.bblStore.getAppData();
         }
 
