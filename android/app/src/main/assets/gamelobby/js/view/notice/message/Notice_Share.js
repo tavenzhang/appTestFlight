@@ -33,8 +33,16 @@ var Notice_Share = /** @class */ (function (_super) {
     };
     Notice_Share.prototype.setData = function ($data) {
         this.noticeid = $data.noticeid;
-        this.image.skin = $data.img;
+        Laya.timer.once(500, this, this.showLoading);
+        Laya.loader.load($data.img, Laya.Handler.create(this, function () {
+            Laya.timer.clear(this, this.showLoading);
+            LayaMain.getInstance().showCircleLoading(false);
+            this.image.skin = $data.img;
+        }));
         this.limit = $data.noticeShare.upperLimit;
+    };
+    Notice_Share.prototype.showLoading = function () {
+        LayaMain.getInstance().showCircleLoading();
     };
     Notice_Share.prototype.onclick = function ($e) {
         if ($e.type === Laya.Event.MOUSE_DOWN) {
@@ -59,17 +67,6 @@ var Notice_Share = /** @class */ (function (_super) {
                     this.circle_up.visible = true;
                     this.circle_down.visible = false;
                     PostMHelp.game_common({ "do": "share", "type": "friend", "param": this.image.skin });
-                    // let message: string;
-                    // if (this.limit > 0) {
-                    //     this.limit--;
-                    //     message = "分享成功，请前往邮件领取奖励";
-                    // }
-                    // else {
-                    //     message = "分享成功，请多点和朋友分享乐趣吧";
-                    // }
-                    // Laya.timer.once(1000, this,
-                    //     AgentDialogSucess.showDialog, [this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), message]
-                    // );
                     NoticeData.shareId = this.noticeid;
                     break;
                 case this.circle_up:
@@ -79,17 +76,6 @@ var Notice_Share = /** @class */ (function (_super) {
                     this.circle_up.visible = true;
                     this.circle_down.visible = false;
                     PostMHelp.game_common({ "do": "share", "type": "circle", "param": this.image.skin });
-                    // let message2: string;
-                    // if (this.limit > 0) {
-                    //     this.limit--;
-                    //     message2 = "分享成功，请前往邮件领取奖励";
-                    // }
-                    // else {
-                    //     message2 = "分享成功，请多点和朋友分享乐趣吧";
-                    // }
-                    // Laya.timer.once(1000, this,
-                    //     AgentDialogSucess.showDialog, [this.node, ConfObjRead.getConfAgentDialogDeleteInvitation(), message2]
-                    // );
                     NoticeData.shareId = this.noticeid;
                     break;
                 default:

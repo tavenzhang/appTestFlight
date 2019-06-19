@@ -21,7 +21,14 @@ var Notice_Message = /** @class */ (function (_super) {
             this.image.visible = true;
             this.frame.visible = true;
             this.message.visible = false;
-            this.image.skin = $data.img;
+            // console.log("share", $data.img)
+            // Laya.Timer
+            Laya.timer.once(500, this, this.showLoading);
+            Laya.loader.load($data.img, Laya.Handler.create(this, function () {
+                Laya.timer.clear(this, this.showLoading);
+                LayaMain.getInstance().showCircleLoading(false);
+                this.image.skin = $data.img;
+            }));
         }
         else {
             this.image.visible = false;
@@ -34,6 +41,9 @@ var Notice_Message = /** @class */ (function (_super) {
             var date = this.message.getChildByName("date");
             date.text = $data.author;
         }
+    };
+    Notice_Message.prototype.showLoading = function () {
+        LayaMain.getInstance().showCircleLoading();
     };
     return Notice_Message;
 }(ui.dlg.notice.NoticeMessageUI));

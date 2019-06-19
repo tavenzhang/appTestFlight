@@ -104,29 +104,15 @@ var view;
                 Laya.Tween.to(this.arrow, { y: 630 }, 500, Laya.Ease.linearNone, new Laya.Handler(this, this.loopArrow));
             };
             NoticeDlg.prototype.requestData = function () {
+                var _this = this;
                 LayaMain.getInstance().showCircleLoading();
-                var url = ConfObjRead.getConfUrl().url.apihome +
-                    ConfObjRead.getConfUrl().cmd.attention_new +
-                    "?access_token=" + Common.access_token;
-                NetManager.getObj().HttpConnect(url, this, this.responseAttention);
-            };
-            NoticeDlg.prototype.responseAttention = function (s, stat, hr) {
-                LayaMain.getInstance().showCircleLoading(false);
-                if (stat == "complete") {
-                    this._data = s;
-                    this.update(s);
-                }
-                else {
-                    // LayaMain.getInstance().requestEnd(stat, s);
-                    // this.destroy(true);
-                    var repon = hr.http.response;
-                    try {
-                        var jobj = JSON.parse(repon);
-                        var err = jobj.message;
-                        Toast.showToast(err);
+                HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.attention_new, this, function (suc, jobj) {
+                    LayaMain.getInstance().showCircleLoading(false);
+                    if (suc) {
+                        _this._data = jobj;
+                        _this.update(jobj);
                     }
-                    catch (e) { }
-                }
+                });
             };
             NoticeDlg.prototype.update = function ($data) {
                 var dummy = this.content_tabs.getChildByName("tab_dummy");
@@ -265,28 +251,18 @@ var view;
                 this.requestRead(this._data[this._currentCategoryTab].noticeList[$id].noticeid);
             };
             NoticeDlg.prototype.requestRead = function (id) {
-                var url = ConfObjRead.getConfUrl().url.apihome +
-                    ConfObjRead.getConfUrl().cmd.attention_read + id +
-                    "?access_token=" + Common.access_token;
-                var header = [
-                    "Accept", "application/json"
-                ];
-                NetManager.getObj().HttpConnect(url, this, this.responseRead, header, //:any=null,
-                null, //data:any=null,
-                "PUT", //metod:any="get",
-                "json" //restype:any="json"
-                );
-            };
-            NoticeDlg.prototype.responseRead = function (s, stat, hr) {
                 var _this = this;
-                if (stat == "complete") {
-                    var list = this._data[this._currentCategoryTab].noticeList;
-                    list.forEach(function (data, index) {
-                        if (data.noticeid === s.noticeid || data.noticeid === s.noticeId) {
-                            _this._tabs[index].updateRead();
-                        }
-                    });
-                }
+                var cmd = ConfObjRead.getConfUrl().cmd.attention_read + id;
+                HttpRequester.putHttpData(cmd, null, this, function (suc, jobj) {
+                    if (suc) {
+                        var list = _this._data[_this._currentCategoryTab].noticeList;
+                        list.forEach(function (data, index) {
+                            if (data.noticeid === jobj.noticeid || data.noticeid === jobj.noticeId) {
+                                _this._tabs[index].updateRead();
+                            }
+                        });
+                    }
+                });
             };
             NoticeDlg.prototype.onScroll = function ($e) {
                 var x = $e.stageX;
@@ -395,23 +371,13 @@ var view;
                     }
                 }
                 function share() {
-                    // const cmd = ConfObjRead.getConfUrl().cmd.share + "?noticeId=" + NoticeData.shareId;
-                    // HttpRequester.postHttpData(cmd, null, this, (suc: boolean, jobj: any) => {
-                    // 	if (suc) {
-                    // 		this.shareLimit--;
-                    // 		message = "分享成功，请前往邮件查看";
-                    // 		view.dlg.TipsDlg.show(this.dlg, message);
-                    // 	}
-                    // })
                     var url = ConfObjRead.getConfUrl().url.apihome;
                     url += ConfObjRead.getConfUrl().cmd.share + "?noticeId=" + NoticeData.shareId;
                     url += "&access_token=" + Common.access_token;
                     var header = [
                         "Accept", "application/json"
                     ];
-                    console.log("share", url);
-                    NetManager.getObj().HttpConnect(url, this, function (s, stat, hr) {
-                        console.log("sharecomplete", s, hr);
+                    HttpRequester.httpConnect(url, this, function (s, stat, hr) {
                         if (stat == "complete") {
                             NoticeData.shareLimit--;
                             message = "分享成功，请前往邮件查看";
@@ -427,6 +393,8 @@ var view;
                     "json" //restype:any="json"
                     );
                 }
+            };
+            NoticeDlg.doShare = function () {
             };
             NoticeDlg.prototype.onClosed = function (type) {
                 // Laya.SoundManager.playSound("assets/raw/sfx_close.mp3");

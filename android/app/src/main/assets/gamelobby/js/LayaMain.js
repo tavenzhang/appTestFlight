@@ -30,7 +30,7 @@ var LayaMain = /** @class */ (function () {
         window.addEventListener("message", this.handleIFrameAction, false);
         this.root_node = new Laya.Sprite();
         Laya.stage.addChild(this.root_node);
-        PageManager.Get().ShowPage([
+        PageManager.showPage([
             "res/atlas/ui/res_login.atlas",
             "./assets/conf/assets_lobby.json",
             "./assets/conf/gameIcons.json",
@@ -75,7 +75,7 @@ var LayaMain = /** @class */ (function () {
         Common.resetData();
         Dialog.manager.closeAll();
         this.clearChild();
-        PageManager.Get().ShowPage(null, PageLogin, cmd);
+        PageManager.showPage(null, PageLogin, cmd);
     };
     LayaMain.prototype.onGamePause = function () {
         Laya.SoundManager.setMusicVolume(0);
@@ -91,7 +91,7 @@ var LayaMain = /** @class */ (function () {
             Debug.outputLog("onGameResume:lmv=", lmv, "lms=", lms, "lsv=", lsv, "lss=", lss, "mtobj=", SaveManager.getObj().mtObj);
             Laya.SoundManager.setMusicVolume(lms);
             Laya.SoundManager.setSoundVolume(lss);
-            if (lms == 1) {
+            if (lms == 1 && !GameUtils.isAppSound) {
                 Laya.SoundManager.playMusic(ResConfig.musicUrl);
             }
             //刷新用户信息
@@ -134,15 +134,14 @@ var LayaMain = /** @class */ (function () {
                     }
                     break;
                 case "http":
-                    for (var _i = 0, _a = NetManager.httpRequestList; _i < _a.length; _i++) {
+                    for (var _i = 0, _a = HttpRequester.httpRequestList; _i < _a.length; _i++) {
                         var item = _a[_i];
                         if (item && (item.hashUrl == message.hashUrl)) {
-                            var index = NetManager.httpRequestList.indexOf(item);
-                            NetManager.httpRequestList.splice(index, 1);
-                            Debug.trace("onAppPostMessgae---NetManager.histRequestList=splite=" + NetManager.httpRequestList.length, message);
+                            var index = HttpRequester.httpRequestList.indexOf(item);
+                            HttpRequester.httpRequestList.splice(index, 1);
+                            Debug.trace("onAppPostMessgae---HttpRequester.histRequestList=splite=" + HttpRequester.httpRequestList.length, message);
                             var retStr = "";
                             if (message.rs) {
-                                //callback.apply(caller,[e,'progress',hr])
                                 retStr = message.content;
                                 item.callback.apply(item.caller, [retStr, 'complete', { http: __assign({}, message, { response: retStr }) }]);
                             }
@@ -185,7 +184,7 @@ var LayaMain = /** @class */ (function () {
                     MyUid.setUid(message.data);
                     break;
                 case "lobbyResume": //从游戏返回到大厅
-                    TempData.joinLobbyType = JoinLobbyType.gameBank;
+                    GameData.joinLobbyType = JoinLobbyType.gameBank;
                     lamain.onGameResume();
                     EventManager.dispath(EventType.GAMETOHALL);
                     break;
@@ -219,7 +218,7 @@ var LayaMain = /** @class */ (function () {
                 }
                 case "lifecycle": { //前后台切换通知(1-后台到前台，0-前台到后台)
                     if (message.data == 1) {
-                        TempData.joinLobbyType = JoinLobbyType.backstage;
+                        GameData.joinLobbyType = JoinLobbyType.backstage;
                     }
                     EventManager.dispath(EventType.LIFE_CYCLE, message.data);
                     break;
@@ -236,6 +235,11 @@ var LayaMain = /** @class */ (function () {
                     view.dlg.center.BindAlipayDlg.show();
                     break;
                 }
+                case "saveImage": { //保存图片的结果
+                    var bl = message.data;
+                    Toast.showToast(bl ? "保存成功" : "保存失败");
+                    break;
+                }
             }
         }
     };
@@ -244,16 +248,13 @@ var LayaMain = /** @class */ (function () {
             this.sceneLobby.destroy(true);
             this.sceneLobby = null;
         }
-        if (AgentPad.getObj()) {
-            AgentPad.getObj().onClose(null);
-        }
         var clen = this.root_node.numChildren;
         for (var k = 0; k < clen; k++) {
             var obj = this.root_node.getChildAt(k);
             Laya.timer.clearAll(obj);
         }
         this.root_node.removeChildren();
-        PageManager.Get().DestoryCurrentView();
+        PageManager.destoryCurrentView();
     };
     LayaMain.prototype.initLogin = function () {
         this.loginOut();
@@ -267,11 +268,6 @@ var LayaMain = /** @class */ (function () {
             this.sceneLobby.onLoaded(null);
             LayaMain.getInstance().getRootNode().addChild(this.sceneLobby);
         }
-    };
-    //todo:xxx
-    LayaMain.prototype.requestEnd = function (stat, msg) {
-        this.showCircleLoading(false);
-        //old-err-click:LayaMain.getInstance().initLogin();
     };
     /**
      * 显示loading

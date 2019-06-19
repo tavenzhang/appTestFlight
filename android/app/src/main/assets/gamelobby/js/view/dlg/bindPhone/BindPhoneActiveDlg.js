@@ -42,7 +42,7 @@ var view;
                     var _this = this;
                     this.bitFont = new BitmapFont(ResConfig.bitFont_bindPhone);
                     this.numbox.addChild(this.bitFont);
-                    this.bitFont.text = TempData.bindAward.toString();
+                    this.bitFont.text = GameData.bindAward.toString();
                     this.bitFont.y = this.numbox.height - this.bitFont.height >> 1;
                     this.numbox.width = this.bitFont.width;
                     this.yuan.x = this.numbox.x + this.numbox.width + 6;
@@ -73,7 +73,7 @@ var view;
                 };
                 BindPhoneActiveDlg.prototype.responseBindAward = function (suc, jobj) {
                     if (suc) {
-                        TempData.isGetBindAward = true;
+                        GameData.isGetBindAward = true;
                         EventManager.dispath(EventType.GETBINDAWARD_SUCC);
                         Toast.showToast("奖励已放入余额，若没到账，请手动刷新余额");
                         this.close(null, true);

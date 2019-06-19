@@ -82,6 +82,16 @@ var GameUtils = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(GameUtils, "isAppSound", {
+        /**
+         * 判断是否native播放背景音乐
+         */
+        get: function () {
+            return AppData.NATIVE_DATA.isAppSound;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(GameUtils, "appVer", {
         /**
          * 获取app版本号
@@ -120,6 +130,42 @@ var GameUtils = /** @class */ (function () {
         }
         pwd.focus = true;
     };
+    //添加长按事件(用于调试)
+    GameUtils.addLongPress = function (obj, caller, callback) {
+        var _this = this;
+        var downFun = function () {
+            obj.on(Laya.Event.MOUSE_UP, _this, upFun);
+            obj.on(Laya.Event.MOUSE_OUT, _this, upFun);
+            Laya.timer.once(2000, _this, callFun);
+        };
+        var upFun = function () {
+            obj.off(Laya.Event.MOUSE_UP, _this, upFun);
+            obj.off(Laya.Event.MOUSE_OUT, _this, upFun);
+            Laya.timer.clear(_this, callFun);
+        };
+        var callFun = function () {
+            if (caller && callback) {
+                callback.call(caller);
+                if (obj)
+                    obj.off(Laya.Event.MOUSE_DOWN, _this, downFun);
+            }
+        };
+        obj.on(Laya.Event.MOUSE_DOWN, this, downFun);
+    };
+    /**
+     * 保存图片
+     * @param sp
+     * @param fileName
+     * @param type
+     */
+    GameUtils.saveImage = function (sp, fileName, type) {
+        if (fileName === void 0) { fileName = null; }
+        if (type === void 0) { type = "png"; }
+        var htmlC = sp.drawToCanvas(sp.width, sp.height, 0, 0);
+        var cv = htmlC.getCanvas();
+        var base64 = cv.toDataURL("image/" + type);
+        PostMHelp.game_common({ do: "saveImage", param: base64 });
+    };
     //最小和最大间隔(用于需要全屏适配的ui)
     GameUtils.minGap = 28;
     GameUtils.maxGap = 78; //安全边距
@@ -136,27 +182,27 @@ var InnerJumpUtil = /** @class */ (function () {
         if (cmd == undefined)
             return;
         switch (cmd) {
-            case InnerJumpCmd.activityCenter: {
+            case DlgCmd.activityCenter: {
                 view.dlg.NoticeDlg.show();
                 break;
             }
-            case InnerJumpCmd.agentCenter: {
-                view.dlg.AgentDlg.show("home");
+            case DlgCmd.agentCenter: {
+                view.dlg.AgentCenterDlg.show();
                 break;
             }
-            case InnerJumpCmd.email: {
+            case DlgCmd.email: {
                 view.dlg.MailboxDlg.show();
                 break;
             }
-            case InnerJumpCmd.personCenter: {
+            case DlgCmd.personCenter: {
                 view.dlg.FullMyCenterDlg.show();
                 break;
             }
-            case InnerJumpCmd.recharge: {
+            case DlgCmd.recharge: {
                 Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
                 break;
             }
-            case InnerJumpCmd.service: {
+            case DlgCmd.service: {
                 Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
                 break;
             }
