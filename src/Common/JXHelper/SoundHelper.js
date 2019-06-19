@@ -33,36 +33,39 @@ export class SoundHelper {
 
 
     static async startBgMusic() {
-        let file = G_IS_IOS ? `${TW_Store.dataStore.getHomeWebHome()}/assets/raw/bgm_lobby.mp3` : "bgm_lobby.mp3";
-        let isExist = await RNFS.exists(file);
-        TW_Log("playBgMusic-file--isExist---" + isExist, file);
-        try {
-            if (!SoundHelper.soundleMusic) {
-                let s = SoundHelper.soundleMusic = new Sound(file, '', (e) => {
-                    if (e) {
-                        TW_Log('playBgMusic--SoundFile----', e);
-                    } else {
-                        TW_Log('playBgMusic--play----', s);
-                        TW_Store.dataStore.isAppSound = true;
-                        s.setSpeed(1);
-                        s.setNumberOfLoops(999);
-                        TW_Data_Store.getItem(TW_DATA_KEY.AFF_CODE,(err,ret)=>{
-                            TW_Log("playBgMusic-TW_DATA_KEY--err"+err+"---ret=="+ret,ret);
-                            if(ret==null){
-                                s.play();
-                            }else{
-                                if(ret=="1"){
+        if(TW_Store.dataStore.isAppInited){
+            let file = G_IS_IOS ? `${TW_Store.dataStore.getHomeWebHome()}/assets/raw/bgm_lobby.mp3` : "bgm_lobby.mp3";
+            //let isExist = await RNFS.exists(file);
+            //TW_Log("playBgMusic-file--isExist---" + isExist, file);
+            try {
+                if (!SoundHelper.soundleMusic) {
+                    let s = SoundHelper.soundleMusic = new Sound(file, '', (e) => {
+                        if (e) {
+                            TW_Log('playBgMusic--SoundFile----', e);
+                        } else {
+                            TW_Log('playBgMusic--play----', s);
+                            TW_Store.dataStore.isAppSound = true;
+                            s.setSpeed(1);
+                            s.setNumberOfLoops(999);
+                            TW_Data_Store.getItem(TW_DATA_KEY.AFF_CODE,(err,ret)=>{
+                                TW_Log("playBgMusic-TW_DATA_KEY--err"+err+"---ret=="+ret,ret);
+                                if(ret==null){
                                     s.play();
                                 }else{
-                                    s.stop();
-                                }
-                            }});
-                    }
-                });
+                                    if(ret=="1"){
+                                        s.play();
+                                    }else{
+                                        s.stop();
+                                    }
+                                }});
+                        }
+                    });
+                }
+            } catch (e) {
+                TW_Log("playBgMusic----", e)
             }
-        } catch (e) {
-            TW_Log("playBgMusic----", e)
         }
+
     }
 
     static  pauseMusic() {

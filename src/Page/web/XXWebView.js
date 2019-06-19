@@ -87,7 +87,7 @@ export default class XXWebView extends Component {
 
     _keyboardDidShow=(event)=>{
        // TW_Log("( _keyboard---_keyboardDidShow" ,event);
-        TW_Log("( _keyboard---_keyboardDidShow--endCoordinates" ,event.endCoordinates);
+        //TW_Log("( _keyboard---_keyboardDidShow--endCoordinates" ,event.endCoordinates);
         if(!this.isShowKeyBoard){
             this.isShowKeyBoard =true;
             if(this.refs.myView){
@@ -238,7 +238,6 @@ export default class XXWebView extends Component {
     render() {
        // TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
         let news=TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome;
-
         if(news){
                 return null
         }
@@ -246,7 +245,7 @@ export default class XXWebView extends Component {
         TW_Log("TW_DATA_KEY.gameList-FileTools--=gameUpateStore=news=="+news)
         let {force} = this.props;
         let source = {
-            file: TW_Store.dataStore.getHomeWebUri(),
+            file: TW_Store.dataStore.targetAppDir+"/index.html",
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
             allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
             param:"?app=true"
