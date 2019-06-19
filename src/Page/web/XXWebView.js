@@ -393,7 +393,7 @@ export default class XXWebView extends Component {
                             break;
                         case "playBgMusic":
                             TW_Data_Store.setItem(TW_DATA_KEY.AFF_CODE, message.param ? "1":"0" ,(err)=>{
-                                TW_Log("playBgMusic---TW_DATA_KEY.AFF_CODE-err---", err)
+                                TW_Log("playBgMusic---TW_DATA_KEY.AFF_CODE-err---"+message.param, err)
                             });
                             if(message.param){
                                 SoundHelper.playMusic();
