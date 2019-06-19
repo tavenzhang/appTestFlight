@@ -2,14 +2,42 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
- <key>com.openinstall.APP_KEY</key>
-	<string>k9e92p</string>
-	<key>APP_DOWNLOAD_VERSION</key>
-	<string>5.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>openinstall</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>evna9i</string>
+			</array>
+		</dict>
+		<dict>
+                			<key>CFBundleTypeRole</key>
+                			<string>Editor</string>
+                			<key>CFBundleURLName</key>
+                			<string>weixin</string>
+                			<key>CFBundleURLSchemes</key>
+                			<array>
+                				<string>wx4705de7e82fa978f</string>
+                			</array>
+                		</dict>
+	</array>
+	<key>AppSecret</key>
+        	<dict>
+        		<key>weixin</key>
+        		<string>67de54808bba55e934e3126f3e607a42</string>
+        	</dict>
+	<key>com.openinstall.APP_KEY</key>
+	<string>evna9i</string>
+	<key>PLAT_ID</key>
+	<string>31</string>
 	<key>PLAT_CH</key>
 	<string>1</string>
 	<key>APP_DOWNLOAD_VERSION</key>
-	<string>3.0</string>
+	<string>5.0</string>
 	<key>Affcode</key>
 	<string></string>
 	<key>JPushKey</key>
