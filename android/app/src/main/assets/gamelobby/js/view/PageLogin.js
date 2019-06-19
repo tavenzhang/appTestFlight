@@ -161,7 +161,7 @@ var PageLogin = /** @class */ (function (_super) {
                     }
                 }
                 else {
-                    Toast.showToast("服务异常,请稍后再试!");
+                    Toast.showToast("网络异常,请稍后再试!");
                 }
             }
         });
