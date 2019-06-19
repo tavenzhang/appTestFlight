@@ -4,7 +4,7 @@
 #use_frameworks!
 
 # Add new pods below this line
-pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
+#pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
 
 #pod 'react-native-keep-awake', :path => '../node_modules/react-native-keep-awake'
 
