@@ -161,7 +161,13 @@ var GameUtils = /** @class */ (function () {
     GameUtils.saveImage = function (sp, fileName, type) {
         if (fileName === void 0) { fileName = null; }
         if (type === void 0) { type = "png"; }
-        var htmlC = sp.drawToCanvas(sp.width, sp.height, 0, 0);
+        var scl = 0.8;
+        var box = new Laya.Sprite();
+        box.size(sp.width, sp.height);
+        sp.scale(scl, scl);
+        box.addChild(sp);
+        sp.pos((1 - scl) * box.width >> 1, (1 - scl) * box.height >> 1);
+        var htmlC = box.drawToCanvas(box.width, box.height, 0, 0);
         var cv = htmlC.getCanvas();
         var base64 = cv.toDataURL("image/" + type);
         PostMHelp.game_common({ do: "saveImage", param: base64 });
