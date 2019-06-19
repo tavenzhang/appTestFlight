@@ -63,35 +63,36 @@ export default class GameGuestTab extends Component {
                 (this.isQASelected) ?
                     (<View style={{
                             position: "absolute",
-                            width: SCREEN_W * 0.67,
-                            height: SCREEN_H * 0.78,
+                            left: 0,//(SCREEN_W-widthPercentageToDP('70.5%'))/10,
+                            width: widthPercentageToDP('66.5%'),
+                            height: heightPercentageToDP('79%')
                         }}>
                             <TCImage source={ASSET_Images.gameUI.guestQABg} resizeMode={'stretch'}
                                      style={{
                                          position: "absolute",
-                                         width: SCREEN_W * 0.67,
-                                         height: SCREEN_H * 0.80
+                                         width: widthPercentageToDP('67.5%'),
+                                         height: heightPercentageToDP('79%')
                                      }}/>
                             <ScrollView
                                 contentContainerStyle={{alignItems: 'center', marginTop: 10, marginBottom: 10}}>
                                 <TCImage
                                     source={ASSET_Images.gameUI.guestQuestionAns}
-                                    style={{width: SCREEN_W * 0.6}}
-                                    resizeMode='contain'/>
+                                    style={{width: widthPercentageToDP('60.5%'),}}
+                                    resizeMode='stretch'/>
                             </ScrollView>
                         </View>
                     ) : (
                         <View style={{
                             position: "absolute",
-                            left: (SCREEN_W - 517) / 2 > 0 ? (SCREEN_W - 517) / 10 : 0,
-                            width: SCREEN_W * 0.67,
-                            height: SCREEN_H * 0.78,
+                            left: 0,
+                            width: widthPercentageToDP('70.2%'),
+                            height: heightPercentageToDP('79%')
                         }}>
                             <TCImage source={ASSET_Images.gameUI.guestOSBg} resizeMode={'stretch'}
                                      style={{
                                          position: "absolute",
-                                         width: widthPercentageToDP('57.5%'),
-                                         height: heightPercentageToDP('79%')
+                                         width: widthPercentageToDP('63.8%'),
+                                         height: heightPercentageToDP('80%')
                                      }}/>
                             {this.getWebView()}
                         </View>
@@ -119,7 +120,7 @@ export default class GameGuestTab extends Component {
                          marginTop: 21,
                          marginBottom: 8,
                          height: 0,
-                         width: widthPercentageToDP('54.5%'),
+                         width: widthPercentageToDP('60.5%'),
                          backgroundColor: "transparent",
                      }}
                      allowFileAccess={true}
