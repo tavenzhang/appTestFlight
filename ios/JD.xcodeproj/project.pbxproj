@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -1054,7 +1055,6 @@
 				5DDB05AC76D4417EA214E750 /* libRNBlur.a */,
 				C72C822F9CE64FB08CA129D8 /* libRNDeviceInfo.a */,
 				946BA38B82C34345974FBE3F /* libRNDeviceInfo-tvOS.a */,
-				6B9953CD027E480394927450 /* libRNFetchBlob.a */,
 				B3B5EC0E0DB94D17BC79308D /* libRNImagePicker.a */,
 				0583A08499AA41888C73EC10 /* libInteractable.a */,
 				FED91463EADC41BDB278DB44 /* libRCTMaterialKit.a */,
