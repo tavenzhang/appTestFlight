@@ -190,7 +190,7 @@ export default class NetUitls extends Component {
                    // userStore.isLogin = false
                     result = {"rs": false, "error": '无效token', "status": response.status, duration: duration, "message": response.message}
                     if(TW_Store.userStore.isLogin){
-                        Toast.showShortCenter('登录状态过期，请重新登录！')
+                      //  Toast.showShortCenter('登录状态过期，请重新登录！')
                     }
                     //NavigationService.tokenIsError();
                     result.rs = false;
