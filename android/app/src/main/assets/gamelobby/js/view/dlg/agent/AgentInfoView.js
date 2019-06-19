@@ -64,7 +64,7 @@ var view;
                         PostMHelp.game_common({ "do": "copylink", "param": _this.linkTxt.text });
                     });
                     EventManager.addTouchScaleListener(this.wechatBtn, this, function () {
-                        SoundPlayer.clickSound();
+                        SoundPlayer.enterPanelSound();
                         PostMHelp.game_common({ "do": "share", "param": _this.linkTxt.text });
                     });
                 };
@@ -93,7 +93,7 @@ var view;
                         sp.pos(this.qrbox.width - size >> 1, this.qrbox.height - size >> 1);
                         this.qrbox.addChild(sp);
                         EventManager.addTouchScaleListener(this.qrbox, this, function () {
-                            SoundPlayer.clickSound();
+                            SoundPlayer.enterPanelSound();
                             agent.AgentQrDlg.show(_this.linkTxt.text);
                         }, null, 1);
                     }
