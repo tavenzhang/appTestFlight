@@ -15,6 +15,9 @@ var view;
 (function (view) {
     var dlg;
     (function (dlg_1) {
+        /**
+         * 二次确定弹窗
+         */
         var TipsDlg = /** @class */ (function (_super) {
             __extends(TipsDlg, _super);
             function TipsDlg() {
@@ -22,9 +25,11 @@ var view;
                 _this.initView();
                 return _this;
             }
-            TipsDlg.show = function ($message) {
+            TipsDlg.show = function ($message, caller, callback) {
                 var dlg = new TipsDlg();
                 dlg.message.text = $message;
+                dlg.caller = caller;
+                dlg.callback = callback;
                 dlg.popup(false, true);
             };
             TipsDlg.prototype.initView = function () {
@@ -35,6 +40,9 @@ var view;
                 });
                 EventManager.addTouchScaleListener(this.btnConfirm, this, function () {
                     SoundPlayer.clickSound();
+                    if (_this.caller && _this.callback) {
+                        _this.callback.call(_this.caller);
+                    }
                     _this.close(null, true);
                 });
             };

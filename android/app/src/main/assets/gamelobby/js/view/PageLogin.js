@@ -60,6 +60,9 @@ var PageLogin = /** @class */ (function (_super) {
         //设置游戏版本号
         ResConfig.versions = "Res v" + ConfObjRead.getVerConfig().versionNum;
         _this.verTxt.text = GameUtils.appVer + "\n" + ResConfig.versions;
+        GameUtils.addLongPress(_this.verTxt, _this, function () {
+            view.debug.DebugDlg.show();
+        });
         _this.cmd = cmd;
         //开始加载数据
         _this.startLoading();
@@ -91,9 +94,10 @@ var PageLogin = /** @class */ (function (_super) {
     PageLogin.prototype.loadFinish = function () {
         if (!PageLogin.isLoaded)
             PostMHelp.initGame();
+        PageManager.initDlgMap();
         Common.confObj = ConfObjRead.getConfCommon();
         ResConfig.addTween = Common.confObj.addTween;
-        TempData.joinLobbyType = JoinLobbyType.loginJoin;
+        GameData.joinLobbyType = JoinLobbyType.loginJoin;
         this.copyNativeAdress();
         this.updateGatewayInfo();
         //登陆流程
@@ -346,12 +350,6 @@ var PageLogin = /** @class */ (function (_super) {
                     SaveManager.getObj().save(SaveManager.KEY_TOKEN, temp_token);
                     if (!Common.clientId) {
                         Common.clientId = Common.userInfo.userBalance.clientId;
-                    }
-                    if (jobj.userRole) {
-                        userData.role = jobj.userRole;
-                    }
-                    if (jobj.prizeGroup) {
-                        userData.prizeGroup = jobj.prizeGroup;
                     }
                     LayaMain.getInstance().initLobby();
                 }

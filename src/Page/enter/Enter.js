@@ -31,6 +31,7 @@ let alreadyInCodePush = false
 import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
 import {AppConfig} from "../../config/appConfig";
 import {JX_PLAT_INFO} from "../asset";
+import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
 let domainsHelper = new JXDomainsHelper();
 let appInfoStore = TW_Store.appStore;
 @observer
@@ -90,11 +91,13 @@ export default class Enter extends Component {
                   }
               }
             }
+            SoundHelper.onPalyMusic();
             this.flage = false ;
         }else if(nextAppState != null && nextAppState === 'background'){
             this.flage = true;
             let now = new Date().getTime();
             this.lastClickTime = now;
+            SoundHelper.pauseMusic();
         }
     }
 

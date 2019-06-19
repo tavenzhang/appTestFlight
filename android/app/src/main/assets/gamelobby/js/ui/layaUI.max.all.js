@@ -51,90 +51,339 @@ var ui;
     })(comp = ui.comp || (ui.comp = {}));
 })(ui || (ui = {}));
 (function (ui) {
-    var dlg;
-    (function (dlg) {
-        var agent;
-        (function (agent) {
-            var Agent_DescriptionUI = /** @class */ (function (_super) {
-                __extends(Agent_DescriptionUI, _super);
-                function Agent_DescriptionUI() {
-                    return _super.call(this) || this;
-                }
-                Agent_DescriptionUI.prototype.createChildren = function () {
-                    _super.prototype.createChildren.call(this);
-                    this.createView(ui.dlg.agent.Agent_DescriptionUI.uiView);
-                };
-                Agent_DescriptionUI.uiView = { "type": "View", "props": { "width": 1062, "height": 625 }, "child": [{ "type": "Box", "props": { "y": 40, "x": 0, "width": 1062, "var": "DragArea", "height": 625 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "var": "dragObj", "skin": "ui/panel_agent/img_dlsm-fyblb_nr.png" } }] }, { "type": "Label", "props": { "y": 1, "x": 0, "width": 1062, "var": "customerService", "valign": "top", "text": "label", "height": 40, "fontSize": 25, "color": "#ffba25", "align": "center" } }] };
-                return Agent_DescriptionUI;
-            }(View));
-            agent.Agent_DescriptionUI = Agent_DescriptionUI;
-        })(agent = dlg.agent || (dlg.agent = {}));
-    })(dlg = ui.dlg || (ui.dlg = {}));
-})(ui || (ui = {}));
-(function (ui) {
-    var dlg;
-    (function (dlg) {
-        var agent;
-        (function (agent) {
-            var pop;
-            (function (pop) {
-                var CommisionPayoutListUI = /** @class */ (function (_super) {
-                    __extends(CommisionPayoutListUI, _super);
-                    function CommisionPayoutListUI() {
-                        return _super.call(this) || this;
-                    }
-                    CommisionPayoutListUI.prototype.createChildren = function () {
-                        _super.prototype.createChildren.call(this);
-                        this.createView(ui.dlg.agent.pop.CommisionPayoutListUI.uiView);
-                    };
-                    CommisionPayoutListUI.uiView = { "type": "Dialog", "props": { "width": 1034, "height": 630 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "skin": "ui/panel_common/maxdlg.png" } }, { "type": "Image", "props": { "y": 23, "skin": "ui/panel_agent/img_dlsm-fyblb_fyblb.png", "centerX": 8 } }, { "type": "Image", "props": { "y": 99, "width": 993, "skin": "ui/common/img_com_xiankuang.png", "sizeGrid": "10,10,10,10", "height": 510, "centerX": -1 } }, { "type": "Image", "props": { "y": 101, "x": 23, "skin": "ui/panel_agent/img_dlsm-fyblb_bt.png" } }, { "type": "View", "props": { "y": 156, "x": 22, "width": 990, "var": "contents", "height": 450 } }, { "type": "Box", "props": { "y": 157, "x": 24, "width": 984, "var": "pay_dummy", "height": 41 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "skin": "ui/panel_agent/img_dlsm-fyblb_xzk.png", "name": "bg" } }, { "type": "Label", "props": { "y": 3, "x": 115, "width": 100, "valign": "middle", "text": "0", "name": "index", "height": 36, "fontSize": 28, "color": "#efe8cd", "align": "center" } }, { "type": "Label", "props": { "y": 3, "x": 297, "width": 360, "valign": "middle", "text": "0", "name": "range", "height": 36, "fontSize": 28, "color": "#efe8cd", "align": "center" } }, { "type": "Label", "props": { "y": 3, "x": 659, "width": 320, "valign": "middle", "text": "0", "name": "pays", "height": 36, "fontSize": 28, "color": "#ffba25", "align": "center" } }] }, { "type": "Image", "props": { "y": 52, "x": 986, "var": "btnClose", "top": 12, "skin": "ui/common/newclose.png", "right": 10, "anchorY": 0.5, "anchorX": 0.5 } }] };
-                    return CommisionPayoutListUI;
-                }(Dialog));
-                pop.CommisionPayoutListUI = CommisionPayoutListUI;
-            })(pop = agent.pop || (agent.pop = {}));
-        })(agent = dlg.agent || (dlg.agent = {}));
-    })(dlg = ui.dlg || (ui.dlg = {}));
-})(ui || (ui = {}));
-(function (ui) {
-    var dlg;
-    (function (dlg) {
-        var agent;
-        (function (agent) {
-            var pop;
-            (function (pop) {
-                var CommissionRecordsUI = /** @class */ (function (_super) {
-                    __extends(CommissionRecordsUI, _super);
-                    function CommissionRecordsUI() {
-                        return _super.call(this) || this;
-                    }
-                    CommissionRecordsUI.prototype.createChildren = function () {
-                        _super.prototype.createChildren.call(this);
-                        this.createView(ui.dlg.agent.pop.CommissionRecordsUI.uiView);
-                    };
-                    CommissionRecordsUI.uiView = { "type": "Dialog", "props": { "width": 1034, "height": 630 }, "child": [{ "type": "Image", "props": { "skin": "ui/panel_common/maxdlg.png" } }, { "type": "Image", "props": { "y": 18, "skin": "ui/panel_agent/img_tyjl_tyjl.png", "centerX": 8 } }, { "type": "Image", "props": { "y": 99, "width": 970, "skin": "ui/common/img_com_xiankuang.png", "sizeGrid": "10,10,10,10", "height": 425, "centerX": 0 } }, { "type": "Image", "props": { "y": 109, "var": "order_dummy", "skin": "ui/panel_agent/img_tyjl_kuang.png", "centerX": 0 }, "child": [{ "type": "Image", "props": { "y": 11, "x": 435, "skin": "ui/panel_agent/img_daili_fuzhi.png", "name": "copy" } }, { "type": "Label", "props": { "y": 10, "x": 35, "width": 150, "valign": "middle", "text": "订单号：", "name": "orderlabel", "height": 35, "fontSize": 26, "font": "Microsoft YaHei", "color": "#f9cb46", "align": "right" } }, { "type": "Label", "props": { "y": 10, "x": 188, "width": 279, "valign": "middle", "text": "-", "name": "order", "height": 35, "fontSize": 24, "color": "#9cc5d8" } }, { "type": "Label", "props": { "y": 49, "x": 35, "width": 150, "valign": "middle", "text": "创建时间：", "name": "timelabel", "height": 35, "fontSize": 26, "font": "Microsoft YaHei", "color": "#f9cb46", "align": "right" } }, { "type": "Label", "props": { "y": 49, "x": 188, "width": 279, "valign": "middle", "text": "-", "name": "time", "height": 35, "fontSize": 24, "color": "#9cc5d8" } }, { "type": "Label", "props": { "y": 14, "x": 700, "width": 114, "text": "状态：", "name": "statuslabel", "height": 35, "fontSize": 26, "font": "Microsoft YaHei", "color": "#f9cb46", "align": "right" } }, { "type": "Label", "props": { "y": 14, "x": 803, "width": 85, "text": "-", "name": "status", "height": 35, "fontSize": 26, "font": "Microsoft YaHei", "color": "#f9cb46", "align": "left" } }, { "type": "Label", "props": { "y": 42, "x": 701, "width": 179, "valign": "middle", "text": "0 元", "name": "amount", "height": 44, "fontSize": 36, "font": "Microsoft YaHei", "color": "#a2e1ee", "align": "right" } }] }, { "type": "View", "props": { "y": 100, "x": 31, "width": 970, "var": "contents", "height": 420 }, "child": [{ "type": "Label", "props": { "y": 105, "x": 0, "width": 970, "var": "instructions", "valign": "middle", "text": "您目前无任何提佣记录", "height": 100, "fontSize": 24, "font": "Microsoft YaHei", "color": "#9cc5d8", "align": "center" } }] }, { "type": "Image", "props": { "y": 51, "x": 985, "var": "btnClose", "top": 12, "skin": "ui/common/newclose.png", "right": 10, "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 575, "x": 914, "var": "btnContact", "skin": "ui/panel_agent/b_tyjl_lxkf.png", "right": 20, "bottom": 20, "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Label", "props": { "y": 527, "x": 38, "width": 713, "valign": "middle", "text": "提示：如对佣金结算有疑问，请联系客服", "height": 96, "fontSize": 24, "font": "Microsoft YaHei", "color": "#f9cb46" } }] };
-                    return CommissionRecordsUI;
-                }(Dialog));
-                pop.CommissionRecordsUI = CommissionRecordsUI;
-            })(pop = agent.pop || (agent.pop = {}));
-        })(agent = dlg.agent || (dlg.agent = {}));
-    })(dlg = ui.dlg || (ui.dlg = {}));
-})(ui || (ui = {}));
-(function (ui) {
-    var dlg;
-    (function (dlg) {
-        var AgentDlgUI = /** @class */ (function (_super) {
-            __extends(AgentDlgUI, _super);
-            function AgentDlgUI() {
+    var debug;
+    (function (debug) {
+        var DebugDlgUI = /** @class */ (function (_super) {
+            __extends(DebugDlgUI, _super);
+            function DebugDlgUI() {
                 return _super.call(this) || this;
             }
-            AgentDlgUI.prototype.createChildren = function () {
+            DebugDlgUI.prototype.createChildren = function () {
+                View.regComponent("Text", laya.display.Text);
                 _super.prototype.createChildren.call(this);
-                this.createView(ui.dlg.AgentDlgUI.uiView);
+                this.createView(ui.debug.DebugDlgUI.uiView);
             };
-            AgentDlgUI.uiView = { "type": "Dialog", "props": { "width": 1624, "height": 750 }, "child": [{ "type": "Image", "props": { "skin": "ui/panel_common/img_com_quanping_di.jpg", "centerY": 0, "centerX": 0 } }, { "type": "Image", "props": { "y": 85, "var": "contentList", "skin": "ui/panel_common/img_com_quanping_cedi.png" }, "child": [{ "type": "Sprite", "props": { "y": -85, "width": 306, "var": "content_tabs", "height": 750 }, "child": [{ "type": "Image", "props": { "y": 127, "x": 305, "var": "tabHome", "skin": "ui/panel_common/img_com_quanping_ce_di.png", "pivotX": 305, "name": "tab0" }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "ui/panel_agent/img_daili_zi05.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "ui/panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 80, "skin": "ui/panel_agent/img_daili_zi010.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }, { "type": "Image", "props": { "y": 237, "x": 305, "var": "tabAffiliates", "skin": "ui/panel_common/img_com_quanping_ce_di.png", "pivotX": 305, "name": "tab1" }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "ui/panel_agent/img_daili_zi04.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "ui/panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 78, "skin": "ui/panel_agent/img_daili_zi09.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }, { "type": "Image", "props": { "y": 347, "x": 305, "var": "tabAchievement", "skin": "ui/panel_common/img_com_quanping_ce_di.png", "pivotX": 305, "name": "tab2" }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "ui/panel_agent/img_daili_zi03.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "ui/panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 80, "skin": "ui/panel_agent/img_daili_zi08.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }, { "type": "Image", "props": { "y": 456, "x": 305, "var": "tabCodes", "skin": "ui/panel_common/img_com_quanping_ce_di.png", "pivotX": 305, "name": "tab3" }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "ui/panel_agent/img_daili_zi02.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "ui/panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 80, "skin": "ui/panel_agent/img_daili_zi07.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }, { "type": "Image", "props": { "y": 566, "x": 305, "var": "tabDescription", "skin": "ui/panel_common/img_com_quanping_ce_di.png", "pivotX": 305, "name": "tab4" }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "ui/panel_agent/img_daili_zi01.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "ui/panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 80, "skin": "ui/panel_agent/img_daili_zi06.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }] }] }, { "type": "Image", "props": { "width": 482, "var": "label", "skin": "ui/panel_common/img_com_quanping_ce_biaotou.png" }, "child": [{ "type": "Image", "props": { "y": 19, "x": 50, "skin": "ui/panel_agent/icon_dlzx_bt.png" } }, { "type": "Image", "props": { "y": 27, "x": 180, "skin": "ui/panel_agent/img_daili_biaotou02.png" } }] }, { "type": "Image", "props": { "y": 2, "x": 1624, "width": 292, "var": "control", "skin": "ui/common/img_com_quanping_guanbi01.png", "pivotX": 292 }, "child": [{ "type": "Image", "props": { "y": 12, "x": 123, "skin": "ui/common/img_com_quanping_guanbi02.png" } }] }, { "type": "Image", "props": { "y": 19, "x": 1177, "var": "btnComRecords", "skin": "ui/panel_agent/b_dlzx_tyjl.png" } }, { "type": "Image", "props": { "y": 19, "x": 929, "var": "btnComPays", "skin": "ui/panel_agent/b_dlzx_fyblb.png" } }, { "type": "View", "props": { "y": 110, "x": 410, "width": 1062, "var": "contents", "height": 625 } }] };
-            return AgentDlgUI;
+            DebugDlgUI.uiView = { "type": "Dialog", "props": { "width": 754, "height": 480 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "skin": "ui/panel_common/mindlg.png" }, "child": [{ "type": "Text", "props": { "y": 22, "x": 314, "text": "Debug", "height": 40, "fontSize": 40, "color": "#ffffff", "bold": true } }] }, { "type": "Image", "props": { "y": 55, "x": 707, "var": "closeBtn", "skin": "ui/common/newclose.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 215, "x": 172, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 376, "var": "cmdTxt", "valign": "middle", "type": "text", "promptColor": "#93afc0", "height": 46, "fontSize": 30, "color": "#ffffff" } }] }, { "type": "Image", "props": { "y": 398, "x": 376, "var": "okBtn", "skin": "ui/common/queding.png", "anchorY": 0.5, "anchorX": 0.5 } }] };
+            return DebugDlgUI;
         }(Dialog));
-        dlg.AgentDlgUI = AgentDlgUI;
+        debug.DebugDlgUI = DebugDlgUI;
+    })(debug = ui.debug || (ui.debug = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var AddUserDlgUI = /** @class */ (function (_super) {
+                __extends(AddUserDlgUI, _super);
+                function AddUserDlgUI() {
+                    return _super.call(this) || this;
+                }
+                AddUserDlgUI.prototype.createChildren = function () {
+                    View.regComponent("Text", laya.display.Text);
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.AddUserDlgUI.uiView);
+                };
+                AddUserDlgUI.uiView = { "type": "Dialog", "props": { "width": 754, "height": 480 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "skin": "ui/panel_common/mindlg.png" }, "child": [{ "type": "Image", "props": { "y": 22, "x": 282, "skin": "ui/agent/img_daili_zi_tianjiayonghu.png" } }, { "type": "Image", "props": { "y": 54, "x": 707, "var": "closeBtn", "skin": "ui/common/newclose.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 109, "x": 30, "width": 694, "skin": "ui/common/img_com_xiankuang.png", "height": 272, "sizeGrid": "15,15,15,16" }, "child": [{ "type": "Image", "props": { "y": 16, "x": 35, "skin": "ui/agent/img_daili_zi_lx.png" } }, { "type": "Image", "props": { "y": 164, "x": 35, "skin": "ui/agent/img_daili_zi_mima.png" } }, { "type": "Image", "props": { "y": 90, "x": 35, "skin": "ui/agent/img_daili_zi_yhm.png" } }, { "type": "Text", "props": { "y": 226, "x": 126, "text": "若不填写密码,则使用初始密码：123456", "fontSize": 25, "color": "#dcb625" } }, { "type": "Image", "props": { "y": 82, "x": 185, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 375, "var": "userTxt", "valign": "middle", "type": "text", "promptColor": "#93afc0", "prompt": "请输入用户名", "height": 46, "fontSize": 30, "color": "#ffffff" } }] }, { "type": "Image", "props": { "y": 156, "x": 185, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 373, "var": "pwdTxt", "valign": "middle", "type": "password", "promptColor": "#93afc0", "prompt": "请输入密码", "height": 46, "fontSize": 30, "color": "#ffffff" } }] }, { "type": "Image", "props": { "y": 16, "x": 185, "var": "typeIcon", "skin": "ui/agent/img_daili_zi_daili.png" } }] }, { "type": "Image", "props": { "y": 427, "x": 376, "var": "okBtn", "skin": "ui/common/queding.png", "anchorY": 0.5, "anchorX": 0.5 } }] }] };
+                return AddUserDlgUI;
+            }(Dialog));
+            agent.AddUserDlgUI = AddUserDlgUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var AgentHelpViewUI = /** @class */ (function (_super) {
+                __extends(AgentHelpViewUI, _super);
+                function AgentHelpViewUI() {
+                    return _super.call(this) || this;
+                }
+                AgentHelpViewUI.prototype.createChildren = function () {
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.AgentHelpViewUI.uiView);
+                };
+                AgentHelpViewUI.uiView = { "type": "View", "props": { "width": 1062, "height": 640 }, "child": [{ "type": "Label", "props": { "y": 0, "x": 0, "width": 1062, "var": "titleTxt", "valign": "top", "text": "label", "height": 40, "fontSize": 25, "color": "#ffba25", "align": "center" } }, { "type": "Panel", "props": { "y": 40, "x": 0, "width": 1062, "var": "itemPanel", "height": 600 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "width": 1062, "skin": "ui/agent/img_daili_shuoming03.png" } }] }] };
+                return AgentHelpViewUI;
+            }(View));
+            agent.AgentHelpViewUI = AgentHelpViewUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var AgentInfoViewUI = /** @class */ (function (_super) {
+                __extends(AgentInfoViewUI, _super);
+                function AgentInfoViewUI() {
+                    return _super.call(this) || this;
+                }
+                AgentInfoViewUI.prototype.createChildren = function () {
+                    View.regComponent("Text", laya.display.Text);
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.AgentInfoViewUI.uiView);
+                };
+                AgentInfoViewUI.uiView = { "type": "View", "props": { "width": 1018, "height": 620 }, "child": [{ "type": "Image", "props": { "y": 6, "x": 670, "skin": "ui/agent/img_qizhidi.png" }, "child": [{ "type": "Sprite", "props": { "y": 96, "x": 63, "width": 126, "var": "fontBox1", "height": 30 } }, { "type": "Sprite", "props": { "y": 548, "x": 63, "width": 126, "var": "fontBox2", "height": 30 } }, { "type": "Text", "props": { "y": 195, "x": 56, "width": 238, "var": "txt1", "overflow": "hidden", "height": 30, "fontSize": 30, "color": "#ffcc33" } }, { "type": "Text", "props": { "y": 277, "x": 56, "width": 238, "var": "txt2", "overflow": "hidden", "height": 30, "fontSize": 30, "color": "#ffcc33" } }, { "type": "Text", "props": { "y": 365, "x": 52, "width": 95, "var": "txt3", "overflow": "hidden", "height": 30, "fontSize": 24, "color": "#ffcc33", "align": "center" } }, { "type": "Text", "props": { "y": 365, "x": 207, "width": 95, "var": "txt4", "overflow": "hidden", "height": 30, "fontSize": 24, "color": "#ffcc33", "align": "center" } }, { "type": "Text", "props": { "y": 432, "x": 52, "width": 95, "var": "txt5", "overflow": "hidden", "height": 30, "fontSize": 24, "color": "#ffcc33", "align": "center" } }, { "type": "Text", "props": { "y": 432, "x": 207, "width": 95, "var": "txt6", "overflow": "hidden", "height": 30, "fontSize": 24, "color": "#ffcc33", "align": "center" } }] }, { "type": "Box", "props": { "y": 30, "x": 0, "width": 650, "height": 572 }, "child": [{ "type": "Image", "props": { "x": 11, "width": 152, "var": "headIcon", "height": 152 }, "child": [{ "type": "Image", "props": { "y": -4, "x": -7, "width": 166, "skin": "ui/common/avatorFrame.png", "sizeGrid": "44,46,55,43", "height": 166 } }] }, { "type": "Image", "props": { "y": 28, "x": 193, "skin": "ui/agent/img_daili_xinxizi.png" }, "child": [{ "type": "Text", "props": { "y": 7, "x": 199, "width": 200, "var": "referrerTxt", "height": 34, "fontSize": 34, "color": "#efe8cd" } }, { "type": "Text", "props": { "y": 57, "x": 264, "width": 200, "var": "superiorTxt", "height": 34, "fontSize": 34, "color": "#efe8cd" } }] }, { "type": "Image", "props": { "y": 210, "var": "qrbox", "skin": "ui/agent/img_daili_ewm.png" } }, { "type": "Image", "props": { "y": 385, "x": 325, "var": "copyLinkBtn", "skin": "ui/agent/img_daili_fuzhilianjie.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 385, "x": 545, "var": "wechatBtn", "skin": "ui/agent/img_daili_weixinfenxiang.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 266, "x": 233, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "Text", "props": { "y": 8, "x": 21, "width": 368, "var": "linkTxt", "valign": "middle", "overflow": "hidden", "fontSize": 34, "color": "#efe8cd" } }, { "type": "Text", "props": { "y": -56, "x": 1, "text": "分享链接发给好友下载游戏", "fontSize": 34, "font": "SimHei", "color": "#ebeff0" } }] }, { "type": "Image", "props": { "y": 442, "x": 0, "skin": "ui/agent/img_daili-wenxianzi02.png" } }] }] };
+                return AgentInfoViewUI;
+            }(View));
+            agent.AgentInfoViewUI = AgentInfoViewUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var AgentQrDlgUI = /** @class */ (function (_super) {
+                __extends(AgentQrDlgUI, _super);
+                function AgentQrDlgUI() {
+                    return _super.call(this) || this;
+                }
+                AgentQrDlgUI.prototype.createChildren = function () {
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.AgentQrDlgUI.uiView);
+                };
+                AgentQrDlgUI.uiView = { "type": "Dialog", "props": { "width": 508, "height": 750 }, "child": [{ "type": "Image", "props": { "y": 0, "width": 800, "var": "bgmc", "skin": "ui/common/img_com_xiankuang.png", "height": 750, "centerX": 0, "sizeGrid": "15,15,15,16" } }, { "type": "Image", "props": { "y": 14, "skin": "ui/agent/img_dlzx-dlxx_ewbg.png", "centerX": 0 }, "child": [{ "type": "Image", "props": { "y": 606, "x": 104, "var": "saveBtn", "skin": "ui/agent/btn_dlzx-dlxx_djbc.png" } }, { "type": "Image", "props": { "y": 209, "x": 91, "width": 326, "var": "qrIcon", "height": 326 } }] }] };
+                return AgentQrDlgUI;
+            }(Dialog));
+            agent.AgentQrDlgUI = AgentQrDlgUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var CommisionRatioDlgUI = /** @class */ (function (_super) {
+                __extends(CommisionRatioDlgUI, _super);
+                function CommisionRatioDlgUI() {
+                    return _super.call(this) || this;
+                }
+                CommisionRatioDlgUI.prototype.createChildren = function () {
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.CommisionRatioDlgUI.uiView);
+                };
+                CommisionRatioDlgUI.uiView = { "type": "Dialog", "props": { "width": 1034, "height": 630 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "skin": "ui/panel_common/maxdlg.png" }, "child": [{ "type": "Image", "props": { "y": 21, "x": 404, "skin": "ui/agent/img_dlsm-fyblb_fyblb.png" } }, { "type": "Image", "props": { "y": 50, "x": 989, "var": "closeBtn", "skin": "ui/common/newclose.png", "anchorY": 0.5, "anchorX": 0.5 } }] }, { "type": "Image", "props": { "y": 99, "x": 20, "width": 993, "skin": "ui/common/img_com_xiankuang.png", "sizeGrid": "10,10,10,10", "height": 510, "centerX": -1 } }, { "type": "Panel", "props": { "y": 157, "x": 23, "width": 988, "var": "itemPanel", "height": 449 } }, { "type": "Image", "props": { "y": 99, "x": 23, "skin": "ui/agent/img_dlsm-fyblb_bt.png" } }] };
+                return CommisionRatioDlgUI;
+            }(Dialog));
+            agent.CommisionRatioDlgUI = CommisionRatioDlgUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var CommisionRecordDlgUI = /** @class */ (function (_super) {
+                __extends(CommisionRecordDlgUI, _super);
+                function CommisionRecordDlgUI() {
+                    return _super.call(this) || this;
+                }
+                CommisionRecordDlgUI.prototype.createChildren = function () {
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.CommisionRecordDlgUI.uiView);
+                };
+                CommisionRecordDlgUI.uiView = { "type": "Dialog", "props": { "width": 1034, "height": 630 }, "child": [{ "type": "Image", "props": { "skin": "ui/panel_common/maxdlg.png" } }, { "type": "Image", "props": { "y": 18, "skin": "ui/agent/img_tyjl_tyjl.png", "centerX": 8 } }, { "type": "Image", "props": { "y": 99, "width": 970, "skin": "ui/common/img_com_xiankuang.png", "sizeGrid": "10,10,10,10", "height": 425, "centerX": 0 } }, { "type": "Image", "props": { "y": 109, "var": "order_dummy", "skin": "ui/agent/img_tyjl_kuang.png", "centerX": 0 }, "child": [{ "type": "Image", "props": { "y": 11, "x": 435, "skin": "ui/agent/img_daili_fuzhi.png", "name": "copy" } }, { "type": "Label", "props": { "y": 10, "x": 35, "width": 150, "valign": "middle", "text": "订单号：", "name": "orderlabel", "height": 35, "fontSize": 26, "font": "Microsoft YaHei", "color": "#f9cb46", "align": "right" } }, { "type": "Label", "props": { "y": 10, "x": 188, "width": 279, "valign": "middle", "text": "-", "name": "order", "height": 35, "fontSize": 24, "color": "#9cc5d8" } }, { "type": "Label", "props": { "y": 49, "x": 35, "width": 150, "valign": "middle", "text": "创建时间：", "name": "timelabel", "height": 35, "fontSize": 26, "font": "Microsoft YaHei", "color": "#f9cb46", "align": "right" } }, { "type": "Label", "props": { "y": 49, "x": 188, "width": 279, "valign": "middle", "text": "-", "name": "time", "height": 35, "fontSize": 24, "color": "#9cc5d8" } }, { "type": "Label", "props": { "y": 14, "x": 700, "width": 114, "text": "状态：", "name": "statuslabel", "height": 35, "fontSize": 26, "font": "Microsoft YaHei", "color": "#f9cb46", "align": "right" } }, { "type": "Label", "props": { "y": 14, "x": 803, "width": 85, "text": "-", "name": "status", "height": 35, "fontSize": 26, "font": "Microsoft YaHei", "color": "#f9cb46", "align": "left" } }, { "type": "Label", "props": { "y": 42, "x": 701, "width": 179, "valign": "middle", "text": "0 元", "name": "amount", "height": 44, "fontSize": 36, "font": "Microsoft YaHei", "color": "#a2e1ee", "align": "right" } }] }, { "type": "View", "props": { "y": 100, "x": 31, "width": 970, "var": "contents", "height": 420 }, "child": [{ "type": "Label", "props": { "y": 105, "x": 0, "width": 970, "var": "instructions", "valign": "middle", "text": "您目前无任何提佣记录", "height": 100, "fontSize": 24, "font": "Microsoft YaHei", "color": "#9cc5d8", "align": "center" } }] }, { "type": "Image", "props": { "y": 51, "x": 985, "var": "btnClose", "top": 12, "skin": "ui/common/newclose.png", "right": 10, "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 575, "x": 915, "var": "btnContact", "skin": "ui/agent/b_tyjl_lxkf.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Label", "props": { "y": 527, "x": 38, "width": 713, "valign": "middle", "text": "提示：如对佣金结算有疑问，请联系客服", "height": 96, "fontSize": 24, "font": "Microsoft YaHei", "color": "#f9cb46" } }] };
+                return CommisionRecordDlgUI;
+            }(Dialog));
+            agent.CommisionRecordDlgUI = CommisionRecordDlgUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var CRatioItemUI = /** @class */ (function (_super) {
+                __extends(CRatioItemUI, _super);
+                function CRatioItemUI() {
+                    return _super.call(this) || this;
+                }
+                CRatioItemUI.prototype.createChildren = function () {
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.CRatioItemUI.uiView);
+                };
+                CRatioItemUI.uiView = { "type": "View", "props": { "width": 984, "height": 41 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "var": "bgIcon", "skin": "ui/agent/img_dlsm-fyblb_xzk.png" } }, { "type": "Label", "props": { "y": 2, "x": 115, "width": 100, "var": "numTxt", "valign": "middle", "text": "0", "height": 36, "fontSize": 28, "color": "#efe8cd", "align": "center" } }, { "type": "Label", "props": { "y": 2, "x": 297, "width": 360, "var": "rangeTxt", "valign": "middle", "text": "0", "height": 36, "fontSize": 28, "color": "#efe8cd", "align": "center" } }, { "type": "Label", "props": { "y": 2, "x": 657, "width": 320, "var": "paysTxt", "valign": "middle", "text": "0", "height": 36, "fontSize": 28, "color": "#ffba25", "align": "center" } }] };
+                return CRatioItemUI;
+            }(View));
+            agent.CRatioItemUI = CRatioItemUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var CreatInviteCodeDlgUI = /** @class */ (function (_super) {
+                __extends(CreatInviteCodeDlgUI, _super);
+                function CreatInviteCodeDlgUI() {
+                    return _super.call(this) || this;
+                }
+                CreatInviteCodeDlgUI.prototype.createChildren = function () {
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.CreatInviteCodeDlgUI.uiView);
+                };
+                CreatInviteCodeDlgUI.uiView = { "type": "Dialog", "props": { "width": 754, "height": 480 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "skin": "ui/panel_common/mindlg.png" }, "child": [{ "type": "Image", "props": { "y": 22, "x": 282, "skin": "ui/agent/img_daili_zi_yaoqingma.png" } }, { "type": "Image", "props": { "y": 386, "x": 272, "var": "okBtn", "skin": "ui/common/queding.png" } }, { "type": "Image", "props": { "y": 103, "x": 30, "width": 694, "skin": "ui/common/img_com_xiankuang.png", "height": 274, "sizeGrid": "15,15,15,16" } }, { "type": "Image", "props": { "y": 55, "x": 708, "var": "closeBtn", "skin": "ui/common/newclose.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 162, "x": 172, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 380, "var": "codeTxt", "valign": "middle", "type": "text", "restrict": "a-z0-9", "promptColor": "#93afc0", "prompt": "4-12位字母或数字", "maxChars": 12, "height": 46, "fontSize": 30, "color": "#ffffff", "align": "center" } }] }, { "type": "Image", "props": { "y": 281, "x": 376, "var": "creatBtn", "skin": "ui/agent/img_daili_dianjixuanma.png", "anchorY": 0.5, "anchorX": 0.5 } }] }] };
+                return CreatInviteCodeDlgUI;
+            }(Dialog));
+            agent.CreatInviteCodeDlgUI = CreatInviteCodeDlgUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var DirectlyItemUI = /** @class */ (function (_super) {
+                __extends(DirectlyItemUI, _super);
+                function DirectlyItemUI() {
+                    return _super.call(this) || this;
+                }
+                DirectlyItemUI.prototype.createChildren = function () {
+                    View.regComponent("Text", laya.display.Text);
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.DirectlyItemUI.uiView);
+                };
+                DirectlyItemUI.uiView = { "type": "View", "props": { "width": 1014, "height": 58 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "var": "itemBg", "skin": "ui/agent/img_daili_tiaodibian01.png" }, "child": [{ "type": "Text", "props": { "y": 16, "x": 10, "width": 162, "var": "dtxt1", "text": "name", "overflow": "hidden", "fontSize": 26, "color": "#9cc5d8" } }, { "type": "Text", "props": { "y": 16, "x": 171, "width": 81, "var": "dtxt2", "text": "type", "overflow": "hidden", "fontSize": 26, "color": "#9cc5d8", "align": "center" } }, { "type": "Text", "props": { "y": 16, "x": 254, "width": 216, "var": "dtxt3", "text": "name", "overflow": "hidden", "fontSize": 26, "color": "#ffba25", "align": "center" } }, { "type": "Text", "props": { "y": 16, "x": 477, "width": 216, "var": "dtxt4", "text": "name", "overflow": "hidden", "fontSize": 26, "color": "#ffba25", "align": "center" } }, { "type": "Text", "props": { "y": 16, "x": 699, "width": 118, "var": "dtxt5", "text": "type", "overflow": "hidden", "fontSize": 26, "color": "#9cc5d8", "align": "center" } }, { "type": "Text", "props": { "y": 16, "x": 821, "width": 118, "var": "dtxt6", "text": "type", "overflow": "hidden", "fontSize": 26, "color": "#9cc5d8", "align": "center" } }, { "type": "Image", "props": { "y": 29, "x": 974, "var": "setBtn", "skin": "ui/agent/btn_daili_xiugai.png", "anchorY": 0.5, "anchorX": 0.5 } }] }] };
+                return DirectlyItemUI;
+            }(View));
+            agent.DirectlyItemUI = DirectlyItemUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var DirectlyViewUI = /** @class */ (function (_super) {
+                __extends(DirectlyViewUI, _super);
+                function DirectlyViewUI() {
+                    return _super.call(this) || this;
+                }
+                DirectlyViewUI.prototype.createChildren = function () {
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.DirectlyViewUI.uiView);
+                };
+                DirectlyViewUI.uiView = { "type": "View", "props": { "width": 1014, "height": 620 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "width": 460, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 58, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 6, "x": 15, "width": 297, "var": "inputTxt", "valign": "middle", "type": "text", "promptColor": "#9cc5d8", "prompt": "请输入代理的用户名", "overflow": "hidden", "height": 46, "fontSize": 30, "color": "#ffffff" } }, { "type": "Image", "props": { "y": 30, "x": 388, "var": "seachBtn", "skin": "ui/agent/btn_daili_sousuokuang.png", "anchorY": 0.5, "anchorX": 0.5 } }] }, { "type": "Image", "props": { "y": 1, "x": 500, "var": "addBtn", "skin": "ui/agent/btn_daili_tianjiayonghu.png" } }, { "type": "Image", "props": { "y": 78, "x": 0, "skin": "ui/agent/img_daili_tou_zhishu.png" } }, { "type": "Panel", "props": { "y": 128, "x": 0, "width": 1014, "var": "itemPanel", "height": 484 } }] };
+                return DirectlyViewUI;
+            }(View));
+            agent.DirectlyViewUI = DirectlyViewUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var EnterpriseItemUI = /** @class */ (function (_super) {
+                __extends(EnterpriseItemUI, _super);
+                function EnterpriseItemUI() {
+                    return _super.call(this) || this;
+                }
+                EnterpriseItemUI.prototype.createChildren = function () {
+                    View.regComponent("Text", laya.display.Text);
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.EnterpriseItemUI.uiView);
+                };
+                EnterpriseItemUI.uiView = { "type": "View", "props": { "width": 1014, "height": 58 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "var": "bgIcon", "skin": "ui/agent/img_daili_tiaodibian01.png" }, "child": [{ "type": "Text", "props": { "y": 16, "x": 173, "width": 193, "var": "etxt2", "text": "type", "overflow": "hidden", "fontSize": 26, "color": "#ffba25", "align": "center" } }, { "type": "Text", "props": { "y": 16, "x": 370, "width": 216, "var": "etxt3", "text": "name", "overflow": "hidden", "fontSize": 26, "color": "#ffba25", "align": "center" } }, { "type": "Text", "props": { "y": 16, "x": 583, "width": 114, "var": "etxt4", "text": "name", "overflow": "hidden", "fontSize": 26, "color": "#9cc5d8", "align": "center" } }, { "type": "Text", "props": { "y": 16, "x": 699, "width": 103, "var": "etxt5", "text": "type", "overflow": "hidden", "fontSize": 26, "color": "#9cc5d8", "align": "center" } }, { "type": "Text", "props": { "y": 16, "x": 806, "width": 204, "var": "etxt6", "text": "type", "overflow": "hidden", "fontSize": 26, "color": "#ffba25", "align": "center" } }, { "type": "Text", "props": { "y": 16, "x": 3, "width": 162, "var": "etxt1", "text": "xxx", "overflow": "scroll", "fontSize": 26, "color": "#9cc5d8", "align": "center" } }] }] };
+                return EnterpriseItemUI;
+            }(View));
+            agent.EnterpriseItemUI = EnterpriseItemUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var EnterpriseViewUI = /** @class */ (function (_super) {
+                __extends(EnterpriseViewUI, _super);
+                function EnterpriseViewUI() {
+                    return _super.call(this) || this;
+                }
+                EnterpriseViewUI.prototype.createChildren = function () {
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.EnterpriseViewUI.uiView);
+                };
+                EnterpriseViewUI.uiView = { "type": "View", "props": { "y": 0, "x": 0, "width": 1014, "height": 620 }, "child": [{ "type": "CheckBox", "props": { "y": 0, "x": 0, "var": "check1", "stateNum": 2, "skin": "ui/agent/check_dltb.png" }, "child": [{ "type": "Image", "props": { "y": 9, "x": 70, "skin": "ui/agent/img_daili_zi_jinri.png" } }] }, { "type": "CheckBox", "props": { "y": 0, "x": 209, "var": "check2", "stateNum": 2, "skin": "ui/agent/check_dltb.png" }, "child": [{ "type": "Image", "props": { "y": 9, "x": 70, "skin": "ui/agent/img_daili_zi_zuori.png" } }] }, { "type": "CheckBox", "props": { "y": 0, "x": 419, "var": "check3", "stateNum": 2, "skin": "ui/agent/check_dltb.png" }, "child": [{ "type": "Image", "props": { "y": 9, "x": 70, "skin": "ui/agent/img_daili_zi_benzhou.png" } }] }, { "type": "CheckBox", "props": { "y": 0, "x": 628, "var": "check4", "stateNum": 2, "skin": "ui/agent/check_dltb.png" }, "child": [{ "type": "Image", "props": { "y": 9, "x": 70, "skin": "ui/agent/img_daili_zi_shangzhou.png" } }] }, { "type": "CheckBox", "props": { "y": 0, "x": 837, "var": "check5", "stateNum": 2, "skin": "ui/agent/check_dltb.png" }, "child": [{ "type": "Image", "props": { "y": 9, "x": 70, "skin": "ui/agent/img_daili_zi_benyue.png" } }] }, { "type": "Image", "props": { "y": 74, "x": 0, "skin": "ui/agent/img_daili_tou_wdyj.png" } }, { "type": "Panel", "props": { "y": 124, "x": 0, "width": 1014, "var": "itemPanel", "height": 486 } }] };
+                return EnterpriseViewUI;
+            }(View));
+            agent.EnterpriseViewUI = EnterpriseViewUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var InviteCodeItemUI = /** @class */ (function (_super) {
+                __extends(InviteCodeItemUI, _super);
+                function InviteCodeItemUI() {
+                    return _super.call(this) || this;
+                }
+                InviteCodeItemUI.prototype.createChildren = function () {
+                    View.regComponent("Text", laya.display.Text);
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.InviteCodeItemUI.uiView);
+                };
+                InviteCodeItemUI.uiView = { "type": "View", "props": { "width": 1014, "height": 130 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "skin": "ui/agent/img_daili_ewm_ditiao.png" } }, { "type": "Image", "props": { "y": 19, "x": 714, "width": 96, "var": "qrIcon", "height": 96 } }, { "type": "Label", "props": { "y": 19, "x": 265, "width": 386, "var": "linkTxt", "text": "label", "overflow": "hidden", "mouseEnabled": false, "height": 34, "fontSize": 34, "color": "efe8cd" } }, { "type": "Text", "props": { "y": 52, "x": 4, "width": 226, "var": "codeTxt", "text": "text", "overflow": "hidden", "height": 26, "fontSize": 26, "color": "ffba25", "align": "center" } }, { "type": "Image", "props": { "y": 95, "x": 354, "width": 138, "var": "copyBtn", "skin": "ui/agent/img_daili_fuzhilianjie.png", "height": 50, "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 65, "x": 932, "var": "delBtn", "skin": "ui/agent/img_daili_shanchuewm.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 95, "x": 558, "width": 138, "var": "shareBtn", "skin": "ui/agent/img_daili_weixinfenxiang.png", "height": 50, "anchorY": 0.5, "anchorX": 0.5 } }] };
+                return InviteCodeItemUI;
+            }(View));
+            agent.InviteCodeItemUI = InviteCodeItemUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var agent;
+        (function (agent) {
+            var InviteCodeViewUI = /** @class */ (function (_super) {
+                __extends(InviteCodeViewUI, _super);
+                function InviteCodeViewUI() {
+                    return _super.call(this) || this;
+                }
+                InviteCodeViewUI.prototype.createChildren = function () {
+                    _super.prototype.createChildren.call(this);
+                    this.createView(ui.dlg.agent.InviteCodeViewUI.uiView);
+                };
+                InviteCodeViewUI.uiView = { "type": "View", "props": { "y": 0, "x": 0, "width": 1014, "height": 620 }, "child": [{ "type": "Image", "props": { "y": 28, "x": 104, "var": "creatBtn", "skin": "ui/agent/img_daili_shengcheng.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 76, "x": 0, "skin": "ui/agent/img_daili_tou_ewm.png" } }, { "type": "Panel", "props": { "y": 132, "x": 0, "width": 1014, "var": "itemPanel", "height": 482 } }] };
+                return InviteCodeViewUI;
+            }(View));
+            agent.InviteCodeViewUI = InviteCodeViewUI;
+        })(agent = dlg.agent || (dlg.agent = {}));
+    })(dlg = ui.dlg || (ui.dlg = {}));
+})(ui || (ui = {}));
+(function (ui) {
+    var dlg;
+    (function (dlg) {
+        var AgentCenterDlgUI = /** @class */ (function (_super) {
+            __extends(AgentCenterDlgUI, _super);
+            function AgentCenterDlgUI() {
+                return _super.call(this) || this;
+            }
+            AgentCenterDlgUI.prototype.createChildren = function () {
+                _super.prototype.createChildren.call(this);
+                this.createView(ui.dlg.AgentCenterDlgUI.uiView);
+            };
+            AgentCenterDlgUI.uiView = { "type": "Dialog", "props": { "width": 1334, "height": 750 }, "child": [{ "type": "Image", "props": { "y": 0, "skin": "ui/panel_common/img_com_quanping_di.jpg", "centerX": 0 } }, { "type": "Box", "props": { "y": 0, "width": 695, "var": "topRightGroup", "right": -55, "height": 92 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 695, "width": 292, "var": "backBtn", "skin": "ui/common/img_com_quanping_guanbi01.png", "pivotX": 292 }, "child": [{ "type": "Image", "props": { "y": 12, "x": 123, "skin": "ui/common/img_com_quanping_guanbi02.png" } }] }, { "type": "Image", "props": { "y": 46, "x": 353, "var": "recordBtn", "skin": "ui/agent/b_dlzx_tyjl.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 45, "x": 120, "var": "rebateBtn", "skin": "ui/agent/b_dlzx_fyblb.png", "anchorY": 0.5, "anchorX": 0.5 } }] }, { "type": "Box", "props": { "y": 0, "var": "topLeftGroup", "left": -40 }, "child": [{ "type": "Image", "props": { "y": 87, "x": 0, "skin": "ui/panel_common/img_com_quanping_cedi.png" }, "child": [{ "type": "Image", "props": { "y": 42, "x": 305, "var": "tab0", "skin": "ui/panel_common/img_com_quanping_ce_di.png", "pivotX": 305 }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "ui/agent/img_daili_zi05.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "ui/panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 80, "skin": "ui/agent/img_daili_zi010.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }, { "type": "Image", "props": { "y": 152, "x": 305, "var": "tab1", "skin": "ui/panel_common/img_com_quanping_ce_di.png", "pivotX": 305 }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "ui/agent/img_daili_zi04.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "ui/panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 78, "skin": "ui/agent/img_daili_zi09.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }, { "type": "Image", "props": { "y": 262, "x": 305, "var": "tab2", "skin": "ui/panel_common/img_com_quanping_ce_di.png", "pivotX": 305 }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "ui/agent/img_daili_zi03.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "ui/panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 80, "skin": "ui/agent/img_daili_zi08.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }, { "type": "Image", "props": { "y": 371, "x": 305, "var": "tab3", "skin": "ui/panel_common/img_com_quanping_ce_di.png", "pivotX": 305 }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "ui/agent/img_daili_zi02.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "ui/panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 80, "skin": "ui/agent/img_daili_zi07.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }, { "type": "Image", "props": { "y": 481, "x": 305, "var": "tab4", "skin": "ui/panel_common/img_com_quanping_ce_di.png", "pivotX": 305 }, "child": [{ "type": "Image", "props": { "y": 25, "x": 80, "skin": "ui/agent/img_daili_zi01.png", "pivotY": 0.5, "pivotX": 0.5 } }, { "type": "Image", "props": { "y": -7, "x": 0, "skin": "ui/panel_common/img_com_quanping_ce_xuanzhong.png", "name": "tab_on" }, "child": [{ "type": "Image", "props": { "y": 32, "x": 80, "skin": "ui/agent/img_daili_zi06.png", "pivotY": 0.5, "pivotX": 0.5 } }] }] }] }, { "type": "Image", "props": { "y": 0, "x": 0, "width": 482, "skin": "ui/panel_common/img_com_quanping_ce_biaotou.png" }, "child": [{ "type": "Image", "props": { "y": 19, "x": 50, "skin": "ui/agent/icon_dlzx_bt.png" } }, { "type": "Image", "props": { "y": 27, "x": 180, "skin": "ui/agent/img_daili_biaotou02.png" } }] }] }, { "type": "Box", "props": { "y": 88, "width": 900, "var": "viewBox", "height": 660, "centerX": 136 } }] };
+            return AgentCenterDlgUI;
+        }(Dialog));
+        dlg.AgentCenterDlgUI = AgentCenterDlgUI;
     })(dlg = ui.dlg || (ui.dlg = {}));
 })(ui || (ui = {}));
 (function (ui) {
@@ -643,7 +892,7 @@ var ui;
             _super.prototype.createChildren.call(this);
             this.createView(ui.PublicUIUI.uiView);
         };
-        PublicUIUI.uiView = { "type": "View", "props": { "width": 1334, "mouseThrough": true, "height": 750 }, "child": [{ "type": "Image", "props": { "y": 0, "x": -165, "width": 681, "var": "headGroup", "skin": "ui/lobby/img_dating_upperbar.png", "mouseThrough": true, "height": 107, "sizeGrid": "48,534,23,20" }, "child": [{ "type": "Image", "props": { "y": 10, "x": 280, "skin": "ui/lobby/img_dating_zhanghaozi.png", "mouseEnabled": false } }, { "type": "Label", "props": { "y": 58, "x": 286, "wordWrap": false, "width": 234, "var": "nameTxt", "text": "username", "mouseEnabled": false, "fontSize": 26, "color": "#ead111", "align": "left" } }, { "type": "Label", "props": { "y": 690, "x": 172, "width": 219, "var": "verTxt", "valign": "middle", "text": "ver-num", "leading": 2, "height": 54, "fontSize": 20, "color": "#dafcff" } }, { "type": "Image", "props": { "y": 8, "x": 172, "width": 90, "var": "headIcon", "height": 90 } }, { "type": "Image", "props": { "y": 3, "x": 167, "width": 100, "skin": "ui/common/avatorFrame.png", "height": 100, "sizeGrid": "0,0,0,0" } }] }, { "type": "Image", "props": { "y": 10, "var": "goldUI", "skin": "ui/lobby/img_dating_qian_di.png", "centerX": 75 }, "child": [{ "type": "Image", "props": { "y": 38, "x": 386, "var": "refreshBtn", "skin": "ui/lobby/uiyue.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 38, "x": 300, "var": "addBtn", "skin": "ui/lobby/dating_zengjia.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Sprite", "props": { "y": 39, "x": 11, "width": 20, "var": "goldAnim", "pivotY": 0, "pivotX": 0, "height": 20 } }, { "type": "Sprite", "props": { "y": 18, "x": 51, "width": 205, "var": "fontBox", "height": 40 } }] }, { "type": "Image", "props": { "y": 78, "var": "noticeGroup", "skin": "ui/lobby/img_dating_gonggaodi.png", "centerX": 116 }, "child": [{ "type": "Sprite", "props": { "y": 14, "x": 110, "width": 400, "var": "noticeSp", "height": 40 }, "child": [{ "type": "Label", "props": { "y": 0, "x": 0, "width": 155, "var": "msgTxt", "valign": "middle", "text": "111", "height": 40, "fontSize": 26, "color": "#efe8cd", "align": "left" } }] }] }] };
+        PublicUIUI.uiView = { "type": "View", "props": { "width": 1334, "mouseThrough": true, "height": 750 }, "child": [{ "type": "Image", "props": { "y": 0, "x": -165, "width": 681, "var": "headGroup", "skin": "ui/lobby/img_dating_upperbar.png", "mouseThrough": true, "height": 107, "sizeGrid": "48,534,23,20" }, "child": [{ "type": "Image", "props": { "y": 10, "x": 280, "skin": "ui/lobby/img_dating_zhanghaozi.png", "mouseEnabled": false } }, { "type": "Label", "props": { "y": 58, "x": 286, "wordWrap": false, "width": 234, "var": "nameTxt", "mouseEnabled": false, "fontSize": 26, "color": "#ead111", "align": "left" } }, { "type": "Label", "props": { "y": 690, "x": 172, "width": 219, "var": "verTxt", "valign": "middle", "text": "ver-num", "leading": 2, "height": 54, "fontSize": 20, "color": "#dafcff" } }, { "type": "Image", "props": { "y": 8, "x": 172, "width": 90, "var": "headIcon", "height": 90 } }, { "type": "Image", "props": { "y": 3, "x": 167, "width": 100, "skin": "ui/common/avatorFrame.png", "height": 100, "sizeGrid": "0,0,0,0" } }] }, { "type": "Image", "props": { "y": 10, "var": "goldUI", "skin": "ui/lobby/img_dating_qian_di.png", "centerX": 75 }, "child": [{ "type": "Image", "props": { "y": 38, "x": 356, "var": "refreshBtn", "skin": "ui/lobby/uiyue.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 38, "x": 300, "var": "addBtn", "skin": "ui/lobby/dating_zengjia.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Sprite", "props": { "y": 39, "x": 11, "width": 20, "var": "goldAnim", "pivotY": 0, "pivotX": 0, "height": 20 } }, { "type": "Sprite", "props": { "y": 18, "x": 51, "width": 205, "var": "fontBox", "height": 40 } }] }, { "type": "Image", "props": { "y": 78, "var": "noticeGroup", "skin": "ui/lobby/img_dating_gonggaodi.png", "centerX": 116 }, "child": [{ "type": "Sprite", "props": { "y": 14, "x": 110, "width": 400, "var": "noticeSp", "height": 40 }, "child": [{ "type": "Label", "props": { "y": 0, "x": 0, "width": 155, "var": "msgTxt", "valign": "middle", "text": "111", "height": 40, "fontSize": 26, "color": "#efe8cd", "align": "left" } }] }] }] };
         return PublicUIUI;
     }(View));
     ui.PublicUIUI = PublicUIUI;
@@ -720,7 +969,7 @@ var ui;
                 _super.prototype.createChildren.call(this);
                 this.createView(ui.UI.SetPwdPanelUI.uiView);
             };
-            SetPwdPanelUI.uiView = { "type": "View", "props": { "width": 712, "height": 466 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "width": 712, "skin": "ui/common/img_com_xiankuang.png", "height": 362, "sizeGrid": "15,15,15,16" }, "child": [{ "type": "Box", "props": { "y": 111, "x": 56, "var": "panel1" }, "child": [{ "type": "Image", "props": { "y": 6, "x": 19, "skin": "ui/fullMyCenter/img_grzx_sr10.png" } }, { "type": "Image", "props": { "y": 89, "skin": "ui/fullMyCenter/img_grzx_sr05.png" } }, { "type": "Image", "props": { "y": 171, "x": 0, "skin": "ui/fullMyCenter/img_grzx_sr06.png" } }, { "type": "Image", "props": { "y": -1, "x": 185, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 340, "var": "pwdTxt1", "valign": "middle", "type": "password", "promptColor": "#93afc0", "prompt": "请输入旧密码", "height": 46, "fontSize": 30, "color": "#ffffff" } }, { "type": "CheckBox", "props": { "y": 2, "x": 359, "var": "lookBtn1", "stateNum": 2, "skin": "ui/common/check_see2.png", "selected": false } }] }, { "type": "Image", "props": { "y": 82, "x": 185, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 340, "var": "pwdTxt2", "valign": "middle", "type": "password", "promptColor": "#93afc0", "prompt": "请输入6-15位字符", "maxChars": 15, "height": 46, "fontSize": 30, "color": "#ffffff" } }, { "type": "CheckBox", "props": { "y": 2, "x": 359, "var": "lookBtn2", "stateNum": 2, "skin": "ui/common/check_see2.png", "selected": false } }] }, { "type": "Image", "props": { "y": 164, "x": 185, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 340, "var": "pwdTxt3", "valign": "middle", "type": "password", "promptColor": "#93afc0", "prompt": "请再次输入密码", "maxChars": 15, "height": 46, "fontSize": 30, "color": "#ffffff" } }, { "type": "CheckBox", "props": { "y": 2, "x": 359, "var": "lookBtn3", "stateNum": 2, "skin": "ui/common/check_see2.png", "selected": false } }] }] }, { "type": "Box", "props": { "y": 79, "x": 54, "width": 656, "var": "panel2", "height": 265 }, "child": [{ "type": "Image", "props": { "y": 150, "skin": "ui/res_login/img_dl_tianxie05.png" } }, { "type": "Image", "props": { "y": 223, "skin": "ui/fullMyCenter/img_grzx_sr06.png" } }, { "type": "Image", "props": { "y": 96, "x": 487, "skin": "ui/res_login/btn_dl_yanzhengma02.png", "anchorY": 0.5, "anchorX": 0.5 }, "child": [{ "type": "Text", "props": { "y": 9, "x": 7, "width": 62, "var": "timeTxt", "text": "0", "fontSize": 36, "color": "#ffffff", "align": "center" } }] }, { "type": "Image", "props": { "y": 96, "x": 487, "var": "getCodeBtn", "skin": "ui/res_login/btn_dl_yanzhengma01.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 80, "x": 20, "skin": "ui/res_login/img_dl_tianxie03.png" } }, { "type": "Image", "props": { "y": 8, "x": 19, "skin": "ui/res_login/img_dl_tianxie04.png" } }, { "type": "Image", "props": { "y": 0, "x": 176, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 340, "var": "phoneTxt", "valign": "middle", "type": "text", "restrict": "0123456789", "promptColor": "#93afc0", "prompt": "请输入可用手机号", "maxChars": 11, "height": 46, "fontSize": 30, "color": "#ffffff" } }] }, { "type": "Image", "props": { "y": 143, "x": 176, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 340, "var": "pwdTxt4", "valign": "middle", "type": "password", "promptColor": "#93afc0", "prompt": "请输入6-15位字符", "maxChars": 15, "height": 46, "fontSize": 30, "color": "#ffffff" } }, { "type": "CheckBox", "props": { "y": 2, "x": 359, "var": "lookBtn4", "stateNum": 2, "skin": "ui/common/check_see2.png", "selected": false } }] }, { "type": "Image", "props": { "y": 215, "x": 176, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 340, "var": "pwdTxt5", "valign": "middle", "type": "password", "promptColor": "#93afc0", "prompt": "请再次输入密码", "maxChars": 15, "height": 46, "fontSize": 30, "color": "#ffffff" } }, { "type": "CheckBox", "props": { "y": 2, "x": 359, "var": "lookBtn5", "stateNum": 2, "skin": "ui/common/check_see2.png", "selected": false } }] }, { "type": "Image", "props": { "y": 72, "x": 176, "width": 196, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 168, "var": "codeTxt", "valign": "middle", "type": "text", "restrict": "0123456789", "promptColor": "#93afc0", "prompt": "请输验证码", "maxChars": 6, "height": 46, "fontSize": 30, "color": "#ffffff" } }] }] }, { "type": "Image", "props": { "y": 426, "x": 356, "var": "okBtn", "skin": "ui/fullMyCenter/btn_grzx_qd01.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Box", "props": { "y": 19, "x": 92, "var": "checkGroup1" }, "child": [{ "type": "Image", "props": { "y": 7, "x": 57, "skin": "ui/fullMyCenter/img_grzx_gx05.png" } }, { "type": "CheckBox", "props": { "y": 0, "x": 0, "width": 202, "var": "checkBtn1", "skin": "ui/fullMyCenter/check_gou.png", "selected": false, "height": 42 } }] }, { "type": "Box", "props": { "y": 19, "x": 355, "var": "checkGroup2" }, "child": [{ "type": "Image", "props": { "y": 7, "x": 57, "skin": "ui/fullMyCenter/img_grzx_gx04.png" } }, { "type": "CheckBox", "props": { "y": 0, "x": 0, "width": 236, "var": "checkBtn2", "skin": "ui/fullMyCenter/check_gou.png", "height": 42 } }] }] }] };
+            SetPwdPanelUI.uiView = { "type": "View", "props": { "width": 712, "height": 466 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "width": 712, "skin": "ui/common/img_com_xiankuang.png", "height": 362, "sizeGrid": "15,15,15,16" }, "child": [{ "type": "Box", "props": { "y": 111, "x": 56, "var": "panel1" }, "child": [{ "type": "Image", "props": { "y": 6, "x": 19, "skin": "ui/fullMyCenter/img_grzx_sr10.png" } }, { "type": "Image", "props": { "y": 89, "skin": "ui/fullMyCenter/img_grzx_sr05.png" } }, { "type": "Image", "props": { "y": 171, "x": 0, "skin": "ui/fullMyCenter/img_grzx_sr06.png" } }, { "type": "Image", "props": { "y": -1, "x": 185, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 340, "var": "pwdTxt1", "valign": "middle", "type": "password", "promptColor": "#93afc0", "prompt": "请输入旧密码", "height": 46, "fontSize": 30, "color": "#ffffff" } }, { "type": "CheckBox", "props": { "y": 2, "x": 359, "var": "lookBtn1", "stateNum": 2, "skin": "ui/common/check_see2.png", "selected": false } }] }, { "type": "Image", "props": { "y": 82, "x": 185, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 340, "var": "pwdTxt2", "valign": "middle", "type": "password", "promptColor": "#93afc0", "prompt": "请输入6-15位字符", "maxChars": 15, "height": 46, "fontSize": 30, "color": "#ffffff" } }, { "type": "CheckBox", "props": { "y": 2, "x": 359, "var": "lookBtn2", "stateNum": 2, "skin": "ui/common/check_see2.png", "selected": false } }] }, { "type": "Image", "props": { "y": 164, "x": 185, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 340, "var": "pwdTxt3", "valign": "middle", "type": "password", "promptColor": "#93afc0", "prompt": "请再次输入密码", "maxChars": 15, "height": 46, "fontSize": 30, "color": "#ffffff" } }, { "type": "CheckBox", "props": { "y": 2, "x": 359, "var": "lookBtn3", "stateNum": 2, "skin": "ui/common/check_see2.png", "selected": false } }] }] }, { "type": "Box", "props": { "y": 79, "x": 54, "width": 656, "var": "panel2", "height": 265 }, "child": [{ "type": "Image", "props": { "y": 150, "skin": "ui/res_login/img_dl_tianxie05.png" } }, { "type": "Image", "props": { "y": 223, "skin": "ui/fullMyCenter/img_grzx_sr06.png" } }, { "type": "Image", "props": { "y": 96, "x": 487, "skin": "ui/res_login/btn_dl_yanzhengma02.png", "anchorY": 0.5, "anchorX": 0.5 }, "child": [{ "type": "Text", "props": { "y": 9, "x": 7, "width": 62, "var": "timeTxt", "text": "0", "fontSize": 36, "color": "#ffffff", "align": "center" } }] }, { "type": "Image", "props": { "y": 96, "x": 487, "var": "getCodeBtn", "skin": "ui/res_login/btn_dl_yanzhengma01.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Image", "props": { "y": 80, "x": 20, "skin": "ui/res_login/img_dl_tianxie03.png" } }, { "type": "Image", "props": { "y": 8, "x": 19, "skin": "ui/res_login/img_dl_tianxie04.png" } }, { "type": "Image", "props": { "y": 0, "x": 176, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 378, "var": "phoneTxt", "valign": "middle", "type": "text", "restrict": "0123456789", "promptColor": "#93afc0", "prompt": "请输入可用手机号", "maxChars": 11, "height": 46, "fontSize": 30, "color": "#ffffff" } }] }, { "type": "Image", "props": { "y": 143, "x": 176, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 340, "var": "pwdTxt4", "valign": "middle", "type": "password", "promptColor": "#93afc0", "prompt": "请输入6-15位字符", "maxChars": 15, "height": 46, "fontSize": 30, "color": "#ffffff" } }, { "type": "CheckBox", "props": { "y": 2, "x": 359, "var": "lookBtn4", "stateNum": 2, "skin": "ui/common/check_see2.png", "selected": false } }] }, { "type": "Image", "props": { "y": 215, "x": 176, "width": 410, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 340, "var": "pwdTxt5", "valign": "middle", "type": "password", "promptColor": "#93afc0", "prompt": "请再次输入密码", "maxChars": 15, "height": 46, "fontSize": 30, "color": "#ffffff" } }, { "type": "CheckBox", "props": { "y": 2, "x": 359, "var": "lookBtn5", "stateNum": 2, "skin": "ui/common/check_see2.png", "selected": false } }] }, { "type": "Image", "props": { "y": 72, "x": 176, "width": 196, "skin": "ui/res_login/img_dl_shurukuang04.png", "height": 50, "sizeGrid": "20,20,20,20" }, "child": [{ "type": "TextInput", "props": { "y": 2, "x": 15, "width": 168, "var": "codeTxt", "valign": "middle", "type": "text", "restrict": "0123456789", "promptColor": "#93afc0", "prompt": "请输验证码", "maxChars": 6, "height": 46, "fontSize": 30, "color": "#ffffff" } }] }] }, { "type": "Image", "props": { "y": 426, "x": 356, "var": "okBtn", "skin": "ui/fullMyCenter/btn_grzx_qd01.png", "anchorY": 0.5, "anchorX": 0.5 } }, { "type": "Box", "props": { "y": 19, "x": 92, "var": "checkGroup1" }, "child": [{ "type": "Image", "props": { "y": 7, "x": 57, "skin": "ui/fullMyCenter/img_grzx_gx05.png" } }, { "type": "CheckBox", "props": { "y": 0, "x": 0, "width": 202, "var": "checkBtn1", "skin": "ui/fullMyCenter/check_gou.png", "selected": false, "height": 42 } }] }, { "type": "Box", "props": { "y": 19, "x": 355, "var": "checkGroup2" }, "child": [{ "type": "Image", "props": { "y": 7, "x": 57, "skin": "ui/fullMyCenter/img_grzx_gx04.png" } }, { "type": "CheckBox", "props": { "y": 0, "x": 0, "width": 236, "var": "checkBtn2", "skin": "ui/fullMyCenter/check_gou.png", "height": 42 } }] }] }] };
             return SetPwdPanelUI;
         }(View));
         UI.SetPwdPanelUI = SetPwdPanelUI;

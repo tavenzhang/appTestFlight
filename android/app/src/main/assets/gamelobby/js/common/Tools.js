@@ -149,13 +149,6 @@ var Tools = /** @class */ (function () {
         img.size(conf.size.w, conf.size.h);
         return img;
     };
-    Tools.addAnimation = function (node, conf) {
-        var anim = new MyBoneAnim();
-        anim.init(conf);
-        node.addChild(anim);
-        anim.playAnim(0, true);
-        return anim;
-    };
     Tools.addSprite = function (node, conf) {
         if (!conf) {
             return null;
@@ -1147,101 +1140,6 @@ var Tools = /** @class */ (function () {
         }
         return key;
     };
-    Tools.addMyTextInput = function (node, conf) {
-        var ti = new MyTextInput();
-        if (conf.skin) {
-            ti.skin = conf.skin;
-        }
-        if (conf.size) {
-            ti.size(conf.size.w, conf.size.h);
-        }
-        if (conf.sizegrid) {
-            ti.sizeGrid = conf.sizegrid; //"0,40,0,40";  //背景图边距
-        }
-        if (conf.font) {
-            ti.font = conf.font;
-        }
-        else {
-            ti.font = Common.normalFont;
-        }
-        if (conf.fontsize) {
-            ti.fontSize = conf.fontsize;
-        }
-        if (conf.bold) {
-            ti.bold = conf.bold;
-        }
-        if (conf.color) {
-            ti.color = conf.color;
-        }
-        if (conf.align) {
-            ti.align = conf.align;
-        }
-        if (conf.underline) {
-            ti.underline = conf.underline;
-        }
-        if (conf.pos) {
-            ti.pos(conf.pos.x, conf.pos.y);
-        }
-        if (conf.type) {
-            ti.type = conf.type;
-        }
-        if (conf.prompt) {
-            ti.prompt = Tools.getStringByKey(conf.prompt);
-        }
-        if (conf.text) {
-            ti.text = Tools.getStringByKey(conf.text);
-        }
-        if (conf.editable) {
-            ti.editable = conf.editable.value;
-        }
-        if (conf.visible) {
-            ti.visible = conf.visible.value;
-        }
-        node.addChild(ti);
-        return ti;
-    };
-    Tools.addInput = function (node, conf) {
-        // Debug.trace("addInput conf:");
-        // Debug.trace(conf);
-        var input = Tools.newInput(conf.skin, conf.size.w, conf.size.h, conf.sizegrid, conf.fontsize, conf.color, conf.font, conf.bold, conf.align, conf.underline);
-        input.pos(conf.pos.x, conf.pos.y);
-        if (conf.type) {
-            input.type = conf.type;
-        }
-        if (conf.prompt) {
-            input.prompt = Tools.getStringByKey(conf.prompt);
-        }
-        if (conf.text) {
-            input.text = Tools.getStringByKey(conf.text);
-        }
-        if (conf.editable) {
-            input.editable = conf.editable.value;
-        }
-        node.addChild(input);
-        return input;
-    };
-    //新建一个输入框
-    Tools.newInput = function (skin, w, h, sizeGrid, fontSize, color, font, bold, align, underline) {
-        if (sizeGrid === void 0) { sizeGrid = "0,0,0,0"; }
-        if (fontSize === void 0) { fontSize = 20; }
-        if (color === void 0) { color = "#000000"; }
-        if (font === void 0) { font = "Arial"; }
-        if (bold === void 0) { bold = false; }
-        if (align === void 0) { align = "left"; }
-        if (underline === void 0) { underline = false; }
-        var ti = new MyTextInput();
-        ti.skin = skin;
-        ti.size(w, h); // ti.size(300, 50);
-        // 数据格式："上边距,右边距,下边距,左边距,是否重复填充(值为0：不重复填充，1：重复填充)"，以逗号分隔。 例如："4,4,4,4,1"
-        ti.sizeGrid = sizeGrid; //"0,40,0,40";  //背景图边距
-        ti.font = Common.normalFont; //font;//"Arial";
-        ti.fontSize = fontSize; //30;
-        ti.bold = bold; //true;
-        ti.color = color; //"#606368";
-        ti.align = align;
-        ti.underline = underline;
-        return ti;
-    };
     //添加一个文本框
     Tools.addText = function (node, conf, caller, callback) {
         var txt = Tools.newText(conf.value, conf.size.w, conf.size.h, conf.font.size, conf.font.color, conf.font.align, conf.font.valign, conf.font.wordWrap, conf.font.leading, conf.font.overflow, caller, callback);
@@ -1285,64 +1183,6 @@ var Tools = /** @class */ (function () {
             txt.on(Laya.Event.MOUSE_OUT, scrollCaller, scrollCallback);
         }
         return txt;
-    };
-    Tools.addLabels = function (node, conf) {
-        if (!conf) {
-            return null;
-        }
-        var lb = Tools.newLabels(conf);
-        node.addChild(lb);
-        if (conf.font.overflow) {
-            lb.overflow = conf.font.overflow;
-        }
-        if (conf.font.stroke) {
-            lb.stroke = conf.font.stroke;
-        }
-        if (conf.font.strokeColor) {
-            lb.strokeColor = conf.font.strokeColor;
-        }
-        if (conf.data) {
-            lb.dataName = conf.data;
-        }
-        return lb;
-    };
-    Tools.newLabels = function (conf) {
-        var lb = Tools.newLabel(conf.font.text, conf.size.w, conf.size.h, conf.font.size, conf.font.color, conf.font.align, conf.font.valign, conf.font.name, conf.font.wrap, conf.font.underline);
-        lb.pos(conf.pos.x, conf.pos.y);
-        if (conf.font.borderColor) {
-            lb.borderColor = conf.font.borderColor;
-        }
-        return lb;
-    };
-    Tools.newLabel = function (text, w, h, fontSize, fontColor, align, valign, font, wordWrap, underline) {
-        if (fontSize === void 0) { fontSize = 20; }
-        if (fontColor === void 0) { fontColor = "#ffffff"; }
-        if (align === void 0) { align = "center"; }
-        if (valign === void 0) { valign = "middle"; }
-        if (font === void 0) { font = "Microsoft YaHei"; }
-        if (wordWrap === void 0) { wordWrap = true; }
-        if (underline === void 0) { underline = false; }
-        var lb = new MyLabel();
-        lb.font = Common.normalFont; //font;
-        lb.text = Tools.getStringByKey(text);
-        lb.fontSize = fontSize;
-        lb.color = fontColor;
-        lb.underline = underline;
-        // lb.borderColor = "#00ff00";
-        // lb.stroke = 2;
-        // lb.strokeColor = "#00ff00";
-        lb.align = align;
-        lb.valign = valign;
-        if (w != 0) {
-            lb.width = w;
-        }
-        if (h != 0) {
-            lb.height = h;
-        }
-        // lb.stroke = 3;
-        // lb.strokeColor = "#ffffff";
-        lb.wordWrap = wordWrap;
-        return lb;
     };
     //对字符串进行格式化 0% 表示第一个参数 n% 表示第n个参数
     Tools.FormatString = function (format) {
@@ -1563,7 +1403,7 @@ var Tools = /** @class */ (function () {
     };
     Tools.screenFull = function (e) {
         // Debug.trace('screenFull e:');
-        if (TempData.bClickFullscreen) {
+        if (GameData.bClickFullscreen) {
             //检查当前是否全屏状态
             var bFull = false;
             try {
@@ -1580,7 +1420,7 @@ var Tools = /** @class */ (function () {
             catch (e) {
                 Debug.trace(e);
             }
-            TempData.bClickFullscreen = false;
+            GameData.bClickFullscreen = false;
         }
         //同时要复制字符串内容到剪贴板
         // Debug.trace('copy string:'+Tools.copy_content);
@@ -1590,21 +1430,7 @@ var Tools = /** @class */ (function () {
         }
     };
     Tools.doFullscreen = function () {
-        TempData.bClickFullscreen = true;
-    };
-    //复制到剪贴板
-    Tools.copy2clip_win = function (lb) {
-        Debug.trace('copy2clip win lb text:' + lb.text);
-        try {
-            // Tools.copy2clip(lb.text);
-            // Tools.copyMessage(lb.text);
-            // Tools.Copy2Clip(lb.text);
-            Tools.copy_content = lb.text;
-        }
-        catch (e) {
-            Debug.trace('copy2clip win error');
-            Debug.trace(e);
-        }
+        GameData.bClickFullscreen = true;
     };
     Tools.Copy2Clip = function (url) {
         Debug.trace('document:' + document);

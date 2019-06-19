@@ -264,7 +264,7 @@ var view;
                     this.ctxtList.height = 210;
                 }
                 else {
-                    this.ctxtList.height = this.awardGroup.y + this.awardGroup.height;
+                    this.ctxtList.height = 376;
                 }
                 this.detailsGroup.visible = true;
             };
