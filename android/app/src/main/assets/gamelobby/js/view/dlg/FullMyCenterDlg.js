@@ -90,7 +90,7 @@ var view;
                 //绑定手机号
                 EventManager.addTouchScaleListener(this.bindPhoneBtn, this, function () {
                     SoundPlayer.enterPanelSound();
-                    if (TempData.bindOpen)
+                    if (GameData.bindOpen)
                         view.dlg.bindPhone.BindPhoneActiveDlg.show();
                     else
                         view.dlg.center.BindPhoneDlg.show();
@@ -126,11 +126,18 @@ var view;
             };
             FullMyCenterDlg.prototype.selectMusic = function () {
                 if (this.musicBtn.selected) { //打开
-                    Laya.SoundManager.playMusic(ResConfig.musicUrl);
-                    Laya.SoundManager.setMusicVolume(1);
+                    if (GameUtils.isAppSound)
+                        PostMHelp.game_common({ do: "playBgMusic", param: true });
+                    else {
+                        Laya.SoundManager.playMusic(ResConfig.musicUrl);
+                        Laya.SoundManager.setMusicVolume(1);
+                    }
                 }
                 else {
-                    Laya.SoundManager.setMusicVolume(0);
+                    if (GameUtils.isAppSound)
+                        PostMHelp.game_common({ do: "playBgMusic", param: false });
+                    else
+                        Laya.SoundManager.setMusicVolume(0);
                 }
             };
             FullMyCenterDlg.prototype.selectSound = function () {

@@ -62,9 +62,8 @@ export const platInfo = {
         release_server: "/game/release/sit"
     },
     platId: configAppId,
-    brand: "106",
-    latestNativeVersion:{ios:"3.0",android:"3.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
-
+    brand: "uat01",
+    latestNativeVersion:{ios:"5.0",android:"5.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
 }
 
 

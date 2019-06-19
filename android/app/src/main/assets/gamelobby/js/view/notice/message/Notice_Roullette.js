@@ -22,6 +22,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
         this.wlist = new WinningList2();
     };
     Notice_Roullette.prototype.setData = function ($data) {
+        var _this = this;
         this.noticeid = $data.noticeid;
         this.endData = this.convertDateForIos($data.endTime);
         var startDate = this.beforeLast($data.startTime, " ").split("-");
@@ -56,15 +57,13 @@ var Notice_Roullette = /** @class */ (function (_super) {
         spinner.on("reqSpin", this, this.onReqSpin);
         this.initButtons();
         this.wlist.init(this);
-        var url = ConfObjRead.getConfUrl().url.apihome;
-        url += ConfObjRead.getConfUrl().cmd.user_bet_info;
-        url += "?access_token=" + Common.access_token;
-        var header = [
-            // "Content-Type",
-            //  "application/json; charset=utf-8",
-            "Accept", "*/*"
-        ];
-        NetManager.getObj().HttpConnect(url, this, this.returnBetInfo, header, null, "put", "json");
+        HttpRequester.putHttpData(ConfObjRead.getConfUrl().cmd.user_bet_info, null, this, function (suc, jobj) {
+            if (suc) {
+                _this._havePt = jobj.userPoint;
+                _this.currentPt.text = jobj.userPoint;
+                _this.todayPt.text = jobj.userInput;
+            }
+        });
     };
     Notice_Roullette.prototype.initButtons = function () {
         this.btnSilver.on(Laya.Event.MOUSE_DOWN, this, this.onMouse);
@@ -79,14 +78,6 @@ var Notice_Roullette = /** @class */ (function (_super) {
     };
     Notice_Roullette.prototype.ptRequired = function ($n) {
         this.perPt.text = $n + " \u79EF\u5206\u4E00\u6B21";
-    };
-    Notice_Roullette.prototype.returnBetInfo = function (s, stat) {
-        try {
-            this._havePt = s.userPoint;
-            this.currentPt.text = s.userPoint;
-            this.todayPt.text = s.userInput;
-        }
-        catch (error) { }
     };
     Notice_Roullette.prototype.beforeLast = function (p_string, p_char) {
         if (p_string === null) {
