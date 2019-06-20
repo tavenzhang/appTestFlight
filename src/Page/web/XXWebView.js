@@ -392,7 +392,7 @@ export default class XXWebView extends Component {
                             FileTools.onSaveCameraRoll(message.param);
                             break;
                         case "playBgMusic":
-                            TW_Data_Store.setItem(TW_DATA_KEY.AFF_CODE, message.param ? "1":"0" ,(err)=>{
+                            TW_Data_Store.setItem(TW_DATA_KEY.BG_MUSIC, message.param ? "1":"0" ,(err)=>{
                                 TW_Log("playBgMusic---TW_DATA_KEY.AFF_CODE-err---"+message.param, err)
                             });
                             if(message.param){
