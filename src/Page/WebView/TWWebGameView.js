@@ -251,7 +251,7 @@ export default class TWWebGameView extends Component {
             onEvaleJS(this.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.lobbyResume));
             if(TW_Store.dataStore.isAppSound){
-                SoundHelper.playMusic()
+                SoundHelper.onPalyMusic();
             }
 
         }
