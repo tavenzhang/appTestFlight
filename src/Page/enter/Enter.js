@@ -89,9 +89,10 @@ export default class Enter extends Component {
                       this.hotFix(TW_Store.hotFixStore.currentDeployKey,true);
                       TW_Store.dataStore.loadHomeVerson();
                   }
+                  SoundHelper.onCheckPalyMusic();
               }
             }
-            SoundHelper.onPalyMusic();
+
             this.flage = false ;
         }else if(nextAppState != null && nextAppState === 'background'){
             this.flage = true;

@@ -48,7 +48,7 @@ export class SoundHelper {
                             TW_Store.dataStore.isAppSound = true;
                             s.setSpeed(1);
                             s.setNumberOfLoops(999);
-                            SoundHelper.onPalyMusic();
+                            SoundHelper.onCheckPalyMusic();
                         }
                     });
                 }
@@ -76,11 +76,11 @@ export class SoundHelper {
         }
     }
 
-    static  onPalyMusic() {
+    static  onCheckPalyMusic() {
 
         if(SoundHelper.soundleMusic){
             TW_Data_Store.getItem(TW_DATA_KEY.BG_MUSIC,(err,ret)=>{
-                TW_Log("playBgMusic---onPalyMusic-ret=="+ret)
+                TW_Log("playBgMusic---onCheckPalyMusic-ret=="+ret)
                 if(ret==null){
                     SoundHelper.playMusic()
                 }else{
