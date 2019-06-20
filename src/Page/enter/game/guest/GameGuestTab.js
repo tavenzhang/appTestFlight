@@ -63,18 +63,18 @@ export default class GameGuestTab extends Component {
                 (this.isQASelected) ?
                     (<View style={{
                             position: "absolute",
-                            left: 0,//(SCREEN_W-widthPercentageToDP('70.5%'))/10,
-                            width: widthPercentageToDP('66.5%'),
-                            height: heightPercentageToDP('79%')
+                            left: SCREEN_W > 730 ?(SCREEN_W - 717)/2:0,
+                            width: SCREEN_W > 730 ? 517 : (SCREEN_W - 215),
+                            height: (SCREEN_H - 100)
                         }}>
                             <TCImage source={ASSET_Images.gameUI.guestQABg} resizeMode={'stretch'}
                                      style={{
                                          position: "absolute",
-                                         width: widthPercentageToDP('67.5%'),
-                                         height: heightPercentageToDP('79%')
+                                         width: SCREEN_W > 730 ? 517 : (SCREEN_W - 215),
+                                         height: (SCREEN_H - 80)
                                      }}/>
                             <ScrollView
-                                contentContainerStyle={{alignItems: 'center', marginTop: 10, marginBottom: 10}}>
+                                contentContainerStyle={{alignItems: 'center'}}>
                                 <TCImage
                                     source={ASSET_Images.gameUI.guestQuestionAns}
                                     style={{width: widthPercentageToDP('60.5%'),}}
@@ -84,15 +84,15 @@ export default class GameGuestTab extends Component {
                     ) : (
                         <View style={{
                             position: "absolute",
-                            left: 0,
-                            width: widthPercentageToDP('70.2%'),
-                            height: heightPercentageToDP('79%')
+                            left: SCREEN_W > 730 ?(SCREEN_W - 717)/2:0,
+                            width: SCREEN_W > 730 ? 517 : (SCREEN_W - 200 - 40),
+                            height: (SCREEN_H - 80)
                         }}>
                             <TCImage source={ASSET_Images.gameUI.guestOSBg} resizeMode={'stretch'}
                                      style={{
                                          position: "absolute",
-                                         width: widthPercentageToDP('63.8%'),
-                                         height: heightPercentageToDP('80%')
+                                         width: SCREEN_W > 730 ? 517 : (SCREEN_W - 215),
+                                         height: (SCREEN_H - 80)
                                      }}/>
                             {this.getWebView()}
                         </View>
@@ -106,23 +106,10 @@ export default class GameGuestTab extends Component {
         let source = {
             uri: TW_Store.gameUIStroe.gustWebUrl,
         }
-        const widthPercentageToDP = widthPercent => {
-            const screenWidth = Dimensions.get('window').width;
-            // Convert string input to decimal number
-            const elemWidth = parseFloat(widthPercent);
-            return PixelRatio.roundToNearestPixel(screenWidth * elemWidth / 100);
-        };
-
+        TW_Log("Benny=>width="+SCREEN_W+" & Left= " + (SCREEN_W - 517)/10)
         return (
             <WebView source={source}
-                     style={{
-                         margin: 13,
-                         marginTop: 21,
-                         marginBottom: 8,
-                         height: 0,
-                         width: widthPercentageToDP('60.5%'),
-                         backgroundColor: "transparent",
-                     }}
+                     style={styles.webView}
                      allowFileAccess={true}
                      startInLoadingState={true}
                      renderLoading={this.onRenderLoadingView}
@@ -152,7 +139,7 @@ const styles = StyleSheet.create({
         marginTop: 21,
         marginBottom: 8,
         height: 0,
-        width: SCREEN_W > 750 ? 490 : (SCREEN_W - 200 - 40),
+        width: SCREEN_W > 730 ? 490 : (SCREEN_W - 200 - 40),
         backgroundColor: "transparent",
     }
 });
