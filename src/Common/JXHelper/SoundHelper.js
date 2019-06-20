@@ -77,9 +77,10 @@ export class SoundHelper {
     }
 
     static  onPalyMusic() {
-        TW_Log("playBgMusic---onPalyMusic-")
+
         if(SoundHelper.soundleMusic){
-            TW_Data_Store.getItem(TW_DATA_KEY.AFF_CODE,(err,ret)=>{
+            TW_Data_Store.getItem(TW_DATA_KEY.BG_MUSIC,(err,ret)=>{
+                TW_Log("playBgMusic---onPalyMusic-ret=="+ret)
                 if(ret==null){
                     SoundHelper.playMusic()
                 }else{
