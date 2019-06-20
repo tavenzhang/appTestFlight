@@ -78,7 +78,7 @@ export default class GameGuestTab extends Component {
                                 <TCImage
                                     source={ASSET_Images.gameUI.guestQuestionAns}
                                     style={{width: widthPercentageToDP('60.5%'),}}
-                                    resizeMode='stretch'/>
+                                    resizeMode='contain'/>
                             </ScrollView>
                         </View>
                     ) : (
