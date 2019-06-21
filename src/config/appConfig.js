@@ -55,8 +55,8 @@ export const platInfo = {
         release_server: "/game/release/mxqp"
     },
     platId: configAppId,
-    brand: "uat01",
-    latestNativeVersion:{ios:"5.0",android:"5.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
+    brand: "mxqp",
+    latestNativeVersion:{ios:"3.0",android:"2.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
 }
 
 export const affCodeList = {
