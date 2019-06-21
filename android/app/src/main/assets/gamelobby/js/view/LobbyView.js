@@ -238,6 +238,7 @@ var view;
         LobbyView.prototype.initCycelView = function (suc, data) {
             if (!suc)
                 return;
+            Debug.output("cyc:", data); //debugxxx
             var arr;
             if (data && data.carousels) {
                 var urls = data.carousels;
