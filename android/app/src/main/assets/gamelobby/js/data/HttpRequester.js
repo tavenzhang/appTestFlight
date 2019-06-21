@@ -366,6 +366,7 @@ var HttpRequester = /** @class */ (function () {
                     if (status_1 == 401) {
                         LayaMain.onQuit();
                         Toast.showToast("登录过期,请重新登录");
+                        LayaMain.getInstance().showCircleLoading(false);
                         return;
                     }
                     var err = hr.http.response;
