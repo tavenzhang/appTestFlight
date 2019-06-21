@@ -245,15 +245,14 @@ export default class TWWebGameView extends Component {
     onBackHomeJs = () => {
         let {onEvaleJS} = this.props;
         TW_Store.gameUpateStore.isInSubGame=false;
+        if(TW_Store.dataStore.isAppSound){
+            SoundHelper.onCheckPalyMusic();
+        }
         TW_Store.bblStore.quitSubGame();
         clearTimeout(this.timeId);
         if (onEvaleJS) {
             onEvaleJS(this.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.appData, {isAtHome: true}));
             onEvaleJS(this.bblStore.getWebAction(this.bblStore.ACT_ENUM.lobbyResume));
-            if(TW_Store.dataStore.isAppSound){
-                SoundHelper.playMusic()
-            }
-
         }
     }
 }
