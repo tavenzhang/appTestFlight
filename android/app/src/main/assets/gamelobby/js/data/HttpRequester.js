@@ -275,25 +275,30 @@ var HttpRequester = /** @class */ (function () {
      * @param caller
      * @param callback
      */
-    HttpRequester.getHttpData = function (cmd, caller, callback) {
+    HttpRequester.getHttpData = function (cmd, caller, callback, urlParams) {
         var url = ConfObjRead.getConfUrl().url.apihome;
         url += cmd;
         url += "?access_token=" + Common.access_token;
+        if (urlParams)
+            url += urlParams;
         var header = ["Accept", "application/json"];
         this.doRequest(url, header, null, caller, callback, "get");
     };
     /**
      * 通用post方式请求
      */
-    HttpRequester.postHttpData = function (cmd, data, caller, callback) {
+    HttpRequester.postHttpData = function (cmd, data, caller, callback, addHeaderToken) {
         if (data === void 0) { data = null; }
+        if (addHeaderToken === void 0) { addHeaderToken = true; }
         var url = ConfObjRead.getConfUrl().url.apihome;
         url += cmd;
         url += "?access_token=" + Common.access_token;
         var jsonStr = null;
         if (data)
             jsonStr = JSON.stringify(data);
-        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*", "Authorization", "bearer " + Common.access_token];
+        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
+        if (addHeaderToken)
+            header.push("Authorization", "bearer " + Common.access_token);
         this.doRequest(url, header, jsonStr, caller, callback, "post");
     };
     /**
@@ -338,7 +343,7 @@ var HttpRequester = /** @class */ (function () {
      */
     HttpRequester.doRequest = function (url, header, jsonStr, caller, callback, method) {
         if (method === void 0) { method = "post"; }
-        NetManager.getObj().HttpConnect(url, this, function (s, stat, hr) {
+        this.httpConnect(url, this, function (s, stat, hr) {
             var suc = false;
             var jobj;
             if (stat == "complete") {
@@ -360,13 +365,14 @@ var HttpRequester = /** @class */ (function () {
                     Debug.output("request-err:", url, header, jsonStr, hr.http);
                     if (status_1 == 401) {
                         LayaMain.onQuit();
-                        Toast.showToast("登录过期,请从新登录");
+                        Toast.showToast("登录过期,请重新登录");
+                        LayaMain.getInstance().showCircleLoading(false);
                         return;
                     }
                     var err = hr.http.response;
                     if (err) {
                         var obj = JSON.parse(err);
-                        Toast.showToast(obj.message);
+                        Toast.showToast(obj.message || "网络异常,请检查网络环境");
                     }
                     else {
                         var info = Tools.getStringByKey("txt_unknowerr");
@@ -377,6 +383,58 @@ var HttpRequester = /** @class */ (function () {
             if (caller && callback)
                 callback.apply(caller, [suc, jobj]);
         }, header, jsonStr, method, "json");
+    };
+    /**
+     * 开始请求
+     * @param urls
+     * @param caller
+     * @param callback
+     * @param header
+     * @param data
+     * @param metod
+     * @param restype
+     */
+    HttpRequester.httpConnect = function (urls, caller, callback, header, data, metod, restype) {
+        if (header === void 0) { header = null; }
+        if (data === void 0) { data = null; }
+        if (metod === void 0) { metod = "get"; }
+        if (restype === void 0) { restype = "json"; }
+        var url = urls ? urls : "";
+        var hashUrl = url + "_" + JSON.stringify(header ? header : {}) + "_" + JSON.stringify(data ? data : {});
+        for (var _i = 0, _a = this.httpRequestList; _i < _a.length; _i++) {
+            var item = _a[_i];
+            if (item && item.hashUrl == hashUrl) {
+                return;
+            }
+        }
+        //app 使用本地app 代理请求 网页使用原来的
+        if (AppData.IS_NATIVE_APP) {
+            var httpData = { hashUrl: hashUrl, caller: caller, callback: callback };
+            this.httpRequestList.push(httpData);
+            PostMHelp.game_Http({ url: url, header: header, data: data, metod: metod, restype: restype, hashUrl: hashUrl });
+        }
+        else {
+            var hr = new Laya.HttpRequest();
+            hr.once(Laya.Event.COMPLETE, this, this.httpRequestComplete, [caller, callback, hr]);
+            hr.once(Laya.Event.ERROR, this, this.httpRequestError, [caller, callback, hr]);
+            if (header) {
+                hr.send(url, data, metod, restype, header);
+            }
+            else {
+                hr.send(url, null, metod, restype);
+            }
+        }
+    };
+    HttpRequester.httpRequestComplete = function (caller, callback, hr, e) {
+        callback.apply(caller, [e, 'complete', hr]);
+    };
+    HttpRequester.httpRequestError = function (caller, callback, hr, e) {
+        if (hr.http.status == 204) {
+            callback.apply(caller, [e, 'complete', hr]);
+        }
+        else {
+            callback.apply(caller, [e, 'error', hr]);
+        }
     };
     //获取加密相关的头部信息
     HttpRequester.getEncryHeader = function () {
@@ -402,6 +460,7 @@ var HttpRequester = /** @class */ (function () {
         ];
         return header;
     };
+    HttpRequester.httpRequestList = [];
     return HttpRequester;
 }());
 //# sourceMappingURL=HttpRequester.js.map

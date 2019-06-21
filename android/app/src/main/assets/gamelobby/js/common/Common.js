@@ -6,18 +6,6 @@ var Common = /** @class */ (function () {
             "strongPwd": true
         };
     };
-    Common.canGoinGame = function (roomData) {
-        var zhunru = roomData.roomConfig.minScore; // * 100000;
-        var balance = Common.userInfo.userBalance.balance;
-        // Debug.trace("zhunru:"+zhunru+" balance:"+balance);
-        if (zhunru <= balance) {
-            //房间准入金额小于我当前拥有的
-            //可以进去
-            return true;
-        }
-        return false;
-        // return true;
-    };
     //根据游戏id找出游戏数据
     Common.getGameDataById = function (id) {
         for (var k = 0; k < Common.gameInfo.length; k++) {
@@ -128,9 +116,9 @@ var Common = /** @class */ (function () {
         this.cardInfo = null;
         this.bankInfo = null;
         this.alipayInfo = null;
-        TempData.bindAward = 0;
-        TempData.isGetBindAward = true;
-        TempData.bindOpen = false;
+        GameData.bindAward = 0;
+        GameData.isGetBindAward = true;
+        GameData.bindOpen = false;
     };
     Common.GM_SCREEN_H = 750;
     Common.GM_SCREEN_W = 1334;
