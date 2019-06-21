@@ -160,6 +160,8 @@ var view;
             FullMyCenterDlg.prototype.onClosed = function (type) {
                 SaveManager.getObj().save(SaveManager.KEY_MUSIC_SWITCH, this.musicBtn.selected ? 1 : 0);
                 SaveManager.getObj().save(SaveManager.KEY_SFX_SWITCH, this.soundBtn.selected ? 1 : 0);
+                SaveManager.getObj().save(SaveManager.KEY_MUSIC_VL, this.musicBtn.selected ? 1 : 0);
+                SaveManager.getObj().save(SaveManager.KEY_SFX_VL, this.soundBtn.selected ? 1 : 0);
                 this.soundBtn.off(Laya.Event.CHANGE, this, this.selectSound);
                 this.musicBtn.off(Laya.Event.CHANGE, this, this.selectMusic);
                 EventManager.removeAllEvents(this);

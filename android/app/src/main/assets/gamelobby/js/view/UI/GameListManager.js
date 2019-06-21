@@ -54,9 +54,7 @@ var GameListManager = /** @class */ (function () {
         var icon = this.getGameIconByAlias(alias);
         if (icon) {
             icon.doClick();
-            //需要下载的情况
-            if (icon.isDownload)
-                this.dragBox.scrollToItem(icon);
+            this.dragBox.scrollToItem(icon);
         }
     };
     //游戏更新相关-----------------
