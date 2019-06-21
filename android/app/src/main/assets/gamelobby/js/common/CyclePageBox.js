@@ -57,7 +57,7 @@ var CyclePageBox = /** @class */ (function (_super) {
             var img = new Laya.Image();
             img.width = _this.viewWidth;
             img.height = _this.viewHeight;
-            img.skin = vo.url;
+            img.skin = vo.carouselUrl;
             _this.imgList.push(img);
         });
         if (this.total > 0)
@@ -74,15 +74,18 @@ var CyclePageBox = /** @class */ (function (_super) {
         this.openLink(vo);
     };
     CyclePageBox.prototype.openLink = function (vo) {
-        if (vo && vo.linkUrl) {
+        if (vo && vo.carouselHref) {
             if (vo.jumpInner) {
-                InnerJumpUtil.doJump(InnerJumpCmd[vo.linkUrl]);
+                if (vo.jumpGame)
+                    EventManager.dispath(EventType.JUMP_GAME, vo.carouselHref);
+                else
+                    InnerJumpUtil.doJump(DlgCmd[vo.carouselHref]);
             }
             else {
                 if (GameUtils.isNativeApp)
-                    PostMHelp.game_common({ name: "openWeb", param: vo.linkUrl });
+                    PostMHelp.game_common({ name: "openWeb", param: vo.carouselHref });
                 else
-                    window.open(vo.linkUrl);
+                    window.open(vo.carouselHref);
             }
         }
     };

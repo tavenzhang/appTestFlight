@@ -33,7 +33,8 @@ global.TW_DATA_KEY={
     isInitStore:"isInitStore",
     platData:"platData",
     gameList:"gameList",
-    AFF_CODE:"aff_code"
+    AFF_CODE:"aff_code",
+    BG_MUSIC:"BG_MUSIC"
 }
 
 

@@ -15,8 +15,8 @@ import Toast from "../../Common/JXHelper/JXToast";
 import FileTools from "../../Common/Global/FileTools";
 import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 import Tools from "../../Common/View/Tools";
-import ShareBox from "../../Page/enter/game/pay/ShareBox";
 import TCUserOpenPayApp from "../UserCenter/UserPay/TCUserOpenPayApp";
+import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
 
 const HTTP_GAME_LIST="/gamecenter/player/game/list";
 const HTTP_ACCOUNT="/webapi/account/users/current";
@@ -87,7 +87,7 @@ export default class XXWebView extends Component {
 
     _keyboardDidShow=(event)=>{
        // TW_Log("( _keyboard---_keyboardDidShow" ,event);
-        TW_Log("( _keyboard---_keyboardDidShow--endCoordinates" ,event.endCoordinates);
+        //TW_Log("( _keyboard---_keyboardDidShow--endCoordinates" ,event.endCoordinates);
         if(!this.isShowKeyBoard){
             this.isShowKeyBoard =true;
             if(this.refs.myView){
@@ -110,8 +110,7 @@ export default class XXWebView extends Component {
     }
 
     onFinishGameList=(gameList)=>{
-        TW_Log("( _keyboard---onFinishGameList==" ,gameList);
-        let gameM =  TW_Store.dataStore.appGameListM;
+       // TW_Log("( _keyboard---onFinishGameList==" ,gameList);
        // TW_Log("( _keyboard---onFinishGameList==TW_Store.dataStore.appGameListM=" ,gameM);
         for (let item of gameList){
             for (let dataKey in TW_Store.dataStore.appGameListM){
@@ -234,14 +233,11 @@ export default class XXWebView extends Component {
         TW_Data_Store.setItem(TW_DATA_KEY.gameList,JSON.stringify(TW_Store.dataStore.appGameListM))
     }
 
-    onCloseSharebox() {
-        this.setState({ isShowSharebox: false})
-    }
+
 
     render() {
        // TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
         let news=TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome;
-
         if(news){
                 return null
         }
@@ -249,7 +245,7 @@ export default class XXWebView extends Component {
         TW_Log("TW_DATA_KEY.gameList-FileTools--=gameUpateStore=news=="+news)
         let {force} = this.props;
         let source = {
-            file: TW_Store.dataStore.getHomeWebUri(),
+            file: TW_Store.dataStore.targetAppDir+"/index.html",
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
             allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
             param:"?app=true"
@@ -279,7 +275,8 @@ export default class XXWebView extends Component {
             gameDomain:TW_Store.bblStore.gameDomain+"/api/v1/gamecenter",
             affCode:TW_Store.appStore.userAffCode,
             isDebug:TW_IS_DEBIG,
-            appVersion:TW_Store.appStore.versionHotFix
+            appVersion:TW_Store.appStore.versionHotFix,
+            isAppSound:TW_Store.dataStore.isAppSound
         })}`;
        // TW_Log("targetAppDir-33---isWechatEnabled-his.state--"+(sharedUrl&&isShowSharebox)+"--sharedUrl=="+sharedUrl+"-isShowSharebox-"+isShowSharebox,this.state);
         return (
@@ -351,7 +348,8 @@ export default class XXWebView extends Component {
                     // TW_Log("game---ct=="+message.ct,message.data);
                     break;
                 case "game_common":
-                    switch (message.name) {
+                    let actions = message.name||message.do
+                    switch (actions) {
                         case "saveToPhone":
                             Tools.onSaveScreenPhone();
                             break;
@@ -359,42 +357,51 @@ export default class XXWebView extends Component {
                             TW_Store.userStore.exitAppToLoginPage();
                             break;
                         case "openWeb":
-                            TCUserOpenPayApp.linkingWeb( message.param)
+                            TCUserOpenPayApp.linkingWeb(message.param)
                             break;
                         case "onGameInit":
-                            if(this.timeId){
+                            if (this.timeId) {
                                 clearTimeout(this.timeId);
                             }
-                            this.timeId= setTimeout(()=>{
-                                if(TW_Store.gameUpateStore.isNeedUpdate&&TW_Store.gameUpateStore.isTempExist){
-                                    TW_Store.gameUpateStore.isNeedUpdate=false;
-                                    TW_Store.gameUpateStore.isTempExist=false;
-                                    TW_Store.gameUpateStore.isOldHome=false;
+                            this.timeId = setTimeout(() => {
+                                if (TW_Store.gameUpateStore.isNeedUpdate && TW_Store.gameUpateStore.isTempExist) {
+                                    TW_Store.gameUpateStore.isNeedUpdate = false;
+                                    TW_Store.gameUpateStore.isTempExist = false;
+                                    TW_Store.gameUpateStore.isOldHome = false;
                                 }
-                            },1000)
+                            }, 1000)
 
                             break;
-                    }
-
-                    switch (message.do) {
                         case "share":
                             //this.setState({sharedUrl: message.param, isShowSharebox: true});
-                            TW_Store.gameUIStroe.shareData=message.param;
-                            TW_Store.gameUIStroe.isShowShare =true;
+                            TW_Store.gameUIStroe.shareData = message.param;
+                            TW_Store.gameUIStroe.isShowShare = true;
                             break;
                         case "copylink":
                             Clipboard.setString(message.param);
-                            if(message.hint&&message.hint.length>0){
+                            if (message.hint && message.hint.length > 0) {
                                 Toast.showShortCenter(message.hint);
-                            }else{
+                            } else {
                                 Toast.showShortCenter("已复制链接!");
                             }
-                        break;
+                            break;
                         case "openDebug":
-                            this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.openDebug,{}));
+                            this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.openDebug, {}));
+                            break;
+                        case  "saveImage":
+                            FileTools.onSaveCameraRoll(message.param);
+                            break;
+                        case "playBgMusic":
+                            TW_Data_Store.setItem(TW_DATA_KEY.BG_MUSIC, message.param ? "1":"0" ,(err)=>{
+                                TW_Log("playBgMusic---TW_DATA_KEY.AFF_CODE-err---"+message.param, err)
+                            });
+                            if(message.param){
+                                SoundHelper.playMusic();
+                            }else{
+                                SoundHelper.pauseMusic();
+                            }
                             break;
                     }
-
                     break;
                 case "startUpdate":
                     //{action: "startUpdate", gameId: 28, alias: "xywz"}
@@ -476,6 +483,12 @@ export default class XXWebView extends Component {
                         TW_Store.gameUpateStore.isOldHome=false
                     }
                     TW_Store.gameUpateStore.isEnteredGame=true;
+                    setTimeout(()=>{
+                        if(TW_Store.dataStore.isAppSound){
+                            this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic));
+                        }
+                    },2000)
+
                     break;
                 case  "game_custom":
                     TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
