@@ -1,3 +1,13 @@
+var GameData = /** @class */ (function () {
+    function GameData() {
+    }
+    GameData.bClickFullscreen = false;
+    //转移至version.json
+    GameData.channel = "channel20181016";
+    GameData.bindAward = 0; //绑定送金额度
+    GameData.isGetBindAward = true; //是否领取过绑定送金奖励
+    return GameData;
+}());
 /**
  * 游戏状态
  */
@@ -38,15 +48,17 @@ var MailState;
     MailState[MailState["RECEIVE"] = 4] = "RECEIVE";
 })(MailState || (MailState = {}));
 /**
- * 内部跳转命令(用于轮播图)
+ * 弹窗命令
  */
-var InnerJumpCmd;
-(function (InnerJumpCmd) {
-    InnerJumpCmd[InnerJumpCmd["agentCenter"] = 0] = "agentCenter";
-    InnerJumpCmd[InnerJumpCmd["activityCenter"] = 1] = "activityCenter";
-    InnerJumpCmd[InnerJumpCmd["personCenter"] = 2] = "personCenter";
-    InnerJumpCmd[InnerJumpCmd["recharge"] = 3] = "recharge";
-    InnerJumpCmd[InnerJumpCmd["service"] = 4] = "service";
-    InnerJumpCmd[InnerJumpCmd["email"] = 5] = "email";
-})(InnerJumpCmd || (InnerJumpCmd = {}));
+var DlgCmd;
+(function (DlgCmd) {
+    DlgCmd[DlgCmd["agentCenter"] = 0] = "agentCenter";
+    DlgCmd[DlgCmd["activityCenter"] = 1] = "activityCenter";
+    DlgCmd[DlgCmd["personCenter"] = 2] = "personCenter";
+    DlgCmd[DlgCmd["recharge"] = 3] = "recharge";
+    DlgCmd[DlgCmd["service"] = 4] = "service";
+    DlgCmd[DlgCmd["email"] = 5] = "email";
+    DlgCmd[DlgCmd["bindPhoneAct"] = 6] = "bindPhoneAct";
+    DlgCmd[DlgCmd["bindPhone"] = 7] = "bindPhone";
+})(DlgCmd || (DlgCmd = {}));
 //# sourceMappingURL=GameVos.js.map

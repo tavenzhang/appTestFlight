@@ -49,29 +49,26 @@ var WinningList2 = /** @class */ (function (_super) {
         this.getList();
     };
     WinningList2.prototype.getList = function ($update) {
+        var _this = this;
         if ($update === void 0) { $update = false; }
         this._isUpdate = $update;
-        var url = ConfObjRead.getConfUrl().url.apihome;
-        url += ConfObjRead.getConfUrl().cmd.attention_lottery_record;
-        url += "?access_token=" + Common.access_token;
-        url += "&isWho=" + this._currIdx;
-        url += "&noticeId=" + this.noticeid;
-        var header = ["Content-Type", "application/json; charset=utf-8", "Accept", "*/*"];
-        NetManager.getObj().HttpConnect(url, this, this.returnListInfo, header, null, "get", "json");
-    };
-    WinningList2.prototype.returnListInfo = function (s, stat) {
-        this.setRecord(s);
-        if (!this._isUpdate)
-            return;
-        var focus = true;
-        if (this._currIdx === 2 && s.prizeAmount === 0) {
-            focus = false;
-        }
-        if (focus) {
-            Laya.Tween.to(this._recordNew, { alpha: 1 }, 500, null, new Laya.Handler(this, this.fadeComplete));
-        }
-        // this.targetSpinner.setResult(s)
-        // this.targetSpinner = undefined;
+        var cmd = ConfObjRead.getConfUrl().cmd.attention_lottery_record;
+        var urlParams = "&isWho=" + this._currIdx;
+        urlParams += "&noticeId=" + this.noticeid;
+        HttpRequester.getHttpData(cmd, this, function (suc, jobj) {
+            if (suc) {
+                _this.setRecord(jobj);
+                if (!_this._isUpdate)
+                    return;
+                var focus_1 = true;
+                if (_this._currIdx === 2 && jobj.prizeAmount === 0) {
+                    focus_1 = false;
+                }
+                if (focus_1) {
+                    Laya.Tween.to(_this._recordNew, { alpha: 1 }, 500, null, new Laya.Handler(_this, _this.fadeComplete));
+                }
+            }
+        }, urlParams);
     };
     WinningList2.prototype.setRecord = function (s) {
         var counter = 0;

@@ -136,6 +136,26 @@ var DragingBox = /** @class */ (function (_super) {
         this.setDragLen();
     };
     /**
+     * 滚动到item
+     * @param item
+     */
+    DragingBox.prototype.scrollToItem = function (item) {
+        var pt = this.cbox.localToGlobal(new Laya.Point(item.x, item.y));
+        var ix = pt.x + item.width;
+        var lborder = this.x; //坐边界
+        var rborder = this.x + this.rollRect.width; //右边界
+        var tox;
+        if (ix > rborder) {
+            tox = rborder - ix;
+        }
+        else if (pt.x < lborder) {
+            tox = lborder - pt.x;
+        }
+        if (tox) {
+            Laya.Tween.to(this.cbox, { x: this.cbox.x + tox }, 350, Laya.Ease.cubicOut);
+        }
+    };
+    /**
      * 重置滚动区域大小
      * @param w 如果不需要设置就设为null或0
      * @param h 如果不需要设置就设为null或0

@@ -24,6 +24,8 @@ var view;
         }
         LobbyView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
+            this.bindX = this.btn_bind.x;
+            this.mailX = this.btn_mail.x;
             //公共部分
             this.publicUI = new view.PublicView();
             this.uibox.addChild(this.publicUI);
@@ -94,7 +96,7 @@ var view;
             //代理
             EventManager.addTouchScaleListener(this.btn_dl, this, function () {
                 SoundPlayer.enterPanelSound();
-                view.dlg.AgentDlg.show("home");
+                view.dlg.AgentCenterDlg.show();
             }, 123);
             //提现
             EventManager.addTouchScaleListener(this.btn_tx, this, function () {
@@ -142,7 +144,7 @@ var view;
             }
         };
         LobbyView.prototype.gameToHall = function () {
-            Debug.outputLog("进入大厅，开始播放动画"); //debugxxx
+            Debug.outputLog("进入大厅，开始播放动画");
             Laya.timer.clear(this, this.requestCycelData);
             //恢复动画播放
             if (this.girlAinm)
@@ -157,7 +159,7 @@ var view;
                 this.gameList.resume();
         };
         LobbyView.prototype.hallToGame = function () {
-            Debug.outputLog("进入游戏，暂停动画播放"); //debugxxx
+            Debug.outputLog("进入游戏，暂停动画播放");
             this.flushCycleImage();
             //暂停动画播放
             if (this.girlAinm)
@@ -172,17 +174,17 @@ var view;
                 this.gameList.pause();
         };
         LobbyView.prototype.showUserInfo = function () {
-            this.btn_dl.visible = userData.role != "PLAYER";
+            this.showAgencyBtn();
             this.publicUI.showUserInfo();
         };
         LobbyView.prototype.checkBindPhone = function () {
             if (!Common.bindPhoneInfo || !Common.userInfo_current)
                 return;
             var bind = Common.userInfo_current.certifiedPhone;
-            if (TempData.bindOpen) {
-                if ((!TempData.isGetBindAward && bind) || !bind) {
+            if (GameData.bindOpen) {
+                if ((!GameData.isGetBindAward && bind) || !bind) {
                     this.btn_bind.visible = true;
-                    if (TempData.joinLobbyType == JoinLobbyType.loginJoin) {
+                    if (GameData.joinLobbyType == JoinLobbyType.loginJoin) {
                         view.dlg.bindPhone.BindPhoneActiveDlg.show();
                     }
                 }
@@ -201,7 +203,17 @@ var view;
             HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.getCarouselInfo, this, this.initCycelView);
         };
         LobbyView.prototype.showAgencyBtn = function () {
-            this.btn_dl.visible = userData.role != "PLAYER";
+            if (Common.userInfo) {
+                this.btn_dl.visible = Common.userInfo.userRole != "PLAYER";
+            }
+            if (!this.btn_dl.visible) {
+                this.btn_mail.x = this.btn_tx.x - this.btn_mail.width - 50;
+                this.btn_bind.x = this.btn_mail.x - this.btn_bind.width / 2 - this.btn_mail.width / 2 - 50;
+            }
+            else {
+                this.btn_mail.x = this.mailX;
+                this.btn_bind.x = this.bindX;
+            }
         };
         //检查是否有新的活动
         LobbyView.prototype.checkUnreadNotice = function () {
@@ -226,12 +238,13 @@ var view;
         LobbyView.prototype.initCycelView = function (suc, data) {
             if (!suc)
                 return;
+            Debug.output("cyc:", data); //debugxxx
             var arr;
             if (data && data.carousels) {
                 var urls = data.carousels;
                 arr = [];
                 urls.forEach(function (value) {
-                    arr.push({ url: value.carouselUrl, linkUrl: value.carouselHref, jumpInner: value.jumpInner });
+                    arr.push(value);
                 });
             }
             if (!arr || arr.length == 0)

@@ -36,10 +36,11 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
 
     render() {
         let {accountType,onBack} = this.props
+        let newLeft=this.adjustLocation()
         return (
             <View >
-                <TCImage style={{position:"absolute", left:0}} source={ASSET_Images.gameUI.img_czmx_dkMenu} />
-                <View style={{position:"absolute", left:0}}>
+                <TCImage style={{position:"absolute", left:newLeft}} source={ASSET_Images.gameUI.img_czmx_dkMenu} />
+                <View style={{position:"absolute", left:newLeft}}>
                     <View style={styles.container}>
                         { TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick)}
                         <TouchableOpacity onPress={()=>this.onSelect(1)} >
@@ -59,7 +60,7 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
                         </TouchableOpacity>
                     </View>
                     {this.state.selectType ==1 ?  <UserAccount  type={this.state.selectType}
-                                                                       accountType={accountType}/>:null}
+                                                                accountType={accountType}/>:null}
                     {this.state.selectType ==2 ?  <UserAccount  type={this.state.selectType}
                                                                 accountType={accountType}/>:null}
                     {this.state.selectType ==3 ?  <UserAccount  type={this.state.selectType}
@@ -76,6 +77,15 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
         this.setState({selectType: tabIndex})
         TW_Log("onSelect----",this.state)
     }
+
+    /**
+     * 根据屏宽来获取明细列表left的值
+     * @returns {number}
+     */
+    adjustLocation() {
+        let widthStandard = 812
+        return ((SCREEN_W - widthStandard) / 16 * 5)
+    }
 }
 
 const styles = StyleSheet.create({
@@ -83,3 +93,4 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 });
+

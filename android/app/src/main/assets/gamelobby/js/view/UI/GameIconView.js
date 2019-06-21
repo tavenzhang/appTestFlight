@@ -37,6 +37,14 @@ var view;
                 enumerable: true,
                 configurable: true
             });
+            Object.defineProperty(GameIconView.prototype, "isDownload", {
+                //是否需要下载
+                get: function () {
+                    return this.gameState == GameState.UPDATE;
+                },
+                enumerable: true,
+                configurable: true
+            });
             GameIconView.prototype.resetView = function () {
                 this.hotIcon.visible = false;
                 this.updateIcon.visible = false;
@@ -112,7 +120,9 @@ var view;
                 this.gameState = state;
                 this.resetView();
                 this.hotIcon.visible = this.gameVo.bhot;
-                Debug.outputLog(this.config.desc + "state=" + state); //debugxxx
+                if (!GameState[state]) {
+                    Debug.output(this.config.desc + "state=" + state, this.gameVo.state);
+                }
                 switch (this.gameState) {
                     case GameState.NORMAL:
                         this.showNorm();

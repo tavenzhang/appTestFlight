@@ -90,7 +90,7 @@ var view;
                 //绑定手机号
                 EventManager.addTouchScaleListener(this.bindPhoneBtn, this, function () {
                     SoundPlayer.enterPanelSound();
-                    if (TempData.bindOpen)
+                    if (GameData.bindOpen)
                         view.dlg.bindPhone.BindPhoneActiveDlg.show();
                     else
                         view.dlg.center.BindPhoneDlg.show();
@@ -126,11 +126,18 @@ var view;
             };
             FullMyCenterDlg.prototype.selectMusic = function () {
                 if (this.musicBtn.selected) { //打开
-                    Laya.SoundManager.playMusic(ResConfig.musicUrl);
-                    Laya.SoundManager.setMusicVolume(1);
+                    if (GameUtils.isAppSound)
+                        PostMHelp.game_common({ do: "playBgMusic", param: true });
+                    else {
+                        Laya.SoundManager.playMusic(ResConfig.musicUrl);
+                        Laya.SoundManager.setMusicVolume(1);
+                    }
                 }
                 else {
-                    Laya.SoundManager.setMusicVolume(0);
+                    if (GameUtils.isAppSound)
+                        PostMHelp.game_common({ do: "playBgMusic", param: false });
+                    else
+                        Laya.SoundManager.setMusicVolume(0);
                 }
             };
             FullMyCenterDlg.prototype.selectSound = function () {
@@ -153,6 +160,8 @@ var view;
             FullMyCenterDlg.prototype.onClosed = function (type) {
                 SaveManager.getObj().save(SaveManager.KEY_MUSIC_SWITCH, this.musicBtn.selected ? 1 : 0);
                 SaveManager.getObj().save(SaveManager.KEY_SFX_SWITCH, this.soundBtn.selected ? 1 : 0);
+                SaveManager.getObj().save(SaveManager.KEY_MUSIC_VL, this.musicBtn.selected ? 1 : 0);
+                SaveManager.getObj().save(SaveManager.KEY_SFX_VL, this.soundBtn.selected ? 1 : 0);
                 this.soundBtn.off(Laya.Event.CHANGE, this, this.selectSound);
                 this.musicBtn.off(Laya.Event.CHANGE, this, this.selectMusic);
                 EventManager.removeAllEvents(this);

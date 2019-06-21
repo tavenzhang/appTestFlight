@@ -236,7 +236,6 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
     getPayAndWithdrawMoney() {
         let amount = this.props.rowData.effectiveAmount
         let type = this.props.rowData.type
-        TW_Log("amount: "+amount)
         if (type === 'WITHDRAWAL') {
             return (<Text>{'- ' + (amount).toFixed(2)}</Text>)
         } else if (type === 'TOPUP') {
