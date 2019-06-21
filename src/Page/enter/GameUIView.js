@@ -131,7 +131,7 @@ class SubGameView extends Component {
                             {SubComponet ?  <SubComponet {...gameAlertView.param}/>:null}
                         </BaseUserAccAlert> : null
                     }
-                    {TW_Store.gameUIStroe.isShowShare ? <ShareBox/> : null}
+                    {TW_Store.gameUIStroe.isShowShare ? <ShareBox onClose={()=>{TW_Store.gameUIStroe.isShowShare=false}}/> : null}
                 </View>)
         }
        else{

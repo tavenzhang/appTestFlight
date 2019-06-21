@@ -19,11 +19,12 @@ var RadioBox = /** @class */ (function () {
             this.prev.mouseEnabled = true;
         }
         item.mouseEnabled = false;
-        this.prev = item;
         this.index = this.group.indexOf(item);
-        if (this.caller && this.callback) {
+        var bl = this.prev ? this.prev.mouseEnabled : true;
+        if (this.caller && this.callback && bl) {
             this.callback.apply(this.caller);
         }
+        this.prev = item;
     };
     Object.defineProperty(RadioBox.prototype, "selectIndex", {
         get: function () {

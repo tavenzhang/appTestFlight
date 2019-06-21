@@ -5,13 +5,13 @@ import {MainBundlePath, DocumentDirectoryPath} from 'react-native-fs'
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import rootStore from "./RootStore";
 import CodePush from 'react-native-code-push'
-import SplashScreen from "react-native-splash-screen";
+import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
 
 export default class DataStore {
 
     constructor() {
         this.copy_assets_to_dir=this.copy_assets_to_dir.bind(this);
-        this.onSavaCopyState=this.onSavaCopyState.bind(this);
+        this.onSaveCopyState=this.onSaveCopyState.bind(this);
         this.initAppHomeCheck=this.initAppHomeCheck.bind(this);
         this.androdi_copy_assets_to_dir=this.androdi_copy_assets_to_dir.bind(this);
     }
@@ -43,6 +43,9 @@ export default class DataStore {
 
     @observable
     isCheckRequesting=false;
+
+    @observable
+    isAppSound= false;
 
 
     @action
@@ -76,8 +79,9 @@ export default class DataStore {
 
     async loadHomeVerson(){
         let Url =TW_Store.dataStore.getHomeWebHome()+"/assets/conf/version.json";
+        SoundHelper.startBgMusic();
         const target_dir_exist = await RNFS.exists(Url);
-        TW_Log("Url-----home---target_dir_exist="+target_dir_exist,Url);
+       // TW_Log("Url-----home---target_dir_exist="+target_dir_exist,Url);
         this.log+="Url-----home---target_dir_exist="+target_dir_exist;
         this.log+="\nUrl-----home---target_dir_exist=Url-"+Url;
         if(target_dir_exist){
@@ -344,18 +348,18 @@ export default class DataStore {
 
 
     @action
-    onSavaCopyState () {
+    onSaveCopyState () {
         TW_Data_Store.setItem(TW_DATA_KEY.isInitStore, "1", (err) => {
             this.log+="onSavaCoisInitStorepyState---err="+err+"\n"
             if (err) {
-                TW_Log("versionBBL bbl--- copyFile--onSavaCopyState--error===!", err);
+                TW_Log("versionBBL bbl--- copyFile--onSaveCopyState--error===!", err);
             } else {
                 setTimeout(()=>{
                     this.isAppInited = true;
                     this.loadHomeVerson();
                 },G_IS_IOS ? 1000:2000);
             }
-            this.log+="onSavaCopyState---  this.isAppInited="+this.isAppInited+"\n"
+            this.log+="onSaveCopyState---  this.isAppInited="+this.isAppInited+"\n"
         })
     }
 
@@ -372,8 +376,8 @@ export default class DataStore {
                 RNFS.unlink(target_dir).then((ret) => {
                     // TW_Log("versionBBL bbl--- unlink----target_dir==!" + target_dir_exist, ret);
                     RNFS.copyFile(source_dir, target_dir).then(() => {
-                        this.log+="onSavaCopyState---\n"
-                        this.onSavaCopyState();
+                        this.log+="onSaveCopyState---\n"
+                        this.onSaveCopyState();
                     }).catch((err) => {
                         TW_Log("versionBBL bbl--- 删除文件失败", target_dir_exist);
                     })
@@ -381,8 +385,8 @@ export default class DataStore {
             } else {
                // let ret = await RNFS.copyFile(source_dir, target_dir);
                 RNFS.copyFile(source_dir, target_dir).then(() => {
-                    this.log+="onSavaCopyState---\n"
-                    this.onSavaCopyState();
+                    this.log+="onSaveCopyState---\n"
+                    this.onSaveCopyState();
                 }).catch((err) => {
                     this.log+="copyFile-err--"+err
                     //TW_Log("versionBBL bbl--- 删除文件失败", target_dir_exist);
@@ -426,7 +430,7 @@ export default class DataStore {
                 TW_Log('andorid----androdi_copy_assets-----fileState-== '+fileState, item);
                 if(item.path&&item.path.indexOf("zzzFinish/")>-1){
                     //　利用zzzFinish来判断是否android拷贝完成
-                       this.onSavaCopyState();
+                       this.onSaveCopyState();
                 }
             }
         }

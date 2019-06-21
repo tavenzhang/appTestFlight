@@ -282,6 +282,7 @@ var EventType = /** @class */ (function () {
     EventType.FLUSH_MONEY = "flushMoney"; //刷新money
     EventType.CHECK_UNREADMAIL = "checkUnreadMail"; //检查是否有未读邮件
     EventType.GET_BACKCARD_DETAIL = "getBankCardDetail"; //获取银行卡详细信息
+    EventType.JUMP_GAME = "jumpGame"; //轮播图跳转游戏
     return EventType;
 }());
 //# sourceMappingURL=EventManager.js.map
