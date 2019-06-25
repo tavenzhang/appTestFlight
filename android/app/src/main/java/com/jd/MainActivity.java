@@ -59,7 +59,11 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (Build.VERSION.SDK_INT >= 28) {
+            WindowManager.LayoutParams lp = getWindow().getAttributes();
+            lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            getWindow().setAttributes(lp);
+        }
         initUmeng();
         // 设置透明状态栏
         if (Build.VERSION.SDK_INT >= 21) {
@@ -94,6 +98,7 @@ public class MainActivity extends ReactActivity {
         } else {
             SplashScreen.show(this, true);  // here
         }
+
     }
 
 
