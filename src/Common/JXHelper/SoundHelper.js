@@ -65,7 +65,7 @@ export class SoundHelper {
         TW_Log("playBgMusic---pauseMusic-")
         if(SoundHelper.soundleMusic){
             SoundHelper.soundleMusic.pause();
-            SoundHelper.soundleMusic.setVolume(0.01);
+            SoundHelper.soundleMusic.setVolume(0.001);
         }
     }
 
