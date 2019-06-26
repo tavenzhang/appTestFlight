@@ -584,6 +584,7 @@ export default class XXWebView extends Component {
     onLoadEnd=()=>{
         TW_Store.bblStore.isLoading=false;
         this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize,{}));
+        FileTools.onSaveScreen();
     }
 
 

@@ -6,7 +6,7 @@ import {unzip, zip,} from 'react-native-zip-archive'
 import RNFS from "react-native-fs";
 import Toast from "../JXHelper/JXToast";
 import RNFetchBlob from 'react-native-fetch-blob';
-
+import { captureScreen } from "react-native-view-shot";
 export default class FileTools {
 
 
@@ -165,4 +165,14 @@ export default class FileTools {
             }
         });
     }
+
+   static onSaveScreen(){
+       captureScreen({
+           format: "jpg",
+           quality: 0.8
+       }).then(
+               uri => TW_Log("Image saved to", uri),
+               error =>TW_Log("Image saved Oops, snapshot failed", error)
+           );
+   }
 }
