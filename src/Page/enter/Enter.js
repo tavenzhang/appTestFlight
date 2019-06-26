@@ -32,6 +32,7 @@ import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
 import {AppConfig} from "../../config/appConfig";
 import {JX_PLAT_INFO} from "../asset";
 import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
+import FileTools from "../../Common/Global/FileTools";
 let domainsHelper = new JXDomainsHelper();
 let appInfoStore = TW_Store.appStore;
 @observer
@@ -94,7 +95,6 @@ export default class Enter extends Component {
                   }else{
                       SoundHelper.onCheckPalyMusic();
                   }
-
               }
             }
 
@@ -109,7 +109,9 @@ export default class Enter extends Component {
                 }else{
                     SoundHelper.pauseMusic();
                 }
-
+                setTimeout(()=>{
+                    FileTools.onSaveScreen();
+                },500)
             }
         }
     }
