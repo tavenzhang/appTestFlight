@@ -89,7 +89,12 @@ export default class Enter extends Component {
                       this.hotFix(TW_Store.hotFixStore.currentDeployKey,true);
                       TW_Store.dataStore.loadHomeVerson();
                   }
-                  SoundHelper.onCheckPalyMusic();
+                  if(G_IS_IOS){
+                      SoundHelper.startBgMusic(true)
+                  }else{
+                      SoundHelper.onCheckPalyMusic();
+                  }
+
               }
             }
 
@@ -98,7 +103,14 @@ export default class Enter extends Component {
             this.flage = true;
             let now = new Date().getTime();
             this.lastClickTime = now;
-            SoundHelper.pauseMusic();
+            if(!TW_Store.gameUpateStore.isInSubGame){
+                if(G_IS_IOS){
+                    SoundHelper.releaseMusic();
+                }else{
+                    SoundHelper.pauseMusic();
+                }
+
+            }
         }
     }
 

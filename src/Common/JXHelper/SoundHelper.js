@@ -4,9 +4,9 @@ import RNFS from "react-native-fs";
 
 const Sound = require('react-native-sound');
 //ar SoundFile = require('../../../android/app/src/main/assets/gamelobby/assets/raw/bgm_lobby.mp3')
-// Sound.setActive(true)
-// Sound.enableInSilenceMode(true)
-// Sound.setCategory('Playback', true)
+Sound.setActive(true)
+Sound.enableInSilenceMode(true)
+Sound.setCategory('Ambient', true)
 
 
 export class SoundHelper {
@@ -33,13 +33,13 @@ export class SoundHelper {
     }
 
 
-    static async startBgMusic() {
+    static async startBgMusic(force=false) {
         if(TW_Store.dataStore.isAppInited){
             let file = G_IS_IOS ? `${TW_Store.dataStore.getHomeWebHome()}/assets/raw/bgm_lobby.mp3` : "bgm_lobby.mp3";
             //let isExist = await RNFS.exists(file);
             //TW_Log("playBgMusic-file--isExist---" + isExist, file);
             try {
-                if (!SoundHelper.soundleMusic) {
+                if (!SoundHelper.soundleMusic||force) {
                     let s = SoundHelper.soundleMusic = new Sound(file, '', (e) => {
                         if (e) {
                             TW_Log('playBgMusic--SoundFile----', e);
@@ -47,6 +47,7 @@ export class SoundHelper {
                             TW_Log('playBgMusic--play----', s);
                             TW_Store.dataStore.isAppSound = true;
                             s.setSpeed(1);
+
                             s.setNumberOfLoops(999);
                             SoundHelper.onCheckPalyMusic();
                         }
@@ -70,9 +71,17 @@ export class SoundHelper {
     }
 
     static  playMusic() {
+        TW_Log("playBgMusic---playMusic-")
         if(SoundHelper.soundleMusic){
             SoundHelper.soundleMusic.play()
             SoundHelper.soundleMusic.setVolume(1);
+        }
+    }
+
+    static  releaseMusic() {
+        TW_Log("playBgMusic---releaseMusic-")
+        if(SoundHelper.soundleMusic){
+            SoundHelper.soundleMusic.release()
         }
     }
 
