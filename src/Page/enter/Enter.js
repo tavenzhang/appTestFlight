@@ -391,6 +391,8 @@ export default class Enter extends Component {
                             }
                             CodePush.notifyAppReady().then(() => {
                                 // this.setUpdateFinished()
+                                TW_Store.gameUpateStore.isNeedUpdate=false;
+                                TW_Store.gameUpateStore.isAppDownIng=false;
                             })
                         }).catch((ms) => {
                             this.storeLog({updateStatus: false, message: '安装失败,请重试...'})
