@@ -236,6 +236,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-view-shot')
     compile project(':react-native-extra-dimensions-android')
     compile project(':openinstall-react-native')
     compile project(':react-native-keep-awake')
