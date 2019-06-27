@@ -6,6 +6,8 @@ import {unzip, zip,} from 'react-native-zip-archive'
 import RNFS from "react-native-fs";
 import Toast from "../JXHelper/JXToast";
 import RNFetchBlob from 'react-native-fetch-blob';
+import * as RNShot from "react-native-view-shot";
+import Base64 from "../JXHelper/Base64";
 
 export default class FileTools {
 
@@ -116,11 +118,11 @@ export default class FileTools {
         }
     }
 
-    static  async  onSaveCameraRoll(base64Img, success = null, fail = null) {
-        if(NativeModules.RNFetchBlob){
-            if(G_IS_IOS){
-                FileTools.saveCameraRoll(base64Img,success,fail);
-            }else{
+    static async onSaveCameraRoll(base64Img, success = null, fail = null,isBase64=true) {
+        if (NativeModules.RNFetchBlob) {
+            if (G_IS_IOS) {
+                FileTools.saveCameraRoll(base64Img, success, fail,isBase64);
+            } else {
                 try {
                     // PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
                     const granted = await PermissionsAndroid.request(
@@ -128,7 +130,7 @@ export default class FileTools {
                     );
                     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
                         TW_Log('You can use the WRITE_EXTERNAL_STORAGE');
-                        FileTools.saveCameraRoll(base64Img,success,fail);
+                        FileTools.saveCameraRoll(base64Img, success, fail,isBase64);
                     } else {
                         Toast.showShortCenter(" 请先允许使用相册功能 才能保存图片!");
                     }
@@ -136,23 +138,39 @@ export default class FileTools {
                     console.warn(err);
                 }
             }
-        }else{
+        } else {
             Toast.showShortCenter("请安装最新版本app 尽快到最新!");
         }
 
 
     }
 
-    static  saveCameraRoll = (base64Img, success = null, fail = null) => {
+    static  saveCameraRoll = (imageSrc, success = null, fail = null,isBase64=true) => {
 
         const dirs = G_IS_IOS ? RNFS.LibraryDirectoryPath : RNFS.DocumentDirectoryPath; // 外部文件，共享目录的绝对路径（仅限android）
         const downloadDest = `${dirs}/${((Math.random() * 10000000) | 0)}.png`;
-        const imageDatas = base64Img.split('data:image/png;base64,');
-        const imageData = imageDatas[1];
+        TW_Log("Image saved imageSrc--", imageSrc)
+        if(isBase64){
+            const imageDatas = imageSrc.split('data:image/png;base64,');
+            const imageData = imageDatas[1];
 
-        RNFetchBlob.fs.writeFile(downloadDest, imageData, 'base64').then((rst) => {
+            RNFetchBlob.fs.writeFile(downloadDest, imageData, 'base64').then((rst) => {
+                try {
+                    CameraRoll.saveToCameraRoll(downloadDest).then((e1) => {
+                        success && success();
+                        Toast.showShortCenter(" 图片保存成功!");
+                    }).catch((e2) => {
+                        fail && fail()
+                        Toast.showShortCenter(" 图片保存失败--RNFetchBlob" + e2.toString());
+                    })
+                } catch (e3) {
+                    fail && fail()
+                    Toast.showShortCenter(" 图片保存失败--catch " + e3.toString());
+                }
+            });
+        }else{
             try {
-                CameraRoll.saveToCameraRoll(downloadDest).then((e1) => {
+                CameraRoll.saveToCameraRoll(imageSrc).then((e1) => {
                     success && success();
                     Toast.showShortCenter(" 图片保存成功!");
                 }).catch((e2) => {
@@ -163,6 +181,48 @@ export default class FileTools {
                 fail && fail()
                 Toast.showShortCenter(" 图片保存失败--catch " + e3.toString());
             }
-        });
+        }
+
+    }
+
+    static onSaveScreen(isSavePhoto = false,captureRefName=null) {
+        if(captureRefName){
+            try {
+                RNShot.captureRef(captureRefName,{
+                    format: "jpg",
+                    quality: 0.8,
+                }).then(
+                    uri => {
+                        if (isSavePhoto) {
+                            FileTools.onSaveCameraRoll(uri, null, null,false);
+                        }
+                        TW_Log("Image saved to--captureRef", uri)
+                    },
+                    error => TW_Log("Image saved Oops, snapshot failed", error)
+                );
+
+            } catch (e) {
+            }
+        }else{
+            try {
+                RNShot.captureScreen({
+                    format: "jpg",
+                    quality: 0.8,
+                }).then(
+                    uri => {
+                        if (isSavePhoto) {
+                            FileTools.onSaveCameraRoll(uri, null, null,false);
+                        }
+                        TW_Log("Image saved to--captureScreen", uri)
+                    },
+                    error => TW_Log("Image saved Oops, snapshot failed", error)
+                );
+            } catch (e) {
+
+
+            }
+        }
+
+
     }
 }
