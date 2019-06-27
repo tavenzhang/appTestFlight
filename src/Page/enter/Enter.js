@@ -109,9 +109,6 @@ export default class Enter extends Component {
                 }else{
                     SoundHelper.pauseMusic();
                 }
-                setTimeout(()=>{
-                    FileTools.onSaveScreen();
-                },500)
             }
         }
     }
