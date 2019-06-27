@@ -299,8 +299,9 @@ export default class XXWebView extends Component {
                                           onLoadEnd={this.onLoadEnd}
 
                         /> :
-                        <View style={styles.webView}  ref="myView">
+                        <View style={styles.webView}  ref="myView"   collapsable={false}>
                             <WebView
+                                collapsable={false}
                                 originWhitelist={['*']}
                                 ref="myWebView"
                                 automaticallyAdjustContentInsets={true}
@@ -313,7 +314,7 @@ export default class XXWebView extends Component {
                                 decelerationRate="normal"
                                 thirdPartyCookiesEnabled={true}
                                 // startInLoadingState={true}
-                                renderLoading={this.onRenderLoadingView}
+                                // renderLoading={this.onRenderLoadingView}
                                 onNavigationStateChange={this.onNavigationStateChange}
                                 allowFileAccess={true}
                                 onError={this.onError}
@@ -329,6 +330,7 @@ export default class XXWebView extends Component {
     onRenderLoadingView = () => {
         return null
     }
+
 
     onMessage = (event) => {
         let message = JSON.parse(event.nativeEvent.data);
@@ -584,6 +586,10 @@ export default class XXWebView extends Component {
     onLoadEnd=()=>{
         TW_Store.bblStore.isLoading=false;
         this.onEvaleJS( TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize,{}));
+        // setTimeout(()=>{
+        //     FileTools.onSaveScreen(true,this.refs.myView);
+        // },2000)
+
     }
 
 
@@ -623,6 +629,7 @@ export default class XXWebView extends Component {
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,
             scalesPageToFit: false
+
         });
     };
 }
@@ -633,7 +640,8 @@ const styles = StyleSheet.create({
         backgroundColor:"black",
     },
     webView: {
-        flex: 1,
+        width:SCREEN_W,
+        height:SCREEN_H,
         backgroundColor:"black"
     },
     viewShareBox: {

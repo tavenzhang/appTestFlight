@@ -16,6 +16,7 @@ import com.cmcewen.blurview.BlurViewPackage;
 import com.crashlytics.android.Crashlytics;
 
 import com.facebook.react.ReactApplication;
+import fr.greweb.reactnativeviewshot.RNViewShotPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import ca.jaysoo.extradimensions.ExtraDimensionsPackage;
 import com.openinstall.openinstallLibrary.OpeninstallReactPackage;
@@ -89,6 +90,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new RNViewShotPackage(),
             new ExtraDimensionsPackage(),
                     new OpeninstallReactPackage(),
                     new KCKeepAwakePackage(),
@@ -164,6 +166,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
         Fabric.with(this, new Crashlytics());
         SoLoader.init(this, /* native exopackage */ false);
         AppUtil.updateLocalAFFCode(this);

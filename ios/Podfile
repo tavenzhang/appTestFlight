@@ -4,6 +4,8 @@
 #use_frameworks!
 
 # Add new pods below this line
+#pod 'RNViewShot', :path => '../node_modules/react-native-view-shot'
+
 #pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
 
 #pod 'react-native-keep-awake', :path => '../node_modules/react-native-keep-awake'
