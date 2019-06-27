@@ -208,6 +208,7 @@ export const gameUI = {
     payBackBg:require('./game/moneyPay/pay_back_bg.png'),
     payTopIcon:require('./game/moneyPay/pay_top_icon.png'),
     payTopTxt:require('./game/moneyPay/pay_top_txt.png'),
+    btn_copy:require('./game/moneyPay/btn_copy.png'),
     //payType
     payTypeBg:require('./game/moneyPay/pay_type_bg.png'),
     payTypeWx:require('./game/moneyPay/type/pay_type_wx.png'),
