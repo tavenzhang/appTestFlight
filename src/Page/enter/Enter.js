@@ -32,6 +32,7 @@ import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
 import {AppConfig} from "../../config/appConfig";
 import {JX_PLAT_INFO} from "../asset";
 import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
+import FileTools from "../../Common/Global/FileTools";
 let domainsHelper = new JXDomainsHelper();
 let appInfoStore = TW_Store.appStore;
 @observer
@@ -89,7 +90,11 @@ export default class Enter extends Component {
                       this.hotFix(TW_Store.hotFixStore.currentDeployKey,true);
                       TW_Store.dataStore.loadHomeVerson();
                   }
-                  SoundHelper.onCheckPalyMusic();
+                  if(G_IS_IOS){
+                      SoundHelper.startBgMusic(true)
+                  }else{
+                      SoundHelper.onCheckPalyMusic();
+                  }
               }
             }
 
@@ -98,7 +103,13 @@ export default class Enter extends Component {
             this.flage = true;
             let now = new Date().getTime();
             this.lastClickTime = now;
-            SoundHelper.pauseMusic();
+            if(!TW_Store.gameUpateStore.isInSubGame){
+                if(G_IS_IOS){
+                    SoundHelper.releaseMusic();
+                }else{
+                    SoundHelper.pauseMusic();
+                }
+            }
         }
     }
 
