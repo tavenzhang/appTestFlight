@@ -83,9 +83,9 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
         let type = this.props.rowData.type
         return (
 
-            <View style={{width: SCREEN_W - 250, height: 100, alignItems: "center", flexDirection: "row"} }>
+            <View style={{width: SCREEN_W - 150, height: 100, alignItems: "center", flexDirection: "row"} }>
                 <TCImage source={ASSET_Images.gameUI.listItemBg}
-                         style={{position: "absolute", width: SCREEN_W - 250, height: 95}} resizeMode={"contain"}/>
+                         style={{position: "absolute", width: SCREEN_W - 100, height: 95}} resizeMode={"contain"}/>
                 <View style={styles.itemStyle}>
                     <View style={styles.itemLeftStyle}>
                         <Text style={styles.itemLabel}>{this.getType()}: <Text
@@ -93,11 +93,12 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
                         <Text style={styles.itemLabel}>支付方式：<Text
                             style={styles.itemData}>{this.getSubType()}</Text>
                         </Text>
+
                         <Text style={styles.itemLabel}>订单号：
                             <Text style={styles.itemData}>{this.formatOrderId()}</Text>
-                            <Text onPress={() => {this.onCopy(orderId)}}
-                                  style={styles.itemBtnTxtStyle}>复制</Text>
+
                         </Text>
+
                         <Text style={styles.itemLabel}>创建时间：<Text
                             style={styles.itemData}>{this.getTime()}</Text>
                         </Text>
@@ -105,11 +106,16 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
                     <View style={styles.itemRightStyle}>
                         <Text style={styles.itemLabel}>{type==='WITHDRAWAL'?'提现金额：':'支付金额：'}<Text style={styles.itemData}>{this.getPayAndWithdrawMoneyExact()}元</Text></Text>
                         <Text style={styles.itemLabel}>{type==='WITHDRAWAL'?'手续费：':'优惠金额：'}<Text style={styles.itemData}>{this.getPayAndWithdrawMoneyRebate()}元</Text></Text>
-                        <Text style={{color: "#F9CB46", marginTop:12,
+                        <Text style={{color: "#F9CB46", marginTop:12, fontWeight: 'bold',
                             fontSize: Size.font14,alignItems: 'flex-end'}}>总计金额：<Text style={styles.itemCyanTxt}>{this.getPayAndWithdrawMoney()}元</Text></Text>
 
                     </View>
                 </View>
+                <TouchableOpacity style={{position: "absolute", top:50, left: 270}}
+                                  onPress={()=>this.onCopy(orderId)}>
+                    <Image style={styles.button}
+                           source={ASSET_Images.gameUI.btn_copy}/>
+                </TouchableOpacity>
             </View>
         );
     };
@@ -185,11 +191,11 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
     getState() {
         let state = this.props.rowData.stateChineseDisplay
         if (state === '失败') {
-            return (<Text style={{color: '#ff002a', fontSize: Size.font14}}>{state}</Text>)
+            return (<Text style={{color: '#FF1B1B', fontSize: Size.font14}}>{state}</Text>)
         } else if (state === '已完成') {
-            return (<Text style={{color: '#7cfc00', fontSize: Size.font14}}>{state}</Text>)
+            return (<Text style={{color: '#0DFD2F', fontSize: Size.font14}}>{state}</Text>)
         } else {
-            return (<Text style={{color: '#FAF421', fontSize: Size.font14}}>{state}</Text>)
+            return (<Text style={{color: '#FFF600', fontSize: Size.font14}}>{state}</Text>)
         }
     }
 
@@ -210,6 +216,7 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
     }
 
     onCopy(text) {
+        TW_Log("Benny >> Copy text")
         Clipboard.setString(text);
         TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
         Toast.showShortCenter("已复制！")
@@ -237,9 +244,9 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
         let amount = this.props.rowData.effectiveAmount
         let type = this.props.rowData.type
         if (type === 'WITHDRAWAL') {
-            return (<Text>{'- ' + (amount).toFixed(2)}</Text>)
+            return (<Text>{'- ' + (amount).toFixed(2).padStart(9)}</Text>)
         } else if (type === 'TOPUP') {
-            return (<Text>{'+ ' + (amount).toFixed(2)}</Text>)
+            return (<Text>{'+ ' + (amount).toFixed(2).padStart(9)}</Text>)
         }
         return amount
     }
@@ -252,9 +259,9 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
         let rebate = this.props.rowData.effectiveAmount - this.props.rowData.amount
         let type = this.props.rowData.type
         if (type === 'WITHDRAWAL') {
-            return (<Text style={styles.itemData}>{'- ' + (rebate).toFixed(2)}</Text>)
+            return (<Text style={styles.itemData}>{(rebate).toFixed(2).padStart(9)}</Text>)
         } else if (type === 'TOPUP') {
-            return (<Text style={styles.itemData}>{'+ ' + (rebate).toFixed(2)}</Text>)
+            return (<Text style={styles.itemData}>{(rebate).toFixed(2).padStart(9)}</Text>)
         }
         return rebate
     }
@@ -267,9 +274,9 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
         let topUp = this.props.rowData.amount
         let type = this.props.rowData.type
         if (type === 'WITHDRAWAL') {
-            return (<Text style={styles.itemData}>{'- ' + (topUp).toFixed(2)}</Text>)
+            return (<Text style={styles.itemData}>{(topUp).toFixed(2).padStart(9)}</Text>)
         } else if (type === 'TOPUP') {
-            return (<Text style={styles.itemData}>{'+ ' + (topUp).toFixed(2)}</Text>)
+            return (<Text style={styles.itemData}>{(topUp).toFixed(2).padStart(9)}</Text>)
         }
         return topUp
     }
@@ -314,6 +321,7 @@ const styles = StyleSheet.create({
     },
     itemRightStyle: {
         marginTop: 10,
+        right:-40,
         alignItems: 'flex-end'
     }, itemTitle: {
         color: listViewTxtColor.title,
@@ -335,8 +343,9 @@ const styles = StyleSheet.create({
         color: '#ff002a',
         fontSize: Size.font14
     }, itemCyanTxt: {
-        color: '#dbf9ff',
+        color: '#A2E1EE',
         fontSize: Size.font14,
+        fontWeight: 'bold',
         paddingTop: 10
     }, itemBtnStyle: {
         paddingLeft: 0
