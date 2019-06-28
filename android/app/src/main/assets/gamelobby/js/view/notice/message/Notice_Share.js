@@ -32,12 +32,16 @@ var Notice_Share = /** @class */ (function (_super) {
         this.limit = 0;
     };
     Notice_Share.prototype.setData = function ($data) {
+        this.data = $data;
         this.noticeid = $data.noticeid;
         Laya.timer.once(500, this, this.showLoading);
         Laya.loader.load($data.img, Laya.Handler.create(this, function () {
             Laya.timer.clear(this, this.showLoading);
             LayaMain.getInstance().showCircleLoading(false);
             this.image.skin = $data.img;
+            if ($data.jumpHref != "") {
+                this.image.once(Laya.Event.CLICK, this, this.requestJump);
+            }
         }));
         this.limit = $data.noticeShare.upperLimit;
     };
@@ -91,6 +95,22 @@ var Notice_Share = /** @class */ (function (_super) {
         //     case this.friend_up:
         //         break;
         // }
+    };
+    Notice_Share.prototype.requestJump = function () {
+        if (!this.data.jumpGame && !this.data.jumpInner) {
+            if (GameUtils.isNativeApp)
+                PostMHelp.game_common({ name: "openWeb", param: this.data.jumpHref });
+            else
+                window.open(this.data.jumpHref);
+        }
+        else if (this.data.jumpGame) {
+            EventManager.dispath(EventType.JUMP_GAME, this.data.jumpHref);
+        }
+        else {
+            var s = this.data.jumpHref.toString();
+            InnerJumpUtil.doJump(DlgCmd[s]);
+        }
+        this.event("jump");
     };
     return Notice_Share;
 }(ui.dlg.notice.NoticeShareUI));

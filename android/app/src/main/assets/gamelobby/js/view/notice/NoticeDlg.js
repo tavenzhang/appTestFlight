@@ -20,7 +20,8 @@ var AttentionDialog = /** @class */ (function () {
 }());
 var NoticeData = {
     shareId: 0,
-    shareLimit: 0
+    shareLimit: 0,
+    currentTab: 0
 };
 var view;
 (function (view) {
@@ -39,14 +40,15 @@ var view;
                 _this.initView();
                 return _this;
             }
-            NoticeDlg.show = function () {
+            NoticeDlg.show = function ($type) {
+                NoticeData.currentTab = $type;
                 var dlg = new NoticeDlg();
                 dlg.game_counter.visible = false;
                 dlg.notice_counter.visible = false;
                 dlg.tab_dummy.visible = false;
                 dlg.popup(false, false);
                 dlg.pop(dlg);
-                dlg.requestData();
+                // dlg.requestData();
                 this.dlg = dlg;
             };
             NoticeDlg.checkUnread = function () {
@@ -90,9 +92,11 @@ var view;
                 // });
                 this.controls.on(Laya.Event.CLICK, this, this.onCloseClick);
                 this.loopArrow();
-                this._currentCategoryTab = 1;
+                this._currentCategoryTab = NoticeData.currentTab === DlgCmd.activityCenter ? 1 : 0;
+                this.updateCategoryTab();
             };
             NoticeDlg.prototype.onCloseClick = function () {
+                EventManager.dispath("closeNotice");
                 Laya.Tween.to(this.controls, { scaleX: 1.1, scaleY: 1.1 }, 100, Laya.Ease.linearNone, Laya.Handler.create(this, function () {
                     SoundPlayer.returnLobbySound();
                     this.close(null, false);
@@ -159,7 +163,12 @@ var view;
                             }
                         });
                     }
-                    EventManager.dispath("unreadNotice", counter > 0);
+                    if (idx === 0) {
+                        EventManager.dispath("unreadNotice", counter > 0);
+                    }
+                    else if (idx === 1) {
+                        EventManager.dispath("unreadActivities", counter > 0);
+                    }
                     target.visible = counter > 0;
                     var label = target.getChildByName("label");
                     // label.text = counter.toString();
@@ -171,11 +180,22 @@ var view;
             NoticeDlg.prototype.onTabClick = function ($e) {
                 switch ($e.currentTarget) {
                     case this.tab_notice:
+                        this._currentCategoryTab = 1;
+                        break;
+                    case this.tab_game:
+                        this._currentCategoryTab = 0;
+                        break;
+                }
+                this.updateCategoryTab();
+            };
+            NoticeDlg.prototype.updateCategoryTab = function () {
+                switch (this._currentCategoryTab) {
+                    case 1:
                         this.tab_notice.alpha = 1;
                         this.tab_game.alpha = 0;
                         this.loadCategoryTab(1);
                         break;
-                    case this.tab_game:
+                    case 0:
                         this.tab_notice.alpha = 0;
                         this.tab_game.alpha = 1;
                         this.loadCategoryTab(0);
@@ -223,6 +243,9 @@ var view;
                 this.contents.destroyChildren();
                 this.contents.removeChildren();
                 var data = this._data[this._currentCategoryTab].noticeList[$id];
+                if (this._currentContent) {
+                    this.off("jump", this, this.onJump);
+                }
                 var content;
                 switch (data.noticeActivityType) {
                     case "NORMAL":
@@ -248,7 +271,12 @@ var view;
                 }
                 content.x = content.y = 0;
                 this.contents.addChild(content);
+                this._currentContent = content;
+                this._currentContent.on("jump", this, this.onJump);
                 this.requestRead(this._data[this._currentCategoryTab].noticeList[$id].noticeid);
+            };
+            NoticeDlg.prototype.onJump = function () {
+                this.close();
             };
             NoticeDlg.prototype.requestRead = function (id) {
                 var _this = this;
