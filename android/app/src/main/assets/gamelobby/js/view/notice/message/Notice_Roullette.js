@@ -35,7 +35,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
         this.date.text += endData[0].substr(2) + "\u5E74" + parseInt(endData[1]) + "\u6708" + parseInt(endData[2]) + "\u65E5";
         this.date.text += endTime;
         this.remainingTime.text = this.diff_times($data.endTime, $data.startTime);
-        this.contents.text = "\u6D3B\u52A8\u671F\u95F4\u6D88\u8017\u79EF\u5206\u53EF\u62BD\u5956\uFF0C\u6BCF\u5929\u4E0D\u9650\u5236\u62BD\u5956\u6B21\u6570\uFF0C\u5F53\u65E5\u672A\u4F7F\u7528\u79EF\u5206\u4F1A\u5728\u6BCF\u65E524\u70B9\u6E05\u96F6\uFF1B\u5F53\u65E5\u6BCF\u6295\u6CE81\u5143\uFF0C\u6B21\u65E5\u5C06\u83B7\u5F971\u79EF\u5206\u3002\n\u6D77\u91CF\u5956\u52B1\uFF0C\u8F6C\u8D77\u6765~";
+        this.contents.text = "\u6D3B\u52A8\u671F\u95F4\u6D88\u8017\u79EF\u5206\u53EF\u62BD\u5956\uFF0C\u6BCF\u5929\u4E0D\u9650\u5236\u62BD\u5956\u6B21\u6570\uFF0C\u5F53\u65E5\u672A\u4F7F\u7528\u79EF\u5206\u4F1A\u5728\u6BCF\u65E524\u70B9\u6E05\u96F6\uFF1B\u5F53\u65E5\u6BCF\u6709\u6548\u6295\u6CE81\u5143\uFF0C\u6B21\u65E5\u5C06\u83B7\u5F971\u79EF\u5206\u3002\n\u6D77\u91CF\u5956\u52B1\uFF0C\u8F6C\u8D77\u6765~";
         var spinner = new Spinner2();
         spinner.setData(this.SpinnerSilver, $data.lotteryList[0]);
         spinner.id = 1;
