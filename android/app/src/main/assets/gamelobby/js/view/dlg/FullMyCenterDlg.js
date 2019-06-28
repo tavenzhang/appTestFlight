@@ -49,9 +49,11 @@ var view;
                 this.getBankCardInfo();
                 this.setHeadIcon();
                 var msc = SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1);
-                this.musicBtn.selected = Boolean(msc);
+                var mscvol = SaveManager.getObj().get(SaveManager.KEY_MUSIC_VL, 1);
+                this.musicBtn.selected = Boolean(msc == 1 && mscvol > 0);
                 var sdx = SaveManager.getObj().get(SaveManager.KEY_SFX_SWITCH, 1);
-                this.soundBtn.selected = Boolean(sdx);
+                var sdvol = SaveManager.getObj().get(SaveManager.KEY_SFX_VL, 1);
+                this.soundBtn.selected = Boolean(sdx == 1 && sdvol > 0);
                 //events---------------
                 EventManager.addTouchScaleListener(this.backBtn, this, function () {
                     SoundPlayer.returnLobbySound();
@@ -103,8 +105,6 @@ var view;
                 //头像更新
                 EventManager.register(EventType.FLUSH_HEADICON, this, this.setHeadIcon);
                 EventManager.register(EventType.GET_BACKCARD_DETAIL, this, this.getBankCardInfo);
-                // this.soundBtn.on(Laya.Event.CHANGE, this, this.selectSound);
-                // this.musicBtn.on(Laya.Event.CHANGE, this, this.selectMusic);
                 EventManager.pushEvent(this.soundBtn, Laya.Event.CHANGE, this, this.selectSound);
                 EventManager.pushEvent(this.musicBtn, Laya.Event.CHANGE, this, this.selectMusic);
             };
@@ -162,8 +162,6 @@ var view;
                 SaveManager.getObj().save(SaveManager.KEY_SFX_SWITCH, this.soundBtn.selected ? 1 : 0);
                 SaveManager.getObj().save(SaveManager.KEY_MUSIC_VL, this.musicBtn.selected ? 1 : 0);
                 SaveManager.getObj().save(SaveManager.KEY_SFX_VL, this.soundBtn.selected ? 1 : 0);
-                this.soundBtn.off(Laya.Event.CHANGE, this, this.selectSound);
-                this.musicBtn.off(Laya.Event.CHANGE, this, this.selectMusic);
                 EventManager.removeAllEvents(this);
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);
