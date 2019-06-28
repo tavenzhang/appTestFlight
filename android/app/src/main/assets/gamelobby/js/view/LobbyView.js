@@ -80,7 +80,12 @@ var view;
             //活动
             EventManager.addTouchScaleListener(this.actBtn, this, function () {
                 SoundPlayer.enterPanelSound();
-                view.dlg.NoticeDlg.show();
+                view.dlg.NoticeDlg.show(DlgCmd.activityCenter);
+            });
+            //公告
+            EventManager.addTouchScaleListener(this.noticeBtn, this, function () {
+                SoundPlayer.enterPanelSound();
+                view.dlg.NoticeDlg.show(DlgCmd.noticeCenter);
             });
             //客服
             EventManager.addTouchScaleListener(this.serviceBtn, this, function () {
@@ -129,6 +134,7 @@ var view;
             EventManager.register(EventType.BINDPHONE_INFO, this, this.checkBindPhone);
             EventManager.register(EventType.GETUSERS_INFO, this, this.showUserInfo);
             EventManager.register(EventType.CHECK_UNREADMAIL, this, this.checkUnreadMail);
+            EventManager.register("closeNotice", this, this.checkUnreadNotice);
         };
         LobbyView.prototype.checkUnreadMail = function (jobj) {
             var total = jobj.total || 0;
@@ -217,12 +223,32 @@ var view;
         };
         //检查是否有新的活动
         LobbyView.prototype.checkUnreadNotice = function () {
-            var alert = this.actBtn.getChildByName("alert");
-            alert.visible = false;
-            EventManager.register("unreadNotice", this, function ($unread) {
-                alert.visible = $unread;
+            var _this = this;
+            HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.attention_new, this, function (suc, jobj) {
+                LayaMain.getInstance().showCircleLoading(false);
+                if (suc) {
+                    jobj.forEach(function (data, idx) {
+                        var counter = 0;
+                        if (data.noticeList) {
+                            data.noticeList.forEach(function (data) {
+                                if (data.bread === false) {
+                                    counter++;
+                                }
+                            });
+                        }
+                        if (idx === 0) {
+                            var alert_1 = _this.noticeBtn.getChildByName("alert");
+                            alert_1.visible = counter > 0;
+                            // this.noticeBtn.visible = counter > 0;
+                        }
+                        else if (idx === 1) {
+                            var alert_2 = _this.actBtn.getChildByName("alert");
+                            alert_2.visible = counter > 0;
+                            // this.actBtn.visible = counter > 0;
+                        }
+                    });
+                }
             });
-            view.dlg.NoticeDlg.checkUnread();
         };
         //重置屏幕大小
         LobbyView.prototype.resize = function () {

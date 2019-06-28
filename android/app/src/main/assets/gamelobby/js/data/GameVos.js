@@ -53,12 +53,14 @@ var MailState;
 var DlgCmd;
 (function (DlgCmd) {
     DlgCmd[DlgCmd["agentCenter"] = 0] = "agentCenter";
-    DlgCmd[DlgCmd["activityCenter"] = 1] = "activityCenter";
-    DlgCmd[DlgCmd["personCenter"] = 2] = "personCenter";
-    DlgCmd[DlgCmd["recharge"] = 3] = "recharge";
-    DlgCmd[DlgCmd["service"] = 4] = "service";
-    DlgCmd[DlgCmd["email"] = 5] = "email";
-    DlgCmd[DlgCmd["bindPhoneAct"] = 6] = "bindPhoneAct";
-    DlgCmd[DlgCmd["bindPhone"] = 7] = "bindPhone";
+    DlgCmd[DlgCmd["noticeCenter"] = 1] = "noticeCenter";
+    DlgCmd[DlgCmd["activityCenter"] = 2] = "activityCenter";
+    DlgCmd[DlgCmd["personCenter"] = 3] = "personCenter";
+    DlgCmd[DlgCmd["recharge"] = 4] = "recharge";
+    DlgCmd[DlgCmd["service"] = 5] = "service";
+    DlgCmd[DlgCmd["email"] = 6] = "email";
+    DlgCmd[DlgCmd["bindPhoneAct"] = 7] = "bindPhoneAct";
+    DlgCmd[DlgCmd["bindPhone"] = 8] = "bindPhone";
+    DlgCmd[DlgCmd["withdraw"] = 9] = "withdraw";
 })(DlgCmd || (DlgCmd = {}));
 //# sourceMappingURL=GameVos.js.map

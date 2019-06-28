@@ -161,12 +161,12 @@ var GameUtils = /** @class */ (function () {
     GameUtils.saveImage = function (sp, fileName, type) {
         if (fileName === void 0) { fileName = null; }
         if (type === void 0) { type = "png"; }
-        var scl = 0.8;
+        var iw = 60;
         var box = new Laya.Sprite();
-        box.size(sp.width, sp.height);
-        sp.scale(scl, scl);
+        box.graphics.drawRect(0, 0, sp.width + iw, sp.height + iw, "#ffffff");
+        box.size(sp.width + iw, sp.height + iw);
         box.addChild(sp);
-        sp.pos((1 - scl) * box.width >> 1, (1 - scl) * box.height >> 1);
+        sp.pos(box.width - sp.width >> 1, box.height - sp.height >> 1);
         var htmlC = box.drawToCanvas(box.width, box.height, 0, 0);
         var cv = htmlC.getCanvas();
         var base64 = cv.toDataURL("image/" + type);
@@ -189,7 +189,11 @@ var InnerJumpUtil = /** @class */ (function () {
             return;
         switch (cmd) {
             case DlgCmd.activityCenter: {
-                view.dlg.NoticeDlg.show();
+                view.dlg.NoticeDlg.show(DlgCmd.activityCenter);
+                break;
+            }
+            case DlgCmd.noticeCenter: {
+                view.dlg.NoticeDlg.show(DlgCmd.noticeCenter);
                 break;
             }
             case DlgCmd.agentCenter: {
@@ -210,6 +214,15 @@ var InnerJumpUtil = /** @class */ (function () {
             }
             case DlgCmd.service: {
                 Tools.jump2module(ConfObjRead.getConfUrl().url.g_custom, "custom");
+                break;
+            }
+            case DlgCmd.withdraw: {
+                if (Common.userInfo_current && Common.userInfo_current.needResetPwd) {
+                    view.dlg.QuickSetPassWordDlg.show();
+                }
+                else {
+                    Tools.jump2module(ConfObjRead.getConfUrl().url.g_redraw, "redraw");
+                }
                 break;
             }
         }
