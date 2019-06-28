@@ -80,7 +80,6 @@ export default class Enter extends Component {
           if (this.flage) {
               if(TW_OnValueJSHome){
                   TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.lifecycle,{data:1}));
-                  TW_Store.dataStore.onFlushGameData();
               }
               if(!TW_Store.gameUpateStore.isInSubGame){
                   let now = new Date().getTime();
@@ -91,9 +90,14 @@ export default class Enter extends Component {
                       TW_Store.dataStore.loadHomeVerson();
                   }
                   if(G_IS_IOS){
-                      SoundHelper.startBgMusic(true)
+                      setTimeout(()=>{
+                          SoundHelper.startBgMusic(true)
+                          TW_Store.dataStore.onFlushGameData();
+                      },1300)
+
                   }else{
                       SoundHelper.onCheckPalyMusic();
+                      TW_Store.dataStore.onFlushGameData();
                   }
               }
             }
@@ -391,6 +395,8 @@ export default class Enter extends Component {
                             }
                             CodePush.notifyAppReady().then(() => {
                                 // this.setUpdateFinished()
+                                TW_Store.gameUpateStore.isNeedUpdate=false;
+                                TW_Store.gameUpateStore.isAppDownIng=false;
                             })
                         }).catch((ms) => {
                             this.storeLog({updateStatus: false, message: '安装失败,请重试...'})
