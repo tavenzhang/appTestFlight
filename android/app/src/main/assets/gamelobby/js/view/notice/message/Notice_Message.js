@@ -17,6 +17,7 @@ var Notice_Message = /** @class */ (function (_super) {
         return _super.call(this) || this;
     }
     Notice_Message.prototype.setData = function ($data) {
+        this.data = $data;
         if ($data.img != "") {
             this.image.visible = true;
             this.frame.visible = true;
@@ -28,6 +29,9 @@ var Notice_Message = /** @class */ (function (_super) {
                 Laya.timer.clear(this, this.showLoading);
                 LayaMain.getInstance().showCircleLoading(false);
                 this.image.skin = $data.img;
+                if ($data.jumpHref != "") {
+                    this.image.once(Laya.Event.CLICK, this, this.requestJump);
+                }
             }));
         }
         else {
@@ -44,6 +48,22 @@ var Notice_Message = /** @class */ (function (_super) {
     };
     Notice_Message.prototype.showLoading = function () {
         LayaMain.getInstance().showCircleLoading();
+    };
+    Notice_Message.prototype.requestJump = function () {
+        if (!this.data.jumpGame && !this.data.jumpInner) {
+            if (GameUtils.isNativeApp)
+                PostMHelp.game_common({ name: "openWeb", param: this.data.jumpHref });
+            else
+                window.open(this.data.jumpHref);
+        }
+        else if (this.data.jumpGame) {
+            EventManager.dispath(EventType.JUMP_GAME, this.data.jumpHref);
+        }
+        else {
+            var s = this.data.jumpHref.toString();
+            InnerJumpUtil.doJump(DlgCmd[s]);
+        }
+        this.event("jump");
     };
     return Notice_Message;
 }(ui.dlg.notice.NoticeMessageUI));

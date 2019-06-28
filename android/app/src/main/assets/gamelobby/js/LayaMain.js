@@ -88,12 +88,15 @@ var LayaMain = /** @class */ (function () {
             var lmv = SaveManager.getObj().get(SaveManager.KEY_MUSIC_VL, 1);
             var lss = SaveManager.getObj().get(SaveManager.KEY_SFX_SWITCH, 1);
             var lsv = SaveManager.getObj().get(SaveManager.KEY_SFX_VL, 1);
-            Debug.outputLog("onGameResume:lmv=", lmv, "lms=", lms, "lsv=", lsv, "lss=", lss, "mtobj=", SaveManager.getObj().mtObj);
+            Debug.outputLog("onGameResume:", "mscVol=", lmv, "open_music=", lms, "soundVol=", lsv, "open_sound=", lss, "mtobj=", SaveManager.getObj().mtObj);
             Laya.SoundManager.setMusicVolume(lms);
             Laya.SoundManager.setSoundVolume(lss);
             if (lms == 1 && !GameUtils.isAppSound) {
                 Laya.SoundManager.playMusic(ResConfig.musicUrl);
             }
+            var bl = Boolean(lms == 1 && lmv > 0);
+            if (GameUtils.isAppSound)
+                PostMHelp.game_common({ do: "playBgMusic", param: bl });
             //刷新用户信息
             EventManager.dispath(EventType.FLUSH_USERINFO);
         }
