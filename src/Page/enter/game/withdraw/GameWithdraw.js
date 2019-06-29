@@ -131,7 +131,7 @@ export default class GameWithdraw extends Component {
                 left: SCREEN_W * 0.05,
                 top: SCREEN_H * 0.45 + 20
             }}
-                    textStyle={{color: "#fffff1", fontSize: 20}} text={'兑换数量:'}/>
+                    textStyle={{color: "#fffff1", fontSize: 20}} text={'提取金额:'}/>
             <TCImage source={ASSET_Images.gameUI.moneyLabelBg} resizeMode={'stretch'} style={{
                 position: "absolute",
                 top: SCREEN_H * 0.45 + 20,
