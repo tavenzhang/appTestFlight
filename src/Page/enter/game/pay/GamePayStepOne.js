@@ -74,12 +74,12 @@ export default class GamePayStepOne extends Component {
                     <TCImage source={ASSET_Images.gameUI.stepOneBg1} resizeMode={'contain'}/>
 
                     <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`}
-                                 viewStyle={{position: "absolute", left: 180, top: 6,}}
+                                 viewStyle={{position: "absolute", left: 165, top: 6,}}
                                  placeholder={"请输入金额"}
                                  keyboardType={"numeric"}
                                  inputStyle={[styles.inputStyle, {fontSize: 14, textAlign: "center"}]}
                                  placeholderTextColor={"rgb(132,168,168)"}
-                                 maxLength={20}/>
+                                 maxLength={12}/>
                     <View style={{
                         position: "absolute",
                         left: 2,
@@ -110,13 +110,6 @@ export default class GamePayStepOne extends Component {
                                 renderRow={this.onRenderItemView}/> : this.getEmptyTip()}
 
             </View>
-            {
-                this.state.showArrow && payList && payList.length > 0 &&
-                <TCButtonImg imgSource={ASSET_Images.gameUI.downArrow}
-                             btnStyle={{position: "absolute", top: SCREEN_H - 115, left: SCREEN_W * 0.5 - 115}}
-                             resizeMode={'stretch'}
-                             onClick={() => this.scrollList()}/>
-            }
             <ModalList
                 show={this.userPayStore.showList}
                 dataList={this.userPayStore.bankList}
@@ -222,9 +215,9 @@ export default class GamePayStepOne extends Component {
                 onPress={() => {
                     payHelper.bankApplyFor(bank)
                 }}>
-                <View style={{width: SCREEN_W - 250, height: 120, justifyContent: "center"}}>
+                <View style={{width: SCREEN_W - 250, height: 100, justifyContent: "center"}}>
                     <TCImage source={ASSET_Images.gameUI.listItemBg}
-                             style={{position: "absolute", width: SCREEN_W - 250, height: 120}}/>
+                             style={{position: "absolute", width: SCREEN_W - 250, height: 90}}/>
                     <View style={{flexDirection: "row"}}>
                         <Text style={styles.itemLable}>收款银行</Text>
                         <Text style={styles.itemData}>{bank.bankName}</Text>
@@ -250,25 +243,45 @@ export default class GamePayStepOne extends Component {
                     <TCImage source={ASSET_Images.gameUI.listItemVIPBg}
                              style={{position: "absolute", width: SCREEN_W - 250, height: 80}}/>
                     <View style={{flexDirection: "row"}}>
-                        <Text style={{color: "#F9CB46", fontSize: 14, fontWeight: "bold", marginLeft: 50, marginBottom: 12,width:200}}>{vip.merchantName}</Text>
+                        <Text style={{
+                            color: "#F9CB46",
+                            fontSize: 14,
+                            fontWeight: "bold",
+                            marginLeft: 50,
+                            marginBottom: 12,
+                            width: 200
+                        }}>{vip.merchantName}</Text>
                         <TouchableOpacity
                             activeOpacity={0.6}
-                            style={{marginLeft: SCREEN_W - 580,
-                                justifyContent: 'center',}}
+                            style={{
+                                marginLeft: SCREEN_W - 580,
+                                justifyContent: 'center',
+                            }}
                             onPress={() => this.onCopy(vip.methodInfo)}>
                             <Text style={styles.itemBtnTxtStyle}>复制</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{flexDirection: "row"}}>
-                        <Text style={{color: "#A2E1EE", fontSize: 14, marginLeft:50, marginBottom:6,flexWrap:'wrap'}}>{vip.methodName}：</Text>
+                        <Text style={{
+                            color: "#A2E1EE",
+                            fontSize: 14,
+                            marginLeft: 50,
+                            marginBottom: 6,
+                            flexWrap: 'wrap'
+                        }}>{vip.methodName}：</Text>
                         <Text style={{color: "#FFFFFF", fontSize: 14}}>{vip.methodInfo}</Text>
                     </View>
                     <View style={{flexDirection: "row"}}>
-                        <Text style={{color: "#A2E1EE", fontSize: 14, marginLeft:50, flexWrap:'wrap'}}>{vip.remarks}</Text>
+                        <Text style={{
+                            color: "#A2E1EE",
+                            fontSize: 14,
+                            marginLeft: 50,
+                            flexWrap: 'wrap'
+                        }}>{vip.remarks}</Text>
                     </View>
 
                 </View>)
-        } else if(itemData.code.indexOf("FIXED")!=-1) {
+        } else if (itemData.code.indexOf("FIXED") != -1) {
             let paymentItem = data;
             let itemHeight = 0;
             let isSelected = this.state.selectItem != null && this.state.selectItem.paymentId === paymentItem.paymentId;
@@ -294,43 +307,45 @@ export default class GamePayStepOne extends Component {
                     marginBottom: 5,
                     justifyContent: 'center'
                 }}>
-                    <TCImage source={ASSET_Images.gameUI.fixedListItemBg}
-                             style={{position: "absolute", width: SCREEN_W - 250, height: 40 + itemHeight}}
-                             resizeMode={"stretch"}/>
-                    <View style={{
-                        width: SCREEN_W - 250,
-                        height: 40,
-                        alignItems: "center",
-                        flexDirection: "row",
-                        marginBottom: 5,
-                        justifyContent: 'center'
-                    }}>
-                        <TCImage source={payHelper.getPayTypeIcon(paymentItem.type)}
-                                 style={{height: 25, width: 25, marginLeft: 10}}/>
-                        <Text
-                            style={[styles.itemLable, {
-                                fontSize: 14,
-                                width: SCREEN_W * 0.5 - 170
-                            }]}>{paymentItem.type ? paymentItem.merchantName : paymentItem.receiptName}</Text>
-                        <View style={{flexDirection: 'row', alignItems: "center",}}>
-                            <Text style={{fontSize: 14, color: '#ffffff'}}>金额范围</Text>
-                            <TCImage source={ASSET_Images.gameUI.moneyLabelBg}
-                                     style={{width: 100, height: 30, marginLeft: 5}} resizeMode={"contain"}/>
-                            <Text style={{
-                                position: "absolute",
-                                fontSize: 14,
-                                color: '#ffffff',
-                                left: 65
-                            }}>{`￥ ${paymentItem.minAmount}-${paymentItem.maxAmount}`}</Text>
-                            <TCButtonImg imgSource={ASSET_Images.gameUI.payExpand}
-                                         soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
-                                         btnStyle={{width: 30, height: 30, marginLeft: 10, marginTop: 12}}
-                                         resizeMode={"contain"}
-                                         onClick={() =>
-                                             this.setState({selectItem: paymentItem})
-                                         }/>
+                    <TouchableOpacity onPress={() => this.setState({selectItem: paymentItem})}>
+                        <TCImage source={ASSET_Images.gameUI.fixedListItemBg}
+                                 style={{position: "absolute", width: SCREEN_W - 250, height: 40 + itemHeight}}
+                                 resizeMode={"stretch"}/>
+                        <View style={{
+                            width: SCREEN_W - 250,
+                            height: 40,
+                            alignItems: "center",
+                            flexDirection: "row",
+                            marginBottom: 5,
+                            justifyContent: 'center'
+                        }}>
+                            <TCImage source={payHelper.getPayTypeIcon(paymentItem.type)}
+                                     style={{height: 25, width: 25, marginLeft: 10}}/>
+                            <Text
+                                style={[styles.itemLable, {
+                                    fontSize: 14,
+                                    width: SCREEN_W * 0.5 - 170
+                                }]}>{paymentItem.type ? paymentItem.merchantName : paymentItem.receiptName}</Text>
+                            <View style={{flexDirection: 'row', alignItems: "center",}}>
+                                <Text style={{fontSize: 14, color: '#ffffff'}}>金额范围</Text>
+                                <TCImage source={ASSET_Images.gameUI.moneyLabelBg}
+                                         style={{width: 100, height: 30, marginLeft: 5}} resizeMode={"contain"}/>
+                                <Text style={{
+                                    position: "absolute",
+                                    fontSize: 14,
+                                    color: '#ffffff',
+                                    left: 65
+                                }}>{`￥ ${paymentItem.minAmount}-${paymentItem.maxAmount}`}</Text>
+                                <TCButtonImg imgSource={ASSET_Images.gameUI.payExpand}
+                                             soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
+                                             btnStyle={{width: 30, height: 30, marginLeft: 10, marginTop: 12}}
+                                             resizeMode={"contain"}
+                                             onClick={() =>
+                                                 this.setState({selectItem: paymentItem})
+                                             }/>
+                            </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                     <View style={{flexDirection: 'row', flexWrap: "wrap", width: SCREEN_W - 250,}}>
                         {
                             isSelected && paymentItem.fixedAmount.map((item, index) => {
@@ -349,24 +364,31 @@ export default class GamePayStepOne extends Component {
                     </View>
                 </View>)
             )
-        }else {
+        } else {
             let paymentItem = data;
-            TW_Log("paymentItem---",paymentItem)
+            TW_Log("paymentItem---", paymentItem)
             return (<TouchableOpacity
                 onPress={() => {
                     this.onPressPay(paymentItem)
                 }}>
                 <View style={{width: SCREEN_W - 250, height: 110, alignItems: "center", flexDirection: "row"}}>
-                <TCImage source={ASSET_Images.gameUI.listItemBg}
-                         style={{position: "absolute", width: SCREEN_W - 250, height: 100}} resizeMode={"contain"}/>
-                <TCImage source={payHelper.getPayTypeIcon(paymentItem.type)} style={{height: 50, width: 50, marginLeft: 10}}/>
-                <View>
-                    <Text
-                        style={[styles.itemLable, {fontSize: 14,width:SCREEN_W - 340}]}>{paymentItem.type ? paymentItem.merchantName : paymentItem.receiptName}</Text>
-                    <Text style={[styles.itemData, {fontSize: 14, alignSelf: "center",marginLeft:10}]}>{paymentItem.remarks}</Text>
-                </View>
-            </View></TouchableOpacity>)
-
+                    <TCImage source={ASSET_Images.gameUI.listItemBg}
+                             style={{position: "absolute", width: SCREEN_W - 250, height: 100}} resizeMode={"contain"}/>
+                    <TCImage source={payHelper.getPayTypeIcon(paymentItem.type)}
+                             style={{height: 50, width: 50, marginLeft: 10}}/>
+                    <View>
+                        <Text
+                            style={[styles.itemLable, {
+                                fontSize: 14,
+                                width: SCREEN_W - 340
+                            }]}>{paymentItem.type ? paymentItem.merchantName : paymentItem.receiptName}</Text>
+                        <Text style={[styles.itemData, {
+                            fontSize: 14,
+                            alignSelf: "center",
+                            marginLeft: 10
+                        }]}>{paymentItem.remarks}</Text>
+                    </View>
+                </View></TouchableOpacity>)
         }
         return null
     }
