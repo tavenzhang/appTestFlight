@@ -26,7 +26,8 @@ export default class GameUIStroe {
     @observable
     shareData="";
 
-
+    @observable
+    isShowResLoading= false;
 
     @observable
     gustWebUrl= "";
