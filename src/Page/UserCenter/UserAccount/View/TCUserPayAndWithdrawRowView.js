@@ -216,7 +216,6 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
     }
 
     onCopy(text) {
-        TW_Log("Benny >> Copy text")
         Clipboard.setString(text);
         TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
         Toast.showShortCenter("已复制！")
