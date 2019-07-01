@@ -7,7 +7,6 @@ import TCUserBankPayMessageNew from "../../Page/UserCenter/UserPay/TCUserBankPay
 
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
-import TCUserPayAndWithdrawRecordsMainOld from "../../Page/UserCenter/UserAccount/TCUserPayAndWithdrawRecordsMainOld";
 export default class GameUIStroe {
 
     @observable
