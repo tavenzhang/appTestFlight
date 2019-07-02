@@ -10,7 +10,6 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <WebKit/WebKit.h>
-#import <NSLogger/NSLogger.h>
 #import <Crashlytics/Crashlytics.h>
 #import <OpenInstallSDK.h>
 #import <SplashScreen.h>
@@ -31,12 +30,12 @@
   #ifdef DEBUG
     //do sth.
   #else
-     [SplashScreen show];
+    // [SplashScreen show];
   #endif
 
   
   
-  // [self testLoadNative];
+//   [self testLoadNative];
   // [self startLog];
   return YES;
 }
@@ -52,9 +51,11 @@
   NSString* url=[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"assets/gamelobby"];
   NSURL  *nsUrl = [NSURL fileURLWithPath:url];
   [web loadFileURL:nsUrl allowingReadAccessToURL:nsUrl];
-  self.window.rootViewController = rootViewController;
-  //NSURLRequest* request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
-  //[web loadRequest:request];
+
+//  NSURLRequest* request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
+//  [web loadRequest:request];
+    self.window.rootViewController = rootViewController;
+  [self.window makeKeyAndVisible];
 }
 
 - (UIViewController *)rootController {

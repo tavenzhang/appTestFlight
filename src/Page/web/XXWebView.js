@@ -3,11 +3,10 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    WebView,
     Keyboard,
     Clipboard
 } from 'react-native';
-import WKWebView from "react-native-wkwebview-reborn/WKWebView";
+import { WebView } from 'react-native-webview';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import {observer} from 'mobx-react/native';
 import NetUitls from "../../Common/Network/TCRequestUitls";
@@ -282,7 +281,9 @@ export default class XXWebView extends Component {
         return (
             <View style={styles.container}>
                 {
-                    G_IS_IOS ? <WKWebView ref="myWebView" source={source}
+                    G_IS_IOS ? <WebView ref="myWebView"
+                                        originWhitelist={['*']}
+                                        source={source}
                                           onNavigationStateChange={this.onNavigationStateChange}
                                           onLoadStart={this.onShouldStartLoadWithRequest}
                                           style={styles.webView}
@@ -325,10 +326,6 @@ export default class XXWebView extends Component {
                 }
             </View>
         );
-    }
-
-    onRenderLoadingView = () => {
-        return null
     }
 
 
@@ -615,16 +612,16 @@ export default class XXWebView extends Component {
 
     onError = (error) => {
       //  TW_Store.dataStore.onRetartApp();
-        TW_Log("onError===========event=====rr22", error)
+        TW_Log("onError======XXWebView=====event=====rr22", error)
     }
 
     onShouldStartLoadWithRequest = (event) => {
-        TW_Log("onShouldStartLoadWithRequest===========event====22=", event)
+        TW_Log("onShouldStartLoadWithRequest===========XXWebView====22=", event)
         return true;
     };
 
     onNavigationStateChange = (navState) => {
-        TW_Log("navState===========onNavigationStateChange=====url==" + navState.url, navState)
+        TW_Log("navState====XXWebView=======onNavigationStateChange=====url==" + navState.url, navState)
         this.setState({
             backButtonEnabled: navState.canGoBack,
             // title: navState.title,

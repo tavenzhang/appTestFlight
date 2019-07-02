@@ -50,10 +50,10 @@ var view;
                 this.setHeadIcon();
                 var msc = SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1);
                 var mscvol = SaveManager.getObj().get(SaveManager.KEY_MUSIC_VL, 1);
-                this.musicBtn.selected = Boolean(msc == 1 && mscvol > 0);
+                this.musicBtn.selected = Boolean(msc == 1 || mscvol > 0);
                 var sdx = SaveManager.getObj().get(SaveManager.KEY_SFX_SWITCH, 1);
                 var sdvol = SaveManager.getObj().get(SaveManager.KEY_SFX_VL, 1);
-                this.soundBtn.selected = Boolean(sdx == 1 && sdvol > 0);
+                this.soundBtn.selected = Boolean(sdx == 1 || sdvol > 0);
                 //events---------------
                 EventManager.addTouchScaleListener(this.backBtn, this, function () {
                     SoundPlayer.returnLobbySound();

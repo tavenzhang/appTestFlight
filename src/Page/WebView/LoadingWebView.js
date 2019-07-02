@@ -3,15 +3,9 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    WebView,
-    Text
 } from 'react-native';
 
-import {width} from '../asset/game/themeComponet'
-import WKWebView from "react-native-wkwebview-reborn/WKWebView";
-
-import {JX_PLAT_INFO} from "../asset";
-import TCButtonView from "../../Common/View/button/TCButtonView";
+import { WebView } from 'react-native-webview';
 import {observer} from "mobx-react/native";
 
 
@@ -62,8 +56,9 @@ export default class LoadingWebView extends Component {
             return null;
         }
 
-        let wenConteView = G_IS_IOS ? <WKWebView
+        let wenConteView = G_IS_IOS ? <WebView
                 ref="myWebView"
+                useWebKit={true}
                 source={source}
                 onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                 style={[styles.webView]}

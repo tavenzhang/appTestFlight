@@ -3,12 +3,10 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    WebView,
-    Text
 } from 'react-native';
 
 import {width} from '../asset/game/themeComponet'
-import WKWebView from "react-native-wkwebview-reborn/WKWebView";
+import { WebView } from 'react-native-webview';
 
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import {JX_PLAT_INFO} from "../asset";
@@ -93,7 +91,8 @@ export default class TCWebView extends Component {
         if (this.state.isHide) {
             return <View style={{flex: 1, backgroundColor: "black"}}/>
         }
-        let wenConteView = G_IS_IOS ? <WKWebView
+        let wenConteView = G_IS_IOS ? <WebView
+                useWebKit={true}
                 ref="myWebView"
                 source={source} onNavigationStateChange={this.onNavigationStateChange}
                                                  onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
@@ -106,10 +105,7 @@ export default class TCWebView extends Component {
                                                  mixedContentMode={"always"}
                                                  onLoadStart={this.onloadStart}
                                                  onLoadEnd={this.onLoadEnd}
-                                                 thirdPartyCookiesEnabled={true}
-
-
-            /> :
+                                                 thirdPartyCookiesEnabled={true}/> :
             <WebView
                 ref="myWebView"
                 useWebKit={true}

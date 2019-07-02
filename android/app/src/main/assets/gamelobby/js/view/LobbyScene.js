@@ -48,8 +48,8 @@ var LobbyScene = /** @class */ (function (_super) {
     LobbyScene.prototype.requestPop = function () {
         var _this = this;
         HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.attention_pop, this, function (suc, jobj) {
-            if (suc && jobj.pop) {
-                Laya.timer.once(1000, _this, view.dlg.NoticeDlg.show, [AttentionDialog.TYPE_OPEN_AUTO]);
+            if (suc && jobj.pop) { //本地 活动/公告2/1 服务器 1/0
+                Laya.timer.once(1000, _this, view.dlg.NoticeDlg.show, [jobj.noticeCate + 1, jobj.noticeid]);
             }
         });
     };

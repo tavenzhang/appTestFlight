@@ -853,6 +853,21 @@ var ui;
     })(dlg = ui.dlg || (ui.dlg = {}));
 })(ui || (ui = {}));
 (function (ui) {
+    var EmbedLoadingViewUI = /** @class */ (function (_super) {
+        __extends(EmbedLoadingViewUI, _super);
+        function EmbedLoadingViewUI() {
+            return _super.call(this) || this;
+        }
+        EmbedLoadingViewUI.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this);
+            this.createView(ui.EmbedLoadingViewUI.uiView);
+        };
+        EmbedLoadingViewUI.uiView = { "type": "View", "props": { "width": 800, "height": 400 }, "child": [{ "type": "Box", "props": { "var": "animBox", "centerY": 0, "centerX": 0 } }] };
+        return EmbedLoadingViewUI;
+    }(View));
+    ui.EmbedLoadingViewUI = EmbedLoadingViewUI;
+})(ui || (ui = {}));
+(function (ui) {
     var LoadingViewUI = /** @class */ (function (_super) {
         __extends(LoadingViewUI, _super);
         function LoadingViewUI() {

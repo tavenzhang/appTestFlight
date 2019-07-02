@@ -94,7 +94,7 @@ var LayaMain = /** @class */ (function () {
             if (lms == 1 && !GameUtils.isAppSound) {
                 Laya.SoundManager.playMusic(ResConfig.musicUrl);
             }
-            var bl = Boolean(lms == 1 && lmv > 0);
+            var bl = Boolean(lms == 1 || lmv > 0);
             if (GameUtils.isAppSound)
                 PostMHelp.game_common({ do: "playBgMusic", param: bl });
             //刷新用户信息

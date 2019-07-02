@@ -31,9 +31,6 @@ var view;
             this.mouseThrough = true; //设置可穿透
             //版本号
             this.verTxt.text = GameUtils.appVer + "\n" + ResConfig.versions;
-            GameUtils.addLongPress(this.verTxt, this, function () {
-                view.debug.DebugDlg.show();
-            });
             this.goAnim = new DragonBoneAnim();
             this.goAnim.loadInit({ skUrl: "./assets/animation/coins/money_icon.sk" });
             this.goldAnim.addChild(this.goAnim);

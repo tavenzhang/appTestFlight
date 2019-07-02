@@ -26,9 +26,9 @@
         "openinstall-react-native": "1.0.6",
         "prop-types": "15.6.1",
         "query-string": "4.2.3",
-        "react": "16.6.1",
+        "react": "16.8.6",
         "react-dom": "16.5.1",
-        "react-native": "0.57.7",
+        "react-native": "0.60.0-rc.3",
         "react-native-action-button": "2.8.4",
         "react-native-animatable": "1.2.4",
         "react-native-bcrypt": "2.4.0",
@@ -74,7 +74,7 @@
         "react-native-toast-native": "1.2.1",
         "react-native-vector-icons": "4.5.0",
         "react-native-view-shot": "2.6.0",
-        "react-native-wkwebview-reborn": "2.0.0",
+        "react-native-webview": "^6.0.0",
         "react-native-zip-archive": "3.0.1",
         "react-navigation": "1.5.11",
         "react-navigation-props-mapper": "0.2.0",
@@ -87,12 +87,12 @@
         "reduxsauce": "0.4.1"
     },
     "devDependencies": {
-        "babel-jest": "23.6.0",
-        "jest": "23.6.0",
-        "metro-react-native-babel-preset": "0.49.2",
-        "react-test-renderer": "16.6.1",
         "@babel/plugin-proposal-decorators": "7.1.6",
-        "@babel/runtime": "7.1.5"
+        "@babel/runtime": "^7.3.1",
+        "babel-jest": "23.6.0",
+        "jest": "^24.1.0",
+        "metro-react-native-babel-preset": "0.49.2",
+        "react-test-renderer": "16.8.6"
     },
     "jest": {
         "preset": "react-native"
