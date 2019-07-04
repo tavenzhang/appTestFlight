@@ -9,7 +9,7 @@
 	<key>AppSecret</key>
 	<dict>
 		<key>weixin</key>
-		<string>274e793fc229fd54c4efe129152a6ba8</string>
+		<string>3cb2cc0c5a0464de2922b215eb5cd3eb</string>
 	</dict>
 		<key>PLAT_CH</key>
     	<string>1</string>
@@ -52,7 +52,7 @@
 			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wxf259b94e375fa9ad</string>
+				<string>wx2edd0e4857cc2741</string>
 			</array>
 		</dict>
 	</array>
