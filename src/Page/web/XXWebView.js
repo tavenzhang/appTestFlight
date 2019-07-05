@@ -26,9 +26,6 @@ const HTTP_ACCOUNT="/webapi/account/users/current";
 export default class XXWebView extends Component {
     constructor(state) {
         super(state)
-       // this.onCloseSharebox = this.onCloseSharebox.bind(this);
-       // this.filtUrlList=["/api/v1/account/webapi/account/users/login","/api/v1/account/webapi/account/users/userWebEncryptRegister"];
-
         this.state={
             isFail:false,
             updateList:[],
@@ -40,6 +37,7 @@ export default class XXWebView extends Component {
         this.isLoading=false;
         this.isShow=false;
         this.isShowKeyBoard=false
+        this.rom=Math.random()*100000
     }
 
     componentWillMount(){
@@ -258,7 +256,9 @@ export default class XXWebView extends Component {
 
 
         if(TW_IS_DEBIG){
-            source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+            //source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+            let uri="http://localhost:9999/android/app/src/main/assets/gamelobby/index.html?platform=ios&hash=7e5876ea5a240467db5670550b53411b&rm-"+this.rom
+            source={uri}
         }
 
         TW_Log("targetAppDir-33---MainBundlePath-",source);
@@ -276,7 +276,11 @@ export default class XXWebView extends Component {
             isDebug:TW_IS_DEBIG,
             appVersion:TW_Store.appStore.versionHotFix,
             isAppSound:TW_Store.dataStore.isAppSound
-        })}`;
+        })},(function() {
+  window.postMessage = function(data) {
+    window.ReactNativeWebView.postMessage(data);
+  };
+})()`;
        // TW_Log("targetAppDir-33---isWechatEnabled-his.state--"+(sharedUrl&&isShowSharebox)+"--sharedUrl=="+sharedUrl+"-isShowSharebox-"+isShowSharebox,this.state);
         return (
             <View style={styles.container}>
@@ -287,6 +291,7 @@ export default class XXWebView extends Component {
                                           onNavigationStateChange={this.onNavigationStateChange}
                                           onLoadStart={this.onShouldStartLoadWithRequest}
                                           style={styles.webView}
+
                                           allowFileAccess={true}
                                           startInLoadingState={false}
                                           onError={this.onError}
@@ -607,7 +612,15 @@ export default class XXWebView extends Component {
         if(this.refs.myWebView){
             this.refs.myWebView.postMessage(dataStr, "*");
         }
-        //this.refs.myWebView.evaluateJavaScript(`receivedMessageFromRN(${dataStr})`);
+    //     const injectJavascriptStr =  `(function() {
+    //   window.WebViewBridge.onMessage(${JSON.stringify(data)});
+    //   return true;
+    // })()`;
+    //     if(this.refs.myWebView) {
+    //         this.refs.myWebView.injectJavaScript(injectJavascriptStr)
+    //     }
+
+      //  this.refs.myWebView.evaluateJavaScript(`receivedMessageFromRN(${dataStr})`);
     }
 
     onError = (error) => {

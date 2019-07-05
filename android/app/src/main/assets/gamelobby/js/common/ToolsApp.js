@@ -3,6 +3,7 @@ var ToolsApp = /** @class */ (function () {
     }
     ToolsApp.initAppData = function () {
         var appData = window["appData"];
+
         if (appData) {
             AppData.IS_NATIVE_APP = true;
             AppData.NATIVE_DATA = appData;
@@ -12,6 +13,7 @@ var ToolsApp = /** @class */ (function () {
                 window["initVconsole"]();
             }
         }
+        Debug.trace("appData---",appData)
     };
     ToolsApp.getGameJumpUrl = function (host, dir) {
         var a = "";

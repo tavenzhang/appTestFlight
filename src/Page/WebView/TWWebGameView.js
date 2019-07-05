@@ -14,7 +14,6 @@ import {JX_PLAT_INFO} from "../asset";
 
 import {observer} from "mobx-react/native";
 import PropTypes from "prop-types";
-import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
 
 
@@ -80,7 +79,11 @@ export default class TWWebGameView extends Component {
         }
 
         let dis = TW_Store.bblStore.isLoading ? "none":"flex";
-
+        let injectJs = `(function() {
+  window.postMessage = function(data) {
+    window.ReactNativeWebView.postMessage(data);
+  };
+})()`;
 
         let wenConteView = G_IS_IOS ? <WebView
                 useWebKit={true}
@@ -97,8 +100,7 @@ export default class TWWebGameView extends Component {
                                                  onLoadStart={this.onloadStart}
                                                  onLoadEnd={this.onLoadEnd}
                                                  thirdPartyCookiesEnabled={true}
-
-
+                                                 injectedJavaScript={injectJs}
             /> :
             <WebView
                 ref="myWebView"

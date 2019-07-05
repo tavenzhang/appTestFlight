@@ -38,6 +38,7 @@ var LobbyScene = /** @class */ (function (_super) {
         //添加大厅视图
         this.view = new view.LobbyView();
         this.addChild(this.view);
+        Debug.trace("appData--initUI-LobbyView")
         //请求相关接口
         LobbyDataManager.reqBindInfo();
         LobbyDataManager.reqUserInfo();

@@ -70,6 +70,7 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.startLoading = function () {
         var conf = Laya.loader.getRes("./assets/conf/assets_lobby.json");
+
         if (PageLogin.isLoaded) {
             this.loadFinish();
         }
@@ -89,6 +90,7 @@ var PageLogin = /** @class */ (function (_super) {
      * 加载结束
      */
     PageLogin.prototype.loadFinish = function () {
+
         if (!PageLogin.isLoaded)
             PostMHelp.initGame();
         PageManager.initDlgMap();
@@ -101,12 +103,14 @@ var PageLogin = /** @class */ (function (_super) {
         this.initLoginProcess();
         this.initEvents();
         PageLogin.isLoaded = true;
+        Debug.trace("appData--LayaMain-LobbyView----------"+PageLogin.isLoaded)
     };
     /**
      * 拷贝native的地址
      * 注意：native所有http请求必须在这部操作之后
      */
     PageLogin.prototype.copyNativeAdress = function () {
+
         if (AppData.IS_NATIVE_APP) {
             var urlJson = AppData.NATIVE_DATA.urlJSON;
             var localUrlJson = ConfObjRead.getConfUrl();
@@ -312,6 +316,7 @@ var PageLogin = /** @class */ (function (_super) {
      * 初始化登录流程
      */
     PageLogin.prototype.initLoginProcess = function () {
+
         var _this = this;
         Common.getNormalFontByDevice();
         //token信息
@@ -326,6 +331,7 @@ var PageLogin = /** @class */ (function (_super) {
             if (!Common.clientId)
                 Common.clientId = ConfObjRead.getConfCommon().testClientId;
         }
+        Debug.trace("appData--initLoginProcess--------initBgMusic--")
         LobbyScene.initBgMusic();
         if (this.cmd && this.cmd.type) {
             this.showOtherLogin();
@@ -336,11 +342,13 @@ var PageLogin = /** @class */ (function (_super) {
             this.checkLocalFastInfo();
             return;
         }
+        Debug.trace("appData--initLoginProcess--------temp_token--"+temp_token)
         if (temp_token.length <= 0 || status == '1') {
             this.checkLocalFastInfo();
         }
         else { //使用token登录
             HttpRequester.loginByToken(temp_token, this, function (suc, jobj) {
+                Debug.trace("appData--initLoginProcess--------loginByToken--suc=="+suc)
                 if (suc) { //登录成功
                     Common.userInfo = jobj;
                     Common.access_token = temp_token;
@@ -395,6 +403,7 @@ var PageLogin = /** @class */ (function (_super) {
      * 显示其他登陆按钮
      */
     PageLogin.prototype.showOtherLogin = function () {
+        Debug.trace("appData--showOtherLogin----------")
         //显示客服图标
         this.btn_service.visible = true;
         //隐藏loading

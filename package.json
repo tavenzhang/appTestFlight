@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "openinstall": "node node_modules/openinstall-react-native/openinstallConfig.js",
-        "start": "node node_modules/react-native/local-cli/cli.js start",
+        "start": "node node_modules/react-native/local-cli/cli.js start --port 9999",
         "test": "jest",
         "bundle-ios": "node node_modules/react-native/local-cli/cli.js bundle --entry-file index.js  --platform ios --dev false --bundle-output ./ios/bundle/main.jsbundle --assets-dest ./ios/bundle",
         "bundle-android": "node node_modules/react-native/local-cli/cli.js bundle --entry-file index.js  --platform android --dev false --bundle-output ./android/bundle/main.jsbundle --assets-dest ./android/bundle"
