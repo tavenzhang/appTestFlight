@@ -3,14 +3,13 @@ import {
     StyleSheet,
     View,
     ScrollView,
-    WebView,
     Dimensions,
     PixelRatio
 } from "react-native";
-
+import { WebView } from 'react-native-webview';
 import {ASSET_Images} from "../../../asset";
 import TCImage from "../../../../Common/View/image/TCImage";
-import {observer} from "mobx-react/native";
+import {observer} from "mobx-react";
 
 import PropTypes from "prop-types";
 import LoadingView from "../../LoadingView";

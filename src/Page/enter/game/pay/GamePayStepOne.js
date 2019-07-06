@@ -6,9 +6,8 @@ import TCImage from "../../../../Common/View/image/TCImage";
 import {TCButtonImg} from "../../../../Common/View/button/TCButtonView";
 import {TCTextInput} from "../../../../Common/View/TCTextInput";
 import BtnMoneyView from "./BtnMoneyView";
-import {observer} from "mobx-react/native";
+import {observer} from "mobx-react";
 
-;
 import PropTypes from "prop-types";
 import TCFlatList from "../../../../Common/View/RefreshListView/TCFLatList";
 import {userPay} from "../../../asset/images";

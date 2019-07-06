@@ -26,7 +26,6 @@ var LayaMain = /** @class */ (function () {
         Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
         Laya.stage.bgColor = "#000000";
         Laya.stage.on(Laya.Event.RESIZE, this, this.onResize);
-
         window.document.addEventListener("message", this.handleIFrameAction, false);
         window.addEventListener("message", this.handleIFrameAction, false);
         this.root_node = new Laya.Sprite();
@@ -37,18 +36,16 @@ var LayaMain = /** @class */ (function () {
             "./assets/conf/gameIcons.json",
             "./assets/conf/version.json"
         ], PageLogin);
-
     }
     LayaMain.getInstance = function () {
         return LayaMain.obj;
     };
     LayaMain.prototype.onResize = function () {
         ToolsApp.initAppData();
-        if (AppData.IS_NATIVE_APP) {
-          //  window.removeEventListener("message", this.handleIFrameAction, false);
-        }
+        // if (AppData.IS_NATIVE_APP) {
+        //     window.removeEventListener("message", this.handleIFrameAction, false);
+        // }
         EventManager.dispath(EventType.RESIZE);
-
         PostMHelp.game_common({ name: "onGameInit" });
     };
     LayaMain.prototype.getRootNode = function () {
@@ -97,7 +94,7 @@ var LayaMain = /** @class */ (function () {
             if (lms == 1 && !GameUtils.isAppSound) {
                 Laya.SoundManager.playMusic(ResConfig.musicUrl);
             }
-            var bl = Boolean(lms == 1 || lmv > 0);
+            var bl = Boolean(lms == 1 && lmv > 0);
             if (GameUtils.isAppSound)
                 PostMHelp.game_common({ do: "playBgMusic", param: bl });
             //刷新用户信息
@@ -106,7 +103,6 @@ var LayaMain = /** @class */ (function () {
         catch (e) { }
     };
     LayaMain.prototype.handleIFrameAction = function (e) {
-      //  Debug.trace("appData--handleIFrameAction-")
         var data = e.data;
         LayaMain.getInstance().onAppPostMessgae(data);
     };
@@ -116,7 +112,6 @@ var LayaMain = /** @class */ (function () {
             message = JSON.parse(data);
         }
         catch (e) {
-
             Debug.output("onAppPostMessgae-err:", e);
         }
         if (message && message.action) {
@@ -270,7 +265,6 @@ var LayaMain = /** @class */ (function () {
     LayaMain.prototype.initLobby = function () {
         this.clearChild();
         if (this.sceneLobby == null) {
-            Debug.trace("appData--initLobby-LobbyView")
             Common.loginType = SaveManager.getObj().get(SaveManager.KEY_LOGIN_TYPE, LoginType.unknown);
             Common.loginInfo = SaveManager.getObj().get(SaveManager.KEY_LOGIN_INFO, Common.emptyLoginInfo());
             this.sceneLobby = new LobbyScene();

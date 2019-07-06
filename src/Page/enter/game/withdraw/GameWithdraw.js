@@ -12,7 +12,7 @@ import {TCButtonImg} from "../../../../Common/View/button/TCButtonView";
 import {TCTextInput} from "../../../../Common/View/TCTextInput";
 import TCText from "../../../../Common/View/widget/TCText";
 import TCWithdrawKeyboardView from "../../../UserCenter/UserWithdraw/TCWithdrawKeyboardView";
-import {observer} from "mobx-react/native";
+import {observer} from "mobx-react";
 
 import PropTypes from "prop-types";
 import {copyBtnStyle, indexBgColor, listViewTxtColor, payTxtColor, Size, width} from "../../../resouce/theme";

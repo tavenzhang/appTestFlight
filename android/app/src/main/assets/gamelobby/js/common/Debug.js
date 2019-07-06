@@ -62,7 +62,6 @@ var Debug = /** @class */ (function () {
         if (AppData.IS_NATIVE_APP) {
             PostMHelp.Log({ ct: ct, data: data });
         }
-
     };
     Debug.traceWeb = function (ct, data) {
         if (data === void 0) { data = {}; }

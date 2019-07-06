@@ -6,7 +6,7 @@ import {
     Text,
 } from 'react-native'
 
-import {observer} from 'mobx-react/native';
+import {observer} from 'mobx-react';
 import PropTypes from 'prop-types';
 
 //轻量级的Flat list 用于替换普通的 listView ， 如果需要 上拉 下拉 处理，请使用refreshList

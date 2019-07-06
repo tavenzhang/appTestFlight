@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {Text, TouchableOpacity, TouchableOpacityComponent, TouchableWithoutFeedback, View} from "react-native";
 import {ASSET_Images} from "../../../asset";
 import React, {Component} from "react";
-import {observer} from 'mobx-react/native';
+import {observer} from 'mobx-react';
 
 @observer
 export default class BtnMoneyView extends Component {

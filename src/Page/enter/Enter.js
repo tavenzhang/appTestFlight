@@ -83,7 +83,8 @@ export default class Enter extends Component {
               }
               if(!TW_Store.gameUpateStore.isInSubGame){
                   let now = new Date().getTime();
-                  let dim = now - this.lastClickTime
+                  let dim = now - this.lastClickTime;
+                  TW_Store.bblStore.isDebugApp=true;
                   TW_Log("lastClickTime----"+this.lastClickTime+"---dim",dim)
                   if (dim >= 180000) { //从后台进入前台间隔大于1分钟 才进行大厅与app 更新检测
                       this.hotFix(TW_Store.hotFixStore.currentDeployKey,true);

@@ -11,7 +11,7 @@ import { WebView } from 'react-native-webview';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import {JX_PLAT_INFO} from "../asset";
 import TCButtonView from "../../Common/View/button/TCButtonView";
-import {observer} from "mobx-react/native";
+import {observer} from "mobx-react";
 import PropTypes from "prop-types";
 
 

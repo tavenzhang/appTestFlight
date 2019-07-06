@@ -12,7 +12,7 @@ import { WebView } from 'react-native-webview';
 
 import {JX_PLAT_INFO} from "../asset";
 
-import {observer} from "mobx-react/native";
+import {observer} from "mobx-react";
 import PropTypes from "prop-types";
 import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
 

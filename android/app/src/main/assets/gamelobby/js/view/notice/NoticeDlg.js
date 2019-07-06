@@ -21,8 +21,7 @@ var AttentionDialog = /** @class */ (function () {
 var NoticeData = {
     shareId: 0,
     shareLimit: 0,
-    currentTab: 0,
-    noticeid: -1,
+    currentTab: 0
 };
 var view;
 (function (view) {
@@ -41,10 +40,8 @@ var view;
                 _this.initView();
                 return _this;
             }
-            NoticeDlg.show = function ($type, noticeid) {
-                if (noticeid === void 0) { noticeid = -1; }
+            NoticeDlg.show = function ($type) {
                 NoticeData.currentTab = $type;
-                NoticeData.noticeid = noticeid;
                 var dlg = new NoticeDlg();
                 dlg.game_counter.visible = false;
                 dlg.notice_counter.visible = false;
@@ -112,16 +109,12 @@ var view;
             };
             NoticeDlg.prototype.requestData = function () {
                 var _this = this;
-                //打开Loading加载遮罩
                 LayaMain.getInstance().showCircleLoading();
-                //请求活动/公告数据
                 HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.attention_new, this, function (suc, jobj) {
-                    //隐藏Loading加载条
                     LayaMain.getInstance().showCircleLoading(false);
-                    //数据请求成功
                     if (suc) {
-                        _this._data = jobj; //缓存数据
-                        _this.update(jobj); //更新显示
+                        _this._data = jobj;
+                        _this.update(jobj);
                     }
                 });
             };
@@ -136,14 +129,11 @@ var view;
                 this._contentH = 0;
                 var data = $data[this._currentCategoryTab];
                 var list = data.noticeList;
-                var activeTab = null;
                 for (var i = 0; i < list.length; i++) {
                     var tab = new NoticeSideTab();
-                    var tabData = list[i];
                     tab.id = i;
-                    tab.noticeid = tabData.noticeid;
                     tab.init(dummy);
-                    tab.setData(tabData);
+                    tab.setData(list[i]);
                     this.content_tabs.addChild(tab);
                     // tab.on("tabclick", this, this.onSideTabClick);
                     var gap = 10;
@@ -151,17 +141,9 @@ var view;
                     tab.y += dummy.y;
                     this._contentH = tab.y + tab.height;
                     this._tabs.push(tab);
-                    //保存激活tab
-                    if (tab.noticeid == NoticeData.noticeid) {
-                        activeTab = tab;
-                    }
                 }
                 dummy.visible = false;
-                if (activeTab) {
-                    activeTab.active();
-                    this.loadTab(activeTab.id);
-                }
-                else if (this._tabs.length > 0) {
+                if (this._tabs.length > 0) {
                     this._tabs[0].active();
                     this.loadTab(0);
                 }
@@ -261,6 +243,9 @@ var view;
                 this.contents.destroyChildren();
                 this.contents.removeChildren();
                 var data = this._data[this._currentCategoryTab].noticeList[$id];
+                if (this._currentContent) {
+                    this.off("jump", this, this.onJump);
+                }
                 var content;
                 switch (data.noticeActivityType) {
                     case "NORMAL":
@@ -287,7 +272,11 @@ var view;
                 content.x = content.y = 0;
                 this.contents.addChild(content);
                 this._currentContent = content;
+                this._currentContent.on("jump", this, this.onJump);
                 this.requestRead(this._data[this._currentCategoryTab].noticeList[$id].noticeid);
+            };
+            NoticeDlg.prototype.onJump = function () {
+                this.close();
             };
             NoticeDlg.prototype.requestRead = function (id) {
                 var _this = this;
@@ -435,11 +424,7 @@ var view;
             };
             NoticeDlg.doShare = function () {
             };
-            NoticeDlg.prototype.onOpened = function () {
-                this.on("closeNoticeDlg", this, this.close);
-            };
             NoticeDlg.prototype.onClosed = function (type) {
-                this.off("closeNoticeDlg", this, this.close);
                 // Laya.SoundManager.playSound("assets/raw/sfx_close.mp3");
                 EventManager.removeAllEvents(this);
                 this.tab_notice.off(Laya.Event.CLICK, this, this.onTabClick);

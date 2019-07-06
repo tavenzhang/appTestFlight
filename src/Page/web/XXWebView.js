@@ -7,8 +7,8 @@ import {
     Clipboard
 } from 'react-native';
 import { WebView } from 'react-native-webview';
-import {withMappedNavigationProps} from 'react-navigation-props-mapper'
-import {observer} from 'mobx-react/native';
+
+import {observer} from 'mobx-react';
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import Toast from "../../Common/JXHelper/JXToast";
 import FileTools from "../../Common/Global/FileTools";
@@ -21,7 +21,6 @@ const HTTP_GAME_LIST="/gamecenter/player/game/list";
 const HTTP_ACCOUNT="/webapi/account/users/current";
 
 
-@withMappedNavigationProps()
 @observer
 export default class XXWebView extends Component {
     constructor(state) {
@@ -134,9 +133,9 @@ export default class XXWebView extends Component {
     
     componentDidMount(): void {
         // 用于android 不需要点击默认播放声音
-        if(this.refs.myWebView.getSettings){
-            this.refs.myWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
-        }
+        // if(this.refs.myWebView.getSettings){
+        //     this.refs.myWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        // }
     }
 
 
@@ -234,34 +233,38 @@ export default class XXWebView extends Component {
 
     render() {
        // TW_Log("TW_DATA_KEY.gameList-FileTools--==err=flash=this.state.flash--isLoading="+TW_Store.gameUpateStore.isLoading+"---TW_Store.gameUpateStore.isOldHome"+TW_Store.gameUpateStore.isOldHome);
-        let news=TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome;
+        let news=(TW_Store.gameUpateStore.isLoading&&!TW_Store.gameUpateStore.isOldHome)||!TW_Store.dataStore.isAppInited
         if(news){
                 return null
         }
 
-        TW_Log("TW_DATA_KEY.gameList-FileTools--=gameUpateStore=news=="+news)
+
+        TW_Log("TW_DATA_KEY.gameList-FileTools--=gameUpateStore=news=="+news+"getSettings==isAppInited="+TW_Store.dataStore.isAppInited)
         let {force} = this.props;
         let source = {
-            file: TW_Store.dataStore.targetAppDir+"/index.html",
-            allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
-            allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
+            file: TW_Store.dataStore.targetAppDir+ "/index.html",
+            allowingReadAccessToURL: TW_Store.dataStore.targetAppDir,
+            allowFileAccessFromFileURLs: TW_Store.dataStore.targetAppDir,
             param:"?app=true"
         };
 
         if (!G_IS_IOS) {
             source = {
-                uri: TW_Store.dataStore.getHomeWebUri()+"?app=true",
+                uri: TW_Store.dataStore.targetAppDir+"/index.html"+"?app=true",
             };
         }
 
 
-        if(TW_IS_DEBIG){
-            //source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-            let uri="http://localhost:9999/android/app/src/main/assets/gamelobby/index.html?platform=ios&hash=7e5876ea5a240467db5670550b53411b&rm-"+this.rom
-            source={uri}
-        }
+        // if(TW_IS_DEBIG){
+        //    // source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+        //    let uri="http://localhost:9999/android/app/src/main/assets/gamelobby/index.html?platform=ios&hash=7e5876ea5a240467db5670550b53411b&rm-"+this.rom
+        //    source={uri}
+        // }
 
-        TW_Log("targetAppDir-33---MainBundlePath-",source);
+        TW_Log("targetAppDir-33---MainBundlePath-TW_Store.dataStore.isAppInited-----"+TW_Store.dataStore.isAppInited,source);
+        if(!TW_Store.dataStore.isAppInited){
+            return null
+        }
         let injectJs = `window.appData=${JSON.stringify({
             isApp: true,
             taven: "isOk",
@@ -291,7 +294,6 @@ export default class XXWebView extends Component {
                                           onNavigationStateChange={this.onNavigationStateChange}
                                           onLoadStart={this.onShouldStartLoadWithRequest}
                                           style={styles.webView}
-
                                           allowFileAccess={true}
                                           startInLoadingState={false}
                                           onError={this.onError}

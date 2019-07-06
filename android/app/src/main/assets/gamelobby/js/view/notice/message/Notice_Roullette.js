@@ -55,7 +55,6 @@ var Notice_Roullette = /** @class */ (function (_super) {
         spinner.hide();
         this.spinners.push(spinner);
         spinner.on("reqSpin", this, this.onReqSpin);
-        this.targetSpinner = this.spinners[0];
         this.initButtons();
         this.wlist.init(this);
         HttpRequester.putHttpData(ConfObjRead.getConfUrl().cmd.user_bet_info, null, this, function (suc, jobj) {
@@ -123,9 +122,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
         date = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
         return date;
     };
-    Notice_Roullette.prototype.onReqSpin = function ($spinner) {
-        var spinner = this.targetSpinner;
-        console.log(spinner.id, spinner.reqPt);
+    Notice_Roullette.prototype.onReqSpin = function (spinner) {
         var currentDate = new Date();
         if (currentDate.getTime() > this.endData.getTime()) {
             this.activitiesEnded();
@@ -137,7 +134,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
         }
         this._havePt -= spinner.reqPt;
         this.currentPt.text = this._havePt.toString();
-        // this.targetSpinner = spinner;
+        this.targetSpinner = spinner;
         spinner.start();
         this.btnSilver.mouseEnabled = false;
         this.btnGold.mouseEnabled = false;
@@ -160,7 +157,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
         this._result = jobj.prizeAmount;
         this.targetSpinner.setResult(jobj);
         this.targetSpinner.once("stopSpin", this, this.onStopSpin);
-        // this.targetSpinner = undefined;
+        this.targetSpinner = undefined;
     };
     Notice_Roullette.prototype.activitiesEnded = function () {
         view.dlg.TipsDlg.show("轮盘抽奖活动已经结束");
@@ -194,19 +191,16 @@ var Notice_Roullette = /** @class */ (function (_super) {
         else if ($e.type === Laya.Event.MOUSE_UP && this.targetButton === $e.currentTarget) {
             switch ($e.currentTarget) {
                 case this.btnSilver:
-                    this.targetSpinner = this.spinners[0];
                     this.btnSilver.getChildAt(0).visible = true;
                     this.showSpinner2(1);
                     SoundPlayer.enterPanelSound();
                     break;
                 case this.btnGold:
-                    this.targetSpinner = this.spinners[1];
                     this.btnGold.getChildAt(0).visible = true;
                     this.showSpinner2(2);
                     SoundPlayer.enterPanelSound();
                     break;
                 case this.btnDiamond:
-                    this.targetSpinner = this.spinners[2];
                     this.btnDiamond.getChildAt(0).visible = true;
                     this.showSpinner2(3);
                     SoundPlayer.enterPanelSound();
