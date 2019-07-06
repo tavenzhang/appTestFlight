@@ -47,6 +47,9 @@ export default class TWWebGameView extends Component {
     render() {
         let {isOrigan,url}=this.props;
         let myUrl = url;
+        if(url==""){
+            return null
+        }
         let tempIndex = myUrl.indexOf("?");
         let myParam = myUrl.substr(tempIndex);
          let homePre= myUrl.substring(0,tempIndex);

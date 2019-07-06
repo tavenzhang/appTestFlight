@@ -38,7 +38,7 @@ export const AppConfig = {
 
 export const MyAppName = '博博乐';
 
-export const versionHotFix = 'v6.11';
+export const versionHotFix = 'v6.21';
 
 export const MyOwnerPlatName= 'uat彩票';
 

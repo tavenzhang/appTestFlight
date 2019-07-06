@@ -60,6 +60,7 @@ export default class LoadingWebView extends Component {
     window.ReactNativeWebView.postMessage(data);
   };
 })()`;
+        TW_Log("targetAppDir-33---LoadingWebView-source=="+source);
         let wenConteView = G_IS_IOS ? <WebView
                 ref="myWebView"
                 useWebKit={true}
