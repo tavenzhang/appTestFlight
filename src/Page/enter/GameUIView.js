@@ -20,6 +20,8 @@ import BaseGameAlert from "./game/pay/BaseGameAlert";
 import GameShareView from "./game/GameShareView";
 import BaseUserAccAlert from "./game/pay/BaseUserAccountAlert";
 import ShareBox from "./game/pay/ShareBox";
+import LoadingView from "./LoadingView";
+
 
 
 @observer
@@ -132,6 +134,7 @@ class SubGameView extends Component {
                         </BaseUserAccAlert> : null
                     }
                     {TW_Store.gameUIStroe.isShowShare ? <ShareBox onClose={()=>{TW_Store.gameUIStroe.isShowShare=false}}/> : null}
+                    {TW_Store.gameUIStroe.isShowResLoading ?    <LoadingView myStyle={{width:485,height:300}}/>:null}
                 </View>)
         }
        else{

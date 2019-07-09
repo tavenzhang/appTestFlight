@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactPackage;
@@ -82,7 +81,12 @@ public class CodePush implements ReactPackage {
         initializeUpdateAfterRestart();
     }
 
-    public CodePush(String deploymentKey, Context context, boolean isDebugMode, @NonNull String serverUrl,String version) {
+    public CodePush(String deploymentKey, Context context, boolean isDebugMode, String serverUrl) {
+        this(deploymentKey, context, isDebugMode);
+        mServerUrl = serverUrl;
+    }
+
+    public CodePush(String deploymentKey, Context context, boolean isDebugMode, String serverUrl,String version) {
         this(deploymentKey, context, isDebugMode);
         mServerUrl = serverUrl;
         if(version!=""){
@@ -96,7 +100,7 @@ public class CodePush implements ReactPackage {
         mPublicKey = getPublicKeyByResourceDescriptor(publicKeyResourceDescriptor);
     }
 
-    public CodePush(String deploymentKey, Context context, boolean isDebugMode, @NonNull String serverUrl, Integer publicKeyResourceDescriptor) {
+    public CodePush(String deploymentKey, Context context, boolean isDebugMode, String serverUrl, Integer publicKeyResourceDescriptor) {
         this(deploymentKey, context, isDebugMode);
 
         if (publicKeyResourceDescriptor != null) {
@@ -205,11 +209,6 @@ public class CodePush implements ReactPackage {
         return CodePush.getJSBundleFile(CodePushConstants.DEFAULT_JS_BUNDLE_NAME);
     }
 
-    public static String setAppVerison(String appverison) {
-        return sAppVersion=appverison;
-    }
-
-
     public static String getJSBundleFile(String assetsBundleFileName) {
         if (mCurrentInstance == null) {
             throw new CodePushNotInitializedException("A CodePush instance has not been created yet. Have you added it to your app's list of ReactPackages?");
@@ -222,7 +221,15 @@ public class CodePush implements ReactPackage {
         this.mAssetsBundleFileName = assetsBundleFileName;
         String binaryJsBundleUrl = CodePushConstants.ASSETS_BUNDLE_PREFIX + assetsBundleFileName;
 
-        String packageFilePath = mUpdateManager.getCurrentPackageBundlePath(this.mAssetsBundleFileName);
+        String packageFilePath = null;
+        try {
+            packageFilePath = mUpdateManager.getCurrentPackageBundlePath(this.mAssetsBundleFileName);
+        } catch (CodePushMalformedDataException e) {
+            // We need to recover the app in case 'codepush.json' is corrupted
+            CodePushUtils.log(e.getMessage());
+            clearUpdates();
+        }
+
         if (packageFilePath == null) {
             // There has not been any downloaded updates.
             CodePushUtils.logBundleUrl(binaryJsBundleUrl);

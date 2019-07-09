@@ -105,7 +105,6 @@ export default class GameGuestTab extends Component {
         let source = {
             uri: TW_Store.gameUIStroe.gustWebUrl,
         }
-        TW_Log("Benny=>width="+SCREEN_W+" & Left= " + (SCREEN_W - 517)/10)
         return (
             <WebView source={source}
                      style={styles.webView}

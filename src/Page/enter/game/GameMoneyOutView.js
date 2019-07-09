@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
 
         justifyContent: "center",
         alignItems: "center",
+        position:"absolute"
        // alignSelf: "center",
        // backgroundColor: "transparent",
     },
