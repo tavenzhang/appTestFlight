@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
         /*flex: 1,*/
         justifyContent: "center",
         alignItems: "center",
-        /*backgroundColor: "transparent",
-        position: "absolute",*/
+        position: "absolute",
     }
 });
