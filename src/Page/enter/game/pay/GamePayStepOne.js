@@ -64,7 +64,7 @@ export default class GamePayStepOne extends Component {
 
         payHelper.props = itemData;
         let marginTop = (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? 140 : 0
-        let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 200 : SCREEN_H - 65
+        let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 200 : SCREEN_H - 55
         if (this.isChange) {
             this.scrollListToStart();
         }
@@ -105,7 +105,7 @@ export default class GamePayStepOne extends Component {
             }
             <View style={{position: "absolute", top: marginTop, left: 10}}>
                 {payList && payList.length > 0 ?
-                    <TCFlatList ref={"payList"} style={{height: height, marginBottom: 10}} dataS={payList}
+                    <TCFlatList ref={"payList"} style={{height: height, marginBottom: 0}} dataS={payList}
                                 onScroll={this._scroll}
                                 renderRow={this.onRenderItemView}/> : this.getEmptyTip()}
 
@@ -251,7 +251,7 @@ export default class GamePayStepOne extends Component {
                             marginBottom: 12,
                             width: 200
                         }}>{vip.merchantName}</Text>
-                        <TouchableOpacity
+                        {/*<TouchableOpacity
                             activeOpacity={0.6}
                             style={{
                                 marginLeft: SCREEN_W - 580,
@@ -259,6 +259,11 @@ export default class GamePayStepOne extends Component {
                             }}
                             onPress={() => this.onCopy(vip.methodInfo)}>
                             <Text style={styles.itemBtnTxtStyle}>复制</Text>
+                        </TouchableOpacity>*/}
+                        <TouchableOpacity style={{position: "absolute", top:0, marginLeft: SCREEN_W - 320}}
+                                          onPress={()=>this.onCopy(vip.methodInfo)}>
+                            <Image style={styles.button}
+                                   source={ASSET_Images.gameUI.btn_copy}/>
                         </TouchableOpacity>
                     </View>
                     <View style={{flexDirection: "row"}}>
@@ -284,8 +289,10 @@ export default class GamePayStepOne extends Component {
         } else if (itemData.code.indexOf("FIXED") != -1) {
             let paymentItem = data;
             let itemHeight = 0;
+            let icon=ASSET_Images.gameUI.payExpand
             let isSelected = this.state.selectItem != null && this.state.selectItem.paymentId === paymentItem.paymentId;
             if (isSelected) {
+                icon=ASSET_Images.gameUI.payCollapse
                 let rowCount = parseInt(paymentItem.fixedAmount.length / 5);
                 if (rowCount === 0) {
                     rowCount = 1;
@@ -298,7 +305,7 @@ export default class GamePayStepOne extends Component {
                 itemHeight = 45 * rowCount;
             }
 
-            TW_Log("paymentItem---" + this.state.selectedItem);
+            TW_Log("paymentItemFixed---" + this.state.selectedItem);
             return (
                 (<View style={{
                     width: SCREEN_W - 250,
@@ -307,7 +314,7 @@ export default class GamePayStepOne extends Component {
                     marginBottom: 5,
                     justifyContent: 'center'
                 }}>
-                    <TouchableOpacity onPress={() => this.setState({selectItem: paymentItem})}>
+                    <TouchableOpacity onPress={() => this.toggle(paymentItem)}>
                         <TCImage source={ASSET_Images.gameUI.fixedListItemBg}
                                  style={{position: "absolute", width: SCREEN_W - 250, height: 40 + itemHeight}}
                                  resizeMode={"stretch"}/>
@@ -336,12 +343,12 @@ export default class GamePayStepOne extends Component {
                                     color: '#ffffff',
                                     left: 65
                                 }}>{`￥ ${paymentItem.minAmount}-${paymentItem.maxAmount}`}</Text>
-                                <TCButtonImg imgSource={ASSET_Images.gameUI.payExpand}
+                                <TCButtonImg imgSource={icon}
                                              soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                              btnStyle={{width: 30, height: 30, marginLeft: 10, marginTop: 12}}
                                              resizeMode={"contain"}
                                              onClick={() =>
-                                                 this.setState({selectItem: paymentItem})
+                                                 this.toggle(paymentItem)
                                              }/>
                             </View>
                         </View>
@@ -391,6 +398,17 @@ export default class GamePayStepOne extends Component {
                 </View></TouchableOpacity>)
         }
         return null
+    }
+
+    /**
+     * 选择固定金额时，显示或隐藏金额详情
+     */
+    toggle(item) {
+        if (this.state.selectItem == null) {
+            this.setState({selectItem: item})
+        } else {
+            this.setState({selectItem: null})
+        }
     }
 
     onPressPay = (paymentItem) => {
