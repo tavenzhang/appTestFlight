@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 
-import { WebView } from 'react-native-webview';
+import {WebView} from 'react-native-webview';
 
 
 import {JX_PLAT_INFO} from "../asset";
@@ -22,7 +22,7 @@ export default class TWWebGameView extends Component {
 
     static propTypes = {
         data: PropTypes.func,
-        isShow:PropTypes.any
+        isShow: PropTypes.any
     }
 
     constructor(state) {
@@ -39,75 +39,58 @@ export default class TWWebGameView extends Component {
     };
 
     componentWillMount() {
-        TW_OnBackHomeJs=this.onBackHomeJs;
+        TW_OnBackHomeJs = this.onBackHomeJs;
     }
 
 
-
     render() {
-        let {isOrigan,url}=this.props;
+        let {isOrigan, url} = this.props;
         let myUrl = url;
-        if(url==""){
+        if (url == "") {
             return null
         }
         let tempIndex = myUrl.indexOf("?");
         let myParam = myUrl.substr(tempIndex);
-         let homePre= myUrl.substring(0,tempIndex);
-         let lastStr= homePre.substr(homePre.length-1)
-        TW_Log("homePre.lastIndexOf-"+homePre.lastIndexOf("/"),lastStr)
-         if(lastStr!="/"){
-             homePre+="/";
-         }
-        let newUrl=  homePre+"index.html";
-         if(TW_Store.appStore.clindId=='31'){
-             myParam+="&time="+Math.random()*9999;
-         }
-        TW_Log("myUrl------------------------myParam--"+myParam+"-\n-newUrl----"+newUrl);
+        let homePre = myUrl.substring(0, tempIndex);
+        let lastStr = homePre.substr(homePre.length - 1)
+        TW_Log("homePre.lastIndexOf-" + homePre.lastIndexOf("/"), lastStr)
+        if (lastStr != "/") {
+            homePre += "/";
+        }
+        let newUrl = homePre + "index.html";
+        if (TW_Store.appStore.clindId == '31') {
+            myParam += "&time=" + Math.random() * 9999;
+        }
+        TW_Log("myUrl------------------------myParam--" + myParam + "-\n-newUrl----" + newUrl);
         let source = {
             file: newUrl,
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
-            allowFileAccessFromFileURLs:TW_Store.dataStore.getGameRootDir(),
-            param:myParam
+            allowFileAccessFromFileURLs: TW_Store.dataStore.getGameRootDir(),
+            param: myParam
         };
         if (!G_IS_IOS) {
             source = {
-                uri: newUrl+`${myParam}`,
+                uri: newUrl + `${myParam}`,
             };
-        }else{
-            if(isOrigan){
+        } else {
+            if (isOrigan) {
                 source = {
-                    uri: newUrl+`${myParam}`,
+                    uri: newUrl + `${myParam}`,
                 };
             }
         }
-
-        let dis = TW_Store.bblStore.isLoading ? "none":"flex";
         let injectJs = `(function() {
-  window.postMessage = function(data) {
-    window.ReactNativeWebView.postMessage(data);
-  };
-})()`;
+              window.postMessage = function(data) {
+                window.ReactNativeWebView.postMessage(data);
+              };
+            })()`;
 
-        let wenConteView = G_IS_IOS ? <WebView
-                useWebKit={true}
-                ref="myWebView"
-                source={source} onNavigationStateChange={this.onNavigationStateChange}
-                                                 onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                                                 style={[styles.webView,{display:dis}]}
-                                                 allowsInlineMediaPlayback={true}
-                                                 allowFileAccess={true}
-                                                 onError={this.onError}
-                                                 startInLoadingState={false}
-                                                 onMessage={this.onMessage}
-                                                 mixedContentMode={"always"}
-                                                 onLoadStart={this.onloadStart}
-                                                 onLoadEnd={this.onLoadEnd}
-                                                 thirdPartyCookiesEnabled={true}
-                                                 injectedJavaScript={injectJs}
-            /> :
+        let wenConteView =
             <WebView
                 ref="myWebView"
+                originWhitelist={['*']}
                 useWebKit={true}
+                injectedJavaScript={injectJs}
                 automaticallyAdjustContentInsets={true}
                 allowsInlineMediaPlayback={true}
                 style={styles.webView}
@@ -126,22 +109,23 @@ export default class TWWebGameView extends Component {
                 thirdPartyCookiesEnabled={true}
             />
         return (
-            <View style={[styles.container]} >
-                {!this.state.isHttpFail ? wenConteView:<View style={{height:JX_PLAT_INFO.SCREEN_H, justifyContent:"center",
-                    alignItems: "center", backgroundColor: "transparent"}}>
+            <View style={[styles.container]}>
+                {!this.state.isHttpFail ? wenConteView : <View style={{
+                    height: JX_PLAT_INFO.SCREEN_H, justifyContent: "center",
+                    alignItems: "center", backgroundColor: "transparent"
+                }}>
                 </View>}
             </View>
         );
     }
 
 
-
     onLoadEnd = (event) => {
-        let {isOrigan,url}=this.props;
-        if(url&&url.length>0){
-            this.timeId=setTimeout(this.onEnterGame,G_IS_IOS ? 1000:4000)
+        let {isOrigan, url} = this.props;
+        if (url && url.length > 0) {
+            this.timeId = setTimeout(this.onEnterGame, G_IS_IOS ? 1000 : 4000)
         }
-        TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--"+ TW_Store.bblStore.isLoading, event)
+        TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--" + TW_Store.bblStore.isLoading, event)
     }
 
     onloadStart = (event) => {
@@ -175,30 +159,27 @@ export default class TWWebGameView extends Component {
                     break;
                 case "game_back":
                     this.onBackHomeJs()
-
-                    //TW_NavHelp.popToBack();
-                   // this.onBackHomeJs()
                     break;
                 case "game_recharge":
-                    TW_Store.gameUIStroe.isShowAddPayView=!TW_Store.gameUIStroe.isShowAddPayView;
+                    TW_Store.gameUIStroe.isShowAddPayView = !TW_Store.gameUIStroe.isShowAddPayView;
                     break;
                 case "game_start": //子游戏准备ok
-                   this.onEnterGame();
+                    this.onEnterGame();
                     break;
             }
         }
     }
 
-    onEnterGame=()=>{
-        TW_Store.bblStore.lastGameUrl="";
-        if(!TW_Store.gameUpateStore.isInSubGame){
-            TW_Store.gameUpateStore.isInSubGame=true
+    onEnterGame = () => {
+        TW_Store.bblStore.lastGameUrl = "";
+        if (!TW_Store.gameUpateStore.isInSubGame) {
+            TW_Store.gameUpateStore.isInSubGame = true
             clearTimeout(this.timeId)
             TW_Store.bblStore.showGameCircle(false);
-            if(TW_OnValueJSHome){
+            if (TW_OnValueJSHome) {
                 TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.enterGame));
-                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic,{}));
-                if(TW_Store.dataStore.isAppSound){
+                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.stopMusic, {}));
+                if (TW_Store.dataStore.isAppSound) {
                     SoundHelper.pauseMusic();
                 }
             }
@@ -224,9 +205,9 @@ export default class TWWebGameView extends Component {
     onNavigationStateChange = (navState) => {
 
         TW_Log("TWWebGameView===========onNavigationStateChange=====url==" + navState.url, navState)
-        let {onEvaleJS, isGame,isAddView} = this.props
+        let {onEvaleJS, isGame, isAddView} = this.props
         if (navState.title == "404 Not Found") {
-            if(!isGame) {
+            if (!isGame) {
                 TW_NavHelp.popToBack();
                 this.setState({isHide: true})
             }
@@ -249,8 +230,8 @@ export default class TWWebGameView extends Component {
 
     onBackHomeJs = () => {
         let {onEvaleJS} = this.props;
-        TW_Store.gameUpateStore.isInSubGame=false;
-        if(TW_Store.dataStore.isAppSound){
+        TW_Store.gameUpateStore.isInSubGame = false;
+        if (TW_Store.dataStore.isAppSound) {
             SoundHelper.onCheckPalyMusic();
         }
         TW_Store.bblStore.quitSubGame();
@@ -270,7 +251,7 @@ const styles = StyleSheet.create({
     },
     webView: {
         marginTop: 0,
-        flex:1,
+        flex: 1,
         backgroundColor: "transparent"
     }
 });

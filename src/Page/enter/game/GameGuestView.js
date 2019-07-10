@@ -3,6 +3,7 @@ import {
     StyleSheet,
     View,
     Text, WebView,
+    ScrollView,
     TouchableOpacity
 } from 'react-native'
 import {observer} from 'mobx-react';
@@ -58,7 +59,7 @@ export default class GameGuestView extends Component {
     render() {
         let {pointerEvents}=this.props;
 
-        return (<View style={styles.container} pointerEvents={pointerEvents}>
+        return (<ScrollView contentContainerStyle={styles.container} pointerEvents={pointerEvents}>
 
             <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{width: SCREEN_W, height: SCREEN_H}}
                      resizeMode={'stretch'}/>
@@ -127,7 +128,7 @@ export default class GameGuestView extends Component {
             <View style={{position: "absolute", top:60,left:180}}>
                 <GameGuestTab isQASelected={this.state.isQASelected}/>
             </View>
-        </View>)
+        </ScrollView>)
     }
 }
 

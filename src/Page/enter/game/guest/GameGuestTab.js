@@ -57,7 +57,7 @@ export default class GameGuestTab extends Component {
             return PixelRatio.roundToNearestPixel(screenHeight * elemHeight / 100);
         };
 
-        return (<View style={styles.container}>
+        return (<ScrollView contentContainerStyle={styles.container}>
             {
                 (this.isQASelected) ?
                     (<View style={{
@@ -97,7 +97,7 @@ export default class GameGuestTab extends Component {
                         </View>
                     )
             }
-        </View>)
+        </ScrollView>)
     }
 
     getWebView = () => {

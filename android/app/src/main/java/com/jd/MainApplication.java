@@ -55,9 +55,7 @@ import com.toast.RCTToastPackage;
 import com.umeng.commonsdk.UMConfigure;
 import com.wix.interactable.Interactable;
 import com.zmxv.RNSound.RNSoundPackage;
-import com.facebook.react.PackageList;
 import io.fabric.sdk.android.Fabric;
-
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import java.util.Arrays;
@@ -169,7 +167,6 @@ public class MainApplication extends Application implements ReactApplication {
         super.onCreate();
 
         Fabric.with(this, new Crashlytics());
-        SoLoader.init(this, /* native exopackage */ false);
         AppUtil.updateLocalAFFCode(this);
         CrashHandler.getInstance().init(this);
         // 极光配置
@@ -177,6 +174,7 @@ public class MainApplication extends Application implements ReactApplication {
         JPushInterface.init(this);
         // 友盟配置
         initUmeng();
+        SoLoader.init(this, /* native exopackage */ false);
     }
 
     @Override
