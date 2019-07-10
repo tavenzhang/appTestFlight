@@ -255,11 +255,11 @@ export default class XXWebView extends Component {
         }
 
 
-        // if(TW_IS_DEBIG){
-        //    // source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-        //    let uri="http://localhost:8081/android/app/src/main/assets/gamelobby/index.html?platform=ios&hash=7e5876ea5a240467db5670550b53411b&rm-"+this.rom
-        //    source={uri}
-        // }
+        if(TW_IS_DEBIG){
+           // source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+           let uri="http://localhost:8081/android/app/src/main/assets/gamelobby/index.html?platform=ios&hash=7e5876ea5a240467db5670550b53411b&rm-"+this.rom
+           source={uri}
+        }
 
         TW_Log("targetAppDir-33---MainBundlePath-TW_Store.dataStore.isAppInited-----"+TW_Store.dataStore.isAppInited,source);
         if(!TW_Store.dataStore.isAppInited){
