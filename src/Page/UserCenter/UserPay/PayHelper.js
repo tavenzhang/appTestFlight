@@ -397,8 +397,10 @@ class PayHelper {
                 return userPay.payTypeBank
             case 'ONLINEBANK':
                 return userPay.payTypeUnionpay
-            default:
+            case 'OTHER':
                 return userPay.payTypeOther
+            default:
+                return userPay.payTypeBank
         }
     }
 }
