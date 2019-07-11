@@ -14,7 +14,6 @@ cp -rf ./Init/RNCWebViewManager.java ${scriptPath}/node_modules/react-native-web
 
 cp -rf ./Init/JpushAndroidManifest.xml ${scriptPath}/node_modules/jpush-react-native/android/src/main/AndroidManifest.xml
 
-
 cp -rf ./Init/RN_Fetch_fs.js  ${scriptPath}/node_modules/react-native-fetch-blob/fs.js
 react-native link react-native-extra-dimensions-android
 echo '初始化完毕 可以开始 Xcode -> Run'
