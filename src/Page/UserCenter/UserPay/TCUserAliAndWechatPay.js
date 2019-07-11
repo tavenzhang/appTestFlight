@@ -205,6 +205,7 @@ export default class TCUserAliAndWechatPay extends Component {
     }
 
     hadPay=()=>{
+        Toast.showShortCenter('充值5-10分钟到帐，请耐心等待');
         TW_Store.gameUIStroe.showChongZhiDetail()
         //NavigationHelper.pushToUserPayAndWithDraw(1, true);
     }

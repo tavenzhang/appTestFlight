@@ -81,14 +81,14 @@ export default class XXWebView extends Component {
         G_LayoutAnimaton.configureNext(G_LayoutAnimaton.easeNoCreate)
     }
 
-    _keyboardDidShow=(event)=>{
-       // TW_Log("( _keyboard---_keyboardDidShow" ,event);
+    _keyboardDidShow=(event)=> {
+        // TW_Log("( _keyboard---_keyboardDidShow" ,event);
         //TW_Log("( _keyboard---_keyboardDidShow--endCoordinates" ,event.endCoordinates);
-        if(!this.isShowKeyBoard){
-            this.isShowKeyBoard =true;
-            if(this.refs.myView){
-                TW_Log("( _keyboard---_keyboardDidShow--"+ this.refs.myView.setNativeProps , this.refs.myView);
-                this.refs.myView.setNativeProps({style: {bottom:event.endCoordinates.height-120}});
+        if (!this.isShowKeyBoard) {
+            this.isShowKeyBoard = true;
+            if (this.refs.myView) {
+                TW_Log("( _keyboard---_keyboardDidShow--" + this.refs.myView.setNativeProps, this.refs.myView);
+                this.refs.myView.setNativeProps({style: {bottom: event.endCoordinates.height - 150}});
             }
         }
     }
@@ -130,7 +130,7 @@ export default class XXWebView extends Component {
     onFlushGameData=()=>{
         TW_Store.dataStore.onFlushGameData();
     }
-    
+
     componentDidMount(): void {
         // 用于android 不需要点击默认播放声音
         // if(this.refs.myWebView.getSettings){
@@ -163,7 +163,7 @@ export default class XXWebView extends Component {
                 url = TW_Store.bblStore.gameDomain  + url
             }
         }
-       
+
         return `${url}&app=${G_IS_IOS ? "ios":"android"}`;
     }
 
@@ -193,7 +193,7 @@ export default class XXWebView extends Component {
             }
         }
     }
-    
+
     onLoadProgress=(ret)=>{
         //{//             "gameId":30,        //游戏id-----可选//             "alias":"hhdz",     //游戏别名--------唯一标识，必填//             "percent":0.7       //当前下载进度
         //         }
@@ -340,7 +340,7 @@ export default class XXWebView extends Component {
         let message = JSON.parse(event.nativeEvent.data);
         this.onMsgHandle(message);
     }
-    
+
     onMsgHandle = (message) => {
         TW_Log("onMessage======XXWebView=====>>" + this.constructor.name + "\n", message);
         let url = "";
