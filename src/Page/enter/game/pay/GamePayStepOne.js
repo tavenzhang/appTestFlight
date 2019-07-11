@@ -381,8 +381,9 @@ export default class GamePayStepOne extends Component {
                 <View style={{width: SCREEN_W - 250, height: 110, alignItems: "center", flexDirection: "row"}}>
                     <TCImage source={ASSET_Images.gameUI.listItemBg}
                              style={{position: "absolute", width: SCREEN_W - 250, height: 100}} resizeMode={"contain"}/>
-                    <TCImage source={payHelper.getPayTypeIcon(paymentItem.type)}
-                             style={{height: 50, width: 50, marginLeft: 10}}/>
+                    <TCImage
+                        source={paymentItem.type == null ? payHelper.getPayTypeIcon(paymentItem.bankCode) : payHelper.getPayTypeIcon(paymentItem.type)}
+                        style={{height: 50, width: 50, marginLeft: 10}}/>
                     <View>
                         <Text
                             style={[styles.itemLable, {
