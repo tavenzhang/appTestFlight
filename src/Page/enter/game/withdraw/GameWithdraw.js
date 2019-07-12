@@ -117,14 +117,6 @@ export default class GameWithdraw extends Component {
             }}
                     textStyle={{color: "#ffde00", fontSize: 20, textAlign: "left"}} text={num.toFixed(2)}/>
 
-
-            <TCImage source={ASSET_Images.gameUI.inputMoneyBg} resizeMode={'stretch'} style={{
-                position: "absolute",
-                top: SCREEN_H * 0.46,
-                width: SCREEN_W * 0.6,
-                height: 60,
-                left: SCREEN_W * 0.03,
-            }}/>
             <TCText backgroundStyle={{
                 backgroundColor: "transparent",
                 position: "absolute",
@@ -208,7 +200,7 @@ export default class GameWithdraw extends Component {
                                  this.setState({num})
                              }}
                              keyboardType={"numeric"}
-                             placeholder={`点击输入 `}
+                             placeholder={`点击输入，最多可提取金额 ${itemData.withdrawModel.maxWithdrawMoney} 元 `}
                              maxLength={10}
                              inputStyle={[styles.inputStyle, {
                                  width: SCREEN_W * 0.34,
@@ -282,6 +274,7 @@ export default class GameWithdraw extends Component {
                 this.lastRequestTime = Moment().format('x');
             }
         }
+
         this.applyWithDraw()
     }
 
@@ -330,7 +323,8 @@ export default class GameWithdraw extends Component {
 
     clearText=()=>{
         this.setState(({
-            num:''
+            num:'',
+            money:''
         }))
     }
 
@@ -346,25 +340,25 @@ export default class GameWithdraw extends Component {
 
         if (itemData.withdrawModel.surplusFeeWithdrawCount > 0 || itemData.withdrawModel.newratioOfChargeExempt === 0) {
 
-            return "本次提现免手续费是否确定提现？";
+            return "本次提现免手续费，是否确定提现？";
         }
         if (!itemData.withdrawModel.sufficeAggregateBetRequirements && itemData.withdrawModel.ratioOfChargeExempt === 0 && itemData.withdrawModel.numOfChargeExempt === 0) {//打码量不满足时
 
-            return '免费提款还需投注' + this.RoundNum(num, 2) + '元,继续提款需收取' + itemData.withdrawModel.newratioOfChargeExempt + '%手续费。'
+            return '您的有效投注量不足，本次提现手续费为'+ itemData.withdrawModel.newratioOfChargeExempt + '%，是否确定提现？'
         }
-        return '您今日免费次数已用完，提款需收' + itemData.withdrawModel.newratioOfChargeExempt + '%手续费!';
+        return '本次提现手续费为' + itemData.withdrawModel.newratioOfChargeExempt + '%，是否确定提现?';
     }
 
     /**
      * 验证提款
      */
     validateWithDraw = () => {
+
         let {itemData} = this.props;
-        if (!itemData.money || itemData.money.length === 0) {//验证输入金额
+        if (this.state.num.toString().length === 0 || this.state.num.toString()=="0") {//验证输入金额
             this.postponeShowToast('请输入取款金额!!');
             return false
         }
-
         let regExp = new RegExp("^\\d+(\\.\\d{1})?$");
         if (itemData.withdrawModel.integerWithdrawalAmount) {//验证金额格式
             regExp = new RegExp("^[1-9]\\d*$");
@@ -428,18 +422,12 @@ export default class GameWithdraw extends Component {
     }
 
     onOkGetOutMoney = () => {
-        let {itemData} = this.props;
         if (this.validateWithDraw()) {
-            if (itemData.exempt > 0) {
-                this.showTipDialog();
-            } else {
-                this.showWithdrawKeyboard();
-            }
+            this.showTipDialog();
         }
     }
 
     showTipDialog=()=> {
-
         Alert.alert('温馨提示', this.getTextWithdraw(), [
             {
                 text: '确定',
@@ -502,7 +490,6 @@ export default class GameWithdraw extends Component {
             )
         }
     }
-
 }
 
 const styles = StyleSheet.create({

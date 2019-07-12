@@ -487,7 +487,7 @@ export default class DataStore {
                 }
             }
             //  TW_Log("FileTools----TW_DATA_KEY.gameList---FileTools--getUrlAndParamsAndCallback--------rt==gameList-"+JSON.stringify(gameList));
-            if(TW_OnValueJSHome){
+            if(TW_OnValueJSHome&&gameList.length>0){
                 TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.gamesinfo,{data:gameList}));
             }
         })
