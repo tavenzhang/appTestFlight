@@ -1670,7 +1670,7 @@
 				ORGANIZATIONNAME = JD;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = U3Y7TM9PKP;
+						DevelopmentTeam = P525UVKFWU;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -2520,7 +2520,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = U3Y7TM9PKP;
+				DEVELOPMENT_TEAM = P525UVKFWU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JD/base/umeng",
@@ -2566,7 +2566,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qp.gmuat1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qp.gmuat2;
 				PRODUCT_NAME = JD;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2583,7 +2583,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = U3Y7TM9PKP;
+				DEVELOPMENT_TEAM = P525UVKFWU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JD/base/umeng",
@@ -2629,7 +2629,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qp.gmuat1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qp.gmuat2;
 				PRODUCT_NAME = JD;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";

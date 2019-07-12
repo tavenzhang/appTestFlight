@@ -60,9 +60,6 @@ var PageLogin = /** @class */ (function (_super) {
         //设置游戏版本号
         ResConfig.versions = "Res v" + ConfObjRead.getVerConfig().versionNum;
         _this.verTxt.text = GameUtils.appVer + "\n" + ResConfig.versions;
-        GameUtils.addLongPress(_this.verTxt, _this, function () {
-            view.debug.DebugDlg.show();
-        });
         _this.cmd = cmd;
         //开始加载数据
         _this.startLoading();
@@ -98,6 +95,9 @@ var PageLogin = /** @class */ (function (_super) {
         Common.confObj = ConfObjRead.getConfCommon();
         ResConfig.addTween = Common.confObj.addTween;
         GameData.joinLobbyType = JoinLobbyType.loginJoin;
+        if (!GameUtils.isNativeApp) {
+            // ConfObjRead.getConfUrl().url = ConfObjRead.getConfUrl().urldev;//dev环境(debugxxx)
+        }
         this.copyNativeAdress();
         this.updateGatewayInfo();
         //登陆流程
@@ -149,7 +149,7 @@ var PageLogin = /** @class */ (function (_super) {
                     callback();
             }
             else {
-                Debug.output("init-err:", jobj.http.status);
+                Debug.error("init-err:", jobj.http.status);
                 LayaMain.getInstance().showCircleLoading(false);
                 if (jobj.http.status == 428) {
                     _this.gatewayCount++;
@@ -666,6 +666,12 @@ var PageLogin = /** @class */ (function (_super) {
         var _this = this;
         var name = this.acc_nameTxt.text;
         var pwd = this.acc_pwdTxt.text;
+        if (name == "openDebug" && pwd == "059") { //debug-open
+            view.debug.DebugDlg.show();
+            this.acc_nameTxt.text = "";
+            this.acc_pwdTxt.text = "";
+            return;
+        }
         var verify = Tools.verifyLogin(name, pwd, "111");
         if (!verify.bRight) {
             Toast.showToast(Tools.getStringByKey(verify.msg));

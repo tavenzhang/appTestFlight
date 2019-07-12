@@ -4,13 +4,17 @@ cd ${scriptPath}
 
 npm install
 rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json
+
+npx jetify
+
+
 #code push 替换
 cp ./Init/CodePush.js ${scriptPath}/node_modules/react-native-code-push/CodePush.js
 cp -rf ./Init/CodePush.java ${scriptPath}/node_modules/react-native-code-push/android/app/src/main/java/com/microsoft/codepush/react/CodePush.java
 
 #webivew 替换覆盖
 cp -rf ./Init/RNCWKWebView.m ${scriptPath}/node_modules/react-native-webview/ios/RNCWKWebView.m
-cp -rf ./Init/RNCWebViewManager.java ${scriptPath}/node_modules/react-native-webview/android/src/main/java/com/reactnativecommunity/webview/events/RNCWebViewManager.java
+cp -rf ./Init/RNCWebViewManager.java ${scriptPath}/node_modules/react-native-webview/android/src/main/java/com/reactnativecommunity/webview/RNCWebViewManager.java
 
 cp -rf ./Init/JpushAndroidManifest.xml ${scriptPath}/node_modules/jpush-react-native/android/src/main/AndroidManifest.xml
 

@@ -42,9 +42,14 @@ var LayaMain = /** @class */ (function () {
     };
     LayaMain.prototype.onResize = function () {
         ToolsApp.initAppData();
-        // if (AppData.IS_NATIVE_APP) {
-        //     window.removeEventListener("message", this.handleIFrameAction, false);
-        // }
+        if (AppData.IS_NATIVE_APP) {
+            if (AppData.NATIVE_DATA && AppData.NATIVE_DATA.isNewApp) {
+                window.document.removeEventListener("message", this.handleIFrameAction, false);
+            }
+            else {
+                window.removeEventListener("message", this.handleIFrameAction, false);
+            }
+        }
         EventManager.dispath(EventType.RESIZE);
         PostMHelp.game_common({ name: "onGameInit" });
     };
@@ -54,7 +59,7 @@ var LayaMain = /** @class */ (function () {
     LayaMain.prototype.handleAction = function (e) {
         try {
             var obj = JSON.parse(e.data);
-            Debug.outputLog("handleAction:", obj, obj.action, e);
+            Debug.log("handleAction:", obj, obj.action, e);
             switch (obj.action) {
                 case "lobbyResume":
                     lamain.onGameResume();
@@ -88,13 +93,13 @@ var LayaMain = /** @class */ (function () {
             var lmv = SaveManager.getObj().get(SaveManager.KEY_MUSIC_VL, 1);
             var lss = SaveManager.getObj().get(SaveManager.KEY_SFX_SWITCH, 1);
             var lsv = SaveManager.getObj().get(SaveManager.KEY_SFX_VL, 1);
-            Debug.outputLog("onGameResume:", "mscVol=", lmv, "open_music=", lms, "soundVol=", lsv, "open_sound=", lss, "mtobj=", SaveManager.getObj().mtObj);
+            Debug.log("onGameResume:", "mscVol=", lmv, "open_music=", lms, "soundVol=", lsv, "open_sound=", lss, "mtobj=", SaveManager.getObj().mtObj);
             Laya.SoundManager.setMusicVolume(lms);
             Laya.SoundManager.setSoundVolume(lss);
             if (lms == 1 && !GameUtils.isAppSound) {
                 Laya.SoundManager.playMusic(ResConfig.musicUrl);
             }
-            var bl = Boolean(lms == 1 && lmv > 0);
+            var bl = Boolean(lms == 1 || lmv > 0);
             if (GameUtils.isAppSound)
                 PostMHelp.game_common({ do: "playBgMusic", param: bl });
             //刷新用户信息
@@ -112,7 +117,7 @@ var LayaMain = /** @class */ (function () {
             message = JSON.parse(data);
         }
         catch (e) {
-            Debug.output("onAppPostMessgae-err:", e);
+            Debug.error("onAppPostMessgae-err:", e);
         }
         if (message && message.action) {
             switch (message.action) {
@@ -131,7 +136,7 @@ var LayaMain = /** @class */ (function () {
                 case "appData":
                     for (var key in message) {
                         if (AppData[key] != null) {
-                            Debug.outputLog("appData->key=", key, (AppData[key] == null), message[key]);
+                            Debug.log("appData->key=", key, (AppData[key] == null), message[key]);
                             AppData[key] = message[key];
                         }
                     }
@@ -142,7 +147,7 @@ var LayaMain = /** @class */ (function () {
                         if (item && (item.hashUrl == message.hashUrl)) {
                             var index = HttpRequester.httpRequestList.indexOf(item);
                             HttpRequester.httpRequestList.splice(index, 1);
-                            Debug.trace("onAppPostMessgae---HttpRequester.histRequestList=splite=" + HttpRequester.httpRequestList.length, message);
+                            Debug.log("onAppPostMessgae---HttpRequester.histRequestList=splite=" + HttpRequester.httpRequestList.length, message);
                             var retStr = "";
                             if (message.rs) {
                                 retStr = message.content;

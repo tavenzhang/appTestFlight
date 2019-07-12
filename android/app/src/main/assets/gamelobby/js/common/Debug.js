@@ -24,77 +24,34 @@ var Debug = /** @class */ (function () {
         console.error(mess, parms);
     };
     /**
-     * 用于普通信息调试
+     * 普通输出
      * @param mess
      * @param parms
      */
-    Debug.outputLog = function (mess) {
+    Debug.log = function (mess) {
         var parms = [];
         for (var _i = 1; _i < arguments.length; _i++) {
             parms[_i - 1] = arguments[_i];
         }
-        if (!this.openDebug)
+        if (!this.openDebug && GameUtils.isNativeApp) {
             return;
+        }
         console.log(mess, parms);
     };
-    Debug.traceObj = function (ct, data) {
-        if (data === void 0) { data = {}; }
-        if (!Debug.bDebug) {
+    /**
+     * 异常打印
+     * @param mess
+     * @param parms
+     */
+    Debug.error = function (mess) {
+        var parms = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            parms[_i - 1] = arguments[_i];
+        }
+        if (!this.openDebug && GameUtils.isNativeApp) {
             return;
         }
-        console.log(ct);
-        PostMHelp.Log({ ct: ct, data: data });
-    };
-    Debug.error = function (ct) {
-        if (!Debug.bDebug) {
-            return;
-        }
-        console.error(ct);
-    };
-    Debug.trace = function (ct, data) {
-        if (data === void 0) { data = {}; }
-        if (!Debug.bDebug) {
-            return;
-        }
-        if (Debug.bDebugPlatform == "web") {
-            Debug.traceWeb(ct);
-        }
-        if (AppData.IS_NATIVE_APP) {
-            PostMHelp.Log({ ct: ct, data: data });
-        }
-    };
-    Debug.traceWeb = function (ct, data) {
-        if (data === void 0) { data = {}; }
-        if (!Debug.bDebug) {
-            return;
-        }
-        console.log(ct);
-    };
-    Debug.traceX = function (ct, data) {
-        if (data === void 0) { data = {}; }
-        if (!Debug.bDebug) {
-            return;
-        }
-        data = data ? data : {};
-        console.log(ct, data);
-        PostMHelp.Log({ ct: ct, data: data });
-    };
-    Debug.traceAny = function (ct, data) {
-        if (data === void 0) { data = {}; }
-        if (!Debug.bDebug) {
-            return;
-        }
-        // console.log(ct.constructor.name+":");//Object
-        console.log(ct);
-        PostMHelp.Log({ ct: ct, data: data });
-        // Debug.callWithVariableName(Debug.fn);
-    };
-    Debug.traceMsg = function (ct, data) {
-        if (!Debug.bDebug) {
-            return;
-        }
-        console.log(ct);
-        PostMHelp.Log({ ct: ct, data: data });
+        console.error(mess, parms);
     };
     Debug.bDebug = window["bDebug"];
     Debug.bDebugPlatform = window["bDebugPlatform"];

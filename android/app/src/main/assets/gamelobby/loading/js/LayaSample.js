@@ -10,7 +10,7 @@ var GameMain = /** @class */ (function () {
         Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_HEIGHT;
         Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
         Laya.stage.bgColor = "#000000";
-        window.addEventListener("message", this.nativeMess, false);
+        window.document.addEventListener("message", this.nativeMess, false);
         //
         Laya.loader.load("res/atlas/update.atlas", Laya.Handler.create(this, this.initView));
     }

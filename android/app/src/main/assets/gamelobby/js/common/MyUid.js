@@ -88,7 +88,7 @@ var MyUid = /** @class */ (function () {
             MyUid.createUid();
             SaveManager.getObj().save(SaveManager.KEY_UID, MyUid.uid);
         }
-        // Debug.trace("getUid:"+MyUid.uid);
+        // Debug.log("getUid:"+MyUid.uid);
         return MyUid.uid;
     };
     MyUid.createUid = function () {
@@ -96,16 +96,16 @@ var MyUid = /** @class */ (function () {
         var t = Laya.Browser.now();
         var ua = Laya.Browser.userAgent;
         var str = t + ua;
-        // Debug.trace("ua:"+ua);
-        // Debug.trace("t:"+t);
-        // Debug.trace("str:"+str);
+        // Debug.log("ua:"+ua);
+        // Debug.log("t:"+t);
+        // Debug.log("str:"+str);
         var str2 = str.substr(0, 32);
         // MyUid.uid = b64.decode(str);
-        // Debug.trace('uid 1:'+MyUid.uid);
+        // Debug.log('uid 1:'+MyUid.uid);
         MyUid.uid = btoa(str2);
         // var dc = atob(MyUid.uid);
-        Debug.trace('MyUid.createUid uid:' + MyUid.uid);
-        // Debug.trace('dc:'+dc);
+        Debug.log('MyUid.createUid uid:' + MyUid.uid);
+        // Debug.log('dc:'+dc);
     };
     MyUid.uid = "";
     MyUid.KEY_P_MOBILE = "MOBILE";
