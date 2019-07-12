@@ -25,7 +25,7 @@ export default class BtnMoneyView extends Component {
         let {isSelect,data,style} = this.props
         return (<TouchableOpacity onPress={this.onSelect}>
                 <View style={[{alignItems: "center" ,justifyContent: "center",},style]}>
-                    <TCImage  source={isSelect ? ASSET_Images.gameUI.btnMoneyHight : ASSET_Images.gameUI.btnMoneyBg}   style={{marginHorizontal: 2,width: SCREEN_W * 0.2 - 60, height: 50}}/>
+                    <TCImage  source={isSelect ? ASSET_Images.gameUI.btnMoneyHight : ASSET_Images.gameUI.btnMoneyBg} resizeMode={'contain'} style={{marginHorizontal: 2,width: SCREEN_W * 0.2 - 60, height: 50}}/>
                     <View style={{
                         position: "absolute", alignItems: "center" ,justifyContent: "center",
                     }}>
