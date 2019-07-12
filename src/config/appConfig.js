@@ -3,15 +3,17 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://38fo28gk.czdelong.com',
-    base2: 'https://38fo28gk.fdk800.com',
-    base3: 'https://38fo28gk.jdzdingli.com',
-    base4: 'https://hosobw29.czdelong.com',
-    base5: 'https://hosobw29.jdzdingli.com',
-    base6: 'https://hosobw29.fdk800.com',
+    base1: 'https://webplatform.psxiaohe.com',
+    base2: 'https://webplatform.psxiaohe.com',
+    base3: 'https://webplatform.psxiaohe.com',
+    base4: 'https://webplatform.psxiaohe.com',
+    base5: 'https://webplatform.psxiaohe.com',
+    base6: 'https://webplatform.psxiaohe.com',
+    base7: 'https://webplatform.psxiaohe.com',
 }
 
-export let configAppId = "1146"
+
+export let configAppId = "5"
 
 
 export const AppConfig = {
@@ -26,7 +28,7 @@ export const AppConfig = {
         appDomainBase.base5,
         appDomainBase.base6
     ],
-     checkUpdateDomains:[
+    checkUpdateDomains:[
         "https://www.ba2d16.com",
         "https://www.aa2d16.com",
         "https://www.ca2d16.com"
@@ -34,36 +36,35 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '梦想棋牌';
+export const MyAppName = '博博乐';
 
-export const versionHotFix = 'v6.21';
+export const versionHotFix = 'v6.27';
 
-export const MyOwnerPlatName= '梦想棋牌';
+export const MyOwnerPlatName= 'uat彩票';
 
+// export const safeguardDomain = [
+//     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
+//     'https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com']
+
+
+//base64key 格式示例
+// {"d":["https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com","https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com"]}
 
 //第三方安全域名base64 key
-export const safeguardKey = 'eyJkIjpbImh0dHBzOi8vMzdhOWFlYTFiZTg5MTVmNDk5ODQ0Mzg3M2VjOTBkYjAub3NzLWNuLXNoZW56aGVuLmFsaXl1bmNzLmNvbSIsCiAgICAiaHR0cHM6Ly8zN2E5YWVhMWJlODkxNWY0OTk4NDQzODczZWM5MGRiMC5zMy1hY2NlbGVyYXRlLmFtYXpvbmF3cy5jb20iLAogICAgImh0dHBzOi8vMzdhOWFlYTFiZTg5MTVmNDk5ODQ0Mzg3M2VjOTBkYjAuYXp1cmVlZGdlLm5ldCJdfQ=='
-
-
+export const safeguardKey = 'eyJkIjogWyJodHRwczovLzk4NzY0NWJhMDBhOWIwNDE2YjI1NGYzM2Q5MThlZDY0Lm9zcy1jbi1zaGVuemhlbi5hbGl5dW5jcy5jb20iLCAiaHR0cHM6Ly9jNDBiNmUzZDY2NDU1NmFiNDIzZDNlZWJjMDFhYjJmZC5vc3MtY24tc2hlbnpoZW4uYWxpeXVuY3MuY29tIl19'
 
 export const platInfo = {
 
-    downDomain:"https://download.winmeng.com",
+    downDomain:"https://download.jinkuangjia.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "/game/release/mxqp"
+        release_server: "/game/release/uat"
     },
     platId: configAppId,
-    brand: "mxqp",
-    latestNativeVersion:{ios:"3.0",android:"2.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
+    brand: "uat01",
+    latestNativeVersion:{ios:"5.0",android:"5.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
 }
 
-export const affCodeList = {
-    ios: {
-        '2.9.6': 'mxaw7_ios'
-    },
-    android: {
-        '2.10.11': 'mxaw7_android'
-    }
-};
+
+
