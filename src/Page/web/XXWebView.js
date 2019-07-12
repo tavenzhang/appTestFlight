@@ -257,7 +257,7 @@ export default class XXWebView extends Component {
         //
         if(TW_IS_DEBIG){
            // source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-           let uri="http://localhost:9999/android/app/src/main/assets/gamelobby/index.html?platform=ios&hash=7e5876ea5a240467db5670550b53411b&rm-"+this.rom
+           let uri="http://localhost:8081/android/app/src/main/assets/gamelobby/index.html?platform=ios&hash=7e5876ea5a240467db5670550b53411b&rm-"+this.rom
            source={uri}
         }
 
@@ -269,7 +269,6 @@ export default class XXWebView extends Component {
             isApp: true,
             taven: "isOk",
             clientId: TW_Store.appStore.clindId,
-            force: force ? "1" : "0",
             urlJSON: TW_Store.bblStore.getUriConfig(),
             isAndroidHack:TW_Store.appStore.isInAnroidHack,
             deviceToken:TW_Store.appStore.deviceToken,
@@ -279,7 +278,7 @@ export default class XXWebView extends Component {
             isDebug:TW_IS_DEBIG,
             appVersion:TW_Store.appStore.versionHotFix,
             isAppSound:TW_Store.dataStore.isAppSound,
-            isNewApp:true
+            isNewApp:G_IS_IOS ? true:false
         })},(function() {
   window.postMessage = function(data) {
     window.ReactNativeWebView.postMessage(data);
