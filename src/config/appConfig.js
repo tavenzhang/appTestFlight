@@ -37,8 +37,15 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '超会赢棋牌';
-export const MyOwnerPlatName= '超会赢棋牌';
+export const MyAppName = '博博乐';
+
+export const versionHotFix = 'v6.27';
+
+export const MyOwnerPlatName= 'uat彩票';
+
+// export const safeguardDomain = [
+//     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
+//     'https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com']
 
 export const versionHotFix = 'v6.21';
 
