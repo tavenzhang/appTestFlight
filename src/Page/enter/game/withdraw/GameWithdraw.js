@@ -117,14 +117,6 @@ export default class GameWithdraw extends Component {
             }}
                     textStyle={{color: "#ffde00", fontSize: 20, textAlign: "left"}} text={num.toFixed(2)}/>
 
-
-            <TCImage source={ASSET_Images.gameUI.inputMoneyBg} resizeMode={'stretch'} style={{
-                position: "absolute",
-                top: SCREEN_H * 0.46,
-                width: SCREEN_W * 0.6,
-                height: 60,
-                left: SCREEN_W * 0.03,
-            }}/>
             <TCText backgroundStyle={{
                 backgroundColor: "transparent",
                 position: "absolute",
