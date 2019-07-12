@@ -302,7 +302,7 @@ export default class GamePayStepOne extends Component {
                         rowCount += 1;
                     }
                 }
-                itemHeight = 45 * rowCount;
+                itemHeight = 60 * rowCount;
             }
 
             TW_Log("paymentItemFixed---" + this.state.selectedItem);
