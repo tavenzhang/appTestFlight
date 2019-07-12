@@ -278,7 +278,8 @@ export default class XXWebView extends Component {
             affCode:TW_Store.appStore.userAffCode,
             isDebug:TW_IS_DEBIG,
             appVersion:TW_Store.appStore.versionHotFix,
-            isAppSound:TW_Store.dataStore.isAppSound
+            isAppSound:TW_Store.dataStore.isAppSound,
+            isNewApp:true
         })},(function() {
   window.postMessage = function(data) {
     window.ReactNativeWebView.postMessage(data);
