@@ -5,6 +5,7 @@ import {Size, indexBgColor, width, height, listViewTxtColor, buttonStyle, payTxt
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';
 import Helper from '../../../Common/JXHelper/TCNavigatorHelper'
 import {userPay} from '../../asset/images'
+import Toast from "../../../Common/JXHelper/JXToast";
 
 
 /**
@@ -73,7 +74,8 @@ export default class TCUserPayProgress extends Component {
     }
 
     gotoPayRecord() {
-        TW_Store.gameUIStroe.showChongZhiDetail();
+        Toast.showShortCenter('充值5-10分钟到帐，请耐心等待');
+        TW_Store.gameUIStroe.showChongZhiDetail()
     }
 
 }

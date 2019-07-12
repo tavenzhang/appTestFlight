@@ -34,9 +34,10 @@ export default class GameGuestView extends Component {
     }
 
     componentWillMount(): void {
-        if(TW_Store.gameUIStroe.gustWebUrl.length==0){
-           // TW_Store.bblStore.getAppData();
-            TW_Store.gameUIStroe.getGustUrl();
+        if (TW_Store.gameUIStroe.gustWebUrl != null) {
+            if (TW_Store.gameUIStroe.gustWebUrl.length == 0) {
+                TW_Store.bblStore.getAppData();
+            }
         }
     }
 
@@ -61,6 +62,8 @@ export default class GameGuestView extends Component {
 
             <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{width: SCREEN_W, height: SCREEN_H}}
                      resizeMode={'stretch'}/>
+            <TCImage source={ASSET_Images.gameUI.payTypeBg}
+                     style={{position: "absolute", top: SCREEN_H * 0.14, left: 0}}/>
             <TCImage source={ASSET_Images.gameUI.payTopLeftBg} style={{
                 position: "absolute",
                 width: SCREEN_W * 0.30,
@@ -97,8 +100,6 @@ export default class GameGuestView extends Component {
                              width: SCREEN_W * 0.20,
                              height: SCREEN_H * 0.12
                          }}/>
-            <TCImage source={ASSET_Images.gameUI.payTypeBg}
-                     style={{position: "absolute", top: SCREEN_H * 0.14, left: 0}}/>
             <TouchableOpacity onPress={this.showCustomerService}
                               style={{position: "absolute", top: SCREEN_H * 0.18 + 15, left: SCREEN_ISFULL ? 30 : 10}}>
                 <View style={{justifyContent: "center", height: 30}}>
@@ -136,7 +137,6 @@ const styles = StyleSheet.create({
         /*flex: 1,*/
         justifyContent: "center",
         alignItems: "center",
-        /*backgroundColor: "transparent",
-        position: "absolute",*/
+        position: "absolute",
     }
 });
