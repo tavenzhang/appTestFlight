@@ -186,7 +186,7 @@ export default class DataStore {
             }
             setTimeout(()=>{
                 TW_SplashScreen_HIDE();
-            },G_IS_IOS? 1000:1200)
+            },G_IS_IOS? 1200:1500)
 
         })
     }
