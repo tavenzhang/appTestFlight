@@ -2,56 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>openinstall</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>evna9i</string>
-			</array>
-		</dict>
-		<dict>
-                			<key>CFBundleTypeRole</key>
-                			<string>Editor</string>
-                			<key>CFBundleURLName</key>
-                			<string>weixin</string>
-                			<key>CFBundleURLSchemes</key>
-                			<array>
-                				<string>wx4705de7e82fa978f</string>
-                			</array>
-                		</dict>
-	</array>
-	<key>AppSecret</key>
-        	<dict>
-        		<key>weixin</key>
-        		<string>67de54808bba55e934e3126f3e607a42</string>
-        	</dict>
-	<key>com.openinstall.APP_KEY</key>
-	<string>evna9i</string>
-	<key>PLAT_ID</key>
-	<string>31</string>
-	<key>PLAT_CH</key>
-	<string>1</string>
+ <key>com.openinstall.APP_KEY</key>
+	<string>k9e92p</string>
 	<key>APP_DOWNLOAD_VERSION</key>
 	<string>5.0</string>
+	<key>PLAT_CH</key>
+	<string>1</string>
+	<key>PLAT_ID</key>
+	<string>5</string>
 	<key>Affcode</key>
-	<string></string>
-	<key>JPushKey</key>
 	<string></string>
 	<key>UmengKey</key>
 	<string></string>
+	<key>AppSecret</key>
+    	<dict>
+    		<key>weixin</key>
+    		<string>67de54808bba55e934e3126f3e607a42</string>
+    	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>QP-SIT</string>
+	<string>QP-UAT</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.bbl.cgsit</string>
+	<string>com.bbl.gmuat</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -62,6 +37,29 @@
 	<string>2.0.14</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>openinstall</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>k9e92p</string>
+			</array>
+		</dict>
+		<dict>
+        			<key>CFBundleTypeRole</key>
+        			<string>Editor</string>
+        			<key>CFBundleURLName</key>
+        			<string>weixin</string>
+        			<key>CFBundleURLSchemes</key>
+        			<array>
+        				<string>wx39520c48b4a7dc64</string>
+        			</array>
+        		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>6</string>
 	<key>CodePushDeploymentKey</key>
@@ -80,6 +78,8 @@
 			</dict>
 		</array>
 	</dict>
+	<key>JPushKey</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
@@ -160,9 +160,13 @@
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-		<string>UIInterfaceOrientationLandscapeRight</string>
+        	<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict/>
+	</array>
 </dict>
 </plist>
