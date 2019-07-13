@@ -45,7 +45,7 @@ export default class MyComponent {
         this.fetchAsync(url + '/health', ads => {
             if (!this.testDone) {
                 this.testDone = true;
-                TW_Store.appStore.currentDomain = url;
+                TW_Store.appStore.currentDomain=TW_Store.bblStore.loginDomain =TW_Store.bblStore.gameDomain= url;
             }
         });
     }
@@ -89,7 +89,7 @@ export default class MyComponent {
             for (let i = 0; i < safeguardDomain.length; i++) {
                 let url = safeguardDomain[i];
                 this.testSafeguarDomains(url, isSucceed => {
-                    TW_Log("getSafeguardName---isSucceed=="+isSucceed+"--alreadyCallBack="+alreadyCallBack);
+                    TW_Log("getSafeguardName---isSucceed=="+isSucceed+"--alreadyCallBack="+alreadyCallBack+"----url---"+url);
                     if (!alreadyCallBack&&isSucceed) {
                         alreadyCallBack = true;
                         callBack(isSucceed);
@@ -120,7 +120,7 @@ export default class MyComponent {
                 TW_Log("getSafeguardName---fetchAsyncResponse==url=="+ret+"---ads=catch=="+ads,e);
             }
 
-            TW_Log("getSafeguardName---fetchAsyncResponse==url=="+ret+"---ads=resutlt=="+ads);
+            TW_Log("getSafeguardName---fetchAsyncResponse==url=="+ret+"---ads=resutlt=ads=",ads);
             if (ads && ads.d && ads.d.length > 0) {
                 this.testDomainsHealth(ads.d);
                 AsyncStorage.setItem(

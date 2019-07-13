@@ -32,7 +32,6 @@ import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
 import {AppConfig} from "../../config/appConfig";
 import {JX_PLAT_INFO} from "../asset";
 import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
-import FileTools from "../../Common/Global/FileTools";
 let domainsHelper = new JXDomainsHelper();
 let appInfoStore = TW_Store.appStore;
 @observer
@@ -121,12 +120,12 @@ export default class Enter extends Component {
     onInitAllData=()=>{
         this.initData();
         this.uploadLog();
-        this.timer2 = setTimeout(() => {
-            if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
-                this.hotFixStore.skipUpdate();
-                this.reloadAppDomain();
-            }
-        }, 7 * 1000)
+        // this.timer2 = setTimeout(() => {
+        //     if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
+        //         this.hotFixStore.skipUpdate();
+        //       //  this.reloadAppDomain();
+        //     }
+        // }, 7 * 1000)
 
         if(G_IS_IOS){
             if(Orientation&&Orientation.lockToLandscapeRight){
@@ -275,7 +274,7 @@ export default class Enter extends Component {
 
     //使用缓存地址
     cacheAttempt=(success, allowUpdate, message)=> {
-        TW_Log(`first attempt ${success}, ${allowUpdate}, ${message}`);
+        TW_Log(`first cacheAttempt ${success}, ${allowUpdate}, ${message}`);
         if (success && allowUpdate && this.hotFixStore.allowUpdate) {
             this.gotoUpdate();
         } else if (!success && this.hotFixStore.allowUpdate) {//缓存地址不可用,使用默认地址
