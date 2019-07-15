@@ -14,7 +14,7 @@ cp -rf ./Init/CodePush.java ${scriptPath}/node_modules/react-native-code-push/an
 #webivew 替换覆盖
 cp -rf ./Init/RNCWKWebView.m ${scriptPath}/node_modules/react-native-webview/ios/RNCWKWebView.m
 cp -rf ./Init/RNCWebViewManager.java ${scriptPath}/node_modules/react-native-webview/android/src/main/java/com/reactnativecommunity/webview/RNCWebViewManager.java
-
+#极光
 cp -rf ./Init/JpushAndroidManifest.xml ${scriptPath}/node_modules/jpush-react-native/android/src/main/AndroidManifest.xml
 
 
