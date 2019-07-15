@@ -5,7 +5,6 @@ cd ${scriptPath}
 npm install
 rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json
 
-npx jetify
 
 
 #code push 替换
@@ -24,6 +23,7 @@ cp -rf ./Init/RN_Fetch_fs.js  ${scriptPath}/node_modules/react-native-fetch-blob
 
 cp -rf ./Init/MKTouchableManager.m  ${scriptPath}/node_modules/react-native-material-kit/iOS/RCTMaterialKit/MKTouchableManager.m
 
+npx jetify
 
 react-native link react-native-extra-dimensions-android
 echo '初始化完毕 可以开始 Xcode -> Run'
