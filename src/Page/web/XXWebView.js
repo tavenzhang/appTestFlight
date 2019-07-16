@@ -276,7 +276,8 @@ export default class XXWebView extends Component {
             affCode:TW_Store.appStore.userAffCode,
             isDebug:TW_IS_DEBIG,
             appVersion:TW_Store.appStore.versionHotFix,
-            isAppSound:TW_Store.dataStore.isAppSound
+            isAppSound:TW_Store.dataStore.isAppSound,
+            brandUrl:TW_Store.bblStore.getBrandUrl()
         })}`;
        // TW_Log("targetAppDir-33---isWechatEnabled-his.state--"+(sharedUrl&&isShowSharebox)+"--sharedUrl=="+sharedUrl+"-isShowSharebox-"+isShowSharebox,this.state);
         return (

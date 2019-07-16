@@ -240,5 +240,12 @@ export  default  class BBLStore {
         },10,false,false);
     }
 
+    @action
+    getBrandUrl(){
+        let  url = TW_Store.bblStore.gameDomain+ config.api.gameShareDown.replace("#0",platInfo.brand);
+        return url
+    }
+
+
 }
 
