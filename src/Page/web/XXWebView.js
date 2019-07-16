@@ -85,10 +85,11 @@ export default class XXWebView extends Component {
         //TW_Log("( _keyboard---_keyboardDidShow--endCoordinates" ,event.endCoordinates);
         if (!this.isShowKeyBoard) {
             this.isShowKeyBoard = true;
-            if (this.refs.myView) {
-                TW_Log("( _keyboard---_keyboardDidShow--" + this.refs.myView.setNativeProps, this.refs.myView);
-                this.refs.myView.setNativeProps({style: {bottom: event.endCoordinates.height - 150}});
-            }
+                if (!G_IS_IOS&&this.refs.myView) {
+                    TW_Log("( _keyboard---_keyboardDidShow--" + this.refs.myView.setNativeProps, this.refs.myView);
+                    this.refs.myView.setNativeProps({style: {bottom: event.endCoordinates.height - 150}});
+                }
+
         }
     }
 
@@ -96,7 +97,7 @@ export default class XXWebView extends Component {
         // TW_Log("( _keyboard---_keyboardDidHide" ,event);
         if (this.isShowKeyBoard) {
             this.isShowKeyBoard = false
-            if (this.refs.myView) {
+            if (!G_IS_IOS&&this.refs.myView) {
                 this.refs.myView.setNativeProps({style: {bottom: 0}});
             }
             TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.onBlur, {}));
