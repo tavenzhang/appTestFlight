@@ -132,8 +132,10 @@ export default class XXWebView extends Component {
 
     componentDidMount(): void {
         // 用于android 不需要点击默认播放声音
-        if(this.refs.myWebView.getSettings){
-            this.refs.myWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        if (this.refs.myWebView) {
+            if(this.refs.myWebView.getSettings){
+                this.refs.myWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+            }
         }
     }
 
