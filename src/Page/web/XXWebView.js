@@ -271,6 +271,7 @@ export default class XXWebView extends Component {
         let injectJs = `window.appData=${JSON.stringify({
             isApp: true,
             taven: "isOk",
+            brandUrl:TW_Store.bblStore.getBrandUrl(),
             clientId: TW_Store.appStore.clindId,
             urlJSON: TW_Store.bblStore.getUriConfig(),
             isAndroidHack: TW_Store.appStore.isInAnroidHack,

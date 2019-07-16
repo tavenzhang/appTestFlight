@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "openinstall": "node node_modules/openinstall-react-native/openinstallConfig.js",
-        "start": "react-native start --port 9999",
+        "start": "react-native start --port 8081",
         "test": "jest",
         "lint": "eslint .",
         "bundle-ios": "node node_modules/react-native/local-cli/cli.js bundle --entry-file index.js  --platform ios --dev false --bundle-output ./ios/bundle/main.jsbundle --assets-dest ./ios/bundle",
