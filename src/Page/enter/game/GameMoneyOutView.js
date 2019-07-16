@@ -68,6 +68,8 @@ export default class GameMoneyOutView extends Component {
         return (<View style={styles.container}>
             <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{width: SCREEN_W, height: SCREEN_H}}
                      resizeMode={'stretch'}/>
+            <TCImage source={ASSET_Images.gameUI.payTypeBg}
+                     style={{position: "absolute", top: SCREEN_H * 0.14, left: 0}}/>
             <TCImage source={ASSET_Images.gameUI.payTopLeftBg} style={{
                 position: "absolute",
                 width: SCREEN_W * 0.30,
@@ -109,9 +111,6 @@ export default class GameMoneyOutView extends Component {
                          btnStyle={{position: "absolute", right: SCREEN_W * 0.15, top: 10}}
                          onClick={() => TW_Store.gameUIStroe.showTiXianDetail()}
             />
-            <TCImage source={ASSET_Images.gameUI.payTypeBg}
-                     style={{position: "absolute", top: SCREEN_H * 0.14, left: 0}}/>
-
 
             <TCImage source={ASSET_Images.gameUI.payOutBg} resizeMode={'stretch'} style={{
                 position: "absolute",

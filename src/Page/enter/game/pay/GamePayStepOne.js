@@ -62,7 +62,7 @@ export default class GamePayStepOne extends Component {
         let payList = TW_Store.userPayTypeStore.getPayList(itemData.code);
 
         payHelper.props = itemData;
-        let marginTop = (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? 140 : 0
+        let marginTop = (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? 160 : 0
         let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 200 : SCREEN_H - 55
         if (this.isChange) {
             this.scrollListToStart();
@@ -94,10 +94,10 @@ export default class GamePayStepOne extends Component {
                                                  isSelect={`${item}` == `${this.state.money}`}/>
                         })}
                     </View>
-                    <TCImage source={ASSET_Images.gameUI.stepOneBg2} style={{marginTop: 90}} resizeMode={'contain'}/>
+                    <TCImage source={ASSET_Images.gameUI.stepOneBg2} style={{marginTop: 110}} resizeMode={'contain'}/>
                     <TCButtonImg imgSource={ASSET_Images.gameUI.btn_onLine}
                                  soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
-                                 btnStyle={{position: "absolute", left: 308, top: 115,}} imgStyle={{}} onClick={() => {
+                                 btnStyle={{position: "absolute", left: 308, top: 135,}} imgStyle={{}} onClick={() => {
                         TW_Store.gameUIStroe.showGusetView(true);
                     }}/>
                 </View>) : null
@@ -301,7 +301,7 @@ export default class GamePayStepOne extends Component {
                         rowCount += 1;
                     }
                 }
-                itemHeight = 45 * rowCount;
+                itemHeight = 60 * rowCount;
             }
 
             TW_Log("paymentItemFixed---" + this.state.selectedItem);
