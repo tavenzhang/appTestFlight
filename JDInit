@@ -1,7 +1,7 @@
 scriptPath=$(cd `dirname $0`; pwd)
 echo 开始执行脚本 请等待...
 cd ${scriptPath}
-
+npm update
 npm install
 rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json
 
