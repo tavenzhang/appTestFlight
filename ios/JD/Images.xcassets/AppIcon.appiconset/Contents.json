@@ -32,12 +32,12 @@
     },
     {
       "idiom" : "iphone",
-      "filename" : "IconiPhoneApp_60pt@2x.png",
+      "size" : "60x60",
       "scale" : "2x"
     },
     {
       "idiom" : "iphone",
-      "filename" : "IconiPhoneApp_60pt@3x.png",
+      "size" : "60x60",
       "scale" : "3x"
     },
     {
