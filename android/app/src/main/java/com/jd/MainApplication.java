@@ -16,6 +16,7 @@ import com.cmcewen.blurview.BlurViewPackage;
 import com.crashlytics.android.Crashlytics;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 import fr.greweb.reactnativeviewshot.RNViewShotPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import ca.jaysoo.extradimensions.ExtraDimensionsPackage;
@@ -26,7 +27,7 @@ import com.github.yamill.orientation.OrientationPackage;
 import com.jd.webview.WebViewReactPackage;
 import com.rnziparchive.RNZipArchivePackage;
 import com.umeng.socialize.PlatformConfig;
-import com.xxsnakerxx.flurryanalytics.FlurryAnalyticsPackage;
+
 import com.smixx.fabric.FabricPackage;
 
 import cn.jpush.reactnativejpush.JPushPackage;
@@ -54,9 +55,7 @@ import com.toast.RCTToastPackage;
 import com.umeng.commonsdk.UMConfigure;
 import com.wix.interactable.Interactable;
 import com.zmxv.RNSound.RNSoundPackage;
-
 import io.fabric.sdk.android.Fabric;
-
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import java.util.Arrays;
@@ -90,6 +89,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new RNCWebViewPackage(),
             new RNViewShotPackage(),
             new ExtraDimensionsPackage(),
                     new OpeninstallReactPackage(),
@@ -97,7 +97,6 @@ public class MainApplication extends Application implements ReactApplication {
                     new PickerViewPackage(),
                     new OrientationPackage(),
                     new RNZipArchivePackage(),
-                    new FlurryAnalyticsPackage(),
                     new FabricPackage(),
                     new JPushPackage(false, false),
                     new RNFSPackage(),
@@ -168,7 +167,6 @@ public class MainApplication extends Application implements ReactApplication {
         super.onCreate();
 
         Fabric.with(this, new Crashlytics());
-        SoLoader.init(this, /* native exopackage */ false);
         AppUtil.updateLocalAFFCode(this);
         CrashHandler.getInstance().init(this);
         // 极光配置
@@ -176,6 +174,7 @@ public class MainApplication extends Application implements ReactApplication {
         JPushInterface.init(this);
         // 友盟配置
         initUmeng();
+        SoLoader.init(this, /* native exopackage */ false);
     }
 
     @Override

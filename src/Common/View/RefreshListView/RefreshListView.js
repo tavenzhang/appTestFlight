@@ -12,7 +12,7 @@ import {
     ActivityIndicator,
     FlatList
 } from 'react-native'
-import {observer} from 'mobx-react/native'
+import {observer} from 'mobx-react'
 import {observable, computed, action} from 'mobx'
 import NoDataView from '../TCNoDataView'
 import Toast from '../../../Common/JXHelper/JXToast';

@@ -14,7 +14,7 @@ import {
     TouchableOpacity,
     View
 } from "react-native";
-import {observer,} from 'mobx-react/native'
+import {observer,} from 'mobx-react'
 import {action, observable, computed} from 'mobx'
 import {
     buttonStyle, copyBtnStyle,

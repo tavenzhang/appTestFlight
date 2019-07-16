@@ -3,9 +3,10 @@ import {
     StyleSheet,
     View,
     Text, WebView,
+    ScrollView,
     TouchableOpacity
 } from 'react-native'
-import {observer} from 'mobx-react/native';
+import {observer} from 'mobx-react';
 import TCImage from "../../../Common/View/image/TCImage";
 import {ASSET_Images, JX_PLAT_INFO} from "../../asset";
 import {TCButtonImg} from "../../../Common/View/button/TCButtonView";
@@ -57,7 +58,7 @@ export default class GameGuestView extends Component {
 
     render() {
         let {pointerEvents}=this.props;
-
+        TW_Log("GameGuestView-----------")
         return (<View style={styles.container} pointerEvents={pointerEvents}>
 
             <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{width: SCREEN_W, height: SCREEN_H}}
@@ -138,5 +139,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         position: "absolute",
+        zIndex:9999
     }
 });

@@ -136,6 +136,30 @@
             "gray": "./assets/ui/game/icon_sg_gray.png",
             "anim_png": "./assets/animation/icons/sangong/sg.png",
             "anim_sk": "./assets/animation/icons/sangong/sg.sk"
+        },
+        {
+            "desc": "西游捕鱼",
+            "alias": "fishing",
+            "norm": "./assets/ui/game/icon_xyby.png",
+            "gray": "./assets/ui/game/icon_xyby_gray.png",
+            "anim_png": "./assets/animation/icons/fish/buyu.png",
+            "anim_sk": "./assets/animation/icons/fish/buyu.sk"
+        },
+        {
+            "desc": "糖果派对",
+            "alias": "tgpd",
+            "norm": "./assets/ui/game/icon_tgpd.png",
+            "gray": "./assets/ui/game/icon_tgpd_gray.png",
+            "anim_png": "./assets/animation/icons/tangguo/sweet.png",
+            "anim_sk": "./assets/animation/icons/tangguo/sweet.sk"
+        },
+        {
+            "desc": "猫狗大战",
+            "alias": "mgdz",
+            "norm": "./assets/ui/game/icon_mgdz.png",
+            "gray": "./assets/ui/game/icon_mgdz_gray.png",
+            "anim_png": "./assets/animation/icons/maogou/mgdz.png",
+            "anim_sk": "./assets/animation/icons/maogou/mgdz.sk"
         }
     ],
     "defaultIcon": "ddz"

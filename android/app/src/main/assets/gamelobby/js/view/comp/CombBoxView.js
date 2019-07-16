@@ -105,7 +105,8 @@ var view;
                     this.listH = value;
                     this.itemList.height = value;
                     this.viewH = this.titleH + this.listH + 10;
-                    this.mkmc.height = value;
+                    this.mkmc.graphics.clear();
+                    this.mkmc.graphics.drawRect(0, 0, this.width, this.listH, "#000000");
                     if (this.mkmc.y != 0)
                         this.mkmc.y = -this.listH;
                 },

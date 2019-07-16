@@ -45,19 +45,14 @@ var Common = /** @class */ (function () {
         }
         try {
             var glen = Common.gameInfo.length;
-            // Debug.traceObj("Common.getCurGameAlias glen:"+glen+" id:"+id);
-            // for( var k in Common.gameInfo )
             for (var k = 0; k < glen; k++) {
                 var g = Common.gameInfo[k];
-                // Debug.trace("Common.getCurGameAlias g.id:"+g.id);
                 if (g.id == id) //Common.gameId )
                  {
-                    // Debug.trace("Common.getCurGameAlias return g.alias:"+g.alias);
                     //这个就是当前的游戏
                     return g; //.alias;
                 }
             }
-            Debug.trace("Common.getCurGameAlias return zjh");
             return null;
         }
         catch (e) {

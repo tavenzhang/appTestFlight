@@ -362,7 +362,7 @@ var HttpRequester = /** @class */ (function () {
                     suc = true;
                 }
                 else {
-                    Debug.output("request-err:", url, header, jsonStr, hr.http);
+                    Debug.error("request-err:", url, header, jsonStr, hr.http);
                     if (status_1 == 401) {
                         LayaMain.onQuit();
                         Toast.showToast("登录过期,请重新登录");
