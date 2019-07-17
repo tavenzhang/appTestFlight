@@ -77,19 +77,20 @@ global.TN_WechatAuth = () => {
     NativeModules.UMShareModule.auth(
         2,
         (code, result, message) => {
-            Alert.alert('温馨提示', "openID:"+result.openid+", uID:"+result.uid, [
-                {
-                    text: '确定',
-                    onPress: () => {
-                    }
-                },
-                {
-                    text: '取消',
-                    onPress: () => {
-
-                    }
-                }
-            ]);
+            TW_Store.dataStore.log+="\n"+"---auth--code=="+code+"----message==="+message+"--result---"+result;
+            // Alert.alert('温馨提示', "openID:"+result.openid+", uID:"+result.uid, [
+            //     {
+            //         text: '确定',
+            //         onPress: () => {
+            //         }
+            //     },
+            //     {
+            //         text: '取消',
+            //         onPress: () => {
+            //
+            //         }
+            //     }
+            // ]);
         }
     );
 };
