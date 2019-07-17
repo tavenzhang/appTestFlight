@@ -3,17 +3,17 @@ import React, {
 } from 'react-native';
 
 export const appDomainBase = {
-    base1: 'https://1fbbzf911qp.sznxd.com',
-    base2: 'https://jmar2u911qp.sznxd.com',
-    base3: 'https://hr5umv911qp.sznxd.com',
-    base4: 'https://4djmkh911qp.sznxd.com',
-    base5: 'https://1fbbzf911qp.uicbio.com"',
-    base6: 'https://jmar2u911qp.uicbio.com',
-    base7: 'https://1fbbzf911qp.jnshtc.com',
+    base1: 'https://webplatform.psxiaohe.com',
+    base2: 'https://webplatform.psxiaohe.com',
+    base3: 'https://webplatform.psxiaohe.com',
+    base4: 'https://webplatform.psxiaohe.com',
+    base5: 'https://webplatform.psxiaohe.com',
+    base6: 'https://webplatform.psxiaohe.com',
+    base7: 'https://webplatform.psxiaohe.com',
 }
 
 
-export let configAppId = "300122"
+export let configAppId = "5"
 
 
 export const AppConfig = {
@@ -36,31 +36,33 @@ export const AppConfig = {
 }
 
 
-export const MyAppName = '911棋牌';
+export const MyAppName = '博博乐';
 
 export const versionHotFix = 'v6.27';
 
-export const MyOwnerPlatName= '911棋牌';
+export const MyOwnerPlatName= 'uat彩票';
 
 // export const safeguardDomain = [
-//     'https://092123c5518f263f7442d3c31dc08d74.oss-cn-shenzhen.aliyuncs.com',
-//     'https://092123c5518f263f7442d3c31dc08d74.s3-accelerate.amazonaws.com',
-//     'https://092123c5518f263f7442d3c31dc08d74.azureedge.net']
+//     'https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com',
+//     'https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com']
+
+
+//base64key 格式示例
+// {"d":["https://987645ba00a9b0416b254f33d918ed64.oss-cn-shenzhen.aliyuncs.com","https://c40b6e3d664556ab423d3eebc01ab2fd.oss-cn-shenzhen.aliyuncs.com"]}
 
 //第三方安全域名base64 key
-export const safeguardKey = 'ewogICAgImQiOlsKICAgICAgICAiaHR0cHM6Ly8zODU3YTRiZTU5YTJhNGQwNzM5NzM0YmRhNmY2NGQ1YS5vc3MtY24tc2hlbnpoZW4uYWxpeXVuY3MuY29tIiwKICAgICAgICAiaHR0cHM6Ly8zODU3YTRiZTU5YTJhNGQwNzM5NzM0YmRhNmY2NGQ1YS5zMy1hY2NlbGVyYXRlLmFtYXpvbmF3cy5jb20iLAogICAgICAgICJodHRwczovLzM4NTdhNGJlNTlhMmE0ZDA3Mzk3MzRiZGE2ZjY0ZDVhLmF6dXJlZWRnZS5uZXQiCiAgICBdCn0='
-
+export const safeguardKey = 'eyJkIjogWyJodHRwczovLzk4NzY0NWJhMDBhOWIwNDE2YjI1NGYzM2Q5MThlZDY0Lm9zcy1jbi1zaGVuemhlbi5hbGl5dW5jcy5jb20iLCAiaHR0cHM6Ly9jNDBiNmUzZDY2NDU1NmFiNDIzZDNlZWJjMDFhYjJmZC5vc3MtY24tc2hlbnpoZW4uYWxpeXVuY3MuY29tIl19'
 
 export const platInfo = {
 
-    downDomain:"download.jiahestone.com",
+    downDomain:"https://download.jinkuangjia.com",
 
     zipCheckServer: {
         debug_server: "http://192.168.14.70:8888",
-        release_server: "/game/release/911qp"
+        release_server: "/game/release/uat"
     },
     platId: configAppId,
-    brand: "911qp",
+    brand: "uat01",
     latestNativeVersion:{ios:"6.0",android:"6.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
 }
 
