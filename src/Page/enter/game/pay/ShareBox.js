@@ -73,8 +73,7 @@ export default class ShareBox extends Component {
 
     onClickWechatPyqShare() {
         let url=TW_Store.gameUIStroe.shareData;
-        TN_WechatAuth();
-        //TN_WechatShare(WECHAT.SHARE_TITLE, null, url, WECHAT.SHARE_MSG, true);
+        TN_WechatShare(WECHAT.SHARE_TITLE, null, url, WECHAT.SHARE_MSG, true);
         TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{data:"circle"}));
         TW_Store.gameUIStroe.isShowShare=false;
     }

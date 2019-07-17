@@ -73,25 +73,9 @@ global.TN_IsWechatEnabled = (callBack: func) => {
     NativeModules.UMShareModule.isWechatEnabled(callBack);
 };
 
-global.TN_WechatAuth = () => {
+global.TN_WechatAuth = (callBack) => {
     NativeModules.UMShareModule.auth(
-        2,
-        (code, result, message) => {
-            TW_Log("code----"+code+"---message---"+message,result);
-            Alert.alert('温馨提示', "openID:"+result.openid+", uID:"+result.uid, [
-                {
-                    text: '确定',
-                    onPress: () => {
-                    }
-                },
-                {
-                    text: '取消',
-                    onPress: () => {
-
-                    }
-                }
-            ]);
-        }
+        2,callBack
     );
 };
 
