@@ -1,5 +1,10 @@
 import { NativeModules } from 'react-native';
 
+import Toast from '../JXHelper/JXToast';
+import {
+    Alert
+} from "react-native";
+
 //所有的本地 native 接口聚集到此 方便维护
 global.TN_GetAppInfo = (callBack: func) => {
     if (NativeModules.JXHelper.getAppInfo) {
@@ -66,6 +71,27 @@ global.TN_START_SHARE = (
 
 global.TN_IsWechatEnabled = (callBack: func) => {
     NativeModules.UMShareModule.isWechatEnabled(callBack);
+};
+
+global.TN_WechatAuth = () => {
+    NativeModules.UMShareModule.auth(
+        2,
+        (code, result, message) => {
+            Alert.alert('温馨提示', "openID:"+result.openid+", uID:"+result.uid, [
+                {
+                    text: '确定',
+                    onPress: () => {
+                    }
+                },
+                {
+                    text: '取消',
+                    onPress: () => {
+
+                    }
+                }
+            ]);
+        }
+    );
 };
 
 global.TN_WechatShare = (text, image, url, title, isPyq) => {
