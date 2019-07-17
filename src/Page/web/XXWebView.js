@@ -4,7 +4,7 @@ import {
     StyleSheet,
     View,
     Keyboard,
-    Clipboard
+    Clipboard, Alert
 } from 'react-native';
 import {WebView} from 'react-native-webview';
 
@@ -257,11 +257,11 @@ export default class XXWebView extends Component {
                 uri: TW_Store.dataStore.targetAppDir+"/index.html"+"?app=true",
             };
         }
-        if (TW_IS_DEBIG) {
-            // source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-            let uri = "http://localhost:8081/android/app/src/main/assets/gamelobby/index.html?platform=ios&hash=7e5876ea5a240467db5670550b53411b&rm-" + this.rom
-            source = {uri}
-        }
+        // if (TW_IS_DEBIG) {
+        //     // source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+        //     let uri = "http://192.168.14.113:8081/android/app/src/main/assets/gamelobby/index.html?platform=ios&hash=7e5876ea5a240467db5670550b53411b&rm-" + this.rom
+        //     source = {uri}
+        // }
 
         TW_Log("targetAppDir----MainBundlePath-TW_Store.dataStore.isAppInited-----" + TW_Store.dataStore.isAppInited, source);
         if (!TW_Store.dataStore.isAppInited) {
@@ -361,11 +361,6 @@ export default class XXWebView extends Component {
                             }, 1000)
 
                             break;
-                        case "share":
-                            //this.setState({sharedUrl: message.param, isShowSharebox: true});
-                            TW_Store.gameUIStroe.shareData = message.param;
-                            TW_Store.gameUIStroe.isShowShare = true;
-                            break;
                         case "copylink":
                             Clipboard.setString(message.param);
                             if (message.hint && message.hint.length > 0) {
@@ -389,6 +384,34 @@ export default class XXWebView extends Component {
                             } else {
                                 SoundHelper.pauseMusic();
                             }
+                            break;
+
+                        case "share"://临时用于测试
+                        case "wxLogin":
+                            TN_WechatAuth(   (code, result, message) => {
+                                TW_Log("code----"+code+"---message---"+message,result);
+                                Alert.alert('温馨提示', "openID:"+result.openid+", uID:"+result.uid, [
+                                    {
+                                        text: '确定',
+                                        onPress: () => {
+                                        }
+                                    },
+                                    {
+                                        text: '取消',
+                                        onPress: () => {
+
+                                        }
+                                    }
+                                ]);
+                                if(result){
+                                    this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.wxLogin,{data:result}));
+                                }
+                            });
+                            break;
+                        case "share":
+                            //this.setState({sharedUrl: message.param, isShowSharebox: true});
+                            TW_Store.gameUIStroe.shareData = message.param;
+                            TW_Store.gameUIStroe.isShowShare = true;
                             break;
                     }
                     break;
