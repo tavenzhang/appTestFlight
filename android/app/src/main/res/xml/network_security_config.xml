@@ -5,10 +5,13 @@
             <certificates src="user" />
         </trust-anchors>
     </debug-overrides>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">127.0.0.1</domain>
-        <domain includeSubdomains="true">localhost</domain>
-    </domain-config>
+    <!--<domain-config cleartextTrafficPermitted="true">-->
+        <!--<domain includeSubdomains="true">127.0.0.1</domain>-->
+        <!--<domain includeSubdomains="true">localhost</domain>-->
+        <!--<domain includeSubdomains="true">sit.106games.com</domain>-->
+    <!--</domain-config>-->
+
+    <base-config cleartextTrafficPermitted="true" />
     <!--<domain-config>-->
         <!--<domain includeSubdomains="true">webplatform.psxiaohe.com</domain>-->
         <!--<trust-anchors>-->
