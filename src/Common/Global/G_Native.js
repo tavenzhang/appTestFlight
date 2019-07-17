@@ -77,20 +77,20 @@ global.TN_WechatAuth = () => {
     NativeModules.UMShareModule.auth(
         2,
         (code, result, message) => {
-            TW_Store.dataStore.log+="\n"+"---auth--code=="+code+"----message==="+message+"--result---"+result;
-            // Alert.alert('温馨提示', "openID:"+result.openid+", uID:"+result.uid, [
-            //     {
-            //         text: '确定',
-            //         onPress: () => {
-            //         }
-            //     },
-            //     {
-            //         text: '取消',
-            //         onPress: () => {
-            //
-            //         }
-            //     }
-            // ]);
+            TW_Log("code----"+code+"---message---"+message,result);
+            Alert.alert('温馨提示', "openID:"+result.openid+", uID:"+result.uid, [
+                {
+                    text: '确定',
+                    onPress: () => {
+                    }
+                },
+                {
+                    text: '取消',
+                    onPress: () => {
+
+                    }
+                }
+            ]);
         }
     );
 };
@@ -120,13 +120,6 @@ global.TN_WechatShare = (text, image, url, title, isPyq) => {
     );
 };
 
-global.TN_WechatAuth = () => {
-    NativeModules.UMShareModule.auth(
-        2,
-        (code, message) => {
-            TW_Log("code----"+code,message)
-        }
-    );
-}
+
 
 global.TN_UMShareModule = NativeModules.UMShareModule;
