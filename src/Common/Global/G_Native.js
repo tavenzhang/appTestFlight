@@ -93,4 +93,13 @@ global.TN_WechatShare = (text, image, url, title, isPyq) => {
     );
 };
 
+global.TN_WechatAuth = () => {
+    NativeModules.UMShareModule.auth(
+        2,
+        (code, message) => {
+            TW_Log("code----"+code,message)
+        }
+    );
+}
+
 global.TN_UMShareModule = NativeModules.UMShareModule;
