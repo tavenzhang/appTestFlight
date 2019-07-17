@@ -3,22 +3,26 @@
 <plist version="1.0">
 <dict>
 	<key>APP_DOWNLOAD_VERSION</key>
-	<string>5.0</string>
+	<string>4.0</string>
 	<key>Affcode</key>
 	<string></string>
 	<key>AppSecret</key>
 	<dict>
 		<key>weixin</key>
-		<string>67de54808bba55e934e3126f3e607a42</string>
+		<string>3cb2cc0c5a0464de2922b215eb5cd3eb</string>
 	</dict>
+		<key>PLAT_CH</key>
+    	<string>1</string>
+    	<key>PLAT_ID</key>
+    	<string>300122</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>QP-UAT</string>
+	<string>911棋牌</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.qp.gm911qp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -38,7 +42,7 @@
 			<string>openinstall</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>k9e92p</string>
+				<string>z0c3q4</string>
 			</array>
 		</dict>
 		<dict>
@@ -48,7 +52,7 @@
 			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wx39520c48b4a7dc64</string>
+				<string>wx2edd0e4857cc2741</string>
 			</array>
 		</dict>
 	</array>
@@ -71,7 +75,7 @@
 		</array>
 	</dict>
 	<key>JPushKey</key>
-	<string></string>
+	<string>9f3d9db05b37b85976fd9a9f</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
@@ -132,10 +136,7 @@
 	<string>需要您的同意,才能添加到相册</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>需要您的同意,才能访问相册</string>
-	<key>PLAT_CH</key>
-	<string>1</string>
-	<key>PLAT_ID</key>
-	<string>5</string>
+
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -165,8 +166,8 @@
 		<dict/>
 	</array>
 	<key>UmengKey</key>
-	<string></string>
+	<string>5d19b5760cafb2e78d000d50</string>
 	<key>com.openinstall.APP_KEY</key>
-	<string>k9e92p</string>
+	<string>z0c3q4</string>
 </dict>
 </plist>
