@@ -23,8 +23,9 @@ var Spinner2 = /** @class */ (function (_super) {
         _this.isNext = false;
         return _this;
     }
-    Spinner2.prototype.setData = function ($spinner, $data) {
-        var spinner = this.spinner = $spinner;
+    //绑定转盘
+    Spinner2.prototype.bindBox = function (spinner) {
+        this.spinner = spinner;
         spinner.light.visible = false;
         spinner.light0.visible = false;
         spinner.light1.visible = false;
@@ -34,11 +35,14 @@ var Spinner2 = /** @class */ (function (_super) {
         spinner.btn_down.on(Laya.Event.MOUSE_UP, this, this.onClick);
         spinner.on(Laya.Event.MOUSE_UP, this, this.onClick);
         spinner.on(Laya.Event.MOUSE_OUT, this, this.onClick);
+    };
+    //设置转盘数据
+    Spinner2.prototype.setData = function ($data) {
         this.prizes = $data.prizeLevelList;
         this.reqPt = $data.requiredPoints;
         var c = 0;
         for (var i = this.prizes.length - 1; i > -1; i--) {
-            var tf = $spinner.spinnerbg.getChildByName("amount" + c);
+            var tf = this.spinner.spinnerbg.getChildByName("amount" + c);
             tf.text = this.prizes[i];
             c++;
         }

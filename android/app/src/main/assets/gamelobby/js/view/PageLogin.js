@@ -95,11 +95,14 @@ var PageLogin = /** @class */ (function (_super) {
         Common.confObj = ConfObjRead.getConfCommon();
         ResConfig.addTween = Common.confObj.addTween;
         GameData.joinLobbyType = JoinLobbyType.loginJoin;
+        if (!GameUtils.isNativeApp) {
+            // ConfObjRead.getConfUrl().url = ConfObjRead.getConfUrl().urldev;//dev环境(debugxxx)
+        }
         this.copyNativeAdress();
         this.updateGatewayInfo();
-        //登陆流程
-        this.initLoginProcess();
-        this.initEvents();
+        //检查维护公告
+        LayaMain.getInstance().checkGameMaintenance(this, this.initView);
+        //登录已经被加载过
         PageLogin.isLoaded = true;
     };
     /**
@@ -146,7 +149,7 @@ var PageLogin = /** @class */ (function (_super) {
                     callback();
             }
             else {
-                Debug.output("init-err:", jobj.http.status);
+                Debug.error("init-err:", jobj.http.status);
                 LayaMain.getInstance().showCircleLoading(false);
                 if (jobj.http.status == 428) {
                     _this.gatewayCount++;
@@ -469,6 +472,15 @@ var PageLogin = /** @class */ (function (_super) {
         inputs.forEach(function (txt) {
             txt.focus = false;
         });
+    };
+    /**
+     * 初始化登录界面显示
+     */
+    PageLogin.prototype.initView = function () {
+        //登陆流程
+        this.initLoginProcess();
+        //注册按钮点击事件
+        this.initEvents();
     };
     PageLogin.prototype.destroy = function (vl) {
         this.clearCodeTime();

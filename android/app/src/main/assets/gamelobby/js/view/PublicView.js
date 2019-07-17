@@ -38,6 +38,17 @@ var view;
             //滚动通告
             this.initRollView();
             this.setLayout();
+            this.initAnim();
+        };
+        PublicView.prototype.initAnim = function () {
+            this.verTxt.alpha = 0;
+            this.headGroup.y = -this.headGroup.height * 2;
+            this.goldUI.y = -this.goldUI.height * 2;
+            var easeing = Laya.Ease.cubicOut;
+            var time = 250;
+            Laya.Tween.to(this.headGroup, { y: 0 }, time, easeing, null, 100);
+            Laya.Tween.to(this.goldUI, { y: 10 }, time, easeing, null, 100);
+            Laya.Tween.to(this.verTxt, { alpha: 1 }, time, easeing, null, 600);
         };
         PublicView.prototype.initEvents = function () {
             //头像点击
@@ -65,8 +76,7 @@ var view;
             LobbyDataManager.reqUserCurrentInfo();
         };
         PublicView.prototype.flushHeadIcon = function (id) {
-            var url = "touxiang/img_touxiang_" + id + ".jpg";
-            this.headIcon.skin = url;
+            this.headIcon.skin = ResConfig.getHeadSkinByID(id);
         };
         PublicView.prototype.showHeadIcon = function () {
             var id = Common.avatorInfo.avatorId;

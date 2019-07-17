@@ -1,3 +1,4 @@
+
 apply plugin: "com.android.application"
 
 buildscript {
@@ -90,7 +91,8 @@ repositories {
  */
 
 project.ext.react = [
-        entryFile: "index.js"
+        entryFile: "index.js",
+        enableHermes: true
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -111,17 +113,51 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+/**
+ * The preferred build flavor of JavaScriptCore.
+ *
+ * For example, to use the international variant, you can use:
+ * `def jscFlavor = 'org.webkit:android-jsc-intl:+'`
+ *
+ * The international variant includes ICU i18n library and necessary data
+ * allowing to use e.g. `Date.toLocaleString` and `String.localeCompare` that
+ * give correct results when using with locales other than en-US.  Note that
+ * this variant is about 6MiB larger per architecture than default.
+ */
+def jscFlavor = 'org.webkit:android-jsc:+'
+
+/**
+ * Whether to enable the Hermes VM.
+ *
+ * This should be set on project.ext.react and mirrored here.  If it is not set
+ * on project.ext.react, JavaScript will not be compiled to Hermes Bytecode
+ * and the benefits of using Hermes will therefore be sharply reduced.
+ */
+def enableHermes = project.ext.react.get("enableHermes", true);
+
 android {
 
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    //buildToolsVersion '28.0.3'
+
+    /*
+    packagingOptions {
+        pickFirst 'lib/x86/libc++_shared.so'
+    }
+    */
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         applicationId "com.xxcard"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0.8"
+
         // SUB_TYPE       :  1 写死1 当聚道主包
         manifestPlaceholders = [
                 JPUSH_APPKEY: "",
@@ -148,14 +184,13 @@ android {
         buildConfigField("String", "WECHAT_SECRET_KEY", "\"${WECHAT_SECRET_KEY}\"")
         multiDexEnabled true
         resValue "string", "app_name", "bbl-sit"
-        ndk {
-            abiFilters "armeabi-v7a", "x86"
-        }
+        //ndk {
+        //    abiFilters "armeabi-v7a", "x86"
+        //}
     }
 
     flavorDimensions "color"
-
-
+   
     productFlavors {
         taven {
             applicationId APP_ID
@@ -196,7 +231,7 @@ android {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
             universalApk false  // If true, also generate a universal APK
-            include "armeabi-v7a", "x86"
+            include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
 
@@ -207,6 +242,7 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+
     // applicationVariants are e.g. debug, release
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
@@ -226,6 +262,15 @@ android {
 //                output.outputFile = new File(outputFile.parent, fileName)
 //            }
         }
+    }
+
+    packagingOptions {
+        pickFirst '**/armeabi-v7a/libc++_shared.so'
+        pickFirst '**/x86/libc++_shared.so'
+        pickFirst '**/arm64-v8a/libc++_shared.so'
+        pickFirst '**/x86_64/libc++_shared.so'
+        pickFirst '**/x86/libjsc.so'
+        pickFirst '**/armeabi-v7a/libjsc.so'
     }
 
     repositories {
@@ -255,7 +300,7 @@ dependencies {
     compile project(':react-native-image-picker')
     compile project(':react-native-image-crop-picker')
     compile project(':react-native-fs')
-    compile project(':react-native-flurry-analytics')
+
     compile project(':react-native-fetch-blob')
     compile project(':react-native-fast-image')
     compile project(':react-native-fabric')
@@ -265,7 +310,6 @@ dependencies {
     compile project(':jpush-react-native')
     implementation project(':react-native-orientation')
     implementation project(':react-native-zip-archive')
-    implementation project(':react-native-flurry-analytics')
     implementation project(':react-native-fabric')
     implementation 'com.android.support:multidex:1.0.3'
     implementation project(':react-native-fs')
@@ -273,11 +317,11 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':jpush-react-native')
     implementation project(':jcore-react-native')
-    implementation 'com.android.support:appcompat-v7:26.1.1'
+    //implementation 'com.android.support:appcompat-v7:26.1.1'
     implementation 'com.umeng.sdk:common:latest.integration'
     implementation 'com.umeng.sdk:analytics:latest.integration'
-    // compile 'com.facebook.react:react-native:+'
-    implementation project(':ReactAndroid')            //添加React-native项目
+    implementation "com.facebook.react:react-native:+"  // From node_modules
+    //implementation project(':ReactAndroid')            //添加React-native项目
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation project(':react-native-toast-native')
     implementation project(':react-native-shake-event')
@@ -293,6 +337,24 @@ dependencies {
     implementation project(':react-native-device-info')
     implementation project(':react-native-blur')
     implementation project(':react-native-fast-image')
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    /*
+    // JSC from node_modules
+    if (useIntlJsc) {
+        implementation 'org.webkit:android-jsc-intl:+'
+    } else {
+        implementation 'org.webkit:android-jsc:+'
+    }
+    */
+
+    if (enableHermes) {
+        def hermesPath = "../../node_modules/hermesvm/android/";
+        debugImplementation files(hermesPath + "hermes-debug.aar")
+        releaseImplementation files(hermesPath + "hermes-release.aar")
+    } else {
+        ementation jscFlavor
+    }
 }
 
 // Run this once to be able to run the application with BUCK
@@ -301,6 +363,10 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
-configurations.all {
-    exclude group: 'com.facebook.react', module: 'react-native'
-}
+
+//configurations.all {
+//    exclude group: 'com.facebook.react', module: 'react-native'
+//}
+
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

@@ -46,6 +46,7 @@ var view;
                 NoticeData.currentTab = $type;
                 NoticeData.noticeid = noticeid;
                 var dlg = new NoticeDlg();
+                dlg.width = Laya.stage.width;
                 dlg.game_counter.visible = false;
                 dlg.notice_counter.visible = false;
                 dlg.tab_dummy.visible = false;
@@ -70,17 +71,10 @@ var view;
                 }));
             };
             NoticeDlg.prototype.initView = function () {
-                var w2 = Laya.stage.width - this.width;
-                this.x = w2 / 2;
-                this.y = (Laya.stage.height - this.width) / 2;
-                this.controls.x = this.x + this.width;
-                if (Laya.stage.width <= 1334) {
-                    var buffer = 50;
-                    this.controls.x += buffer - 30;
-                    this.label.x += buffer * 2;
-                    this.contentList.x = this.label.x + 40;
-                    this.contents.x = this.contentList.x + 320 - 10; //Fthis.contentList.width - 10;
-                }
+                this.label.left = GameUtils.getScreencOffset(-48, 0);
+                this.controls.right = GameUtils.getScreencOffset(-55, 0);
+                this.contentList.left = GameUtils.getScreencOffset(-48, 0);
+                this.contents.centerX = GameUtils.getScreencOffset(128, 150);
                 this.contentList.on(Laya.Event.MOUSE_DOWN, this, this.onScroll);
                 // this.contentList.on(Laya.Event.MOUSE_UP, this, this.onScroll);
                 this.on(Laya.Event.MOUSE_UP, this, this.onScroll);
@@ -275,7 +269,6 @@ var view;
                         break;
                     case "ROULETTE_DRAW":
                         content = new Notice_Roullette();
-                        content.init();
                         content.setData(data);
                         break;
                     default:

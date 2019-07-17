@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 import { WebView } from 'react-native-webview';
-import {observer} from "mobx-react/native";
+import {observer} from "mobx-react";
 
 
 @observer
@@ -36,13 +36,13 @@ export default class LoadingWebView extends Component {
 
 
     render() {
-        let newUrl = TW_Store.dataStore.getHomeWebHome() + "/loading/loading.html";
+        let newUrl = TW_Store.dataStore.targetAppDir + "/loading/loading.html";
         let myParam = "";
 
         let source = {
             file: newUrl,
-            allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
-            allowFileAccessFromFileURLs: TW_Store.dataStore.getGameRootDir(),
+            allowingReadAccessToURL: TW_Store.dataStore.targetAppDir,
+            allowFileAccessFromFileURLs: TW_Store.dataStore.targetAppDir,
             param: myParam
         };
         if (!G_IS_IOS) {
@@ -55,7 +55,12 @@ export default class LoadingWebView extends Component {
         if(!visible){
             return null;
         }
-
+        let injectJs = `(function() {
+  window.postMessage = function(data) {
+    window.ReactNativeWebView.postMessage(data);
+  };
+})()`;
+        TW_Log("targetAppDir-33---LoadingWebView-source=="+source);
         let wenConteView = G_IS_IOS ? <WebView
                 ref="myWebView"
                 useWebKit={true}
@@ -69,6 +74,7 @@ export default class LoadingWebView extends Component {
                 onMessage={this.onMessage}
                 onLoadStart={this.onloadStart}
                 onLoadEnd={this.onLoadEnd}
+                injectedJavaScript={injectJs}
                 // renderLoading={this.onRenderLoadingView}
 
             /> :

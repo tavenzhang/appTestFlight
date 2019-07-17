@@ -30,7 +30,7 @@
   #ifdef DEBUG
     //do sth.
   #else
-    // [SplashScreen show];
+     [SplashScreen show];
   #endif
 
   

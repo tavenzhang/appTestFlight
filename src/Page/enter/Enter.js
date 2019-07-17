@@ -32,7 +32,6 @@ import JXDomainsHelper from "../../Common/JXHelper/JXDomainsHelper";
 import {AppConfig} from "../../config/appConfig";
 import {JX_PLAT_INFO} from "../asset";
 import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
-import FileTools from "../../Common/Global/FileTools";
 let domainsHelper = new JXDomainsHelper();
 let appInfoStore = TW_Store.appStore;
 @observer
@@ -83,7 +82,7 @@ export default class Enter extends Component {
               }
               if(!TW_Store.gameUpateStore.isInSubGame){
                   let now = new Date().getTime();
-                  let dim = now - this.lastClickTime
+                  let dim = now - this.lastClickTime;
                   TW_Log("lastClickTime----"+this.lastClickTime+"---dim",dim)
                   if (dim >= 180000) { //从后台进入前台间隔大于1分钟 才进行大厅与app 更新检测
                       this.hotFix(TW_Store.hotFixStore.currentDeployKey,true);
@@ -121,12 +120,12 @@ export default class Enter extends Component {
     onInitAllData=()=>{
         this.initData();
         this.uploadLog();
-        this.timer2 = setTimeout(() => {
-            if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
-                this.hotFixStore.skipUpdate();
-                this.reloadAppDomain();
-            }
-        }, 7 * 1000)
+        // this.timer2 = setTimeout(() => {
+        //     if (this.hotFixStore.syncMessage === '检测更新中...' || this.hotFixStore.syncMessage === '初始化配置中...') {
+        //         this.hotFixStore.skipUpdate();
+        //       //  this.reloadAppDomain();
+        //     }
+        // }, 7 * 1000)
 
         if(G_IS_IOS){
             if(Orientation&&Orientation.lockToLandscapeRight){
@@ -136,6 +135,7 @@ export default class Enter extends Component {
         }else{
             appInfoStore.checkAndroidsubType(this.initDomain);
         }
+
 
     }
 
@@ -275,7 +275,7 @@ export default class Enter extends Component {
 
     //使用缓存地址
     cacheAttempt=(success, allowUpdate, message)=> {
-        TW_Log(`first attempt ${success}, ${allowUpdate}, ${message}`);
+        TW_Log(`first cacheAttempt ${success}, ${allowUpdate}, ${message}`);
         if (success && allowUpdate && this.hotFixStore.allowUpdate) {
             this.gotoUpdate();
         } else if (!success && this.hotFixStore.allowUpdate) {//缓存地址不可用,使用默认地址
@@ -369,11 +369,11 @@ export default class Enter extends Component {
                         this.hotFixStore.isNextAffect =false;
                     }
                 }
-                if(!isActiveCheck){ //如果是app启动进入热更新检测 并且游戏已经进入大厅，则不使用强制更新提示，下次启动生效
-                    if(TW_Store.gameUpateStore.isEnteredGame){
-                        this.hotFixStore.isNextAffect =true;
-                    }
-                }
+                // if(!isActiveCheck){ //如果是app启动进入热更新检测 并且游戏已经进入大厅，则不使用强制更新提示，下次启动生效
+                //     if(TW_Store.gameUpateStore.isEnteredGame){
+                //         this.hotFixStore.isNextAffect =true;
+                //     }
+                // }
                 TW_Log('==checkingupdate====hotfixDeploymentKey= versionData='+(versionData==null), versionData);
                 this.hotFixStore.updateFinished = false;
                 this.storeLog({hotfixDomainAccess: true});

@@ -11,7 +11,7 @@ import { WebView } from 'react-native-webview';
 import {withMappedNavigationProps} from 'react-navigation-props-mapper'
 import {JX_PLAT_INFO} from "../asset";
 import TCButtonView from "../../Common/View/button/TCButtonView";
-import {observer} from "mobx-react/native";
+import {observer} from "mobx-react";
 import PropTypes from "prop-types";
 
 
@@ -84,7 +84,24 @@ export default class TCWebView extends Component {
                 };
             }
         }
-
+        let injectJs = `window.appData=${JSON.stringify({
+            isApp: true,
+            taven: "isOk",
+            clientId: TW_Store.appStore.clindId,
+            urlJSON: TW_Store.bblStore.getUriConfig(),
+            isAndroidHack:TW_Store.appStore.isInAnroidHack,
+            deviceToken:TW_Store.appStore.deviceToken,
+            loginDomain:TW_Store.bblStore.loginDomain+"/api/v1/account",
+            gameDomain:TW_Store.bblStore.gameDomain+"/api/v1/gamecenter",
+            affCode:TW_Store.appStore.userAffCode,
+            isDebug:TW_IS_DEBIG,
+            appVersion:TW_Store.appStore.versionHotFix,
+            isAppSound:TW_Store.dataStore.isAppSound
+        })},(function() {
+  window.postMessage = function(data) {
+    window.ReactNativeWebView.postMessage(data);
+  };
+})()`;
         let dis = TW_Store.bblStore.isLoading ? "none":"flex";
         TW_Log("TW_Store.bblStore.isLoading---"+TW_Store.bblStore.isLoading,dis);
         //andorid 显示有点小问题  黑屏处理
@@ -105,6 +122,7 @@ export default class TCWebView extends Component {
                                                  mixedContentMode={"always"}
                                                  onLoadStart={this.onloadStart}
                                                  onLoadEnd={this.onLoadEnd}
+                                                  injectedJavaScript={injectJs}
                                                  thirdPartyCookiesEnabled={true}/> :
             <WebView
                 ref="myWebView"

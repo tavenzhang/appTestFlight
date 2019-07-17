@@ -3,10 +3,12 @@ package com.jd.crash;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.StyleRes;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.StyleRes;
 
 import com.jd.R;
 

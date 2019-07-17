@@ -4,7 +4,7 @@ import {
     View,
     Text, WebView, Clipboard
 } from 'react-native'
-import {observer} from 'mobx-react/native';
+import {observer} from 'mobx-react';
 import TCImage from "../../../Common/View/image/TCImage";
 import {ASSET_Images, JX_PLAT_INFO} from "../../asset";
 import {TCButtonImg} from "../../../Common/View/button/TCButtonView";
