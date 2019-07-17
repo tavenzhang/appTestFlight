@@ -9,10 +9,10 @@ import {
     Text,
     TouchableOpacity,
     Modal,
-    ListView
 } from 'react-native'
 
 import {Size, width, height, indexBgColor, indexTxtColor, baseColor} from '../../../../Page/resouce/theme'
+import TCFlatList from "../../../../Common/View/RefreshListView/TCFLatList";
 
 
 /**
@@ -26,7 +26,6 @@ export default class ModalList extends Component {
 
     constructor(props) {
         super(props)
-        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             dataSource: this.props.dataList.slice(0),
             show: this.props.show
@@ -59,11 +58,16 @@ export default class ModalList extends Component {
                                 textAlign: 'center',
                                 padding: 5
                             }}>请选择支付银行</Text></View>
-                        <ListView
-                            dataSource={this.ds.cloneWithRows(this.state.dataSource.slice(0))}
-                            enableEmptySections={true}
-                            renderRow={this.props.renderRow}
-                            pageSize={10}/>
+                        <TCFlatList
+                         renderRow={this.props.renderRow}
+                         dataS={this.state.dataSource}
+                         pageSize={10}
+                        />
+                        {/*<ListView*/}
+                            {/*dataSource={this.ds.cloneWithRows(this.state.dataSource.slice(0))}*/}
+                            {/*enableEmptySections={true}*/}
+                            {/*renderRow={this.props.renderRow}*/}
+                            {/*pageSize={10}/>*/}
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.closeModal()

@@ -5,7 +5,7 @@ import {TCButtonImg} from "../../../../Common/View/button/TCButtonView";
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import TCImage from "../../../../Common/View/image/TCImage";
-import {observer} from 'mobx-react/native';
+import {observer} from 'mobx-react';
 import {indexBgColor} from "../../../resouce/theme";
 
 @observer

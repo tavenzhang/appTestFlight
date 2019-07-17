@@ -11,7 +11,7 @@ import {
     Alert,
     AppState
 } from 'react-native'
-import {observer, inject} from 'mobx-react/native'
+import {observer, inject} from 'mobx-react'
 import {observable, computed, action} from 'mobx'
 
 import UserPay from './View/TCUserPayViewNew'

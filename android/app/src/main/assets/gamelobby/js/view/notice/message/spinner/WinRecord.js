@@ -29,7 +29,7 @@ var WinRecord = /** @class */ (function () {
         this.date.text = this.beforeLast($data.createTime, " ");
         this.type.color = this.total.color = color;
         this.type.text = type;
-        this.total.text = $data.prizeAmount;
+        this.total.text = $data.prizeAmount.toString();
         // } catch ($e) {
         // }
     };

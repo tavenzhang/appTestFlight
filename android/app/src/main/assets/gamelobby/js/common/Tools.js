@@ -9,9 +9,9 @@ var Tools = /** @class */ (function () {
             throw new Error('Something bad-----shawn');
         }
         catch (e) {
-            Debug.trace("-------------shawn-----------begin----");
-            Debug.trace(e);
-            Debug.trace("-------------shawn-----------end------");
+            Debug.log("-------------shawn-----------begin----");
+            Debug.log(e);
+            Debug.log("-------------shawn-----------end------");
         }
     };
     Tools.splitBetNum = function (num) {
@@ -46,27 +46,27 @@ var Tools = /** @class */ (function () {
                 arr.push(Number(coins));
             }
         }
-        // Debug.trace("splitBetNum arr:");
-        // Debug.trace(arr);
+        // Debug.log("splitBetNum arr:");
+        // Debug.log(arr);
         return arr;
     };
     //总数total，可以被分成多少个single？
     Tools.getCountOf = function (total, single) {
         var ct = total / single;
-        // Debug.trace("number:"+total+" can be split:"+ct+" single:"+single);
+        // Debug.log("number:"+total+" can be split:"+ct+" single:"+single);
         return ct;
     };
     //切分字符串为单个字符串数组
     Tools.splitString = function (str) {
         // var s = String(str);//'我1234567890';
-        // Debug.trace("s:"+s);
+        // Debug.log("s:"+s);
         // var reg = new RegExp(".{1}","g");
         // var rs = new Array();
         // try{
         //     rs = s.match(reg);
         //     rs.push(s.substring(rs.join('').length));
         // }catch(e){
-        //     Debug.trace(e);
+        //     Debug.log(e);
         // }
         var s = String(str);
         var rs = s.split("");
@@ -102,8 +102,8 @@ var Tools = /** @class */ (function () {
         // var p = new Laya.HTMLDivElement();  //无法指定href
         // p.x = conf.pos.x;
         // p.y = conf.pos.y;
-        // Debug.trace("newHTMLIframeElement conf:");
-        // Debug.trace(conf);
+        // Debug.log("newHTMLIframeElement conf:");
+        // Debug.log(conf);
         // p.pos(conf.pos.x,conf.pos.y);
         // p.size(conf.size.w,conf.size.h);
         // var data = '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">' +
@@ -118,7 +118,7 @@ var Tools = /** @class */ (function () {
         // var DOMURL = window.URL;// || window;//.webkitURL || window;
         // var svg = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
         // var url = DOMURL.createObjectURL(svg);
-        // Debug.trace("svg url:"+url);
+        // Debug.log("svg url:"+url);
         // var p = new Laya.Image();
         // p.pos(conf.pos.x,conf.pos.y);
         // p.size(conf.size.w,conf.size.h);
@@ -127,7 +127,7 @@ var Tools = /** @class */ (function () {
         // var img = Laya.HTMLImage.create();
         // img.src = url;
         // img.onload = function(p){
-        //     Debug.trace("svg img loaded");
+        //     Debug.log("svg img loaded");
         //     var tex = new Laya.Texture();
         // }
     };
@@ -138,9 +138,9 @@ var Tools = /** @class */ (function () {
         var o1 = Math.floor(len / 3); //从1/3处开始替换为星星
         var o2 = o1 * 2;
         var s1 = s.substr(0, o1);
-        // Debug.trace("0-"+o1+" s1:"+s1);
+        // Debug.log("0-"+o1+" s1:"+s1);
         var s3 = s.substr(o2, len);
-        // Debug.trace(o2+"-"+len+" s3:"+s3);
+        // Debug.log(o2+"-"+len+" s3:"+s3);
         return s1 + rep + s3;
     };
     Tools.newImage = function (conf) {
@@ -167,8 +167,8 @@ var Tools = /** @class */ (function () {
         if (conf.size) {
             //如果有设定尺寸，则拉伸一下
             if (!Tools.resizeSprite(sp, conf.size.w, conf.size.h)) {
-                Debug.trace("newSprite false conf:");
-                Debug.trace(conf);
+                Debug.log("newSprite false conf:");
+                Debug.log(conf);
             }
         }
         if (conf.pivot) {
@@ -181,8 +181,8 @@ var Tools = /** @class */ (function () {
         var nw = sp.width;
         var nh = sp.height;
         if (nw <= 0 || nh <= 0) {
-            // Debug.trace("Tools.resizeSprite sprite not loaded width and height == 0 sp=");
-            // Debug.trace(sp);
+            // Debug.log("Tools.resizeSprite sprite not loaded width and height == 0 sp=");
+            // Debug.log(sp);
             return false;
         }
         var pw = w;
@@ -211,8 +211,8 @@ var Tools = /** @class */ (function () {
     };
     //
     Tools.deviceInfo = function () {
-        Debug.trace("deviceInfo:");
-        Debug.trace(window['plus']);
+        Debug.log("deviceInfo:");
+        Debug.log(window['plus']);
         if (window['plus']) {
             Tools.plusReady();
         }
@@ -221,8 +221,8 @@ var Tools = /** @class */ (function () {
         }
     };
     Tools.plusReady = function () {
-        Debug.trace("plus:");
-        Debug.trace(window['plus']);
+        Debug.log("plus:");
+        Debug.log(window['plus']);
     };
     //跳转到指定地址
     Tools.jump2url = function (url) {
@@ -244,7 +244,7 @@ var Tools = /** @class */ (function () {
             var s = url.substr(3, url.length);
             dir = s;
         }
-        Debug.trace("Tools.filterGameDir url:" + url + " idx:" + idx + " dir:" + dir);
+        Debug.log("Tools.filterGameDir url:" + url + " idx:" + idx + " dir:" + dir);
         return dir;
     };
     //跳转到游戏
@@ -259,7 +259,7 @@ var Tools = /** @class */ (function () {
             var dir = Tools.filterGameDir(urls);
             // var jumpUrl = hostUrl+"/"+dir;
             var jumpUrl = ToolsApp.getGameJumpUrl(hostUrl, dir);
-            Debug.trace("Tools.jump2game jumpUrl:" + jumpUrl);
+            Debug.log("Tools.jump2game jumpUrl:" + jumpUrl);
             var jobj = {};
             if (ginfo && ginfo.alias) {
                 if (ginfo.alias == "zjh") {
@@ -272,6 +272,9 @@ var Tools = /** @class */ (function () {
                     "name": "" //"炸金花"
                 };
             }
+            var domainUrl = AppData.NATIVE_DATA.gameDomain;
+            var wssUrl = domainUrl.replace("http", "wss");
+            wssUrl = wssUrl.replace("https", "wss");
             jobj = {
                 "token": Common.access_token,
                 "httpUrl": ConfObjRead.getConfUrl().url.apihome,
@@ -284,23 +287,24 @@ var Tools = /** @class */ (function () {
                 "clientId": Common.clientId,
                 "mainUrl": mainUrl,
                 "usergateway": AppData.NATIVE_DATA.loginDomain,
-                "gamecenter": AppData.NATIVE_DATA.gameDomain
+                "gamecenter": domainUrl,
+                "wss": wssUrl
             };
-            // Debug.trace("Tools.jump2game jobj:");
-            // Debug.trace(jobj);
+            // Debug.log("Tools.jump2game jobj:");
+            // Debug.log(jobj);
             var b = new MyBase64();
             var param = b.encode(JSON.stringify(jobj));
             var au = jumpUrl + "?jumpData=" + param;
             var enUrl = encodeURI(au);
             au = enUrl;
             var ne = b.decode(param);
-            Debug.trace("Tools.jump2game url:" + au);
+            Debug.log("Tools.jump2game url:" + au);
             //需要关闭声音等暂停操作
             LayaMain.getInstance().onGamePause();
             PostMHelp.jumpToGame({ "payload": au });
         }
         catch (e) {
-            Debug.trace(e);
+            Debug.log(e);
         }
     };
     //检查字符串是否存在
@@ -315,7 +319,7 @@ var Tools = /** @class */ (function () {
     Tools.isHaveHeadPoint = function (str, instr, len) {
         var ins = instr.substr(0, len);
         var b = Tools.isHaveString(str, ins);
-        // Debug.trace("Tools.isHaveHeadPoint str:"+str+" instr:"+instr+" len:"+len+" ins:"+ins+" b:"+b);
+        // Debug.log("Tools.isHaveHeadPoint str:"+str+" instr:"+instr+" len:"+len+" ins:"+ins+" b:"+b);
         // return b;
         if (b) {
             //有，直接返回
@@ -364,7 +368,7 @@ var Tools = /** @class */ (function () {
             }
         }
         catch (e) {
-            Debug.trace(e);
+            Debug.log(e);
         }
     };
     Tools.loadJavaScript = function (src) {
@@ -595,9 +599,9 @@ var Tools = /** @class */ (function () {
             return str;
         }
         var url2 = document.URL;
-        Debug.trace("url2:" + url2);
+        Debug.log("url2:" + url2);
         var httpName = Tools.getHttpName(url2);
-        Debug.trace("httpName:" + httpName);
+        Debug.log("httpName:" + httpName);
         var hostname = location.hostname;
         var port = location.port;
         if (port) {
@@ -619,18 +623,18 @@ var Tools = /** @class */ (function () {
     };
     Tools.getCurFullPath = function () {
         var url2 = document.URL;
-        // Debug.trace("url2:"+url2);
+        // Debug.log("url2:"+url2);
         // var url3 = window.location;
-        // Debug.trace("url3:"+url3);
+        // Debug.log("url3:"+url3);
         // var url4 = window.location.host;
-        // Debug.trace("url4:"+url4);
+        // Debug.log("url4:"+url4);
         return url2;
     };
     Tools.getResRootPath = function (str) {
         var url2 = document.URL;
-        Debug.trace("url2:" + url2);
+        Debug.log("url2:" + url2);
         var httpName = Tools.getHttpName(url2);
-        Debug.trace("httpName:" + httpName);
+        Debug.log("httpName:" + httpName);
         var hostname = location.hostname;
         var port = location.port;
         if (port) {
@@ -647,7 +651,7 @@ var Tools = /** @class */ (function () {
             rs.push(s.substring(rs.join('').length));
         }
         catch (e) {
-            Debug.trace(e);
+            Debug.log(e);
         }
         return rs;
     };
@@ -719,7 +723,7 @@ var Tools = /** @class */ (function () {
      */
     Tools.getQueryVariable = function (variable) {
         var query = window.location.search.substring(1);
-        // Debug.trace('getQueryVariable query:'+query);
+        // Debug.log('getQueryVariable query:'+query);
         var vars = query.split('&');
         for (var i = 0; i < vars.length; i++) {
             var pair = vars[i].split('=');
@@ -727,7 +731,7 @@ var Tools = /** @class */ (function () {
                 return decodeURIComponent(pair[1]);
             }
         }
-        // Debug.trace('query variable %s not found', variable);
+        // Debug.log('query variable %s not found', variable);
         return undefined;
     };
     /**
@@ -1127,8 +1131,8 @@ var Tools = /** @class */ (function () {
             var arr = ConfObjRead.getConfText();
             var curLang = arr[language];
             var len = curLang.length;
-            // Debug.trace("Tools.getStringByKey key:"+key+" lang:"+language+" len:"+len);
-            // Debug.trace(curLang);
+            // Debug.log("Tools.getStringByKey key:"+key+" lang:"+language+" len:"+len);
+            // Debug.log(curLang);
             for (var i = 0; i < len; i++) {
                 var obj = curLang[i];
                 if (obj.key == key) {
@@ -1193,18 +1197,18 @@ var Tools = /** @class */ (function () {
         var str = format;
         //从format中替换掉所有n%
         for (var i = 0; i < args.length; i++) {
-            // Debug.trace('args i:'+i+" = "+args[i]);
+            // Debug.log('args i:'+i+" = "+args[i]);
             str = str.replace(i + "%", args[i]);
         }
         return str;
     };
     //固定字符串长度，不足的后面补rep
     Tools.FormatStringLen = function (str, len, rep) {
-        // Debug.trace("FormatStringLen str:"+str+" len:"+len+" rep:"+rep);
+        // Debug.log("FormatStringLen str:"+str+" len:"+len+" rep:"+rep);
         while (str.length < len) {
             str += rep;
         }
-        // Debug.trace("FormatStringLen str:"+str);
+        // Debug.log("FormatStringLen str:"+str);
         return str;
     };
     //数字限定长度 不足在前面补0
@@ -1402,13 +1406,13 @@ var Tools = /** @class */ (function () {
         }
     };
     Tools.screenFull = function (e) {
-        // Debug.trace('screenFull e:');
+        // Debug.log('screenFull e:');
         if (GameData.bClickFullscreen) {
             //检查当前是否全屏状态
             var bFull = false;
             try {
                 bFull = window['screenfull'].isFullscreen;
-                // Debug.trace('screenFull:'+bFull);
+                // Debug.log('screenFull:'+bFull);
                 if (bFull) //已经全屏了，就退出全屏
                  {
                     window['screenfull'].exit();
@@ -1418,12 +1422,12 @@ var Tools = /** @class */ (function () {
                 }
             }
             catch (e) {
-                Debug.trace(e);
+                Debug.log(e);
             }
             GameData.bClickFullscreen = false;
         }
         //同时要复制字符串内容到剪贴板
-        // Debug.trace('copy string:'+Tools.copy_content);
+        // Debug.log('copy string:'+Tools.copy_content);
         if (Tools.copy_content.length > 0) {
             Tools.Copy2Clip(Tools.copy_content);
             Tools.copy_content = "";
@@ -1433,22 +1437,22 @@ var Tools = /** @class */ (function () {
         GameData.bClickFullscreen = true;
     };
     Tools.Copy2Clip = function (url) {
-        Debug.trace('document:' + document);
+        Debug.log('document:' + document);
         var lis = function (e) {
-            Debug.trace('url:' + url);
+            Debug.log('url:' + url);
             e.clipboardData.setData('text/plain', url);
             e.preventDefault();
             document.removeEventListener('copy', lis, false);
         };
         document.addEventListener('copy', lis, false);
         // document.addEventListener('copy', (e: ClipboardEvent) => {
-        //     Debug.trace('url:'+url);
+        //     Debug.log('url:'+url);
         //     e.clipboardData.setData('text/plain', url);
         //     e.preventDefault();
         //     document.removeEventListener('copy');
         // });
         var bcopy = document.execCommand('copy');
-        Debug.trace('bcopy:' + bcopy);
+        Debug.log('bcopy:' + bcopy);
     };
     ;
     //复制消息
@@ -1463,16 +1467,16 @@ var Tools = /** @class */ (function () {
         selBox.focus();
         selBox.select();
         var bcopy = document.execCommand('copy');
-        // Debug.trace('bcopy:'+bcopy);
+        // Debug.log('bcopy:'+bcopy);
         document.body.removeChild(selBox);
     };
     //复制文本内容到剪贴板
     //此方法仅用在用户主动点击dom按钮时，不适合小游戏
     //模拟点击也不行
     Tools.copy2clip1 = function (str) {
-        // Debug.trace('str len:'+str.length);
+        // Debug.log('str len:'+str.length);
         if (str.length <= 0) {
-            // Debug.trace('no copy content');
+            // Debug.log('no copy content');
             return;
         }
         var input = document.createElement('input'); //.getElementById("input");
@@ -1484,20 +1488,20 @@ var Tools = /** @class */ (function () {
         // var js:any = 
         input.setSelectionRange(0, input.value.length);
         // js=input.createTextRange();
-        // Debug.trace('input:');
-        // Debug.trace(input);
+        // Debug.log('input:');
+        // Debug.log(input);
         try {
             // if( document.execCommand('copy',false,null) )
             // if( js.execCommand("Copy") )
             if (document.execCommand("Copy")) {
-                Debug.trace('suc');
+                Debug.log('suc');
             }
             else {
-                Debug.trace('fail');
+                Debug.log('fail');
             }
         }
         catch (err) {
-            // Debug.trace('copy err:'+err);
+            // Debug.log('copy err:'+err);
         }
         input.remove();
     };

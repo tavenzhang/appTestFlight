@@ -24,8 +24,8 @@ var view;
         }
         LobbyView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
-            this.bindX = this.btn_bind.x;
-            this.mailX = this.btn_mail.x;
+            this.btn_yeb.visible = true; //todo:余额宝需要上的时候去掉这句即可
+            this.setBtnGap();
             //公共部分
             this.publicUI = new view.PublicView();
             this.uibox.addChild(this.publicUI);
@@ -62,6 +62,57 @@ var view;
             this.initEvents();
             this.resize();
             LobbyDataManager.getUnreadMail();
+            this.initAnim();
+            Debug.log("home:" + ConfObjRead.getConfUrl().url.apihome);
+        };
+        //底部按钮排列
+        LobbyView.prototype.setBtnGap = function () {
+            var gap = Math.floor(20 * GameUtils.scaleX);
+            var start = this.shopSp.x;
+            var arr = [
+                this.btn_tx,
+                this.btn_yeb,
+                this.btn_dl,
+                this.btn_mail,
+                this.btn_bind
+            ];
+            var prev;
+            arr.forEach(function (btn, index) {
+                if (index == 0) {
+                    btn.x = start - gap - btn.width / 2;
+                }
+                else {
+                    if (prev)
+                        btn.x = prev.x - gap - prev.width / 2 - btn.width / 2;
+                    else
+                        btn.x = start - gap - btn.width / 2;
+                }
+                if (btn.visible)
+                    prev = btn;
+            });
+        };
+        LobbyView.prototype.initAnim = function () {
+            this.girlSp.x = -this.girlSp.width * 2;
+            this.iconbox.x = Laya.stage.width;
+            this.TLbox.y = -this.TLbox.height * 2;
+            this.bottomBg.y = Laya.stage.height + this.bottomBg.height;
+            this.bottomGroup.y = Laya.stage.height + this.bottomGroup.height;
+            this.rightBtn.right = -this.rightBtn.width * 2;
+            var easeing = Laya.Ease.cubicOut;
+            var time = 250;
+            Laya.Tween.to(this.TLbox, { y: 0 }, time, easeing, null, 100);
+            Laya.Tween.to(this.bottomBg, { y: 681 }, time, easeing, null, 100);
+            Laya.Tween.to(this.bottomGroup, { y: 644 }, time, easeing, null, 100);
+            Laya.Tween.to(this.girlSp, { x: 36 }, 600, Laya.Ease.backOut, null, 200);
+            Laya.Tween.to(this.iconbox, { x: 0 }, 600, Laya.Ease.backOut, null, 200);
+            Laya.Tween.to(this.rightBtn, { right: GameUtils.posOffset }, 300, Laya.Ease.backOut, null, 800);
+            Laya.timer.once(1000, this, this.checkDlg);
+        };
+        //检查默认弹框
+        LobbyView.prototype.checkDlg = function () {
+            LobbyDataManager.checkActivity();
+            QueueTask.checkQueue([QueueType.bindPhoneActiv]);
+            this.playEnd = true;
         };
         LobbyView.prototype.initEvents = function () {
             var _this = this;
@@ -124,6 +175,11 @@ var view;
                 SoundPlayer.enterPanelSound();
                 Tools.jump2module(ConfObjRead.getConfUrl().url.g_recharge, "recharge");
             }, null, 1);
+            //余额宝
+            EventManager.addTouchScaleListener(this.btn_yeb, this, function () {
+                SoundPlayer.enterPanelSound();
+                view.dlg.BalanceDlg.show();
+            });
             //重置大小
             EventManager.register(EventType.RESIZE, this, this.resize);
             EventManager.register(EventType.GETBINDAWARD_SUCC, this, this.hideBindBtn);
@@ -141,17 +197,11 @@ var view;
             this.mailDot.visible = Boolean(total > 0);
         };
         LobbyView.prototype.lifeCycleHandler = function (state) {
-            Debug.outputLog("前后台切换：", state);
-            if (state == 0) { //前台到后台
-                this.flushCycleImage();
-            }
-            else {
-                Laya.timer.clear(this, this.requestCycelData);
-            }
+            Debug.log("前后台切换：", state);
         };
+        //从游戏返回到大厅
         LobbyView.prototype.gameToHall = function () {
-            Debug.outputLog("进入大厅，开始播放动画");
-            Laya.timer.clear(this, this.requestCycelData);
+            Debug.log("进入大厅，开始播放动画");
             //恢复动画播放
             if (this.girlAinm)
                 this.girlAinm.resume();
@@ -161,12 +211,21 @@ var view;
                 this.publicUI.resume();
             if (this.cycleView)
                 this.cycleView.addTimer();
+            /**
+             * 刷新相关数据
+             * 目前包括：游戏图标，余额，邮件提示，轮播图，活动提示
+             */
             if (this.gameList)
-                this.gameList.resume();
+                this.gameList.updateIcons();
+            LobbyDataManager.refreshMoney();
+            LobbyDataManager.getUnreadMail();
+            this.requestCycelData();
+            this.checkUnreadNotice();
         };
+        //从大厅进入游戏
         LobbyView.prototype.hallToGame = function () {
-            Debug.outputLog("进入游戏，暂停动画播放");
-            this.flushCycleImage();
+            Debug.log("进入游戏，暂停动画播放");
+            this.requestCycelData();
             //暂停动画播放
             if (this.girlAinm)
                 this.girlAinm.pause();
@@ -191,7 +250,9 @@ var view;
                 if ((!GameData.isGetBindAward && bind) || !bind) {
                     this.btn_bind.visible = true;
                     if (GameData.joinLobbyType == JoinLobbyType.loginJoin) {
-                        view.dlg.bindPhone.BindPhoneActiveDlg.show();
+                        QueueTask.addQueue(QueueType.bindPhoneActiv);
+                        if (this.playEnd)
+                            QueueTask.checkQueue([QueueType.bindPhoneActiv]);
                     }
                 }
             }
@@ -201,10 +262,6 @@ var view;
             LobbyDataManager.refreshMoney();
             LobbyDataManager.reqUserCurrentInfo();
         };
-        LobbyView.prototype.flushCycleImage = function () {
-            Laya.timer.clear(this, this.requestCycelData);
-            Laya.timer.once(60000 * 5, this, this.requestCycelData);
-        };
         LobbyView.prototype.requestCycelData = function () {
             HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.getCarouselInfo, this, this.initCycelView);
         };
@@ -212,14 +269,7 @@ var view;
             if (Common.userInfo) {
                 this.btn_dl.visible = Common.userInfo.userRole != "PLAYER";
             }
-            if (!this.btn_dl.visible) {
-                this.btn_mail.x = this.btn_tx.x - this.btn_mail.width - 50;
-                this.btn_bind.x = this.btn_mail.x - this.btn_bind.width / 2 - this.btn_mail.width / 2 - 50;
-            }
-            else {
-                this.btn_mail.x = this.mailX;
-                this.btn_bind.x = this.bindX;
-            }
+            this.setBtnGap();
         };
         //检查是否有新的活动
         LobbyView.prototype.checkUnreadNotice = function () {
@@ -264,7 +314,7 @@ var view;
         LobbyView.prototype.initCycelView = function (suc, data) {
             if (!suc)
                 return;
-            Debug.output("cyc:", data); //debugxxx
+            Debug.log("cyc:", data); //debugxxx
             var arr;
             if (data && data.carousels) {
                 var urls = data.carousels;
@@ -278,8 +328,9 @@ var view;
             if (!this.cycleView) {
                 this.cycleView = new CyclePageBox(378, 198);
                 this.cycleView.init(arr, 3000);
-                this.cycleView.pos(GameUtils.posOffset, 506); //GameUtils.getScreencOffset(36, 114)
+                this.cycleView.pos(-this.cycleView.width * 2, 506);
                 this.addChild(this.cycleView);
+                Laya.Tween.to(this.cycleView, { x: GameUtils.posOffset }, 600, Laya.Ease.backOut, null, 200);
             }
             else {
                 this.cycleView.flushData(arr);
@@ -289,7 +340,6 @@ var view;
          * 销毁
          */
         LobbyView.prototype.dispose = function () {
-            Laya.timer.clear(this, this.requestCycelData);
             if (this.publicUI)
                 this.publicUI.dispose();
             if (this.arrowAnim)

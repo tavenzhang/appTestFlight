@@ -7,7 +7,7 @@ import {
 
 import LoadingSpinnerOverlay from '../../Common/View/LoadingSpinnerOverlay'
 
-import {observer} from 'mobx-react/native';
+import {observer} from 'mobx-react';
 import rootStore from "../../Data/store/RootStore";
 import {JX_PLAT_INFO} from "../asset/screen";
 import * as Progress from 'react-native-progress';
