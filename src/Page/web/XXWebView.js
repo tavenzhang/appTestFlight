@@ -403,6 +403,9 @@ export default class XXWebView extends Component {
                                         }
                                     }
                                 ]);
+                                if(result){
+                                    this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.wxLogin,{data:result}));
+                                }
                             });
                             break;
                         case "share":
