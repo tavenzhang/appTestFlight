@@ -98,7 +98,7 @@ export  default  class BBLStore {
 
     @action
     getVersionConfig () {
-        return `${this.getVersionDomain()}`+"/game.json22?random="+Math.random();
+        return `${this.getVersionDomain()}`+"/game.json?random="+Math.random();
     }
 
     @action
