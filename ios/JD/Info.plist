@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>APP_DOWNLOAD_VERSION</key>
-	<string>4.0</string>
+	<string>6.0</string>
 	<key>Affcode</key>
 	<string></string>
 	<key>AppSecret</key>
@@ -30,7 +30,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.14</string>
+	<string>2.2.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
