@@ -71,6 +71,10 @@ var WinningList2 = /** @class */ (function (_super) {
         }, urlParams);
     };
     WinningList2.prototype.setRecord = function (s) {
+        for (var _i = 0, _a = this._records; _i < _a.length; _i++) {
+            var record = _a[_i];
+            record.hide();
+        }
         var counter = 0;
         for (var i = 0; i < 7; i++) {
             var data = s[i];

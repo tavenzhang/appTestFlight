@@ -19,7 +19,7 @@ var SaveManager = /** @class */ (function () {
     SaveManager.prototype.clearAll = function () {
         Laya.LocalStorage.clear();
         this.refreshSaveObj();
-        Debug.trace("SaveManager.clearAll-----------");
+        Debug.log("SaveManager.clearAll-----------");
     };
     SaveManager.prototype.initSetting = function () {
         var b_music_switch = this.get(SaveManager.KEY_MUSIC_SWITCH, 1);
@@ -57,16 +57,16 @@ var SaveManager = /** @class */ (function () {
         return def;
     };
     SaveManager.prototype.saveObjTotal = function (key, obj) {
-        // Debug.trace("saveObjTotal:"+key+" obj:");
-        // Debug.trace(obj);
+        // Debug.log("saveObjTotal:"+key+" obj:");
+        // Debug.log(obj);
         Laya.LocalStorage.setJSON(key, obj);
     };
     SaveManager.prototype.getObjTotal = function (key, def) {
         var a = Laya.LocalStorage.getJSON(key);
-        // Debug.trace('getObjTotal a:');
-        // Debug.trace(a);
-        // Debug.trace("def:");
-        // Debug.trace(def);
+        // Debug.log('getObjTotal a:');
+        // Debug.log(a);
+        // Debug.log("def:");
+        // Debug.log(def);
         if (a) {
             return a;
         }
@@ -91,6 +91,8 @@ var SaveManager = /** @class */ (function () {
     SaveManager.KEY_API_URL = "httpUrl"; //"xxxxxx"
     SaveManager.KEY_GATEWAYINFO = "gatewayInfo";
     SaveManager.KEY_PHONEPWD = "phone_pwd"; //手机登录密码
+    SaveManager.KEY_ACCOUNT = "keyAccount"; //缓存账号
+    SaveManager.KEY_PHONE = "keyPhone"; //缓存手机登录账号
     return SaveManager;
 }());
 //# sourceMappingURL=SaveManager.js.map

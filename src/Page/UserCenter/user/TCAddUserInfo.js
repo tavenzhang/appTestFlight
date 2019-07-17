@@ -10,7 +10,7 @@ import {
     View
 } from 'react-native'
 
-import {observer, inject,} from 'mobx-react/native'
+import {observer, inject,} from 'mobx-react'
 import {action, observable, computed} from 'mobx'
 
 import TopNavigationBar from '../../../Common/View/TCNavigationBar';

@@ -19,6 +19,14 @@ var ConfObjRead = /** @class */ (function () {
         }
         return ConfObjRead.urlObj;
     };
+    Object.defineProperty(ConfObjRead, "httpCmd", {
+        //获取http-cmd
+        get: function () {
+            return this.getConfUrl().cmd;
+        },
+        enumerable: true,
+        configurable: true
+    });
     ConfObjRead.getGameIconConfig = function () {
         if (!this.gameIconConfig) {
             this.gameIconConfig = Laya.Loader.getRes("./assets/conf/gameIcons.json");

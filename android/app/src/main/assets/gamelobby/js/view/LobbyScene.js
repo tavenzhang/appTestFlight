@@ -34,7 +34,6 @@ var LobbyScene = /** @class */ (function (_super) {
         return LobbyScene.obj;
     };
     LobbyScene.prototype.initUI = function () {
-        this.requestPop();
         //添加大厅视图
         this.view = new view.LobbyView();
         this.addChild(this.view);
@@ -44,14 +43,6 @@ var LobbyScene = /** @class */ (function (_super) {
         LobbyDataManager.reqUserCurrentInfo();
         LobbyDataManager.reqAvatarInfo();
         LobbyDataManager.getCardInfo();
-    };
-    LobbyScene.prototype.requestPop = function () {
-        var _this = this;
-        HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.attention_pop, this, function (suc, jobj) {
-            if (suc && jobj.pop) {
-                Laya.timer.once(1000, _this, view.dlg.NoticeDlg.show, [AttentionDialog.TYPE_OPEN_AUTO]);
-            }
-        });
     };
     LobbyScene.initBgMusic = function () {
         if (LobbyScene.IS_PLAYED_MUSIC) {
@@ -87,6 +78,16 @@ var LobbyScene = /** @class */ (function (_super) {
 var LobbyDataManager = /** @class */ (function () {
     function LobbyDataManager() {
     }
+    /**
+     * 检查活动公告是否需要默认弹出
+     */
+    LobbyDataManager.checkActivity = function () {
+        HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.attention_pop, this, function (suc, jobj) {
+            if (suc && jobj.pop) { //本地 活动/公告2/1 服务器 1/0
+                view.dlg.NoticeDlg.show(jobj.noticeCate + 1, jobj.noticeid);
+            }
+        });
+    };
     /**
      * 绑定手机相关数据
      */

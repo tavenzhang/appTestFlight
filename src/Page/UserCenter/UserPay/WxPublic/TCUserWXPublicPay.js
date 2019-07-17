@@ -10,7 +10,7 @@ import {
     Image,
     ScrollView
 } from 'react-native'
-import {observer} from 'mobx-react/native'
+import {observer} from 'mobx-react'
 import {observable, computed, action} from 'mobx'
 import {copyBtnStyle, ermaStyle, height, indexBgColor, Size, width} from '../../../resouce/theme'
 import TopNavigationBar from '../../../../Common/View/TCNavigationBar';
