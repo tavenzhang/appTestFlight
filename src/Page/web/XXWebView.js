@@ -385,24 +385,9 @@ export default class XXWebView extends Component {
                                 SoundHelper.pauseMusic();
                             }
                             break;
-
-                        case "share"://临时用于测试
                         case "wxLogin":
                             TN_WechatAuth(   (code, result, message) => {
                                 TW_Log("code----"+code+"---message---"+message,result);
-                                Alert.alert('温馨提示', "openID:"+result.openid+", uID:"+result.uid, [
-                                    {
-                                        text: '确定',
-                                        onPress: () => {
-                                        }
-                                    },
-                                    {
-                                        text: '取消',
-                                        onPress: () => {
-
-                                        }
-                                    }
-                                ]);
                                 if(result){
                                     this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.wxLogin,{data:result}));
                                 }
