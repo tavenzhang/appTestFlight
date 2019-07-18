@@ -276,6 +276,42 @@ var LayaMain = /** @class */ (function () {
             this.sceneLobby.onLoaded(null);
             LayaMain.getInstance().getRootNode().addChild(this.sceneLobby);
         }
+        //每次初始化大厅都需要检查一下维护公告
+        this.checkGameMaintenance();
+    };
+    /**
+     * 检查维护公告
+     * @param caller
+     * @param callBack 检查完毕后的后续逻辑函数回调
+     */
+    LayaMain.prototype.checkGameMaintenance = function (caller, callBack) {
+        if (AppData.IS_NATIVE_APP) {
+            LayaMain.getInstance().showCircleLoading(true);
+            //AppData.NATIVE_DATA.brandUrl = AppData.NATIVE_DATA.brandUrl || "http://sit.106games.com/api/v1/gamecenter/player/brand/material/info?brand=106";
+            HttpRequester.doRequest(AppData.NATIVE_DATA.brandUrl, null, null, this, function (suc, data) {
+                // data.maintenanceState = true;
+                // data.maintenanceDto = {
+                //     "content": "1.sahkjdsahdhkjashkjdahkjsdhkjashkjdhkjashkjdsahkjdhkjashkjdhkjasdhkjsahkjdhkjsahkjdhkjasdhkjasdhkjashkjdhkjashkjdhkjsadhkjahkjsdhkjashkjdhkjasdhkjhkjsahkjdsadsahkjdhkjsadadshkj<br /> 2.sadahsdhkjahkjsdhkjashkjdhkjashkjdhkjashkjdhkjashkjdhkjashkjdhkjasdhkjahkjsdhkjsahkjdhkjsadhkjahkjsdhkjsahkjd<br />3.ashjdkjsadhkjhkjashkjdhkjsahkjdhkjashkjdasdasj<br />1.sahkjdsahdhkjashkjdahkjsdhkjashkjdhkjashkjdsahkjdhkjashkjdhkjasdhkjsahkjdhkjsahkjdhkjasdhkjasdhkjashkjdhkjashkjdhkjsadhkjahkjsdhkjashkjdhkjasdhkjhkjsahkjdsadsahkjdhkjsadadshkj<br /> 2.sadahsdhkjahkjsdhkjashkjdhkjashkjdhkjashkjdhkjashkjdhkjashkjdhkjasdhkjahkjsdhkjsahkjdhkjsadhkjahkjsdhkjsahkjd<br />3.ashjdkjsadhkjhkjashkjdhkjsahkjdhkjashkjdasdasj",
+                //     "endTime": "2019-07-16T06:52:41.235Z",
+                //     "startTime": "2019-07-16T06:52:41.235Z",
+                //     "title": "abctest"
+                // }
+                LayaMain.getInstance().showCircleLoading(false);
+                if (suc && data.maintenanceState) {
+                    //显示维护公告
+                    view.dlg.GameUpdateNotice.show(data.maintenanceDto || {});
+                    return;
+                }
+                if (caller && callBack) {
+                    callBack.apply(caller);
+                }
+            }, "get");
+        }
+        else {
+            if (caller && callBack) {
+                callBack.apply(caller);
+            }
+        }
     };
     /**
      * 显示loading

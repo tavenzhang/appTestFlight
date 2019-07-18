@@ -83,8 +83,9 @@ var view;
                         }
                         //if (data.role === "AGENT") {
                         this.linkTxt.text = shareUrl;
-                        if (!inva || inva == "")
+                        if (inva != undefined && inva != null && inva != "") {
                             this.linkTxt.text += ("&affCode=" + inva);
+                        }
                         // } else {
                         // 	this.linkTxt.text = shareUrl;
                         // }
@@ -95,7 +96,7 @@ var view;
                         this.qrbox.addChild(sp);
                         EventManager.addTouchScaleListener(this.qrbox, this, function () {
                             SoundPlayer.enterPanelSound();
-                            agent.AgentQrDlg.show(_this.linkTxt.text);
+                            agent.AgentQrDlg.show(_this.linkTxt.text, data.appShareTips || "");
                         }, null, 1);
                     }
                 };

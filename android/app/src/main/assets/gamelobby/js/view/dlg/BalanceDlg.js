@@ -120,14 +120,30 @@ var view;
             BalanceDlg.prototype.infoCallback = function (suc, jobj) {
                 LayaMain.getInstance().showCircleLoading(false);
                 if (suc) {
+                    //保存数据
                     this.yuebaoInfo = jobj;
+                    //玩家收益展示
                     this.showBitFont(this.bitBox1, FormatTool.dollarFormat(jobj.amount, ""));
                     this.showBitFont(this.bitBox2, FormatTool.dollarFormat(jobj.preIncome, ""));
                     this.showBitFont(this.bitBox3, FormatTool.dollarFormat(jobj.balanceAmt, ""));
+                    //设置余额宝功能数据显示
                     this.showBitFont(this.bitBox4, FormatTool.dollarFormat(jobj.sumIncome, ""), 0.8);
                     this.showBitFont(this.bitBox5, FormatTool.dollarFormat(jobj.curIncome, ""), 0.8);
                     this.showBitFont(this.bitBox6, FormatTool.dollarFormat(jobj.myriadProfit, ""), 0.8);
                     this.showBitFont(this.bitBox7, jobj.sevenDayYearYield + "", 0.8);
+                    //余额宝功能
+                    if (jobj.isClose) { //余额宝关闭
+                        //关闭存钱按钮点击
+                        this.setBtn.disabled = true;
+                        //
+                        this.weihuMask.visible = true;
+                    }
+                    else {
+                        //打开存钱按钮点击
+                        this.setBtn.disabled = false;
+                        //
+                        this.weihuMask.visible = false;
+                    }
                 }
                 else {
                     this.yuebaoInfo = { balanceAmt: 0, amount: 0 };
