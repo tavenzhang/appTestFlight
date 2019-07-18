@@ -4,6 +4,13 @@
 var GameUtils = /** @class */ (function () {
     function GameUtils() {
     }
+    Object.defineProperty(GameUtils, "scaleX", {
+        get: function () {
+            return Laya.stage.width / 1334;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(GameUtils, "posOffset", {
         /**
          * 获取位置偏移量
@@ -176,6 +183,46 @@ var GameUtils = /** @class */ (function () {
     GameUtils.minGap = 28;
     GameUtils.maxGap = 78; //安全边距
     return GameUtils;
+}());
+/**
+ * 格式化工具
+ */
+var FormatTool = /** @class */ (function () {
+    function FormatTool() {
+    }
+    /**
+     * 千分位分割，例如：$12,456,789
+     * @param  money 数字
+     * @param  head 数字头标识
+     * @param  separator 间隔符号
+     * @param  number 间隔位数
+     */
+    FormatTool.dollarFormat = function (money, head, separator, number) {
+        if (head === void 0) { head = "$"; }
+        if (separator === void 0) { separator = ","; }
+        if (number === void 0) { number = 3; }
+        if (money == undefined)
+            return;
+        if (money < 0) {
+            head += "-";
+            money = -money;
+        }
+        var str = money.toString();
+        var arr = str.split(".");
+        var inter = arr[0];
+        var pot = arr.length > 1 ? "." + arr[1] : "";
+        if (inter.length <= number) {
+            return head + inter + pot;
+        }
+        var num = inter.length % number;
+        if (num != 0) {
+            head += inter.substr(0, num) + separator;
+        }
+        var reg = new RegExp('\\d{' + number + '}', 'g');
+        inter = inter.substr(num).replace(reg, '$&' + separator);
+        return head + inter.substr(0, inter.length - 1) + pot;
+    };
+    return FormatTool;
 }());
 var InnerJumpUtil = /** @class */ (function () {
     function InnerJumpUtil() {

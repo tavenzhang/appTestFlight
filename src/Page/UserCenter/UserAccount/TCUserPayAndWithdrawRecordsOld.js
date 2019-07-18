@@ -5,7 +5,7 @@
  */
 import React, {Component} from 'react';
 import {StyleSheet, Button, TouchableOpacity, View} from 'react-native';
-import {observer} from 'mobx-react/native'
+import {observer} from 'mobx-react'
 import Moment from "moment/moment";
 import NoDataView from '../../../Common/View/TCNoDataView'
 import ListRow from './View/TCUserPayAndWithdrawRowViewOld'

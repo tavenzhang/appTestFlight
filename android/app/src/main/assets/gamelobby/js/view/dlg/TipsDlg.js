@@ -25,11 +25,12 @@ var view;
                 _this.initView();
                 return _this;
             }
-            TipsDlg.show = function ($message, caller, callback) {
+            TipsDlg.show = function ($message, caller, callback, closeCallBack) {
                 var dlg = new TipsDlg();
                 dlg.message.text = $message;
                 dlg.caller = caller;
                 dlg.callback = callback;
+                dlg.closeCallBack = closeCallBack;
                 dlg.popup(false, true);
             };
             TipsDlg.prototype.initView = function () {
@@ -47,6 +48,9 @@ var view;
                 });
             };
             TipsDlg.prototype.onClosed = function ($type) {
+                if (this.caller && this.closeCallBack) {
+                    this.closeCallBack.call(this.caller);
+                }
                 EventManager.removeAllEvents(this);
                 _super.prototype.onClosed.call(this, $type);
                 this.destroy(true);

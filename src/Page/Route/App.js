@@ -16,7 +16,7 @@ import {
 import {Provider} from 'mobx-react'
 import NavigationService from './NavigationService'
 import rootStore from "../../Data/store/RootStore";
-import {observer} from 'mobx-react/native';
+import {observer} from 'mobx-react';
 
 const appStores = {
     // mainStore: rootStore.mainStore,
@@ -83,6 +83,7 @@ import KeyboardManager from 'react-native-keyboard-manager'
 import {JX_PLAT_INFO} from "../asset";
 import LoadingWebView from "../WebView/LoadingWebView";
 import SubGameView from "./SubGameView";
+import GameLogView from "./GameLogView";
 
 
 
@@ -127,21 +128,10 @@ export default class App extends Component {
                             this.navigator = navigatorRef;
                         }}
                     />
-                    {TW_Store.bblStore.isDebugApp ?
-                        <ScrollView style={{position: "absolute", height: JX_PLAT_INFO.SCREEN_H}}><Text
-                            style={{
-                                color: "yellow",
-                                fontWeight: "bold"
-                            }}
-                            pointerEvents={"none"}>{`\nversionMangernew==${JSON.stringify(TW_Store.dataStore.homeVersionM)}` +
-                        `\n appStore=${JSON.stringify(TW_Store.appStore)} \n--state=${JSON.stringify(this.state)}---log=${TW_Store.dataStore.log}`}</Text></ScrollView> : null}
-                    {/*<CommonBoxLayer/>*/}
                     <SubGameView/>
                     {TW_Store.dataStore.isAppInited &&(!TW_Store.gameUpateStore.isOldHome||TW_Store.gameUpateStore.isAppDownIng) ? <LoadingWebView/>:null}
                      <GameUIView/>
-
-
-
+                     <GameLogView/>
                 </View>
             </Provider>
 

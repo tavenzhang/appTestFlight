@@ -1,9 +1,13 @@
 
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
-#use_frameworks!
+use_frameworks!
 
 # Add new pods below this line
+#pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
+
+#pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
 #pod 'RNViewShot', :path => '../node_modules/react-native-view-shot'
 
 #pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
@@ -18,8 +22,6 @@
 #pod 'ReactNativeKeyboardManager', :path => '../node_modules/react-native-keyboard-manager'
 
 target 'card' do
-pod 'NSLogger/NoStrip'
 pod 'Fabric'
 pod 'Crashlytics'
-pod 'Flurry-iOS-SDK/FlurrySDK'
 end

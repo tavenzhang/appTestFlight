@@ -5,7 +5,7 @@ import {
     View,
     Text, WebView, TouchableWithoutFeedback
 } from 'react-native'
-import {observer} from 'mobx-react/native';
+import {observer} from 'mobx-react';
 import {ASSET_Images, JX_PLAT_INFO} from "../../../asset";
 
 import TCImage from "../../../../Common/View/image/TCImage";

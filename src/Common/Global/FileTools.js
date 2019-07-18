@@ -1,5 +1,4 @@
 import {
-    CameraRoll,
     NativeModules, PermissionsAndroid
 } from 'react-native';
 import {unzip, zip,} from 'react-native-zip-archive'
@@ -8,7 +7,7 @@ import Toast from "../JXHelper/JXToast";
 import RNFetchBlob from 'react-native-fetch-blob';
 import * as RNShot from "react-native-view-shot";
 import Base64 from "../JXHelper/Base64";
-
+import CameraRoll from "@react-native-community/cameraroll";
 export default class FileTools {
 
 
@@ -128,6 +127,7 @@ export default class FileTools {
                     const granted = await PermissionsAndroid.request(
                         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
                     );
+                    TW_Log("Image saved granted--", granted)
                     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
                         TW_Log('You can use the WRITE_EXTERNAL_STORAGE');
                         FileTools.saveCameraRoll(base64Img, success, fail,isBase64);
@@ -149,14 +149,14 @@ export default class FileTools {
 
         const dirs = G_IS_IOS ? RNFS.LibraryDirectoryPath : RNFS.DocumentDirectoryPath; // 外部文件，共享目录的绝对路径（仅限android）
         const downloadDest = `${dirs}/${((Math.random() * 10000000) | 0)}.png`;
-        TW_Log("Image saved imageSrc--", imageSrc)
         if(isBase64){
             const imageDatas = imageSrc.split('data:image/png;base64,');
             const imageData = imageDatas[1];
-
+           // TW_Log("Image saved imageSrc--downloadDest"+downloadDest, imageSrc)
             RNFetchBlob.fs.writeFile(downloadDest, imageData, 'base64').then((rst) => {
+                TW_Log("Image saved imageSrc-writeFile", rst)
                 try {
-                    CameraRoll.saveToCameraRoll(downloadDest).then((e1) => {
+                    CameraRoll.saveToCameraRoll(downloadDest,"photo").then((e1) => {
                         success && success();
                         Toast.showShortCenter(" 图片保存成功!");
                     }).catch((e2) => {
@@ -170,7 +170,8 @@ export default class FileTools {
             });
         }else{
             try {
-                CameraRoll.saveToCameraRoll(imageSrc).then((e1) => {
+                CameraRoll.saveToCameraRoll(imageSrc,'photo').then((e1) => {
+                    TW_Log("Image saved imageSrc-saveToCameraRoll--"+imageSrc, e1)
                     success && success();
                     Toast.showShortCenter(" 图片保存成功!");
                 }).catch((e2) => {

@@ -1,6 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+  ext {
+        buildToolsVersion = "28.0.3"
+        minSdkVersion = 16
+        compileSdkVersion = 28
+        targetSdkVersion = 28
+        supportLibVersion = "28.0.0"
+    }
+
     repositories {
         jcenter()
         maven {
@@ -10,7 +18,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.4.1'
         classpath 'de.undercouch:gradle-download-task:3.1.2'  //新增加的内容
         classpath 'com.google.gms:google-services:3.1.2'
         // NOTE: Do not place your application dependencies here; they belong
@@ -22,7 +30,7 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
+
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
@@ -32,18 +40,23 @@ allprojects {
             name 'Google'
         }
         maven { url "https://jitpack.io"}
+        jcenter()
+         maven {
+                // Android JSC is installed from npm
+                url("$rootDir/../node_modules/jsc-android/dist")
+            }
     }
 
     allprojects {
-        configurations.all {
-            resolutionStrategy {
-                eachDependency { DependencyResolveDetails details ->
-                    if (details.requested.group == 'com.facebook.react' && details.requested.name == 'react-native') {
-                        details.useVersion "0.57.7" // Your real React Native version here
-                    }
-                }
-            }
-        }
+//        configurations.all {
+//            resolutionStrategy {
+//                eachDependency { DependencyResolveDetails details ->
+//                    if (details.requested.group == 'com.facebook.react' && details.requested.name == 'react-native') {
+//                        details.useVersion "0.57.7" // Your real React Native version here
+//                    }
+//                }
+//            }
+//        }
     }
 }
 

@@ -94,6 +94,13 @@
         "getUnreadMail": "/gamecenter/player/mail/unread",
         "getCardInfo": "/cashmgt/me/transfer/withdraw/settings",
         "twiceBindCard": "/cashmgt/me/cards",
-        "share": "/gamecenter/player/activity/share"
+        "share": "/gamecenter/player/activity/share",
+        "yuebaoInfo": "/yuebao/me/info",
+        "yuebaoWithdraw": "/yuebao/me/transfer/withdraw",
+        "yuebaoDeposit": "/yuebao/me/transfer/deposit",
+        "yuebaoSetPwd": "/yuebao/me/password/new",
+        "yuebaoChangePwdByoldpwd": "/yuebao/me/password/change/bypassword",
+        "yuebaoChangePwdBycode": "/yuebao/me/password/change/bycode",
+        "yuebaoDetail": "/yuebao/me/events/recent"
     }
 }

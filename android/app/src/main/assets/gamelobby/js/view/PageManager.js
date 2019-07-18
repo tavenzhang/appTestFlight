@@ -76,7 +76,7 @@ var PageManager = /** @class */ (function () {
         this.current = null;
     };
     /**
-     * todo:动态显示弹窗
+     * todo:动态显示弹窗(DlgLoader)
      * 通过命令动态显示弹窗
      * @param cmd
      * @param params

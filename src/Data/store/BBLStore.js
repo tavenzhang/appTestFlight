@@ -156,7 +156,7 @@ export  default  class BBLStore {
         showLoading:"showLoading",
         enterGame:"enterGame",
         openDebug:"openDebug",
-        soundSaveData:"soundSaveData",
+        wxLogin:"wxLogin"
     }
 
     //bgm.mp3 click.mp3 close.mp3 flopleft.mp3 flopright.mp3 recharge.mp3 rightbottomclose.mp3 showlogo.mp3
@@ -240,6 +240,13 @@ export  default  class BBLStore {
             TW_Log("---getUrlAndParamsAndCallback--getAppData--downUrl=="+downUrl,ret.content);
         },10,false,false);
     }
+
+    @action
+    getBrandUrl(){
+        let  url = TW_Store.bblStore.gameDomain+ config.api.gameShareDown.replace("#0",platInfo.brand);
+        return url
+    }
+
 
 }
 

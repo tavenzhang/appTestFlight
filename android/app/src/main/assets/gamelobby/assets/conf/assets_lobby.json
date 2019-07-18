@@ -13,15 +13,19 @@
         "res/atlas/ui/panel_common.atlas",
         "res/atlas/ui/panel_notice.atlas",
         "res/atlas/ui/panel_notice/message.atlas",
-        "res/atlas/ui/panel_notice/roullette.atlas",
         "res/atlas/ui/panel_notice/share.atlas",
-        "res/atlas/ui/panel_notice/roullette/spinner.atlas",
+        "res/atlas/ui/panel_notice/roullette.atlas",
+        "res/atlas/ui/panel_notice/roullette/activityRoullette/select_light.atlas",
+        "res/atlas/ui/panel_notice/roullette/activityRoullette.atlas",
         "./res/atlas/ui/bindPhone.atlas",
         "./res/atlas/ui/fullMyCenter.atlas",
         "./res/atlas/ui/bitFont/goldFont.atlas",
         "./res/atlas/ui/bitFont/mailFont.atlas",
         "./res/atlas/ui/bitFont/agentFont.atlas",
         "./res/atlas/ui/mailbox.atlas",
-        "./res/atlas/ui/agent.atlas"
+        "./res/atlas/ui/agent.atlas",
+        "./res/atlas/ui/agent/qrposter.atlas",
+        "./res/atlas/ui/balance.atlas",
+        "./res/atlas/ui/balance/subres.atlas"
     ]
 }

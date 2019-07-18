@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Modal
 } from 'react-native'
-import {observer} from 'mobx-react/native'
+import {observer} from 'mobx-react'
 import {observable, computed, action} from 'mobx'
 import {Size, width, height, indexBgColor, baseColor} from '../../resouce/theme'
 
