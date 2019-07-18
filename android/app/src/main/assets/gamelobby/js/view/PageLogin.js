@@ -100,9 +100,9 @@ var PageLogin = /** @class */ (function (_super) {
         }
         this.copyNativeAdress();
         this.updateGatewayInfo();
-        //检查维护公告
-        LayaMain.getInstance().checkGameMaintenance(this, this.initView);
-        //登录已经被加载过
+        //登陆流程
+        this.initLoginProcess();
+        this.initEvents();
         PageLogin.isLoaded = true;
     };
     /**
@@ -472,15 +472,6 @@ var PageLogin = /** @class */ (function (_super) {
         inputs.forEach(function (txt) {
             txt.focus = false;
         });
-    };
-    /**
-     * 初始化登录界面显示
-     */
-    PageLogin.prototype.initView = function () {
-        //登陆流程
-        this.initLoginProcess();
-        //注册按钮点击事件
-        this.initEvents();
     };
     PageLogin.prototype.destroy = function (vl) {
         this.clearCodeTime();
