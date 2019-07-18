@@ -5,7 +5,7 @@
 	<key>com.openinstall.APP_KEY</key>
           <string>vcrgm3</string>
 	<key>APP_DOWNLOAD_VERSION</key>
-	<string>3.0</string>
+	<string>6.0</string>
 	<key>Affcode</key>
 	<string></string>
 	<key>AppSecret</key>
@@ -28,7 +28,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.14</string>
+	<string>2.2.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
