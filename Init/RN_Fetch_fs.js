@@ -21,6 +21,7 @@ import type {
 const RNFetchBlob:RNFetchBlobNative = NativeModules.RNFetchBlob
 const emitter = DeviceEventEmitter
 let dirs={}
+//
 if(RNFetchBlob){
     let dirs = {
         DocumentDir :  RNFetchBlob.DocumentDir,

@@ -66,7 +66,7 @@ var UpdateMsgHandle = /** @class */ (function () {
         Laya.SoundManager.playSound(UpdateMsgHandle.raw_root + src);
     };
     UpdateMsgHandle.playMusic = function (src) {
-        Debug.trace("UpdateMsgHandle.playMusic");
+        Debug.log("UpdateMsgHandle.playMusic");
         if (!GameUtils.isAppSound)
             Laya.SoundManager.playMusic(UpdateMsgHandle.raw_root + src);
     };

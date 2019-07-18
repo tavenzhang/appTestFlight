@@ -6,7 +6,7 @@ import {
     Text,
     Alert, ScrollView
 } from 'react-native'
-import {observer} from 'mobx-react/native'
+import {observer} from 'mobx-react'
 import {observable, computed, action} from 'mobx'
 import UserPay from './View/TCUserPayView'
 import {indexBgColor} from '../../resouce/theme'

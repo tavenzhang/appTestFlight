@@ -268,8 +268,6 @@ var DragingBox = /** @class */ (function (_super) {
                 //条件判断
                 if (!this.canDrag)
                     this.setDragLen();
-                if (!this.canDrag)
-                    return;
                 this.startMousePos = this.xMove ? evt.stageX : evt.stageY;
                 this.stayPos = this.startMousePos;
                 this.startBoxPos = this.xMove ? this.cbox.x : this.cbox.y;
@@ -278,6 +276,10 @@ var DragingBox = /** @class */ (function (_super) {
                 this.stayTime = 0;
                 this.timeFlag = TimeFlag.timeCount;
                 this.runTime = true;
+                if (!this.canDrag) {
+                    Laya.stage.on(Laya.Event.MOUSE_UP, this, this.eventHandler);
+                    return;
+                }
                 Laya.stage.on(Laya.Event.MOUSE_MOVE, this, this.eventHandler);
                 Laya.stage.on(Laya.Event.MOUSE_UP, this, this.eventHandler);
                 Laya.stage.on(Laya.Event.MOUSE_OUT, this, this.eventHandler);

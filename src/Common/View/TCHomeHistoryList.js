@@ -14,7 +14,7 @@ import {
     ActivityIndicator,
     PanResponder
 } from 'react-native';
-import {observer} from 'mobx-react/native';
+import {observer} from 'mobx-react';
 
 import TCListRowView from './TCLottertHistoryListRowView'
 import {Size, width, indexBgColor, listViewTxtColor} from '../../Page/asset/game/themeComponet'

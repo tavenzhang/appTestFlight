@@ -14,6 +14,13 @@ function getAvailableDomain (domains,callback) {
   let isFinish =false;
   for (let i = 0; i < domains.length; i++) {
     TW_Log('cacheDomain check= '+domains[i]);
+      let tempDomain =domains[i]
+      if(tempDomain.indexOf("http")==-1){
+          errorCount+=1;
+          if (errorCount >= domains.length) {
+              callback(false, false, "");
+          }
+      }
       NetUitls.getUrlAndParamsAndCallback(`${domains[i]}/api/v1/ip/user/checkIpInfoDomainsEncrypte?clientId=${TW_Store.appStore.clindId}&platform=CG`,null,(rt)=>{
         if(rt.rs){
           if(!isFinish){
@@ -62,6 +69,7 @@ function getAvailableDomain (domains,callback) {
           }
         }else{
             errorCount++;
+            TW_Log("cacheAttempt000+errorCount=="+errorCount,domains);
             if (errorCount >= domains.length) {
                   callback(false, false, rt.status);
             }

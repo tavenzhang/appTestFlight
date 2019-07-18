@@ -121,7 +121,7 @@ var view;
                 this.resetView();
                 this.hotIcon.visible = this.gameVo.bhot;
                 if (!GameState[state]) {
-                    Debug.output(this.config.desc + "state=" + state, this.gameVo.state);
+                    Debug.error(this.config.desc + "state=" + state, this.gameVo.state);
                 }
                 switch (this.gameState) {
                     case GameState.NORMAL:

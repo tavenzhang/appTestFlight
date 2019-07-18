@@ -1,9 +1,15 @@
+var DefDownLoadGame;
+(function (DefDownLoadGame) {
+    DefDownLoadGame[DefDownLoadGame["zjh"] = 1] = "zjh";
+    DefDownLoadGame[DefDownLoadGame["niuniu_qz"] = 2] = "niuniu_qz";
+})(DefDownLoadGame || (DefDownLoadGame = {}));
 /*
 * 游戏列表管理器
 */
 var GameListManager = /** @class */ (function () {
     function GameListManager(listbox) {
         this.iconList = [];
+        this.defDownLoads = []; //需要默认下载的游戏
         this.listBox = listbox;
         this.init();
     }
@@ -26,21 +32,26 @@ var GameListManager = /** @class */ (function () {
         }
     };
     GameListManager.prototype.init = function () {
-        var _this = this;
         EventManager.register(EventType.GAME_UPDATE_INIT, this, this.onUpdateMsgInit);
         EventManager.register(EventType.GAME_UPDATE_PROGRESS, this, this.onUpdateProgress);
         EventManager.register(EventType.JUMP_GAME, this, this.jumpGame);
+        this.updateIcons();
+    };
+    GameListManager.prototype.updateIcons = function () {
+        var _this = this;
+        LayaMain.getInstance().showCircleLoading(true);
         var url = ConfObjRead.getConfUrl().url.apihome +
             ConfObjRead.getConfUrl().cmd.gamelist +
-            "?pageSize=20&start=0&access_token=" + Common.access_token +
+            "?pageSize=100&start=0&access_token=" + Common.access_token +
             "&channel=" + GameData.channel +
             "&device=" + Common.getLoginPlatform() +
             "&jump=" + Common.bNewlogin;
         HttpRequester.doRequest(url, null, null, this, function (suc, jobj) {
+            LayaMain.getInstance().showCircleLoading(false);
             if (suc) {
-                Debug.trace("gameList:");
-                Debug.trace(jobj);
+                Debug.log("gameList:", jobj);
                 Common.gameInfo = jobj.datas;
+                _this.clearIcons();
                 _this.addGameItems(jobj.datas);
                 Laya.timer.once(500, _this, _this.onUpdateMsgInit);
             }
@@ -72,6 +83,12 @@ var GameListManager = /** @class */ (function () {
                 }
             });
         }
+        //执行默认下载
+        this.defDownLoads.forEach(function (item) {
+            if (item.isDownload)
+                item.doClick();
+        });
+        this.defDownLoads.length = 0;
     };
     GameListManager.prototype.onUpdateProgress = function (data) {
         var _this = this;
@@ -101,6 +118,10 @@ var GameListManager = /** @class */ (function () {
             icon.y = (i % 2) * (icon.height + gapY);
             iconGroup.addChild(icon);
             this.iconList.push(icon);
+            //添加需要默认下载的游戏
+            if (DefDownLoadGame[icon.alias]) {
+                this.defDownLoads.push(icon);
+            }
         }
         if (icon) {
             var count = Math.floor(len / 2) + len % 2;
@@ -126,6 +147,16 @@ var GameListManager = /** @class */ (function () {
                 this.leftArrowBtn.visible = false;
             if (this.rightArrowBtn)
                 this.rightArrowBtn.visible = false;
+        }
+    };
+    GameListManager.prototype.clearIcons = function () {
+        if (this.iconList.length > 0) {
+            this.iconList.forEach(function (value) { return value.destroy(); });
+            this.iconList.length = 0;
+        }
+        if (this.dragBox) {
+            this.dragBox.destroy();
+            this.dragBox = null;
         }
     };
     //游戏图标点击
