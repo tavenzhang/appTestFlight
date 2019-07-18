@@ -369,11 +369,11 @@ export default class Enter extends Component {
                         this.hotFixStore.isNextAffect =false;
                     }
                 }
-                // if(!isActiveCheck){ //如果是app启动进入热更新检测 并且游戏已经进入大厅，则不使用强制更新提示，下次启动生效
-                //     if(TW_Store.gameUpateStore.isEnteredGame){
-                //         this.hotFixStore.isNextAffect =true;
-                //     }
-                // }
+                if(!isActiveCheck){ //如果是app启动进入热更新检测 并且游戏已经进入大厅，则不使用强制更新提示，下次启动生效
+                    if(TW_Store.gameUpateStore.isEnteredGame){
+                        this.hotFixStore.isNextAffect =true;
+                    }
+                }
                 TW_Log('==checkingupdate====hotfixDeploymentKey= versionData='+(versionData==null), versionData);
                 this.hotFixStore.updateFinished = false;
                 this.storeLog({hotfixDomainAccess: true});
