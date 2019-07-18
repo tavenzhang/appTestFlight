@@ -91,6 +91,7 @@
 		95280EF522BA460C00A51B6B /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95280DF922BA3F0200A51B6B /* libRNFetchBlob.a */; };
 		952B851D22C3689E00E8D176 /* libRNViewShot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 952B851722C3643500E8D176 /* libRNViewShot.a */; };
 		952B8CE722CA0A4E00E8D176 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952B8C9E22CA0A4400E8D176 /* JavaScriptCore.framework */; };
+		9530179322E0329C00164297 /* libRNCCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9530176522E031C100164297 /* libRNCCameraRoll.a */; };
 		9533A2CA224DC27B00816807 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9533A2C9224DC27B00816807 /* MyViewController.m */; };
 		9543D1C521C0E948006E51DD /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA91DF850E9000B6D8A /* libcxxreact.a */; };
 		9585BA4221CB76660096C6BE /* libSMXCrashlytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9585BA3E21CB765B0096C6BE /* libSMXCrashlytics.a */; };
@@ -858,6 +859,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9530179322E0329C00164297 /* libRNCCameraRoll.a in Frameworks */,
 				951A7AD022CB024E0033476C /* libRNCWebView.a in Frameworks */,
 				952B8CE722CA0A4E00E8D176 /* JavaScriptCore.framework in Frameworks */,
 				952B851D22C3689E00E8D176 /* libRNViewShot.a in Frameworks */,
