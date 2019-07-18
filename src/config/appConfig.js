@@ -38,7 +38,7 @@ export const AppConfig = {
 
 export const MyAppName = '博博乐';
 
-export const versionHotFix = 'v6.27';
+export const versionHotFix = 'v7.18';
 
 export const MyOwnerPlatName= 'uat彩票';
 
@@ -63,7 +63,7 @@ export const platInfo = {
     },
     platId: configAppId,
     brand: "uat01",
-    latestNativeVersion:{ios:"6.0",android:"6.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
+    latestNativeVersion:{ios:"7.0",android:"7.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
 }
 
 
