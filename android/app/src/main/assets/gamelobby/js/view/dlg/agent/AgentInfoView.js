@@ -81,12 +81,13 @@ var view;
                         if (invatVo.length > 0) {
                             inva = invatVo[0].affCode;
                         }
-                        if (data.role === "AGENT") {
-                            this.linkTxt.text = shareUrl + "&affCode=" + inva;
-                        }
-                        else {
-                            this.linkTxt.text = shareUrl;
-                        }
+                        //if (data.role === "AGENT") {
+                        this.linkTxt.text = shareUrl;
+                        if (!inva || inva == "")
+                            this.linkTxt.text += ("&affCode=" + inva);
+                        // } else {
+                        // 	this.linkTxt.text = shareUrl;
+                        // }
                         //显示二维码
                         var size = 182;
                         var sp = qr.QRCode.create(this.linkTxt.text, "#000000", size, size, 3);
@@ -94,7 +95,7 @@ var view;
                         this.qrbox.addChild(sp);
                         EventManager.addTouchScaleListener(this.qrbox, this, function () {
                             SoundPlayer.enterPanelSound();
-                            agent.AgentQrDlg.show(_this.linkTxt.text, data.appShareTips || "");
+                            agent.AgentQrDlg.show(_this.linkTxt.text);
                         }, null, 1);
                     }
                 };

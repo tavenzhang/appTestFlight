@@ -43,6 +43,10 @@ export default class ShareBox extends Component {
             this.setState({ isWechatEnabled });
             this.openPayApp(isWechatEnabled);
         });
+        /*TN_WechatAuth((uid) => {
+            TW_Log("targetAppDir-33---isWechatEnabled-"+uid);
+            this.setState({ uid });
+        });*/
     }
 
 

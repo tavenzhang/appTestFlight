@@ -24,7 +24,6 @@
         "./res/atlas/ui/bitFont/agentFont.atlas",
         "./res/atlas/ui/mailbox.atlas",
         "./res/atlas/ui/agent.atlas",
-        "./res/atlas/ui/agent/qrposter.atlas",
         "./res/atlas/ui/balance.atlas",
         "./res/atlas/ui/balance/subres.atlas"
     ]

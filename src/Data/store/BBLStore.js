@@ -156,6 +156,7 @@ export  default  class BBLStore {
         showLoading:"showLoading",
         enterGame:"enterGame",
         openDebug:"openDebug",
+        wxLogin:"wxLogin"
     }
 
     //bgm.mp3 click.mp3 close.mp3 flopleft.mp3 flopright.mp3 recharge.mp3 rightbottomclose.mp3 showlogo.mp3

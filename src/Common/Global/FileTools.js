@@ -127,6 +127,7 @@ export default class FileTools {
                     const granted = await PermissionsAndroid.request(
                         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
                     );
+                    TW_Log("Image saved granted--", granted)
                     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
                         TW_Log('You can use the WRITE_EXTERNAL_STORAGE');
                         FileTools.saveCameraRoll(base64Img, success, fail,isBase64);

@@ -13,7 +13,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import <OpenInstallSDK.h>
 #import <SplashScreen.h>
-
+#import <UMShare/UMShare.h>
 
 //#import <SplashScreen.h>
 @implementation AppDelegate
@@ -75,12 +75,54 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
 	//openURL2
-	[OpenInstallSDK handLinkURL:url];
+  NSString *urlString = [url absoluteString];
+    if ([urlString hasPrefix:@"wx"]) {
+      [[UMSocialManager defaultManager] handleOpenURL:url];
+  }else{
+      [OpenInstallSDK handLinkURL:url];
+  }
+	//[OpenInstallSDK handLinkURL:url];
 	return YES;
 }
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler{
+  
 	[OpenInstallSDK continueUserActivity:userActivity];
 	return YES;
+}
+
+//-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+//{
+//      return [self openLiveOpenURL:url];
+//}
+
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+      return [self openLiveOpenURL:url];
+}
+
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options NS_AVAILABLE_IOS(9_0){
+      return [self openLiveOpenURL:url];
+  
+}
+
+- (BOOL)openLiveOpenURL:(NSURL *)url {
+  
+      if (!url) return NO;
+    [[UMSocialManager defaultManager] handleOpenURL:url];
+  //      NSString *urlString = [url absoluteString];
+  //
+  //      if ([urlString hasPrefix:@"wx"]) {
+  //           return [WXApi handleOpenURL:url delegate:self];
+  //        }else if ([urlString hasPrefix:@"wb"]) {
+  //              [[UMSocialManager defaultManager] handleOpenURL:url];
+  //          }
+  //
+  //      //判断是否是通过LinkedME的UrlScheme唤起App
+  //      else if ([urlString rangeOfString:@"click_id"].location != NSNotFound)
+  //        {
+  //            return [[LinkedME getInstance] handleDeepLink:url];
+  //         }
+      return YES;
 }
 
 @end
