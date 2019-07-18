@@ -1,6 +1,6 @@
 {
-    "isFlush": false,
+    "versionNum": "4.0718.1620",
     "name": "home",
-    "source": "gamelobby.zip",
-    "versionNum": "4.0717.1200"
+    "isFlush": false,
+    "source": "gamelobby.zip"
 }

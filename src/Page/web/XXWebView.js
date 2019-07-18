@@ -4,7 +4,7 @@ import {
     StyleSheet,
     View,
     Keyboard,
-    Clipboard
+    Clipboard, Alert
 } from 'react-native';
 import {WebView} from 'react-native-webview';
 
@@ -361,11 +361,6 @@ export default class XXWebView extends Component {
                             }, 1000)
 
                             break;
-                        case "share":
-                            //this.setState({sharedUrl: message.param, isShowSharebox: true});
-                            TW_Store.gameUIStroe.shareData = message.param;
-                            TW_Store.gameUIStroe.isShowShare = true;
-                            break;
                         case "copylink":
                             Clipboard.setString(message.param);
                             if (message.hint && message.hint.length > 0) {
@@ -389,6 +384,19 @@ export default class XXWebView extends Component {
                             } else {
                                 SoundHelper.pauseMusic();
                             }
+                            break;
+                        case "wxLogin":
+                            TN_WechatAuth(   (code, result, message) => {
+                                TW_Log("code----"+code+"---message---"+message,result);
+                                if(result){
+                                    this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.wxLogin,{data:result}));
+                                }
+                            });
+                            break;
+                        case "share":
+                            //this.setState({sharedUrl: message.param, isShowSharebox: true});
+                            TW_Store.gameUIStroe.shareData = message.param;
+                            TW_Store.gameUIStroe.isShowShare = true;
                             break;
                     }
                     break;

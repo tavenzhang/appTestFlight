@@ -26,10 +26,12 @@ var WinRecord = /** @class */ (function () {
         }
         // console.log("set", this.date, this.type, this.total)
         // try {
-        this.date.text = this.beforeLast($data.createTime, " ");
-        this.type.color = this.total.color = color;
-        this.type.text = type;
-        this.total.text = $data.prizeAmount.toString();
+        if (this.date.parent) {
+            this.date.text = this.beforeLast($data.createTime, " ");
+            this.type.color = this.total.color = color;
+            this.type.text = type;
+            this.total.text = $data.prizeAmount.toString();
+        }
         // } catch ($e) {
         // }
     };

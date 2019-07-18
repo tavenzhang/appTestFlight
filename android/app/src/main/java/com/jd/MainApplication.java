@@ -16,6 +16,7 @@ import com.cmcewen.blurview.BlurViewPackage;
 import com.crashlytics.android.Crashlytics;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.cameraroll.CameraRollPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import fr.greweb.reactnativeviewshot.RNViewShotPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -89,6 +90,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new CameraRollPackage(),
             new RNCWebViewPackage(),
             new RNViewShotPackage(),
             new ExtraDimensionsPackage(),

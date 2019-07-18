@@ -60,25 +60,8 @@ export default class LoadingWebView extends Component {
     window.ReactNativeWebView.postMessage(data);
   };
 })()`;
-        TW_Log("targetAppDir-33---LoadingWebView-source=="+source);
-        let wenConteView = G_IS_IOS ? <WebView
-                ref="myWebView"
-                useWebKit={true}
-                source={source}
-                onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                style={[styles.webView]}
-                allowsInlineMediaPlayback={true}
-                allowFileAccess={true}
-                onError={this.onError}
-                startInLoadingState={false}
-                onMessage={this.onMessage}
-                onLoadStart={this.onloadStart}
-                onLoadEnd={this.onLoadEnd}
-                injectedJavaScript={injectJs}
-                // renderLoading={this.onRenderLoadingView}
-
-            /> :
-            <WebView
+        TW_Log("targetAppDir----LoadingWebView-source=="+source);
+        let wenConteView = <WebView
                 ref="myWebView"
                 useWebKit={true}
                 automaticallyAdjustContentInsets={true}
@@ -92,12 +75,13 @@ export default class LoadingWebView extends Component {
                 startInLoadingState={false}
                 onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
                 allowFileAccess={true}
+                injectedJavaScript={injectJs}
                 onError={this.onError}
                 onMessage={this.onMessage}
                 onLoadEnd={this.onLoadEnd}
             />
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,{width: TW_Store.appStore.screenW}]}>
                 {wenConteView}
             </View>
         );

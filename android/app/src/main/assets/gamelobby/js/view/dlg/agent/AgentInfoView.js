@@ -81,12 +81,14 @@ var view;
                         if (invatVo.length > 0) {
                             inva = invatVo[0].affCode;
                         }
-                        if (data.role === "AGENT") {
-                            this.linkTxt.text = shareUrl + "&affCode=" + inva;
+                        //if (data.role === "AGENT") {
+                        this.linkTxt.text = shareUrl;
+                        if (inva != undefined && inva != null && inva != "") {
+                            this.linkTxt.text += ("&affCode=" + inva);
                         }
-                        else {
-                            this.linkTxt.text = shareUrl;
-                        }
+                        // } else {
+                        // 	this.linkTxt.text = shareUrl;
+                        // }
                         //显示二维码
                         var size = 182;
                         var sp = qr.QRCode.create(this.linkTxt.text, "#000000", size, size, 3);

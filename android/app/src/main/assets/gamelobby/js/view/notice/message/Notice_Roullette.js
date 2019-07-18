@@ -107,7 +107,8 @@ var Notice_Roullette = /** @class */ (function (_super) {
     };
     Notice_Roullette.prototype.updatePlaerPoint = function (playerPoint) {
         this._havePt = playerPoint;
-        this.currentPt.text = this._havePt.toString();
+        if (this.currentPt.parent)
+            this.currentPt.text = this._havePt.toString();
     };
     Notice_Roullette.prototype.onStartBtn = function () {
         SoundPlayer.clickSound();
@@ -197,7 +198,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
     };
     //设置玩家积分
     Notice_Roullette.prototype.setPlayerPoint = function (suc, jobj) {
-        if (suc) {
+        if (suc && this.todayPt.parent) {
             this.updatePlaerPoint(jobj.userPoint);
             this.todayPt.text = jobj.userInput.toString();
             this.openGameTouch();
