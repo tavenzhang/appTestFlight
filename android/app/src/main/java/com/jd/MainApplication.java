@@ -140,7 +140,7 @@ public class MainApplication extends Application implements ReactApplication {
         String subType = readMetaDataByTag("SUB_TYPE");
         subType = subType.trim();
         if (subType != null && !subType.equals("0") && !subType.equals("")) {
-            vesrion = "6.66.669";
+            vesrion = "6.66.666";
         }
         Log.d("subType", "subType-----------------" + subType + "---vesrion==" + vesrion + "--subType==0-" + (subType.equals("0")) + "--subType===!==" + (subType != "0"));
         return vesrion;
