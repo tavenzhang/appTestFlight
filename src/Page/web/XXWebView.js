@@ -279,7 +279,7 @@ export default class XXWebView extends Component {
             gameDomain: TW_Store.bblStore.gameDomain + "/api/v1/gamecenter",
             affCode: TW_Store.appStore.userAffCode,
             isDebug: TW_IS_DEBIG,
-            appVersion: TW_Store.appStore.versionHotFix,
+            appVersion: TW_Store.appStore.versionHotFix+(!G_IS_IOS&&TW_Store.appStore.subAppType!="0" ? ` - ${TW_Store.appStore.subAppType}`:""),
             isAppSound: TW_Store.dataStore.isAppSound,
             isNewApp: G_IS_IOS ? true : false
                 })},(function() {
