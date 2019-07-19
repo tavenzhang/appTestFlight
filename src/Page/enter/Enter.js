@@ -287,10 +287,10 @@ export default class Enter extends Component {
 
     //使用从服务器获取的更新地址更新app
     gotoUpdate() {
-        if(TW_IS_DEBIG){
-            this.hotFixStore.skipUpdate();
-            return
-        }
+        // if(TW_IS_DEBIG){
+        //     this.hotFixStore.skipUpdate();
+        //     return
+        // }
         AsyncStorage.getItem('cacheDomain').then((response) => {
 
             let cacheDomain = JSON.parse(response)
@@ -325,6 +325,7 @@ export default class Enter extends Component {
         if (downloadTime === 0) {
             downloadTime = Moment().format('X')
         }
+        this.hotFixStore.percent = (parseFloat(progress.receivedBytes / progress.totalBytes).toFixed(2) * 100).toFixed(1);
         if(!this.hotFixStore.isNextAffect){
             this.hotFixStore.progress = progress;
             TW_Store.gameUpateStore.isNeedUpdate=true;
@@ -382,6 +383,7 @@ export default class Enter extends Component {
                 let updateMode =  this.hotFixStore.isNextAffect ? CodePush.InstallMode.ON_NEXT_RESTART:CodePush.InstallMode.IMMEDIATE;
                 update.download(this.codePushDownloadDidProgress.bind(this)).then((localPackage) => {
                     alreadyInCodePush = false;
+
                     if (localPackage) {
                         this.hotFixStore.syncMessage = '下载完成,开始安装';
                         this.hotFixStore.progress = false;
@@ -407,7 +409,6 @@ export default class Enter extends Component {
                         this.updateFail('下载失败,请重试...')
                     }
                 }).catch((ms) => {
-                    alreadyInCodePush = false
                     this.storeLog({downloadStatus: false, message: '下载失败,请重试...'})
                     this.updateFail('下载失败,请重试...')
                 }).finally(()=>{
