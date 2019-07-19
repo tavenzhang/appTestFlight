@@ -60,10 +60,4 @@ export const platInfo = {
     brand: "chyqp",
 }
 
-export const affCodeList = {
-    ios: {
-    },
-    android: {
-    }
-};
 
