@@ -23,6 +23,8 @@ export default class HotFixStore {
     //是否静默更新 下次启动剩下
     @observable
     isNextAffect=false
+    @observable
+    percent = 0;
 
     @action
     skipUpdate() {
