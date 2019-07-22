@@ -32,11 +32,22 @@ var PageLogin = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.gatewayCount = 0;
         _this.pb_loading.value = 0;
-        _this.loginBtns = [
-            _this.login_fast,
-            _this.login_account,
-            _this.login_phone
-        ];
+        if (AppData.IS_NATIVE_APP) { //App加入微信登录按钮
+            _this.loginBtns = [
+                _this.login_fast,
+                _this.login_wx,
+                _this.login_account,
+                _this.login_phone
+            ];
+        }
+        else {
+            _this.loginBtns = [
+                _this.login_fast,
+                _this.login_account,
+                _this.login_phone
+            ];
+            _this.login_wx.visible = false;
+        }
         var btnWidth = _this.loginBtns[0].width;
         var len = _this.loginBtns.length;
         var gap = 110;
@@ -169,6 +180,8 @@ var PageLogin = /** @class */ (function (_super) {
     PageLogin.prototype.initEvents = function () {
         var _this = this;
         EventManager.register(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
+        //监听微信登录消息
+        EventManager.register(EventType.WeChatLogin, this, this.doWeChatLogin);
         //客服
         EventManager.addTouchScaleListener(this.btn_service, this, function () {
             SoundPlayer.clickSound();
@@ -195,6 +208,11 @@ var PageLogin = /** @class */ (function (_super) {
             SoundPlayer.clickSound();
             _this.selectLoginType(LoginType.Phone);
         });
+        //微信登录
+        EventManager.addTouchScaleListener(this.login_wx, this, function () {
+            SoundPlayer.clickSound();
+            _this.showWeChatLoginView();
+        }, null, 1);
         //--------------快捷登录---------------------------
         //快捷登录确定
         EventManager.addTouchScaleListener(this.fast_login, this, function () {
@@ -310,6 +328,19 @@ var PageLogin = /** @class */ (function (_super) {
     };
     PageLogin.prototype.clearCodeTime = function () {
         Laya.timer.clear(this, this.updateCodeTime);
+    };
+    //微信登录响应方法
+    PageLogin.prototype.doWeChatLogin = function (jobj) {
+        if (jobj.certifiedPhone == false) { //这种情况需要跳转到用户登录界面
+            Toast.showToast("手机号认证失效，请账号登录后重新绑定手机");
+            this.selectLoginType(LoginType.Account);
+            return;
+        }
+        this.saveLoginInfo(jobj, LoginType.Phone);
+        if (jobj.autoGenPassword) { //手机登录生成的密码(同一个号就第一次有),修改密码时要默认这个密码
+            SaveManager.getObj().save(SaveManager.KEY_PHONEPWD, jobj.autoGenPassword);
+        }
+        LayaMain.getInstance().initLobby();
     };
     /**
      * 初始化登录流程
@@ -547,7 +578,9 @@ var PageLogin = /** @class */ (function (_super) {
      * 微信登陆
      */
     PageLogin.prototype.showWeChatLoginView = function () {
-        //todo:...
+        //todo:test 
+        Debug.log("Try wxLogin");
+        PostMHelp.game_common({ do: "wxLogin", param: "" });
     };
     /**
      * 手机号登陆
