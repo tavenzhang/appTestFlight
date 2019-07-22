@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>com.openinstall.APP_KEY</key>
-	<string>yv9ho8</string>
-	<key>PlatId</key>
-	<string>1147</string>
+ <key>com.openinstall.APP_KEY</key>
+	<string>k9e92p</string>
+	<key>APP_DOWNLOAD_VERSION</key>
+	<string>8.0</string>
 	<key>PLAT_CH</key>
 	<string>1</string>
 	<key>APP_DOWNLOAD_VERSION</key>
@@ -16,13 +16,13 @@
 	<string>bacd6421e8f922f0d9653e1a</string>
 	<key>UmengKey</key>
 	<string>5b9f7642f43e486308000111</string>
-	<key>CFBundleVersion</key>
-	<string>6</string>
+		<key>JPushKey</key>
+    	<string>e9f6454032a3f4936d80a82f</string>
 	<key>AppSecret</key>
-	<dict>
-		<key>weixin</key>
-		<string>08cf520363fbd00ef468566f61517e21</string>
-	</dict>
+    	<dict>
+    		<key>weixin</key>
+    		<string>06f5151830e538583897772e402ae142</string>
+    	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -32,7 +32,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.qp.chyqp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
+	<string>8.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
@@ -53,6 +53,16 @@
 				<string>wx277cfc03f3d2734c</string>
 			</array>
 		</dict>
+		<dict>
+        			<key>CFBundleTypeRole</key>
+        			<string>Editor</string>
+        			<key>CFBundleURLName</key>
+        			<string>weixin</string>
+        			<key>CFBundleURLSchemes</key>
+        			<array>
+        				<string>wx14a4c6864a801156</string>
+        			</array>
+        		</dict>
 	</array>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
@@ -70,6 +80,7 @@
 			</dict>
 		</array>
 	</dict>
+
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
