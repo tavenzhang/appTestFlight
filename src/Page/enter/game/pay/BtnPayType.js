@@ -1,16 +1,13 @@
 import React, {Component} from 'react'
 import {
-    Platform,
-    StyleSheet,
     View,
-    Text, WebView, TouchableWithoutFeedback
+    TouchableWithoutFeedback
 } from 'react-native'
 import {observer} from 'mobx-react';
 import {ASSET_Images, JX_PLAT_INFO} from "../../../asset";
 
 import TCImage from "../../../../Common/View/image/TCImage";
 import PropTypes from "prop-types";
-import {userPay} from "../../../asset/images";
 
 @observer
 export default class BtnPayType extends Component {
@@ -28,9 +25,15 @@ export default class BtnPayType extends Component {
 
     render() {
         let {isSelect, data} = this.props
+        let vipLeft = SCREEN_W > 800 ? -24 : -20
         return (<TouchableWithoutFeedback onPress={this.onSelect}>
-                <View style={{justifyContent: "center", alignItems: "center", height: 50}}>
-                    <TCImage source={isSelect ? ASSET_Images.gameUI.btnPayHight : ASSET_Images.gameUI.btnPayNormal}/>
+                <View style={{justifyContent: "center", alignItems: "center", height: 55}}>
+                    <TCImage
+                        source={isSelect ? ASSET_Images.gameUI.btnPayHight : data.code == 'VIP' ? ASSET_Images.gameUI.btnPayVIPNormal : ASSET_Images.gameUI.btnPayNormal}
+                        style={{
+                            width: SCREEN_W > 850 ? 175 : 160,
+                            left: isSelect ? 0 : data.code == 'VIP' ? vipLeft : -35
+                        }}/>
                     <View style={{
                         position: "absolute", alignItems: "center", justifyContent: "center",
                     }}>
@@ -38,10 +41,6 @@ export default class BtnPayType extends Component {
                             <TCImage source={this.getPayTypeIcon(data.code)}
                                      soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                      style={{marginRight: 5}}/>
-                            {/*<View style={{justifyContent:"center", alignItems:"center"}}>*/}
-                            {/*<TCImage source={this.getPayName(data.code)}/>*/}
-                            {/*{this.isFinxePay(data.code) ? <TCImage source={ASSET_Images.gameUI.title_fix}/>:null}*/}
-                            {/*</View>*/}
                         </View>
                     </View>
                 </View>
