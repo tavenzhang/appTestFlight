@@ -5,7 +5,7 @@
  <key>com.openinstall.APP_KEY</key>
 	<string>k9e92p</string>
 	<key>APP_DOWNLOAD_VERSION</key>
-	<string>7.0</string>
+	<string>8.0</string>
 	<key>PLAT_CH</key>
 	<string>1</string>
 	<key>PLAT_ID</key>
@@ -19,7 +19,7 @@
 	<key>AppSecret</key>
     	<dict>
     		<key>weixin</key>
-    		<string>67de54808bba55e934e3126f3e607a42</string>
+    		<string>06f5151830e538583897772e402ae142</string>
     	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
