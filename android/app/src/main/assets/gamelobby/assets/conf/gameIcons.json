@@ -160,6 +160,14 @@
             "gray": "./assets/ui/game/icon_mgdz_gray.png",
             "anim_png": "./assets/animation/icons/maogou/mgdz.png",
             "anim_sk": "./assets/animation/icons/maogou/mgdz.sk"
+        },
+        {
+            "desc": "抢庄牌九",
+            "alias": "pg",
+            "norm": "./assets/ui/game/icon_dt_qzpj.png",
+            "gray": "./assets/ui/game/icon_dt_qzpj_grey.png",
+            "anim_png": "./assets/animation/icons/qzpj/qzpj.png",
+            "anim_sk": "./assets/animation/icons/qzpj/qzpj.sk"
         }
     ],
     "defaultIcon": "ddz"

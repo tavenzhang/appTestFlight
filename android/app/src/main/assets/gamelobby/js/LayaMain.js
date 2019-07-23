@@ -121,6 +121,9 @@ var LayaMain = /** @class */ (function () {
         }
         if (message && message.action) {
             switch (message.action) {
+                case "wxLogin": //微信登录
+                    this.appResWXLogin(message);
+                    break;
                 case "logout": //退出到登录界面(同一账号登录两台设备时会触发401)
                     LayaMain.onQuit();
                     break;
@@ -311,6 +314,44 @@ var LayaMain = /** @class */ (function () {
             callBack.apply(caller);
         }
         //}
+    };
+    //向服务器请求微信登录
+    LayaMain.prototype.appResWXLogin = function (message) {
+        Debug.log("appResWXLogin = ", message);
+        return; //暂时屏蔽微信登录功能
+        //无数据直接跳出
+        if (JSON.stringify(message.data) === '{}')
+            return;
+        //保存微信数据
+        Common.weChatData = message.data;
+        /**
+         *  UserWXRegisterRequest {
+                affCode (string, optional): 推荐人邀请码,
+                hash (string, optional):  secret,
+                options (inline_model_2, optional): 手机号、邮箱等附加的选项。key,value都是字符串,
+                wap (boolean, optional),
+                wxId (string):  微信ID
+            }
+        */
+        var sendData = {
+            affCode: AppData.NATIVE_DATA.affCode,
+            //hash : num,
+            options: {},
+            wap: null,
+            wxId: "",
+        };
+        //打开遮罩
+        this.showCircleLoading(true);
+        //发送消息
+        HttpRequester.postHttpData(ConfObjRead.getConfUrl().cmd.wxLogin_app, sendData, this, this.resWXLogin);
+    };
+    //服务器返回微信登录消息
+    LayaMain.prototype.resWXLogin = function (suc, jobj) {
+        this.showCircleLoading(false); //关闭遮罩
+        Debug.log("resWXLogin = ", jobj);
+        if (suc) {
+            EventManager.dispath(EventType.WeChatLogin, jobj); //广播微信登录
+        }
     };
     /**
      * 显示loading

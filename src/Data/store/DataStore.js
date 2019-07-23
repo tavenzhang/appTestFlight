@@ -261,7 +261,7 @@ export default class DataStore {
                 }
 
             },
-            readTimeout:7000
+            readTimeout:4000
         };
         try {
             const ret = RNFS.downloadFile(options);
