@@ -25,6 +25,8 @@ export default class HotFixStore {
     isNextAffect=false
     @observable
     percent = 0;
+    @observable
+    isInstalledFinish = false;
 
     @action
     skipUpdate() {

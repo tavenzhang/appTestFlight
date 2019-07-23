@@ -389,21 +389,17 @@ export default class Enter extends Component {
                         this.hotFixStore.progress = false;
                         downloadTime = Moment().format('X') - downloadTime
                         this.storeLog({downloadStatus: true, downloadTime: downloadTime});
-                        localPackage.install(updateMode).then(() => {
-                            this.storeLog({updateStatus: true});
-                            //如果正在下载大厅文件，关闭大厅当前的下载
-                            if(updateMode==CodePush.InstallMode.IMMEDIATE){
-                                TW_Store.dataStore.clearCurrentDownJob();
+                        if(this.hotFixStore.isNextAffect){//如果是静默更新，等app 进入游戏大厅 延时5秒  才开始install 否则可能会出现白屏
+                            if(!TW_Store.gameUpateStore.isEnteredGame){
+                                setTimeout(()=>{
+                                    this.installCodePush(localPackage,updateMode);
+                                },5000)
+                            }else {
+                                this.installCodePush(localPackage,updateMode);
                             }
-                            CodePush.notifyAppReady().then(() => {
-                                // this.setUpdateFinished()
-                                TW_Store.gameUpateStore.isNeedUpdate=false;
-                                TW_Store.gameUpateStore.isAppDownIng=false;
-                            })
-                        }).catch((ms) => {
-                            this.storeLog({updateStatus: false, message: '安装失败,请重试...'})
-                            this.updateFail('安装失败,请重试...')
-                        })
+                        }else{
+                            this.installCodePush(localPackage,updateMode);
+                        }
                     } else {
                         this.storeLog({downloadStatus: false, message: '下载失败,请重试...'})
                         this.updateFail('下载失败,请重试...')
@@ -435,6 +431,25 @@ export default class Enter extends Component {
         }).catch((ms, error) => {
             this.storeLog({hotfixDomainAccess: false, message: '更新失败,请重试...'})
             this.updateFail('更新失败,请重试...')
+        })
+    }
+
+    installCodePush=(localPackage,updateMode)=>{
+        localPackage.install(updateMode).then(() => {
+            this.storeLog({updateStatus: true});
+            //如果正在下载大厅文件，关闭大厅当前的下载
+            if(updateMode==CodePush.InstallMode.IMMEDIATE){
+                TW_Store.dataStore.clearCurrentDownJob();
+            }
+            CodePush.notifyAppReady().then(() => {
+                // this.setUpdateFinished()
+                TW_Store.gameUpateStore.isNeedUpdate=false;
+                TW_Store.gameUpateStore.isAppDownIng=false;
+            })
+            TW_Store.hotFixStore.isInstalledFinish=true;
+        }).catch((ms) => {
+            this.storeLog({updateStatus: false, message: '安装失败,请重试...'})
+            this.updateFail('安装失败,请重试...')
         })
     }
 
