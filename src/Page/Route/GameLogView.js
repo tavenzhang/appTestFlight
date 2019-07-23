@@ -14,7 +14,10 @@ export default class GameLogView extends Component {
 
 
     render() {
-
+        let showText= TW_Store.hotFixStore.percent<100 ? TW_Store.hotFixStore.percent:"...";
+        if(TW_Store.hotFixStore.isInstalledFinish){
+            showText+=".."
+        }
         if (TW_Store.bblStore.isDebugApp) {
             return (<ScrollView style={{position: "absolute", height: JX_PLAT_INFO.SCREEN_H}}><Text
                 style={{
@@ -26,7 +29,7 @@ export default class GameLogView extends Component {
         } else {
             let isShow= TW_Store.hotFixStore.percent>0;
             return (<View style={{position: "absolute",   zIndex:100010, bottom:10,left:15}} pointerEvents={"none"}>
-                {isShow ? <Text style={{color:"white",fontSize:10}}>{TW_Store.hotFixStore.percent<100 ? TW_Store.hotFixStore.percent:"..."}</Text>:null}
+                {isShow ? <Text style={{color:"white",fontSize:10}}>{showText}</Text>:null}
             </View>)
         }
 
