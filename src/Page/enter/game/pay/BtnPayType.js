@@ -25,14 +25,14 @@ export default class BtnPayType extends Component {
 
     render() {
         let {isSelect, data} = this.props
-        let vipLeft = SCREEN_W > 800 ? -24 : -20
+        //let vipLeft = SCREEN_W > 800 ? -24 : -20
         return (<TouchableWithoutFeedback onPress={this.onSelect}>
                 <View style={{justifyContent: "center", alignItems: "center", height: 55}}>
                     <TCImage
-                        source={isSelect ? ASSET_Images.gameUI.btnPayHight : data.code == 'VIP' ? ASSET_Images.gameUI.btnPayVIPNormal : ASSET_Images.gameUI.btnPayNormal}
+                        source={isSelect ? ASSET_Images.gameUI.btnPayHight : ASSET_Images.gameUI.btnPayNormal}
                         style={{
                             width: SCREEN_W > 850 ? 175 : 160,
-                            left: isSelect ? 0 : data.code == 'VIP' ? vipLeft : -35
+                            left: isSelect ? 0 : -35
                         }}/>
                     <View style={{
                         position: "absolute", alignItems: "center", justifyContent: "center",
