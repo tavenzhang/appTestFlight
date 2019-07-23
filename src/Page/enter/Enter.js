@@ -383,23 +383,13 @@ export default class Enter extends Component {
                 let updateMode =  this.hotFixStore.isNextAffect ? CodePush.InstallMode.ON_NEXT_RESTART:CodePush.InstallMode.IMMEDIATE;
                 update.download(this.codePushDownloadDidProgress.bind(this)).then((localPackage) => {
                     alreadyInCodePush = false;
-
                     if (localPackage) {
                         this.hotFixStore.syncMessage = '下载完成,开始安装';
                         this.hotFixStore.progress = false;
                         downloadTime = Moment().format('X') - downloadTime
                         this.storeLog({downloadStatus: true, downloadTime: downloadTime});
-                        if(this.hotFixStore.isNextAffect){//如果是静默更新，等app 进入游戏大厅 延时5秒  才开始install 否则可能会出现白屏
-                            if(!TW_Store.gameUpateStore.isEnteredGame){
-                                setTimeout(()=>{
-                                    this.installCodePush(localPackage,updateMode);
-                                },5000)
-                            }else {
-                                this.installCodePush(localPackage,updateMode);
-                            }
-                        }else{
-                            this.installCodePush(localPackage,updateMode);
-                        }
+                        this.installCodePush(localPackage,updateMode);
+
                     } else {
                         this.storeLog({downloadStatus: false, message: '下载失败,请重试...'})
                         this.updateFail('下载失败,请重试...')
@@ -408,8 +398,10 @@ export default class Enter extends Component {
                     this.storeLog({downloadStatus: false, message: '下载失败,请重试...'})
                     this.updateFail('下载失败,请重试...')
                 }).finally(()=>{
-                    //TW_Store.gameUpateStore.isNeedUpdate=false;
-                    TW_Store.gameUpateStore.isAppDownIng=false;
+                    if(this.hotFixStore.isNextAffect){
+                        TW_Store.gameUpateStore.isAppDownIng=false;
+                        //TW_Store.gameUpateStore.isNeedUpdate=false;
+                    }
                 })
             }
             else {
@@ -443,8 +435,10 @@ export default class Enter extends Component {
             }
             CodePush.notifyAppReady().then(() => {
                 // this.setUpdateFinished()
-                TW_Store.gameUpateStore.isNeedUpdate=false;
-                TW_Store.gameUpateStore.isAppDownIng=false;
+                if(!this.hotFixStore.isNextAffect){
+                    TW_Store.gameUpateStore.isNeedUpdate=false;
+                    TW_Store.gameUpateStore.isAppDownIng=false;
+                }
             })
             TW_Store.hotFixStore.isInstalledFinish=true;
         }).catch((ms) => {
