@@ -68,6 +68,7 @@ export default class GameMoneyInView extends Component {
                 Toast.showShortCenter(res.message);
             }
         })
+        TW_Store.userPayTypeStore.initPayTypeList();
     }
 
 
@@ -80,7 +81,7 @@ export default class GameMoneyInView extends Component {
         let fullWithStyle= SCREEN_ISFULL ? {width:SCREEN_W*0.22}:null
         return (<View style={styles.container} pointerEvents={pointerEvents}>
             <TCImage source={ASSET_Images.gameUI.moneyInBg} style={{ width:SCREEN_W, height:SCREEN_H}} resizeMode={'stretch'}/>
-            <TCImage source={ASSET_Images.gameUI.payTypeBg} style={[{position: "absolute",left:SCREEN_ISFULL ? -20:-15,top:SCREEN_H*0.14, height:SCREEN_H-50}, fullWithStyle]}/>
+            <TCImage source={ASSET_Images.gameUI.payTypeBg} style={[{position: "absolute",left:SCREEN_ISFULL ? -20:-15,top:SCREEN_H*0.14, height:SCREEN_H-50}, fullWithStyle]} resizeMode={'stretch'}/>
             <TCImage source={ASSET_Images.gameUI.payTopLeftBg} style={{position: "absolute",width:SCREEN_W*0.30,height:SCREEN_H*0.15}} resizeMode={'stretch'}/>
             <TCImage source={ASSET_Images.gameUI.payTopIcon} style={{position: "absolute",width:SCREEN_W*0.08,height:SCREEN_H*0.15,left:SCREEN_W*0.02,top:5}} resizeMode={'stretch'}/>
             <TCImage source={ASSET_Images.gameUI.payTopTxt} style={{position: "absolute",left:SCREEN_W*0.12,top:13}} resizeMode={'contain'}/>
@@ -153,6 +154,7 @@ export default class GameMoneyInView extends Component {
         let bankitem = this.state.selectPayitem;
         if(!bankitem && this.userPayStore.payTypeList.length>0){
             bankitem = this.userPayStore.payTypeList[0];
+            TW_Log("Benny >> BankItem: "+bankitem.code)
         }
         bankitem= bankitem ? bankitem:{}
         return  <BtnPayType onClick={(data)=>{

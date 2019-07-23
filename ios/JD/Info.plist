@@ -2,38 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>openinstall</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>evna9i</string>
-			</array>
-		</dict>
-		<dict>
-                			<key>CFBundleTypeRole</key>
-                			<string>Editor</string>
-                			<key>CFBundleURLName</key>
-                			<string>weixin</string>
-                			<key>CFBundleURLSchemes</key>
-                			<array>
-                				<string>wx26019a5a7de8db15</string>
-                			</array>
-                		</dict>
-	</array>
-	<key>AppSecret</key>
-        	<dict>
-        		<key>weixin</key>
-        		<string>62ef8d30f3c4e244bde8831dd2f4ec84</string>
-        	</dict>
-	<key>com.openinstall.APP_KEY</key>
-	<string>evna9i</string>
-	<key>PLAT_ID</key>
-	<string>31</string>
+ <key>com.openinstall.APP_KEY</key>
+	<string>k9e92p</string>
+	<key>APP_DOWNLOAD_VERSION</key>
+	<string>8.0</string>
 	<key>PLAT_CH</key>
 	<string>1</string>
 	<key>APP_DOWNLOAD_VERSION</key>
@@ -44,6 +16,13 @@
 	<string>e9f6454032a3f4936d80a82f</string>
 	<key>UmengKey</key>
 	<string>5b9f7642f43e486308000111</string>
+		<key>JPushKey</key>
+    	<string>e9f6454032a3f4936d80a82f</string>
+	<key>AppSecret</key>
+    	<dict>
+    		<key>weixin</key>
+    		<string>06f5151830e538583897772e402ae142</string>
+    	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
