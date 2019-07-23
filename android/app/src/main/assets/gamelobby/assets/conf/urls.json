@@ -73,7 +73,6 @@
         "flushMoney": "/gamecenter/player/user/balance",
         "phoneLogin_app": "/account/webapi/account/users/secure/gameAppMobileLogin",
         "phoneLogin_web": "/account/webapi/account/users/secure/gameWebMobileLogin",
-        "wxLogin_app": "/account/webapi/account/users/secure/gameWeChatLogin",
         "bindPhone": "/gamecenter/player/user/phone/bind",
         "getBindInfo": "/gamecenter/player/user/phone",
         "getBindAward": "/gamecenter/player/user/phone/reward",
