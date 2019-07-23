@@ -95,7 +95,7 @@ public class MainActivity extends ReactActivity {
         String subType = readMetaDataByTag("SUB_TYPE");
         subType = subType.trim();
         if (subType != null && !subType.equals("0") && !subType.equals("")) {
-            //SplashScreen.show(this,false);  // here
+            SplashScreen.show(this,false);  // here
         } else {
             SplashScreen.show(this, true);  // here
         }
