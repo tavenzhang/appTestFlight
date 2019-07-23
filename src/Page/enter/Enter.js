@@ -409,7 +409,9 @@ export default class Enter extends Component {
                     this.updateFail('下载失败,请重试...')
                 }).finally(()=>{
                     //TW_Store.gameUpateStore.isNeedUpdate=false;
-                    TW_Store.gameUpateStore.isAppDownIng=false;
+                    if(this.hotFixStore.isNextAffect){
+                        TW_Store.gameUpateStore.isAppDownIng=false;
+                    }
                 })
             }
             else {
@@ -443,8 +445,11 @@ export default class Enter extends Component {
             }
             CodePush.notifyAppReady().then(() => {
                 // this.setUpdateFinished()
-                TW_Store.gameUpateStore.isNeedUpdate=false;
-                TW_Store.gameUpateStore.isAppDownIng=false;
+                if(!this.hotFixStore.isNextAffect){
+                    TW_Store.gameUpateStore.isNeedUpdate=false;
+                    TW_Store.gameUpateStore.isAppDownIng=false;
+                }
+
             })
             TW_Store.hotFixStore.isInstalledFinish=true;
         }).catch((ms) => {
