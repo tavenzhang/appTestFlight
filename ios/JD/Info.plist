@@ -2,14 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>com.openinstall.APP_KEY</key>
+	<string>yv9ho8</string>
+	<key>PlatId</key>
+	<string>1147</string>
+	<key>PLAT_CH</key>
+	<string>1</string>
 	<key>APP_DOWNLOAD_VERSION</key>
-	<string>8.0</string>
+	<string>6.0</string>
 	<key>Affcode</key>
 	<string></string>
+	<key>JPushKey</key>
+	<string>bacd6421e8f922f0d9653e1a</string>
+	<key>UmengKey</key>
+	<string>5b9f7642f43e486308000111</string>
+	<key>CFBundleVersion</key>
+	<string>6</string>
 	<key>AppSecret</key>
 	<dict>
 		<key>weixin</key>
-		<string>06f5151830e538583897772e402ae142</string>
+		<string>c05ff4e9cb83b964dd7e1c46b7f3f080</string>
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
@@ -18,7 +30,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.qp.chyqp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -41,16 +53,6 @@
 				<string>wx1d27425f84c15ba7</string>
 			</array>
 		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>weixin</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>wx14a4c6864a801156</string>
-			</array>
-		</dict>
 	</array>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
@@ -68,8 +70,6 @@
 			</dict>
 		</array>
 	</dict>
-	<key>JPushKey</key>
-	<string>e9f6454032a3f4936d80a82f</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
@@ -127,11 +127,7 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>需要您的同意,才能访问相册</string>
-	<key>PLAT_CH</key>
-	<string>1</string>
-	<key>PLAT_ID</key>
-	<string>5</string>
+	<string>camera</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -156,13 +152,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UTImportedTypeDeclarations</key>
-	<array>
-		<dict/>
-	</array>
-	<key>UmengKey</key>
-	<string>5b9f7642f43e486308000111</string>
-	<key>com.openinstall.APP_KEY</key>
-	<string>k9e92p</string>
 </dict>
 </plist>
