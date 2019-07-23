@@ -488,56 +488,6 @@ export default class Enter extends Component {
         )
     }
 
-    updateFailView() {
-        return (
-            <View style={{flex: 1}}>
-                <StatusBar
-                    hidden={false}
-                    animated={true}
-                    translucent={true}
-                    backgroundColor={'transparent'}
-                    barStyle="light-content"/>
-                <TopNavigationBar title={TW_Store.appStore.appName} needBackButton={false}/>
-                <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-                    <Text style={{
-                        fontWeight: 'bold',
-                        fontSize: Size.font16
-                    }}> {this.hotFixStore.syncMessage}</Text>
-                    <View>
-                        <TouchableOpacity
-                            onPress={() => {
-                                retryTimes++
-                                if (retryTimes >= 3) {
-                                    this.hotFixStore.skipUpdate()
-                                } else {
-                                    this.initDomain()
-                                }
-                            }}
-                            style={{
-                                backgroundColor: '#3056b2',
-                                justifyContent: 'center',
-                                flexDirection: 'row',
-                                height: 40,
-                                alignItems: 'center',
-                                borderRadius: 4,
-                                padding: 10,
-                                width: width * 0.6,
-                                marginTop: 20
-                            }}
-                        >
-                            <Text style={{
-                                color: 'white',
-                                fontWeight: 'bold',
-                                fontSize: Size.font18
-                            }}>
-                                重试一下
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-        )
-    }
 }
 
 

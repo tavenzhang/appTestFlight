@@ -4,8 +4,7 @@ import {
     StyleSheet,
     View,
 } from 'react-native';
-
-import { WebView } from 'react-native-webview';
+import {WebView} from 'react-native-webview';
 import {observer} from "mobx-react";
 
 
@@ -55,34 +54,35 @@ export default class LoadingWebView extends Component {
         if(!visible){
             return null;
         }
-        let injectJs = `(function() {
-  window.postMessage = function(data) {
-    window.ReactNativeWebView.postMessage(data);
-  };
-})()`;
+        let injectJs = `window.appData=${JSON.stringify({
+            isApp: true,
+        })},(function() {
+          window.postMessage = function(data) {
+            window.ReactNativeWebView.postMessage(data);
+          };
+        })()`
         TW_Log("targetAppDir----LoadingWebView-source=="+source);
-        let wenConteView = <WebView
-                ref="myWebView"
-                useWebKit={true}
-                automaticallyAdjustContentInsets={true}
-                allowsInlineMediaPlayback={true}
-                style={[styles.webView,{width: TW_Store.appStore.screenW}]}
-                source={source}
-                javaScriptEnabled={true}
-                domStorageEnabled={true}
-                decelerationRate="normal"
-                // renderLoading={this.onRenderLoadingView}
-                startInLoadingState={false}
-                onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-                allowFileAccess={true}
-                injectedJavaScript={injectJs}
-                onError={this.onError}
-                onMessage={this.onMessage}
-                onLoadEnd={this.onLoadEnd}
-            />
         return (
             <View style={[styles.container,{width: TW_Store.appStore.screenW}]}>
-                {wenConteView}
+                <WebView
+                    ref="myWebView"
+                    useWebKit={true}
+                    automaticallyAdjustContentInsets={true}
+                    allowsInlineMediaPlayback={true}
+                    style={[styles.webView,{width: TW_Store.appStore.screenW}]}
+                    source={source}
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}
+                    decelerationRate="normal"
+                    // renderLoading={this.onRenderLoadingView}
+                    startInLoadingState={false}
+                    onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+                    allowFileAccess={true}
+                    injectedJavaScript={injectJs}
+                    onError={this.onError}
+                    onMessage={this.onMessage}
+                    onLoadEnd={this.onLoadEnd}
+                />
             </View>
         );
     }
@@ -147,7 +147,9 @@ export default class LoadingWebView extends Component {
     onLoadEvalueJS = (data) => {
         let dataStr = JSON.stringify(data);
         dataStr = dataStr ? dataStr : "";
+
         if(this.refs.myWebView){
+            TW_Log("downloadFile---onLoadEvalueJS--versionBBL---progress-TW_Store.gameUpateStore.isNeedUpdate=-",data);
             this.refs.myWebView.postMessage(dataStr, "*");
         }
 
