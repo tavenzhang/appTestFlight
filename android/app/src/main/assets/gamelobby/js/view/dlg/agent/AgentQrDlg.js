@@ -36,26 +36,7 @@ var view;
                     //保存海报
                     EventManager.addTouchScaleListener(_this.saveBtn, _this, function () {
                         SoundPlayer.clickSound();
-                        //生成截图画布
-                        var bgBox = new Laya.Sprite();
-                        bgBox.width = Math.min(_this.bgImage.width, _this.width);
-                        bgBox.height = Math.min(_this.bgImage.height, _this.height);
-                        //添加截图内容
-                        bgBox.addChild(_this.posterNode);
-                        _this.posterNode.centerX = _this.posterNode.centerY = 0;
-                        //保存截图
-                        var htmlC = bgBox.drawToCanvas(bgBox.width, bgBox.height, 0, 0);
-                        var cv = htmlC.getCanvas();
-                        var base64 = cv.toDataURL("image/png");
-                        //test
-                        // var img = new Laya.Image();
-                        // img.skin = base64;
-                        // Laya.stage.addChild(img);
-                        // img.centerX = img.centerY = 0;
-                        // img.scale(0.5,0.5);
-                        //通知App保存图片
-                        PostMHelp.game_common({ do: "saveImage", param: base64 });
-                        //关闭界面
+                        GameUtils.saveImage(_this.posterNode);
                         _this.close(null, true);
                     });
                     //退出
