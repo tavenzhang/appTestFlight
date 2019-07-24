@@ -52,6 +52,7 @@ var LobbyScene = /** @class */ (function (_super) {
         }
         LobbyScene.IS_PLAYED_MUSIC = true;
         Laya.loader.load([{ url: ResConfig.musicUrl }], new Laya.Handler(this, function () {
+            SaveManager.getObj().refreshSaveObj();
             if (SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1) >= 1) //开关
              {
                 Laya.SoundManager.musicVolume = 1;

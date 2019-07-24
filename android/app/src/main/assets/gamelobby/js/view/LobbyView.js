@@ -223,6 +223,8 @@ var view;
             LobbyDataManager.getUnreadMail();
             this.requestCycelData();
             this.checkUnreadNotice();
+            //检查全局维护公告
+            LayaMain.getInstance().checkGameMaintenance();
         };
         //从大厅进入游戏
         LobbyView.prototype.hallToGame = function () {

@@ -391,6 +391,9 @@ export default class XXWebView extends Component {
                                 TW_Log("code----"+code+"---message---"+message,result);
                                 if(result){
                                     this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.wxLogin,{data:result}));
+                                    if (code == 1) {
+                                        this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.popTip, {data: "请安装微信"}));
+                                    }
                                 }
                             });
                             break;

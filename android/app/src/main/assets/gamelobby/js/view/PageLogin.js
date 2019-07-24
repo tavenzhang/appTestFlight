@@ -32,22 +32,21 @@ var PageLogin = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.gatewayCount = 0;
         _this.pb_loading.value = 0;
-        if (AppData.IS_NATIVE_APP) { //App加入微信登录按钮
-            _this.loginBtns = [
-                _this.login_fast,
-                _this.login_wx,
-                _this.login_account,
-                _this.login_phone
-            ];
-        }
-        else {
-            _this.loginBtns = [
-                _this.login_fast,
-                _this.login_account,
-                _this.login_phone
-            ];
-            _this.login_wx.visible = false;
-        }
+        // if(AppData.IS_NATIVE_APP){ //App加入微信登录按钮
+        //     this.loginBtns = [//按顺序加入按钮
+        //         this.login_fast,
+        //         this.login_wx,
+        //         this.login_account,
+        //         this.login_phone
+        //     ];
+        // }else{
+        _this.loginBtns = [
+            _this.login_fast,
+            _this.login_account,
+            _this.login_phone
+        ];
+        _this.login_wx.visible = false;
+        //}
         var btnWidth = _this.loginBtns[0].width;
         var len = _this.loginBtns.length;
         var gap = 110;
