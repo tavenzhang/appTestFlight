@@ -213,7 +213,7 @@ var view;
                         this.loadCategoryTab(0);
                         break;
                 }
-                SoundPlayer.enterPanelSound();
+                SoundPlayer.enterPanelSound(true);
             };
             NoticeDlg.prototype.onSideTabClick = function ($e) {
                 // if (thidds.isDrag) return;

@@ -9,6 +9,9 @@ var SaveManager = /** @class */ (function () {
         }
         return SaveManager.obj;
     };
+    SaveManager.refreshData = function () {
+        SaveManager.getObj().init();
+    };
     SaveManager.prototype.refreshSaveObj = function () {
         this.mtObj = this.getObjTotal(SaveManager.SAVE_KEY_NN, {});
     };

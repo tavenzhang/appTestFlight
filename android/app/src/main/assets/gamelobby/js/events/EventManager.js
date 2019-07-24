@@ -284,6 +284,8 @@ var EventType = /** @class */ (function () {
     EventType.GET_BACKCARD_DETAIL = "getBankCardDetail"; //获取银行卡详细信息
     EventType.JUMP_GAME = "jumpGame"; //轮播图跳转游戏
     EventType.FLUSH_YUEBAOINFO = "flushYuebaoInfo"; //刷新余额宝信息
+    //微信登录
+    EventType.WeChatLogin = "WeChatLogin";
     return EventType;
 }());
 //# sourceMappingURL=EventManager.js.map

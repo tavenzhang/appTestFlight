@@ -121,6 +121,9 @@ var LayaMain = /** @class */ (function () {
         }
         if (message && message.action) {
             switch (message.action) {
+                case "wxLogin": //微信登录
+                    EventManager.dispath(EventType.WeChatLogin, message); //广播微信登录
+                    break;
                 case "logout": //退出到登录界面(同一账号登录两台设备时会触发401)
                     LayaMain.onQuit();
                     break;

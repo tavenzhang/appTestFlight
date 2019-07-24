@@ -209,6 +209,38 @@ var HttpRequester = /** @class */ (function () {
         this.doRequest(url, header, jsonStr, caller, callback);
     };
     /**
+     * 微信登录
+     * @param wxId 微信ID
+     * @param caller
+     * @param callback
+     */
+    HttpRequester.wxLogin = function (wxId, caller, callback) {
+        var url = ConfObjRead.getConfUrl().url.apihome;
+        url += ConfObjRead.getConfUrl().cmd.wxLogin_app;
+        var header = this.getEncryHeader();
+        //微信ID加密
+        var eWxId = window['SecretUtils'].rsaEncodePWD(wxId);
+        /** 发送服务器参数
+         *  UserWXRegisterRequest {
+                affCode (string, optional): 推荐人邀请码,
+                hash (string, optional):  secret,
+                options (inline_model_2, optional): 手机号、邮箱等附加的选项。key,value都是字符串,
+                wap (boolean, optional),
+                wxId (string):  微信ID
+            }
+        */
+        var data = {
+            // options: {
+            // },
+            // wap: null,
+            //参照账号登陆
+            wxId: eWxId,
+            affCode: AppData.NATIVE_DATA.affCode,
+        };
+        var jsonStr = JSON.stringify(data);
+        this.doRequest(url, header, jsonStr, caller, callback);
+    };
+    /**
      * 修改密码(包括登录密码和取款密码)
      * @param pwd
      * @param newpwd

@@ -34,6 +34,8 @@ var LobbyScene = /** @class */ (function (_super) {
         return LobbyScene.obj;
     };
     LobbyScene.prototype.initUI = function () {
+        //刷新本地保存数据
+        SaveManager.refreshData();
         //添加大厅视图
         this.view = new view.LobbyView();
         this.addChild(this.view);
