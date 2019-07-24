@@ -32,11 +32,21 @@ var PageLogin = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.gatewayCount = 0;
         _this.pb_loading.value = 0;
+        // if(AppData.IS_NATIVE_APP){ //App加入微信登录按钮
+        //     this.loginBtns = [//按顺序加入按钮
+        //         this.login_fast,
+        //         this.login_wx,
+        //         this.login_account,
+        //         this.login_phone
+        //     ];
+        // }else{
         _this.loginBtns = [
             _this.login_fast,
             _this.login_account,
             _this.login_phone
         ];
+        _this.login_wx.visible = false;
+        //}
         var btnWidth = _this.loginBtns[0].width;
         var len = _this.loginBtns.length;
         var gap = 110;
@@ -169,6 +179,8 @@ var PageLogin = /** @class */ (function (_super) {
     PageLogin.prototype.initEvents = function () {
         var _this = this;
         EventManager.register(EventType.BLUR_NATIVE, this, this.lostFocusInputText);
+        //监听微信登录消息
+        EventManager.register(EventType.WeChatLogin, this, this.doWXLogin);
         //客服
         EventManager.addTouchScaleListener(this.btn_service, this, function () {
             SoundPlayer.clickSound();
@@ -195,6 +207,11 @@ var PageLogin = /** @class */ (function (_super) {
             SoundPlayer.clickSound();
             _this.selectLoginType(LoginType.Phone);
         });
+        //微信登录
+        EventManager.addTouchScaleListener(this.login_wx, this, function () {
+            SoundPlayer.clickSound();
+            _this.showWeChatLoginView();
+        }, null, 1);
         //--------------快捷登录---------------------------
         //快捷登录确定
         EventManager.addTouchScaleListener(this.fast_login, this, function () {
@@ -547,7 +564,9 @@ var PageLogin = /** @class */ (function (_super) {
      * 微信登陆
      */
     PageLogin.prototype.showWeChatLoginView = function () {
-        //todo:...
+        //todo:test 
+        Debug.log("Try wxLogin");
+        PostMHelp.game_common({ do: "wxLogin", param: "" });
     };
     /**
      * 手机号登陆
@@ -795,6 +814,56 @@ var PageLogin = /** @class */ (function (_super) {
     PageLogin.prototype.onForgetPwd = function () {
         //跳转忘记密码UI
         this.showForgetPasswordPanel();
+    };
+    /** 微信登录App请求返回
+     * @param message
+        "data": {
+            accessToken: "23_TjJ1OECp7ylnjb4g753d4Nh47L6Drptk-O1i_iJjQmPD88FFcMiQUZUV2STqSLrhf7SUpuXnT2ayvuwtPNMmAVUN5_0GVNxfSEzdTWTVvic"
+            access_token: "23_TjJ1OECp7ylnjb4g753d4Nh47L6Drptk-O1i_iJjQmPD88FFcMiQUZUV2STqSLrhf7SUpuXnT2ayvuwtPNMmAVUN5_0GVNxfSEzdTWTVvic"
+            city: "吉隆坡"
+            country: "马来西亚"
+            expiration: "1563787256811"
+            expires_in: "1563787256811"
+            gender: "0"
+            iconurl: ""
+            language: "zh_CN"
+            name: "heheda"
+            openid: "ohmBWxFiFc7HtECjZIxi7jyj5Uq8"
+            profile_image_url: ""
+            province: "吉隆坡"
+            refreshToken: "23_ZtB9fOhyY8qcBGO7PGTOKeyXIIYOzD-32t1cJaNkbdGsYBjB_ZjiPMV0IfJA09RwwPicvhINKsQVNGnmkY5Fxv-C383WLa67cN07Au5ooFE"
+            screen_name: "heheda"
+            uid: "od7H61SmIbhKoz9IPO
+        }
+     */
+    PageLogin.prototype.doWXLogin = function (message) {
+        var _this = this;
+        Debug.log("doWXLogin = ", message); //debug
+        //无数据直接跳出
+        if (JSON.stringify(message.data) === '{}')
+            return;
+        if (message.data.uid == null || message.data.uid == "") {
+            Toast.showToast("微信ID获取失败");
+            return;
+        }
+        //打开遮罩
+        LayaMain.getInstance().showCircleLoading(true);
+        //保存微信数据
+        Common.weChatData = message.data;
+        //发送消息
+        HttpRequester.wxLogin(message.data.uid, this, function (suc, jobj) {
+            LayaMain.getInstance().showCircleLoading(false); //关闭遮罩
+            Debug.log("resWXLogin = ", jobj); //debug
+            if (suc) {
+                _this.saveLoginInfo(jobj, LoginType.WeChat);
+                LayaMain.getInstance().initLobby();
+            }
+            else {
+                if (jobj.http.status == 428) {
+                    _this.updateGatewayInfo(true);
+                }
+            }
+        });
     };
     PageLogin.isLoaded = false;
     return PageLogin;

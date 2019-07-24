@@ -88,20 +88,18 @@ var LayaMain = /** @class */ (function () {
     };
     LayaMain.prototype.onGameResume = function () {
         try {
-            SaveManager.getObj().refreshSaveObj();
+            //刷新本地缓存音频设置
+            SaveManager.getObj().refreshAudioSetting(true);
+            //
             var lms = SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1);
-            var lmv = SaveManager.getObj().get(SaveManager.KEY_MUSIC_VL, 1);
-            var lss = SaveManager.getObj().get(SaveManager.KEY_SFX_SWITCH, 1);
-            var lsv = SaveManager.getObj().get(SaveManager.KEY_SFX_VL, 1);
-            Debug.log("onGameResume:", "mscVol=", lmv, "open_music=", lms, "soundVol=", lsv, "open_sound=", lss, "mtobj=", SaveManager.getObj().mtObj);
-            Laya.SoundManager.setMusicVolume(lms);
-            Laya.SoundManager.setSoundVolume(lss);
-            if (lms == 1 && !GameUtils.isAppSound) {
-                Laya.SoundManager.playMusic(ResConfig.musicUrl);
+            //背景音乐恢复
+            if (GameUtils.isAppSound) {
+                PostMHelp.game_common({ do: "playBgMusic", param: (lms == 1) });
             }
-            var bl = Boolean(lms == 1 || lmv > 0);
-            if (GameUtils.isAppSound)
-                PostMHelp.game_common({ do: "playBgMusic", param: bl });
+            else {
+                if (lms == 1)
+                    Laya.SoundManager.playMusic(ResConfig.musicUrl);
+            }
             //刷新用户信息
             EventManager.dispath(EventType.FLUSH_USERINFO);
         }
@@ -121,6 +119,9 @@ var LayaMain = /** @class */ (function () {
         }
         if (message && message.action) {
             switch (message.action) {
+                case "wxLogin": //微信登录
+                    EventManager.dispath(EventType.WeChatLogin, message); //广播微信登录
+                    break;
                 case "logout": //退出到登录界面(同一账号登录两台设备时会触发401)
                     LayaMain.onQuit();
                     break;
@@ -276,8 +277,6 @@ var LayaMain = /** @class */ (function () {
             this.sceneLobby.onLoaded(null);
             LayaMain.getInstance().getRootNode().addChild(this.sceneLobby);
         }
-        //每次初始化大厅都需要检查一下维护公告
-        this.checkGameMaintenance();
     };
     /**
      * 检查维护公告
