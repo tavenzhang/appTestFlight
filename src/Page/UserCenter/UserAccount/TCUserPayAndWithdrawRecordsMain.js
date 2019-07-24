@@ -42,18 +42,24 @@ export default class TCUserPayAndWithdrawRecordsMain extends Component {
                 <TCImage style={{position:"absolute", left:newLeft}} source={ASSET_Images.gameUI.img_czmx_dkMenu} />
                 <View style={{position:"absolute", left:newLeft}}>
                     <View style={styles.container}>
-                        { TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick)}
-                        <TouchableOpacity onPress={()=>this.onSelect(1)} >
+
+                        <TouchableOpacity onPress={()=>{this.onSelect(1)
+                            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick)
+                        }} >
                             <View>
                                 <TCImage source={ this.state.selectType == 1 ? ASSET_Images.gameUI.czmxAll:ASSET_Images.gameUI.czmxAll_Normal}/>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>this.onSelect(2)} >
+                        <TouchableOpacity onPress={()=>{this.onSelect(2)
+                            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick)
+                        }} >
                             <View>
                                 <TCImage source={ this.state.selectType == 2 ? ASSET_Images.gameUI.czmxDone:ASSET_Images.gameUI.czmxDone_Normal}/>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>this.onSelect(3)} >
+                        <TouchableOpacity onPress={()=>{this.onSelect(3)
+                            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick)
+                        }} >
                             <View>
                                 <TCImage source={ this.state.selectType == 3? ASSET_Images.gameUI.czmxFail:ASSET_Images.gameUI.czmxFail_Normal}/>
                             </View>
