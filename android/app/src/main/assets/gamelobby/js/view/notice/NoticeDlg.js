@@ -433,7 +433,6 @@ var view;
             };
             NoticeDlg.prototype.onClosed = function (type) {
                 this.off("closeNoticeDlg", this, this.close);
-                // Laya.SoundManager.playSound("assets/raw/sfx_close.mp3");
                 EventManager.removeAllEvents(this);
                 this.tab_notice.off(Laya.Event.CLICK, this, this.onTabClick);
                 this.tab_game.off(Laya.Event.CLICK, this, this.onTabClick);
