@@ -157,8 +157,8 @@ export default class AppInfoStore {
                         }
                     })
                  OpeninstallModule.getInstall(10, res => {
-                    //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
-                        TW_Store.dataStore.log+="getInstall---res-"+res;
+                        TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
+                        //TW_Store.dataStore.log+="getInstall---res-"+res;
                         if (res&&res.data) {
                             //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
                             let map= null;
