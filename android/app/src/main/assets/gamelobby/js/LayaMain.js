@@ -30,6 +30,9 @@ var LayaMain = /** @class */ (function () {
         window.addEventListener("message", this.handleIFrameAction, false);
         this.root_node = new Laya.Sprite();
         Laya.stage.addChild(this.root_node);
+        //Sound
+        SoundPlayer.UpdateSetting();
+        //UI
         PageManager.showPage([
             "res/atlas/ui/res_login.atlas",
             "./assets/conf/assets_lobby.json",
@@ -83,23 +86,13 @@ var LayaMain = /** @class */ (function () {
         PageManager.showPage(null, PageLogin, cmd);
     };
     LayaMain.prototype.onGamePause = function () {
-        Laya.SoundManager.setMusicVolume(0);
-        // Laya.SoundManager.setSoundVolume(0);
+        //关闭所有音频
+        SoundPlayer.StopAllSounds();
     };
     LayaMain.prototype.onGameResume = function () {
         try {
-            //刷新本地缓存音频设置
-            SaveManager.getObj().refreshAudioSetting(true);
-            //
-            var lms = SaveManager.getObj().get(SaveManager.KEY_MUSIC_SWITCH, 1);
-            //背景音乐恢复
-            if (GameUtils.isAppSound) {
-                PostMHelp.game_common({ do: "playBgMusic", param: (lms == 1) });
-            }
-            else {
-                if (lms == 1)
-                    Laya.SoundManager.playMusic(ResConfig.musicUrl);
-            }
+            //根据设置刷新音频
+            SoundPlayer.UpdateSetting();
             //刷新用户信息
             EventManager.dispath(EventType.FLUSH_USERINFO);
         }

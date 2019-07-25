@@ -18,8 +18,7 @@ var SaveManager = /** @class */ (function () {
         this.commonJosnObj = null;
         //兼容
         this.compatibleSaveObj();
-        //刷新音频设置
-        this.refreshAudioSetting(true);
+        this.refreshSaveObj();
     }
     /***************************************** 管理器属性与实例 *********************************************/
     /** 获取管理器实例 */
@@ -62,35 +61,6 @@ var SaveManager = /** @class */ (function () {
         this.lobbyJosnObj = this.getObjTotal(SaveManager.SAVE_KEY_LOBBY, {});
     };
     /**
-     * 刷新音频设置
-     * @param refresh 是否重新刷新本地缓存
-     */
-    SaveManager.prototype.refreshAudioSetting = function (refresh) {
-        if (refresh === void 0) { refresh = false; }
-        //读取最新本地缓存文件
-        if (refresh)
-            this.refreshSaveObj();
-        //根据本地缓存数据设置音频
-        var b_music_switch = this.get(SaveManager.KEY_MUSIC_SWITCH, 1);
-        //var f_music_value = this.get(SaveManager.KEY_MUSIC_VL, 1);
-        var b_sfx_switch = this.get(SaveManager.KEY_SFX_SWITCH, 1);
-        //var f_sfx_value = this.get(SaveManager.KEY_SFX_VL, 1);
-        if (b_music_switch == 0) {
-            Laya.SoundManager.musicVolume = 0;
-        }
-        else {
-            Laya.SoundManager.musicVolume = 1;
-        }
-        if (b_sfx_switch == 0) {
-            Laya.SoundManager.soundVolume = 0;
-            Common.bSoundSwitch = false;
-        }
-        else {
-            Common.bSoundSwitch = true;
-            Laya.SoundManager.soundVolume = 1;
-        }
-    };
-    /**
      * 保存对象Json到本地缓存
      * @param key 键值
      * @param obj 对象
@@ -109,6 +79,19 @@ var SaveManager = /** @class */ (function () {
             return a;
         }
         return def;
+    };
+    /**
+     * 只设置数据,但是暂时不保存到本地缓存
+     * @param key 键值
+     * @param v 数据
+     */
+    SaveManager.prototype.set = function (key, v) {
+        if (this.commonKeyMap[key]) {
+            this.commonJosnObj[key] = v;
+        }
+        else {
+            this.lobbyJosnObj[key] = v;
+        }
     };
     /**
      * 保存数据到本地缓存
@@ -152,6 +135,10 @@ var SaveManager = /** @class */ (function () {
     SaveManager.prototype.initCommon = function (token, rooturl) {
         var token = this.get(SaveManager.KEY_TOKEN, token);
         var httpUrl = this.get(SaveManager.KEY_API_URL, rooturl);
+    };
+    SaveManager.prototype.saveData = function () {
+        this.saveObjTotal(SaveManager.SAVE_KEY_NN, this.commonJosnObj);
+        this.saveObjTotal(SaveManager.SAVE_KEY_LOBBY, this.lobbyJosnObj);
     };
     /***************************************** 公用本地缓存(游戏与大厅通用)键值命名 PS:存在被游戏使用者不小心清空的不安全性) *********************************************/
     /** 公用Json键值命名 */
