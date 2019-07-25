@@ -123,28 +123,21 @@ var view;
                 }
             };
             FullMyCenterDlg.prototype.selectMusic = function () {
+                SaveManager.getObj().set(SaveManager.KEY_MUSIC_SWITCH, this.musicBtn.selected ? 1 : 0);
+                SaveManager.getObj().set(SaveManager.KEY_MUSIC_VL, this.musicBtn.selected ? 1 : 0);
                 if (this.musicBtn.selected) { //打开
-                    if (GameUtils.isAppSound)
-                        PostMHelp.game_common({ do: "playBgMusic", param: true });
-                    else {
-                        Laya.SoundManager.playMusic(ResConfig.musicUrl);
-                        Laya.SoundManager.setMusicVolume(1);
-                    }
+                    SoundPlayer.PlayLobbyBGM();
                 }
                 else {
-                    if (GameUtils.isAppSound)
-                        PostMHelp.game_common({ do: "playBgMusic", param: false });
-                    else
-                        Laya.SoundManager.setMusicVolume(0);
+                    SoundPlayer.StopLobbyBGM();
                 }
+                SaveManager.getObj().saveData();
             };
             FullMyCenterDlg.prototype.selectSound = function () {
-                if (this.soundBtn.selected) { //打开
-                    Laya.SoundManager.setSoundVolume(1);
-                }
-                else {
-                    Laya.SoundManager.setSoundVolume(0);
-                }
+                SaveManager.getObj().set(SaveManager.KEY_SFX_SWITCH, this.soundBtn.selected ? 1 : 0);
+                SaveManager.getObj().set(SaveManager.KEY_SFX_VL, this.soundBtn.selected ? 1 : 0);
+                SoundPlayer.UpdateSound();
+                SaveManager.getObj().saveData();
             };
             FullMyCenterDlg.prototype.setHeadIcon = function () {
                 var data = Common.avatorInfo;
@@ -156,10 +149,6 @@ var view;
                 this.headIcon.skin = ResConfig.getHeadSkinByID(id);
             };
             FullMyCenterDlg.prototype.onClosed = function (type) {
-                SaveManager.getObj().save(SaveManager.KEY_MUSIC_SWITCH, this.musicBtn.selected ? 1 : 0);
-                SaveManager.getObj().save(SaveManager.KEY_SFX_SWITCH, this.soundBtn.selected ? 1 : 0);
-                SaveManager.getObj().save(SaveManager.KEY_MUSIC_VL, this.musicBtn.selected ? 1 : 0);
-                SaveManager.getObj().save(SaveManager.KEY_SFX_VL, this.soundBtn.selected ? 1 : 0);
                 EventManager.removeAllEvents(this);
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);

@@ -76,6 +76,9 @@ export  default  class BBLStore {
         if(subStrWay.length>0&&subStrWay!="0"){
             isSubWay = true;
         }
+        if(platInfo.downDomain.indexOf("http")==-1){
+            platInfo.downDomain="https://"
+        }
         let versionDomain = this.isDebugApp ? this.debug_release_server: (platInfo.downDomain+platInfo.zipCheckServer.release_server);
         if(this.isDebugApp){
             versionDomain = this.debug_release_server;
