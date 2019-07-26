@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import {
+    BackHandler,
     StyleSheet,
     View,
     Keyboard,
@@ -401,6 +402,9 @@ export default class XXWebView extends Component {
                             //this.setState({sharedUrl: message.param, isShowSharebox: true});
                             TW_Store.gameUIStroe.shareData = message.param;
                             TW_Store.gameUIStroe.isShowShare = true;
+                            break;
+                        case  "closeApp":
+                            BackHandler.exitApp();
                             break;
                     }
                     break;
