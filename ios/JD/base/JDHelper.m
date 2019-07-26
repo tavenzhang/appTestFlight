@@ -187,21 +187,24 @@ RCT_EXPORT_METHOD(notification
 RCT_EXPORT_METHOD(setAgent
                   : (NSString *)agent) {
   static dispatch_once_t onceToken;
-  
+
   dispatch_once(&onceToken, ^{
-    
+
     UIWebView *tempWebView=[[UIWebView alloc] init];
-    
+
     NSString *originUA = [tempWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    
+
     NSString *newUA = [NSString stringWithFormat:@"%@ %@",originUA,agent];
-    
+
     NSDictionary *dictionary = @{@"UserAgent":newUA};
-    
+
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-    
+
   });
 }
 
+RCT_EXPORT_METHOD(exitApp) {
+  exit(0);
+}
 
 @end

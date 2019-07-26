@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 
 import {
-    BackHandler,
     StyleSheet,
     View,
     Keyboard,
-    Clipboard, Alert
+    Clipboard
 } from 'react-native';
 import {WebView} from 'react-native-webview';
 
@@ -404,7 +403,7 @@ export default class XXWebView extends Component {
                             TW_Store.gameUIStroe.isShowShare = true;
                             break;
                         case  "closeApp":
-                            BackHandler.exitApp();
+                            TN_ExitApp();
                             break;
                     }
                     break;
