@@ -123,20 +123,17 @@ var view;
                 }
             };
             FullMyCenterDlg.prototype.selectMusic = function () {
-                SaveManager.getObj().set(SaveManager.KEY_MUSIC_SWITCH, this.musicBtn.selected ? 1 : 0);
+                var switchKey = this.musicBtn.selected ? 1 : 0;
+                SaveManager.getObj().set(SaveManager.KEY_MUSIC_SWITCH, switchKey);
                 SaveManager.getObj().set(SaveManager.KEY_MUSIC_VL, this.musicBtn.selected ? 1 : 0);
-                if (this.musicBtn.selected) { //打开
-                    SoundPlayer.PlayLobbyBGM();
-                }
-                else {
-                    SoundPlayer.StopLobbyBGM();
-                }
+                SoundPlayer.ChangeMusicSwitch(switchKey);
                 SaveManager.getObj().saveData();
             };
             FullMyCenterDlg.prototype.selectSound = function () {
-                SaveManager.getObj().set(SaveManager.KEY_SFX_SWITCH, this.soundBtn.selected ? 1 : 0);
+                var switchKey = this.soundBtn.selected ? 1 : 0;
+                SaveManager.getObj().set(SaveManager.KEY_SFX_SWITCH, switchKey);
                 SaveManager.getObj().set(SaveManager.KEY_SFX_VL, this.soundBtn.selected ? 1 : 0);
-                SoundPlayer.UpdateSound();
+                SoundPlayer.ChangeSoundSwitch(switchKey);
                 SaveManager.getObj().saveData();
             };
             FullMyCenterDlg.prototype.setHeadIcon = function () {
