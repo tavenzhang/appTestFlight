@@ -24,7 +24,7 @@ var view;
         }
         LobbyView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
-            this.btn_yeb.visible = false; //todo:余额宝需要上的时候去掉这句即可
+            this.btn_yeb.visible = true; //todo:余额宝需要上的时候去掉这句即可
             this.setBtnGap();
             //公共部分
             this.publicUI = new view.PublicView();
@@ -202,8 +202,6 @@ var view;
         //从游戏返回到大厅
         LobbyView.prototype.gameToHall = function () {
             Debug.log("进入大厅，开始播放动画");
-            //
-            SoundPlayer.PlayLobbyBGM();
             //恢复动画播放
             if (this.girlAinm)
                 this.girlAinm.resume();
