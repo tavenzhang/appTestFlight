@@ -139,7 +139,7 @@ export default class AppInfoStore {
                         }
                     })
                     //最多重复3次检察
-                    this.onOpenInstallCheck(this.openInstallCheckCount)
+                    this.onOpenInstallCheck(this.onOpenInstallCheck)
                 }catch (e) {
                     TW_Store.dataStore.log+="getInstall---error="+e;
                 }
@@ -172,7 +172,7 @@ export default class AppInfoStore {
                 if(callBack){
                     if(this.openInstallCheckCount<3){
                         this.openInstallCheckCount+=1;
-                        callBack(this.openInstallCheckCount);
+                        callBack(this.onOpenInstallCheck);
                     }
 
                 }
