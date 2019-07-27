@@ -52,7 +52,7 @@ var LobbyScene = /** @class */ (function (_super) {
         }
         LobbyScene.IS_PLAYED_MUSIC = true;
         Laya.loader.load([{ url: ResConfig.musicUrl }], new Laya.Handler(this, function () {
-            SoundPlayer.PlayLobbyBGM();
+            SoundPlayer.UpdateBGM();
         }));
     };
     LobbyScene.prototype.onLoaded = function (s) {

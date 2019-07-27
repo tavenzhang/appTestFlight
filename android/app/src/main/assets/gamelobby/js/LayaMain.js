@@ -31,7 +31,7 @@ var LayaMain = /** @class */ (function () {
         this.root_node = new Laya.Sprite();
         Laya.stage.addChild(this.root_node);
         //Sound
-        SoundPlayer.UpdateSetting();
+        SoundPlayer.initSoundSetting();
         //UI
         PageManager.showPage([
             "res/atlas/ui/res_login.atlas",
@@ -88,11 +88,13 @@ var LayaMain = /** @class */ (function () {
     LayaMain.prototype.onGamePause = function () {
         //关闭所有音频
         SoundPlayer.StopAllSounds();
+        //初始化当前音频设置
+        SoundPlayer.initSoundSetting();
     };
     LayaMain.prototype.onGameResume = function () {
         try {
-            //根据设置刷新音频
-            SoundPlayer.UpdateSetting();
+            //兼容最新的音频设置
+            SoundPlayer.CompatibleSetting();
             //刷新用户信息
             EventManager.dispath(EventType.FLUSH_USERINFO);
         }
@@ -242,6 +244,12 @@ var LayaMain = /** @class */ (function () {
                     Toast.showToast(bl ? "保存成功" : "保存失败");
                     break;
                 }
+                case "affcode": {
+                    console.log("收到App刷新 affcode 消息 affCode = " + message.data);
+                    AppData.NATIVE_DATA.affCode = message.data;
+                    console.log("AppData.NATIVE_DATA.affCode =" + AppData.NATIVE_DATA.affCode);
+                    break;
+                }
             }
         }
     };
@@ -277,32 +285,32 @@ var LayaMain = /** @class */ (function () {
      * @param callBack 检查完毕后的后续逻辑函数回调
      */
     LayaMain.prototype.checkGameMaintenance = function (caller, callBack) {
-        // if (AppData.IS_NATIVE_APP) {
-        //     LayaMain.getInstance().showCircleLoading(true);
-        //     //AppData.NATIVE_DATA.brandUrl = AppData.NATIVE_DATA.brandUrl || "http://sit.106games.com/api/v1/gamecenter/player/brand/material/info?brand=106";
-        //     HttpRequester.doRequest(AppData.NATIVE_DATA.brandUrl, null, null, this, (suc: boolean, data: any) => {
-        //         // data.maintenanceState = true;
-        //         // data.maintenanceDto = {
-        //         //     "content": "1.sahkjdsahdhkjashkjdahkjsdhkjashkjdhkjashkjdsahkjdhkjashkjdhkjasdhkjsahkjdhkjsahkjdhkjasdhkjasdhkjashkjdhkjashkjdhkjsadhkjahkjsdhkjashkjdhkjasdhkjhkjsahkjdsadsahkjdhkjsadadshkj<br /> 2.sadahsdhkjahkjsdhkjashkjdhkjashkjdhkjashkjdhkjashkjdhkjashkjdhkjasdhkjahkjsdhkjsahkjdhkjsadhkjahkjsdhkjsahkjd<br />3.ashjdkjsadhkjhkjashkjdhkjsahkjdhkjashkjdasdasj<br />1.sahkjdsahdhkjashkjdahkjsdhkjashkjdhkjashkjdsahkjdhkjashkjdhkjasdhkjsahkjdhkjsahkjdhkjasdhkjasdhkjashkjdhkjashkjdhkjsadhkjahkjsdhkjashkjdhkjasdhkjhkjsahkjdsadsahkjdhkjsadadshkj<br /> 2.sadahsdhkjahkjsdhkjashkjdhkjashkjdhkjashkjdhkjashkjdhkjashkjdhkjasdhkjahkjsdhkjsahkjdhkjsadhkjahkjsdhkjsahkjd<br />3.ashjdkjsadhkjhkjashkjdhkjsahkjdhkjashkjdasdasj",
-        //         //     "endTime": "2019-07-16T06:52:41.235Z",
-        //         //     "startTime": "2019-07-16T06:52:41.235Z",
-        //         //     "title": "abctest"
-        //         // }
-        //         LayaMain.getInstance().showCircleLoading(false);
-        //         if (suc && data.maintenanceState) {
+        // //检查有无全局维护数据请求路径
+        // if (AppData && AppData.NATIVE_DATA && AppData.NATIVE_DATA.brandUrl) {
+        //     //打开遮罩
+        //     LayaMain.getInstance().showCircleLoading(true); 
+        //     //请求全局维护数据
+        //     HttpRequester.doRequest(AppData.NATIVE_DATA.brandUrl, null, null, this, (suc: boolean, severdata: any) => {
+        //         //关闭遮罩
+        //         LayaMain.getInstance().showCircleLoading(false); 
+        //         //
+        //         if (suc && severdata.maintenanceState) {
+        //             Debug.log("checkGameMaintenance",severdata);
         //             //显示维护公告
-        //             view.dlg.GameUpdateNotice.show(data.maintenanceDto || {});
-        //             return;
+        //             view.dlg.GameUpdateNotice.show(severdata.maintenanceDto || {});
+        //             return; //跳出
         //         }
+        //         //未跳出执行后续逻辑
         //         if (caller && callBack) {
         //             callBack.apply(caller);
         //         }
         //     }, "get");
-        // } else {
+        //     return; //跳出
+        // } 
+        //未跳出执行后续逻辑
         if (caller && callBack) {
             callBack.apply(caller);
         }
-        //}
     };
     /**
      * 显示loading

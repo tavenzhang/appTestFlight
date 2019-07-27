@@ -202,8 +202,6 @@ var view;
         //从游戏返回到大厅
         LobbyView.prototype.gameToHall = function () {
             Debug.log("进入大厅，开始播放动画");
-            //
-            SoundPlayer.PlayLobbyBGM();
             //恢复动画播放
             if (this.girlAinm)
                 this.girlAinm.resume();
