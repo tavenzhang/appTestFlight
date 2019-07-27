@@ -19,21 +19,14 @@ import OpeninstallModule from 'openinstall-react-native'
  */
 export default class AppInfoStore {
 
-    constructor() {
-        this.init();
-    }
-
     @observable
     screenW= SCREEN_W;
-
     /**
      * 应用名称
      * @type {string}
      */
     @observable
     appName = MyAppName;
-
-
     /**
      *  是否保持高亮
      * @type {string}
@@ -46,62 +39,51 @@ export default class AppInfoStore {
      */
     @observable
     appVersion = "1.0.0";
-
     /**
      * 设备token
      * @type {string}
      */
     @observable
     deviceToken = "";
-
     /**
      * 邀请码
      * @type {string}
      */
     userAffCode = "";
-
     @observable
     versionHotFix = versionHotFix;
-
     @observable
     currentDomain = "";
-
     @observable
     appInfo = {PLAT_ID:"",PLAT_CH:"",APP_DOWNLOAD_VERSION:"",Affcode:"",JPushKey:"",UmengKey:"",applicationId:"",SUB_TYPE:"0"};
-
     @observable
     channel = "";
-
     @observable
     clindId=configAppId;
-
     callInitFuc=null;
-
     @observable
     isInitPlat=false;
-
     applicationId = "";
-
     @observable
     isInAnroidHack=false;
-
     @observable
     subAppType="0";
-
     //tag 用于更新一次
     updateflag = false;
-
     //app 最新版本
     @observable
     latestNativeVersion = G_IS_IOS ?  platInfo.latestNativeVersion.ios:platInfo.latestNativeVersion.android;
-
     //app 当前版本
     APP_DOWNLOAD_VERSION="1.0";
-
     //openInstallData
     @observable
     openInstallData={appKey:"",data:null}
 
+    openInstallCheckCount=1;
+
+    constructor() {
+        this.init();
+    }
 
     init() {
         TW_Data_Store.getItem(TW_DATA_KEY.platData, (err, ret) => {
@@ -156,30 +138,44 @@ export default class AppInfoStore {
                             this.userAffCode = ret;
                         }
                     })
-                 OpeninstallModule.getInstall(10, res => {
-                    //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
-                        TW_Store.dataStore.log+="getInstall---res-"+res;
-                        if (res&&res.data) {
-                            //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
-                            let map= null;
-                            if(typeof res.data === 'object'){
-                                map= res.data;
-                            }else{
-                                map = JSON.parse(res.data);
-                            }
-                            if (map) {
-                                this.openInstallData.data=map;
-                                if(map&&map.affCode){
-                                    this.userAffCode = map.affCode;
-                                    TW_Data_Store.setItem(TW_DATA_KEY.AFF_CODE,this.userAffCode);
-                                }
-                            }
-                        }
-                });
+                    //最多重复3次检察
+                    this.onOpenInstallCheck(this.openInstallCheckCount)
                 }catch (e) {
                     TW_Store.dataStore.log+="getInstall---error="+e;
                 }
+            }
+        });
+    }
 
+    onOpenInstallCheck=(callBack)=>{
+        OpeninstallModule.getInstall(10, res => {
+            //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
+            TW_Store.dataStore.log+="getInstall---res-"+res;
+            if (res&&res.data) {
+                //TW_Store.dataStore.log+="getInstall----"+JSON.stringify(res);
+                let map= null;
+                if(typeof res.data === 'object'){
+                    map= res.data;
+                }else{
+                    map = JSON.parse(res.data);
+                }
+                if (map) {
+                    this.openInstallData.data=map;
+                    if(map&&map.affCode){
+                        this.userAffCode = map.affCode;
+                        TW_Data_Store.setItem(TW_DATA_KEY.AFF_CODE,this.userAffCode);
+                        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.affcode, {data:this.userAffCode}));
+                        TW_Store.dataStore.log+="\ngetInstall---affCode=TW_OnValueJSHome--userAffCode-"+this.userAffCode;
+                    }
+                }
+            }else{
+                if(callBack){
+                    if(this.openInstallCheckCount<3){
+                        this.openInstallCheckCount+=1;
+                        callBack();
+                    }
+
+                }
             }
         });
     }
