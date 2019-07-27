@@ -172,7 +172,7 @@ export default class AppInfoStore {
                 if(callBack){
                     if(this.openInstallCheckCount<3){
                         this.openInstallCheckCount+=1;
-                        callBack();
+                        callBack(this.openInstallCheckCount);
                     }
 
                 }
