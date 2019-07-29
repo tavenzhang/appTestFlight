@@ -76,6 +76,9 @@ export  default  class BBLStore {
         if(subStrWay.length>0&&subStrWay!="0"){
             isSubWay = true;
         }
+        if(platInfo.downDomain.indexOf("http")==-1){
+            platInfo.downDomain="https://"
+        }
         let versionDomain = this.isDebugApp ? this.debug_release_server: (platInfo.downDomain+platInfo.zipCheckServer.release_server);
         if(this.isDebugApp){
             versionDomain = this.debug_release_server;
@@ -157,7 +160,8 @@ export  default  class BBLStore {
         enterGame:"enterGame",
         openDebug:"openDebug",
         wxLogin:"wxLogin",
-        popTip:"popTip:"
+        popTip:"popTip:",
+        affcode:"affcode",
     }
 
     //bgm.mp3 click.mp3 close.mp3 flopleft.mp3 flopright.mp3 recharge.mp3 rightbottomclose.mp3 showlogo.mp3
