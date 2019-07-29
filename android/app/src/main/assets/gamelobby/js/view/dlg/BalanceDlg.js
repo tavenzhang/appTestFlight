@@ -144,6 +144,9 @@ var view;
                         //
                         this.weihuMask.visible = false;
                     }
+                    //保存玩家当前钱包余额并通知玩家钱包变化
+                    Common.userInfo.userBalance.balance = jobj.balanceAmt;
+                    EventManager.dispath(EventType.FLUSH_MONEY);
                 }
                 else {
                     this.yuebaoInfo = { balanceAmt: 0, amount: 0 };
