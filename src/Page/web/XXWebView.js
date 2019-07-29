@@ -4,7 +4,7 @@ import {
     StyleSheet,
     View,
     Keyboard,
-    Clipboard, Alert
+    Clipboard
 } from 'react-native';
 import {WebView} from 'react-native-webview';
 
@@ -401,6 +401,9 @@ export default class XXWebView extends Component {
                             //this.setState({sharedUrl: message.param, isShowSharebox: true});
                             TW_Store.gameUIStroe.shareData = message.param;
                             TW_Store.gameUIStroe.isShowShare = true;
+                            break;
+                        case  "closeApp":
+                            TN_ExitApp();
                             break;
                     }
                     break;

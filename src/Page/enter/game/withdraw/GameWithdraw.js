@@ -193,7 +193,6 @@ export default class GameWithdraw extends Component {
                 left: SCREEN_W * 0.19,
             }}>
                 <TCTextInput value={this.state.num}
-                   /* value={this.state.num}*/
                              viewStyle={{}}
                              onChangeText={(num) => {
                                  itemData.money = num,
@@ -468,9 +467,8 @@ export default class GameWithdraw extends Component {
      */
     getConfirmButton = () => {
         let {itemData} = this.props;
-        /*if (itemData.canWithdraw&&itemData.bank.bankCardNo&&itemData.bank.bankCardNo.length>0)*/
 
-        if ((itemData.withdrawSetting.hasBankCard && this.isBankSelected)) {//||(itemData.withdrawSetting.hasAlipayCard&&!this.isBankSelected)){
+        if ((itemData.withdrawSetting.hasBankCard && this.isBankSelected)) {
             return (
                 <TCButtonImg imgSource={ASSET_Images.gameUI.query}
                              resizeMode={"stretch"}
@@ -486,7 +484,7 @@ export default class GameWithdraw extends Component {
             )
         } else {
             return (
-                <Text style={{color: 'red', fontWeight: 'bold', fontSize: Size.font15}}>您暂时无法提款</Text>
+                <Text style={{color: 'red', fontWeight: 'bold', fontSize: Size.font15}}>{this.isBankSelected ? '请先绑定银行卡' : '请先绑定支付宝'}</Text>
             )
         }
     }
