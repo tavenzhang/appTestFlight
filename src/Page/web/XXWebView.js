@@ -263,7 +263,7 @@ export default class XXWebView extends Component {
             source = {uri}
         }
 
-        TW_Log("targetAppDir----MainBundlePath-TW_Store.dataStore.isAppInited-----" + TW_Store.dataStore.isAppInited, source);
+        TW_Log("targetAppDir----MainBundlePath-TW_Store.dataStore.isAppInited-----" + TW_Store.dataStore.isAppInited+"---TW_Store.appStore.deviceToken="+TW_Store.appStore.deviceToken, source);
         if (!TW_Store.dataStore.isAppInited) {
             return null
         }
