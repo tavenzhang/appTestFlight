@@ -15,6 +15,7 @@ import {JX_PLAT_INFO} from "../asset";
 import {observer} from "mobx-react";
 import PropTypes from "prop-types";
 import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
+import Toast from "../../Common/JXHelper/JXToast";
 
 
 @observer
@@ -165,6 +166,14 @@ export default class TWWebGameView extends Component {
                     break;
                 case "game_start": //子游戏准备ok
                     this.onEnterGame();
+                    break;
+                case "copylink":
+                    Clipboard.setString(message.param);
+                    if (message.hint && message.hint.length > 0) {
+                        Toast.showShortCenter(message.hint);
+                    } else {
+                        Toast.showShortCenter("已复制链接!");
+                    }
                     break;
             }
         }
