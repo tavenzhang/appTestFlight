@@ -1,9 +1,4 @@
-import { NativeModules } from 'react-native';
-
-import Toast from '../JXHelper/JXToast';
-import {
-    Alert
-} from "react-native";
+import { NativeModules, BackHandler } from 'react-native';
 
 //所有的本地 native 接口聚集到此 方便维护
 global.TN_GetAppInfo = (callBack: func) => {
@@ -104,6 +99,12 @@ global.TN_WechatShare = (text, image, url, title, isPyq) => {
     );
 };
 
-
+global.TN_ExitApp = () => {
+    if (G_IS_IOS) {
+        NativeModules.JDHelper.exitApp();
+    } else {
+        BackHandler.exitApp();
+    }
+};
 
 global.TN_UMShareModule = NativeModules.UMShareModule;
