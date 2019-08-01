@@ -1,6 +1,7 @@
 import { observable, action } from "mobx";
 import { NativeModules, Alert, Platform } from 'react-native';
 import CodePush from "react-native-code-push";
+import DeviceInfo from 'react-native-device-info';
 import {
   configAppId,
   MyAppName,
@@ -408,10 +409,32 @@ export default class AppInfoStore {
       });
 
     if (this.deviceToken.length === 0) {
-      this.deviceToken = await this.initDeviceTokenFromNative();
+      //this.deviceToken = await this.initDeviceTokenFromNative();
+      this.deviceToken = await this.initDeviceUniqueID();
       this.saveDeviceTokenToLocalStore();
     }
   }
+
+  async initDeviceUniqueID() {
+    try {
+      const oriUniqueID = DeviceInfo.getUniqueID();
+      let enhancedUniqueID = oriUniqueID;
+      TW_Log('deviceToken: oriUniqueID: ', oriUniqueID);
+  
+      if (!G_IS_IOS) {
+        enhancedUniqueID = `${oriUniqueID.substring(0, 8)}-${oriUniqueID.substring(8, 12)}-${oriUniqueID.substring(12, 16)}-${oriUniqueID.substring(0, 4)}-${oriUniqueID.substring(4)}`;
+      }
+  
+      TW_Log('deviceToken: enhancedUniqueID: ', enhancedUniqueID);
+  
+      return enhancedUniqueID;
+    } catch (e) {
+      const enhancedUniqueID = await this.initDeviceTokenFromNative();
+      
+      return enhancedUniqueID;
+    }
+  }
+
 
   initDeviceTokenFromNative() {
     return new Promise(resolve => {
