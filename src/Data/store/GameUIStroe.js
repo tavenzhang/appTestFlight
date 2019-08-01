@@ -45,10 +45,13 @@ export default class GameUIStroe {
     checkWXInstall(callBack,hintText=null) {
         TCUserOpenPayApp.isInstallWX(ret=>{
             callBack(ret);
-            if(hintText){
-                callBack(hintText);
-            }else{
-                TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.popTip, {data: "请先安装微信!"}));
+            //如果没有安装
+            if(!ret){
+                if(hintText){
+                    callBack(hintText);
+                }else{
+                    TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.popTip, {data: "请先安装微信!"}));
+                }
             }
         })
 
