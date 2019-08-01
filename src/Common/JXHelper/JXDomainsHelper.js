@@ -109,7 +109,7 @@ export default class MyComponent {
             return
         }
         this.fetchAsyncResponse(url, ads => {
-            TW_Log("getSafeguardName---fetchAsyncResponse==url=="+url+"---ads==="+ads,ads);
+            TW_Log("getSafeguardName---start==url=="+url+"---ads==="+ads,ads);
             try {
                 ads = this.decodeDomain(ads._bodyText);
             }
@@ -117,11 +117,11 @@ export default class MyComponent {
                 if(callBack){
                     callBack(false);
                 }
-                TW_Log("getSafeguardName---fetchAsyncResponse==url=="+ret+"---ads=catch=="+ads,e);
             }
 
-            TW_Log("getSafeguardName---fetchAsyncResponse==url=="+ret+"---ads=resutlt=ads=",ads);
+            TW_Log("getSafeguardName---fetchAsyncResponse==url=="+ret+"---ads=resutlt=ads="+ads,ads);
             if (ads && ads.d && ads.d.length > 0) {
+                TW_Log("getSafeguardName---fetchAsyncResponse==sucess= ads.d=", ads.d);
                 this.testDomainsHealth(ads.d);
                 AsyncStorage.setItem(
                     'cacheDomain',

@@ -38,15 +38,20 @@ export default class ShareBox extends Component {
     };
 
     componentWillMount(): void {
-        TN_IsWechatEnabled((isWechatEnabled) => {
-            TW_Log("targetAppDir-33---isWechatEnabled-"+isWechatEnabled);
-            this.setState({ isWechatEnabled });
-            this.openPayApp(isWechatEnabled);
-        });
-        /*TN_WechatAuth((uid) => {
-            TW_Log("targetAppDir-33---isWechatEnabled-"+uid);
-            this.setState({ uid });
-        });*/
+        TW_Store.gameUIStroe.checkWXInstall(ret=>{
+            if(ret){
+                TN_IsWechatEnabled((isWechatEnabled) => {
+                    TW_Log("targetAppDir-33---isWechatEnabled-"+isWechatEnabled);
+                    this.setState({ isWechatEnabled });
+                    this.openPayApp(isWechatEnabled);
+                });
+            }else {
+                TW_Store.gameUIStroe.isShowShare=false;
+            }
+        })
+
+
+
     }
 
 

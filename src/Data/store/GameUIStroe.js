@@ -7,6 +7,7 @@ import TCUserBankPayMessageNew from "../../Page/UserCenter/UserPay/TCUserBankPay
 
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
+import TCUserOpenPayApp from "../../Page/UserCenter/UserPay/TCUserOpenPayApp";
 export default class GameUIStroe {
 
     @observable
@@ -40,6 +41,21 @@ export default class GameUIStroe {
         onBack:null
     };
 
+    @action
+    checkWXInstall(callBack,hintText=null) {
+        TCUserOpenPayApp.isInstallWX(ret=>{
+            callBack(ret);
+            //如果没有安装
+            if(!ret){
+                if(hintText){
+                    callBack(hintText);
+                }else{
+                    TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.popTip, {data: "请先安装微信!"}));
+                }
+            }
+        })
+
+    }
 
 
     @action

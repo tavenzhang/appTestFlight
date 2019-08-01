@@ -147,7 +147,6 @@ export default class Enter extends Component {
             if(ok){
                 //拿到d.json域名初始化
                 this.initDomain();
-
                 this.timer2 = setTimeout(() => {
                     if (this.state.syncMessage === '检测更新中...' || this.state.syncMessage === '初始化配置中...') {
                         this.hotFixStore.skipUpdate();
@@ -160,7 +159,6 @@ export default class Enter extends Component {
                 })
             }else {
                 TW_SplashScreen_HIDE();
-                TW_Store.gameUpateStore.isNeedUpdate=false;
             }
         })
     }
@@ -287,10 +285,10 @@ export default class Enter extends Component {
 
     //使用从服务器获取的更新地址更新app
     gotoUpdate() {
-        // if(TW_IS_DEBIG){
-        //     this.hotFixStore.skipUpdate();
-        //     return
-        // }
+        if(TW_IS_DEBIG){
+            this.hotFixStore.skipUpdate();
+            return
+        }
         AsyncStorage.getItem('cacheDomain').then((response) => {
 
             let cacheDomain = JSON.parse(response)

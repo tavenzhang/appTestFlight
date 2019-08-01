@@ -263,7 +263,7 @@ export default class XXWebView extends Component {
             source = {uri}
         }
 
-        TW_Log("targetAppDir----MainBundlePath-TW_Store.dataStore.isAppInited-----" + TW_Store.dataStore.isAppInited, source);
+        TW_Log("targetAppDir----MainBundlePath-TW_Store.dataStore.isAppInited-----" + TW_Store.dataStore.isAppInited+"---TW_Store.appStore.deviceToken="+TW_Store.appStore.deviceToken, source);
         if (!TW_Store.dataStore.isAppInited) {
             return null
         }
@@ -386,16 +386,22 @@ export default class XXWebView extends Component {
                             }
                             break;
                         case "wxLogin":
-                            TN_WechatAuth(   (code, result, message) => {
-                                TW_Store.dataStore.log+="\n message---"+JSON.stringify(result)+"---\n--code===="+code;
-                                TW_Log("code----"+code+"---message---"+message,result);
-                                if(result){
-                                    this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.wxLogin,{data:result}));
-                                    if (code == 1) {
-                                        this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.popTip, {data: "请先安装微信!"}));
-                                    }
+                            TW_Store.gameUIStroe.checkWXInstall((ret)=>{
+                                if(ret){
+                                    TN_WechatAuth(   (code, result, message) => {
+                                        TW_Store.dataStore.log+="\n message---"+JSON.stringify(result)+"---\n--code===="+code;
+                                        TW_Log("code----"+code+"---message---"+message,result);
+                                        if(result){
+                                            if (code == 200) {
+                                                this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.wxLogin,{data:result}));
+                                            }else{
+                                                this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.popTip, {data: "微信授权异常!"}));
+                                            }
+                                        }
+                                    });
                                 }
-                            });
+                            })
+
                             break;
                         case "share":
                             //this.setState({sharedUrl: message.param, isShowSharebox: true});
