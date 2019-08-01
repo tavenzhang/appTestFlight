@@ -4,7 +4,7 @@
 <dict>
 	<key>com.openinstall.APP_KEY</key>
 	<string>yv9ho8</string>
-	<key>PlatId</key>
+	<key>PLAT_ID</key>
 	<string>1147</string>
 	<key>PLAT_CH</key>
 	<string>1</string>
