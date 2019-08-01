@@ -160,7 +160,7 @@ export  default  class BBLStore {
         enterGame:"enterGame",
         openDebug:"openDebug",
         wxLogin:"wxLogin",
-        popTip:"popTip:",
+        popTip:"popTip",
         affcode:"affcode",
     }
 
