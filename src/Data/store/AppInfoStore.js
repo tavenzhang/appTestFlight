@@ -104,7 +104,7 @@ export default class AppInfoStore {
           "--ret--" +
           ret
       );
-      this.appInfo.PLAT_ID = configAppId;
+
       if (err) {
         this.checkAppInfoUpdate(null);
       } else {
@@ -216,12 +216,16 @@ export default class AppInfoStore {
           this.APP_DOWNLOAD_VERSION,
         this.latestNativeVersion
       );
-      if (this.APP_DOWNLOAD_VERSION != this.latestNativeVersion) {
-        TW_Log(
-          "onBackAndroid---this.APP_DOWNLOAD_VERSION==-" +
-            this.APP_DOWNLOAD_VERSION,
-          this.latestNativeVersion
-        );
+      let isShowAlert=this.APP_DOWNLOAD_VERSION != this.latestNativeVersion;
+      if(!isShowAlert&&this.appInfo.PLAT_ID=="1147"){
+          //针对超会赢棋牌app 做特殊处理 由于超会赢中途更新了app微信账号
+          if(this.appInfo.PLAT_ID=="1147"&&this.appInfo.AppSecret&&this.appInfo.AppSecret.weixin){
+              isShowAlert = (this.appInfo.AppSecret.weixin != "c05ff4e9cb83b964dd7e1c46b7f3f080")
+          }
+      }
+        TW_Log("onBackAndroid---this.APP_DOWNLOAD_VERSION==-" + this.APP_DOWNLOAD_VERSION, this.latestNativeVersion);
+      if (isShowAlert) {
+
         //清除所有的缓存数据 方便app升级
         TW_Data_Store.clear();
         Alert.alert(
@@ -246,7 +250,15 @@ export default class AppInfoStore {
   };
 
   initData = appInfo => {
-    appInfo = appInfo ? appInfo : { PLAT_ID: configAppId, isNative: false };
+      if(!appInfo){
+          appInfo = { PLAT_ID: configAppId, isNative: false };
+      }
+      else{
+          appInfo.PLAT_ID= appInfo.PLAT_ID ? appInfo.PLAT_ID:appInfo.PlatId;//兼容某些老的app
+          if(!appInfo.PLAT_ID){
+              appInfo.PLAT_ID = configAppId;
+          }
+      }
     //所以的clintId 在此重置
     this.clindId = appInfo.PLAT_ID ? appInfo.PLAT_ID : configAppId;
     this.subAppType = appInfo.SUB_TYPE ? appInfo.SUB_TYPE : '0';
