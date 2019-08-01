@@ -26,6 +26,17 @@ export default class TCUserOpenPayApp {
         }).catch((e)=>{  callBack(false)});
     }
 
+
+    static isInstallWX(callBack){
+        Linking.canOpenURL('weixin://').then(supported => {
+            if (supported) {
+                callBack(true)
+            } else {
+                callBack(false)
+            }
+        }).catch((e)=>{  callBack(false)});
+    }
+
     static openWX(){
         // NativeModules.TCOpenOtherAppHelper.openApp("com.tencent.mm", "微信");
         if( NativeModules.TCOpenOtherAppHelper){

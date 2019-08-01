@@ -104,29 +104,22 @@ public class JXHelper extends ReactContextBaseJavaModule {
 
     public String getCFUUID() {
         String storedUuid = pref.getString(KEY_UUID, null);
-        String randomUuid = UUID.randomUUID().toString();
         boolean isGranted = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
 
         if (storedUuid != null && storedUuid != "") {
             return storedUuid;
         } else {
+            String res = null;
             if (isGranted) {
                 TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 String szImei = TelephonyMgr.getDeviceId();
-                String res = null;
                 try {
                     res = UUID.nameUUIDFromBytes(szImei.getBytes("utf8")).toString();
+                    saveUUIDLocally(res);
                 } catch (Exception e) {
                 }
-                if (res == null) {
-                    res = randomUuid;
-                }
-                saveUUIDLocally(res);
-                return res;
-            } else {
-                saveUUIDLocally(randomUuid);
-                return randomUuid;
             }
+            return res;
         }
     }
 
