@@ -172,7 +172,6 @@ var SaveManager = /** @class */ (function () {
     SaveManager.KEY_UID = "uuid";
     SaveManager.KEY_GATEWAYINFO = "gatewayInfo";
     SaveManager.KEY_PHONEPWD = "phone_pwd"; //手机登录密码
-    SaveManager.KEY_WEICHATPWD = "weichat_pwd"; //微信登录密码
     SaveManager.KEY_ACCOUNT = "keyAccount"; //本地缓存账号
     SaveManager.KEY_PHONE = "keyPhone"; //本地缓存手机登录账号
     return SaveManager;

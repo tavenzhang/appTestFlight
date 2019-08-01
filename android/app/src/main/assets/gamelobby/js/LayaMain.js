@@ -12,13 +12,11 @@ var __assign = (this && this.__assign) || function () {
 var LayaMain = /** @class */ (function () {
     function LayaMain() {
         this.sceneLobby = null;
-        /** 微信认证类型 */
-        this.weChatCertificationType = null; //0登录 1绑定
         LayaMain.obj = this;
         Laya.init(0, Common.GM_SCREEN_H, Laya.WebGL);
         // Laya.URL.rootPath = Laya.URL.basePath + window["sPubRes"];
-        if (Debug.openDebug || !GameUtils.isNativeApp) {
-            // Laya.Stat.show(0, 0);
+        if (window["bShowStat"]) {
+            Laya.Stat.show(0, 0);
         }
         /**
          * 设置点击弹框背景后不关闭弹窗
@@ -117,12 +115,7 @@ var LayaMain = /** @class */ (function () {
         if (message && message.action) {
             switch (message.action) {
                 case "wxLogin": //微信登录
-                    if (this.weChatCertificationType == 0) {
-                        EventManager.dispath(EventType.WeChatLogin, message); //广播微信登录
-                    }
-                    else if (this.weChatCertificationType == 1) {
-                        EventManager.dispath(EventType.WeChatBind, message); //广播微信绑定
-                    }
+                    EventManager.dispath(EventType.WeChatLogin, message); //广播微信登录
                     break;
                 case "logout": //退出到登录界面(同一账号登录两台设备时会触发401)
                     LayaMain.onQuit();
@@ -150,7 +143,7 @@ var LayaMain = /** @class */ (function () {
                         if (item && (item.hashUrl == message.hashUrl)) {
                             var index = HttpRequester.httpRequestList.indexOf(item);
                             HttpRequester.httpRequestList.splice(index, 1);
-                            // Debug.log("onAppPostMessgae---HttpRequester.histRequestList=splite=" + HttpRequester.httpRequestList.length, message);
+                            Debug.log("onAppPostMessgae---HttpRequester.histRequestList=splite=" + HttpRequester.httpRequestList.length, message);
                             var retStr = "";
                             if (message.rs) {
                                 retStr = message.content;
@@ -257,11 +250,6 @@ var LayaMain = /** @class */ (function () {
                     console.log("AppData.NATIVE_DATA.affCode =" + AppData.NATIVE_DATA.affCode);
                     break;
                 }
-                case "popTip": {
-                    console.log("收到App刷新 popTip 消息 msg = " + message.data);
-                    Toast.showToast(message.data);
-                    break;
-                }
             }
         }
     };
@@ -297,36 +285,32 @@ var LayaMain = /** @class */ (function () {
      * @param callBack 检查完毕后的后续逻辑函数回调
      */
     LayaMain.prototype.checkGameMaintenance = function (caller, callBack) {
-        //检查有无全局维护数据请求路径
-        if (AppData && AppData.NATIVE_DATA && AppData.NATIVE_DATA.brandUrl) {
-            //打开遮罩
-            LayaMain.getInstance().showCircleLoading(true);
-            //请求全局维护数据
-            HttpRequester.doRequest(AppData.NATIVE_DATA.brandUrl, null, null, this, function (suc, severdata) {
-                //关闭遮罩
-                LayaMain.getInstance().showCircleLoading(false);
-                //
-                if (suc && severdata.maintenanceState) {
-                    Debug.log("checkGameMaintenance", severdata);
-                    //显示维护公告
-                    view.dlg.GameUpdateNotice.show(severdata.maintenanceDto || {});
-                    return; //跳出
-                }
-                //未跳出执行后续逻辑
-                EventManager.dispath(EventType.INIT_LOGINVIEW);
-            }, "get");
-            return; //跳出
-        }
+        // //检查有无全局维护数据请求路径
+        // if (AppData && AppData.NATIVE_DATA && AppData.NATIVE_DATA.brandUrl) {
+        //     //打开遮罩
+        //     LayaMain.getInstance().showCircleLoading(true); 
+        //     //请求全局维护数据
+        //     HttpRequester.doRequest(AppData.NATIVE_DATA.brandUrl, null, null, this, (suc: boolean, severdata: any) => {
+        //         //关闭遮罩
+        //         LayaMain.getInstance().showCircleLoading(false); 
+        //         //
+        //         if (suc && severdata.maintenanceState) {
+        //             Debug.log("checkGameMaintenance",severdata);
+        //             //显示维护公告
+        //             view.dlg.GameUpdateNotice.show(severdata.maintenanceDto || {});
+        //             return; //跳出
+        //         }
+        //         //未跳出执行后续逻辑
+        //         if (caller && callBack) {
+        //             callBack.apply(caller);
+        //         }
+        //     }, "get");
+        //     return; //跳出
+        // } 
         //未跳出执行后续逻辑
-        EventManager.dispath(EventType.INIT_LOGINVIEW);
-    };
-    /**
-        * 微信认证 0登录 1绑定
-        */
-    LayaMain.prototype.weChatCertification = function (cType) {
-        this.weChatCertificationType = cType;
-        Debug.log("Try wxLogin = " + cType);
-        PostMHelp.game_common({ do: "wxLogin", param: "" });
+        if (caller && callBack) {
+            callBack.apply(caller);
+        }
     };
     /**
      * 显示loading

@@ -286,9 +286,6 @@ var EventType = /** @class */ (function () {
     EventType.FLUSH_YUEBAOINFO = "flushYuebaoInfo"; //刷新余额宝信息
     //微信登录
     EventType.WeChatLogin = "WeChatLogin";
-    //微信绑定
-    EventType.WeChatBind = "WeChatBind";
-    EventType.INIT_LOGINVIEW = "initLoginView"; //初始化登录流程
     return EventType;
 }());
 //# sourceMappingURL=EventManager.js.map

@@ -317,6 +317,7 @@ var view;
                                 this.loginPwdView.pwdTxt1.editable = false;
                                 this.loginPwdView.pwdTxt1.mouseEnabled = false;
                             }
+                            this.loginPwdView.selectIndex = 0;
                             break;
                         }
                         case LoginType.Account: {
@@ -326,6 +327,7 @@ var view;
                                 this.loginPwdView.setGrayIndex(1, true);
                                 this.loginPwdView.checkGroup2.alpha = 0.5;
                             }
+                            this.loginPwdView.selectIndex = 0;
                             break;
                         }
                         case LoginType.Phone: {
@@ -339,26 +341,10 @@ var view;
                                     this.loginPwdView.pwdTxt1.mouseEnabled = false;
                                 }
                             }
-                            break;
-                        }
-                        case LoginType.WeChat: {
-                            if (!bindPhone) {
-                                this.loginPwdView.setGrayIndex(1, true);
-                                this.loginPwdView.checkGroup2.alpha = 0.5;
-                            }
-                            if (!isReset) {
-                                var pwd = SaveManager.getObj().get(SaveManager.KEY_WEICHATPWD, null);
-                                if (pwd) {
-                                    this.loginPwdView.pwdTxt1.text = pwd;
-                                    this.loginPwdView.pwdTxt1.editable = false;
-                                    this.loginPwdView.pwdTxt1.mouseEnabled = false;
-                                }
-                            }
+                            this.loginPwdView.selectIndex = 0;
                             break;
                         }
                     }
-                    //默认选择旧密码修改
-                    this.loginPwdView.selectIndex = 0;
                     if (!this.initLoginPwdView) {
                         //确定修改
                         EventManager.addTouchScaleListener(this.loginPwdView.okBtn, this, function () {
@@ -388,10 +374,7 @@ var view;
                 AccountInfoDlg.prototype.responseLoginPwdSeted = function (suc, jobj) {
                     LayaMain.getInstance().showCircleLoading(false);
                     if (suc) {
-                        //这里只要是快捷账号就要保存密码
-                        var fastName = SaveManager.getObj().get(SaveManager.KEY_QK_USERNAME, "");
-                        var isfastName = fastName == Common.loginInfo.username;
-                        if (Common.loginType == LoginType.Fast || isfastName) {
+                        if (Common.loginType == LoginType.Fast) {
                             Common.loginInfo.strongPwd = true;
                             var pwd = this.loginPwdView.isOldPwd ? this.loginPwdView.pwdTxt2.text : this.loginPwdView.pwdTxt4.text;
                             SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, pwd);
