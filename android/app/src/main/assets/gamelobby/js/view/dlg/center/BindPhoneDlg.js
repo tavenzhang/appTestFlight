@@ -82,7 +82,7 @@ var view;
                             GameData.isGetBindAward = true;
                             Toast.showToast("手机绑定成功");
                             _this.close(null, true);
-                            EventManager.dispath(EventType.GETBINDAWARD_SUCC);
+                            EventManager.dispath(EventType.GETBINDAWARD_SUCC, _this.numTxt.text);
                         }
                         else {
                             _this.getCodeBtn.visible = true;

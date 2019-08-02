@@ -56,14 +56,19 @@ var view;
                 }
              */
             GameUpdateNotice.prototype.SetData = function (data) {
-                var str = "<span style='color:#FFFFFF;fontSize:30;'>-本次更新维护时间:</span><br />";
-                str += "<span style='color:#fff200;fontSize:24;'>" + this.convertDateForIos(data.startTime) + "~" + this.convertDateForIos(data.endTime) + "</span><br /><br />";
-                str += "<span style='color:#FFFFFF;fontSize:30;'>-本次更新维护内容:</span><br />";
-                //console.log(data.content);
-                var content = data.content.replace(/\n/g, "<br />");
-                //console.log(content);
-                str += content;
-                this.htmlText.innerHTML = str;
+                try {
+                    var str = "<span style='color:#FFFFFF;fontSize:30;'>-本次更新维护时间:</span><br />";
+                    str += "<span style='color:#fff200;fontSize:24;'>" + this.convertDateForIos(data.startTime) + "~" + this.convertDateForIos(data.endTime) + "</span><br /><br />";
+                    str += "<span style='color:#FFFFFF;fontSize:30;'>-本次更新维护内容:</span><br />";
+                    //console.log(data.content);
+                    var content = data.content.replace(/\n/g, "<br />");
+                    //console.log(content);
+                    str += content;
+                    this.htmlText.innerHTML = str;
+                }
+                catch (error) {
+                    this.htmlText.innerHTML = error.toString();
+                }
             };
             GameUpdateNotice.prototype.onClosed = function (type) {
                 EventManager.removeAllEvents(this);
