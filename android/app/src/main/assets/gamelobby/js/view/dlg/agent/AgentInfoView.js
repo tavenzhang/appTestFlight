@@ -25,12 +25,12 @@ var view;
                 __extends(AgentInfoView, _super);
                 function AgentInfoView() {
                     var _this = _super.call(this) || this;
+                    _this.centerX = _this.centerY = 0;
                     AgentModel.getAgentInfo(_this, _this.initView);
                     return _this;
                 }
                 AgentInfoView.prototype.initView = function () {
                     var _this = this;
-                    this.centerX = this.centerY = 0;
                     AgentModel.searchAgentInvatCode(this, this.invationCallback);
                     this.setHeadIcon();
                     var data = AgentModel.agentInfo;
@@ -67,6 +67,14 @@ var view;
                         SoundPlayer.enterPanelSound();
                         PostMHelp.game_common({ "do": "share", "param": _this.linkTxt.text });
                     });
+                    EventManager.addTouchScaleListener(this.copyAcc, this, function () {
+                        SoundPlayer.clickSound();
+                        PostMHelp.game_common({ "do": "copylink", "param": _this.referrerTxt.text, "hint": "复制成功" });
+                    });
+                    EventManager.addTouchScaleListener(this.copyCode, this, function () {
+                        SoundPlayer.clickSound();
+                        PostMHelp.game_common({ "do": "copylink", "param": _this.affcodeTxt.text, "hint": "复制成功" });
+                    });
                 };
                 AgentInfoView.prototype.invationCallback = function () {
                     var _this = this;
@@ -81,14 +89,14 @@ var view;
                         if (invatVo.length > 0) {
                             inva = invatVo[0].affCode;
                         }
-                        //if (data.role === "AGENT") {
                         this.linkTxt.text = shareUrl;
                         if (inva != undefined && inva != null && inva != "") {
                             this.linkTxt.text += ("&affCode=" + inva);
+                            this.affcodeTxt.text = inva;
                         }
-                        // } else {
-                        // 	this.linkTxt.text = shareUrl;
-                        // }
+                        else {
+                            this.affcodeTxt.text = "非代理";
+                        }
                         //显示二维码
                         var size = 182;
                         var sp = qr.QRCode.create(this.linkTxt.text, "#000000", size, size, 3);

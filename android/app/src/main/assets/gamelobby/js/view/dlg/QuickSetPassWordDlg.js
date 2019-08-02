@@ -51,7 +51,19 @@ var view;
                 //确定修改按钮
                 EventManager.addTouchScaleListener(this.amendBtn, this, function () {
                     SoundPlayer.clickSound();
-                    var pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
+                    var pwd;
+                    switch (Common.loginType) {
+                        case LoginType.Fast:
+                            pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
+                            break;
+                        case LoginType.Phone:
+                            pwd = SaveManager.getObj().get(SaveManager.KEY_PHONEPWD, "");
+                            break;
+                        case LoginType.WeChat:
+                            pwd = SaveManager.getObj().get(SaveManager.KEY_WEICHATPWD, "");
+                            break;
+                        default: pwd = SaveManager.getObj().get(SaveManager.KEY_QK_PASSWORD, "123456");
+                    }
                     var newpwd = _this.newTxt1.text;
                     var confirmpwd = _this.newTxt2.text;
                     var verify = Tools.verifyChangePw(pwd, newpwd, confirmpwd);
@@ -71,7 +83,10 @@ var view;
             QuickSetPassWordDlg.prototype.requestResult = function (suc, hr) {
                 if (suc) { //修改成功
                     var npwd = this.newTxt1.text;
-                    if (Common.loginType == LoginType.Fast) {
+                    //这里只要是快捷账号就要保存密码
+                    var fastName = SaveManager.getObj().get(SaveManager.KEY_QK_USERNAME, "");
+                    var isfastName = fastName == Common.loginInfo.username;
+                    if (Common.loginType == LoginType.Fast || isfastName) {
                         Common.loginInfo.strongPwd = true;
                         SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, npwd);
                         SaveManager.getObj().save(SaveManager.KEY_QK_PWD_CHANGED, true);
