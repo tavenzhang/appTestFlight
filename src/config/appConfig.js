@@ -55,7 +55,7 @@ export const platInfo = {
         debug_server: "http://192.168.14.70:8888",
         release_server: "/game/release/chyqp",
     },
-    latestNativeVersion:{ios:"6.0",android:"6.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
+    latestNativeVersion:{ios:"6.0",android:"7.0"},//用于强制更新 匹配，与info.plist 还有 gradle.properties. 需要严格一致。否则 会弹窗 强制下载
     platId: configAppId,
     brand: "chyqp",
 }
