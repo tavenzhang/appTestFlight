@@ -33,19 +33,19 @@ var PageLogin = /** @class */ (function (_super) {
         _this.gatewayCount = 0;
         _this.pb_loading.value = 0;
         //if(AppData.IS_NATIVE_APP){ //App加入微信登录按钮
-        // this.loginBtns = [//按顺序加入按钮
-        //     this.login_fast,
-        //     this.login_wx,
-        //     this.login_account,
-        //     this.login_phone
-        // ];
-        // }else{
         _this.loginBtns = [
             _this.login_fast,
+            _this.login_wx,
             _this.login_account,
             _this.login_phone
         ];
-        _this.login_wx.visible = false;
+        // }else{
+        // this.loginBtns = [//按顺序加入按钮
+        //     this.login_fast,
+        //     this.login_account,
+        //     this.login_phone
+        // ];
+        // this.login_wx.visible = false;
         // }
         var btnWidth = _this.loginBtns[0].width;
         var len = _this.loginBtns.length;
@@ -110,8 +110,9 @@ var PageLogin = /** @class */ (function (_super) {
         }
         this.copyNativeAdress();
         this.updateGatewayInfo();
-        //检查维护公告
-        LayaMain.getInstance().checkGameMaintenance(this, this.initView);
+        EventManager.register(EventType.INIT_LOGINVIEW, this, this.initView);
+        // //检查维护公告
+        LayaMain.getInstance().checkGameMaintenance();
         //登录已经被加载过
         PageLogin.isLoaded = true;
     };
@@ -398,13 +399,13 @@ var PageLogin = /** @class */ (function (_super) {
                         SaveManager.getObj().save(SaveManager.KEY_QK_USERNAME, _this.fastName);
                     }
                     else {
-                        console.error("获取到的fastName异常");
+                        console.error("获取到的fastName异常", jobj);
                     }
                     if (_this.password.length > 1) {
                         SaveManager.getObj().save(SaveManager.KEY_QK_PASSWORD, _this.password);
                     }
                     else {
-                        console.error("获取到的password异常");
+                        console.error("获取到的password异常", jobj);
                         _this.isChangePwd = true;
                     }
                 }
@@ -566,8 +567,7 @@ var PageLogin = /** @class */ (function (_super) {
      */
     PageLogin.prototype.showWeChatLoginView = function () {
         //todo:test 
-        Debug.log("Try wxLogin");
-        PostMHelp.game_common({ do: "wxLogin", param: "" });
+        LayaMain.getInstance().weChatCertification(0);
     };
     /**
      * 手机号登陆
@@ -588,6 +588,12 @@ var PageLogin = /** @class */ (function (_super) {
         this.reg_codeTxt.text = "";
         this.reg_lookBtn1.skin = this.reg_lookBtn2.skin = "ui/res_login/btn_dl_yanjing01.png";
         this.reg_pwdTxt1.type = this.reg_pwdTxt2.type = "password";
+        var affcode = AppData.NATIVE_DATA.affCode;
+        if (affcode && affcode.length > 3) {
+            this.affcodeTxt.text = affcode;
+            this.affcodeTxt.mouseEnabled = false;
+            this.affcodeTxt.editable = false;
+        }
         this.panelRegister.visible = true;
         this.askCode();
     };
@@ -797,7 +803,7 @@ var PageLogin = /** @class */ (function (_super) {
             return;
         }
         LayaMain.getInstance().showCircleLoading(true);
-        HttpRequester.registerAccount(name, pwd, code, this.rand.toString(), this, function (suc, jobj) {
+        HttpRequester.registerAccount(name, pwd, code, this.rand.toString(), this.affcodeTxt.text, this, function (suc, jobj) {
             LayaMain.getInstance().showCircleLoading(false);
             if (suc) {
                 Common.access_token = jobj.oauthToken.access_token;
@@ -857,6 +863,9 @@ var PageLogin = /** @class */ (function (_super) {
             Debug.log("resWXLogin = ", jobj); //debug
             if (suc) {
                 _this.saveLoginInfo(jobj, LoginType.WeChat);
+                if (jobj.autoGenPassword) {
+                    SaveManager.getObj().save(SaveManager.KEY_WEICHATPWD, jobj.autoGenPassword);
+                }
                 LayaMain.getInstance().initLobby();
             }
             else {
