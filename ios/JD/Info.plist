@@ -2,10 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>PLAT_CH</key>
+	<string>1</string>
+	<key>PLAT_ID</key>
+	<string>280001</string>
 	<key>com.openinstall.APP_KEY</key>
-          <string>vcrgm3</string>
+	<string>vcrgm3</string>
 	<key>APP_DOWNLOAD_VERSION</key>
 	<string>6.0</string>
+	<key>JPushKey</key>
+	<string></string>
 	<key>Affcode</key>
 	<string></string>
 	<key>AppSecret</key>
@@ -72,8 +78,6 @@
 			</dict>
 		</array>
 	</dict>
-	<key>JPushKey</key>
-	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
@@ -158,8 +162,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UmengKey</key>
-	<string>5ca324bd3fc1957e620006af</string>
-
 </dict>
 </plist>
