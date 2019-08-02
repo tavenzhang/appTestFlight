@@ -143,7 +143,7 @@ var HttpRequester = /** @class */ (function () {
      * @param caller
      * @param callback
      */
-    HttpRequester.registerAccount = function (uname, pwd, code, rand, caller, callback) {
+    HttpRequester.registerAccount = function (uname, pwd, code, rand, affCode, caller, callback) {
         var _this = this;
         var ePwd = window['SecretUtils'].rsaEncodePWD(pwd);
         var data = {
@@ -152,7 +152,7 @@ var HttpRequester = /** @class */ (function () {
             hash: '',
             validateCode: code,
             webUniqueCode: rand,
-            affCode: AppData.NATIVE_DATA.affCode
+            affCode: affCode
         };
         window['SecretUtils'].encode(name, pwd, function (hash) {
             data.hash = hash;

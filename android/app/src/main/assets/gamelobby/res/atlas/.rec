@@ -5,6 +5,15 @@ D template/ButtonTab
 P FC49EE94 btn_LargeTabButton_Left.png
 P AE499BA2 btn_LargeTabButton_Middle.png
 P 71BBA39E btn_LargeTabButton_Right.png
+D template/List
+P 140B5401 arrow.png
+P 5EDC128C label.png
+P 173F1169 message icon_57x57.png
+P 11909C67 SimpleListBoxItemBackground.png
+P 52107B89 vscroll$bar.png
+P E26B933E vscroll$down.png
+P B9680947 vscroll$up.png
+P 7E990267 vscroll.png
 D ui/agent
 P DC3A8A88 b_dlzx_fyblb.png
 P 89B031C4 b_dlzx_tyjl.png
@@ -30,7 +39,7 @@ P 63543EBB img_daili_tou_ewm.png
 P 7686D0EA img_daili_tou_wdyj.png
 P 38B6C7A1 img_daili_tou_zhishu.png
 P F4EF15A2 img_daili_weixinfenxiang.png
-P A4C63FC8 img_daili_xinxizi.png
+P 220B905C img_daili_xinxizi.png
 P ABD374E5 img_daili_zi01.png
 P FA03C191 img_daili_zi010.png
 P 79305A02 img_daili_zi02.png
@@ -53,7 +62,7 @@ P E6BA7DEE img_daili_zi_wanjia.png
 P A41825C3 img_daili_zi_yaoqingma.png
 P 2B69EF10 img_daili_zi_yhm.png
 P F5C3C55D img_daili_zi_zuori.png
-P 2016A9B8 img_dlsm-fyblb_bt.png
+P 2C78DD17 img_dlsm-fyblb_bt.png
 P 67559822 img_dlsm-fyblb_fyblb.png
 P 81FBB876 img_dlsm-fyblb_nr.png
 P D7982F12 img_dlsm-fyblb_xzk.png
@@ -260,6 +269,7 @@ P 08896EC4 btn_dl_yanzhengma01.png
 P C55616BD btn_dl_yanzhengma02.png
 P C60E5E41 btn_dl_zhanghao01.png
 P 37CACFEB btn_dl_zhuce01.png
+P 15072367 btn_qqwhgg_tuichu.png
 P 18D40619 check_seelogin.png
 P CF156203 icon_dl_kefu01.png
 P 5EC27BBE img_com_xiankuang.png
@@ -269,7 +279,7 @@ P EB05350A img_dl_biaotou03.png
 P 665FF7E4 img_dl_biaotou04.png
 P DAA35189 img_dl_biaotou05.png
 P 16B7FAB1 img_dl_bt01.png
-P A097C2CB img_dl_chuangkou01.png
+P 5B0C9392 img_dl_chuangkou01.png
 P 6E3A7B27 img_dl_jingdutiao01$bar.png
 P E8D166DE img_dl_jingdutiao01.png
 P B9BE0560 img_dl_nv01.jpg.png
@@ -282,10 +292,12 @@ P FCD48DC8 img_dl_tianxie05.png
 P 593849BA img_dl_tianxie06.png
 P C9FF6B7E img_dl_tianxie07.png
 P 061765D4 img_dl_tianxie08.png
+P D679EC71 img_dl_tianxie09.png
 P 04AA0754 img_dl_wenzi03.png
 P E24CFF6F img_dl_wenzi04.png
 P 779F4CC0 img_dl_wenzi05.png
 P DA01703B img_dl_whgg.png
+P 8A45749F img_dl_xinhao01.png
 D ui/agent/qrposter
 P 3F39B550 btn_dlewm_yjbc.png
 P E91E6B74 img_dlewm_bg2.png

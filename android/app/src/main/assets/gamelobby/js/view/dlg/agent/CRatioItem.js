@@ -28,14 +28,16 @@ var view;
                 CRatioItem.prototype.initData = function (data, index) {
                     this.numTxt.text = data.level.toString();
                     this.rangeTxt.text = this.getMoneyRange(data, index);
-                    this.paysTxt.text = this.getRateMoney(data);
+                    var money = this.getRateMoney(data);
+                    this.paysTxt.text = money.toString();
+                    this.blTxt.text = (money / 100) + "%";
                 };
                 CRatioItem.prototype.getRateMoney = function (obj) {
                     var percent = parseFloat(obj.rate) / 100;
                     var rs = (percent * 10000);
                     rs = Math.round(rs);
                     rs = parseInt(rs + "");
-                    return rs + "";
+                    return rs;
                 };
                 CRatioItem.prototype.getMoneyRange = function (obj, i) {
                     var lower = Number(obj.lower) * 10000;
