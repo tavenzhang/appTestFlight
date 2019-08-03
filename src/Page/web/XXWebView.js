@@ -598,7 +598,7 @@ export default class XXWebView extends Component {
         //     FileTools.onSaveScreen(true,this.refs.myView);
         // },2000)
         if(G_IS_IOS) {
-            TW_SplashScreen_HIDE();
+            setTimeout(()=>{TW_SplashScreen_HIDE()},300);
         }else{
             setTimeout(()=>{TW_SplashScreen_HIDE()},300);
         }
