@@ -113,8 +113,6 @@ var PageLogin = /** @class */ (function (_super) {
         EventManager.register(EventType.INIT_LOGINVIEW, this, this.initView);
         // //检查维护公告
         LayaMain.getInstance().checkGameMaintenance();
-        //登录已经被加载过
-        PageLogin.isLoaded = true;
     };
     /**
      * 拷贝native的地址
@@ -500,6 +498,8 @@ var PageLogin = /** @class */ (function (_super) {
         this.initLoginProcess();
         //注册按钮点击事件
         this.initEvents();
+        //登录已经被加载过
+        PageLogin.isLoaded = true;
     };
     PageLogin.prototype.destroy = function (vl) {
         this.clearCodeTime();
