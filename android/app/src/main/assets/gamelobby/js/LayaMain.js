@@ -32,6 +32,10 @@ var LayaMain = /** @class */ (function () {
         window.addEventListener("message", this.handleIFrameAction, false);
         this.root_node = new Laya.Sprite();
         Laya.stage.addChild(this.root_node);
+        //设置Laya提供的worker.js路径
+        Laya.WorkerLoader.workerPath = "libs/worker.js";
+        //开启worker线程
+        Laya.WorkerLoader.enable = true;
         //Sound
         SoundPlayer.initSoundSetting();
         //UI

@@ -8,21 +8,18 @@ import {
     StyleSheet,
     Text,
     View,
-    Dimensions,
     TouchableOpacity,
     LayoutAnimation,
     UIManager,
     Platform,
     Image,
-    TextInput, Clipboard
+    Clipboard
 } from 'react-native';
 import Moment from 'moment'
-import {common} from '../../../asset/images'
-import {Size, width, height, indexBgColor, listViewTxtColor, copyBtnStyle} from '../../../resouce/theme'
+import {Size, indexBgColor} from '../../../resouce/theme'
 import {ASSET_Images} from "../../../asset";
 import TCImage from "../../../../Common/View/image/TCImage";
 import Toast from "../../../../Common/JXHelper/JXToast";
-import {TCButtonImg} from "../../../../Common/View/button/TCButtonView";
 export  default  class TCUserPayAndWithdrawRowView extends Component {
 
     constructor(props) {
@@ -89,7 +86,7 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
                 <View style={styles.itemStyle}>
                     <View style={styles.itemLeftStyle}>
                         <Text style={styles.itemLabel}>{this.getType()}: <Text
-                            >{this.getState()}</Text></Text>
+                        >{this.getState()}</Text></Text>
                         <Text style={styles.itemLabel}>支付方式：<Text
                             style={styles.itemData}>{this.getSubType()}</Text>
                         </Text>
@@ -191,11 +188,11 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
     getState() {
         let state = this.props.rowData.stateChineseDisplay
         if (state === '失败') {
-            return (<Text style={{color: '#FF1B1B', fontSize: Size.font14}}>{state}</Text>)
+            return (<Text style={{color: '#FF1B1B', fontSize: Size.font13}}>{state}</Text>)
         } else if (state === '已完成') {
-            return (<Text style={{color: '#0DFD2F', fontSize: Size.font14}}>{state}</Text>)
+            return (<Text style={{color: '#0DFD2F', fontSize: Size.font13}}>{state}</Text>)
         } else {
-            return (<Text style={{color: '#FFF600', fontSize: Size.font14}}>{state}</Text>)
+            return (<Text style={{color: '#FFF600', fontSize: Size.font13}}>{state}</Text>)
         }
     }
 
@@ -287,17 +284,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: indexBgColor.mainBg,
     },
-    itemBigLabel: {
-        color: "#F9CB46",
-        fontSize: Size.font16
-    },
     itemLabel: {
         color: "#F9CB46",
-        fontSize: Size.font14
+        fontSize: Size.font13
     },
     itemData: {
         color: "#a2e1ee",
-        fontSize: Size.font14
+        fontSize: Size.font13
     },
     itemStyle: {
         //justifyContent:'space-between',
@@ -307,13 +300,6 @@ const styles = StyleSheet.create({
         alignItems:"center",
         marginTop: 1
     },
-    imgNext: {
-        width: 10,
-        height: 15,
-        position: 'absolute',
-        top: 23,
-        left: width * 0.9
-    },
     itemLeftStyle: {
         margin: 10,
         alignSelf: 'flex-start'
@@ -322,44 +308,13 @@ const styles = StyleSheet.create({
         marginTop: 10,
         right:-40,
         alignItems: 'flex-end'
-    }, itemTitle: {
-        color: listViewTxtColor.title,
-        fontSize: Size.font18
-    }, itemContent: {
-        marginTop: 5,
-        color: listViewTxtColor.content,
-        fontSize: Size.font12
-    }, orderState: {
-        fontSize: Size.small,
-
-    }, orderStateTxt: {
-        fontSize: Size.small,
-        color: listViewTxtColor.redTip
-    }, itemGreenTxt: {
-        color: listViewTxtColor.greenTip,
-        fontSize: Size.font18
-    }, itemRedTxt: {
-        color: '#ff002a',
-        fontSize: Size.font14
-    }, itemCyanTxt: {
+    },
+    itemCyanTxt: {
         color: '#A2E1EE',
-        fontSize: Size.font14,
+        fontSize: Size.font13,
         fontWeight: 'bold',
         paddingTop: 10
     }, itemBtnStyle: {
         paddingLeft: 0
-    }, itemBtnTxtStyle: {
-        color: copyBtnStyle.txtColor,
-        textAlign: 'center',
-        paddingTop: 4,
-        paddingBottom: 4,
-        paddingLeft: 128,
-        paddingRight: 8,
-        borderWidth: 15,
-        borderColor: copyBtnStyle.borderColor,
-        borderRadius: 5,
-        fontSize: Size.default
-    },
-
+    }
 });
-
