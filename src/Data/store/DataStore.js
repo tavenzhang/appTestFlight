@@ -220,7 +220,7 @@ export default class DataStore {
         const options = {
             fromUrl: formUrl,
             toFile: downloadDest,
-            background: true,
+            background: false,
             begin: (res) => {
                 TW_Log('versionBBL--begin', res);
                // this.log+="==>downloadFile--begin="+res;
