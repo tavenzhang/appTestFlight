@@ -71,16 +71,19 @@ export default class ShareBox extends Component {
 
     onClickWechatShare() {
         let shareData=TW_Store.gameUIStroe.shareData;
-        TN_WechatShare(WECHAT.SHARE_TITLE, shareData.image, shareData.param, WECHAT.SHARE_MSG, false);
-        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{data:"friend"}));
-        TW_Store.gameUIStroe.isShowShare=false;
+        TN_WechatShare(WECHAT.SHARE_TITLE, shareData.image, shareData.param, WECHAT.SHARE_MSG, false,()=>{
+            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{data:"friend"}));
+            TW_Store.gameUIStroe.isShowShare=false;
+        });
+
     }
 
     onClickWechatPyqShare() {
         let shareData=TW_Store.gameUIStroe.shareData;
-        TN_WechatShare(WECHAT.SHARE_TITLE, shareData.image, shareData.param, WECHAT.SHARE_MSG, true);
-        TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{data:"circle"}));
-        TW_Store.gameUIStroe.isShowShare=false;
+        TN_WechatShare(WECHAT.SHARE_TITLE, shareData.image, shareData.param, WECHAT.SHARE_MSG, true,()=>{
+            TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{data:"circle"}));
+            TW_Store.gameUIStroe.isShowShare=false;
+        });
     }
 
     render() {
