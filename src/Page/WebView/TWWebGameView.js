@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-
+    Clipboard
 } from 'react-native';
 
 
@@ -172,7 +172,7 @@ export default class TWWebGameView extends Component {
                     if (message.hint && message.hint.length > 0) {
                         Toast.showShortCenter(message.hint);
                     } else {
-                        Toast.showShortCenter("已复制链接!");
+                        Toast.showShortCenter("已复制成功!");
                     }
                     break;
             }
