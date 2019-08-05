@@ -56,9 +56,9 @@ export default class ShareBox extends Component {
 
 
     openPayApp(isWechatEnabled) {
-        let url=TW_Store.gameUIStroe.shareData;
+        let shareData=TW_Store.gameUIStroe.shareData;
         if (!isWechatEnabled) {
-            Clipboard.setString(url);
+            Clipboard.setString(shareData.param);
             TCUserOpenPayApp.isCanOpen('weixin://',(result)=>{
                 if(result){
                     TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{data:"friend"}));
@@ -70,15 +70,15 @@ export default class ShareBox extends Component {
     }
 
     onClickWechatShare() {
-        let url=TW_Store.gameUIStroe.shareData;
-        TN_WechatShare(WECHAT.SHARE_TITLE, null, url, WECHAT.SHARE_MSG, false);
+        let shareData=TW_Store.gameUIStroe.shareData;
+        TN_WechatShare(WECHAT.SHARE_TITLE, shareData.image, shareData, WECHAT.SHARE_MSG, false);
         TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{data:"friend"}));
         TW_Store.gameUIStroe.isShowShare=false;
     }
 
     onClickWechatPyqShare() {
-        let url=TW_Store.gameUIStroe.shareData;
-        TN_WechatShare(WECHAT.SHARE_TITLE, null, url, WECHAT.SHARE_MSG, true);
+        let shareData=TW_Store.gameUIStroe.shareData;
+        TN_WechatShare(WECHAT.SHARE_TITLE, shareData.image, shareData.param, WECHAT.SHARE_MSG, true);
         TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.shareSucess,{data:"circle"}));
         TW_Store.gameUIStroe.isShowShare=false;
     }

@@ -220,6 +220,8 @@ export  default  class BBLStore {
     @observable
     shareData={}
 
+    @observable
+    appShareUrl=""
 
 
     @action
@@ -240,6 +242,7 @@ export  default  class BBLStore {
                 }
                 TW_Store.appStore.onShowDownAlert(downUrl);
                 TW_Store.gameUIStroe.gustWebUrl = this.shareData.customerServiceUrl;
+                this.appShareUrl= this.shareData.appShareUrl;
             }
             //let downUrl =  iosDownloadUrl
             TW_Log("---getUrlAndParamsAndCallback--getAppData--downUrl=="+downUrl,ret.content);
