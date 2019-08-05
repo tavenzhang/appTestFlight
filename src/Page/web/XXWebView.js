@@ -406,7 +406,7 @@ export default class XXWebView extends Component {
                         case "share":
                             //this.setState({sharedUrl: message.param, isShowSharebox: true});
                             if(message.affcode&&message.affcode.length>0){
-                                message.param = TW_Data_Store.bblStore.appShareUrl+"&affCode="+message.affcode;
+                                message.param = TW_Store.bblStore.appShareUrl+"&affCode="+message.affcode;
                             }
                             TW_Store.gameUIStroe.shareData = message;
                             TW_Store.gameUIStroe.isShowShare = true;

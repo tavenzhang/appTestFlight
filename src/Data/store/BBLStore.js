@@ -245,7 +245,7 @@ export  default  class BBLStore {
                 this.appShareUrl= this.shareData.appShareUrl;
             }
             //let downUrl =  iosDownloadUrl
-            TW_Log("---getUrlAndParamsAndCallback--getAppData--downUrl=="+downUrl,ret.content);
+            TW_Log("---getUrlAndParamsAndCallback--getAppData--downUrl==this.appShareUrl--"+this.appShareUrl+"==\n=\n="+downUrl,ret.content);
         },10,false,false);
     }
 
