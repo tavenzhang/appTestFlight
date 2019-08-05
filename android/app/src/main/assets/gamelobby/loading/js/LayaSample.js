@@ -12,6 +12,10 @@ var GameMain = /** @class */ (function () {
         Laya.stage.bgColor = "#000000";
         window.document.addEventListener("message", this.nativeMess, false);
         window.addEventListener("message", this.nativeMess, false);
+        //设置Laya提供的worker.js路径
+        Laya.WorkerLoader.workerPath = "libs/worker.js";
+        //开启worker线程
+        Laya.WorkerLoader.enable = true;
         //
         Laya.loader.load("res/atlas/update.atlas", Laya.Handler.create(this, this.initView));
     }
