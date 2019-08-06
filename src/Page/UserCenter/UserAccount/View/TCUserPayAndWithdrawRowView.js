@@ -100,7 +100,7 @@ export  default  class TCUserPayAndWithdrawRowView extends Component {
                             style={styles.itemData}>{this.getTime()}</Text>
                         </Text>
                     </View>
-                    <View style={styles.itemRightStyle}>
+                    <View style={{ marginTop: 10, alignItems: 'flex-end', right: type === 'WITHDRAWAL' ? -70 : -50}}>
                         <Text style={styles.itemLabel}>{type==='WITHDRAWAL'?'提现金额：':'支付金额：'}<Text style={styles.itemData}>{this.getPayAndWithdrawMoneyExact()}元</Text></Text>
                         <Text style={styles.itemLabel}>{type==='WITHDRAWAL'?'手续费：':'优惠金额：'}<Text style={styles.itemData}>{this.getPayAndWithdrawMoneyRebate()}元</Text></Text>
                         <Text style={{color: "#F9CB46", marginTop:12, fontWeight: 'bold',
@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
     },
     itemRightStyle: {
         marginTop: 10,
-        right:-40,
+        right:-50,
         alignItems: 'flex-end'
     },
     itemCyanTxt: {
