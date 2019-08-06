@@ -1,6 +1,4 @@
 rootProject.name = 'JD'
-include ':react-native-system-setting'
-project(':react-native-system-setting').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-system-setting/android')
 include ':@react-native-community_cameraroll'
 project(':@react-native-community_cameraroll').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/cameraroll/android')
 include ':react-native-webview'

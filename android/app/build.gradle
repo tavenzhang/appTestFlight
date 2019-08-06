@@ -281,7 +281,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-system-setting')
     implementation project(':@react-native-community_cameraroll')
     implementation project(':react-native-webview')
     compile project(':react-native-view-shot')

@@ -16,7 +16,6 @@ import com.cmcewen.blurview.BlurViewPackage;
 import com.crashlytics.android.Crashlytics;
 
 import com.facebook.react.ReactApplication;
-import com.ninty.system.setting.SystemSettingPackage;
 import com.reactnativecommunity.cameraroll.CameraRollPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import fr.greweb.reactnativeviewshot.RNViewShotPackage;
@@ -91,7 +90,6 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new SystemSettingPackage(),
             new CameraRollPackage(),
             new RNCWebViewPackage(),
             new RNViewShotPackage(),
