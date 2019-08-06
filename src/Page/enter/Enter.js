@@ -24,7 +24,7 @@ import {width, Size} from '../asset/game/themeComponet'
 import StartUpHelper from './StartUpHelper'
 import KeepAwake from 'react-native-keep-awake';
 import ExtraDimensions from 'react-native-extra-dimensions-android';
-
+import SystemSetting from 'react-native-system-setting'
 let retryTimes = 0
 let downloadTime = 0
 let alreadyInCodePush = false
@@ -100,7 +100,10 @@ export default class Enter extends Component {
                   }
               }
             }
-
+            TW_Log('SystemSetting==Current volume is start unlock' );
+           if(this.isLock){
+               SystemSetting.setVolume(this.volume)
+           }
             this.flage = false ;
         }else if(nextAppState != null && nextAppState === 'background'){
             this.flage = true;
@@ -112,7 +115,24 @@ export default class Enter extends Component {
                 }else{
                     SoundHelper.pauseMusic();
                 }
+            }else{
+                //处于子游戏状态 才触发这个
+
             }
+            TW_Log('SystemSetting==Current volume is start getVolume' );
+            SystemSetting.getBrightness().then((brightness)=>{
+                this.isLock=brightness<=0
+                if(this.isLock){
+                TW_Log('SystemSetting==Current volume is start getVolume' );
+                    SystemSetting.getVolume().then((volume)=>{
+                        this.volume = volume
+                        TW_Log('SystemSetting==Current volume is ' + volume);
+                        SystemSetting.setVolume(0.1)
+
+                    });
+                }
+                TW_Log('SystemSetting==Current brightness is ' + brightness+"-- this.isLock==="+ this.isLock);
+            });
         }
     }
 

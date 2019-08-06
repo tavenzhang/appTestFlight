@@ -93,6 +93,7 @@
 		952B8CE722CA0A4E00E8D176 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952B8C9E22CA0A4400E8D176 /* JavaScriptCore.framework */; };
 		9530179322E0329C00164297 /* libRNCCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9530176522E031C100164297 /* libRNCCameraRoll.a */; };
 		9533A2CA224DC27B00816807 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9533A2C9224DC27B00816807 /* MyViewController.m */; };
+		9539812022F7F05E006A32BC /* libRCTSystemSetting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 953980F122F7EF19006A32BC /* libRCTSystemSetting.a */; };
 		9543D1C521C0E948006E51DD /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA91DF850E9000B6D8A /* libcxxreact.a */; };
 		9585BA4221CB76660096C6BE /* libSMXCrashlytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9585BA3E21CB765B0096C6BE /* libSMXCrashlytics.a */; };
 		95E1B8AD2248856700C9CE2E /* libKCKeepAwake.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95E1B86C2248855A00C9CE2E /* libKCKeepAwake.a */; };
@@ -625,6 +626,13 @@
 			remoteGlobalIDString = 1E2FD8B421ABE34400BFF004;
 			remoteInfo = RCTOpenInstall;
 		};
+		953980F022F7EF19006A32BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 953980D322F7EF19006A32BC /* RCTSystemSetting.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 30D12B621EDC0C3A00775BF0;
+			remoteInfo = RCTSystemSetting;
+		};
 		9585BA3D21CB765B0096C6BE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9585B9FA21CB765B0096C6BE /* SMXCrashlytics.xcodeproj */;
@@ -820,6 +828,7 @@
 		9530176022E031C100164297 /* RNCCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCCameraRoll.xcodeproj; path = "../node_modules/@react-native-community/cameraroll/ios/RNCCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		9533A2C8224DC27B00816807 /* MyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		9533A2C9224DC27B00816807 /* MyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
+		953980D322F7EF19006A32BC /* RCTSystemSetting.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSystemSetting.xcodeproj; path = "../node_modules/react-native-system-setting/ios/RCTSystemSetting.xcodeproj"; sourceTree = "<group>"; };
 		9585B9FA21CB765B0096C6BE /* SMXCrashlytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SMXCrashlytics.xcodeproj; path = "../node_modules/react-native-fabric/ios/SMXCrashlytics.xcodeproj"; sourceTree = "<group>"; };
 		95E1B8622248855A00C9CE2E /* KCKeepAwake.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KCKeepAwake.xcodeproj; path = "../node_modules/react-native-keep-awake/ios/KCKeepAwake.xcodeproj"; sourceTree = "<group>"; };
 		96858F9303A3430C9B779674 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -859,6 +868,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9539812022F7F05E006A32BC /* libRCTSystemSetting.a in Frameworks */,
 				9530179322E0329C00164297 /* libRNCCameraRoll.a in Frameworks */,
 				951A7AD022CB024E0033476C /* libRNCWebView.a in Frameworks */,
 				952B8CE722CA0A4E00E8D176 /* JavaScriptCore.framework in Frameworks */,
@@ -1396,6 +1406,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				953980D322F7EF19006A32BC /* RCTSystemSetting.xcodeproj */,
 				9530176022E031C100164297 /* RNCCameraRoll.xcodeproj */,
 				951A7A8322CB023E0033476C /* RNCWebView.xcodeproj */,
 				952B84CE22C3643500E8D176 /* RNViewShot.xcodeproj */,
@@ -1587,6 +1598,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		953980D422F7EF19006A32BC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				953980F122F7EF19006A32BC /* libRCTSystemSetting.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		9585B9FB21CB765B0096C6BE /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1654,6 +1673,9 @@
 						DevelopmentTeam = P525UVKFWU;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -1748,6 +1770,10 @@
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
 					ProjectRef = 139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */;
+				},
+				{
+					ProductGroup = 953980D422F7EF19006A32BC /* Products */;
+					ProjectRef = 953980D322F7EF19006A32BC /* RCTSystemSetting.xcodeproj */;
 				},
 				{
 					ProductGroup = 832341B11AAA6A8300B99B32 /* Products */;
@@ -2315,6 +2341,13 @@
 			remoteRef = 9533A0C1224B850600816807 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		953980F122F7EF19006A32BC /* libRCTSystemSetting.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTSystemSetting.a;
+			remoteRef = 953980F022F7EF19006A32BC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		9585BA3E21CB765B0096C6BE /* libSMXCrashlytics.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2536,7 +2569,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.gmuat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.gmuat3;
 				PRODUCT_NAME = JD;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2599,7 +2632,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.gmuat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.gmuat3;
 				PRODUCT_NAME = JD;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
