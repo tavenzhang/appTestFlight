@@ -98,6 +98,8 @@ export default class Enter extends Component {
                       SoundHelper.onCheckPalyMusic();
                       TW_Store.dataStore.onFlushGameData();
                   }
+              }else{
+                  TW_OnValueJSSubGame(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.lifecycle,{data:1}));
               }
             }
 
@@ -112,6 +114,8 @@ export default class Enter extends Component {
                 }else{
                     SoundHelper.pauseMusic();
                 }
+            }else{
+                TW_OnValueJSSubGame(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.lifecycle,{data:0}));
             }
         }
     }
