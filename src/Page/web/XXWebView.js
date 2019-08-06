@@ -404,7 +404,10 @@ export default class XXWebView extends Component {
                             break;
                         case "share":
                             //this.setState({sharedUrl: message.param, isShowSharebox: true});
-                            TW_Store.gameUIStroe.shareData = message.param;
+                            if(message.affcode&&message.affcode.length>0){
+                                message.param = TW_Store.bblStore.appShareUrl+"&affCode="+message.affcode;
+                            }
+                            TW_Store.gameUIStroe.shareData = message;
                             TW_Store.gameUIStroe.isShowShare = true;
                             break;
                         case  "closeApp":
@@ -504,9 +507,6 @@ export default class XXWebView extends Component {
                     TN_SystemSetting.setVolume(0.01);
                     // TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
                     break;
-                case  "game_share":
-                    TW_Store.gameUIStroe.isShowShare = !TW_Store.gameUIStroe.isShowShare
-                    break;
                 case "game_redraw":
                     TW_Log("onMessage----custom---exitAppToLoginPage--SystemSetting.setVolume-")
                     TW_Store.gameUIStroe.isShowWithDraw = !TW_Store.gameUIStroe.isShowWithDraw;
@@ -596,9 +596,6 @@ export default class XXWebView extends Component {
     onLoadEnd = () => {
         TW_Store.bblStore.isLoading = false;
         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize, {}));
-        // setTimeout(()=>{
-        //     FileTools.onSaveScreen(true,this.refs.myView);
-        // },2000)
         if(G_IS_IOS) {
             setTimeout(()=>{TW_SplashScreen_HIDE()},300);
         }else{

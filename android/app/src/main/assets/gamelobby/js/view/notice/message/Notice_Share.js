@@ -30,6 +30,9 @@ var Notice_Share = /** @class */ (function (_super) {
         this.circle_down.on(Laya.Event.MOUSE_UP, this, this.onclick);
         this.on(Laya.Event.MOUSE_UP, this, this.onclick);
         this.limit = 0;
+        if (!AgentModel.invationVo) {
+            AgentModel.searchAgentInvatCode(null, null);
+        }
     };
     Notice_Share.prototype.setData = function ($data) {
         this.data = $data;
@@ -87,6 +90,8 @@ var Notice_Share = /** @class */ (function (_super) {
             SoundPlayer.enterPanelSound();
         }
         else if ($e.type === Laya.Event.MOUSE_UP) {
+            var invatVo = void 0;
+            var affcode = null;
             switch ($e.currentTarget) {
                 case this.friend_up:
                 case this.friend_down:
@@ -94,7 +99,15 @@ var Notice_Share = /** @class */ (function (_super) {
                     this.friend_down.visible = false;
                     this.circle_up.visible = true;
                     this.circle_down.visible = false;
-                    PostMHelp.game_common({ "do": "share", "type": "friend", "param": this.image.skin });
+                    invatVo = AgentModel.invationVo;
+                    if (invatVo && invatVo.length > 0) {
+                        affcode = invatVo[0].affCode;
+                    }
+                    if (!affcode) {
+                        Toast.showToast("邀请码数据异常,请稍后再试");
+                        break;
+                    }
+                    PostMHelp.game_common({ "do": "share", "type": "friend", "param": "", "image": this.image.skin, "affcode": affcode });
                     NoticeData.shareId = this.noticeid;
                     break;
                 case this.circle_up:
@@ -103,7 +116,15 @@ var Notice_Share = /** @class */ (function (_super) {
                     this.friend_down.visible = false;
                     this.circle_up.visible = true;
                     this.circle_down.visible = false;
-                    PostMHelp.game_common({ "do": "share", "type": "circle", "param": this.image.skin });
+                    invatVo = AgentModel.invationVo;
+                    if (invatVo && invatVo.length > 0) {
+                        affcode = invatVo[0].affCode;
+                    }
+                    if (!affcode) {
+                        Toast.showToast("邀请码数据异常,请稍后再试");
+                        break;
+                    }
+                    PostMHelp.game_common({ "do": "share", "type": "circle", "param": "", "image": this.image.skin, "affcode": affcode });
                     NoticeData.shareId = this.noticeid;
                     break;
                 default:
