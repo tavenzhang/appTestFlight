@@ -8,6 +8,7 @@ import TCUserBankPayMessageNew from "../../Page/UserCenter/UserPay/TCUserBankPay
 import NetUitls from "../../Common/Network/TCRequestUitls";
 import {config} from "../../Common/Network/TCRequestConfig";
 import TCUserOpenPayApp from "../../Page/UserCenter/UserPay/TCUserOpenPayApp";
+import GamePromptView from "../../Page/enter/game/GamePromptView";
 export default class GameUIStroe {
 
     @observable
@@ -125,5 +126,14 @@ export default class GameUIStroe {
         },10,false,false);
     }
 
-
+    @action
+    showPrompt(isShow=true,onBack=null) {
+        this.gameAlertData = {
+            title: "提示",
+            isUserAccount: true,
+            component: GamePromptView,
+            param: {accountType: 2, isBackToTop: false},
+            onBack
+        }
+    }
 }

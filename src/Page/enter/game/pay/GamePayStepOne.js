@@ -19,6 +19,7 @@ import Toast from '../../../../Common/JXHelper/JXToast';
 import ModalInputDialog from "../../../../Common/View/ModalInputDialog";
 import ModalList from "../../../UserCenter/UserPay/View/ModalList";
 import TCButtonView from "../../../UserCenter/UserPay/TCUserPayNew";
+import TCUserPayProgress from "../../../UserCenter/UserPay/TCUserPayProgress";
 
 @observer
 export default class GamePayStepOne extends Component {
@@ -250,17 +251,8 @@ export default class GamePayStepOne extends Component {
                             marginBottom: 12,
                             width: 200
                         }}>{vip.merchantName}</Text>
-                        {/*<TouchableOpacity
-                            activeOpacity={0.6}
-                            style={{
-                                marginLeft: SCREEN_W - 580,
-                                justifyContent: 'center',
-                            }}
-                            onPress={() => this.onCopy(vip.methodInfo)}>
-                            <Text style={styles.itemBtnTxtStyle}>复制</Text>
-                        </TouchableOpacity>*/}
                         <TouchableOpacity style={{position: "absolute", top:0, marginLeft: SCREEN_W - 320}}
-                                          onPress={()=>this.onCopy(vip.methodInfo)}>
+                                          onPress={()=>this.vipHandler(vip)}>
                             <Image style={styles.button}
                                    source={ASSET_Images.gameUI.btn_copy}/>
                         </TouchableOpacity>
@@ -469,11 +461,11 @@ export default class GamePayStepOne extends Component {
      * copy
      * @param text
      */
-    onCopy(text) {
-        TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
-        Clipboard.setString(text);
-        Toast.showShortCenter("已复制！")
-    }
+    // onCopy(text) {
+    //     TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
+    //     Clipboard.setString(text);
+    //     Toast.showShortCenter("已复制！")
+    // }
 
     /**
      * 渲染银行列表
@@ -524,6 +516,20 @@ export default class GamePayStepOne extends Component {
         payHelper.applayPay("THIRD", bankValue, null, bankType);
     }
 
+    /**
+     * 处理VIP充值
+     */
+    vipHandler(vipData){
+        let vip=vipData
+        Clipboard.setString(vip.methodInfo);
+        if(vip.type=='VIP'){
+            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick);
+            TW_Store.gameUIStroe.showPrompt(true,null);
+        } else{
+            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
+            Toast.showShortCenter("已复制！")
+        }
+    }
 }
 
 const styles = StyleSheet.create({

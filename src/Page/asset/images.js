@@ -209,6 +209,7 @@ export const gameUI = {
     payTopIcon:require('./game/moneyPay/pay_top_icon.png'),
     payTopTxt:require('./game/moneyPay/pay_top_txt.png'),
     btn_copy:require('./game/moneyPay/btn_copy.png'),
+    promotionIcon:require('./game/moneyPay/promotionIcon.png'),
     //payType
     payTypeBg:require('./game/moneyPay/pay_type_bg.png'),
     payTypeWx:require('./game/moneyPay/type/pay_type_wx.png'),
@@ -269,6 +270,7 @@ export const gameUI = {
     czmxDone:require('./game/czmx_ywc.png'),
     czmxDone_Normal:require('./game/czmx_ywc_normal.png'),
     img_czmx_dkMenu:require('./game/img_czmx_dkMenu.png'),
+    promptIcon:require('./game/prompt_icon.png'),
 }
 
 export const gameShare = {
