@@ -41,7 +41,7 @@ export default class TWWebGameView extends Component {
 
     componentWillMount() {
         TW_OnBackHomeJs = this.onBackHomeJs;
-        TW_OnValueJSSubGame=this.onMsgHandle;
+        TW_OnValueJSSubGame=this.onEvaleJS;
     }
 
 
@@ -130,8 +130,14 @@ export default class TWWebGameView extends Component {
         TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--" + TW_Store.bblStore.isLoading, event)
     }
 
-    onloadStart = (event) => {
-        TW_Store.bblStore.isLoading = false
+
+
+    onEvaleJS = (data) => {
+        let dataStr = JSON.stringify(data);
+        dataStr = dataStr ? dataStr : "";
+        if (this.refs.myWebView) {
+            this.refs.myWebView.postMessage(dataStr, "*");
+        }
     }
 
     onMessage = (event) => {
