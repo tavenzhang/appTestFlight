@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, Clipboard, ScrollView, StyleSheet, Text, TextInputComponent, TouchableOpacity, View,ImageBackground} from "react-native";
+import {Image, Clipboard, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 import {ASSET_Images} from "../../../asset";
 import TCImage from "../../../../Common/View/image/TCImage";
@@ -62,13 +62,13 @@ export default class GamePayStepOne extends Component {
         let {itemData} = this.props;
         let payList = TW_Store.userPayTypeStore.getPayList(itemData.code);
 
-        let promotionEnable = true
+        let promotionEnable = itemData.promotion
         payHelper.props = itemData;
         let promotionHeight = promotionEnable ? 10 : 0
-        TW_Log("Benny >> Code: " + itemData.code + ", Promotion:" + promotionEnable + ", Heiht=" + promotionHeight);
+        //TW_Log("Benny >> Code: " + itemData.code + ", Promotion:" + promotionEnable + ", Heiht=" + promotionHeight);
 
         let marginTop = (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? 160 + promotionHeight : promotionHeight
-        let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 200 - promotionHeight : SCREEN_H - 55 - promotionHeight
+        let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 220 - promotionHeight : SCREEN_H - 55 - promotionHeight
         if (this.isChange) {
             this.scrollListToStart();
         }
@@ -76,7 +76,7 @@ export default class GamePayStepOne extends Component {
             {
                 (promotionEnable) ?
                     (<Text style={{color: "#FFBA25", fontSize: 16, textAlign: 'center'}}
-                    >充值代理的账号已经复制到系统粘贴板上</Text>) : null
+                    ></Text>) : null
             }
             {
                 (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? (<View>
@@ -448,7 +448,6 @@ export default class GamePayStepOne extends Component {
         }
     }
 
-
     /**
      * 当数据为空时提示
      * @returns {XML}
@@ -470,16 +469,6 @@ export default class GamePayStepOne extends Component {
         }
 
     }
-
-    /**
-     * copy
-     * @param text
-     */
-    // onCopy(text) {
-    //     TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
-    //     Clipboard.setString(text);
-    //     Toast.showShortCenter("已复制！")
-    // }
 
     /**
      * 渲染银行列表
@@ -524,7 +513,6 @@ export default class GamePayStepOne extends Component {
         }
     }
 
-
     onPayBankList=(bankValue, bankType)=>{
         this.userPayStore.showList = false;
         payHelper.applayPay("THIRD", bankValue, null, bankType);
@@ -532,13 +520,14 @@ export default class GamePayStepOne extends Component {
 
     /**
      * 处理VIP充值
+     * @param rowData
      */
-    vipHandler(vipData){
-        let vip=vipData
-        Clipboard.setString(vip.methodInfo);
-        if(vip.type=='VIP'){
+    vipHandler(rowData){
+        Clipboard.setString(rowData.methodInfo);
+        if(rowData.vipTopUpType!='OTHER'){
             TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick);
-            TW_Store.gameUIStroe.showPrompt(true,null);
+            TW_Store.gameUIStroe.showPrompt(true,null, {
+                vipData:rowData, accountType: 2, isBackToTop: false});
         } else{
             TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
             Toast.showShortCenter("已复制！")
