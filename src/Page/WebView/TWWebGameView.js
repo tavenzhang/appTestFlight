@@ -136,6 +136,7 @@ export default class TWWebGameView extends Component {
         let dataStr = JSON.stringify(data);
         dataStr = dataStr ? dataStr : "";
         if (this.refs.myWebView) {
+            TW_Store.dataStore.log += "\nAppStateChange-sunGame--onEvaleJS\n" +data+"==\n";
             this.refs.myWebView.postMessage(dataStr, "*");
         }
     }
