@@ -76,6 +76,7 @@ export default class Enter extends Component {
 
     _handleAppStateChange = (nextAppState)=>{
         if (nextAppState!= null && nextAppState === 'active') {
+            TW_Store.dataStore.log += "\nAppStateChange-active\n" ;
           if (this.flage) {
               if(TW_OnValueJSHome){
                   TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.lifecycle,{data:1}));
@@ -105,6 +106,7 @@ export default class Enter extends Component {
 
             this.flage = false ;
         }else if(nextAppState != null && nextAppState === 'background'){
+            TW_Store.dataStore.log += "\nAppStateChange-background\n" ;
             this.flage = true;
             let now = new Date().getTime();
             this.lastClickTime = now;
