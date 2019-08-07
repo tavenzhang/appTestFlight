@@ -19,7 +19,7 @@ export default class GameLogView extends Component {
             showText+=".."
         }
         if (TW_Store.bblStore.isDebugApp) {
-            return (<ScrollView style={{position: "absolute", height: JX_PLAT_INFO.SCREEN_H}}><Text
+            return (<ScrollView style={{position: "absolute", height: JX_PLAT_INFO.SCREEN_H}} pointerEvents={"none"}><Text
                 style={{
                     color: "yellow",
                     fontWeight: "bold"
