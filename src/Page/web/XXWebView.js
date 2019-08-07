@@ -504,7 +504,6 @@ export default class XXWebView extends Component {
                     break;
                 case  "game_custom":
                     TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
-                    TN_SystemSetting.setVolume(0.01);
                     // TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
                     break;
                 case "game_redraw":
