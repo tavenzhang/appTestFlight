@@ -30,9 +30,7 @@ var Notice_Share = /** @class */ (function (_super) {
         this.circle_down.on(Laya.Event.MOUSE_UP, this, this.onclick);
         this.on(Laya.Event.MOUSE_UP, this, this.onclick);
         this.limit = 0;
-        if (!AgentModel.invationVo) {
-            AgentModel.searchAgentInvatCode(null, null);
-        }
+        AgentModel.checkAndCreatAffcode();
     };
     Notice_Share.prototype.setData = function ($data) {
         this.data = $data;

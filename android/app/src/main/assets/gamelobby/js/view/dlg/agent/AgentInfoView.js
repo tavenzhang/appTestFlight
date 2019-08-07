@@ -80,13 +80,13 @@ var view;
                     var _this = this;
                     var data = AgentModel.agentInfo;
                     var invatVo = AgentModel.invationVo;
-                    if (invatVo.length == 0 && data.role === "AGENT") {
+                    if (invatVo.length == 0 && !AgentModel.isUser) {
                         AgentModel.creatAgentInvitCode(this, this.creatCodeCallback);
                     }
                     else {
                         var shareUrl = data.appShareUrl;
                         var inva = "";
-                        if (invatVo.length > 0) {
+                        if (invatVo.length > 0 && !AgentModel.isUser) {
                             inva = invatVo[0].affCode;
                         }
                         this.linkTxt.text = shareUrl;
