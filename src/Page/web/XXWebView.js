@@ -20,7 +20,6 @@ import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
 const HTTP_GAME_LIST = "/gamecenter/player/game/list";
 const HTTP_ACCOUNT = "/webapi/account/users/current";
 
-
 @observer
 export default class XXWebView extends Component {
     constructor(state) {
@@ -257,11 +256,11 @@ export default class XXWebView extends Component {
                 uri: TW_Store.dataStore.targetAppDir+"/index.html"+"?app=true",
             };
         }
-        if (TW_IS_DEBIG) {
-            // source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
-            let uri = "http://localhost:8081/android/app/src/main/assets/gamelobby/index.html?platform=ios&hash=7e5876ea5a240467db5670550b53411b&rm-" + this.rom
-            source = {uri}
-        }
+        // if (TW_IS_DEBIG) {
+        //     // source =  require('./../../../android/app/src/main/assets/gamelobby/index.html');
+        //     let uri = "http://localhost:8081/android/app/src/main/assets/gamelobby/index.html?platform=ios&hash=7e5876ea5a240467db5670550b53411b&rm-" + this.rom
+        //     source = {uri}
+        // }
 
         TW_Log("targetAppDir----MainBundlePath-TW_Store.dataStore.isAppInited-----" + TW_Store.dataStore.isAppInited+"---TW_Store.appStore.deviceToken="+TW_Store.appStore.deviceToken, source);
         if (!TW_Store.dataStore.isAppInited) {
@@ -366,7 +365,7 @@ export default class XXWebView extends Component {
                             if (message.hint && message.hint.length > 0) {
                                 Toast.showShortCenter(message.hint);
                             } else {
-                                Toast.showShortCenter("已复制链接!");
+                                Toast.showShortCenter("已复制成功!");
                             }
                             break;
                         case "openDebug":
@@ -505,11 +504,13 @@ export default class XXWebView extends Component {
                     break;
                 case  "game_custom":
                     TW_Store.gameUIStroe.showGusetView(!TW_Store.gameUIStroe.isShowGuest)
+                    TN_SystemSetting.setVolume(0.01);
                     // TW_Store.gameUIStroe.isShowShare=!TW_Store.gameUIStroe.isShowShare
                     break;
                 case "game_redraw":
-                    TW_Log("onMessage----custom---exitAppToLoginPage")
+                    TW_Log("onMessage----custom---exitAppToLoginPage--SystemSetting.setVolume-")
                     TW_Store.gameUIStroe.isShowWithDraw = !TW_Store.gameUIStroe.isShowWithDraw;
+                  //  SoundHelper.soundleMusic.setVolume(1);
                     break;
                 case "game_back":
                     TW_Log("custom---exitAppToLoginPage")
@@ -518,6 +519,7 @@ export default class XXWebView extends Component {
                     break;
                 case "game_recharge":
                     TW_Store.gameUIStroe.isShowAddPayView = !TW_Store.gameUIStroe.isShowAddPayView;
+
                     break;
                 case  "debugInfo":
                     let name = message.name ? message.name : "";
