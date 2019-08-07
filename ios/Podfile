@@ -4,7 +4,7 @@
 use_frameworks!
 
 # Add new pods below this line
-pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
+#pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
 
 #pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
 
