@@ -6,6 +6,7 @@ import {
 import {observer} from 'mobx-react';
 import TWWebGameView from "../WebView/TWWebGameView";
 import TCButtonView from "../../Common/View/button/TCButtonView";
+import PhoneStateView from "../Route/PhoneStateView";
 
 
 @observer
@@ -34,6 +35,7 @@ export default class SubGameView extends Component {
             height: SCREEN_H,
             backgroundColor: "rgba(10,10,10,0.3)",zIndex:-999}}  ref={"myView"}>
            <TWWebGameView  {...TW_Store.bblStore.subGameParams}/>
+            <PhoneStateView />
         </View>)
     }
 

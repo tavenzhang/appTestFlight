@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "@react-native-community/cameraroll": "1.1.1",
+        "@react-native-community/netinfo": "4.1.4",
         "apisauce": "0.11.0",
         "apsl-react-native-button": "3.1.1",
         "babel-plugin-syntax-decorators": "6.13.0",
