@@ -123,7 +123,7 @@ export default class TWWebGameView extends Component {
 
 
     onLoadEnd = (event) => {
-        let {isOrigan, url} = this.props;
+        let {url} = this.props;
         if (url && url.length > 0) {
             this.timeId = setTimeout(this.onEnterGame, G_IS_IOS ? 1000 : 4000)
         }
@@ -222,19 +222,12 @@ export default class TWWebGameView extends Component {
     onNavigationStateChange = (navState) => {
 
         TW_Log("TWWebGameView===========onNavigationStateChange=====url==" + navState.url, navState)
-        let {onEvaleJS, isGame, isAddView} = this.props
+        let { isGame, isAddView} = this.props
         if (navState.title == "404 Not Found") {
-            if (!isGame) {
-                TW_NavHelp.popToBack();
-                this.setState({isHide: true})
-            }
-            this.setState({isHttpFail: true})
-
+            this.onBackHomeJs()
         } else {
             if (navState.url) {
                 if (navState.url.indexOf("g_lobby/index.html") > -1) {
-                    TW_NavHelp.popToBack();
-                    this.setState({isHide: true})
                     if (isGame) {
                         this.onBackHomeJs();
                     }
@@ -242,7 +235,6 @@ export default class TWWebGameView extends Component {
                 }
             }
         }
-
     };
 
     onBackHomeJs = () => {
