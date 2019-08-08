@@ -41,8 +41,17 @@ export default class TWWebGameView extends Component {
 
     componentWillMount() {
         TW_OnBackHomeJs = this.onBackHomeJs;
-    }
 
+        /*
+        console.log("TWWebGameView: onloadStart: ");
+        const msg = {
+            delay: "90ms",
+            position: { top: 10, right: 50 },
+            isShow: "1"
+        };
+        TW_Store.bblStore.setNetInfo(msg);
+        */
+    }
 
     render() {
         let {isOrigan, url} = this.props;
@@ -151,6 +160,10 @@ export default class TWWebGameView extends Component {
         let url = "";
         if (message && message.action) {
             switch (message.action) {
+                case "appStatus":
+                    //TW_Log("TWWebGameView---appStatus==", message);
+                    TW_Store.bblStore.setNetInfo(message);
+                    break;
                 case "Log":
                     // TW_Log("game---ct=="+message.ct,message.data);
                     break;

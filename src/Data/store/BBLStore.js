@@ -43,6 +43,13 @@ export  default  class BBLStore {
     @observable
     isShowCircle=false;
 
+    @observable
+    netInfo={
+        delay: "",
+        position: { top: 10, right: 50 },
+        isShow: "0"
+    }
+
     @action
     getUriConfig(){{
         return {
@@ -67,6 +74,19 @@ export  default  class BBLStore {
 
     @observable
     debug_release_server = "";
+
+    @action
+    setNetInfo(payload) {
+        //console.log('setNetInfo: payload', payload);
+
+        this.netInfo = {
+            delay: payload.delay,
+            position: { top: payload.position.top, right: payload.position.right },
+            isShow: payload.isShow
+        };
+
+        //console.log('setNetInfo: netInfo', this.netInfo);
+    }
 
     @action
     getVersionDomain() {
