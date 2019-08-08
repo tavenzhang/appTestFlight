@@ -93,7 +93,7 @@ export default class Enter extends Component {
                       setTimeout(()=>{
                           SoundHelper.startBgMusic(true)
                           TW_Store.dataStore.onFlushGameData();
-                      },1300)
+                      },1000)
 
                   }else{
                       SoundHelper.onCheckPalyMusic();
