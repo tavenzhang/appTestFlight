@@ -44,17 +44,6 @@ export default class TWWebGameView extends Component {
         TW_OnValueJSSubGame=this.onEvaleJS;
     }
 
-        /*
-        console.log("TWWebGameView: onloadStart: ");
-        const msg = {
-            delay: "90ms",
-            position: { top: 10, right: 50 },
-            isShow: "1"
-        };
-        TW_Store.bblStore.setNetInfo(msg);
-        */
-    }
-
     render() {
         let {isOrigan, url} = this.props;
         let myUrl = url;

@@ -180,8 +180,10 @@ export default class XXWebView extends Component {
             }
 
             if (downData) {
+
                let gameData=this.getWillDownGame(downData.id);//检测一下游戏是否已经下载 防止重复下载
-                if(!gameData){
+                TW_Log(`startUpdate---startLoadGame--`,gameData);
+                if(gameData){
                     this.isLoading = true;
                     // JXToast.showShortCenter(`${downData.name} 开始下载！`)
                     let loadUrl = downData.source;
@@ -201,6 +203,7 @@ export default class XXWebView extends Component {
         let gameData = null
         let gameM = TW_Store.dataStore.appGameListM;
         let retList = [];
+
         for (let dataKey in gameM) {
             if (gameM[dataKey].id == gameId) {
                 retList.push(gameM[dataKey]);
@@ -447,7 +450,9 @@ export default class XXWebView extends Component {
                     break;
                 case "startUpdate":
                     //{action: "startUpdate", gameId: 28, alias: "xywz"}
+
                     gameData=this.getWillDownGame(message.alias)
+                    TW_Log(`startUpdate-----`,gameData);
                     if (gameData) {
                         if (gameData.bupdate) {
                             this.startLoadGame(gameData);
