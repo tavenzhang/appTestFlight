@@ -154,7 +154,6 @@ export default class GameMoneyInView extends Component {
         let bankitem = this.state.selectPayitem;
         if(!bankitem && this.userPayStore.payTypeList.length>0){
             bankitem = this.userPayStore.payTypeList[0];
-            TW_Log("Benny >> BankItem: "+bankitem.code)
         }
         bankitem= bankitem ? bankitem:{}
         return  <BtnPayType onClick={(data)=>{
