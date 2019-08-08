@@ -21,7 +21,6 @@ let userOpenPayApp = new TCUserOpenPayApp()
 export default class GamePromptView extends Component {
 
     appID='';
-    //installed=false;
 
     constructor(props) {
         super(props)
@@ -32,15 +31,14 @@ export default class GamePromptView extends Component {
         this.state={
              isInstalled:false
         }
-
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
     }
 
     componentWillUnmount() {
-        //this.timer && clearTimeout(this.timer);
+
     }
 
     render() {
@@ -52,15 +50,14 @@ export default class GamePromptView extends Component {
                 <Text style={styles.text}>{this.methodName}：{this.methodInfo}</Text>
                 <Text style={styles.text}>充值代理的账号已经复制到系统粘贴板上</Text>
                 <Text style={[styles.text, {top: 90}]}>
-                    {/*{TW_Log("Benny >> SetText: "+this.appID+": "+this.state.isInstalled)}*/}
+                    {/*{TW_Log("Benny >> SetText: "+this.appID+": "+this.installed)}*/}
                     {(this.state.isInstalled) ? "是否现在跳转到" + appName : "未安装" + appName + "，请安装" + appName + "后联系充值代理"}
                 </Text>
                 <TCButtonImg imgSource={ASSET_Images.gameUI.query}
                              btnStyle={{position: "absolute", top: 220, left: 190}}
                              soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                              onClick={() => {
-                                 //TW_Log("Benny >> openApp:"+ this.appID)
-                                 Linking.openURL(this.appID)
+                                 this.openApp(this.vipType)
                                  TW_Store.gameUIStroe.hideAlertUI();
                              }}/>
             </View>

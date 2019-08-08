@@ -61,12 +61,9 @@ export default class GamePayStepOne extends Component {
     render() {
         let {itemData} = this.props;
         let payList = TW_Store.userPayTypeStore.getPayList(itemData.code);
-
         let promotionEnable = itemData.promotion
-        payHelper.props = itemData;
         let promotionHeight = promotionEnable ? 10 : 0
-        //TW_Log("Benny >> Code: " + itemData.code + ", Promotion:" + promotionEnable + ", Heiht=" + promotionHeight);
-
+        payHelper.props = itemData;
         let marginTop = (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? 160 + promotionHeight : promotionHeight
         let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 220 - promotionHeight : SCREEN_H - 55 - promotionHeight
         if (this.isChange) {
@@ -76,7 +73,7 @@ export default class GamePayStepOne extends Component {
             {
                 (promotionEnable) ?
                     (<Text style={{color: "#FFBA25", fontSize: 16, textAlign: 'center'}}
-                    ></Text>) : null
+                    >{itemData.promotionTips}</Text>) : null
             }
             {
                 (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? (<View>
