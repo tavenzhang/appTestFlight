@@ -2,33 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>APP_DOWNLOAD_VERSION</key>
-	<string>8.0</string>
-	<key>Affcode</key>
-	<string></string>
-	<key>AppSecret</key>
-	<dict>
-		<key>weixin</key>
-		<string>06f5151830e538583897772e402ae142</string>
-	</dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleDisplayName</key>
-	<string>QP-UAT</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>8.0</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>2.2.33</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -38,20 +11,57 @@
 			<string>openinstall</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>k9e92p</string>
+				<string>evna9i</string>
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>weixin</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>wx14a4c6864a801156</string>
-			</array>
-		</dict>
+                			<key>CFBundleTypeRole</key>
+                			<string>Editor</string>
+                			<key>CFBundleURLName</key>
+                			<string>weixin</string>
+                			<key>CFBundleURLSchemes</key>
+                			<array>
+                				<string>wx26019a5a7de8db15</string>
+                			</array>
+                		</dict>
 	</array>
+	<key>AppSecret</key>
+        	<dict>
+        		<key>weixin</key>
+        		<string>62ef8d30f3c4e244bde8831dd2f4ec84</string>
+        	</dict>
+	<key>com.openinstall.APP_KEY</key>
+	<string>evna9i</string>
+	<key>PLAT_ID</key>
+	<string>31</string>
+	<key>PLAT_CH</key>
+	<string>1</string>
+	<key>APP_DOWNLOAD_VERSION</key>
+	<string>8.0</string>
+	<key>Affcode</key>
+	<string></string>
+	<key>JPushKey</key>
+	<string>e9f6454032a3f4936d80a82f</string>
+	<key>UmengKey</key>
+	<string>5b9f7642f43e486308000111</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>QP-SIT</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.bbl.cgsit</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.2.2</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>6</string>
 	<key>CodePushDeploymentKey</key>
@@ -70,8 +80,6 @@
 			</dict>
 		</array>
 	</dict>
-	<key>JPushKey</key>
-	<string>e9f6454032a3f4936d80a82f</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openApp.jdMobile</string>
@@ -132,10 +140,6 @@
 	<string>需要您的同意,才能添加到相册</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>需要您的同意,才能访问相册</string>
-	<key>PLAT_CH</key>
-	<string>1</string>
-	<key>PLAT_ID</key>
-	<string>5</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -150,10 +154,6 @@
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
 	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>audio</string>
-	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -164,13 +164,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UTImportedTypeDeclarations</key>
-	<array>
-		<dict/>
-	</array>
-	<key>UmengKey</key>
-	<string>5b9f7642f43e486308000111</string>
-	<key>com.openinstall.APP_KEY</key>
-	<string>k9e92p</string>
 </dict>
 </plist>

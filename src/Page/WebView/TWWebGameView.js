@@ -41,7 +41,7 @@ export default class TWWebGameView extends Component {
 
     componentWillMount() {
         TW_OnBackHomeJs = this.onBackHomeJs;
-        TW_OnValueJSSubGame=this.onMsgHandle;
+        TW_OnValueJSSubGame=this.onEvaleJS;
     }
 
         /*
@@ -133,15 +133,22 @@ export default class TWWebGameView extends Component {
 
 
     onLoadEnd = (event) => {
-        let {isOrigan, url} = this.props;
+        let {url} = this.props;
         if (url && url.length > 0) {
             this.timeId = setTimeout(this.onEnterGame, G_IS_IOS ? 1000 : 4000)
         }
         TW_Log("onLoadEnd=TCweb==========event===== TW_Store.bblStore.isLoading--" + TW_Store.bblStore.isLoading, event)
     }
 
-    onloadStart = (event) => {
-        TW_Store.bblStore.isLoading = false
+
+
+    onEvaleJS = (data) => {
+        let dataStr = JSON.stringify(data);
+        dataStr = dataStr ? dataStr : "";
+        if (this.refs.myWebView) {
+            TW_Store.dataStore.log += "\nAppStateChange-sunGame--onEvaleJS\n" +dataStr+"==\n";
+            this.refs.myWebView.postMessage(dataStr, "*");
+        }
     }
 
     onMessage = (event) => {
@@ -229,19 +236,12 @@ export default class TWWebGameView extends Component {
     onNavigationStateChange = (navState) => {
 
         TW_Log("TWWebGameView===========onNavigationStateChange=====url==" + navState.url, navState)
-        let {onEvaleJS, isGame, isAddView} = this.props
+        let { isGame, isAddView} = this.props
         if (navState.title == "404 Not Found") {
-            if (!isGame) {
-                TW_NavHelp.popToBack();
-                this.setState({isHide: true})
-            }
-            this.setState({isHttpFail: true})
-
+            this.onBackHomeJs()
         } else {
             if (navState.url) {
                 if (navState.url.indexOf("g_lobby/index.html") > -1) {
-                    TW_NavHelp.popToBack();
-                    this.setState({isHide: true})
                     if (isGame) {
                         this.onBackHomeJs();
                     }
@@ -249,7 +249,6 @@ export default class TWWebGameView extends Component {
                 }
             }
         }
-
     };
 
     onBackHomeJs = () => {
