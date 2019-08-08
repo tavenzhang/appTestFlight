@@ -41,6 +41,8 @@ export default class TWWebGameView extends Component {
 
     componentWillMount() {
         TW_OnBackHomeJs = this.onBackHomeJs;
+        TW_OnValueJSSubGame=this.onMsgHandle;
+    }
 
         /*
         console.log("TWWebGameView: onloadStart: ");

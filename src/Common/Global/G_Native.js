@@ -74,7 +74,7 @@ global.TN_WechatAuth = (callBack) => {
     );
 };
 
-global.TN_WechatShare = (text, image, url, title, isPyq) => {
+global.TN_WechatShare = (text, image, url, title, isPyq,callBack) => {
     /*
     微信分享参考https://developer.umeng.com/docs/66632/detail/67587
     text 为分享内容
@@ -95,7 +95,9 @@ global.TN_WechatShare = (text, image, url, title, isPyq) => {
         url,
         title,
         isPyq ? 3 : 2,
-        (code, message) => {}
+        (code, message) => {if(callBack){
+            callBack(code);
+        }}
     );
 };
 
