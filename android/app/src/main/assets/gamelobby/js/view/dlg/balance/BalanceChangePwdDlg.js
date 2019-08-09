@@ -68,8 +68,8 @@ var view;
                 BalanceChangePwdDlg.prototype.reqChangePwd = function () {
                     var _this = this;
                     LayaMain.getInstance().showCircleLoading(true);
-                    var oldpwd = window['SecretUtils'].rsaEncodePWD(this.pwdView.pwdTxt1.text);
-                    var newpwd = window['SecretUtils'].rsaEncodePWD(this.pwdView.pwdTxt2.text);
+                    var oldpwd = this.pwdView.pwdTxt1.text;
+                    var newpwd = this.pwdView.pwdTxt2.text;
                     var data = {
                         yebPassword: oldpwd,
                         newYebPassword: newpwd
@@ -86,7 +86,7 @@ var view;
                 BalanceChangePwdDlg.prototype.reqChangePwdBycode = function () {
                     var _this = this;
                     LayaMain.getInstance().showCircleLoading(true);
-                    var newpwd = window['SecretUtils'].rsaEncodePWD(this.pwdView.pwdTxt4.text);
+                    var newpwd = this.pwdView.pwdTxt4.text;
                     var data = {
                         newYebPassword: newpwd,
                         phoneNumber: this.pwdView.phoneTxt.text,
