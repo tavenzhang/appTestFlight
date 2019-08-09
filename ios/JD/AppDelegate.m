@@ -26,6 +26,7 @@
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   [self loadRootController];
   [self.window makeKeyAndVisible];
+  [UIDevice currentDevice].batteryMonitoringEnabled = true;
   
   #ifdef DEBUG
     //do sth.

@@ -44,6 +44,7 @@ export default class Enter extends Component {
         this.initDomain=this.initDomain.bind(this);
         TW_Store.appStore.regCallInitFuc(this.onInitAllData);
         this.flage = false
+        this.isWeakUpdate=true;
     }
 
     componentWillMount(){
@@ -93,7 +94,7 @@ export default class Enter extends Component {
                       setTimeout(()=>{
                           SoundHelper.startBgMusic(true)
                           TW_Store.dataStore.onFlushGameData();
-                      },1300)
+                      },1000)
 
                   }else{
                       SoundHelper.onCheckPalyMusic();
@@ -141,7 +142,6 @@ export default class Enter extends Component {
         }else{
             appInfoStore.checkAndroidsubType(this.initDomain);
         }
-
 
     }
 
@@ -369,13 +369,14 @@ export default class Enter extends Component {
                 }
                 if(versionData){
                     if(versionData.isWeakUpate){
-                        this.hotFixStore.isNextAffect = versionData.jsVersion==appInfoStore.versionHotFix;
+                        this.isWeakUpdate = versionData.isWeakUpate
+                        this.hotFixStore.isNextAffect =this.isWeakUpdate
                     }else{
                         this.hotFixStore.isNextAffect =false;
                     }
                 }
                 if(!isActiveCheck){ //如果是app启动进入热更新检测 并且游戏已经进入大厅，则不使用强制更新提示，下次启动生效
-                    if(TW_Store.gameUpateStore.isEnteredGame){
+                    if(TW_Store.gameUpateStore.isEnteredGame&&this.isWeakUpdate){
                         this.hotFixStore.isNextAffect =true;
                     }
                 }

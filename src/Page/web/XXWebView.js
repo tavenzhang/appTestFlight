@@ -180,19 +180,52 @@ export default class XXWebView extends Component {
             }
 
             if (downData) {
-                this.isLoading = true;
-                // JXToast.showShortCenter(`${downData.name} 开始下载！`)
-                let loadUrl = downData.source;
-                if (loadUrl && loadUrl.indexOf("http") > -1) {
-                    loadUrl = loadUrl;
-                } else {
-                    loadUrl = TW_Store.bblStore.gameDomain + "/" + downData.name + "/" + downData.name;
+
+               let gameData=this.getWillDownGame(downData.id);//检测一下游戏是否已经下载 防止重复下载
+                TW_Log(`startUpdate---startLoadGame--`,gameData);
+                if(gameData){
+                    this.isLoading = true;
+                    // JXToast.showShortCenter(`${downData.name} 开始下载！`)
+                    let loadUrl = downData.source;
+                    if (loadUrl && loadUrl.indexOf("http") > -1) {
+                        loadUrl = loadUrl;
+                    } else {
+                        loadUrl = TW_Store.bblStore.gameDomain + "/" + downData.name + "/" + downData.name;
+                    }
+                    TW_Log("(FileTools--startLoadGame--==this.state.updateList==item--this.loadQueue.length--loadUrl=" + loadUrl, downData);
+                    FileTools.downloadFile(loadUrl, TW_Store.bblStore.tempGameZip, downData, this.onLoadZipFish, this.onLoadProgress);
                 }
-                TW_Log("(FileTools--startLoadGame--==this.state.updateList==item--this.loadQueue.length--loadUrl=" + loadUrl, downData);
-                FileTools.downloadFile(loadUrl, TW_Store.bblStore.tempGameZip, downData, this.onLoadZipFish, this.onLoadProgress);
             }
         }
     }
+
+    getWillDownGame=(gameId)=>{
+        let gameData = null
+        let gameM = TW_Store.dataStore.appGameListM;
+        let retList = [];
+
+        for (let dataKey in gameM) {
+            if (gameM[dataKey].id == gameId) {
+                retList.push(gameM[dataKey]);
+            }
+        }
+        if (retList.length > 1) {
+            for (let item of retList) {
+                if (item.name && item.name.indexOf("app") > -1) {
+                    gameData = item;
+                    break;
+                }
+            }
+        } else {
+            gameData = retList[0]
+        }
+        if(gameData&&gameData.bupdate){
+            return gameData;
+        }else{
+            return null;
+        }
+    }
+
 
     onLoadProgress = (ret) => {
         //{//             "gameId":30,        //游戏id-----可选//             "alias":"hhdz",     //游戏别名--------唯一标识，必填//             "percent":0.7       //当前下载进度
@@ -417,23 +450,9 @@ export default class XXWebView extends Component {
                     break;
                 case "startUpdate":
                     //{action: "startUpdate", gameId: 28, alias: "xywz"}
-                    gameM = TW_Store.dataStore.appGameListM;
-                    retList = [];
-                    for (let dataKey in gameM) {
-                        if (gameM[dataKey].id == message.alias) {
-                            retList.push(gameM[dataKey]);
-                        }
-                    }
-                    if (retList.length > 1) {
-                        for (let item of retList) {
-                            if (item.name && item.name.indexOf("app") > -1) {
-                                gameData = item;
-                                break;
-                            }
-                        }
-                    } else {
-                        gameData = retList[0]
-                    }
+
+                    gameData=this.getWillDownGame(message.alias)
+                    TW_Log(`startUpdate-----`,gameData);
                     if (gameData) {
                         if (gameData.bupdate) {
                             this.startLoadGame(gameData);
@@ -595,12 +614,7 @@ export default class XXWebView extends Component {
     onLoadEnd = () => {
         TW_Store.bblStore.isLoading = false;
         this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.windowResize, {}));
-        if(G_IS_IOS) {
-            setTimeout(()=>{TW_SplashScreen_HIDE()},300);
-        }else{
-            setTimeout(()=>{TW_SplashScreen_HIDE()},300);
-        }
-
+        setTimeout(()=>{TW_SplashScreen_HIDE()},300);
     }
 
 
