@@ -84,8 +84,6 @@ export default class BtnPayType extends Component {
      * @returns {XML}
      */
     getPayTypeIcon=(typeCode)=> {
-        TW_Log(`typeCode ${typeCode}`);
-
         switch (typeCode) {
             case 'WX':
                 return ASSET_Images.gameUI.payTypeWx

@@ -61,8 +61,7 @@ export default class GamePayStepOne extends Component {
     render() {
         let {itemData} = this.props;
         let payList = TW_Store.userPayTypeStore.getPayList(itemData.code);
-        let promotionEnable = itemData.promotion
-        let promotionHeight = promotionEnable ? 10 : 0
+        let promotionHeight = (itemData.promotionTips != null && itemData.promotion) ? 10 : 0
         payHelper.props = itemData;
         let marginTop = (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? 160 + promotionHeight : promotionHeight
         let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 220 - promotionHeight : SCREEN_H - 55 - promotionHeight
@@ -71,7 +70,7 @@ export default class GamePayStepOne extends Component {
         }
         return (<View style={styles.container}>
             {
-                (promotionEnable) ?
+                (itemData.promotionTips != null && itemData.promotion) ?
                     (<Text style={{color: "#FFBA25", fontSize: 16, textAlign: 'center'}}
                     >{itemData.promotionTips}</Text>) : null
             }
@@ -119,7 +118,7 @@ export default class GamePayStepOne extends Component {
             }
             <View style={{position: "absolute", top: marginTop + promotionHeight, left: 10}}>
                 {payList && payList.length > 0 ?
-                    <TCFlatList ref={"payList"} style={{height: height - promotionHeight, marginBottom: 0}}
+                    <TCFlatList ref={"payList"} style={{height: height , marginBottom: 0}}
                                 dataS={payList}
                                 onScroll={this._scroll}
                                 renderRow={this.onRenderItemView}/> : this.getEmptyTip()}
@@ -519,13 +518,14 @@ export default class GamePayStepOne extends Component {
      * 处理VIP充值
      * @param rowData
      */
-    vipHandler(rowData){
+    vipHandler(rowData) {
         Clipboard.setString(rowData.methodInfo);
-        if(rowData.vipTopUpType!='OTHER'){
+        if (rowData.vipTopUpType != 'OTHER' && rowData.vipTopUpType != null) {
             TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick);
-            TW_Store.gameUIStroe.showPrompt(true,null, {
-                vipData:rowData, accountType: 2, isBackToTop: false});
-        } else{
+            TW_Store.gameUIStroe.showPrompt(true, null, {
+                vipData: rowData, accountType: 2, isBackToTop: false
+            });
+        } else {
             TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
             Toast.showShortCenter("已复制！")
         }
