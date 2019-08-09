@@ -181,9 +181,9 @@ export default class XXWebView extends Component {
 
             if (downData) {
 
-               let gameData=this.getWillDownGame(downData.id);//检测一下游戏是否已经下载 防止重复下载
+               let gameData=this.getStoreGameDataByAlias(downData.id);//检测一下游戏是否已经下载 防止重复下载
                 TW_Log(`startUpdate---startLoadGame--`,gameData);
-                if(gameData){
+                if(gameData&&gameData.bupdate){
                     this.isLoading = true;
                     // JXToast.showShortCenter(`${downData.name} 开始下载！`)
                     let loadUrl = downData.source;
@@ -199,7 +199,7 @@ export default class XXWebView extends Component {
         }
     }
 
-    getWillDownGame=(gameId)=>{
+    getStoreGameDataByAlias=(gameId)=>{
         let gameData = null
         let gameM = TW_Store.dataStore.appGameListM;
         let retList = [];
@@ -219,7 +219,7 @@ export default class XXWebView extends Component {
         } else {
             gameData = retList[0]
         }
-        if(gameData&&gameData.bupdate){
+        if(gameData){
             return gameData;
         }else{
             return null;
@@ -451,34 +451,15 @@ export default class XXWebView extends Component {
                 case "startUpdate":
                     //{action: "startUpdate", gameId: 28, alias: "xywz"}
 
-                    gameData=this.getWillDownGame(message.alias)
+                    gameData=this.getStoreGameDataByAlias(message.alias)
                     TW_Log(`startUpdate-----`,gameData);
-                    if (gameData) {
-                        if (gameData.bupdate) {
+                    if (gameData&&gameData.bupdate) {
                             this.startLoadGame(gameData);
-                        }
                     }
                     break;
                 case "JumpGame":
                     let data = JSON.parse(TW_Base64.decode(this.getJumpData(message.payload)));
-                    retList = [];
-                    gameM = TW_Store.dataStore.appGameListM;
-                    let gameData = null
-                    for (let gameKey in gameM) {
-                        if (gameM[gameKey].id == data.alias) {
-                            retList.push(gameM[gameKey])
-                        }
-                    }
-                    if (retList.length > 1) {
-                        for (let item of retList) {
-                            if (item.name && item.name.indexOf("app") > -1) {
-                                gameData = item;
-                                break;
-                            }
-                        }
-                    } else {
-                        gameData = retList[0]
-                    }
+                    gameData=this.getStoreGameDataByAlias(data.alias)
                     let isNeedLoad = false;
                     let isOrigan = false;
                     if (!gameData) {
