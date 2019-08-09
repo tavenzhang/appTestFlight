@@ -17,30 +17,33 @@ var Notice_Message = /** @class */ (function (_super) {
         return _super.call(this) || this;
     }
     Notice_Message.prototype.setData = function ($data) {
+        var _this = this;
         this.data = $data;
-        if ($data.img != "") { //是图片公告
+        var url = $data.img;
+        if (url && url.length > 3) {
             this.image.visible = true;
             this.frame.visible = true;
             this.message.visible = false;
-            //延时打开图片遮罩
-            Laya.timer.once(10, this, this.showImageLoading);
-            //加载图片
-            Laya.loader.load($data.img, Laya.Handler.create(this, function () {
-                if (this.destroyed)
-                    return; //如果已经被销毁了，则不执行后面逻辑
-                //test
-                //Laya.timer.once(2500, this, this.hideImageLoading);
-                //关闭遮罩显示计时器
-                Laya.timer.clear(this, this.showImageLoading);
-                //关闭图片加载遮罩
-                this.hideImageLoading();
-                //设置图片
-                this.image.skin = $data.img;
-                //注册图片点击事件
-                if ($data.jumpHref != "") {
-                    this.image.on(Laya.Event.CLICK, this, this.requestJump);
-                }
-            }));
+            var texture = Laya.loader.getRes(url);
+            if (texture) {
+                this.image.skin = url;
+            }
+            else {
+                this.showImageLoading();
+                //加载图片
+                Laya.loader.load($data.img, Laya.Handler.create(this, function () {
+                    if (_this.destroyed)
+                        return; //如果已经被销毁了，则不执行后面逻辑
+                    //关闭图片加载遮罩
+                    _this.hideImageLoading();
+                    //设置图片
+                    _this.image.skin = url;
+                    //注册图片点击事件
+                    if ($data.jumpHref != "") {
+                        _this.image.on(Laya.Event.CLICK, _this, _this.requestJump);
+                    }
+                }));
+            }
         }
         else {
             this.image.visible = false;
@@ -97,8 +100,7 @@ var Notice_Message = /** @class */ (function (_super) {
      * 销毁
      */
     Notice_Message.prototype.destroy = function () {
-        //关闭图片加载计时器
-        Laya.timer.clear(this, this.showImageLoading);
+        this.hideImageLoading();
         //
         _super.prototype.destroy.call(this, true);
     };
