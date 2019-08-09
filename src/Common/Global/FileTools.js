@@ -18,7 +18,7 @@ export default class FileTools {
         const options = {
             fromUrl: formUrl,
             toFile: downloadDest,
-            background: false,
+            background: true,
             begin: (res) => {
                 // this.log+="==>downloadFile--begin="+res;
                 //{statusCode: 404, headers: {…}, jobId: 1, contentLength: 153
