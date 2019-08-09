@@ -34,10 +34,11 @@ export default class BtnPayType extends Component {
                             width: SCREEN_W > 850 ? 175 : 160,
                             left: isSelect ? 0 : -35
                         }}/>
-                    <View style={{
-                        position: "absolute", alignItems: "center", justifyContent: "center",
-                    }}>
-                        <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center",}}>
+                    <TCImage
+                        source={data.promotion ? ASSET_Images.gameUI.promotionIcon : null}
+                        style={{position: "absolute", left: 105, top:3}}/>
+                    <View style={{position: "absolute", alignItems: "center", justifyContent: "center"}}>
+                        <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
                             <TCImage source={this.getPayTypeIcon(data.code)}
                                      soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                                      style={{marginRight: 5}}/>
@@ -83,8 +84,6 @@ export default class BtnPayType extends Component {
      * @returns {XML}
      */
     getPayTypeIcon=(typeCode)=> {
-        TW_Log(`typeCode ${typeCode}`);
-
         switch (typeCode) {
             case 'WX':
                 return ASSET_Images.gameUI.payTypeWx

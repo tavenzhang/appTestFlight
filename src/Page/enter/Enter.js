@@ -44,6 +44,7 @@ export default class Enter extends Component {
         this.initDomain=this.initDomain.bind(this);
         TW_Store.appStore.regCallInitFuc(this.onInitAllData);
         this.flage = false
+        this.isWeakUpdate=true;
     }
 
     componentWillMount(){
@@ -85,7 +86,7 @@ export default class Enter extends Component {
                   let now = new Date().getTime();
                   let dim = now - this.lastClickTime;
                   TW_Log("lastClickTime----"+this.lastClickTime+"---dim",dim)
-                  if (dim >= 180000) { //从后台进入前台间隔大于1分钟 才进行大厅与app 更新检测
+                  if (dim >= 180000) { //从后台进入前台间隔大于3分钟 才进行大厅与app 更新检测
                       this.hotFix(TW_Store.hotFixStore.currentDeployKey,true);
                       TW_Store.dataStore.loadHomeVerson();
                   }
@@ -93,7 +94,7 @@ export default class Enter extends Component {
                       setTimeout(()=>{
                           SoundHelper.startBgMusic(true)
                           TW_Store.dataStore.onFlushGameData();
-                      },1300)
+                      },1000)
 
                   }else{
                       SoundHelper.onCheckPalyMusic();
@@ -141,7 +142,6 @@ export default class Enter extends Component {
         }else{
             appInfoStore.checkAndroidsubType(this.initDomain);
         }
-
 
     }
 
@@ -367,17 +367,22 @@ export default class Enter extends Component {
                 }catch (e) {
                     versionData = null;
                 }
-                if(versionData){
-                    if(versionData.isWeakUpate){
-                        this.hotFixStore.isNextAffect = versionData.jsVersion==appInfoStore.versionHotFix;
-                    }else{
-                        this.hotFixStore.isNextAffect =false;
-                    }
-                }
+
                 if(!isActiveCheck){ //如果是app启动进入热更新检测 并且游戏已经进入大厅，则不使用强制更新提示，下次启动生效
-                    if(TW_Store.gameUpateStore.isEnteredGame){
+                    if(versionData){
+                        if(versionData.isWeakUpate){
+                            this.isWeakUpdate = versionData.isWeakUpate
+                            this.hotFixStore.isNextAffect =this.isWeakUpdate
+                        }else{
+                            this.hotFixStore.isNextAffect =false;
+                        }
+                    }
+                    if(TW_Store.gameUpateStore.isEnteredGame&&this.isWeakUpdate){
                         this.hotFixStore.isNextAffect =true;
                     }
+                }else {
+                    //如果是3分钟后台进入前台的热更新检测 使用立即更新
+                    this.hotFixStore.isNextAffect =false;
                 }
                 TW_Log('==checkingupdate====hotfixDeploymentKey= versionData='+(versionData==null), versionData);
                 this.hotFixStore.updateFinished = false;

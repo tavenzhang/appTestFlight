@@ -209,6 +209,7 @@ export const gameUI = {
     payTopIcon:require('./game/moneyPay/pay_top_icon.png'),
     payTopTxt:require('./game/moneyPay/pay_top_txt.png'),
     btn_copy:require('./game/moneyPay/btn_copy.png'),
+    promotionIcon:require('./game/moneyPay/promotionIcon.png'),
     //payType
     payTypeBg:require('./game/moneyPay/pay_type_bg.png'),
     payTypeWx:require('./game/moneyPay/type/pay_type_wx.png'),
@@ -269,6 +270,7 @@ export const gameUI = {
     czmxDone:require('./game/czmx_ywc.png'),
     czmxDone_Normal:require('./game/czmx_ywc_normal.png'),
     img_czmx_dkMenu:require('./game/img_czmx_dkMenu.png'),
+    promptIcon:require('./game/prompt_icon.png'),
 }
 
 export const gameShare = {
@@ -283,4 +285,29 @@ export const gameShare = {
     imgBox:require('./game/share/imgBox.png'),
     btn_wxShare:require('./game/share/btn_wxShare.png'),
     btn_Copy:require('./game/share/btnCopy.png'),
+}
+
+export const phoneState = {
+    battEmpty: require('./phone_state/dl_0.png'),
+    batt30:require('./phone_state/dl_1.png'),
+    batt50:require('./phone_state/dl_2.png'),
+    batt80:require('./phone_state/dl_3.png'),
+    battFull:require('./phone_state/dl_4.png'),
+    battCharging:require('./phone_state/dl_c.png'),
+    wf1bar:require('./phone_state/wr_0.png'),
+    wf2bars:require('./phone_state/wr_1.png'),
+    wf3bars:require('./phone_state/wr_2.png'),
+    wfFull:require('./phone_state/wr_3.png'),
+    wfTranData:require('./phone_state/wr_4.png'),
+    wfNoConn:require('./phone_state/wr_00.png'),
+    mbNoConn:require('./phone_state/xh_0.png'),
+    mb1bar:require('./phone_state/xh_1.png'),
+    mb2bars:require('./phone_state/xh_2.png'),
+    mb3bars:require('./phone_state/xh_3.png'),
+    mb3G:require('./phone_state/xh_3g.png'),
+    mb4bars:require('./phone_state/xh_4.png'),
+    mb4G:require('./phone_state/xh_4G.png'),
+    mb5G:require('./phone_state/xh_5G.png'),
+    mbH:require('./phone_state/xh_H.png'),
+    mbLTE:require('./phone_state/xh_LTE.png'),
 }

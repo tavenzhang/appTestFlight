@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, Clipboard, ScrollView, StyleSheet, Text, TextInputComponent, TouchableOpacity, View,ImageBackground} from "react-native";
+import {Image, Clipboard, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 import {ASSET_Images} from "../../../asset";
 import TCImage from "../../../../Common/View/image/TCImage";
@@ -19,6 +19,7 @@ import Toast from '../../../../Common/JXHelper/JXToast';
 import ModalInputDialog from "../../../../Common/View/ModalInputDialog";
 import ModalList from "../../../UserCenter/UserPay/View/ModalList";
 import TCButtonView from "../../../UserCenter/UserPay/TCUserPayNew";
+import TCUserPayProgress from "../../../UserCenter/UserPay/TCUserPayProgress";
 
 @observer
 export default class GamePayStepOne extends Component {
@@ -60,20 +61,31 @@ export default class GamePayStepOne extends Component {
     render() {
         let {itemData} = this.props;
         let payList = TW_Store.userPayTypeStore.getPayList(itemData.code);
-
+        let promotionHeight = (itemData.promotionTips != null && itemData.promotion) ? 10 : 0
         payHelper.props = itemData;
-        let marginTop = (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? 160 : 0
-        let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 200 : SCREEN_H - 55
+        let marginTop = (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? 160 + promotionHeight : promotionHeight
+        let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 220 - promotionHeight : SCREEN_H - 55 - promotionHeight
         if (this.isChange) {
             this.scrollListToStart();
         }
         return (<View style={styles.container}>
             {
+                (itemData.promotionTips != null && itemData.promotion) ?
+                    (<Text style={{color: "#FFBA25", fontSize: 16, textAlign: 'center'}}
+                    >{itemData.promotionTips}</Text>) : null
+            }
+            {
                 (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? (<View>
-                    <TCImage source={ASSET_Images.gameUI.stepOneBg1} resizeMode={'contain'}/>
+                    <TCImage source={ASSET_Images.gameUI.stepOneBg1}
+                             style={{
+                                 position: "absolute",
+                                 left: 2,
+                                 top: promotionHeight
+                             }}
+                             resizeMode={'contain'}/>
 
                     <TCTextInput onChangeText={this.onInputChage} value={`${this.state.money}`}
-                                 viewStyle={{position: "absolute", left: 165, top: 6,}}
+                                 viewStyle={{position: "absolute", left: 165, top: promotionHeight + 6}}
                                  placeholder={"请输入金额"}
                                  keyboardType={"numeric"}
                                  inputStyle={[styles.inputStyle, {fontSize: 14, textAlign: "center"}]}
@@ -82,7 +94,7 @@ export default class GamePayStepOne extends Component {
                     <View style={{
                         position: "absolute",
                         left: 2,
-                        top: 28,
+                        top: promotionHeight + 28,
                         flexDirection: "row",
                         flexWrap: "wrap",
                         width: SCREEN_W - 250
@@ -94,17 +106,20 @@ export default class GamePayStepOne extends Component {
                                                  isSelect={`${item}` == `${this.state.money}`}/>
                         })}
                     </View>
-                    <TCImage source={ASSET_Images.gameUI.stepOneBg2} style={{marginTop: 110}} resizeMode={'contain'}/>
+                    <TCImage source={ASSET_Images.gameUI.stepOneBg2} style={{top: promotionHeight + 135}}
+                             resizeMode={'contain'}/>
                     <TCButtonImg imgSource={ASSET_Images.gameUI.btn_onLine}
                                  soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
-                                 btnStyle={{position: "absolute", left: 308, top: 135,}} imgStyle={{}} onClick={() => {
-                        TW_Store.gameUIStroe.showGusetView(true);
-                    }}/>
+                                 btnStyle={{position: "absolute", left: 308, top: promotionHeight + 135}} imgStyle={{}}
+                                 onClick={() => {
+                                     TW_Store.gameUIStroe.showGusetView(true);
+                                 }}/>
                 </View>) : null
             }
-            <View style={{position: "absolute", top: marginTop, left: 10}}>
+            <View style={{position: "absolute", top: marginTop + promotionHeight, left: 10}}>
                 {payList && payList.length > 0 ?
-                    <TCFlatList ref={"payList"} style={{height: height, marginBottom: 0}} dataS={payList}
+                    <TCFlatList ref={"payList"} style={{height: height , marginBottom: 0}}
+                                dataS={payList}
                                 onScroll={this._scroll}
                                 renderRow={this.onRenderItemView}/> : this.getEmptyTip()}
 
@@ -148,12 +163,8 @@ export default class GamePayStepOne extends Component {
                     payHelper.payData.cardNo = cardNo ? cardNo : "";
                     this.userPayStore.showInputName = false;
                     this.gotoPay(payHelper.payData)
-
                 }}
-
             />
-
-
         </View>)
     }
 
@@ -250,17 +261,8 @@ export default class GamePayStepOne extends Component {
                             marginBottom: 12,
                             width: 200
                         }}>{vip.merchantName}</Text>
-                        {/*<TouchableOpacity
-                            activeOpacity={0.6}
-                            style={{
-                                marginLeft: SCREEN_W - 580,
-                                justifyContent: 'center',
-                            }}
-                            onPress={() => this.onCopy(vip.methodInfo)}>
-                            <Text style={styles.itemBtnTxtStyle}>复制</Text>
-                        </TouchableOpacity>*/}
                         <TouchableOpacity style={{position: "absolute", top:0, marginLeft: SCREEN_W - 320}}
-                                          onPress={()=>this.onCopy(vip.methodInfo)}>
+                                          onPress={()=>this.vipHandler(vip)}>
                             <Image style={styles.button}
                                    source={ASSET_Images.gameUI.btn_copy}/>
                         </TouchableOpacity>
@@ -442,7 +444,6 @@ export default class GamePayStepOne extends Component {
         }
     }
 
-
     /**
      * 当数据为空时提示
      * @returns {XML}
@@ -463,16 +464,6 @@ export default class GamePayStepOne extends Component {
             return null
         }
 
-    }
-
-    /**
-     * copy
-     * @param text
-     */
-    onCopy(text) {
-        TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
-        Clipboard.setString(text);
-        Toast.showShortCenter("已复制！")
     }
 
     /**
@@ -518,12 +509,28 @@ export default class GamePayStepOne extends Component {
         }
     }
 
-
     onPayBankList=(bankValue, bankType)=>{
         this.userPayStore.showList = false;
         payHelper.applayPay("THIRD", bankValue, null, bankType);
     }
 
+    /**
+     * 处理VIP充值
+     * @param rowData
+     */
+    vipHandler(rowData) {
+        Clipboard.setString(rowData.methodInfo);
+        // if (rowData.vipTopUpType != 'OTHER' && rowData.vipTopUpType != null) {
+        //     TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick);
+        //     TW_Store.gameUIStroe.showPrompt(true, null, {
+        //         vipData: rowData, accountType: 2, isBackToTop: false
+        //     });
+        // } else
+        {
+            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
+            Toast.showShortCenter("已复制！")
+        }
+    }
 }
 
 const styles = StyleSheet.create({

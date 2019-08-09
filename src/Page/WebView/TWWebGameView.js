@@ -44,7 +44,6 @@ export default class TWWebGameView extends Component {
         TW_OnValueJSSubGame=this.onEvaleJS;
     }
 
-
     render() {
         let {isOrigan, url} = this.props;
         let myUrl = url;
@@ -63,7 +62,7 @@ export default class TWWebGameView extends Component {
         if (TW_Store.appStore.clindId == '31') {
             myParam += "&time=" + Math.random() * 9999;
         }
-        TW_Log("myUrl------------------------myParam--" + myParam + "-\n-newUrl----" + newUrl);
+
         let source = {
             file: newUrl,
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
@@ -81,6 +80,7 @@ export default class TWWebGameView extends Component {
                 };
             }
         }
+        TW_Log("myUrl------------------------myParam--" + myParam + "-\n-newUrl----" + newUrl+"---source==",source);
         let injectJs = `(function() {
               window.postMessage = function(data) {
                 window.ReactNativeWebView.postMessage(data);
@@ -123,7 +123,7 @@ export default class TWWebGameView extends Component {
 
 
     onLoadEnd = (event) => {
-        let {isOrigan, url} = this.props;
+        let {url} = this.props;
         if (url && url.length > 0) {
             this.timeId = setTimeout(this.onEnterGame, G_IS_IOS ? 1000 : 4000)
         }
@@ -159,6 +159,10 @@ export default class TWWebGameView extends Component {
         let url = "";
         if (message && message.action) {
             switch (message.action) {
+                case "appStatus":
+                    //TW_Log("TWWebGameView---appStatus==", message);
+                    TW_Store.bblStore.setNetInfo(message);
+                    break;
                 case "Log":
                     // TW_Log("game---ct=="+message.ct,message.data);
                     break;
@@ -211,6 +215,9 @@ export default class TWWebGameView extends Component {
     }
 
     onError = (error) => {
+        if( TW_Store.gameUpateStore.isInSubGame){
+            this.onBackHomeJs()
+        }
         TW_Log("onError=====TCweb======event=====", error.nativeEvent)
     }
 
@@ -222,19 +229,12 @@ export default class TWWebGameView extends Component {
     onNavigationStateChange = (navState) => {
 
         TW_Log("TWWebGameView===========onNavigationStateChange=====url==" + navState.url, navState)
-        let {onEvaleJS, isGame, isAddView} = this.props
+        let { isGame, isAddView} = this.props
         if (navState.title == "404 Not Found") {
-            if (!isGame) {
-                TW_NavHelp.popToBack();
-                this.setState({isHide: true})
-            }
-            this.setState({isHttpFail: true})
-
+            this.onBackHomeJs()
         } else {
             if (navState.url) {
                 if (navState.url.indexOf("g_lobby/index.html") > -1) {
-                    TW_NavHelp.popToBack();
-                    this.setState({isHide: true})
                     if (isGame) {
                         this.onBackHomeJs();
                     }
@@ -242,7 +242,6 @@ export default class TWWebGameView extends Component {
                 }
             }
         }
-
     };
 
     onBackHomeJs = () => {
