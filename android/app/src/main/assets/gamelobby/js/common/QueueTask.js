@@ -56,7 +56,7 @@ var QueueTask = /** @class */ (function () {
     QueueTask.execute = function (vo) {
         switch (vo.type) {
             case QueueType.bindPhoneActiv: {
-                view.dlg.bindPhone.BindPhoneActiveDlg.show();
+                PageManager.showDlg(DlgCmd.bindPhoneAct);
                 break;
             }
         }

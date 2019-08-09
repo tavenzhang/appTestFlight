@@ -444,11 +444,14 @@ var HttpRequester = /** @class */ (function () {
             var httpData = { hashUrl: hashUrl, caller: caller, callback: callback };
             this.httpRequestList.push(httpData);
             PostMHelp.game_Http({ url: url, header: header, data: data, metod: metod, restype: restype, hashUrl: hashUrl });
+            if (view.LoadingView.isLoading) {
+                GameUtils.addTimeOut(hashUrl);
+            }
         }
         else {
             var hr = new Laya.HttpRequest();
-            hr.once(Laya.Event.COMPLETE, this, this.httpRequestComplete, [caller, callback, hr]);
-            hr.once(Laya.Event.ERROR, this, this.httpRequestError, [caller, callback, hr]);
+            hr.once(Laya.Event.COMPLETE, this, this.httpRequestComplete, [caller, callback, hr, hashUrl]);
+            hr.once(Laya.Event.ERROR, this, this.httpRequestError, [caller, callback, hr, hashUrl]);
             if (header) {
                 hr.send(url, data, metod, restype, header);
             }
@@ -457,10 +460,10 @@ var HttpRequester = /** @class */ (function () {
             }
         }
     };
-    HttpRequester.httpRequestComplete = function (caller, callback, hr, e) {
+    HttpRequester.httpRequestComplete = function (caller, callback, hr, url, e) {
         callback.apply(caller, [e, 'complete', hr]);
     };
-    HttpRequester.httpRequestError = function (caller, callback, hr, e) {
+    HttpRequester.httpRequestError = function (caller, callback, hr, url, e) {
         if (hr.http.status == 204) {
             callback.apply(caller, [e, 'complete', hr]);
         }

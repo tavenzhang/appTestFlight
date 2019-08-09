@@ -21,14 +21,27 @@ var PageManager = /** @class */ (function () {
                     "res/atlas/ui/panel_notice/message.atlas",
                     "res/atlas/ui/panel_notice/roullette.atlas",
                     "res/atlas/ui/panel_notice/share.atlas",
-                    "res/atlas/ui/panel_notice/roullette/spinner.atlas"
+                    "res/atlas/ui/panel_notice/roullette/activityRoullette.atlas",
+                    "res/atlas/ui/panel_notice/roullette/activityRoullette/select_light.atlas"
+                ]
+            ],
+            _a[DlgCmd.noticeCenter] = [
+                view.dlg.NoticeDlg,
+                [
+                    "res/atlas/ui/panel_notice.atlas",
+                    "res/atlas/ui/panel_notice/message.atlas",
+                    "res/atlas/ui/panel_notice/roullette.atlas",
+                    "res/atlas/ui/panel_notice/share.atlas",
+                    "res/atlas/ui/panel_notice/roullette/activityRoullette.atlas",
+                    "res/atlas/ui/panel_notice/roullette/activityRoullette/select_light.atlas"
                 ]
             ],
             _a[DlgCmd.agentCenter] = [
                 view.dlg.AgentCenterDlg,
                 [
                     "./res/atlas/ui/agent.atlas",
-                    "./res/atlas/ui/bitFont/agentFont.atlas"
+                    "./res/atlas/ui/bitFont/agentFont.atlas",
+                    "./res/atlas/ui/agent/qrposter.atlas"
                 ]
             ],
             _a[DlgCmd.email] = [
@@ -41,6 +54,14 @@ var PageManager = /** @class */ (function () {
             _a[DlgCmd.personCenter] = [view.dlg.FullMyCenterDlg, ["./res/atlas/ui/fullMyCenter.atlas"]],
             _a[DlgCmd.bindPhoneAct] = [view.dlg.bindPhone.BindPhoneActiveDlg, ["./res/atlas/ui/bindPhone.atlas"]],
             _a[DlgCmd.bindPhone] = [view.dlg.center.BindPhoneDlg, ["./res/atlas/ui/fullMyCenter.atlas"]],
+            _a[DlgCmd.changePwdDlg] = [view.dlg.QuickSetPassWordDlg, ["./res/atlas/ui/fullMyCenter.atlas"]],
+            _a[DlgCmd.balance] = [
+                view.dlg.BalanceDlg,
+                [
+                    "./res/atlas/ui/balance.atlas",
+                    "./res/atlas/ui/balance/subres.atlas"
+                ]
+            ],
             _a);
     };
     /**
@@ -76,15 +97,18 @@ var PageManager = /** @class */ (function () {
         this.current = null;
     };
     /**
-     * todo:动态显示弹窗(DlgLoader)
      * 通过命令动态显示弹窗
      * @param cmd
      * @param params
      */
     PageManager.showDlg = function (cmd, params) {
+        var args = [];
+        for (var _i = 2; _i < arguments.length; _i++) {
+            args[_i - 2] = arguments[_i];
+        }
         var arr = this.dlgMap[cmd];
         if (arr) {
-            this.addDlg(arr[1], arr[0], params);
+            this.addDlg(arr[1], arr[0], params, args);
         }
     };
     /**
@@ -93,9 +117,13 @@ var PageManager = /** @class */ (function () {
      * @param params 参数
      */
     PageManager.addDlg = function (assets, dlgClass, params) {
+        var args = [];
+        for (var _i = 3; _i < arguments.length; _i++) {
+            args[_i - 3] = arguments[_i];
+        }
         var res = Laya.loader.getRes(assets[0]);
         if (res) {
-            dlgClass.show(params);
+            dlgClass.show(params, args);
         }
         else {
             LayaMain.getInstance().showCircleLoading();
@@ -103,12 +131,62 @@ var PageManager = /** @class */ (function () {
         }
         function show() {
             LayaMain.getInstance().showCircleLoading(false);
-            dlgClass.show(params);
+            dlgClass.show(params, args);
         }
+    };
+    /**
+     * 释放弹窗占用内存
+     * @param cmd
+     */
+    PageManager.clearDlgRes = function (cmd) {
+        var arr = this.dlgMap[cmd];
+        if (arr && arr.length > 1) {
+            var res = arr[1];
+            res.forEach(function (url) {
+                Laya.loader.clearTextureRes(url);
+            });
+        }
+        Laya.loader.clearTextureRes("ui/panel_common/img_com_quanping_di.jpg");
+        Laya.loader.clearTextureRes("ui/panel_common/maxdlg.png");
+        Laya.loader.clearTextureRes("asset/animation/agent/banner.png");
+        Laya.loader.clearTextureRes("asset/animation/agent/btn.png");
+    };
+    /**
+     * 释放大厅界面占用内存
+     */
+    PageManager.clearLobbyRes = function () {
+        this.lobbyRes.forEach(function (url) {
+            Laya.loader.clearTextureRes(url);
+        });
+        //释放活动
+        this.clearDlgRes(DlgCmd.activityCenter);
+        this.clearDlgRes(DlgCmd.personCenter);
+        this.clearDlgRes(DlgCmd.email);
+        this.clearDlgRes(DlgCmd.balance);
+    };
+    /**
+     * 释放login界面占用内存
+     */
+    PageManager.clearLoginRes = function () {
+        Laya.loader.clearTextureRes("res/atlas/ui/res_login.atlas");
     };
     //当前页面
     PageManager.current = null;
     PageManager.dlgMap = null; //弹窗地图
+    //大厅相关资源(用于释放内存)
+    PageManager.lobbyRes = [
+        "res/atlas/ui/bitFont/goldFont.atlas",
+        "res/atlas/ui/panel_common.atlas",
+        "res/atlas/ui/lobby/bottombar.atlas",
+        "res/atlas/ui/common.atlas",
+        "res/atlas/ui/lobby.atlas",
+        "assets/ui/avatorpad/touxiang.atlas",
+        "ui/lobby/bg_dating.jpg",
+        "asset/animation/coins/money_icon.png",
+        "asset/animation/girl/girl.png",
+        "asset/animation/loading/xiaoLoding.png",
+        "asset/animation/shopicon/shopicon.png"
+    ];
     return PageManager;
 }());
 //# sourceMappingURL=PageManager.js.map

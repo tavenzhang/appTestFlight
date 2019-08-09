@@ -134,7 +134,7 @@ var SoundPlayer = /** @class */ (function () {
     };
     /** 关闭所有音频 */
     SoundPlayer.StopAllSounds = function () {
-        Laya.SoundManager.stopAll();
+        Laya.SoundManager.stopMusic();
         PostMHelp.game_common({ do: "playBgMusic", param: false });
     };
     /**
@@ -142,6 +142,7 @@ var SoundPlayer = /** @class */ (function () {
      * @param url
      */
     SoundPlayer.play = function (url, isMutex) {
+        Debug.log("playEff:", this.soundSwitch, this.soundValue);
         if (this.soundSwitch != 1)
             return;
         Laya.SoundManager.soundVolume = this.soundValue;

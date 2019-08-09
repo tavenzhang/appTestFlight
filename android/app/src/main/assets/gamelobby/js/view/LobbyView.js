@@ -24,7 +24,6 @@ var view;
         }
         LobbyView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
-            this.btn_yeb.visible = true; //todo:余额宝需要上的时候去掉这句即可
             this.setBtnGap();
             //公共部分
             this.publicUI = new view.PublicView();
@@ -91,13 +90,16 @@ var view;
                     prev = btn;
             });
         };
-        LobbyView.prototype.initAnim = function () {
+        //初始化动画
+        LobbyView.prototype.initAnim = function (check) {
+            if (check === void 0) { check = true; }
             this.girlSp.x = -this.girlSp.width * 2;
             this.iconbox.x = Laya.stage.width;
             this.TLbox.y = -this.TLbox.height * 2;
             this.bottomBg.y = Laya.stage.height + this.bottomBg.height;
             this.bottomGroup.y = Laya.stage.height + this.bottomGroup.height;
             this.rightBtn.right = -this.rightBtn.width * 2;
+            this.publicUI.initAnim();
             var easeing = Laya.Ease.cubicOut;
             var time = 250;
             Laya.Tween.to(this.TLbox, { y: 0 }, time, easeing, null, 100);
@@ -106,12 +108,12 @@ var view;
             Laya.Tween.to(this.girlSp, { x: 36 }, 600, Laya.Ease.backOut, null, 200);
             Laya.Tween.to(this.iconbox, { x: 0 }, 600, Laya.Ease.backOut, null, 200);
             Laya.Tween.to(this.rightBtn, { right: GameUtils.posOffset }, 300, Laya.Ease.backOut, null, 800);
-            Laya.timer.once(1000, this, this.checkDlg);
+            if (check)
+                Laya.timer.once(1000, this, this.checkDlg);
         };
         //检查默认弹框
         LobbyView.prototype.checkDlg = function () {
             LobbyDataManager.checkActivity();
-            QueueTask.checkQueue([QueueType.bindPhoneActiv]);
             this.playEnd = true;
         };
         LobbyView.prototype.initEvents = function () {
@@ -131,12 +133,12 @@ var view;
             //活动
             EventManager.addTouchScaleListener(this.actBtn, this, function () {
                 SoundPlayer.enterPanelSound();
-                view.dlg.NoticeDlg.show(DlgCmd.activityCenter);
+                PageManager.showDlg(DlgCmd.activityCenter, DlgCmd.activityCenter);
             });
             //公告
             EventManager.addTouchScaleListener(this.noticeBtn, this, function () {
                 SoundPlayer.enterPanelSound();
-                view.dlg.NoticeDlg.show(DlgCmd.noticeCenter);
+                PageManager.showDlg(DlgCmd.noticeCenter, DlgCmd.noticeCenter);
             });
             //客服
             EventManager.addTouchScaleListener(this.serviceBtn, this, function () {
@@ -147,19 +149,19 @@ var view;
             //邮箱
             EventManager.addTouchScaleListener(this.btn_mail, this, function () {
                 SoundPlayer.enterPanelSound();
-                view.dlg.MailboxDlg.show();
+                PageManager.showDlg(DlgCmd.email);
             });
             //代理
             EventManager.addTouchScaleListener(this.btn_dl, this, function () {
                 SoundPlayer.enterPanelSound();
-                view.dlg.AgentCenterDlg.show();
+                PageManager.showDlg(DlgCmd.agentCenter);
             }, 123);
             //提现
             EventManager.addTouchScaleListener(this.btn_tx, this, function () {
                 SoundPlayer.enterPanelSound();
                 //如果没有修改过密码则需要先修改密码
                 if (Common.userInfo_current && Common.userInfo_current.needResetPwd) {
-                    view.dlg.QuickSetPassWordDlg.show();
+                    PageManager.showDlg(DlgCmd.changePwdDlg);
                 }
                 else {
                     Tools.jump2module(ConfObjRead.getConfUrl().url.g_redraw, "redraw");
@@ -168,7 +170,7 @@ var view;
             //绑定送金
             EventManager.addTouchScaleListener(this.btn_bind, this, function () {
                 SoundPlayer.enterPanelSound();
-                view.dlg.bindPhone.BindPhoneActiveDlg.show();
+                PageManager.showDlg(DlgCmd.bindPhoneAct);
             });
             //充值
             EventManager.addTouchScaleListener(this.shopSp, this, function () {
@@ -178,7 +180,7 @@ var view;
             //余额宝
             EventManager.addTouchScaleListener(this.btn_yeb, this, function () {
                 SoundPlayer.enterPanelSound();
-                view.dlg.BalanceDlg.show();
+                PageManager.showDlg(DlgCmd.balance);
             });
             //重置大小
             EventManager.register(EventType.RESIZE, this, this.resize);
@@ -253,8 +255,7 @@ var view;
                     this.btn_bind.visible = true;
                     if (GameData.joinLobbyType == JoinLobbyType.loginJoin) {
                         QueueTask.addQueue(QueueType.bindPhoneActiv);
-                        if (this.playEnd)
-                            QueueTask.checkQueue([QueueType.bindPhoneActiv]);
+                        //显示逻辑已经放到活动公告关闭后,如果没有活动公告则直接显示
                     }
                 }
             }

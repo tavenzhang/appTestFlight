@@ -61,6 +61,8 @@ var DlgCmd;
     DlgCmd[DlgCmd["email"] = 6] = "email";
     DlgCmd[DlgCmd["bindPhoneAct"] = 7] = "bindPhoneAct";
     DlgCmd[DlgCmd["bindPhone"] = 8] = "bindPhone";
-    DlgCmd[DlgCmd["withdraw"] = 9] = "withdraw";
+    DlgCmd[DlgCmd["changePwdDlg"] = 9] = "changePwdDlg";
+    DlgCmd[DlgCmd["withdraw"] = 10] = "withdraw";
+    DlgCmd[DlgCmd["balance"] = 11] = "balance";
 })(DlgCmd || (DlgCmd = {}));
 //# sourceMappingURL=GameVos.js.map
