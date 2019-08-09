@@ -28,8 +28,8 @@ export default class GamePromptView extends Component {
         this.methodName = this.props.vipData.methodName
         this.methodInfo = this.props.vipData.methodInfo
         this.vipType = this.props.vipData.vipTopUpType
-        this.state={
-             isInstalled:false
+        this.state = {
+            isInstalled: true
         }
     }
 
@@ -43,21 +43,23 @@ export default class GamePromptView extends Component {
 
     render() {
         let appName = this.getAppName(this.vipType)
-
         return (
             <View>
                 <Text style={styles.text}>{this.merchant}</Text>
                 <Text style={styles.text}>{this.methodName}：{this.methodInfo}</Text>
                 <Text style={styles.text}>充值代理的账号已经复制到系统粘贴板上</Text>
                 <Text style={[styles.text, {top: 90}]}>
-                    {/*{TW_Log("Benny >> SetText: "+this.appID+": "+this.installed)}*/}
-                    {(this.state.isInstalled) ? "是否现在跳转到" + appName : "未安装" + appName + "，请安装" + appName + "后联系充值代理"}
+                    {(this.state.isInstalled) ?
+                        ("是否现在跳转到" + appName) :
+                        (!G_IS_IOS && this.vipType == 'ALIPAY') ? "是否现在跳转到" + appName :
+                            "未安装" + appName + "，请安装" + appName + "后联系充值代理"
+                    }
                 </Text>
                 <TCButtonImg imgSource={ASSET_Images.gameUI.query}
                              btnStyle={{position: "absolute", top: 220, left: 190}}
                              soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                              onClick={() => {
-                                 this.openApp(this.vipType)
+                                 (this.state.isInstalled || (!G_IS_IOS && this.vipType == 'ALIPAY')) ? this.openApp(this.vipType) : null
                                  TW_Store.gameUIStroe.hideAlertUI();
                              }}/>
             </View>
@@ -72,15 +74,15 @@ export default class GamePromptView extends Component {
     getAppName=(topUpType)=> {
         switch (topUpType) {
             case 'ALIPAY':
-                this.appID='alipay://'
+                this.appID = 'alipay://'
                 this.checkAppInstallation(this.appID)
                 return "支付宝"
             case 'WECHAT':
-                this.appID='weixin://'
+                this.appID = 'weixin://'
                 this.checkAppInstallation(this.appID)
                 return "微信"
             case 'QQ':
-                this.appID='mqq://'
+                this.appID = 'mqq://'
                 this.checkAppInstallation(this.appID)
                 return "QQ"
             default:
@@ -109,14 +111,18 @@ export default class GamePromptView extends Component {
         }
     }
 
-    checkAppInstallation(appID){
+    /**
+     * 检查app是否安装
+     * @param appID
+     */
+    checkAppInstallation=(appID) => {
         Linking.canOpenURL(appID).then(supported => {
             if (supported) {
-                this.setState({isInstalled:true})
+                this.setState({isInstalled: true})
             } else {
-                this.setState({isInstalled:false})
+                this.setState({isInstalled: false})
             }
-        }).catch(err => TW_Log('错误：'+ err))
+        }).catch(err => TW_Log('错误：' + err))
     }
 }
 
