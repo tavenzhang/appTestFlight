@@ -520,12 +520,13 @@ export default class GamePayStepOne extends Component {
      */
     vipHandler(rowData) {
         Clipboard.setString(rowData.methodInfo);
-        if (rowData.vipTopUpType != 'OTHER' && rowData.vipTopUpType != null) {
-            TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick);
-            TW_Store.gameUIStroe.showPrompt(true, null, {
-                vipData: rowData, accountType: 2, isBackToTop: false
-            });
-        } else {
+        // if (rowData.vipTopUpType != 'OTHER' && rowData.vipTopUpType != null) {
+        //     TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.enterPanelClick);
+        //     TW_Store.gameUIStroe.showPrompt(true, null, {
+        //         vipData: rowData, accountType: 2, isBackToTop: false
+        //     });
+        // } else
+        {
             TW_Store.bblStore.playSoundByFile(TW_Store.bblStore.SOUND_ENUM.click);
             Toast.showShortCenter("已复制！")
         }
