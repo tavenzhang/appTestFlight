@@ -92,7 +92,6 @@ var LayaMain = /** @class */ (function () {
         PageManager.showPage(null, PageLogin, cmd);
     };
     LayaMain.prototype.onGamePause = function () {
-        //关闭所有音频
         SoundPlayer.StopAllSounds();
         //初始化当前音频设置
         SoundPlayer.initSoundSetting();
@@ -154,6 +153,7 @@ var LayaMain = /** @class */ (function () {
                         if (item && (item.hashUrl == message.hashUrl)) {
                             var index = HttpRequester.httpRequestList.indexOf(item);
                             HttpRequester.httpRequestList.splice(index, 1);
+                            GameUtils.clearTimeout(item.hashUrl);
                             // Debug.log("onAppPostMessgae---HttpRequester.histRequestList=splite=" + HttpRequester.httpRequestList.length, message);
                             var retStr = "";
                             if (message.rs) {

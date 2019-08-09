@@ -436,8 +436,11 @@ var view;
                 EventManager.removeAllEvents(this);
                 this.tab_notice.off(Laya.Event.CLICK, this, this.onTabClick);
                 this.tab_game.off(Laya.Event.CLICK, this, this.onTabClick);
+                //检测绑定送金
+                QueueTask.checkQueue([QueueType.bindPhoneActiv]);
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);
+                // PageManager.clearDlgRes(DlgCmd.activityCenter);
             };
             return NoticeDlg;
         }(ui.dlg.NoticeDlgUI));

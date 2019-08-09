@@ -10,6 +10,7 @@ var GameListManager = /** @class */ (function () {
     function GameListManager(listbox) {
         this.iconList = [];
         this.defDownLoads = []; //需要默认下载的游戏
+        this.errIndex = 0;
         this.listBox = listbox;
         this.init();
     }
@@ -54,9 +55,13 @@ var GameListManager = /** @class */ (function () {
                 _this.clearIcons();
                 _this.addGameItems(jobj.datas);
                 Laya.timer.once(500, _this, _this.onUpdateMsgInit);
+                _this.errIndex = 0;
             }
             else {
-                //...
+                _this.errIndex++;
+                if (_this.errIndex <= 3) {
+                    Laya.timer.once(800, _this, _this.updateIcons);
+                }
             }
         }, "get");
     };

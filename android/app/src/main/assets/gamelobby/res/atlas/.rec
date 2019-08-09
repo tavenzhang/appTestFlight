@@ -1,19 +1,5 @@
 D .
-D template
 D ui
-D template/ButtonTab
-P FC49EE94 btn_LargeTabButton_Left.png
-P AE499BA2 btn_LargeTabButton_Middle.png
-P 71BBA39E btn_LargeTabButton_Right.png
-D template/List
-P 140B5401 arrow.png
-P 5EDC128C label.png
-P 173F1169 message icon_57x57.png
-P 11909C67 SimpleListBoxItemBackground.png
-P 52107B89 vscroll$bar.png
-P E26B933E vscroll$down.png
-P B9680947 vscroll$up.png
-P 7E990267 vscroll.png
 D ui/agent
 P DC3A8A88 b_dlzx_fyblb.png
 P 89B031C4 b_dlzx_tyjl.png
@@ -85,7 +71,7 @@ P 3C81CD9A img_yeb_f-brsy.png
 P DA3CA902 img_yeb_f-grzh.png
 P D973E4C6 img_yeb_f-ljsy.png
 P F574A139 img_yeb_f-mxshd.png
-P AA275A7A img_yeb_f-qrnh.png
+P 76B36569 img_yeb_f-qrnh.png
 P FD0D4715 img_yeb_f-srje.png
 P 03D08FB6 img_yeb_f-srsy.png
 P 14178EEF img_yeb_f-wfsy.png

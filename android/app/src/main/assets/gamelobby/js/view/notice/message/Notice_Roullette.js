@@ -87,6 +87,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
     };
     Notice_Roullette.prototype.destroy = function () {
         this.radioBox.destory();
+        Laya.timer.clear(this, this.timeOut);
         _super.prototype.destroy.call(this, true);
     };
     //活动结束提示
@@ -107,12 +108,15 @@ var Notice_Roullette = /** @class */ (function (_super) {
     };
     Notice_Roullette.prototype.updatePlaerPoint = function (playerPoint) {
         this._havePt = playerPoint;
+        var str = "";
+        if (this._havePt != undefined)
+            str = this._havePt.toString();
         if (this.currentPt.parent)
-            this.currentPt.text = this._havePt.toString();
+            this.currentPt.text = str;
+        Debug.log("havePt=", this._havePt);
     };
     Notice_Roullette.prototype.onStartBtn = function () {
         SoundPlayer.clickSound();
-        console.log(this.roullette.rouletteLevel, this.roullette.curPoint);
         //判断活动是否已经结束
         var currentDate = new Date();
         if (currentDate.getTime() > this.endData.getTime()) {
@@ -141,10 +145,28 @@ var Notice_Roullette = /** @class */ (function (_super) {
             rouletteLevel: this.roullette.rouletteLevel
             // "username":Common.userInfo.username
         };
+        this.isout = false;
         //请求开始游戏
         HttpRequester.putHttpData(ConfObjRead.getConfUrl().cmd.attention_lottery, jobj, this, this.returnPrizeInfo);
+        Laya.timer.once(6000, this, this.timeOut);
+    };
+    Notice_Roullette.prototype.timeOut = function () {
+        Toast.showToast("网络请求超时,请检查网络环境后再尝试");
+        this.roullette.Standby();
+        this.openGameTouch();
+        this.isout = true;
     };
     Notice_Roullette.prototype.returnPrizeInfo = function (suc, jobj) {
+        Laya.timer.clear(this, this.timeOut);
+        Debug.log("轮盘数据:", suc, jobj);
+        if (!suc) {
+            this.roullette.Standby();
+            this.openGameTouch();
+            return;
+        }
+        //如果已经超时了，就不执行后续操作了
+        if (this.isout)
+            return;
         if (jobj.code) {
             this.roullette.Standby();
             this.updatePlaerPoint(this._havePt + this.roullette.curPoint);

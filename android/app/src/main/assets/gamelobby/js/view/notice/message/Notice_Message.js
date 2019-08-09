@@ -31,7 +31,7 @@ var Notice_Message = /** @class */ (function (_super) {
             else {
                 this.showImageLoading();
                 //加载图片
-                Laya.loader.load($data.img, Laya.Handler.create(this, function () {
+                Laya.loader.load(url, Laya.Handler.create(this, function () {
                     if (_this.destroyed)
                         return; //如果已经被销毁了，则不执行后面逻辑
                     //关闭图片加载遮罩

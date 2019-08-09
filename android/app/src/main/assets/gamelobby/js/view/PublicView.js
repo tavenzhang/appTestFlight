@@ -54,7 +54,7 @@ var view;
             //头像点击
             EventManager.addTouchScaleListener(this.headIcon, this, function () {
                 SoundPlayer.enterPanelSound();
-                view.dlg.FullMyCenterDlg.show();
+                PageManager.showDlg(DlgCmd.personCenter);
             }, null, 1);
             //充值
             EventManager.addTouchScaleListener(this.addBtn, this, function () {

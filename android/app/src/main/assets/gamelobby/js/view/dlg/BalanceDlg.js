@@ -52,10 +52,10 @@ var view;
                     view.dlg.balance.AccessDetailDlg.show();
                 });
                 //输入全部金额
-                EventManager.addTouchScaleListener(this.allBtn, this, function () {
-                    SoundPlayer.clickSound();
-                    _this.inputTxt.text = _this.yuebaoInfo.balanceAmt + "";
-                });
+                // EventManager.addTouchScaleListener(this.allBtn, this, () => {
+                // 	SoundPlayer.clickSound();
+                // 	this.inputTxt.text = this.yuebaoInfo.balanceAmt + "";
+                // });
                 //取出
                 EventManager.addTouchScaleListener(this.getBtn, this, function () {
                     SoundPlayer.enterPanelSound();
@@ -130,7 +130,10 @@ var view;
                     this.showBitFont(this.bitBox4, FormatTool.dollarFormat(jobj.sumIncome, ""), 0.8);
                     this.showBitFont(this.bitBox5, FormatTool.dollarFormat(jobj.curIncome, ""), 0.8);
                     this.showBitFont(this.bitBox6, FormatTool.dollarFormat(jobj.myriadProfit, ""), 0.8);
-                    this.showBitFont(this.bitBox7, jobj.sevenDayYearYield + "", 0.8);
+                    //年化利率=(万分收益 /10000) *365*100%
+                    var yearLv = jobj.myriadProfit / 10000 * 365;
+                    yearLv *= 100;
+                    this.showBitFont(this.bitBox7, FormatTool.dollarFormat(yearLv, ""), 0.8);
                     //余额宝功能
                     if (jobj.isClose) { //余额宝关闭
                         //关闭存钱按钮点击
@@ -175,6 +178,7 @@ var view;
                 this.fontMap = null;
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);
+                // PageManager.clearDlgRes(DlgCmd.balance);
             };
             return BalanceDlg;
         }(ui.dlg.BalanceDlgUI));
