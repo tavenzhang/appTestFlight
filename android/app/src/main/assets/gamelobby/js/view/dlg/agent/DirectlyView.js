@@ -34,7 +34,7 @@ var view;
                     this.y = 40;
                     this.itemPanel.vScrollBarSkin = "";
                     this.reqSubList();
-                    if (AgentModel.role != "AGENT" && AgentModel.role != "GENERAL_AGENT") {
+                    if (AgentModel.isUser) {
                         this.addBtn.gray = true;
                         this.addBtn.mouseEnabled = false;
                     }

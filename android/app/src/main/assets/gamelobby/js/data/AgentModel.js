@@ -4,6 +4,17 @@
 var AgentModel = /** @class */ (function () {
     function AgentModel() {
     }
+    Object.defineProperty(AgentModel, "isUser", {
+        //判断是否用户(非代理和非总代)
+        get: function () {
+            if (this.role != "AGENT" && this.role != "GENERAL_AGENT") {
+                return true;
+            }
+            return false;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * 获取代理信息
      * @param caller
@@ -32,9 +43,11 @@ var AgentModel = /** @class */ (function () {
      * @param caller
      * @param callback
      */
-    AgentModel.searchAgentInvatCode = function (caller, callback) {
+    AgentModel.searchAgentInvatCode = function (caller, callback, showloading) {
         var _this = this;
-        LayaMain.getInstance().showCircleLoading(true);
+        if (showloading === void 0) { showloading = true; }
+        if (showloading)
+            LayaMain.getInstance().showCircleLoading(true);
         HttpRequester.postHttpData(ConfObjRead.getConfUrl().cmd.agentinvation, {}, this, function (suc, jobj) {
             LayaMain.getInstance().showCircleLoading(false);
             if (suc) {
@@ -108,6 +121,24 @@ var AgentModel = /** @class */ (function () {
                 }
             }
         }, urlParams);
+    };
+    //检测并创建邀请码(用于活动分享)
+    AgentModel.checkAndCreatAffcode = function () {
+        var vo = this.invationVo;
+        if (!vo) {
+            this.reqCode();
+        }
+        else {
+            this.readCode();
+        }
+    };
+    AgentModel.readCode = function () {
+        if (this.invationVo.length == 0) {
+            AgentModel.creatAgentInvitCode(this, this.reqCode);
+        }
+    };
+    AgentModel.reqCode = function () {
+        AgentModel.searchAgentInvatCode(this, this.readCode, false);
     };
     //代理信息
     AgentModel.agentInfo = null;

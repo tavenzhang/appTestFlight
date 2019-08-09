@@ -30,32 +30,35 @@ var Notice_Share = /** @class */ (function (_super) {
         this.circle_down.on(Laya.Event.MOUSE_UP, this, this.onclick);
         this.on(Laya.Event.MOUSE_UP, this, this.onclick);
         this.limit = 0;
-        if (!AgentModel.invationVo) {
-            AgentModel.searchAgentInvatCode(null, null);
-        }
+        AgentModel.checkAndCreatAffcode();
     };
     Notice_Share.prototype.setData = function ($data) {
+        var _this = this;
         this.data = $data;
         this.noticeid = $data.noticeid;
-        //延时打开图片遮罩
-        Laya.timer.once(10, this, this.showImageLoading);
-        //加载图片
-        Laya.loader.load($data.img, Laya.Handler.create(this, function () {
-            if (this.destroyed)
-                return; //如果已经被销毁了，则不执行后面逻辑
-            //test
-            //Laya.timer.once(2500, this, this.hideImageLoading);
-            //关闭遮罩显示计时器
-            Laya.timer.clear(this, this.showImageLoading);
-            //关闭图片加载遮罩
-            this.hideImageLoading();
-            //设置图片
-            this.image.skin = $data.img;
-            if ($data.jumpHref != "") {
-                this.image.on(Laya.Event.CLICK, this, this.requestJump);
-            }
-        }));
         this.limit = $data.noticeShare.upperLimit;
+        var url = $data.img;
+        if (url && url.length > 3) {
+            var texture = Laya.loader.getRes(url);
+            if (texture) {
+                this.image.skin = url;
+            }
+            else {
+                this.showImageLoading();
+                //加载图片
+                Laya.loader.load(url, Laya.Handler.create(this, function () {
+                    if (_this.destroyed)
+                        return; //如果已经被销毁了，则不执行后面逻辑
+                    //关闭图片加载遮罩
+                    _this.hideImageLoading();
+                    //设置图片
+                    _this.image.skin = url;
+                    if ($data.jumpHref != "") {
+                        _this.image.on(Laya.Event.CLICK, _this, _this.requestJump);
+                    }
+                }));
+            }
+        }
     };
     /**
      * 打开图片加载遮罩
@@ -165,8 +168,7 @@ var Notice_Share = /** @class */ (function (_super) {
     * 销毁
     */
     Notice_Share.prototype.destroy = function () {
-        //关闭图片加载计时器
-        Laya.timer.clear(this, this.showImageLoading);
+        this.hideImageLoading();
         //
         _super.prototype.destroy.call(this, true);
     };
