@@ -62,7 +62,7 @@ export default class TWWebGameView extends Component {
         if (TW_Store.appStore.clindId == '31') {
             myParam += "&time=" + Math.random() * 9999;
         }
-        TW_Log("myUrl------------------------myParam--" + myParam + "-\n-newUrl----" + newUrl);
+
         let source = {
             file: newUrl,
             allowingReadAccessToURL: TW_Store.dataStore.getGameRootDir(),
@@ -80,6 +80,7 @@ export default class TWWebGameView extends Component {
                 };
             }
         }
+        TW_Log("myUrl------------------------myParam--" + myParam + "-\n-newUrl----" + newUrl+"---source==",source);
         let injectJs = `(function() {
               window.postMessage = function(data) {
                 window.ReactNativeWebView.postMessage(data);
@@ -214,6 +215,9 @@ export default class TWWebGameView extends Component {
     }
 
     onError = (error) => {
+        if( TW_Store.gameUpateStore.isInSubGame){
+            this.onBackHomeJs()
+        }
         TW_Log("onError=====TCweb======event=====", error.nativeEvent)
     }
 

@@ -50,7 +50,8 @@ export default class LoadingWebView extends Component {
             };
         }
 
-        let visible = TW_Store.gameUpateStore.isNeedUpdate||TW_Store.gameUpateStore.isAppDownIng
+       /// let visible = TW_Store.gameUpateStore.isNeedUpdate||TW_Store.gameUpateStore.isAppDownIng
+        let visible = TW_Store.gameUpateStore.isNeedUpdate
         if(!visible){
             return null;
         }
