@@ -179,9 +179,38 @@ var GameUtils = /** @class */ (function () {
         var base64 = cv.toDataURL("image/" + type);
         PostMHelp.game_common({ do: "saveImage", param: base64 });
     };
+    GameUtils.addTimeOut = function (url) {
+        var tween = Laya.Tween.to(this.timeObj, { abc: 1 }, 5000, Laya.Ease.linearNone, Laya.Handler.create(this, this.timeOut, [url]));
+        this.timeObj[url] = tween;
+    };
+    GameUtils.timeOut = function (url) {
+        delete this.timeObj[url];
+        for (var _i = 0, _a = HttpRequester.httpRequestList; _i < _a.length; _i++) {
+            var item = _a[_i];
+            if (item && item.hashUrl == url) {
+                var index = HttpRequester.httpRequestList.indexOf(item);
+                HttpRequester.httpRequestList.splice(index, 1);
+                if (view.LoadingView.isLoading) {
+                    LayaMain.getInstance().showCircleLoading(false);
+                    Toast.showToast("网络请求超时,请稍后再试");
+                    Debug.error("timeOut:", url);
+                }
+                return;
+            }
+        }
+    };
+    GameUtils.clearTimeout = function (url) {
+        var tween = this.timeObj[url];
+        if (tween) {
+            Laya.Tween.clear(tween);
+            delete this.timeObj[url];
+        }
+    };
     //最小和最大间隔(用于需要全屏适配的ui)
     GameUtils.minGap = 28;
     GameUtils.maxGap = 78; //安全边距
+    //----------http超时相关
+    GameUtils.timeObj = { abc: 0 };
     return GameUtils;
 }());
 /**
@@ -235,24 +264,15 @@ var InnerJumpUtil = /** @class */ (function () {
         if (cmd == undefined)
             return;
         switch (cmd) {
-            case DlgCmd.activityCenter: {
-                view.dlg.NoticeDlg.show(DlgCmd.activityCenter);
-                break;
-            }
+            case DlgCmd.activityCenter:
             case DlgCmd.noticeCenter: {
-                view.dlg.NoticeDlg.show(DlgCmd.noticeCenter);
+                PageManager.showDlg(cmd, cmd);
                 break;
             }
-            case DlgCmd.agentCenter: {
-                view.dlg.AgentCenterDlg.show();
-                break;
-            }
-            case DlgCmd.email: {
-                view.dlg.MailboxDlg.show();
-                break;
-            }
+            case DlgCmd.agentCenter:
+            case DlgCmd.email:
             case DlgCmd.personCenter: {
-                view.dlg.FullMyCenterDlg.show();
+                PageManager.showDlg(cmd);
                 break;
             }
             case DlgCmd.recharge: {

@@ -24,6 +24,7 @@ var LobbyScene = /** @class */ (function (_super) {
     }
     LobbyScene.prototype.destroy = function (b) {
         LobbyScene.obj = null;
+        EventManager.removeAllEvents(this);
         if (this.view) {
             this.view.dispose();
             this.view = null;
@@ -32,6 +33,23 @@ var LobbyScene = /** @class */ (function (_super) {
     };
     LobbyScene.getInstance = function () {
         return LobbyScene.obj;
+    };
+    //进入游戏时释放资源占用
+    LobbyScene.prototype.clearLobby = function () {
+        if (this.view) {
+            this.view.visible = false;
+            PageManager.clearLobbyRes();
+        }
+    };
+    //
+    LobbyScene.prototype.creatLobby = function () {
+        if (!this.view) {
+            this.initUI();
+        }
+        else {
+            this.view.visible = true;
+            this.view.initAnim(false);
+        }
     };
     LobbyScene.prototype.initUI = function () {
         //添加大厅视图
@@ -62,7 +80,10 @@ var LobbyScene = /** @class */ (function (_super) {
         Common.backUrl = ConfObjRead.getConfUrl().url.backlobby;
         SaveManager.getObj().initCommon(Common.access_token, ConfObjRead.getConfUrl().url.apihome);
         Common.confObj.url = ConfObjRead.getConfUrl().url;
-        this.initUI();
+        this.creatLobby();
+        PageManager.clearLoginRes();
+        EventManager.register(EventType.GAMETOHALL, this, this.creatLobby);
+        EventManager.register(EventType.HALLTOGAME, this, this.clearLobby);
     };
     LobbyScene.IS_PLAYED_MUSIC = false;
     return LobbyScene;
@@ -79,7 +100,10 @@ var LobbyDataManager = /** @class */ (function () {
     LobbyDataManager.checkActivity = function () {
         HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.attention_pop, this, function (suc, jobj) {
             if (suc && jobj.pop) { //本地 活动/公告2/1 服务器 1/0
-                view.dlg.NoticeDlg.show(jobj.noticeCate + 1, jobj.noticeid);
+                PageManager.showDlg(DlgCmd.noticeCenter, jobj.noticeCate + 1, jobj.noticeid);
+            }
+            else {
+                QueueTask.checkQueue([QueueType.bindPhoneActiv]);
             }
         });
     };

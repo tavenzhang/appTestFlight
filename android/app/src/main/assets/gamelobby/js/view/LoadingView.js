@@ -37,6 +37,7 @@ var view;
             this._inst.zOrder = Dialog.manager.zOrder + 1;
             this._inst.mouseEnabled = true;
             Laya.stage.addChild(this._inst);
+            this.isLoading = true;
         };
         /**
          * 隐藏loading
@@ -46,6 +47,7 @@ var view;
                 this._inst.destroy(true);
                 this._inst = null;
             }
+            this.isLoading = false;
         };
         LoadingView.prototype.initView = function () {
             this.width = Laya.stage.width;

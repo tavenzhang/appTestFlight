@@ -61,7 +61,7 @@ var view;
                             HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.getBindAward, _this, _this.responseBindAward);
                         }
                         else {
-                            view.dlg.center.BindPhoneDlg.show();
+                            PageManager.showDlg(DlgCmd.bindPhone);
                         }
                         _this.close(null, true);
                     });
@@ -85,6 +85,7 @@ var view;
                     BindPhoneActiveDlg.opened = false;
                     _super.prototype.onClosed.call(this, type);
                     this.destroy(true);
+                    // PageManager.clearDlgRes(DlgCmd.bindPhoneAct);
                 };
                 return BindPhoneActiveDlg;
             }(ui.dlg.bindPhone.BindPhoneActiveDlgUI));

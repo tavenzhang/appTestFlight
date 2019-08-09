@@ -116,6 +116,7 @@ var view;
                 EventManager.removeAllEvents(this);
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);
+                // PageManager.clearDlgRes(DlgCmd.agentCenter);
             };
             return AgentCenterDlg;
         }(ui.dlg.AgentCenterDlgUI));

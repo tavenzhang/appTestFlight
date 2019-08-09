@@ -277,6 +277,7 @@ var view;
                 this.mlistData = null;
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);
+                // PageManager.clearDlgRes(DlgCmd.email);
             };
             return MailboxDlg;
         }(ui.dlg.MailboxDlgUI));

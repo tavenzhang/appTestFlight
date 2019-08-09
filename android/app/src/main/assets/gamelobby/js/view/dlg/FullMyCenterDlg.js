@@ -100,10 +100,12 @@ var view;
                 //绑定手机号
                 EventManager.addTouchScaleListener(this.bindPhoneBtn, this, function () {
                     SoundPlayer.enterPanelSound();
-                    if (GameData.bindOpen)
-                        view.dlg.bindPhone.BindPhoneActiveDlg.show();
-                    else
-                        view.dlg.center.BindPhoneDlg.show();
+                    if (GameData.bindOpen) {
+                        PageManager.showDlg(DlgCmd.bindPhoneAct);
+                    }
+                    else {
+                        PageManager.showDlg(DlgCmd.bindPhone);
+                    }
                 });
                 //绑定支付宝
                 EventManager.addTouchScaleListener(this.bindAlipayBtn, this, function () {
@@ -226,6 +228,7 @@ var view;
                 EventManager.removeAllEvents(this);
                 _super.prototype.onClosed.call(this, type);
                 this.destroy(true);
+                // PageManager.clearDlgRes(DlgCmd.personCenter);
             };
             return FullMyCenterDlg;
         }(ui.dlg.FullMyCenterDlgUI));
