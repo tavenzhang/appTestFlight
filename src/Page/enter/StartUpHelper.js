@@ -43,7 +43,7 @@ function getAvailableDomain (domains,callback) {
               let gameDomain = domains[i];
               if(gameDomain.indexOf("http")>-1){
                  // TW_Log("callback-------content.trendChartDomains[0]-exist"+gameDomain);
-                  if(TW_Store.appStore.clindId!="31"){ //对于sit  环境做特殊处理 使用默认
+                  if(!TW_Store.appStore.isSitApp){ //对于sit  环境做特殊处理 使用默认
                       TW_Store.appStore.currentDomain=TW_Store.bblStore.loginDomain =TW_Store.bblStore.gameDomain=gameDomain;
                   }
 
