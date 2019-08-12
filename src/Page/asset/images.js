@@ -252,9 +252,10 @@ export const gameUI = {
     payExpand:require('./game/moneyPay/pay_expand.png'),
     payCollapse:require('./game/moneyPay/pay_collapse.png'),
     downArrow:require('./game/moneyPay/down_arrow.png'),
-    //alet
+    //alert
     uiTitleBg:require('./game/uiTitleBg.png'),
     uiTitleBg1:require('./game/uiTitleBg1.png'),
+    uiTitleBgSmall:require('./game/uiTitleBgSmall.png'),
     title_fix:require('./game/title_fix.png'),
     btn_fanhui:require('./game/btn_fanhui.png'),
     closeIcon:require('./game/close.png'),
@@ -274,7 +275,7 @@ export const gameUI = {
 }
 
 export const gameShare = {
-    //useraccout
+    //userAccount
     boxBg: require('./game/share/boxBg.png'),
     btnAndroid:require('./game/share/btnAndroid.png'),
     btnApple:require('./game/share/btnApple.png'),
