@@ -64,5 +64,7 @@ var DlgCmd;
     DlgCmd[DlgCmd["changePwdDlg"] = 9] = "changePwdDlg";
     DlgCmd[DlgCmd["withdraw"] = 10] = "withdraw";
     DlgCmd[DlgCmd["balance"] = 11] = "balance";
+    DlgCmd[DlgCmd["accountInfo"] = 12] = "accountInfo";
+    DlgCmd[DlgCmd["alipayBind"] = 13] = "alipayBind";
 })(DlgCmd || (DlgCmd = {}));
 //# sourceMappingURL=GameVos.js.map
