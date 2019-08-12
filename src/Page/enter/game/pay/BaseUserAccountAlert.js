@@ -30,7 +30,8 @@ export default class BaseGameAlert extends Component {
         let {onClose, title, accountType} = this.props;
 
         return (<View style={{position: "absolute"}}>
-            <TCImage source={ASSET_Images.gameUI.uiTitleBg1}/>
+            <TCImage source={accountType == 2 ? ASSET_Images.gameUI.uiTitleBgSmall :
+                ASSET_Images.gameUI.uiTitleBg1}/>
             <View style={{
                 marginTop: 43, width: SCREEN_W * 0.6,
                 alignSelf: "center",
@@ -51,10 +52,10 @@ export default class BaseGameAlert extends Component {
                 source={accountType == 0 ? ASSET_Images.gameUI.txmxIcon :
                     accountType == 1 ? ASSET_Images.gameUI.czmxIcon :
                         ASSET_Images.gameUI.promptIcon}
-                style={{position: "absolute", top: 12, left: accountType == 2 ? 235 : 215}}/>
+                style={{position: "absolute", top: 12, left: accountType == 2 ? 165 : 215}}/>
 
             <TouchableWithoutFeedback>
-                <View style={{position: "absolute", right: 2, top: 5, width: 40, height: 40,}}>
+                <View style={{position: "absolute", right: 2, top: accountType == 2 ? 8 : 5, width: 40, height: 40,}}>
                     <TCButtonImg imgSource={ASSET_Images.gameUI.closeIcon}
                                  soundName={TW_Store.bblStore.SOUND_ENUM.close}
                                  onClick={onClose}

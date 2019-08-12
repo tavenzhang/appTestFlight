@@ -5,7 +5,6 @@
  */
 import React, {Component} from 'react';
 import {
-    Linking,
     StyleSheet,
     View,
     Text
@@ -33,14 +32,6 @@ export default class GamePromptView extends Component {
         }
     }
 
-    async componentDidMount() {
-
-    }
-
-    componentWillUnmount() {
-
-    }
-
     render() {
         let appName = this.getAppName(this.vipType)
         return (
@@ -48,18 +39,12 @@ export default class GamePromptView extends Component {
                 <Text style={styles.text}>{this.merchant}</Text>
                 <Text style={styles.text}>{this.methodName}：{this.methodInfo}</Text>
                 <Text style={styles.text}>充值代理的账号已经复制到系统粘贴板上</Text>
-                <Text style={[styles.text, {top: 90}]}>
-                    {(this.state.isInstalled) ?
-                        ("是否现在跳转到" + appName) :
-                        (!G_IS_IOS && this.vipType == 'ALIPAY') ? "是否现在跳转到" + appName :
-                            "未安装" + appName + "，请安装" + appName + "后联系充值代理"
-                    }
-                </Text>
+                <Text style={[styles.text, {top: 40}]}>{"是否现在跳转到" + appName}</Text>
                 <TCButtonImg imgSource={ASSET_Images.gameUI.query}
-                             btnStyle={{position: "absolute", top: 220, left: 190}}
+                             btnStyle={{position: "absolute", top: 150, left: 170}}
                              soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
                              onClick={() => {
-                                 (this.state.isInstalled || (!G_IS_IOS && this.vipType == 'ALIPAY')) ? this.openApp(this.vipType) : null
+                                 this.openApp(this.vipType)
                                  TW_Store.gameUIStroe.hideAlertUI();
                              }}/>
             </View>
@@ -75,15 +60,12 @@ export default class GamePromptView extends Component {
         switch (topUpType) {
             case 'ALIPAY':
                 this.appID = 'alipay://'
-                this.checkAppInstallation(this.appID)
                 return "支付宝"
             case 'WECHAT':
                 this.appID = 'weixin://'
-                this.checkAppInstallation(this.appID)
                 return "微信"
             case 'QQ':
                 this.appID = 'mqq://'
-                this.checkAppInstallation(this.appID)
                 return "QQ"
             default:
                 return "其它"
@@ -110,25 +92,11 @@ export default class GamePromptView extends Component {
                 return
         }
     }
-
-    /**
-     * 检查app是否安装
-     * @param appID
-     */
-    checkAppInstallation=(appID) => {
-        Linking.canOpenURL(appID).then(supported => {
-            if (supported) {
-                this.setState({isInstalled: true})
-            } else {
-                this.setState({isInstalled: false})
-            }
-        }).catch(err => TW_Log('错误：' + err))
-    }
 }
 
 const styles = StyleSheet.create({
     text: {
-        color: "#A2E1EE", fontSize: 18, textAlign: 'center', top: 50
+        color: "#A2E1EE", fontSize: 18, textAlign: 'center', top: 20
     }
 });
 
