@@ -18,7 +18,7 @@ function getAvailableDomain (domains,callback) {
       if(!netStateCheckAllReady){
           callback(false, false, false);
       }
-  },1000)
+  },10000)
   for (let i = 0; i < domains.length; i++) {
     TW_Log('cacheDomain check= '+domains[i]);
       let tempDomain =domains[i]
