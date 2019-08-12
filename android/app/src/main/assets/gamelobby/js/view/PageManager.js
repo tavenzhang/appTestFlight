@@ -55,6 +55,8 @@ var PageManager = /** @class */ (function () {
             _a[DlgCmd.bindPhoneAct] = [view.dlg.bindPhone.BindPhoneActiveDlg, ["./res/atlas/ui/bindPhone.atlas"]],
             _a[DlgCmd.bindPhone] = [view.dlg.center.BindPhoneDlg, ["./res/atlas/ui/fullMyCenter.atlas"]],
             _a[DlgCmd.changePwdDlg] = [view.dlg.QuickSetPassWordDlg, ["./res/atlas/ui/fullMyCenter.atlas"]],
+            _a[DlgCmd.accountInfo] = [view.dlg.center.AccountInfoDlg, ["./res/atlas/ui/fullMyCenter.atlas"]],
+            _a[DlgCmd.alipayBind] = [view.dlg.center.BindAlipayDlg, ["./res/atlas/ui/fullMyCenter.atlas"]],
             _a[DlgCmd.balance] = [
                 view.dlg.BalanceDlg,
                 [

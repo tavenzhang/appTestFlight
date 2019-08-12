@@ -239,7 +239,7 @@ var LayaMain = /** @class */ (function () {
                     break;
                 }
                 case "openBindCard": { //打开绑定银行卡界面
-                    view.dlg.center.AccountInfoDlg.show();
+                    PageManager.showDlg(DlgCmd.accountInfo);
                     break;
                 }
                 case "shareSucess": {
@@ -247,7 +247,7 @@ var LayaMain = /** @class */ (function () {
                     break;
                 }
                 case "openBindAlipay": { //打开支付宝绑定界面
-                    view.dlg.center.BindAlipayDlg.show();
+                    PageManager.showDlg(DlgCmd.alipayBind);
                     break;
                 }
                 case "saveImage": { //保存图片的结果
