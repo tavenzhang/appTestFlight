@@ -52,7 +52,7 @@ var SecretUtils = /** @class */ (function () {
             if (rsa.getPublicString.length <= 20) {
                 rsa.setPublicString(base65.decode(RSA_PUBLIC_KEY));
             }
-            var encryptedPWD = rsa.encrypt(password);
+            var encryptedPWD = rsa.encrypt(password);  return
             var encodedPWD = base65.encode(encryptedPWD);
             return encodedPWD;
         }

@@ -12,8 +12,10 @@ import { observer } from 'mobx-react';
 import { NativeEventEmitter, NativeModules } from 'react-native'
 
 import { phoneState } from '../asset/images';
-
-const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
+let deviceInfoEmitter={}
+if(NativeModules.RNDeviceInfo){
+     deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
+}
 
 @observer
 export default class PhoneStateView extends Component {

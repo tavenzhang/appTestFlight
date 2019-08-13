@@ -12,6 +12,14 @@ function getAvailableDomain (domains,callback) {
  // AsyncStorage.setItem('cacheDomain', JSON.stringify(cacheDomain));
   let errorCount = 0;
   let isFinish =false;
+  let netStateCheckAllReady = false;
+  // 由于fetch 本身的timeOut 不起作用，为了防止某些域名请求一直不返回，导致无法进行错误回掉，手动进行超时处理
+  setTimeout(()=>{
+      if(!netStateCheckAllReady){
+          netStateCheckAllReady=true;
+          callback(false, false, false);
+      }
+  },10000)
   for (let i = 0; i < domains.length; i++) {
     TW_Log('cacheDomain check= '+domains[i]);
       let tempDomain =domains[i]
@@ -55,7 +63,9 @@ function getAvailableDomain (domains,callback) {
                   trendChartDomains: content.trendChartDomains,
                   responseTime: rt.duration
               }), (err) => {
+                  netStateCheckAllReady=true
                   if (!err) {
+
                       if (content && content.allowAppUpdate) {
                           callback(true, true, null)
                       } else {
@@ -71,6 +81,7 @@ function getAvailableDomain (domains,callback) {
             errorCount++;
             TW_Log("cacheAttempt000+errorCount=="+errorCount,domains);
             if (errorCount >= domains.length) {
+                  netStateCheckAllReady=true
                   callback(false, false, rt.status);
             }
         }
