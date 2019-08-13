@@ -6,7 +6,7 @@ const Sound = require('react-native-sound');
 //ar SoundFile = require('../../../android/app/src/main/assets/gamelobby/assets/raw/bgm_lobby.mp3')
 Sound.setActive(true)
 Sound.enableInSilenceMode(true)
-Sound.setCategory('Ambient', true)
+// Sound.setCategory('Ambient', true)
 
 
 export class SoundHelper {
