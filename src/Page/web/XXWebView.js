@@ -424,7 +424,7 @@ export default class XXWebView extends Component {
                                         TW_Store.dataStore.log+="\n message---"+JSON.stringify(result)+"---\n--code===="+code;
                                         TW_Log("code----"+code+"---message---"+message,result);
                                         if(result){
-                                            if (code == 200) {
+                                            if (code == 200||code==0) {
                                                 this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.wxLogin,{data:result}));
                                             }else{
                                                 this.onEvaleJS(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.popTip, {data: "微信授权异常!"}));
