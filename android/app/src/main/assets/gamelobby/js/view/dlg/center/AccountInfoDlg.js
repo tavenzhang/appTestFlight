@@ -128,23 +128,32 @@ var view;
                         this.setNameBtn.gray = true;
                         this.setNameBtn.mouseEnabled = false;
                         this.cardPwd.prompt = Common.cardInfo.hasAlipayCard ? "请输入提现密码(4位数字)" : "请设置提现密码(4位数字)";
-                        if (!this.initBankView) {
-                            //设置银行卡
-                            EventManager.addTouchScaleListener(this.openCardBtn, this, function () {
-                                SoundPlayer.clickSound();
+                    }
+                    if (!this.initBankView) {
+                        //设置银行卡
+                        EventManager.addTouchScaleListener(this.openCardBtn, this, function () {
+                            SoundPlayer.clickSound();
+                            var num = 0;
+                            try {
+                                num = 1;
                                 if (!_this.checkCardInfos())
                                     return;
+                                num = 2;
                                 LayaMain.getInstance().showCircleLoading(true);
+                                num = 3;
                                 if (!Common.cardInfo) {
+                                    num = 4;
                                     LobbyDataManager.getCardInfo(_this, _this.checkBindType);
                                 }
                                 else {
+                                    num = 5;
                                     _this.checkBindType();
                                 }
-                            });
-                        }
-                    }
-                    if (!this.initBankView) {
+                            }
+                            catch (e) {
+                                Toast.showToast("error-num:" + num);
+                            }
+                        });
                         EventManager.pushEvent(this.cardPwdLook, Laya.Event.CHANGE, this, this.togglePwdInput, [this.cardPwd]);
                         //填充银行数据
                         var item_1;
@@ -173,6 +182,10 @@ var view;
                     this.cardPwd.text = "****";
                 };
                 AccountInfoDlg.prototype.checkBindType = function () {
+                    if (!Common.cardInfo) {
+                        Toast.showToast("cardInfo数据异常");
+                        return;
+                    }
                     if (Common.cardInfo.hasAlipayCard) { //如果绑定了支付宝
                         this.twiceBind();
                     }
