@@ -188,6 +188,7 @@ var LobbyDataManager = /** @class */ (function () {
             }
             else {
                 Common.cardInfo = { enabledAlipayWithdraw: false, hasAlipayCard: false, hasBankCard: false };
+                Toast.showToast("cardInfo获取异常");
             }
             _this.getCardDetailInfo();
         });

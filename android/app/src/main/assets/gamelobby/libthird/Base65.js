@@ -2,9 +2,9 @@
  * Created by Allen on 2017/1/24.
  * Copyright © 2016年 JX. All rights reserved.
  */
-const _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
-var instance_test = null
-class Base65 {
+var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+var instance_test = null;
+var Base65 = /** @class */ (function () {
     /**
      *
      *  Base65 encode / decode
@@ -12,15 +12,15 @@ class Base65 {
      *
      */
     // 构造
-    constructor() {
+    function Base65() {
         if (!instance_test) {
-            instance_test = this
+            instance_test = this;
         }
         return instance_test;
     }
     // private property
     // public method for encoding
-    encode(input) {
+    Base65.prototype.encode = function (input) {
         var output = "";
         var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
         var i = 0;
@@ -35,7 +35,8 @@ class Base65 {
             enc4 = chr3 & 63;
             if (isNaN(chr2)) {
                 enc3 = enc4 = 64;
-            } else if (isNaN(chr3)) {
+            }
+            else if (isNaN(chr3)) {
                 enc4 = 64;
             }
             output = output +
@@ -43,11 +44,9 @@ class Base65 {
                 _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
         }
         return output;
-    }
-
+    };
     // public method for decoding
-    decode(input) {
-        
+    Base65.prototype.decode = function (input) {
         var output = "";
         var chr1, chr2, chr3;
         var enc1, enc2, enc3, enc4;
@@ -71,32 +70,30 @@ class Base65 {
         }
         output = this.utf8_decode(output);
         return output;
-    }
-
+    };
     // private method for UTF-8 encoding
-    utf8_encode(string) {
+    Base65.prototype.utf8_encode = function (string) {
         string = string.replace(/\r\n/g, "\n");
         var utftext = "";
         for (var n = 0; n < string.length; n++) {
             var c = string.charCodeAt(n);
             if (c < 128) {
                 utftext += String.fromCharCode(c);
-            } else if ((c > 127) && (c < 2048)) {
+            }
+            else if ((c > 127) && (c < 2048)) {
                 utftext += String.fromCharCode((c >> 6) | 192);
                 utftext += String.fromCharCode((c & 63) | 128);
-            } else {
+            }
+            else {
                 utftext += String.fromCharCode((c >> 12) | 224);
                 utftext += String.fromCharCode(((c >> 6) & 63) | 128);
                 utftext += String.fromCharCode((c & 63) | 128);
             }
-
         }
         return utftext;
-    }
-
+    };
     // private method for UTF-8 decoding
-    utf8_decode(utftext) {
-        
+    Base65.prototype.utf8_decode = function (utftext) {
         var string = "";
         var i = 0;
         var c = 0;
@@ -107,11 +104,13 @@ class Base65 {
             if (c < 128) {
                 string += String.fromCharCode(c);
                 i++;
-            } else if ((c > 191) && (c < 224)) {
+            }
+            else if ((c > 191) && (c < 224)) {
                 c2 = utftext.charCodeAt(i + 1);
                 string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
                 i += 2;
-            } else {
+            }
+            else {
                 c2 = utftext.charCodeAt(i + 1);
                 c3 = utftext.charCodeAt(i + 2);
                 string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
@@ -119,7 +118,7 @@ class Base65 {
             }
         }
         return string;
-    }
-}
-
-
+    };
+    return Base65;
+}());
+//# sourceMappingURL=Base65.js.map
