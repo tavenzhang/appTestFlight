@@ -34,6 +34,7 @@ export class SoundHelper {
 
 
     static async startBgMusic(force=false) {
+
         if(TW_Store.dataStore.isAppInited){
             let file = G_IS_IOS ? `${TW_Store.dataStore.getHomeWebHome()}/assets/raw/bgm_lobby.mp3` : "bgm_lobby.mp3";
             //let isExist = await RNFS.exists(file);
