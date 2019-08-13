@@ -66,6 +66,7 @@ public class MainActivity extends ReactActivity {
             getWindow().setAttributes(lp);
         }
         initUmeng();
+
         // 设置透明状态栏
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
@@ -83,7 +84,8 @@ public class MainActivity extends ReactActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
                         | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE;
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
             decorView.setSystemUiVisibility(uiOptions);
             getWindow().setNavigationBarColor(Color.BLACK);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
