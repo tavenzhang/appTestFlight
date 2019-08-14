@@ -61,7 +61,7 @@ export default class GamePayStepOne extends Component {
     render() {
         let {itemData} = this.props;
         let payList = TW_Store.userPayTypeStore.getPayList(itemData.code);
-        let promotionHeight = (itemData.promotionTips != null && itemData.promotion) ? 10 : 0
+        let promotionHeight = (itemData.promotionTips != null) ? 10 : 0
         payHelper.props = itemData;
         let marginTop = (itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP") ? 160 + promotionHeight : promotionHeight
         let height = itemData.code.indexOf("FIXED") === -1 && itemData.code != "VIP" ? SCREEN_H - 220 - promotionHeight : SCREEN_H - 55 - promotionHeight
@@ -70,7 +70,7 @@ export default class GamePayStepOne extends Component {
         }
         return (<View style={styles.container}>
             {
-                (itemData.promotionTips != null && itemData.promotion) ?
+                (itemData.promotionTips != null) ?
                     (<Text style={{color: "#FFBA25", fontSize: 16, textAlign: 'center'}}
                     >{itemData.promotionTips}</Text>) : null
             }
@@ -225,9 +225,9 @@ export default class GamePayStepOne extends Component {
                 onPress={() => {
                     payHelper.bankApplyFor(bank)
                 }}>
-                <View style={{width: SCREEN_W - 250, height: 100, justifyContent: "center"}}>
+                <View style={{width: SCREEN_W - 250, height: 120, justifyContent: "center"}}>
                     <TCImage source={ASSET_Images.gameUI.listItemBg}
-                             style={{position: "absolute", width: SCREEN_W - 250, height: 90}}/>
+                             style={{position: "absolute", width: SCREEN_W - 250, height: 110}}/>
                     <View style={{flexDirection: "row"}}>
                         <Text style={styles.itemLable}>收款银行</Text>
                         <Text style={styles.itemData}>{bank.bankName}</Text>
@@ -285,7 +285,6 @@ export default class GamePayStepOne extends Component {
                             flexWrap: 'wrap'
                         }}>{vip.remarks}</Text>
                     </View>
-
                 </View>)
         } else if (itemData.code.indexOf("FIXED") != -1) {
             let paymentItem = data;
