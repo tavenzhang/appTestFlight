@@ -23,21 +23,23 @@ export default class TCFlatList extends React.Component {
         styleContain: PropTypes.any,
         dataS: PropTypes.any,
         extraData: PropTypes.any,
-        isHorizon:PropTypes.bool,
-        refreshControl:PropTypes.any,
-        numColumns:PropTypes.any,
-        listEmptyComponent:PropTypes.any,
-        itemSeparatorComponent:PropTypes.any,
-        onScroll:PropTypes.any,
+        isHorizon: PropTypes.bool,
+        refreshControl: PropTypes.any,
+        numColumns: PropTypes.any,
+        listEmptyComponent: PropTypes.any,
+        itemSeparatorComponent: PropTypes.any,
+        onScroll: PropTypes.any,
+        removeClippedSubviews: PropTypes.any
     }
 
     static defaultProps = {
         pageSize: 14,
         initialNumToRender: 10,
         extraData: null,
-        isHorizon:false,
-        numColumns:1,
-        dataS:[]
+        isHorizon: false,
+        numColumns: 1,
+        dataS: [],
+        removeClippedSubviews: false
     }
 
 
@@ -71,7 +73,7 @@ export default class TCFlatList extends React.Component {
     render() {
         let {dataS,isHorizon,listEmptyComponent,itemSeparatorComponent,numColumns,
             renderHeader,refreshControl, onFootFlush,renderFooter,extraData,
-            getItemLayout, keyExtractor, initialNumToRender,style, styleContain,onScroll,showsVerticalScrollIndicator = true} = this.props;
+            getItemLayout, keyExtractor, initialNumToRender,style, styleContain,onScroll,showsVerticalScrollIndicator = true,removeClippedSubviews} = this.props;
 
         return (
                 <FlatList
@@ -96,6 +98,7 @@ export default class TCFlatList extends React.Component {
                     onScroll={onScroll}
                     scrollEventThrottle = {100}
                     showsVerticalScrollIndicator = {showsVerticalScrollIndicator}
+                    removeClippedSubviews={removeClippedSubviews}
                 />
         );
     }
