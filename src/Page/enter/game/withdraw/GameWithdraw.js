@@ -53,10 +53,10 @@ export default class GameWithdraw extends Component {
     }
 
     render() {
-        let leftPosition=SCREEN_W>800?25:SCREEN_W>700?5:SCREEN_W>640?-15:-35
+        let leftPosition = SCREEN_W > 800 ? 25 : SCREEN_W > 700 ? 5 : SCREEN_W > 640 ? -15 : -35
         let {itemData} = this.props;
         let num = itemData.withdrawModel.aggregateBetRequirements - itemData.withdrawModel.aggregateBets
-TW_Log("Benny>> W="+SCREEN_W+", leftPosition="+leftPosition)
+        TW_Log("Benny>> W=" + SCREEN_W + ", leftPosition=" + leftPosition)
         return (<View style={styles.container}>
             {/*金币图片*/}
             <TCImage source={ASSET_Images.gameUI.payOutTopIcon} resizeMode={'stretch'} style={{
@@ -72,7 +72,7 @@ TW_Log("Benny>> W="+SCREEN_W+", leftPosition="+leftPosition)
                 top: SCREEN_H * 0.07,
                 width: 90,
                 height: 25,
-                left: leftPosition+70
+                left: leftPosition + 70
             }}/>
             {/*<TCImage source={ASSET_Images.gameUI.question} resizeMode={'stretch'} style={{
                 position: "absolute",
@@ -82,36 +82,36 @@ TW_Log("Benny>> W="+SCREEN_W+", leftPosition="+leftPosition)
                 right: SCREEN_W * 0.08
             }}/>*/}
 
-            <TCText backgroundStyle={[styles.itemStyle,{
+            <TCText backgroundStyle={[styles.itemStyle, {
                 left: leftPosition + 170,
                 top: SCREEN_H * 0.055
             }]}
                     textStyle={{color: "#ffde00", fontSize: 26}}
                     text={itemData.withdrawModel.totalMoney.toString()}/>
-            <TCText backgroundStyle={[styles.itemStyle,{
+            <TCText backgroundStyle={[styles.itemStyle, {
                 left: leftPosition,
                 top: SCREEN_H * 0.19
             }]}
                     textStyle={{color: "#fffff1", fontSize: 20}} text={'有效投注:'}/>
-            <TCText backgroundStyle={[styles.itemStyle,{
-                left: leftPosition+90,
+            <TCText backgroundStyle={[styles.itemStyle, {
+                left: leftPosition + 90,
                 top: SCREEN_H * 0.19
             }]}
                     textStyle={{color: "#ffde00", fontSize: 20}}
                     text={itemData.withdrawModel.aggregateBets.toFixed(2)}/>
-            <TCText backgroundStyle={[styles.itemStyle,{
+            <TCText backgroundStyle={[styles.itemStyle, {
                 left: leftPosition,
                 top: SCREEN_H * 0.28
             }]}
                     textStyle={{color: "#fffff1", fontSize: 20}} text={'还需投注:'}/>
-            <TCText backgroundStyle={[styles.itemStyle,{
-                left: leftPosition+90,
+            <TCText backgroundStyle={[styles.itemStyle, {
+                left: leftPosition + 90,
                 top: SCREEN_H * 0.28
             }]}
                     textStyle={{color: "#ffde00", fontSize: 20, textAlign: "left"}}
                     text={num.toFixed(2)}/>
 
-            <TCText backgroundStyle={[styles.itemStyle,{
+            <TCText backgroundStyle={[styles.itemStyle, {
                 left: leftPosition,
                 top: SCREEN_H * 0.45 + 20
             }]}
@@ -122,15 +122,15 @@ TW_Log("Benny>> W="+SCREEN_W+", leftPosition="+leftPosition)
                 top: SCREEN_H * 0.45 + 20,
                 width: 250,
                 height: 30,
-                left: leftPosition+100
+                left: leftPosition + 100
             }}/>
-            <TCText backgroundStyle={[styles.itemStyle,{
-                left: leftPosition+360,
+            <TCText backgroundStyle={[styles.itemStyle, {
+                left: leftPosition + 360,
                 top: SCREEN_H * 0.45 + 22
             }]}
                     textStyle={{color: "#fffff1", fontSize: 20}} text={'元'}/>
 
-            <TCText backgroundStyle={[styles.itemStyle,{
+            <TCText backgroundStyle={[styles.itemStyle, {
                 left: leftPosition,
                 top: SCREEN_H * 0.38
             }]}
@@ -138,33 +138,37 @@ TW_Log("Benny>> W="+SCREEN_W+", leftPosition="+leftPosition)
 
             {
                 (this.isBankSelected) ?
-                    ((!itemData.withdrawSetting.hasBankCard) ?
-                        <TCButtonImg imgSource={ASSET_Images.gameUI.bankBtn}
-                                     soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
-                                     btnStyle={{position: "absolute", top: SCREEN_H * 0.38, left: leftPosition+120}}
-                                     onClick={() => {
-                                         TW_Store.gameUIStroe.isShowWithDraw = false
-                                         TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.openBindCard));
-                                     }}/> :
-                        <TCText
-                            borderRadius={5} backgroundStyle={{
-                            backgroundColor: "rgb(209,212,230)", paddingHorizontal: SCREEN_W * 0.07,
-                            paddingVertical: 2, position: "absolute", left: leftPosition + 110, top: SCREEN_H * 0.38
-                        }}
-                            textStyle={{color: "#353535", fontSize: 15}}
-                            text={this.onFormatBank(itemData.bank.bankCardNo)}
-                        />) : ((!itemData.withdrawSetting.hasAlipayCard) ?
+                    ((itemData.withdrawSetting.hasBankCard) ?
+                            <TCText borderRadius={5}
+                                    backgroundStyle={{
+                                        backgroundColor: "rgb(209,212,230)", paddingHorizontal: SCREEN_W * 0.07,
+                                        paddingVertical: 2, left: leftPosition + 110, top: SCREEN_H * 0.38, width: 240
+                                    }}
+                                    textStyle={{color: "#353535", fontSize: 15}}
+                                    text={this.onFormatBank(itemData.bank.bankCardNo)}
+                            /> : <TCButtonImg imgSource={ASSET_Images.gameUI.bankBtn}
+                                              soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
+                                              btnStyle={{
+                                                  position: "absolute",
+                                                  top: SCREEN_H * 0.38,
+                                                  left: leftPosition + 120
+                                              }}
+                                              onClick={() => {
+                                                  TW_Store.gameUIStroe.isShowWithDraw = false
+                                                  TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.openBindCard));
+                                              }}/>
+                    ) : ((!itemData.withdrawSetting.hasAlipayCard) ?
                     <TCButtonImg imgSource={ASSET_Images.gameUI.zfbBtn}
                                  soundName={TW_Store.bblStore.SOUND_ENUM.enterPanelClick}
-                                 btnStyle={{position: "absolute", top: SCREEN_H * 0.38, left: leftPosition+120}}
+                                 btnStyle={{position: "absolute", top: SCREEN_H * 0.38, left: leftPosition + 120}}
                                  onClick={() => {
                                      TW_Store.gameUIStroe.isShowWithDraw = false
                                      TW_OnValueJSHome(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.openBindAlipay));
                                  }}/> : <TCText
-                    //     borderRadius={5} backgroundStyle={{
-                    //     backgroundColor: "rgb(209,212,230)", paddingHorizontal: SCREEN_W * 0.07,
-                    //     paddingVertical: 2, position: "absolute", left: leftPosition+110, top: SCREEN_H * 0.38
-                    // }}
+                        borderRadius={5} backgroundStyle={{
+                        backgroundColor: "rgb(209,212,230)", paddingHorizontal: SCREEN_W * 0.07,
+                        paddingVertical: 2, left: leftPosition + 110, top: SCREEN_H * 0.38, width: 240
+                    }}
                         textStyle={{color: "#353535", fontSize: 15}}
                         text={this.onFormatBank(itemData.bank.bankCardNo)}
                     />)
@@ -179,13 +183,13 @@ TW_Log("Benny>> W="+SCREEN_W+", leftPosition="+leftPosition)
                 justifyContent: "center",
                 alignItems: "center",
                 top: SCREEN_H * 0.45 + 25,
-                left: leftPosition+110,
+                left: leftPosition + 110,
             }}>
                 <TCTextInput value={this.state.num}
                              viewStyle={{}}
                              onChangeText={(num) => {
                                  itemData.money = num,
-                                 this.setState({num})
+                                     this.setState({num})
                              }}
                              keyboardType={"numeric"}
                              placeholder={`点击输入，最多可提取金额 ${itemData.withdrawModel.maxWithdrawMoney} 元 `}
