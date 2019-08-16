@@ -142,7 +142,6 @@ var SoundPlayer = /** @class */ (function () {
      * @param url
      */
     SoundPlayer.play = function (url, isMutex) {
-        Debug.log("playEff:", this.soundSwitch, this.soundValue);
         if (this.soundSwitch != 1)
             return;
         Laya.SoundManager.soundVolume = this.soundValue;

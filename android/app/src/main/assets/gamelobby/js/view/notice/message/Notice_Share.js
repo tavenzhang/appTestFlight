@@ -30,7 +30,12 @@ var Notice_Share = /** @class */ (function (_super) {
         this.circle_down.on(Laya.Event.MOUSE_UP, this, this.onclick);
         this.on(Laya.Event.MOUSE_UP, this, this.onclick);
         this.limit = 0;
-        AgentModel.checkAndCreatAffcode();
+        if (Common.userInfo) {
+            this.isplayer = Boolean(Common.userInfo.userRole == "PLAYER");
+        }
+        //非普通玩家
+        if (!this.isplayer)
+            AgentModel.checkAndCreatAffcode();
     };
     Notice_Share.prototype.setData = function ($data) {
         var _this = this;
@@ -53,10 +58,14 @@ var Notice_Share = /** @class */ (function (_super) {
                     _this.hideImageLoading();
                     //设置图片
                     _this.image.skin = url;
-                    if ($data.jumpHref != "") {
-                        _this.image.on(Laya.Event.CLICK, _this, _this.requestJump);
-                    }
-                }));
+                    var tt = _this.image.source;
+                    if (!tt)
+                        Debug.error("图片地址异常:" + url);
+                }), null, Laya.Loader.IMAGE);
+            }
+            //跳转
+            if ($data.jumpHref != "") {
+                this.image.on(Laya.Event.CLICK, this, this.requestJump);
             }
         }
     };
@@ -106,11 +115,16 @@ var Notice_Share = /** @class */ (function (_super) {
                     if (invatVo && invatVo.length > 0) {
                         affcode = invatVo[0].affCode;
                     }
-                    if (!affcode) {
+                    if (!affcode && !this.isplayer) {
                         Toast.showToast("邀请码数据异常,请稍后再试");
                         break;
                     }
-                    PostMHelp.game_common({ "do": "share", "type": "friend", "param": "", "image": this.image.skin, "affcode": affcode });
+                    if (this.isplayer) {
+                        PostMHelp.game_common({ "do": "share", "type": "friend", "param": "", "image": this.image.skin });
+                    }
+                    else {
+                        PostMHelp.game_common({ "do": "share", "type": "friend", "param": "", "image": this.image.skin, "affcode": affcode });
+                    }
                     NoticeData.shareId = this.noticeid;
                     break;
                 case this.circle_up:
@@ -123,11 +137,16 @@ var Notice_Share = /** @class */ (function (_super) {
                     if (invatVo && invatVo.length > 0) {
                         affcode = invatVo[0].affCode;
                     }
-                    if (!affcode) {
+                    if (!affcode && !this.isplayer) {
                         Toast.showToast("邀请码数据异常,请稍后再试");
                         break;
                     }
-                    PostMHelp.game_common({ "do": "share", "type": "circle", "param": "", "image": this.image.skin, "affcode": affcode });
+                    if (this.isplayer) {
+                        PostMHelp.game_common({ "do": "share", "type": "circle", "param": "", "image": this.image.skin });
+                    }
+                    else {
+                        PostMHelp.game_common({ "do": "share", "type": "circle", "param": "", "image": this.image.skin, "affcode": affcode });
+                    }
                     NoticeData.shareId = this.noticeid;
                     break;
                 default:

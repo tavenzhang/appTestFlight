@@ -258,6 +258,7 @@ var InnerJumpUtil = /** @class */ (function () {
     }
     /**
      * 游戏内部跳转
+     * 注意：弹窗后续走的是动态加载，统一入口为PageManager.showDlg,需要注意相关配置和入口调用
      * @param cmd
      */
     InnerJumpUtil.doJump = function (cmd) {
@@ -285,7 +286,7 @@ var InnerJumpUtil = /** @class */ (function () {
             }
             case DlgCmd.withdraw: {
                 if (Common.userInfo_current && Common.userInfo_current.needResetPwd) {
-                    view.dlg.QuickSetPassWordDlg.show();
+                    PageManager.showDlg(DlgCmd.changePwdDlg);
                 }
                 else {
                     Tools.jump2module(ConfObjRead.getConfUrl().url.g_redraw, "redraw");

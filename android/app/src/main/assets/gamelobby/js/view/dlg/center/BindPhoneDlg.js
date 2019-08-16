@@ -86,6 +86,13 @@ var view;
                         }
                         else {
                             _this.getCodeBtn.visible = true;
+                            var err = jobj.http.response;
+                            var obj = JSON.parse(err);
+                            if (obj.code == 1002) { //设备号限制(绑定成功,但是不能在此设备领取)
+                                GameData.isGetBindAward = true;
+                                EventManager.dispath(EventType.GETBINDAWARD_SUCC);
+                                _this.close(null, true);
+                            }
                         }
                     });
                 };

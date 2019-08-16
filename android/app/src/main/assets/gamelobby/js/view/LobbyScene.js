@@ -82,6 +82,7 @@ var LobbyScene = /** @class */ (function (_super) {
         Common.confObj.url = ConfObjRead.getConfUrl().url;
         this.creatLobby();
         PageManager.clearLoginRes();
+        LobbyDataManager.getVconsoleOpen();
         EventManager.register(EventType.GAMETOHALL, this, this.creatLobby);
         EventManager.register(EventType.HALLTOGAME, this, this.clearLobby);
     };
@@ -94,6 +95,14 @@ var LobbyScene = /** @class */ (function (_super) {
 var LobbyDataManager = /** @class */ (function () {
     function LobbyDataManager() {
     }
+    //请求vconsole开关
+    LobbyDataManager.getVconsoleOpen = function () {
+        HttpRequester.getHttpData(ConfObjRead.httpCmd.vconsole, this, function (suc, jobj) {
+            if (suc) {
+                Debug.httpDebug = Boolean(jobj.data);
+            }
+        }, "&environment=dev,sit,uat");
+    };
     /**
      * 检查活动公告是否需要默认弹出
      */

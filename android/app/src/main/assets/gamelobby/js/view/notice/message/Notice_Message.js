@@ -21,12 +21,16 @@ var Notice_Message = /** @class */ (function (_super) {
         this.data = $data;
         var url = $data.img;
         if (url && url.length > 3) {
-            this.image.visible = true;
-            this.frame.visible = true;
+            this.imgPanel.vScrollBarSkin = "";
+            this.imgPanel.visible = true;
             this.message.visible = false;
             var texture = Laya.loader.getRes(url);
             if (texture) {
                 this.image.skin = url;
+                var scl = this.image.width / texture.width;
+                this.image.skin = url;
+                this.image.height = texture.height * scl;
+                this.frame.height = this.image.height + 44;
             }
             else {
                 this.showImageLoading();
@@ -36,18 +40,27 @@ var Notice_Message = /** @class */ (function (_super) {
                         return; //如果已经被销毁了，则不执行后面逻辑
                     //关闭图片加载遮罩
                     _this.hideImageLoading();
-                    //设置图片
                     _this.image.skin = url;
-                    //注册图片点击事件
-                    if ($data.jumpHref != "") {
-                        _this.image.on(Laya.Event.CLICK, _this, _this.requestJump);
+                    var tt = _this.image.source;
+                    if (tt) {
+                        var scl = _this.image.width / tt.width;
+                        _this.image.skin = url;
+                        _this.image.height = tt.height * scl;
+                        _this.frame.height = _this.image.height + 44;
                     }
-                }));
+                    else {
+                        Debug.error("图片异常:" + url, tt);
+                    }
+                }), null, Laya.Loader.IMAGE);
+            }
+            //注册图片点击事件
+            if ($data.jumpHref != "") {
+                this.frame.mouseEnabled = true;
+                this.imgPanel.on(Laya.Event.MOUSE_UP, this, this.requestJump);
             }
         }
         else {
-            this.image.visible = false;
-            this.frame.visible = false;
+            this.imgPanel.visible = false;
             this.message.visible = true;
             var title = this.message.getChildByName("title");
             title.text = $data.title;
@@ -78,7 +91,10 @@ var Notice_Message = /** @class */ (function (_super) {
     /**
      * 图片公告/活动跳转逻辑
      */
-    Notice_Message.prototype.requestJump = function () {
+    Notice_Message.prototype.requestJump = function (evt) {
+        if (!(evt.target instanceof Laya.Image)) {
+            return;
+        }
         if (!this.data.jumpGame && !this.data.jumpInner) {
             if (GameUtils.isNativeApp)
                 PostMHelp.game_common({ name: "openWeb", param: this.data.jumpHref });

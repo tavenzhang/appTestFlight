@@ -44,6 +44,7 @@ var view;
                     this.bankComb.pos(this.bankPos.x, this.bankPos.y);
                     this.bankPos.visible = false;
                     this.yhkView.addChild(this.bankComb);
+                    //
                     this.getBankCardInfo();
                     this.getBankList();
                     this.hideAllPanel();
@@ -449,6 +450,7 @@ var view;
                     return bl;
                 };
                 AccountInfoDlg.prototype.onClosed = function (type) {
+                    LobbyDataManager.getCardInfo(); //刷新数据
                     EventManager.removeAllEvents(this);
                     this.tabSelectView.destroy();
                     this.bankComb.destroy();

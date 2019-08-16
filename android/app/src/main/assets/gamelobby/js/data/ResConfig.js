@@ -87,7 +87,8 @@ var ResConfig = /** @class */ (function () {
         "9": "ui/bitFont/goldFont/gtxt10.png",
         ".": "ui/bitFont/goldFont/gtxt11.png",
         ",": "ui/bitFont/goldFont/gtxt12.png",
-        "万": "ui/bitFont/goldFont/gtxt13.png"
+        "万": "ui/bitFont/goldFont/gtxt13.png",
+        "亿": "ui/bitFont/goldFont/gtxt14.png"
     };
     /**
      * 邮件系统金币位图字体

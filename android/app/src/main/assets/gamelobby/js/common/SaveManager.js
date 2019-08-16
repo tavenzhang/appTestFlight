@@ -81,7 +81,8 @@ var SaveManager = /** @class */ (function () {
         return def;
     };
     /**
-     * 只设置数据,但是暂时不保存到本地缓存
+     * 只设置数据,但是暂时不保存到本地缓存,需要调用saveData方法保存
+     * 目的：批次设置的时候只保存一次
      * @param key 键值
      * @param v 数据
      */

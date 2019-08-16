@@ -63,6 +63,7 @@ var Notice_Roullette = /** @class */ (function (_super) {
     __extends(Notice_Roullette, _super);
     function Notice_Roullette() {
         var _this = _super.call(this) || this;
+        _this.frist = true;
         //
         _this.strTool = new dateStringTool();
         //
@@ -95,7 +96,9 @@ var Notice_Roullette = /** @class */ (function (_super) {
         view.dlg.TipsDlg.show("轮盘抽奖活动已经结束");
     };
     Notice_Roullette.prototype.tgClickFunc = function () {
-        SoundPlayer.enterPanelSound();
+        if (!this.frist)
+            SoundPlayer.enterPanelSound();
+        this.frist = false;
         this.roullette.ChangeType(this.radioBox.selectIndex + 1);
     };
     Notice_Roullette.prototype.openGameTouch = function () {

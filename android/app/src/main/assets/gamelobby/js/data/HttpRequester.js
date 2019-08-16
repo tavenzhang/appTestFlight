@@ -404,7 +404,7 @@ var HttpRequester = /** @class */ (function () {
                     var err = hr.http.response;
                     if (err) {
                         var obj = JSON.parse(err);
-                        Toast.showToast(obj.message || "网络异常,请检查网络环境");
+                        Toast.showToast(obj.message || "");
                     }
                     else {
                         var info = Tools.getStringByKey("txt_unknowerr");

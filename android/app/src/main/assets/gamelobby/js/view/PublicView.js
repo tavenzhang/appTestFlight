@@ -38,7 +38,6 @@ var view;
             //滚动通告
             this.initRollView();
             this.setLayout();
-            this.initAnim();
         };
         PublicView.prototype.initAnim = function () {
             this.verTxt.alpha = 0;
@@ -189,6 +188,7 @@ var view;
         PublicView.prototype.setLayout = function () {
             this.width = Laya.stage.width;
             this.headGroup.x = this.head_oldx + GameUtils.posOffset;
+            this.noticeGroup.x = GameUtils.getScreencOffset(493, 584);
         };
         PublicView.prototype.pause = function () {
             if (this.goAnim)
