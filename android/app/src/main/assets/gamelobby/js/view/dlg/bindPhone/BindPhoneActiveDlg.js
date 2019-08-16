@@ -58,7 +58,7 @@ var view;
                     EventManager.addTouchScaleListener(this.bindBtn, this, function () {
                         SoundPlayer.clickSound();
                         if (isbind) { //领取绑定送金奖励
-                            HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.getBindAward, _this, _this.responseBindAward);
+                            HttpRequester.getHttpData(ConfObjRead.getConfUrl().cmd.getBindAward, _this, _this.responseBindAward, "&deviceId=" + GameUtils.deviceToken);
                         }
                         else {
                             PageManager.showDlg(DlgCmd.bindPhone);

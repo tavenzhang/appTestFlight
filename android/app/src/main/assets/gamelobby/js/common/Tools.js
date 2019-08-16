@@ -273,8 +273,11 @@ var Tools = /** @class */ (function () {
                 };
             }
             var domainUrl = AppData.NATIVE_DATA.gameDomain;
-            var wssUrl = domainUrl.replace("http", "wss");
-            wssUrl = wssUrl.replace("https", "wss");
+            var wssUrl = "";
+            if (domainUrl) {
+                wssUrl = domainUrl.replace("http", "wss");
+                wssUrl = wssUrl.replace("https", "wss");
+            }
             jobj = {
                 "token": Common.access_token,
                 "httpUrl": ConfObjRead.getConfUrl().url.apihome,
@@ -288,7 +291,8 @@ var Tools = /** @class */ (function () {
                 "mainUrl": mainUrl,
                 "usergateway": AppData.NATIVE_DATA.loginDomain,
                 "gamecenter": domainUrl,
-                "wss": wssUrl
+                "wss": wssUrl,
+                "openDebug": Debug.httpDebug
             };
             // Debug.log("Tools.jump2game jobj:");
             // Debug.log(jobj);
@@ -1220,24 +1224,28 @@ var Tools = /** @class */ (function () {
         var st = Number(num).toFixed(len);
         return st;
     };
-    //金额管制 以万为单位，万以下以元为单位
+    /**
+     * 格式化金币
+     * @param num
+     * @param len 保留小数位数
+     */
     Tools.FormatMoney = function (num, len) {
-        var r = "";
-        if (num >= 10000) {
-            //超过一万
-            var n = num / 10000;
-            // r = n.toFixed(len);
-            var tt = n.toFixed(len + 1);
-            var pointPos = tt.indexOf("."); //点在字符串tt的哪里
-            //点的后面截取len+1位
-            r = tt.substring(0, pointPos + len + 1);
-        }
-        else {
+        if (len === void 0) { len = 2; }
+        if (num < 10000)
             return num.toFixed(len);
-            // var data = "" + Math.floor(num * Math.pow(10, len)) / Math.pow(10, len);
-            // return data;
+        var float, dw;
+        if (num >= 10000 && num < 100000000) { //万
+            float = num / 10000;
+            dw = "万";
         }
-        return r + "万";
+        else if (num >= 100000000) { //亿
+            float = num / 100000000;
+            dw = "亿";
+        }
+        var str = float.toFixed(len + 1);
+        var pos = str.indexOf(".");
+        var numStr = str.substring(0, pos + len + 1);
+        return numStr + dw;
     };
     //计算两点角度
     Tools.getL = function (p1, p2) {

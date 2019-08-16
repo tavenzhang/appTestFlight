@@ -24,10 +24,7 @@ var view;
             var DirectlyItem = /** @class */ (function (_super) {
                 __extends(DirectlyItem, _super);
                 function DirectlyItem() {
-                    var _this = _super.call(this) || this;
-                    // this.mouseEnabled = true;
-                    _this.setBtn.visible = false; //暂不能操作
-                    return _this;
+                    return _super.call(this) || this;
                 }
                 DirectlyItem.prototype.initData = function (data, index) {
                     if (index % 2 != 0)

@@ -158,7 +158,6 @@ var PageLogin = /** @class */ (function (_super) {
                     callback();
             }
             else {
-                Debug.error("init-err:", jobj.http.status);
                 LayaMain.getInstance().showCircleLoading(false);
                 if (jobj.http.status == 428) {
                     _this.gatewayCount++;
@@ -168,9 +167,6 @@ var PageLogin = /** @class */ (function (_super) {
                     else {
                         Toast.showToast("服务异常,请稍后再试!");
                     }
-                }
-                else {
-                    Toast.showToast("网络异常,请稍后再试!");
                 }
             }
         });

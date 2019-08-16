@@ -1,10 +1,23 @@
 var Debug = /** @class */ (function () {
     function Debug() {
     }
+    Object.defineProperty(Debug, "httpDebug", {
+        get: function () {
+            return this._httDebug;
+        },
+        set: function (value) {
+            this._httDebug = value;
+            if (value && !window["openDebug"]) {
+                window["initVconsole"]();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Debug, "openDebug", {
         /**是否开启了日志功能 */
         get: function () {
-            return window["openDebug"];
+            return window["openDebug"] || this._httDebug;
         },
         enumerable: true,
         configurable: true
@@ -55,6 +68,7 @@ var Debug = /** @class */ (function () {
     };
     Debug.bDebug = window["bDebug"];
     Debug.bDebugPlatform = window["bDebugPlatform"];
+    Debug._httDebug = false;
     return Debug;
 }());
 //# sourceMappingURL=Debug.js.map

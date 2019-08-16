@@ -11,7 +11,7 @@ var PageManager = /** @class */ (function () {
             return;
         /**
          * 弹窗配置：类+依赖资源(不包括公共资源)
-         * 注意：通过配置的弹窗类都要设置show静态方法入口
+         * 注意：通过配置的弹窗类都要设置show静态方法入口，调用方式统一走PageManager.showDlg
          */
         this.dlgMap = (_a = {},
             _a[DlgCmd.activityCenter] = [

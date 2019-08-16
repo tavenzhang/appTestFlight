@@ -103,6 +103,7 @@
         "yuebaoSetPwd": "/yuebao/me/password/new",
         "yuebaoChangePwdByoldpwd": "/yuebao/me/password/change/bypassword",
         "yuebaoChangePwdBycode": "/yuebao/me/password/change/bycode",
-        "yuebaoDetail": "/yuebao/me/events/recent"
+        "yuebaoDetail": "/yuebao/me/events/recent",
+        "vconsole": "/gamecenter/gcenter/vconsole/game/switch"
     }
 }
