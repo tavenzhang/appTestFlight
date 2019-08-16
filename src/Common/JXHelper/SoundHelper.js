@@ -6,7 +6,7 @@ const Sound = require('react-native-sound');
 //ar SoundFile = require('../../../android/app/src/main/assets/gamelobby/assets/raw/bgm_lobby.mp3')
 Sound.setActive(true)
 Sound.enableInSilenceMode(true)
-// Sound.setCategory('Ambient', true)
+
 
 
 export class SoundHelper {
@@ -35,6 +35,9 @@ export class SoundHelper {
 
     static async startBgMusic(force=false) {
 
+        if(G_IS_IOS){
+             Sound.setCategory('Ambient', true)
+        }
         if(TW_Store.dataStore.isAppInited){
             let file = G_IS_IOS ? `${TW_Store.dataStore.getHomeWebHome()}/assets/raw/bgm_lobby.mp3` : "bgm_lobby.mp3";
             //let isExist = await RNFS.exists(file);
