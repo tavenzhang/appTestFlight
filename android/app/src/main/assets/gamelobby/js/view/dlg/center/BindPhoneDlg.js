@@ -74,7 +74,9 @@ var view;
                     LayaMain.getInstance().showCircleLoading(true);
                     var data = {
                         phoneNumber: this.numTxt.text,
-                        verificationCode: this.codeTxt.text
+                        verificationCode: this.codeTxt.text,
+                        device: "WAP",
+                        deviceId: GameUtils.deviceToken
                     };
                     HttpRequester.postHttpData(ConfObjRead.getConfUrl().cmd.bindPhone, data, this, function (suc, jobj) {
                         LayaMain.getInstance().showCircleLoading(false);
@@ -88,11 +90,18 @@ var view;
                             _this.getCodeBtn.visible = true;
                             var err = jobj.http.response;
                             var obj = JSON.parse(err);
-                            if (obj.code == 1002) { //设备号限制(绑定成功,但是不能在此设备领取)
+                            var str = obj.message || "";
+                            //设备号限制(绑定成功,但是不能在此设备领取)(备注：由于后端没法区分错误code，临时通过文字判断解决)
+                            if (str.indexOf("绑定成功") != -1 && str.indexOf("绑定手机次数过多") != -1 && str.indexOf("无法获得彩金奖励") != -1) {
                                 GameData.isGetBindAward = true;
-                                EventManager.dispath(EventType.GETBINDAWARD_SUCC);
+                                EventManager.dispath(EventType.GETBINDAWARD_SUCC, _this.numTxt.text);
                                 _this.close(null, true);
                             }
+                            // if (obj.code == 1003) {//设备号限制(绑定成功,但是不能在此设备领取)
+                            // 	GameData.isGetBindAward = true;
+                            // 	EventManager.dispath(EventType.GETBINDAWARD_SUCC, this.numTxt.text);
+                            // 	this.close(null, true);
+                            // }
                         }
                     });
                 };

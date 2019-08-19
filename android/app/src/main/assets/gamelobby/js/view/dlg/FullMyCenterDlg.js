@@ -116,10 +116,22 @@ var view;
                 EventManager.register(EventType.FLUSH_HEADICON, this, this.setHeadIcon);
                 EventManager.register(EventType.GET_BACKCARD_DETAIL, this, this.getBankCardInfo);
                 EventManager.register(EventType.GETBINDAWARD_SUCC, this, this.bindPhoneSuc);
+                EventManager.register(EventType.FLUSH_MONEY, this, this.flushMoney);
                 EventManager.pushEvent(this.soundBtn, Laya.Event.CHANGE, this, this.selectSound);
                 EventManager.pushEvent(this.musicBtn, Laya.Event.CHANGE, this, this.selectMusic);
             };
+            FullMyCenterDlg.prototype.flushMoney = function () {
+                var data = Common.userInfo;
+                if (!data)
+                    return;
+                if (data.userBalance) {
+                    var value = data.userBalance.balance;
+                    this.moneyTxt.text = value.toFixed(2);
+                }
+            };
             FullMyCenterDlg.prototype.bindPhoneSuc = function (num) {
+                if (!num)
+                    return;
                 var current = Common.userInfo_current;
                 current.certifiedPhone = true;
                 current.phoneNumber = num;
