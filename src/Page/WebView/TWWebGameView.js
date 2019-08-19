@@ -215,9 +215,7 @@ export default class TWWebGameView extends Component {
     }
 
     onError = (error) => {
-        if( TW_Store.gameUpateStore.isInSubGame){
-            this.onBackHomeJs()
-        }
+        this.onBackHomeJs()
         TW_Log("onError=====TCweb======event=====", error.nativeEvent)
     }
 
@@ -228,7 +226,7 @@ export default class TWWebGameView extends Component {
 
     onNavigationStateChange = (navState) => {
 
-        TW_Log("TWWebGameView===========onNavigationStateChange=====url==" + navState.url, navState)
+        TW_Log("TWWebGameView===========onNavigationStateChange=====url==" + navState.url+"--W_Store.gameUpateStore.isInSubGame=="+TW_Store.gameUpateStore.isInSubGame, navState)
         let { isGame, isAddView} = this.props
         if (navState.title == "404 Not Found") {
             this.onBackHomeJs()

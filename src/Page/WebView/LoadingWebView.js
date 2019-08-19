@@ -7,7 +7,6 @@ import {
 import {WebView} from 'react-native-webview';
 import {observer} from "mobx-react";
 
-
 @observer
 export default class LoadingWebView extends Component {
 
@@ -78,6 +77,7 @@ export default class LoadingWebView extends Component {
                     // renderLoading={this.onRenderLoadingView}
                     startInLoadingState={false}
                     onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+                    onNavigationStateChange={this.onNavigationStateChange}
                     allowFileAccess={true}
                     injectedJavaScript={injectJs}
                     onError={this.onError}
@@ -136,9 +136,9 @@ export default class LoadingWebView extends Component {
     }
 
     onError = (error) => {
-        //TW_Log("onError=====TCweb======event=====", error.nativeEvent);
-        //TW_Store.gameUpateStore.isNeedUpdate =false;
-       // TW_Store.dataStore.onRetartApp();
+        if (TW_Store.gameUpateStore.isNeedUpdate) {
+            TW_Store.gameUpateStore.isNeedUpdate=false;
+        }
     }
 
     onShouldStartLoadWithRequest = (event) => {
@@ -159,27 +159,7 @@ export default class LoadingWebView extends Component {
 
     onNavigationStateChange = (navState) => {
 
-        // TW_Log("navState===========onNavigationStateChange=====url==" + navState.url, navState)
-        // let {onEvaleJS, isGame,isAddView} = this.props
-        // if (navState.title == "404 Not Found") {
-        //     if(!isGame) {
-        //         TW_NavHelp.popToBack();
-        //         this.setState({isHide: true})
-        //     }
-        //     this.setState({isHttpFail: true})
-        //
-        // } else {
-        //     if (navState.url) {
-        //         if (navState.url.indexOf("g_lobby/index.html") > -1) {
-        //             TW_NavHelp.popToBack();
-        //             this.setState({isHide: true})
-        //             if (isGame) {
-        //                 this.onBackHomeJs();
-        //             }
-        //             this.bblStore.lastGameUrl = "home"
-        //         }
-        //     }
-        // }
+
     };
 
 

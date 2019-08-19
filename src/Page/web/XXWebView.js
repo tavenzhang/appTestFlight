@@ -16,7 +16,6 @@ import {G_LayoutAnimaton} from "../../Common/Global/G_LayoutAnimaton";
 import Tools from "../../Common/View/Tools";
 import TCUserOpenPayApp from "../UserCenter/UserPay/TCUserOpenPayApp";
 import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
-
 const HTTP_GAME_LIST = "/gamecenter/player/game/list";
 const HTTP_ACCOUNT = "/webapi/account/users/current";
 
@@ -620,7 +619,9 @@ export default class XXWebView extends Component {
     }
 
     onError = (error) => {
-        //  TW_Store.dataStore.onRetartApp();
+        if (TW_Store.dataStore.isAppInited) {
+            TW_Store.dataStore.onRetartApp();
+        }
         TW_Log("onError======XXWebView=====event=====rr22", error)
     }
 
@@ -637,6 +638,7 @@ export default class XXWebView extends Component {
             scalesPageToFit: false
 
         });
+
     };
 }
 
