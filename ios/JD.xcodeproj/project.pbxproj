@@ -2586,7 +2586,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.gmuat3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.news;
 				PRODUCT_NAME = JD;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "card-Bridging-Header.h";
@@ -2653,7 +2653,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.gmuat3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbl.news;
 				PRODUCT_NAME = JD;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "card-Bridging-Header.h";

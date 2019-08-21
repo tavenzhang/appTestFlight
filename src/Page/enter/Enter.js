@@ -20,6 +20,11 @@ import App from '../Route/App';
 import Orientation from 'react-native-orientation';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 
+import {
+    enableTestflight
+} from '../../config/appConfig';
+import TestFlightView from '../../TestFlight/Home';
+
 import {width, Size} from '../asset/game/themeComponet'
 import StartUpHelper from './StartUpHelper'
 import KeepAwake from 'react-native-keep-awake';
@@ -135,9 +140,14 @@ export default class Enter extends Component {
         // }, 7 * 1000)
 
         if(G_IS_IOS){
-            if(Orientation&&Orientation.lockToLandscapeRight){
-                Orientation.lockToLandscapeRight();
+            if (!enableTestflight) { 
+                if(Orientation && Orientation.lockToLandscapeRight){
+                    Orientation.lockToLandscapeRight();
+                }
+            } else {
+                Orientation.lockToPortrait();
             }
+
             this.initDomain();
         }else{
             appInfoStore.checkAndroidsubType(this.initDomain);
@@ -199,9 +209,16 @@ export default class Enter extends Component {
         //     return (<App/>);
         // }
         return (<View style={{flex:1}}>
-                      <App/>
-                     {checkView}
-              </View>)
+                      {
+                          !enableTestflight ?
+                          <View>
+                            <App/>
+                            {checkView}
+                            </View> :
+                        <TestFlightView />
+                     }
+                </View>
+              )
     }
 
 
