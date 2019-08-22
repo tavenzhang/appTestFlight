@@ -14,15 +14,21 @@ class HomeScreen extends Component {
 
     render() {
       return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
             <StatusBar
                 animated={true}
                 translucent={true}
-                barStyle="dark-content" 
+                barStyle="light-content" 
+                //backgroundColor='#fff'
             />
 
             <ScrollableTabView
-                //style={{ marginTop: 10 }}
+                style={{ backgroundColor: '#000000' }}
+                tabBarBackgroundColor='#000000'
+                tabBarInactiveTextColor='#bdc3c7'
+                tabBarActiveTextColor='#bb86fc'
+                tabBarUnderlineStyle={{ backgroundColor: '#bb86fc' }}
+                tabBarTextStyle={{ fontWeight: '500', fontSize: 16 }}
                 initialPage={0}
                 renderTabBar={() => <ScrollableTabBar />}
             >

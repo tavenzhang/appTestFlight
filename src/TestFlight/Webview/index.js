@@ -3,6 +3,18 @@ import { SafeAreaView, StyleSheet, ActivityIndicator, View } from 'react-native'
 import { WebView } from 'react-native-webview';
 
 export default class WebViewComponent extends Component {
+    static navigationOptions = {
+        //title: 'WebView',
+        headerStyle: {
+          backgroundColor: '#000000',
+          marginLeft: 10
+        },
+        headerTintColor: '#fff',
+        //headerTitleStyle: {
+        //  fontWeight: 'bold',
+        //},
+      };
+
     constructor(props) {
         super(props);
         this.state = { visible: true };
@@ -25,16 +37,14 @@ render() {
     //console.log('news', this.props.navigation.state);
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-                <WebView
-                    style={styles.WebViewStyle}
-                    source={{ uri: url }}
-                    javaScriptEnabled={true}
-                    domStorageEnabled={true}
-                    //onLoadStart={() => this.showSpinner()}
-                    //onLoad={() => this.hideSpinner()}
-                />
-        </SafeAreaView>
+        <WebView
+            //style={styles.WebViewStyle}
+            source={{ uri: url }}
+            useWebKit
+            allowsInlineMediaPlayback
+            //onLoadStart={() => this.showSpinner()}
+            //onLoad={() => this.hideSpinner()}
+        />
     );
   }
 }

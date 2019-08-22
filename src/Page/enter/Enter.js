@@ -20,9 +20,6 @@ import App from '../Route/App';
 import Orientation from 'react-native-orientation';
 import TopNavigationBar from '../../Common/View/TCNavigationBar';
 
-import {
-    enableTestflight
-} from '../../config/appConfig';
 import TestFlightView from '../../TestFlight/Home';
 
 import {width, Size} from '../asset/game/themeComponet'
@@ -95,13 +92,14 @@ export default class Enter extends Component {
                       this.hotFix(TW_Store.hotFixStore.currentDeployKey,true);
                       TW_Store.dataStore.loadHomeVerson();
                   }
-                  if(G_IS_IOS){
+                  if (G_IS_IOS) {
                       setTimeout(()=>{
-                          SoundHelper.startBgMusic(true)
+                          if (!TW_Store.dataStore.enableTestflight) {
+                            SoundHelper.startBgMusic(true)
+                          }
                           TW_Store.dataStore.onFlushGameData();
-                      },1000)
-
-                  }else{
+                      }, 1000)
+                  } else {
                       SoundHelper.onCheckPalyMusic();
                       TW_Store.dataStore.onFlushGameData();
                   }
@@ -116,13 +114,14 @@ export default class Enter extends Component {
             this.flage = true;
             let now = new Date().getTime();
             this.lastClickTime = now;
+
             if(!TW_Store.gameUpateStore.isInSubGame){
                 if(G_IS_IOS){
                     SoundHelper.releaseMusic();
-                }else{
+                } else {
                     SoundHelper.pauseMusic();
                 }
-            }else{
+            } else {
                 TW_OnValueJSSubGame(TW_Store.bblStore.getWebAction(TW_Store.bblStore.ACT_ENUM.lifecycle,{data:0}));
             }
         }
@@ -140,7 +139,7 @@ export default class Enter extends Component {
         // }, 7 * 1000)
 
         if(G_IS_IOS){
-            if (!enableTestflight) { 
+            if (!TW_Store.dataStore.enableTestflight) { 
                 if(Orientation && Orientation.lockToLandscapeRight){
                     Orientation.lockToLandscapeRight();
                 }
@@ -192,7 +191,7 @@ export default class Enter extends Component {
         this.timer && clearTimeout(this.timer)
         this.timer2 && clearTimeout(this.timer2)
         AppState.removeEventListener('change', this.handleAppStateChange);
-        Orientation&&this.orientationDidChange&&Orientation.removeOrientationListener(this.orientationDidChange);
+        Orientation && this.orientationDidChange&&Orientation.removeOrientationListener(this.orientationDidChange);
 
     }
 
@@ -209,14 +208,17 @@ export default class Enter extends Component {
         //     return (<App/>);
         // }
         return (<View style={{flex:1}}>
-                      {
-                          !enableTestflight ?
-                          <View>
+                    {
+                        !TW_Store.dataStore.enableTestflight ?
+                        <View>
                             <App/>
                             {checkView}
-                            </View> :
-                        <TestFlightView />
-                     }
+                        </View> :
+                        <View style={{ flex: 1 }}>
+                            <TestFlightView />
+                            {checkView}
+                        </View>
+                    }
                 </View>
               )
     }

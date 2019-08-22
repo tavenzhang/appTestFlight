@@ -7,6 +7,10 @@ import rootStore from "./RootStore";
 import CodePush from 'react-native-code-push'
 import {SoundHelper} from "../../Common/JXHelper/SoundHelper";
 
+import {
+    enableTestflight
+} from '../../config/appConfig';
+
 export default class DataStore {
 
     constructor() {
@@ -47,12 +51,15 @@ export default class DataStore {
     @observable
     isAppSound= false;
 
+    @observable
+    enableTestflight = false;
+
 
     @action
     getGameRootDir(){
        // return G_IS_IOS ? (MainBundlePath + '/assets') : "file:///android_asset";
         if(this.isAppInited) {
-            return   G_IS_IOS ? DocumentDirectoryPath  : `file:///${DocumentDirectoryPath}`;
+            return G_IS_IOS ? DocumentDirectoryPath  : `file:///${DocumentDirectoryPath}`;
         }
         else{
             return G_IS_IOS ? (MainBundlePath + '/assets') : "file:///android_asset";
@@ -79,7 +86,11 @@ export default class DataStore {
 
     async loadHomeVerson(){
         let Url =TW_Store.dataStore.getHomeWebHome()+"/assets/conf/version.json";
-        SoundHelper.startBgMusic();
+
+        if (!this.enableTestflight) {
+            SoundHelper.startBgMusic();
+        }
+
         const target_dir_exist = await RNFS.exists(Url);
        // TW_Log("Url-----home---target_dir_exist="+target_dir_exist,Url);
         this.log+="Url-----home---target_dir_exist="+target_dir_exist;

@@ -89,6 +89,7 @@ export default class AppInfoStore {
   //openInstallData
   @observable
   openInstallData = { appKey: "", data: null };
+
   @observable
   isSitApp=this.clindId=="31"
 

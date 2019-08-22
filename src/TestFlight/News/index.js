@@ -38,7 +38,7 @@ export default class News extends Component {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                console.log('news', data);
+                //console.log('news', data);
 
                 this.setState({ 
                     //data: data.articles,
@@ -87,7 +87,7 @@ export default class News extends Component {
               borderColor: "#CED0CE"
             }}
           >
-            <ActivityIndicator animating size="large" />
+            <ActivityIndicator animating size="small" />
           </View>
         );
       };
@@ -98,7 +98,7 @@ export default class News extends Component {
             style={{
               height: 1,
               //width: "100%",
-              backgroundColor: "#ecf0f1",
+              backgroundColor: "#ababab",
               //marginLeft: "14%"
             }}
           />
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
       fontFamily: 'Helvetica',
       fontSize: 18,
       fontWeight: '500',
-      color: '#262626'
+      color: '#fff'
     },
     flatview: {
       justifyContent: 'center',
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
       fontFamily: 'Verdana',
       fontSize: 14,
       fontWeight: '300',
-      color: '#4d4d4d'
+      color: '#bdc3c7'
     },
     dateAndAuthor: {
         flexDirection: 'row',
@@ -196,6 +196,6 @@ const styles = StyleSheet.create({
     },
     dateAndAuthorText: {
         fontSize: 12,
-        color: 'grey'
+        color: '#ababab'
     }
   });
