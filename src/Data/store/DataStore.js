@@ -52,7 +52,7 @@ export default class DataStore {
     isAppSound= false;
 
     @observable
-    enableTestflight = false;
+    enableTestflight = true;
 
 
     @action

@@ -322,7 +322,7 @@ export default class Enter extends Component {
             // JXCodePushServerUrl ="http://192.168.14.70:3000"
             // let hotfixDeploymentKey =G_IS_IOS ? "mOx5dmR7vyM1vto4yR5GuGlPGHOi4ksvOXqog":"k1EZHlHkZnQQpiJwz0Pbq0laaKDX4ksvOXqog";
             TW_Store.hotFixStore.currentDeployKey = hotfixDeploymentKey;
-            this.hotFix(hotfixDeploymentKey)
+          //  this.hotFix(hotfixDeploymentKey)
 
         })
     }
@@ -357,6 +357,7 @@ export default class Enter extends Component {
     }
 
     hotFix(hotfixDeploymentKey,isActiveCheck=false) {
+        return;
         this.setState({
             syncMessage: '检测更新中....',
             updateStatus: 0
