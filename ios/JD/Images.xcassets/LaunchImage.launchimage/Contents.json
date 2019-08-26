@@ -36,7 +36,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "2436h",
-      "filename" : "launch_screeniPhoneXPortraitiOS11_375x812pt@3x.png",
+      "filename" : "splash_1125_2436.png",
       "minimum-system-version" : "11.0",
       "orientation" : "portrait",
       "scale" : "3x"
@@ -53,7 +53,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "736h",
-      "filename" : "launch_screeniPhonePortraitiOS89_414x736pt@3x.png",
+      "filename" : "splash_1242_2208.png",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
       "scale" : "3x"
@@ -70,7 +70,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "667h",
-      "filename" : "launch_screeniPhonePortraitiOS89_375x667pt@2x.png",
+      "filename" : "splash_750_1334.png",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
       "scale" : "2x"
