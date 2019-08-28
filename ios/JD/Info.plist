@@ -14,7 +14,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>今日星闻</string>
+	<string>QP-UAT</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -26,7 +26,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>2.2.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -53,7 +53,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>4</string>
+	<string>17</string>
 	<key>CodePushDeploymentKey</key>
 	<string>test</string>
 	<key>Fabric</key>
@@ -126,10 +126,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>需要您的同意,才能访问相机</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>taven</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>taven</string>
+	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>需要您的同意,才能添加到相册</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -158,6 +156,7 @@
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
